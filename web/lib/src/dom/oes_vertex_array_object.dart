@@ -21,7 +21,7 @@ extension type WebGLVertexArrayObjectOES._(JSObject _) implements JSObject {}
 extension type OES_vertex_array_object._(JSObject _) implements JSObject {
   static const GLenum VERTEX_ARRAY_BINDING_OES = 34229;
 
-  external WebGLVertexArrayObjectOES? createVertexArrayOES();
+  external WebGLVertexArrayObjectOES createVertexArrayOES();
   external void deleteVertexArrayOES(WebGLVertexArrayObjectOES? arrayObject);
   external GLboolean isVertexArrayOES(WebGLVertexArrayObjectOES? arrayObject);
   external void bindVertexArrayOES(WebGLVertexArrayObjectOES? arrayObject);

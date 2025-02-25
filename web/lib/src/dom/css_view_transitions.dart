@@ -15,9 +15,11 @@ library;
 
 import 'dart:js_interop';
 
-typedef UpdateCallback = JSFunction;
+import 'css_view_transitions_2.dart';
 
-/// The **`ViewTransition`** interface of the [View Transitions API] represents
+typedef ViewTransitionUpdateCallback = JSFunction;
+
+/// The **`ViewTransition`** interface of the [View Transition API] represents
 /// an active view transition, and provides functionality to react to the
 /// transition reaching different states (e.g. ready to run the animation, or
 /// animation finished) or skip the transition altogether.
@@ -33,7 +35,7 @@ typedef UpdateCallback = JSFunction;
 /// When a view transition is triggered by a `startViewTransition()` call (or a
 /// page navigation in the case of MPA transitions), a sequence of steps is
 /// followed as explained in
-/// [The view transition process](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API/Using#the_view_transition_process).
+/// [The view transition process](https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API/Using#the_view_transition_process).
 /// This also explains when the different promises fulfill.
 ///
 /// ---
@@ -55,7 +57,8 @@ extension type ViewTransition._(JSObject _) implements JSObject {
   /// success/failure of a same-document (SPA) view transition animation, and
   /// just want to know if and when the DOM is updated.
   ///
-  /// > **Note:** In the case of a cross-document (MPA) view transition, the
+  /// > [!NOTE]
+  /// > In the case of a cross-document (MPA) view transition, the
   /// > `updateCallbackDone` promise of the associated `ViewTransition` is
   /// > automatically fulfilled.
   external JSPromise<JSAny?> get updateCallbackDone;
@@ -84,4 +87,6 @@ extension type ViewTransition._(JSObject _) implements JSObject {
   /// transition using [ViewTransition.skipTransition], the end state is still
   /// reached therefore `finished` will still fulfill.
   external JSPromise<JSAny?> get finished;
+  external ViewTransitionTypeSet get types;
+  external set types(ViewTransitionTypeSet value);
 }

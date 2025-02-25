@@ -26,9 +26,14 @@ typedef PositionAlignSetting = String;
 typedef AlignSetting = String;
 typedef ScrollSetting = String;
 
-/// The `VTTCue` interface—part of the API for handling WebVTT (text tracks on
-/// media presentations)—describes and controls the text track associated with a
-/// particular `track` element.
+/// The `VTTCue` interface of the
+/// [WebVTT API](https://developer.mozilla.org/en-US/docs/Web/API/WebVTT_API)
+/// represents a cue that can be added to the text track associated with a
+/// particular video (or other media).
+///
+/// A cue defines the text to display in a particular timeslice of a video or
+/// audio track, along with display properties such as its size, alignment, and
+/// position.
 ///
 /// ---
 ///
@@ -97,9 +102,9 @@ extension type VTTCue._(JSObject _) implements TextTrackCue, JSObject {
   external set text(String value);
 }
 
-/// The `VTTRegion` interface—part of the API for handling WebVTT (text tracks
-/// on media presentations)—describes a portion of the video to render a
-/// [VTTCue] onto.
+/// The `VTTRegion` interface of the
+/// [WebVTT API](https://developer.mozilla.org/en-US/docs/Web/API/WebVTT_API)
+/// describes a portion of the video to render a [VTTCue] onto.
 ///
 /// ---
 ///

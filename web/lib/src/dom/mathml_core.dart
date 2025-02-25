@@ -267,8 +267,9 @@ extension type MathMLElement._(JSObject _) implements Element, JSObject {
   /// A style declaration is reset by setting it to `null` or an empty string,
   /// e.g., `elt.style.color = null`.
   ///
-  /// > **Note:** CSS property names are converted to JavaScript identifier with
-  /// > these rules:
+  /// > [!NOTE]
+  /// > CSS property names are converted to JavaScript identifier with these
+  /// > rules:
   /// >
   /// > - If the property is made of one word, it remains as it is: `height`
   /// > stays as is (in lowercase).

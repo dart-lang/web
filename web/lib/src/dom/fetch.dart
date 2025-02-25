@@ -44,28 +44,16 @@ typedef ResponseType = String;
 /// These actions include retrieving, setting, adding to, and removing headers
 /// from the list of the request's headers.
 ///
-/// A `Headers` object has an associated header list, which is initially empty
-/// and consists of zero or more name and value pairs. You can add to this using
-/// methods like [Headers.append] (see [Examples](#examples).) In all methods of
-/// this interface, header names are matched by case-insensitive byte sequence.
-///
-/// For security reasons, some headers can only be controlled by the user agent.
-/// These headers include the  and .
-///
-/// A Headers object also has an associated guard, which takes a value of
-/// `immutable`, `request`, `request-no-cors`, `response`, or `none`. This
-/// affects whether the [Headers.set], [Headers.delete], and [Headers.append]
-/// methods will mutate the header. For more information see .
-///
 /// You can retrieve a `Headers` object via the [Request.headers] and
 /// [Response.headers] properties, and create a new `Headers` object using the
-/// [Headers.Headers] constructor.
+/// [Headers.Headers] constructor. Compared to using plain objects, using
+/// `Headers` objects to send requests provides some additional input
+/// sanitization. For example, it normalizes header names to lowercase, strips
+/// leading and trailing whitespace from header values, and prevents certain
+/// headers from being set.
 ///
-/// An object implementing `Headers` can directly be used in a `for...of`
-/// structure, instead of [Headers.entries]: `for (const p of myHeaders)` is
-/// equivalent to `for (const p of myHeaders.entries())`.
-///
-/// > **Note:** you can find out more about the available headers by reading our
+/// > [!NOTE]
+/// > You can find out more about the available headers by reading our
 /// > [HTTP headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers)
 /// > reference.
 ///
@@ -96,11 +84,6 @@ extension type Headers._(JSObject _) implements JSObject {
 
   /// The **`delete()`** method of the [Headers]
   /// interface deletes a header from the current `Headers` object.
-  ///
-  /// This method throws a `TypeError` for the following reasons:
-  ///
-  /// - The value of the name parameter is not the name of an HTTP header.
-  /// - The value of  is `immutable`.
   ///
   /// For security reasons, some headers can only be controlled by the user
   /// agent. These
@@ -283,7 +266,8 @@ extension type Request._(JSObject _) implements JSObject {
   /// [Request] interface is set by the user agent to be the referrer of the
   /// Request. (e.g., `client`, `no-referrer`, or a URL.)
   ///
-  /// > **Note:** If `referrer`'s value is `no-referrer`,
+  /// > [!NOTE]
+  /// > If `referrer`'s value is `no-referrer`,
   /// > it returns an empty string.
   external String get referrer;
 
@@ -295,14 +279,32 @@ extension type Request._(JSObject _) implements JSObject {
 
   /// The **`mode`** read-only property of the [Request]
   /// interface contains the mode of the request (e.g., `cors`,
-  /// `no-cors`, `same-origin`, `navigate` or `websocket`.) This is used
+  /// `no-cors`, `same-origin`, or `navigate`.) This is used
   /// to determine if cross-origin requests lead to valid responses, and which
   /// properties of the response are readable.
+  ///
+  /// To construct a request with a specific mode, pass the desired value as the
+  /// [RequestInit] option to the [Request.Request] constructor.
+  ///
+  /// Note that setting particular modes, especially `no-cors`, places
+  /// restrictions on the request methods and headers that may be used, and
+  /// prevents JavaScript from accessing the response headers or body. See the
+  /// documentation for [RequestInit] for more details.
   external RequestMode get mode;
 
   /// The **`credentials`** read-only property of the [Request] interface
-  /// indicates whether the user agent should send or receive cookies from the
-  /// other domain in the case of cross-origin requests.
+  /// reflects the value given to the [Request.Request] constructor in the
+  /// [`credentials`](https://developer.mozilla.org/en-US/docs/Web/API/RequestInit#credentials)
+  /// option. It determines whether or not the browser sends credentials with
+  /// the request, as well as whether any **`Set-Cookie`** response headers are
+  /// respected.
+  ///
+  /// Credentials are cookies,  client certificates, or authentication headers
+  /// containing a username and password.
+  ///
+  /// See
+  /// [Including credentials](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch#including_credentials)
+  /// for more details.
   external RequestCredentials get credentials;
 
   /// The **`cache`** read-only property of the [Request] interface contains the
@@ -320,25 +322,70 @@ extension type Request._(JSObject _) implements JSObject {
   /// [subresource integrity](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity)
   /// value of the request.
   external String get integrity;
+
+  /// The **`keepalive`** read-only property of the [Request] interface contains
+  /// the request's `keepalive` setting (`true` or `false`), which indicates
+  /// whether the browser will keep the associated request alive if the page
+  /// that initiated it is unloaded before the request is complete.
+  ///
+  /// This enables a [Window.fetch] request to, for example, send analytics at
+  /// the end of a session even if the user navigates away from or closes the
+  /// page.
+  /// This has some advantages over using [Navigator.sendBeacon] for the same
+  /// purpose, including allowing you to use HTTP methods other than
+  /// [`POST`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST),
+  /// customize request properties, and access the server response via the fetch
+  /// `Promise` fulfillment.
+  /// It is also available in
+  /// [service workers](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API).
   external bool get keepalive;
+
+  /// The **`isHistoryNavigation`** read-only property of the [Request]
+  /// interface is a boolean indicating whether the request is a history
+  /// navigation.
+  ///
+  /// A history navigation is a navigation within the browser's history, made by
+  /// calling [History.go], [History.back], [History.forward],
+  /// [Navigation.traverseTo], [Navigation.back], [Navigation.forward], or
+  /// directly by clicking the browser's back or forward navigation button.
   external bool get isHistoryNavigation;
 
   /// The read-only **`signal`** property of the [Request] interface returns the
   /// [AbortSignal] associated with the request.
   external AbortSignal get signal;
 
-  /// The read-only **`body`** property of the [Request]
+  /// The **`body`** read-only property of the [Request]
   /// interface contains a [ReadableStream] with the body contents
   /// that have been added to the request. Note that a request using the
   /// `GET` or `HEAD` method cannot have a body
   /// and `null` is returned in these cases.
   external ReadableStream? get body;
 
-  /// The read-only **`bodyUsed`** property of the
+  /// The **`bodyUsed`** read-only property of the
   /// [Request] interface is a boolean value that indicates
   /// whether the request body has been read yet.
   external bool get bodyUsed;
 }
+
+/// The **`RequestInit`** dictionary of the
+/// [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
+/// represents the set of options that can be used to configure a
+/// [fetch request](https://developer.mozilla.org/en-US/docs/Web/API/Window/fetch).
+///
+/// You can pass a `RequestInit` object into the [Request.Request] constructor,
+/// or directly into the
+/// [`fetch()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/fetch)
+/// function call.
+///
+/// You can also construct a `Request` with a `RequestInit`, and pass the
+/// `Request` to a `fetch()` call along with another `RequestInit`. If you do
+/// this, and the same option is set in both places, then the value passed
+/// directly into `fetch()` is used.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RequestInit).
 extension type RequestInit._(JSObject _) implements JSObject {
   external factory RequestInit({
     String method,
@@ -412,7 +459,7 @@ extension type RequestInit._(JSObject _) implements JSObject {
 /// You can create a new `Response` object using the [Response.Response]
 /// constructor, but you are more likely to encounter a `Response` object being
 /// returned as the result of another API operation—for example, a service
-/// worker [FetchEvent.respondWith], or a simple [fetch].
+/// worker [FetchEvent.respondWith], or a simple [Window.fetch].
 ///
 /// ---
 ///
@@ -429,8 +476,8 @@ extension type Response._(JSObject _) implements JSObject {
   ///
   /// This is mainly useful when writing service workers: it enables a service
   /// worker to send a response from a [ServiceWorkerGlobalScope.fetch_event]
-  /// event handler that will cause the [fetch] call in the main app code to
-  /// reject the promise.
+  /// event handler that will cause the [Window.fetch] call in the main app code
+  /// to reject the promise.
   ///
   /// An error response has its [Response.type] set to `error`.
   external static Response error();
@@ -438,7 +485,8 @@ extension type Response._(JSObject _) implements JSObject {
   /// The **`redirect()`** static method of the [Response] interface returns a
   /// `Response` resulting in a redirect to the specified URL.
   ///
-  /// > **Note:** This can be used alongside the
+  /// > [!NOTE]
+  /// > This can be used alongside the
   /// > [ServiceWorker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API).
   /// > A controlling service worker could intercept a page's request and
   /// > redirect it as desired.
@@ -517,7 +565,8 @@ extension type Response._(JSObject _) implements JSObject {
   /// takes a [Response] stream and reads it to completion. It returns a promise
   /// that resolves with a [FormData] object.
   ///
-  /// > **Note:** This is mainly relevant to
+  /// > [!NOTE]
+  /// > This is mainly relevant to
   /// > [service workers](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API).
   /// > If a user submits
   /// > a form and a service worker intercepts the request, you could for
@@ -561,8 +610,9 @@ extension type Response._(JSObject _) implements JSObject {
   /// The Response's status is 0, headers are empty, body is null and trailer is
   /// empty.
   ///
-  /// > **Note:** An "error" Response never really gets exposed to script: such
-  /// > a response to a [fetch] would reject the promise.
+  /// > [!NOTE]
+  /// > An "error" Response never really gets exposed to script: such a response
+  /// > to a [Window.fetch] would reject the promise.
   external ResponseType get type;
 
   /// The **`url`** read-only property of the [Response] interface contains the
@@ -571,13 +621,14 @@ extension type Response._(JSObject _) implements JSObject {
   /// redirects.
   external String get url;
 
-  /// The read-only **`redirected`** property of the [Response] interface
+  /// The **`redirected`** read-only property of the [Response] interface
   /// indicates whether or not the response is the result of a request you made
   /// which was redirected.
   ///
-  /// > **Note:** Relying on redirected to filter out redirects makes it easy
-  /// > for a forged redirect to prevent your content from working as expected.
-  /// > Instead, you should do the filtering when you call [fetch].
+  /// > [!NOTE]
+  /// > Relying on redirected to filter out redirects makes it easy for a forged
+  /// > redirect to prevent your content from working as expected.
+  /// > Instead, you should do the filtering when you call [Window.fetch].
   /// > See the example [Disallowing redirects](#disallowing_redirects), which
   /// > shows this being done.
   external bool get redirected;

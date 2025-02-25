@@ -76,7 +76,7 @@ extension type AnimationEventInit._(JSObject _) implements EventInit, JSObject {
 /// The **`CSSKeyframeRule`** interface describes an object representing a set
 /// of styles for a given keyframe. It corresponds to the contents of a single
 /// keyframe of a
-/// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/At-rule).
+/// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_syntax/At-rule).
 ///
 /// ---
 ///
@@ -90,16 +90,15 @@ extension type CSSKeyframeRule._(JSObject _) implements CSSRule, JSObject {
   external set keyText(String value);
 
   /// The read-only **`CSSKeyframeRule.style`** property is the
-  /// [CSSStyleDeclaration] interface for the
-  /// [declaration block](https://www.w3.org/TR/1998/REC-CSS2-19980512/syndata.html#block)
-  /// of the [CSSKeyframeRule].
+  /// [CSSStyleDeclaration] interface for the declaration block of the
+  /// [CSSKeyframeRule].
   external JSObject get style;
 }
 
 /// The **`CSSKeyframesRule`** interface describes an object representing a
 /// complete set of keyframes for a CSS animation. It corresponds to the
 /// contents of a whole
-/// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/At-rule).
+/// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_syntax/At-rule).
 ///
 /// ---
 ///
@@ -127,7 +126,16 @@ extension type CSSKeyframesRule._(JSObject _) implements CSSRule, JSObject {
 
   /// The read-only **`cssRules`** property of the [CSSKeyframeRule] interface
   /// returns a [CSSRuleList] containing the rules in the keyframes
-  /// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/At-rule).
+  /// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_syntax/At-rule).
+  ///
+  /// > [!NOTE]
+  /// > The `CSSKeyframeRule` itself is indexable like an array, and functions
+  /// > similarly to its `cssRules` property.
   external CSSRuleList get cssRules;
+
+  /// The read-only **`length`** property of the [CSSKeyframeRule] interface
+  /// returns the number of [CSSKeyframeRule] objects in its list. You can then
+  /// access each keyframe rule by its index directly on the `CSSKeyframeRule`
+  /// object.
   external int get length;
 }

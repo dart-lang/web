@@ -24,10 +24,6 @@ import 'dart:js_interop';
 /// You can then easily read the parsed components of the URL or make changes to
 /// the URL.
 ///
-/// If a browser doesn't yet support the [URL.URL] constructor, you can access a
-/// URL object using the [Window] interface's [URL] property. Be sure to check
-/// to see if any of your target browsers require this to be prefixed.
-///
 /// ---
 ///
 /// API documentation sourced from
@@ -82,7 +78,8 @@ extension type URL._(JSObject _) implements JSObject {
   ///
   /// To release an object URL, call [URL.revokeObjectURL_static].
   ///
-  /// > **Note:** This feature is _not_ available in
+  /// > [!NOTE]
+  /// > This feature is _not_ available in
   /// > [Service Workers](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)
   /// > due to its
   /// > potential to create memory leaks.
@@ -99,7 +96,8 @@ extension type URL._(JSObject _) implements JSObject {
   /// the file any
   /// longer.
   ///
-  /// > **Note:** This method is _not_ available in
+  /// > [!NOTE]
+  /// > This method is _not_ available in
   /// > [Service Workers](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API),
   /// > due to
   /// > issues with the [Blob] interface's life cycle and the potential for
@@ -123,97 +121,131 @@ extension type URL._(JSObject _) implements JSObject {
   ///
   /// The exact structure varies depending on the type of URL:
   ///
-  /// - For URL using the `http:` or `https:` schemes, the scheme followed by
-  ///   `//`, followed by the domain, followed by `:`, followed by the port (the
-  ///   default port, `80` and `443` respectively, if explicitly specified).
-  /// - For URL using `file:` scheme, the value is browser dependent.
-  /// - For URL using the `blob:` scheme, the origin of the URL following
-  ///   `blob:`. For example, `blob:https://mozilla.org` will have
+  /// - For URLs using the `ftp:`, `http:`, `https:`, `ws:`, and `wss:` schemes,
+  ///   the [URL.protocol] followed by `//`, followed by the [URL.host]. Same as
+  ///   `host`, the [URL.port] is only included if it's not the default for the
+  ///   protocol.
+  /// - For URLs using `file:` scheme, the value is browser dependent.
+  /// - For URLs using the `blob:` scheme, the origin of the URL following
+  ///   `blob:`, but only if that URL uses the `http:`, `https:`, or `file:`
+  ///   scheme. For example, `blob:https://mozilla.org` will have
   ///   `https://mozilla.org`.
+  ///
+  /// For all other cases, the string `"null"` is returned.
   external String get origin;
 
-  /// The **`protocol`** property of the [URL] interface
-  /// is a string representing the protocol scheme of the URL, including the
-  /// final `':'`.
+  /// The **`protocol`** property of the [URL] interface is a string containing
+  /// the protocol or scheme of the URL, including the final `":"`. If the port
+  /// is the default for the protocol (`80` for `ws:` and `http:`, `443` for
+  /// `wss:` and `https:`, and `21` for `ftp:`), this property contains an empty
+  /// string, `""`.
+  ///
+  /// This property can be set to change the protocol of the URL. A `":"` is
+  /// appended to the provided string if not provided. The provided scheme has
+  /// to be compatible with the rest of the URL to be considered valid.
   external String get protocol;
   external set protocol(String value);
 
-  /// The **`username`** property of the [URL] interface
-  /// is a string containing the username specified before the domain name.
+  /// The **`username`** property of the [URL] interface is a string containing
+  /// the username component of the URL. If the URL does not have a username,
+  /// this property contains an empty string, `""`.
+  ///
+  /// This property can be set to change the username of the URL. If the URL has
+  /// no [URL.host] or its scheme is `file:`, then setting this property has no
+  /// effect.
+  ///
+  /// The username is  when setting but not percent-decoded when reading.
   external String get username;
   external set username(String value);
 
-  /// The **`password`** property of the [URL] interface
-  /// is a string containing the password specified before the domain name.
+  /// The **`password`** property of the [URL] interface is a string containing
+  /// the password component of the URL. If the URL does not have a password,
+  /// this property contains an empty string, `""`.
   ///
-  /// If it is set without first setting the [URL.username]
-  /// property, it silently fails.
+  /// This property can be set to change the password of the URL. If the URL has
+  /// no [URL.host] or its scheme is `file:`, then setting this property has no
+  /// effect.
+  ///
+  /// The password is  when setting but not percent-decoded when reading.
   external String get password;
   external set password(String value);
 
-  /// The **`host`** property of the [URL] interface is
-  /// a string containing the host, that is the [URL.hostname], and then, if the
-  /// of the URL is nonempty, a
-  /// `':'`, followed by the [URL.port] of the URL.
+  /// The **`host`** property of the [URL] interface is a string containing the
+  /// host, which is the [URL.hostname], and then, if the  of the URL is
+  /// nonempty, a `":"`, followed by the [URL.port] of the URL. If the URL does
+  /// not have a `hostname`, this property contains an empty string, `""`.
+  ///
+  /// This property can be set to change both the hostname and the port of the
+  /// URL. If the URL's scheme is not
+  /// [hierarchical](https://www.rfc-editor.org/rfc/rfc3986#section-1.2.3)
+  /// (which the URL standard calls
+  /// "[special schemes](https://url.spec.whatwg.org/#special-scheme)"), then it
+  /// has no concept of a host and setting this property has no effect.
+  ///
+  /// > [!NOTE]
+  /// > If the given value for the `host` setter lacks a `port`, the URL's
+  /// > `port` will not change. This can be unexpected as the `host` getter does
+  /// > return a URL-port string, so one might have assumed the setter to always
+  /// > "reset" both.
   external String get host;
   external set host(String value);
 
-  /// The **`hostname`** property of the [URL] interface
-  /// is a string containing the  of the URL.
+  /// The **`hostname`** property of the [URL] interface is a string containing
+  /// either the  or  of the URL. If the URL does not have a hostname, this
+  /// property contains an empty string, `""`. IPv4 and IPv6 addresses are
+  /// normalized, such as stripping leading zeros, and domain names are
+  /// converted to
+  /// [IDN](https://en.wikipedia.org/wiki/Internationalized_domain_name).
+  ///
+  /// This property can be set to change the hostname of the URL. If the URL's
+  /// scheme is not
+  /// [hierarchical](https://www.rfc-editor.org/rfc/rfc3986#section-1.2.3)
+  /// (which the URL standard calls
+  /// "[special schemes](https://url.spec.whatwg.org/#special-scheme)"), then it
+  /// has no concept of a host and setting this property has no effect.
+  ///
+  /// The hostname is  when setting but not percent-decoded when reading.
   external String get hostname;
   external set hostname(String value);
 
-  /// The **`port`** property of the [URL] interface is
-  /// a string containing the port number of the URL.
+  /// The **`port`** property of the [URL] interface is a string containing the
+  /// port number of the URL. If the port is the default for the protocol (`80`
+  /// for `ws:` and `http:`, `443` for `wss:` and `https:`, and `21` for
+  /// `ftp:`), this property contains an empty string, `""`.
   ///
-  /// > **Note:** If an input string passed to the
-  /// > [`URL()`](https://developer.mozilla.org/en-US/docs/Web/API/URL/URL)
-  /// > constructor doesn't contain an explicit port number (e.g.,
-  /// > `https://localhost`) or contains a port number that's the default port
-  /// > number corresponding to the protocol part of the input string (e.g.,
-  /// > `https://localhost:443`), then in the
-  /// > [`URL`](https://developer.mozilla.org/en-US/docs/Web/API/URL) object the
-  /// > constructor returns, the value of the port property will be the empty
-  /// > string: `''`.
+  /// This property can be set to change the port of the URL. If the URL has no
+  /// [URL.host] or its scheme is `file:`, then setting this property has no
+  /// effect. It also silently ignores invalid port numbers.
   external String get port;
   external set port(String value);
 
   /// The **`pathname`** property of the [URL] interface represents a location
   /// in a hierarchical structure. It is a string constructed from a list of
-  /// path segments, each of which is prefixed by a `/` character. If the URL
-  /// has no path segments, the value of its `pathname` property will be the
-  /// empty string.
+  /// path segments, each of which is prefixed by a `/` character.
   ///
-  /// URLs such as `https` and `http` URLs that have
+  /// HTTPS, HTTP, or other URLs with
   /// [hierarchical schemes](https://www.rfc-editor.org/rfc/rfc3986#section-1.2.3)
   /// (which the URL standard calls
   /// "[special schemes](https://url.spec.whatwg.org/#special-scheme)") always
-  /// have at least one (invisible) path segment: the empty string. Thus the
-  /// `pathname` value for such "special scheme" URLs can never be the empty
-  /// string, but will instead always have a least one `/` character.
+  /// have at least one (invisible) path segment: the empty string.
+  /// The `pathname` value for such URLs will therefore always have at least one
+  /// `/` character.
   ///
-  /// For example, the URL `https://developer.mozilla.org` has just one path
-  /// segment: the empty string, so its `pathname` value is constructed by
-  /// prefixing a `/` character to the empty string.
-  ///
-  /// Some systems define the term _slug_ to mean the final segment of a
-  /// non-empty path if it identifies a page in human-readable keywords. For
-  /// example, the URL
-  /// `https://example.org/articles/this-that-other-outre-collection` has
-  /// `this-that-other-outre-collection` as its slug.
-  ///
-  /// Some systems use the `;` and `=` characters to delimit parameters and
-  /// parameter values applicable to a path segment. For example, with the URL
-  /// `https://example.org/users;id=42/tasks;state=open?sort=modified`, a system
-  /// might extract and use the path segment parameters `id=42` and `state=open`
-  /// from the path segments `users;id=42` and `tasks;state=open`.
+  /// For non-hierarchical schemes, if the URL has no path segments, the value
+  /// of its `pathname` property will be the empty string.
   external String get pathname;
   external set pathname(String value);
 
-  /// The **`search`** property of the [URL] interface
-  /// is a search string, also called a _query string_, that is a
-  /// string containing a `'?'` followed by the parameters of the
-  /// URL.
+  /// The **`search`** property of the [URL] interface is a search string, also
+  /// called a _query string_, that is a string containing a `"?"` followed by
+  /// the parameters of the URL. If the URL does not have a search query, this
+  /// property contains an empty string, `""`.
+  ///
+  /// This property can be set to change the query string of the URL. When
+  /// setting, a single `"?"` prefix is added to the provided value, if not
+  /// already present. Setting it to `""` removes the query string.
+  ///
+  /// The query is  when setting but not percent-decoded when reading.
   ///
   /// Modern browsers provide the [URL.searchParams] property to make it easy to
   /// parse out the parameters from the query string.
@@ -225,14 +257,15 @@ extension type URL._(JSObject _) implements JSObject {
   /// access to the `GET` decoded query arguments contained in the URL.
   external URLSearchParams get searchParams;
 
-  /// The **`hash`** property of the
-  /// [URL] interface is a string containing a
-  /// `'#'` followed by the fragment identifier of the URL.
+  /// The **`hash`** property of the [URL] interface is a string containing a
+  /// `"#"` followed by the fragment identifier of the URL. If the URL does not
+  /// have a fragment identifier, this property contains an empty string, `""`.
   ///
-  /// The fragment is not
-  /// [URL decoded](https://en.wikipedia.org/wiki/URL_encoding). If the URL does
-  /// not
-  /// have a fragment identifier, this property contains an empty string — `""`.
+  /// This property can be set to change the fragment identifier of the URL.
+  /// When setting, a single `"#"` prefix is added to the provided value, if not
+  /// already present. Setting it to `""` removes the fragment identifier.
+  ///
+  /// The fragment is  when setting but not percent-decoded when reading.
   external String get hash;
   external set hash(String value);
 }
@@ -240,10 +273,11 @@ extension type URL._(JSObject _) implements JSObject {
 /// The **`URLSearchParams`** interface defines utility methods to work with the
 /// query string of a URL.
 ///
-/// An object implementing `URLSearchParams` can directly be used in a
-/// `for...of` structure to iterate over key/value pairs in the same order as
-/// they appear in the query string, for example the following two lines are
-/// equivalent:
+/// `URLSearchParams` objects are
+/// [iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#the_iterable_protocol),
+/// so they can directly be used in a `for...of` structure to iterate over
+/// key/value pairs in the same order as they appear in the query string, for
+/// example the following two lines are equivalent:
 ///
 /// ```js
 /// for (const [key, value] of mySearchParams) {
@@ -251,6 +285,11 @@ extension type URL._(JSObject _) implements JSObject {
 /// for (const [key, value] of mySearchParams.entries()) {
 /// }
 /// ```
+///
+/// Although `URLSearchParams` is functionally similar to a `Map`, when
+/// iterating, it may suffer from some
+/// [pitfalls](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#concurrent_modifications_when_iterating)
+/// that `Map` doesn't encounter due to how it's implemented.
 ///
 /// ---
 ///

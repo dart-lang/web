@@ -32,7 +32,7 @@ import 'html.dart';
 extension type PictureInPictureWindow._(JSObject _)
     implements EventTarget, JSObject {
   /// The read-only **`width`** property of the [PictureInPictureWindow]
-  /// inbterface returns the width of the floating video window in pixels.
+  /// interface returns the width of the floating video window in pixels.
   external int get width;
 
   /// The read-only **`height`** property of the [PictureInPictureWindow]
@@ -46,7 +46,7 @@ extension type PictureInPictureWindow._(JSObject _)
 /// picture-in-picture-related events, including
 /// [HTMLVideoElement.enterpictureinpicture_event],
 /// [HTMLVideoElement.leavepictureinpicture_event] and
-/// [PictureInPictureWindow.resize_event]
+/// [PictureInPictureWindow.resize_event].
 ///
 /// ---
 ///

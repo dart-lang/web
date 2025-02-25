@@ -199,20 +199,12 @@ extension type CookieStoreManager._(JSObject _) implements JSObject {
 
 /// The **`CookieChangeEvent`** interface of the [Cookie Store API] is the event
 /// type of the [CookieStore.change_event] event fired at a [CookieStore] when
-/// any cookie changes occur. A cookie change consists of a cookie and a type
-/// (either "changed" or "deleted").
+/// any cookies are created or deleted.
 ///
-/// Cookie changes that will cause the `CookieChangeEvent` to be dispatched are:
-///
-/// - A cookie is newly created and not immediately removed. In this case `type`
-///   is "changed".
-/// - A cookie is newly created and immediately removed. In this case `type` is
-///   "deleted".
-/// - A cookie is removed. In this case `type` is "deleted".
-///
-/// > **Note:** A cookie that is replaced due to the insertion of another cookie
-/// > with the same name, domain, and path, is ignored and does not trigger a
-/// > change event.
+/// > [!NOTE]
+/// > A cookie that is replaced due to the insertion of another cookie with the
+/// > same name, domain, and path, is ignored and does not trigger a change
+/// > event.
 ///
 /// ---
 ///
@@ -226,11 +218,17 @@ extension type CookieChangeEvent._(JSObject _) implements Event, JSObject {
 
   /// The **`changed`** read-only property of the [CookieChangeEvent] interface
   /// returns an array of the cookies that have been changed.
+  ///
+  /// Note that this will exclude cookies which were created with an expiry date
+  /// in the past, as these cookies are immediately deleted.
   external JSArray<CookieListItem> get changed;
 
   /// The **`deleted`** read-only property of the [CookieChangeEvent] interface
   /// returns an array of the cookies that have been deleted by the given
   /// `CookieChangeEvent` instance.
+  ///
+  /// Note that this will include cookies which were created with an expiry date
+  /// in the past, as these cookies are immediately deleted.
   external JSArray<CookieListItem> get deleted;
 }
 extension type CookieChangeEventInit._(JSObject _)
@@ -266,9 +264,10 @@ extension type CookieChangeEventInit._(JSObject _)
 ///   "deleted"
 /// - A cookie is removed. In this case `type` is "deleted".
 ///
-/// > **Note:** A cookie that is replaced due to the insertion of another cookie
-/// > with the same name, domain, and path, is ignored and does not trigger a
-/// > change event.
+/// > [!NOTE]
+/// > A cookie that is replaced due to the insertion of another cookie with the
+/// > same name, domain, and path, is ignored and does not trigger a change
+/// > event.
 ///
 /// ---
 ///

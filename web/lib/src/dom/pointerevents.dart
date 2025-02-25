@@ -64,6 +64,7 @@ extension type PointerEventInit._(JSObject _)
     num azimuthAngle,
     String pointerType,
     bool isPrimary,
+    int persistentDeviceId,
     JSArray<PointerEvent> coalescedEvents,
     JSArray<PointerEvent> predictedEvents,
   });
@@ -92,6 +93,8 @@ extension type PointerEventInit._(JSObject _)
   external set pointerType(String value);
   external bool get isPrimary;
   external set isPrimary(bool value);
+  external int get persistentDeviceId;
+  external set persistentDeviceId(int value);
   external JSArray<PointerEvent> get coalescedEvents;
   external set coalescedEvents(JSArray<PointerEvent> value);
   external JSArray<PointerEvent> get predictedEvents;
@@ -165,6 +168,12 @@ extension type PointerEvent._(JSObject _) implements MouseEvent, JSObject {
   /// active pointer events. Since the value may be randomly generated, it is
   /// not guaranteed
   /// to convey any particular meaning.
+  ///
+  /// > [!NOTE]
+  /// > The `pointerId` property is implemented inconsistently across browsers
+  /// > and does not always persist for each ink stroke or interaction with the
+  /// > screen. For a reliable way of identifying multiple pointing devices on a
+  /// > screen simultaneously, see [PointerEvent.persistentDeviceId].
   external int get pointerId;
 
   /// The **`width`** read-only property of the
@@ -204,23 +213,33 @@ extension type PointerEvent._(JSObject _) implements MouseEvent, JSObject {
   /// [cylinder stress](https://en.wikipedia.org/wiki/Cylinder_stress)).
   external double get tangentialPressure;
 
-  /// The **`tiltX`** read-only property of the
-  /// [PointerEvent] interface is the angle (in degrees) between the _Y-Z
-  /// plane_ of the pointer and the screen. This property is typically only
-  /// useful for a
-  /// pen/stylus pointer type.
+  /// The **`tiltX`** read-only property of the [PointerEvent] interface is the
+  /// angle (in degrees) between the _Y-Z plane_ of the pointer and the screen.
+  /// This property is typically only useful for a pen/stylus pointer type.
   ///
-  /// For an illustration of this property see
+  /// Depending on the specific hardware and platform, user agents will likely
+  /// only receive one set of values for the transducer orientation relative to
+  /// the screen plane — either `tiltX` and [PointerEvent.tiltY] or
+  /// [PointerEvent.altitudeAngle] and [PointerEvent.azimuthAngle].
+  ///
+  /// ![The tiltX angle of a pointer compared to the tiltY angle](tilt_x_y_angles.svg)
+  ///
+  /// For an additional illustration of this property see
   /// [Figure 2 in the specification](https://w3c.github.io/pointerevents/#dom-pointerevent-tiltx).
   external int get tiltX;
 
-  /// The **`tiltY`** read-only property of the
-  /// [PointerEvent] interface is the angle (in degrees) between the _X-Z
-  /// plane_ of the pointer and the screen. This property is typically only
-  /// useful for a
-  /// pen/stylus pointer type.
+  /// The **`tiltY`** read-only property of the [PointerEvent] interface is the
+  /// angle (in degrees) between the _X-Z plane_ of the pointer and the screen.
+  /// This property is typically only useful for a pen/stylus pointer type.
   ///
-  /// For an illustration of this property, see
+  /// Depending on the specific hardware and platform, user agents will likely
+  /// only receive one set of values for the transducer orientation relative to
+  /// the screen plane — either [PointerEvent.tiltX] and `tiltY` or
+  /// [PointerEvent.altitudeAngle] and [PointerEvent.azimuthAngle].
+  ///
+  /// ![The tiltX angle of a pointer compared to the tiltY angle](tilt_x_y_angles.svg)
+  ///
+  /// For an additional illustration of this property, see
   /// [Figure 3 in the specification](https://w3c.github.io/pointerevents/#dom-pointerevent-tilty).
   external int get tiltY;
 
@@ -228,6 +247,38 @@ extension type PointerEvent._(JSObject _) implements MouseEvent, JSObject {
   /// [PointerEvent] interface represents the clockwise rotation of the pointer
   /// (e.g., pen stylus) around its major axis, in degrees.
   external int get twist;
+
+  /// The **`altitudeAngle`** read-only property of the [PointerEvent] interface
+  /// represents the angle between a transducer (a pointer or stylus) axis and
+  /// the X-Y plane of a device screen.
+  /// The altitude angle describes whether the transducer is perpendicular to
+  /// the screen, parallel, or at some angle in between.
+  ///
+  /// Depending on the specific hardware and platform, user agents will likely
+  /// only receive one set of values for the transducer orientation relative to
+  /// the screen plane — either [PointerEvent.tiltX] and [PointerEvent.tiltY] or
+  /// `altitudeAngle` and [PointerEvent.azimuthAngle].
+  ///
+  /// ![The azimuth angle of a pointer compared to the altitude angle](./azimuth_altitude_angles.svg)
+  ///
+  /// For an additional illustration of this property, see
+  /// [Figure 4 in the specification](https://w3c.github.io/pointerevents/#figure_altitudeAngle).
+  external double get altitudeAngle;
+
+  /// The **`azimuthAngle`** read-only property of the [PointerEvent] interface
+  /// represents the angle between the Y-Z plane and the plane containing both
+  /// the transducer (pointer or stylus) axis and the Y axis.
+  ///
+  /// Depending on the specific hardware and platform, user agents will likely
+  /// only receive one set of values for the transducer orientation relative to
+  /// the screen plane — either [PointerEvent.tiltX] and [PointerEvent.tiltY] or
+  /// [PointerEvent.altitudeAngle] and `azimuthAngle`.
+  ///
+  /// ![The azimuth angle of a pointer compared to the altitude angle](azimuth_altitude_angles.svg)
+  ///
+  /// For an additional illustration of this property, see
+  /// [Figure 5 in the specification](https://w3c.github.io/pointerevents/#figure_azimuthAngle).
+  external double get azimuthAngle;
 
   /// The **`pointerType`** read-only property of the
   /// [PointerEvent] interface indicates the device type (mouse, pen, or touch)
@@ -269,7 +320,8 @@ extension type PointerEvent._(JSObject _) implements MouseEvent, JSObject {
   /// primary
   /// pointers, these pointers will all produce _compatibility mouse events_
   /// (see
-  /// [Pointer_events] for more information about pointer, mouse and touch
+  /// [Pointer events](https://developer.mozilla.org/en-US/docs/Web/API/Pointer_events)
+  /// for more information about pointer, mouse and touch
   /// interaction).
   external bool get isPrimary;
 }

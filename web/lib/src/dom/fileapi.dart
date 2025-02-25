@@ -67,6 +67,11 @@ extension type Blob._(JSObject _) implements JSObject {
   /// binary data contained in an `ArrayBuffer`.
   external JSPromise<JSArrayBuffer> arrayBuffer();
 
+  /// The **`bytes()`** method of the [Blob] interface returns a `Promise` that
+  /// resolves with a `Uint8Array` containing the contents of the blob as an
+  /// array of bytes.
+  external JSPromise<JSUint8Array> bytes();
+
   /// The **`size`** read-only property of the [Blob] interface returns
   /// the size of the [Blob] or [File] in bytes.
   external int get size;
@@ -74,8 +79,9 @@ extension type Blob._(JSObject _) implements JSObject {
   /// The **`type`** read-only property of the [Blob] interface returns the  of
   /// the file.
   ///
-  /// > **Note:** Based on the current implementation, browsers won't actually
-  /// > read the bytestream of a file to determine its media type.
+  /// > [!NOTE]
+  /// > Based on the current implementation, browsers won't actually read the
+  /// > bytestream of a file to determine its media type.
   /// > It is assumed based on the file extension; a PNG image file renamed to
   /// > .txt would give "_text/plain_" and not "_image/png_". Moreover,
   /// > `blob.type` is generally reliable only for common file types like
@@ -106,10 +112,16 @@ extension type BlobPropertyBag._(JSObject _) implements JSObject {
 /// and drop operation's [DataTransfer] object.
 ///
 /// A `File` object is a specific kind of [Blob], and can be used in any context
-/// that a Blob can. In particular, [FileReader], [URL.createObjectURL_static],
-/// [createImageBitmap], the
-/// [`body`](https://developer.mozilla.org/en-US/docs/Web/API/fetch#body) option
-/// to [fetch], and [XMLHttpRequest] accept both `Blob`s and `File`s.
+/// that a Blob can. In particular, the following APIs accept both `Blob`s and
+/// `File` objects:
+///
+/// - [FileReader]
+/// - [URL.createObjectURL_static]
+/// - [Window.createImageBitmap] and [WorkerGlobalScope.createImageBitmap]
+/// - the
+///   [`body`](https://developer.mozilla.org/en-US/docs/Web/API/RequestInit#body)
+///   option to [Window.fetch]
+/// - [XMLHttpRequest.send]
 ///
 /// See
 /// [Using files from web applications](https://developer.mozilla.org/en-US/docs/Web/API/File_API/Using_files_from_web_applications)
@@ -213,16 +225,13 @@ extension type FileList._(JSObject _) implements JSObject {
 /// [File] or [Blob] objects to specify the file or data to read.
 ///
 /// File objects may be obtained from a [FileList] object returned as a result
-/// of a user selecting files using the `input` element, or from a drag and drop
-/// operation's [DataTransfer] object.
-///
-/// `FileReader` can only access the contents of files that the user has
-/// explicitly selected, either using an HTML `<input type="file">` element or
-/// by drag and drop. It cannot be used to read a file by pathname from the
-/// user's file system. To read files on the client's file system by pathname,
-/// use the
+/// of a user selecting files using the `<input type="file">` element, or from a
+/// drag and drop operation's [DataTransfer] object. `FileReader` can only
+/// access the contents of files that the user has explicitly selected; it
+/// cannot be used to read a file by pathname from the user's file system. To
+/// read files on the client's file system by pathname, use the
 /// [File System Access API](https://developer.mozilla.org/en-US/docs/Web/API/File_System_API).
-/// To read server-side files, use [fetch], with
+/// To read server-side files, use [Window.fetch], with
 /// [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) permission if
 /// reading cross-origin.
 ///
@@ -247,13 +256,13 @@ extension type FileReader._(JSObject _) implements EventTarget, JSObject {
   /// triggered. At that time, the [FileReader.result] property
   /// contains an `ArrayBuffer` representing the file's data.
   ///
-  /// > **Note:** The [Blob.arrayBuffer] method is a newer promise-based API to
-  /// > read a
+  /// > [!NOTE]
+  /// > The [Blob.arrayBuffer] method is a newer promise-based API to read a
   /// > file as an array buffer.
   external void readAsArrayBuffer(Blob blob);
 
-  /// > **Note:** This method is deprecated in favor of
-  /// > [FileReader.readAsArrayBuffer].
+  /// > [!NOTE]
+  /// > This method is deprecated in favor of [FileReader.readAsArrayBuffer].
   ///
   /// The **`readAsBinaryString()`** method of the [FileReader] interface is
   /// used to start reading the contents of the
@@ -278,11 +287,13 @@ extension type FileReader._(JSObject _) implements EventTarget, JSObject {
   /// [FileReader.result] property contains the contents of the file as a text
   /// string.
   ///
-  /// > **Note:** The [Blob.text] method is a newer promise-based API to read a
-  /// > file as text.
+  /// > [!NOTE]
+  /// > The [Blob.text] method is a newer promise-based API to read a file as
+  /// > text.
   ///
-  /// > **Note:** This method loads the entire file's content into memory and is
-  /// > not suitable for large files. Prefer [FileReader.readAsArrayBuffer] for
+  /// > [!NOTE]
+  /// > This method loads the entire file's content into memory and is not
+  /// > suitable for large files. Prefer [FileReader.readAsArrayBuffer] for
   /// > large files.
   external void readAsText(
     Blob blob, [
@@ -295,11 +306,12 @@ extension type FileReader._(JSObject _) implements EventTarget, JSObject {
   /// [FileReader.readyState] property becomes `DONE`, and the
   /// [FileReader.loadend_event] event is triggered. At that time, the
   /// [FileReader.result] attribute contains the data as a [data:
-  /// URL](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URLs)
+  /// URL](https://developer.mozilla.org/en-US/docs/Web/URI/Reference/Schemes/data)
   /// representing the
   /// file's data as a base64 encoded string.
   ///
-  /// > **Note:** The blob's [FileReader.result] cannot be
+  /// > [!NOTE]
+  /// > The blob's [FileReader.result] cannot be
   /// > directly decoded as Base64 without first removing the Data-URL
   /// > declaration preceding
   /// > the Base64-encoded data. To retrieve only the Base64 encoded string,
@@ -371,7 +383,8 @@ extension type FileReaderSync._(JSObject _) implements JSObject {
 
   /// @AvailableInWorkers("worker_except_service")
   ///
-  /// > **Note:** This method is deprecated in favor of
+  /// > [!NOTE]
+  /// > This method is deprecated in favor of
   /// > [FileReaderSync.readAsArrayBuffer].
   ///
   /// The **`readAsBinaryString()`** method of the [FileReaderSync] interface

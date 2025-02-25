@@ -16,15 +16,22 @@ library;
 import 'dart:js_interop';
 
 import 'css_view_transitions.dart';
+import 'cssom.dart';
 
+extension type CSSViewTransitionRule._(JSObject _)
+    implements CSSRule, JSObject {
+  external String get navigation;
+  external JSArray<JSString> get types;
+}
+extension type ViewTransitionTypeSet._(JSObject _) implements JSObject {}
 extension type StartViewTransitionOptions._(JSObject _) implements JSObject {
   external factory StartViewTransitionOptions({
-    UpdateCallback? update,
+    ViewTransitionUpdateCallback? update,
     JSArray<JSString>? types,
   });
 
-  external UpdateCallback? get update;
-  external set update(UpdateCallback? value);
+  external ViewTransitionUpdateCallback? get update;
+  external set update(ViewTransitionUpdateCallback? value);
   external JSArray<JSString>? get types;
   external set types(JSArray<JSString>? value);
 }

@@ -20,9 +20,9 @@ import 'dom.dart';
 /// The **`ContentVisibilityAutoStateChangeEvent`** interface is the event
 /// object for the [element.contentvisibilityautostatechange_event] event, which
 /// fires on any element with  set on it when it starts or stops being
-/// [relevant to the user](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_containment#relevant_to_the_user)
+/// [relevant to the user](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_containment/Using_CSS_containment#relevant_to_the_user)
 /// and
-/// [skipping its contents](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_containment#skips_its_contents).
+/// [skipping its contents](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_containment/Using_CSS_containment#skips_its_contents).
 ///
 /// While the element is not relevant (between the start and end events), the
 /// user agent skips an element's rendering, including layout and painting.
@@ -49,8 +49,8 @@ extension type ContentVisibilityAutoStateChangeEvent._(JSObject _)
   /// The `skipped` read-only property of the
   /// [ContentVisibilityAutoStateChangeEvent] interface returns `true` if the
   /// user agent [skips the element's
-  /// contents](/en-US/docs/Web/CSS/CSS_containment#skips_its_contents), or
-  /// `false` otherwise.
+  /// contents](/en-US/docs/Web/CSS/CSS_containment/Using_CSS_containment#skips_its_contents),
+  /// or `false` otherwise.
   external bool get skipped;
 }
 extension type ContentVisibilityAutoStateChangeEventInit._(JSObject _)

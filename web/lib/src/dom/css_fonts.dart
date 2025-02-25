@@ -17,25 +17,10 @@ import 'dart:js_interop';
 
 import 'cssom.dart';
 
-/// The **`CSSFontFaceRule`** interface represents an
-/// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/At-rule).
-///
-/// ---
-///
-/// API documentation sourced from
-/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSFontFaceRule).
-extension type CSSFontFaceRule._(JSObject _) implements CSSRule, JSObject {
-  /// The read-only **`style`** property of the [CSSFontFaceRule] interface
-  /// returns the style information from the
-  /// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/At-rule). This
-  /// will be in the form of a [CSSStyleDeclaration] object.
-  external JSObject get style;
-}
-
 /// The **`CSSFontFeatureValuesRule`** interface represents an
-/// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/At-rule), letting
-/// developers assign for each font face a common name to specify features
-/// indices to be used in .
+/// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_syntax/At-rule),
+/// letting developers assign for each font face a common name to specify
+/// features indices to be used in .
 ///
 /// ---
 ///
@@ -50,7 +35,7 @@ extension type CSSFontFeatureValuesRule._(JSObject _)
 }
 
 /// The **`CSSFontPaletteValuesRule`** interface represents an
-/// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/At-rule).
+/// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_syntax/At-rule).
 ///
 /// ---
 ///

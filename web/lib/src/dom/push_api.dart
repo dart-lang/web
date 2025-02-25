@@ -38,6 +38,22 @@ extension type PushManager._(JSObject _) implements JSObject {
   /// The **`supportedContentEncodings`** read-only static property of the
   /// [PushManager] interface returns an array of supported content codings that
   /// can be used to encrypt the payload of a push message.
+  ///
+  /// User agents must support the `aes128gcm` content coding defined in `8291`,
+  /// and may also support content codings defined from previous versions of the
+  /// specification.
+  /// The returned array is frozen, and may not be modified by the recipient.
+  ///
+  /// The application server requires this coding in order to encrypt push
+  /// messages for sending to the push server.
+  /// The coding used for encryption is also included by the app server in the
+  /// HTTP header field of each push message.
+  ///
+  /// The specification does not define how the client code should send the
+  /// application server the supported codings, or the information in the
+  /// [PushSubscription] that it also needs in order to encrypt and send a push
+  /// message.
+  /// One approach is shown in the examples section below.
   external static JSArray<JSString> get supportedContentEncodings;
 
   /// The **`subscribe()`** method of the [PushManager]
@@ -63,7 +79,8 @@ extension type PushManager._(JSObject _) implements JSObject {
   /// string indicating the permission state of the push manager. Possible
   /// values are `'prompt'`, `'denied'`, or `'granted'`.
   ///
-  /// > **Note:** As of Firefox 44, the permissions for
+  /// > [!NOTE]
+  /// > As of Firefox 44, the permissions for
   /// > [Notifications](https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API)
   /// > and [Push](https://developer.mozilla.org/en-US/docs/Web/API/Push_API)
   /// > have been merged. If permission is
@@ -109,10 +126,13 @@ extension type PushSubscriptionOptionsInit._(JSObject _) implements JSObject {
 
 /// The `PushSubscription` interface of the
 /// [Push API](https://developer.mozilla.org/en-US/docs/Web/API/Push_API)
-/// provides a subscription's URL endpoint and allows unsubscribing from a push
-/// service.
+/// provides a subscription's URL endpoint along with the public key and secrets
+/// that should be used for encrypting push messages to this subscription.
+/// This information must be passed to the application server, using any desired
+/// application-specific method.
 ///
-/// An instance of this interface can be serialized.
+/// The interface also provides information about when the subscription will
+/// expire, and a method to unsubscribe from the subscription.
 ///
 /// ---
 ///
@@ -207,6 +227,12 @@ extension type PushMessageData._(JSObject _) implements JSObject {
   /// The **`blob()`** method of the [PushMessageData] interface extracts push
   /// message data as a [Blob] object.
   external Blob blob();
+
+  /// @AvailableInWorkers("service")
+  ///
+  /// The **`bytes()`** method of the [PushMessageData] interface extracts push
+  /// message data as an `Uint8Array` object.
+  external JSUint8Array bytes();
 
   /// @AvailableInWorkers("service")
   ///

@@ -15,15 +15,14 @@ library;
 
 import 'dart:js_interop';
 
-/// The **`BluetoothUUID`** interface of the
-/// [Web Bluetooth API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Bluetooth_API)
-/// provides a way to look up Universally Unique Identifier (UUID) values by
-/// name in the
-/// [registry](https://www.bluetooth.com/specifications/assigned-numbers/)
-/// maintained by the Bluetooth SIG.
+/// The **`FragmentDirective`** interface is an object exposed to allow code to
+/// check whether or not a browser supports
+/// [text fragments](https://developer.mozilla.org/en-US/docs/Web/URI/Reference/Fragment/Text_fragments).
+///
+/// It is accessed via the [Document.fragmentDirective] property.
 ///
 /// ---
 ///
 /// API documentation sourced from
-/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/BluetoothUUID).
-extension type BluetoothUUID._(JSObject _) implements JSObject {}
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/FragmentDirective).
+extension type FragmentDirective._(JSObject _) implements JSObject {}

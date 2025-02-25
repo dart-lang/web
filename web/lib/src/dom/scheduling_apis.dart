@@ -37,11 +37,10 @@ extension type SchedulerPostTaskOptions._(JSObject _) implements JSObject {
 
 /// The **`Scheduler`** interface of the
 /// [Prioritized Task Scheduling API](https://developer.mozilla.org/en-US/docs/Web/API/Prioritized_Task_Scheduling_API)
-/// provides the [Scheduler.postTask] method that can be used for adding
-/// prioritized tasks to be scheduled.
+/// provides methods for scheduling prioritized tasks.
 ///
-/// A `Scheduler` can be accessed from the global object [Window] or
-/// [WorkerGlobalScope] (`this.scheduler`).
+/// A `Scheduler` can be accessed from the global object using
+/// [Window.scheduler] or [WorkerGlobalScope.scheduler] within a worker.
 ///
 /// ---
 ///
@@ -103,7 +102,7 @@ extension type TaskPriorityChangeEvent._(JSObject _)
     TaskPriorityChangeEventInit priorityChangeEventInitDict,
   );
 
-  /// The readonly **`previousPriority`** property of the
+  /// The **`previousPriority`** read-only property of the
   /// [TaskPriorityChangeEvent] interface returns the priority of the
   /// corresponding [TaskSignal] before it was changed and this
   /// [`prioritychange`](https://developer.mozilla.org/en-US/docs/Web/API/TaskSignal/prioritychange_event)

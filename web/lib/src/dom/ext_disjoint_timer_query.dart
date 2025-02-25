@@ -33,7 +33,7 @@ extension type EXT_disjoint_timer_query._(JSObject _) implements JSObject {
 
   static const GLenum GPU_DISJOINT_EXT = 36795;
 
-  external WebGLTimerQueryEXT? createQueryEXT();
+  external WebGLTimerQueryEXT createQueryEXT();
   external void deleteQueryEXT(WebGLTimerQueryEXT? query);
   external bool isQueryEXT(WebGLTimerQueryEXT? query);
   external void beginQueryEXT(

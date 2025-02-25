@@ -28,8 +28,8 @@ import 'webgl1.dart';
 /// in the
 /// [WebGL tutorial](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial).
 ///
-/// > **Note:** This extension is only available to [WebGL2RenderingContext]
-/// > contexts.
+/// > [!NOTE]
+/// > This extension is only available to [WebGL2RenderingContext] contexts.
 ///
 /// ---
 ///

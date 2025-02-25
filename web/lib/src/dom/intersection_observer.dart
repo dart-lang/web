@@ -63,7 +63,8 @@ extension type IntersectionObserver._(JSObject _) implements JSObject {
   /// intersection changes to
   /// be processed by a single call to the callback.
   ///
-  /// > **Note:** the observer
+  /// > [!NOTE]
+  /// > The observer
   /// > [callback](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver/IntersectionObserver#callback)
   /// > will always fire the first render cycle after `observe()` is called,
   /// > even if the observed element has not yet moved with respect to the
@@ -100,7 +101,8 @@ extension type IntersectionObserver._(JSObject _) implements JSObject {
   /// an automatic
   /// call to the observer's callback.
   ///
-  /// > **Note:** If you use the callback to monitor these changes, you don't
+  /// > [!NOTE]
+  /// > If you use the callback to monitor these changes, you don't
   /// > need to call this method. Calling this method clears the pending
   /// > intersection list, so
   /// > the callback will not be run.
@@ -219,6 +221,8 @@ extension type IntersectionObserverInit._(JSObject _) implements JSObject {
     String rootMargin,
     String scrollMargin,
     JSAny threshold,
+    int delay,
+    bool trackVisibility,
   });
 
   external JSObject? get root;
@@ -229,4 +233,8 @@ extension type IntersectionObserverInit._(JSObject _) implements JSObject {
   external set scrollMargin(String value);
   external JSAny get threshold;
   external set threshold(JSAny value);
+  external int get delay;
+  external set delay(int value);
+  external bool get trackVisibility;
+  external set trackVisibility(bool value);
 }

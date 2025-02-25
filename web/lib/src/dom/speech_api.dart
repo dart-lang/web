@@ -17,6 +17,7 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 import 'html.dart';
+import 'mediacapture_streams.dart';
 
 typedef SpeechRecognitionErrorCode = String;
 typedef SpeechSynthesisErrorCode = String;
@@ -26,9 +27,10 @@ typedef SpeechSynthesisErrorCode = String;
 /// is the controller interface for the recognition service; this also handles
 /// the [SpeechRecognitionEvent] sent from the recognition service.
 ///
-/// > **Note:** On some browsers, like Chrome, using Speech Recognition on a web
-/// > page involves a server-based recognition engine. Your audio is sent to a
-/// > web service for recognition processing, so it won't work offline.
+/// > [!NOTE]
+/// > On some browsers, like Chrome, using Speech Recognition on a web page
+/// > involves a server-based recognition engine. Your audio is sent to a web
+/// > service for recognition processing, so it won't work offline.
 ///
 /// ---
 ///
@@ -44,7 +46,7 @@ extension type SpeechRecognition._(JSObject _)
   /// recognition service listening to incoming audio with intent to recognize
   /// grammars
   /// associated with the current [SpeechRecognition].
-  external void start();
+  external void start([MediaStreamTrack audioTrack]);
 
   /// The **`stop()`** method of the
   /// [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API)
@@ -62,19 +64,11 @@ extension type SpeechRecognition._(JSObject _)
   /// [SpeechRecognitionResult].
   external void abort();
 
-  /// The **`grammars`** property of the
-  /// [SpeechRecognition] interface returns and sets a collection of
-  /// [SpeechGrammar] objects that represent the grammars that will be
-  /// understood
-  /// by the current `SpeechRecognition`.
-  external JSObject get grammars;
-  external set grammars(JSObject value);
-
   /// The **`lang`** property of the [SpeechRecognition]
   /// interface returns and sets the language of the current
   /// `SpeechRecognition`.
   /// If not specified, this defaults to the HTML
-  /// [`lang`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/html#lang)
+  /// [`lang`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
   /// attribute
   /// value, or the user agent's language setting if that isn't set either.
   external String get lang;
@@ -176,7 +170,8 @@ extension type SpeechRecognitionAlternative._(JSObject _) implements JSObject {
   /// confident the speech recognition system is that the recognition is
   /// correct.
   ///
-  /// > **Note:** Mozilla's implementation of `confidence` is still
+  /// > [!NOTE]
+  /// > Mozilla's implementation of `confidence` is still
   /// > being worked on — at the moment, it always seems to return 1.
   external double get confidence;
 }
@@ -373,7 +368,7 @@ extension type SpeechSynthesisUtterance._(JSObject _)
   /// and sets the language of the utterance.
   ///
   /// If unset, the app's (i.e. the `html`
-  /// [`lang`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/html#lang)
+  /// [`lang`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
   /// value) lang will be used, or the user-agent default if that is unset too.
   external String get lang;
   external set lang(String value);

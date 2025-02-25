@@ -32,13 +32,38 @@ typedef PermissionState = String;
 extension type Permissions._(JSObject _) implements JSObject {
   /// The **`query()`** method of the [Permissions] interface returns the state
   /// of a user permission on the global scope.
+  ///
+  /// The user permission names are defined in the respective specifications for
+  /// each feature.
+  /// The permissions supported by different browser versions are listed in the
+  /// [compatibility data of the `Permissions` interface](https://developer.mozilla.org/en-US/docs/Web/API/Permissions#browser_compatibility)
+  /// (see also the relevant source code for
+  /// [Firefox values](https://searchfox.org/mozilla-central/source/dom/webidl/Permissions.webidl#10),
+  /// [Chromium values](https://chromium.googlesource.com/chromium/src/+/refs/heads/main/third_party/blink/renderer/modules/permissions/permission_descriptor.idl),
+  /// and
+  /// [WebKit values](https://github.com/WebKit/WebKit/blob/main/Source/WebCore/Modules/permissions/PermissionName.idl)).
+  ///
+  /// The APIs that are gated by each permission are listed in
+  /// [Permission-aware APIs](https://developer.mozilla.org/en-US/docs/Web/API/Permissions_API#permission-aware_apis)
+  /// in the
+  /// [Permissions API](https://developer.mozilla.org/en-US/docs/Web/API/Permissions_API)
+  /// overview topic.
   external JSPromise<PermissionStatus> query(JSObject permissionDesc);
 
-  /// The **`revoke()`** method of the
-  /// [Permissions] interface reverts a currently set permission back to its
-  /// default state, which is usually `prompt`.
+  /// The **`revoke()`** method of the [Permissions] interface reverts a
+  /// currently set permission back to its default state, which is usually
+  /// `prompt`.
   /// This method is called on the global [Permissions] object
   /// [navigator.permissions].
+  ///
+  /// This method is removed from the main permissions API specification because
+  /// its use case is unclear.
+  /// Permissions are managed by the browser and the current permission model
+  /// does not involve the site developer being able to imperatively request or
+  /// revoke permissions. Browsers have shipped this API behind preferences but
+  /// it's unlikely to reach the standards track.
+  /// For more context, see the [original discussion to remove
+  /// `permissions.revoke()`](https://github.com/w3c/permissions/issues/46).
   external JSPromise<PermissionStatus> revoke(JSObject permissionDesc);
 }
 

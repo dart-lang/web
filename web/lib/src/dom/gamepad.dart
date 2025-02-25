@@ -31,6 +31,12 @@ typedef GamepadHapticEffectType = String;
 /// [Window.gamepaddisconnected_event] events, or by grabbing any position in
 /// the array returned by the [Navigator.getGamepads] method.
 ///
+/// > [!NOTE]
+/// > The support of gamepad features varies across different combinations of
+/// > platforms and controllers. Even if the controller supports a certain
+/// > feature (for example, haptic feedback), the platform may not support it
+/// > for that controller.
+///
 /// ---
 ///
 /// API documentation sourced from
@@ -86,7 +92,8 @@ extension type Gamepad._(JSObject _) implements JSObject {
   /// updates, as
   /// newer values will always be greater than or equal to older values.
   ///
-  /// > **Note:** This property is not currently supported anywhere.
+  /// > [!NOTE]
+  /// > This property is not currently supported anywhere.
   external double get timestamp;
 
   /// The **`Gamepad.mapping`** property of the
@@ -112,24 +119,32 @@ extension type Gamepad._(JSObject _) implements JSObject {
   /// the axis position from the lowest value (-1.0) to the highest value (1.0).
   external JSArray<JSNumber> get axes;
 
-  /// The **`Gamepad.buttons`** property of the [Gamepad] interface returns an
-  /// array of [gamepadButton] objects representing the
-  /// buttons present on the device.
+  /// The **`buttons`** property of the [Gamepad] interface returns an array of
+  /// [gamepadButton] objects representing the buttons present on the device.
   ///
-  /// Each entry in the array is 0 if the button is not pressed, and non-zero
-  /// (typically 1.0)
-  /// if the button is pressed. Each [gamepadButton] object has two properties:
-  /// `pressed` and `value`:
+  /// Each entry in the array is `0` if the button is not pressed, and non-zero
+  /// (typically `1.0`) if the button is pressed.
   ///
-  /// - The `pressed` property is a boolean indicating whether the button is
-  /// currently pressed (`true`) or unpressed (`false`).
-  /// - The `value` property is a floating point value used to enable
-  /// representing analog buttons, such as the triggers on many modern gamepads.
-  /// The values
-  /// are normalized to the range 0.0 – 1.0, with 0.0 representing a button that
-  /// is not
-  /// pressed, and 1.0 representing a button that is fully pressed.
+  /// Each [gamepadButton] object has two properties:
+  ///
+  /// - `pressed`
+  ///
+  ///   - : A boolean indicating whether the button is currently pressed (`true`) or unpressed (`false`).
+  ///
+  /// - `value`
+  ///
+  ///   - : A floating point value used to enable representing analog buttons, such as the triggers on many modern gamepads. The values are normalized to the range 0.0 – 1.0, with 0.0 representing a button that is not pressed, and 1.0 representing a button that is fully pressed.
   external JSArray<GamepadButton> get buttons;
+
+  /// The **`vibrationActuator`** read-only property of the [Gamepad] interface
+  /// returns a [GamepadHapticActuator] object, which represents haptic feedback
+  /// hardware available on the controller.
+  ///
+  /// > [!NOTE]
+  /// > Support for this property may vary across different combinations of
+  /// > platforms and controllers. Even if the controller supports haptic
+  /// > feedback, the platform may not support it.
+  external GamepadHapticActuator get vibrationActuator;
 }
 
 /// The **`GamepadButton`** interface defines an individual button of a gamepad
@@ -185,11 +200,14 @@ extension type GamepadButton._(JSObject _) implements JSObject {
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/GamepadHapticActuator).
 extension type GamepadHapticActuator._(JSObject _) implements JSObject {
   /// The **`playEffect()`** method of the [GamepadHapticActuator] interface
-  /// makes the hardware play a specific vibration pattern.
+  /// causes the hardware to play a specific vibration effect.
   external JSPromise<JSString> playEffect(
     GamepadHapticEffectType type, [
     GamepadEffectParameters params,
   ]);
+
+  /// The **`reset()`** method of the [GamepadHapticActuator] interface stops
+  /// the hardware from playing an active vibration effect.
   external JSPromise<JSString> reset();
 
   /// The **`pulse()`** method of the [GamepadHapticActuator] interface makes

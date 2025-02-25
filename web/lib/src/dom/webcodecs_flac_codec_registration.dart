@@ -15,15 +15,14 @@ library;
 
 import 'dart:js_interop';
 
-/// The **`BluetoothUUID`** interface of the
-/// [Web Bluetooth API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Bluetooth_API)
-/// provides a way to look up Universally Unique Identifier (UUID) values by
-/// name in the
-/// [registry](https://www.bluetooth.com/specifications/assigned-numbers/)
-/// maintained by the Bluetooth SIG.
-///
-/// ---
-///
-/// API documentation sourced from
-/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/BluetoothUUID).
-extension type BluetoothUUID._(JSObject _) implements JSObject {}
+extension type FlacEncoderConfig._(JSObject _) implements JSObject {
+  external factory FlacEncoderConfig({
+    int blockSize,
+    int compressLevel,
+  });
+
+  external int get blockSize;
+  external set blockSize(int value);
+  external int get compressLevel;
+  external set compressLevel(int value);
+}

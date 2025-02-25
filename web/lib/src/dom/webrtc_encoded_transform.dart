@@ -71,9 +71,6 @@ extension type RTCEncodedVideoFrameMetadata._(JSObject _) implements JSObject {
 /// which may be modified using a
 /// [WebRTC Encoded Transform](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Using_Encoded_Transforms).
 ///
-/// > **Note:** This feature is available in
-/// > [_Dedicated_ Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API#worker_types).
-///
 /// ---
 ///
 /// API documentation sourced from
@@ -91,7 +88,7 @@ extension type RTCEncodedVideoFrame._(JSObject _) implements JSObject {
 
   /// @AvailableInWorkers("window_and_dedicated")
   ///
-  /// The readonly **`type`** property of the [RTCEncodedVideoFrame] interface
+  /// The **`type`** read-only property of the [RTCEncodedVideoFrame] interface
   /// indicates whether this frame is a key frame, delta frame, or empty frame.
   external RTCEncodedVideoFrameType get type;
 
@@ -139,9 +136,6 @@ extension type RTCEncodedAudioFrameMetadata._(JSObject _) implements JSObject {
 /// determined.
 /// The `data` property gives access to the encoded frame data as a buffer,
 /// which might be encrypted, or otherwise modified by a transform.
-///
-/// > **Note:** This feature is available in
-/// > [_Dedicated_ Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API#worker_types).
 ///
 /// ---
 ///
@@ -205,7 +199,8 @@ extension type RTCTransformEvent._(JSObject _) implements Event, JSObject {
 /// can use to modify encoded media frames in the incoming and outgoing WebRTC
 /// pipelines.
 ///
-/// > **Note:** This feature is available in
+/// > [!NOTE]
+/// > This feature is available in
 /// > [_Dedicated_ Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API#worker_types).
 ///
 /// ---
@@ -231,7 +226,8 @@ extension type RTCRtpScriptTransformer._(JSObject _)
   /// not necessary, in which case the returned promise will fulfill even though
   /// the request was not actually sent.
   ///
-  /// > **Note:** It might be called, for example, if a new user joins a WebRTC
+  /// > [!NOTE]
+  /// > It might be called, for example, if a new user joins a WebRTC
   /// > conference, in order to reduce the time before they receive a key frame
   /// > and can hence start displaying video.
   /// > For more information see

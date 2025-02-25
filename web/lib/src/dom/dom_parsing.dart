@@ -20,6 +20,9 @@ import 'dom.dart';
 /// The `XMLSerializer` interface provides the [XMLSerializer.serializeToString]
 /// method to construct an XML string representing a  tree.
 ///
+/// > [!NOTE]
+/// > The resulting XML string is not guaranteed to be well-formed XML.
+///
 /// ---
 ///
 /// API documentation sourced from

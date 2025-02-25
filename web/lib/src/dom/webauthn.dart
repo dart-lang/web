@@ -20,9 +20,10 @@ import 'fido.dart';
 import 'secure_payment_confirmation.dart';
 import 'webidl.dart';
 
+typedef Base64URLString = String;
+typedef PublicKeyCredentialJSON = JSObject;
+typedef PublicKeyCredentialClientCapabilities = JSObject;
 typedef COSEAlgorithmIdentifier = int;
-typedef UvmEntry = JSArray<JSNumber>;
-typedef UvmEntries = JSArray<UvmEntry>;
 
 /// The **`PublicKeyCredential`** interface provides information about a public
 /// key / private key pair, which is a credential for logging in to a service
@@ -32,8 +33,9 @@ typedef UvmEntries = JSArray<UvmEntry>;
 /// extension to the
 /// [Credential Management API](https://developer.mozilla.org/en-US/docs/Web/API/Credential_Management_API).
 ///
-/// > **Note:** This API is restricted to top-level contexts. Use from within an
-/// > `iframe` element will not have any effect.
+/// > [!NOTE]
+/// > This API is restricted to top-level contexts. Use from within an `iframe`
+/// > element will not have any effect.
 ///
 /// ---
 ///
@@ -41,6 +43,11 @@ typedef UvmEntries = JSArray<UvmEntry>;
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PublicKeyCredential).
 extension type PublicKeyCredential._(JSObject _)
     implements Credential, JSObject {
+  /// The **`isConditionalMediationAvailable()`** static method of the
+  /// [PublicKeyCredential] interface returns a `Promise` which resolves to
+  /// `true` if
+  /// [conditional mediation](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API#discoverable_credentials_and_conditional_mediation)
+  /// is available.
   external static JSPromise<JSBoolean> isConditionalMediationAvailable();
 
   /// The **`isUserVerifyingPlatformAuthenticatorAvailable()`** static method of
@@ -56,10 +63,46 @@ extension type PublicKeyCredential._(JSObject _)
   /// - Windows Hello (Windows)
   /// - Device unlock (fingerprint, face, PIN, etc.) on Android
   ///
-  /// > **Note:** This method may only be used in top-level contexts and will
-  /// > not be available in an `iframe` for example.
+  /// > [!NOTE]
+  /// > This method may only be used in top-level contexts and will not be
+  /// > available in an `iframe` for example.
   external static JSPromise<JSBoolean>
       isUserVerifyingPlatformAuthenticatorAvailable();
+
+  /// The **`getClientCapabilities()`** static method of the
+  /// [PublicKeyCredential] interface returns a `Promise` that resolves with an
+  /// object that can be used to check whether or not particular WebAuthn client
+  /// capabilities and
+  /// [extensions](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API/WebAuthn_extensions)
+  /// are supported.
+  ///
+  /// A relying party (RP) can use this information to appropriately customize
+  /// its sign-in and sign-up user interfaces and workflows.
+  external static JSPromise<PublicKeyCredentialClientCapabilities>
+      getClientCapabilities();
+
+  /// The **`parseCreationOptionsFromJSON()`** static method of the
+  /// [PublicKeyCredential] interface creates a
+  /// [PublicKeyCredentialCreationOptions] object from a JSON representation of
+  /// its properties.
+  ///
+  /// The method is a convenience function for converting credential options
+  /// information provided by a relying party server to the form that a web app
+  /// can use to
+  /// [create a credential](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API#creating_a_key_pair_and_registering_a_user).
+  external static PublicKeyCredentialCreationOptions
+      parseCreationOptionsFromJSON(
+          PublicKeyCredentialCreationOptionsJSON options);
+
+  /// The **`parseRequestOptionsFromJSON()`** static method of the
+  /// [PublicKeyCredential] interface converts a  into a
+  /// [PublicKeyCredentialRequestOptions] instance.
+  ///
+  /// The method is a convenience function for converting information provided
+  /// by a relying server to a web app in order to request an existing
+  /// credential.
+  external static PublicKeyCredentialRequestOptions parseRequestOptionsFromJSON(
+      PublicKeyCredentialRequestOptionsJSON options);
 
   /// The **`getClientExtensionResults()`** method of the
   /// [PublicKeyCredential] interface returns a map between the identifiers of
@@ -81,6 +124,26 @@ extension type PublicKeyCredential._(JSObject _)
   /// > available in [AuthenticatorAssertionResponse.authenticatorData].
   external AuthenticationExtensionsClientOutputs getClientExtensionResults();
 
+  /// The **`toJSON()`** method of the [PublicKeyCredential] interface returns a
+  /// of a [PublicKeyCredential].
+  ///
+  /// The properties of the returned object depend on whether the credential is
+  /// returned by
+  /// [`navigator.credentials.create()`](https://developer.mozilla.org/en-US/docs/Web/API/CredentialsContainer/create)
+  /// when
+  /// [creating a key pair and registering a user](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API#creating_a_key_pair_and_registering_a_user),
+  /// or
+  /// [`navigator.credentials.get()`](https://developer.mozilla.org/en-US/docs/Web/API/CredentialsContainer/get)
+  /// when
+  /// [authenticating a user](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API#authenticating_a_user).
+  ///
+  /// This method is automatically invoked when web app code calls
+  /// [`JSON.stringify()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify)
+  /// to serialize a [PublicKeyCredential] so that it can be sent to relying
+  /// party server when registering or authenticating a user.
+  /// It not intended to be called directly in web app code.
+  external PublicKeyCredentialJSON toJSON();
+
   /// The **`rawId`** read-only property of the
   /// [PublicKeyCredential] interface is an `ArrayBuffer` object
   /// containing the identifier of the credentials.
@@ -89,7 +152,8 @@ extension type PublicKeyCredential._(JSObject _)
   /// [base64url encoded](https://developer.mozilla.org/en-US/docs/Glossary/Base64)
   /// version of this identifier.
   ///
-  /// > **Note:** This property may only be used in top-level contexts and will
+  /// > [!NOTE]
+  /// > This property may only be used in top-level contexts and will
   /// > not be available in an `iframe` for example.
   external JSArrayBuffer get rawId;
 
@@ -119,12 +183,14 @@ extension type PublicKeyCredential._(JSObject _)
   /// [PublicKeyCredential.getClientExtensionResults]) to validate the
   /// demand.
   ///
-  /// > **Note:** When validating the fetching of existing credentials, the
+  /// > [!NOTE]
+  /// > When validating the fetching of existing credentials, the
   /// > whole `PublicKeyCredential` object and the client extensions are
   /// > necessary
   /// > for the relying party's server.
   ///
-  /// > **Note:** This property may only be used in top-level contexts and will
+  /// > [!NOTE]
+  /// > This property may only be used in top-level contexts and will
   /// > not be available in an `iframe` for example.
   external AuthenticatorResponse get response;
 
@@ -133,6 +199,108 @@ extension type PublicKeyCredential._(JSObject _)
   /// category of authenticator used during the associated
   /// [CredentialsContainer.create] or [CredentialsContainer.get] call.
   external String? get authenticatorAttachment;
+}
+extension type PublicKeyCredentialCreationOptionsJSON._(JSObject _)
+    implements JSObject {
+  external factory PublicKeyCredentialCreationOptionsJSON({
+    required PublicKeyCredentialRpEntity rp,
+    required PublicKeyCredentialUserEntityJSON user,
+    required Base64URLString challenge,
+    required JSArray<PublicKeyCredentialParameters> pubKeyCredParams,
+    int timeout,
+    JSArray<PublicKeyCredentialDescriptorJSON> excludeCredentials,
+    AuthenticatorSelectionCriteria authenticatorSelection,
+    JSArray<JSString> hints,
+    String attestation,
+    JSArray<JSString> attestationFormats,
+    AuthenticationExtensionsClientInputsJSON extensions,
+  });
+
+  external PublicKeyCredentialRpEntity get rp;
+  external set rp(PublicKeyCredentialRpEntity value);
+  external PublicKeyCredentialUserEntityJSON get user;
+  external set user(PublicKeyCredentialUserEntityJSON value);
+  external Base64URLString get challenge;
+  external set challenge(Base64URLString value);
+  external JSArray<PublicKeyCredentialParameters> get pubKeyCredParams;
+  external set pubKeyCredParams(JSArray<PublicKeyCredentialParameters> value);
+  external int get timeout;
+  external set timeout(int value);
+  external JSArray<PublicKeyCredentialDescriptorJSON> get excludeCredentials;
+  external set excludeCredentials(
+      JSArray<PublicKeyCredentialDescriptorJSON> value);
+  external AuthenticatorSelectionCriteria get authenticatorSelection;
+  external set authenticatorSelection(AuthenticatorSelectionCriteria value);
+  external JSArray<JSString> get hints;
+  external set hints(JSArray<JSString> value);
+  external String get attestation;
+  external set attestation(String value);
+  external JSArray<JSString> get attestationFormats;
+  external set attestationFormats(JSArray<JSString> value);
+  external AuthenticationExtensionsClientInputsJSON get extensions;
+  external set extensions(AuthenticationExtensionsClientInputsJSON value);
+}
+extension type PublicKeyCredentialUserEntityJSON._(JSObject _)
+    implements JSObject {
+  external factory PublicKeyCredentialUserEntityJSON({
+    required Base64URLString id,
+    required String name,
+    required String displayName,
+  });
+
+  external Base64URLString get id;
+  external set id(Base64URLString value);
+  external String get name;
+  external set name(String value);
+  external String get displayName;
+  external set displayName(String value);
+}
+extension type PublicKeyCredentialDescriptorJSON._(JSObject _)
+    implements JSObject {
+  external factory PublicKeyCredentialDescriptorJSON({
+    required String type,
+    required Base64URLString id,
+    JSArray<JSString> transports,
+  });
+
+  external String get type;
+  external set type(String value);
+  external Base64URLString get id;
+  external set id(Base64URLString value);
+  external JSArray<JSString> get transports;
+  external set transports(JSArray<JSString> value);
+}
+extension type AuthenticationExtensionsClientInputsJSON._(JSObject _)
+    implements JSObject {
+  AuthenticationExtensionsClientInputsJSON() : _ = JSObject();
+}
+extension type PublicKeyCredentialRequestOptionsJSON._(JSObject _)
+    implements JSObject {
+  external factory PublicKeyCredentialRequestOptionsJSON({
+    required Base64URLString challenge,
+    int timeout,
+    String rpId,
+    JSArray<PublicKeyCredentialDescriptorJSON> allowCredentials,
+    String userVerification,
+    JSArray<JSString> hints,
+    AuthenticationExtensionsClientInputsJSON extensions,
+  });
+
+  external Base64URLString get challenge;
+  external set challenge(Base64URLString value);
+  external int get timeout;
+  external set timeout(int value);
+  external String get rpId;
+  external set rpId(String value);
+  external JSArray<PublicKeyCredentialDescriptorJSON> get allowCredentials;
+  external set allowCredentials(
+      JSArray<PublicKeyCredentialDescriptorJSON> value);
+  external String get userVerification;
+  external set userVerification(String value);
+  external JSArray<JSString> get hints;
+  external set hints(JSArray<JSString> value);
+  external AuthenticationExtensionsClientInputsJSON get extensions;
+  external set extensions(AuthenticationExtensionsClientInputsJSON value);
 }
 
 /// The **`AuthenticatorResponse`** interface of the
@@ -149,7 +317,7 @@ extension type PublicKeyCredential._(JSObject _)
 extension type AuthenticatorResponse._(JSObject _) implements JSObject {
   /// The **`clientDataJSON`** property of the [AuthenticatorResponse] interface
   /// stores a
-  /// [JSON](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/JSON)
+  /// [JSON](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/JSON)
   /// string in an
   /// `ArrayBuffer`, representing the client data that was passed to
   /// [CredentialsContainer.create] or [CredentialsContainer.get]. This property
@@ -171,8 +339,9 @@ extension type AuthenticatorResponse._(JSObject _) implements JSObject {
 ///
 /// This interface inherits from [AuthenticatorResponse].
 ///
-/// > **Note:** This interface is restricted to top-level contexts. Use of its
-/// > features from within an `iframe` element will not have any effect.
+/// > [!NOTE]
+/// > This interface is restricted to top-level contexts. Use of its features
+/// > from within an `iframe` element will not have any effect.
 ///
 /// ---
 ///
@@ -233,7 +402,7 @@ extension type AuthenticatorAttestationResponse._(JSObject _)
   /// authenticator when it is manufactured.
   ///
   /// As part of the [CredentialsContainer.create] call, an authenticator will
-  /// create a new keypair as well as an `attestationObject` for that keypair.
+  /// create a new key pair as well as an `attestationObject` for that key pair.
   /// The public key
   /// that corresponds to the private key that has created the attestation
   /// signature is well
@@ -257,8 +426,9 @@ extension type AuthenticatorAttestationResponse._(JSObject _)
 ///
 /// This interface inherits from [AuthenticatorResponse].
 ///
-/// > **Note:** This interface is restricted to top-level contexts. Use from
-/// > within an `iframe` element will not have any effect.
+/// > [!NOTE]
+/// > This interface is restricted to top-level contexts. Use from within an
+/// > `iframe` element will not have any effect.
 ///
 /// ---
 ///
@@ -405,6 +575,18 @@ extension type AuthenticatorSelectionCriteria._(JSObject _)
   external String get userVerification;
   external set userVerification(String value);
 }
+
+/// The **`PublicKeyCredentialRequestOptions`** dictionary represents the object
+/// passed to [CredentialsContainer.get] as the value of the `publicKey` option.
+///
+/// It is used to request a [PublicKeyCredential] provided by an  that supports
+/// the
+/// [Web Authentication API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API).
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PublicKeyCredentialRequestOptions).
 extension type PublicKeyCredentialRequestOptions._(JSObject _)
     implements JSObject {
   external factory PublicKeyCredentialRequestOptions({
@@ -448,8 +630,6 @@ extension type AuthenticationExtensionsClientInputs._(JSObject _)
     bool credProps,
     AuthenticationExtensionsPRFInputs prf,
     AuthenticationExtensionsLargeBlobInputs largeBlob,
-    bool uvm,
-    AuthenticationExtensionsSupplementalPubKeysInputs supplementalPubKeys,
   });
 
   external String get credentialProtectionPolicy;
@@ -478,12 +658,6 @@ extension type AuthenticationExtensionsClientInputs._(JSObject _)
   external set prf(AuthenticationExtensionsPRFInputs value);
   external AuthenticationExtensionsLargeBlobInputs get largeBlob;
   external set largeBlob(AuthenticationExtensionsLargeBlobInputs value);
-  external bool get uvm;
-  external set uvm(bool value);
-  external AuthenticationExtensionsSupplementalPubKeysInputs
-      get supplementalPubKeys;
-  external set supplementalPubKeys(
-      AuthenticationExtensionsSupplementalPubKeysInputs value);
 }
 extension type AuthenticationExtensionsClientOutputs._(JSObject _)
     implements JSObject {
@@ -495,8 +669,6 @@ extension type AuthenticationExtensionsClientOutputs._(JSObject _)
     CredentialPropertiesOutput credProps,
     AuthenticationExtensionsPRFOutputs prf,
     AuthenticationExtensionsLargeBlobOutputs largeBlob,
-    UvmEntries uvm,
-    AuthenticationExtensionsSupplementalPubKeysOutputs supplementalPubKeys,
   });
 
   external bool get hmacCreateSecret;
@@ -513,12 +685,6 @@ extension type AuthenticationExtensionsClientOutputs._(JSObject _)
   external set prf(AuthenticationExtensionsPRFOutputs value);
   external AuthenticationExtensionsLargeBlobOutputs get largeBlob;
   external set largeBlob(AuthenticationExtensionsLargeBlobOutputs value);
-  external UvmEntries get uvm;
-  external set uvm(UvmEntries value);
-  external AuthenticationExtensionsSupplementalPubKeysOutputs
-      get supplementalPubKeys;
-  external set supplementalPubKeys(
-      AuthenticationExtensionsSupplementalPubKeysOutputs value);
 }
 extension type PublicKeyCredentialDescriptor._(JSObject _) implements JSObject {
   external factory PublicKeyCredentialDescriptor({
@@ -535,15 +701,10 @@ extension type PublicKeyCredentialDescriptor._(JSObject _) implements JSObject {
   external set transports(JSArray<JSString> value);
 }
 extension type CredentialPropertiesOutput._(JSObject _) implements JSObject {
-  external factory CredentialPropertiesOutput({
-    bool rk,
-    String authenticatorDisplayName,
-  });
+  external factory CredentialPropertiesOutput({bool rk});
 
   external bool get rk;
   external set rk(bool value);
-  external String get authenticatorDisplayName;
-  external set authenticatorDisplayName(String value);
 }
 extension type AuthenticationExtensionsPRFValues._(JSObject _)
     implements JSObject {
@@ -610,27 +771,4 @@ extension type AuthenticationExtensionsLargeBlobOutputs._(JSObject _)
   external set blob(JSArrayBuffer value);
   external bool get written;
   external set written(bool value);
-}
-extension type AuthenticationExtensionsSupplementalPubKeysInputs._(JSObject _)
-    implements JSObject {
-  external factory AuthenticationExtensionsSupplementalPubKeysInputs({
-    required JSArray<JSString> scopes,
-    String attestation,
-    JSArray<JSString> attestationFormats,
-  });
-
-  external JSArray<JSString> get scopes;
-  external set scopes(JSArray<JSString> value);
-  external String get attestation;
-  external set attestation(String value);
-  external JSArray<JSString> get attestationFormats;
-  external set attestationFormats(JSArray<JSString> value);
-}
-extension type AuthenticationExtensionsSupplementalPubKeysOutputs._(JSObject _)
-    implements JSObject {
-  external factory AuthenticationExtensionsSupplementalPubKeysOutputs(
-      {required JSArray<JSArrayBuffer> signatures});
-
-  external JSArray<JSArrayBuffer> get signatures;
-  external set signatures(JSArray<JSArrayBuffer> value);
 }

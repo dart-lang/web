@@ -28,9 +28,10 @@ typedef VoidFunction = JSFunction;
 /// Each exception has a **name**, which is a short "PascalCase"-style string
 /// identifying the error or abnormal condition.
 ///
-/// `DOMException` is a , so it can be cloned with [structuredClone] or copied
-/// between [Workers](https://developer.mozilla.org/en-US/docs/Web/API/Worker)
-/// using [Worker.postMessage].
+/// `DOMException` is a , so it can be cloned with [Window.structuredClone] or
+/// copied between
+/// [Workers](https://developer.mozilla.org/en-US/docs/Web/API/Worker) using
+/// [Worker.postMessage].
 ///
 /// ---
 ///

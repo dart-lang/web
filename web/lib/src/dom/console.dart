@@ -28,17 +28,11 @@ external $Console get console;
 /// documentation, try the methods in your browser's developer tools, although
 /// even here, there are some differences between browsers.
 ///
-/// The `console` object can be accessed from any global object. [Window] on
-/// browsing scopes and [WorkerGlobalScope] as specific variants in workers via
-/// the property console. It's exposed as [Window.console], and can be
-/// referenced as `console`. For example:
+/// The `console` object is available in any global scope. For example:
 ///
 /// ```js
 /// console.log("Failed to open the specified link");
 /// ```
-///
-/// This page documents the [Methods](#methods) available on the `console`
-/// object and gives a few [Usage](#usage) examples.
 ///
 /// ---
 ///

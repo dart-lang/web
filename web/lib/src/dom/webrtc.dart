@@ -1,4 +1,4 @@
-// Copyright (c) 2024, the Dart project authors.  Please see the AUTHORS file
+// Copyright (c) 2025, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 //
@@ -379,9 +379,12 @@ extension type RTCPeerConnection._(JSObject _)
   /// > [Starting negotiation](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Signaling_and_video_calling#starting_negotiation)
   /// > for details.
   external RTCRtpSender addTrack(
-    MediaStreamTrack track,
-    MediaStream streams,
-  );
+    MediaStreamTrack track, [
+    MediaStream stream1,
+    MediaStream stream2,
+    MediaStream stream3,
+    MediaStream stream4,
+  ]);
 
   /// The **`removeTrack()`** method of the [RTCPeerConnection] interface tells
   /// the local end of the connection to stop sending media from the specified
@@ -1142,7 +1145,12 @@ extension type RTCRtpSender._(JSObject _) implements JSObject {
 
   /// The [RTCRtpSender] method **`setStreams()`** associates the sender's
   /// [RTCRtpSender.track] with the specified [MediaStream] objects.
-  external void setStreams(MediaStream streams);
+  external void setStreams([
+    MediaStream stream1,
+    MediaStream stream2,
+    MediaStream stream3,
+    MediaStream stream4,
+  ]);
 
   /// The [RTCRtpSender] method **`getStats()`** asynchronously requests an
   /// [RTCStatsReport] object which provides statistics about outgoing traffic

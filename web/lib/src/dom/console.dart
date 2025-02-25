@@ -1,4 +1,4 @@
-// Copyright (c) 2024, the Dart project authors.  Please see the AUTHORS file
+// Copyright (c) 2025, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 //
@@ -47,35 +47,86 @@ external $Console get console;
 @JS('console')
 extension type $Console._(JSObject _) implements JSObject {
   @JS('assert')
-  external void assert_(
-    JSAny? data, [
+  external void assert_([
     bool condition,
+    JSAny? data1,
+    JSAny? data2,
+    JSAny? data3,
+    JSAny? data4,
   ]);
   external void clear();
-  external void debug(JSAny? data);
-  external void error(JSAny? data);
-  external void info(JSAny? data);
-  external void log(JSAny? data);
+  external void debug([
+    JSAny? data1,
+    JSAny? data2,
+    JSAny? data3,
+    JSAny? data4,
+  ]);
+  external void error([
+    JSAny? data1,
+    JSAny? data2,
+    JSAny? data3,
+    JSAny? data4,
+  ]);
+  external void info([
+    JSAny? data1,
+    JSAny? data2,
+    JSAny? data3,
+    JSAny? data4,
+  ]);
+  external void log([
+    JSAny? data1,
+    JSAny? data2,
+    JSAny? data3,
+    JSAny? data4,
+  ]);
   external void table([
     JSAny? tabularData,
     JSArray<JSString> properties,
   ]);
-  external void trace(JSAny? data);
-  external void warn(JSAny? data);
+  external void trace([
+    JSAny? data1,
+    JSAny? data2,
+    JSAny? data3,
+    JSAny? data4,
+  ]);
+  external void warn([
+    JSAny? data1,
+    JSAny? data2,
+    JSAny? data3,
+    JSAny? data4,
+  ]);
   external void dir([
     JSAny? item,
     JSObject? options,
   ]);
-  external void dirxml(JSAny? data);
+  external void dirxml([
+    JSAny? data1,
+    JSAny? data2,
+    JSAny? data3,
+    JSAny? data4,
+  ]);
   external void count([String label]);
   external void countReset([String label]);
-  external void group(JSAny? data);
-  external void groupCollapsed(JSAny? data);
+  external void group([
+    JSAny? data1,
+    JSAny? data2,
+    JSAny? data3,
+    JSAny? data4,
+  ]);
+  external void groupCollapsed([
+    JSAny? data1,
+    JSAny? data2,
+    JSAny? data3,
+    JSAny? data4,
+  ]);
   external void groupEnd();
   external void time([String label]);
-  external void timeLog(
-    JSAny? data, [
+  external void timeLog([
     String label,
+    JSAny? data1,
+    JSAny? data2,
+    JSAny? data3,
+    JSAny? data4,
   ]);
   external void timeEnd([String label]);
 }

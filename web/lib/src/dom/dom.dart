@@ -1,4 +1,4 @@
-// Copyright (c) 2024, the Dart project authors.  Please see the AUTHORS file
+// Copyright (c) 2025, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 //
@@ -1645,7 +1645,12 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// > calling `document.write()` on a closed (loaded) document automatically
   /// > calls `document.open()`,
   /// > [which will clear the document](https://developer.mozilla.org/en-US/docs/Web/API/Document/open#notes).
-  external void write(JSAny text);
+  external void write([
+    JSAny text1,
+    JSAny text2,
+    JSAny text3,
+    JSAny text4,
+  ]);
 
   /// > **Warning:** Use of the `document.writeln()` method is strongly
   /// > discouraged.
@@ -1672,7 +1677,12 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// > any existing code that is still using it.
   ///
   /// Writes a string of text followed by a newline character to a document.
-  external void writeln(JSAny text);
+  external void writeln([
+    JSAny text1,
+    JSAny text2,
+    JSAny text3,
+    JSAny text4,
+  ]);
 
   /// The **`hasFocus()`** method of the [Document] interface returns a boolean
   /// value indicating whether the document or any element inside the document
@@ -1841,7 +1851,12 @@ extension type Document._(JSObject _) implements Node, JSObject {
   ///
   /// This method prepends a child to a `Document`. To prepend to an arbitrary
   /// element in the tree, see [Element.prepend].
-  external void prepend(JSAny nodes);
+  external void prepend([
+    JSAny node1,
+    JSAny node2,
+    JSAny node3,
+    JSAny node4,
+  ]);
 
   /// The **`Document.append()`** method
   /// inserts a set of [Node] objects or string objects after
@@ -1850,11 +1865,21 @@ extension type Document._(JSObject _) implements Node, JSObject {
   ///
   /// This method appends a child to a `Document`. To append to an arbitrary
   /// element in the tree, see [Element.append].
-  external void append(JSAny nodes);
+  external void append([
+    JSAny node1,
+    JSAny node2,
+    JSAny node3,
+    JSAny node4,
+  ]);
 
   /// The **`Document.replaceChildren()`** method replaces the
   /// existing children of a `Document` with a specified new set of children.
-  external void replaceChildren(JSAny nodes);
+  external void replaceChildren([
+    JSAny node1,
+    JSAny node2,
+    JSAny node3,
+    JSAny node4,
+  ]);
 
   /// The [Document] method **`querySelector()`**
   /// returns the first [Element] within the document that matches the specified
@@ -2670,17 +2695,32 @@ extension type DocumentType._(JSObject _) implements Node, JSObject {
   /// [Node] objects or strings in the children list of the
   /// `DocumentType`'s parent, just before the `DocumentType`.
   /// Strings are inserted as equivalent [Text] nodes.
-  external void before(JSAny nodes);
+  external void before([
+    JSAny node1,
+    JSAny node2,
+    JSAny node3,
+    JSAny node4,
+  ]);
 
   /// The **`DocumentType.after()`** method inserts a set of
   /// [Node] objects or strings in the children list of the
   /// `DocumentType`'s parent, just after the `DocumentType`.
   /// Strings are inserted as equivalent [Text] nodes.
-  external void after(JSAny nodes);
+  external void after([
+    JSAny node1,
+    JSAny node2,
+    JSAny node3,
+    JSAny node4,
+  ]);
 
   /// The **`DocumentType.replaceWith()`** method replaces the document type
   /// with a set of given nodes.
-  external void replaceWith(JSAny nodes);
+  external void replaceWith([
+    JSAny node1,
+    JSAny node2,
+    JSAny node3,
+    JSAny node4,
+  ]);
 
   /// The **`DocumentType.remove()`** method removes a document's `doctype`.
   external void remove();
@@ -2755,7 +2795,12 @@ extension type DocumentFragment._(JSObject _) implements Node, JSObject {
   ///
   /// This method prepends a child to a `DocumentFragment`. To prepend to an
   /// arbitrary element in the tree, see [Element.prepend].
-  external void prepend(JSAny nodes);
+  external void prepend([
+    JSAny node1,
+    JSAny node2,
+    JSAny node3,
+    JSAny node4,
+  ]);
 
   /// The **`DocumentFragment.append()`** method
   /// inserts a set of [Node] objects or string objects after
@@ -2764,13 +2809,23 @@ extension type DocumentFragment._(JSObject _) implements Node, JSObject {
   ///
   /// This method appends a child to a `DocumentFragment`. To append to an
   /// arbitrary element in the tree, see [Element.append].
-  external void append(JSAny nodes);
+  external void append([
+    JSAny node1,
+    JSAny node2,
+    JSAny node3,
+    JSAny node4,
+  ]);
 
   /// The **`DocumentFragment.replaceChildren()`** method replaces the
   /// existing children of a `DocumentFragment` with a specified new set of
   /// children. These
   /// can be string or [Node] objects.
-  external void replaceChildren(JSAny nodes);
+  external void replaceChildren([
+    JSAny node1,
+    JSAny node2,
+    JSAny node3,
+    JSAny node4,
+  ]);
 
   /// The **`DocumentFragment.querySelector()`** method returns the
   /// first element, or `null` if no matches are found, within the
@@ -3509,7 +3564,12 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// [Node] objects or string objects before the first child
   /// of the [Element]. String objects are inserted as
   /// equivalent [Text] nodes.
-  external void prepend(JSAny nodes);
+  external void prepend([
+    JSAny node1,
+    JSAny node2,
+    JSAny node3,
+    JSAny node4,
+  ]);
 
   /// The **`Element.append()`** method
   /// inserts a set of [Node] objects or string objects after
@@ -3525,12 +3585,22 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// `Node.appendChild()` returns the appended [Node] object.
   /// - `Element.append()` can append several nodes and strings, whereas
   /// `Node.appendChild()` can only append one node.
-  external void append(JSAny nodes);
+  external void append([
+    JSAny node1,
+    JSAny node2,
+    JSAny node3,
+    JSAny node4,
+  ]);
 
   /// The **`Element.replaceChildren()`** method replaces the
   /// existing children of a [Node] with a specified new set of children. These
   /// can be string or [Node] objects.
-  external void replaceChildren(JSAny nodes);
+  external void replaceChildren([
+    JSAny node1,
+    JSAny node2,
+    JSAny node3,
+    JSAny node4,
+  ]);
 
   /// The **`querySelector()`** method of the [Element]
   /// interface returns the first element that is a descendant of the element on
@@ -3549,19 +3619,34 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// [Node] or string objects in the children list of this
   /// `Element`'s parent, just before this `Element`.
   /// String objects are inserted as equivalent [Text] nodes.
-  external void before(JSAny nodes);
+  external void before([
+    JSAny node1,
+    JSAny node2,
+    JSAny node3,
+    JSAny node4,
+  ]);
 
   /// The **`Element.after()`** method inserts a set of
   /// [Node] or string objects in the children list of the
   /// `Element`'s parent, just after the `Element`.
   /// String objects are inserted as equivalent [Text] nodes.
-  external void after(JSAny nodes);
+  external void after([
+    JSAny node1,
+    JSAny node2,
+    JSAny node3,
+    JSAny node4,
+  ]);
 
   /// The **`Element.replaceWith()`** method replaces this
   /// `Element` in the children list of its parent with a set of
   /// [Node] or string objects. String
   /// objects are inserted as equivalent [Text] nodes.
-  external void replaceWith(JSAny nodes);
+  external void replaceWith([
+    JSAny node1,
+    JSAny node2,
+    JSAny node3,
+    JSAny node4,
+  ]);
 
   /// The **`Element.remove()`** method removes the element from the DOM.
   external void remove();
@@ -4543,7 +4628,12 @@ extension type CharacterData._(JSObject _) implements Node, JSObject {
   ///
   /// Strings are inserted as [Text] nodes; the string is being passed as
   /// argument to the [Text.Text] constructor.
-  external void before(JSAny nodes);
+  external void before([
+    JSAny node1,
+    JSAny node2,
+    JSAny node3,
+    JSAny node4,
+  ]);
 
   /// The **`after()`** method of the [CharacterData] interface
   /// inserts a set of [Node] objects or strings in the children list of the
@@ -4551,7 +4641,12 @@ extension type CharacterData._(JSObject _) implements Node, JSObject {
   ///
   /// Strings are inserted as [Text] nodes; the string is being passed as
   /// argument to the [Text.Text] constructor.
-  external void after(JSAny nodes);
+  external void after([
+    JSAny node1,
+    JSAny node2,
+    JSAny node3,
+    JSAny node4,
+  ]);
 
   /// The **`replaceWith()`** method of the [CharacterData] interface
   /// replaces this node in the children list of its parent
@@ -4559,7 +4654,12 @@ extension type CharacterData._(JSObject _) implements Node, JSObject {
   ///
   /// Strings are inserted as [Text] nodes; the string is being passed as
   /// argument to the [Text.Text] constructor.
-  external void replaceWith(JSAny nodes);
+  external void replaceWith([
+    JSAny node1,
+    JSAny node2,
+    JSAny node3,
+    JSAny node4,
+  ]);
 
   /// The **`remove()`** method of the [CharacterData] removes the text
   /// contained in the node.
@@ -5396,11 +5496,21 @@ extension type DOMTokenList._(JSObject _) implements JSObject {
 
   /// The **`add()`** method of the [DOMTokenList] interface adds the given
   /// tokens to the list, omitting any that are already present.
-  external void add(String tokens);
+  external void add([
+    String token1,
+    String token2,
+    String token3,
+    String token4,
+  ]);
 
   /// The **`remove()`** method of the [DOMTokenList] interface
   /// removes the specified _tokens_ from the list.
-  external void remove(String tokens);
+  external void remove([
+    String token1,
+    String token2,
+    String token3,
+    String token4,
+  ]);
 
   /// The **`toggle()`** method of the [DOMTokenList] interface
   /// removes an existing token from the list and returns `false`.

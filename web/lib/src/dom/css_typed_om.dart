@@ -1,4 +1,4 @@
-// Copyright (c) 2024, the Dart project authors.  Please see the AUTHORS file
+// Copyright (c) 2025, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 //
@@ -100,17 +100,23 @@ extension type StylePropertyMap._(JSObject _)
   /// The **`set()`** method of the [StylePropertyMap]
   /// interface changes the CSS declaration with the given property.
   external void set(
-    String property,
-    JSAny values,
-  );
+    String property, [
+    JSAny value1,
+    JSAny value2,
+    JSAny value3,
+    JSAny value4,
+  ]);
 
   /// The **`append()`** method of the
   /// [StylePropertyMap] interface adds the passed CSS value to the
   /// `StylePropertyMap` with the given property.
   external void append(
-    String property,
-    JSAny values,
-  );
+    String property, [
+    JSAny value1,
+    JSAny value2,
+    JSAny value3,
+    JSAny value4,
+  ]);
 
   /// The **`delete()`** method of the
   /// [StylePropertyMap] interface removes the CSS declaration with the given
@@ -250,33 +256,63 @@ extension type CSSNumericValue._(JSObject _)
   /// The **`add()`** method of the
   /// [CSSNumericValue] interface adds a supplied number to the
   /// `CSSNumericValue`.
-  external CSSNumericValue add(CSSNumberish values);
+  external CSSNumericValue add([
+    CSSNumberish value1,
+    CSSNumberish value2,
+    CSSNumberish value3,
+    CSSNumberish value4,
+  ]);
 
   /// The **`sub()`** method of the
   /// [CSSNumericValue] interface subtracts a supplied number from the
   /// `CSSNumericValue`.
-  external CSSNumericValue sub(CSSNumberish values);
+  external CSSNumericValue sub([
+    CSSNumberish value1,
+    CSSNumberish value2,
+    CSSNumberish value3,
+    CSSNumberish value4,
+  ]);
 
   /// The **`mul()`** method of the
   /// [CSSNumericValue] interface multiplies the `CSSNumericValue` by
   /// the supplied value.
-  external CSSNumericValue mul(CSSNumberish values);
+  external CSSNumericValue mul([
+    CSSNumberish value1,
+    CSSNumberish value2,
+    CSSNumberish value3,
+    CSSNumberish value4,
+  ]);
 
   /// The **`div()`** method of the
   /// [CSSNumericValue] interface divides the `CSSNumericValue` by the
   /// supplied value.
-  external CSSNumericValue div(CSSNumberish values);
+  external CSSNumericValue div([
+    CSSNumberish value1,
+    CSSNumberish value2,
+    CSSNumberish value3,
+    CSSNumberish value4,
+  ]);
 
   /// The **`min()`** method of the
   /// [CSSNumericValue] interface returns the lowest value from among those
   /// values passed. The passed values must be of the same type.
-  external CSSNumericValue min(CSSNumberish values);
+  external CSSNumericValue min([
+    CSSNumberish value1,
+    CSSNumberish value2,
+    CSSNumberish value3,
+    CSSNumberish value4,
+  ]);
 
   /// The **`max()`** method of the
   /// [CSSNumericValue] interface returns the highest value from among the
   /// values
   /// passed. The passed values must be of the same type.
-  external CSSNumericValue max(CSSNumberish values);
+  external CSSNumericValue max([
+    CSSNumberish value1,
+    CSSNumberish value2,
+    CSSNumberish value3,
+    CSSNumberish value4,
+  ]);
 
   /// The **`equals()`** method of the
   /// [CSSNumericValue] interface returns a boolean indicating whether the
@@ -286,7 +322,12 @@ extension type CSSNumericValue._(JSObject _)
   /// be of the same type and value and must be in the same order. This allows
   /// structural
   /// equality to be tested quickly.
-  external bool equals(CSSNumberish value);
+  external bool equals([
+    CSSNumberish value1,
+    CSSNumberish value2,
+    CSSNumberish value3,
+    CSSNumberish value4,
+  ]);
 
   /// The **`to()`** method of the
   /// [CSSNumericValue] interface converts a numeric value from one unit to
@@ -296,7 +337,12 @@ extension type CSSNumericValue._(JSObject _)
   /// The **`toSum()`** method of the
   /// [CSSNumericValue] interface converts the object's value to a
   /// [CSSMathSum] object to values of the specified unit.
-  external CSSMathSum toSum(String units);
+  external CSSMathSum toSum([
+    String unit1,
+    String unit2,
+    String unit3,
+    String unit4,
+  ]);
 
   /// The **`type()`** method of the
   /// [CSSNumericValue] interface returns the type of

@@ -1,12 +1,13 @@
-## 1.2.0-wip
+## 2.0.0-wip
 - Added missing `FileReader` event getters: `onAbort`, `onError`, `onLoad`,
   `onLoadStart`, `onProgress`.
-- Removed renames `UnderlyingSource` and `UnderlyingSourceBase` where the types 
+- Removed renames `UnderlyingSource` and `UnderlyingSourceBase` where the types
   don't exist.
+- Fixed generation of variadic arguments to generate 4 optional parameters.
 
 ## 1.1.0
 
-- Added `HttpStatus` class that declares http status codes. This is a copy of 
+- Added `HttpStatus` class that declares http status codes. This is a copy of
   the `HttpStatus` from the `dart:_internal` library that's exposed only through
   `dart:io` and `dart:html`.
 - Added `JSImmutableListWrapper` which helps create a dart list from a JS list.

@@ -1,4 +1,4 @@
-// Copyright (c) 2024, the Dart project authors.  Please see the AUTHORS file
+// Copyright (c) 2025, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 //
@@ -195,25 +195,34 @@ extension type TrustedTypePolicy._(JSObject _) implements JSObject {
   /// a [TrustedHTML] object using a policy created by
   /// [TrustedTypePolicyFactory.createPolicy].
   external TrustedHTML createHTML(
-    String input,
-    JSAny? arguments,
-  );
+    String input, [
+    JSAny? argument1,
+    JSAny? argument2,
+    JSAny? argument3,
+    JSAny? argument4,
+  ]);
 
   /// The **`createScript()`** method of the [TrustedTypePolicy] interface
   /// creates a [TrustedScript] object using a policy created by
   /// [TrustedTypePolicyFactory.createPolicy].
   external TrustedScript createScript(
-    String input,
-    JSAny? arguments,
-  );
+    String input, [
+    JSAny? argument1,
+    JSAny? argument2,
+    JSAny? argument3,
+    JSAny? argument4,
+  ]);
 
   /// The **`createScriptURL()`** method of the [TrustedTypePolicy] interface
   /// creates a [TrustedScriptURL] object using a policy created by
   /// [TrustedTypePolicyFactory.createPolicy].
   external TrustedScriptURL createScriptURL(
-    String input,
-    JSAny? arguments,
-  );
+    String input, [
+    JSAny? argument1,
+    JSAny? argument2,
+    JSAny? argument3,
+    JSAny? argument4,
+  ]);
 
   /// The **`name`** read-only property of the [TrustedTypePolicy] interface
   /// returns the name of the policy.

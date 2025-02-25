@@ -273,12 +273,13 @@ class _Parameter {
   final Set<String> _names;
   final _RawType type;
   bool isOptional;
+  bool isVariadic;
   late final String name = _generateName();
 
-  _Parameter._(this._names, this.type, this.isOptional);
+  _Parameter._(this._names, this.type, this.isOptional, this.isVariadic);
 
-  factory _Parameter(idl.Argument argument) => _Parameter._(
-      {argument.name}, _getRawType(argument.idlType), argument.optional);
+  factory _Parameter(idl.Argument argument) => _Parameter._({argument.name},
+      _getRawType(argument.idlType), argument.optional, argument.variadic);
 
   String _generateName() {
     final namesList = _names.toList();
@@ -295,6 +296,9 @@ class _Parameter {
     type.update(argument.idlType);
     if (argument.optional) {
       isOptional = true;
+    }
+    if (argument.variadic) {
+      isVariadic = true;
     }
   }
 }
@@ -937,13 +941,22 @@ class Translator {
     final requiredParameters = <code.Parameter>[];
     final optionalParameters = <code.Parameter>[];
     for (final rawParameter in member.parameters) {
-      final parameter = code.Parameter((b) => b
-        ..name = dartRename(rawParameter.name)
-        ..type = _typeReference(rawParameter.type));
-      if (rawParameter.isOptional) {
-        optionalParameters.add(parameter);
+      final type = _typeReference(rawParameter.type);
+      if (rawParameter.isVariadic) {
+        for (var i = 0; i < 4; i++) {
+          optionalParameters.add(code.Parameter((b) => b
+            ..name = '${dartRename(rawParameter.name, true)}${i + 1}'
+            ..type = type));
+        }
       } else {
-        requiredParameters.add(parameter);
+        final parameter = code.Parameter((b) => b
+          ..name = dartRename(rawParameter.name)
+          ..type = type);
+        if (rawParameter.isOptional) {
+          optionalParameters.add(parameter);
+        } else {
+          requiredParameters.add(parameter);
+        }
       }
     }
     return generator(requiredParameters, optionalParameters);

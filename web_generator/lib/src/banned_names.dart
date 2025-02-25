@@ -5,9 +5,11 @@
 const bannedNames = <String>{
   'assert',
   'break',
+  'catch',
   'continue',
-  'extends',
   'default',
+  'extends',
+  'finally',
   'in',
   'is',
   'var',

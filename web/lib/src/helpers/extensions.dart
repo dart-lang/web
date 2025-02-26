@@ -70,6 +70,7 @@ extension CanvasRenderingContext2DGlue on CanvasRenderingContext2D {
 }
 
 extension NodeGlue on Node {
+  @Deprecated('See Node.textContent')
   set text(String s) => textContent = s;
   @Deprecated('See Node.appendChild()')
   Node append(Node other) => appendChild(other);
@@ -98,7 +99,9 @@ extension TouchGlue on Touch {
 }
 
 extension StorageGlue on Storage {
+  @Deprecated('Use Storage.getItem instead')
   String? operator [](String key) => getItem(key);
+  @Deprecated('Use Storage.setItem instead')
   void operator []=(String key, String value) => setItem(key, value);
 }
 

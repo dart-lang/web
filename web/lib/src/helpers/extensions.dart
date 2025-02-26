@@ -56,30 +56,6 @@ extension HTMLCanvasElementGlue on HTMLCanvasElement {
   }
 }
 
-extension CanvasRenderingContext2DGlue on CanvasRenderingContext2D {
-  @Deprecated('See CanvasRenderingContext2D.drawImage')
-  void drawImageScaled(
-    CanvasImageSource image,
-    double dx,
-    double dy,
-    double dw,
-    double dh,
-  ) =>
-      drawImage(image, dx, dy, dw, dh);
-}
-
-extension NodeGlue on Node {
-  @Deprecated('See Node.textContent')
-  set text(String s) => textContent = s;
-}
-
-extension StorageGlue on Storage {
-  @Deprecated('Use Storage.getItem instead')
-  String? operator [](String key) => getItem(key);
-  @Deprecated('Use Storage.setItem instead')
-  void operator []=(String key, String value) => setItem(key, value);
-}
-
 extension XMLHttpRequestGlue on XMLHttpRequest {
   /// Returns all response headers as a key-value map.
   ///

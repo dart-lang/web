@@ -23,9 +23,9 @@ void main() {
 
   test('Converts a JS list to a dart list using JSImmutableListWrapper', () {
     final div = (document.createElement('div'))
-      ..append(document.createElement('div')..text = '1')
-      ..append(document.createElement('div')..text = '2')
-      ..append(document.createElement('div')..text = '3');
+      ..append(document.createElement('div')..textContent = '1')
+      ..append(document.createElement('div')..textContent = '2')
+      ..append(document.createElement('div')..textContent = '3');
 
     final List<Node> dartList =
         JSImmutableListWrapper<NodeList, Node>(div.querySelectorAll('div'));

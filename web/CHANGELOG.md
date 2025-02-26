@@ -1,3 +1,8 @@
+## 1.1.1
+
+- Deprecated `Node.text` extension. Use `Node.textContent` instead.
+- Deprecated `[]` extensions on `Storage`.
+
 ## 1.1.0
 
 - Added `HttpStatus` class that declares http status codes. This is a copy of 

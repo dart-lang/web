@@ -21,7 +21,7 @@ extension type _JSList<T extends JSObject>(JSObject _) implements JSObject {
 /// A wrapper to present a JS immutable list of type `T` and list item type `U` as
 /// a `List<U>`.
 class JSImmutableListWrapper<T extends JSObject, U extends JSObject>
-    extends Object with ListMixin<U> implements List<U> {
+    with ListMixin<U> {
   final _JSList<U> _jsList;
 
   JSImmutableListWrapper(T original) : _jsList = _JSList<U>(original);

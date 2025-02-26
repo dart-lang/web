@@ -23,10 +23,8 @@ library;
 
 import 'dart:convert';
 import 'dart:js_interop';
-import 'dart:math' show Point;
 
 import '../dom.dart';
-import 'lists.dart';
 
 export 'cross_origin.dart'
     show CrossOriginContentWindowExtension, CrossOriginWindowExtension;
@@ -56,60 +54,6 @@ extension HTMLCanvasElementGlue on HTMLCanvasElement {
     return getContext('webgl', options) ??
         getContext('experimental-webgl', options);
   }
-}
-
-extension CanvasRenderingContext2DGlue on CanvasRenderingContext2D {
-  @Deprecated('See CanvasRenderingContext2D.drawImage')
-  void drawImageScaled(
-    CanvasImageSource image,
-    double dx,
-    double dy,
-    double dw,
-    double dh,
-  ) =>
-      drawImage(image, dx, dy, dw, dh);
-}
-
-extension NodeGlue on Node {
-  @Deprecated('See Node.textContent')
-  set text(String s) => textContent = s;
-  @Deprecated('See Node.appendChild()')
-  Node append(Node other) => appendChild(other);
-  @Deprecated('See Node.cloneNode()')
-  Node clone(bool? deep) => cloneNode(deep ?? false);
-}
-
-extension EventGlue on MouseEvent {
-  /// A [Point] representation of the [clientX] and [clientY] properties
-  /// of this [MouseEvent].
-  ///
-  /// **Deprecated:** Prefer directly accessing
-  /// the [clientX] and [clientY] properties on [MouseEvent].
-  @Deprecated('Instead directly access the clientX and clientY properties.')
-  Point get client => Point(clientX, clientY);
-}
-
-extension TouchGlue on Touch {
-  /// A [Point] representation of the [clientX] and [clientY] properties
-  /// of this [Touch] event.
-  ///
-  /// **Deprecated:** Prefer directly accessing
-  /// the [clientX] and [clientY] properties on [Touch].
-  @Deprecated('Instead directly access the clientX and clientY properties.')
-  Point get client => Point(clientX, clientY);
-}
-
-extension StorageGlue on Storage {
-  @Deprecated('Use Storage.getItem instead')
-  String? operator [](String key) => getItem(key);
-  @Deprecated('Use Storage.setItem instead')
-  void operator []=(String key, String value) => setItem(key, value);
-}
-
-@Deprecated('Use JSImmutableListWrapper<TouchList, Touch> instead.')
-extension TouchListConvert on TouchList {
-  @Deprecated('Use JSImmutableListWrapper<TouchList, Touch> directly instead.')
-  List<Touch> toList() => JSImmutableListWrapper<TouchList, Touch>(this);
 }
 
 extension XMLHttpRequestGlue on XMLHttpRequest {

@@ -4,6 +4,7 @@
 - Removed renames `UnderlyingSource` and `UnderlyingSourceBase` where the types
   don't exist.
 - Fixed generation of variadic arguments to generate 4 optional parameters.
+- Removed all `@Deprecated` members.
 
 ## 1.1.1
 

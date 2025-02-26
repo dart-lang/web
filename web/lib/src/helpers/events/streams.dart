@@ -176,9 +176,9 @@ class _EventStreamSubscription<T extends html.Event>
     // `dart:html` it would have printed 1, 2, 4, 3
     //
     // ```dart
-    // import 'package:web/helpers.dart';
+    // import 'package:web/web.dart';
     //
-    // main() {
+    // void main() {
     //   print('1');
     //   final body = document.body!;
     //   body.onTouchStart.first.whenComplete(() {

@@ -59,6 +59,7 @@ extension HTMLCanvasElementGlue on HTMLCanvasElement {
 }
 
 extension CanvasRenderingContext2DGlue on CanvasRenderingContext2D {
+  @Deprecated('See CanvasRenderingContext2D.drawImage')
   void drawImageScaled(
     CanvasImageSource image,
     double dx,
@@ -122,9 +123,8 @@ extension XMLHttpRequestGlue on XMLHttpRequest {
     // from Closure's goog.net.Xhrio.getResponseHeaders.
     final headers = <String, String>{};
     final headersString = getAllResponseHeaders();
-    final headersList =
-        LineSplitter.split(headersString).where((header) => header.isNotEmpty);
-    for (final header in headersList) {
+    for (final header in LineSplitter.split(headersString)
+        .where((header) => header.isNotEmpty)) {
       final split = header.split(': ');
       if (split.length <= 1) {
         continue;

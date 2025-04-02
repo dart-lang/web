@@ -8,6 +8,34 @@
 version: 1
 
 transforms:
+  ### package:web updates
+  - title: "text -> textContent"
+    date: 2025-03-03
+    element:
+      uris: [ 'package:web/web.dart' ]
+      field: 'text'
+      inClass: 'Element'
+    changes:
+      - kind: 'rename'
+        newName: 'textContent'
+
+  - title: "localStorage[%arg] -> localStorage.getItem(%arg)"
+    date: 2025-03-03
+    element:
+      uris: [ 'package:web/web.dart' ]
+    changes:
+      - kind: 'replacedBy'
+        newName: '??'
+
+  - title: "localStorage[%arg]= %arg2 -> localStorage.setItem(%arg, %arg2)"
+    date: 2025-03-03
+    element:
+      uris: [ 'package:web/web.dart' ]
+    changes:
+      - kind: 'replacedBy'
+        newName: '??'
+
+  ### MIGRATION package:html-->package:web
   # AnchorElement => HTMLAnchorElement
   - title: "Rename to 'HTMLAnchorElement'"
     date: 2024-01-12
@@ -42,7 +70,7 @@ transforms:
       uris: [ 'package:web/web.dart' ]
       class: 'BaseElement'
     changes:
-      - kind: 'rename'
+      - kind: 'rename'  
         newName: 'HTMLBaseElement'
   # BodyElement => HTMLBodyElement
   - title: "Rename to 'HTMLBodyElement'"

@@ -8,7 +8,7 @@ import 'dart:io';
 
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
 import 'package:analyzer/dart/analysis/results.dart';
-import 'package:analyzer/dart/element/element.dart';
+import 'package:analyzer/dart/element/element2.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:args/args.dart';
 import 'package:io/ansi.dart' as ansi;
@@ -201,20 +201,20 @@ Future<void> _generateJsTypeSupertypes() async {
       includedPaths: [p.join(_webPackagePath, 'lib', 'src', 'dom.dart')]);
   final dartJsInterop = (await contextCollection.contexts.single.currentSession
           .getLibraryByUri('dart:js_interop') as LibraryElementResult)
-      .element;
-  final definedNames = dartJsInterop.exportNamespace.definedNames;
+      .element2;
+  final definedNames = dartJsInterop.exportNamespace.definedNames2;
   // `SplayTreeMap` to avoid moving types around in `dart:js_interop` affecting
   // the code generation.
   final jsTypeSupertypes = SplayTreeMap<String, String?>();
   for (final name in definedNames.keys) {
     final element = definedNames[name];
-    if (element is ExtensionTypeElement) {
+    if (element is ExtensionTypeElement2) {
       // JS types are any extension type that starts with 'JS' in
       // `dart:js_interop`.
-      bool isJSType(InterfaceElement element) =>
-          element is ExtensionTypeElement &&
-          element.library == dartJsInterop &&
-          element.name.startsWith('JS');
+      bool isJSType(InterfaceElement2 element) =>
+          element is ExtensionTypeElement2 &&
+          element.library2 == dartJsInterop &&
+          element.name3!.startsWith('JS');
       if (!isJSType(element)) continue;
 
       String? parentJsType;
@@ -226,8 +226,8 @@ Future<void> _generateJsTypeSupertypes() async {
       // We should have at most one non-trivial supertype.
       assert(immediateSupertypes.length <= 1);
       for (final supertype in immediateSupertypes) {
-        if (isJSType(supertype.element)) {
-          parentJsType = "'${supertype.element.name}'";
+        if (isJSType(supertype.element3)) {
+          parentJsType = "'${supertype.element3.name3!}'";
         }
       }
       // Ensure that the hierarchy forms a tree.

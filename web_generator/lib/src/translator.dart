@@ -5,7 +5,6 @@
 import 'dart:js_interop';
 
 import 'package:code_builder/code_builder.dart' as code;
-import 'package:collection/collection.dart';
 import 'package:path/path.dart' as p;
 
 import 'banned_names.dart';
@@ -1279,9 +1278,10 @@ class Translator {
     final jsObject = _typeReference(_RawType('JSObject', false));
     const representationFieldName = '_';
     final legacyNameSpace = extendedAttributes
-        .firstWhereOrNull(
+        .where(
           (extendedAttribute) => extendedAttribute.name == 'LegacyNamespace',
         )
+        .firstOrNull
         ?.rhs
         .value;
     final instancePropertyMethods = <code.Method>[];

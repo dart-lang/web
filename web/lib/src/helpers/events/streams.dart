@@ -127,8 +127,7 @@ class _EventStream<T extends html.Event> extends Stream<T> {
   @override
   StreamSubscription<T> listen(void Function(T)? onData,
           {Function? onError, void Function()? onDone, bool? cancelOnError}) =>
-      _EventStreamSubscription<T>(
-          this._target, this._eventType, onData, this._useCapture);
+      _EventStreamSubscription<T>(_target, _eventType, onData, _useCapture);
 }
 
 /// Adapter for exposing DOM Element events as streams

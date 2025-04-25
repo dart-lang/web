@@ -8,7 +8,7 @@
 
 // Generated from Web IDL definitions.
 
-// ignore_for_file: unintended_html_in_doc_comment
+// ignore_for_file: provide_deprecation_message, unintended_html_in_doc_comment
 
 @JS()
 library;
@@ -180,6 +180,7 @@ extension type PerformanceNavigationTiming._(JSObject _)
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceTiming).
+@deprecated
 extension type PerformanceTiming._(JSObject _) implements JSObject {
   /// > [!WARNING]
   /// > This interface of this property is deprecated in the
@@ -205,6 +206,7 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
   /// the previous document in the same browsing context. If there is no
   /// previous document,
   /// this value will be the same as [PerformanceTiming.fetchStart].
+  @deprecated
   external int get navigationStart;
 
   /// > [!WARNING]
@@ -222,6 +224,7 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
   /// there is no previous document, or if the previous document, or one of the
   /// needed
   /// redirects, is not of the same origin, the value returned is `0`.
+  @deprecated
   external int get unloadEventStart;
 
   /// > [!WARNING]
@@ -239,6 +242,7 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
   /// there is no previous document, or if the previous document, or one of the
   /// needed
   /// redirects, is not of the same origin, the value returned is `0`.
+  @deprecated
   external int get unloadEventEnd;
 
   /// > [!WARNING]
@@ -256,6 +260,7 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
   /// redirect, or if one of the redirect is not of the same origin, the value
   /// returned is
   /// `0`.
+  @deprecated
   external int get redirectStart;
 
   /// > [!WARNING]
@@ -273,6 +278,7 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
   /// the last byte of the HTTP response has been received. If there is no
   /// redirect, or if one
   /// of the redirect is not of the same origin, the value returned is `0`.
+  @deprecated
   external int get redirectEnd;
 
   /// > [!WARNING]
@@ -289,6 +295,7 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
   /// document using
   /// an HTTP request. This moment is _before_ the check to any application
   /// cache.
+  @deprecated
   external int get fetchStart;
 
   /// > [!WARNING]
@@ -306,6 +313,7 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
   /// connection is used, or the information is stored in a cache or a local
   /// resource, the
   /// value will be the same as [PerformanceTiming.fetchStart].
+  @deprecated
   external int get domainLookupStart;
 
   /// > [!WARNING]
@@ -323,6 +331,7 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
   /// persistent connection is used, or the information is stored in a cache or
   /// a local
   /// resource, the value will be the same as [PerformanceTiming.fetchStart].
+  @deprecated
   external int get domainLookupEnd;
 
   /// > [!WARNING]
@@ -343,6 +352,7 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
   /// persistent
   /// connection is used, the value will be the same as
   /// [PerformanceTiming.fetchStart].
+  @deprecated
   external int get connectStart;
 
   /// > [!WARNING]
@@ -365,6 +375,7 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
   /// considered as opened when all secure connection handshake, or SOCKS
   /// authentication, is
   /// terminated.
+  @deprecated
   external int get connectEnd;
 
   /// > [!WARNING]
@@ -379,6 +390,7 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
   /// in milliseconds since the UNIX epoch, where the secure connection
   /// handshake starts. If
   /// no such connection is requested, it returns `0`.
+  @deprecated
   external int get secureConnectionStart;
 
   /// > [!WARNING]
@@ -398,6 +410,7 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
   /// start of the request and the connection is reopened, this property will be
   /// set to the
   /// time corresponding to the new request.
+  @deprecated
   external int get requestStart;
 
   /// > [!WARNING]
@@ -413,6 +426,7 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
   /// time (in milliseconds since the UNIX epoch) when the browser received the
   /// first byte of
   /// the response from the server, cache, or local resource.
+  @deprecated
   external int get responseStart;
 
   /// > [!WARNING]
@@ -430,6 +444,7 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
   /// response, or when the connection is closed if this happened first, from
   /// the server from
   /// a cache or from a local resource.
+  @deprecated
   external int get responseEnd;
 
   /// > [!WARNING]
@@ -446,6 +461,7 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
   /// that is when its
   /// [Document.readyState] changes to `'loading'` and the
   /// corresponding [Document.readystatechange_event] event is thrown.
+  @deprecated
   external int get domLoading;
 
   /// > [!WARNING]
@@ -472,6 +488,7 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
   /// [Check if you are in one of these cases](https://www.stevesouders.com/blog/2015/08/07/dominteractive-is-it-really/)
   /// before using this property as a proxy for the
   /// user experience of a website's speed of loading.
+  @deprecated
   external int get domInteractive;
 
   /// > [!WARNING]
@@ -488,6 +505,7 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
   /// [Document.DOMContentLoaded_event] event, that is right after all the
   /// scripts that need to be
   /// executed right after parsing has been executed.
+  @deprecated
   external int get domContentLoadedEventStart;
 
   /// > [!WARNING]
@@ -503,6 +521,7 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
   /// in milliseconds since the UNIX epoch, right after all the scripts that
   /// need to be
   /// executed as soon as possible, in order or not, has been executed.
+  @deprecated
   external int get domContentLoadedEventEnd;
 
   /// > [!WARNING]
@@ -521,6 +540,7 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
   /// `'complete'` and the corresponding [Document.readystatechange_event] event
   /// is
   /// thrown.
+  @deprecated
   external int get domComplete;
 
   /// > [!WARNING]
@@ -537,6 +557,7 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
   /// in milliseconds since the UNIX epoch, when the [Window.load_event] event
   /// was sent for the
   /// current document. If this event has not yet been sent, it returns `0.`
+  @deprecated
   external int get loadEventStart;
 
   /// > [!WARNING]
@@ -555,6 +576,7 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
   /// terminated, that is when the load event is completed. If this event has
   /// not yet been
   /// sent, or is not yet completed, it returns `0.`
+  @deprecated
   external int get loadEventEnd;
 }
 
@@ -573,6 +595,7 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceNavigation).
+@deprecated
 extension type PerformanceNavigation._(JSObject _) implements JSObject {
   static const int TYPE_NAVIGATE = 0;
 
@@ -601,6 +624,7 @@ extension type PerformanceNavigation._(JSObject _) implements JSObject {
   /// > This interface of this property is deprecated in the
   /// > [Navigation Timing Level 2 specification](https://w3c.github.io/navigation-timing/#obsolete).
   /// > Please use the [PerformanceNavigationTiming] interface instead.
+  @deprecated
   external int get type;
 
   /// The legacy
@@ -612,5 +636,6 @@ extension type PerformanceNavigation._(JSObject _) implements JSObject {
   /// > This interface of this property is deprecated in the
   /// > [Navigation Timing Level 2 specification](https://w3c.github.io/navigation-timing/#obsolete).
   /// > Please use the [PerformanceNavigationTiming] interface instead.
+  @deprecated
   external int get redirectCount;
 }

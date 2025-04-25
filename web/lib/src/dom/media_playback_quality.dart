@@ -8,7 +8,7 @@
 
 // Generated from Web IDL definitions.
 
-// ignore_for_file: unintended_html_in_doc_comment
+// ignore_for_file: provide_deprecation_message, unintended_html_in_doc_comment
 
 @JS()
 library;
@@ -47,5 +47,6 @@ extension type VideoPlaybackQuality._(JSObject _) implements JSObject {
   /// **`corruptedVideoFrames`** property the number of corrupted
   /// video frames that have been received since the `video` element was
   /// last loaded or reloaded.
+  @deprecated
   external int get corruptedVideoFrames;
 }

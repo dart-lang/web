@@ -8,7 +8,7 @@
 
 // Generated from Web IDL definitions.
 
-// ignore_for_file: unintended_html_in_doc_comment
+// ignore_for_file: provide_deprecation_message, unintended_html_in_doc_comment
 
 @JS()
 library;
@@ -1367,7 +1367,9 @@ extension type HTMLHtmlElement._(JSObject _) implements HTMLElement, JSObject {
   /// Returns version information about the document type definition (DTD) of a
   /// document. While this property is recognized by Mozilla, the return value
   /// for this property is always an empty string.
+  @deprecated
   external String get version;
+  @deprecated
   external set version(String value);
 }
 
@@ -1635,11 +1637,17 @@ extension type HTMLLinkElement._(JSObject _) implements HTMLElement, JSObject {
   /// impact of `fetchPriority` on the priority, are entirely browser dependent.
   external String get fetchPriority;
   external set fetchPriority(String value);
+  @deprecated
   external String get charset;
+  @deprecated
   external set charset(String value);
+  @deprecated
   external String get rev;
+  @deprecated
   external set rev(String value);
+  @deprecated
   external String get target;
+  @deprecated
   external set target(String value);
 
   /// The **`sheet`** read-only property of the [HTMLLinkElement] interface
@@ -1714,7 +1722,9 @@ extension type HTMLMetaElement._(JSObject _) implements HTMLElement, JSObject {
   /// [HTMLMetaElement.name] if a browser or user agent recognizes the scheme.
   ///
   /// This property is deprecated and should not be used on new web pages.
+  @deprecated
   external String get scheme;
+  @deprecated
   external set scheme(String value);
 }
 
@@ -1762,7 +1772,9 @@ extension type HTMLStyleElement._(JSObject _) implements HTMLElement, JSObject {
   /// attribute](/en-US/docs/Web/HTML/Element/style#type).
   ///
   /// Authors should not use this property or rely on the value.
+  @deprecated
   external String get type;
+  @deprecated
   external set type(String value);
 
   /// The read-only **`sheet`** property of the [HTMLStyleElement] interface
@@ -1787,17 +1799,29 @@ extension type HTMLBodyElement._(JSObject _) implements HTMLElement, JSObject {
 
   external EventHandler get onorientationchange;
   external set onorientationchange(EventHandler value);
+  @deprecated
   external String get text;
+  @deprecated
   external set text(String value);
+  @deprecated
   external String get link;
+  @deprecated
   external set link(String value);
+  @deprecated
   external String get vLink;
+  @deprecated
   external set vLink(String value);
+  @deprecated
   external String get aLink;
+  @deprecated
   external set aLink(String value);
+  @deprecated
   external String get bgColor;
+  @deprecated
   external set bgColor(String value);
+  @deprecated
   external String get background;
+  @deprecated
   external set background(String value);
   external EventHandler get onafterprint;
   external set onafterprint(EventHandler value);
@@ -1870,7 +1894,9 @@ extension type HTMLHeadingElement._(JSObject _)
   /// Creates an [HTMLHeadingElement] using the tag 'h6'.
   HTMLHeadingElement.h6() : _ = document.createElement('h6');
 
+  @deprecated
   external String get align;
+  @deprecated
   external set align(String value);
 }
 
@@ -1887,7 +1913,9 @@ extension type HTMLParagraphElement._(JSObject _)
   /// Creates an [HTMLParagraphElement] using the tag 'p'.
   HTMLParagraphElement() : _ = document.createElement('p');
 
+  @deprecated
   external String get align;
+  @deprecated
   external set align(String value);
 }
 
@@ -1903,15 +1931,25 @@ extension type HTMLHRElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLHRElement] using the tag 'hr'.
   HTMLHRElement() : _ = document.createElement('hr');
 
+  @deprecated
   external String get align;
+  @deprecated
   external set align(String value);
+  @deprecated
   external String get color;
+  @deprecated
   external set color(String value);
+  @deprecated
   external bool get noShade;
+  @deprecated
   external set noShade(bool value);
+  @deprecated
   external String get size;
+  @deprecated
   external set size(String value);
+  @deprecated
   external String get width;
+  @deprecated
   external set width(String value);
 }
 
@@ -1933,7 +1971,9 @@ extension type HTMLPreElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLPreElement] using the tag 'xmp'.
   HTMLPreElement.xmp() : _ = document.createElement('xmp');
 
+  @deprecated
   external int get width;
+  @deprecated
   external set width(int value);
 }
 
@@ -2008,7 +2048,9 @@ extension type HTMLOListElement._(JSObject _) implements HTMLElement, JSObject {
   /// > `list-style-type` property provides many more values.
   external String get type;
   external set type(String value);
+  @deprecated
   external bool get compact;
+  @deprecated
   external set compact(bool value);
 }
 
@@ -2024,9 +2066,13 @@ extension type HTMLUListElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLUListElement] using the tag 'ul'.
   HTMLUListElement() : _ = document.createElement('ul');
 
+  @deprecated
   external bool get compact;
+  @deprecated
   external set compact(bool value);
+  @deprecated
   external String get type;
+  @deprecated
   external set type(String value);
 }
 
@@ -2043,7 +2089,9 @@ extension type HTMLMenuElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLMenuElement] using the tag 'menu'.
   HTMLMenuElement() : _ = document.createElement('menu');
 
+  @deprecated
   external bool get compact;
+  @deprecated
   external set compact(bool value);
 }
 
@@ -2072,7 +2120,9 @@ extension type HTMLLIElement._(JSObject _) implements HTMLElement, JSObject {
   /// ordinal value when rendered.
   external int get value;
   external set value(int value);
+  @deprecated
   external String get type;
+  @deprecated
   external set type(String value);
 }
 
@@ -2088,7 +2138,9 @@ extension type HTMLDListElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLDListElement] using the tag 'dl'.
   HTMLDListElement() : _ = document.createElement('dl');
 
+  @deprecated
   external bool get compact;
+  @deprecated
   external set compact(bool value);
 }
 
@@ -2104,7 +2156,9 @@ extension type HTMLDivElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLDivElement] using the tag 'div'.
   HTMLDivElement() : _ = document.createElement('div');
 
+  @deprecated
   external String get align;
+  @deprecated
   external set align(String value);
 }
 
@@ -2220,15 +2274,25 @@ extension type HTMLAnchorElement._(JSObject _)
   /// `a` element defining which referrer is sent when fetching the resource.
   external String get referrerPolicy;
   external set referrerPolicy(String value);
+  @deprecated
   external String get coords;
+  @deprecated
   external set coords(String value);
+  @deprecated
   external String get charset;
+  @deprecated
   external set charset(String value);
+  @deprecated
   external String get name;
+  @deprecated
   external set name(String value);
+  @deprecated
   external String get rev;
+  @deprecated
   external set rev(String value);
+  @deprecated
   external String get shape;
+  @deprecated
   external set shape(String value);
 
   /// The **`HTMLAnchorElement.href`** property is a
@@ -2443,7 +2507,9 @@ extension type HTMLBRElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLBRElement] using the tag 'br'.
   HTMLBRElement() : _ = document.createElement('br');
 
+  @deprecated
   external String get clear;
+  @deprecated
   external set clear(String value);
 }
 
@@ -2875,9 +2941,13 @@ extension type HTMLImageElement._(JSObject _) implements HTMLElement, JSObject {
   /// interface's _deprecated_ **`name`** property specifies
   /// a name for the element. This has been replaced by the [Element.id]
   /// property available on all elements.
+  @deprecated
   external String get name;
+  @deprecated
   external set name(String value);
+  @deprecated
   external String get lowsrc;
+  @deprecated
   external set lowsrc(String value);
 
   /// The _obsolete_ **`align`**
@@ -2892,7 +2962,9 @@ extension type HTMLImageElement._(JSObject _) implements HTMLElement, JSObject {
   /// The `align` property reflects the HTML
   /// [`align`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#align)
   /// content attribute.
+  @deprecated
   external String get align;
+  @deprecated
   external set align(String value);
 
   /// The
@@ -2904,14 +2976,18 @@ extension type HTMLImageElement._(JSObject _) implements HTMLElement, JSObject {
   /// This property reflects the
   /// [`hspace`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#hspace)
   /// attribute.
+  @deprecated
   external int get hspace;
+  @deprecated
   external set hspace(int value);
 
   /// The _obsolete_ **`vspace`** property of the
   /// [HTMLImageElement] interface specifies the number of pixels of empty space
   /// to leave empty on the top and bottom of the `img` element when laying
   /// out the page.
+  @deprecated
   external int get vspace;
+  @deprecated
   external set vspace(int value);
 
   /// The _deprecated_ property **`longDesc`** on
@@ -2921,7 +2997,9 @@ extension type HTMLImageElement._(JSObject _) implements HTMLElement, JSObject {
   /// the
   /// [`title`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title)
   /// attribute.
+  @deprecated
   external String get longDesc;
+  @deprecated
   external set longDesc(String value);
 
   /// The obsolete [HTMLImageElement]
@@ -2946,7 +3024,9 @@ extension type HTMLImageElement._(JSObject _) implements HTMLElement, JSObject {
   /// properties instead
   /// (or in addition): , ,
   /// , and .
+  @deprecated
   external String get border;
+  @deprecated
   external set border(String value);
 }
 
@@ -3078,17 +3158,29 @@ extension type HTMLIFrameElement._(JSObject _)
   ///
   /// This attribute is read-only.
   external Window? get contentWindow;
+  @deprecated
   external String get align;
+  @deprecated
   external set align(String value);
+  @deprecated
   external String get scrolling;
+  @deprecated
   external set scrolling(String value);
+  @deprecated
   external String get frameBorder;
+  @deprecated
   external set frameBorder(String value);
+  @deprecated
   external String get longDesc;
+  @deprecated
   external set longDesc(String value);
+  @deprecated
   external String get marginHeight;
+  @deprecated
   external set marginHeight(String value);
+  @deprecated
   external String get marginWidth;
+  @deprecated
   external set marginWidth(String value);
 }
 
@@ -3139,9 +3231,13 @@ extension type HTMLEmbedElement._(JSObject _) implements HTMLElement, JSObject {
   /// indicating the displayed height of the resource in CSS pixels.
   external String get height;
   external set height(String value);
+  @deprecated
   external String get align;
+  @deprecated
   external set align(String value);
+  @deprecated
   external String get name;
+  @deprecated
   external set name(String value);
 }
 
@@ -3269,23 +3365,41 @@ extension type HTMLObjectElement._(JSObject _)
   /// satisfies its
   /// constraints.
   external String get validationMessage;
+  @deprecated
   external String get align;
+  @deprecated
   external set align(String value);
+  @deprecated
   external String get archive;
+  @deprecated
   external set archive(String value);
+  @deprecated
   external String get code;
+  @deprecated
   external set code(String value);
+  @deprecated
   external bool get declare;
+  @deprecated
   external set declare(bool value);
+  @deprecated
   external int get hspace;
+  @deprecated
   external set hspace(int value);
+  @deprecated
   external String get standby;
+  @deprecated
   external set standby(String value);
+  @deprecated
   external int get vspace;
+  @deprecated
   external set vspace(int value);
+  @deprecated
   external String get codeBase;
+  @deprecated
   external set codeBase(String value);
+  @deprecated
   external String get codeType;
+  @deprecated
   external set codeType(String value);
 
   /// The **`useMap`** property of the
@@ -3294,9 +3408,13 @@ extension type HTMLObjectElement._(JSObject _)
   /// [`usemap`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/object#usemap)
   /// HTML attribute, specifying a
   /// `map` element to use.
+  @deprecated
   external String get useMap;
+  @deprecated
   external set useMap(String value);
+  @deprecated
   external String get border;
+  @deprecated
   external set border(String value);
 }
 
@@ -4673,7 +4791,9 @@ extension type HTMLAreaElement._(JSObject _) implements HTMLElement, JSObject {
   /// resource.
   external String get referrerPolicy;
   external set referrerPolicy(String value);
+  @deprecated
   external bool get noHref;
+  @deprecated
   external set noHref(bool value);
 
   /// The **`HTMLAreaElement.href`** property is a
@@ -4978,34 +5098,46 @@ extension type HTMLTableElement._(JSObject _) implements HTMLElement, JSObject {
 
   /// The **`HTMLTableElement.align`** property represents the
   /// alignment of the table.
+  @deprecated
   external String get align;
+  @deprecated
   external set align(String value);
 
   /// The **`HTMLTableElement.border`** property represents the
   /// border width of the `table` element.
+  @deprecated
   external String get border;
+  @deprecated
   external set border(String value);
 
   /// The [HTMLTableElement] interface's **`frame`**
   /// property is a string that indicates which of the table's exterior borders
   /// should be
   /// drawn.
+  @deprecated
   external String get frame;
+  @deprecated
   external set frame(String value);
 
   /// The **`HTMLTableElement.rules`** property indicates which cell
   /// borders to render in the table.
+  @deprecated
   external String get rules;
+  @deprecated
   external set rules(String value);
 
   /// The **`HTMLTableElement.summary`** property represents the
   /// table description.
+  @deprecated
   external String get summary;
+  @deprecated
   external set summary(String value);
 
   /// The **`HTMLTableElement.width`** property represents the
   /// desired width of the table.
+  @deprecated
   external String get width;
+  @deprecated
   external set width(String value);
 
   /// The **`bgcolor`** property of the [HTMLTableElement] represents the
@@ -5016,12 +5148,16 @@ extension type HTMLTableElement._(JSObject _) implements HTMLElement, JSObject {
   /// > modifying the element's
   /// > [`style`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/style)
   /// > attribute or using a style rule.
+  @deprecated
   external String get bgColor;
+  @deprecated
   external set bgColor(String value);
 
   /// The **`HTMLTableElement.cellPadding`** property represents the
   /// padding around the individual cells of the table.
+  @deprecated
   external String get cellPadding;
+  @deprecated
   external set cellPadding(String value);
 
   /// While you should instead use the CSS
@@ -5031,7 +5167,9 @@ extension type HTMLTableElement._(JSObject _) implements HTMLElement, JSObject {
   /// representing a table's cells. Any two cells are separated by the sum of
   /// the
   /// `cellSpacing` of each of the two cells.
+  @deprecated
   external String get cellSpacing;
+  @deprecated
   external set cellSpacing(String value);
 }
 
@@ -5056,7 +5194,9 @@ extension type HTMLTableCaptionElement._(JSObject _)
   /// > This property is deprecated, and CSS should be used to align text
   /// > horizontally in a cell. Use the CSS  property, which takes precedence,
   /// > to horizontally align text in the caption cell instead.
+  @deprecated
   external String get align;
+  @deprecated
   external set align(String value);
 }
 
@@ -5097,7 +5237,9 @@ extension type HTMLTableColElement._(JSObject _)
   /// > element, you need to select the cells of the column using a
   /// > `td:nth-last-child(n)` or similar (`n` is the column number, counting
   /// > from the end).
+  @deprecated
   external String get align;
+  @deprecated
   external set align(String value);
 
   /// The **`ch`** property of the [HTMLTableColElement] interface does nothing.
@@ -5110,7 +5252,9 @@ extension type HTMLTableColElement._(JSObject _)
   /// >
   /// > To achieve such alignment, watch for the support of a string value with
   /// > the  CSS property.
+  @deprecated
   external String get ch;
+  @deprecated
   external set ch(String value);
 
   /// The **`chOff`** property of the [HTMLTableColElement] interface does
@@ -5123,7 +5267,9 @@ extension type HTMLTableColElement._(JSObject _)
   /// >
   /// > To achieve such alignment, watch for the support of a string value with
   /// > the  CSS property.
+  @deprecated
   external String get chOff;
+  @deprecated
   external set chOff(String value);
 
   /// The **`vAlign`** property of the [HTMLTableColElement] interface is a
@@ -5138,9 +5284,13 @@ extension type HTMLTableColElement._(JSObject _)
   /// > As `td` are not children of `col`, you can't set it directly on a `col`
   /// > element, you need to select the cells of the column using a
   /// > `td:nth-child(n)` or similar (`n` is the column number).
+  @deprecated
   external String get vAlign;
+  @deprecated
   external set vAlign(String value);
+  @deprecated
   external String get width;
+  @deprecated
   external set width(String value);
 }
 
@@ -5196,7 +5346,9 @@ extension type HTMLTableSectionElement._(JSObject _)
   /// > This property is deprecated, and CSS should be used to align text
   /// > horizontally in a cell. Use the CSS  property, which takes precedence,
   /// > to horizontally align text in section cells instead.
+  @deprecated
   external String get align;
+  @deprecated
   external set align(String value);
 
   /// The **`ch`** property of the [HTMLTableSectionElement] interface does
@@ -5209,7 +5361,9 @@ extension type HTMLTableSectionElement._(JSObject _)
   /// >
   /// > To achieve such alignment, watch for the support of a string value with
   /// > the  CSS property.
+  @deprecated
   external String get ch;
+  @deprecated
   external set ch(String value);
 
   /// The **`chOff`** property of the [HTMLTableSectionElement] interface does
@@ -5222,7 +5376,9 @@ extension type HTMLTableSectionElement._(JSObject _)
   /// >
   /// > To achieve such alignment, watch for the support of a string value with
   /// > the  CSS property.
+  @deprecated
   external String get chOff;
+  @deprecated
   external set chOff(String value);
 
   /// The **`vAlign`** property of the [HTMLTableSectionElement] interface is a
@@ -5232,7 +5388,9 @@ extension type HTMLTableSectionElement._(JSObject _)
   /// > [!NOTE]
   /// > This property is deprecated. Use the CSS  property to horizontally align
   /// > text in section cells instead.
+  @deprecated
   external String get vAlign;
+  @deprecated
   external set vAlign(String value);
 }
 
@@ -5301,7 +5459,9 @@ extension type HTMLTableRowElement._(JSObject _)
   /// > This property is deprecated, and CSS should be used to align text
   /// > horizontally in a cell. Use the CSS  property, which takes precedence,
   /// > to horizontally align text in a row instead.
+  @deprecated
   external String get align;
+  @deprecated
   external set align(String value);
 
   /// The **`ch`** property of the [HTMLTableRowElement] interface does nothing.
@@ -5314,7 +5474,9 @@ extension type HTMLTableRowElement._(JSObject _)
   /// >
   /// > To achieve such alignment, watch for the support of a string value with
   /// > the  CSS property.
+  @deprecated
   external String get ch;
+  @deprecated
   external set ch(String value);
 
   /// The **`chOff`** property of the [HTMLTableRowElement] interface does
@@ -5327,7 +5489,9 @@ extension type HTMLTableRowElement._(JSObject _)
   /// >
   /// > To achieve such alignment, watch for the support of a string value with
   /// > the  CSS property.
+  @deprecated
   external String get chOff;
+  @deprecated
   external set chOff(String value);
 
   /// The **`vAlign`** property of the [HTMLTableRowElement] interface is a
@@ -5337,7 +5501,9 @@ extension type HTMLTableRowElement._(JSObject _)
   /// > [!NOTE]
   /// > This property is deprecated. Use the CSS  property to horizontally align
   /// > text in a row instead.
+  @deprecated
   external String get vAlign;
+  @deprecated
   external set vAlign(String value);
 
   /// The **`HTMLTableRowElement.bgColor`** property is used to set the
@@ -5348,7 +5514,9 @@ extension type HTMLTableRowElement._(JSObject _)
   /// > [!NOTE]
   /// > This property is deprecated and CSS should be used to set the background
   /// > color. Use the  property instead.
+  @deprecated
   external String get bgColor;
+  @deprecated
   external set bgColor(String value);
 }
 
@@ -5436,13 +5604,21 @@ extension type HTMLTableCellElement._(JSObject _)
   /// > This property is deprecated, and CSS should be used to align text
   /// > horizontally in a cell. Use the CSS  property, which takes precedence,
   /// > to horizontally align text in a cell instead.
+  @deprecated
   external String get align;
+  @deprecated
   external set align(String value);
+  @deprecated
   external String get axis;
+  @deprecated
   external set axis(String value);
+  @deprecated
   external String get height;
+  @deprecated
   external set height(String value);
+  @deprecated
   external String get width;
+  @deprecated
   external set width(String value);
 
   /// The **`ch`** property of the [HTMLTableCellElement] interface does
@@ -5455,7 +5631,9 @@ extension type HTMLTableCellElement._(JSObject _)
   /// >
   /// > To achieve such alignment, watch for the support of a string value with
   /// > the  CSS property.
+  @deprecated
   external String get ch;
+  @deprecated
   external set ch(String value);
 
   /// The **`chOff`** property of the [HTMLTableCellElement] interface does
@@ -5468,7 +5646,9 @@ extension type HTMLTableCellElement._(JSObject _)
   /// >
   /// > To achieve such alignment, watch for the support of a string value with
   /// > the  CSS property.
+  @deprecated
   external String get chOff;
+  @deprecated
   external set chOff(String value);
 
   /// The **`noWrap`** property of the [HTMLTableCellElement] interface returns
@@ -5478,7 +5658,9 @@ extension type HTMLTableCellElement._(JSObject _)
   /// > [!NOTE]
   /// > This property is deprecated and you should use the CSS  property with
   /// > the value `nowrap` instead.
+  @deprecated
   external bool get noWrap;
+  @deprecated
   external set noWrap(bool value);
 
   /// The **`vAlign`** property of the [HTMLTableCellElement] interface is a
@@ -5488,7 +5670,9 @@ extension type HTMLTableCellElement._(JSObject _)
   /// > [!NOTE]
   /// > This property is deprecated. Use the CSS  property to horizontally align
   /// > text in a cell instead.
+  @deprecated
   external String get vAlign;
+  @deprecated
   external set vAlign(String value);
 
   /// The **`HTMLTableCellElement.bgColor`** property is used to set the
@@ -5499,7 +5683,9 @@ extension type HTMLTableCellElement._(JSObject _)
   /// > [!NOTE]
   /// > This property is deprecated and CSS should be used to set the background
   /// > color. Use the  property instead.
+  @deprecated
   external String get bgColor;
+  @deprecated
   external set bgColor(String value);
 }
 
@@ -6691,9 +6877,13 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
   /// is an empty string.
   external String get capture;
   external set capture(String value);
+  @deprecated
   external String get align;
+  @deprecated
   external set align(String value);
+  @deprecated
   external String get useMap;
+  @deprecated
   external set useMap(String value);
 
   /// The **`popoverTargetElement`** property of the [HTMLInputElement]
@@ -8035,7 +8225,9 @@ extension type HTMLLegendElement._(JSObject _)
   /// associated with this `legend`, or `null` if this legend is not associated
   /// with a `fieldset` owned by a form.
   external HTMLFormElement? get form;
+  @deprecated
   external String get align;
+  @deprecated
   external set align(String value);
 }
 
@@ -8521,11 +8713,17 @@ extension type HTMLScriptElement._(JSObject _)
   /// impact of `fetchPriority` on the priority, are entirely browser dependent.
   external String get fetchPriority;
   external set fetchPriority(String value);
+  @deprecated
   external String get charset;
+  @deprecated
   external set charset(String value);
+  @deprecated
   external String get event;
+  @deprecated
   external set event(String value);
+  @deprecated
   external String get htmlFor;
+  @deprecated
   external set htmlFor(String value);
 }
 
@@ -12580,7 +12778,9 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// requires
   /// setting `window.status` to have no effect on the text displayed in the
   /// status bar.
+  @deprecated
   external String get status;
+  @deprecated
   external set status(String value);
 
   /// The **`Window.closed`** read-only property indicates whether
@@ -12647,8 +12847,11 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   ///
   /// This property is deprecated. Use the [Screen.orientation] property
   /// instead, available on the [window.screen] property.
+  @deprecated
   external int get orientation;
+  @deprecated
   external EventHandler get onorientationchange;
+  @deprecated
   external set onorientationchange(EventHandler value);
 
   /// The **`cookieStore`** read-only property of the [Window] interface returns
@@ -12793,6 +12996,7 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// > This property can be fragile, in that there may be situations in which
   /// > the returned `Event` is not the expected value. In addition,
   /// > `Window.event` is not accurate for events dispatched within .
+  @deprecated
   external Event? get event;
 
   /// The `external` property of the [Window] API returns an instance of the
@@ -12800,6 +13004,7 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// adding external search providers to the browser. However, this is now
   /// deprecated, and the contained methods are now dummy functions that do
   /// nothing as per spec.
+  @deprecated
   external External get external;
   external EventHandler get onappinstalled;
   external set onappinstalled(EventHandler value);
@@ -13039,7 +13244,9 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   external set onstorage(EventHandler value);
   external EventHandler get onunhandledrejection;
   external set onunhandledrejection(EventHandler value);
+  @deprecated
   external EventHandler get onunload;
+  @deprecated
   external set onunload(EventHandler value);
   external EventHandler get ongamepadconnected;
   external set ongamepadconnected(EventHandler value);
@@ -13736,7 +13943,9 @@ extension type BeforeUnloadEvent._(JSObject _) implements Event, JSObject {
   /// > `BeforeUnloadEvent` object, while also setting `returnValue` to support
   /// > legacy cases. See the [Window.beforeunload_event] event reference for
   /// > detailed up-to-date guidance.
+  @deprecated
   external String get returnValue;
+  @deprecated
   external set returnValue(String value);
 }
 
@@ -14274,6 +14483,7 @@ extension type Navigator._(JSObject _) implements JSObject {
   /// > Do not rely on this property to return a real
   /// > product name. All browsers return `"Mozilla"` as the value of this
   /// > property.
+  @deprecated
   external String get appCodeName;
 
   /// The value of the **`Navigator.appName`** property is always
@@ -14283,6 +14493,7 @@ extension type Navigator._(JSObject _) implements JSObject {
   /// > [!NOTE]
   /// > Do not rely on this property to return a real browser name. All browsers
   /// > return `"Netscape"` as the value of this property.
+  @deprecated
   external String get appName;
 
   /// Returns either `"4.0"` or a string representing version information about
@@ -14290,6 +14501,7 @@ extension type Navigator._(JSObject _) implements JSObject {
   ///
   /// > [!NOTE]
   /// > Do not rely on this property to return the correct browser version.
+  @deprecated
   external String get appVersion;
 
   /// The **`platform`** property read-only property of the [Navigator]
@@ -14301,6 +14513,7 @@ extension type Navigator._(JSObject _) implements JSObject {
   /// > methods or properties like this one to try to find out information about
   /// > the user's environment, and instead write code that does
   /// > [feature detection](https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Testing/Feature_detection).
+  @deprecated
   external String get platform;
 
   /// The value of the **`Navigator.product`** property is always
@@ -14310,10 +14523,12 @@ extension type Navigator._(JSObject _) implements JSObject {
   /// > [!NOTE]
   /// > Do not rely on this property to return a real product name. All browsers
   /// > return `"Gecko"` as the value of this property.
+  @deprecated
   external String get product;
 
   /// The **`Navigator.productSub`** read-only property that returns either the
   /// string "20030107", or the string "20100101".
+  @deprecated
   external String get productSub;
 
   /// The **`Navigator.userAgent`** read-only property returns the
@@ -14355,14 +14570,17 @@ extension type Navigator._(JSObject _) implements JSObject {
   /// The value of the [Navigator] **`vendor`** property is always either
   /// `"Google Inc."`, `"Apple Computer, Inc."`, or (in Firefox) the empty
   /// string.
+  @deprecated
   external String get vendor;
 
   /// The value of the **`Navigator.vendorSub`** property is always
   /// the empty string, in any browser.
+  @deprecated
   external String get vendorSub;
 
   /// The **`Navigator.oscpu`** property returns a string that identifies the
   /// current operating system.
+  @deprecated
   external String get oscpu;
 
   /// The **`Navigator.language`** read-only property returns a string
@@ -14448,6 +14666,7 @@ extension type Navigator._(JSObject _) implements JSObject {
   ///
   /// Legacy browser versions also list plugins for Adobe Flash and PDF viewer
   /// extensions.
+  @deprecated
   external PluginArray get plugins;
 
   /// Returns a [MimeTypeArray] object, which contains a list of [MimeType]
@@ -14470,6 +14689,7 @@ extension type Navigator._(JSObject _) implements JSObject {
   ///
   /// Legacy browser versions do not hard-code the list returned by the
   /// property, and might return other MIME types.
+  @deprecated
   external MimeTypeArray get mimeTypes;
 
   /// The **`pdfViewerEnabled`** read-only property of the [Navigator] interface
@@ -14552,10 +14772,12 @@ extension type Navigator._(JSObject _) implements JSObject {
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PluginArray).
+@deprecated
 extension type PluginArray._(JSObject _) implements JSObject {
   external void refresh();
   external Plugin? item(int index);
   external Plugin? namedItem(String name);
+  @deprecated
   external int get length;
 }
 
@@ -14575,9 +14797,11 @@ extension type PluginArray._(JSObject _) implements JSObject {
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MimeTypeArray).
+@deprecated
 extension type MimeTypeArray._(JSObject _) implements JSObject {
   external MimeType? item(int index);
   external MimeType? namedItem(String name);
+  @deprecated
   external int get length;
 }
 
@@ -14591,12 +14815,17 @@ extension type MimeTypeArray._(JSObject _) implements JSObject {
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Plugin).
+@deprecated
 extension type Plugin._(JSObject _) implements JSObject {
   external MimeType? item(int index);
   external MimeType? namedItem(String name);
+  @deprecated
   external String get name;
+  @deprecated
   external String get description;
+  @deprecated
   external String get filename;
+  @deprecated
   external int get length;
 }
 
@@ -14608,10 +14837,15 @@ extension type Plugin._(JSObject _) implements JSObject {
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MimeType).
+@deprecated
 extension type MimeType._(JSObject _) implements JSObject {
+  @deprecated
   external String get type;
+  @deprecated
   external String get description;
+  @deprecated
   external String get suffixes;
+  @deprecated
   external Plugin get enabledPlugin;
 }
 
@@ -15684,6 +15918,7 @@ extension type WorkerNavigator._(JSObject _) implements JSObject {
   /// > Do not rely on this property to return a real
   /// > product name. All browsers return `"Mozilla"` as the value of this
   /// > property.
+  @deprecated
   external String get appCodeName;
 
   /// @AvailableInWorkers("worker")
@@ -15695,6 +15930,7 @@ extension type WorkerNavigator._(JSObject _) implements JSObject {
   /// > [!NOTE]
   /// > Do not rely on this property to return a real browser name. All browsers
   /// > return `"Netscape"` as the value of this property.
+  @deprecated
   external String get appName;
 
   /// @AvailableInWorkers("worker")
@@ -15704,6 +15940,7 @@ extension type WorkerNavigator._(JSObject _) implements JSObject {
   ///
   /// > [!NOTE]
   /// > Do not rely on this property to return the correct browser version.
+  @deprecated
   external String get appVersion;
 
   /// @AvailableInWorkers("worker")
@@ -15713,6 +15950,7 @@ extension type WorkerNavigator._(JSObject _) implements JSObject {
   /// browsers to always return the empty string, so don't rely on this property
   /// to get a
   /// reliable answer.
+  @deprecated
   external String get platform;
 
   /// @AvailableInWorkers("worker")
@@ -15724,6 +15962,7 @@ extension type WorkerNavigator._(JSObject _) implements JSObject {
   /// > [!NOTE]
   /// > Do not rely on this property to return a real product name. All browsers
   /// > return `"Gecko"` as the value of this property.
+  @deprecated
   external String get product;
 
   /// @AvailableInWorkers("worker")
@@ -16126,6 +16365,7 @@ extension type StorageEventInit._(JSObject _) implements EventInit, JSObject {
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMarqueeElement).
+@deprecated
 extension type HTMLMarqueeElement._(JSObject _)
     implements HTMLElement, JSObject {
   /// Creates an [HTMLMarqueeElement] using the tag 'marquee'.
@@ -16133,27 +16373,49 @@ extension type HTMLMarqueeElement._(JSObject _)
 
   external void start();
   external void stop();
+  @deprecated
   external String get behavior;
+  @deprecated
   external set behavior(String value);
+  @deprecated
   external String get bgColor;
+  @deprecated
   external set bgColor(String value);
+  @deprecated
   external String get direction;
+  @deprecated
   external set direction(String value);
+  @deprecated
   external String get height;
+  @deprecated
   external set height(String value);
+  @deprecated
   external int get hspace;
+  @deprecated
   external set hspace(int value);
+  @deprecated
   external int get loop;
+  @deprecated
   external set loop(int value);
+  @deprecated
   external int get scrollAmount;
+  @deprecated
   external set scrollAmount(int value);
+  @deprecated
   external int get scrollDelay;
+  @deprecated
   external set scrollDelay(int value);
+  @deprecated
   external bool get trueSpeed;
+  @deprecated
   external set trueSpeed(bool value);
+  @deprecated
   external int get vspace;
+  @deprecated
   external set vspace(int value);
+  @deprecated
   external String get width;
+  @deprecated
   external set width(String value);
 }
 
@@ -16165,14 +16427,19 @@ extension type HTMLMarqueeElement._(JSObject _)
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFrameSetElement).
+@deprecated
 extension type HTMLFrameSetElement._(JSObject _)
     implements HTMLElement, JSObject {
   /// Creates an [HTMLFrameSetElement] using the tag 'frameset'.
   HTMLFrameSetElement() : _ = document.createElement('frameset');
 
+  @deprecated
   external String get cols;
+  @deprecated
   external set cols(String value);
+  @deprecated
   external String get rows;
+  @deprecated
   external set rows(String value);
   external EventHandler get onafterprint;
   external set onafterprint(EventHandler value);
@@ -16215,35 +16482,57 @@ extension type HTMLFrameSetElement._(JSObject _)
   external EventHandler get ongamepaddisconnected;
   external set ongamepaddisconnected(EventHandler value);
 }
+@deprecated
 extension type HTMLFrameElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLFrameElement] using the tag 'frame'.
   HTMLFrameElement() : _ = document.createElement('frame');
 
+  @deprecated
   external String get name;
+  @deprecated
   external set name(String value);
+  @deprecated
   external String get scrolling;
+  @deprecated
   external set scrolling(String value);
+  @deprecated
   external String get src;
+  @deprecated
   external set src(String value);
+  @deprecated
   external String get frameBorder;
+  @deprecated
   external set frameBorder(String value);
+  @deprecated
   external String get longDesc;
+  @deprecated
   external set longDesc(String value);
+  @deprecated
   external bool get noResize;
+  @deprecated
   external set noResize(bool value);
+  @deprecated
   external Document? get contentDocument;
+  @deprecated
   external Window? get contentWindow;
+  @deprecated
   external String get marginHeight;
+  @deprecated
   external set marginHeight(String value);
+  @deprecated
   external String get marginWidth;
+  @deprecated
   external set marginWidth(String value);
 }
+@deprecated
 extension type HTMLDirectoryElement._(JSObject _)
     implements HTMLElement, JSObject {
   /// Creates an [HTMLDirectoryElement] using the tag 'dir'.
   HTMLDirectoryElement() : _ = document.createElement('dir');
 
+  @deprecated
   external bool get compact;
+  @deprecated
   external set compact(bool value);
 }
 
@@ -16255,6 +16544,7 @@ extension type HTMLDirectoryElement._(JSObject _)
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFontElement).
+@deprecated
 extension type HTMLFontElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLFontElement] using the tag 'font'.
   HTMLFontElement() : _ = document.createElement('font');
@@ -16276,7 +16566,9 @@ extension type HTMLFontElement._(JSObject _) implements HTMLElement, JSObject {
   /// | Valid name color string  | _nameOfColor (case insensitive)_ | `Green`, `green`, `GREEN` |
   /// | Valid hex color string   | _#RRGGBB_                        | `#008000`                 |
   /// | RGB using decimal values | _rgb(x x x) (x in 0-255 range)_  | `rgb(0 128 0)`            |
+  @deprecated
   external String get color;
+  @deprecated
   external set color(String value);
 
   /// The obsolete
@@ -16299,7 +16591,9 @@ extension type HTMLFontElement._(JSObject _) implements HTMLElement, JSObject {
   /// | Microsyntax                                 | Description                                                         | Examples          |
   /// | ------------------------------------------- | ------------------------------------------------------------------- | ----------------- |
   /// | List of one or more valid font family names | _A list of font names, that have to be present on the local system_ | `courier,verdana` |
+  @deprecated
   external String get face;
+  @deprecated
   external set face(String value);
 
   /// The obsolete
@@ -16338,7 +16632,9 @@ extension type HTMLFontElement._(JSObject _) implements HTMLElement, JSObject {
   ///     </tr>
   ///   </tbody>
   /// </table>
+  @deprecated
   external String get size;
+  @deprecated
   external set size(String value);
 }
 
@@ -16351,19 +16647,29 @@ extension type HTMLFontElement._(JSObject _) implements HTMLElement, JSObject {
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/HTMLParamElement).
+@deprecated
 extension type HTMLParamElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLParamElement] using the tag 'param'.
   HTMLParamElement() : _ = document.createElement('param');
 
+  @deprecated
   external String get name;
+  @deprecated
   external set name(String value);
+  @deprecated
   external String get value;
+  @deprecated
   external set value(String value);
+  @deprecated
   external String get type;
+  @deprecated
   external set type(String value);
+  @deprecated
   external String get valueType;
+  @deprecated
   external set valueType(String value);
 }
+@deprecated
 extension type External._(JSObject _) implements JSObject {
   external void AddSearchProvider();
   external void IsSearchProviderInstalled();

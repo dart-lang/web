@@ -8,7 +8,7 @@
 
 // Generated from Web IDL definitions.
 
-// ignore_for_file: unintended_html_in_doc_comment
+// ignore_for_file: provide_deprecation_message, unintended_html_in_doc_comment
 
 @JS()
 library;
@@ -227,6 +227,7 @@ extension type Performance._(JSObject _) implements EventTarget, JSObject {
   /// > [Navigation Timing Level 2 specification](https://w3c.github.io/navigation-timing/#obsolete).
   /// > Please use the [PerformanceNavigationTiming]
   /// > interface instead.
+  @deprecated
   external PerformanceTiming get timing;
 
   /// The legacy
@@ -243,6 +244,7 @@ extension type Performance._(JSObject _) implements EventTarget, JSObject {
   /// > [Navigation Timing Level 2 specification](https://w3c.github.io/navigation-timing/#obsolete).
   /// > Please use the
   /// > [PerformanceNavigationTiming] interface instead.
+  @deprecated
   external PerformanceNavigation get navigation;
   external EventHandler get onresourcetimingbufferfull;
   external set onresourcetimingbufferfull(EventHandler value);

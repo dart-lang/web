@@ -8,7 +8,7 @@
 
 // Generated from Web IDL definitions.
 
-// ignore_for_file: unintended_html_in_doc_comment
+// ignore_for_file: provide_deprecation_message, unintended_html_in_doc_comment
 
 @JS()
 library;
@@ -86,6 +86,7 @@ extension type UIEvent._(JSObject _) implements Event, JSObject {
   /// returns a number that indicates which button was pressed on the mouse, or
   /// the numeric `keyCode` or the character code (`charCode`) of the key
   /// pressed on the keyboard.
+  @deprecated
   external int get which;
 }
 extension type UIEventInit._(JSObject _) implements EventInit, JSObject {
@@ -1118,6 +1119,7 @@ extension type KeyboardEvent._(JSObject _) implements UIEvent, JSObject {
   /// > Do not use this property, as it is deprecated. Instead, get the
   /// > Unicode value of the character using the [KeyboardEvent.key]
   /// > property.
+  @deprecated
   external int get charCode;
 
   /// The deprecated **`KeyboardEvent.keyCode`** read-only property represents a
@@ -1139,6 +1141,7 @@ extension type KeyboardEvent._(JSObject _) implements UIEvent, JSObject {
   /// > above, the `keyCode` attribute is not useful for printable characters,
   /// > especially those input with the <kbd>Shift</kbd> or <kbd>Alt</kbd> key
   /// > pressed.
+  @deprecated
   external int get keyCode;
 }
 extension type KeyboardEventInit._(JSObject _)
@@ -1252,6 +1255,7 @@ extension type CompositionEventInit._(JSObject _)
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/TextEvent).
+@deprecated
 extension type TextEvent._(JSObject _) implements UIEvent, JSObject {
   /// The **`initTextEventEvent()`** method of the [TextEvent] interface
   /// initializes the value of a `TextEvent` after it has been created.
@@ -1272,5 +1276,6 @@ extension type TextEvent._(JSObject _) implements UIEvent, JSObject {
 
   /// The **`data`** read-only property of the [TextEvent] interface returns the
   /// last character added to the input element.
+  @deprecated
   external String get data;
 }

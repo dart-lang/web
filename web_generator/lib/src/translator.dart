@@ -306,11 +306,13 @@ sealed class _Property {
   late final _MemberName name;
   final _RawType type;
   final MdnProperty? mdnProperty;
+  final bool deprecated;
 
   // TODO(srujzs): Remove ignore after
   // https://github.com/dart-lang/sdk/issues/55720 is resolved.
   // ignore: unused_element_parameter
-  _Property(_MemberName name, idl.IDLType idlType, [this.mdnProperty])
+  _Property(_MemberName name, idl.IDLType idlType,
+      {required this.deprecated, this.mdnProperty})
       : type = _getRawType(idlType) {
     // Rename the property if there's a collision with the type name.
     final dartName = name.name;
@@ -324,21 +326,32 @@ class _Attribute extends _Property {
   final bool isStatic;
   final bool isReadOnly;
 
-  _Attribute(super.name, super.idlType, super.mdnProperty,
-      {required this.isStatic, required this.isReadOnly});
+  _Attribute(super.name, super.idlType,
+      {required super.deprecated,
+      super.mdnProperty,
+      required this.isStatic,
+      required this.isReadOnly});
 }
 
 class _Field extends _Property {
   final bool isRequired;
 
-  _Field(super.name, super.idlType, super.mdnProperty,
-      {required this.isRequired});
+  _Field(super.name, super.idlType,
+      {required super.mdnProperty,
+      required super.deprecated,
+      required this.isRequired});
 }
 
 class _Constant extends _Property {
   final String valueType;
   final JSAny value;
-  _Constant(super.name, super.idlType, this.valueType, this.value);
+  _Constant(
+    super.name,
+    super.idlType,
+    this.valueType,
+    this.value, {
+    required super.deprecated,
+  });
 }
 
 abstract class _OverridableMember {
@@ -471,8 +484,12 @@ class _PartialInterfacelike {
           final constant = member as idl.Constant;
           // Note that constants do not have browser compatibility data, so we
           // always emit.
-          properties.add(_Constant(_MemberName(constant.name), constant.idlType,
-              constant.value.type, constant.value.value));
+          properties.add(_Constant(
+              _MemberName(constant.name),
+              constant.idlType,
+              deprecated: _memberIsDeprecated(constant.name),
+              constant.value.type,
+              constant.value.value));
           break;
         case 'attribute':
           final attribute = member as idl.Attribute;
@@ -490,9 +507,11 @@ class _PartialInterfacelike {
           final memberList =
               isExtensionMember ? extensionProperties : properties;
           memberList.add(_Attribute(
-              _MemberName(attributeName),
-              attribute.idlType,
-              mdnInterface?.propertyFor(attributeName, isStatic: isStatic),
+              _MemberName(attributeName), attribute.idlType,
+              mdnProperty:
+                  mdnInterface?.propertyFor(attributeName, isStatic: isStatic),
+              deprecated:
+                  _memberIsDeprecated(attributeName, isStatic: isStatic),
               isStatic: isStatic,
               isReadOnly: attribute.readonly));
           break;
@@ -560,7 +579,9 @@ class _PartialInterfacelike {
           final fieldName = field.name;
           if (!_shouldGenerateMember(fieldName)) break;
           properties.add(_Field(_MemberName(fieldName), field.idlType,
-              mdnInterface?.propertyFor(fieldName, isStatic: false),
+              mdnProperty:
+                  mdnInterface?.propertyFor(fieldName, isStatic: false),
+              deprecated: _memberIsDeprecated(fieldName),
               isRequired: field.required));
           break;
         case 'maplike':
@@ -591,6 +612,20 @@ class _PartialInterfacelike {
     }
   }
 
+  BCDPropertyStatus? _bcdStatusForMember(String memberName,
+      {bool isStatic = false}) {
+    final interfaceBcd =
+        Translator.instance!.browserCompatData.retrieveInterfaceFor(name);
+    return interfaceBcd?.retrievePropertyFor(memberName,
+        // Compat data treats namespace members as static, but the IDL does not.
+        isStatic: isStatic || type == 'namespace');
+  }
+
+  bool _memberIsDeprecated(String memberName, {bool isStatic = false}) {
+    final bcd = _bcdStatusForMember(memberName, isStatic: isStatic);
+    return bcd?.deprecated ?? false;
+  }
+
   /// Given a [memberName] and whether it [isStatic], return whether it is a
   /// member that should be emitted according to the compat data.
   bool _shouldGenerateMember(String memberName, {bool isStatic = false}) {
@@ -598,11 +633,8 @@ class _PartialInterfacelike {
     // Compat data only exists for interfaces and namespaces. Mixins and
     // dictionaries should always generate their members.
     if (type != 'interface' && type != 'namespace') return true;
-    final interfaceBcd =
-        Translator.instance!.browserCompatData.retrieveInterfaceFor(name)!;
-    final bcd = interfaceBcd.retrievePropertyFor(memberName,
-        // Compat data treats namespace members as static, but the IDL does not.
-        isStatic: isStatic || type == 'namespace');
+
+    final bcd = _bcdStatusForMember(memberName, isStatic: isStatic);
     final shouldGenerate = bcd?.shouldGenerate;
     if (shouldGenerate != null) return shouldGenerate;
     // Events can bubble up to the window, document, or other elements. In the
@@ -1062,6 +1094,7 @@ class Translator {
     required code.Reference Function() getSetterType,
     required bool isStatic,
     required bool readOnly,
+    required bool deprecated,
     required MdnInterface? mdnInterface,
   }) {
     final name = memberName.name;
@@ -1072,7 +1105,10 @@ class Translator {
     return [
       code.Method(
         (b) => b
-          ..annotations.addAll(_jsOverride(memberName.jsOverride))
+          ..annotations.addAll([
+            ..._jsOverride(memberName.jsOverride),
+            if (deprecated) code.refer('deprecated').expression,
+          ])
           ..external = true
           ..static = isStatic
           ..returns = getGetterType()
@@ -1083,7 +1119,10 @@ class Translator {
       if (!readOnly)
         code.Method(
           (b) => b
-            ..annotations.addAll(_jsOverride(memberName.jsOverride))
+            ..annotations.addAll([
+              ..._jsOverride(memberName.jsOverride),
+              if (deprecated) code.refer('deprecated').expression,
+            ])
             ..external = true
             ..static = isStatic
             ..type = code.MethodType.setter
@@ -1106,6 +1145,7 @@ class Translator {
       getGetterType: () => _typeReference(attribute.type, returnType: true),
       getSetterType: () => _typeReference(attribute.type),
       readOnly: attribute.isReadOnly,
+      deprecated: attribute.deprecated,
       isStatic: attribute.isStatic,
       mdnInterface: mdnInterface,
     );
@@ -1162,6 +1202,7 @@ class Translator {
       getGetterType: () => _typeReference(field.type, returnType: true),
       getSetterType: () => _typeReference(field.type),
       readOnly: false,
+      deprecated: field.deprecated,
       isStatic: false,
       mdnInterface: mdnInterface,
     );
@@ -1194,6 +1235,7 @@ class Translator {
               _typeReference(_RawType('JSString', false), returnType: true),
           getSetterType: () => _typeReference(_RawType('JSString', false)),
           isStatic: false,
+          deprecated: false,
           readOnly: false,
           mdnInterface: null,
         ),
@@ -1293,13 +1335,15 @@ class Translator {
     }
     return code.ExtensionType((b) => b
       ..docs.addAll(docs)
-      ..annotations.addAll(
-        _jsOverride(
+      ..annotations.addAll([
+        ..._jsOverride(
           legacyNameSpace != null
               ? '$legacyNameSpace.$jsName'
               : (isObjectLiteral || jsName == dartClassName ? '' : jsName),
         ),
-      )
+        if (interfaceStatus?.deprecated ?? false)
+          code.refer('deprecated').expression,
+      ])
       ..name = dartClassName
       ..primaryConstructorName = '_'
       ..representationDeclaration = code.RepresentationDeclaration((b) => b
@@ -1381,10 +1425,11 @@ class Translator {
       '',
       ...mozLicenseHeader,
     ])
-    // TODO(https://github.com/dart-lang/sdk/issues/56450): Remove this once
-    // this bug has been resolved.
     ..ignoreForFile.addAll([
+      // TODO(https://github.com/dart-lang/sdk/issues/56450): Remove this once
+      // this bug has been resolved.
       'unintended_html_in_doc_comment',
+      'provide_deprecation_message',
     ])
     ..generatedByComment = generatedFileDisclaimer
     // TODO(srujzs): This is to address the issue around extension type object

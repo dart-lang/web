@@ -8,7 +8,7 @@
 
 // Generated from Web IDL definitions.
 
-// ignore_for_file: unintended_html_in_doc_comment
+// ignore_for_file: provide_deprecation_message, unintended_html_in_doc_comment
 
 @JS()
 library;
@@ -346,6 +346,7 @@ extension type SVGElement._(JSObject _) implements Element, JSObject {
 }
 
 extension SVGElementExtension on SVGElement {
+  @deprecated
   external SVGAnimatedString get className;
 }
 
@@ -1745,7 +1746,9 @@ extension type SVGStyleElement._(JSObject _) implements SVGElement, JSObject {
   /// attribute.
   ///
   /// Authors should not use this property or rely on the value.
+  @deprecated
   external String get type;
+  @deprecated
   external set type(String value);
 
   /// The **`SVGStyleElement.media`** property is a media query string
@@ -3308,7 +3311,9 @@ extension type SVGAElement._(JSObject _)
   external set hreflang(String value);
   external String get type;
   external set type(String value);
+  @deprecated
   external String get text;
+  @deprecated
   external set text(String value);
   external String get referrerPolicy;
   external set referrerPolicy(String value);

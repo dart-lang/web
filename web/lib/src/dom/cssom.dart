@@ -8,7 +8,7 @@
 
 // Generated from Web IDL definitions.
 
-// ignore_for_file: unintended_html_in_doc_comment
+// ignore_for_file: provide_deprecation_message, unintended_html_in_doc_comment
 
 @JS()
 library;
@@ -245,6 +245,7 @@ extension type CSSStyleSheet._(JSObject _) implements StyleSheet, JSObject {
   /// > While `rules` is unlikely to be removed soon, its availability is not as
   /// > widespread and using it will result in compatibility problems for your
   /// > site or app.
+  @deprecated
   external CSSRuleList get rules;
 }
 extension type CSSStyleSheetInit._(JSObject _) implements JSObject {
@@ -433,6 +434,7 @@ extension type CSSRule._(JSObject _) implements JSObject {
   ///   console.log(rule.constructor.name);
   /// }
   /// ```
+  @deprecated
   external int get type;
 }
 

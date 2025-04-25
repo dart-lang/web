@@ -8,7 +8,7 @@
 
 // Generated from Web IDL definitions.
 
-// ignore_for_file: unintended_html_in_doc_comment
+// ignore_for_file: provide_deprecation_message, unintended_html_in_doc_comment
 
 @JS()
 library;
@@ -182,6 +182,7 @@ extension type Event._(JSObject _) implements JSObject {
 
   /// The deprecated **`Event.srcElement`** is an alias for the [Event.target]
   /// property. Use [Event.target] instead.
+  @deprecated
   external EventTarget? get srcElement;
 
   /// The **`currentTarget`** read-only property of the [Event] interface
@@ -213,7 +214,9 @@ extension type Event._(JSObject _) implements JSObject {
   /// of the event. In later implementations, setting this to `false` does
   /// nothing.
   /// See [Browser compatibility](#browser_compatibility) for details.
+  @deprecated
   external bool get cancelBubble;
+  @deprecated
   external set cancelBubble(bool value);
 
   /// The **`bubbles`** read-only property of the [Event] interface indicates
@@ -267,7 +270,9 @@ extension type Event._(JSObject _) implements JSObject {
   /// > [Event.preventDefault], and
   /// > [Event.defaultPrevented] instead of this historical
   /// > property.
+  @deprecated
   external bool get returnValue;
+  @deprecated
   external set returnValue(bool value);
 
   /// The **`defaultPrevented`** read-only property of the [Event] interface
@@ -2010,6 +2015,7 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// element, otherwise `null`. It is deprecated in favor of
   /// [Document.documentElement], which returns the root element for all
   /// documents.
+  @deprecated
   external SVGSVGElement? get rootElement;
 
   /// The **`scrollingElement`** read-only property of the
@@ -2051,6 +2057,7 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// > Since this property is deprecated, you can determine if fullscreen mode
   /// > is active on the document by checking to see if
   /// > [Document.fullscreenElement] is not `null`.
+  @deprecated
   external bool get fullscreen;
   external EventHandler get onfullscreenchange;
   external set onfullscreenchange(EventHandler value);
@@ -2081,7 +2088,9 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// interface gets/sets the domain portion of the  of the current
   /// document, as used by the
   /// [same-origin policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy).
+  @deprecated
   external String get domain;
+  @deprecated
   external set domain(String value);
 
   /// The **`Document.referrer`** property returns the
@@ -2235,7 +2244,9 @@ extension type Document._(JSObject _) implements Node, JSObject {
 
   /// **`fgColor`** gets/sets the foreground color, or text color, of
   /// the current document.
+  @deprecated
   external String get fgColor;
+  @deprecated
   external set fgColor(String value);
 
   /// The **`Document.linkColor`** property gets/sets the color of
@@ -2246,27 +2257,36 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// pseudo-classes. Another alternative is
   /// `document.body.link`, although this is [deprecated in HTML
   /// 4.01](https://www.w3.org/TR/html401/struct/global.html#adef-link).
+  @deprecated
   external String get linkColor;
+  @deprecated
   external set linkColor(String value);
 
   /// The **`Document.vlinkColor`** property gets/sets the color of
   /// links that the user has visited in the document.
+  @deprecated
   external String get vlinkColor;
+  @deprecated
   external set vlinkColor(String value);
 
   /// Returns or sets the color of an active link in the document body. A link
   /// is active
   /// during the time between `mousedown` and `mouseup` events.
+  @deprecated
   external String get alinkColor;
+  @deprecated
   external set alinkColor(String value);
 
   /// The deprecated `bgColor` property gets or sets the background color of the
   /// current document.
+  @deprecated
   external String get bgColor;
+  @deprecated
   external set bgColor(String value);
 
   /// The **`anchors`** read-only property of the
   /// [Document] interface returns a list of all of the anchors in the document.
+  @deprecated
   external HTMLCollection get anchors;
 
   /// The **`applets`** property of the [Document] returns an empty
@@ -2278,6 +2298,7 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// > Support for the `<applet>` element has been removed by all browsers.
   /// > Therefore, calling `document.applets` always
   /// > returns an empty collection.
+  @deprecated
   external HTMLCollection get applets;
 
   /// The [Document] interface's read-only **`all`** property returns an
@@ -2291,6 +2312,7 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// ```js
   /// const allElements = document.querySelectorAll("*");
   /// ```
+  @deprecated
   external HTMLAllCollection get all;
 
   /// The read-only
@@ -4640,6 +4662,7 @@ extension type Attr._(JSObject _) implements Node, JSObject {
 
   /// The read-only **`specified`** property of the [Attr] interface always
   /// returns `true`.
+  @deprecated
   external bool get specified;
 }
 

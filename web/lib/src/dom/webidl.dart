@@ -8,7 +8,7 @@
 
 // Generated from Web IDL definitions.
 
-// ignore_for_file: unintended_html_in_doc_comment
+// ignore_for_file: provide_deprecation_message, unintended_html_in_doc_comment
 
 @JS()
 library;
@@ -112,5 +112,6 @@ extension type DOMException._(JSObject _) implements JSObject {
   ///
   /// This field is used for historical reasons. New DOM exceptions don't use
   /// this anymore: they put this info in the [DOMException.name] attribute.
+  @deprecated
   external int get code;
 }

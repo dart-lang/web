@@ -82,7 +82,7 @@ class BrowserCompatData {
   final Map<String, BCDInterfaceStatus> interfaces;
 
   /// Whether to generate all the bindings regardless of property status.
-  bool generateAll = false;
+  final bool generateAll;
 
   BrowserCompatData(this.interfaces, this.generateAll);
 

@@ -45,7 +45,8 @@ class MdnInterface {
     final propertiesData = data['properties'] as Map<String, dynamic>?;
     if (propertiesData != null) {
       for (var key in propertiesData.keys) {
-        properties.add(MdnProperty(key, propertiesData[key] as String));
+        properties.add(
+            MdnProperty(key, (propertiesData[key] as Map)['docs'] as String));
       }
     }
   }

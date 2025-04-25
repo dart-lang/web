@@ -50,8 +50,8 @@ extension type ScrollToOptions._(JSObject _)
 ///
 /// You can create a `MediaQueryList` by calling [Window.matchMedia] on the
 /// [window] object. The resulting object handles sending notifications to
-/// listeners when the media query state changes (i.e. when the media query test
-/// starts or stops evaluating to `true`).
+/// listeners when the media query state changes (i.e., when the media query
+/// test starts or stops evaluating to `true`).
 ///
 /// This is very useful for adaptive design, since this makes it possible to
 /// observe a document to detect when its media queries change, instead of

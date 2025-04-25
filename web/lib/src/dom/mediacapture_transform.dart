@@ -18,10 +18,17 @@ import 'dart:js_interop';
 import 'mediacapture_streams.dart';
 import 'streams.dart';
 
+/// @AvailableInWorkers("dedicated")
+///
+/// > [!WARNING]
+/// > Browsers differ on which global context they expose this interface in
+/// > (e.g., only window in some browsers and only dedicated worker in others),
+/// > making them incompatible. Keep this in mind when comparing support.
+///
 /// The **`MediaStreamTrackProcessor`** interface of the
 /// [Insertable Streams for MediaStreamTrack API](https://developer.mozilla.org/en-US/docs/Web/API/Insertable_Streams_for_MediaStreamTrack_API)
-/// consumes a [MediaStreamTrack] object's source and generates a stream of
-/// media frames.
+/// consumes a video [MediaStreamTrack] object's source and generates a stream
+/// of [VideoFrame] objects.
 ///
 /// ---
 ///
@@ -32,7 +39,7 @@ extension type MediaStreamTrackProcessor._(JSObject _) implements JSObject {
       MediaStreamTrackProcessorInit init);
 
   /// The **`readable`** property of the [MediaStreamTrackProcessor] interface
-  /// returns a [ReadableStream].
+  /// returns a [ReadableStream] of [VideoFrame]s.
   external ReadableStream get readable;
 }
 extension type MediaStreamTrackProcessorInit._(JSObject _) implements JSObject {

@@ -1131,7 +1131,7 @@ extension type ImageDecoder._(JSObject _) implements JSObject {
   /// @AvailableInWorkers("window_and_dedicated")
   ///
   /// The **`ImageDecoder.isTypeSupported()`** static method checks if a given
-  /// [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/MIME_types)
+  /// [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/MIME_types)
   /// can be decoded by the user agent.
   external static JSPromise<JSBoolean> isTypeSupported(String type);
 
@@ -1159,7 +1159,7 @@ extension type ImageDecoder._(JSObject _) implements JSObject {
   ///
   /// The **`type`** read-only property of the [ImageDecoder] interface reflects
   /// the
-  /// [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/MIME_types)
+  /// [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/MIME_types)
   /// configured during construction.
   external String get type;
 

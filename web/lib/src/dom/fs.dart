@@ -267,7 +267,7 @@ extension type FileSystemReadWriteOptions._(JSObject _) implements JSObject {
 /// As a result, its methods are not subject to the same security checks as
 /// methods running on files within the user-visible file system, and so are
 /// much more performant. This makes them suitable for significant, large-scale
-/// file updates such as [SQLite](https://www.sqlite.org/wasm) database
+/// file updates such as [SQLite](https://sqlite.org/wasm) database
 /// modifications.
 ///
 /// The interface is accessed through the
@@ -311,7 +311,7 @@ extension type FileSystemSyncAccessHandle._(JSObject _) implements JSObject {
   /// system. As a result, writes performed using
   /// `FileSystemSyncAccessHandle.write()` are much more performant. This makes
   /// them suitable for significant, large-scale file updates such as
-  /// [SQLite](https://www.sqlite.org/wasm) database modifications.
+  /// [SQLite](https://sqlite.org/wasm) database modifications.
   external int write(
     AllowSharedBufferSource buffer, [
     FileSystemReadWriteOptions options,

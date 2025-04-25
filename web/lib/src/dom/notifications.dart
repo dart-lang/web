@@ -68,7 +68,7 @@ extension type Notification._(JSObject _) implements EventTarget, JSObject {
   /// > interacting with it
   /// > after it was initially shown. A valid use for this API would be to
   /// > remove a
-  /// > notification that is no longer relevant (e.g. the user already read the
+  /// > notification that is no longer relevant (e.g., the user already read the
   /// > notification
   /// > on the webpage in the case of a messaging app or the following song is
   /// > already playing

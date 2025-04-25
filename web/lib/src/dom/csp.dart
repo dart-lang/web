@@ -37,7 +37,7 @@ typedef SecurityPolicyViolationEventDisposition = String;
 ///
 /// CSP violation reports may also be sent as JSON objects to the endpoint
 /// specified in the
-/// [`report-to`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/report-to)
+/// [`report-to`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/report-to)
 /// policy directive of the  header.
 /// These reports similarly have a `type` of `"csp-violation"`, and a `body`
 /// property containing a serialization of an instance of this interface.
@@ -45,11 +45,11 @@ typedef SecurityPolicyViolationEventDisposition = String;
 /// > [!NOTE]
 /// > CSP violation reports sent by the Reporting API, when an endpoint is
 /// > specified using the CSP
-/// > [`report-to`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/report-to)
+/// > [`report-to`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/report-to)
 /// > directive, are similar (but not identical) to the "CSP report"
-/// > [JSON objects](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/report-uri#violation_report_syntax)
+/// > [JSON objects](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/report-uri#violation_report_syntax)
 /// > sent when endpoints are specified using the
-/// > [`report-uri`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/report-uri)
+/// > [`report-uri`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/report-uri)
 /// > directive.
 /// > The Reporting API and `report-to` directive are intended to replace the
 /// > older report format and the `report-uri` directive.
@@ -74,13 +74,13 @@ extension type CSPViolationReportBody._(JSObject _)
   /// The **`documentURL`** read-only property of the [CSPViolationReportBody]
   /// interface is a string that represents the URL of the document or worker
   /// that violated the [Content Security Policy
-  /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP).
+  /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP).
   external String get documentURL;
 
   /// The **`referrer`** read-only property of the [CSPViolationReportBody]
   /// interface is a string that represents the URL of the referring page of the
   /// resource who's [Content Security Policy
-  /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) was
+  /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP) was
   /// violated.
   ///
   /// The referrer is the page that caused the page with the CSP violation to be
@@ -91,31 +91,31 @@ extension type CSPViolationReportBody._(JSObject _)
   /// The **`blockedURL`** read-only property of the [CSPViolationReportBody]
   /// interface is a string value that represents the resource that was blocked
   /// because it violates a [Content Security Policy
-  /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP).
+  /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP).
   external String? get blockedURL;
 
   /// The **`effectiveDirective`** read-only property of the
   /// [CSPViolationReportBody] interface is a string that represents the
   /// effective [Content Security Policy
-  /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) directive
-  /// that was violated.
+  /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP)
+  /// directive that was violated.
   ///
   /// Note that this contains the specific directive that was effectively
   /// violated, such as
-  /// [`script-src-elem`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/script-src-elem)
+  /// [`script-src-elem`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/script-src-elem)
   /// for violations related to script elements, and not the policy that was
   /// specified, which may have been the (more general)
-  /// [`default-src`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/default-src).
+  /// [`default-src`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/default-src).
   external String get effectiveDirective;
 
   /// The **`originalPolicy`** read-only property of the
   /// [CSPViolationReportBody] interface is a string that represents the
   /// [Content Security Policy
-  /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) whose
+  /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP) whose
   /// enforcement uncovered the violation.
   ///
   /// This is the string in the  HTTP response header that contains the list of
-  /// [directives](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy#directives)
+  /// [directives](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy#directives)
   /// and their values that make the CSP policy.
   /// Note that differs from the [CSPViolationReportBody.effectiveDirective],
   /// which is the specific directive that is effectively being violated (and
@@ -126,7 +126,7 @@ extension type CSPViolationReportBody._(JSObject _)
   /// The **`sourceFile`** read-only property of the [CSPViolationReportBody]
   /// interface indicates the URL of the source file that violated the [Content
   /// Security Policy
-  /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP).
+  /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP).
   ///
   /// For a violation triggered by the use of an inline script, `sourceFile` is
   /// the URL of the current document.
@@ -148,7 +148,7 @@ extension type CSPViolationReportBody._(JSObject _)
   /// The **`sample`** read-only property of the [CSPViolationReportBody]
   /// interface is a string that contains a part of the resource that violated
   /// the [Content Security Policy
-  /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP).
+  /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP).
   ///
   /// This sample is usually the first 40 characters of the inline script, event
   /// handler, or style that violated a CSP restriction.
@@ -156,14 +156,14 @@ extension type CSPViolationReportBody._(JSObject _)
   ///
   /// Note that this is only populated when attempting to load _inline_ scripts,
   /// event handlers, or styles that violate CSP
-  /// [`script-src*`](/en-US/docs/Web/HTTP/Headers/Content-Security-Policy#script-src)
+  /// [`script-src*`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/script-src)
   /// and
-  /// [`style-src*`](/en-US/docs/Web/HTTP/Headers/Content-Security-Policy#style-src)
+  /// [`style-src*`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/style-src)
   /// rules — external resources that violate the CSP will not generate a
   /// sample.
   /// In addition, a sample is only included if the `Content-Security-Policy`
   /// directive that was violated also contains the
-  /// [`'report-sample'`](/en-US/docs/Web/HTTP/Headers/Content-Security-Policy#report-sample)
+  /// [`'report-sample'`](/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy#report-sample)
   /// keyword.
   ///
   /// > [!NOTE] Violation reports should be considered attacker-controlled data.
@@ -174,22 +174,23 @@ extension type CSPViolationReportBody._(JSObject _)
   /// The **`disposition`** read-only property of the [CSPViolationReportBody]
   /// interface indicates whether the user agent is configured to enforce
   /// [Content Security Policy
-  /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) violations
-  /// or only report them.
+  /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP)
+  /// violations or only report them.
   external SecurityPolicyViolationEventDisposition get disposition;
 
   /// The **`statusCode`** read-only property of the [CSPViolationReportBody]
   /// interface is a number representing the
-  /// [HTTP status code](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
+  /// [HTTP status code](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status)
   /// of the response to the request that triggered a [Content Security Policy
-  /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) violation
-  /// (when loading a window or worker).
+  /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP)
+  /// violation (when loading a window or worker).
   external int get statusCode;
 
   /// The **`lineNumber`** read-only property of the [CSPViolationReportBody]
   /// interface indicates the line number in the source file that triggered the
   /// [Content Security Policy
-  /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) violation.
+  /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP)
+  /// violation.
   ///
   /// Note that the browser extracts the value from _the global object_ of the
   /// file that triggered the violation.
@@ -205,7 +206,8 @@ extension type CSPViolationReportBody._(JSObject _)
   /// The **`columnNumber`** read-only property of the [CSPViolationReportBody]
   /// interface indicates the column number in the source file that triggered
   /// the [Content Security Policy
-  /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) violation.
+  /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP)
+  /// violation.
   ///
   /// Note that the browser extracts the value from _the global object_ of the
   /// file that triggered the violation.
@@ -224,8 +226,8 @@ extension type CSPViolationReportBody._(JSObject _)
 /// [Element.securitypolicyviolation_event],
 /// [Document.securitypolicyviolation_event], or
 /// [WorkerGlobalScope.securitypolicyviolation_event] when its [Content Security
-/// Policy (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) is
-/// violated.
+/// Policy (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP)
+/// is violated.
 ///
 /// ---
 ///
@@ -241,14 +243,14 @@ extension type SecurityPolicyViolationEvent._(JSObject _)
   /// The **`documentURI`** read-only property of the
   /// [SecurityPolicyViolationEvent] interface is a string representing the URI
   /// of the document or worker in which the [Content Security Policy
-  /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) violation
-  /// occurred.
+  /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP)
+  /// violation occurred.
   external String get documentURI;
 
   /// The **`referrer`** read-only property of the
   /// [SecurityPolicyViolationEvent] interface is a string representing the
   /// referrer for the resources whose [Content Security Policy
-  /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) was
+  /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP) was
   /// violated.
   /// This will be a URL or `null`.
   external String get referrer;
@@ -256,14 +258,15 @@ extension type SecurityPolicyViolationEvent._(JSObject _)
   /// The **`blockedURI`** read-only property of the
   /// [SecurityPolicyViolationEvent] interface is a string representing the URI
   /// of the resource that was blocked because it violates a [Content Security
-  /// Policy (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP).
+  /// Policy
+  /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP).
   external String get blockedURI;
 
   /// The **`effectiveDirective`** read-only property of the
   /// [SecurityPolicyViolationEvent] interface is a string representing the
   /// [Content Security Policy
-  /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) directive
-  /// that was violated.
+  /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP)
+  /// directive that was violated.
   ///
   /// This supersedes [SecurityPolicyViolationEvent.violatedDirective], its
   /// historical alias.
@@ -272,8 +275,8 @@ extension type SecurityPolicyViolationEvent._(JSObject _)
   /// The **`violatedDirective`** read-only property of the
   /// [SecurityPolicyViolationEvent] interface is a string representing the
   /// [Content Security Policy
-  /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) directive
-  /// that was violated.
+  /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP)
+  /// directive that was violated.
   ///
   /// This is a historical alias of
   /// [SecurityPolicyViolationEvent.effectiveDirective], and has the same value.
@@ -282,29 +285,30 @@ extension type SecurityPolicyViolationEvent._(JSObject _)
   /// The **`originalPolicy`** read-only property of the
   /// [SecurityPolicyViolationEvent] interface is a string containing the
   /// [Content Security Policy
-  /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) whose
+  /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP) whose
   /// enforcement uncovered the violation.
   external String get originalPolicy;
 
   /// The **`sourceFile`** read-only property of the
   /// [SecurityPolicyViolationEvent] interface is a string representing the URL
   /// of the script in which the [Content Security Policy
-  /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) violation
-  /// occurred.
+  /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP)
+  /// violation occurred.
   external String get sourceFile;
 
   /// The **`sample`** read-only property of the [SecurityPolicyViolationEvent]
   /// interface is a string representing a sample of the resource that caused
   /// the [Content Security Policy
-  /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) violation.
+  /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP)
+  /// violation.
   ///
   /// This is only
-  /// [`script-src*`](/en-US/docs/Web/HTTP/Headers/Content-Security-Policy#script-src)
+  /// [`script-src*`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/script-src)
   /// and
-  /// [`style-src*`](/en-US/docs/Web/HTTP/Headers/Content-Security-Policy#style-src)
+  /// [`style-src*`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/style-src)
   /// violations, when the corresponding `Content-Security-Policy` directive
   /// contains the
-  /// [`'report-sample'`](/en-US/docs/Web/HTTP/Headers/Content-Security-Policy#report-sample)
+  /// [`'report-sample'`](/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy#report-sample)
   /// keyword.
   /// In addition, this will only be populated if the resource is an inline
   /// script, event handler, or style — external resources causing a violation
@@ -318,29 +322,29 @@ extension type SecurityPolicyViolationEvent._(JSObject _)
   /// The **`disposition`** read-only property of the
   /// [SecurityPolicyViolationEvent] interface indicates how the violated
   /// [Content Security Policy
-  /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) is
+  /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP) is
   /// configured to be treated by the user agent.
   external SecurityPolicyViolationEventDisposition get disposition;
 
   /// The **`statusCode`** read-only property of the
   /// [SecurityPolicyViolationEvent] interface is a number representing the HTTP
   /// status code of the window or worker in which the [Content Security Policy
-  /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) violation
-  /// occurred.
+  /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP)
+  /// violation occurred.
   external int get statusCode;
 
   /// The **`lineNumber`** read-only property of the
   /// [SecurityPolicyViolationEvent] interface is the line number in the
   /// document or worker script at which the [Content Security Policy
-  /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) violation
-  /// occurred.
+  /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP)
+  /// violation occurred.
   external int get lineNumber;
 
   /// The **`columnNumber`** read-only property of the
   /// [SecurityPolicyViolationEvent] interface is the column number in the
   /// document or worker script at which the [Content Security Policy
-  /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) violation
-  /// occurred.
+  /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP)
+  /// violation occurred.
   external int get columnNumber;
 }
 extension type SecurityPolicyViolationEventInit._(JSObject _)

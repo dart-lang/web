@@ -285,7 +285,7 @@ extension type SourceBuffer._(JSObject _) implements EventTarget, JSObject {
   ///
   /// The **`updating`** read-only property of the
   /// [SourceBuffer] interface indicates whether the `SourceBuffer` is
-  /// currently being updated — i.e. whether an [SourceBuffer.appendBuffer] or
+  /// currently being updated — i.e., whether an [SourceBuffer.appendBuffer] or
   /// [SourceBuffer.remove]
   /// operation is currently in progress.
   external bool get updating;

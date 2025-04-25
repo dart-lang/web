@@ -26,9 +26,10 @@ import 'cssom.dart';
 /// to mirror the structure of CSS documents with nested CSS rules, and ensure
 /// that rules are parsed and evaluated in the order that they are declared.
 ///
-/// > [!NOTE] > [Browser versions](#browser_compatibility) with implementations
-/// > that do not support this interface may parse nested rules in the wrong
-/// > order.
+/// > [!NOTE]
+/// > Implementations that do not support this interface may parse nested rules
+/// > in the wrong order.
+/// > See [Browser compatibility](#browser_compatibility) for more information.
 ///
 /// ---
 ///

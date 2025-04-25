@@ -6,6 +6,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:path/path.dart' as p;
+import 'package:yaml/yaml.dart' as yaml;
 
 const mdnUrl = 'https://developer.mozilla.org/en-US/docs/Web';
 const gitUrl = 'https://github.com/mdn/content.git';
@@ -51,9 +52,12 @@ Future<void> main(List<String> args) async {
 
     final indexFileContent = interfaceIndex.readAsStringSync();
     final name = findTitle(indexFileContent) ?? p.basename(dir.path);
+
+    final docBits = convertMdnToMarkdown(interfaceIndex.readAsStringSync());
     final info = InterfaceInfo(
       name: name,
-      docs: convertMdnToMarkdown(interfaceIndex.readAsStringSync()),
+      info: docBits.$1,
+      docs: docBits.$2,
     );
     interfaces.add(info);
 
@@ -61,9 +65,11 @@ Future<void> main(List<String> args) async {
       final propertyIndex = File(p.join(child.path, 'index.md'));
       if (!propertyIndex.existsSync()) continue;
 
+      final docBits = convertMdnToMarkdown(propertyIndex.readAsStringSync());
       final property = Property(
         name: p.basename(child.path),
-        docs: convertMdnToMarkdown(propertyIndex.readAsStringSync()),
+        docs: docBits.$2,
+        info: docBits.$1,
       );
       if (property.name != info.name) {
         info.properties.add(property);
@@ -98,18 +104,27 @@ Future<void> main(List<String> args) async {
 class InterfaceInfo implements Comparable<InterfaceInfo> {
   final String name;
   final String docs;
+  final Map<String, dynamic>? info;
 
   final List<Property> properties = [];
 
   InterfaceInfo({
     required this.name,
     required this.docs,
+    required this.info,
   });
 
   Map<String, dynamic> get asJson => {
         'docs': docs,
+        if (info != null) 'info': info,
         if (properties.isNotEmpty)
-          'properties': {for (var p in properties) p.name: p.docs},
+          'properties': {
+            for (var p in properties)
+              p.name: {
+                ...?p.info,
+                'docs': p.docs,
+              }
+          },
       };
 
   @override
@@ -119,8 +134,9 @@ class InterfaceInfo implements Comparable<InterfaceInfo> {
 class Property implements Comparable<Property> {
   final String name;
   final String docs;
+  final Map<String, dynamic>? info;
 
-  Property({required this.name, required this.docs});
+  Property({required this.name, required this.docs, required this.info});
 
   @override
   int compareTo(Property other) => name.compareTo(other.name);
@@ -154,13 +170,22 @@ String? findTitle(String content) {
   return null;
 }
 
-String convertMdnToMarkdown(String content) {
+(Map<String, dynamic>?, String) convertMdnToMarkdown(String content) {
   var lines = content.split('\n');
 
-  // remove the front matter
+  Map<String, dynamic>? info;
+
   if (lines.first.startsWith('---')) {
-    lines.removeUntil((line) => line == '---');
-    lines.removeUntil((line) => line == '---');
+    lines.removeAt(0);
+    final frontMatter = <String>[];
+    while (!lines.first.startsWith('---')) {
+      frontMatter.add(lines.removeAt(0));
+    }
+    lines.removeAt(0);
+
+    final doc = yaml.loadYamlNode(frontMatter.join('\n'));
+
+    info = Map<String, dynamic>.from(doc as yaml.YamlMap);
   }
 
   // remove everything after the first section
@@ -245,7 +270,7 @@ String convertMdnToMarkdown(String content) {
   // Replace multiple blank lines by 2 blank lines.
   text = text.replaceAll(RegExp('\n\n\n+'), '\n\n');
 
-  return text.trim();
+  return (info, text.trim());
 }
 
 String _stripQuotes(String value) {
@@ -259,17 +284,6 @@ String _stripQuotes(String value) {
 }
 
 extension ListExtension on List<String> {
-  void removeUntil(bool Function(String) fn) {
-    while (true) {
-      if (fn(first)) {
-        removeAt(0);
-        return;
-      } else {
-        removeAt(0);
-      }
-    }
-  }
-
   void removeWhile(bool Function(String) fn) {
     if (isEmpty) return;
 

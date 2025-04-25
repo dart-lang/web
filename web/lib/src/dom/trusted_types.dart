@@ -21,7 +21,7 @@ typedef CreateScriptURLCallback = JSFunction;
 
 /// The **`TrustedHTML`** interface of the [Trusted Types API] represents a
 /// string that a developer can insert into an
-/// [injection sink](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API#injection_sinks)
+/// [injection sink](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API#concepts_and_usage)
 /// that will render it as HTML. These objects are created via
 /// [TrustedTypePolicy.createHTML] and therefore have no constructor.
 ///
@@ -40,7 +40,7 @@ extension type TrustedHTML._(JSObject _) implements JSObject {
 
 /// The **`TrustedScript`** interface of the [Trusted Types API] represents a
 /// string with an uncompiled script body that a developer can insert into an
-/// [injection sink](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API#injection_sinks)
+/// [injection sink](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API#concepts_and_usage)
 /// that might execute the script. These objects are created via
 /// [TrustedTypePolicy.createScript] and therefore have no constructor.
 ///
@@ -59,7 +59,7 @@ extension type TrustedScript._(JSObject _) implements JSObject {
 
 /// The **`TrustedScriptURL`** interface of the [Trusted Types API] represents a
 /// string that a developer can insert into an
-/// [injection sink](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API#injection_sinks)
+/// [injection sink](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API#concepts_and_usage)
 /// that will parse it as a URL of an external script. These objects are created
 /// via [TrustedTypePolicy.createScriptURL] and therefore have no constructor.
 ///
@@ -88,22 +88,6 @@ extension type TrustedTypePolicyFactory._(JSObject _) implements JSObject {
   /// The **`createPolicy()`** method of the [TrustedTypePolicyFactory]
   /// interface creates a [TrustedTypePolicy] object that implements the rules
   /// passed as `policyOptions`.
-  ///
-  /// ### The default policy
-  ///
-  /// In Chrome a policy with a name of "default" creates a special policy that
-  /// will be used if a string (rather than a Trusted Type object) is passed to
-  /// an injection sink. This can be used in a transitional phase while moving
-  /// from an application that inserted strings into injection sinks.
-  ///
-  /// > [!NOTE]
-  /// > The above behavior is not yet settled in the specification and may
-  /// > change in future.
-  ///
-  /// > [!WARNING]
-  /// > A lax default policy could defeat the purpose of using Trusted Types,
-  /// > and therefore should be defined with strict rules to ensure it cannot be
-  /// > used to run dangerous code.
   external TrustedTypePolicy createPolicy(
     String policyName, [
     TrustedTypePolicyOptions policyOptions,
@@ -177,11 +161,9 @@ extension type TrustedTypePolicyFactory._(JSObject _) implements JSObject {
   /// [TrustedTypePolicyFactory] interface returns the default
   /// [TrustedTypePolicy] or null if this is empty.
   ///
-  /// > [!NOTE]
-  /// > Information about the creation and use of default policies can be found
-  /// > in the
-  /// > [`createPolicy()`](/en-US/docs/Web/API/TrustedTypePolicyFactory/createPolicy#the_default_policy)
-  /// > documentation.
+  /// See
+  /// [The default policy](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API#the_default_policy)
+  /// for more details.
   external TrustedTypePolicy? get defaultPolicy;
 }
 

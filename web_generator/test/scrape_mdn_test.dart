@@ -151,7 +151,7 @@ volume control (like [FontFace.status])
 
 void compare(String source, String output) {
   expect(
-    convertMdnToMarkdown(source),
+    convertMdnToMarkdown(source).$2,
     output.trimRight(),
   );
 }

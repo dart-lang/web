@@ -155,7 +155,7 @@ extension type File._(JSObject _) implements Blob, JSObject {
   /// The **`webkitRelativePath`** read-only property of the [File] interface
   /// contains a string which specifies the file's path relative to the
   /// directory selected by the user in an `input` element with its
-  /// [`webkitdirectory`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#webkitdirectory)
+  /// [`webkitdirectory`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#webkitdirectory)
   /// attribute set.
   external String get webkitRelativePath;
 }
@@ -232,8 +232,8 @@ extension type FileList._(JSObject _) implements JSObject {
 /// read files on the client's file system by pathname, use the
 /// [File System Access API](https://developer.mozilla.org/en-US/docs/Web/API/File_System_API).
 /// To read server-side files, use [Window.fetch], with
-/// [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) permission if
-/// reading cross-origin.
+/// [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS)
+/// permission if reading cross-origin.
 ///
 /// ---
 ///

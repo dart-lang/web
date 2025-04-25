@@ -481,7 +481,8 @@ extension type AudioContext._(JSObject _)
   /// [AudioContext] interface returns a double that represents the number of
   /// seconds of processing latency incurred by the `AudioContext` passing an
   /// audio
-  /// buffer from the [AudioDestinationNode] — i.e. the end of the audio graph —
+  /// buffer from the [AudioDestinationNode] — i.e., the end of the audio graph
+  /// —
   /// into the host system's audio subsystem ready for playing.
   ///
   /// > [!NOTE]
@@ -755,10 +756,10 @@ extension type AudioBufferOptions._(JSObject _) implements JSObject {
 ///
 /// Examples include:
 ///
-/// - an audio source (e.g. an HTML `audio` or `video` element, an
+/// - an audio source (e.g., an HTML `audio` or `video` element, an
 ///   [OscillatorNode], etc.),
 /// - the audio destination,
-/// - intermediate processing module (e.g. a filter like [BiquadFilterNode] or
+/// - intermediate processing module (e.g., a filter like [BiquadFilterNode] or
 ///   [ConvolverNode]), or
 /// - volume control (like [GainNode])
 ///
@@ -1743,7 +1744,7 @@ extension type BiquadFilterOptions._(JSObject _)
 /// The `ChannelMergerNode` interface, often used in conjunction with its
 /// opposite, [ChannelSplitterNode], reunites different mono inputs into a
 /// single output. Each input is used to fill a channel of the output. This is
-/// useful for accessing each channels separately, e.g. for performing channel
+/// useful for accessing each channels separately, e.g., for performing channel
 /// mixing where gain must be separately controlled on each channel.
 ///
 /// ![Default channel merger node with six mono inputs combining to form a
@@ -1810,8 +1811,8 @@ extension type ChannelMergerOptions._(JSObject _)
 /// The `ChannelSplitterNode` interface, often used in conjunction with its
 /// opposite, [ChannelMergerNode], separates the different channels of an audio
 /// source into a set of mono outputs. This is useful for accessing each channel
-/// separately, e.g. for performing channel mixing where gain must be separately
-/// controlled on each channel.
+/// separately, e.g., for performing channel mixing where gain must be
+/// separately controlled on each channel.
 ///
 /// ![Default channel splitter node with a single input splitting to form 6 mono
 /// outputs.](webaudiosplitter.png)
@@ -3067,7 +3068,7 @@ extension type PannerNode._(JSObject _) implements AudioNode, JSObject {
 
   /// The `refDistance` property of the [PannerNode] interface is a double value
   /// representing the reference distance for reducing volume as the audio
-  /// source moves further from the listener – i.e. the distance at which the
+  /// source moves further from the listener – i.e., the distance at which the
   /// volume reduction starts taking effect. This value is used by all distance
   /// models.
   ///

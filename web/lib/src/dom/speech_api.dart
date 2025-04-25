@@ -68,7 +68,7 @@ extension type SpeechRecognition._(JSObject _)
   /// interface returns and sets the language of the current
   /// `SpeechRecognition`.
   /// If not specified, this defaults to the HTML
-  /// [`lang`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
+  /// [`lang`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/lang)
   /// attribute
   /// value, or the user agent's language setting if that isn't set either.
   external String get lang;
@@ -85,7 +85,7 @@ extension type SpeechRecognition._(JSObject _)
   /// The **`interimResults`** property of the
   /// [SpeechRecognition] interface controls whether interim results should be
   /// returned (`true`) or not (`false`). Interim results are results
-  /// that are not yet final (e.g. the [SpeechRecognitionResult.isFinal]
+  /// that are not yet final (e.g., the [SpeechRecognitionResult.isFinal]
   /// property
   /// is `false`).
   ///
@@ -344,7 +344,7 @@ extension type SpeechSynthesis._(JSObject _) implements EventTarget, JSObject {
 /// [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API)
 /// represents a speech request.
 /// It contains the content the speech service should read and information about
-/// how to read it (e.g. language, pitch and volume.)
+/// how to read it (e.g., language, pitch and volume.)
 ///
 /// ---
 ///
@@ -367,8 +367,8 @@ extension type SpeechSynthesisUtterance._(JSObject _)
   /// The **`lang`** property of the [SpeechSynthesisUtterance] interface gets
   /// and sets the language of the utterance.
   ///
-  /// If unset, the app's (i.e. the `html`
-  /// [`lang`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
+  /// If unset, the app's (i.e., the `html`
+  /// [`lang`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/lang)
   /// value) lang will be used, or the user-agent default if that is unset too.
   external String get lang;
   external set lang(String value);

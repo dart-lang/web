@@ -38,7 +38,7 @@ extension type AccelerometerSensorOptions._(JSObject _)
 /// device sensor through the
 /// [Permissions API](https://developer.mozilla.org/en-US/docs/Web/API/Permissions_API).
 /// In addition, this feature may be blocked by a
-/// [Permissions Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Permissions_Policy)
+/// [Permissions Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Permissions_Policy)
 /// set on your server.
 ///
 /// ---
@@ -60,7 +60,7 @@ extension type LinearAccelerationSensor._(JSObject _)
 /// device sensor through the
 /// [Permissions API](https://developer.mozilla.org/en-US/docs/Web/API/Permissions_API).
 /// In addition, this feature may be blocked by a
-/// [Permissions Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Permissions_Policy)
+/// [Permissions Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Permissions_Policy)
 /// set on your server.
 ///
 /// ---

@@ -44,7 +44,7 @@ extension type Geolocation._(JSObject _) implements JSObject {
   ///
   /// Note that in addition to requiring a secure context this feature may be
   /// blocked by the
-  /// [`geolocation`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy/geolocation)
+  /// [`geolocation`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Permissions-Policy/geolocation)
   /// `Permissions-Policy`, and also requires that explicit permission be
   /// granted by the user.
   /// If required, the user will be prompted when this method is called.
@@ -64,7 +64,7 @@ extension type Geolocation._(JSObject _) implements JSObject {
   ///
   /// Note that in addition to requiring a secure context this feature may be
   /// blocked by the
-  /// [`geolocation`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy/geolocation)
+  /// [`geolocation`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Permissions-Policy/geolocation)
   /// `Permissions-Policy`, and also requires that explicit permission be
   /// granted by the user.
   /// If required, the user will be prompted when this method is called.

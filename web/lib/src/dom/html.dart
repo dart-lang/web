@@ -111,7 +111,7 @@ typedef WorkerType = String;
 /// The **`HTMLAllCollection`** interface represents a collection of _all_ of
 /// the document's elements, accessible by index (like an array) and by the
 /// element's
-/// [`id`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id).
+/// [`id`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/id).
 /// It is returned by the [document.all] property.
 ///
 /// `HTMLAllCollection` has a very similar shape to [HTMLCollection], but there
@@ -190,7 +190,7 @@ extension type RadioNodeList._(JSObject _) implements NodeList, JSObject {
 }
 
 /// The **`HTMLOptionsCollection`** interface represents a collection of
-/// [`<option>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)
+/// [`<option>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/option)
 /// HTML elements (in document order) and offers methods and properties for
 /// selecting from the list as well as optionally altering its items. This
 /// object is returned only by the `options` property of
@@ -453,7 +453,7 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   /// The **`HTMLElement.click()`** method simulates a mouse click on an
   /// element. When called on an element, the element's [Element.click_event]
   /// event is fired (unless its
-  /// [`disabled`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/disabled)
+  /// [`disabled`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/disabled)
   /// attribute is set).
   external void click();
 
@@ -469,12 +469,12 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   external ElementInternals attachInternals();
 
   /// The **`showPopover()`** method of the [HTMLElement] interface shows a
-  /// [Popover_API] element (i.e. one that has a valid
-  /// [`popover`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/popover)
+  /// [Popover_API] element (i.e., one that has a valid
+  /// [`popover`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/popover)
   /// attribute) by adding it to the .
   ///
   /// When `showPopover()` is called on an element with the
-  /// [`popover`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/popover)
+  /// [`popover`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/popover)
   /// attribute that is currently hidden, a [HTMLElement.beforetoggle_event]
   /// event will be fired, followed by the popover showing, and then the
   /// [HTMLElement.toggle_event] event firing. If the element is already
@@ -483,12 +483,12 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
 
   /// The **`hidePopover()`** method of the [HTMLElement] interface hides a
   /// [popover](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API)
-  /// element (i.e. one that has a valid
-  /// [`popover`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/popover)
+  /// element (i.e., one that has a valid
+  /// [`popover`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/popover)
   /// attribute) by removing it from the  and styling it with `display: none`.
   ///
   /// When `hidePopover()` is called on a showing element with the
-  /// [`popover`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/popover)
+  /// [`popover`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/popover)
   /// attribute, a [HTMLElement.beforetoggle_event] event will be fired,
   /// followed by the popover being hidden, and then the
   /// [HTMLElement.toggle_event] event firing. If the element is already hidden,
@@ -496,12 +496,12 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   external void hidePopover();
 
   /// The **`togglePopover()`** method of the [HTMLElement] interface toggles a
-  /// [Popover_API] element (i.e. one that has a valid
-  /// [`popover`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/popover)
+  /// [Popover_API] element (i.e., one that has a valid
+  /// [`popover`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/popover)
   /// attribute) between the hidden and showing states.
   ///
   /// When `togglePopover()` is called on an element with the
-  /// [`popover`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/popover)
+  /// [`popover`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/popover)
   /// attribute:
   ///
   /// 1. A [HTMLElement.beforetoggle_event] event is fired.
@@ -537,7 +537,7 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   /// The **`lang`** property of the [HTMLElement] interface indicates the base
   /// language of an element's attribute values and text content, in the form of
   /// a `5646, "BCP 47 language identifier tag"`. It reflects the element's
-  /// [`lang`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
+  /// [`lang`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/lang)
   /// attribute; the `xml:lang` attribute does not affect this property.
   ///
   /// Note that if the `lang` attribute is unspecified, the element itself may
@@ -552,7 +552,7 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   /// leave them unchanged.
   ///
   /// It reflects the value of the
-  /// [`translate`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/translate)
+  /// [`translate`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/translate)
   /// HTML global attribute.
   external bool get translate;
   external set translate(bool value);
@@ -560,7 +560,7 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   /// The **`HTMLElement.dir`** property indicates the text writing
   /// directionality of the content of the current element. It reflects the
   /// element's
-  /// [`dir`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
+  /// [`dir`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/dir)
   /// attribute.
   ///
   /// Note that if the `dir` attribute is unspecified, the element itself may
@@ -575,13 +575,13 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
 
   /// The [HTMLElement] property **`hidden`** reflects the value of the
   /// element's
-  /// [`hidden`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/hidden)
+  /// [`hidden`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/hidden)
   /// attribute.
   external JSAny? get hidden;
   external set hidden(JSAny? value);
 
   /// The [HTMLElement] property **`inert`** reflects the value of the element's
-  /// [`inert`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inert)
+  /// [`inert`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/inert)
   /// attribute. It is a boolean value that, when present, makes the browser
   /// "ignore" user input events for the element, including focus events and
   /// events from assistive technologies. The browser may also ignore page
@@ -617,19 +617,19 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   /// a `Boolean` primitive indicating if the element is draggable.
   ///
   /// It reflects the value of the
-  /// [`draggable`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/draggable)
+  /// [`draggable`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/draggable)
   /// HTML global attribute.
   external bool get draggable;
   external set draggable(bool value);
 
   /// The **`spellcheck`** property of the [HTMLElement] interface represents a
   /// boolean value that controls the
-  /// [spell-checking](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/spellcheck)
+  /// [spell-checking](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/spellcheck)
   /// hint. It is available on all HTML elements, though it doesn't affect all
   /// of them.
   ///
   /// It reflects the value of the
-  /// [`spellcheck`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/spellcheck)
+  /// [`spellcheck`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/spellcheck)
   /// HTML global attribute.
   external bool get spellcheck;
   external set spellcheck(bool value);
@@ -639,7 +639,7 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   /// enabled under the scope of the element or not.
   ///
   /// It reflects the value of the
-  /// [`writingsuggestions`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/writingsuggestions)
+  /// [`writingsuggestions`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/writingsuggestions)
   /// HTML global attribute.
   external String get writingSuggestions;
   external set writingSuggestions(String value);
@@ -651,7 +651,7 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   ///
   /// - `input` and `textarea` elements.
   /// - Any element with
-  ///   [`contenteditable`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/contenteditable)
+  ///   [`contenteditable`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/contenteditable)
   ///   set on it.
   ///
   /// `autocapitalize` doesn't affect behavior when typing on a physical
@@ -661,7 +661,7 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   /// capitalizing the first letter of each sentence.
   ///
   /// It reflects the value of the
-  /// [`autocapitalize`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/autocapitalize)
+  /// [`autocapitalize`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/autocapitalize)
   /// HTML global attribute.
   external String get autocapitalize;
   external set autocapitalize(String value);
@@ -678,7 +678,7 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   /// Other devices and browsers may use a different approach.
   ///
   /// The property reflects the value of the
-  /// [`autocorrect`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/autocorrect)
+  /// [`autocorrect`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/autocorrect)
   /// HTML global attribute.
   external bool get autocorrect;
   external set autocorrect(bool value);
@@ -715,7 +715,7 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   /// `"manual"`), and can be used for feature detection.
   ///
   /// It reflects the value of the
-  /// [`popover`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/popover)
+  /// [`popover`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/popover)
   /// global HTML attribute.
   external String? get popover;
   external set popover(String? value);
@@ -752,22 +752,21 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   /// [HTMLElement.offsetLeft] are relative to its padding edge.
   external Element? get offsetParent;
 
-  /// The **`HTMLElement.offsetTop`** read-only property returns the
-  /// distance from the outer border of the current element (including its
-  /// margin) to the top padding edge of the [HTMLelement.offsetParent], the
-  /// _closest positioned_
-  /// ancestor element.
+  /// The **`offsetTop`** read-only property of the [HTMLElement] interface
+  /// returns the distance from the outer border of the current element
+  /// (including its margin) to the top padding edge of the
+  /// [HTMLelement.offsetParent], the _closest positioned_ ancestor element.
   external int get offsetTop;
 
-  /// The **`HTMLElement.offsetLeft`** read-only property returns the number of
-  /// pixels that the _upper left corner_ of the current element is offset to
-  /// the left within the [HTMLElement.offsetParent] node.
+  /// The **`offsetLeft`** read-only property of the [HTMLElement] interface
+  /// returns the number of pixels that the _upper left corner_ of the current
+  /// element is offset to the left within the [HTMLElement.offsetParent] node.
   ///
   /// For block-level elements, `offsetTop`, `offsetLeft`, `offsetWidth`, and
   /// `offsetHeight` describe the border box of an element relative to the
   /// `offsetParent`.
   ///
-  /// However, for inline-level elements (such as **span**) that can wrap from
+  /// However, for inline-level elements (such as `<span>`) that can wrap from
   /// one line to the next, `offsetTop` and `offsetLeft` describe the positions
   /// of the _first_ border box (use [Element.getClientRects] to get its width
   /// and height), while `offsetWidth` and `offsetHeight` describe the
@@ -778,41 +777,31 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   /// with wrapped text.
   external int get offsetLeft;
 
-  /// The **`HTMLElement.offsetWidth`** read-only property returns
-  /// the layout width of an element as an integer.
+  /// The **`offsetWidth`** read-only property of the [HTMLElement] interface
+  /// returns the layout width of an element as an integer.
   ///
   /// Typically, `offsetWidth` is a measurement in pixels of the element's CSS
   /// width, including any borders, padding, and vertical scrollbars (if
-  /// rendered). It does
-  /// not include the width of pseudo-elements such as `::before` or
-  /// `::after`.
+  /// rendered). It does not include the width of pseudo-elements such as
+  /// `::before` or `::after`.
   ///
   /// If the element is hidden (for example, by setting `style.display` on the
-  /// element or one of its ancestors to `"none"`), then `0` is
-  /// returned.
+  /// element or one of its ancestors to `"none"`), then `0` is returned.
   external int get offsetWidth;
 
-  /// The **`HTMLElement.offsetHeight`** read-only property returns
-  /// the height of an element, including vertical padding and borders, as an
-  /// integer.
+  /// The **`offsetHeight`** read-only property of the [HTMLElement] interface
+  /// returns the height of an element, including vertical padding and borders,
+  /// as an integer.
   ///
   /// Typically, `offsetHeight` is a measurement in pixels of the element's CSS
   /// height, including any borders, padding, and horizontal scrollbars (if
-  /// rendered). It does
-  /// not include the height of pseudo-elements such as `::before` or
-  /// `::after`. For the document body object, the measurement includes total
-  /// linear content height instead of the element's CSS height. Floated
-  /// elements extending
-  /// below other linear content are ignored.
+  /// rendered). It does not include the height of pseudo-elements such as
+  /// `::before` or `::after`. For the document body object, the measurement
+  /// includes total linear content height instead of the element's CSS height.
+  /// Floated elements extending below other linear content are ignored.
   ///
   /// If the element is hidden (for example, by setting `style.display` on the
-  /// element or one of its ancestors to `"none"`), then `0` is
-  /// returned.
-  ///
-  /// > [!NOTE]
-  /// > This property will round the value to an integer. If you need a
-  /// > fractional value, use
-  /// > [element.getBoundingClientRect].
+  /// element or one of its ancestors to `"none"`), then `0` is returned.
   external int get offsetHeight;
 
   /// The read-only **`style`** property of the [HTMLElement] returns the
@@ -820,7 +809,7 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   /// object that contains a list of all styles properties for that element with
   /// values assigned only for the attributes that are defined in the element's
   /// inline
-  /// [`style`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/style)
+  /// [`style`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/style)
   /// attribute.
   ///
   /// Shorthand properties are expanded. If you set `style="border-top: 1px
@@ -1091,7 +1080,7 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   /// what action label (or icon) to present for the enter key on virtual
   /// keyboards.
   /// It reflects the
-  /// [`enterkeyhint`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/enterkeyhint)
+  /// [`enterkeyhint`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/enterkeyhint)
   /// HTML global attribute and is an enumerated property, only accepting the
   /// following values
   /// as a string:
@@ -1121,7 +1110,7 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
 
   /// The [HTMLElement] property **`inputMode`** reflects the value of the
   /// element's
-  /// [`inputmode`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inputmode)
+  /// [`inputmode`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/inputmode)
   /// attribute.
   ///
   /// It provides a hint about the type of data that might be entered by the
@@ -1129,14 +1118,14 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   /// display an appropriate virtual keyboard.
   ///
   /// It is used primarily on `input` elements, but is usable on any element in
-  /// [`contenteditable`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/contenteditable)
+  /// [`contenteditable`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/contenteditable)
   /// mode.
   external String get inputMode;
   external set inputMode(String value);
 
   /// The **`dataset`** read-only property
   /// of the [HTMLElement] interface provides read/write access to
-  /// [custom data attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/data-*)
+  /// [custom data attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/data-*)
   /// (`data-*`) on elements. It exposes a map of strings
   /// ([DOMStringMap]) with an entry for each `data-*` attribute.
   ///
@@ -1167,7 +1156,7 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   /// In addition to the information below, you'll find a how-to guide for using
   /// HTML data
   /// attributes in our article
-  /// [_Using data attributes_](https://developer.mozilla.org/en-US/docs/Learn_web_development/Howto/Solve_HTML_problems/Use_data_attributes).
+  /// [_Using data attributes_](https://developer.mozilla.org/en-US/docs/Web/HTML/How_to/Use_data_attributes).
   ///
   /// ### Name conversion
   ///
@@ -1210,7 +1199,7 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   ///   [`in` operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/in)
   ///   can check if a given attribute exists:
   /// `'keyname' in element.dataset`. Note that this will walk the
-  /// [prototype chain](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain)
+  /// [prototype chain](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Inheritance_and_the_prototype_chain)
   /// of `dataset` and may be unsafe if you have external code that may pollute
   /// the prototype chain. Several alternatives exist, such as `'keyname')"`, or
   /// just checking if `element.dataset.keyname !== undefined`.
@@ -1228,7 +1217,7 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
 
   /// The **`nonce`** property of the [HTMLElement] interface returns the
   /// cryptographic number used once that is used by
-  /// [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)
+  /// [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP)
   /// to determine whether a given fetch will be allowed to proceed.
   ///
   /// In later implementations, elements only expose their `nonce` attribute to
@@ -1238,7 +1227,7 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
 
   /// The **`autofocus`** property of the [HTMLElement] interface represents a
   /// boolean value reflecting the
-  /// [`autofocus`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#autofocus)
+  /// [`autofocus`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/select#autofocus)
   /// HTML global attribute, which indicates whether the control should be
   /// focused when the page loads, or when dialog or popover become shown if
   /// specified in an element inside `dialog` elements or elements whose popover
@@ -1433,7 +1422,7 @@ extension type HTMLBaseElement._(JSObject _) implements HTMLElement, JSObject {
   /// hyperlinks and form elements.
   ///
   /// It reflects the
-  /// [`target`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base#target)
+  /// [`target`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/base#target)
   /// attribute of the `base` element.
   external String get target;
   external set target(String value);
@@ -1442,10 +1431,10 @@ extension type HTMLBaseElement._(JSObject _) implements HTMLElement, JSObject {
 /// The **`HTMLLinkElement`** interface represents reference information for
 /// external resources and the relationship of those resources to a document and
 /// vice versa (corresponds to
-/// [`<link>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link)
+/// [`<link>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/link)
 /// element; not to be confused with
-/// [`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a), which
-/// is represented by
+/// [`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a),
+/// which is represented by
 /// [`HTMLAnchorElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLAnchorElement)).
 /// This object inherits all of the properties and methods of the [HTMLElement]
 /// interface.
@@ -1467,7 +1456,7 @@ extension type HTMLLinkElement._(JSObject _) implements HTMLElement, JSObject {
   ///
   /// > [!NOTE]
   /// > Every `<link>` element must contain either one or both of the `href` or
-  /// > [`imagesrcset`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#imagesrcset)
+  /// > [`imagesrcset`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/link#imagesrcset)
   /// > attributes. This means, for each valid `<link>`, either this property or
   /// > [HTMLLinkElement.imageSrcset] will not be empty.
   external String get href;
@@ -1480,7 +1469,7 @@ extension type HTMLLinkElement._(JSObject _) implements HTMLElement, JSObject {
   external set crossOrigin(String? value);
 
   /// The **`rel`** property of the [HTMLLinkElement] interface reflects the
-  /// [`rel`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel)
+  /// [`rel`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/rel)
   /// attribute. It is a string containing a space-separated list of link types
   /// indicating the relationship between the resource represented by the `link`
   /// element and the current document.
@@ -1488,7 +1477,7 @@ extension type HTMLLinkElement._(JSObject _) implements HTMLElement, JSObject {
   /// The most common use of this attribute is to specify a link to an external
   /// style sheet:
   /// the property is set to `stylesheet`, and the
-  /// [`href`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#href)
+  /// [`href`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/link#href)
   /// attribute is set to the URL of an external style sheet to format the page.
   external String get rel;
   external set rel(String value);
@@ -1497,25 +1486,25 @@ extension type HTMLLinkElement._(JSObject _) implements HTMLElement, JSObject {
   /// representing the type of content to be preloaded by a link element.
   ///
   /// The `as` property must have a value for link elements when
-  /// [`rel="preload"`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel/preload),
+  /// [`rel="preload"`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/rel/preload),
   /// or the resource will not be fetched.
   /// It may also be applied to link elements where
-  /// [`rel="modulepreload"`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel/modulepreload),
+  /// [`rel="modulepreload"`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/rel/modulepreload),
   /// but if omitted, will default to `script`.
   /// The property should not be set for other types of link elements, such as
   /// `rel="prefetch"`.
   ///
   /// This property reflects the value of the
-  /// [`as` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#as)
+  /// [`as` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/link#as)
   /// of the
-  /// [`<link>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link)
+  /// [`<link>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/link)
   /// HTML element.
   external String get as;
   external set as(String value);
 
   /// The **`relList`** read-only property of the [HTMLLinkElement] interface
   /// reflects the
-  /// [`rel`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel)
+  /// [`rel`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/rel)
   /// attribute. It is a live [DOMTokenList] containing the set of link types
   /// indicating the relationship between the resource represented by the `link`
   /// element and the current document.
@@ -1561,21 +1550,71 @@ extension type HTMLLinkElement._(JSObject _) implements HTMLElement, JSObject {
   /// The **`sizes`** read-only property of the [HTMLLinkElement] interfaces
   /// defines the sizes of the icons for visual media contained in the resource.
   /// It reflects the `link` element's
-  /// [`sizes`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#sizes)
+  /// [`sizes`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/link#sizes)
   /// attribute, which takes a list of space-separated sizes, each in the format
   /// `<width in pixels>x<height in pixels>`, or the keyword `any`.
   ///
   /// It is only relevant if the [HTMLLinkElement.rel] is `icon` or a
   /// non-standard type like `apple-touch-icon`.
   external DOMTokenList get sizes;
+
+  /// The **`imageSrcset`** property of the [HTMLLinkElement] interface is a
+  /// string which identifies one or more comma-separated **image candidate
+  /// strings**. This property reflects the value of the `link` element's
+  /// [`imagesrcset`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/link#imagesrcset)
+  /// attribute. This property can retrieved or set the `imagesrcset` attribute
+  /// value.
+  ///
+  /// Each image candidate string contains an image URL and an optional width
+  /// and/or pixel density descriptor indicating the conditions under which that
+  /// candidate image should be used.
+  ///
+  /// ```plain
+  /// "images/team-photo.jpg, images/team-photo-retina.jpg 2x, images/team-photo-large.jpg 1400w"
+  /// ```
+  ///
+  /// For HTML `link` elements with
+  /// [`rel="preload"`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/rel/preload)
+  /// and [`as="image"`](/en-US/docs/Web/HTML/Reference/Elements/link#as) set,
+  /// the `imagesrcset` attribute has similar syntax and semantics as the `img`
+  /// element's
+  /// [`srcset`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/img#srcset)
+  /// attribute, which indicates to preload the appropriate resource used by an
+  /// `<img>` element with corresponding values for its `srcset` and `sizes`
+  /// attributes.
+  ///
+  /// If the `imageSrcset` property includes width descriptors, the
+  /// [HTMLLinkElement.imageSizes] property must be non-null, or the
+  /// `imageSrcset` value will be ignored.
   external String get imageSrcset;
   external set imageSrcset(String value);
+
+  /// The **`imageSizes`** property of the [HTMLLinkElement] interface indicates
+  /// the size and conditions for the preloaded images defined by the
+  /// [HTMLLinkElement.imageSrcset] property. It reflects the value of the
+  /// `link` element's
+  /// [`imagesizes`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/link#imagesizes)
+  /// attribute. This property can retrieve or set the `imagesizes` attribute
+  /// value.
+  ///
+  /// The `<link>` element's `imagesizes` attribute is the same as the `img`
+  /// element's `sizes` attribute: a comma-separated **source size** list. Each
+  /// source size includes a
+  /// [media condition](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_media_queries),
+  /// the size of the image as a `length`, or the keyword `auto`, which must
+  /// come first. For more information about the syntax of the `sizes`
+  /// attribute, see
+  /// [`<img>`](/en-US/docs/Web/HTML/Reference/Elements/img#sizes).
+  ///
+  /// The `imagesrcset` and `imagesizes` attributes are only relevant on
+  /// `<link>` elements that have both a `rel` attribute set to `preload` and
+  /// the `as` attribute set to `image`.
   external String get imageSizes;
   external set imageSizes(String value);
 
   /// The **`referrerPolicy`** property of the [HTMLLinkElement] interface
   /// reflects the HTML
-  /// [`referrerpolicy`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#referrerpolicy)
+  /// [`referrerpolicy`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/link#referrerpolicy)
   /// attribute of the
   /// `link` element defining which referrer is sent when fetching the
   /// resource.
@@ -1610,7 +1649,7 @@ extension type HTMLLinkElement._(JSObject _) implements HTMLElement, JSObject {
   /// fetching a particular resource relative to other resources of the same
   /// type.
   /// It reflects the
-  /// [`fetchpriority`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#fetchpriority)
+  /// [`fetchpriority`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/link#fetchpriority)
   /// attribute of the corresponding `link` element.
   ///
   /// The property allows a developer to signal that fetching a particular
@@ -1623,7 +1662,7 @@ extension type HTMLLinkElement._(JSObject _) implements HTMLElement, JSObject {
   /// prioritization can degrade performance.
   ///
   /// The fetch priority can be used to complement
-  /// [preloading](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel/preload),
+  /// [preloading](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/rel/preload),
   /// allowing a developer to boost the priority of a resource ahead of
   /// less-impactful resources that are by default preloaded with a higher
   /// priority.
@@ -1652,7 +1691,7 @@ extension type HTMLLinkElement._(JSObject _) implements HTMLElement, JSObject {
 
 /// The **`HTMLMetaElement`** interface contains descriptive metadata about a
 /// document provided in HTML as
-/// [`<meta>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta)
+/// [`<meta>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/meta)
 /// elements.
 /// This interface inherits all of the properties and methods described in the
 /// [HTMLElement] interface.
@@ -1677,7 +1716,7 @@ extension type HTMLMetaElement._(JSObject _) implements HTMLElement, JSObject {
   /// directive or an HTTP response header name for the
   /// [HTMLMetaElement.content] attribute.
   /// For more details on the possible values, see the
-  /// [http-equiv](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta#http-equiv)
+  /// [http-equiv](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/meta#http-equiv)
   /// attribute.
   external String get httpEquiv;
   external set httpEquiv(String value);
@@ -1686,7 +1725,7 @@ extension type HTMLMetaElement._(JSObject _) implements HTMLElement, JSObject {
   /// attribute of pragma directives and named `meta` data in conjunction with
   /// [HTMLMetaElement.name] or [HTMLMetaElement.httpEquiv].
   /// For more information, see the
-  /// [content](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta#content)
+  /// [content](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/meta#content)
   /// attribute.
   external String get content;
   external set content(String value);
@@ -1706,10 +1745,10 @@ extension type HTMLMetaElement._(JSObject _) implements HTMLElement, JSObject {
   /// in the [HTMLMetaElement.content] attribute.
   /// The `scheme` property was created to enable providing additional
   /// information to be used to interpret the value of the `content` property.
-  /// The `scheme` property takes as its value a scheme format (i.e.
-  /// `YYYY-MM-DD`) or scheme format name (i.e. `ISBN`), or a URI providing more
-  /// information regarding the scheme format. The scheme defines the format of
-  /// the value of the `content` attribute.
+  /// The `scheme` property takes as its value a scheme format (i.e.,
+  /// `YYYY-MM-DD`) or scheme format name (i.e., `ISBN`), or a URI providing
+  /// more information regarding the scheme format. The scheme defines the
+  /// format of the value of the `content` attribute.
   /// The `scheme` content is interpreted as an extension of the element's
   /// [HTMLMetaElement.name] if a browser or user agent recognizes the scheme.
   ///
@@ -1740,7 +1779,7 @@ extension type HTMLStyleElement._(JSObject _) implements HTMLElement, JSObject {
   ///
   /// Note that there is no corresponding `disabled` attribute on the [HTML
   /// `<style>`
-  /// element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/style).
+  /// element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/style).
   external bool get disabled;
   external set disabled(bool value);
 
@@ -1759,7 +1798,7 @@ extension type HTMLStyleElement._(JSObject _) implements HTMLElement, JSObject {
   /// The **`HTMLStyleElement.type`** property returns the type of the current
   /// style.
   /// The value mirrors the [HTML `<style>` element's `type`
-  /// attribute](/en-US/docs/Web/HTML/Element/style#type).
+  /// attribute](/en-US/docs/Web/HTML/Reference/Elements/style#type).
   ///
   /// Authors should not use this property or rely on the value.
   external String get type;
@@ -1843,7 +1882,7 @@ extension type HTMLBodyElement._(JSObject _) implements HTMLElement, JSObject {
 
 /// The **`HTMLHeadingElement`** interface represents the different heading
 /// elements, [`<h1>` through
-/// `<h6>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements).
+/// `<h6>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/Heading_Elements).
 /// It inherits methods and properties from the [HTMLElement] interface.
 ///
 /// ---
@@ -1955,7 +1994,7 @@ extension type HTMLQuoteElement._(JSObject _) implements HTMLElement, JSObject {
 
   /// The **`cite`** property of the [HTMLQuoteElement] interface indicates the
   /// URL for the source of the quotation. It reflects the `q` element's
-  /// [`cite`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/q#cite)
+  /// [`cite`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/q#cite)
   /// attribute.
   external String get cite;
   external set cite(String value);
@@ -1977,7 +2016,7 @@ extension type HTMLOListElement._(JSObject _) implements HTMLElement, JSObject {
   /// order of a list.
   ///
   /// It reflects the
-  /// [`reversed`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol#reversed)
+  /// [`reversed`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/ol#reversed)
   /// attribute of the `ol` element.
   external bool get reversed;
   external set reversed(bool value);
@@ -1986,7 +2025,7 @@ extension type HTMLOListElement._(JSObject _) implements HTMLElement, JSObject {
   /// starting value of the ordered list, with default value of 1.
   ///
   /// It reflects the
-  /// [`start`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol#start)
+  /// [`start`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/ol#start)
   /// attribute of the `ol` element.
   ///
   /// > [!NOTE]
@@ -2000,7 +2039,7 @@ extension type HTMLOListElement._(JSObject _) implements HTMLElement, JSObject {
   /// kind of marker to be used to display ordered list.
   ///
   /// It reflects the
-  /// [`type`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol#type)
+  /// [`type`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/ol#type)
   /// attribute of the `ol` element.
   ///
   /// > [!NOTE]
@@ -2065,7 +2104,7 @@ extension type HTMLLIElement._(JSObject _) implements HTMLElement, JSObject {
   /// the property has no meaning.
   ///
   /// It reflects the
-  /// [`value`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li#value)
+  /// [`value`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/li#value)
   /// attribute of the corresponding `li` element. If the `<li>` element does
   /// not have a `value` content attribute specified, then this property returns
   /// `0` by default even when the element may have a default serially-assigned
@@ -2112,9 +2151,9 @@ extension type HTMLDivElement._(JSObject _) implements HTMLElement, JSObject {
 /// provides special properties and methods (beyond those of the regular
 /// [HTMLElement] object interface that they inherit from) for manipulating the
 /// layout and presentation of such elements. This interface corresponds to
-/// [`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a)
+/// [`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a)
 /// element; not to be confused with
-/// [`<link>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link),
+/// [`<link>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/link),
 /// which is represented by
 /// [`HTMLLinkElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLLinkElement).
 ///
@@ -2131,7 +2170,7 @@ extension type HTMLAnchorElement._(JSObject _)
   /// that indicates where to display the linked resource.
   ///
   /// It reflects the
-  /// [`target`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#target)
+  /// [`target`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#target)
   /// attribute of the `a` element.
   external String get target;
   external set target(String value);
@@ -2163,7 +2202,7 @@ extension type HTMLAnchorElement._(JSObject _)
   external set ping(String value);
 
   /// The **`HTMLAnchorElement.rel`** property reflects the
-  /// [`rel`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel)
+  /// [`rel`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/rel)
   /// attribute. It is a string containing a space-separated list of link types
   /// indicating the relationship between the resource represented by the `a`
   /// element and the current document.
@@ -2171,7 +2210,7 @@ extension type HTMLAnchorElement._(JSObject _)
   external set rel(String value);
 
   /// The **`HTMLAnchorElement.relList`** read-only property reflects the
-  /// [`rel`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel)
+  /// [`rel`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/rel)
   /// attribute. It is a live [DOMTokenList] containing the set of link types
   /// indicating the relationship between the resource represented by the `a`
   /// element and the current document.
@@ -2215,7 +2254,7 @@ extension type HTMLAnchorElement._(JSObject _)
   /// The
   /// **`HTMLAnchorElement.referrerPolicy`**
   /// property reflect the HTML
-  /// [`referrerpolicy`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#referrerpolicy)
+  /// [`referrerpolicy`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#referrerpolicy)
   /// attribute of the
   /// `a` element defining which referrer is sent when fetching the resource.
   external String get referrerPolicy;
@@ -2260,9 +2299,7 @@ extension type HTMLAnchorElement._(JSObject _)
 
   /// The **`protocol`** property of the [HTMLAnchorElement] interface is a
   /// string containing the protocol or scheme of the `<area>` element's `href`,
-  /// including the final `":"`. If the port is the default for the protocol
-  /// (`80` for `ws:` and `http:`, `443` for `wss:` and `https:`, and `21` for
-  /// `ftp:`), this property contains an empty string, `""`.
+  /// including the final `":"`.
   ///
   /// This property can be set to change the protocol of the URL. A `":"` is
   /// appended to the provided string if not provided. The provided scheme has
@@ -2390,7 +2427,7 @@ extension type HTMLDataElement._(JSObject _) implements HTMLElement, JSObject {
 
   /// The **`value`** property of the [HTMLDataElement]
   /// interface returns a string reflecting the
-  /// [`value`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/data#value)
+  /// [`value`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/data#value)
   /// HTML attribute.
   external String get value;
   external set value(String value);
@@ -2411,7 +2448,7 @@ extension type HTMLTimeElement._(JSObject _) implements HTMLElement, JSObject {
   /// The
   /// **`dateTime`**
   /// property of the [HTMLTimeElement] interface is a string that reflects the
-  /// [`datetime`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/time#datetime)
+  /// [`datetime`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/time#datetime)
   /// HTML attribute, containing a machine-readable form of the element's date
   /// and
   /// time value.
@@ -2472,7 +2509,7 @@ extension type HTMLModElement._(JSObject _) implements HTMLElement, JSObject {
   /// The **`dateTime`** property of the [HTMLModElement] interface is a string
   /// containing a machine-readable date with an optional time value. It
   /// reflects the
-  /// [`datetime`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/time#datetime)
+  /// [`datetime`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/time#datetime)
   /// HTML attribute of the `del` and `ins` elements.
   external String get dateTime;
   external set dateTime(String value);
@@ -2632,7 +2669,7 @@ extension type HTMLImageElement._(JSObject _) implements HTMLElement, JSObject {
 
   /// The [HTMLImageElement] property
   /// **`src`**, which reflects the HTML
-  /// [`src`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#src)
+  /// [`src`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/img#src)
   /// attribute, specifies the image to display in the `img`
   /// element.
   external String get src;
@@ -2659,7 +2696,7 @@ extension type HTMLImageElement._(JSObject _) implements HTMLElement, JSObject {
   ///
   /// > [!NOTE]
   /// > If the
-  /// > [`srcset`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#srcset)
+  /// > [`srcset`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/img#srcset)
   /// > attribute uses width descriptors, the `sizes` attribute must also be
   /// > present, or the `srcset` itself will be ignored.
   external String get srcset;
@@ -2667,8 +2704,8 @@ extension type HTMLImageElement._(JSObject _) implements HTMLElement, JSObject {
 
   /// The [HTMLImageElement] property
   /// **`sizes`** allows you to specify the layout width of the
-  /// [image](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img) for
-  /// each of a list of media conditions. This provides the ability to
+  /// [image](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/img)
+  /// for each of a list of media conditions. This provides the ability to
   /// automatically select among different images—even images of different
   /// orientations or
   /// aspect ratios—as the document state changes to match different media
@@ -2689,7 +2726,7 @@ extension type HTMLImageElement._(JSObject _) implements HTMLElement, JSObject {
 
   /// The **`useMap`** property on the
   /// [HTMLImageElement] interface reflects the value of the
-  /// [`usemap`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#usemap)
+  /// [`usemap`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/img#usemap)
   /// attribute, which is a string
   /// providing the name of the client-side image map to apply to the image.
   external String get useMap;
@@ -2703,7 +2740,7 @@ extension type HTMLImageElement._(JSObject _) implements HTMLElement, JSObject {
   /// > [!NOTE]
   /// > For accessibility reasons, you should generally avoid using
   /// > server-side image maps, as they require the use of a mouse. Use a
-  /// > [client-side image map](https://developer.mozilla.org/en-US/docs/Learn_web_development/Howto/Solve_HTML_problems/Add_a_hit_map_on_top_of_an_image)
+  /// > [client-side image map](https://developer.mozilla.org/en-US/docs/Web/HTML/How_to/Add_a_hit_map_on_top_of_an_image)
   /// > instead.
   external bool get isMap;
   external set isMap(bool value);
@@ -2789,7 +2826,7 @@ extension type HTMLImageElement._(JSObject _) implements HTMLElement, JSObject {
   /// The
   /// **`HTMLImageElement.referrerPolicy`**
   /// property reflects the HTML
-  /// [`referrerpolicy`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#referrerpolicy)
+  /// [`referrerpolicy`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/img#referrerpolicy)
   /// attribute of the
   /// `img` element defining which referrer is sent when fetching the
   /// resource.
@@ -2817,7 +2854,7 @@ extension type HTMLImageElement._(JSObject _) implements HTMLElement, JSObject {
   /// represents a hint to the browser indicating how it should prioritize
   /// fetching a particular image relative to other images.
   /// It reflects the
-  /// [`fetchpriority`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#fetchpriority)
+  /// [`fetchpriority`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/img#fetchpriority)
   /// attribute of the corresponding `img` element.
   ///
   /// The property allows a developer to signal that fetching a particular image
@@ -2829,12 +2866,12 @@ extension type HTMLImageElement._(JSObject _) implements HTMLElement, JSObject {
   /// prioritization can degrade performance.
   ///
   /// The fetch priority can be used to complement
-  /// [preloading](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel/preload),
+  /// [preloading](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/rel/preload),
   /// allowing a developer to boost the priority ahead of less-impactful
   /// resources that have a higher default priority.
   /// For example, if a developer knows that a particular image significantly
   /// contributes to the website's  (LCP) they could add [`<link
-  /// rel="preload">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel/preload)
+  /// rel="preload">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/rel/preload)
   /// for the image and then further boost the priority using the
   /// `fetchpriority` property.
   ///
@@ -2890,7 +2927,7 @@ extension type HTMLImageElement._(JSObject _) implements HTMLElement, JSObject {
   /// to the left or right margin.
   ///
   /// The `align` property reflects the HTML
-  /// [`align`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#align)
+  /// [`align`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/img#align)
   /// content attribute.
   external String get align;
   external set align(String value);
@@ -2902,7 +2939,7 @@ extension type HTMLImageElement._(JSObject _) implements HTMLElement, JSObject {
   /// when laying out the page.
   ///
   /// This property reflects the
-  /// [`hspace`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#hspace)
+  /// [`hspace`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/img#hspace)
   /// attribute.
   external int get hspace;
   external set hspace(int value);
@@ -2919,7 +2956,7 @@ extension type HTMLImageElement._(JSObject _) implements HTMLElement, JSObject {
   /// which contains a long-form description of the image. This can be used to
   /// provide optional added details beyond the short description provided in
   /// the
-  /// [`title`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title)
+  /// [`title`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/title)
   /// attribute.
   external String get longDesc;
   external set longDesc(String value);
@@ -2964,16 +3001,16 @@ extension type HTMLIFrameElement._(JSObject _)
   /// Creates an [HTMLIFrameElement] using the tag 'iframe'.
   HTMLIFrameElement() : _ = document.createElement('iframe');
 
-  /// The **`getSVGDocument()`** method of the [HTMLIframeElement] interface
+  /// The **`getSVGDocument()`** method of the [HTMLIFrameElement] interface
   /// returns the [Document] object of the embedded SVG.
   external Document? getSVGDocument();
 
   /// The **`HTMLIFrameElement.src`**
   /// A string that reflects the
-  /// [`src`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#src)
+  /// [`src`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/iframe#src)
   /// HTML attribute, containing the address of the content to be embedded.
   ///
-  /// Note that programmatically removing an `<iframe>`'s src attribute (e.g.
+  /// Note that programmatically removing an `<iframe>`'s src attribute (e.g.,
   /// via [Element.removeAttribute]) causes `about:blank` to be loaded in the
   /// frame.
   external String get src;
@@ -2999,7 +3036,7 @@ extension type HTMLIFrameElement._(JSObject _)
 
   /// The **`allow`** property of the [HTMLIFrameElement] interface indicates
   /// the
-  /// [Permissions Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Permissions_Policy)
+  /// [Permissions Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Permissions_Policy)
   /// specified for this `<iframe>` element. The policy defines what features
   /// are available to the `<iframe>` element (for example, access to the
   /// `microphone`, `camera`, `battery`, `web-share`, etc.) based on the origin
@@ -3010,8 +3047,8 @@ extension type HTMLIFrameElement._(JSObject _)
   /// doesn't replace it.
   ///
   /// See [`<iframe>`'s Permissions Policy
-  /// syntax](/en-US/docs/Web/HTTP/Headers/Permissions-Policy#iframes) for more
-  /// details.
+  /// syntax](/en-US/docs/Web/HTTP/Reference/Headers/Permissions-Policy#iframes)
+  /// for more details.
   ///
   /// It reflects the `allow` attribute of the `iframe` element.
   external String get allow;
@@ -3043,7 +3080,7 @@ extension type HTMLIFrameElement._(JSObject _)
   /// The
   /// **`HTMLIFrameElement.referrerPolicy`**
   /// property reflects the HTML
-  /// [`referrerpolicy`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#referrerpolicy)
+  /// [`referrerpolicy`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/iframe#referrerpolicy)
   /// attribute of the
   /// `iframe` element defining which referrer is sent when fetching the
   /// resource.
@@ -3052,7 +3089,7 @@ extension type HTMLIFrameElement._(JSObject _)
 
   /// The **`loading`** property of the [HTMLIFrameElement] interface is a
   /// string that provides a hint to the  indicating whether the
-  /// [iframe](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe)
+  /// [iframe](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/iframe)
   /// should be loaded immediately on page load, or only when it is needed.
   ///
   /// This can be used to optimize the loading of the document's contents.
@@ -3123,7 +3160,7 @@ extension type HTMLEmbedElement._(JSObject _) implements HTMLElement, JSObject {
   /// The **`type`** property of the [HTMLEmbedElement] interface returns a
   /// string that reflects the `type` attribute of the `embed` element,
   /// indicating the  of the resource. It reflects the `embed` element's
-  /// [`type`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/embed#type)
+  /// [`type`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/embed#type)
   /// attribute
   external String get type;
   external set type(String value);
@@ -3166,14 +3203,14 @@ extension type HTMLObjectElement._(JSObject _)
   /// The **`checkValidity()`** method of the [HTMLObjectElement] interface
   /// checks if the element is valid, but always returns true because `object`
   /// elements are never candidates for
-  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Constraint_validation).
+  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Constraint_validation).
   external bool checkValidity();
 
   /// The **`reportValidity()`** method of the [HTMLObjectElement] interface
   /// performs the same validity checking steps as the
   /// [HTMLObjectElement.checkValidity] method. It always returns true because
   /// `object` elements are never candidates for
-  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Constraint_validation).
+  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Constraint_validation).
   external bool reportValidity();
 
   /// The **`setCustomValidity()`** method of the
@@ -3184,7 +3221,7 @@ extension type HTMLObjectElement._(JSObject _)
   /// The **`data`** property of the
   /// [HTMLObjectElement] interface returns a string that
   /// reflects the
-  /// [`data`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/object#data)
+  /// [`data`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/object#data)
   /// HTML attribute, specifying the address
   /// of a resource's data.
   external String get data;
@@ -3193,7 +3230,7 @@ extension type HTMLObjectElement._(JSObject _)
   /// The **`type`** property of the
   /// [HTMLObjectElement] interface returns a string that
   /// reflects the
-  /// [`type`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/object#type)
+  /// [`type`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/object#type)
   /// HTML attribute, specifying the MIME type
   /// of the resource.
   external String get type;
@@ -3202,7 +3239,7 @@ extension type HTMLObjectElement._(JSObject _)
   /// The **`name`** property of the
   /// [HTMLObjectElement] interface returns a string that
   /// reflects the
-  /// [`name`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/object#name)
+  /// [`name`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/object#name)
   /// HTML attribute, specifying the name of
   /// the browsing context.
   external String get name;
@@ -3216,7 +3253,7 @@ extension type HTMLObjectElement._(JSObject _)
   /// The **`width`** property of the
   /// [HTMLObjectElement] interface returns a string that
   /// reflects the
-  /// [`width`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/object#width)
+  /// [`width`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/object#width)
   /// HTML attribute, specifying the
   /// displayed width of the resource in CSS pixels.
   external String get width;
@@ -3225,7 +3262,7 @@ extension type HTMLObjectElement._(JSObject _)
   /// The **`height`** property of the
   /// [HTMLObjectElement] interface Returns a string that
   /// reflects the
-  /// [`height`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/object#height)
+  /// [`height`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/object#height)
   /// HTML attribute, specifying the
   /// displayed height of the resource in CSS pixels.
   external String get height;
@@ -3248,13 +3285,13 @@ extension type HTMLObjectElement._(JSObject _)
   /// The **`willValidate`** read-only property of the [HTMLObjectElement]
   /// interface returns `false`, because `object` elements are not candidates
   /// for
-  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Constraint_validation).
+  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Constraint_validation).
   external bool get willValidate;
 
   /// The **`validity`** read-only property of the [HTMLObjectElement] interface
   /// returns a [ValidityState] object that represents the validity states this
   /// element is in. Although `object` elements are never candidates for
-  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Constraint_validation),
+  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Constraint_validation),
   /// the validity state may still be invalid if a custom validity message has
   /// been set.
   external ValidityState get validity;
@@ -3291,7 +3328,7 @@ extension type HTMLObjectElement._(JSObject _)
   /// The **`useMap`** property of the
   /// [HTMLObjectElement] interface returns a string that
   /// reflects the
-  /// [`usemap`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/object#usemap)
+  /// [`usemap`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/object#usemap)
   /// HTML attribute, specifying a
   /// `map` element to use.
   external String get useMap;
@@ -3447,7 +3484,7 @@ extension type HTMLTrackElement._(JSObject _) implements HTMLElement, JSObject {
   /// The **`kind`** property of the [HTMLTrackElement] interface represents the
   /// type of track, or how the text track is meant to be used. It reflects the
   /// `track` element's enumerated
-  /// [`kind`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track#kind)
+  /// [`kind`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/track#kind)
   /// attribute.
   ///
   /// If no `kind` is set, `subtitles` is used. If the attribute is not set to
@@ -3459,7 +3496,7 @@ extension type HTMLTrackElement._(JSObject _) implements HTMLElement, JSObject {
   /// The **`src`** property of the [HTMLTrackElement] interface reflects the
   /// value of
   /// the `track` element's
-  /// [`src`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track#src)
+  /// [`src`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/track#src)
   /// attribute, which
   /// indicates the URL of the text track's data.
   external String get src;
@@ -3468,11 +3505,11 @@ extension type HTMLTrackElement._(JSObject _) implements HTMLElement, JSObject {
   /// The **`srclang`** property of the [HTMLTrackElement] interface reflects
   /// the value of
   /// the `track` element's
-  /// [`srclang`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track#srclang)
+  /// [`srclang`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/track#srclang)
   /// attribute or the empty string if not defined.
   ///
   /// The `srclang` attribute is a
-  /// [BCP 47 language tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang#language_tag_syntax)
+  /// [BCP 47 language tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/lang#language_tag_syntax)
   /// indicating the language of the text track's data.
   external String get srclang;
   external set srclang(String value);
@@ -3480,7 +3517,7 @@ extension type HTMLTrackElement._(JSObject _) implements HTMLElement, JSObject {
   /// The **`label`** property of the [HTMLTrackElement] represents the
   /// user-readable title displayed when listing subtitle, caption, and audio
   /// descriptions for a track. It reflects the `track` element's
-  /// [`label`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track#label)
+  /// [`label`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/track#label)
   /// attribute.
   external String get label;
   external set label(String value);
@@ -3543,13 +3580,13 @@ extension type HTMLMediaElement._(JSObject _) implements HTMLElement, JSObject {
   ///
   /// The amount of media data that is
   /// prefetched is determined by the value of the element's
-  /// [`preload`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#preload)
+  /// [`preload`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/video#preload)
   /// attribute.
   ///
   /// This method is generally only useful when you've made dynamic changes to
   /// the set of
   /// sources available for the media element, either by changing the element's
-  /// [`src`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#src)
+  /// [`src`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/video#src)
   /// attribute or by adding or removing
   /// `source` elements nested within the media element itself.
   /// `load()` will reset the element and rescan the available sources, thereby
@@ -3558,7 +3595,7 @@ extension type HTMLMediaElement._(JSObject _) implements HTMLElement, JSObject {
 
   /// The [HTMLMediaElement] method **`canPlayType()`** reports how likely it is
   /// that the current browser will be able to play media of a given
-  /// [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/MIME_types).
+  /// [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/MIME_types).
   external CanPlayTypeResult canPlayType(String type);
 
   /// The **`HTMLMediaElement.fastSeek()`** method quickly seeks the
@@ -3654,7 +3691,7 @@ extension type HTMLMediaElement._(JSObject _) implements HTMLElement, JSObject {
   /// [Blob], or a [File] (which inherits from `Blob`).
   ///
   /// > [!NOTE]
-  /// > As of March 2020, only Safari has full support for `srcObject`, i.e.
+  /// > As of March 2020, only Safari has full support for `srcObject`, i.e.,
   /// > using `MediaSource`, `MediaStream`, `Blob`, and `File` objects as
   /// > values. Other browsers support `MediaStream` objects; until they catch
   /// > up, consider falling back to creating a URL with
@@ -3676,7 +3713,7 @@ extension type HTMLMediaElement._(JSObject _) implements HTMLElement, JSObject {
 
   /// The **`HTMLMediaElement.crossOrigin`** property is the CORS setting for
   /// this media element. See
-  /// [CORS settings attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin)
+  /// [CORS settings attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/crossorigin)
   /// for details.
   external String? get crossOrigin;
   external set crossOrigin(String? value);
@@ -3780,7 +3817,7 @@ extension type HTMLMediaElement._(JSObject _) implements HTMLElement, JSObject {
 
   /// The **`HTMLMediaElement.autoplay`**
   /// property reflects the
-  /// [`autoplay`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#autoplay)
+  /// [`autoplay`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/video#autoplay)
   /// HTML attribute, indicating
   /// whether playback should automatically begin as soon as enough media is
   /// available to do
@@ -3809,14 +3846,14 @@ extension type HTMLMediaElement._(JSObject _) implements HTMLElement, JSObject {
   external set autoplay(bool value);
 
   /// The **`HTMLMediaElement.loop`** property reflects the
-  /// [`loop`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#loop)
+  /// [`loop`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/video#loop)
   /// HTML attribute, which controls whether the media element should start over
   /// when it reaches the end.
   external bool get loop;
   external set loop(bool value);
 
   /// The **`HTMLMediaElement.controls`** property reflects the
-  /// [`controls`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#controls)
+  /// [`controls`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/video#controls)
   /// HTML attribute, which controls whether user
   /// interface controls for playing the media item will be displayed.
   external bool get controls;
@@ -3833,7 +3870,7 @@ extension type HTMLMediaElement._(JSObject _) implements HTMLElement, JSObject {
   external set muted(bool value);
 
   /// The **`HTMLMediaElement.defaultMuted`** property reflects the
-  /// [`muted`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#muted)
+  /// [`muted`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/video#muted)
   /// HTML attribute, which indicates whether the media element's audio output
   /// should be muted by default. This property has no dynamic effect. To mute
   /// and unmute the audio output, use the [HTMLMediaElement.muted] property.
@@ -3883,9 +3920,9 @@ extension type HTMLMediaElement._(JSObject _) implements HTMLElement, JSObject {
   /// the list of text tracks.
   ///
   /// You can detect when tracks are added to and removed from an
-  /// [`<audio>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio)
+  /// [`<audio>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/audio)
   /// or
-  /// [`<video>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video)
+  /// [`<video>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/video)
   /// element
   /// using the `addtrack` and `removetrack` events. However, these
   /// events aren't sent directly to the media element itself. Instead, they're
@@ -4222,7 +4259,7 @@ extension type TextTrackList._(JSObject _) implements EventTarget, JSObject {
   /// The **[TextTrackList]** method
   /// **`getTrackById()`** returns the first
   /// [TextTrack] object from the track list whose
-  /// [`id`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id)
+  /// [`id`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/id)
   /// matches the
   /// specified string. This lets you find a specified track if you know its ID
   /// string.
@@ -4284,7 +4321,7 @@ extension type TextTrack._(JSObject _) implements EventTarget, JSObject {
   /// the language of the text track.
   ///
   /// This uses the same values as the HTML
-  /// [`lang`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
+  /// [`lang`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/lang)
   /// attribute. These values are documented in `5646, "Tags for Identifying
   /// Languages (also known as BCP 47)"`.
   external String get language;
@@ -4330,7 +4367,7 @@ extension type TextTrack._(JSObject _) implements EventTarget, JSObject {
   /// fired, and the user agent won't attempt to obtain the track's cues. This
   /// is the
   /// default value, unless the text track has the
-  /// [`default`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track#default)
+  /// [`default`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/track#default)
   /// Boolean attribute is specified, in which case the default is `showing`.
   /// - `hidden`
   ///   - : The text track is currently active but the cues aren't being displayed. If the user
@@ -4348,7 +4385,7 @@ extension type TextTrack._(JSObject _) implements EventTarget, JSObject {
   /// styling and the
   /// track's [TextTrack.kind]. This is the default value if the text
   /// track's
-  /// [`default`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track#default)
+  /// [`default`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/track#default)
   /// Boolean attribute is specified.
   external TextTrackMode get mode;
   external set mode(TextTrackMode value);
@@ -4564,7 +4601,7 @@ extension type HTMLAreaElement._(JSObject _) implements HTMLElement, JSObject {
   /// The **`alt`** property of the [HTMLAreaElement] interface specifies the
   /// text of the hyperlink, defining the textual label for an image map's link.
   /// It reflects the `area` element's
-  /// [`alt`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/area#alt)
+  /// [`alt`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/area#alt)
   /// attribute.
   ///
   /// The `alt` value must be text that, when presented with the `alt` text of
@@ -4585,7 +4622,7 @@ extension type HTMLAreaElement._(JSObject _) implements HTMLElement, JSObject {
   /// The **`coords`** property of the [HTMLAreaElement] interface specifies the
   /// coordinates of the element's shape as a list of floating-point numbers. It
   /// reflects the `area` element's
-  /// [`coords`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/area#coords)
+  /// [`coords`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/area#coords)
   /// attribute.
   ///
   /// If the `shape` is `rect`, the shape is a rectangle and the string value's
@@ -4609,7 +4646,7 @@ extension type HTMLAreaElement._(JSObject _) implements HTMLElement, JSObject {
 
   /// The **`shape`** property of the [HTMLAreaElement] interface specifies the
   /// shape of an image map area. It reflects the `area` element's
-  /// [`shape`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/area#shape)
+  /// [`shape`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/area#shape)
   /// attribute.
   external String get shape;
   external set shape(String value);
@@ -4618,7 +4655,7 @@ extension type HTMLAreaElement._(JSObject _) implements HTMLElement, JSObject {
   /// that indicates where to display the linked resource.
   ///
   /// It reflects the
-  /// [`target`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/area#target)
+  /// [`target`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/area#target)
   /// attribute of the `area` element.
   external String get target;
   external set target(String value);
@@ -4646,7 +4683,7 @@ extension type HTMLAreaElement._(JSObject _) implements HTMLElement, JSObject {
   external set ping(String value);
 
   /// The **`HTMLAreaElement.rel`** property reflects the
-  /// [`rel`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel)
+  /// [`rel`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/rel)
   /// attribute. It is a string containing a space-separated list of link types
   /// indicating the relationship between the resource represented by the `area`
   /// element and the current document.
@@ -4654,7 +4691,7 @@ extension type HTMLAreaElement._(JSObject _) implements HTMLElement, JSObject {
   external set rel(String value);
 
   /// The **`HTMLAreaElement.relList`** read-only property reflects the
-  /// [`rel`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel)
+  /// [`rel`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/rel)
   /// attribute. It is a live [DOMTokenList] containing the set of link types
   /// indicating the relationship between the resource represented by the `area`
   /// element and the current document.
@@ -4667,7 +4704,7 @@ extension type HTMLAreaElement._(JSObject _) implements HTMLElement, JSObject {
   /// The
   /// **`HTMLAreaElement.referrerPolicy`**
   /// property reflect the HTML
-  /// [`referrerpolicy`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/area#referrerpolicy)
+  /// [`referrerpolicy`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/area#referrerpolicy)
   /// attribute of the
   /// `area` element defining which referrer is sent when fetching the
   /// resource.
@@ -4705,9 +4742,7 @@ extension type HTMLAreaElement._(JSObject _) implements HTMLElement, JSObject {
 
   /// The **`protocol`** property of the [HTMLAreaElement] interface is a string
   /// containing the protocol or scheme of the `<area>` element's `href`,
-  /// including the final `":"`. If the port is the default for the protocol
-  /// (`80` for `ws:` and `http:`, `443` for `wss:` and `https:`, and `21` for
-  /// `ftp:`), this property contains an empty string, `""`.
+  /// including the final `":"`.
   ///
   /// This property can be set to change the protocol of the URL. A `":"` is
   /// appended to the provided string if not provided. The provided scheme has
@@ -5079,7 +5114,7 @@ extension type HTMLTableColElement._(JSObject _)
   /// represents the number of columns this `col` or `colgroup` must span; this
   /// lets the column occupy space across multiple columns of the table. It
   /// reflects the
-  /// [`span`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/col#span)
+  /// [`span`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/col#span)
   /// attribute.
   external int get span;
   external set span(int value);
@@ -5342,7 +5377,7 @@ extension type HTMLTableRowElement._(JSObject _)
 
   /// The **`HTMLTableRowElement.bgColor`** property is used to set the
   /// background color of a row or retrieve the value of the obsolete
-  /// [`bgColor`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/tr#bgcolor)
+  /// [`bgColor`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/tr#bgcolor)
   /// attribute, if present.
   ///
   /// > [!NOTE]
@@ -5373,7 +5408,7 @@ extension type HTMLTableCellElement._(JSObject _)
   /// interface represents the number of columns this cell must span; this lets
   /// the cell occupy space across multiple columns of the table. It reflects
   /// the
-  /// [`colspan`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/td#colspan)
+  /// [`colspan`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/td#colspan)
   /// attribute.
   external int get colSpan;
   external set colSpan(int value);
@@ -5381,7 +5416,7 @@ extension type HTMLTableCellElement._(JSObject _)
   /// The **`rowSpan`** read-only property of the [HTMLTableCellElement]
   /// interface represents the number of rows this cell must span; this lets the
   /// cell occupy space across multiple rows of the table. It reflects the
-  /// [`rowspan`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/td#colspan)
+  /// [`rowspan`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/td#colspan)
   /// attribute.
   external int get rowSpan;
   external set rowSpan(int value);
@@ -5493,7 +5528,7 @@ extension type HTMLTableCellElement._(JSObject _)
 
   /// The **`HTMLTableCellElement.bgColor`** property is used to set the
   /// background color of a cell or get the value of the obsolete
-  /// [`bgColor`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/td#bgcolor)
+  /// [`bgColor`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/td#bgcolor)
   /// attribute, if present.
   ///
   /// > [!NOTE]
@@ -5525,7 +5560,7 @@ extension type HTMLFormElement._(JSObject _) implements HTMLElement, JSObject {
   ///
   /// - No [HTMLFormElement.submit_event] event is raised. In particular, the
   ///   form's `onsubmit` event handler is not run.
-  /// - [Constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Constraint_validation)
+  /// - [Constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Constraint_validation)
   ///   is not triggered.
   ///
   /// The [HTMLFormElement.requestSubmit] method is identical to activating a
@@ -5549,7 +5584,7 @@ extension type HTMLFormElement._(JSObject _) implements HTMLElement, JSObject {
   /// element's default values. This method does the same thing as clicking the
   /// form's
   /// [`<input
-  /// type="reset">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/reset)
+  /// type="reset">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/reset)
   /// control.
   ///
   /// If a form control (such as a reset button) has a name or id of _reset_ it
@@ -5568,7 +5603,7 @@ extension type HTMLFormElement._(JSObject _) implements HTMLElement, JSObject {
   /// The **`checkValidity()`** method of the [HTMLFormElement] interface
   /// returns a boolean value which indicates if all associated controls meet
   /// any
-  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Constraint_validation)
+  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Constraint_validation)
   /// rules applied to them. The method also fires an
   /// [HTMLElement.invalid_event] event on each invalid element, but not on the
   /// form element itself. Because there's no default browser behavior for
@@ -5596,7 +5631,7 @@ extension type HTMLFormElement._(JSObject _) implements HTMLElement, JSObject {
   /// list).
   ///
   /// This reflects the value of the form's
-  /// [`accept-charset`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form#accept-charset)
+  /// [`accept-charset`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/form#accept-charset)
   /// HTML attribute.
   external String get acceptCharset;
   external set acceptCharset(String value);
@@ -5613,7 +5648,7 @@ extension type HTMLFormElement._(JSObject _) implements HTMLElement, JSObject {
   /// The **`autocomplete`** property of the [HTMLFormElement] interface
   /// indicates whether the value of the form's controls can be automatically
   /// completed by the browser. It reflects the `form` element's
-  /// [`autocomplete`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete)
+  /// [`autocomplete`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/autocomplete)
   /// attribute.
   external String get autocomplete;
   external set autocomplete(String value);
@@ -5628,7 +5663,7 @@ extension type HTMLFormElement._(JSObject _) implements HTMLElement, JSObject {
   ///   interpretable by computer.
   ///
   /// This value can be overridden by a
-  /// [`formenctype`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#formenctype)
+  /// [`formenctype`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#formenctype)
   /// attribute
   /// on a `button` or `input` element.
   external String get enctype;
@@ -5657,9 +5692,9 @@ extension type HTMLFormElement._(JSObject _) implements HTMLElement, JSObject {
 
   /// The **`noValidate`** property of the [HTMLFormElement] interface is a
   /// boolean value indicating if the `form` will bypass
-  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Constraint_validation)
+  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Constraint_validation)
   /// when submitted. It reflects the `<form>` element's
-  /// [`novalidate`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form#novalidate)
+  /// [`novalidate`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/form#novalidate)
   /// attribute; if the attribute present, the value is `true`.
   ///
   /// If this attribute is not set or the value is set to `false`, the form is
@@ -5678,8 +5713,31 @@ extension type HTMLFormElement._(JSObject _) implements HTMLElement, JSObject {
   /// its output).
   external String get target;
   external set target(String value);
+
+  /// The **`rel`** property of the [HTMLFormElement] interface reflects the
+  /// [`rel`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/rel)
+  /// attribute. It is a string containing what kinds of links the HTML `form`
+  /// element creates, as a space-separated list of enumerated values.
+  ///
+  /// To retrieve the value as an array of tokens, use
+  /// [HTMLFormElement.relList].
   external String get rel;
   external set rel(String value);
+
+  /// The **`relList`** read-only property of the [HTMLFormElement] interface
+  /// reflects the
+  /// [`rel`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/rel)
+  /// attribute. It is a live [DOMTokenList] containing the set of link types
+  /// indicating the relationship between the resource represented by the `form`
+  /// element and the current document.
+  ///
+  /// The property itself is read-only, meaning you can not reassign the
+  /// property with another [DOMTokenList], but the content of the returned list
+  /// can be changed.
+  ///
+  /// To retrieve a string containing the values as space-separated tokens, use
+  /// [HTMLFormElement.rel]. The `rel` property can also be used to set the
+  /// `rel` attribute value.
   external DOMTokenList get relList;
 
   /// The [HTMLFormElement] property
@@ -5744,7 +5802,7 @@ extension type HTMLLabelElement._(JSObject _) implements HTMLElement, JSObject {
 
   /// The **`HTMLLabelElement.htmlFor`** property reflects the value
   /// of the
-  /// [`for`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label#for)
+  /// [`for`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/label#for)
   /// content property. That means that this
   /// script-accessible property is used to set and read the value of the
   /// content property
@@ -5773,17 +5831,17 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
 
   /// The **`HTMLInputElement.stepUp()`** method increments the value
   /// of a numeric type of `input` element by the value of the
-  /// [`step`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/step)
+  /// [`step`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/step)
   /// attribute, or the
   /// default `step` value if the step attribute is not explicitly set. The
   /// method,
   /// when invoked, increments the
-  /// [`value`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#value)
+  /// [`value`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#value)
   /// by
-  /// ([`step`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#step)
+  /// ([`step`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#step)
   /// \* n), where `n` defaults to
   /// `1` if not specified, and
-  /// [`step`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/step)
+  /// [`step`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/step)
   /// defaults to the
   /// default value for `step` if not specified.
   ///
@@ -5863,10 +5921,10 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
   /// passed, is
   /// `1`. The method will not cause the value to exceed the
   /// set
-  /// [`max`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/max)
+  /// [`max`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/max)
   /// value, or defy
   /// the constraints set by the
-  /// [`step`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/step)
+  /// [`step`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/step)
   /// attribute.
   ///
   /// If the value before invoking the `stepUp()` method is invalid—for example,
@@ -5884,18 +5942,18 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
   /// The
   /// **`HTMLInputElement.stepDown()`** method decrements the
   /// value of a numeric type of `input` element by the value of the
-  /// [`step`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/step)
+  /// [`step`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/step)
   /// attribute or up
   /// to `n` multiples of the step attribute if a number is passed as the
   /// parameter.
   ///
   /// The method, when invoked, decrements the
-  /// [`value`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#value)
+  /// [`value`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#value)
   /// by
-  /// ([`step`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#step)
+  /// ([`step`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#step)
   /// \* n), where n
   /// defaults to 1 if not specified, and
-  /// [`step`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/step)
+  /// [`step`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/step)
   /// defaults to the
   /// default value for `step` if not specified.
   ///
@@ -5961,14 +6019,14 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
   /// within the form control. The default value for the parameter, if not is
   /// passed, is 1.
   /// The method will not cause the value to go below the
-  /// [`min`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/min)
+  /// [`min`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/min)
   /// value set or defy the
   /// constraints set by the
-  /// [`step`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/step)
+  /// [`step`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/step)
   /// attribute. A
   /// negative value for `n` will increment the value, but will not increment
   /// beyond the
-  /// [`max`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/max)
+  /// [`max`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/max)
   /// value.
   ///
   /// If the value before invoking the `stepDown()` method is invalid, for
@@ -5986,7 +6044,7 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
 
   /// The **`checkValidity()`** method of the [HTMLInputElement] interface
   /// returns a boolean value which indicates if the element meets any
-  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Constraint_validation)
+  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Constraint_validation)
   /// rules applied to it. If false, the method also fires an
   /// [HTMLElement.invalid_event] event on the element. Because there's no
   /// default browser behavior for `checkValidity()`, canceling this `invalid`
@@ -6043,12 +6101,12 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
   /// properties in one call.
   ///
   /// The element must be of one of the following input types:
-  /// [`password`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/password),
-  /// [`search`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/search),
-  /// [`tel`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/tel),
-  /// [`text`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text),
+  /// [`password`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/password),
+  /// [`search`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/search),
+  /// [`tel`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/tel),
+  /// [`text`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/text),
   /// or
-  /// [`url`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/url).
+  /// [`url`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/url).
   /// Otherwise the browser throws an `InvalidStateError` exception.
   ///
   /// If you wish to select **all** text of an input element, you can use the
@@ -6070,7 +6128,7 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
   /// Commonly browsers implement it for inputs of these types: `"date"`,
   /// `"month"`, `"week"`, `"time"`, `"datetime-local"`, `"color"`, or `"file"`.
   /// It can also be prepopulated with items from a `datalist` element or
-  /// [`autocomplete`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete)
+  /// [`autocomplete`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/autocomplete)
   /// attribute.
   ///
   /// More generally, this method should ideally display the picker for any
@@ -6079,10 +6137,10 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
 
   /// The **`accept`** property of the [HTMLInputElement] interface reflects the
   /// `input` element's
-  /// [`accept`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#accept)
+  /// [`accept`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#accept)
   /// attribute, generally a comma-separated list of unique file type specifiers
   /// providing a hint for the expected file type for an [`<input>` of type
-  /// `file`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file).
+  /// `file`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/file).
   /// If the attribute is not explicitly set, the `accept` property is an empty
   /// string.
   external String get accept;
@@ -6091,11 +6149,11 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
   /// The **`alt`** property of the [HTMLInputElement] interface defines the
   /// textual label for the button for users and user agents who cannot use the
   /// image. It reflects the `input` element's
-  /// [`alt`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#alt)
+  /// [`alt`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#alt)
   /// attribute.
   ///
   /// The `alt` property is valid for the
-  /// [`image`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/image)
+  /// [`image`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/image)
   /// type only. It should be a non-empty string giving the label that would be
   /// appropriate for an equivalent button if the image was unavailable.
   external String get alt;
@@ -6104,7 +6162,7 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
   /// The **`autocomplete`** property of the [HTMLInputElement] interface
   /// indicates whether the value of the control can be automatically completed
   /// by the browser. It reflects the `input` element's
-  /// [`autocomplete`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete)
+  /// [`autocomplete`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/autocomplete)
   /// attribute.
   external String get autocomplete;
   external set autocomplete(String value);
@@ -6112,15 +6170,15 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
   /// The **`defaultChecked`** property of the [HTMLInputElement] interface
   /// specifies the default checkedness state of the element. This property
   /// reflects the `input` element's
-  /// [`checked`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#checked)
+  /// [`checked`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#checked)
   /// attribute.
   ///
   /// The boolean
-  /// [`checked`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#checked)
+  /// [`checked`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#checked)
   /// attribute is valid for the `radio` ([`<input
-  /// type="radio">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/radio))
+  /// type="radio">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/radio))
   /// and `checkbox` ([`<input
-  /// type="checkbox">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox))
+  /// type="checkbox">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/checkbox))
   /// input types. The presence of the attribute sets the `defaultChecked`
   /// property to `true`.
   external bool get defaultChecked;
@@ -6131,13 +6189,13 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
   /// is checked or not.
   ///
   /// The boolean `checked` property is relevant to the `radio` ([`<input
-  /// type="radio">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/radio))
+  /// type="radio">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/radio))
   /// and `checkbox` ([`<input
-  /// type="checkbox">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox))
+  /// type="checkbox">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/checkbox))
   /// input types.
   ///
   /// The presence of the HTML
-  /// [`checked`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#checked)
+  /// [`checked`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#checked)
   /// attribute indicates the checkbox is checked by default. It does not
   /// indicate whether this checkbox is currently checked: if the checkbox's
   /// state is changed, this content attribute does not reflect the change; only
@@ -6157,12 +6215,37 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
   /// `checked` value.
   external bool get checked;
   external set checked(bool value);
+
+  /// The **`dirName`** property of the [HTMLInputElement] interface is the
+  /// directionality of the element and enables the submission of that value. It
+  /// reflects the value of the `input` element's
+  /// [`dirName`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/dirname)
+  /// attribute. This property can be retrieved or set.
+  ///
+  /// Valid only for
+  /// [`hidden`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/hidden),
+  /// [`text`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/text),
+  /// [`search`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/search),
+  /// [`url`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/url),
+  /// [`tel`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/tel),
+  /// and
+  /// [`email`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/email)
+  /// `<input>` types, the `dirname` attribute controls how the element's
+  /// directionality is submitted. When included, the form control will submit
+  /// with two name/value pairs: the first being the
+  /// [`name`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#name)
+  /// and
+  /// [`value`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#value),
+  /// and the second being the value of the
+  /// [`dirname`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#dirname)
+  /// attribute as the name, with a value of `ltr` or `rtl` as set by the
+  /// browser.
   external String get dirName;
   external set dirName(String value);
 
   /// The **`HTMLInputElement.disabled`** property is a boolean value that
   /// reflects the
-  /// [`disabled`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#disabled)
+  /// [`disabled`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#disabled)
   /// HTML attribute, which indicates whether the control is disabled. If it is
   /// disabled, it does not accept clicks. A disabled element is unusable and
   /// un-clickable.
@@ -6176,7 +6259,7 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
 
   /// The **`HTMLInputElement.files`** property allows you to access the
   /// [FileList] selected with the [`<input
-  /// type="file">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file)
+  /// type="file">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/file)
   /// element.
   external FileList? get files;
   external set files(FileList? value);
@@ -6184,13 +6267,13 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
   /// The **`formAction`** property of the [HTMLInputElement] interface is the
   /// URL of the program that is executed on the server when the form that owns
   /// this control is submitted. It reflects the value of the `<input>`'s
-  /// [`formaction`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#formaction)
+  /// [`formaction`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#formaction)
   /// attribute.
   ///
   /// This property is valid only for
-  /// [`submit`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/submit)
+  /// [`submit`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/submit)
   /// and
-  /// [`image`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/image)
+  /// [`image`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/image)
   /// `<input>` elements.
   ///
   /// Its value overrides the [HTMLFormElement.action] property of the
@@ -6203,13 +6286,13 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
   /// of the content sent to the server when the `<input>` with the
   /// `formEnctype` is the method of form submission. It reflects the value of
   /// the `<input>`'s
-  /// [`formenctype`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#formenctype)
+  /// [`formenctype`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#formenctype)
   /// attribute.
   ///
   /// This property is valid only for
-  /// [`submit`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/submit)
+  /// [`submit`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/submit)
   /// and
-  /// [`image`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/image)
+  /// [`image`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/image)
   /// `<input>` elements.
   ///
   /// Its value overrides the [HTMLFormElement.enctype] property of the
@@ -6222,13 +6305,13 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
   /// The **`formMethod`** property of the [HTMLInputElement] interface is the
   /// method used to submit the `form` if the `input` element is the control
   /// that submits the form. It reflects the value of the `<input>`'s
-  /// [`formmethod`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#formmethod)
+  /// [`formmethod`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#formmethod)
   /// attribute.
   ///
   /// This property is valid only for
-  /// [`submit`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/submit)
+  /// [`submit`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/submit)
   /// and
-  /// [`image`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/image)
+  /// [`image`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/image)
   /// `<input>` elements.
   ///
   /// The value overrides the [HTMLFormElement.method] property of the
@@ -6241,15 +6324,15 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
 
   /// The **`formNoValidate`** property of the [HTMLInputElement] interface is a
   /// boolean value indicating if the `form` will bypass
-  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Constraint_validation)
+  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Constraint_validation)
   /// when submitted via the `input`. It reflects the `<input>` element's
-  /// [`formnovalidate`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#formnovalidate)
+  /// [`formnovalidate`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#formnovalidate)
   /// attribute.
   ///
   /// This property is valid only for
-  /// [`submit`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/submit)
+  /// [`submit`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/submit)
   /// and
-  /// [`image`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/image)
+  /// [`image`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/image)
   /// `<input>` elements.
   ///
   /// Its value overrides the [HTMLFormElement.noValidate] property of the
@@ -6261,13 +6344,13 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
   /// The **`formTarget`** property of the [HTMLInputElement] interface is the
   /// tab, window, or iframe where the response of the submitted `form` is to be
   /// displayed. It reflects the value of the `input` element's
-  /// [`formtarget`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#formtarget)
+  /// [`formtarget`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#formtarget)
   /// attribute.
   ///
   /// This property is valid only for
-  /// [`submit`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/submit)
+  /// [`submit`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/submit)
   /// and
-  /// [`image`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/image)
+  /// [`image`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/image)
   /// `<input>` elements.
   ///
   /// Its value overrides the [HTMLFormElement.target] property of the
@@ -6279,11 +6362,11 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
 
   /// The **`height`** property of the [HTMLInputElement] interface specifies
   /// the height of a control. It reflects the `input` element's
-  /// [`height`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#height)
+  /// [`height`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#height)
   /// attribute.
   ///
   /// The `height` property is valid for the
-  /// [`image`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/image)
+  /// [`image`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/image)
   /// type only. It defines the vertical dimension of the image button, in
   /// pixels. If CSS sizing properties apply to the control, the value is the
   /// height of the content box of the rendered control, not the value of the
@@ -6302,7 +6385,7 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
   /// may be in the indeterminate state when some but not all of its
   /// sub-controls are checked. The `indeterminate` state can only be set via
   /// JavaScript and is only relevant to
-  /// [`checkbox`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox)
+  /// [`checkbox`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/checkbox)
   /// controls.
   ///
   /// It is unrelated to the [HTMLInputElement.checked] property, and an
@@ -6314,7 +6397,7 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
 
   /// The **`list`** read-only property of the [HTMLInputElement] interface
   /// returns the [HTMLDataListElement] pointed to by the
-  /// [`list`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#list)
+  /// [`list`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#list)
   /// attribute of the element, or `null` if the `list` attribute is not defined
   /// or the `list` attribute's value is not associated with any `<datalist>` in
   /// the same tree.
@@ -6327,7 +6410,7 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
 
   /// The **`max`** property of the [HTMLInputElement] interface reflects the
   /// `input` element's
-  /// [`max`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#max)
+  /// [`max`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#max)
   /// attribute, which generally defines the maximum valid value for a numeric
   /// or date-time input. If the attribute is not explicitly set, the `max`
   /// property is an empty string.
@@ -6338,7 +6421,7 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
   /// the maximum number of characters (in UTF-16 code units) allowed to be
   /// entered for the value of the `input` element, and the maximum number of
   /// characters allowed for the value to be valid. It reflects the element's
-  /// [`maxlength`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#maxlength)
+  /// [`maxlength`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#maxlength)
   /// attribute. `-1` means there is no limit on the length of the value.
   ///
   /// > [!NOTE]
@@ -6351,7 +6434,7 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
 
   /// The **`min`** property of the [HTMLInputElement] interface reflects the
   /// `input` element's
-  /// [`min`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#min)
+  /// [`min`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#min)
   /// attribute, which generally defines the minimum valid value for a numeric
   /// or date-time input. If the attribute is not explicitly set, the `min`
   /// property is an empty string.
@@ -6361,7 +6444,7 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
   /// The **`minLength`** property of the [HTMLInputElement] interface indicates
   /// the minimum number of characters (in UTF-16 code units) required for the
   /// value of the `input` element to be valid. It reflects the element's
-  /// [`minlength`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#minlength)
+  /// [`minlength`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#minlength)
   /// attribute. `-1` means there is no minimum length requirement.
   ///
   /// > [!NOTE]
@@ -6380,7 +6463,7 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
 
   /// The **`name`** property of the [HTMLInputElement] interface indicates the
   /// name of the `input` element. It reflects the element's
-  /// [`name`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#name)
+  /// [`name`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#name)
   /// attribute.
   external String get name;
   external set name(String value);
@@ -6389,13 +6472,13 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
   /// a
   /// [regular expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions)
   /// a non-null `input` value should match. It reflects the `input` element's
-  /// [`pattern`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/pattern)
+  /// [`pattern`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/pattern)
   /// attribute.
   ///
   /// The `pattern` property is valid for `text`, `search`, `url`, `tel`,
   /// `email`, and `password` types. It defines a regular expression that the
   /// input's [HTMLInputElement.value] must match in order for the value to pass
-  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Constraint_validation).
+  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Constraint_validation).
   ///
   /// If a non-`null` value doesn't conform to the constraints set by the
   /// `pattern` value, the [ValidityState] object's read-only
@@ -6406,7 +6489,7 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
   /// The **`placeholder`** property of the [HTMLInputElement] interface
   /// represents a hint to the user of what can be entered in the control. It
   /// reflects the `input` element's
-  /// [`placeholder`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#placeholder)
+  /// [`placeholder`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#placeholder)
   /// attribute.
   external String get placeholder;
   external set placeholder(String value);
@@ -6414,7 +6497,7 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
   /// The **`readOnly`** property of the [HTMLInputElement] interface indicates
   /// that the user cannot modify the value of the `input`. It reflects the
   /// `input` element's
-  /// [`readonly`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#readonly)
+  /// [`readonly`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#readonly)
   /// boolean attribute; returning `true` if the attribute is present and
   /// `false` when omitted.
   ///
@@ -6432,7 +6515,7 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
   /// The **`required`** property of the [HTMLInputElement] interface specifies
   /// that the user must fill in a value before submitting a form. It reflects
   /// the `input` element's
-  /// [`required`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#required)
+  /// [`required`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#required)
   /// attribute.
   ///
   /// While the HTML boolean `required` attribute is ignored if the type is
@@ -6447,17 +6530,17 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
 
   /// The **`size`** property of the [HTMLInputElement] interface defines the
   /// number of visible characters displayed. It reflects the `input` element's
-  /// [`size`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#size)
+  /// [`size`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#size)
   /// attribute.
   ///
   /// The `size` property is relevant to the
-  /// [`text`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text),
-  /// [`search`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/search),
-  /// [`tel`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/tel),
-  /// [`email`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/email),
-  /// [`url`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/url),
+  /// [`text`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/text),
+  /// [`search`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/search),
+  /// [`tel`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/tel),
+  /// [`email`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/email),
+  /// [`url`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/url),
   /// and
-  /// [`password`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/password)
+  /// [`password`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/password)
   /// input type only. The value is a non-negative integer greater than zero. If
   /// omitted or invalid, the value is `20`.
   external int get size;
@@ -6466,11 +6549,11 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
   /// The **`src`** property of the [HTMLInputElement] interface specifies the
   /// source of an image to display as the graphical submit button. It reflects
   /// the `input` element's
-  /// [`src`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#src)
+  /// [`src`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#src)
   /// attribute.
   ///
   /// The `src` property is valid for the
-  /// [`image`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/image)
+  /// [`image`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/image)
   /// type only.
   external String get src;
   external set src(String value);
@@ -6478,7 +6561,7 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
   /// The **`step`** property of the [HTMLInputElement] interface indicates the
   /// step by which numeric or date-time `input` elements can change. It
   /// reflects the element's
-  /// [`step`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#step)
+  /// [`step`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#step)
   /// attribute. Valid values include the string `"any"` or a string containing
   /// a positive floating point number. If the attribute is not explicitly set,
   /// the `step` property is an empty string.
@@ -6491,7 +6574,7 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
   /// help users to enter a valid value.
   ///
   /// It reflects the
-  /// [`type`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#type)
+  /// [`type`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#type)
   /// attribute of the `input` element.
   external String get type;
   external set type(String value);
@@ -6499,7 +6582,7 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
   /// The **`defaultValue`** property of the [HTMLInputElement] interface
   /// indicates the original (or default) value of the `input` element. It
   /// reflects the element's
-  /// [`value`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#value)
+  /// [`value`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#value)
   /// attribute.
   external String get defaultValue;
   external set defaultValue(String value);
@@ -6540,11 +6623,11 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
 
   /// The **`width`** property of the [HTMLInputElement] interface specifies the
   /// width of a control. It reflects the `input` element's
-  /// [`width`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#width)
+  /// [`width`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#width)
   /// attribute.
   ///
   /// The `width` property is valid for the
-  /// [`image`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/image)
+  /// [`image`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/image)
   /// type only. It defines the preferred horizontal size of the image button,
   /// in pixels. The property value is the width of the
   /// [content-box](https://developer.mozilla.org/en-US/docs/Web/CSS/box-edge#content-box)
@@ -6562,7 +6645,7 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
 
   /// The **`willValidate`** read-only property of the [HTMLInputElement]
   /// interface indicates whether the `input` element is a candidate for
-  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Constraint_validation).
+  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Constraint_validation).
   /// It is `false` if any conditions bar it from constraint validation,
   /// including:
   ///
@@ -6643,7 +6726,7 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
 
   /// The **`HTMLInputElement.webkitdirectory`** is a property
   /// that reflects the
-  /// [`webkitdirectory`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#webkitdirectory)
+  /// [`webkitdirectory`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/file#webkitdirectory)
   /// HTML attribute
   /// and indicates that the `input` element should let the user select
   /// directories instead of files.
@@ -6680,13 +6763,13 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
 
   /// The **`capture`** property of the [HTMLInputElement] interface reflects
   /// the `input` element's
-  /// [`capture`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/capture)
+  /// [`capture`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/capture)
   /// attribute. Only relevant to the [`<input>` of type
-  /// `file`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file),
+  /// `file`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/file),
   /// the property and attribute specify whether, a new file should be captured
   /// from a user-facing (`user`) or outward facing (`environment`) camera or
   /// microphone. The type of file is defined the
-  /// [`accept`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept)
+  /// [`accept`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/accept)
   /// attribute. If the attribute is not explicitly set, the `capture` property
   /// is an empty string.
   external String get capture;
@@ -6701,16 +6784,16 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
   /// element of `type="button"`.
   ///
   /// It is the JavaScript equivalent of the
-  /// [`popovertarget`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#popovertarget)
+  /// [`popovertarget`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#popovertarget)
   /// HTML attribute.
   ///
   /// Establishing a relationship between a popover and its invoker button using
   /// the `popoverTargetElement` property has two additional useful effects:
   ///
   /// - The browser creates an implicit
-  ///   [`aria-details`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-details)
+  ///   [`aria-details`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-details)
   ///   and
-  ///   [`aria-expanded`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-expanded)
+  ///   [`aria-expanded`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-expanded)
   ///   relationship between popover and invoker, and places the popover in a
   ///   logical position in the keyboard focus navigation order when shown. This
   ///   makes the popover more accessible to keyboard and assistive technology
@@ -6731,7 +6814,7 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
   /// `type="button"`.
   ///
   /// It reflects the value of the
-  /// [`popovertargetaction`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#popovertargetaction)
+  /// [`popovertargetaction`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#popovertargetaction)
   /// HTML attribute.
   external String get popoverTargetAction;
   external set popoverTargetAction(String value);
@@ -6752,14 +6835,14 @@ extension type HTMLButtonElement._(JSObject _)
 
   /// The **`checkValidity()`** method of the [HTMLButtonElement] interface
   /// returns a boolean value which indicates if the element meets any
-  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Constraint_validation)
+  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Constraint_validation)
   /// rules applied to it. If false, the method also fires an
   /// [HTMLElement.invalid_event] event on the element. Because there's no
   /// default browser behavior for `checkValidity()`, canceling this `invalid`
   /// event has no effect. It always returns true if the `button` element's
   /// [HTMLButtonElement.type] is `"button"` or `"reset"`, because such buttons
   /// are never candidates for
-  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Constraint_validation).
+  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Constraint_validation).
   ///
   /// > [!NOTE]
   /// > An HTML `button` element of the `"submit"` type with a non-null
@@ -6796,7 +6879,7 @@ extension type HTMLButtonElement._(JSObject _)
   /// The **`formAction`** property of the [HTMLButtonElement] interface is the
   /// URL of the program that is executed on the server when the form that owns
   /// this control is submitted. It reflects the value of the `<button>`'s
-  /// [`formaction`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#formaction)
+  /// [`formaction`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#formaction)
   /// attribute.
   ///
   /// The value overrides the [HTMLFormElement.action] property of the
@@ -6808,7 +6891,7 @@ extension type HTMLButtonElement._(JSObject _)
   /// The **`formEnctype`** property of the [HTMLButtonElement] interface is the
   /// of the content sent to the server when the form is submitted. It reflects
   /// the value of the `<button>`'s
-  /// [`formenctype`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#formenctype)
+  /// [`formenctype`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#formenctype)
   /// attribute.
   ///
   /// The value overrides the [HTMLFormElement.enctype] property of the
@@ -6821,7 +6904,7 @@ extension type HTMLButtonElement._(JSObject _)
   /// The **`formMethod`** property of the [HTMLButtonElement] interface is the
   /// method used to submit the `form` if the `button` element is the control
   /// that submits the form. It reflects the value of the `<button>`'s
-  /// [`formmethod`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#formmethod)
+  /// [`formmethod`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#formmethod)
   /// attribute.
   ///
   /// The value overrides the [HTMLFormElement.method] property of the
@@ -6834,9 +6917,9 @@ extension type HTMLButtonElement._(JSObject _)
 
   /// The **`formNoValidate`** property of the [HTMLButtonElement] interface is
   /// a boolean value indicating if the `form` will bypass
-  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Constraint_validation)
+  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Constraint_validation)
   /// when submitted via the `button`. It reflects the `<button>` element's
-  /// [`formnovalidate`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#formnovalidate)
+  /// [`formnovalidate`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#formnovalidate)
   /// attribute.
   ///
   /// Its value overrides the [HTMLFormElement.noValidate] property of the
@@ -6848,7 +6931,7 @@ extension type HTMLButtonElement._(JSObject _)
   /// The **`formTarget`** property of the [HTMLButtonElement] interface is the
   /// tab, window, or iframe where the response of the submitted `form` is to be
   /// displayed. It reflects the value of the `button` element's
-  /// [`formtarget`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#formtarget)
+  /// [`formtarget`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#formtarget)
   /// attribute.
   ///
   /// The value overrides the [HTMLFormElement.target] property of the
@@ -6861,7 +6944,7 @@ extension type HTMLButtonElement._(JSObject _)
   /// The **`name`** property of the [HTMLButtonElement] interface indicates the
   /// name of the `button` element or the empty string if the element has no
   /// name. It reflects the element's
-  /// [`name`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#name)
+  /// [`name`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#name)
   /// attribute.
   external String get name;
   external set name(String value);
@@ -6870,7 +6953,7 @@ extension type HTMLButtonElement._(JSObject _)
   /// that indicates the behavior type of the `button` element.
   ///
   /// It reflects the
-  /// [`type`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#type)
+  /// [`type`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#type)
   /// attribute of the `button` element.
   external String get type;
   external set type(String value);
@@ -6878,14 +6961,14 @@ extension type HTMLButtonElement._(JSObject _)
   /// The **`value`** property of the [HTMLButtonElement] interface represents
   /// the value of the `button` element as a string, or the empty string if no
   /// value is set. It reflects the element's
-  /// [`value`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#value)
+  /// [`value`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#value)
   /// attribute.
   external String get value;
   external set value(String value);
 
   /// The **`willValidate`** read-only property of the [HTMLButtonElement]
   /// interface indicates whether the `button` element is a candidate for
-  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Constraint_validation).
+  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Constraint_validation).
   /// It is `false` if any conditions bar it from constraint validation,
   /// including:
   ///
@@ -6904,7 +6987,7 @@ extension type HTMLButtonElement._(JSObject _)
   /// the validation constraints that the `button` control does not satisfy (if
   /// any). This is the empty string if the control is not a candidate for
   /// constraint validation (the `<button>`'s
-  /// [`type`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#type)
+  /// [`type`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#type)
   /// is `button` or `reset`), or it satisfies its constraints.
   ///
   /// If the `<button>` is a candidate for constraint validation (the `type` is
@@ -6923,16 +7006,16 @@ extension type HTMLButtonElement._(JSObject _)
   /// interface gets and sets the popover element to control via a button.
   ///
   /// It is the JavaScript equivalent of the
-  /// [`popovertarget`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#popovertarget)
+  /// [`popovertarget`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#popovertarget)
   /// HTML attribute.
   ///
   /// Establishing a relationship between a popover and its invoker button using
   /// the `popoverTargetElement` property has two additional useful effects:
   ///
   /// - The browser creates an implicit
-  ///   [`aria-details`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-details)
+  ///   [`aria-details`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-details)
   ///   and
-  ///   [`aria-expanded`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-expanded)
+  ///   [`aria-expanded`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-expanded)
   ///   relationship between popover and invoker, and places the popover in a
   ///   logical position in the keyboard focus navigation order when shown. This
   ///   makes the popover more accessible to keyboard and assistive technology
@@ -6952,7 +7035,7 @@ extension type HTMLButtonElement._(JSObject _)
   /// `"toggle"`) on a popover element being controlled by a button.
   ///
   /// It reflects the value of the
-  /// [`popovertargetaction`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#popovertargetaction)
+  /// [`popovertargetaction`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#popovertargetaction)
   /// HTML attribute.
   external String get popoverTargetAction;
   external set popoverTargetAction(String value);
@@ -7010,7 +7093,7 @@ extension type HTMLSelectElement._(JSObject _)
 
   /// The **`checkValidity()`** method of the [HTMLSelectElement] interface
   /// returns a boolean value which indicates if the element meets any
-  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Constraint_validation)
+  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Constraint_validation)
   /// rules applied to it. If false, the method also fires an
   /// [HTMLElement.invalid_event] event on the element. Because there's no
   /// default browser behavior for `checkValidity()`, canceling this `invalid`
@@ -7051,14 +7134,14 @@ extension type HTMLSelectElement._(JSObject _)
   /// The **`autocomplete`** property of the [HTMLSelectElement] interface
   /// indicates whether the value of the control can be automatically completed
   /// by the browser. It reflects the `<select>` element's
-  /// [`autocomplete`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#autocomplete)
+  /// [`autocomplete`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/select#autocomplete)
   /// attribute.
   external String get autocomplete;
   external set autocomplete(String value);
 
   /// The **`HTMLSelectElement.disabled`** property is a boolean value that
   /// reflects the
-  /// [`disabled`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#disabled)
+  /// [`disabled`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/select#disabled)
   /// HTML attribute, which indicates whether the control is disabled. If it is
   /// disabled, it
   /// does not accept clicks. A disabled element is unusable and un-clickable.
@@ -7073,14 +7156,14 @@ extension type HTMLSelectElement._(JSObject _)
   /// The **`multiple`** property of the [HTMLSelectElement] interface specifies
   /// that the user may select more than one option from the list of options. It
   /// reflects the `select` element's
-  /// [`multiple`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#multiple)
+  /// [`multiple`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/select#multiple)
   /// attribute.
   external bool get multiple;
   external set multiple(bool value);
 
   /// The **`name`** property of the [HTMLSelectElement] interface indicates the
   /// name of the `select` element. It reflects the element's
-  /// [`name`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#name)
+  /// [`name`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/select#name)
   /// attribute.
   external String get name;
   external set name(String value);
@@ -7088,7 +7171,7 @@ extension type HTMLSelectElement._(JSObject _)
   /// The **`required`** property of the [HTMLSelectElement] interface specifies
   /// that the user must select an option with a non-empty string value before
   /// submitting a form. It reflects the `select` element's
-  /// [`required`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#required)
+  /// [`required`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/select#required)
   /// attribute.
   external bool get required;
   external set required(bool value);
@@ -7096,7 +7179,7 @@ extension type HTMLSelectElement._(JSObject _)
   /// The **`size`** property of the [HTMLSelectElement] interface specifies the
   /// number of options, or rows, that should be visible at one time. It
   /// reflects the `select` element's
-  /// [`size`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#size)
+  /// [`size`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/select#size)
   /// attribute. If omitted, the value is `0`.
   ///
   /// > [!NOTE]
@@ -7150,7 +7233,7 @@ extension type HTMLSelectElement._(JSObject _)
 
   /// The **`willValidate`** read-only property of the [HTMLSelectElement]
   /// interface indicates whether the `select` element is a candidate for
-  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Constraint_validation).
+  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Constraint_validation).
   /// It is `false` if any conditions bar it from constraint validation, such as
   /// when its [HTMLSelectElement.disabled] property is `true`.
   external bool get willValidate;
@@ -7217,7 +7300,7 @@ extension type HTMLOptGroupElement._(JSObject _)
 
   /// The **`disabled`** property of the [HTMLOptGroupElement] interface is a
   /// boolean value that reflects the `optgroup` element's
-  /// [`disabled`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/optgroup#disabled)
+  /// [`disabled`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/optgroup#disabled)
   /// attribute, which indicates whether the control is disabled.
   ///
   /// When disabled, the `option` element descendants of the `<optgroup>`
@@ -7229,7 +7312,7 @@ extension type HTMLOptGroupElement._(JSObject _)
 
   /// The **`label`** property of the [HTMLOptGroupElement] interface is a
   /// string value that reflects the `optgroup` element's
-  /// [`label`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/optgroup#label)
+  /// [`label`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/optgroup#label)
   /// attribute, which provides a textual label to the group of options.
   external String get label;
   external set label(String value);
@@ -7250,7 +7333,7 @@ extension type HTMLOptionElement._(JSObject _)
   /// The **`disabled`** property of the [HTMLOptionElement] is a boolean value
   /// that indicates whether the `option` element is unavailable to be selected.
   /// The property reflects the value of the
-  /// [`disabled`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option#disabled)
+  /// [`disabled`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/option#disabled)
   /// HTML attribute.
   ///
   /// The property reflects the value of the `disabled` attribute on the
@@ -7270,7 +7353,7 @@ extension type HTMLOptionElement._(JSObject _)
   /// The **`label`** property of the [HTMLOptionElement] represents the text
   /// displayed for an option in a `select` element or as part of a list of
   /// suggestions in a `datalist` element. It reflects the `option` element's
-  /// [`label`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option#label)
+  /// [`label`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/option#label)
   /// attribute.
   ///
   /// If the attribute is omitted or the empty string, the `label` property
@@ -7281,7 +7364,7 @@ extension type HTMLOptionElement._(JSObject _)
   /// The **`defaultSelected`** property of the [HTMLOptionElement] interface
   /// specifies the default selected state of the element. This property
   /// reflects the `option` element's
-  /// [`selected`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option#selected)
+  /// [`selected`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/option#selected)
   /// attribute. The presence of the `selected` attribute sets the
   /// `defaultSelected` property to `true`.
   external bool get defaultSelected;
@@ -7292,7 +7375,7 @@ extension type HTMLOptionElement._(JSObject _)
   /// selected or not.
   ///
   /// The presence of the HTML
-  /// [`selected`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option#selected)
+  /// [`selected`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/option#selected)
   /// attribute indicates the option is selected by default. It does not
   /// indicate whether this option is currently selected: if the option's state
   /// changes, the `selected` content attribute does not reflect the change;
@@ -7305,7 +7388,7 @@ extension type HTMLOptionElement._(JSObject _)
   /// The **`value`** property of the [HTMLOptionElement] interface represents
   /// the value of the `option` element as a string, or the empty string if no
   /// value is set. It reflects the element's
-  /// [`value`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option#value)
+  /// [`value`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/option#value)
   /// attribute, if present. Otherwise, it returns or sets the contents of the
   /// element, similar to the [Node.textContent] property.
   external String get value;
@@ -7344,7 +7427,7 @@ extension type HTMLTextAreaElement._(JSObject _)
 
   /// The **`checkValidity()`** method of the [HTMLTextAreaElement] interface
   /// returns a boolean value which indicates if the element meets any
-  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Constraint_validation)
+  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Constraint_validation)
   /// rules applied to it. If false, the method also fires an
   /// [HTMLElement.invalid_event] event on the element. Because there's no
   /// default browser behavior for `checkValidity()`, canceling this `invalid`
@@ -7434,7 +7517,7 @@ extension type HTMLTextAreaElement._(JSObject _)
   /// The **`autocomplete`** property of the [HTMLTextAreaElement] interface
   /// indicates whether the value of the control can be automatically completed
   /// by the browser. It reflects the `<textarea>` element's
-  /// [`autocomplete`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#autocomplete)
+  /// [`autocomplete`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/textarea#autocomplete)
   /// attribute.
   external String get autocomplete;
   external set autocomplete(String value);
@@ -7443,17 +7526,34 @@ extension type HTMLTextAreaElement._(JSObject _)
   /// positive integer representing the visible width of the multi-line text
   /// control, in average character widths. It reflects the `<textarea>`
   /// element's
-  /// [`cols`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#cols)
+  /// [`cols`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/textarea#cols)
   /// attribute.
   external int get cols;
   external set cols(int value);
+
+  /// The **`dirName`** property of the [HTMLTextAreaElement] interface is the
+  /// directionality of the element. It reflects the value of the `textarea`
+  /// element's
+  /// [`dirName`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/dirname)
+  /// attribute. This property can be retrieved or set.
+  ///
+  /// The `dirname` attribute controls how the element's directionality is
+  /// submitted. When included, the form control will submit with two name/value
+  /// pairs: the first being the
+  /// [`name`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLTextAreaElement/name)
+  /// and
+  /// [`value`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLTextAreaElement/value)
+  /// of the `<textarea>`, and the second being the value of the
+  /// [`dirname`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/textarea#dirname)
+  /// attribute as the name, with a value of `ltr` or `rtl` as set by the
+  /// browser.
   external String get dirName;
   external set dirName(String value);
 
   /// The **`disabled`** property of the [HTMLTextAreaElement] interface
   /// indicates whether this multi-line text control is disabled and cannot be
   /// interacted with. It reflects the `textarea` element's
-  /// [`disabled`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#autocomplete)
+  /// [`disabled`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/textarea#autocomplete)
   /// attribute. When `false`, this `textarea` may still be disabled if its
   /// containing element, such as a `fieldset`, is disabled.
   external bool get disabled;
@@ -7469,7 +7569,7 @@ extension type HTMLTextAreaElement._(JSObject _)
   /// to be entered for the value of the `textarea` element, and the maximum
   /// number of characters allowed for the value to be valid. It reflects the
   /// element's
-  /// [`maxlength`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#maxlength)
+  /// [`maxlength`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/textarea#maxlength)
   /// attribute. `-1` means there is no limit on the length of the value.
   ///
   /// > [!NOTE]
@@ -7484,7 +7584,7 @@ extension type HTMLTextAreaElement._(JSObject _)
   /// indicates the minimum number of characters (in UTF-16 code units) required
   /// for the value of the `textarea` element to be valid. It reflects the
   /// element's
-  /// [`minlength`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#minlength)
+  /// [`minlength`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/textarea#minlength)
   /// attribute. `-1` means there is no minimum length requirement.
   ///
   /// > [!NOTE]
@@ -7497,7 +7597,7 @@ extension type HTMLTextAreaElement._(JSObject _)
 
   /// The **`name`** property of the [HTMLTextAreaElement] interface indicates
   /// the name of the `textarea` element. It reflects the element's
-  /// [`name`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#name)
+  /// [`name`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/textarea#name)
   /// attribute.
   external String get name;
   external set name(String value);
@@ -7505,7 +7605,7 @@ extension type HTMLTextAreaElement._(JSObject _)
   /// The **`placeholder`** property of the [HTMLTextAreaElement] interface
   /// represents a hint to the user of what can be entered in the control. It
   /// reflects the `textarea` element's
-  /// [`placeholder`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#placeholder)
+  /// [`placeholder`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/textarea#placeholder)
   /// attribute.
   external String get placeholder;
   external set placeholder(String value);
@@ -7515,7 +7615,7 @@ extension type HTMLTextAreaElement._(JSObject _)
   /// [HTMLTextAreaElement.disabled] attribute, the `readonly` attribute does
   /// not prevent the user from clicking or selecting in the control. It
   /// reflects the `textarea` element's
-  /// [`readonly`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#readonly)
+  /// [`readonly`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/textarea#readonly)
   /// attribute.
   external bool get readOnly;
   external set readOnly(bool value);
@@ -7523,7 +7623,7 @@ extension type HTMLTextAreaElement._(JSObject _)
   /// The **`required`** property of the [HTMLTextAreaElement] interface
   /// specifies that the user must fill in a value before submitting a form. It
   /// reflects the `textarea` element's
-  /// [`required`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#required)
+  /// [`required`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/textarea#required)
   /// attribute.
   external bool get required;
   external set required(bool value);
@@ -7531,7 +7631,7 @@ extension type HTMLTextAreaElement._(JSObject _)
   /// The **`rows`** property of the [HTMLTextAreaElement] interface is a
   /// positive integer representing the visible text lines of the text control.
   /// It reflects the `<textarea>` element's
-  /// [`rows`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#rows)
+  /// [`rows`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/textarea#rows)
   /// attribute.
   external int get rows;
   external set rows(int value);
@@ -7539,7 +7639,7 @@ extension type HTMLTextAreaElement._(JSObject _)
   /// The **`wrap`** property of the [HTMLTextAreaElement] interface indicates
   /// how the control should wrap the value for form submission. It reflects the
   /// `<textarea>` element's
-  /// [`wrap`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#wrap)
+  /// [`wrap`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/textarea#wrap)
   /// attribute. Note that the `"hard"` value only has an effect when the
   /// [HTMLTextAreaElement.cols] attribute is also set.
   external String get wrap;
@@ -7571,7 +7671,7 @@ extension type HTMLTextAreaElement._(JSObject _)
 
   /// The **`willValidate`** read-only property of the [HTMLTextAreaElement]
   /// interface indicates whether the `textarea` element is a candidate for
-  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Constraint_validation).
+  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Constraint_validation).
   /// It is `false` if any conditions bar it from constraint validation, such as
   /// when its [HTMLTextAreaElement.disabled] or [HTMLTextAreaElement.readOnly]
   /// property is `true`.
@@ -7624,7 +7724,7 @@ extension type HTMLTextAreaElement._(JSObject _)
   ///
   /// Setting the `selectionStart` to a new value fires the
   /// [HTMLTextAreaElement.selectionchange_event] and
-  /// [HTMLTextAreaElement.select_event]events.
+  /// [HTMLTextAreaElement.select_event] events.
   external int get selectionStart;
   external set selectionStart(int value);
 
@@ -7687,14 +7787,14 @@ extension type HTMLOutputElement._(JSObject _)
   /// The **`checkValidity()`** method of the [HTMLOutputElement] interface
   /// checks if the element is valid, but always returns true because `output`
   /// elements are never candidates for
-  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Constraint_validation).
+  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Constraint_validation).
   external bool checkValidity();
 
   /// The **`reportValidity()`** method of the [HTMLOutputElement] interface
   /// performs the same validity checking steps as the
   /// [HTMLOutputElement.checkValidity] method. It always returns true because
   /// `output` elements are never candidates for
-  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Constraint_validation).
+  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Constraint_validation).
   external bool reportValidity();
 
   /// The **`setCustomValidity()`** method of the [HTMLOutputElement] interface
@@ -7713,7 +7813,7 @@ extension type HTMLOutputElement._(JSObject _)
   /// string containing a space-separated list of other elements' `id`s,
   /// indicating that those elements contributed input values to (or otherwise
   /// affected) the calculation. It reflects the
-  /// [`for`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/output#for)
+  /// [`for`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/output#for)
   /// attribute of the `output` element.
   external DOMTokenList get htmlFor;
 
@@ -7724,7 +7824,7 @@ extension type HTMLOutputElement._(JSObject _)
 
   /// The **`name`** property of the [HTMLOutputElement] interface indicates the
   /// name of the `output` element. It reflects the element's
-  /// [`name`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/output#name)
+  /// [`name`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/output#name)
   /// attribute.
   external String get name;
   external set name(String value);
@@ -7755,13 +7855,13 @@ extension type HTMLOutputElement._(JSObject _)
   /// The **`willValidate`** read-only property of the [HTMLOutputElement]
   /// interface returns `false`, because `output` elements are not candidates
   /// for
-  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Constraint_validation).
+  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Constraint_validation).
   external bool get willValidate;
 
   /// The **`validity`** read-only property of the [HTMLOutputElement] interface
   /// returns a [ValidityState] object that represents the validity states this
   /// element is in. Although `output` elements are never candidates for
-  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Constraint_validation),
+  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Constraint_validation),
   /// the validity state may still be invalid if a custom validity message has
   /// been set.
   external ValidityState get validity;
@@ -7829,7 +7929,7 @@ extension type HTMLMeterElement._(JSObject _) implements HTMLElement, JSObject {
   /// The **`value`** property of the [HTMLMeterElement] interface represents
   /// the current value of the `meter` element as a floating-point number. It
   /// reflects the element's
-  /// [`value`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meter#value)
+  /// [`value`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/meter#value)
   /// attribute. If no `value` is set, it is the [HTMLMeterElement.min] value or
   /// `0`, whichever is greater.
   ///
@@ -7841,7 +7941,7 @@ extension type HTMLMeterElement._(JSObject _) implements HTMLElement, JSObject {
   /// The **`min`** property of the [HTMLMeterElement] interface represents the
   /// minimum value of the `meter` element as a floating-point number. It
   /// reflects the element's
-  /// [`min`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meter#min)
+  /// [`min`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/meter#min)
   /// attribute, or `0` if no `min` is defined.
   ///
   /// This property can also be set directly, for example to set a default value
@@ -7852,7 +7952,7 @@ extension type HTMLMeterElement._(JSObject _) implements HTMLElement, JSObject {
   /// The **`max`** property of the [HTMLMeterElement] interface represents the
   /// maximum value of the `meter` element as a floating-point number. It
   /// reflects the element's
-  /// [`max`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meter#max)
+  /// [`max`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/meter#max)
   /// attribute, or the `min` value if no `max` is set, or `1` if neither the
   /// `min` or the `max` is defined.
   ///
@@ -7864,7 +7964,7 @@ extension type HTMLMeterElement._(JSObject _) implements HTMLElement, JSObject {
   /// The **`low`** property of the [HTMLMeterElement] interface represents the
   /// low boundary of the `meter` element as a floating-point number. It
   /// reflects the element's
-  /// [`low`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meter#low)
+  /// [`low`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/meter#low)
   /// attribute, or the value of `min` if not defined. The value of `low` is
   /// clamped by the `min` and `max` values.
   ///
@@ -7876,7 +7976,7 @@ extension type HTMLMeterElement._(JSObject _) implements HTMLElement, JSObject {
   /// The **`high`** property of the [HTMLMeterElement] interface represents the
   /// high boundary of the `meter` element as a floating-point number. It
   /// reflects the element's
-  /// [`high`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meter#high)
+  /// [`high`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/meter#high)
   /// attribute, or the value of `max` if not defined. The value of `high` is
   /// clamped by the `low` and `max` values.
   ///
@@ -7888,7 +7988,7 @@ extension type HTMLMeterElement._(JSObject _) implements HTMLElement, JSObject {
   /// The **`optimum`** property of the [HTMLMeterElement] interface represents
   /// the optimum boundary of the `meter` element as a floating-point number. It
   /// reflects the element's
-  /// [`optimum`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meter#optimum)
+  /// [`optimum`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/meter#optimum)
   /// attribute, or the midpoint between `min` and `max` values if not defined.
   /// The value of `optimum` is clamped by the `min` and `max` values.
   ///
@@ -7920,7 +8020,7 @@ extension type HTMLFieldSetElement._(JSObject _)
   /// The **`checkValidity()`** method of the [HTMLFieldSetElement] interface
   /// checks if the element is valid, but always returns true because `fieldset`
   /// elements are never candidates for
-  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Constraint_validation).
+  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Constraint_validation).
   ///
   /// > [!NOTE]
   /// > The  and  CSS pseudo-classes are applied to `<fieldset>` elements based
@@ -7932,7 +8032,7 @@ extension type HTMLFieldSetElement._(JSObject _)
   /// performs the same validity checking steps as the
   /// [HTMLFieldSetElement.checkValidity] method. It always returns true because
   /// `fieldset` elements are never candidates for
-  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Constraint_validation).
+  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Constraint_validation).
   external bool reportValidity();
 
   /// The **`setCustomValidity()`** method of the [HTMLFieldSetElement]
@@ -7949,7 +8049,7 @@ extension type HTMLFieldSetElement._(JSObject _)
 
   /// The **`disabled`** property of the [HTMLFieldSetElement] interface is a
   /// boolean value that reflects the `fieldset` element's
-  /// [`disabled`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/fieldset#disabled)
+  /// [`disabled`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/fieldset#disabled)
   /// attribute, which indicates whether the control is disabled.
   ///
   /// When disabled, all the form control descendants of the `<fieldset>`
@@ -7967,7 +8067,7 @@ extension type HTMLFieldSetElement._(JSObject _)
 
   /// The **`name`** property of the [HTMLFieldSetElement] interface indicates
   /// the name of the `fieldset` element. It reflects the element's
-  /// [`name`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/fieldset#name)
+  /// [`name`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/fieldset#name)
   /// attribute.
   external String get name;
   external set name(String value);
@@ -7991,14 +8091,14 @@ extension type HTMLFieldSetElement._(JSObject _)
   /// The **`willValidate`** read-only property of the [HTMLFieldSetElement]
   /// interface returns `false`, because `fieldset` elements are not candidates
   /// for
-  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Constraint_validation).
+  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Constraint_validation).
   external bool get willValidate;
 
   /// The **`validity`** read-only property of the [HTMLFieldSetElement]
   /// interface returns a [ValidityState] object that represents the validity
   /// states this element is in. Although `fieldset` elements are never
   /// candidates for
-  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Constraint_validation),
+  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Constraint_validation),
   /// the validity state may still be invalid if a custom validity message has
   /// been set.
   ///
@@ -8051,7 +8151,7 @@ extension type ValidityState._(JSObject _) implements JSObject {
   /// The read-only **`valueMissing`** property of the
   /// [`ValidityState`](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState)
   /// interface indicates if a
-  /// [`required`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/required)
+  /// [`required`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/required)
   /// control, such as an `input`, `select`, or `textarea`, has an empty value.
   ///
   /// If the `required` attribute is set, and no `option` is selected or a
@@ -8065,7 +8165,7 @@ extension type ValidityState._(JSObject _) implements JSObject {
   /// [`ValidityState`](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState)
   /// interface indicates if the value of an `input`, after having been edited
   /// by the user, does not conform to the constraints set by the element's
-  /// [`type`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#input_types)
+  /// [`type`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#input_types)
   /// attribute.
   ///
   /// If the `type` attribute expects specific strings, such as the `email` and
@@ -8074,22 +8174,22 @@ extension type ValidityState._(JSObject _) implements JSObject {
   ///
   /// The `email` input type expects one or more valid email addresses,
   /// depending on whether the
-  /// [`multiple`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/multiple)
+  /// [`multiple`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/multiple)
   /// attribute is present. A valid email address includes an email prefix and a
   /// domain, with or without a top level domain. If the value of the email
   /// input is not an empty string, a single valid email address, or one or more
   /// comma separated email address if the
-  /// [`multiple`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/multiple)
+  /// [`multiple`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/multiple)
   /// attribute is present, there is a `typeMismatch`.
   ///
   /// The `url` input type expects one or more valid URLs, depending on whether
   /// the
-  /// [`multiple`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/multiple)
+  /// [`multiple`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/multiple)
   /// attribute is present. A valid URL includes a protocol, optionally with an
   /// IP address, or an optional subdomain, domain, and top level domain
   /// combination. If the value of the URL input is not an empty string, a
   /// single valid URL, or one or more comma separated URLS if the
-  /// [`multiple`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/multiple)
+  /// [`multiple`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/multiple)
   /// attribute is present, there is a `typeMismatch`.
   ///
   /// | Input type                              | Value             | Expected value                                                 |
@@ -8102,21 +8202,21 @@ extension type ValidityState._(JSObject _) implements JSObject {
   /// [`ValidityState`](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState)
   /// interface indicates if the value of an `input`, after having been edited
   /// by the user, does not conform to the constraints set by the element's
-  /// [`pattern`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/pattern)
+  /// [`pattern`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/pattern)
   /// attribute.
   ///
   /// The `patternMismatch` property will be true if and only if the following
   /// conditions are all true:
   ///
   /// - the field supports the
-  ///   [`pattern`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/pattern)
+  ///   [`pattern`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/pattern)
   ///   attribute — which means the `input` is of `type` `text`, `tel`, `email`,
   ///   `url`, `password`, or `search`
   /// - the
-  ///   [`pattern`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/pattern)
+  ///   [`pattern`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/pattern)
   ///   attribute contains a valid regular expression
   /// - the `input` value doesn't conform to the constraints set by the
-  ///   [`pattern`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/pattern)
+  ///   [`pattern`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/pattern)
   ///   value.
   external bool get patternMismatch;
 
@@ -8125,7 +8225,7 @@ extension type ValidityState._(JSObject _) implements JSObject {
   /// interface indicates if the value of an `input` or `textarea`, after having
   /// been edited by the user, exceeds the maximum code-unit length established
   /// by the element's
-  /// [`maxlength`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/maxlength)
+  /// [`maxlength`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/maxlength)
   /// attribute.
   external bool get tooLong;
 
@@ -8141,13 +8241,13 @@ extension type ValidityState._(JSObject _) implements JSObject {
   /// [`ValidityState`](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState)
   /// interface indicates if the value of an `input`, after having been edited
   /// by the user, does not conform to the constraints set by the element's
-  /// [`min`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/min)
+  /// [`min`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/min)
   /// attribute.
   ///
   /// If the field is numeric in nature, including the `date`, `month`, `week`,
   /// `time`, , `number` and `range` types and a `min` value is set, if the
   /// value doesn't conform to the constraints set by the
-  /// [`min`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/step)
+  /// [`min`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/step)
   /// value, the `rangeUnderflow` property will be true.
   external bool get rangeUnderflow;
 
@@ -8155,13 +8255,13 @@ extension type ValidityState._(JSObject _) implements JSObject {
   /// [`ValidityState`](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState)
   /// interface indicates if the value of an `input`, after having been edited
   /// by the user, does not conform to the constraints set by the element's
-  /// [`max`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/max)
+  /// [`max`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/max)
   /// attribute.
   ///
   /// If the field is numeric in nature, including the `date`, `month`, `week`,
   /// `time`, , `number` and `range` types and a `max` value is set, if the
   /// value doesn't conform to the constraints set by the
-  /// [`max`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/step)
+  /// [`max`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/step)
   /// value, the `rangeOverflow` property will be true.
   external bool get rangeOverflow;
 
@@ -8174,14 +8274,14 @@ extension type ValidityState._(JSObject _) implements JSObject {
   /// If the field is numeric in nature, including the `date`, `month`, `week`,
   /// `time`, , `number` and `range` types and the step value is not `any`, if
   /// the value don't doesn't conform to the constraints set by the
-  /// [`step`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/step)
+  /// [`step`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/step)
   /// and
-  /// [`min`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/min)
+  /// [`min`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/min)
   /// values, then `stepMismatch` will be true. If the remainder of the form
   /// control's value less the
-  /// [`min`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/min)
+  /// [`min`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/min)
   /// value, divided by the
-  /// [`step`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/step)
+  /// [`step`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/step)
   /// value (which defaults to 1 if omitted) is not zero, there is a mismatch.
   external bool get stepMismatch;
 
@@ -8294,7 +8394,7 @@ extension type HTMLDetailsElement._(JSObject _)
   HTMLDetailsElement() : _ = document.createElement('details');
 
   /// The **`name`** property of the [HTMLDetailsElement] interface reflects the
-  /// [`name`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details#name)
+  /// [`name`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/details#name)
   /// attribute of `details` elements. It enables multiple `<details>` elements
   /// to be connected together, where only one for the `<details>` elements can
   /// be open at once. This allows developers to easily create UI features such
@@ -8311,7 +8411,7 @@ extension type HTMLDetailsElement._(JSObject _)
 
   /// The **`open`** property of the
   /// [HTMLDetailsElement] interface is a boolean value reflecting the
-  /// [`open`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details#open)
+  /// [`open`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/details#open)
   /// HTML attribute, indicating whether the `details`'s contents (not counting
   /// the `summary`) is to be shown to the user.
   external bool get open;
@@ -8332,7 +8432,7 @@ extension type HTMLDialogElement._(JSObject _)
   HTMLDialogElement() : _ = document.createElement('dialog');
 
   /// The **`show()`** method of the [HTMLDialogElement]
-  /// interface displays the dialog modelessly, i.e. still allowing interaction
+  /// interface displays the dialog modelessly, i.e., still allowing interaction
   /// with content
   /// outside of the dialog.
   external void show();
@@ -8343,7 +8443,7 @@ extension type HTMLDialogElement._(JSObject _)
   /// with a
   /// pseudo-element. Elements inside the same document as the dialog, except
   /// the dialog and its descendants, become _inert_ (as if the
-  /// [`inert`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inert)
+  /// [`inert`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/inert)
   /// attribute is specified). Only the containing document becomes blocked; if
   /// the dialog is rendered inside an iframe, the rest of the page remains
   /// interactive.
@@ -8357,15 +8457,18 @@ extension type HTMLDialogElement._(JSObject _)
 
   /// The **`open`** property of the
   /// [HTMLDialogElement] interface is a boolean value reflecting the
-  /// [`open`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog#open)
+  /// [`open`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog#open)
   /// HTML attribute, indicating whether the `dialog` is
   /// available for interaction.
   external bool get open;
   external set open(bool value);
 
-  /// The **`returnValue`** property of the [HTMLDialogElement] interface gets
-  /// or sets the return value for the `dialog`, usually to indicate which
-  /// button the user pressed to close it.
+  /// The **`returnValue`** property of the [HTMLDialogElement] interface is a
+  /// string representing the return value for a `dialog` element when it's
+  /// closed.
+  /// You can set the value directly (`dialog.returnValue = "result"`) or by
+  /// providing the value as a string argument to [HTMLDialogElement.close] or
+  /// [HTMLDialogElement.requestClose].
   external String get returnValue;
   external set returnValue(String value);
 }
@@ -8376,7 +8479,7 @@ extension type HTMLDialogElement._(JSObject _)
 /// interface).
 ///
 /// JavaScript files should be served with the `text/javascript`
-/// [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/MIME_types),
+/// [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/MIME_types),
 /// but browsers are lenient and block them only if the script is served with an
 /// image type (`image/*`), video type (`video/*`), audio type (`audio/*`), or
 /// `text/csv`. If the script is blocked, its element receives an
@@ -8457,7 +8560,7 @@ extension type HTMLScriptElement._(JSObject _)
   /// other [origins](https://developer.mozilla.org/en-US/docs/Glossary/Origin),
   /// this controls if full error information will be exposed. For module
   /// scripts, it controls the script itself and any script it imports. See
-  /// [CORS settings attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin)
+  /// [CORS settings attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/crossorigin)
   /// for details.
   external String? get crossOrigin;
   external set crossOrigin(String? value);
@@ -8480,7 +8583,7 @@ extension type HTMLScriptElement._(JSObject _)
 
   /// The **`referrerPolicy`** property of the
   /// [HTMLScriptElement] interface reflects the HTML
-  /// [`referrerpolicy`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script#referrerpolicy)
+  /// [`referrerpolicy`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/script#referrerpolicy)
   /// of the `script` element, which defines how the referrer is set when
   /// fetching the script and any scripts it imports.
   external String get referrerPolicy;
@@ -8497,7 +8600,7 @@ extension type HTMLScriptElement._(JSObject _)
   /// represents a hint to the browser indicating how it should prioritize
   /// fetching an external script relative to other external scripts.
   /// It reflects the
-  /// [`fetchpriority`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script#fetchpriority)
+  /// [`fetchpriority`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/script#fetchpriority)
   /// attribute of the `script` element.
   ///
   /// The property allows a developer to signal that fetching a particular
@@ -8512,7 +8615,7 @@ extension type HTMLScriptElement._(JSObject _)
   /// The fetch priority allows you to decrease the priority of late-body
   /// scripts, or to increase the priority of `async` scripts without having to
   /// use
-  /// [preloading](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel/preload).
+  /// [preloading](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/rel/preload).
   /// When early loading of a script is important, the priority can be used to
   /// complement preloading, boosting the priority ahead of less-impactful
   /// resources that have a higher default priority.
@@ -8557,9 +8660,9 @@ extension type HTMLTemplateElement._(JSObject _)
 
   /// The **`shadowRootMode`** property of the [HTMLTemplateElement] interface
   /// reflects the value of the
-  /// [`shadowrootmode`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#shadowrootmode)
+  /// [`shadowrootmode`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/template#shadowrootmode)
   /// attribute of the associated
-  /// [`<template>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template)
+  /// [`<template>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/template)
   /// element.
   ///
   /// Note that this property is not useful for developers.
@@ -8574,9 +8677,9 @@ extension type HTMLTemplateElement._(JSObject _)
 
   /// The **`shadowRootDelegatesFocus`** property of the [HTMLTemplateElement]
   /// interface reflects the value of the
-  /// [`shadowrootdelegatesfocus`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#shadowrootdelegatesfocus)
+  /// [`shadowrootdelegatesfocus`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/template#shadowrootdelegatesfocus)
   /// attribute of the associated
-  /// [`<template>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template)
+  /// [`<template>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/template)
   /// element.
   ///
   /// Note that this property is not useful for developers.
@@ -8590,9 +8693,9 @@ extension type HTMLTemplateElement._(JSObject _)
   external set shadowRootDelegatesFocus(bool value);
 
   /// The **`shadowRootClonable`** property reflects the value of the
-  /// [`shadowrootclonable`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#shadowrootclonable)
+  /// [`shadowrootclonable`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/template#shadowrootclonable)
   /// attribute of the associated
-  /// [`<template>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template)
+  /// [`<template>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/template)
   /// element.
   ///
   /// Note that this property is not useful for developers.
@@ -8606,9 +8709,9 @@ extension type HTMLTemplateElement._(JSObject _)
   external set shadowRootClonable(bool value);
 
   /// The **`shadowRootSerializable`** property reflects the value of the
-  /// [`shadowrootserializable`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#shadowrootserializable)
+  /// [`shadowrootserializable`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/template#shadowrootserializable)
   /// attribute of the associated
-  /// [`<template>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template)
+  /// [`<template>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/template)
   /// element.
   ///
   /// Note that this property is not useful for developers.
@@ -8775,18 +8878,22 @@ extension type HTMLCanvasElement._(JSObject _)
 
   /// The **`HTMLCanvasElement.width`** property is a
   /// positive `integer` reflecting the
-  /// [`width`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas#width)
+  /// [`width`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/canvas#width)
   /// HTML
   /// attribute of the `canvas` element interpreted in CSS pixels. When the
   /// attribute is not specified, or if it is set to an invalid value, like a
   /// negative, the
   /// default value of `300` is used.
   ///
-  /// When the `width` property is set the drawing buffer is always reset to
-  /// blank — this is true for all context types, and even when the width is set
-  /// to the same value. If you need to restore the previous content, you can
-  /// save it via [CanvasRenderingContext2D.getImageData] and restore it via
-  /// [CanvasRenderingContext2D.putImageData].
+  /// Setting the `width` property resets the entire rendering context to its
+  /// default state. This includes clearing the canvas (backing buffer),
+  /// resetting the current path, and resetting _all_ properties like
+  /// `fillStyle` and `globalCompositeOperation`. This reset occurs for all
+  /// context types, and occurs even when setting `width` to its current value.
+  /// To restore the previous content after changing the width, use
+  /// [CanvasRenderingContext2D.getImageData] and
+  /// [CanvasRenderingContext2D.putImageData]. Context properties must be
+  /// separately tracked and restored.
   ///
   /// This is one of the two properties, the other being
   /// [HTMLCanvasElement.height], that controls the size of the canvas.
@@ -8795,18 +8902,22 @@ extension type HTMLCanvasElement._(JSObject _)
 
   /// The **`HTMLCanvasElement.height`** property is a
   /// positive `integer` reflecting the
-  /// [`height`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas#height)
+  /// [`height`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/canvas#height)
   /// HTML
   /// attribute of the `canvas` element interpreted in CSS pixels. When the
   /// attribute is not specified, or if it is set to an invalid value, like a
   /// negative, the
   /// default value of `150` is used.
   ///
-  /// When the `height` property is set the drawing buffer is always reset to
-  /// blank — this is true for all context types, and even when the height is
-  /// set to the same value. If you need to restore the previous content, you
-  /// can save it via [CanvasRenderingContext2D.getImageData] and restore it via
-  /// [CanvasRenderingContext2D.putImageData].
+  /// Setting the `height` property resets the entire rendering context to its
+  /// default state. This includes clearing the canvas (backing buffer),
+  /// resetting the current path, and resetting _all_ properties like
+  /// `fillStyle` and `globalCompositeOperation`. This reset occurs for all
+  /// context types, and occurs even when setting `height` to its current value.
+  /// To restore the previous content after changing the height, use
+  /// [CanvasRenderingContext2D.getImageData] and
+  /// [CanvasRenderingContext2D.putImageData]. Context properties must be
+  /// separately tracked and restored.
   ///
   /// This is one of the two properties, the other being
   /// [HTMLCanvasElement.width], that controls the size of the canvas.
@@ -9948,7 +10059,7 @@ extension type CanvasRenderingContext2D._(JSObject _) implements JSObject {
   /// when rendering text.
   ///
   /// The values correspond to the SVG
-  /// [`text-rendering`](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/text-rendering)
+  /// [`text-rendering`](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/text-rendering)
   /// attribute (and CSS
   /// [`text-rendering`](https://developer.mozilla.org/en-US/docs/Web/CSS/text-rendering)
   /// property).
@@ -10703,7 +10814,7 @@ extension type ElementInternals._(JSObject _) implements JSObject {
 
   /// The **`checkValidity()`** method of the [ElementInternals] interface
   /// checks if the element meets any
-  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Constraint_validation)
+  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Constraint_validation)
   /// rules applied to it.
   ///
   /// If `checkValidity` returns `false` then a cancelable
@@ -10713,7 +10824,7 @@ extension type ElementInternals._(JSObject _) implements JSObject {
 
   /// The **`reportValidity()`** method of the [ElementInternals] interface
   /// checks if the element meets any
-  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Constraint_validation)
+  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Constraint_validation)
   /// rules applied to it.
   ///
   /// If `reportValidity` returns `false` then a cancelable
@@ -10736,7 +10847,7 @@ extension type ElementInternals._(JSObject _) implements JSObject {
   /// The **`willValidate`** read-only property of the [ElementInternals]
   /// interface returns `true` if the element is a submittable element that is a
   /// candidate for
-  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Constraint_validation).
+  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Constraint_validation).
   ///
   /// Elements that are barred from being candidates for constraint validation
   /// include those that have the attributes: `disabled`, `hidden` or
@@ -10765,9 +10876,9 @@ extension type ElementInternals._(JSObject _) implements JSObject {
 
   /// The **`role`** read-only property of the [ElementInternals] interface
   /// returns the
-  /// [WAI-ARIA role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles)
+  /// [WAI-ARIA role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles)
   /// for the element. For example, a checkbox might have
-  /// [`role="checkbox"`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/checkbox_role).
+  /// [`role="checkbox"`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/checkbox_role).
   /// It reflects the `role` attribute; it does not return the element's
   /// implicit ARIA role, if any, unless explicitly set.
   external String? get role;
@@ -10775,7 +10886,7 @@ extension type ElementInternals._(JSObject _) implements JSObject {
 
   /// The **`ariaAtomic`** property of the [ElementInternals] interface reflects
   /// the value of the
-  /// [`aria-atomic`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-atomic)
+  /// [`aria-atomic`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-atomic)
   /// attribute, which indicates whether assistive technologies will present
   /// all, or only parts of, the changed region based on the change
   /// notifications defined by the `aria-relevant` attribute.
@@ -10792,7 +10903,7 @@ extension type ElementInternals._(JSObject _) implements JSObject {
 
   /// The **`ariaAutoComplete`** property of the [ElementInternals] interface
   /// reflects the value of the
-  /// [`aria-autocomplete`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-autocomplete)
+  /// [`aria-autocomplete`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-autocomplete)
   /// attribute, which indicates whether inputting text could trigger display of
   /// one or more predictions of the user's intended value for a combobox,
   /// searchbox, or textbox and specifies how predictions would be presented if
@@ -10807,14 +10918,40 @@ extension type ElementInternals._(JSObject _) implements JSObject {
   /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
   external String? get ariaAutoComplete;
   external set ariaAutoComplete(String? value);
+
+  /// The **`ariaBrailleLabel`** property of the [ElementInternals] interface
+  /// reflects the value of the
+  /// [`aria-braillelabel`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-braillelabel)
+  /// attribute, which defines the ARIA braille label of the element.
+  ///
+  /// This element label may be used by assistive technologies that can present
+  /// content in braille, but should only be set if a braille-specific label
+  /// would improve the user experience.
+  /// The
+  /// [`aria-braillelabel`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-braillelabel)
+  /// contains additional information about when the property should be set.
   external String? get ariaBrailleLabel;
   external set ariaBrailleLabel(String? value);
+
+  /// The **`ariaBrailleRoleDescription`** property of the [ElementInternals]
+  /// interface reflects the value of the
+  /// [`aria-brailleroledescription`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-brailleroledescription)
+  /// attribute, which defines the ARIA braille role description of the element.
+  ///
+  /// This property may be used to provide an abbreviated version of the
+  /// [`aria-roledescription`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-roledescription)
+  /// value.
+  /// It should only be used if `aria-roledescription` is present and in the
+  /// rare case where it is too verbose for braille.
+  /// The
+  /// [`aria-brailleroledescription`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-brailleroledescription)
+  /// contains additional information about when the property should be set.
   external String? get ariaBrailleRoleDescription;
   external set ariaBrailleRoleDescription(String? value);
 
   /// The **`ariaBusy`** property of the [ElementInternals] interface reflects
   /// the value of the
-  /// [`aria-busy`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-busy)
+  /// [`aria-busy`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-busy)
   /// attribute, which indicates whether an element is being modified, as
   /// assistive technologies may want to wait until the modifications are
   /// complete before exposing them to the user.
@@ -10831,7 +10968,7 @@ extension type ElementInternals._(JSObject _) implements JSObject {
 
   /// The **`ariaChecked`** property of the [ElementInternals] interface
   /// reflects the value of the
-  /// [`aria-checked`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-checked)
+  /// [`aria-checked`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-checked)
   /// attribute, which indicates the current "checked" state of checkboxes,
   /// radio buttons, and other widgets that have a checked state.
   ///
@@ -10847,7 +10984,7 @@ extension type ElementInternals._(JSObject _) implements JSObject {
 
   /// The **`ariaColCount`** property of the [ElementInternals] interface
   /// reflects the value of the
-  /// [`aria-colcount`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colcount)
+  /// [`aria-colcount`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-colcount)
   /// attribute, which defines the number of columns in a table, grid, or
   /// treegrid.
   ///
@@ -10863,7 +11000,7 @@ extension type ElementInternals._(JSObject _) implements JSObject {
 
   /// The **`ariaColIndex`** property of the [ElementInternals] interface
   /// reflects the value of the
-  /// [`aria-colindex`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colindex)
+  /// [`aria-colindex`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-colindex)
   /// attribute, which defines an element's column index or position with
   /// respect to the total number of columns within a table, grid, or treegrid.
   ///
@@ -10879,7 +11016,7 @@ extension type ElementInternals._(JSObject _) implements JSObject {
 
   /// The **`ariaColIndexText`** property of the [ElementInternals] interface
   /// reflects the value of the
-  /// [`aria-colindextext`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colindextext)
+  /// [`aria-colindextext`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-colindextext)
   /// attribute, which defines a human readable text alternative of
   /// aria-colindex.
   ///
@@ -10895,7 +11032,7 @@ extension type ElementInternals._(JSObject _) implements JSObject {
 
   /// The **`ariaColSpan`** property of the [ElementInternals] interface
   /// reflects the value of the
-  /// [`aria-colspan`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colspan)
+  /// [`aria-colspan`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-colspan)
   /// attribute, which defines the number of columns spanned by a cell or
   /// gridcell within a table, grid, or treegrid.
   ///
@@ -10911,7 +11048,7 @@ extension type ElementInternals._(JSObject _) implements JSObject {
 
   /// The **`ariaCurrent`** property of the [ElementInternals] interface
   /// reflects the value of the
-  /// [`aria-current`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
+  /// [`aria-current`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-current)
   /// attribute, which indicates the element that represents the current item
   /// within a container or set of related elements.
   ///
@@ -10927,7 +11064,7 @@ extension type ElementInternals._(JSObject _) implements JSObject {
 
   /// The **`ariaDescription`** property of the [ElementInternals] interface
   /// reflects the value of the
-  /// [`aria-description`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-description)
+  /// [`aria-description`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-description)
   /// attribute, which defines a string value that describes or annotates the
   /// current element.
   ///
@@ -10943,7 +11080,7 @@ extension type ElementInternals._(JSObject _) implements JSObject {
 
   /// The **`ariaDisabled`** property of the [ElementInternals] interface
   /// reflects the value of the
-  /// [`aria-disabled`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-disabled)
+  /// [`aria-disabled`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-disabled)
   /// attribute, which indicates that the element is perceivable but disabled,
   /// so it is not editable or otherwise operable.
   ///
@@ -10959,7 +11096,7 @@ extension type ElementInternals._(JSObject _) implements JSObject {
 
   /// The **`ariaExpanded`** property of the [ElementInternals] interface
   /// reflects the value of the
-  /// [`aria-expanded`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-expanded)
+  /// [`aria-expanded`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-expanded)
   /// attribute, which indicates whether a grouping element owned or controlled
   /// by this element is expanded or collapsed.
   ///
@@ -10975,7 +11112,7 @@ extension type ElementInternals._(JSObject _) implements JSObject {
 
   /// The **`ariaHasPopup`** property of the [ElementInternals] interface
   /// reflects the value of the
-  /// [`aria-haspopup`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-haspopup)
+  /// [`aria-haspopup`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-haspopup)
   /// attribute, which indicates the availability and type of interactive popup
   /// element, such as menu or dialog, that can be triggered by an element.
   ///
@@ -10991,7 +11128,7 @@ extension type ElementInternals._(JSObject _) implements JSObject {
 
   /// The **`ariaHidden`** property of the [ElementInternals] interface reflects
   /// the value of the
-  /// [`aria-hidden`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden)
+  /// [`aria-hidden`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-hidden)
   /// attribute, which indicates whether the element is exposed to an
   /// accessibility API.
   ///
@@ -11004,12 +11141,38 @@ extension type ElementInternals._(JSObject _) implements JSObject {
   /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
   external String? get ariaHidden;
   external set ariaHidden(String? value);
+
+  /// The **`ariaInvalid`** property of the [ElementInternals] interface
+  /// reflects the value of the
+  /// [`aria-invalid`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-invalid)
+  /// attribute. Relevant for the
+  /// [`application`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/application_role),
+  /// [`checkbox`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/checkbox_role),
+  /// [`combobox`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/combobox_role),
+  /// [`gridcell`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/gridcell_role),
+  /// [`listbox`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/listbox_role),
+  /// [`radiogroup`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/radiogroup_role),
+  /// [`slider`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/slider_role),
+  /// [`spinbutton`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/spinbutton_role),
+  /// [`textbox`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/textbox_role),
+  /// and
+  /// [`tree`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/tree_role)
+  /// roles, it indicates to the accessibility API whether the entered value
+  /// does not conform to the format expected by the application.
+  ///
+  /// > [!NOTE]
+  /// > Setting ARIA attributes on `ElementInternals` allows default semantics
+  /// > to be defined on a custom element. These may be overwritten by
+  /// > author-defined attributes, but ensure that default semantics are
+  /// > retained should the author delete those attributes, or fail to add them
+  /// > at all. For more information see the
+  /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
   external String? get ariaInvalid;
   external set ariaInvalid(String? value);
 
   /// The **`ariaKeyShortcuts`** property of the [ElementInternals] interface
   /// reflects the value of the
-  /// [`aria-keyshortcuts`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-keyshortcuts)
+  /// [`aria-keyshortcuts`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-keyshortcuts)
   /// attribute, which indicates keyboard shortcuts that an author has
   /// implemented to activate or give focus to an element.
   ///
@@ -11025,7 +11188,7 @@ extension type ElementInternals._(JSObject _) implements JSObject {
 
   /// The **`ariaLabel`** property of the [ElementInternals] interface reflects
   /// the value of the
-  /// [`aria-label`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label)
+  /// [`aria-label`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-label)
   /// attribute, which defines a string value that labels the current Element.
   ///
   /// > [!NOTE]
@@ -11040,7 +11203,7 @@ extension type ElementInternals._(JSObject _) implements JSObject {
 
   /// The **`ariaLevel`** property of the [ElementInternals] interface reflects
   /// the value of the
-  /// [`aria-level`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-level)
+  /// [`aria-level`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-level)
   /// attribute, which defines the hierarchical level of an element within a
   /// structure.
   ///
@@ -11056,7 +11219,7 @@ extension type ElementInternals._(JSObject _) implements JSObject {
 
   /// The **`ariaLive`** property of the [ElementInternals] interface reflects
   /// the value of the
-  /// [`aria-live`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions)
+  /// [`aria-live`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Guides/Live_regions)
   /// attribute, which indicates that an element will be updated, and describes
   /// the types of updates the user agents, assistive technologies, and user can
   /// expect from the live region.
@@ -11073,7 +11236,7 @@ extension type ElementInternals._(JSObject _) implements JSObject {
 
   /// The **`ariaModal`** property of the [ElementInternals] interface reflects
   /// the value of the
-  /// [`aria-modal`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-modal)
+  /// [`aria-modal`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-modal)
   /// attribute, which indicates whether an element is modal when displayed.
   ///
   /// > [!NOTE]
@@ -11088,7 +11251,7 @@ extension type ElementInternals._(JSObject _) implements JSObject {
 
   /// The **`ariaMultiLine`** property of the [ElementInternals] interface
   /// reflects the value of the
-  /// [`aria-multiline`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-multiline)
+  /// [`aria-multiline`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-multiline)
   /// attribute, which indicates whether a text box accepts multiple lines of
   /// input or only a single line.
   ///
@@ -11104,7 +11267,7 @@ extension type ElementInternals._(JSObject _) implements JSObject {
 
   /// The **`ariaMultiSelectable`** property of the [ElementInternals] interface
   /// reflects the value of the
-  /// [`aria-multiselectable`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-multiselectable)
+  /// [`aria-multiselectable`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-multiselectable)
   /// attribute, which indicates that the user may select more than one item
   /// from the current selectable descendants.
   ///
@@ -11120,7 +11283,7 @@ extension type ElementInternals._(JSObject _) implements JSObject {
 
   /// The **`ariaOrientation`** property of the [ElementInternals] interface
   /// reflects the value of the
-  /// [`aria-orientation`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-orientation)
+  /// [`aria-orientation`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-orientation)
   /// attribute, which indicates whether the element's orientation is
   /// horizontal, vertical, or unknown/ambiguous.
   ///
@@ -11136,7 +11299,7 @@ extension type ElementInternals._(JSObject _) implements JSObject {
 
   /// The **`ariaPlaceholder`** property of the [ElementInternals] interface
   /// reflects the value of the
-  /// [`aria-placeholder`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-placeholder)
+  /// [`aria-placeholder`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-placeholder)
   /// attribute, which defines a short hint intended to aid the user with data
   /// entry when the control has no value.
   ///
@@ -11152,7 +11315,7 @@ extension type ElementInternals._(JSObject _) implements JSObject {
 
   /// The **`ariaPosInSet`** property of the [ElementInternals] interface
   /// reflects the value of the
-  /// [`aria-posinset`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-posinset)
+  /// [`aria-posinset`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-posinset)
   /// attribute, which defines an element's number or position in the current
   /// set of listitems or treeitems.
   ///
@@ -11168,7 +11331,7 @@ extension type ElementInternals._(JSObject _) implements JSObject {
 
   /// The **`ariaPressed`** property of the [ElementInternals] interface
   /// reflects the value of the
-  /// [`aria-pressed`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-pressed)
+  /// [`aria-pressed`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-pressed)
   /// attribute, which indicates the current "pressed" state of toggle buttons.
   ///
   /// > [!NOTE]
@@ -11183,7 +11346,7 @@ extension type ElementInternals._(JSObject _) implements JSObject {
 
   /// The **`ariaReadOnly`** property of the [ElementInternals] interface
   /// reflects the value of the
-  /// [`aria-readonly`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-readonly)
+  /// [`aria-readonly`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-readonly)
   /// attribute, which indicates that the element is not editable, but is
   /// otherwise operable.
   ///
@@ -11199,7 +11362,7 @@ extension type ElementInternals._(JSObject _) implements JSObject {
 
   /// The **`ariaRequired`** property of the [ElementInternals] interface
   /// reflects the value of the
-  /// [`aria-required`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-required)
+  /// [`aria-required`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-required)
   /// attribute, which indicates that user input is required on the element
   /// before a form may be submitted.
   ///
@@ -11215,7 +11378,7 @@ extension type ElementInternals._(JSObject _) implements JSObject {
 
   /// The **`ariaRoleDescription`** property of the [ElementInternals] interface
   /// reflects the value of the
-  /// [`aria-roledescription`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-roledescription)
+  /// [`aria-roledescription`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-roledescription)
   /// attribute, which defines a human-readable, author-localized description
   /// for the role of an element.
   ///
@@ -11231,7 +11394,7 @@ extension type ElementInternals._(JSObject _) implements JSObject {
 
   /// The **`ariaRowCount`** property of the [ElementInternals] interface
   /// reflects the value of the
-  /// [`aria-rowcount`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowcount)
+  /// [`aria-rowcount`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-rowcount)
   /// attribute, which defines the total number of rows in a table, grid, or
   /// treegrid.
   ///
@@ -11247,7 +11410,7 @@ extension type ElementInternals._(JSObject _) implements JSObject {
 
   /// The **`ariaRowIndex`** property of the [ElementInternals] interface
   /// reflects the value of the
-  /// [`aria-rowindex`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowindex)
+  /// [`aria-rowindex`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-rowindex)
   /// attribute, which defines an element's row index or position with respect
   /// to the total number of rows within a table, grid, or treegrid.
   ///
@@ -11263,7 +11426,7 @@ extension type ElementInternals._(JSObject _) implements JSObject {
 
   /// The **`ariaRowIndexText`** property of the [ElementInternals] interface
   /// reflects the value of the
-  /// [`aria-rowindextext`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowindextext)
+  /// [`aria-rowindextext`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-rowindextext)
   /// attribute, which defines a human readable text alternative of
   /// aria-rowindex.
   ///
@@ -11279,7 +11442,7 @@ extension type ElementInternals._(JSObject _) implements JSObject {
 
   /// The **`ariaRowSpan`** property of the [ElementInternals] interface
   /// reflects the value of the
-  /// [`aria-rowspan`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowspan)
+  /// [`aria-rowspan`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-rowspan)
   /// attribute, which defines the number of rows spanned by a cell or gridcell
   /// within a table, grid, or treegrid.
   ///
@@ -11295,7 +11458,7 @@ extension type ElementInternals._(JSObject _) implements JSObject {
 
   /// The **`ariaSelected`** property of the [ElementInternals] interface
   /// reflects the value of the
-  /// [`aria-selected`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-selected)
+  /// [`aria-selected`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-selected)
   /// attribute, which indicates the current "selected" state of elements that
   /// have a selected state.
   ///
@@ -11311,7 +11474,7 @@ extension type ElementInternals._(JSObject _) implements JSObject {
 
   /// The **`ariaSetSize`** property of the [ElementInternals] interface
   /// reflects the value of the
-  /// [`aria-setsize`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-setsize)
+  /// [`aria-setsize`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-setsize)
   /// attribute, which defines the number of items in the current set of
   /// listitems or treeitems.
   ///
@@ -11327,7 +11490,7 @@ extension type ElementInternals._(JSObject _) implements JSObject {
 
   /// The **`ariaSort`** property of the [ElementInternals] interface reflects
   /// the value of the
-  /// [`aria-sort`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-sort)
+  /// [`aria-sort`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-sort)
   /// attribute, which indicates if items in a table or grid are sorted in
   /// ascending or descending order.
   ///
@@ -11343,7 +11506,7 @@ extension type ElementInternals._(JSObject _) implements JSObject {
 
   /// The **`ariaValueMax`** property of the [ElementInternals] interface
   /// reflects the value of the
-  /// [`aria-valuemax`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuemax)
+  /// [`aria-valuemax`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-valuemax)
   /// attribute, which defines the maximum allowed value for a range widget.
   ///
   /// > [!NOTE]
@@ -11358,7 +11521,7 @@ extension type ElementInternals._(JSObject _) implements JSObject {
 
   /// The **`ariaValueMin`** property of the [ElementInternals] interface
   /// reflects the value of the
-  /// [`aria-valuemin`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuemin)
+  /// [`aria-valuemin`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-valuemin)
   /// attribute, which defines the minimum allowed value for a range widget.
   ///
   /// > [!NOTE]
@@ -11373,7 +11536,7 @@ extension type ElementInternals._(JSObject _) implements JSObject {
 
   /// The **`ariaValueNow`** property of the [ElementInternals] interface
   /// reflects the value of the
-  /// [`aria-valuenow`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuenow)
+  /// [`aria-valuenow`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-valuenow)
   /// attribute, which defines the current value for a range widget.
   ///
   /// > [!NOTE]
@@ -11388,7 +11551,7 @@ extension type ElementInternals._(JSObject _) implements JSObject {
 
   /// The **`ariaValueText`** property of the [ElementInternals] interface
   /// reflects the value of the
-  /// [`aria-valuetext`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuetext)
+  /// [`aria-valuetext`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-valuetext)
   /// attribute, which defines the human-readable text alternative of
   /// aria-valuenow for a range widget.
   ///
@@ -11815,7 +11978,7 @@ extension type DataTransferItemList._(JSObject _) implements JSObject {
 extension type DataTransferItem._(JSObject _) implements JSObject {
   /// The **`DataTransferItem.getAsString()`** method invokes the given callback
   /// with the drag data item's string data as the argument if the item's
-  /// [DataTransferItem.kind] is a _Plain unicode string_ (i.e. `kind` is
+  /// [DataTransferItem.kind] is a _Plain unicode string_ (i.e., `kind` is
   /// `string`).
   external void getAsString(FunctionStringCallback? callback);
 
@@ -11993,7 +12156,7 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// [`Window`](https://developer.mozilla.org/en-US/docs/Web/API/Window)
   /// interface loads a specified resource into a new or existing browsing
   /// context (that is, a tab, a window, or an
-  /// [iframe](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe))
+  /// [iframe](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/iframe))
   /// under a specified name.
   external Window? open([
     String url,
@@ -12149,8 +12312,9 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// stylesheets and resolving any basic computation those values may contain.
   ///
   /// Individual CSS property values are accessed through APIs provided by the
-  /// object, or by
-  /// indexing with CSS property names.
+  /// returned [CSSStyleDeclaration] object, or by indexing with CSS property
+  /// names. The values returned by `getComputedStyle` are
+  /// [resolved values](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_cascade/Value_processing#resolved_value).
   external CSSStyleDeclaration getComputedStyle(
     Element elt, [
     String? pseudoElt,
@@ -12267,9 +12431,6 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// The **`setInterval()`** method of the [Window] interface repeatedly calls
   /// a function or executes a code snippet, with a fixed time delay between
   /// each call.
-  ///
-  /// This method returns an interval ID which uniquely identifies the interval,
-  /// so you can remove it later by calling [Window.clearInterval].
   external int setInterval(
     TimerHandler handler, [
     int timeout,
@@ -12361,7 +12522,7 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// [Response.status] properties.
   ///
   /// The `fetch()` method is controlled by the `connect-src` directive of
-  /// [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy)
+  /// [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy)
   /// rather than the directive of the resources it's retrieving.
   ///
   /// > [!NOTE]
@@ -12603,7 +12764,7 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// **`opener`** property returns a reference to the window that
   /// opened the window, either with [Window.open], or by navigating
   /// a link with a
-  /// [`target`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#target)
+  /// [`target`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#target)
   /// attribute.
   ///
   /// In other words, if window `A` opens window `B`,
@@ -13063,8 +13224,8 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// A cross-origin isolated document only shares its  with same-origin
   /// documents in popups and navigations, and resources (both same-origin and
   /// cross-origin) that the document has opted into using via
-  /// [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) (and
-  /// [COEP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Embedder-Policy)
+  /// [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS) (and
+  /// [COEP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Cross-Origin-Embedder-Policy)
   /// for `<iframe>`).
   /// The relationship between a cross-origin opener of the document or any
   /// cross-origin popups that it opens are severed.
@@ -13290,9 +13451,7 @@ extension type Location._(JSObject _) implements JSObject {
 
   /// The **`protocol`** property of the [Location] interface is a string
   /// containing the protocol or scheme of the location's URL, including the
-  /// final `":"`. If the port is the default for the protocol (`80` for `ws:`
-  /// and `http:`, `443` for `wss:` and `https:`, and `21` for `ftp:`), this
-  /// property contains an empty string, `""`.
+  /// final `":"`.
   ///
   /// This property can be set to change the protocol of the URL. A `":"` is
   /// appended to the provided string if not provided. The provided scheme has
@@ -13934,7 +14093,7 @@ extension type Navigator._(JSObject _) implements JSObject {
 
   /// The **`navigator.sendBeacon()`**
   /// method  sends an
-  /// [HTTP POST](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST)
+  /// [HTTP POST](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods/POST)
   /// request containing a small amount of data to a web server.
   ///
   /// It's intended to be used for
@@ -14016,7 +14175,7 @@ extension type Navigator._(JSObject _) implements JSObject {
   /// The
   /// [Web Share API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Share_API)
   /// is gated by the
-  /// [web-share](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy/web-share)
+  /// [web-share](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Permissions-Policy/web-share)
   /// permission policy.
   /// The `share()` method will throw exceptions if the permission is supported
   /// but has not been granted.
@@ -14040,7 +14199,7 @@ extension type Navigator._(JSObject _) implements JSObject {
   /// The
   /// [Web Share API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Share_API)
   /// is gated by the
-  /// [web-share](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy/web-share)
+  /// [web-share](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Permissions-Policy/web-share)
   /// permission policy.
   /// The `canShare()` method will return `false` if the permission is supported
   /// but has not been granted.
@@ -14095,7 +14254,7 @@ extension type Navigator._(JSObject _) implements JSObject {
   ///
   /// When the user activates a link that uses the registered protocol, the
   /// browser will insert the
-  /// [`href`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#href)
+  /// [`href`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#href)
   /// from the activated link into the URL template supplied during handler
   /// registration, and navigate the current page to the resulting URL.
   ///
@@ -15078,9 +15237,6 @@ extension type WorkerGlobalScope._(JSObject _)
   /// repeatedly calls a function or executes a code snippet, with a fixed time
   /// delay between each call.
   ///
-  /// This method returns an interval ID which uniquely identifies the interval,
-  /// so you can remove it later by calling [WorkerGlobalScope.clearInterval].
-  ///
   /// This method is also available in window contexts: for a detailed
   /// description of `setInterval()`, see the [Window.setInterval] page.
   external int setInterval(
@@ -15183,7 +15339,7 @@ extension type WorkerGlobalScope._(JSObject _)
   /// [Response.status] properties.
   ///
   /// The `fetch()` method is controlled by the `connect-src` directive of
-  /// [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy)
+  /// [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy)
   /// rather than the directive of the resources it's retrieving.
   ///
   /// > [!NOTE]
@@ -15262,8 +15418,8 @@ extension type WorkerGlobalScope._(JSObject _)
   /// A cross-origin isolated document only shares its  with same-origin
   /// documents in popups and navigations, and resources (both same-origin and
   /// cross-origin) that the document has opted into using via
-  /// [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) (and
-  /// [COEP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Embedder-Policy)
+  /// [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS) (and
+  /// [COEP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Cross-Origin-Embedder-Policy)
   /// for `<iframe>`).
   /// The relationship between a cross-origin opener of the document or any
   /// cross-origin popups that it opens are severed.
@@ -15791,7 +15947,7 @@ extension type WorkerNavigator._(JSObject _) implements JSObject {
   /// The `Accept-Language` HTTP header in every HTTP request from the user's
   /// browser uses the same value for the `navigator.languages` property except
   /// for
-  /// the extra `qvalues` (quality values) field (e.g. `en-US;q=0.8`).
+  /// the extra `qvalues` (quality values) field (e.g., `en-US;q=0.8`).
   external JSArray<JSString> get languages;
 
   /// @AvailableInWorkers("worker")
@@ -16262,7 +16418,7 @@ extension type HTMLFontElement._(JSObject _) implements HTMLElement, JSObject {
   /// The obsolete
   /// **`HTMLFontElement.color`**
   /// property is a string that reflects the
-  /// [`color`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/font#color)
+  /// [`color`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/font#color)
   /// HTML attribute, containing either a named color or a color specified in
   /// the
   /// hexadecimal #RRGGBB format.
@@ -16282,7 +16438,7 @@ extension type HTMLFontElement._(JSObject _) implements HTMLElement, JSObject {
   /// The obsolete
   /// **`HTMLFontElement.face`**
   /// property is a string that reflects the
-  /// [`face`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/font#face)
+  /// [`face`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/font#face)
   /// HTML attribute, containing a comma-separated list of one or more font
   /// names.
   ///
@@ -16305,7 +16461,7 @@ extension type HTMLFontElement._(JSObject _) implements HTMLElement, JSObject {
   /// The obsolete
   /// **`HTMLFontElement.size`** property is a
   /// string that reflects the
-  /// [`size`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/font#size)
+  /// [`size`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/font#size)
   /// HTML
   /// attribute. It contains either a font size ranging from 1 to 7 or a
   /// number relative to the default value 3, for example -2 or +1.

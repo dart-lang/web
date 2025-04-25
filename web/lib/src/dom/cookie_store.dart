@@ -40,16 +40,17 @@ typedef CookieSameSite = String;
 extension type CookieStore._(JSObject _) implements EventTarget, JSObject {
   /// @AvailableInWorkers("window_and_service")
   ///
-  /// The **`get()`** method of the [CookieStore] interface returns a single
-  /// cookie with the given `name` or `options` object. The method will return
-  /// the first matching cookie for the passed parameters.
+  /// The **`get()`** method of the [CookieStore] interface returns a `Promise`
+  /// that resolves to a single cookie matching the given `name` or `options`
+  /// object. The method will return the first cookie that matches.
   external JSPromise<CookieListItem?> get([JSAny nameOrOptions]);
 
   /// @AvailableInWorkers("window_and_service")
   ///
-  /// The **`getAll()`** method of the [CookieStore] interface returns a list of
-  /// cookies that match the `name` or `options` passed to it. Passing no
-  /// parameters will return all cookies for the current context.
+  /// The **`getAll()`** method of the [CookieStore] interface returns a
+  /// `Promise` that resolves as an array of cookies that match the `name` or
+  /// `options` passed to it.
+  /// Passing no parameters will return all cookies for the current context.
   external JSPromise<CookieList> getAll([JSAny nameOrOptions]);
 
   /// @AvailableInWorkers("window_and_service")
@@ -64,8 +65,12 @@ extension type CookieStore._(JSObject _) implements EventTarget, JSObject {
   /// @AvailableInWorkers("window_and_service")
   ///
   /// The **`delete()`** method of the [CookieStore] interface deletes a cookie
-  /// with the given `name` or `options` object. The `delete()` method expires
-  /// the cookie by changing the date to one in the past.
+  /// that matches the given `name` or `options` object.
+  /// The method expires the cookie by changing its date to one in the past.
+  ///
+  /// Note that there is no error if a cookie cannot be matched: the returned
+  /// promise will fulfill when the matched cookie is deleted or if no cookie is
+  /// matched.
   external JSPromise<JSAny?> delete(JSAny nameOrOptions);
   external EventHandler get onchange;
   external set onchange(EventHandler value);

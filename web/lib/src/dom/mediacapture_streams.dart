@@ -49,8 +49,8 @@ extension type MediaStream._(JSObject _) implements EventTarget, JSObject {
   /// [MediaStream] interface returns a sequence that represents all the
   /// [MediaStreamTrack] objects in this
   /// stream's
-  /// [track set](https://www.w3.org/TR/mediacapture-streams/#track-set) where
-  /// [MediaStreamTrack.kind]
+  /// [track set](https://www.w3.org/TR/mediacapture-streams/#dfn-track-set)
+  /// where [MediaStreamTrack.kind]
   /// is `audio`.
   external JSArray<MediaStreamTrack> getAudioTracks();
 
@@ -63,7 +63,7 @@ extension type MediaStream._(JSObject _) implements EventTarget, JSObject {
   /// [MediaStream] interface returns a sequence that represents all the
   /// [MediaStreamTrack] objects in this
   /// stream's
-  /// [track set](https://www.w3.org/TR/mediacapture-streams/#track-set),
+  /// [track set](https://www.w3.org/TR/mediacapture-streams/#dfn-track-set),
   /// regardless of [MediaStreamTrack.kind].
   external JSArray<MediaStreamTrack> getTracks();
 
@@ -1464,10 +1464,10 @@ extension type MediaDevices._(JSObject _) implements EventTarget, JSObject {
   /// objects describing the devices.
   ///
   /// The returned list will omit any devices that are blocked by the document
-  /// [Permission Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy):
-  /// [`microphone`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy/microphone),
-  /// [`camera`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy/camera),
-  /// [`speaker-selection`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy/speaker-selection)
+  /// [Permission Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Permissions-Policy):
+  /// [`microphone`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Permissions-Policy/microphone),
+  /// [`camera`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Permissions-Policy/camera),
+  /// [`speaker-selection`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Permissions-Policy/speaker-selection)
   /// (for output devices), and so on.
   /// Access to particular non-default devices is also gated by the
   /// [Permissions API](https://developer.mozilla.org/en-US/docs/Web/API/Permissions_API),

@@ -26,7 +26,7 @@ import 'webidl.dart';
 /// methods accessed by interfaces that inherit from it.
 ///
 /// This feature may be blocked by a
-/// [Permissions Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Permissions_Policy)
+/// [Permissions Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Permissions_Policy)
 /// set on your server.
 ///
 /// When initially created, the `Sensor` object is _idle_, meaning it does not

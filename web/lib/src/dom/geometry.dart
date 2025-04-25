@@ -405,22 +405,23 @@ extension type DOMQuad._(JSObject _) implements JSObject {
 
   /// The **`DOMQuad`** interface's **`p1`** property holds the [DOMPoint]
   /// object that represents one of the four corners of the `DOMQuad`. When
-  /// created from [DOMQuad.fromRect], it is the point (x, y).
+  /// created from [DOMQuad.fromRect_static], it is the point (x, y).
   external DOMPoint get p1;
 
   /// The **`DOMQuad`** interface's **`p2`** property holds the [DOMPoint]
   /// object that represents one of the four corners of the `DOMQuad`. When
-  /// created from [DOMQuad.fromRect], it is the point (x + width, y).
+  /// created from [DOMQuad.fromRect_static], it is the point (x + width, y).
   external DOMPoint get p2;
 
   /// The **`DOMQuad`** interface's **`p3`** property holds the [DOMPoint]
   /// object that represents one of the four corners of the `DOMQuad`. When
-  /// created from [DOMQuad.fromRect], it is the point (x + width, y + height).
+  /// created from [DOMQuad.fromRect_static], it is the point (x + width, y +
+  /// height).
   external DOMPoint get p3;
 
   /// The **`DOMQuad`** interface's **`p4`** property holds the [DOMPoint]
   /// object that represents one of the four corners of the `DOMQuad`. When
-  /// created from [DOMQuad.fromRect], it is the point (x, y + height).
+  /// created from [DOMQuad.fromRect_static], it is the point (x, y + height).
   external DOMPoint get p4;
 }
 extension type DOMQuadInit._(JSObject _) implements JSObject {
@@ -718,6 +719,14 @@ extension type DOMMatrix._(JSObject _) implements DOMMatrixReadOnly, JSObject {
     num ty,
     num tz,
   ]);
+
+  /// The **`scaleSelf()`** method of the [DOMMatrix] interface is a mutable
+  /// transformation method that modifies a matrix by applying a specified
+  /// scaling factor, centered on the given origin, with a default origin of
+  /// `(0, 0)`, returning the scaled matrix.
+  ///
+  /// To scale a matrix without mutating it, see [DOMMatrixReadOnly.scale],
+  /// which creates a new scaled matrix while leaving the original unchanged.
   external DOMMatrix scaleSelf([
     num scaleX,
     num scaleY,

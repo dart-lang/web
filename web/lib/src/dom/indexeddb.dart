@@ -331,8 +331,7 @@ extension type IDBDatabase._(JSObject _) implements EventTarget, JSObject {
   external String get name;
 
   /// The **`version`** property of the [IDBDatabase]
-  /// interface is a
-  /// [64-bit integer](https://developer.mozilla.org/en-US/docs/NSPR_API_Reference/Long_Long_%2864-bit%29_Integers)
+  /// interface is a 64-bit integer
   /// that contains the version of the connected database.
   /// When a database is first created, this attribute is an empty string.
   external int get version;
@@ -551,10 +550,6 @@ extension type IDBObjectStore._(JSObject _) implements JSObject {
   /// [IDBObjectStore] interface returns an [IDBRequest] object,
   /// and, in a separate thread, returns a new [IDBCursorWithValue] object.
   /// Used for iterating through an object store with a cursor.
-  ///
-  /// To determine if the add operation has completed successfully, listen for
-  /// the results's
-  /// `success` event.
   external IDBRequest openCursor([
     JSAny? query,
     IDBCursorDirection direction,
@@ -1087,7 +1082,7 @@ extension type IDBCursorWithValue._(JSObject _) implements IDBCursor, JSObject {
 /// provides a static, asynchronous transaction on a database using event
 /// handler attributes. All reading and writing of data is done within
 /// transactions. You use [IDBDatabase] to start transactions, `IDBTransaction`
-/// to set the mode of the transaction (e.g. is it `readonly` or `readwrite`),
+/// to set the mode of the transaction (e.g., is it `readonly` or `readwrite`),
 /// and you access an [IDBObjectStore] to make a request. You can also use an
 /// `IDBTransaction` object to abort transactions.
 ///
@@ -1162,7 +1157,7 @@ extension type IDBTransaction._(JSObject _) implements EventTarget, JSObject {
 
   /// The **`mode`** read-only property of the
   /// [IDBTransaction] interface returns the current mode for accessing the
-  /// data in the object stores in the scope of the transaction (i.e. is the
+  /// data in the object stores in the scope of the transaction (i.e., is the
   /// mode to be
   /// read-only, or do you want to write to the object stores?) The default
   /// value is

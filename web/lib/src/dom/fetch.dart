@@ -40,7 +40,7 @@ typedef ResponseType = String;
 /// The **`Headers`** interface of the
 /// [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
 /// allows you to perform various actions on
-/// [HTTP request and response headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers).
+/// [HTTP request and response headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers).
 /// These actions include retrieving, setting, adding to, and removing headers
 /// from the list of the request's headers.
 ///
@@ -54,7 +54,7 @@ typedef ResponseType = String;
 ///
 /// > [!NOTE]
 /// > You can find out more about the available headers by reading our
-/// > [HTTP headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers)
+/// > [HTTP headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers)
 /// > reference.
 ///
 /// ---
@@ -169,7 +169,7 @@ extension type Request._(JSObject _) implements JSObject {
   /// current `Request` object.
   ///
   /// Like the underlying [ReadableStream.tee] api,
-  /// the [Request.body] of a cloned `Response`
+  /// the [Request.body] of a cloned `Request`
   /// will signal backpressure at the rate of the _faster_ consumer of the two
   /// bodies,
   /// and unread data is enqueued internally on the slower consumed `body`
@@ -310,7 +310,7 @@ extension type Request._(JSObject _) implements JSObject {
   /// The **`cache`** read-only property of the [Request] interface contains the
   /// cache mode of the request. It controls how the request will interact with
   /// the browser's
-  /// [HTTP cache](https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching).
+  /// [HTTP cache](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Caching).
   external RequestCache get cache;
 
   /// The **`redirect`** read-only property of the [Request] interface contains
@@ -333,7 +333,7 @@ extension type Request._(JSObject _) implements JSObject {
   /// page.
   /// This has some advantages over using [Navigator.sendBeacon] for the same
   /// purpose, including allowing you to use HTTP methods other than
-  /// [`POST`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST),
+  /// [`POST`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods/POST),
   /// customize request properties, and access the server response via the fetch
   /// `Promise` fulfillment.
   /// It is also available in
@@ -626,8 +626,10 @@ extension type Response._(JSObject _) implements JSObject {
   /// which was redirected.
   ///
   /// > [!NOTE]
-  /// > Relying on redirected to filter out redirects makes it easy for a forged
-  /// > redirect to prevent your content from working as expected.
+  /// > Checking `redirected` to prevent redirects is not recommended, because
+  /// > by the time a response is received, the redirect has already happened,
+  /// > and you may have sent the request to an unintended destination,
+  /// > potentially sending sensitive information.
   /// > Instead, you should do the filtering when you call [Window.fetch].
   /// > See the example [Disallowing redirects](#disallowing_redirects), which
   /// > shows this being done.
@@ -635,7 +637,7 @@ extension type Response._(JSObject _) implements JSObject {
 
   /// The **`status`** read-only property of the [Response] interface contains
   /// the
-  /// [HTTP status codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
+  /// [HTTP status codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status)
   /// of the response.
   ///
   /// For example, `200` for success, `404` if the resource could not be found.

@@ -141,7 +141,7 @@ extension type XMLHttpRequest._(JSObject _)
   /// frontend JavaScript code will be ignored without warning or error.
   ///
   /// In addition, the
-  /// [`Authorization`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization)
+  /// [`Authorization`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Authorization)
   /// HTTP header may be added to a request, but will be removed if the request
   /// is redirected cross-origin.
   ///
@@ -335,8 +335,8 @@ extension type XMLHttpRequest._(JSObject _)
   /// > Attaching event listeners to this object prevents the request from being
   /// > a "simple request" and will cause a preflight request to be issued if
   /// > cross-origin; see
-  /// > [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS). Because
-  /// > of this, event listeners need to be registered before calling
+  /// > [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS).
+  /// > Because of this, event listeners need to be registered before calling
   /// > [XMLHttpRequest.send] or upload events won't be dispatched.
   ///
   /// > [!NOTE]
@@ -413,8 +413,8 @@ extension type XMLHttpRequest._(JSObject _)
   ///
   /// The read-only **`XMLHttpRequest.status`** property returns the numerical
   /// HTTP
-  /// [status code](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status) of
-  /// the `XMLHttpRequest`'s response.
+  /// [status code](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status)
+  /// of the `XMLHttpRequest`'s response.
   ///
   /// Before the request completes, the value of `status` is 0. Browsers also
   /// report a status of 0 in case of `XMLHttpRequest` errors.

@@ -1523,18 +1523,18 @@ extension type RTCRtpTransceiver._(JSObject _) implements JSObject {
   /// include this transceiver until this method is called again.
   ///
   /// When preparing to open an [RTCPeerConnection] the codecs should be set
-  /// using `setCodecParameters()` _before_ calling either
+  /// using `setCodecPreferences()` _before_ calling either
   /// [RTCPeerConnection.createOffer] or [RTCPeerConnection.createAnswer], as
   /// these initiate the negotiation (and will use codec parameters from the
   /// default configuration by default).
   ///
   /// The codecs can be changed when you have an ongoing communication, but you
-  /// need to first call `setCodecParameters()` and then kick off a new
+  /// need to first call `setCodecPreferences()` and then kick off a new
   /// negotiation.
   /// A WebRTC application will already have code for this in the
   /// [`negotiationneeded` event handler](https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/negotiationneeded_event).
   /// Note however that at time of writing the event is not automatically fired
-  /// when you call `setCodecParameters()`, so you will have to call
+  /// when you call `setCodecPreferences()`, so you will have to call
   /// `onnegotiationneeded` yourself.
   ///
   /// A guide to codecs supported by WebRTC—and each codec's positive and
@@ -1856,9 +1856,9 @@ extension type RTCTrackEventInit._(JSObject _) implements EventInit, JSObject {
 /// **[RTCPeerConnection.sctp]** property.
 ///
 /// Possibly the most useful property on this interface is its
-/// [`maxMessageSize`](#rtcsctptransport.maxmessagesize) property, which you can
-/// use to determine the upper limit on the size of messages you can send over a
-/// data channel on the peer connection.
+/// [`maxMessageSize`](https://developer.mozilla.org/en-US/docs/Web/API/RTCSctpTransport/maxMessageSize)
+/// property, which you can use to determine the upper limit on the size of
+/// messages you can send over a data channel on the peer connection.
 ///
 /// ---
 ///

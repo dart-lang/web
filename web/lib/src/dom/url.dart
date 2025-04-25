@@ -135,10 +135,7 @@ extension type URL._(JSObject _) implements JSObject {
   external String get origin;
 
   /// The **`protocol`** property of the [URL] interface is a string containing
-  /// the protocol or scheme of the URL, including the final `":"`. If the port
-  /// is the default for the protocol (`80` for `ws:` and `http:`, `443` for
-  /// `wss:` and `https:`, and `21` for `ftp:`), this property contains an empty
-  /// string, `""`.
+  /// the protocol or scheme of the URL, including the final `":"`.
   ///
   /// This property can be set to change the protocol of the URL. A `":"` is
   /// appended to the provided string if not provided. The provided scheme has
@@ -363,8 +360,8 @@ extension type URLSearchParams._(JSObject _) implements JSObject {
   /// pairs contained in this object in place and returns `undefined`. The sort
   /// order is according to unicode code points of the keys. This method uses a
   /// stable sorting
-  /// algorithm (i.e. the relative order between key/value pairs with equal keys
-  /// will be
+  /// algorithm (i.e., the relative order between key/value pairs with equal
+  /// keys will be
   /// preserved).
   external void sort();
 

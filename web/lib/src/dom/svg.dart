@@ -246,7 +246,7 @@ extension type SVGElement._(JSObject _) implements Element, JSObject {
 
   /// The **`dataset`** read-only property of the [SVGElement] interface
   /// provides read/write access to
-  /// [custom data attributes](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/data-*)
+  /// [custom data attributes](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/data-*)
   /// (`data-*`) on elements. It exposes a map of strings ([DOMStringMap]) with
   /// an entry for each `data-*` attribute.
   ///
@@ -256,10 +256,18 @@ extension type SVGElement._(JSObject _) implements Element, JSObject {
 
   /// The **`nonce`** property of the [SVGElement] interface returns the nonce
   /// that is used by
-  /// [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)
+  /// [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP)
   /// to determine whether a given fetch will be allowed to proceed.
   external String get nonce;
   external set nonce(String value);
+
+  /// The **`autofocus`** property of the [SVGElement] interface contains a
+  /// boolean value reflecting the
+  /// [`autofocus`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/autofocus)
+  /// HTML global attribute. It indicates whether the SVG element should be
+  /// focused when the page loads or when the element becomes shown if the SVG
+  /// element is inside a `dialog` or a
+  /// [popover](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/popover).
   external bool get autofocus;
   external set autofocus(bool value);
 
@@ -287,7 +295,7 @@ extension type SVGElement._(JSObject _) implements Element, JSObject {
   /// object that contains a list of all styles properties for that element with
   /// values assigned only for the attributes that are defined in the element's
   /// inline
-  /// [`style`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/style)
+  /// [`style`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/style)
   /// attribute.
   ///
   /// Shorthand properties are expanded. If you set `style="border-top: 1px
@@ -475,7 +483,7 @@ extension type SVGNumber._(JSObject _) implements JSObject {
 }
 
 /// The **`SVGLength`** interface correspond to the
-/// [\<length>](/en-US/docs/Web/SVG/Content_type#length) basic data type.
+/// [\<length>](/en-US/docs/Web/SVG/Guides/Content_type#length) basic data type.
 ///
 /// An `SVGLength` object can be designated as read only, which means that
 /// attempts to modify the object will result in an exception being thrown.
@@ -532,8 +540,8 @@ extension type SVGLength._(JSObject _) implements JSObject {
   external int get unitType;
 
   /// The `value` property of the [SVGLength] interface represents the floating
-  /// point value of the [\<length>](/en-US/docs/Web/SVG/Content_type#length) in
-  /// user units.
+  /// point value of the
+  /// [\<length>](/en-US/docs/Web/SVG/Guides/Content_type#length) in user units.
   ///
   /// Setting this attribute will cause [SVGLength.valueInSpecifiedUnits] and
   /// [SVGLength.valueAsString] to be updated automatically to reflect this
@@ -552,8 +560,8 @@ extension type SVGLength._(JSObject _) implements JSObject {
   external set valueInSpecifiedUnits(num value);
 
   /// The `valueAsString` property of the [SVGLength] interface represents the
-  /// [\<length>](/en-US/docs/Web/SVG/Content_type#length)'s value as a strin\*,
-  /// in the units expressed by [SVGLength.unitType].
+  /// [\<length>](/en-US/docs/Web/SVG/Guides/Content_type#length)'s value as a
+  /// strin\*, in the units expressed by [SVGLength.unitType].
   ///
   /// Setting this attribute will cause [SVGLength.value],
   /// [SVGLength.valueInSpecifiedUnits], and [SVGLength.unitType] to be updated
@@ -622,8 +630,8 @@ extension type SVGAngle._(JSObject _) implements JSObject {
   external int get unitType;
 
   /// The `value` property of the [SVGAngle] interface represents the floating
-  /// point value of the [`<angle>`](/en-US/docs/Web/SVG/Content_type#angle) in
-  /// degrees.
+  /// point value of the
+  /// [`<angle>`](/en-US/docs/Web/SVG/Guides/Content_type#angle) in degrees.
   ///
   /// Setting this attribute will cause [SVGAngle.valueInSpecifiedUnits] and
   /// [SVGAngle.valueAsString] to be updated automatically to reflect this
@@ -730,8 +738,7 @@ extension type SVGNumberList._(JSObject _) implements JSObject {
   external int get length;
 
   /// The **`numberOfItems`** property of the [SVGNumberList] interface returns
-  /// the number of items in the list. [SVGNumberList.length] is an alias of of
-  /// it.
+  /// the number of items in the list. [SVGNumberList.length] is an alias of it.
   external int get numberOfItems;
 }
 
@@ -816,8 +823,7 @@ extension type SVGLengthList._(JSObject _) implements JSObject {
   external int get length;
 
   /// The **`numberOfItems`** property of the [SVGLengthList] interface returns
-  /// the number of items in the list. [SVGLengthList.length] is an alias of of
-  /// it.
+  /// the number of items in the list. [SVGLengthList.length] is an alias of it.
   external int get numberOfItems;
 }
 
@@ -902,8 +908,7 @@ extension type SVGStringList._(JSObject _) implements JSObject {
   external int get length;
 
   /// The **`numberOfItems`** property of the [SVGStringList] interface returns
-  /// the number of items in the list. [SVGStringList.length] is an alias of of
-  /// it.
+  /// the number of items in the list. [SVGStringList.length] is an alias of it.
   external int get numberOfItems;
 }
 
@@ -920,7 +925,7 @@ extension type SVGAnimatedBoolean._(JSObject _) implements JSObject {
   /// boolean attribute when no animations are applied.
   ///
   /// Some boolean SVG attributes, such as
-  /// [`preserveAlpha`](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/preserveAlpha),
+  /// [`preserveAlpha`](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/preserveAlpha),
   /// are animatable. In such cases, `SVGAnimatedBoolean.baseVal` property is
   /// `false` when the attribute is set to `false`, is omitted and defaults to
   /// `false`, or is inheritable and inherits `false`. Otherwise, the value is
@@ -934,7 +939,7 @@ extension type SVGAnimatedBoolean._(JSObject _) implements JSObject {
   /// [SVGAnimatedBoolean.baseVal].
   ///
   /// Some boolean SVG attributes, such as
-  /// [`preserveAlpha`](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/preserveAlpha),
+  /// [`preserveAlpha`](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/preserveAlpha),
   /// are animatable. In such cases, `SVGAnimatedBoolean.animVal` property is
   /// `true` when the attribute value resolves to true. Otherwise, the value is
   /// `false`.
@@ -969,7 +974,7 @@ extension type SVGAnimatedEnumeration._(JSObject _) implements JSObject {
 extension type SVGAnimatedInteger._(JSObject _) implements JSObject {
   /// The **`baseVal`** property of the [SVGAnimatedInteger] interface
   /// represents the base (non-animated) value of an animatable
-  /// [`<integer>`](/en-US/docs/Web/SVG/Content_type#integer).
+  /// [`<integer>`](/en-US/docs/Web/SVG/Guides/Content_type#integer).
   ///
   /// Some attributes, like the `numOctaves` attribute of the  element or the
   /// `order` attribute of the  accept a `long` integer as a value. This
@@ -980,8 +985,8 @@ extension type SVGAnimatedInteger._(JSObject _) implements JSObject {
 
   /// The **`animVal`** property of the [SVGAnimatedInteger] interface
   /// represents the animated value of an
-  /// [`<integer>`](/en-US/docs/Web/SVG/Content_type#integer). If no animation
-  /// is applied, `animVal` equals `baseVal`.
+  /// [`<integer>`](/en-US/docs/Web/SVG/Guides/Content_type#integer). If no
+  /// animation is applied, `animVal` equals `baseVal`.
   ///
   /// Some attributes, like the `numOctaves` attribute of the  element or the
   /// `order` attribute of the  accept a `long` integer as a value. This
@@ -990,7 +995,9 @@ extension type SVGAnimatedInteger._(JSObject _) implements JSObject {
   external int get animVal;
 }
 
-///
+/// The **`SVGAnimatedNumber`** interface represents attributes of type
+/// [\<number>](/en-US/docs/Web/SVG/Guides/Content_type#number) which can be
+/// animated.
 ///
 /// ---
 ///
@@ -1020,7 +1027,8 @@ extension type SVGAnimatedNumber._(JSObject _) implements JSObject {
 }
 
 /// The **`SVGAnimatedLength`** interface represents attributes of type
-/// [\<length>](/en-US/docs/Web/SVG/Content_type#length) which can be animated.
+/// [\<length>](/en-US/docs/Web/SVG/Guides/Content_type#length) which can be
+/// animated.
 ///
 /// ---
 ///
@@ -1046,9 +1054,9 @@ extension type SVGAnimatedLength._(JSObject _) implements JSObject {
 extension type SVGAnimatedAngle._(JSObject _) implements JSObject {
   /// The **`baseVal`** read-only property of the [SVGAnimatedAngle] interface
   /// represents the base (non-animated) value of the associated
-  /// [`<angle>`](/en-US/docs/Web/SVG/Content_type#angle) on an SVG element.
-  /// This property is used to retrieve the static value of the `<angle>`,
-  /// unaffected by any ongoing animations.
+  /// [`<angle>`](/en-US/docs/Web/SVG/Guides/Content_type#angle) on an SVG
+  /// element. This property is used to retrieve the static value of the
+  /// `<angle>`, unaffected by any ongoing animations.
   ///
   /// This property reflects the `<angle>` value of the `orient` attribute of
   /// the SVG  element, which is the same as the [SVGMarkerElement.orientAngle]
@@ -1057,9 +1065,9 @@ extension type SVGAnimatedAngle._(JSObject _) implements JSObject {
 
   /// The **`animVal`** read-only property of the [SVGAnimatedAngle] interface
   /// represents the current animated value of the associated
-  /// [`<angle>`](/en-US/docs/Web/SVG/Content_type#angle) on an SVG element. If
-  /// the attribute is not currently being animated, `animVal` will be the same
-  /// as the `baseVal`.
+  /// [`<angle>`](/en-US/docs/Web/SVG/Guides/Content_type#angle) on an SVG
+  /// element. If the attribute is not currently being animated, `animVal` will
+  /// be the same as the `baseVal`.
   ///
   /// This property reflects the animated state of the angle of the animating
   /// `orient` attribute of the SVG  element, providing access to the value of
@@ -1158,7 +1166,9 @@ extension type SVGAnimatedRect._(JSObject _) implements JSObject {
   external DOMRectReadOnly get animVal;
 }
 
-///
+/// The **`SVGAnimatedNumberList`** interface represents a list of attributes of
+/// type [\<number>](/en-US/docs/Web/SVG/Guides/Content_type#number) which can
+/// be animated.
 ///
 /// ---
 ///
@@ -1168,16 +1178,16 @@ extension type SVGAnimatedNumberList._(JSObject _) implements JSObject {
   /// The **`baseVal`** read-only property of the [SVGAnimatedNumberList]
   /// interface represents the base (non-animated) value of an animatable
   /// attribute that accepts a list of
-  /// [`<number>`](/en-US/docs/Web/SVG/Content_type#number) values.
+  /// [`<number>`](/en-US/docs/Web/SVG/Guides/Content_type#number) values.
   ///
   /// This property reflects the
-  /// [`viewBox`](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox)
+  /// [`viewBox`](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/viewBox)
   /// attribute of the
-  /// [`<svg>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/svg)
+  /// [`<svg>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/svg)
   /// element, the
-  /// [`values`](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/values#fecolormatrix)
+  /// [`values`](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/values#fecolormatrix)
   /// attribute of the
-  /// [`feColorMatrix`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feColorMatrix)
+  /// [`feColorMatrix`](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/feColorMatrix)
   /// element and the `points` attribute of the , , or  element as a readonly
   /// [SVGNumberList], providing access to a static list of points defined by
   /// the `points` attribute.
@@ -1186,16 +1196,16 @@ extension type SVGAnimatedNumberList._(JSObject _) implements JSObject {
   /// The **`animVal`** read-only property of the [SVGAnimatedNumberList]
   /// interface represents the current animated value of an animatable attribute
   /// that accepts a list of
-  /// [`<number>`](/en-US/docs/Web/SVG/Content_type#number) values.
+  /// [`<number>`](/en-US/docs/Web/SVG/Guides/Content_type#number) values.
   ///
   /// This property reflects the
-  /// [`viewBox`](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox)
+  /// [`viewBox`](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/viewBox)
   /// attribute of the
-  /// [`<svg>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/svg)
+  /// [`<svg>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/svg)
   /// element, the
-  /// [`values`](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/values#fecolormatrix)
+  /// [`values`](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/values#fecolormatrix)
   /// attribute of the
-  /// [`feColorMatrix`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feColorMatrix)
+  /// [`feColorMatrix`](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/feColorMatrix)
   /// element and the `points` attribute of the , , or  element as a readonly
   /// [SVGNumberList], providing access to a dynamically updated list of points
   /// defined by the `points` attribute.
@@ -1212,14 +1222,14 @@ extension type SVGAnimatedLengthList._(JSObject _) implements JSObject {
   /// The **`baseVal`** read-only property of the [SVGAnimatedLengthList]
   /// interface represents the base (non-animated) value of an animatable
   /// attribute that accepts a list of
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length),
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage), or
-  /// [`<number>`](/en-US/docs/Web/SVG/Content_type#number) values.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length),
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage), or
+  /// [`<number>`](/en-US/docs/Web/SVG/Guides/Content_type#number) values.
   ///
   /// Some SVG attributes, like the `x`, `y`, `dx`, and `dy` attributes of the
-  /// [`<tspan>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/tspan)
+  /// [`<tspan>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/tspan)
   /// and
-  /// [`<text>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/text)
+  /// [`<text>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/text)
   /// elements, accept a list of length, percentages, or numbers as a value.
   /// This property reflects the attribute value, in its non-animated state, as
   /// a live [SVGLengthList] object.
@@ -1227,14 +1237,14 @@ extension type SVGAnimatedLengthList._(JSObject _) implements JSObject {
 
   /// The **`animVal`** read-only property of the [SVGAnimatedLengthList]
   /// interface represents the animated value of an attribute that accepts a
-  /// list of [`<length>`](/en-US/docs/Web/SVG/Content_type#length),
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage), or
-  /// [`<number>`](/en-US/docs/Web/SVG/Content_type#number) values.
+  /// list of [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length),
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage), or
+  /// [`<number>`](/en-US/docs/Web/SVG/Guides/Content_type#number) values.
   ///
   /// Some SVG attributes, like the `x`, `y`, `dx`, and `dy` attributes of the
-  /// [`<tspan>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/tspan)
+  /// [`<tspan>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/tspan)
   /// and
-  /// [`<text>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/text)
+  /// [`<text>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/text)
   /// elements, accept a list of length, percentages, or numbers as a value.
   /// This property provides access to the current animated state of the
   /// attribute as a live [SVGLengthList] object.
@@ -1399,7 +1409,7 @@ extension type SVGSVGElement._(JSObject _)
   /// horizontal coordinate is a length in the user coordinate system that is
   /// the given distance from the origin of the user coordinate system along the
   /// x-axis. Its syntax is the same as that for
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length).
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length).
   ///
   /// It reflects the  element's `x` geometric attribute. The default value is
   /// `0`. The `x` attribute has no effect on outermost `<svg>` elements; only
@@ -1414,7 +1424,7 @@ extension type SVGSVGElement._(JSObject _)
   /// vertical coordinate is a length in the user coordinate system that is the
   /// given distance from the origin of the user coordinate system along the
   /// y-axis. Its syntax is the same as that for
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length).
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length).
   ///
   /// It reflects the  element's `y` geometric attribute. The default value is
   /// `0`. The `y` attribute has no effect on outermost `<svg>` elements; only
@@ -1659,11 +1669,11 @@ extension type SVGUseElement._(JSObject _)
   /// on the  element.
   ///
   /// The attribute value is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length),
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage), or
-  /// [`<number>`](/en-US/docs/Web/SVG/Content_type#number). The numeric value
-  /// of the [SVGAnimatedLength.baseVal] is the x-coordinate of the top-left
-  /// corner of the referenced element in the user coordinate system.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length),
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage), or
+  /// [`<number>`](/en-US/docs/Web/SVG/Guides/Content_type#number). The numeric
+  /// value of the [SVGAnimatedLength.baseVal] is the x-coordinate of the
+  /// top-left corner of the referenced element in the user coordinate system.
   external SVGAnimatedLength get x;
 
   /// The **`y`** read-only property of the [SVGUseElement] interface describes
@@ -1672,11 +1682,11 @@ extension type SVGUseElement._(JSObject _)
   /// on the  element.
   ///
   /// The attribute value is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length),
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage), or
-  /// [`<number>`](/en-US/docs/Web/SVG/Content_type#number). The numeric value
-  /// of the [SVGAnimatedLength.baseVal] is the y-coordinate of the top-left
-  /// corner of the referenced element in the user coordinate system.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length),
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage), or
+  /// [`<number>`](/en-US/docs/Web/SVG/Guides/Content_type#number). The numeric
+  /// value of the [SVGAnimatedLength.baseVal] is the y-coordinate of the
+  /// top-left corner of the referenced element in the user coordinate system.
   external SVGAnimatedLength get y;
 
   /// The **`width`** read-only property of the [SVGUseElement] interface
@@ -1684,11 +1694,11 @@ extension type SVGUseElement._(JSObject _)
   /// It reflects the computed value of the `width` attribute on the  element.
   ///
   /// The attribute value is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length),
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage), or
-  /// [`<number>`](/en-US/docs/Web/SVG/Content_type#number). The numeric value
-  /// of the [SVGAnimatedLength.baseVal] is the width of the referenced element
-  /// in the user coordinate system.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length),
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage), or
+  /// [`<number>`](/en-US/docs/Web/SVG/Guides/Content_type#number). The numeric
+  /// value of the [SVGAnimatedLength.baseVal] is the width of the referenced
+  /// element in the user coordinate system.
   external SVGAnimatedLength get width;
 
   /// The **`height`** read-only property of the [SVGUseElement] interface
@@ -1696,11 +1706,11 @@ extension type SVGUseElement._(JSObject _)
   /// It reflects the computed value of the `height` attribute on the  element.
   ///
   /// The attribute value is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length),
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage), or
-  /// [`<number>`](/en-US/docs/Web/SVG/Content_type#number). The numeric value
-  /// of the [SVGAnimatedLength.baseVal] is the height of the referenced element
-  /// in the user coordinate system.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length),
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage), or
+  /// [`<number>`](/en-US/docs/Web/SVG/Guides/Content_type#number). The numeric
+  /// value of the [SVGAnimatedLength.baseVal] is the height of the referenced
+  /// element in the user coordinate system.
   external SVGAnimatedLength get height;
 
   /// The **`href`** read-only property of the [SVGUseElement] interface
@@ -1741,7 +1751,7 @@ extension type SVGStyleElement._(JSObject _) implements SVGElement, JSObject {
   /// The **`SVGStyleElement.type`** property returns the type of the current
   /// style.
   /// The value reflects the associated SVG `<style>` element's
-  /// [`type`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/style#type)
+  /// [`type`](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/style#type)
   /// attribute.
   ///
   /// Authors should not use this property or rely on the value.
@@ -1750,7 +1760,7 @@ extension type SVGStyleElement._(JSObject _) implements SVGElement, JSObject {
 
   /// The **`SVGStyleElement.media`** property is a media query string
   /// corresponding to the
-  /// [`media`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/style#media)
+  /// [`media`](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/style#media)
   /// attribute of the given SVG style element.
   ///
   /// The query must be matched for the style to apply.
@@ -1758,10 +1768,10 @@ extension type SVGStyleElement._(JSObject _) implements SVGElement, JSObject {
   external set media(String value);
 
   /// The **`SVGStyleElement.title`** property is a string corresponding to the
-  /// [`title`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/style#title)
+  /// [`title`](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/style#title)
   /// attribute of the given SVG style element.
   /// It may be used to select between
-  /// [alternate style sheets](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel/alternate_stylesheet).
+  /// [alternate style sheets](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/rel/alternate_stylesheet).
   external String get title;
   external set title(String value);
 
@@ -1771,7 +1781,13 @@ extension type SVGStyleElement._(JSObject _) implements SVGElement, JSObject {
   external CSSStyleSheet? get sheet;
 }
 
+/// The **`SVGTransform`** interface reflects one of the component
+/// transformations within an [SVGTransformList]; thus, an `SVGTransform` object
+/// corresponds to a single component (e.g., `scale(…)` or `matrix(…)`) within a
+/// `transform` attribute.
 ///
+/// An `SVGTransform` object can be designated as read only, which means that
+/// attempts to modify the object will result in an exception being thrown.
 ///
 /// ---
 ///
@@ -1879,7 +1895,13 @@ extension type SVGTransform._(JSObject _) implements JSObject {
   external double get angle;
 }
 
+/// The **`SVGTransformList`** interface defines a list of [SVGTransform]
+/// objects.
 ///
+/// An `SVGTransformList` object can be designated as read only, which means
+/// that attempts to modify the object will result in an exception being thrown.
+///
+/// An `SVGTransformList` is indexable and can be accessed like an array.
 ///
 /// ---
 ///
@@ -2072,7 +2094,8 @@ extension type SVGPreserveAspectRatio._(JSObject _) implements JSObject {
   external set meetOrSlice(int value);
 }
 
-///
+/// The **`SVGAnimatedPreserveAspectRatio`** interface represents attributes of
+/// type [SVGPreserveAspectRatio] which can be animated.
 ///
 /// ---
 ///
@@ -2135,7 +2158,7 @@ extension type SVGRectElement._(JSObject _)
   /// [SVGAnimatedLength]. The `<coordinate>` is a length in the user coordinate
   /// system that is the given distance from the origin of the user coordinate
   /// system along the x-axis. Its syntax is the same as that for
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length).
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length).
   ///
   /// It reflects the  element's `x` geometric attribute value. The CSS `x`
   /// property takes precedence over the SVG `x` geometric attribute, so the
@@ -2147,7 +2170,7 @@ extension type SVGRectElement._(JSObject _)
   /// [SVGAnimatedLength]. The `<coordinate>` is a length in the user coordinate
   /// system that is the given distance from the origin of the user coordinate
   /// system along the y-axis. Its syntax is the same as that for
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length).
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length).
   ///
   /// It reflects the  element's `y` geometric attribute value. The CSS `y`
   /// property takes precedence over the SVG `y` attribute, so the value may not
@@ -2158,7 +2181,7 @@ extension type SVGRectElement._(JSObject _)
   /// describes the horizontal size of an SVG rectangle as a
   /// [SVGAnimatedLength]. The length is in user coordinate system units along
   /// the x-axis. Its syntax is the same as that for
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length).
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length).
   ///
   /// It reflects the  element's `width` presentational attribute. The CSS
   /// `width` property takes precedence over the SVG `width` presentational
@@ -2170,7 +2193,7 @@ extension type SVGRectElement._(JSObject _)
   /// describes the vertical size of an SVG rectangle as a [SVGAnimatedLength].
   /// The length is in user coordinate system units along the y-axis. Its syntax
   /// is the same as that for
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length).
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length).
   ///
   /// It reflects the  element's `height` presentational attribute. The CSS
   /// `height` property takes precedence over the SVG `height` presentational
@@ -2182,7 +2205,7 @@ extension type SVGRectElement._(JSObject _)
   /// describes the horizontal curve of the corners of an SVG rectangle as a
   /// [SVGAnimatedLength]. The length is in user coordinate system units along
   /// the x-axis. Its syntax is the same as that for
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length).
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length).
   ///
   /// It reflects the  element's `rx` presentational attribute. The CSS `rx`
   /// property takes precedence over the SVG `rx` presentational attribute, so
@@ -2194,7 +2217,7 @@ extension type SVGRectElement._(JSObject _)
   /// describes the vertical curve of the corners of an SVG rectangle as a
   /// [SVGAnimatedLength]. The length is in user coordinate system units along
   /// the y-axis. Its syntax is the same as that for
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length).
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length).
   ///
   /// It reflects the  element's `ry` presentational attribute. The CSS `ry`
   /// property takes precedence over the SVG `ry` presentational attribute, so
@@ -2262,11 +2285,11 @@ extension type SVGEllipseElement._(JSObject _)
   /// on the  element.
   ///
   /// The attribute value is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length),
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage), or
-  /// [`<number>`](/en-US/docs/Web/SVG/Content_type#number). The numeric value
-  /// of the [SVGAnimatedLength.baseVal] is the x-coordinate of the ellipse's
-  /// center in the user coordinate system.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length),
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage), or
+  /// [`<number>`](/en-US/docs/Web/SVG/Guides/Content_type#number). The numeric
+  /// value of the [SVGAnimatedLength.baseVal] is the x-coordinate of the
+  /// ellipse's center in the user coordinate system.
   external SVGAnimatedLength get cx;
 
   /// The **`cy`** read-only property of the [SVGEllipseElement] interface
@@ -2275,11 +2298,11 @@ extension type SVGEllipseElement._(JSObject _)
   /// on the  element.
   ///
   /// The attribute value is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length),
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage), or
-  /// [`<number>`](/en-US/docs/Web/SVG/Content_type#number). The numeric value
-  /// of the [SVGAnimatedLength.baseVal] is the y-coordinate of the ellipse's
-  /// center in the user coordinate system.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length),
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage), or
+  /// [`<number>`](/en-US/docs/Web/SVG/Guides/Content_type#number). The numeric
+  /// value of the [SVGAnimatedLength.baseVal] is the y-coordinate of the
+  /// ellipse's center in the user coordinate system.
   external SVGAnimatedLength get cy;
 
   /// The **`rx`** read-only property of the [SVGEllipseElement] interface
@@ -2287,11 +2310,11 @@ extension type SVGEllipseElement._(JSObject _)
   /// reflects the computed value of the `rx` attribute on the  element.
   ///
   /// The attribute value is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length),
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage), or
-  /// [`<number>`](/en-US/docs/Web/SVG/Content_type#number). The numeric value
-  /// of the [SVGAnimatedLength.baseVal] is the radius of the ellipse along the
-  /// x-axis in the user coordinate system.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length),
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage), or
+  /// [`<number>`](/en-US/docs/Web/SVG/Guides/Content_type#number). The numeric
+  /// value of the [SVGAnimatedLength.baseVal] is the radius of the ellipse
+  /// along the x-axis in the user coordinate system.
   external SVGAnimatedLength get rx;
 
   /// The **`ry`** read-only property of the [SVGEllipseElement] interface
@@ -2299,11 +2322,11 @@ extension type SVGEllipseElement._(JSObject _)
   /// reflects the computed value of the `ry` attribute on the  element.
   ///
   /// The attribute value is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length),
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage), or
-  /// [`<number>`](/en-US/docs/Web/SVG/Content_type#number). The numeric value
-  /// of the [SVGAnimatedLength.baseVal] is the radius of the ellipse along the
-  /// y-axis in the user coordinate system.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length),
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage), or
+  /// [`<number>`](/en-US/docs/Web/SVG/Guides/Content_type#number). The numeric
+  /// value of the [SVGAnimatedLength.baseVal] is the radius of the ellipse
+  /// along the y-axis in the user coordinate system.
   external SVGAnimatedLength get ry;
 }
 
@@ -2328,11 +2351,11 @@ extension type SVGLineElement._(JSObject _)
   /// [SVGAnimatedLength]. It reflects the  element's `x1` geometric attribute.
   ///
   /// The attribute value is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length),
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage), or
-  /// [`<number>`](/en-US/docs/Web/SVG/Content_type#number). The numeric value
-  /// of the [SVGAnimatedLength.baseVal] is that start position as a length
-  /// along the x-axis in user coordinate system units.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length),
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage), or
+  /// [`<number>`](/en-US/docs/Web/SVG/Guides/Content_type#number). The numeric
+  /// value of the [SVGAnimatedLength.baseVal] is that start position as a
+  /// length along the x-axis in user coordinate system units.
   external SVGAnimatedLength get x1;
 
   /// The **`y1`** read-only property of the [SVGLineElement] interface
@@ -2340,11 +2363,11 @@ extension type SVGLineElement._(JSObject _)
   /// [SVGAnimatedLength]. It reflects the  element's `y1` geometric attribute.
   ///
   /// The attribute value is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length),
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage), or
-  /// [`<number>`](/en-US/docs/Web/SVG/Content_type#number). The numeric value
-  /// of the [SVGAnimatedLength.baseVal] is that start position as a length
-  /// along the y-axis in user coordinate system units.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length),
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage), or
+  /// [`<number>`](/en-US/docs/Web/SVG/Guides/Content_type#number). The numeric
+  /// value of the [SVGAnimatedLength.baseVal] is that start position as a
+  /// length along the y-axis in user coordinate system units.
   external SVGAnimatedLength get y1;
 
   /// The **`x2`** read-only property of the [SVGLineElement] interface
@@ -2352,11 +2375,11 @@ extension type SVGLineElement._(JSObject _)
   /// [SVGAnimatedLength]. It reflects the  element's `x2` geometric attribute.
   ///
   /// The attribute value is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length),
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage), or
-  /// [`<number>`](/en-US/docs/Web/SVG/Content_type#number). The numeric value
-  /// of the [SVGAnimatedLength.baseVal] is that end position along the x-axis
-  /// in user coordinate system units.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length),
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage), or
+  /// [`<number>`](/en-US/docs/Web/SVG/Guides/Content_type#number). The numeric
+  /// value of the [SVGAnimatedLength.baseVal] is that end position along the
+  /// x-axis in user coordinate system units.
   external SVGAnimatedLength get x2;
 
   /// The **`y2`** read-only property of the [SVGLineElement] interface
@@ -2364,11 +2387,11 @@ extension type SVGLineElement._(JSObject _)
   /// [SVGAnimatedLength]. It reflects the  element's `y2` geometric attribute.
   ///
   /// The attribute value is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length),
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage), or
-  /// [`<number>`](/en-US/docs/Web/SVG/Content_type#number). The numeric value
-  /// of the [SVGAnimatedLength.baseVal] is that end position along the y-axis
-  /// in user coordinate system units.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length),
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage), or
+  /// [`<number>`](/en-US/docs/Web/SVG/Guides/Content_type#number). The numeric
+  /// value of the [SVGAnimatedLength.baseVal] is that end position along the
+  /// y-axis in user coordinate system units.
   external SVGAnimatedLength get y2;
 }
 
@@ -2489,8 +2512,8 @@ extension type SVGPolygonElement._(JSObject _)
 
 /// The **`SVGTextContentElement`** interface is implemented by elements that
 /// support rendering child text content. It is inherited by various
-/// text-related interfaces, such as [SVGTextElement], [SVGTSpanElement],
-/// [SVGTRefElement], and [SVGTextPathElement].
+/// text-related interfaces, such as [SVGTextElement], [SVGTSpanElement], and
+/// [SVGTextPathElement].
 ///
 /// ---
 ///
@@ -2575,7 +2598,7 @@ extension type SVGTextContentElement._(JSObject _)
 
 /// The **`SVGTextPositioningElement`** interface is implemented by elements
 /// that support attributes that position individual text glyphs. It is
-/// inherited by [SVGTextElement], [SVGTSpanElement], and [SVGTRefElement].
+/// inherited by [SVGTextElement] and [SVGTSpanElement].
 ///
 /// ---
 ///
@@ -2584,59 +2607,59 @@ extension type SVGTextContentElement._(JSObject _)
 extension type SVGTextPositioningElement._(JSObject _)
     implements SVGTextContentElement, JSObject {
   /// The **`x`** read-only property of the [SVGTextPositioningElement]
-  /// interface describes the x-axis coordinate of the [SVGTextElement],
-  /// [SVGTSpanElement], or [SVGTRefElement] as an [SVGAnimatedLengthList]. It
-  /// reflects the `x` attribute's horizontal position of the individual text
-  /// glyphs in the user coordinate system.
+  /// interface describes the x-axis coordinate of the [SVGTextElement] or
+  /// [SVGTSpanElement] as an [SVGAnimatedLengthList]. It reflects the `x`
+  /// attribute's horizontal position of the individual text glyphs in the user
+  /// coordinate system.
   ///
   /// The attribute value is a list of
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length),
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage), or
-  /// [`<number>`](/en-US/docs/Web/SVG/Content_type#number). The numeric values
-  /// in the [SVGAnimatedLengthList.baseVal] reflect the x-coordinates in the
-  /// user coordinate system.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length),
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage), or
+  /// [`<number>`](/en-US/docs/Web/SVG/Guides/Content_type#number). The numeric
+  /// values in the [SVGAnimatedLengthList.baseVal] reflect the x-coordinates in
+  /// the user coordinate system.
   external SVGAnimatedLengthList get x;
 
   /// The **`y`** read-only property of the [SVGTextPositioningElement]
-  /// interface describes the y-axis coordinate of the [SVGTextElement],
-  /// [SVGTSpanElement], or [SVGTRefElement] as an [SVGAnimatedLengthList]. It
-  /// reflects the `y` attribute's vertical position of the individual text
-  /// glyphs in the user coordinate system.
+  /// interface describes the y-axis coordinate of the [SVGTextElement] or
+  /// [SVGTSpanElement] as an [SVGAnimatedLengthList]. It reflects the `y`
+  /// attribute's vertical position of the individual text glyphs in the user
+  /// coordinate system.
   ///
   /// The attribute value is a list of
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length),
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage), or
-  /// [`<number>`](/en-US/docs/Web/SVG/Content_type#number). The numeric values
-  /// in the [SVGAnimatedLengthList.baseVal] reflect the y-coordinates in the
-  /// user coordinate system.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length),
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage), or
+  /// [`<number>`](/en-US/docs/Web/SVG/Guides/Content_type#number). The numeric
+  /// values in the [SVGAnimatedLengthList.baseVal] reflect the y-coordinates in
+  /// the user coordinate system.
   external SVGAnimatedLengthList get y;
 
   /// The **`dx`** read-only property of the [SVGTextPositioningElement]
-  /// interface describes the x-axis coordinate of the [SVGTextElement],
-  /// [SVGTSpanElement], or [SVGTRefElement] as an [SVGAnimatedLengthList]. It
-  /// reflects the `dx` attribute's horizontal displacement of the individual
-  /// text glyphs in the user coordinate system.
+  /// interface describes the x-axis coordinate of the [SVGTextElement] or
+  /// [SVGTSpanElement] as an [SVGAnimatedLengthList]. It reflects the `dx`
+  /// attribute's horizontal displacement of the individual text glyphs in the
+  /// user coordinate system.
   ///
   /// The attribute value is a list of
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length),
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage), or
-  /// [`<number>`](/en-US/docs/Web/SVG/Content_type#number). The numeric values
-  /// in the [SVGAnimatedLengthList.baseVal] reflect the horizontal
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length),
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage), or
+  /// [`<number>`](/en-US/docs/Web/SVG/Guides/Content_type#number). The numeric
+  /// values in the [SVGAnimatedLengthList.baseVal] reflect the horizontal
   /// displacements in the user coordinate system.
   external SVGAnimatedLengthList get dx;
 
   /// The **`dy`** read-only property of the [SVGTextPositioningElement]
-  /// interface describes the y-axis coordinate of the [SVGTextElement],
-  /// [SVGTSpanElement], or [SVGTRefElement] as an [SVGAnimatedLengthList]. It
-  /// reflects the `dy` attribute's vertical displacement of the individual text
-  /// glyphs in the user coordinate system.
+  /// interface describes the y-axis coordinate of the [SVGTextElement] or
+  /// [SVGTSpanElement] as an [SVGAnimatedLengthList]. It reflects the `dy`
+  /// attribute's vertical displacement of the individual text glyphs in the
+  /// user coordinate system.
   ///
   /// The attribute value is a list of
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length),
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage), or
-  /// [`<number>`](/en-US/docs/Web/SVG/Content_type#number). The numeric values
-  /// in the [SVGAnimatedLengthList.baseVal] reflect the vertical displacements
-  /// in the user coordinate system.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length),
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage), or
+  /// [`<number>`](/en-US/docs/Web/SVG/Guides/Content_type#number). The numeric
+  /// values in the [SVGAnimatedLengthList.baseVal] reflect the vertical
+  /// displacements in the user coordinate system.
   external SVGAnimatedLengthList get dy;
 
   /// The **`rotate`** read-only property of the [SVGTextPositioningElement]
@@ -2776,6 +2799,11 @@ extension type SVGImageElement._(JSObject _)
   /// `preserveAspectRatio` attribute of the given
   /// element.
   external SVGAnimatedPreserveAspectRatio get preserveAspectRatio;
+
+  /// The **`crossOrigin`** property of the [SVGImageElement] interface is a
+  /// string which specifies the Cross-Origin Resource Sharing () setting to use
+  /// when retrieving the image. It reflects the `crossorigin` content attribute
+  /// of the given  element.
   external String? get crossOrigin;
   external set crossOrigin(String? value);
 
@@ -2805,10 +2833,10 @@ extension type SVGForeignObjectElement._(JSObject _)
   /// reflects the computed value of the `x` attribute on the  element.
   ///
   /// The attribute value is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length),
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage), or
-  /// [`<number>`](/en-US/docs/Web/SVG/Content_type#number). The numeric value
-  /// of the [SVGAnimatedLength.baseVal] is the x-coordinate of the
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length),
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage), or
+  /// [`<number>`](/en-US/docs/Web/SVG/Guides/Content_type#number). The numeric
+  /// value of the [SVGAnimatedLength.baseVal] is the x-coordinate of the
   /// `<foreignObject>` element in the user coordinate system.
   external SVGAnimatedLength get x;
 
@@ -2817,10 +2845,10 @@ extension type SVGForeignObjectElement._(JSObject _)
   /// reflects the computed value of the `y` attribute on the  element.
   ///
   /// The attribute value is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length),
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage), or
-  /// [`<number>`](/en-US/docs/Web/SVG/Content_type#number). The numeric value
-  /// of the [SVGAnimatedLength.baseVal] is the y-coordinate of the
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length),
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage), or
+  /// [`<number>`](/en-US/docs/Web/SVG/Guides/Content_type#number). The numeric
+  /// value of the [SVGAnimatedLength.baseVal] is the y-coordinate of the
   /// `<foreignObject>` element in the user coordinate system.
   external SVGAnimatedLength get y;
 
@@ -2829,10 +2857,10 @@ extension type SVGForeignObjectElement._(JSObject _)
   /// reflects the computed value of the `width` attribute on the  element.
   ///
   /// The attribute value is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length),
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage), or
-  /// [`<number>`](/en-US/docs/Web/SVG/Content_type#number). The numeric value
-  /// of the [SVGAnimatedLength.baseVal] is the y-coordinate of the
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length),
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage), or
+  /// [`<number>`](/en-US/docs/Web/SVG/Guides/Content_type#number). The numeric
+  /// value of the [SVGAnimatedLength.baseVal] is the y-coordinate of the
   /// `<foreignObject>` element in the user coordinate system.
   external SVGAnimatedLength get width;
 
@@ -2841,10 +2869,10 @@ extension type SVGForeignObjectElement._(JSObject _)
   /// reflects the computed value of the `height` attribute on the  element.
   ///
   /// The attribute value is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length),
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage), or
-  /// [`<number>`](/en-US/docs/Web/SVG/Content_type#number). The numeric value
-  /// of the [SVGAnimatedLength.baseVal] is the y-coordinate of the
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length),
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage), or
+  /// [`<number>`](/en-US/docs/Web/SVG/Guides/Content_type#number). The numeric
+  /// value of the [SVGAnimatedLength.baseVal] is the y-coordinate of the
   /// `<foreignObject>` element in the user coordinate system.
   external SVGAnimatedLength get height;
 }
@@ -3000,11 +3028,11 @@ extension type SVGLinearGradientElement._(JSObject _)
   /// `x1` attribute on the  element.
   ///
   /// The attribute value is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length),
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage), or
-  /// [`<number>`](/en-US/docs/Web/SVG/Content_type#number). The numeric value
-  /// of the [SVGAnimatedLength.baseVal] is the x-coordinate of the gradient's
-  /// starting point in the user coordinate system.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length),
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage), or
+  /// [`<number>`](/en-US/docs/Web/SVG/Guides/Content_type#number). The numeric
+  /// value of the [SVGAnimatedLength.baseVal] is the x-coordinate of the
+  /// gradient's starting point in the user coordinate system.
   external SVGAnimatedLength get x1;
 
   /// The **`y1`** read-only property of the [SVGLinearGradientElement]
@@ -3013,11 +3041,11 @@ extension type SVGLinearGradientElement._(JSObject _)
   /// `y1` attribute on the  element.
   ///
   /// The attribute value is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length),
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage), or
-  /// [`<number>`](/en-US/docs/Web/SVG/Content_type#number). The numeric value
-  /// of the [SVGAnimatedLength.baseVal] is the y-coordinate of the gradient's
-  /// starting point in the user coordinate system.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length),
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage), or
+  /// [`<number>`](/en-US/docs/Web/SVG/Guides/Content_type#number). The numeric
+  /// value of the [SVGAnimatedLength.baseVal] is the y-coordinate of the
+  /// gradient's starting point in the user coordinate system.
   external SVGAnimatedLength get y1;
 
   /// The **`x2`** read-only property of the [SVGLinearGradientElement]
@@ -3026,11 +3054,11 @@ extension type SVGLinearGradientElement._(JSObject _)
   /// `x2` attribute on the  element.
   ///
   /// The attribute value is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length),
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage), or
-  /// [`<number>`](/en-US/docs/Web/SVG/Content_type#number). The numeric value
-  /// of the [SVGAnimatedLength.baseVal] is the x-coordinate of the gradient's
-  /// end point in the user coordinate system.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length),
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage), or
+  /// [`<number>`](/en-US/docs/Web/SVG/Guides/Content_type#number). The numeric
+  /// value of the [SVGAnimatedLength.baseVal] is the x-coordinate of the
+  /// gradient's end point in the user coordinate system.
   external SVGAnimatedLength get x2;
 
   /// The **`y2`** read-only property of the [SVGLinearGradientElement]
@@ -3039,11 +3067,11 @@ extension type SVGLinearGradientElement._(JSObject _)
   /// `y2` attribute on the  element.
   ///
   /// The attribute value is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length),
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage), or
-  /// [`<number>`](/en-US/docs/Web/SVG/Content_type#number). The numeric value
-  /// of the [SVGAnimatedLength.baseVal] is the y-coordinate of the gradient's
-  /// end point in the user coordinate system.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length),
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage), or
+  /// [`<number>`](/en-US/docs/Web/SVG/Guides/Content_type#number). The numeric
+  /// value of the [SVGAnimatedLength.baseVal] is the y-coordinate of the
+  /// gradient's end point in the user coordinate system.
   external SVGAnimatedLength get y2;
 }
 
@@ -3068,10 +3096,10 @@ extension type SVGRadialGradientElement._(JSObject _)
   /// `cx` attribute on the  element.
   ///
   /// The attribute value is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length),
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage), or
-  /// [`<number>`](/en-US/docs/Web/SVG/Content_type#number). The numeric value
-  /// of the [SVGAnimatedLength.baseVal] is the x-coordinate of the radial
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length),
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage), or
+  /// [`<number>`](/en-US/docs/Web/SVG/Guides/Content_type#number). The numeric
+  /// value of the [SVGAnimatedLength.baseVal] is the x-coordinate of the radial
   /// gradient's center in the user coordinate system.
   external SVGAnimatedLength get cx;
 
@@ -3081,10 +3109,10 @@ extension type SVGRadialGradientElement._(JSObject _)
   /// `cy` attribute on the  element.
   ///
   /// The attribute value is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length),
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage), or
-  /// [`<number>`](/en-US/docs/Web/SVG/Content_type#number). The numeric value
-  /// of the [SVGAnimatedLength.baseVal] is the y-coordinate of the radial
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length),
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage), or
+  /// [`<number>`](/en-US/docs/Web/SVG/Guides/Content_type#number). The numeric
+  /// value of the [SVGAnimatedLength.baseVal] is the y-coordinate of the radial
   /// gradient's center in the user coordinate system.
   external SVGAnimatedLength get cy;
 
@@ -3093,11 +3121,11 @@ extension type SVGRadialGradientElement._(JSObject _)
   /// reflects the computed value of the `r` attribute on the  element.
   ///
   /// The attribute value is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length),
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage), or
-  /// [`<number>`](/en-US/docs/Web/SVG/Content_type#number). The numeric value
-  /// of the [SVGAnimatedLength.baseVal] is the radius of the radial gradient in
-  /// the user coordinate system.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length),
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage), or
+  /// [`<number>`](/en-US/docs/Web/SVG/Guides/Content_type#number). The numeric
+  /// value of the [SVGAnimatedLength.baseVal] is the radius of the radial
+  /// gradient in the user coordinate system.
   external SVGAnimatedLength get r;
 
   /// The **`fx`** read-only property of the [SVGRadialGradientElement]
@@ -3106,11 +3134,11 @@ extension type SVGRadialGradientElement._(JSObject _)
   /// `fx` attribute on the  element.
   ///
   /// The attribute value is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length),
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage), or
-  /// [`<number>`](/en-US/docs/Web/SVG/Content_type#number). The numeric value
-  /// of the [SVGAnimatedLength.baseVal] is the x-coordinate of the focal point
-  /// of the radial gradient in the user coordinate system.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length),
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage), or
+  /// [`<number>`](/en-US/docs/Web/SVG/Guides/Content_type#number). The numeric
+  /// value of the [SVGAnimatedLength.baseVal] is the x-coordinate of the focal
+  /// point of the radial gradient in the user coordinate system.
   external SVGAnimatedLength get fx;
 
   /// The **`fy`** read-only property of the [SVGRadialGradientElement]
@@ -3119,12 +3147,24 @@ extension type SVGRadialGradientElement._(JSObject _)
   /// `fy` attribute on the  element.
   ///
   /// The attribute value is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length),
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage), or
-  /// [`<number>`](/en-US/docs/Web/SVG/Content_type#number). The numeric value
-  /// of the [SVGAnimatedLength.baseVal] is the y-coordinate of the focal point
-  /// of the radial gradient in the user coordinate system.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length),
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage), or
+  /// [`<number>`](/en-US/docs/Web/SVG/Guides/Content_type#number). The numeric
+  /// value of the [SVGAnimatedLength.baseVal] is the y-coordinate of the focal
+  /// point of the radial gradient in the user coordinate system.
   external SVGAnimatedLength get fy;
+
+  /// The **`fr`** read-only property of the [SVGRadialGradientElement]
+  /// interface describes the radius of the focal circle of the radial gradient
+  /// as an [SVGAnimatedLength]. It reflects the computed value of the `fr`
+  /// attribute on the  element.
+  ///
+  /// The attribute value is a
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length),
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage), or
+  /// [`<number>`](/en-US/docs/Web/SVG/Guides/Content_type#number). The numeric
+  /// value of the [SVGAnimatedLength.baseVal] is the radius of the focal point
+  /// of the radial gradient in the user coordinate system.
   external SVGAnimatedLength get fr;
 }
 
@@ -3185,11 +3225,11 @@ extension type SVGPatternElement._(JSObject _) implements SVGElement, JSObject {
   /// on the  element.
   ///
   /// The attribute value can be a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length),
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage), or
-  /// [`<number>`](/en-US/docs/Web/SVG/Content_type#number). The numeric value
-  /// of the [SVGAnimatedLength.baseVal] is the x-coordinate of the pattern's
-  /// starting point in the user coordinate system.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length),
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage), or
+  /// [`<number>`](/en-US/docs/Web/SVG/Guides/Content_type#number). The numeric
+  /// value of the [SVGAnimatedLength.baseVal] is the x-coordinate of the
+  /// pattern's starting point in the user coordinate system.
   external SVGAnimatedLength get x;
 
   /// The **`y`** read-only property of the [SVGPatternElement] interface
@@ -3198,11 +3238,11 @@ extension type SVGPatternElement._(JSObject _) implements SVGElement, JSObject {
   /// on the  element.
   ///
   /// The attribute value can be a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length),
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage), or
-  /// [`<number>`](/en-US/docs/Web/SVG/Content_type#number). The numeric value
-  /// of the [SVGAnimatedLength.baseVal] is the y-coordinate of the pattern's
-  /// starting point in the user coordinate system.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length),
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage), or
+  /// [`<number>`](/en-US/docs/Web/SVG/Guides/Content_type#number). The numeric
+  /// value of the [SVGAnimatedLength.baseVal] is the y-coordinate of the
+  /// pattern's starting point in the user coordinate system.
   external SVGAnimatedLength get y;
 
   /// The **`width`** read-only property of the [SVGPatternElement] interface
@@ -3210,11 +3250,11 @@ extension type SVGPatternElement._(JSObject _) implements SVGElement, JSObject {
   /// the computed value of the `width` attribute on the  element.
   ///
   /// The attribute value can be a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length),
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage), or
-  /// [`<number>`](/en-US/docs/Web/SVG/Content_type#number). The numeric value
-  /// of the [SVGAnimatedLength.baseVal] represents the width of the pattern in
-  /// the user coordinate system.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length),
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage), or
+  /// [`<number>`](/en-US/docs/Web/SVG/Guides/Content_type#number). The numeric
+  /// value of the [SVGAnimatedLength.baseVal] represents the width of the
+  /// pattern in the user coordinate system.
   external SVGAnimatedLength get width;
 
   /// The **`height`** read-only property of the [SVGPatternElement] interface
@@ -3222,11 +3262,11 @@ extension type SVGPatternElement._(JSObject _) implements SVGElement, JSObject {
   /// the computed value of the `height` attribute on the  element.
   ///
   /// The attribute value can be a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length),
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage), or
-  /// [`<number>`](/en-US/docs/Web/SVG/Content_type#number). The numeric value
-  /// of the [SVGAnimatedLength.baseVal] represents the height of the pattern in
-  /// the user coordinate system.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length),
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage), or
+  /// [`<number>`](/en-US/docs/Web/SVG/Guides/Content_type#number). The numeric
+  /// value of the [SVGAnimatedLength.baseVal] represents the height of the
+  /// pattern in the user coordinate system.
   external SVGAnimatedLength get height;
 
   /// The **`viewBox`** read-only property of the [SVGPatternElement] interface

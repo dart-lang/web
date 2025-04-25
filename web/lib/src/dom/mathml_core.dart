@@ -238,7 +238,21 @@ extension type MathMLElement._(JSObject _) implements Element, JSObject {
           'annotation-xml',
         );
 
+  /// The **`focus()`** method of the [MathMLElement] interface sets focus on
+  /// the specified MathML element, if it can be focused. The focused element is
+  /// the element that will receive keyboard and similar events by default.
+  ///
+  /// By default the browser will scroll the element into view after focusing
+  /// it, and it may also provide visible indication of the focused element
+  /// (typically by displaying a "focus ring" around the element). Parameter
+  /// options are provided to disable the default scrolling and force visible
+  /// indication on elements. If you call `focus()` from a `mousedown` event
+  /// handler, you must call `event.preventDefault()` to keep the focus from
+  /// leaving the `MathMLElement`.
   external void focus([FocusOptions options]);
+
+  /// The **`blur()`** method of the [MathMLElement] interface removes keyboard
+  /// focus from the current MathML element.
   external void blur();
 
   /// The read-only **`style`** property of the [MathMLElement] returns the
@@ -246,7 +260,7 @@ extension type MathMLElement._(JSObject _) implements Element, JSObject {
   /// object that contains a list of all styles properties for that element with
   /// values assigned only for the attributes that are defined in the element's
   /// inline
-  /// [`style`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/style)
+  /// [`style`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/style)
   /// attribute.
   ///
   /// Shorthand properties are expanded. If you set `style="border-top: 1px
@@ -490,11 +504,45 @@ extension type MathMLElement._(JSObject _) implements Element, JSObject {
   external set ontouchmove(EventHandler value);
   external EventHandler get ontouchcancel;
   external set ontouchcancel(EventHandler value);
+
+  /// The **`dataset`** read-only property of the [MathMLElement] interface
+  /// provides read/write access to
+  /// [custom data attributes](https://developer.mozilla.org/en-US/docs/Web/MathML/Reference/Global_attributes/data-*)
+  /// (`data-*`) on elements. It exposes a map of strings ([DOMStringMap]) with
+  /// an entry for each `data-*` attribute.
+  ///
+  /// The `dataset` property itself can be read, but not directly written.
+  /// Instead, all writes must be to the individual properties within the
+  /// `dataset`, which in turn represent the data attributes.
   external DOMStringMap get dataset;
   external String get nonce;
   external set nonce(String value);
+
+  /// The **`autofocus`** property of the [MathMLElement] interface contains a
+  /// boolean value reflecting the
+  /// [`autofocus`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/autofocus)
+  /// HTML global attribute. It indicates whether the MathML element should be
+  /// focused when the page loads or when the element becomes shown if the
+  /// MathML element is inside a `dialog` or a
+  /// [popover](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/popover).
   external bool get autofocus;
   external set autofocus(bool value);
+
+  /// The **`tabIndex`** property of the [MathMLElement] interface represents
+  /// the tab order of the current MathML element.
+  ///
+  /// Tab order is as follows:
+  ///
+  /// 1. Elements with a positive `tabIndex`. Elements that have identical
+  /// `tabIndex` values should be navigated in the order they appear. Navigation
+  /// proceeds from the lowest `tabIndex` to the highest `tabIndex`.
+  /// 2. Elements that do not support the `tabIndex` attribute or support it and
+  /// assign `tabIndex` to `0`, in the order they appear.
+  ///
+  /// Elements that are disabled do not participate in the tabbing order. Values
+  /// don't need to be sequential, nor must they begin with any particular
+  /// value. They may even be negative, though each browser trims very large
+  /// values.
   external int get tabIndex;
   external set tabIndex(int value);
 }

@@ -158,9 +158,9 @@ extension type Animation._(JSObject _) implements EventTarget, JSObject {
   /// The `commitStyles()` method of the
   /// [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)'s
   /// [Animation] interface writes the
-  /// [computed values](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_cascade/computed_value)
+  /// [computed values](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_cascade/Value_processing#computed_value)
   /// of the animation's current styles into its target element's
-  /// [`style`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/style)
+  /// [`style`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/style)
   /// attribute. `commitStyles()` works even if the animation has been
   /// [automatically removed](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API/Using_the_Web_Animations_API#automatically_removing_filling_animations).
   ///
@@ -174,7 +174,7 @@ extension type Animation._(JSObject _) implements EventTarget, JSObject {
   /// ever being styled normally.
   ///
   /// Using `commitStyles()` writes the styling state into the element's
-  /// [`style`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/style)
+  /// [`style`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/style)
   /// attribute, where they can be modified and replaced as normal.
   external void commitStyles();
 

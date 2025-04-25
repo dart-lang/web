@@ -20,7 +20,7 @@ import 'html.dart';
 import 'svg.dart';
 
 /// The **`TimeEvent`** interface, a part of
-/// [SVG SMIL](https://developer.mozilla.org/en-US/docs/Web/SVG/SVG_animation_with_SMIL)
+/// [SVG SMIL](https://developer.mozilla.org/en-US/docs/Web/SVG/Guides/SVG_animation_with_SMIL)
 /// animation, provides specific contextual information associated with Time
 /// events.
 ///
@@ -216,5 +216,15 @@ extension type SVGAnimateTransformElement._(JSObject _)
           'animateTransform',
         );
 }
+
+/// The **`SVGDiscardElement`** interface is an interface for the  element.
+///
+/// Note that it does not provide access to the specific attributes of the
+/// element (`begin` and `href`).
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SVGDiscardElement).
 extension type SVGDiscardElement._(JSObject _)
     implements SVGAnimationElement, JSObject {}

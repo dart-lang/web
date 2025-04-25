@@ -48,8 +48,8 @@ extension type SVGFilterElement._(JSObject _) implements SVGElement, JSObject {
   /// primitive as a [SVGAnimatedLength].
   ///
   /// It reflects the `x` attribute of the  element. The attribute is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage). The
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage). The
   /// `<coordinate>` is a length in the user coordinate system that is the given
   /// distance from the origin of the user coordinate system along the x-axis.
   /// If the `x` attribute is a percent value, the property value is relative to
@@ -62,8 +62,8 @@ extension type SVGFilterElement._(JSObject _) implements SVGElement, JSObject {
   /// primitive as a [SVGAnimatedLength].
   ///
   /// It reflects the `y` attribute of the  element. The attribute is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage). The
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage). The
   /// `<coordinate>` is a length in the user coordinate system that is the given
   /// distance from the origin of the filter along the y-axis. If the `y`
   /// attribute is a percent value, the property value is a relative to the
@@ -76,10 +76,10 @@ extension type SVGFilterElement._(JSObject _) implements SVGElement, JSObject {
   /// [SVGAnimatedLength].
   ///
   /// It reflects the `width` attribute of the  element. The attribute is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or a
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage) relative to
-  /// the width of the filter region. The default value is `100%`. The property
-  /// value is a length in user coordinate system units.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or a
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage)
+  /// relative to the width of the filter region. The default value is `100%`.
+  /// The property value is a length in user coordinate system units.
   external SVGAnimatedLength get width;
 
   /// The **`height`** read-only property of the [SVGFilterElement] interface
@@ -87,10 +87,10 @@ extension type SVGFilterElement._(JSObject _) implements SVGElement, JSObject {
   /// [SVGAnimatedLength].
   ///
   /// It reflects the `height` attribute of the  element. The attribute is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or a
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage) relative to
-  /// the height of the filter region. The default value is `100%`. The property
-  /// value is a length in user coordinate system units.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or a
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage)
+  /// relative to the height of the filter region. The default value is `100%`.
+  /// The property value is a length in user coordinate system units.
   external SVGAnimatedLength get height;
 
   /// The **`href`** read-only property of the [SVGFilterElement] interface
@@ -165,10 +165,12 @@ extension type SVGFEBlendElement._(JSObject _) implements SVGElement, JSObject {
   ///
   /// It reflects the  element's `x` filter primitive attribute value. The
   /// `<feBlend>` SVG filter blends two input images together using commonly
-  /// used imaging software .
+  /// used imaging software
+  /// [blending modes](https://developer.mozilla.org/en-US/docs/Web/CSS/blend-mode).
   ///
-  /// The attribute is a [`<length>`](/en-US/docs/Web/SVG/Content_type#length)
-  /// or [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage). The
+  /// The attribute is a
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage). The
   /// `<coordinate>` is a length in the user coordinate system that is the given
   /// distance from the origin of the user coordinate system along the x-axis.
   /// If the `x` attribute is a percent value, the property value is relative to
@@ -182,10 +184,12 @@ extension type SVGFEBlendElement._(JSObject _) implements SVGElement, JSObject {
   ///
   /// It reflects the  element's `y` filter primitive attribute value.
   /// The `<feBlend>` SVG filter blends two input images together using commonly
-  /// used imaging software .
+  /// used imaging software
+  /// [blending modes](https://developer.mozilla.org/en-US/docs/Web/CSS/blend-mode).
   ///
-  /// The attribute is a [`<length>`](/en-US/docs/Web/SVG/Content_type#length)
-  /// or [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage). The
+  /// The attribute is a
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage). The
   /// `<coordinate>` is a length in the user coordinate system that is the given
   /// distance from the origin of the user coordinate system along the y-axis.
   /// If the `y` attribute is a percent value, the property value is a relative
@@ -198,13 +202,15 @@ extension type SVGFEBlendElement._(JSObject _) implements SVGElement, JSObject {
   /// [SVGAnimatedLength].
   ///
   /// It reflects the  element's `width` filter primitive attribute. The
-  /// attribute is a [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or a
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage) relative to
-  /// the width of the filter region. The default value is `100%`. The property
-  /// value is a length in user coordinate system units.
+  /// attribute is a
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or a
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage)
+  /// relative to the width of the filter region. The default value is `100%`.
+  /// The property value is a length in user coordinate system units.
   ///
   /// The `<feBlend>` SVG filter blends two input images together using commonly
-  /// used imaging software .
+  /// used imaging software
+  /// [blending modes](https://developer.mozilla.org/en-US/docs/Web/CSS/blend-mode).
   external SVGAnimatedLength get width;
 
   /// The **`height`** read-only property of the [SVGFEBlendElement] interface
@@ -212,13 +218,15 @@ extension type SVGFEBlendElement._(JSObject _) implements SVGElement, JSObject {
   /// [SVGAnimatedLength].
   ///
   /// It reflects the  element's `height` filter primitive attribute. The
-  /// attribute is a [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or a
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage) relative to
-  /// the height of the filter region. The default value is `100%`. The property
-  /// value is a length in user coordinate system units.
+  /// attribute is a
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or a
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage)
+  /// relative to the height of the filter region. The default value is `100%`.
+  /// The property value is a length in user coordinate system units.
   ///
   /// The `<feBlend>` SVG filter blends two input images together using commonly
-  /// used imaging software .
+  /// used imaging software
+  /// [blending modes](https://developer.mozilla.org/en-US/docs/Web/CSS/blend-mode).
   external SVGAnimatedLength get height;
 
   /// The **`result`** read-only property of the [SVGFEBlendElement] interface
@@ -227,7 +235,8 @@ extension type SVGFEBlendElement._(JSObject _) implements SVGElement, JSObject {
   ///
   /// It reflects the  element's `result` attribute.
   /// The `<feBlend>` SVG filter blends two input images together using commonly
-  /// used imaging software .
+  /// used imaging software
+  /// [blending modes](https://developer.mozilla.org/en-US/docs/Web/CSS/blend-mode).
   ///
   /// The attribute value is a . If supplied, then graphics that result from
   /// processing this filter primitive can be referenced by an `in` attribute on
@@ -286,8 +295,8 @@ extension type SVGFEColorMatrixElement._(JSObject _)
   /// It reflects the  element's `x` filter primitive attribute value. The
   /// `<feColorMatrix>` filter applies a matrix transformation on the  color and
   /// values. The attribute is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage). The
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage). The
   /// `<coordinate>` is a length in the user coordinate system that is the given
   /// distance from the origin of the user coordinate system along the x-axis.
   /// If the `x` attribute is a percent value, the property value is relative to
@@ -302,8 +311,8 @@ extension type SVGFEColorMatrixElement._(JSObject _)
   /// It reflects the  element's `y` filter primitive attribute value. The
   /// `<feColorMatrix>` filter applies a matrix transformation on the  color and
   /// values. The attribute is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage). The
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage). The
   /// `<coordinate>` is a length in the user coordinate system that is the given
   /// distance from the origin of the filter along the y-axis. If the `y`
   /// attribute is a percent value, the property value is a relative to the
@@ -318,10 +327,10 @@ extension type SVGFEColorMatrixElement._(JSObject _)
   /// It reflects the  element's `width` filter primitive attribute. The
   /// `<feColorMatrix>` filter applies a matrix transformation on the  color and
   /// values. The attribute is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or a
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage) relative to
-  /// the width of the filter region. The default value is `100%`. The property
-  /// value is a length in user coordinate system units.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or a
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage)
+  /// relative to the width of the filter region. The default value is `100%`.
+  /// The property value is a length in user coordinate system units.
   external SVGAnimatedLength get width;
 
   /// The **`height`** read-only property of the [SVGFEColorMatrixElement]
@@ -332,8 +341,9 @@ extension type SVGFEColorMatrixElement._(JSObject _)
   /// `<feColorMatrix>` filter applies a matrix transformation on the  color and
   /// values.
   ///
-  /// The attribute is a [`<length>`](/en-US/docs/Web/SVG/Content_type#length)
-  /// or a [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage)
+  /// The attribute is a
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or a
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage)
   /// relative to the height of the filter region. The default value is `100%`.
   /// The property value is a length in user coordinate system units.
   external SVGAnimatedLength get height;
@@ -382,8 +392,9 @@ extension type SVGFEComponentTransferElement._(JSObject _)
   /// filter primitive as a [SVGAnimatedLength].
   ///
   /// It reflects the  element's `x` filter primitive attribute value. The
-  /// attribute is a [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage). The
+  /// attribute is a
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage). The
   /// `<coordinate>` is a length in the user coordinate system that is the given
   /// distance from the origin of the user coordinate system along the x-axis.
   /// If the `x` attribute is a percent value, the property value is relative to
@@ -396,8 +407,9 @@ extension type SVGFEComponentTransferElement._(JSObject _)
   /// filter primitive as a [SVGAnimatedLength].
   ///
   /// It reflects the  element's `y` filter primitive attribute value. The
-  /// attribute is a [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage). The
+  /// attribute is a
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage). The
   /// `<coordinate>` is a length in the user coordinate system that is the given
   /// distance from the origin of the filter along the y-axis. If the `y`
   /// attribute is a percent value, the property value is a relative to the
@@ -410,10 +422,11 @@ extension type SVGFEComponentTransferElement._(JSObject _)
   /// [SVGAnimatedLength].
   ///
   /// It reflects the  element's `width` filter primitive attribute. The
-  /// attribute is a [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or a
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage) relative to
-  /// the width of the filter region. The default value is `100%`. The property
-  /// value is a length in user coordinate system units.
+  /// attribute is a
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or a
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage)
+  /// relative to the width of the filter region. The default value is `100%`.
+  /// The property value is a length in user coordinate system units.
   external SVGAnimatedLength get width;
 
   /// The **`height`** read-only property of the [SVGFEComponentTransferElement]
@@ -425,8 +438,9 @@ extension type SVGFEComponentTransferElement._(JSObject _)
   /// transparency remapping, allowing for brightness, contrast, color balance
   /// and threshold adjustments.
   ///
-  /// The attribute is a [`<length>`](/en-US/docs/Web/SVG/Content_type#length)
-  /// or a [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage)
+  /// The attribute is a
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or a
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage)
   /// relative to the height of the filter region. The default value is `100%`.
   /// The property value is a length in user coordinate system units.
   external SVGAnimatedLength get height;
@@ -635,8 +649,8 @@ extension type SVGFECompositeElement._(JSObject _)
   /// It reflects the  element's `x` filter primitive attribute value. The
   /// `<feComposite>` SVG filter primitive combines two input images using a
   /// Porter-Duff compositing operation. The attribute is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage). The
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage). The
   /// `<coordinate>` is a length in the user coordinate system that is the given
   /// distance from the origin of the user coordinate system along the x-axis.
   /// If the `x` attribute is a percent value, the property value is relative to
@@ -651,8 +665,8 @@ extension type SVGFECompositeElement._(JSObject _)
   /// It reflects the  element's `y` filter primitive attribute value. The
   /// `<feComposite>` SVG filter primitive combines two input images using a
   /// Porter-Duff compositing operation. The attribute is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage). The
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage). The
   /// `<coordinate>` is a length in the user coordinate system that is the given
   /// distance from the origin of the filter along the y-axis. If the `y`
   /// attribute is a percent value, the property value is a relative to the
@@ -667,10 +681,10 @@ extension type SVGFECompositeElement._(JSObject _)
   /// It reflects the  element's `width` filter primitive attribute. The
   /// `<feComposite>` SVG filter primitive combines two input images using a
   /// Porter-Duff compositing operation. The attribute is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or a
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage) relative to
-  /// the width of the filter region. The default value is `100%`. The property
-  /// value is a length in user coordinate system units.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or a
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage)
+  /// relative to the width of the filter region. The default value is `100%`.
+  /// The property value is a length in user coordinate system units.
   external SVGAnimatedLength get width;
 
   /// The **`height`** read-only property of the [SVGFECompositeElement]
@@ -680,10 +694,10 @@ extension type SVGFECompositeElement._(JSObject _)
   /// It reflects the  element's `height` filter primitive attribute. The
   /// `<feComposite>` SVG filter primitive combines two input images using a
   /// Porter-Duff compositing operation. The attribute is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or a
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage) relative to
-  /// the height of the filter region. The default value is `100%`. The property
-  /// value is a length in user coordinate system units.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or a
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage)
+  /// relative to the height of the filter region. The default value is `100%`.
+  /// The property value is a length in user coordinate system units.
   external SVGAnimatedLength get height;
 
   /// The **`result`** read-only property of the [SVGFECompositeElement]
@@ -803,8 +817,8 @@ extension type SVGFEConvolveMatrixElement._(JSObject _)
   /// pixels in the input image with neighboring pixels to produce a convolution
   /// effect such as blurring, edge detection, sharpening, embossing or
   /// beveling. The attribute is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage). The
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage). The
   /// `<coordinate>` is a length in the user coordinate system that is the given
   /// distance from the origin of the user coordinate system along the x-axis.
   /// If the `x` attribute is a percent value, the property value is relative to
@@ -822,8 +836,9 @@ extension type SVGFEConvolveMatrixElement._(JSObject _)
   /// effect such as blurring, edge detection, sharpening, embossing or
   /// beveling.
   ///
-  /// The attribute is a [`<length>`](/en-US/docs/Web/SVG/Content_type#length)
-  /// or [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage). The
+  /// The attribute is a
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage). The
   /// `<coordinate>` is a length in the user coordinate system that is the given
   /// distance from the origin of the filter along the y-axis. If the `y`
   /// attribute is a percent value, the property value is a relative to the
@@ -840,10 +855,10 @@ extension type SVGFEConvolveMatrixElement._(JSObject _)
   /// pixels in the input image with neighboring pixels to produce a convolution
   /// effect such as blurring, edge detection, sharpening, embossing or
   /// beveling. The attribute is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or a
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage) relative to
-  /// the width of the filter region. The default value is `100%`. The property
-  /// value is a length in user coordinate system units.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or a
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage)
+  /// relative to the width of the filter region. The default value is `100%`.
+  /// The property value is a length in user coordinate system units.
   external SVGAnimatedLength get width;
 
   /// The **`height`** read-only property of the [SVGFEConvolveMatrixElement]
@@ -855,10 +870,10 @@ extension type SVGFEConvolveMatrixElement._(JSObject _)
   /// pixels in the input image with neighboring pixels to produce a convolution
   /// effect such as blurring, edge detection, sharpening, embossing or
   /// beveling. The attribute is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or a
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage) relative to
-  /// the height of the filter region. The default value is `100%`. The property
-  /// value is a length in user coordinate system units.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or a
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage)
+  /// relative to the height of the filter region. The default value is `100%`.
+  /// The property value is a length in user coordinate system units.
   external SVGAnimatedLength get height;
 
   /// The **`result`** read-only property of the [SVGFEConvolveMatrixElement]
@@ -928,8 +943,9 @@ extension type SVGFEDiffuseLightingElement._(JSObject _)
   ///
   /// It reflects the  element's `x` filter primitive attribute value. The
   /// filter lights an image using the alpha channel as a bump map. The
-  /// attribute is a [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage). The
+  /// attribute is a
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage). The
   /// `<coordinate>` is a length in the user coordinate system that is the given
   /// distance from the origin of the user coordinate system along the x-axis.
   /// If the `x` attribute is a percent value, the property value is relative to
@@ -943,8 +959,9 @@ extension type SVGFEDiffuseLightingElement._(JSObject _)
   ///
   /// It reflects the  element's `y` filter primitive attribute value. The
   /// filter lights an image using the alpha channel as a bump map. The
-  /// attribute is a [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage). The
+  /// attribute is a
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage). The
   /// `<coordinate>` is a length in the user coordinate system that is the given
   /// distance from the origin of the filter along the y-axis. If the `y`
   /// attribute is a percent value, the property value is a relative to the
@@ -958,10 +975,10 @@ extension type SVGFEDiffuseLightingElement._(JSObject _)
   ///
   /// It reflects the  element's `width` filter primitive attribute. The filter
   /// lights an image using the alpha channel as a bump map. The attribute is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or a
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage) relative to
-  /// the width of the filter region. The default value is `100%`. The property
-  /// value is a length in user coordinate system units.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or a
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage)
+  /// relative to the width of the filter region. The default value is `100%`.
+  /// The property value is a length in user coordinate system units.
   external SVGAnimatedLength get width;
 
   /// The **`height`** read-only property of the [SVGFEDiffuseLightingElement]
@@ -970,10 +987,10 @@ extension type SVGFEDiffuseLightingElement._(JSObject _)
   ///
   /// It reflects the  element's `height` filter primitive attribute. The filter
   /// lights an image using the alpha channel as a bump map. The attribute is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or a
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage) relative to
-  /// the height of the filter region. The default value is `100%`. The property
-  /// value is a length in user coordinate system units.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or a
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage)
+  /// relative to the height of the filter region. The default value is `100%`.
+  /// The property value is a length in user coordinate system units.
   external SVGAnimatedLength get height;
 
   /// The **`result`** read-only property of the [SVGFEDiffuseLightingElement]
@@ -1039,8 +1056,8 @@ extension type SVGFEPointLightElement._(JSObject _)
   ///
   /// It reflects the `x` attribute of the  element, which can be used to define
   /// the light source in a point light effect. The attribute is a
-  /// [`<number>`](/en-US/docs/Web/SVG/Content_type#number). The default value
-  /// is `0`.
+  /// [`<number>`](/en-US/docs/Web/SVG/Guides/Content_type#number). The default
+  /// value is `0`.
   external SVGAnimatedNumber get x;
 
   /// The **`y`** read-only property of the [SVGFEPointLightElement] interface
@@ -1049,8 +1066,8 @@ extension type SVGFEPointLightElement._(JSObject _)
   ///
   /// It reflects the `y` attribute of the  element, which can be used to define
   /// the light source in a point light effect. The attribute is a
-  /// [`<number>`](/en-US/docs/Web/SVG/Content_type#number). The default value
-  /// is `0`.
+  /// [`<number>`](/en-US/docs/Web/SVG/Guides/Content_type#number). The default
+  /// value is `0`.
   external SVGAnimatedNumber get y;
 
   /// The **`z`** read-only property of the [SVGFEPointLightElement] interface
@@ -1060,8 +1077,8 @@ extension type SVGFEPointLightElement._(JSObject _)
   ///
   /// It reflects the `z` attribute of the  element, which can be used to define
   /// the light source in a point light effect. The attribute is a
-  /// [`<number>`](/en-US/docs/Web/SVG/Content_type#number). The default value
-  /// is `0`.
+  /// [`<number>`](/en-US/docs/Web/SVG/Guides/Content_type#number). The default
+  /// value is `0`.
   external SVGAnimatedNumber get z;
 }
 
@@ -1086,8 +1103,8 @@ extension type SVGFESpotLightElement._(JSObject _)
   ///
   /// It reflects the `x` attribute of the  element., which can be used to
   /// define the light source in a spotlight effect. The attribute is a
-  /// [`<number>`](/en-US/docs/Web/SVG/Content_type#number). The default value
-  /// is `0`.
+  /// [`<number>`](/en-US/docs/Web/SVG/Guides/Content_type#number). The default
+  /// value is `0`.
   external SVGAnimatedNumber get x;
 
   /// The **`y`** read-only property of the [SVGFESpotLightElement] interface
@@ -1096,8 +1113,8 @@ extension type SVGFESpotLightElement._(JSObject _)
   ///
   /// It reflects the `y` attribute of the  element., which can be used to
   /// define the light source in a spotlight effect. The attribute is a
-  /// [`<number>`](/en-US/docs/Web/SVG/Content_type#number). The default value
-  /// is `0`.
+  /// [`<number>`](/en-US/docs/Web/SVG/Guides/Content_type#number). The default
+  /// value is `0`.
   external SVGAnimatedNumber get y;
 
   /// The **`z`** read-only property of the [SVGFESpotLightElement] interface
@@ -1107,8 +1124,8 @@ extension type SVGFESpotLightElement._(JSObject _)
   ///
   /// It reflects the `z` attribute of the  element, which can be used to define
   /// the light source in a spotlight effect. The attribute is a
-  /// [`<number>`](/en-US/docs/Web/SVG/Content_type#number). The default value
-  /// is `0`.
+  /// [`<number>`](/en-US/docs/Web/SVG/Guides/Content_type#number). The default
+  /// value is `0`.
   external SVGAnimatedNumber get z;
 
   /// The **`pointsAtX`** read-only property of the [SVGFESpotLightElement]
@@ -1189,8 +1206,9 @@ extension type SVGFEDisplacementMapElement._(JSObject _)
   /// filter primitive as a [SVGAnimatedLength].
   ///
   /// It reflects the  element's `x` filter primitive attribute value. The
-  /// attribute is a [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage). The
+  /// attribute is a
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage). The
   /// `<coordinate>` is a length in the user coordinate system that is the given
   /// distance from the origin of the user coordinate system along the x-axis.
   /// If the `x` attribute is a percent value, the property value is relative to
@@ -1203,8 +1221,9 @@ extension type SVGFEDisplacementMapElement._(JSObject _)
   /// filter primitive as a [SVGAnimatedLength].
   ///
   /// It reflects the  element's `y` filter primitive attribute value. The
-  /// attribute is a [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage). The
+  /// attribute is a
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage). The
   /// `<coordinate>` is a length in the user coordinate system that is the given
   /// distance from the origin of the filter along the y-axis. If the `y`
   /// attribute is a percent value, the property value is a relative to the
@@ -1217,10 +1236,11 @@ extension type SVGFEDisplacementMapElement._(JSObject _)
   /// [SVGAnimatedLength].
   ///
   /// It reflects the  element's `width` filter primitive attribute. The
-  /// attribute is a [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or a
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage) relative to
-  /// the width of the filter region. The default value is `100%`. The property
-  /// value is a length in user coordinate system units.
+  /// attribute is a
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or a
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage)
+  /// relative to the width of the filter region. The default value is `100%`.
+  /// The property value is a length in user coordinate system units.
   external SVGAnimatedLength get width;
 
   /// The **`height`** read-only property of the [SVGFEDisplacementMapElement]
@@ -1228,10 +1248,11 @@ extension type SVGFEDisplacementMapElement._(JSObject _)
   /// [SVGAnimatedLength].
   ///
   /// It reflects the  element's `height` filter primitive attribute. The
-  /// attribute is a [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or a
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage) relative to
-  /// the height of the filter region. The default value is `100%`. The property
-  /// value is a length in user coordinate system units.
+  /// attribute is a
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or a
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage)
+  /// relative to the height of the filter region. The default value is `100%`.
+  /// The property value is a length in user coordinate system units.
   external SVGAnimatedLength get height;
 
   /// The **`result`** read-only property of the [SVGFEDisplacementMapElement]
@@ -1301,8 +1322,8 @@ extension type SVGFEDropShadowElement._(JSObject _)
   ///
   /// It reflects the `x` attribute of the  element, which creates a drop shadow
   /// of an input image. The attribute is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage). The
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage). The
   /// `<coordinate>` is a length in the user coordinate system that is the given
   /// distance from the origin of the user coordinate system along the x-axis.
   /// If the `x` attribute is a percent value, the property value is relative to
@@ -1315,8 +1336,8 @@ extension type SVGFEDropShadowElement._(JSObject _)
   ///
   /// It reflects the `y` attribute of the  element, which creates a drop shadow
   /// of an input image. The attribute is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage). The
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage). The
   /// `<coordinate>` is a length in the user coordinate system that is the given
   /// distance from the origin of the filter along the y-axis. If the `y`
   /// attribute is a percent value, the property value is a relative to the
@@ -1329,10 +1350,10 @@ extension type SVGFEDropShadowElement._(JSObject _)
   /// [SVGAnimatedLength].
   ///
   /// It reflects the `width` filter primitive attribute. The attribute is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or a
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage) relative to
-  /// the width of the filter region. The default value is `100%`. The property
-  /// value is a length in user coordinate system units.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or a
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage)
+  /// relative to the width of the filter region. The default value is `100%`.
+  /// The property value is a length in user coordinate system units.
   external SVGAnimatedLength get width;
 
   /// The **`height`** read-only property of the [SVGFEDropShadowElement]
@@ -1340,10 +1361,10 @@ extension type SVGFEDropShadowElement._(JSObject _)
   /// [SVGAnimatedLength].
   ///
   /// It reflects the `height` filter primitive attribute. The attribute is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or a
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage) relative to
-  /// the height of the filter region. The default value is `100%`. The property
-  /// value is a length in user coordinate system units.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or a
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage)
+  /// relative to the height of the filter region. The default value is `100%`.
+  /// The property value is a length in user coordinate system units.
   external SVGAnimatedLength get height;
 
   /// The **`result`** read-only property of the [SVGFEDropShadowElement]
@@ -1383,8 +1404,8 @@ extension type SVGFEFloodElement._(JSObject _) implements SVGElement, JSObject {
   ///
   /// It reflects the `x` attribute of the  element, which fills an SVG filter
   /// subregion with the color and opacity defined by  and . The attribute is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage). The
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage). The
   /// `<coordinate>` is a length in the user coordinate system that is the given
   /// distance from the origin of the user coordinate system along the x-axis.
   /// If the `x` attribute is a percent value, the property value is relative to
@@ -1398,8 +1419,8 @@ extension type SVGFEFloodElement._(JSObject _) implements SVGElement, JSObject {
   ///
   /// It reflects the `y` attribute of the  element, which fills an SVG filter
   /// subregion with the color and opacity defined by  and . The attribute is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage). The
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage). The
   /// `<coordinate>` is a length in the user coordinate system that is the given
   /// distance from the origin of the filter along the y-axis. If the `y`
   /// attribute is a percent value, the property value is relative to the height
@@ -1413,10 +1434,11 @@ extension type SVGFEFloodElement._(JSObject _) implements SVGElement, JSObject {
   ///
   /// It reflects the `width` attribute of the  element, which fills an SVG
   /// filter subregion with the color and opacity defined by  and . The
-  /// attribute is a [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or a
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage) relative to
-  /// the width of the filter region. The default value is `100%`. The property
-  /// value is a length in user coordinate system units.
+  /// attribute is a
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or a
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage)
+  /// relative to the width of the filter region. The default value is `100%`.
+  /// The property value is a length in user coordinate system units.
   external SVGAnimatedLength get width;
 
   /// The **`height`** read-only property of the [SVGFEFloodElement] interface
@@ -1425,10 +1447,11 @@ extension type SVGFEFloodElement._(JSObject _) implements SVGElement, JSObject {
   ///
   /// It reflects the `height` attribute of the  element, which fills an SVG
   /// filter subregion with the color and opacity defined by  and . The
-  /// attribute is a [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or a
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage) relative to
-  /// the height of the filter region. The default value is `100%`. The property
-  /// value is a length in user coordinate system units.
+  /// attribute is a
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or a
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage)
+  /// relative to the height of the filter region. The default value is `100%`.
+  /// The property value is a length in user coordinate system units.
   external SVGAnimatedLength get height;
 
   /// The **`result`** read-only property of the [SVGFEFloodElement] interface
@@ -1501,8 +1524,9 @@ extension type SVGFEGaussianBlurElement._(JSObject _)
   /// primitive as a [SVGAnimatedLength].
   ///
   /// It reflects the `x` attribute of the  element, which blurs an input image.
-  /// The attribute is a [`<length>`](/en-US/docs/Web/SVG/Content_type#length)
-  /// or [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage). The
+  /// The attribute is a
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage). The
   /// `<coordinate>` is a length in the user coordinate system that is the given
   /// distance from the origin of the user coordinate system along the x-axis.
   /// If the `x` attribute is a percent value, the property value is relative to
@@ -1515,8 +1539,9 @@ extension type SVGFEGaussianBlurElement._(JSObject _)
   /// primitive as a [SVGAnimatedLength].
   ///
   /// It reflects the `y` attribute of the  element, which blurs an input image.
-  /// The attribute is a [`<length>`](/en-US/docs/Web/SVG/Content_type#length)
-  /// or [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage). The
+  /// The attribute is a
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage). The
   /// `<coordinate>` is a length in the user coordinate system that is the given
   /// distance from the origin of the filter along the y-axis. If the `y`
   /// attribute is a percent value, the property value is relative to the height
@@ -1530,10 +1555,10 @@ extension type SVGFEGaussianBlurElement._(JSObject _)
   ///
   /// It reflects the `width` attribute of the  element, which blurs an input
   /// image. The attribute is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or a
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage) relative to
-  /// the width of the filter region. The default value is `100%`. The property
-  /// value is a length in user coordinate system units.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or a
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage)
+  /// relative to the width of the filter region. The default value is `100%`.
+  /// The property value is a length in user coordinate system units.
   external SVGAnimatedLength get width;
 
   /// The **`height`** read-only property of the [SVGFEGaussianBlurElement]
@@ -1542,10 +1567,10 @@ extension type SVGFEGaussianBlurElement._(JSObject _)
   ///
   /// It reflects the `height` attribute of the  element, which blurs an input
   /// image. The attribute is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or a
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage) relative to
-  /// the height of the filter region. The default value is `100%`. The property
-  /// value is a length in user coordinate system units.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or a
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage)
+  /// relative to the height of the filter region. The default value is `100%`.
+  /// The property value is a length in user coordinate system units.
   external SVGAnimatedLength get height;
 
   /// The **`result`** read-only property of the [SVGFEGaussianBlurElement]
@@ -1591,8 +1616,9 @@ extension type SVGFEImageElement._(JSObject _) implements SVGElement, JSObject {
   ///
   /// It reflects the `x` attribute of the  element, which fetches image data
   /// from an external source and provides the pixel data as output. The
-  /// attribute is a [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage). The
+  /// attribute is a
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage). The
   /// `<coordinate>` is a length in the user coordinate system that is the given
   /// distance from the origin of the user coordinate system along the x-axis.
   /// If the `x` attribute is a percent value, the property value is relative to
@@ -1606,8 +1632,9 @@ extension type SVGFEImageElement._(JSObject _) implements SVGElement, JSObject {
   ///
   /// It reflects the `y` attribute of the  element, which fetches image data
   /// from an external source and provides the pixel data as output. The
-  /// attribute is a [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage). The
+  /// attribute is a
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage). The
   /// `<coordinate>` is a length in the user coordinate system that is the given
   /// distance from the origin of the filter along the y-axis. If the `y`
   /// attribute is a percent value, the property value is a relative to the
@@ -1621,10 +1648,11 @@ extension type SVGFEImageElement._(JSObject _) implements SVGElement, JSObject {
   ///
   /// It reflects the `width` attribute of the  element, which fetches image
   /// data from an external source and provides the pixel data as output. The
-  /// attribute is a [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or a
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage) relative to
-  /// the width of the filter region. The default value is `100%`. The property
-  /// value is a length in user coordinate system units.
+  /// attribute is a
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or a
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage)
+  /// relative to the width of the filter region. The default value is `100%`.
+  /// The property value is a length in user coordinate system units.
   external SVGAnimatedLength get width;
 
   /// The **`height`** read-only property of the [SVGFEImageElement] interface
@@ -1633,10 +1661,11 @@ extension type SVGFEImageElement._(JSObject _) implements SVGElement, JSObject {
   ///
   /// It reflects the `height` attribute of the  element, which fetches image
   /// data from an external source and provides the pixel data as output. The
-  /// attribute is a [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or a
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage) relative to
-  /// the height of the filter region. The default value is `100%`. The property
-  /// value is a length in user coordinate system units.
+  /// attribute is a
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or a
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage)
+  /// relative to the height of the filter region. The default value is `100%`.
+  /// The property value is a length in user coordinate system units.
   external SVGAnimatedLength get height;
 
   /// The **`result`** read-only property of the [SVGFEImageElement] interface
@@ -1680,8 +1709,8 @@ extension type SVGFEMergeElement._(JSObject _) implements SVGElement, JSObject {
   /// primitive as a [SVGAnimatedLength].
   ///
   /// It reflects the `x` attribute of the  element. The attribute is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage). The
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage). The
   /// `<coordinate>` is a length in the user coordinate system that is the given
   /// distance from the origin of the user coordinate system along the x-axis.
   /// If the `x` attribute is a percent value, the property value is relative to
@@ -1694,8 +1723,8 @@ extension type SVGFEMergeElement._(JSObject _) implements SVGElement, JSObject {
   /// primitive as a [SVGAnimatedLength].
   ///
   /// It reflects the `y` attribute of the  element. The attribute is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage). The
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage). The
   /// `<coordinate>` is a length in the user coordinate system that is the given
   /// distance from the origin of the filter along the y-axis. If the `y`
   /// attribute is a percent value, the property value is a relative to the
@@ -1708,10 +1737,10 @@ extension type SVGFEMergeElement._(JSObject _) implements SVGElement, JSObject {
   /// [SVGAnimatedLength].
   ///
   /// It reflects the `width` attribute of the  element. The attribute is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or a
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage) relative to
-  /// the width of the filter region. The default value is `100%`. The property
-  /// value is a length in user coordinate system units.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or a
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage)
+  /// relative to the width of the filter region. The default value is `100%`.
+  /// The property value is a length in user coordinate system units.
   external SVGAnimatedLength get width;
 
   /// The **`height`** read-only property of the [SVGFEMergeElement] interface
@@ -1719,10 +1748,10 @@ extension type SVGFEMergeElement._(JSObject _) implements SVGElement, JSObject {
   /// [SVGAnimatedLength].
   ///
   /// It reflects the `height` attribute of the  element. The attribute is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or a
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage) relative to
-  /// the height of the filter region. The default value is `100%`. The property
-  /// value is a length in user coordinate system units.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or a
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage)
+  /// relative to the height of the filter region. The default value is `100%`.
+  /// The property value is a length in user coordinate system units.
   external SVGAnimatedLength get height;
 
   /// The **`result`** read-only property of the [SVGFEMergeElement] interface
@@ -1808,8 +1837,8 @@ extension type SVGFEMorphologyElement._(JSObject _)
   /// primitive as a [SVGAnimatedLength].
   ///
   /// It reflects the `x` attribute of the  element. The attribute is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage). The
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage). The
   /// `<coordinate>` is a length in the user coordinate system that is the given
   /// distance from the origin of the user coordinate system along the x-axis.
   /// If the `x` attribute is a percent value, the property value is relative to
@@ -1822,8 +1851,8 @@ extension type SVGFEMorphologyElement._(JSObject _)
   /// primitive as a [SVGAnimatedLength].
   ///
   /// It reflects the `y` attribute of the  element. The attribute is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage). The
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage). The
   /// `<coordinate>` is a length in the user coordinate system that is the given
   /// distance from the origin of the filter along the y-axis. If the `y`
   /// attribute is a percent value, the property value is a relative to the
@@ -1836,10 +1865,10 @@ extension type SVGFEMorphologyElement._(JSObject _)
   /// [SVGAnimatedLength].
   ///
   /// It reflects the `width` attribute of the  element. The attribute is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or a
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage) relative to
-  /// the width of the filter region. The default value is `100%`. The property
-  /// value is a length in user coordinate system units.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or a
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage)
+  /// relative to the width of the filter region. The default value is `100%`.
+  /// The property value is a length in user coordinate system units.
   external SVGAnimatedLength get width;
 
   /// The **`height`** read-only property of the [SVGFEMorphologyElement]
@@ -1847,10 +1876,10 @@ extension type SVGFEMorphologyElement._(JSObject _)
   /// [SVGAnimatedLength].
   ///
   /// It reflects the `height` attribute of the  element. The attribute is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or a
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage) relative to
-  /// the height of the filter region. The default value is `100%`. The property
-  /// value is a length in user coordinate system units.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or a
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage)
+  /// relative to the height of the filter region. The default value is `100%`.
+  /// The property value is a length in user coordinate system units.
   external SVGAnimatedLength get height;
 
   /// The **`result`** read-only property of the [SVGFEMorphologyElement]
@@ -1903,8 +1932,8 @@ extension type SVGFEOffsetElement._(JSObject _)
   ///
   /// It reflects the `x` attribute of the  element, which offsets the input
   /// image relative to its current position. The attribute is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage). The
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage). The
   /// `<coordinate>` is a length in the user coordinate system that is the given
   /// distance from the origin of the user coordinate system along the x-axis.
   /// If the `x` attribute is a percent value, the property value is relative to
@@ -1918,8 +1947,8 @@ extension type SVGFEOffsetElement._(JSObject _)
   ///
   /// It reflects the `y` attribute of the  element, which offsets the input
   /// image relative to its current position. The attribute is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage). The
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage). The
   /// `<coordinate>` is a length in the user coordinate system that is the given
   /// distance from the origin of the filter along the y-axis. If the `y`
   /// attribute is a percent value, the property value is a relative to the
@@ -1933,10 +1962,10 @@ extension type SVGFEOffsetElement._(JSObject _)
   ///
   /// It reflects the `width` attribute of the  element, which offsets the input
   /// image relative to its current position. The attribute is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or a
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage) relative to
-  /// the width of the filter region. The default value is `100%`. The property
-  /// value is a length in user coordinate system units.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or a
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage)
+  /// relative to the width of the filter region. The default value is `100%`.
+  /// The property value is a length in user coordinate system units.
   external SVGAnimatedLength get width;
 
   /// The **`height`** read-only property of the [SVGFEOffsetElement] interface
@@ -1945,10 +1974,10 @@ extension type SVGFEOffsetElement._(JSObject _)
   ///
   /// It reflects the `height` attribute of the  element, which offsets the
   /// input image relative to its current position. The attribute is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or a
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage) relative to
-  /// the height of the filter region. The default value is `100%`. The property
-  /// value is a length in user coordinate system units.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or a
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage)
+  /// relative to the height of the filter region. The default value is `100%`.
+  /// The property value is a length in user coordinate system units.
   external SVGAnimatedLength get height;
 
   /// The **`result`** read-only property of the [SVGFEOffsetElement] interface
@@ -2004,7 +2033,27 @@ extension type SVGFESpecularLightingElement._(JSObject _)
   /// [SVGFESpecularLightingElement] interface reflects the `specularExponent`
   /// attribute of the given  element.
   external SVGAnimatedNumber get specularExponent;
+
+  /// The **`kernelUnitLengthX`** read-only property of the
+  /// [SVGFESpecularLightingElement] interface reflects the x value of the
+  /// `kernelUnitLength` attribute of the given  element.
+  ///
+  /// The `kernelUnitLength` attribute indicates the intended distance in
+  /// current filter units, specified by the `primitiveUnits` attribute, for the
+  /// x and y coordinates. It contains one or two values, with the y value
+  /// defaulting to x if not present, and the `kernelUnitLengthX` property gets
+  /// and sets the first value.
   external SVGAnimatedNumber get kernelUnitLengthX;
+
+  /// The **`kernelUnitLengthY`** read-only property of the
+  /// [SVGFESpecularLightingElement] interface reflects the y value of the
+  /// `kernelUnitLength` attribute of the given  element.
+  ///
+  /// The `kernelUnitLength` attribute indicates the intended distance in
+  /// current filter units, specified by the `primitiveUnits` attribute, for the
+  /// x and y coordinates. It contains one or two values, with the y value
+  /// defaulting to x if not present, and the `kernelUnitLengthY` property gets
+  /// and sets the last value.
   external SVGAnimatedNumber get kernelUnitLengthY;
 
   /// The **`x`** read-only property of the [SVGFESpecularLightingElement]
@@ -2013,8 +2062,8 @@ extension type SVGFESpecularLightingElement._(JSObject _)
   ///
   /// It reflects the `x` attribute of the  element, which lights a source
   /// graphic using the alpha channel as a bump map. The attribute is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage). The
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage). The
   /// `<coordinate>` is a length in the user coordinate system that is the given
   /// distance from the origin of the user coordinate system along the x-axis.
   /// If the `x` attribute is a percent value, the property value is relative to
@@ -2028,8 +2077,8 @@ extension type SVGFESpecularLightingElement._(JSObject _)
   ///
   /// It reflects the `y` attribute of the  element, which lights a source
   /// graphic using the alpha channel as a bump map. The attribute is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage). The
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage). The
   /// `<coordinate>` is a length in the user coordinate system that is the given
   /// distance from the origin of the filter along the y-axis. If the `y`
   /// attribute is a percent value, the property value is a relative to the
@@ -2043,10 +2092,10 @@ extension type SVGFESpecularLightingElement._(JSObject _)
   ///
   /// It reflects the `width` attribute of the  element, which lights a source
   /// graphic using the alpha channel as a bump map. The attribute is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or a
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage) relative to
-  /// the width of the filter region. The default value is `100%`. The property
-  /// value is a length in user coordinate system units.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or a
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage)
+  /// relative to the width of the filter region. The default value is `100%`.
+  /// The property value is a length in user coordinate system units.
   external SVGAnimatedLength get width;
 
   /// The **`height`** read-only property of the [SVGFESpecularLightingElement]
@@ -2055,10 +2104,10 @@ extension type SVGFESpecularLightingElement._(JSObject _)
   ///
   /// It reflects the `height` attribute of the  element, which lights a source
   /// graphic using the alpha channel as a bump map. The attribute is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or a
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage) relative to
-  /// the height of the filter region. The default value is `100%`. The property
-  /// value is a length in user coordinate system units.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or a
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage)
+  /// relative to the height of the filter region. The default value is `100%`.
+  /// The property value is a length in user coordinate system units.
   external SVGAnimatedLength get height;
 
   /// The **`result`** read-only property of the [SVGFESpecularLightingElement]
@@ -2103,8 +2152,8 @@ extension type SVGFETileElement._(JSObject _) implements SVGElement, JSObject {
   ///
   /// It reflects the `x` attribute of the  element, which fills a target
   /// rectangle with a repeated, tiled pattern of an input image. The attribute
-  /// is a [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage). The
+  /// is a [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage). The
   /// `<coordinate>` is a length in the user coordinate system that is the given
   /// distance from the origin of the user coordinate system along the x-axis.
   /// If the `x` attribute is a percent value, the property value is relative to
@@ -2118,8 +2167,8 @@ extension type SVGFETileElement._(JSObject _) implements SVGElement, JSObject {
   ///
   /// It reflects the `y` attribute of the  element, which fills a target
   /// rectangle with a repeated, tiled pattern of an input image. The attribute
-  /// is a [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage). The
+  /// is a [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage). The
   /// `<coordinate>` is a length in the user coordinate system that is the given
   /// distance from the origin of the filter along the y-axis. If the `y`
   /// attribute is a percent value, the property value is a relative to the
@@ -2133,10 +2182,10 @@ extension type SVGFETileElement._(JSObject _) implements SVGElement, JSObject {
   ///
   /// It reflects the `width` attribute of the  element, which fills a target
   /// rectangle with a repeated, tiled pattern of an input image. The attribute
-  /// is a [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or a
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage) relative to
-  /// the width of the filter region. The default value is `100%`. The property
-  /// value is a length in user coordinate system units.
+  /// is a [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or a
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage)
+  /// relative to the width of the filter region. The default value is `100%`.
+  /// The property value is a length in user coordinate system units.
   external SVGAnimatedLength get width;
 
   /// The **`height`** read-only property of the [SVGFETileElement] interface
@@ -2145,10 +2194,10 @@ extension type SVGFETileElement._(JSObject _) implements SVGElement, JSObject {
   ///
   /// It reflects the `height` attribute of the  element, which fills a target
   /// rectangle with a repeated, tiled pattern of an input image. The attribute
-  /// is a [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or a
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage) relative to
-  /// the height of the filter region. The default value is `100%`. The property
-  /// value is a length in user coordinate system units.
+  /// is a [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or a
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage)
+  /// relative to the height of the filter region. The default value is `100%`.
+  /// The property value is a length in user coordinate system units.
   external SVGAnimatedLength get height;
 
   /// The **`result`** read-only property of the [SVGFETileElement] interface
@@ -2233,8 +2282,8 @@ extension type SVGFETurbulenceElement._(JSObject _)
   ///
   /// It reflects the `x` attribute of the  element, which allows the synthesis
   /// of artificial textures. The attribute is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage). The
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage). The
   /// `<coordinate>` is a length in the user coordinate system that is the given
   /// distance from the origin of the user coordinate system along the x-axis.
   /// If the `x` attribute is a percent value, the property value is relative to
@@ -2248,8 +2297,8 @@ extension type SVGFETurbulenceElement._(JSObject _)
   ///
   /// It reflects the `y` attribute of the  element, which allows the synthesis
   /// of artificial textures. The attribute is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage). The
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage). The
   /// `<coordinate>` is a length in the user coordinate system that is the given
   /// distance from the origin of the filter along the y-axis. If the `y`
   /// attribute is a percent value, the property value is a relative to the
@@ -2263,10 +2312,10 @@ extension type SVGFETurbulenceElement._(JSObject _)
   ///
   /// It reflects the `width` attribute of the  element, which allows the
   /// synthesis of artificial textures. The attribute is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or a
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage) relative to
-  /// the width of the filter region. The default value is `100%`. The property
-  /// value is a length in user coordinate system units.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or a
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage)
+  /// relative to the width of the filter region. The default value is `100%`.
+  /// The property value is a length in user coordinate system units.
   external SVGAnimatedLength get width;
 
   /// The **`height`** read-only property of the [SVGFETurbulenceElement]
@@ -2275,10 +2324,10 @@ extension type SVGFETurbulenceElement._(JSObject _)
   ///
   /// It reflects the `height` attribute of the  element, which allows the
   /// synthesis of artificial textures. The attribute is a
-  /// [`<length>`](/en-US/docs/Web/SVG/Content_type#length) or a
-  /// [`<percentage>`](/en-US/docs/Web/SVG/Content_type#percentage) relative to
-  /// the height of the filter region. The default value is `100%`. The property
-  /// value is a length in user coordinate system units.
+  /// [`<length>`](/en-US/docs/Web/SVG/Guides/Content_type#length) or a
+  /// [`<percentage>`](/en-US/docs/Web/SVG/Guides/Content_type#percentage)
+  /// relative to the height of the filter region. The default value is `100%`.
+  /// The property value is a length in user coordinate system units.
   external SVGAnimatedLength get height;
 
   /// The **`result`** read-only property of the [SVGFETurbulenceElement]

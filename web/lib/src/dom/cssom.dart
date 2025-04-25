@@ -20,7 +20,7 @@ import 'css_properties_values_api.dart';
 import 'css_typed_om.dart';
 
 /// The **`MediaList`** interface represents the media queries of a stylesheet,
-/// e.g. those set using a `link` element's `media` attribute.
+/// e.g., those set using a `link` element's `media` attribute.
 ///
 /// > **Note:** `MediaList` is a live list; updating the list using properties
 /// > or methods listed below will immediately update the behavior of the
@@ -80,9 +80,9 @@ extension type StyleSheet._(JSObject _) implements JSObject {
   /// with the document.
   ///
   /// This is usually an HTML
-  /// [`<link>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link)
+  /// [`<link>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/link)
   /// or
-  /// [`<style>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/style)
+  /// [`<style>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/style)
   /// element, but
   /// can also return a
   /// [processing instruction node](https://developer.mozilla.org/en-US/docs/Web/API/ProcessingInstruction)
@@ -114,7 +114,7 @@ extension type StyleSheet._(JSObject _) implements JSObject {
   /// A style sheet may be disabled by manually setting this property to `true`
   /// or
   /// if it's an inactive
-  /// [alternative style sheet](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel/alternate_stylesheet).
+  /// [alternative style sheet](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/rel/alternate_stylesheet).
   /// Note that `disabled === false` does not guarantee the style
   /// sheet is applied (it could be removed from the document, for instance).
   external bool get disabled;
@@ -471,7 +471,7 @@ extension type CSSImportRule._(JSObject _) implements CSSRule, JSObject {
   /// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_syntax/At-rule).
   ///
   /// The resolved URL will be the
-  /// [`href`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#href)
+  /// [`href`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/link#href)
   /// attribute of the
   /// associated stylesheet.
   external String get href;
@@ -647,7 +647,7 @@ extension type CSSStyleDeclaration._(JSObject _) implements JSObject {
 
   /// The **CSSStyleDeclaration.parentRule** read-only
   /// property returns a [CSSRule] that is the parent of this style
-  /// block, e.g. a [CSSStyleRule] representing the style for a CSS
+  /// block, e.g., a [CSSStyleRule] representing the style for a CSS
   /// selector.
   external CSSRule? get parentRule;
   external String get accentColor;

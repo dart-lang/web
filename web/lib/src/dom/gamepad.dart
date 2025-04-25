@@ -112,7 +112,7 @@ extension type Gamepad._(JSObject _) implements JSObject {
   /// The **`Gamepad.axes`** property of the [Gamepad]
   /// interface returns an array representing the controls with axes present on
   /// the device
-  /// (e.g. analog thumb sticks).
+  /// (e.g., analog thumb sticks).
   ///
   /// Each entry in the array is a floating point value in the range -1.0 – 1.0,
   /// representing
@@ -120,20 +120,10 @@ extension type Gamepad._(JSObject _) implements JSObject {
   external JSArray<JSNumber> get axes;
 
   /// The **`buttons`** property of the [Gamepad] interface returns an array of
-  /// [gamepadButton] objects representing the buttons present on the device.
+  /// [GamepadButton] objects representing the buttons present on the device.
   ///
   /// Each entry in the array is `0` if the button is not pressed, and non-zero
   /// (typically `1.0`) if the button is pressed.
-  ///
-  /// Each [gamepadButton] object has two properties:
-  ///
-  /// - `pressed`
-  ///
-  ///   - : A boolean indicating whether the button is currently pressed (`true`) or unpressed (`false`).
-  ///
-  /// - `value`
-  ///
-  ///   - : A floating point value used to enable representing analog buttons, such as the triggers on many modern gamepads. The values are normalized to the range 0.0 – 1.0, with 0.0 representing a button that is not pressed, and 1.0 representing a button that is fully pressed.
   external JSArray<GamepadButton> get buttons;
 
   /// The **`vibrationActuator`** read-only property of the [Gamepad] interface

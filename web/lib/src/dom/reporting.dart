@@ -63,7 +63,7 @@ extension type Report._(JSObject _) implements JSObject {
   external JSObject toJSON();
 
   /// The **`type`** read-only property of the [Report]
-  /// interface returns the type of report generated, e.g. `deprecation` or
+  /// interface returns the type of report generated, e.g., `deprecation` or
   /// `intervention`.
   external String get type;
 

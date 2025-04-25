@@ -326,10 +326,11 @@ extension type MouseEvent._(JSObject _) implements UIEvent, JSObject {
   external bool get metaKey;
 
   /// The **`MouseEvent.button`** read-only property indicates which button was
-  /// pressed on the mouse to trigger the event.
+  /// pressed or released on the mouse to trigger the event.
   ///
-  /// This property only guarantees to indicate which buttons are pressed during
-  /// events caused by pressing or releasing one or multiple buttons.
+  /// This property only guarantees to indicate which buttons are pressed or
+  /// released during events caused by pressing or releasing one or multiple
+  /// buttons.
   /// As such, it is not reliable for events such as [Element.mouseenter_event],
   /// [Element.mouseleave_event], [Element.mouseover_event],
   /// [Element.mouseout_event], or [Element.mousemove_event].
@@ -676,16 +677,37 @@ extension type WheelEvent._(JSObject _) implements MouseEvent, JSObject {
   /// The **`WheelEvent.deltaX`** read-only property is a
   /// `double` representing the horizontal scroll amount in the
   /// [WheelEvent.deltaMode] unit.
+  ///
+  /// You must check the `deltaMode` property to determine the unit of the
+  /// `deltaX` value. Do not assume that the `deltaX` value is specified in
+  /// pixels. Some browsers, for compatibility reasons, may return different
+  /// units for the `deltaX` value depending on whether `deltaMode` has been
+  /// accessed, to accommodate for websites not explicitly checking the
+  /// `deltaMode` property.
   external double get deltaX;
 
   /// The **`WheelEvent.deltaY`** read-only property is a
   /// `double` representing the vertical scroll amount in the
   /// [WheelEvent.deltaMode] unit.
+  ///
+  /// You must check the `deltaMode` property to determine the unit of the
+  /// `deltaY` value. Do not assume that the `deltaY` value is specified in
+  /// pixels. Some browsers, for compatibility reasons, may return different
+  /// units for the `deltaY` value depending on whether `deltaMode` has been
+  /// accessed, to accommodate for websites not explicitly checking the
+  /// `deltaMode` property.
   external double get deltaY;
 
   /// The **`WheelEvent.deltaZ`** read-only property is a
   /// `double` representing the scroll amount along the z-axis, in the
   /// [WheelEvent.deltaMode] unit.
+  ///
+  /// You must check the `deltaMode` property to determine the unit of the
+  /// `deltaZ` value. Do not assume that the `deltaZ` value is specified in
+  /// pixels. Some browsers, for compatibility reasons, may return different
+  /// units for the `deltaZ` value depending on whether `deltaMode` has been
+  /// accessed, to accommodate for websites not explicitly checking the
+  /// `deltaMode` property.
   external double get deltaZ;
 
   /// The **`WheelEvent.deltaMode`** read-only property returns an
@@ -697,6 +719,13 @@ extension type WheelEvent._(JSObject _) implements MouseEvent, JSObject {
   /// | `DOM_DELTA_PIXEL` | `0x00` | The delta values are specified in pixels. |
   /// | `DOM_DELTA_LINE`  | `0x01` | The delta values are specified in lines.  |
   /// | `DOM_DELTA_PAGE`  | `0x02` | The delta values are specified in pages.  |
+  ///
+  /// You must check the `deltaMode` property to determine the unit of the
+  /// `deltaX`, `deltaY`, and `deltaZ` values. Do not assume that those values
+  /// are specified in pixels. Some browsers, for compatibility reasons, may
+  /// return different units for the `delta*` values depending on whether
+  /// `deltaMode` has been accessed, to accommodate for websites not explicitly
+  /// checking the `deltaMode` property.
   external int get deltaMode;
 }
 extension type WheelEventInit._(JSObject _)
@@ -798,9 +827,9 @@ extension type InputEvent._(JSObject _) implements UIEvent, JSObject {
   ///     <tr>
   ///       <td>All remaining</td>
   ///       <td>
-  ///         <a href="/en-US/docs/Web/HTML/Element/input"><code>input</code></a>
+  ///         <a href="/en-US/docs/Web/HTML/Reference/Elements/input"><code>input</code></a>
   /// or <a
-  /// href="/en-US/docs/Web/HTML/Element/textarea"><code>textarea</code></a>
+  /// href="/en-US/docs/Web/HTML/Reference/Elements/textarea"><code>textarea</code></a>
   ///       </td>
   ///       <td>
   /// an empty Array
@@ -1106,7 +1135,7 @@ extension type KeyboardEvent._(JSObject _) implements UIEvent, JSObject {
 
   /// The **`KeyboardEvent.isComposing`** read-only property returns
   /// a boolean value indicating if the event is fired within a composition
-  /// session, i.e. after [Element.compositionstart_event]
+  /// session, i.e., after [Element.compositionstart_event]
   /// and before [Element.compositionend_event].
   external bool get isComposing;
 

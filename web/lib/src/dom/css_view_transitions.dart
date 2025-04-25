@@ -21,7 +21,7 @@ typedef ViewTransitionUpdateCallback = JSFunction;
 
 /// The **`ViewTransition`** interface of the [View Transition API] represents
 /// an active view transition, and provides functionality to react to the
-/// transition reaching different states (e.g. ready to run the animation, or
+/// transition reaching different states (e.g., ready to run the animation, or
 /// animation finished) or skip the transition altogether.
 ///
 /// This object type is made available in the following ways:

@@ -199,17 +199,17 @@ extension type SubtleCrypto._(JSObject _) implements JSObject {
     BufferSource data,
   );
 
-  /// The **`digest()`** method of the [SubtleCrypto]
-  /// interface generates a  of the given data. A digest is a short
-  /// fixed-length value derived from some variable-length input. Cryptographic
-  /// digests should
-  /// exhibit collision-resistance, meaning that it's hard to come up with two
-  /// different
-  /// inputs that have the same digest value.
+  /// The **`digest()`** method of the [SubtleCrypto] interface generates a
+  /// _digest_ of the given data, using the specified .
+  /// A digest is a short fixed-length value derived from some variable-length
+  /// input.
+  /// Cryptographic digests should exhibit collision-resistance, meaning that
+  /// it's hard to come up with two different inputs that have the same digest
+  /// value.
   ///
   /// It takes as its arguments an identifier for the digest algorithm to use
-  /// and the data to
-  /// digest. It returns a `Promise` which will be fulfilled with the digest.
+  /// and the data to digest.
+  /// It returns a `Promise` which will be fulfilled with the digest.
   ///
   /// Note that this API does not support streaming input: you must read the
   /// entire input into memory before passing it into the digest function.

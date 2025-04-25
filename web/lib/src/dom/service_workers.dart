@@ -30,7 +30,7 @@ typedef ClientType = String;
 
 /// The **`ServiceWorker`** interface of the
 /// [Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)
-/// provides a reference to a service worker. Multiple  (e.g. pages, workers,
+/// provides a reference to a service worker. Multiple  (e.g., pages, workers,
 /// etc.) can be associated with the same service worker, each through a unique
 /// `ServiceWorker` object.
 ///
@@ -304,7 +304,7 @@ extension type ServiceWorkerContainer._(JSObject _)
   /// The **`startMessages()`** method of
   /// the [ServiceWorkerContainer] interface explicitly starts the flow of
   /// messages being dispatched from a service worker to pages under its control
-  /// (e.g. sent
+  /// (e.g., sent
   /// via [Client.postMessage]). This can be used to react to sent messages
   /// earlier, even before that page's content has finished loading.
   external void startMessages();
@@ -1052,7 +1052,7 @@ extension type ExtendableMessageEventInit._(JSObject _)
 /// workers, even though it is defined in the service worker spec.
 ///
 /// An origin can have multiple, named `Cache` objects. You are responsible for
-/// implementing how your script (e.g. in a [ServiceWorker]) handles `Cache`
+/// implementing how your script (e.g., in a [ServiceWorker]) handles `Cache`
 /// updates. Items in a `Cache` do not get updated unless explicitly requested;
 /// they don't expire unless deleted. Use [CacheStorage.open] to open a specific
 /// named `Cache` object and then call any of the `Cache` methods to maintain
@@ -1222,7 +1222,7 @@ extension type CacheQueryOptions._(JSObject _) implements JSObject {
 /// windows or through the [WorkerGlobalScope.caches] property in workers.
 ///
 /// > **Note:** `CacheStorage` always rejects with a `SecurityError` on
-/// > untrusted origins (i.e. those that aren't using HTTPS, although this
+/// > untrusted origins (i.e., those that aren't using HTTPS, although this
 /// > definition will likely become more complex in the future.) When testing on
 /// > Firefox, you can get around this by checking the **Enable Service Workers
 /// > over HTTP (when toolbox is open)** option in the Firefox DevTools

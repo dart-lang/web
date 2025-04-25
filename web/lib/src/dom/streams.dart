@@ -280,7 +280,8 @@ extension type ReadableStreamReadResult._(JSObject _) implements JSObject {
 /// specifying an underlying source with [`type:
 /// "bytes"`](/en-US/docs/Web/API/ReadableStream/ReadableStream#type)).
 ///
-/// Using this kind of reader, a [`read()`](#readablestreambyobreader.read)
+/// Using this kind of reader, a
+/// [`read()`](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStreamBYOBReader/read)
 /// request when the readable stream's internal queues are empty will result in
 /// a zero copy transfer from the underlying source (bypassing the stream's
 /// internal queues).
@@ -444,34 +445,37 @@ extension type ReadableStreamDefaultController._(JSObject _)
 /// underlying source, and request data when needed.
 ///
 /// The underlying source uses the controller to supply data to the stream via
-/// its [`byobRequest`](#readablebytestreamcontroller.byobrequest) property or
-/// [`enqueue()`](#readablebytestreamcontroller.enqueue) method.
-/// [`byobRequest`](#readablebytestreamcontroller.byobrequest) is a
-/// [ReadableStreamBYOBRequest] object that represents a pending request from a
-/// consumer to make a zero-copy transfer of data direct to a consumer.
+/// its
+/// [`byobRequest`](https://developer.mozilla.org/en-US/docs/Web/API/ReadableByteStreamController/byobRequest)
+/// property or
+/// [`enqueue()`](https://developer.mozilla.org/en-US/docs/Web/API/ReadableByteStreamController/enqueue)
+/// method.
+/// `byobRequest` is a [ReadableStreamBYOBRequest] object that represents a
+/// pending request from a consumer to make a zero-copy transfer of data direct
+/// to a consumer.
 /// `byobRequest` must be used to copy data if it exists (do not use `enqueue()`
 /// in this case)!
 /// If the underlying source needs to pass data to the stream and `byobRequest`
-/// is `null` then the source can call
-/// [`enqueue()`](#readablebytestreamcontroller.enqueue) to add the data to the
+/// is `null` then the source can call `enqueue()` to add the data to the
 /// stream's internal queues.
 ///
-/// Note that the [`byobRequest`](#readablebytestreamcontroller.byobrequest) is
-/// only created in "BYOB mode" when there is a request from a reader and the
-/// stream's internal queue is empty.
+/// Note that the `byobRequest` is only created in "BYOB mode" when there is a
+/// request from a reader and the stream's internal queue is empty.
 /// "BYOB mode" is enabled when using a [ReadableStreamBYOBReader] (typically
 /// constructed by calling [ReadableStream.getReader] with the argument `{ mode:
 /// 'byob' }`).
 /// It is also enabled when using a default reader and
 /// [`autoAllocateChunkSize`](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream/ReadableStream#autoallocatechunksize)
-/// is specified in the [`ReadableController()`
-/// constructor](/en-US/docs/Web/API/ReadableStream/ReadableStream#autoallocatechunksize).
+/// is specified in the [`ReadableStream()`
+/// constructor](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream/ReadableStream).
 ///
 /// An underlying byte source can also use the controller to
-/// [`close()`](#readablebytestreamcontroller.close) the stream when all the
-/// data has been sent and report errors from the underlying source using
-/// [`error()`](#readablebytestreamcontroller.error).
-/// The controller's [`desiredSize`](#readablebytestreamcontroller.desiredsize)
+/// [`close()`](https://developer.mozilla.org/en-US/docs/Web/API/ReadableByteStreamController/close)
+/// the stream when all the data has been sent and report errors from the
+/// underlying source using
+/// [`error()`](https://developer.mozilla.org/en-US/docs/Web/API/ReadableByteStreamController/error).
+/// The controller's
+/// [`desiredSize`](https://developer.mozilla.org/en-US/docs/Web/API/ReadableByteStreamController/desiredSize)
 /// property is used to apply "backpressure", informing the underlying source of
 /// the size of the internal queue (small values indicate that the queue is
 /// filling up, hinting to the underlying source that it is be desirable to
@@ -571,10 +575,12 @@ extension type ReadableByteStreamController._(JSObject _) implements JSObject {
 /// stream's internal buffers are not empty.
 ///
 /// An underlying source uses the request by writing data to the BYOB request's
-/// [`view`](#readablestreambyobrequest.view) and then calling
-/// [`respond()`](#readablestreambyobrequest.respond), or by calling
-/// [`respondWithNewView()`](#readablestreambyobrequest.respondwithnewview) and
-/// passing a new view as an argument.
+/// [`view`](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStreamBYOBRequest/view)
+/// and then calling
+/// [`respond()`](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStreamBYOBRequest/respond),
+/// or by calling
+/// [`respondWithNewView()`](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStreamBYOBRequest/respondWithNewView)
+/// and passing a new view as an argument.
 /// Note that the "new view" must actually be a view over the _same_ buffer as
 /// the original `view`, starting at the same offset.
 /// This might be used to return a shorter buffer if the underlying source is

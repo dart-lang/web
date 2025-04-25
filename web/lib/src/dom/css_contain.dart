@@ -28,11 +28,12 @@ import 'dom.dart';
 /// user agent skips an element's rendering, including layout and painting.
 /// This can significantly improve page rendering speed.
 /// The [element.contentvisibilityautostatechange_event] event provides a way
-/// for an app's code to also start or stop rendering processes (e.g. drawing on
-/// a `canvas`) when they are not needed, thereby conserving processing power.
+/// for an app's code to also start or stop rendering processes (e.g., drawing
+/// on a `canvas`) when they are not needed, thereby conserving processing
+/// power.
 ///
 /// Note that even when hidden from view, element contents will remain
-/// semantically relevant (e.g. to assistive technology users), so this signal
+/// semantically relevant (e.g., to assistive technology users), so this signal
 /// should not be used to skip significant semantic DOM updates.
 ///
 /// ---

@@ -12185,6 +12185,7 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// > abusing this functionality.
   /// > In Firefox, you can enable the old behavior with the
   /// > `dom.disable_window_flip` preference.
+  @deprecated
   external void blur();
 
   /// The **`open()`** method of the
@@ -12359,9 +12360,11 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// > [!NOTE]
   /// > This is an method long removed from the specification. It is kept in
   /// > browsers to prevent code breakage but does nothing.
+  @deprecated
   external void captureEvents();
 
   /// Releases the window from trapping events of a specific type.
+  @deprecated
   external void releaseEvents();
 
   /// The **`window.requestIdleCallback()`** method queues a function
@@ -14289,6 +14292,7 @@ extension type Navigator._(JSObject _) implements JSObject {
   /// Tainting was a security method used by JavaScript 1.2. It has long been
   /// removed; this
   /// method only stays for maintaining compatibility with very old scripts.
+  @deprecated
   external bool taintEnabled();
 
   /// The **[Navigator]** method **`registerProtocolHandler()`** lets websites
@@ -14326,6 +14330,7 @@ extension type Navigator._(JSObject _) implements JSObject {
   );
 
   /// This method always returns false.
+  @deprecated
   external bool javaEnabled();
 
   /// The **`clipboard`** read-only property of the [Navigator] interface
@@ -14774,8 +14779,11 @@ extension type Navigator._(JSObject _) implements JSObject {
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PluginArray).
 @deprecated
 extension type PluginArray._(JSObject _) implements JSObject {
+  @deprecated
   external void refresh();
+  @deprecated
   external Plugin? item(int index);
+  @deprecated
   external Plugin? namedItem(String name);
   @deprecated
   external int get length;
@@ -14799,7 +14807,9 @@ extension type PluginArray._(JSObject _) implements JSObject {
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MimeTypeArray).
 @deprecated
 extension type MimeTypeArray._(JSObject _) implements JSObject {
+  @deprecated
   external MimeType? item(int index);
+  @deprecated
   external MimeType? namedItem(String name);
   @deprecated
   external int get length;
@@ -14817,7 +14827,9 @@ extension type MimeTypeArray._(JSObject _) implements JSObject {
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Plugin).
 @deprecated
 extension type Plugin._(JSObject _) implements JSObject {
+  @deprecated
   external MimeType? item(int index);
+  @deprecated
   external MimeType? namedItem(String name);
   @deprecated
   external String get name;
@@ -14938,6 +14950,7 @@ extension type MessageEvent._(JSObject _) implements Event, JSObject {
     MessageEventInit eventInitDict,
   ]);
 
+  @deprecated
   external void initMessageEvent(
     String type, [
     bool bubbles,
@@ -16301,6 +16314,7 @@ extension type StorageEvent._(JSObject _) implements Event, JSObject {
 
   /// The **`StorageEvent.initStorageEvent()`** method is used to initialize the
   /// value of a [StorageEvent].
+  @deprecated
   external void initStorageEvent(
     String type, [
     bool bubbles,
@@ -16371,7 +16385,9 @@ extension type HTMLMarqueeElement._(JSObject _)
   /// Creates an [HTMLMarqueeElement] using the tag 'marquee'.
   HTMLMarqueeElement() : _ = document.createElement('marquee');
 
+  @deprecated
   external void start();
+  @deprecated
   external void stop();
   @deprecated
   external String get behavior;
@@ -16671,6 +16687,8 @@ extension type HTMLParamElement._(JSObject _) implements HTMLElement, JSObject {
 }
 @deprecated
 extension type External._(JSObject _) implements JSObject {
+  @deprecated
   external void AddSearchProvider();
+  @deprecated
   external void IsSearchProviderInstalled();
 }

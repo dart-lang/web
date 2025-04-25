@@ -265,6 +265,7 @@ extension type BaseAudioContext._(JSObject _) implements EventTarget, JSObject {
   /// > This feature was replaced by
   /// > [AudioWorklets](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorklet)
   /// > and the [AudioWorkletNode] interface.
+  @deprecated
   external ScriptProcessorNode createScriptProcessor([
     int bufferSize,
     int numberOfInputChannels,
@@ -1425,6 +1426,7 @@ extension type AudioListener._(JSObject _) implements JSObject {
   /// > As this method is deprecated, use the three [AudioListener.positionX],
   /// > [AudioListener.positionY], and [AudioListener.positionZ] properties
   /// > instead.
+  @deprecated
   external void setPosition(
     num x,
     num y,
@@ -1446,6 +1448,7 @@ extension type AudioListener._(JSObject _) implements JSObject {
   ///
   /// The two vectors must be separated by an angle of 90° — in linear analysis
   /// terms, they must be perpendicular to each other.
+  @deprecated
   external void setOrientation(
     num x,
     num y,
@@ -2816,6 +2819,7 @@ extension type PannerNode._(JSObject _) implements AudioNode, JSObject {
   /// coordinate system.
   ///
   /// The `setPosition()` method's default value of the position is `(0, 0, 0)`.
+  @deprecated
   external void setPosition(
     num x,
     num y,
@@ -2843,6 +2847,7 @@ extension type PannerNode._(JSObject _) implements AudioNode, JSObject {
   /// The three parameters `x`, `y` and `z` are unitless and describe a
   /// direction vector in 3D space using the right-hand Cartesian coordinate
   /// system. The default value of the direction vector is `(1, 0, 0)`.
+  @deprecated
   external void setOrientation(
     num x,
     num y,

@@ -64,6 +64,7 @@ extension type Permissions._(JSObject _) implements JSObject {
   /// it's unlikely to reach the standards track.
   /// For more context, see the [original discussion to remove
   /// `permissions.revoke()`](https://github.com/w3c/permissions/issues/46).
+  @deprecated
   external JSPromise<PermissionStatus> revoke(JSObject permissionDesc);
 }
 

@@ -1353,9 +1353,13 @@ extension type SVGSVGElement._(JSObject _)
   /// the document tree) for an [Element] whose `id` property matches the
   /// specified string.
   external Element getElementById(String elementId);
+  @deprecated
   external int suspendRedraw(int maxWaitMilliseconds);
+  @deprecated
   external void unsuspendRedraw(int suspendHandleID);
+  @deprecated
   external void unsuspendRedrawAll();
+  @deprecated
   external void forceRedraw();
 
   /// The `pauseAnimations()` method of the [SVGSVGElement] interface suspends
@@ -2561,6 +2565,7 @@ extension type SVGTextContentElement._(JSObject _)
   ///
   /// If no character is found at the specified position, `-1` is returned.
   external int getCharNumAtPosition([DOMPointInit point]);
+  @deprecated
   external void selectSubString(
     int charnum,
     int nchars,

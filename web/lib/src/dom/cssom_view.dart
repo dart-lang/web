@@ -73,6 +73,7 @@ extension type MediaQueryList._(JSObject _) implements EventTarget, JSObject {
   /// so this method was provided as an alias of [EventTarget.addEventListener].
   /// Use `addEventListener()` instead of `addListener()` if it is
   /// available in the browsers you need to support.
+  @deprecated
   external void addListener(EventListener? callback);
 
   /// The **`removeListener()`** method of the
@@ -84,6 +85,7 @@ extension type MediaQueryList._(JSObject _) implements EventTarget, JSObject {
   /// [EventTarget.removeEventListener].
   /// Use `removeEventListener()` instead of `removeListener()` if it is
   /// available in the browsers you need to support.
+  @deprecated
   external void removeListener(EventListener? callback);
 
   /// The **`media`** read-only property of the

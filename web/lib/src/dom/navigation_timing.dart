@@ -190,6 +190,7 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
   ///
   /// The legacy **`toJSON()`** method of the [PerformanceTiming] interface is a
   /// ; it returns a JSON representation of the [PerformanceTiming] object.
+  @deprecated
   external JSObject toJSON();
 
   /// > [!WARNING]
@@ -613,6 +614,7 @@ extension type PerformanceNavigation._(JSObject _) implements JSObject {
   ///
   /// The **`toJSON()`** method of the [PerformanceNavigation] interface is a ;
   /// it returns a JSON representation of the [PerformanceNavigation] object.
+  @deprecated
   external JSObject toJSON();
 
   /// The legacy

@@ -356,8 +356,9 @@ class _Constant extends _Property {
 
 abstract class _OverridableMember {
   final List<_Parameter> parameters = [];
+  final bool deprecated;
 
-  _OverridableMember(JSArray<idl.Argument> rawParameters) {
+  _OverridableMember(JSArray<idl.Argument> rawParameters, this.deprecated) {
     for (var i = 0; i < rawParameters.length; i++) {
       parameters.add(_Parameter(rawParameters[i]));
     }
@@ -393,12 +394,17 @@ class _OverridableOperation extends _OverridableMember {
   late final _MemberName name = _generateName();
 
   _OverridableOperation._(this._name, this.special, this.returnType,
-      this.mdnProperty, super.parameters);
+      this.mdnProperty, super.parameters, super.deprecated);
 
   factory _OverridableOperation(idl.Operation operation, _MemberName memberName,
-          MdnProperty? mdnProperty) =>
-      _OverridableOperation._(memberName, operation.special,
-          _getRawType(operation.idlType), mdnProperty, operation.arguments);
+          MdnProperty? mdnProperty, bool deprecated) =>
+      _OverridableOperation._(
+          memberName,
+          operation.special,
+          _getRawType(operation.idlType),
+          mdnProperty,
+          operation.arguments,
+          deprecated);
 
   bool get isStatic => special == 'static';
 
@@ -435,8 +441,8 @@ class _OverridableOperation extends _OverridableMember {
 }
 
 class _OverridableConstructor extends _OverridableMember {
-  _OverridableConstructor(idl.Constructor constructor)
-      : super(constructor.arguments);
+  _OverridableConstructor(idl.Constructor constructor, bool deprecated)
+      : super(constructor.arguments, deprecated);
 
   void update(idl.Constructor that) => _processParameters(that.arguments);
 }
@@ -475,7 +481,7 @@ class _PartialInterfacelike {
           final idlConstructor = member as idl.Constructor;
           if (_hasHTMLConstructorAttribute(idlConstructor)) break;
           if (constructor == null) {
-            constructor = _OverridableConstructor(idlConstructor);
+            constructor = _OverridableConstructor(idlConstructor, false);
           } else {
             constructor!.update(idlConstructor);
           }
@@ -559,7 +565,10 @@ class _PartialInterfacelike {
               staticOperations[operationName]!.update(operation);
             } else {
               staticOperations[operationName] = _OverridableOperation(
-                  operation, _MemberName(operationName), docs);
+                  operation,
+                  _MemberName(operationName),
+                  docs,
+                  _memberIsDeprecated(operationName, isStatic: true));
               if (operations.containsKey(operationName)) {
                 staticOperations[operationName]!.underscoreName();
               }
@@ -570,7 +579,10 @@ class _PartialInterfacelike {
             } else {
               staticOperations[operationName]?.underscoreName();
               operations[operationName] = _OverridableOperation(
-                  operation, _MemberName(operationName), docs);
+                  operation,
+                  _MemberName(operationName),
+                  docs,
+                  _memberIsDeprecated(operationName));
             }
           }
           break;
@@ -967,7 +979,7 @@ class Translator {
   T _overridableMember<T>(
       _OverridableMember member,
       T Function(List<code.Parameter> requiredParameters,
-              List<code.Parameter> optionalParameters)
+              List<code.Parameter> optionalParameters, bool deprecated)
           generator) {
     final requiredParameters = <code.Parameter>[];
     final optionalParameters = <code.Parameter>[];
@@ -990,20 +1002,24 @@ class Translator {
         }
       }
     }
-    return generator(requiredParameters, optionalParameters);
+    return generator(requiredParameters, optionalParameters, member.deprecated);
   }
 
   code.Constructor _constructor(_OverridableConstructor constructor) =>
       _overridableMember<code.Constructor>(
           constructor,
-          (requiredParameters, optionalParameters) => code.Constructor((b) => b
-            ..external = true
-            // TODO(srujzs): Should we generate generative or factory
-            // constructors? With `@staticInterop`, factories were needed, but
-            // extension types have no such limitation.
-            ..factory = true
-            ..requiredParameters.addAll(requiredParameters)
-            ..optionalParameters.addAll(optionalParameters)));
+          (requiredParameters, optionalParameters, deprecated) =>
+              code.Constructor((b) => b
+                ..annotations.addAll([
+                  if (deprecated) code.refer('deprecated').expression,
+                ])
+                ..external = true
+                // TODO(srujzs): Should we generate generative or factory
+                // constructors? With `@staticInterop`, factories were needed,
+                // but extension types have no such limitation.
+                ..factory = true
+                ..requiredParameters.addAll(requiredParameters)
+                ..optionalParameters.addAll(optionalParameters)));
 
   // TODO(srujzs): We don't need constructors for many dictionaries as they're
   // only ever returned from APIs instead of passed to them. However,
@@ -1076,15 +1092,19 @@ class Translator {
         : _typeReference(operation.returnType, returnType: true);
     return _overridableMember<code.Method>(
       operation,
-      (requiredParameters, optionalParameters) => code.Method((b) => b
-        ..annotations.addAll(_jsOverride(memberName.jsOverride))
-        ..external = true
-        ..static = operation.isStatic
-        ..returns = returnType
-        ..name = memberName.name
-        ..docs.addAll(operation.mdnProperty?.formattedDocs ?? [])
-        ..requiredParameters.addAll(requiredParameters)
-        ..optionalParameters.addAll(optionalParameters)),
+      (requiredParameters, optionalParameters, deprecated) =>
+          code.Method((b) => b
+            ..annotations.addAll([
+              ..._jsOverride(memberName.jsOverride),
+              if (deprecated) code.refer('deprecated').expression,
+            ])
+            ..external = true
+            ..static = operation.isStatic
+            ..returns = returnType
+            ..name = memberName.name
+            ..docs.addAll(operation.mdnProperty?.formattedDocs ?? [])
+            ..requiredParameters.addAll(requiredParameters)
+            ..optionalParameters.addAll(optionalParameters)),
     );
   }
 

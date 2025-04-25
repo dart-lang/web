@@ -160,6 +160,7 @@ extension type Event._(JSObject _) implements JSObject {
   /// > The page on
   /// > [Creating and triggering events](https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_events)
   /// > gives more information about the way to use these.
+  @deprecated
   external void initEvent(
     String type, [
     bool bubbles,
@@ -367,6 +368,7 @@ extension type CustomEvent._(JSObject _) implements Event, JSObject {
   /// > The page on
   /// > [Creating and triggering events](https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_events)
   /// > gives more information about the way to use those.
+  @deprecated
   external void initCustomEvent(
     String type, [
     bool bubbles,
@@ -1536,6 +1538,7 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// of the type specified. The
   /// returned object should be first initialized and can then be passed to
   /// [EventTarget.dispatchEvent].
+  @deprecated
   external Event createEvent(String interface);
 
   /// The **`Document.createRange()`** method returns a new
@@ -1687,6 +1690,7 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// > `document.write()` on a closed (loaded) document automatically calls
   /// > `document.open()`,
   /// > [which will clear the document](https://developer.mozilla.org/en-US/docs/Web/API/Document/open#notes).
+  @deprecated
   external void write([
     JSAny text1,
     JSAny text2,
@@ -1746,18 +1750,24 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// > `execCommand()` in response to these events. From Firefox 82, nested
   /// > `execCommand()` calls will always fail, see
   /// > [bug 1634262](https://bugzil.la/1634262).
+  @deprecated
   external bool execCommand(
     String commandId, [
     bool showUI,
     String value,
   ]);
+  @deprecated
   external bool queryCommandIndeterm(String commandId);
+  @deprecated
   external String queryCommandValue(String commandId);
 
   /// The **`Document.clear()`** method does nothing, but doesn't raise any
   /// error.
+  @deprecated
   external void clear();
+  @deprecated
   external void captureEvents();
+  @deprecated
   external void releaseEvents();
 
   /// The **`exitPictureInPicture()`** method of the [Document] interface
@@ -1940,6 +1950,7 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// The **`createNSResolver()`** method of the [Document] interface used to
   /// create a custom `XPathNSResolver` object. It now returns the input as-is
   /// and is only kept for compatibility reasons.
+  @deprecated
   external Node createNSResolver(Node nodeResolver);
 
   /// The **`evaluate()`** method of the [Document] interface selects elements
@@ -2737,6 +2748,7 @@ extension type DOMImplementation._(JSObject _) implements JSObject {
   /// The latest version of the spec settled to force this method to always
   /// return
   /// `true`, where the functionality was accurate and in use.
+  @deprecated
   external bool hasFeature();
 }
 
@@ -5362,6 +5374,7 @@ extension type NodeIterator._(JSObject _) implements JSObject {
   /// iterator's state to
   /// `INVALID`. Once this method had been called, calls to other methods on
   /// `NodeIterator` would raise the `INVALID_STATE_ERR` exception.
+  @deprecated
   external void detach();
 
   /// The **`NodeIterator.root`** read-only property represents the
@@ -5788,6 +5801,7 @@ extension type XPathEvaluator._(JSObject _) implements JSObject {
   /// The **`createNSResolver()`** method of the [XPathEvaluator] interface used
   /// to create a custom `XPathNSResolver` object. It now returns the input
   /// as-is and is only kept for compatibility reasons.
+  @deprecated
   external Node createNSResolver(Node nodeResolver);
 
   /// The `evaluate()` method of the [XPathEvaluator] interface

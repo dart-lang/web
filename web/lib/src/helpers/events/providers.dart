@@ -50,6 +50,8 @@ abstract final class EventStreamProviders {
   static const EventStreamProvider<Event> audioEndEvent =
       EventStreamProvider<Event>('audioend');
 
+  // ignore: provide_deprecation_message
+  @deprecated
   static const EventStreamProvider<AudioProcessingEvent> audioProcessEvent =
       EventStreamProvider<AudioProcessingEvent>('audioprocess');
 

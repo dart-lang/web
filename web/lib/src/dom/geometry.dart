@@ -482,6 +482,7 @@ extension type DOMMatrixReadOnly._(JSObject _) implements JSObject {
     num originY,
     num originZ,
   ]);
+  @deprecated
   external DOMMatrix scaleNonUniform([
     num scaleX,
     num scaleY,

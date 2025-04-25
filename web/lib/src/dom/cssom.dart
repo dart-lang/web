@@ -201,6 +201,7 @@ extension type CSSStyleSheet._(JSObject _) implements StyleSheet, JSObject {
   /// stylesheet. You should avoid using this method, and should instead use the
   /// more standard
   /// [CSSStyleSheet.insertRule] method.
+  @deprecated
   external int addRule([
     String selector,
     String style,
@@ -216,6 +217,7 @@ extension type CSSStyleSheet._(JSObject _) implements StyleSheet, JSObject {
   /// > This is a _legacy method_ which has been replaced by
   /// > the standard method [CSSStyleSheet.deleteRule]. You
   /// > should use that instead.
+  @deprecated
   external void removeRule([int index]);
 
   /// The read-only [CSSStyleSheet] property

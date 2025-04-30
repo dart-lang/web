@@ -5,6 +5,7 @@
   don't exist.
 - Fixed generation of variadic arguments to generate 4 optional parameters.
 - Removed all `@Deprecated` members.
+- Added `URL.toDart` and `Uri.toJS` extension methods.
 
 ## 1.1.1
 

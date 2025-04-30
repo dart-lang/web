@@ -84,3 +84,22 @@ extension XMLHttpRequestGlue on XMLHttpRequest {
     return headers;
   }
 }
+
+extension URLToUri on URL {
+  /// Converts this to a Dart [Uri] object.
+  Uri get toDart => Uri.parse(toString());
+}
+
+extension UriToURL on Uri {
+  /// Converts this to a JavaScript [URL] object.
+  ///
+  /// Throws an [ArgumentError] if this isn't an absolute URL, since [URL] can
+  /// only represent absolute URLs.
+  URL get toJS {
+    try {
+      return URL(toString());
+    } catch (_) {
+      throw ArgumentError.value(this, 'this', '"$this" isn\'t a valid JS URL.');
+    }
+  }
+}

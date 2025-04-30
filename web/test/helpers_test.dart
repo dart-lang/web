@@ -134,4 +134,33 @@ void main() {
     // `close` on a `contentWindow` does nothing.
     expect(contentWindow.closed, false);
   });
+
+  test('converts from a JS to a Dart URL', () {
+    final url =
+        URL('https://foo:bar@example.org:1234/path?query#fragment').toDart;
+    expect(url.scheme, equals('https'));
+    expect(url.userInfo, equals('foo:bar'));
+    expect(url.host, equals('example.org'));
+    expect(url.port, equals(1234));
+    expect(url.path, equals('/path'));
+    expect(url.query, equals('query'));
+    expect(url.fragment, equals('fragment'));
+  });
+
+  test('converts from a Dart to a JS URL', () {
+    final url =
+        Uri.parse('https://foo:bar@example.org:1234/path?query#fragment').toJS;
+    expect(url.protocol, equals('https:'));
+    expect(url.username, equals('foo'));
+    expect(url.password, equals('bar'));
+    expect(url.hostname, equals('example.org'));
+    expect(url.port, equals('1234'));
+    expect(url.pathname, equals('/path'));
+    expect(url.search, equals('?query'));
+    expect(url.hash, equals('#fragment'));
+  });
+
+  test('Uri.toJS throws an ArgumentError for a relative URL', () {
+    expect(() => Uri.parse('/path').toJS, throwsArgumentError);
+  });
 }

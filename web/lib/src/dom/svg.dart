@@ -8,7 +8,7 @@
 
 // Generated from Web IDL definitions.
 
-// ignore_for_file: unintended_html_in_doc_comment
+// ignore_for_file: provide_deprecation_message, unintended_html_in_doc_comment
 
 @JS()
 library;
@@ -346,6 +346,7 @@ extension type SVGElement._(JSObject _) implements Element, JSObject {
 }
 
 extension SVGElementExtension on SVGElement {
+  @deprecated
   external SVGAnimatedString get className;
 }
 
@@ -1352,9 +1353,13 @@ extension type SVGSVGElement._(JSObject _)
   /// the document tree) for an [Element] whose `id` property matches the
   /// specified string.
   external Element getElementById(String elementId);
+  @deprecated
   external int suspendRedraw(int maxWaitMilliseconds);
+  @deprecated
   external void unsuspendRedraw(int suspendHandleID);
+  @deprecated
   external void unsuspendRedrawAll();
+  @deprecated
   external void forceRedraw();
 
   /// The `pauseAnimations()` method of the [SVGSVGElement] interface suspends
@@ -1745,7 +1750,9 @@ extension type SVGStyleElement._(JSObject _) implements SVGElement, JSObject {
   /// attribute.
   ///
   /// Authors should not use this property or rely on the value.
+  @deprecated
   external String get type;
+  @deprecated
   external set type(String value);
 
   /// The **`SVGStyleElement.media`** property is a media query string
@@ -2558,6 +2565,7 @@ extension type SVGTextContentElement._(JSObject _)
   ///
   /// If no character is found at the specified position, `-1` is returned.
   external int getCharNumAtPosition([DOMPointInit point]);
+  @deprecated
   external void selectSubString(
     int charnum,
     int nchars,
@@ -3308,7 +3316,9 @@ extension type SVGAElement._(JSObject _)
   external set hreflang(String value);
   external String get type;
   external set type(String value);
+  @deprecated
   external String get text;
+  @deprecated
   external set text(String value);
   external String get referrerPolicy;
   external set referrerPolicy(String value);

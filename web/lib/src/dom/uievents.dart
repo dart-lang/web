@@ -8,7 +8,7 @@
 
 // Generated from Web IDL definitions.
 
-// ignore_for_file: unintended_html_in_doc_comment
+// ignore_for_file: provide_deprecation_message, unintended_html_in_doc_comment
 
 @JS()
 library;
@@ -57,6 +57,7 @@ extension type UIEvent._(JSObject _) implements Event, JSObject {
   /// > page on
   /// > [Creating and triggering events](https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_events)
   /// > gives more information about the way to use these.
+  @deprecated
   external void initUIEvent(
     String typeArg, [
     bool bubblesArg,
@@ -86,6 +87,7 @@ extension type UIEvent._(JSObject _) implements Event, JSObject {
   /// returns a number that indicates which button was pressed on the mouse, or
   /// the numeric `keyCode` or the character code (`charCode`) of the key
   /// pressed on the keyboard.
+  @deprecated
   external int get which;
 }
 extension type UIEventInit._(JSObject _) implements EventInit, JSObject {
@@ -230,6 +232,7 @@ extension type MouseEvent._(JSObject _) implements UIEvent, JSObject {
   /// [Document.createEvent] method.
   /// This method must be called to set the event
   /// before it is dispatched, using [EventTarget.dispatchEvent].
+  @deprecated
   external void initMouseEvent(
     String typeArg, [
     bool bubblesArg,
@@ -910,6 +913,7 @@ extension type KeyboardEvent._(JSObject _) implements UIEvent, JSObject {
   /// implementing this method as experimental broke existing web apps (see
   /// [Firefox bug 999645](https://bugzil.la/999645)).
   /// Web applications should use constructor instead of this if it's available.
+  @deprecated
   external void initKeyboardEvent(
     String typeArg, [
     bool bubblesArg,
@@ -1118,6 +1122,7 @@ extension type KeyboardEvent._(JSObject _) implements UIEvent, JSObject {
   /// > Do not use this property, as it is deprecated. Instead, get the
   /// > Unicode value of the character using the [KeyboardEvent.key]
   /// > property.
+  @deprecated
   external int get charCode;
 
   /// The deprecated **`KeyboardEvent.keyCode`** read-only property represents a
@@ -1139,6 +1144,7 @@ extension type KeyboardEvent._(JSObject _) implements UIEvent, JSObject {
   /// > above, the `keyCode` attribute is not useful for printable characters,
   /// > especially those input with the <kbd>Shift</kbd> or <kbd>Alt</kbd> key
   /// > pressed.
+  @deprecated
   external int get keyCode;
 }
 extension type KeyboardEventInit._(JSObject _)
@@ -1210,6 +1216,7 @@ extension type CompositionEvent._(JSObject _) implements UIEvent, JSObject {
   /// > [!NOTE]
   /// > The correct way of creating a [CompositionEvent] is to use
   /// > the constructor [CompositionEvent.CompositionEvent].
+  @deprecated
   external void initCompositionEvent(
     String typeArg, [
     bool bubblesArg,
@@ -1252,6 +1259,7 @@ extension type CompositionEventInit._(JSObject _)
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/TextEvent).
+@deprecated
 extension type TextEvent._(JSObject _) implements UIEvent, JSObject {
   /// The **`initTextEventEvent()`** method of the [TextEvent] interface
   /// initializes the value of a `TextEvent` after it has been created.
@@ -1262,6 +1270,7 @@ extension type TextEvent._(JSObject _) implements UIEvent, JSObject {
   /// > [!NOTE]
   /// > In general, you won't create these events yourself; they are created by
   /// > the browser.
+  @deprecated
   external void initTextEvent(
     String type, [
     bool bubbles,
@@ -1272,5 +1281,6 @@ extension type TextEvent._(JSObject _) implements UIEvent, JSObject {
 
   /// The **`data`** read-only property of the [TextEvent] interface returns the
   /// last character added to the input element.
+  @deprecated
   external String get data;
 }

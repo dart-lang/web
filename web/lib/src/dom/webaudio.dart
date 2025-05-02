@@ -8,7 +8,7 @@
 
 // Generated from Web IDL definitions.
 
-// ignore_for_file: unintended_html_in_doc_comment
+// ignore_for_file: provide_deprecation_message, unintended_html_in_doc_comment
 
 @JS()
 library;
@@ -265,6 +265,7 @@ extension type BaseAudioContext._(JSObject _) implements EventTarget, JSObject {
   /// > This feature was replaced by
   /// > [AudioWorklets](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorklet)
   /// > and the [AudioWorkletNode] interface.
+  @deprecated
   external ScriptProcessorNode createScriptProcessor([
     int bufferSize,
     int numberOfInputChannels,
@@ -1425,6 +1426,7 @@ extension type AudioListener._(JSObject _) implements JSObject {
   /// > As this method is deprecated, use the three [AudioListener.positionX],
   /// > [AudioListener.positionY], and [AudioListener.positionZ] properties
   /// > instead.
+  @deprecated
   external void setPosition(
     num x,
     num y,
@@ -1446,6 +1448,7 @@ extension type AudioListener._(JSObject _) implements JSObject {
   ///
   /// The two vectors must be separated by an angle of 90° — in linear analysis
   /// terms, they must be perpendicular to each other.
+  @deprecated
   external void setOrientation(
     num x,
     num y,
@@ -1567,6 +1570,7 @@ extension type AudioListener._(JSObject _) implements JSObject {
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AudioProcessingEvent).
+@deprecated
 extension type AudioProcessingEvent._(JSObject _) implements Event, JSObject {
   external factory AudioProcessingEvent(
     String type,
@@ -1576,6 +1580,7 @@ extension type AudioProcessingEvent._(JSObject _) implements Event, JSObject {
   /// The **`playbackTime`** read-only property of the [AudioProcessingEvent]
   /// interface represents the time when the audio will be played. It is in the
   /// same coordinate system as the time used by the [AudioContext].
+  @deprecated
   external double get playbackTime;
 
   /// The **`inputBuffer`** read-only property of the [AudioProcessingEvent]
@@ -1587,6 +1592,7 @@ extension type AudioProcessingEvent._(JSObject _) implements Event, JSObject {
   /// series of amplitudes. The number of channels and the length of each
   /// channel are determined by the channel count and buffer size properties of
   /// the `AudioBuffer`.
+  @deprecated
   external AudioBuffer get inputBuffer;
 
   /// The **`outputBuffer`** read-only property of the [AudioProcessingEvent]
@@ -1598,6 +1604,7 @@ extension type AudioProcessingEvent._(JSObject _) implements Event, JSObject {
   /// series of amplitudes. The number of channels and the length of each
   /// channel are determined by the channel count and buffer size properties of
   /// the `AudioBuffer`.
+  @deprecated
   external AudioBuffer get outputBuffer;
 }
 extension type AudioProcessingEventInit._(JSObject _)
@@ -2812,6 +2819,7 @@ extension type PannerNode._(JSObject _) implements AudioNode, JSObject {
   /// coordinate system.
   ///
   /// The `setPosition()` method's default value of the position is `(0, 0, 0)`.
+  @deprecated
   external void setPosition(
     num x,
     num y,
@@ -2839,6 +2847,7 @@ extension type PannerNode._(JSObject _) implements AudioNode, JSObject {
   /// The three parameters `x`, `y` and `z` are unitless and describe a
   /// direction vector in 3D space using the right-hand Cartesian coordinate
   /// system. The default value of the direction vector is `(1, 0, 0)`.
+  @deprecated
   external void setOrientation(
     num x,
     num y,
@@ -3268,9 +3277,12 @@ extension type PeriodicWaveOptions._(JSObject _)
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ScriptProcessorNode).
+@deprecated
 extension type ScriptProcessorNode._(JSObject _)
     implements AudioNode, JSObject {
+  @deprecated
   external EventHandler get onaudioprocess;
+  @deprecated
   external set onaudioprocess(EventHandler value);
 
   /// The `bufferSize` property of the [ScriptProcessorNode] interface returns
@@ -3282,6 +3294,7 @@ extension type ScriptProcessorNode._(JSObject _)
   /// > This feature was replaced by
   /// > [AudioWorklets](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorklet)
   /// > and the [AudioWorkletNode] interface.
+  @deprecated
   external int get bufferSize;
 }
 

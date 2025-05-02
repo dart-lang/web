@@ -8,7 +8,7 @@
 
 // Generated from Web IDL definitions.
 
-// ignore_for_file: unintended_html_in_doc_comment
+// ignore_for_file: provide_deprecation_message, unintended_html_in_doc_comment
 
 @JS()
 library;
@@ -277,6 +277,7 @@ extension type FileReader._(JSObject _) implements EventTarget, JSObject {
   /// but
   /// re-introduced for backward compatibility.
   /// Using [FileReader.readAsArrayBuffer] is recommended.
+  @deprecated
   external void readAsBinaryString(Blob blob);
 
   /// The **`readAsText()`** method of the [FileReader] interface is used to
@@ -393,6 +394,7 @@ extension type FileReaderSync._(JSObject _) implements JSObject {
   /// [only available](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Functions_and_classes_available_to_workers)
   /// in [workers](https://developer.mozilla.org/en-US/docs/Web/API/Worker) as
   /// it enables synchronous I/O that could potentially block.
+  @deprecated
   external String readAsBinaryString(Blob blob);
 
   /// @AvailableInWorkers("worker_except_service")

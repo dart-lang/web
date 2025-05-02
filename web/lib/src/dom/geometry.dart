@@ -8,7 +8,7 @@
 
 // Generated from Web IDL definitions.
 
-// ignore_for_file: unintended_html_in_doc_comment
+// ignore_for_file: provide_deprecation_message, unintended_html_in_doc_comment
 
 @JS()
 library;
@@ -482,6 +482,7 @@ extension type DOMMatrixReadOnly._(JSObject _) implements JSObject {
     num originY,
     num originZ,
   ]);
+  @deprecated
   external DOMMatrix scaleNonUniform([
     num scaleX,
     num scaleY,

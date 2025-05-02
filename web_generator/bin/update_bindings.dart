@@ -85,6 +85,7 @@ $_usage''');
   await _runProc(
     'node',
     [
+      '--enable-source-maps',
       'main.mjs',
       '--output-directory=${p.join(_webPackagePath, 'lib', 'src')}',
       if (generateAll) '--generate-all',

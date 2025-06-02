@@ -1,0 +1,1 @@
+parseDeclarationFiles(Iterable<String> files) {}

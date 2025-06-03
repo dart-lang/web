@@ -1,1 +1,2 @@
-parseDeclarationFiles(Iterable<String> files) {}
+// TODO(nikeokoronkwo): Implement this function
+dynamic parseDeclarationFiles(Iterable<String> files) {}

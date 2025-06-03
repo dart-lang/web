@@ -4,12 +4,12 @@
 
 import 'dart:js_interop';
 
-import 'translator.dart';
-import 'util.dart';
 import 'js/webidl_api.dart' as webidl;
 import 'js/webref_css_api.dart';
 import 'js/webref_elements_api.dart';
 import 'js/webref_idl_api.dart';
+import 'translator.dart';
+import 'util.dart';
 
 /// Generate CSS property names for setting / getting CSS properties in JS.
 Future<List<String>> _generateCSSStyleDeclarations() async {

@@ -7,7 +7,7 @@ import 'dart:js_interop';
 
 import 'package:path/path.dart' as p;
 
-import 'filesystem_api.dart';
+import 'js/filesystem_api.dart';
 import 'formatting.dart';
 
 class DocProvider {

@@ -15,8 +15,8 @@ import 'singletons.dart';
 import 'type_aliases.dart';
 import 'type_union.dart';
 import 'util.dart';
-import 'webidl_api.dart' as idl;
-import 'webref_elements_api.dart';
+import 'js/webidl_api.dart' as idl;
+import 'js/webref_elements_api.dart';
 
 typedef TranslationResult = Map<String, code.Library>;
 

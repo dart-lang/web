@@ -10,10 +10,10 @@ import 'package:code_builder/code_builder.dart' as code;
 import 'package:dart_style/dart_style.dart';
 import 'package:pub_semver/pub_semver.dart';
 
-import 'filesystem_api.dart';
+import 'js/filesystem_api.dart';
 import 'generate_bindings.dart';
-import 'ts_gen/parser.dart';
-import 'ts_gen/transform.dart';
+import 'dts/parser.dart';
+import 'dts/transform.dart';
 import 'util.dart';
 
 // Generates DOM bindings for Dart.

@@ -4,7 +4,7 @@
 
 import 'dart:js_interop';
 
-import 'filesystem_api.dart';
+import 'js/filesystem_api.dart';
 
 // TODO(joshualitt): Let's find a better place for these.
 @JS('Object.entries')

@@ -82,7 +82,7 @@ $_usage''');
     'node',
     [
       'main.mjs',
-      '--output-directory=${p.join(_webPackagePath, 'lib', 'src')}',
+      '--output=${p.join(_webPackagePath, 'lib', 'src')}',
       if (generateAll) '--generate-all',
     ],
     workingDirectory: _bindingsGeneratorPath,

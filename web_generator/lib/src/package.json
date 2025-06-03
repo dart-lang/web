@@ -12,7 +12,8 @@
     "@mdn/browser-compat-data": "^5.5.2",
     "@webref/css": "^6.11.0",
     "@webref/elements": "^2.2.2",
-    "@webref/idl": "^3.43.1"
+    "@webref/idl": "^3.43.1",
+    "typescript": "^5.8.3"
   },
   "devDependencies": {
     "webidl2": "^24.2.2"

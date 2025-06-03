@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:js_interop';
+import 'dart:math';
 
 import 'package:args/args.dart';
 import 'package:code_builder/code_builder.dart' as code;
@@ -11,6 +12,8 @@ import 'package:pub_semver/pub_semver.dart';
 
 import 'filesystem_api.dart';
 import 'generate_bindings.dart';
+import 'ts_gen/parser.dart';
+import 'ts_gen/transform.dart';
 import 'util.dart';
 
 // Generates DOM bindings for Dart.
@@ -24,16 +27,44 @@ void main(List<String> args) async {
   if (languageVersionString.isEmpty) {
     languageVersionString = DartFormatter.latestLanguageVersion.toString();
   }
-  final ArgResults argResult;
-  argResult = _parser.parse(args);
-  await _generateAndWriteBindings(
-    outputDirectory: argResult['output-directory'] as String,
-    generateAll: argResult['generate-all'] as bool,
-    languageVersion: Version.parse(languageVersionString),
-  );
+
+  final argResult = _parser.parse(args);
+
+  switch (argResult.rest.first.toLowerCase()) {
+    case 'idl':
+      await generateIDLBindings(
+        outputDirectory: argResult['output'] as String,
+        generateAll: argResult['generate-all'] as bool,
+        languageVersion: Version.parse(languageVersionString),
+      );
+      break;
+    case 'ts':
+      await generateInterfaceBindings(
+          inputs: argResult['input'] as Iterable<String>,
+          output: argResult['output'] as String);
+      break;
+  }
 }
 
-Future<void> _generateAndWriteBindings({
+// TODO(nikeokoronkwo): Add support for configuration
+Future<void> generateInterfaceBindings({
+  required Iterable<String> inputs,
+  required String output,
+}) async {
+  // generate
+  final jsDeclarations = parseDeclarationFiles(inputs);
+
+  // transform declarations
+  final dartDeclarations = transformDeclarations(jsDeclarations);
+
+  // generate
+  final generatedCode = dartDeclarations.generate();
+
+  // write code to file
+  fs.writeFileSync(output.toJS, generatedCode.toJS);
+}
+
+Future<void> generateIDLBindings({
   required String outputDirectory,
   required bool generateAll,
   required Version languageVersion,
@@ -65,10 +96,25 @@ String _emitLibrary(code.Library library, Version languageVersion) {
       .format(source.toString());
 }
 
+final _usage = '''
+
+Usage: main.mjs <idl|ts> [options]
+
+${_parser.usage}
+''';
+
 final _parser = ArgParser()
-  ..addOption('output-directory',
-      mandatory: true, help: 'Directory where bindings will be generated to.')
+  ..addOption('output',
+      mandatory: true,
+      abbr: 'o',
+      help: 'Output where bindings will be generated to '
+          '(directory for IDL, file for TS Declarations)')
   ..addFlag('generate-all',
       negatable: false,
-      help: 'Generate bindings for all IDL definitions, including experimental '
-          'and non-standard APIs.');
+      help: '[IDL] Generate bindings for all IDL definitions, '
+          'including experimental and non-standard APIs.')
+  ..addMultiOption('input',
+      abbr: 'i',
+      help: '[TS Declarations] The input file to read and generate types for')
+  ..addOption('config',
+      abbr: 'c', hide: true, valueHelp: '[file].yaml', help: 'Configuration');

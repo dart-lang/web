@@ -59,9 +59,9 @@ $_usage''');
         'js',
         '--enable-asserts',
         '--server-mode',
-        'dart_ts_main.dart',
+        'dart_main.dart',
         '-o',
-        'dart_ts_main.js',
+        'dart_main.js',
       ],
       workingDirectory: bindingsGeneratorPath,
     );
@@ -77,7 +77,7 @@ $_usage''');
   await runProc(
     'node',
     [
-      'ts_main.mjs',
+      'main.mjs',
       '--input=${p.relative(inputFile, from: bindingsGeneratorPath)}',
       '--output=$relativeOutputPath'
     ],
@@ -99,6 +99,6 @@ final _parser = ArgParser()
 final _usage = '''
 Usage:
 
-$_thisScript <.d.ts file>
+$_thisScript <.d.ts file> [options]
 
 ${_parser.usage}''';

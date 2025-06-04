@@ -27,7 +27,9 @@ Future<void> runProc(String executable, List<String> arguments,
 }
 
 Future<File> createJsTypeSupertypeContext() async {
-  final contextFile = await File(p.join(bindingsGeneratorPath, '_js_supertypes_src.dart')).create();
+  final contextFile =
+      await File(p.join(bindingsGeneratorPath, '_js_supertypes_src.dart'))
+          .create();
   await contextFile.writeAsString('''
 import 'dart:js_interop';
 
@@ -41,9 +43,8 @@ external JSPromise get promise;
 /// used by both translators.
 Future<void> generateJsTypeSupertypes(String contextFile) async {
   // Use a file that uses `dart:js_interop` for analysis.
-  final contextCollection = AnalysisContextCollection(includedPaths: [
-    contextFile
-  ]);
+  final contextCollection =
+      AnalysisContextCollection(includedPaths: [contextFile]);
   final dartJsInterop = (await contextCollection.contexts.single.currentSession
           .getLibraryByUri('dart:js_interop') as LibraryElementResult)
       .element2;

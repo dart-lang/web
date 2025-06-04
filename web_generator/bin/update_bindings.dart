@@ -81,11 +81,11 @@ $_usage''');
   if (!cmdIsIdl) {
     final inputFile = cmdResults.rest.first;
     final outputFile = cmdResults['output'] as String? ??
-      p.join(p.current, inputFile.replaceAll('.d.ts', '.dart'));
-    final configFile = cmdResults['config'] as String? ??
-      p.join(p.current, 'webgen.yaml');
+        p.join(p.current, inputFile.replaceAll('.d.ts', '.dart'));
+    final configFile =
+        cmdResults['config'] as String? ?? p.join(p.current, 'webgen.yaml');
     final relativeOutputPath =
-      p.relative(outputFile, from: bindingsGeneratorPath);
+        p.relative(outputFile, from: bindingsGeneratorPath);
     // Run app with `node`.
     await runProc(
       'node',
@@ -94,7 +94,7 @@ $_usage''');
         '--declaration',
         '--input=${p.relative(inputFile, from: bindingsGeneratorPath)}',
         '--output=$relativeOutputPath'
-        '--config=$configFile'
+            '--config=$configFile'
       ],
       workingDirectory: bindingsGeneratorPath,
     );
@@ -190,8 +190,7 @@ final _webPackagePath = p.fromUri(Platform.script.resolve('../../web'));
 
 String _packageLockVersion(String package) {
   final packageLockData = jsonDecode(
-    File(p.join(bindingsGeneratorPath, 'package-lock.json'))
-        .readAsStringSync(),
+    File(p.join(bindingsGeneratorPath, 'package-lock.json')).readAsStringSync(),
   ) as Map<String, dynamic>;
 
   final packages = packageLockData['packages'] as Map<String, dynamic>;

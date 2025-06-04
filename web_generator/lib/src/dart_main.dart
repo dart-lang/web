@@ -39,10 +39,10 @@ void main(List<String> args) async {
       break;
     case 'ts':
       await generateJSInteropBindings(
-          inputs: argResult['input'] as Iterable<String>,
-          output: argResult['output'] as String,
-          languageVersion: Version.parse(languageVersionString),
-        );
+        inputs: argResult['input'] as Iterable<String>,
+        output: argResult['output'] as String,
+        languageVersion: Version.parse(languageVersionString),
+      );
       break;
   }
 }

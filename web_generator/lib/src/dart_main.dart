@@ -38,17 +38,20 @@ void main(List<String> args) async {
       );
       break;
     case 'ts':
-      await generateInterfaceBindings(
+      await generateJSInteropBindings(
           inputs: argResult['input'] as Iterable<String>,
-          output: argResult['output'] as String);
+          output: argResult['output'] as String,
+          languageVersion: Version.parse(languageVersionString),
+        );
       break;
   }
 }
 
 // TODO(nikeokoronkwo): Add support for configuration
-Future<void> generateInterfaceBindings({
+Future<void> generateJSInteropBindings({
   required Iterable<String> inputs,
   required String output,
+  required Version languageVersion,
 }) async {
   // generate
   final jsDeclarations = parseDeclarationFiles(inputs);

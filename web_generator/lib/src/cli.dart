@@ -10,16 +10,13 @@ import 'package:path/path.dart' as p;
 
 final bindingsGeneratorPath = p.fromUri(Platform.script.resolve('../lib/src'));
 
-Future<void> runProc(
-  String executable,
-  List<String> arguments, {
-  required String workingDirectory,
-}) async {
+Future<void> runProc(String executable, List<String> arguments,
+    {required String workingDirectory, bool detached = false}) async {
   print(ansi.styleBold.wrap(['*', executable, ...arguments].join(' ')));
   final proc = await Process.start(
     executable,
     arguments,
-    mode: ProcessStartMode.inheritStdio,
+    mode: detached ? ProcessStartMode.detached : ProcessStartMode.inheritStdio,
     runInShell: Platform.isWindows,
     workingDirectory: workingDirectory,
   );
@@ -29,12 +26,23 @@ Future<void> runProc(
   }
 }
 
+Future<File> createJsTypeSupertypeContext() async {
+  final contextFile = await File(p.join(bindingsGeneratorPath, '_js_supertypes_src.dart')).create();
+  await contextFile.writeAsString('''
+import 'dart:js_interop';
+
+@JS()
+external JSPromise get promise;
+''');
+  return contextFile;
+}
+
 /// Generates a map of the JS type hierarchy defined in `dart:js_interop` that's
 /// used by both translators.
-Future<void> generateJsTypeSupertypes() async {
+Future<void> generateJsTypeSupertypes(String contextFile) async {
   // Use a file that uses `dart:js_interop` for analysis.
   final contextCollection = AnalysisContextCollection(includedPaths: [
-    p.join(bindingsGeneratorPath, '_js_supertypes_src.dart')
+    contextFile
   ]);
   final dartJsInterop = (await contextCollection.contexts.single.currentSession
           .getLibraryByUri('dart:js_interop') as LibraryElementResult)

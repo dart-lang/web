@@ -5,40 +5,34 @@ import 'dart:io';
 
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
-
-import 'utils/run_process.dart';
+import 'package:web_generator/src/cli.dart';
 
 void main() {
   final testGenFolder = p.join('test', 'gen');
   final testGenDTSFiles = p.join(testGenFolder, 'input');
-
-  final bindingsGenPath = p.join('lib', 'src');
 
   group('Web Generator TS Bindings Integration Test', () {
     final inputDir = Directory(testGenDTSFiles);
 
     setUp(() async {
       // set up npm
-      await runProcess(
-        'npm',
-        ['install'],
-        workingDirectory: bindingsGenPath,
-      );
+      await runProc('npm', ['install'],
+          workingDirectory: bindingsGeneratorPath, detached: true);
 
       // compile file
-      await runProcess(
-        Platform.executable,
-        [
-          'compile',
-          'js',
-          '--enable-asserts',
-          '--server-mode',
-          'dart_main.dart',
-          '-o',
-          'dart_main.js',
-        ],
-        workingDirectory: bindingsGenPath,
-      );
+      await runProc(
+          Platform.executable,
+          [
+            'compile',
+            'js',
+            '--enable-asserts',
+            '--server-mode',
+            'dart_main.dart',
+            '-o',
+            'dart_main.js',
+          ],
+          workingDirectory: bindingsGeneratorPath,
+          detached: true);
     });
 
     for (final inputFile in inputDir.listSync().whereType<File>()) {
@@ -50,19 +44,21 @@ void main() {
           p.join('test', 'gen', 'expected', '${inputFileName}_expected.dart');
 
       test(inputFileName, () async {
-        final inputFilePath = p.relative(inputFile.path, from: bindingsGenPath);
-        final outFilePath = p.relative(outputActualPath, from: bindingsGenPath);
+        final inputFilePath =
+            p.relative(inputFile.path, from: bindingsGeneratorPath);
+        final outFilePath =
+            p.relative(outputActualPath, from: bindingsGeneratorPath);
         // run the entrypoint
-        await runProcess(
-          'node',
-          [
-            'main.mjs',
-            '--input=$inputFilePath',
-            '--output=$outFilePath',
-            '--declaration'
-          ],
-          workingDirectory: bindingsGenPath,
-        );
+        await runProc(
+            'node',
+            [
+              'main.mjs',
+              '--input=$inputFilePath',
+              '--output=$outFilePath',
+              '--declaration'
+            ],
+            workingDirectory: bindingsGeneratorPath,
+            detached: true);
 
         // read files
         final expectedOutput = await File(outputExpectedPath).readAsString();

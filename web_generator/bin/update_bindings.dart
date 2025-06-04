@@ -31,7 +31,20 @@ $_usage''');
     return;
   }
 
+  if (argResult.command == null) {
+    print('''
+${ansi.lightRed.wrap('You need to pick a command between "idl" and "dts"')}
+
+$_usage''');
+    exitCode = ExitCode.usage.code;
+    return;
+  }
+
   assert(p.fromUri(Platform.script).endsWith(_thisScript.toFilePath()));
+
+  final cmd = argResult.command!.name;
+  final cmdResults = argResult.command!;
+  final cmdIsIdl = cmd == 'idl';
 
   // Run `npm install` or `npm update` as needed.
   final update = argResult['update'] as bool;
@@ -41,8 +54,10 @@ $_usage''');
     workingDirectory: bindingsGeneratorPath,
   );
 
+  final contextFile = await createJsTypeSupertypeContext();
+
   // Compute JS type supertypes for union calculation in translator.
-  await generateJsTypeSupertypes();
+  await generateJsTypeSupertypes(contextFile.path);
 
   if (argResult['compile'] as bool) {
     final webPkgLangVersion = await _webPackageLanguageVersion(_webPackagePath);
@@ -59,8 +74,33 @@ $_usage''');
         '-o',
         'dart_main.js',
       ],
-      workingDirectory: _bindingsGeneratorPath,
+      workingDirectory: bindingsGeneratorPath,
     );
+  }
+
+  if (!cmdIsIdl) {
+    final inputFile = cmdResults.rest.first;
+    final outputFile = cmdResults['output'] as String? ??
+      p.join(p.current, inputFile.replaceAll('.d.ts', '.dart'));
+    final configFile = cmdResults['config'] as String? ??
+      p.join(p.current, 'webgen.yaml');
+    final relativeOutputPath =
+      p.relative(outputFile, from: bindingsGeneratorPath);
+    // Run app with `node`.
+    await runProc(
+      'node',
+      [
+        'main.mjs',
+        '--declaration',
+        '--input=${p.relative(inputFile, from: bindingsGeneratorPath)}',
+        '--output=$relativeOutputPath'
+        '--config=$configFile'
+      ],
+      workingDirectory: bindingsGeneratorPath,
+    );
+
+    await contextFile.delete();
+    return;
   }
 
   // Determine the set of previously generated files.
@@ -77,7 +117,7 @@ $_usage''');
   };
 
   // Run app with `node`.
-  final generateAll = argResult['generate-all'] as bool;
+  final generateAll = cmdResults['generate-all'] as bool;
   await runProc(
     'node',
     [
@@ -85,7 +125,7 @@ $_usage''');
       '--output=${p.join(_webPackagePath, 'lib', 'src')}',
       if (generateAll) '--generate-all',
     ],
-    workingDirectory: _bindingsGeneratorPath,
+    workingDirectory: bindingsGeneratorPath,
   );
 
   // Delete previously generated files that have not been updated.
@@ -95,6 +135,9 @@ $_usage''');
       file.deleteSync();
     }
   }
+
+  // delete context file
+  await contextFile.delete();
 
   // Update readme.
   final readmeFile =
@@ -147,7 +190,7 @@ final _webPackagePath = p.fromUri(Platform.script.resolve('../../web'));
 
 String _packageLockVersion(String package) {
   final packageLockData = jsonDecode(
-    File(p.join(_bindingsGeneratorPath, 'package-lock.json'))
+    File(p.join(bindingsGeneratorPath, 'package-lock.json'))
         .readAsStringSync(),
   ) as Map<String, dynamic>;
 
@@ -155,8 +198,6 @@ String _packageLockVersion(String package) {
   final webRefIdl = packages['node_modules/$package'] as Map<String, dynamic>;
   return webRefIdl['version'] as String;
 }
-
-final _bindingsGeneratorPath = p.fromUri(Platform.script.resolve('../lib/src'));
 
 const _webRefCss = '@webref/css';
 const _webRefElements = '@webref/elements';
@@ -171,14 +212,40 @@ final _endComment =
     '<!-- END updated by $_scriptPOSIXPath. Do not modify by hand -->';
 
 final _usage = '''
+Global Options:
+${_parser.usage}
+
+${ansi.styleBold.wrap('IDL Command')}: $_thisScript idl [options]
+
 Usage:
-${_parser.usage}''';
+${_parser.commands['idl']?.usage}
+
+${ansi.styleBold.wrap('Typescript Gen Command')}: $_thisScript dts <.d.ts file> [options]
+
+Usage:
+${_parser.commands['dts']?.usage}''';
 
 final _parser = ArgParser()
+  ..addFlag('help', negatable: false, help: 'Show help information')
   ..addFlag('update', abbr: 'u', help: 'Update npm dependencies')
   ..addFlag('compile', defaultsTo: true)
-  ..addFlag('help', negatable: false)
-  ..addFlag('generate-all',
-      negatable: false,
-      help: 'Generate bindings for all IDL definitions, including experimental '
-          'and non-standard APIs.');
+  ..addCommand(
+      'idl',
+      ArgParser()
+        ..addFlag('generate-all',
+            negatable: false,
+            help:
+                'Generate bindings for all IDL definitions, including experimental '
+                'and non-standard APIs.'))
+  ..addCommand(
+      'dts',
+      ArgParser()
+        ..addOption('output',
+            abbr: 'o',
+            help: 'The output path to generate the Dart interface code')
+        ..addOption('config',
+            hide: true,
+            abbr: 'c',
+            help:
+                'The configuration file to use for this tool (NOTE: Unimplemented)')
+        ..addFlag('help', negatable: false));

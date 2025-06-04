@@ -12,7 +12,7 @@ run on Node.
 To regenerate `web` bindings from the current IDL versions, run:
 
 ```shell
-dart bin/update_bindings.dart
+dart bin/update_bindings.dart idl
 ```
 
 ## Update to the latest Web IDL versions and regenerate
@@ -20,7 +20,7 @@ dart bin/update_bindings.dart
 To re-generate the package from newer IDL versions, you can either run:
 
 ```shell
-dart bin/update_bindings.dart --update
+dart bin/update_bindings.dart idl --update
 ```
 
 or, manually edit `lib/src/package.json` to use specific IDL versions, and
@@ -80,7 +80,7 @@ definitions:
 To ignore the compatibility data and emit all members, run:
 
 ```shell
-dart bin/update_bindings.dart --generate-all
+dart bin/update_bindings.dart idl --generate-all
 ```
 
 This is useful if you want to avoid having to write bindings manually for some

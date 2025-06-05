@@ -31,20 +31,7 @@ $_usage''');
     return;
   }
 
-  if (argResult.command == null) {
-    print('''
-${ansi.lightRed.wrap('You need to pick a command between "idl" and "dts"')}
-
-$_usage''');
-    exitCode = ExitCode.usage.code;
-    return;
-  }
-
   assert(p.fromUri(Platform.script).endsWith(_thisScript.toFilePath()));
-
-  final cmd = argResult.command!.name;
-  final cmdResults = argResult.command!;
-  final cmdIsIdl = cmd == 'idl';
 
   // Run `npm install` or `npm update` as needed.
   final update = argResult['update'] as bool;
@@ -62,45 +49,7 @@ $_usage''');
   if (argResult['compile'] as bool) {
     final webPkgLangVersion = await _webPackageLanguageVersion(_webPackagePath);
     // Compile Dart to Javascript.
-    await runProc(
-      Platform.executable,
-      [
-        'compile',
-        'js',
-        '--enable-asserts',
-        '--server-mode',
-        '-DlanguageVersion=$webPkgLangVersion',
-        'dart_main.dart',
-        '-o',
-        'dart_main.js',
-      ],
-      workingDirectory: bindingsGeneratorPath,
-    );
-  }
-
-  if (!cmdIsIdl) {
-    final inputFile = cmdResults.rest.first;
-    final outputFile = cmdResults['output'] as String? ??
-        p.join(p.current, inputFile.replaceAll('.d.ts', '.dart'));
-    final configFile =
-        cmdResults['config'] as String? ?? p.join(p.current, 'webgen.yaml');
-    final relativeOutputPath =
-        p.relative(outputFile, from: bindingsGeneratorPath);
-    // Run app with `node`.
-    await runProc(
-      'node',
-      [
-        'main.mjs',
-        '--declaration',
-        '--input=${p.relative(inputFile, from: bindingsGeneratorPath)}',
-        '--output=$relativeOutputPath'
-            '--config=$configFile'
-      ],
-      workingDirectory: bindingsGeneratorPath,
-    );
-
-    await contextFile.delete();
-    return;
+    await compileDartMain(langVersion: webPkgLangVersion);
   }
 
   // Determine the set of previously generated files.
@@ -117,7 +66,7 @@ $_usage''');
   };
 
   // Run app with `node`.
-  final generateAll = cmdResults['generate-all'] as bool;
+  final generateAll = argResult['generate-all'] as bool;
   await runProc(
     'node',
     [
@@ -202,7 +151,7 @@ const _webRefCss = '@webref/css';
 const _webRefElements = '@webref/elements';
 const _webRefIdl = '@webref/idl';
 
-final _thisScript = Uri.parse('bin/update_bindings.dart');
+final _thisScript = Uri.parse('bin/update_idl_bindings.dart');
 final _scriptPOSIXPath = _thisScript.toFilePath(windows: false);
 
 final _startComment =
@@ -228,23 +177,7 @@ final _parser = ArgParser()
   ..addFlag('help', negatable: false, help: 'Show help information')
   ..addFlag('update', abbr: 'u', help: 'Update npm dependencies')
   ..addFlag('compile', defaultsTo: true)
-  ..addCommand(
-      'idl',
-      ArgParser()
-        ..addFlag('generate-all',
-            negatable: false,
-            help:
-                'Generate bindings for all IDL definitions, including experimental '
-                'and non-standard APIs.'))
-  ..addCommand(
-      'dts',
-      ArgParser()
-        ..addOption('output',
-            abbr: 'o',
-            help: 'The output path to generate the Dart interface code')
-        ..addOption('config',
-            hide: true,
-            abbr: 'c',
-            help:
-                'The configuration file to use for this tool (NOTE: Unimplemented)')
-        ..addFlag('help', negatable: false));
+  ..addFlag('generate-all',
+      negatable: false,
+      help: 'Generate bindings for all IDL definitions, including experimental '
+          'and non-standard APIs.');

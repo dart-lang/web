@@ -11,10 +11,10 @@ stages:
 - generate_and_analyze:
   - command:
     - dart pub -C ../web get
-    - dart bin/update_bindings.dart
+    - dart bin/update_idl_bindings.dart
     - dart analyze --fatal-infos ../web
 - generate_all_and_analyze:
   - command:
     - dart pub -C ../web get
-    - dart bin/update_bindings.dart --generate-all
+    - dart bin/update_idl_bindings.dart --generate-all
     - dart analyze --fatal-infos ../web

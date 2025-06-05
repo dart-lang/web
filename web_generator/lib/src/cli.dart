@@ -10,6 +10,23 @@ import 'package:path/path.dart' as p;
 
 final bindingsGeneratorPath = p.fromUri(Platform.script.resolve('../lib/src'));
 
+Future<void> compileDartMain({String? langVersion}) async {
+  await runProc(
+    Platform.executable,
+    [
+      'compile',
+      'js',
+      '--enable-asserts',
+      '--server-mode',
+      if (langVersion != null) '-DlanguageVersion=$langVersion',
+      'dart_main.dart',
+      '-o',
+      'dart_main.js',
+    ],
+    workingDirectory: bindingsGeneratorPath,
+  );
+}
+
 Future<void> runProc(String executable, List<String> arguments,
     {required String workingDirectory, bool detached = false}) async {
   print(ansi.styleBold.wrap(['*', executable, ...arguments].join(' ')));

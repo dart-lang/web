@@ -98,13 +98,6 @@ String _emitLibrary(code.Library library, Version languageVersion) {
       .format(source.toString());
 }
 
-final _usage = '''
-
-Usage: main.mjs <idl|ts> [options]
-
-${_parser.usage}
-''';
-
 final _parser = ArgParser()
   ..addOption('output',
       mandatory: true,

@@ -1,5 +1,5 @@
 #!/bin/bash
-# Created with package:mono_repo v6.6.2
+# Created with package:mono_repo v6.6.3
 
 # Support built in commands on windows out of the box.
 
@@ -72,12 +72,12 @@ for PKG in ${PKGS}; do
         dart fix --compare-to-golden test_fixes || EXIT_CODE=$?
         ;;
       command_1)
-        echo 'dart pub -C ../web get && dart bin/update_bindings.dart && dart analyze --fatal-infos ../web'
-        dart pub -C ../web get && dart bin/update_bindings.dart && dart analyze --fatal-infos ../web || EXIT_CODE=$?
+        echo 'dart pub -C ../web get && dart bin/update_idl_bindings.dart && dart analyze --fatal-infos ../web'
+        dart pub -C ../web get && dart bin/update_idl_bindings.dart && dart analyze --fatal-infos ../web || EXIT_CODE=$?
         ;;
       command_2)
-        echo 'dart pub -C ../web get && dart bin/update_bindings.dart --generate-all && dart analyze --fatal-infos ../web'
-        dart pub -C ../web get && dart bin/update_bindings.dart --generate-all && dart analyze --fatal-infos ../web || EXIT_CODE=$?
+        echo 'dart pub -C ../web get && dart bin/update_idl_bindings.dart --generate-all && dart analyze --fatal-infos ../web'
+        dart pub -C ../web get && dart bin/update_idl_bindings.dart --generate-all && dart analyze --fatal-infos ../web || EXIT_CODE=$?
         ;;
       format)
         echo 'dart format --output=none --set-exit-if-changed .'

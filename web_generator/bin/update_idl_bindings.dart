@@ -2,19 +2,15 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
-import 'package:analyzer/dart/analysis/results.dart';
-import 'package:analyzer/dart/element/element2.dart';
-import 'package:analyzer/dart/element/type.dart';
 import 'package:args/args.dart';
 import 'package:io/ansi.dart' as ansi;
 import 'package:io/io.dart';
 import 'package:package_config/package_config.dart';
 import 'package:path/path.dart' as p;
+import 'package:web_generator/src/cli.dart';
 
 void main(List<String> arguments) async {
   final ArgResults argResult;
@@ -39,32 +35,21 @@ $_usage''');
 
   // Run `npm install` or `npm update` as needed.
   final update = argResult['update'] as bool;
-  await _runProc(
+  await runProc(
     'npm',
     [update ? 'update' : 'install'],
-    workingDirectory: _bindingsGeneratorPath,
+    workingDirectory: bindingsGeneratorPath,
   );
 
+  final contextFile = await createJsTypeSupertypeContext();
+
   // Compute JS type supertypes for union calculation in translator.
-  await _generateJsTypeSupertypes();
+  await generateJsTypeSupertypes(contextFile.path);
 
   if (argResult['compile'] as bool) {
     final webPkgLangVersion = await _webPackageLanguageVersion(_webPackagePath);
     // Compile Dart to Javascript.
-    await _runProc(
-      Platform.executable,
-      [
-        'compile',
-        'js',
-        '--enable-asserts',
-        '--server-mode',
-        '-DlanguageVersion=$webPkgLangVersion',
-        'dart_main.dart',
-        '-o',
-        'dart_main.js',
-      ],
-      workingDirectory: _bindingsGeneratorPath,
-    );
+    await compileDartMain(langVersion: webPkgLangVersion);
   }
 
   // Determine the set of previously generated files.
@@ -82,14 +67,15 @@ $_usage''');
 
   // Run app with `node`.
   final generateAll = argResult['generate-all'] as bool;
-  await _runProc(
+  await runProc(
     'node',
     [
       'main.mjs',
-      '--output-directory=${p.join(_webPackagePath, 'lib', 'src')}',
+      '--idl',
+      '--output=${p.join(_webPackagePath, 'lib', 'src')}',
       if (generateAll) '--generate-all',
     ],
-    workingDirectory: _bindingsGeneratorPath,
+    workingDirectory: bindingsGeneratorPath,
   );
 
   // Delete previously generated files that have not been updated.
@@ -99,6 +85,9 @@ $_usage''');
       file.deleteSync();
     }
   }
+
+  // delete context file
+  await contextFile.delete();
 
   // Update readme.
   final readmeFile =
@@ -151,8 +140,7 @@ final _webPackagePath = p.fromUri(Platform.script.resolve('../../web'));
 
 String _packageLockVersion(String package) {
   final packageLockData = jsonDecode(
-    File(p.join(_bindingsGeneratorPath, 'package-lock.json'))
-        .readAsStringSync(),
+    File(p.join(bindingsGeneratorPath, 'package-lock.json')).readAsStringSync(),
   ) as Map<String, dynamic>;
 
   final packages = packageLockData['packages'] as Map<String, dynamic>;
@@ -160,13 +148,11 @@ String _packageLockVersion(String package) {
   return webRefIdl['version'] as String;
 }
 
-final _bindingsGeneratorPath = p.fromUri(Platform.script.resolve('../lib/src'));
-
 const _webRefCss = '@webref/css';
 const _webRefElements = '@webref/elements';
 const _webRefIdl = '@webref/idl';
 
-final _thisScript = Uri.parse('bin/update_bindings.dart');
+final _thisScript = Uri.parse('bin/update_idl_bindings.dart');
 final _scriptPOSIXPath = _thisScript.toFilePath(windows: false);
 
 final _startComment =
@@ -174,92 +160,24 @@ final _startComment =
 final _endComment =
     '<!-- END updated by $_scriptPOSIXPath. Do not modify by hand -->';
 
-Future<void> _runProc(
-  String executable,
-  List<String> arguments, {
-  required String workingDirectory,
-}) async {
-  print(ansi.styleBold.wrap(['*', executable, ...arguments].join(' ')));
-  final proc = await Process.start(
-    executable,
-    arguments,
-    mode: ProcessStartMode.inheritStdio,
-    runInShell: Platform.isWindows,
-    workingDirectory: workingDirectory,
-  );
-  final procExit = await proc.exitCode;
-  if (procExit != 0) {
-    throw ProcessException(executable, arguments, 'Process failed', procExit);
-  }
-}
-
-// Generates a map of the JS type hierarchy defined in `dart:js_interop` that is
-// used by the translator to handle IDL types.
-Future<void> _generateJsTypeSupertypes() async {
-  // Use a file that uses `dart:js_interop` for analysis.
-  final contextCollection = AnalysisContextCollection(
-      includedPaths: [p.join(_webPackagePath, 'lib', 'src', 'dom.dart')]);
-  final dartJsInterop = (await contextCollection.contexts.single.currentSession
-          .getLibraryByUri('dart:js_interop') as LibraryElementResult)
-      .element2;
-  final definedNames = dartJsInterop.exportNamespace.definedNames2;
-  // `SplayTreeMap` to avoid moving types around in `dart:js_interop` affecting
-  // the code generation.
-  final jsTypeSupertypes = SplayTreeMap<String, String?>();
-  for (final name in definedNames.keys) {
-    final element = definedNames[name];
-    if (element is ExtensionTypeElement2) {
-      // JS types are any extension type that starts with 'JS' in
-      // `dart:js_interop`.
-      bool isJSType(InterfaceElement2 element) =>
-          element is ExtensionTypeElement2 &&
-          element.library2 == dartJsInterop &&
-          element.name3!.startsWith('JS');
-      if (!isJSType(element)) continue;
-
-      String? parentJsType;
-      final supertype = element.supertype;
-      final immediateSupertypes = <InterfaceType>[
-        if (supertype != null) supertype,
-        ...element.interfaces,
-      ]..removeWhere((supertype) => supertype.isDartCoreObject);
-      // We should have at most one non-trivial supertype.
-      assert(immediateSupertypes.length <= 1);
-      for (final supertype in immediateSupertypes) {
-        if (isJSType(supertype.element3)) {
-          parentJsType = "'${supertype.element3.name3!}'";
-        }
-      }
-      // Ensure that the hierarchy forms a tree.
-      assert((parentJsType == null) == (name == 'JSAny'));
-      jsTypeSupertypes["'$name'"] = parentJsType;
-    }
-  }
-
-  final jsTypeSupertypesScript = '''
-// Copyright (c) 2023, the Dart project authors.  Please see the AUTHORS file
-// for details. All rights reserved. Use of this source code is governed by a
-// BSD-style license that can be found in the LICENSE file.
-
-// Updated by $_scriptPOSIXPath. Do not modify by hand.
-
-const Map<String, String?> jsTypeSupertypes = {
-${jsTypeSupertypes.entries.map((e) => "  ${e.key}: ${e.value},").join('\n')}
-};
-''';
-  final jsTypeSupertypesPath =
-      p.join(_bindingsGeneratorPath, 'js_type_supertypes.dart');
-  await File(jsTypeSupertypesPath).writeAsString(jsTypeSupertypesScript);
-}
-
 final _usage = '''
+Global Options:
+${_parser.usage}
+
+${ansi.styleBold.wrap('IDL Command')}: $_thisScript idl [options]
+
 Usage:
-${_parser.usage}''';
+${_parser.commands['idl']?.usage}
+
+${ansi.styleBold.wrap('Typescript Gen Command')}: $_thisScript dts <.d.ts file> [options]
+
+Usage:
+${_parser.commands['dts']?.usage}''';
 
 final _parser = ArgParser()
+  ..addFlag('help', negatable: false, help: 'Show help information')
   ..addFlag('update', abbr: 'u', help: 'Update npm dependencies')
   ..addFlag('compile', defaultsTo: true)
-  ..addFlag('help', negatable: false)
   ..addFlag('generate-all',
       negatable: false,
       help: 'Generate bindings for all IDL definitions, including experimental '

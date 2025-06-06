@@ -1,4 +1,4 @@
-# Created with package:mono_repo v6.6.2
+# Created with package:mono_repo v6.6.3
 name: Dart CI
 on:
   push:
@@ -36,7 +36,7 @@ jobs:
         name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - name: mono_repo self validate
-        run: dart pub global activate mono_repo 6.6.2
+        run: dart pub global activate mono_repo 6.6.3
       - name: mono_repo self validate
         run: dart pub global run mono_repo generate --validate
   job_002:
@@ -340,7 +340,7 @@ jobs:
       - job_004
       - job_005
   job_010:
-    name: "generate_and_analyze; Dart dev; PKG: web_generator; `dart pub -C ../web get && dart bin/update_bindings.dart && dart analyze --fatal-infos ../web`"
+    name: "generate_and_analyze; Dart dev; PKG: web_generator; `dart pub -C ../web get && dart bin/update_idl_bindings.dart && dart analyze --fatal-infos ../web`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
@@ -365,8 +365,8 @@ jobs:
         run: dart pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
         working-directory: web_generator
-      - name: "web_generator; dart pub -C ../web get && dart bin/update_bindings.dart && dart analyze --fatal-infos ../web"
-        run: "dart pub -C ../web get && dart bin/update_bindings.dart && dart analyze --fatal-infos ../web"
+      - name: "web_generator; dart pub -C ../web get && dart bin/update_idl_bindings.dart && dart analyze --fatal-infos ../web"
+        run: "dart pub -C ../web get && dart bin/update_idl_bindings.dart && dart analyze --fatal-infos ../web"
         if: "always() && steps.web_generator_pub_upgrade.conclusion == 'success'"
         working-directory: web_generator
     needs:
@@ -380,7 +380,7 @@ jobs:
       - job_008
       - job_009
   job_011:
-    name: "generate_all_and_analyze; Dart dev; PKG: web_generator; `dart pub -C ../web get && dart bin/update_bindings.dart --generate-all && dart analyze --fatal-infos ../web`"
+    name: "generate_all_and_analyze; Dart dev; PKG: web_generator; `dart pub -C ../web get && dart bin/update_idl_bindings.dart --generate-all && dart analyze --fatal-infos ../web`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
@@ -405,8 +405,8 @@ jobs:
         run: dart pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
         working-directory: web_generator
-      - name: "web_generator; dart pub -C ../web get && dart bin/update_bindings.dart --generate-all && dart analyze --fatal-infos ../web"
-        run: "dart pub -C ../web get && dart bin/update_bindings.dart --generate-all && dart analyze --fatal-infos ../web"
+      - name: "web_generator; dart pub -C ../web get && dart bin/update_idl_bindings.dart --generate-all && dart analyze --fatal-infos ../web"
+        run: "dart pub -C ../web get && dart bin/update_idl_bindings.dart --generate-all && dart analyze --fatal-infos ../web"
         if: "always() && steps.web_generator_pub_upgrade.conclusion == 'success'"
         working-directory: web_generator
     needs:

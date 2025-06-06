@@ -8,6 +8,7 @@ import { createRequire } from 'module';
 import * as css from '@webref/css';
 import * as elements from '@webref/elements';
 import * as idl from '@webref/idl';
+import * as ts from 'typescript';
 
 const require = createRequire(import.meta.url);
 
@@ -18,6 +19,7 @@ globalThis.css = css;
 globalThis.elements = elements;
 globalThis.fs = fs;
 globalThis.idl = idl;
+globalThis.ts = ts;
 globalThis.location = { href: `file://${process.cwd()}/` }
 
 globalThis.dartMainRunner = async function (main, args) {

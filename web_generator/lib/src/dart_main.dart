@@ -9,8 +9,10 @@ import 'package:code_builder/code_builder.dart' as code;
 import 'package:dart_style/dart_style.dart';
 import 'package:pub_semver/pub_semver.dart';
 
-import 'filesystem_api.dart';
+import 'dts/parser.dart';
+import 'dts/transform.dart';
 import 'generate_bindings.dart';
+import 'js/filesystem_api.dart';
 import 'util.dart';
 
 // Generates DOM bindings for Dart.
@@ -24,16 +26,44 @@ void main(List<String> args) async {
   if (languageVersionString.isEmpty) {
     languageVersionString = DartFormatter.latestLanguageVersion.toString();
   }
-  final ArgResults argResult;
-  argResult = _parser.parse(args);
-  await _generateAndWriteBindings(
-    outputDirectory: argResult['output-directory'] as String,
-    generateAll: argResult['generate-all'] as bool,
-    languageVersion: Version.parse(languageVersionString),
-  );
+
+  final argResult = _parser.parse(args);
+
+  if (argResult.wasParsed('idl')) {
+    await generateIDLBindings(
+      outputDirectory: argResult['output'] as String,
+      generateAll: argResult['generate-all'] as bool,
+      languageVersion: Version.parse(languageVersionString),
+    );
+  } else if (argResult.wasParsed('declaration')) {
+    await generateJSInteropBindings(
+      inputs: argResult['input'] as Iterable<String>,
+      output: argResult['output'] as String,
+      languageVersion: Version.parse(languageVersionString),
+    );
+  }
 }
 
-Future<void> _generateAndWriteBindings({
+// TODO(nikeokoronkwo): Add support for configuration
+Future<void> generateJSInteropBindings({
+  required Iterable<String> inputs,
+  required String output,
+  required Version languageVersion,
+}) async {
+  // generate
+  final jsDeclarations = parseDeclarationFiles(inputs);
+
+  // transform declarations
+  final dartDeclarations = transformDeclarations(jsDeclarations);
+
+  // generate
+  final generatedCode = dartDeclarations.generate();
+
+  // write code to file
+  fs.writeFileSync(output.toJS, generatedCode.toJS);
+}
+
+Future<void> generateIDLBindings({
   required String outputDirectory,
   required bool generateAll,
   required Version languageVersion,
@@ -66,9 +96,19 @@ String _emitLibrary(code.Library library, Version languageVersion) {
 }
 
 final _parser = ArgParser()
-  ..addOption('output-directory',
-      mandatory: true, help: 'Directory where bindings will be generated to.')
+  ..addFlag('idl', negatable: false)
+  ..addFlag('declaration', negatable: false)
+  ..addOption('output',
+      mandatory: true,
+      abbr: 'o',
+      help: 'Output where bindings will be generated to '
+          '(directory for IDL, file for TS Declarations)')
   ..addFlag('generate-all',
       negatable: false,
-      help: 'Generate bindings for all IDL definitions, including experimental '
-          'and non-standard APIs.');
+      help: '[IDL] Generate bindings for all IDL definitions, '
+          'including experimental and non-standard APIs.')
+  ..addMultiOption('input',
+      abbr: 'i',
+      help: '[TS Declarations] The input file to read and generate types for')
+  ..addOption('config',
+      abbr: 'c', hide: true, valueHelp: '[file].yaml', help: 'Configuration');

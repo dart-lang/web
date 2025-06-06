@@ -12,7 +12,7 @@ run on Node.
 To regenerate `web` bindings from the current IDL versions, run:
 
 ```shell
-dart bin/update_bindings.dart
+dart bin/update_idl_bindings.dart
 ```
 
 ## Update to the latest Web IDL versions and regenerate
@@ -20,11 +20,11 @@ dart bin/update_bindings.dart
 To re-generate the package from newer IDL versions, you can either run:
 
 ```shell
-dart bin/update_bindings.dart --update
+dart bin/update_idl_bindings.dart --update
 ```
 
 or, manually edit `lib/src/package.json` to use specific IDL versions, and
-re-run `update_bindings.dart`.
+re-run `update_idl_bindings.dart`.
 
 ### Updating the dartdoc info from MDN
 
@@ -38,7 +38,7 @@ dart bin/scrape_mdn.dart
 
 That will collect the MDN documentation into `third_party/mdn/mdn.json`; changes
 to that file should be committed to git. You'll need to run
-`update_bindings.dart` to produce Dart code using the updated documentation.
+`update_idl_bindings.dart` to produce Dart code using the updated documentation.
 
 ## Generation conventions
 
@@ -80,7 +80,7 @@ definitions:
 To ignore the compatibility data and emit all members, run:
 
 ```shell
-dart bin/update_bindings.dart --generate-all
+dart bin/update_idl_bindings.dart --generate-all
 ```
 
 This is useful if you want to avoid having to write bindings manually for some
@@ -90,10 +90,10 @@ experimental and non-standard APIs.
 
 Based on:
 
-<!-- START updated by bin/update_bindings.dart. Do not modify by hand -->
+<!-- START updated by bin/update_idl_bindings.dart. Do not modify by hand -->
 | Item | Version |
 | --- | --: |
 | `@webref/css` | [6.20.3](https://www.npmjs.com/package/@webref/css/v/6.20.3) |
 | `@webref/elements` | [2.4.0](https://www.npmjs.com/package/@webref/elements/v/2.4.0) |
 | `@webref/idl` | [3.60.1](https://www.npmjs.com/package/@webref/idl/v/3.60.1) |
-<!-- END updated by bin/update_bindings.dart. Do not modify by hand -->
+<!-- END updated by bin/update_idl_bindings.dart. Do not modify by hand -->

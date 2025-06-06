@@ -7,7 +7,7 @@ import 'dart:js_interop';
 
 import 'package:path/path.dart' as p;
 
-import 'filesystem_api.dart';
+import 'js/filesystem_api.dart';
 
 /// A class to read from the browser-compat-data files and parse interface and
 /// property status (standards track, experimental, deprecated) and supported

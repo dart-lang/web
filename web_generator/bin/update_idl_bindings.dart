@@ -71,6 +71,7 @@ $_usage''');
     'node',
     [
       'main.mjs',
+      '--idl',
       '--output=${p.join(_webPackagePath, 'lib', 'src')}',
       if (generateAll) '--generate-all',
     ],

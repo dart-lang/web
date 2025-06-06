@@ -29,21 +29,18 @@ void main(List<String> args) async {
 
   final argResult = _parser.parse(args);
 
-  switch (argResult.rest.first.toLowerCase()) {
-    case 'idl':
-      await generateIDLBindings(
-        outputDirectory: argResult['output'] as String,
-        generateAll: argResult['generate-all'] as bool,
-        languageVersion: Version.parse(languageVersionString),
-      );
-      break;
-    case 'ts':
-      await generateJSInteropBindings(
-        inputs: argResult['input'] as Iterable<String>,
-        output: argResult['output'] as String,
-        languageVersion: Version.parse(languageVersionString),
-      );
-      break;
+  if (argResult.wasParsed('idl')) {
+    await generateIDLBindings(
+      outputDirectory: argResult['output'] as String,
+      generateAll: argResult['generate-all'] as bool,
+      languageVersion: Version.parse(languageVersionString),
+    );
+  } else if (argResult.wasParsed('declaration')) {
+    await generateJSInteropBindings(
+      inputs: argResult['input'] as Iterable<String>,
+      output: argResult['output'] as String,
+      languageVersion: Version.parse(languageVersionString),
+    );
   }
 }
 
@@ -99,6 +96,8 @@ String _emitLibrary(code.Library library, Version languageVersion) {
 }
 
 final _parser = ArgParser()
+  ..addFlag('idl', negatable: false)
+  ..addFlag('declaration', negatable: false)
   ..addOption('output',
       mandatory: true,
       abbr: 'o',

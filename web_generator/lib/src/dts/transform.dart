@@ -4,6 +4,6 @@ class DeclarationMap {
   }
 }
 
-DeclarationMap transformDeclarations(dynamic jsDeclarations) {
+DeclarationMap transformDeclarations(Object? jsDeclarations) {
   throw UnimplementedError();
 }

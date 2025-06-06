@@ -1,6 +1,6 @@
-// ignore_for_file: library_annotations
 @TestOn('vm')
 @Tags(['node'])
+library;
 
 import 'dart:io';
 

@@ -8,6 +8,7 @@ stages:
 - unit_test:
   - test: --test-randomize-ordering-seed=random -p chrome
   - test: --test-randomize-ordering-seed=random -p chrome -c dart2wasm
+  - test: --test-randomize-ordering-seed=random
 - generate_and_analyze:
   - command:
     - dart pub -C ../web get

@@ -1,5 +1,6 @@
 @TestOn('vm')
 @Tags(['node'])
+@Skip('https://github.com/dart-lang/web/issues/372')
 library;
 
 import 'dart:io';
@@ -15,7 +16,7 @@ void main() {
   group('Web Generator TS Bindings Integration Test', () {
     final inputDir = Directory(testGenDTSFiles);
 
-    setUp(() async {
+    setUpAll(() async {
       // set up npm
       await runProc('npm', ['install'],
           workingDirectory: bindingsGeneratorPath, detached: true);

@@ -30,9 +30,9 @@ void main() {
       final inputName = inputFileName.replaceFirst('_input', '');
 
       final outputActualPath =
-          p.join(testGenFolder, '_temp', '${inputFileName}_actual.dart');
+          p.join(testGenFolder, '_temp', '${inputName}_actual.dart');
       final outputExpectedPath =
-          p.join(testGenFolder, '${inputFileName}_expected.dart');
+          p.join(testGenFolder, '${inputName}_expected.dart');
 
       test(inputName, () async {
         final inputFilePath =

@@ -1,0 +1,24 @@
+enum LogLevel {
+  "debug",
+  "info",
+  "warn",
+  "error"
+};
+
+enum Direction {
+  "up",
+  "down",
+  "left",
+  "right"
+};
+
+enum DisplayMode {
+  "fullscreen",
+  "standalone",
+  "minimal-ui",
+  "browser"
+};
+
+interface Logger {
+  void log(DOMString message, optional LogLevel level = "info");
+};

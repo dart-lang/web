@@ -14,7 +14,7 @@ import 'package:path/path.dart' as p;
 
 final bindingsGeneratorPath = p.fromUri(Platform.script.resolve('../lib/src'));
 
-Future<void> compileDartMain({String? langVersion}) async {
+Future<void> compileDartMain({String? langVersion, String? dir}) async {
   await runProc(
     Platform.executable,
     [
@@ -27,7 +27,7 @@ Future<void> compileDartMain({String? langVersion}) async {
       '-o',
       'dart_main.js',
     ],
-    workingDirectory: bindingsGeneratorPath,
+    workingDirectory: dir ?? bindingsGeneratorPath,
   );
 }
 

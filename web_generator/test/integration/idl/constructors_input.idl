@@ -1,0 +1,21 @@
+interface Shape {
+  constructor();
+};
+
+[Exposed=Window]
+interface NodeList {
+  Node item(unsigned long index);
+  readonly attribute unsigned long length;
+};
+
+[Exposed=Window]
+interface Circle : Shape {
+  constructor(double radius);
+  attribute double r;
+  attribute double cx;
+  attribute double cy;
+  readonly attribute double circumference;
+
+  static readonly attribute long triangulationCount;
+  static Point triangulate(Circle c1, Circle c2, Circle c3);
+};

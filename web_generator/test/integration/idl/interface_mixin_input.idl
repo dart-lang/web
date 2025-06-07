@@ -1,0 +1,20 @@
+interface mixin EventTargetMixin {
+  void addEventListener(DOMString type, EventListener callback, optional boolean capture = false);
+  void removeEventListener(DOMString type, EventListener callback, optional boolean capture = false);
+  boolean dispatchEvent(Event event);
+};
+
+interface mixin PositionMixin {
+  attribute double x;
+  attribute double y;
+  void moveTo(double newX, double newY);
+};
+
+interface mixin MyMixin {
+  void somethingMixedIn();
+};
+
+partial interface mixin MySecondMixin {
+  void somethingMixedIn();
+};
+

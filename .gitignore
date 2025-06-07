@@ -5,3 +5,5 @@ pubspec.lock
 web_generator/lib/src/*.js
 web_generator/lib/src/*.js.*
 web_generator/lib/src/node_modules/
+
+_temp

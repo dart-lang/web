@@ -1,0 +1,37 @@
+interface EmptyInterface { };
+
+interface BaseInterface {
+  undefined f();
+  undefined g();
+};
+
+interface Paint { };
+
+interface SolidColor : Paint {
+  attribute double red;
+  attribute double green;
+  attribute double blue;
+};
+
+interface MyInterface {
+  attribute DOMString name;
+  readonly attribute unsigned long id;
+  [SameObject] readonly attribute MySubInterface subInterface;
+
+  void doSomething();
+  boolean isReady();
+
+  Promise<void> saveData(optional ConfigOptions config);
+
+  void log(DOMString message);
+  void log(DOMString message, LogLevel level);
+
+  getter DOMString (unsigned long index);
+
+  stringifier;
+};
+
+interface MySubInterface {
+  attribute DOMString info;
+  void reset();
+};

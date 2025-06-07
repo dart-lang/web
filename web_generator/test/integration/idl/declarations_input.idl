@@ -1,0 +1,29 @@
+// Enums
+enum LogLevel {
+  "debug",
+  "info",
+  "warn",
+  "error"
+};
+
+enum ReadyState {
+  "idle",
+  "loading",
+  "complete"
+};
+
+// Dictionary
+dictionary ConfigOptions {
+  required DOMString url;
+  LogLevel level = "info";
+  boolean retry = false;
+  long timeout;
+};
+
+// Callback types
+callback OnSuccessCallback = void (DOMString message);
+callback Comparator = long (DOMString a, DOMString b);
+
+// Typedefs
+typedef (ArrayBuffer or ArrayBufferView) BufferSource;
+typedef unsigned long long Timestamp;

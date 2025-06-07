@@ -4,12 +4,15 @@
 
 import 'dart:js_interop';
 
+import 'js/webidl2.dart' as webidl2;
 import 'js/webidl_api.dart' as webidl;
 import 'js/webref_css_api.dart';
 import 'js/webref_elements_api.dart';
 import 'js/webref_idl_api.dart';
 import 'translator.dart';
 import 'util.dart';
+
+import 'package:path/path.dart' as p;
 
 /// Generate CSS property names for setting / getting CSS properties in JS.
 Future<List<String>> _generateCSSStyleDeclarations() async {
@@ -74,8 +77,8 @@ Future<TranslationResult> generateBindings(
   final cssStyleDeclarations = await _generateCSSStyleDeclarations();
   final elementHTMLMap = await _generateElementTagMap();
   final translator = Translator(
-      packageRoot, librarySubDir, cssStyleDeclarations, elementHTMLMap,
-      generateAll: generateAll);
+      librarySubDir, cssStyleDeclarations, elementHTMLMap,
+      generateAll: generateAll, packageRoot: packageRoot);
   final array = objectEntries(await idl.parseAll().toDart);
   for (var i = 0; i < array.length; i++) {
     final entry = array[i] as JSArray<JSAny?>;
@@ -83,6 +86,24 @@ Future<TranslationResult> generateBindings(
     final ast = entry[1] as JSArray<webidl.Node>;
     translator.collect(shortname, ast);
   }
+  translator.addInterfacesAndNamespaces();
+  return translator.translate();
+}
+
+Future<TranslationResult> generateBindingsForFiles(
+  Map<String, String> fileContents,
+  String output, bool single
+) async {
+  final cssStyleDeclarations = await _generateCSSStyleDeclarations();
+  final elementHTMLMap = await _generateElementTagMap();
+  final translator = Translator(single ? p.dirname(output) : output, 
+    cssStyleDeclarations, elementHTMLMap, generateAll: true);
+
+  for (final file in fileContents.entries) {
+    final ast = webidl2.parse(file.value);
+    translator.collect(p.basenameWithoutExtension(file.key), ast);
+  }
+
   translator.addInterfacesAndNamespaces();
   return translator.translate();
 }

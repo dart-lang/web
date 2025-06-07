@@ -7,6 +7,7 @@ import 'dart:js_interop';
 import 'package:args/args.dart';
 import 'package:code_builder/code_builder.dart' as code;
 import 'package:dart_style/dart_style.dart';
+import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 
 import 'dts/parser.dart';
@@ -31,7 +32,10 @@ void main(List<String> args) async {
 
   if (argResult.wasParsed('idl')) {
     await generateIDLBindings(
-      outputDirectory: argResult['output'] as String,
+      input: (argResult['input'] as List<String>).isEmpty
+          ? null
+          : argResult['input'] as Iterable<String>,
+      output: argResult['output'] as String,
       generateAll: argResult['generate-all'] as bool,
       languageVersion: Version.parse(languageVersionString),
     );
@@ -64,22 +68,51 @@ Future<void> generateJSInteropBindings({
 }
 
 Future<void> generateIDLBindings({
-  required String outputDirectory,
+  Iterable<String>? input,
+  required String output,
   required bool generateAll,
   required Version languageVersion,
 }) async {
-  const librarySubDir = 'dom';
+  if (input == null) {
+    // parse dom library as normal
+    const librarySubDir = 'dom';
 
-  ensureDirectoryExists('$outputDirectory/$librarySubDir');
+    ensureDirectoryExists('$output/$librarySubDir');
 
-  final bindings = await generateBindings(packageRoot, librarySubDir,
-      generateAll: generateAll);
-  for (var entry in bindings.entries) {
-    final libraryPath = entry.key;
-    final library = entry.value;
+    final bindings = await generateBindings(packageRoot, librarySubDir,
+        generateAll: generateAll);
 
-    final contents = _emitLibrary(library, languageVersion).toJS;
-    fs.writeFileSync('$outputDirectory/$libraryPath'.toJS, contents);
+    for (var entry in bindings.entries) {
+      final libraryPath = entry.key;
+      final library = entry.value;
+
+      final contents = _emitLibrary(library, languageVersion).toJS;
+      fs.writeFileSync('$output/$libraryPath'.toJS, contents);
+    }
+  } else {
+    final single = input.length == 1;
+    // parse individual files
+    ensureDirectoryExists(single ? p.dirname(output) : output);
+
+    final bindings = await generateBindingsForFiles({
+      for (final file in input)
+        file: fs
+            .readFileSync(file.toJS, JSReadFileOptions(encoding: 'utf-8'.toJS))
+            .dartify() as String
+    }, output, single);
+
+    for (var entry in bindings.entries.where((e) => e.key != 'dom.dart')) {
+      final libraryPath = entry.key;
+      final library = entry.value;
+
+      final contents = _emitLibrary(library, languageVersion).toJS;
+      // print('FOR $libraryPath \n${'='*20}\n $contents');
+      if (single) {
+        fs.writeFileSync(output.toJS, contents);
+      } else {
+        fs.writeFileSync('$output/$libraryPath'.toJS, contents);
+      }
+    }
   }
 }
 

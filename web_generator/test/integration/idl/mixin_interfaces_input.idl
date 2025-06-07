@@ -10,11 +10,14 @@ interface mixin PositionMixin {
   void moveTo(double newX, double newY);
 };
 
+interface Position {};
+
+Position includes PositionMixin;
+
 interface mixin MyMixin {
   void somethingMixedIn();
 };
 
-partial interface mixin MySecondMixin {
+partial interface mixin Position {
   void somethingMixedIn();
 };
-

@@ -1,0 +1,12 @@
+typedef (ArrayBuffer or ArrayBufferView) BufferSource;
+typedef (DOMString or USVString) StringInput;
+typedef sequence<DOMString> StringList;
+typedef unsigned long long Timestamp;
+typedef (HTMLCanvasElement or OffscreenCanvas) CanvasLike;
+
+
+interface DataHandler {
+  void setInput(BufferSource data);
+  Timestamp getLastUpdated();
+  void setCanvas(CanvasLike canvas);
+};

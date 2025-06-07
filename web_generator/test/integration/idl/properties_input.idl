@@ -1,5 +1,10 @@
 interface PropertyTest {
+  const boolean DEBUG = false;
+
   attribute DOMString title;
+
+  static attribute boolean debug = false;
+
   readonly attribute unsigned long createdAt;
 
   attribute DOMString? optionalName;

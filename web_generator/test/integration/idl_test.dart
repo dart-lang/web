@@ -7,6 +7,7 @@ import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:web_generator/src/cli.dart';
 
+/// Actual test output can be found in `.dart_tool/idl`
 void main() {
   final bindingsGenPath = p.join('lib', 'src');
   group('IDL Integration Test', () {
@@ -30,7 +31,7 @@ void main() {
       final inputName = inputFileName.replaceFirst('_input', '');
 
       final outputActualPath =
-          p.join(testGenFolder, '_temp', '${inputName}_actual.dart');
+          p.join('.dart_tool', 'idl', '${inputName}_actual.dart');
       final outputExpectedPath =
           p.join(testGenFolder, '${inputName}_expected.dart');
 

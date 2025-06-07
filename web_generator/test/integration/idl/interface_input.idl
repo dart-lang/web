@@ -16,7 +16,6 @@ interface SolidColor : Paint {
 interface MyInterface {
   attribute DOMString name;
   readonly attribute unsigned long id;
-  [SameObject] readonly attribute MySubInterface subInterface;
 
   void doSomething();
   boolean isReady();
@@ -27,8 +26,6 @@ interface MyInterface {
   void log(DOMString message, LogLevel level);
 
   getter DOMString (unsigned long index);
-
-  stringifier;
 };
 
 interface MySubInterface {

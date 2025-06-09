@@ -9,8 +9,8 @@ import 'package:code_builder/code_builder.dart' as code;
 import 'package:dart_style/dart_style.dart';
 import 'package:pub_semver/pub_semver.dart';
 
-import 'dts/parser.dart';
-import 'dts/transform.dart';
+import 'interop_gen/parser.dart';
+import 'interop_gen/transform.dart';
 import 'generate_bindings.dart';
 import 'js/filesystem_api.dart';
 import 'util.dart';

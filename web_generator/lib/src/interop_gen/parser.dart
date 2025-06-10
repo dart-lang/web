@@ -10,7 +10,7 @@ class ParserLibraryResult {
   String name;
   String url;
 
-  List<TSVariableDeclaration> variables;
+  List<TSVariableStatement> variables;
 
   ParserLibraryResult({
     required this.name, 
@@ -19,10 +19,13 @@ class ParserLibraryResult {
 }
 
 class ParserResult {
-  List<ParserLibraryResult> libraries;
+  ts.TSProgram program;
+  Iterable<String> files;
+
 
   ParserResult({
-    required this.libraries
+    required this.program,
+    required this.files
   });
 }
 
@@ -34,45 +37,6 @@ ParserResult parseDeclarationFiles(Iterable<String> files) {
     )
   );
 
-  final parserResult = ParserResult(libraries: []);
-
-  for (final file in files) {
-    final name = p.basenameWithoutExtension(file);
-    final sourceFile = program.getSourceFile(file);
-
-    // TODO: This should throw an error
-    if (sourceFile == null) continue;
-
-    parserResult.libraries.add(
-      traverseSourceFile(file, sourceFile, name: name)
-    );
-  }
-
-  return parserResult;
+  return ParserResult(program: program, files: files);
 }
 
-ParserLibraryResult traverseSourceFile(String url, 
-  ts.TSSourceFile source, {String? name}) {
-    name ??= p.basenameWithoutExtension(url);
-  
-  final declarations = ParserLibraryResult(name: name, url: url);
-
-  final exportedNames = <String, String>{};
-
-  // filter out nodes
-
-  ts.forEachChild(
-    source, 
-    ((TSNode node) {
-      switch (node.kind) {
-        case TSSyntaxKind.VariableDeclaration:
-          declarations.variables.add(node as TSVariableDeclaration);
-        default:
-          // TODO: Should throw an unsupported error
-          print('WARN: The declaration ${node.kind.name} is not supported');
-      }
-    }).jsify() as ts.TSNodeCallback
-  );
-
-
-}

@@ -54,7 +54,7 @@ Future<void> generateJSInteropBindings({
   final jsDeclarations = parseDeclarationFiles(inputs);
 
   // transform declarations
-  final dartDeclarations = transformDeclarations(jsDeclarations);
+  final dartDeclarations = transform(jsDeclarations);
 
   // generate
   final generatedCode = dartDeclarations.generate();

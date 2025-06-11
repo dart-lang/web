@@ -7,8 +7,14 @@ import '../js/typescript.dart' as ts;
 import '../js/typescript.types.dart';
 
 class TransformResult {
-  String generate() {
-    throw UnimplementedError();
+  ProgramDeclarationMap programMap;
+
+  TransformResult._(this.programMap);
+
+  Map<String, String> generate() {
+    // programMap.forEach((file, declMap) {
+
+    // });
   }
 }
 
@@ -39,25 +45,31 @@ TransformResult transform(ParserResult parsedDeclarations, TransformationOptions
     // 2b. set up an export map
 
     // 2d. begin traversing declarations
-    final map = transformDeclarations(src);
+    final map = transformDeclarations(src, programDeclarationMap);
 
     // 2e. set up namer (naming declarations)
 
-    // 2f. transform declaration
+    // 2f. resolve declaration
+    // - convert raw types to actual referred types
+    // - give unique naming to functions (method overloading)
 
     // 2g. add declaration to list
     programDeclarationMap.addAll({
       file: map
     });
   }
+
+  return TransformResult._(programDeclarationMap);
 }
 
 /// params: source, files input, export map (modifiable), type map
-DeclarationMap transformDeclarations(ts.TSSourceFile source) {
+DeclarationMap transformDeclarations(ts.TSSourceFile source, ProgramDeclarationMap programMap) {
+  // TODO: Use ID rather than name for indexing
+  // To support 
   final DeclarationMap declarationMap = {};
 
   ts.forEachChild(source, ((TSNode node) {
-    final decs = transformDeclaration(node, declarationMap);
+    final decs = transformDeclaration(node, declarationMap, programMap);
     declarationMap.addAll({ for (final node in decs) node.name : node });
   }).jsify() as ts.TSNodeCallback);
 
@@ -66,10 +78,10 @@ DeclarationMap transformDeclarations(ts.TSSourceFile source) {
   return declarationMap;
 }
 
-List<Node> transformDeclaration(TSNode node, DeclarationMap declarationMap) {
+List<Node> transformDeclaration(TSNode node, DeclarationMap declarationMap, ProgramDeclarationMap programMap) {
   return switch (node.kind) {
       TSSyntaxKind.VariableStatement => 
-        transformVariable(node as TSVariableStatement, declarationMap),
+        transformVariable(node as TSVariableStatement, declarationMap, programMap),
       _ => throw Exception('Unsupported Declaration Kind')
     };
 }
@@ -77,6 +89,7 @@ List<Node> transformDeclaration(TSNode node, DeclarationMap declarationMap) {
 List<VariableNode> transformVariable(
   TSVariableStatement decl,
   DeclarationMap declarationMap,
+  ProgramDeclarationMap programMap
 ) {
   // get the modifier of the declaration
   final modifiers = decl.modifiers.toDart as List<TSNode>;
@@ -100,7 +113,7 @@ List<VariableNode> transformVariable(
       return VariableNode(
         name: d.name.text, 
         type: d.type == null ? PrimitiveTypeNode.any 
-          : parseType(d.type!, declarationMap), 
+          : parseType(d.type!, declarationMap, programMap), 
         modifier: modifier, 
         exported: isExported
       );
@@ -108,12 +121,12 @@ List<VariableNode> transformVariable(
 }
 
 /// Parses the type 
-TypeNode parseType(TSTypeNode type, DeclarationMap declarationMap) {
+TypeNode parseType(TSTypeNode type, DeclarationMap declarationMap, ProgramDeclarationMap programMap) {
   if (type.kind == TSSyntaxKind.UnionType) {
     // parse union type
     return UnionTypeNode(types: ((type as TSUnionTypeNode)
       .types.toDart as List<TSTypeNode>)
-      .map<TypeNode>((TSTypeNode node) => parseType(type, declarationMap))
+      .map<TypeNode>((TSTypeNode node) => parseType(type, declarationMap, programMap))
       .toList()
     );
   }
@@ -131,7 +144,7 @@ TypeNode parseType(TSTypeNode type, DeclarationMap declarationMap) {
     return ReferredTypeNode(
       name: name,
       typeParams: (typeArguments ?? [])
-        .map((node) => parseType(type, declarationMap)).toList()
+        .map((node) => parseType(type, declarationMap, programMap)).toList()
     );
   }
 

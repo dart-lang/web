@@ -1,5 +1,10 @@
+// Copyright (c) 2025, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+
 @TestOn('vm')
 @Tags(['node'])
+@Skip('https://github.com/dart-lang/web/issues/372')
 library;
 
 import 'dart:io';
@@ -15,7 +20,7 @@ void main() {
   group('Web Generator TS Bindings Integration Test', () {
     final inputDir = Directory(testGenDTSFiles);
 
-    setUp(() async {
+    setUpAll(() async {
       // set up npm
       await runProc('npm', ['install'],
           workingDirectory: bindingsGeneratorPath, detached: true);

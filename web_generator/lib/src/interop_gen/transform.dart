@@ -153,8 +153,8 @@ Type parseType(TSTypeNode type, DeclarationMap declarationMap,
     // reference type
     final refType = type as TSTypeReferenceNode;
 
-    // TODO: Rather than passing the name of the type, we should extract 
-    //  the declaration. The thing about doing this is how to parse 
+    // TODO: Rather than passing the name of the type, we should extract
+    //  the declaration. The thing about doing this is how to parse
     //  the declarations if they do not exist at the moment
     //  Maybe: make this raw, then build afterwards with a resolve command
     final name = refType.typeName.text;

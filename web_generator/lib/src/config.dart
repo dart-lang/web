@@ -9,6 +9,9 @@ abstract interface class Config {
   /// The description for the configuration
   String? get description;
 
+  /// Preamble to add at the top of generated code
+  String? get preamble;
+
   /// The input files
   List<String> get input;
 
@@ -26,7 +29,8 @@ abstract interface class Config {
   factory Config(
       {required List<String> input,
       required String output,
-      required Version languageVersion}) = ConfigImpl._;
+      required Version languageVersion,
+      }) = ConfigImpl._;
 }
 
 class ConfigImpl implements Config {
@@ -48,10 +52,14 @@ class ConfigImpl implements Config {
   @override
   Version languageVersion;
 
+  @override
+  String? preamble;
+
   ConfigImpl._(
       {required this.input,
       required this.output,
-      required this.languageVersion});
+      required this.languageVersion,
+      });
 
   @override
   // TODO: implement singleFileOutput
@@ -80,13 +88,17 @@ class YamlConfig implements Config {
   @override
   Version languageVersion;
 
+  @override
+  String? preamble;
+
   YamlConfig._(
       {required this.filename,
       required this.input,
+      required this.output,
       this.description,
-      String? languageVersion,
       this.name,
-      required this.output})
+      this.preamble,
+      String? languageVersion})
       : languageVersion = languageVersion == null
             ? DartFormatter.latestLanguageVersion
             : Version.parse(languageVersion);
@@ -107,6 +119,9 @@ class YamlConfig implements Config {
         input: input,
         output: yaml['output'] as String,
         name: yaml['name'] as String?,
-        description: yaml['description'] as String?);
+        description: yaml['description'] as String?,
+        languageVersion: yaml['language_version'] as String?,
+        preamble: yaml['preamble'] as String?
+    );
   }
 }

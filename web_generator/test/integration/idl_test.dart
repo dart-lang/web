@@ -16,8 +16,7 @@ void main() {
 
     setUpAll(() async {
       // set up npm
-      await runProc('npm', ['install'],
-          workingDirectory: bindingsGenPath);
+      await runProc('npm', ['install'], workingDirectory: bindingsGenPath);
 
       // compile file
       await compileDartMain(dir: bindingsGenPath);
@@ -36,10 +35,8 @@ void main() {
           p.join(testGenFolder, '${inputName}_expected.dart');
 
       test(inputName, () async {
-        final inputFilePath =
-            p.relative(inputFile.path, from: bindingsGenPath);
-        final outFilePath =
-            p.relative(outputActualPath, from: bindingsGenPath);
+        final inputFilePath = p.relative(inputFile.path, from: bindingsGenPath);
+        final outFilePath = p.relative(outputActualPath, from: bindingsGenPath);
         // run the entrypoint
         await runProc(
             'node',
@@ -59,7 +56,12 @@ void main() {
       });
 
       tearDownAll(() {
-        inputDir.listSync().whereType<File>().where((f) => p.basenameWithoutExtension(f.path).endsWith('_actual')).forEach((f) => f.deleteSync());
+        inputDir
+            .listSync()
+            .whereType<File>()
+            .where(
+                (f) => p.basenameWithoutExtension(f.path).endsWith('_actual'))
+            .forEach((f) => f.deleteSync());
       });
     }
   });

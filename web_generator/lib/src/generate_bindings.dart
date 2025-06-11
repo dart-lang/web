@@ -4,6 +4,8 @@
 
 import 'dart:js_interop';
 
+import 'package:path/path.dart' as p;
+
 import 'js/webidl2.dart' as webidl2;
 import 'js/webidl_api.dart' as webidl;
 import 'js/webref_css_api.dart';
@@ -11,8 +13,6 @@ import 'js/webref_elements_api.dart';
 import 'js/webref_idl_api.dart';
 import 'translator.dart';
 import 'util.dart';
-
-import 'package:path/path.dart' as p;
 
 /// Generate CSS property names for setting / getting CSS properties in JS.
 Future<List<String>> _generateCSSStyleDeclarations() async {
@@ -91,13 +91,12 @@ Future<TranslationResult> generateBindings(
 }
 
 Future<TranslationResult> generateBindingsForFiles(
-  Map<String, String> fileContents,
-  String output, bool single
-) async {
+    Map<String, String> fileContents, String output, bool single) async {
   final cssStyleDeclarations = await _generateCSSStyleDeclarations();
   final elementHTMLMap = await _generateElementTagMap();
-  final translator = Translator(single ? p.dirname(output) : output, 
-    cssStyleDeclarations, elementHTMLMap, generateAll: true);
+  final translator = Translator(
+      single ? p.dirname(output) : output, cssStyleDeclarations, elementHTMLMap,
+      generateAll: true);
 
   for (final file in fileContents.entries) {
     final ast = webidl2.parse(file.value);

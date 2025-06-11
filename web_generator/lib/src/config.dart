@@ -1,3 +1,5 @@
+import 'package:dart_style/dart_style.dart';
+import 'package:pub_semver/pub_semver.dart';
 import 'package:yaml/yaml.dart';
 
 abstract interface class Config {
@@ -15,6 +17,45 @@ abstract interface class Config {
 
   /// The configuration file
   Uri? get filename;
+
+  /// The Dart Language Version to use
+  Version get languageVersion;
+
+  bool get singleFileOutput => input.length == 1;
+
+  factory Config(
+      {required List<String> input,
+      required String output,
+      required Version languageVersion}) = ConfigImpl._;
+}
+
+class ConfigImpl implements Config {
+  @override
+  String? description;
+
+  @override
+  Uri? filename;
+
+  @override
+  List<String> input;
+
+  @override
+  String? name;
+
+  @override
+  String output;
+
+  @override
+  Version languageVersion;
+
+  ConfigImpl._(
+      {required this.input,
+      required this.output,
+      required this.languageVersion});
+
+  @override
+  // TODO: implement singleFileOutput
+  bool get singleFileOutput => input.length == 1;
 }
 
 class YamlConfig implements Config {
@@ -33,15 +74,22 @@ class YamlConfig implements Config {
   @override
   String output;
 
-  bool singleFileOutput;
+  @override
+  bool get singleFileOutput => input.length == 1;
+
+  @override
+  Version languageVersion;
 
   YamlConfig._(
       {required this.filename,
       required this.input,
       this.description,
+      String? languageVersion,
       this.name,
       required this.output})
-      : singleFileOutput = input.length == 1;
+      : languageVersion = languageVersion == null
+            ? DartFormatter.latestLanguageVersion
+            : Version.parse(languageVersion);
 
   factory YamlConfig.fromYaml(YamlMap yaml, {required String filename}) {
     List<String> input;

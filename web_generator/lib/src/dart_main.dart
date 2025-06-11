@@ -8,7 +8,9 @@ import 'package:args/args.dart';
 import 'package:code_builder/code_builder.dart' as code;
 import 'package:dart_style/dart_style.dart';
 import 'package:pub_semver/pub_semver.dart';
+import 'package:yaml/yaml.dart';
 
+import 'config.dart';
 import 'dts/parser.dart';
 import 'dts/transform.dart';
 import 'generate_bindings.dart';
@@ -36,22 +38,33 @@ void main(List<String> args) async {
       languageVersion: Version.parse(languageVersionString),
     );
   } else if (argResult.wasParsed('declaration')) {
-    await generateJSInteropBindings(
-      inputs: argResult['input'] as Iterable<String>,
-      output: argResult['output'] as String,
-      languageVersion: Version.parse(languageVersionString),
-    );
+    final Config config;
+
+    if (argResult.wasParsed('config')) {
+      final filename = argResult['config'] as String;
+      final configContent = fs.readFileSync(
+          filename.toJS, JSReadFileOptions(encoding: 'utf8'.toJS)) as JSString;
+      final yaml = loadYamlDocument(configContent.toDart);
+      config =
+          YamlConfig.fromYaml(yaml.contents as YamlMap, filename: filename);
+
+    } else {
+      config = Config(
+        input: argResult['input'] as List<String>,
+        output: argResult['output'] as String,
+        languageVersion: Version.parse(languageVersionString),
+      );
+
+    }
+    
+    await generateJSInteropBindings(config);
   }
 }
 
 // TODO(nikeokoronkwo): Add support for configuration
-Future<void> generateJSInteropBindings({
-  required Iterable<String> inputs,
-  required String output,
-  required Version languageVersion,
-}) async {
+Future<void> generateJSInteropBindings(Config config) async {
   // generate
-  final jsDeclarations = parseDeclarationFiles(inputs);
+  final jsDeclarations = parseDeclarationFiles(config.input);
 
   // transform declarations
   final dartDeclarations = transformDeclarations(jsDeclarations);
@@ -60,7 +73,7 @@ Future<void> generateJSInteropBindings({
   final generatedCode = dartDeclarations.generate();
 
   // write code to file
-  fs.writeFileSync(output.toJS, generatedCode.toJS);
+  fs.writeFileSync(config.output.toJS, generatedCode.toJS);
 }
 
 Future<void> generateIDLBindings({

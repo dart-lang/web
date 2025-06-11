@@ -67,11 +67,13 @@ $_usage''');
 
   // Run app with `node`.
   final generateAll = argResult['generate-all'] as bool;
+  final inputFiles = argResult.rest;
   await runProc(
     'node',
     [
       'main.mjs',
       '--idl',
+      for (String inputFile in inputFiles) '--input=$inputFile',
       '--output=${p.join(_webPackagePath, 'lib', 'src')}',
       if (generateAll) '--generate-all',
     ],
@@ -161,18 +163,13 @@ final _endComment =
     '<!-- END updated by $_scriptPOSIXPath. Do not modify by hand -->';
 
 final _usage = '''
-Global Options:
-${_parser.usage}
+${ansi.styleBold.wrap('WebIDL Gen')}:
+$_thisScript [... .idl file] [options]
 
-${ansi.styleBold.wrap('IDL Command')}: $_thisScript idl [options]
-
-Usage:
-${_parser.commands['idl']?.usage}
-
-${ansi.styleBold.wrap('Typescript Gen Command')}: $_thisScript dts <.d.ts file> [options]
+If no IDL file is parsed, defaults to the WebIDL definitions needed for package:web
 
 Usage:
-${_parser.commands['dts']?.usage}''';
+${_parser.usage}''';
 
 final _parser = ArgParser()
   ..addFlag('help', negatable: false, help: 'Show help information')

@@ -648,7 +648,7 @@ class _MemberName {
 }
 
 class Translator {
-  final String packageRoot;
+  final String? packageRoot;
   final String _librarySubDir;
   final List<String> _cssStyleDeclarations;
   final Map<String, Set<String>> _elementTagMap;
@@ -668,9 +668,9 @@ class Translator {
   /// Singleton so that various helper methods can access info about the AST.
   static Translator? instance;
 
-  Translator(this.packageRoot, this._librarySubDir, this._cssStyleDeclarations,
-      this._elementTagMap,
-      {required bool generateAll}) {
+  Translator(
+      this._librarySubDir, this._cssStyleDeclarations, this._elementTagMap,
+      {this.packageRoot, required bool generateAll}) {
     instance = this;
     docProvider = DocProvider.create();
     browserCompatData = BrowserCompatData.read(generateAll: generateAll);
@@ -815,7 +815,7 @@ class Translator {
     final libraryPath = '$_librarySubDir/${shortName.kebabToSnake}.dart';
     assert(!_libraries.containsKey(libraryPath));
 
-    final library = _Library(shortName, '$packageRoot/$libraryPath');
+    final library = _Library(shortName, '${packageRoot ?? '.'}/$libraryPath');
 
     for (var i = 0; i < ast.length; i++) {
       library.add(ast[i]);

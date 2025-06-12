@@ -141,6 +141,9 @@ class Transformer {
     final symbol = typeChecker.getSymbolAtLocation(name);
 
     final declarations = symbol?.getDeclarations();
+    // TODO(https://github.com/dart-lang/web/issues/387): Some declarations may not be defined on file,
+    //  and may be from an import statement
+    //  We should be able to handle these
     return declarations?.toDart.first;
   }
 

@@ -37,6 +37,7 @@ class Transformer {
         final Node decl = switch (node.kind) {
           _ => throw Exception('Unsupported Declaration Kind: ${node.kind}')
         };
+        // ignore: dead_code This line will not be dead in future decl additions
         declarationMap[decl.id] = decl;
     }
   }
@@ -65,9 +66,6 @@ class Transformer {
           break;
         case Type():
           // TODO: Handle this case.
-          throw UnimplementedError();
-        case Node():
-          // TODO: Handle this case
           throw UnimplementedError();
       }
     });
@@ -121,18 +119,16 @@ class Transformer {
       return m.kind == TSSyntaxKind.ExportKeyword;
     });
 
-    // TODO: Prefer `decl.flags == 33554432`
     var modifier = VariableModifier.$var;
 
-    // TODO: Prefer `decl.flags == 33554434`
     if ((variable.flags & TSNodeFlags.Const) != 0) {
       modifier = VariableModifier.$const;
-      // TODO: Prefer `decl.flags == 33554433`
     } else if ((variable.flags & TSNodeFlags.Let) != 0) {
       modifier = VariableModifier.let;
     }
 
     return variable.declarationList.declarations.toDart.map((d) {
+      namer.markUsed(d.name.text);
       return VariableNode(
           name: d.name.text,
           type: d.type == null ? PrimitiveType.any : _transformType(d.type!),
@@ -172,8 +168,9 @@ class Transformer {
         // TODO: In the case of overloading, should/shouldn't we handle more than one declaration?
         final declaration = _getDeclarationByName(refType.typeName);
 
-        if (declaration == null)
-          throw Exception('Found no declaration matching ${name}');
+        if (declaration == null) {
+          throw Exception('Found no declaration matching $name');
+        }
 
         transform(declaration);
 

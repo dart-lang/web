@@ -26,8 +26,6 @@ abstract interface class RawType<T extends Type> {
   T transform(DeclarationMap declarations);
 }
 
-// TODO: Make a `Typable` mixin for nodes that can be used as types
-
 abstract class Type extends Decl {
   Reference emit();
 }
@@ -140,7 +138,7 @@ class VariableNode extends Node with Exportable {
       required this.exported});
 
   @override
-  String get id => name;
+  String get id => 'var#$name';
 
   @override
   List<Spec> emit() {

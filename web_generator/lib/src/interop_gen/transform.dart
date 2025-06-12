@@ -104,7 +104,7 @@ void transformFile(ts.TSProgram program, String file,
         // ignore end of file
         if (node.kind == TSSyntaxKind.EndOfFileToken) return;
 
-        final decs = transformer.transform(node);
+        transformer.transform(node);
       }).toJS as ts.TSNodeCallback);
 
   // 2f. resolve declaration
@@ -112,5 +112,5 @@ void transformFile(ts.TSProgram program, String file,
   final resolvedMap = transformer.filter();
 
   // 2g. add declaration to list
-  programDeclarationMap.addAll({file: transformer.declarationMap});
+  programDeclarationMap.addAll({file: resolvedMap});
 }

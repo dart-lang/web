@@ -85,7 +85,7 @@ extension type TSDeclaration._(JSObject _) implements TSNode {}
 extension type TSStatement._(JSObject _) implements TSNode {}
 
 @JS('Identifier')
-extension type TSIdentifier._(JSObject _) implements JSObject {
+extension type TSIdentifier._(JSObject _) implements TSDeclaration {
   external String get text;
 }
 
@@ -109,3 +109,9 @@ extension type TSVariableDeclarationList._(JSObject _) implements TSNode {
 @JS('NodeArray')
 extension type TSNodeArray<T extends TSNode>._(JSArray<T> _)
     implements JSArray<T> {}
+
+@JS('Symbol')
+extension type TSSymbol._(JSObject _) implements JSObject {
+  external String get name;
+  external JSArray<TSDeclaration>? getDeclarations();
+}

@@ -1,24 +1,20 @@
 import 'package:code_builder/code_builder.dart';
 
 import 'interop_gen/generate.dart';
+import 'interop_gen/transform.dart';
 
-abstract class Decl<T> {
+sealed class Decl {
   abstract final String? name;
   abstract final String id;
-  final String? jsName;
+  final String? dartName;
 
-  Decl() : jsName = null;
-
-  T emit();
+  Decl() : dartName = null;
 }
 
-// TODO: convert nodes to types/type references
-// TODO: Nodes should have ids and jsnames, to search/identify declarations and easily add support for overloading
-abstract class Node extends Decl<List<Spec>> {
+sealed class Node extends Decl {
   @override
   abstract final String name;
 
-  @override
   List<Spec> emit();
 }
 
@@ -26,10 +22,13 @@ mixin Exportable {
   bool get exported;
 }
 
+abstract interface class RawType<T extends Type> {
+  T transform(DeclarationMap declarations);
+}
+
 // TODO: Make a `Typable` mixin for nodes that can be used as types
 
-abstract class Type extends Decl<Reference> {
-  @override
+abstract class Type extends Decl {
   Reference emit();
 }
 
@@ -50,8 +49,7 @@ enum PrimitiveType implements Type {
   @override
   String get id => name;
 
-  // TODO: Configuration options
-  // 1.
+  // TODO(https://github.com/dart-lang/web/pull/386): Configuration options
   @override
   Reference emit() {
     return switch (this) {
@@ -72,26 +70,7 @@ enum PrimitiveType implements Type {
   }
 
   @override
-  String? get jsName => null;
-}
-
-class RawReferredType extends Type {
-  @override
-  String name;
-
-  @override
-  // TODO: implement id
-  String get id => throw UnimplementedError();
-
-  List<Type> typeParams;
-
-  RawReferredType({required this.name, this.typeParams = const []});
-
-  @override
-  Reference emit() {
-    // TODO: implement emit
-    throw UnimplementedError();
-  }
+  String? get dartName => null;
 }
 
 class ReferredType<N extends Node> extends Type with Exportable {

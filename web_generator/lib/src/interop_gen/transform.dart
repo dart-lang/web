@@ -6,7 +6,9 @@ import 'package:dart_style/dart_style.dart';
 import '../ast.dart';
 import '../js/typescript.dart' as ts;
 import '../js/typescript.types.dart';
+import 'namer.dart';
 import 'parser.dart';
+import 'transform/transformer.dart';
 
 class TransformResult {
   ProgramDeclarationMap programMap;
@@ -18,9 +20,12 @@ class TransformResult {
     final formatter =
         DartFormatter(languageVersion: DartFormatter.latestLanguageVersion);
     return programMap.map((file, declMap) {
-      final specs = declMap.values
-          .map((d) => d.emit())
-          .reduce((val, element) => [...val, ...element]);
+      final specs = declMap.decls.values.map((d) {
+        return switch (d) {
+          final Node n => n.emit(),
+          final Type t => [t.emit()],
+        };
+      }).reduce((val, element) => [...val, ...element]);
       final lib = Library((l) => l..body.addAll(specs));
       return MapEntry(file, formatter.format('${lib.accept(emitter)}'));
     });
@@ -34,7 +39,33 @@ class TransformationOptions {
   TransformationOptions({this.singleFile = true});
 }
 
-typedef DeclarationMap = Map<String, Node>;
+extension type DeclarationMap(Map<String, Decl> decls)
+    implements Map<String, Decl> {
+  List<Decl> findByName(String name) {
+    return decls.entries
+        .where((e) => UniqueNamer.parse(e.key).name == name)
+        .map((e) => e.value)
+        .toList();
+  }
+
+  void add(Decl decl) => update(
+        decl.id,
+        (d) => decl,
+        ifAbsent: () => decl,
+      );
+
+  Decl findOrPut(String name, Decl Function() ifNotExists) {
+    final output = decls[name];
+    if (output == null) {
+      final ifNotExistsValue = ifNotExists();
+      decls[name] = ifNotExistsValue;
+      return ifNotExistsValue;
+    } else {
+      return output;
+    }
+  }
+}
+
 typedef ProgramDeclarationMap = Map<String, DeclarationMap>;
 
 TransformResult transform(ParserResult parsedDeclarations,
@@ -47,136 +78,39 @@ TransformResult transform(ParserResult parsedDeclarations,
     // 2a. check if the file is already parsed
     if (programDeclarationMap[file] != null) continue;
 
-    final src = parsedDeclarations.program.getSourceFile(file);
-    if (src == null) continue;
-
-    // 2b. set up an export set containing IDs of declarations to export
-    final exportSet = <String>{};
-
-    // 2d. begin traversing declarations
-    final map = transformDeclarations(src,
-        programMap: programDeclarationMap, exportSet: exportSet);
-
-    // 2e. set up namer (naming declarations)
-
-    // 2f. resolve declaration
-    // - convert raw types to actual referred types
-    // - give unique naming to functions (method overloading)
-
-    // 2g. add declaration to list
-    programDeclarationMap.addAll({file: map});
+    transformFile(parsedDeclarations.program, file, programDeclarationMap);
   }
 
   return TransformResult._(programDeclarationMap);
 }
 
-/// params: source, files input, export map (modifiable), type map
-DeclarationMap transformDeclarations(ts.TSSourceFile source,
-    {ProgramDeclarationMap? programMap, Set<String>? exportSet}) {
-  programMap ??= {};
-  exportSet ??= {};
+void transformFile(ts.TSProgram program, String file,
+    Map<String, DeclarationMap> programDeclarationMap) {
+  final src = program.getSourceFile(file);
+  if (src == null) return;
 
-  final declarationMap = <String, Node>{};
+  final typeChecker = program.getTypeChecker();
 
+  // 2b. set up an export set containing IDs of declarations to export
+
+  // 2e. set up namer (naming declarations)
+
+  final transformer = Transformer(programDeclarationMap, typeChecker);
+
+  // 2d. begin traversing declarations
   ts.forEachChild(
-      source,
+      src,
       ((TSNode node) {
         // ignore end of file
         if (node.kind == TSSyntaxKind.EndOfFileToken) return;
 
-        final decs =
-            transformDeclaration(node, declarationMap, programMap!, exportSet!);
-        declarationMap.addAll({for (final node in decs) node.id: node});
+        final decs = transformer.transform(node);
       }).toJS as ts.TSNodeCallback);
 
-  // TODO: Type Resolution
+  // 2f. resolve declaration
+  // filter
+  final resolvedMap = transformer.filter();
 
-  return declarationMap;
-}
-
-List<Node> transformDeclaration(TSNode node, DeclarationMap declarationMap,
-    ProgramDeclarationMap programMap, Set<String> exportSet) {
-  return switch (node.kind) {
-    TSSyntaxKind.VariableStatement => transformVariable(
-        node as TSVariableStatement, declarationMap, programMap),
-    _ => throw Exception('Unsupported Declaration Kind: ${node.kind}')
-  };
-}
-
-List<VariableNode> transformVariable(TSVariableStatement decl,
-    DeclarationMap declarationMap, ProgramDeclarationMap programMap) {
-  // get the modifier of the declaration
-  final modifiers = decl.modifiers.toDart;
-  final isExported = modifiers.any((m) {
-    return m.kind == TSSyntaxKind.ExportKeyword;
-  });
-
-  // TODO: Prefer `decl.flags == 33554432`
-  var modifier = VariableModifier.$var;
-
-  // TODO: Prefer `decl.flags == 33554434`
-  if ((decl.flags & TSNodeFlags.Const) != 0) {
-    modifier = VariableModifier.$const;
-    // TODO: Prefer `decl.flags == 33554433`
-  } else if ((decl.flags & TSNodeFlags.Let) != 0) {
-    modifier = VariableModifier.let;
-  }
-
-  return decl.declarationList.declarations.toDart.map((d) {
-    return VariableNode(
-        name: d.name.text,
-        type: d.type == null
-            ? PrimitiveType.any
-            : parseType(d.type!, declarationMap, programMap),
-        modifier: modifier,
-        exported: isExported);
-  }).toList();
-}
-
-/// Parses the type
-///
-/// TODO(https://github.com/dart-lang/web/issues/384): Add support for literals (i.e individual booleans and `null`)
-/// TODO(https://github.com/dart-lang/web/issues/383): Add support for `typeof` types
-Type parseType(TSTypeNode type, DeclarationMap declarationMap,
-    ProgramDeclarationMap programMap) {
-  if (type.kind == TSSyntaxKind.UnionType) {
-    final unionType = type as TSUnionTypeNode;
-    // parse union type
-    return UnionType(
-        types: unionType.types.toDart
-            .map<Type>((TSTypeNode node) =>
-                parseType(node, declarationMap, programMap))
-            .toList());
-  }
-
-  if (type.kind == TSSyntaxKind.TypeReference) {
-    // reference type
-    final refType = type as TSTypeReferenceNode;
-
-    // TODO: Rather than passing the name of the type, we should extract
-    //  the declaration. The thing about doing this is how to parse
-    //  the declarations if they do not exist at the moment
-    //  Maybe: make this raw, then build afterwards with a resolve command
-    final name = refType.typeName.text;
-    final typeArguments = refType.typeArguments?.toDart;
-
-    return RawReferredType(
-        name: name,
-        typeParams: (typeArguments ?? [])
-            .map((node) => parseType(node, declarationMap, programMap))
-            .toList());
-  }
-
-  // check for its kind
-  return switch (type.kind) {
-    TSSyntaxKind.StringKeyword => PrimitiveType.string,
-    TSSyntaxKind.AnyKeyword => PrimitiveType.any,
-    TSSyntaxKind.ObjectKeyword => PrimitiveType.object,
-    TSSyntaxKind.NumberKeyword => PrimitiveType.number,
-    TSSyntaxKind.UndefinedKeyword => PrimitiveType.undefined,
-    TSSyntaxKind.UnknownKeyword => PrimitiveType.unknown,
-    TSSyntaxKind.BooleanKeyword => PrimitiveType.boolean,
-    _ => throw UnsupportedError(
-        'The given type with kind ${type.kind} is not supported yet')
-  };
+  // 2g. add declaration to list
+  programDeclarationMap.addAll({file: transformer.declarationMap});
 }

@@ -1,19 +1,6 @@
 import 'dart:js_interop';
 
 import '../js/typescript.dart' as ts;
-import '../js/typescript.types.dart';
-
-class ParserLibraryResult {
-  String name;
-  String url;
-
-  List<TSVariableStatement> variables;
-
-  ParserLibraryResult({
-    required this.name,
-    required this.url,
-  }) : variables = [];
-}
 
 class ParserResult {
   ts.TSProgram program;

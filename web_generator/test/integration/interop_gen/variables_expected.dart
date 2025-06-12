@@ -14,6 +14,10 @@ external int get globalCounter;
 @_i1.JS()
 external set globalCounter(int newValue);
 @_i1.JS()
+external _i1.JSObject get globalObject;
+@_i1.JS()
+external set globalObject(_i1.JSObject newValue);
+@_i1.JS()
 external bool get counted;
 @_i1.JS()
 external set counted(bool newValue);

@@ -15,6 +15,7 @@ class TransformResult {
 
   TransformResult._(this.programMap);
 
+  // TODO(): Handle union of overloads (namespaces + functions, multiple interfaces, etc) 
   Map<String, String> generate() {
     final emitter = DartEmitter.scoped(useNullSafetySyntax: true);
     final formatter =
@@ -22,7 +23,7 @@ class TransformResult {
     return programMap.map((file, declMap) {
       final specs = declMap.decls.values.map((d) {
         return switch (d) {
-          final Node n => n.emit(),
+          final Declaration n => n.emit(),
           final Type t => [t.emit()],
         };
       }).reduce((val, element) => [...val, ...element]);
@@ -39,22 +40,22 @@ class TransformationOptions {
   TransformationOptions({this.singleFile = true});
 }
 
-extension type DeclarationMap(Map<String, Decl> decls)
-    implements Map<String, Decl> {
-  List<Decl> findByName(String name) {
+extension type DeclarationMap(Map<String, Node> decls)
+    implements Map<String, Node> {
+  List<Node> findByName(String name) {
     return decls.entries
         .where((e) => UniqueNamer.parse(e.key).name == name)
         .map((e) => e.value)
         .toList();
   }
 
-  void add(Decl decl) => update(
+  void add(Node decl) => update(
         decl.id,
         (d) => decl,
         ifAbsent: () => decl,
       );
 
-  Decl findOrPut(String name, Decl Function() ifNotExists) {
+  Node findOrPut(String name, Node Function() ifNotExists) {
     final output = decls[name];
     if (output == null) {
       final ifNotExistsValue = ifNotExists();

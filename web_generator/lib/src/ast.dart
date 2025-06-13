@@ -1,32 +1,30 @@
 import 'package:code_builder/code_builder.dart';
 
 import 'interop_gen/generate.dart';
-import 'interop_gen/transform.dart';
 
-sealed class Decl {
+sealed class Node {
   abstract final String? name;
   abstract final String id;
   final String? dartName;
 
-  Decl() : dartName = null;
+  Node() : dartName = null;
 }
 
-sealed class Node extends Decl {
-  @override
-  abstract final String name;
-
+abstract class Declaration extends Node {
   List<Spec> emit();
 }
 
-mixin Exportable {
+abstract class NamedDeclaration extends Declaration {
+  @override
+  abstract final String name;
+}
+
+abstract interface class ExportableDeclaration extends Declaration {
   bool get exported;
 }
 
-abstract interface class RawType<T extends Type> {
-  T transform(DeclarationMap declarations);
-}
 
-abstract class Type extends Decl {
+abstract class Type extends Node {
   Reference emit();
 }
 
@@ -47,7 +45,7 @@ enum PrimitiveType implements Type {
   @override
   String get id => name;
 
-  // TODO(https://github.com/dart-lang/web/pull/386): Configuration options
+  // TODO(https://github.com/dart-lang/web/pull/386): Configuration options: double and num
   @override
   Reference emit() {
     return switch (this) {
@@ -71,7 +69,11 @@ enum PrimitiveType implements Type {
   String? get dartName => null;
 }
 
-class ReferredType<N extends Node> extends Type with Exportable {
+// TODO(): Refactor name - not all types can be referred to (only specific types)
+//  Instead change this to represent `typeof` declarations.
+// TODO(): Create a shared type for such types that can be referred to (i.e namespace, interface, class)
+//  as a type `ReferrableDeclaration`.
+class ReferredType<N extends Declaration> extends Type {
   @override
   String name;
 
@@ -85,17 +87,14 @@ class ReferredType<N extends Node> extends Type with Exportable {
   ReferredType(
       {required this.name,
       required this.declaration,
-      this.typeParams = const [],
-      required this.exported});
+      this.typeParams = const []
+      });
 
   @override
   Reference emit() {
     // TODO: implement emit
     throw UnimplementedError();
   }
-
-  @override
-  bool exported;
 }
 
 // TODO(https://github.com/dart-lang/web/issues/385): Implement Support for UnionType (including implementing `emit`)
@@ -116,7 +115,9 @@ class UnionType extends Type {
   String? get name => null;
 }
 
-class VariableNode extends Node with Exportable {
+class VariableDeclaration extends NamedDeclaration 
+  implements ExportableDeclaration {
+  
   /// the modifier of the variable
   VariableModifier modifier;
 
@@ -131,7 +132,7 @@ class VariableNode extends Node with Exportable {
   @override
   bool exported;
 
-  VariableNode(
+  VariableDeclaration(
       {required this.name,
       required this.type,
       required this.modifier,

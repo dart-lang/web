@@ -5,6 +5,5 @@ extension AsReferredType<T extends NamedDeclaration> on T {
       ReferredType(name: name, declaration: this);
 
   ReferredType<T> asReferredTypeWithTypeArgs(List<Type> typeArgs) =>
-      ReferredType(
-          name: name, declaration: this, typeParams: typeArgs);
+      ReferredType(name: name, declaration: this, typeParams: typeArgs);
 }

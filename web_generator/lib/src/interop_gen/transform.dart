@@ -15,7 +15,8 @@ class TransformResult {
 
   TransformResult._(this.programMap);
 
-  // TODO(): Handle union of overloads (namespaces + functions, multiple interfaces, etc) 
+  // TODO(https://github.com/dart-lang/web/issues/388): Handle union of overloads
+  //  (namespaces + functions, multiple interfaces, etc)
   Map<String, String> generate() {
     final emitter = DartEmitter.scoped(useNullSafetySyntax: true);
     final formatter =

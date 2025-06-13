@@ -23,7 +23,6 @@ abstract interface class ExportableDeclaration extends Declaration {
   bool get exported;
 }
 
-
 abstract class Type extends Node {
   Reference emit();
 }
@@ -69,9 +68,11 @@ enum PrimitiveType implements Type {
   String? get dartName => null;
 }
 
-// TODO(): Refactor name - not all types can be referred to (only specific types)
-//  Instead change this to represent `typeof` declarations.
-// TODO(): Create a shared type for such types that can be referred to (i.e namespace, interface, class)
+// TODO(): Refactor name - not all types can be referred to
+//  (only specific types) Instead change this
+//  to represent `typeof` declarations.
+// TODO(): Create a shared type for such types that
+//  can be referred to (i.e namespace, interface, class)
 //  as a type `ReferrableDeclaration`.
 class ReferredType<N extends Declaration> extends Type {
   @override
@@ -87,8 +88,7 @@ class ReferredType<N extends Declaration> extends Type {
   ReferredType(
       {required this.name,
       required this.declaration,
-      this.typeParams = const []
-      });
+      this.typeParams = const []});
 
   @override
   Reference emit() {
@@ -115,9 +115,8 @@ class UnionType extends Type {
   String? get name => null;
 }
 
-class VariableDeclaration extends NamedDeclaration 
-  implements ExportableDeclaration {
-  
+class VariableDeclaration extends NamedDeclaration
+    implements ExportableDeclaration {
   /// the modifier of the variable
   VariableModifier modifier;
 

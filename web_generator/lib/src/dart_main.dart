@@ -7,11 +7,12 @@ import 'dart:js_interop';
 import 'package:args/args.dart';
 import 'package:code_builder/code_builder.dart' as code;
 import 'package:dart_style/dart_style.dart';
+import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 
-import 'dts/parser.dart';
-import 'dts/transform.dart';
 import 'generate_bindings.dart';
+import 'interop_gen/parser.dart';
+import 'interop_gen/transform.dart';
 import 'js/filesystem_api.dart';
 import 'util.dart';
 
@@ -44,7 +45,7 @@ void main(List<String> args) async {
   }
 }
 
-// TODO(nikeokoronkwo): Add support for configuration
+// TODO(https://github.com/dart-lang/web/issues/376): Add support for configuration
 Future<void> generateJSInteropBindings({
   required Iterable<String> inputs,
   required String output,
@@ -54,13 +55,20 @@ Future<void> generateJSInteropBindings({
   final jsDeclarations = parseDeclarationFiles(inputs);
 
   // transform declarations
-  final dartDeclarations = transformDeclarations(jsDeclarations);
+  final dartDeclarations = transform(jsDeclarations);
 
   // generate
-  final generatedCode = dartDeclarations.generate();
+  final generatedCodeMap = dartDeclarations.generate();
 
-  // write code to file
-  fs.writeFileSync(output.toJS, generatedCode.toJS);
+  // write code to file(s)
+  if (inputs.length == 1) {
+    final singleEntry = generatedCodeMap.entries.single;
+    fs.writeFileSync(output.toJS, singleEntry.value.toJS);
+  } else {
+    for (final entry in generatedCodeMap.entries) {
+      fs.writeFileSync(p.join(output, entry.key).toJS, entry.value.toJS);
+    }
+  }
 }
 
 Future<void> generateIDLBindings({

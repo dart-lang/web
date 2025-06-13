@@ -16,6 +16,7 @@ dependencies:
   dart_flutter_team_lints: ^3.0.0
   dart_style: ^3.0.0
   io: ^1.0.4
+  meta: ^1.17.0
   package_config: ^2.1.1
   path: ^1.8.3
   pub_semver: ^2.1.5

@@ -1,17 +1,16 @@
 import 'dart:js_interop';
 import '../../ast.dart';
-import '../../ast_extensions.dart';
 import '../../js/typescript.dart' as ts;
 import '../../js/typescript.types.dart';
 import '../namer.dart';
 import '../transform.dart';
 
 class Transformer {
-  /// A map of already resolved TS Nodes
-  final List<TSNode> nodes = [];
+  /// A set of already resolved TS Nodes
+  final Set<TSNode> nodes = {};
 
   /// A map of declarations
-  final DeclarationMap declarationMap = DeclarationMap(<String, Node>{});
+  final NodeMap nodeMap = NodeMap();
 
   /// The type checker for the given program
   final ts.TSTypeChecker typeChecker;
@@ -35,34 +34,32 @@ class Transformer {
     switch (node.kind) {
       case TSSyntaxKind.VariableStatement:
         final decs = _transformVariable(node as TSVariableStatement);
-        declarationMap.addAll({for (final d in decs) d.id: d});
+        nodeMap.addAll({for (final d in decs) d.id.toString(): d});
       default:
         final Declaration decl = switch (node.kind) {
           _ => throw Exception('Unsupported Declaration Kind: ${node.kind}')
         };
         // ignore: dead_code This line will not be dead in future decl additions
-        declarationMap[decl.id] = decl;
+        nodeMap.add(decl);
     }
 
     nodes.add(node);
   }
 
-  DeclarationMap filter([bool Function(Node)? saveIf]) {
-    // Set<String> dependencies = {};
-    final filteredDeclarations = DeclarationMap({});
+  NodeMap filter() {
+    final filteredDeclarations = NodeMap();
 
     // filter out for export declarations
-    declarationMap.forEach((k, v) {
-      // get decls exported by name
-      if (exportSet.contains(v.name)) {
-        filteredDeclarations[k] = v;
+    nodeMap.forEach((id, node) {
+      if (exportSet.contains(node.name)) {
+        filteredDeclarations[id] = node;
       }
 
       // get decls with `export` keyword
-      switch (v) {
+      switch (node) {
         case final ExportableDeclaration e:
           if (e.exported) {
-            filteredDeclarations[(e as Node).id] = e as Node;
+            filteredDeclarations.add(e);
           }
           break;
         case final PrimitiveType _:
@@ -77,20 +74,19 @@ class Transformer {
       }
     });
 
-    filteredDeclarations.removeWhere((k, v) => !(saveIf?.call(v) ?? true));
-
     // then filter for dependencies
     final otherDecls = filteredDeclarations.entries
-        .map((e) => _filterForDecl(e.value))
+        .map((e) => _getDependenciesOfDecl(e.value))
         .reduce((value, element) => value..addAll(element));
 
     return filteredDeclarations..addAll(otherDecls);
   }
 
   /// Given an already filtered declaration [decl],
-  /// filter out dependencies of [decl] and return them as a declaration map
-  DeclarationMap _filterForDecl([Node? decl]) {
-    final filteredDeclarations = DeclarationMap({});
+  /// filter out dependencies of [decl] recursively
+  /// and return them as a declaration map
+  NodeMap _getDependenciesOfDecl([Node? decl]) {
+    final filteredDeclarations = NodeMap();
 
     switch (decl) {
       case final VariableDeclaration v:
@@ -98,7 +94,8 @@ class Transformer {
         break;
       case final UnionType u:
         filteredDeclarations.addAll({
-          for (final t in u.types.where((t) => t is! PrimitiveType)) t.id: t
+          for (final t in u.types.where((t) => t is! PrimitiveType))
+            t.id.toString(): t
         });
         break;
       case final PrimitiveType _:
@@ -112,7 +109,7 @@ class Transformer {
 
     if (filteredDeclarations.isNotEmpty) {
       final otherDecls = filteredDeclarations.entries
-          .map((e) => _filterForDecl(e.value))
+          .map((e) => _getDependenciesOfDecl(e.value))
           .reduce((value, element) => value..addAll(element));
 
       filteredDeclarations.addAll(otherDecls);
@@ -130,9 +127,9 @@ class Transformer {
 
     var modifier = VariableModifier.$var;
 
-    if ((variable.flags & TSNodeFlags.Const) != 0) {
+    if ((variable.declarationList.flags & TSNodeFlags.Const) != 0) {
       modifier = VariableModifier.$const;
-    } else if ((variable.flags & TSNodeFlags.Let) != 0) {
+    } else if ((variable.declarationList.flags & TSNodeFlags.Let) != 0) {
       modifier = VariableModifier.let;
     }
 
@@ -175,7 +172,7 @@ class Transformer {
       final name = refType.typeName.text;
       final typeArguments = refType.typeArguments?.toDart;
 
-      var declarationsMatching = declarationMap.findByName(name);
+      var declarationsMatching = nodeMap.findByName(name);
       if (declarationsMatching.isEmpty) {
         // TODO: In the case of overloading, should/shouldn't we handle more than one declaration?
         final declaration = _getDeclarationByName(refType.typeName);
@@ -186,14 +183,14 @@ class Transformer {
 
         transform(declaration);
 
-        declarationsMatching = declarationMap.findByName(name);
+        declarationsMatching = nodeMap.findByName(name);
       }
 
       // TODO: In the case of overloading, should/shouldn't we handle more than one declaration?
       final firstNode =
           declarationsMatching.whereType<NamedDeclaration>().first;
 
-      return firstNode.asReferredTypeWithTypeArgs(
+      return firstNode.asReferredType(
         (typeArguments ?? []).map(_transformType).toList(),
       );
     }

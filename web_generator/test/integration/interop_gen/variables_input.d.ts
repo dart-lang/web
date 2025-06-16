@@ -8,4 +8,4 @@ export declare const foo: number, bar: number;
 export declare let free: number, dom: number;
 export declare let fred: string, doctor: string;
 export declare let something: any;
-export declare let maybeValue: unknown;
+export declare const maybeValue: unknown;

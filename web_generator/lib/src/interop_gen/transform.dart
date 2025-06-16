@@ -25,9 +25,9 @@ class TransformResult {
       final specs = declMap.decls.values.map((d) {
         return switch (d) {
           final Declaration n => n.emit(),
-          final Type t => [t.emit()],
+          final Type t => t.emit(),
         };
-      }).reduce((val, element) => [...val, ...element]);
+      });
       final lib = Library((l) => l..body.addAll(specs));
       return MapEntry(file, formatter.format('${lib.accept(emitter)}'));
     });
@@ -41,8 +41,10 @@ class TransformationOptions {
   TransformationOptions({this.singleFile = true});
 }
 
-extension type DeclarationMap(Map<String, Node> decls)
-    implements Map<String, Node> {
+/// A map of declarations, where the key is the declaration's ID.
+extension type NodeMap._(Map<String, Node> decls) implements Map<String, Node> {
+  NodeMap() : decls = <String, Node>{};
+
   List<Node> findByName(String name) {
     return decls.entries
         .where((e) => UniqueNamer.parse(e.key).name == name)
@@ -50,35 +52,17 @@ extension type DeclarationMap(Map<String, Node> decls)
         .toList();
   }
 
-  void add(Node decl) => update(
-        decl.id,
-        (d) => decl,
-        ifAbsent: () => decl,
-      );
-
-  Node findOrPut(String name, Node Function() ifNotExists) {
-    final output = decls[name];
-    if (output == null) {
-      final ifNotExistsValue = ifNotExists();
-      decls[name] = ifNotExistsValue;
-      return ifNotExistsValue;
-    } else {
-      return output;
-    }
-  }
+  void add(Node decl) => decls[decl.id.toString()] = decl;
 }
 
-typedef ProgramDeclarationMap = Map<String, DeclarationMap>;
+typedef ProgramDeclarationMap = Map<String, NodeMap>;
 
 TransformResult transform(ParserResult parsedDeclarations,
     {TransformationOptions? options}) {
-  // 1. get a map of parsed declarations for each file
-  final programDeclarationMap = <String, DeclarationMap>{};
+  final programDeclarationMap = <String, NodeMap>{};
 
-  // 2. start with the first file in the
   for (final file in parsedDeclarations.files) {
-    // 2a. check if the file is already parsed
-    if (programDeclarationMap[file] != null) continue;
+    if (programDeclarationMap.containsKey(file)) continue;
 
     transformFile(parsedDeclarations.program, file, programDeclarationMap);
   }
@@ -87,19 +71,14 @@ TransformResult transform(ParserResult parsedDeclarations,
 }
 
 void transformFile(ts.TSProgram program, String file,
-    Map<String, DeclarationMap> programDeclarationMap) {
+    Map<String, NodeMap> programDeclarationMap) {
   final src = program.getSourceFile(file);
   if (src == null) return;
 
   final typeChecker = program.getTypeChecker();
 
-  // 2b. set up an export set containing IDs of declarations to export
-
-  // 2e. set up namer (naming declarations)
-
   final transformer = Transformer(programDeclarationMap, typeChecker);
 
-  // 2d. begin traversing declarations
   ts.forEachChild(
       src,
       ((TSNode node) {
@@ -109,10 +88,8 @@ void transformFile(ts.TSProgram program, String file,
         transformer.transform(node);
       }).toJS as ts.TSNodeCallback);
 
-  // 2f. resolve declaration
   // filter
   final resolvedMap = transformer.filter();
 
-  // 2g. add declaration to list
   programDeclarationMap.addAll({file: resolvedMap});
 }

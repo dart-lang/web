@@ -1,25 +1,30 @@
 import 'package:code_builder/code_builder.dart';
 
 import 'interop_gen/generate.dart';
+import 'interop_gen/namer.dart';
 
 sealed class Node {
   abstract final String? name;
-  abstract final String id;
+  abstract final ID id;
   final String? dartName;
 
   Node() : dartName = null;
 }
 
 abstract class Declaration extends Node {
-  List<Spec> emit();
+  Spec emit();
 }
 
 abstract class NamedDeclaration extends Declaration {
   @override
   abstract final String name;
+
+  ReferredType asReferredType([List<Type>? typeArgs]) =>
+      ReferredType(name: name, declaration: this, typeParams: typeArgs ?? []);
 }
 
 abstract interface class ExportableDeclaration extends Declaration {
+  /// Whether this declaration is exported.
   bool get exported;
 }
 
@@ -42,7 +47,7 @@ enum PrimitiveType implements Type {
   final String name;
 
   @override
-  String get id => name;
+  ID get id => ID(type: 'type', name: name);
 
   // TODO(https://github.com/dart-lang/web/pull/386): Configuration options: double and num
   @override
@@ -74,14 +79,14 @@ enum PrimitiveType implements Type {
 // TODO(): Create a shared type for such types that
 //  can be referred to (i.e namespace, interface, class)
 //  as a type `ReferrableDeclaration`.
-class ReferredType<N extends Declaration> extends Type {
+class ReferredType<T extends Declaration> extends Type {
   @override
   String name;
 
   @override
-  String get id => name;
+  ID get id => ID(type: 'type', name: name);
 
-  N declaration;
+  T declaration;
 
   List<Type> typeParams;
 
@@ -104,7 +109,7 @@ class UnionType extends Type {
   UnionType({required this.types});
 
   @override
-  String get id => types.map((t) => t.id).join('|');
+  ID get id => ID(type: 'type', name: types.map((t) => t.id).join('|'));
 
   @override
   Reference emit() {
@@ -117,17 +122,14 @@ class UnionType extends Type {
 
 class VariableDeclaration extends NamedDeclaration
     implements ExportableDeclaration {
-  /// the modifier of the variable
+  /// The variable modifier, as represented in TypeScript
   VariableModifier modifier;
 
-  /// the name of the variable
   @override
   String name;
 
-  /// the type of the variable
   Type type;
 
-  /// Whether the given Node is exported
   @override
   bool exported;
 
@@ -138,32 +140,25 @@ class VariableDeclaration extends NamedDeclaration
       required this.exported});
 
   @override
-  String get id => 'var#$name';
+  ID get id => ID(type: 'var', name: name);
 
   @override
-  List<Spec> emit() {
-    // generate a getter and setter pair
-    final codeBlocks = <Method>[];
-
-    codeBlocks.add(Method((m) => m
-      ..name = name
-      ..type = MethodType.getter
-      ..annotations.add(generateJSAnnotation())
-      ..external = true
-      ..returns = type.emit()));
-
-    if (modifier != VariableModifier.$const) {
-      codeBlocks.add(Method((m) => m
+  Spec emit() {
+    if (modifier == VariableModifier.$const) {
+      return Method((m) => m
         ..name = name
-        ..type = MethodType.setter
+        ..type = MethodType.getter
         ..annotations.add(generateJSAnnotation())
-        ..requiredParameters.add(Parameter((p) => p
-          ..name = 'newValue'
-          ..type = type.emit()))
-        ..external = true));
+        ..external = true
+        ..returns = type.emit());
+    } else {
+      // getter and setter -> single variable
+      return Field((f) => f
+        ..external = true
+        ..name = name
+        ..type = type.emit()
+        ..annotations.add(generateJSAnnotation()));
     }
-
-    return codeBlocks;
   }
 }
 

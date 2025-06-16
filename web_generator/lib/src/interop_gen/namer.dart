@@ -1,5 +1,4 @@
 // typedef ID = ({String type, String name, String? index});
-import '../banned_names.dart';
 
 class ID {
   final String type;
@@ -27,30 +26,6 @@ class UniqueNamer {
 
     return ID(
         type: type, name: name, index: index == null ? null : int.parse(index));
-  }
-
-  ({ID id, String name}) makeUnique(String name, String type) {
-    // nested structures (and anonymous structures) may not have a name
-    if (name.isEmpty) {
-      name = 'unnamed';
-    }
-
-    var newName = name;
-    if (keywords.contains(newName)) {
-      newName = '$newName\$';
-    }
-
-    var i = 0;
-    while (_usedNames.contains(newName)) {
-      ++i;
-      newName = '$name\$$i';
-    }
-
-    markUsed(newName);
-    return (
-      id: ID(type: type, name: name, index: i == 0 ? null : i),
-      name: newName
-    );
   }
 
   /// Adds a [name] to used names.

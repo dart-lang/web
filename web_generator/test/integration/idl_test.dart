@@ -43,10 +43,14 @@ void main() {
             [
               'main.mjs',
               '--input=$inputFilePath',
-              '--output=$outFilePath',
+              '--output=${p.dirname(outFilePath)}',
               '--idl'
             ],
             workingDirectory: bindingsGenPath);
+
+        await File(
+                p.join(p.dirname(outputActualPath), '${inputName}_input.dart'))
+            .rename(outputActualPath);
 
         // read files
         final expectedOutput = await File(outputExpectedPath).readAsString();

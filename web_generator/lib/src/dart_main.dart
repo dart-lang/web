@@ -7,7 +7,6 @@ import 'dart:js_interop';
 import 'package:args/args.dart';
 import 'package:code_builder/code_builder.dart' as code;
 import 'package:dart_style/dart_style.dart';
-import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 
 import 'dts/parser.dart';
@@ -90,28 +89,23 @@ Future<void> generateIDLBindings({
       fs.writeFileSync('$output/$libraryPath'.toJS, contents);
     }
   } else {
-    final single = input.length == 1;
     // parse individual files
-    ensureDirectoryExists(single ? p.dirname(output) : output);
+    ensureDirectoryExists(output);
 
     final bindings = await generateBindingsForFiles({
       for (final file in input)
-        file: fs
-            .readFileSync(file.toJS, JSReadFileOptions(encoding: 'utf-8'.toJS))
-            .dartify() as String
-    }, output, single);
+        file: (fs.readFileSync(
+                    file.toJS, JSReadFileOptions(encoding: 'utf-8'.toJS))
+                as JSString)
+            .toDart
+    }, output);
 
-    for (var entry in bindings.entries.where((e) => e.key != 'dom.dart')) {
+    for (var entry in bindings.entries) {
       final libraryPath = entry.key;
       final library = entry.value;
 
       final contents = _emitLibrary(library, languageVersion).toJS;
-      // print('FOR $libraryPath \n${'='*20}\n $contents');
-      if (single) {
-        fs.writeFileSync(output.toJS, contents);
-      } else {
-        fs.writeFileSync('$output/$libraryPath'.toJS, contents);
-      }
+      fs.writeFileSync('$output/$libraryPath'.toJS, contents);
     }
   }
 }

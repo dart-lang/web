@@ -91,12 +91,13 @@ Future<TranslationResult> generateBindings(
 }
 
 Future<TranslationResult> generateBindingsForFiles(
-    Map<String, String> fileContents, String output, bool single) async {
+    Map<String, String> fileContents, String output) async {
+  // generate CSS style declarations and element tag map incase they are
+  // needed for the input files.
   final cssStyleDeclarations = await _generateCSSStyleDeclarations();
   final elementHTMLMap = await _generateElementTagMap();
-  final translator = Translator(
-      single ? p.dirname(output) : output, cssStyleDeclarations, elementHTMLMap,
-      generateAll: true);
+  final translator = Translator(output, cssStyleDeclarations, elementHTMLMap,
+      generateAll: true, generateForWeb: false);
 
   for (final file in fileContents.entries) {
     final ast = webidl2.parse(file.value);

@@ -34,13 +34,6 @@ class TransformResult {
   }
 }
 
-class TransformationOptions {
-  /// whether we are outputting to a single file or to multiple files
-  bool singleFile;
-
-  TransformationOptions({this.singleFile = true});
-}
-
 /// A map of declarations, where the key is the declaration's ID.
 extension type NodeMap._(Map<String, Node> decls) implements Map<String, Node> {
   NodeMap() : decls = <String, Node>{};
@@ -57,8 +50,7 @@ extension type NodeMap._(Map<String, Node> decls) implements Map<String, Node> {
 
 typedef ProgramDeclarationMap = Map<String, NodeMap>;
 
-TransformResult transform(ParserResult parsedDeclarations,
-    {TransformationOptions? options}) {
+TransformResult transform(ParserResult parsedDeclarations) {
   final programDeclarationMap = <String, NodeMap>{};
 
   for (final file in parsedDeclarations.files) {

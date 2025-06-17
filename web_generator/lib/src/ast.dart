@@ -12,12 +12,13 @@ sealed class Node {
 }
 
 abstract class Declaration extends Node {
+  @override
+  abstract final String name;
+  
   Spec emit();
 }
 
 abstract class NamedDeclaration extends Declaration {
-  @override
-  abstract final String name;
 
   ReferredType asReferredType([List<Type>? typeArgs]) =>
       ReferredType(name: name, declaration: this, typeParams: typeArgs ?? []);

@@ -1,0 +1,15 @@
+dictionary ConfigOptions {
+  required DOMString endpoint;
+  boolean useCache = true;
+  long timeout = 5000;
+  sequence<DOMString>? tags;
+};
+
+dictionary ExtendedOptions : ConfigOptions {
+  DOMString? userToken;
+  DOMString mode = "default";
+};
+
+interface Configurable {
+  void applySettings(optional ExtendedOptions options);
+};

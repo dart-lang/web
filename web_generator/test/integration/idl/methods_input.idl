@@ -1,0 +1,34 @@
+interface MyMethodExamples {
+  void reset();
+
+  void configure(optional boolean force = false, optional DOMString? label = null);
+
+  void log(DOMString message, any... extras);
+
+  void update(DOMString key, DOMString value);
+  void update(sequence<DOMString> keys);
+
+  Promise<DOMString> fetchRemoteValue(optional DOMString? endpoint);
+
+  static boolean isValid(DOMString candidate);
+
+  [Deprecated="Use configure() instead."]
+  void init();
+};
+
+[Exposed=Window]
+interface Dimensions {
+  attribute unsigned long width;
+  attribute unsigned long height;
+};
+
+[Exposed=Window]
+interface Button {
+
+  // An operation that takes no arguments and returns a boolean.
+  boolean isMouseOver();
+
+  // Overloaded operations.
+  undefined setDimensions(Dimensions size);
+  undefined setDimensions(unsigned long width, unsigned long height);
+};

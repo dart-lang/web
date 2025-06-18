@@ -32,7 +32,10 @@ void main(List<String> args) async {
 
   if (argResult.wasParsed('idl')) {
     await generateIDLBindings(
-      outputDirectory: argResult['output'] as String,
+      input: (argResult['input'] as List<String>).isEmpty
+          ? null
+          : argResult['input'] as Iterable<String>,
+      output: argResult['output'] as String,
       generateAll: argResult['generate-all'] as bool,
       languageVersion: Version.parse(languageVersionString),
     );
@@ -72,22 +75,46 @@ Future<void> generateJSInteropBindings({
 }
 
 Future<void> generateIDLBindings({
-  required String outputDirectory,
+  Iterable<String>? input,
+  required String output,
   required bool generateAll,
   required Version languageVersion,
 }) async {
-  const librarySubDir = 'dom';
+  if (input == null) {
+    // parse dom library as normal
+    const librarySubDir = 'dom';
 
-  ensureDirectoryExists('$outputDirectory/$librarySubDir');
+    ensureDirectoryExists('$output/$librarySubDir');
 
-  final bindings = await generateBindings(packageRoot, librarySubDir,
-      generateAll: generateAll);
-  for (var entry in bindings.entries) {
-    final libraryPath = entry.key;
-    final library = entry.value;
+    final bindings = await generateBindings(packageRoot, librarySubDir,
+        generateAll: generateAll);
 
-    final contents = _emitLibrary(library, languageVersion).toJS;
-    fs.writeFileSync('$outputDirectory/$libraryPath'.toJS, contents);
+    for (var entry in bindings.entries) {
+      final libraryPath = entry.key;
+      final library = entry.value;
+
+      final contents = _emitLibrary(library, languageVersion).toJS;
+      fs.writeFileSync('$output/$libraryPath'.toJS, contents);
+    }
+  } else {
+    // parse individual files
+    ensureDirectoryExists(output);
+
+    final bindings = await generateBindingsForFiles({
+      for (final file in input)
+        file: (fs.readFileSync(
+                    file.toJS, JSReadFileOptions(encoding: 'utf-8'.toJS))
+                as JSString)
+            .toDart
+    }, output);
+
+    for (var entry in bindings.entries) {
+      final libraryPath = entry.key;
+      final library = entry.value;
+
+      final contents = _emitLibrary(library, languageVersion).toJS;
+      fs.writeFileSync('$output/$libraryPath'.toJS, contents);
+    }
   }
 }
 

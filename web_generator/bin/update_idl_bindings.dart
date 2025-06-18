@@ -67,12 +67,17 @@ $_usage''');
 
   // Run app with `node`.
   final generateAll = argResult['generate-all'] as bool;
+  final inputFiles = argResult['input'] as List<String>;
   await runProc(
     'node',
     [
       'main.mjs',
       '--idl',
-      '--output=${p.join(_webPackagePath, 'lib', 'src')}',
+      for (String inputFile in inputFiles) '--input=$inputFile',
+      if (inputFiles.isEmpty)
+        '--output=${p.join(_webPackagePath, 'lib', 'src')}'
+      else
+        '--output=${argResult['output'] as String? ?? p.current}',
       if (generateAll) '--generate-all',
     ],
     workingDirectory: bindingsGeneratorPath,
@@ -89,16 +94,17 @@ $_usage''');
   // delete context file
   await contextFile.delete();
 
-  // Update readme.
-  final readmeFile =
-      File(p.normalize(p.fromUri(Platform.script.resolve('../README.md'))));
+  if (inputFiles.isEmpty) {
+    // Update readme.
+    final readmeFile =
+        File(p.normalize(p.fromUri(Platform.script.resolve('../README.md'))));
 
-  final sourceContent = readmeFile.readAsStringSync();
+    final sourceContent = readmeFile.readAsStringSync();
 
-  final cssVersion = _packageLockVersion(_webRefCss);
-  final elementsVersion = _packageLockVersion(_webRefElements);
-  final idlVersion = _packageLockVersion(_webRefIdl);
-  final versions = '''
+    final cssVersion = _packageLockVersion(_webRefCss);
+    final elementsVersion = _packageLockVersion(_webRefElements);
+    final idlVersion = _packageLockVersion(_webRefIdl);
+    final versions = '''
 $_startComment
 | Item | Version |
 | --- | --: |
@@ -107,15 +113,16 @@ $_startComment
 | `$_webRefIdl` | [$idlVersion](https://www.npmjs.com/package/$_webRefIdl/v/$idlVersion) |
 ''';
 
-  final newContent =
-      sourceContent.substring(0, sourceContent.indexOf(_startComment)) +
-          versions +
-          sourceContent.substring(sourceContent.indexOf(_endComment));
-  if (newContent == sourceContent) {
-    print(ansi.styleBold.wrap('No update for readme.'));
-  } else {
-    print(ansi.styleBold.wrap('Updating readme for IDL version $idlVersion'));
-    readmeFile.writeAsStringSync(newContent, mode: FileMode.writeOnly);
+    final newContent =
+        sourceContent.substring(0, sourceContent.indexOf(_startComment)) +
+            versions +
+            sourceContent.substring(sourceContent.indexOf(_endComment));
+    if (newContent == sourceContent) {
+      print(ansi.styleBold.wrap('No update for readme.'));
+    } else {
+      print(ansi.styleBold.wrap('Updating readme for IDL version $idlVersion'));
+      readmeFile.writeAsStringSync(newContent, mode: FileMode.writeOnly);
+    }
   }
 }
 
@@ -161,23 +168,26 @@ final _endComment =
     '<!-- END updated by $_scriptPOSIXPath. Do not modify by hand -->';
 
 final _usage = '''
-Global Options:
-${_parser.usage}
+${ansi.styleBold.wrap('WebIDL Gen')}:
+$_thisScript [options]
 
-${ansi.styleBold.wrap('IDL Command')}: $_thisScript idl [options]
-
-Usage:
-${_parser.commands['idl']?.usage}
-
-${ansi.styleBold.wrap('Typescript Gen Command')}: $_thisScript dts <.d.ts file> [options]
+If no IDL file is provided, defaults to the WebIDL definitions needed for package:web
 
 Usage:
-${_parser.commands['dts']?.usage}''';
+${_parser.usage}''';
 
 final _parser = ArgParser()
   ..addFlag('help', negatable: false, help: 'Show help information')
   ..addFlag('update', abbr: 'u', help: 'Update npm dependencies')
   ..addFlag('compile', defaultsTo: true)
+  ..addOption('output',
+      abbr: 'o',
+      help: 'Output directory where bindings will be generated to '
+          '(defaults to `lib/src` in the web package when no IDL file is provided)')
+  ..addMultiOption('input',
+      abbr: 'i',
+      help: 'The input IDL file(s) to read and generate bindings for. '
+          'If not provided, the default WebIDL definitions will be used.')
   ..addFlag('generate-all',
       negatable: false,
       help: 'Generate bindings for all IDL definitions, including experimental '

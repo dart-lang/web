@@ -1,0 +1,11 @@
+export declare let counter: number;
+export declare const appName: string;
+export declare var globalCounter: number;
+export declare var globalObject: object;
+export declare var counted: boolean;
+export declare let username: string;
+export declare const foo: number, bar: number;
+export declare let free: number, dom: number;
+export declare let fred: string, doctor: string;
+export declare let something: any;
+export declare const maybeValue: unknown;

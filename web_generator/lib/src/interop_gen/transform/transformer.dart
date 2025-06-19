@@ -3,7 +3,11 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:js_interop';
-import '../../ast.dart';
+import '../../ast/base.dart';
+import '../../ast/builtin.dart';
+import '../../ast/declarations.dart';
+import '../../ast/helpers.dart';
+import '../../ast/types.dart';
 import '../../js/typescript.dart' as ts;
 import '../../js/typescript.types.dart';
 import '../namer.dart';
@@ -41,6 +45,8 @@ class Transformer {
         nodeMap.addAll({for (final d in decs) d.id.toString(): d});
       default:
         final Declaration decl = switch (node.kind) {
+          TSSyntaxKind.FunctionDeclaration =>
+            _transformFunction(node as TSFunctionDeclaration),
           _ => throw Exception('Unsupported Declaration Kind: ${node.kind}')
         };
         // ignore: dead_code This line will not be dead in future decl additions
@@ -48,6 +54,181 @@ class Transformer {
     }
 
     nodes.add(node);
+  }
+
+  List<Declaration> _transformVariable(TSVariableStatement variable) {
+    // get the modifier of the declaration
+    final modifiers = variable.modifiers.toDart;
+    final isExported = modifiers.any((m) {
+      return m.kind == TSSyntaxKind.ExportKeyword;
+    });
+
+    var modifier = VariableModifier.$var;
+
+    if ((variable.declarationList.flags & TSNodeFlags.Const) != 0) {
+      modifier = VariableModifier.$const;
+    } else if ((variable.declarationList.flags & TSNodeFlags.Let) != 0) {
+      modifier = VariableModifier.let;
+    }
+
+    return variable.declarationList.declarations.toDart.map((d) {
+      namer.markUsed(d.name.text);
+      return VariableDeclaration(
+          name: d.name.text,
+          type: d.type == null ? PrimitiveType.any : _transformType(d.type!),
+          modifier: modifier,
+          exported: isExported);
+    }).toList();
+  }
+
+  TSNode? _getDeclarationByName(TSIdentifier name) {
+    final symbol = typeChecker.getSymbolAtLocation(name);
+
+    final declarations = symbol?.getDeclarations();
+    // TODO(https://github.com/dart-lang/web/issues/387): Some declarations may not be defined on file,
+    //  and may be from an import statement
+    //  We should be able to handle these
+    return declarations?.toDart.first;
+  }
+
+  FunctionDeclaration _transformFunction(TSFunctionDeclaration function) {
+    // get function name
+    final name = function.name.text;
+
+    // get the function modifier
+    final modifiers = function.modifiers.toDart;
+    final isExported = modifiers.any((m) {
+      return m.kind == TSSyntaxKind.ExportKeyword;
+    });
+
+    // get the function parameters
+    final params = function.parameters.toDart;
+
+    // get the function type parameters
+    final typeParams = function.typeParameters?.toDart;
+
+    final (id: id, name: uniqueName) = namer.makeUnique(name, 'fun');
+
+    // return
+    return FunctionDeclaration(
+        name: name,
+        id: id,
+        dartName: uniqueName,
+        exported: isExported,
+        parameters: params.map(_transformParameter).toList(),
+        typeParameters:
+            typeParams?.map(_transformTypeParamDeclaration).toList() ?? [],
+        returnType: function.type != null
+            ? _transformType(function.type!)
+            : PrimitiveType.any);
+  }
+
+  ParameterDeclaration _transformParameter(TSParameterDeclaration parameter) {
+    final type = parameter.type != null
+        ? _transformType(parameter.type!)
+        : PrimitiveType.any;
+    final isOptional = parameter.questionToken != null;
+    final isVariardic = parameter.dotDotDotToken != null;
+
+    // what kind of parameter is this
+    switch (parameter.name.kind) {
+      case TSSyntaxKind.Identifier:
+        return ParameterDeclaration(
+            name: (parameter.name as TSIdentifier).text,
+            type: type,
+            variardic: isVariardic,
+            optional: isOptional);
+      default:
+        // TODO: Support Destructured Object Parameters
+        //  and Destructured Array Parameters
+        throw Exception('Unsupported Parameter Name kind ${parameter.kind}');
+    }
+  }
+
+  GenericType _transformTypeParamDeclaration(
+      TSTypeParameterDeclaration typeParam) {
+    return GenericType(
+        name: typeParam.name.text,
+        constraint: typeParam.constraint == null
+            ? PrimitiveType.any
+            : _transformType(typeParam.constraint!));
+  }
+
+  /// Parses the type
+  ///
+  /// TODO(https://github.com/dart-lang/web/issues/384): Add support for literals (i.e individual booleans and `null`)
+  /// TODO(https://github.com/dart-lang/web/issues/383): Add support for `typeof` types
+  Type _transformType(TSTypeNode type) {
+    if (type.kind == TSSyntaxKind.ArrayType) {
+      // parse array type
+      return ArrayType(_transformType((type as TSArrayTypeNode).elementType));
+    }
+
+    if (type.kind == TSSyntaxKind.UnionType) {
+      final unionType = type as TSUnionTypeNode;
+      // parse union type
+      return UnionType(
+          types: unionType.types.toDart.map<Type>(_transformType).toList());
+    }
+
+    if (type.kind == TSSyntaxKind.TypeReference) {
+      // reference type
+      final refType = type as TSTypeReferenceNode;
+
+      final name = refType.typeName.text;
+      final typeArguments = refType.typeArguments?.toDart;
+
+      var declarationsMatching = nodeMap.findByName(name);
+
+      if (declarationsMatching.isEmpty) {
+        // check if builtin
+        // TODO(https://github.com/dart-lang/web/issues/380): A better name
+        //  for this, and adding support for "supported declarations"
+        //  (also a better name for that)
+        final supportedType = getSupportedType(
+            name, (typeArguments ?? []).map(_transformType).toList());
+        if (supportedType != null) {
+          return supportedType;
+        }
+
+        // TODO: In the case of overloading, should/shouldn't we handle more than one declaration?
+        final declaration = _getDeclarationByName(refType.typeName);
+
+        if (declaration == null) {
+          throw Exception('Found no declaration matching $name');
+        }
+
+        if (declaration.kind == TSSyntaxKind.TypeParameter) {
+          return GenericType(name: name);
+        }
+
+        transform(declaration);
+
+        declarationsMatching = nodeMap.findByName(name);
+      }
+
+      // TODO: In the case of overloading, should/shouldn't we handle more than one declaration?
+      final firstNode =
+          declarationsMatching.whereType<NamedDeclaration>().first;
+
+      return firstNode.asReferredType(
+        (typeArguments ?? []).map(_transformType).toList(),
+      );
+    }
+
+    // check for its kind
+    return switch (type.kind) {
+      TSSyntaxKind.StringKeyword => PrimitiveType.string,
+      TSSyntaxKind.AnyKeyword => PrimitiveType.any,
+      TSSyntaxKind.ObjectKeyword => PrimitiveType.object,
+      TSSyntaxKind.NumberKeyword => PrimitiveType.number,
+      TSSyntaxKind.UndefinedKeyword => PrimitiveType.undefined,
+      TSSyntaxKind.UnknownKeyword => PrimitiveType.unknown,
+      TSSyntaxKind.BooleanKeyword => PrimitiveType.boolean,
+      TSSyntaxKind.VoidKeyword => PrimitiveType.$void,
+      _ => throw UnsupportedError(
+          'The given type with kind ${type.kind} is not supported yet')
+    };
   }
 
   NodeMap filter() {
@@ -94,15 +275,29 @@ class Transformer {
 
     switch (decl) {
       case final VariableDeclaration v:
-        if (v.type is! PrimitiveType) filteredDeclarations.add(v.type);
+        if (v.type is! BuiltinType) filteredDeclarations.add(v.type);
+        break;
+      case final FunctionDeclaration f:
+        if (f.returnType is! PrimitiveType) {
+          filteredDeclarations.add(f.returnType);
+        }
+        filteredDeclarations.addAll({
+          for (final node in f.parameters.map((p) => p.type))
+            node.id.toString(): node
+        });
+        filteredDeclarations.addAll({
+          for (final node
+              in f.typeParameters.map((p) => p.constraint).whereType<Type>())
+            node.id.toString(): node
+        });
         break;
       case final UnionType u:
         filteredDeclarations.addAll({
-          for (final t in u.types.where((t) => t is! PrimitiveType))
+          for (final t in u.types.where((t) => t is! BuiltinBaseType))
             t.id.toString(): t
         });
         break;
-      case final PrimitiveType _:
+      case final BuiltinBaseType _:
         // primitive types are generated by default
         break;
       default:
@@ -120,96 +315,5 @@ class Transformer {
     }
 
     return filteredDeclarations;
-  }
-
-  List<Declaration> _transformVariable(TSVariableStatement variable) {
-    // get the modifier of the declaration
-    final modifiers = variable.modifiers.toDart;
-    final isExported = modifiers.any((m) {
-      return m.kind == TSSyntaxKind.ExportKeyword;
-    });
-
-    var modifier = VariableModifier.$var;
-
-    if ((variable.declarationList.flags & TSNodeFlags.Const) != 0) {
-      modifier = VariableModifier.$const;
-    } else if ((variable.declarationList.flags & TSNodeFlags.Let) != 0) {
-      modifier = VariableModifier.let;
-    }
-
-    return variable.declarationList.declarations.toDart.map((d) {
-      namer.markUsed(d.name.text);
-      return VariableDeclaration(
-          name: d.name.text,
-          type: d.type == null ? PrimitiveType.any : _transformType(d.type!),
-          modifier: modifier,
-          exported: isExported);
-    }).toList();
-  }
-
-  TSNode? _getDeclarationByName(TSIdentifier name) {
-    final symbol = typeChecker.getSymbolAtLocation(name);
-
-    final declarations = symbol?.getDeclarations();
-    // TODO(https://github.com/dart-lang/web/issues/387): Some declarations may not be defined on file,
-    //  and may be from an import statement
-    //  We should be able to handle these
-    return declarations?.toDart.first;
-  }
-
-  /// Parses the type
-  ///
-  /// TODO(https://github.com/dart-lang/web/issues/384): Add support for literals (i.e individual booleans and `null`)
-  /// TODO(https://github.com/dart-lang/web/issues/383): Add support for `typeof` types
-  Type _transformType(TSTypeNode type) {
-    if (type.kind == TSSyntaxKind.UnionType) {
-      final unionType = type as TSUnionTypeNode;
-      // parse union type
-      return UnionType(
-          types: unionType.types.toDart.map<Type>(_transformType).toList());
-    }
-
-    if (type.kind == TSSyntaxKind.TypeReference) {
-      // reference type
-      final refType = type as TSTypeReferenceNode;
-
-      final name = refType.typeName.text;
-      final typeArguments = refType.typeArguments?.toDart;
-
-      var declarationsMatching = nodeMap.findByName(name);
-      if (declarationsMatching.isEmpty) {
-        // TODO: In the case of overloading, should/shouldn't we handle more than one declaration?
-        final declaration = _getDeclarationByName(refType.typeName);
-
-        if (declaration == null) {
-          throw Exception('Found no declaration matching $name');
-        }
-
-        transform(declaration);
-
-        declarationsMatching = nodeMap.findByName(name);
-      }
-
-      // TODO: In the case of overloading, should/shouldn't we handle more than one declaration?
-      final firstNode =
-          declarationsMatching.whereType<NamedDeclaration>().first;
-
-      return firstNode.asReferredType(
-        (typeArguments ?? []).map(_transformType).toList(),
-      );
-    }
-
-    // check for its kind
-    return switch (type.kind) {
-      TSSyntaxKind.StringKeyword => PrimitiveType.string,
-      TSSyntaxKind.AnyKeyword => PrimitiveType.any,
-      TSSyntaxKind.ObjectKeyword => PrimitiveType.object,
-      TSSyntaxKind.NumberKeyword => PrimitiveType.number,
-      TSSyntaxKind.UndefinedKeyword => PrimitiveType.undefined,
-      TSSyntaxKind.UnknownKeyword => PrimitiveType.unknown,
-      TSSyntaxKind.BooleanKeyword => PrimitiveType.boolean,
-      _ => throw UnsupportedError(
-          'The given type with kind ${type.kind} is not supported yet')
-    };
   }
 }

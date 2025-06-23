@@ -1,12 +1,15 @@
+typedef (Int8Array or Int16Array or Int32Array or
+         Uint8Array or Uint16Array or Uint32Array or Uint8ClampedArray or
+         BigInt64Array or BigUint64Array or
+         Float16Array or Float32Array or Float64Array or DataView) ArrayBufferView;
+         
 typedef (ArrayBuffer or ArrayBufferView) BufferSource;
 typedef (DOMString or USVString) StringInput;
 typedef sequence<DOMString> StringList;
 typedef unsigned long long Timestamp;
-typedef (HTMLCanvasElement or OffscreenCanvas) CanvasLike;
 
 
 interface DataHandler {
   void setInput(BufferSource data);
   Timestamp getLastUpdated();
-  void setCanvas(CanvasLike canvas);
 };

@@ -12,6 +12,7 @@ const idlOrBuiltinToJsTypeAliases = <String, String>{
   // Note that this is a special sentinel that doesn't actually exist in the set
   // of JS types today (although this might in the future).
   'undefined': 'JSUndefined',
+  'void': 'JSVoid',
   'Function': 'JSFunction',
   'SharedArrayBuffer': 'JSObject',
 
@@ -69,5 +70,6 @@ const jsTypeToDartPrimitiveAliases = <String, String>{
   // `Translator._typeReference` for more details.
   'JSDouble': 'num',
   'JSNumber': 'num',
+  'JSVoid': 'void',
   'JSUndefined': 'void',
 };

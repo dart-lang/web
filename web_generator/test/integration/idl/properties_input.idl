@@ -3,7 +3,7 @@ interface PropertyTest {
 
   attribute DOMString title;
 
-  static attribute boolean debug = false;
+  static readonly attribute long testCount;
 
   readonly attribute unsigned long createdAt;
 

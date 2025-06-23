@@ -2,6 +2,15 @@ interface Shape {
   constructor();
 };
 
+interface Node {
+  
+};
+
+interface Point {
+  attribute long x;
+  attribute long y;
+};
+
 [Exposed=Window]
 interface NodeList {
   Node item(unsigned long index);

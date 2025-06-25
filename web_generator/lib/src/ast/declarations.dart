@@ -85,22 +85,21 @@ class FunctionDeclaration extends NamedDeclaration
   Spec emit([ASTOptions? options]) {
     options ??= ASTOptions();
 
-    final spreadParams = parameters.where((p) => p.variardic).map((p) {
-      return spreadParam(p.emit(options), options!.variardicArgsCount);
-    }).fold(<Parameter>[], (previous, element) => [...previous, ...element]);
-
-    final requiredParams = parameters
-        .where((p) => !p.optional && !p.variardic)
-        .map((p) => p.emit(options))
-        .toList();
-    final optionalParams = parameters
-        .where((p) => p.optional && !p.variardic)
-        .map((p) => p.emit(options))
-        .toList();
-
-    requiredParams.addAll(
-        parameters.where((p) => p.variardic).map((p) => p.emit(options)));
-    optionalParams.addAll(spreadParams);
+    final requiredParams = <Parameter>[];
+    final optionalParams = <Parameter>[];
+    for (final p in parameters) {
+      if (p.variardic) {
+        optionalParams.addAll(spreadParam(p.emit(options), 
+          options.variardicArgsCount));
+        requiredParams.add(p.emit(options));
+      } else {
+        if (p.optional) {
+          optionalParams.add(p.emit(options));
+        } else {
+          requiredParams.add(p.emit(options));
+        }
+      }
+    }
 
     return Method((m) => m
       ..external = true

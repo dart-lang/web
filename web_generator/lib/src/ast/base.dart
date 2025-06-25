@@ -2,8 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-// ignore_for_file: non_constant_identifier_names
-
 import 'package:code_builder/code_builder.dart';
 
 import '../interop_gen/namer.dart';
@@ -11,13 +9,13 @@ import 'types.dart';
 
 class ASTOptions {
   bool parameter;
-  bool jsTypes;
+  bool emitJSTypes;
   int variardicArgsCount;
 
   ASTOptions(
       {this.parameter = false,
       this.variardicArgsCount = 4,
-      this.jsTypes = false});
+      this.emitJSTypes = false});
 }
 
 sealed class Node {

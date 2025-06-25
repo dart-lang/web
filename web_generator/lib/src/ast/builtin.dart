@@ -10,6 +10,8 @@ abstract class BuiltinBaseType extends Type {
   abstract final String name;
 }
 
+/// A built in type supported by `dart:js_interop` or by this library 
+/// (with generated declarations)
 class BuiltinType extends BuiltinBaseType {
   @override
   String name;
@@ -27,7 +29,7 @@ class BuiltinType extends BuiltinBaseType {
   @override
   Reference emit([ASTOptions? options]) {
     options ??= ASTOptions();
-    options.jsTypes = true;
+    options.emitJSTypes = true;
 
     return TypeReference((t) => t
       ..symbol = name
@@ -68,7 +70,7 @@ enum PrimitiveType implements BuiltinBaseType {
   // TODO(https://github.com/dart-lang/web/pull/386): Configuration options: double and num
   @override
   Reference emit([ASTOptions? options]) {
-    final shouldEmitJsType = options?.jsTypes ?? false;
+    final shouldEmitJsType = options?.emitJSTypes ?? false;
     return switch (this) {
       PrimitiveType.string => shouldEmitJsType
           ? refer('JSString', 'dart:js_interop')

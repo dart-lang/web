@@ -23,6 +23,10 @@ class UniqueNamer {
   UniqueNamer([Iterable<String> used = const <String>[]])
       : _usedNames = used.toSet();
 
+  /// Creates a unique name and ID for a given declaration to prevent 
+  /// name collisions in Dart applications
+  /// 
+  /// (Dart does not support operator overloading)
   ({ID id, String name}) makeUnique(String name, String type) {
     // nested structures (and anonymous structures) may not have a name
     if (name.isEmpty) {

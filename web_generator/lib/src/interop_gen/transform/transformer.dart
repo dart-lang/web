@@ -92,24 +92,19 @@ class Transformer {
   }
 
   FunctionDeclaration _transformFunction(TSFunctionDeclaration function) {
-    // get function name
     final name = function.name.text;
 
-    // get the function modifier
     final modifiers = function.modifiers.toDart;
     final isExported = modifiers.any((m) {
       return m.kind == TSSyntaxKind.ExportKeyword;
     });
 
-    // get the function parameters
     final params = function.parameters.toDart;
 
-    // get the function type parameters
     final typeParams = function.typeParameters?.toDart;
 
     final (id: id, name: uniqueName) = namer.makeUnique(name, 'fun');
 
-    // return
     return FunctionDeclaration(
         name: name,
         id: id,

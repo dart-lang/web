@@ -21,7 +21,6 @@ List<Parameter> spreadParam(Parameter p, int count) {
     final paramNumber = i + 2;
     final type = p.type;
     return Parameter((pa) => pa
-      // ..replace(p)
       ..name = '${p.name}$paramNumber'
       ..type = type == null
           ? null
@@ -29,16 +28,5 @@ List<Parameter> spreadParam(Parameter p, int count) {
               ? type.rebuild((t) => t..isNullable = true)
               : (type.type as TypeReference)
                   .rebuild((t) => t..isNullable = true)));
-    // return p.rebuild((param) {
-    //   return param
-    //     ..name = '${param.name}$paramNumber'
-    //     ..required = false
-    //     ..type = type == null
-    //         ? null
-    //         : (type is TypeReference
-    //             ? type.rebuild((t) => t..isNullable = true)
-    //             : (type.type as TypeReference)
-    //                 .rebuild((t) => t..isNullable = true));
-    // });
   });
 }

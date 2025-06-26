@@ -1119,8 +1119,6 @@ class Translator {
     // from: https://github.com/w3c/webidl2.js/blob/main/README.md#default-and-const-values
     final body = switch (constant.valueType) {
       'string' => code.literalString((constant.value as JSString).toDart),
-      // 'boolean' => code.literalBool(
-      //     (constant.value as JSString).toDart.toLowerCase() == 'true'),
       'boolean' => code.literalBool((constant.value as JSBoolean).toDart),
       'number' =>
         code.literalNum(num.parse((constant.value as JSString).toDart)),

@@ -6,8 +6,10 @@ import 'declarations.dart';
 
 BuiltinType? getSupportedType(String name, [List<Type> typeParams = const []]) {
   return switch (name) {
-    'Array' => ArrayType(getJSTypeAlternative(typeParams.singleOrNull ?? BuiltinType.anyType)),
-    'Promise' => PromiseType(getJSTypeAlternative(typeParams.singleOrNull ?? BuiltinType.anyType)),
+    'Array' => ArrayType(
+        getJSTypeAlternative(typeParams.singleOrNull ?? BuiltinType.anyType)),
+    'Promise' => PromiseType(
+        getJSTypeAlternative(typeParams.singleOrNull ?? BuiltinType.anyType)),
     _ => null
   };
 }
@@ -38,14 +40,11 @@ List<Parameter> spreadParam(ParameterDeclaration p, int count) {
   return List.generate(count - 1, (i) {
     final paramNumber = i + 2;
     final paramName = '${p.name}$paramNumber';
-    return ParameterDeclaration(
-      name: paramName, 
-      type: p.type,
-      optional: true
-    ).emit();
+    return ParameterDeclaration(name: paramName, type: p.type, optional: true)
+        .emit();
     // final type = p.type;
     // return Parameter((pa) => pa
-    //   ..name = 
+    //   ..name =
     //   ..type = type == null
     //       ? null
     //       : (type is TypeReference

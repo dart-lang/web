@@ -5,8 +5,7 @@ import 'package:code_builder/code_builder.dart';
 import '../interop_gen/namer.dart';
 import 'base.dart';
 
-
-/// A built in type supported by `dart:js_interop` or by this library 
+/// A built in type supported by `dart:js_interop` or by this library
 /// (with generated declarations)
 class BuiltinType extends Type {
   @override
@@ -24,7 +23,7 @@ class BuiltinType extends Type {
       this.typeParams = const [],
       this.fromDartJSInterop = false,
       this.isNullable});
-  
+
   @override
   ID get id => ID(type: 'type', name: name);
 
@@ -42,10 +41,9 @@ class BuiltinType extends Type {
           .where((p) => typeParams.length != 1 || p != $voidType)
           .map((p) => p.emit(TypeOptions())))
       ..url = fromDartJSInterop ? 'dart:js_interop' : null
-      ..isNullable = isNullable ?? options!.nullable
-    );
+      ..isNullable = isNullable ?? options!.nullable);
   }
-  
+
   static final BuiltinType $voidType = BuiltinType(name: 'void');
   static final BuiltinType stringType = BuiltinType(name: 'String');
   static final BuiltinType intType = BuiltinType(name: 'int');
@@ -53,17 +51,24 @@ class BuiltinType extends Type {
   static final BuiltinType doubleType = BuiltinType(name: 'double');
   static final BuiltinType booleanType = BuiltinType(name: 'bool');
 
-  static final BuiltinType anyType = BuiltinType(name: 'JSAny', fromDartJSInterop: true);
-  static final BuiltinType objectType = BuiltinType(name: 'JSObject', fromDartJSInterop: true);
-  static final BuiltinType unknownType = BuiltinType(name: 'JSAny', fromDartJSInterop: true, isNullable: true);
-  static final BuiltinType undefinedType = BuiltinType(name: 'JSAny', fromDartJSInterop: true, isNullable: true);
+  static final BuiltinType anyType =
+      BuiltinType(name: 'JSAny', fromDartJSInterop: true);
+  static final BuiltinType objectType =
+      BuiltinType(name: 'JSObject', fromDartJSInterop: true);
+  static final BuiltinType unknownType =
+      BuiltinType(name: 'JSAny', fromDartJSInterop: true, isNullable: true);
+  static final BuiltinType undefinedType =
+      BuiltinType(name: 'JSAny', fromDartJSInterop: true, isNullable: true);
 
-  static final BuiltinType JSBooleanType = BuiltinType(name: 'JSBoolean', fromDartJSInterop: true);
-  static final BuiltinType JSStringType = BuiltinType(name: 'JSString', fromDartJSInterop: true);  
-  static final BuiltinType JSNumberType = BuiltinType(name: 'JSNumber', fromDartJSInterop: true);
+  static final BuiltinType JSBooleanType =
+      BuiltinType(name: 'JSBoolean', fromDartJSInterop: true);
+  static final BuiltinType JSStringType =
+      BuiltinType(name: 'JSString', fromDartJSInterop: true);
+  static final BuiltinType JSNumberType =
+      BuiltinType(name: 'JSNumber', fromDartJSInterop: true);
 }
 
-BuiltinType ArrayType(Type elementType) =>
-    BuiltinType(name: 'JSArray', typeParams: [elementType], fromDartJSInterop: true);
-BuiltinType PromiseType(Type wrappedType) =>
-    BuiltinType(name: 'JSPromise', typeParams: [wrappedType], fromDartJSInterop: true);
+BuiltinType ArrayType(Type elementType) => BuiltinType(
+    name: 'JSArray', typeParams: [elementType], fromDartJSInterop: true);
+BuiltinType PromiseType(Type wrappedType) => BuiltinType(
+    name: 'JSPromise', typeParams: [wrappedType], fromDartJSInterop: true);

@@ -58,8 +58,7 @@ class GenericType extends Type {
   Reference emit([TypeOptions? options]) => TypeReference((t) => t
     ..symbol = name
     ..bound = constraint?.emit()
-    ..isNullable = options?.nullable
-  );
+    ..isNullable = options?.nullable);
 
   @override
   ID get id =>

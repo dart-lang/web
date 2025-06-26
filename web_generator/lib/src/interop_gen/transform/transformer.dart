@@ -153,9 +153,11 @@ class Transformer {
   ///
   /// TODO(https://github.com/dart-lang/web/issues/384): Add support for literals (i.e individual booleans and `null`)
   /// TODO(https://github.com/dart-lang/web/issues/383): Add support for `typeof` types
-  Type _transformType(TSTypeNode type, {bool parameter = false, bool shouldEmitJsTypes = false}) {
+  Type _transformType(TSTypeNode type,
+      {bool parameter = false, bool shouldEmitJsTypes = false}) {
     if (type.kind == TSSyntaxKind.ArrayType) {
-      return ArrayType(getJSTypeAlternative(_transformType((type as TSArrayTypeNode).elementType)));
+      return ArrayType(getJSTypeAlternative(
+          _transformType((type as TSArrayTypeNode).elementType)));
     }
 
     if (type.kind == TSSyntaxKind.UnionType) {
@@ -210,12 +212,13 @@ class Transformer {
 
     // check for its kind
     return switch (type.kind) {
-      TSSyntaxKind.StringKeyword => shouldEmitJsTypes ? BuiltinType.JSStringType 
-        : BuiltinType.stringType,
+      TSSyntaxKind.StringKeyword =>
+        shouldEmitJsTypes ? BuiltinType.JSStringType : BuiltinType.stringType,
       TSSyntaxKind.AnyKeyword => BuiltinType.anyType,
       TSSyntaxKind.ObjectKeyword => BuiltinType.objectType,
-      TSSyntaxKind.NumberKeyword => shouldEmitJsTypes ? BuiltinType.JSNumberType 
-        : (parameter ? BuiltinType.numType : BuiltinType.doubleType),
+      TSSyntaxKind.NumberKeyword => shouldEmitJsTypes
+          ? BuiltinType.JSNumberType
+          : (parameter ? BuiltinType.numType : BuiltinType.doubleType),
       TSSyntaxKind.UndefinedKeyword => BuiltinType.undefinedType,
       TSSyntaxKind.UnknownKeyword => BuiltinType.unknownType,
       TSSyntaxKind.BooleanKeyword => BuiltinType.booleanType,

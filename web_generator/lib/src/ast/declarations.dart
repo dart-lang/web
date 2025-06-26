@@ -89,8 +89,7 @@ class FunctionDeclaration extends NamedDeclaration
     final optionalParams = <Parameter>[];
     for (final p in parameters) {
       if (p.variardic) {
-        optionalParams.addAll(spreadParam(p, 
-          options.variardicArgsCount));
+        optionalParams.addAll(spreadParam(p, options.variardicArgsCount));
         requiredParams.add(p.emit(options));
       } else {
         if (p.optional) {
@@ -106,7 +105,8 @@ class FunctionDeclaration extends NamedDeclaration
       ..name = dartName ?? name
       ..annotations.add(generateJSAnnotation(
           dartName == null || dartName == name ? null : name))
-      ..types.addAll(typeParameters.map((t) => t.emit(options?.toTypeOptions())))
+      ..types
+          .addAll(typeParameters.map((t) => t.emit(options?.toTypeOptions())))
       ..returns = returnType.emit()
       ..requiredParameters.addAll(requiredParams)
       ..optionalParameters.addAll(optionalParams));
@@ -131,7 +131,6 @@ class ParameterDeclaration {
   Parameter emit([DeclarationOptions? options]) {
     return Parameter((p) => p
       ..name = name
-      ..type = type.emit(TypeOptions(nullable: optional))
-    );
+      ..type = type.emit(TypeOptions(nullable: optional)));
   }
 }

@@ -19,7 +19,7 @@ class ReferredType<T extends Declaration> extends Type {
       this.typeParams = const []});
 
   @override
-  Reference emit([ASTOptions? options]) {
+  Reference emit([TypeOptions? options]) {
     // TODO: implement emit
     throw UnimplementedError();
   }
@@ -35,7 +35,7 @@ class UnionType extends Type {
   ID get id => ID(type: 'type', name: types.map((t) => t.id).join('|'));
 
   @override
-  Reference emit([ASTOptions? options]) {
+  Reference emit([TypeOptions? options]) {
     throw UnimplementedError('TODO: Implement UnionType.emit');
   }
 
@@ -55,9 +55,11 @@ class GenericType extends Type {
   GenericType({required this.name, this.constraint, this.parent});
 
   @override
-  Reference emit([ASTOptions? options]) => TypeReference((t) => t
+  Reference emit([TypeOptions? options]) => TypeReference((t) => t
     ..symbol = name
-    ..bound = constraint?.emit());
+    ..bound = constraint?.emit()
+    ..isNullable = options?.nullable
+  );
 
   @override
   ID get id =>

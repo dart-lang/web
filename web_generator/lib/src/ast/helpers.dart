@@ -2,13 +2,31 @@ import 'package:code_builder/code_builder.dart';
 
 import 'base.dart';
 import 'builtin.dart';
+import 'declarations.dart';
 
 BuiltinType? getSupportedType(String name, [List<Type> typeParams = const []]) {
   return switch (name) {
-    'Array' => ArrayType(typeParams.singleOrNull ?? PrimitiveType.any),
-    'Promise' => PromiseType(typeParams.singleOrNull ?? PrimitiveType.any),
+    'Array' => ArrayType(getJSTypeAlternative(typeParams.singleOrNull ?? BuiltinType.anyType)),
+    'Promise' => PromiseType(getJSTypeAlternative(typeParams.singleOrNull ?? BuiltinType.anyType)),
     _ => null
   };
+}
+
+Type getJSTypeAlternative(Type type) {
+  if (type is BuiltinType) {
+    if (type.fromDartJSInterop) return type;
+
+    return switch (type.name) {
+      'num' => BuiltinType.JSNumberType,
+      'int' => BuiltinType.JSNumberType,
+      'double' => BuiltinType.JSNumberType,
+      'String' => BuiltinType.JSStringType,
+      'void' => BuiltinType.anyType,
+      'bool' => BuiltinType.JSBooleanType,
+      _ => BuiltinType.anyType
+    };
+  }
+  return type;
 }
 
 Expression generateJSAnnotation([String? name]) {
@@ -16,17 +34,23 @@ Expression generateJSAnnotation([String? name]) {
       .call([if (name != null) literalString(name)]);
 }
 
-List<Parameter> spreadParam(Parameter p, int count) {
+List<Parameter> spreadParam(ParameterDeclaration p, int count) {
   return List.generate(count - 1, (i) {
     final paramNumber = i + 2;
-    final type = p.type;
-    return Parameter((pa) => pa
-      ..name = '${p.name}$paramNumber'
-      ..type = type == null
-          ? null
-          : (type is TypeReference
-              ? type.rebuild((t) => t..isNullable = true)
-              : (type.type as TypeReference)
-                  .rebuild((t) => t..isNullable = true)));
+    final paramName = '${p.name}$paramNumber';
+    return ParameterDeclaration(
+      name: paramName, 
+      type: p.type,
+      optional: true
+    ).emit();
+    // final type = p.type;
+    // return Parameter((pa) => pa
+    //   ..name = 
+    //   ..type = type == null
+    //       ? null
+    //       : (type is TypeReference
+    //           ? type.rebuild((t) => t..isNullable = true)
+    //           : (type.type as TypeReference)
+    //               .rebuild((t) => t..isNullable = true)));
   });
 }

@@ -7,6 +7,28 @@ import 'package:code_builder/code_builder.dart';
 import '../interop_gen/namer.dart';
 import 'types.dart';
 
+class Options {
+  
+}
+
+class DeclarationOptions extends Options {
+  int variardicArgsCount;
+
+  DeclarationOptions({
+    this.variardicArgsCount = 4
+  });
+
+  TypeOptions toTypeOptions({
+    bool nullable = false
+  }) => TypeOptions(nullable: nullable);
+}
+
+class TypeOptions extends Options {
+  bool nullable;
+
+  TypeOptions({this.nullable = false});
+}
+
 class ASTOptions {
   bool parameter;
   bool emitJSTypes;
@@ -23,7 +45,7 @@ sealed class Node {
   abstract final ID id;
   String? get dartName;
 
-  Spec emit([ASTOptions? options]);
+  Spec emit([Options? options]);
 
   Node();
 }
@@ -31,6 +53,9 @@ sealed class Node {
 abstract class Declaration extends Node {
   @override
   abstract final String name;
+
+  @override
+  Spec emit([covariant DeclarationOptions? options]);
 }
 
 abstract class NamedDeclaration extends Declaration {
@@ -48,5 +73,5 @@ abstract class Type extends Node {
   String? dartName;
 
   @override
-  Reference emit([ASTOptions? options]);
+  Reference emit([covariant TypeOptions? options]);
 }

@@ -21,4 +21,6 @@ enum DisplayMode {
 
 interface Logger {
   void log(DOMString message, optional LogLevel level = "info");
+  void logWithDirection(DOMString message, optional LogLevel level = "info", optional Direction dir = "up");
+  void logWithDisplayMode(DOMString message, DisplayMode display);
 };

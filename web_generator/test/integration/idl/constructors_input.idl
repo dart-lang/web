@@ -2,18 +2,20 @@ interface Shape {
   constructor();
 };
 
-interface Node {
+/// Wordplay around "Node"
+interface Done {
   
 };
 
-interface Point {
+interface Coordinate {
   attribute long x;
   attribute long y;
 };
 
 [Exposed=Window]
-interface NodeList {
-  Node item(unsigned long index);
+interface DoneList {
+  constructor(unsigned long length);
+  Done item(unsigned long index);
   readonly attribute unsigned long length;
 };
 
@@ -26,5 +28,5 @@ interface Circle : Shape {
   readonly attribute double circumference;
 
   static readonly attribute long triangulationCount;
-  static Point triangulate(Circle c1, Circle c2, Circle c3);
+  static Coordinate triangulate(Circle c1, Circle c2, Circle c3);
 };

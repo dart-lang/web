@@ -12,5 +12,6 @@ interface AsyncOperations {
 interface Processor {
   void run(VoidCallback onComplete);
   void compare(Comparator cmp);
+  void stringManipulate(DOMString string, StringCallback callback);
   void transform(any data, Transformer transformer);
 };

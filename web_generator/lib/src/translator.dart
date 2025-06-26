@@ -231,8 +231,6 @@ _RawType _getRawType(idl.IDLType idlType) {
   final translator = Translator.instance!;
   final decl = translator._typeToDeclaration[type];
   final alias = idlOrBuiltinToJsTypeAliases[type];
-  print('Decl: $decl, alias: $alias, type: $type, '
-      'nullable: $nullable, typeParameter: $typeParameter');
   assert(decl != null || alias != null);
   if (alias == null && !translator.markTypeAsUsed(type)) {
     // If the type is an IDL type that is never generated, use its JS type
@@ -1116,7 +1114,6 @@ class Translator {
   }
 
   (List<code.Field>, List<code.Method>) _constant(_Constant constant) {
-    print('Constant: ${constant.value} of type ${constant.valueType}');
     // If it's a value type that we can emit directly in Dart as a constant,
     // emit this as a field so users can `switch` over it. Value types taken
     // from: https://github.com/w3c/webidl2.js/blob/main/README.md#default-and-const-values
@@ -1124,8 +1121,7 @@ class Translator {
       'string' => code.literalString((constant.value as JSString).toDart),
       // 'boolean' => code.literalBool(
       //     (constant.value as JSString).toDart.toLowerCase() == 'true'),
-            'boolean' => code.literalBool(
-          (constant.value as JSBoolean).toDart),
+      'boolean' => code.literalBool((constant.value as JSBoolean).toDart),
       'number' =>
         code.literalNum(num.parse((constant.value as JSString).toDart)),
       'null' => code.literalNull,
@@ -1395,6 +1391,11 @@ class Translator {
         b
           ..ignoreForFile.addAll([
             'unintended_html_in_doc_comment',
+            'constant_identifier_names',
+            if (library.interfacelikes
+                .where((i) => i.type == 'namespace')
+                .isNotEmpty)
+              'non_constant_identifier_names'
           ])
           ..generatedByComment = generatedFileDisclaimer
           // TODO(srujzs): This is to address the issue around extension type

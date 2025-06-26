@@ -1,8 +1,8 @@
 interface OrderedMap {
   readonly attribute unsigned long size;
 
-  getter any getByIndex(unsigned long index);
-  setter undefined setByIndex(unsigned long index, any value);
+  getter any (unsigned long index);
+  setter undefined (unsigned long index, any value);
 
   getter any get(DOMString name);
   setter undefined set(DOMString name, any value);

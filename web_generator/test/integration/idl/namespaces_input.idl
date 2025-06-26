@@ -1,0 +1,27 @@
+enum LogLevel {
+  "debug",
+  "info",
+  "warn",
+  "error"
+};
+
+callback Comparator = long (DOMString a, DOMString b);
+
+interface ConfigOptions { };
+
+[Exposed=Window]
+namespace MyLibrary {
+  const unsigned short VERSION_MAJOR = 1;
+  const unsigned short VERSION_MINOR = 4;
+
+  void initialize();
+  DOMString stringify(object input);
+  Promise<any> fetchResource(DOMString url);
+
+  void log(DOMString message);
+  void log(DOMString message, LogLevel level);
+
+  ConfigOptions getDefaultConfig();
+
+  void forEach(sequence<DOMString> items, Comparator compareFn);
+};

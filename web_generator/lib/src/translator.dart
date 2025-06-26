@@ -648,10 +648,11 @@ class _MemberName {
 }
 
 class Translator {
-  final String packageRoot;
+  final String? packageRoot;
   final String _librarySubDir;
   final List<String> _cssStyleDeclarations;
   final Map<String, Set<String>> _elementTagMap;
+  final bool _generateForWeb;
 
   final _libraries = <String, _Library>{};
   final _typeToDeclaration = <String, idl.Node>{};
@@ -668,9 +669,10 @@ class Translator {
   /// Singleton so that various helper methods can access info about the AST.
   static Translator? instance;
 
-  Translator(this.packageRoot, this._librarySubDir, this._cssStyleDeclarations,
-      this._elementTagMap,
-      {required bool generateAll}) {
+  Translator(
+      this._librarySubDir, this._cssStyleDeclarations, this._elementTagMap,
+      {this.packageRoot, required bool generateAll, bool generateForWeb = true})
+      : _generateForWeb = generateForWeb {
     instance = this;
     docProvider = DocProvider.create();
     browserCompatData = BrowserCompatData.read(generateAll: generateAll);
@@ -815,7 +817,7 @@ class Translator {
     final libraryPath = '$_librarySubDir/${shortName.kebabToSnake}.dart';
     assert(!_libraries.containsKey(libraryPath));
 
-    final library = _Library(shortName, '$packageRoot/$libraryPath');
+    final library = _Library(shortName, '${packageRoot ?? '.'}/$libraryPath');
 
     for (var i = 0; i < ast.length; i++) {
       library.add(ast[i]);
@@ -1117,8 +1119,7 @@ class Translator {
     // from: https://github.com/w3c/webidl2.js/blob/main/README.md#default-and-const-values
     final body = switch (constant.valueType) {
       'string' => code.literalString((constant.value as JSString).toDart),
-      'boolean' => code.literalBool(
-          (constant.value as JSString).toDart.toLowerCase() == 'true'),
+      'boolean' => code.literalBool((constant.value as JSBoolean).toDart),
       'number' =>
         code.literalNum(num.parse((constant.value as JSString).toDart)),
       'null' => code.literalNull,
@@ -1375,39 +1376,51 @@ class Translator {
     ];
   }
 
-  code.Library _library(_Library library) => code.Library((b) => b
-    ..comments.addAll([
-      ...licenseHeader,
-      '',
-      ...mozLicenseHeader,
-    ])
-    // TODO(https://github.com/dart-lang/sdk/issues/56450): Remove this once
-    // this bug has been resolved.
-    ..ignoreForFile.addAll([
-      'unintended_html_in_doc_comment',
-    ])
-    ..generatedByComment = generatedFileDisclaimer
-    // TODO(srujzs): This is to address the issue around extension type object
-    // literal constructors in https://github.com/dart-lang/sdk/issues/54801.
-    // Once this package moves to an SDK version that contains a fix for that,
-    // this can be removed.
-    ..annotations.addAll(_jsOverride('', alwaysEmit: true))
-    ..body.addAll([
-      for (final typedef in library.typedefs.where(_usedTypes.contains))
-        _typedef(typedef.name, _desugarTypedef(_RawType(typedef.name, false))!),
-      for (final callback in library.callbacks.where(_usedTypes.contains))
-        _typedef(
-            callback.name, _desugarTypedef(_RawType(callback.name, false))!),
-      for (final callbackInterface
-          in library.callbackInterfaces.where(_usedTypes.contains))
-        _typedef(callbackInterface.name,
-            _desugarTypedef(_RawType(callbackInterface.name, false))!),
-      for (final enum_ in library.enums.where(_usedTypes.contains))
-        _typedef(enum_.name, _desugarTypedef(_RawType(enum_.name, false))!),
-      for (final interfacelike
-          in library.interfacelikes.where(_usedTypes.contains))
-        ..._interfacelike(interfacelike),
-    ]));
+  code.Library _library(_Library library) => code.Library((b) {
+        if (_generateForWeb) {
+          b.comments.addAll([
+            ...licenseHeader,
+            '',
+            ...mozLicenseHeader,
+          ]);
+        }
+        // TODO(https://github.com/dart-lang/sdk/issues/56450): Remove
+        //  this once this bug has been resolved.
+        b
+          ..ignoreForFile.addAll([
+            'unintended_html_in_doc_comment',
+            'constant_identifier_names',
+            if (library.interfacelikes
+                .where((i) => i.type == 'namespace')
+                .isNotEmpty)
+              'non_constant_identifier_names'
+          ])
+          ..generatedByComment = generatedFileDisclaimer
+          // TODO(srujzs): This is to address the issue around extension type
+          // object literal constructors in
+          // https://github.com/dart-lang/sdk/issues/54801.
+          // Once this package moves to an SDK version that contains a fix
+          // for that, this can be removed.
+          ..annotations.addAll(_jsOverride('', alwaysEmit: true))
+          ..body.addAll([
+            for (final typedef in library.typedefs.where(_usedTypes.contains))
+              _typedef(typedef.name,
+                  _desugarTypedef(_RawType(typedef.name, false))!),
+            for (final callback in library.callbacks.where(_usedTypes.contains))
+              _typedef(callback.name,
+                  _desugarTypedef(_RawType(callback.name, false))!),
+            for (final callbackInterface
+                in library.callbackInterfaces.where(_usedTypes.contains))
+              _typedef(callbackInterface.name,
+                  _desugarTypedef(_RawType(callbackInterface.name, false))!),
+            for (final enum_ in library.enums.where(_usedTypes.contains))
+              _typedef(
+                  enum_.name, _desugarTypedef(_RawType(enum_.name, false))!),
+            for (final interfacelike
+                in library.interfacelikes.where(_usedTypes.contains))
+              ..._interfacelike(interfacelike),
+          ]);
+      });
 
   code.Library generateRootImport(Iterable<String> files) =>
       code.Library((b) => b
@@ -1430,7 +1443,9 @@ class Translator {
       }
     }
 
-    dartLibraries['dom.dart'] = generateRootImport(dartLibraries.keys);
+    if (_generateForWeb) {
+      dartLibraries['dom.dart'] = generateRootImport(dartLibraries.keys);
+    }
 
     return dartLibraries;
   }

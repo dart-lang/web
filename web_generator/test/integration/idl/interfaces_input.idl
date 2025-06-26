@@ -1,0 +1,66 @@
+enum LogLevel {
+  "debug",
+  "info",
+  "warn",
+  "error"
+};
+
+
+interface ConfigOptions {
+
+};
+
+interface EmptyInterface { };
+
+interface BaseInterface {
+  undefined f();
+  undefined g();
+};
+
+interface Paint { };
+
+interface SolidColor : Paint {
+  attribute double red;
+  attribute double green;
+  attribute double blue;
+};
+
+interface MyInterface {
+  attribute DOMString name;
+  readonly attribute unsigned long id;
+
+  void doSomething();
+  boolean isReady();
+
+  Promise<DOMString> saveData(optional ConfigOptions config);
+
+  void log(DOMString message);
+  void log(DOMString message, LogLevel level);
+
+  getter DOMString (unsigned long index);
+};
+
+interface MySubInterface {
+  attribute DOMString info;
+  void reset();
+};
+
+[Exposed=*,
+ Serializable]
+interface MyException { // but see below note about JavaScript binding
+  constructor(optional DOMString message = "", optional DOMString name = "Error");
+  readonly attribute DOMString name;
+  readonly attribute DOMString message;
+  readonly attribute unsigned short code;
+};
+
+[Exposed=Window, Serializable]
+interface ProtocolXError : MyException {
+  constructor(optional DOMString message = "", ProtocolXErrorOptions options);
+
+  readonly attribute unsigned long long errorCode;
+};
+
+dictionary ProtocolXErrorOptions {
+    required [EnforceRange] unsigned long long errorCode;
+};

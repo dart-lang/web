@@ -9,3 +9,5 @@ export declare let free: number, dom: number;
 export declare let fred: string, doctor: string;
 export declare let something: any;
 export declare const maybeValue: unknown;
+export declare const names: string[];
+export declare const newNames: Array<string>;

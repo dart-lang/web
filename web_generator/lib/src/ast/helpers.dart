@@ -1,3 +1,7 @@
+// Copyright (c) 2025, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+
 import 'package:code_builder/code_builder.dart';
 
 import 'base.dart';
@@ -5,28 +9,35 @@ import 'builtin.dart';
 import 'declarations.dart';
 
 BuiltinType? getSupportedType(String name, [List<Type> typeParams = const []]) {
-  return switch (name) {
-    'Array' => ArrayType(
-        getJSTypeAlternative(typeParams.singleOrNull ?? BuiltinType.anyType)),
-    'Promise' => PromiseType(
-        getJSTypeAlternative(typeParams.singleOrNull ?? BuiltinType.anyType)),
+  final type = switch (name) {
+    'Array' => PrimitiveType.array,
+    'Promise' => PrimitiveType.promise,
     _ => null
   };
+
+  if (type == null) return null;
+
+  return BuiltinType.primitiveType(type, typeParams: [
+    getJSTypeAlternative(typeParams.singleOrNull ?? BuiltinType.anyType)
+  ]);
 }
 
 Type getJSTypeAlternative(Type type) {
   if (type is BuiltinType) {
     if (type.fromDartJSInterop) return type;
 
-    return switch (type.name) {
-      'num' => BuiltinType.JSNumberType,
-      'int' => BuiltinType.JSNumberType,
-      'double' => BuiltinType.JSNumberType,
-      'String' => BuiltinType.JSStringType,
-      'void' => BuiltinType.anyType,
-      'bool' => BuiltinType.JSBooleanType,
-      _ => BuiltinType.anyType
+    final primitiveType = switch (type.name) {
+      'num' => PrimitiveType.num,
+      'int' => PrimitiveType.int,
+      'double' => PrimitiveType.double,
+      'String' => PrimitiveType.string,
+      'bool' => PrimitiveType.boolean,
+      _ => null
     };
+
+    if (primitiveType == null) return BuiltinType.anyType;
+
+    return BuiltinType.primitiveType(primitiveType, shouldEmitJsType: true);
   }
   return type;
 }
@@ -40,16 +51,7 @@ List<Parameter> spreadParam(ParameterDeclaration p, int count) {
   return List.generate(count - 1, (i) {
     final paramNumber = i + 2;
     final paramName = '${p.name}$paramNumber';
-    return ParameterDeclaration(name: paramName, type: p.type, optional: true)
+    return ParameterDeclaration(name: paramName, type: p.type)
         .emit();
-    // final type = p.type;
-    // return Parameter((pa) => pa
-    //   ..name =
-    //   ..type = type == null
-    //       ? null
-    //       : (type is TypeReference
-    //           ? type.rebuild((t) => t..isNullable = true)
-    //           : (type.type as TypeReference)
-    //               .rebuild((t) => t..isNullable = true)));
   });
 }

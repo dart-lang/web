@@ -7,12 +7,15 @@ import 'package:code_builder/code_builder.dart';
 import '../interop_gen/namer.dart';
 import 'types.dart';
 
+class GlobalOptions {
+  static int variardicArgsCount = 4;
+  static bool shouldEmitJsTypes = false;
+}
+
 class Options {}
 
 class DeclarationOptions extends Options {
-  int variardicArgsCount;
-
-  DeclarationOptions({this.variardicArgsCount = 4});
+  DeclarationOptions();
 
   TypeOptions toTypeOptions({bool nullable = false}) =>
       TypeOptions(nullable: nullable);

@@ -1,3 +1,7 @@
+// Copyright (c) 2025, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+
 import 'package:code_builder/code_builder.dart';
 
 import '../interop_gen/namer.dart';
@@ -89,7 +93,7 @@ class FunctionDeclaration extends NamedDeclaration
     final optionalParams = <Parameter>[];
     for (final p in parameters) {
       if (p.variardic) {
-        optionalParams.addAll(spreadParam(p, options.variardicArgsCount));
+        optionalParams.addAll(spreadParam(p, GlobalOptions.variardicArgsCount));
         requiredParams.add(p.emit(options));
       } else {
         if (p.optional) {

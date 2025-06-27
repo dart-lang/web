@@ -1,3 +1,7 @@
+// Copyright (c) 2025, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:code_builder/code_builder.dart';
@@ -16,6 +20,8 @@ class BuiltinType extends Type {
   /// Whether the given type is present in "dart:js_interop"
   final bool fromDartJSInterop;
 
+  // TODO(nikeokoronkwo): Types in general should have an `isNullable`
+  //  property on them to indicate nullability for Dart generated code.
   final bool? isNullable;
 
   BuiltinType(
@@ -45,30 +51,73 @@ class BuiltinType extends Type {
   }
 
   static final BuiltinType $voidType = BuiltinType(name: 'void');
-  static final BuiltinType stringType = BuiltinType(name: 'String');
-  static final BuiltinType intType = BuiltinType(name: 'int');
-  static final BuiltinType numType = BuiltinType(name: 'num');
-  static final BuiltinType doubleType = BuiltinType(name: 'double');
-  static final BuiltinType booleanType = BuiltinType(name: 'bool');
-
   static final BuiltinType anyType =
-      BuiltinType(name: 'JSAny', fromDartJSInterop: true);
-  static final BuiltinType objectType =
-      BuiltinType(name: 'JSObject', fromDartJSInterop: true);
-  static final BuiltinType unknownType =
-      BuiltinType(name: 'JSAny', fromDartJSInterop: true, isNullable: true);
-  static final BuiltinType undefinedType =
       BuiltinType(name: 'JSAny', fromDartJSInterop: true, isNullable: true);
 
-  static final BuiltinType JSBooleanType =
-      BuiltinType(name: 'JSBoolean', fromDartJSInterop: true);
-  static final BuiltinType JSStringType =
-      BuiltinType(name: 'JSString', fromDartJSInterop: true);
-  static final BuiltinType JSNumberType =
-      BuiltinType(name: 'JSNumber', fromDartJSInterop: true);
+  static BuiltinType primitiveType(PrimitiveType typeIdentifier,
+      {bool? shouldEmitJsType,
+      bool? isNullable,
+      List<Type> typeParams = const []}) {
+    shouldEmitJsType ??= GlobalOptions.shouldEmitJsTypes;
+    return switch (typeIdentifier) {
+      PrimitiveType.int => shouldEmitJsType
+          ? BuiltinType(
+              name: 'JSNumber', fromDartJSInterop: true, isNullable: isNullable)
+          : BuiltinType(name: 'int', isNullable: isNullable),
+      PrimitiveType.num => shouldEmitJsType
+          ? BuiltinType(
+              name: 'JSNumber', fromDartJSInterop: true, isNullable: isNullable)
+          : BuiltinType(name: 'num', isNullable: isNullable),
+      PrimitiveType.double => shouldEmitJsType
+          ? BuiltinType(
+              name: 'JSNumber', fromDartJSInterop: true, isNullable: isNullable)
+          : BuiltinType(name: 'double', isNullable: isNullable),
+      PrimitiveType.boolean => shouldEmitJsType
+          ? BuiltinType(
+              name: 'JSBoolean',
+              fromDartJSInterop: true,
+              isNullable: isNullable)
+          : BuiltinType(name: 'bool', isNullable: isNullable),
+      PrimitiveType.string => shouldEmitJsType
+          ? BuiltinType(
+              name: 'JSString', fromDartJSInterop: true, isNullable: isNullable)
+          : BuiltinType(name: 'String', isNullable: isNullable),
+      PrimitiveType.$void => $voidType,
+      PrimitiveType.any => anyType,
+      PrimitiveType.object => BuiltinType(
+          name: 'JSObject', fromDartJSInterop: true, isNullable: isNullable),
+      PrimitiveType.unknown =>
+        BuiltinType(name: 'JSAny', fromDartJSInterop: true, isNullable: true),
+      PrimitiveType.undefined =>
+        BuiltinType(name: 'JSAny', fromDartJSInterop: true, isNullable: true),
+      PrimitiveType.array => BuiltinType(
+          name: 'JSArray',
+          typeParams: [typeParams.single],
+          fromDartJSInterop: true,
+          isNullable: isNullable),
+      PrimitiveType.promise => BuiltinType(
+          name: 'JSPromise',
+          typeParams: [typeParams.single],
+          fromDartJSInterop: true,
+          isNullable: isNullable),
+      PrimitiveType.function => BuiltinType(
+          name: 'JSFunction', fromDartJSInterop: true, isNullable: isNullable),
+    };
+  }
 }
 
-BuiltinType ArrayType(Type elementType) => BuiltinType(
-    name: 'JSArray', typeParams: [elementType], fromDartJSInterop: true);
-BuiltinType PromiseType(Type wrappedType) => BuiltinType(
-    name: 'JSPromise', typeParams: [wrappedType], fromDartJSInterop: true);
+enum PrimitiveType {
+  int,
+  num,
+  double,
+  boolean,
+  string,
+  $void,
+  any,
+  object,
+  unknown,
+  undefined,
+  array,
+  promise,
+  function
+}

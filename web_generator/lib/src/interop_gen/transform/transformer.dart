@@ -154,11 +154,7 @@ class Transformer {
   /// TODO(https://github.com/dart-lang/web/issues/384): Add support for literals (i.e individual booleans and `null`)
   /// TODO(https://github.com/dart-lang/web/issues/383): Add support for `typeof` types
   Type _transformType(TSTypeNode type,
-      {bool parameter = false, bool shouldEmitJsTypes = false}) {
-    if (type.kind == TSSyntaxKind.ArrayType) {
-      return ArrayType(getJSTypeAlternative(
-          _transformType((type as TSArrayTypeNode).elementType)));
-    }
+      {bool parameter = false}) {
 
     if (type.kind == TSSyntaxKind.UnionType) {
       final unionType = type as TSUnionTypeNode;
@@ -210,22 +206,33 @@ class Transformer {
       );
     }
 
-    // check for its kind
-    return switch (type.kind) {
-      TSSyntaxKind.StringKeyword =>
-        shouldEmitJsTypes ? BuiltinType.JSStringType : BuiltinType.stringType,
-      TSSyntaxKind.AnyKeyword => BuiltinType.anyType,
-      TSSyntaxKind.ObjectKeyword => BuiltinType.objectType,
-      TSSyntaxKind.NumberKeyword => shouldEmitJsTypes
-          ? BuiltinType.JSNumberType
-          : (parameter ? BuiltinType.numType : BuiltinType.doubleType),
-      TSSyntaxKind.UndefinedKeyword => BuiltinType.undefinedType,
-      TSSyntaxKind.UnknownKeyword => BuiltinType.unknownType,
-      TSSyntaxKind.BooleanKeyword => BuiltinType.booleanType,
-      TSSyntaxKind.VoidKeyword => BuiltinType.$voidType,
+    if (type.kind == TSSyntaxKind.ArrayType) {
+      return BuiltinType.primitiveType(
+        PrimitiveType.array, 
+        typeParams: [getJSTypeAlternative(
+          _transformType((type as TSArrayTypeNode).elementType)
+        )]
+      );
+    }
+
+    // check for primitive type via its kind
+    final primitiveType = switch (type.kind) {
+      TSSyntaxKind.ArrayType => PrimitiveType.array,
+      TSSyntaxKind.StringKeyword => PrimitiveType.string,
+      TSSyntaxKind.AnyKeyword => PrimitiveType.any,
+      TSSyntaxKind.ObjectKeyword => PrimitiveType.object,
+      TSSyntaxKind.NumberKeyword => (parameter ? PrimitiveType.num : PrimitiveType.double),
+      TSSyntaxKind.UndefinedKeyword => PrimitiveType.undefined,
+      TSSyntaxKind.UnknownKeyword => PrimitiveType.unknown,
+      TSSyntaxKind.BooleanKeyword => PrimitiveType.boolean,
+      TSSyntaxKind.VoidKeyword => PrimitiveType.$void,
       _ => throw UnsupportedError(
           'The given type with kind ${type.kind} is not supported yet')
     };
+
+    return BuiltinType.primitiveType(
+      primitiveType
+    );
   }
 
   NodeMap filter() {

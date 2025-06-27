@@ -26,6 +26,10 @@ external String fred;
 @_i1.JS()
 external String doctor;
 @_i1.JS()
-external _i1.JSAny something;
+external _i1.JSAny? something;
 @_i1.JS()
 external _i1.JSAny? get maybeValue;
+@_i1.JS()
+external _i1.JSArray<_i1.JSString> get names;
+@_i1.JS()
+external _i1.JSArray<_i1.JSString> get newNames;

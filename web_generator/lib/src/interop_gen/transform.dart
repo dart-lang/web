@@ -7,7 +7,7 @@ import 'dart:js_interop';
 import 'package:code_builder/code_builder.dart';
 import 'package:dart_style/dart_style.dart';
 
-import '../ast.dart';
+import '../ast/base.dart';
 import '../js/typescript.dart' as ts;
 import '../js/typescript.types.dart';
 import 'namer.dart';
@@ -29,9 +29,9 @@ class TransformResult {
       final specs = declMap.decls.values.map((d) {
         return switch (d) {
           final Declaration n => n.emit(),
-          final Type t => t.emit(),
+          final Type _ => null,
         };
-      });
+      }).whereType<Spec>();
       final lib = Library((l) => l..body.addAll(specs));
       return MapEntry(file, formatter.format('${lib.accept(emitter)}'));
     });

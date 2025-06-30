@@ -1,0 +1,16 @@
+export declare function greetUser(name: string): string;
+export declare function logMessages(...messages: string[]): void;
+export declare function delay<U>(ms: number, returnValue?: U): Promise<U>;
+export declare function toArray(a: number): number[];
+export declare function square(a: number): number;
+export declare function pow(a: number): number;
+export declare function pow(a: number, power: number): number;
+export declare function toArray(a: string): string[];
+export declare function createUser(name: string, age?: number, role?: string): object;
+export declare function firstElement<T>(arr: T[]): T;
+export declare function throwError(msg: string): void;
+export declare function wrapInArray<T>(value: T): T[];
+export declare function identity<T = string>(value: T): T;
+export declare function someFunction<A>(arr: A[]): undefined;
+export declare function someFunction<A, B>(arr: A[]): B;
+export declare function logTuple<T extends any[]>(...args: T): T;

@@ -2,11 +2,11 @@
 import 'dart:js_interop' as _i1;
 
 @_i1.JS()
-external int counter;
+external double counter;
 @_i1.JS()
 external String get appName;
 @_i1.JS()
-external int globalCounter;
+external double globalCounter;
 @_i1.JS()
 external _i1.JSObject globalObject;
 @_i1.JS()
@@ -14,18 +14,22 @@ external bool counted;
 @_i1.JS()
 external String username;
 @_i1.JS()
-external int get foo;
+external double get foo;
 @_i1.JS()
-external int get bar;
+external double get bar;
 @_i1.JS()
-external int free;
+external double free;
 @_i1.JS()
-external int dom;
+external double dom;
 @_i1.JS()
 external String fred;
 @_i1.JS()
 external String doctor;
 @_i1.JS()
-external _i1.JSAny something;
+external _i1.JSAny? something;
 @_i1.JS()
 external _i1.JSAny? get maybeValue;
+@_i1.JS()
+external _i1.JSArray<_i1.JSString> get names;
+@_i1.JS()
+external _i1.JSArray<_i1.JSString> get newNames;

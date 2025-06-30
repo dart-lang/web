@@ -1,3 +1,7 @@
+// Copyright (c) 2025, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+
 // ignore_for_file: constant_identifier_names
 
 @JS('ts')
@@ -6,6 +10,8 @@ library;
 import 'dart:js_interop';
 
 import 'package:meta/meta.dart';
+
+import 'typescript.dart';
 
 extension type const TSSyntaxKind._(num _) {
   /// To be ignored
@@ -18,6 +24,7 @@ extension type const TSSyntaxKind._(num _) {
   static const TSSyntaxKind InterfaceDeclaration = TSSyntaxKind._(264);
   static const TSSyntaxKind FunctionDeclaration = TSSyntaxKind._(262);
   static const TSSyntaxKind ExportDeclaration = TSSyntaxKind._(278);
+  static const TSSyntaxKind Parameter = TSSyntaxKind._(169);
 
   /// keywords
   static const TSSyntaxKind ExportKeyword = TSSyntaxKind._(95);
@@ -34,13 +41,17 @@ extension type const TSSyntaxKind._(num _) {
   static const TSSyntaxKind UndefinedKeyword = TSSyntaxKind._(157);
   static const TSSyntaxKind SetKeyword = TSSyntaxKind._(153);
   static const TSSyntaxKind UnknownKeyword = TSSyntaxKind._(159);
+  static const TSSyntaxKind VoidKeyword = TSSyntaxKind._(116);
 
   // types
   static const TSSyntaxKind UnionType = TSSyntaxKind._(192);
   static const TSSyntaxKind TypeReference = TSSyntaxKind._(183);
+  static const TSSyntaxKind ArrayType = TSSyntaxKind._(188);
 
   /// Other
   static const TSSyntaxKind Identifier = TSSyntaxKind._(80);
+  static const TSSyntaxKind ObjectBindingPattern = TSSyntaxKind._(206);
+  static const TSSyntaxKind ArrayBindingPattern = TSSyntaxKind._(207);
   static const TSSyntaxKind TypeParameter = TSSyntaxKind._(168);
   static const TSSyntaxKind HeritageClause = TSSyntaxKind._(298);
   static const TSSyntaxKind ExpressionWithTypeArguments = TSSyntaxKind._(233);
@@ -57,10 +68,19 @@ extension type TSNode._(JSObject _) implements JSObject {
   external TSSyntaxKind get kind;
   external TSNode get parent;
   external TSNodeFlags get flags;
+  external String getText([TSSourceFile? sourceFile]);
+  external String getFullText([TSSourceFile? sourceFile]);
 }
 
 @JS('TypeNode')
 extension type TSTypeNode._(JSObject _) implements TSNode {}
+
+@JS('ArrayTypeNode')
+extension type TSArrayTypeNode._(JSObject _) implements TSTypeNode {
+  @redeclare
+  TSSyntaxKind get kind => TSSyntaxKind.ArrayType;
+  external TSTypeNode get elementType;
+}
 
 @JS('UnionTypeNode')
 extension type TSUnionTypeNode._(JSObject _) implements TSTypeNode {
@@ -89,10 +109,15 @@ extension type TSIdentifier._(JSObject _) implements TSDeclaration {
   external String get text;
 }
 
-@JS('VariableDeclaration')
+@JS('VariableStatement')
 extension type TSVariableStatement._(JSObject _) implements TSStatement {
   external TSVariableDeclarationList get declarationList;
   external TSNodeArray<TSNode> get modifiers;
+}
+
+@JS('VariableDeclarationList')
+extension type TSVariableDeclarationList._(JSObject _) implements TSNode {
+  external TSNodeArray<TSVariableDeclaration> get declarations;
 }
 
 @JS('VariableDeclaration')
@@ -101,9 +126,30 @@ extension type TSVariableDeclaration._(JSObject _) implements TSDeclaration {
   external TSTypeNode? get type;
 }
 
-@JS('VariableDeclarationList')
-extension type TSVariableDeclarationList._(JSObject _) implements TSNode {
-  external TSNodeArray<TSVariableDeclaration> get declarations;
+@JS('FunctionDeclaration')
+extension type TSFunctionDeclaration._(JSObject _) implements TSDeclaration {
+  external TSIdentifier get name;
+  external TSTypeNode? get type;
+  external TSNode? get asteriskToken;
+  external TSNodeArray<TSParameterDeclaration> get parameters;
+  external TSNodeArray<TSTypeParameterDeclaration>? get typeParameters;
+  external TSNodeArray<TSNode> get modifiers;
+}
+
+@JS('ParameterDeclaration')
+extension type TSParameterDeclaration._(JSObject _) implements TSDeclaration {
+  external TSNode get name;
+  external TSTypeNode? get type;
+  external TSNodeArray<TSNode>? get modifiers;
+  external TSNode? get questionToken;
+  external TSNode? get dotDotDotToken;
+}
+
+@JS('TypeParameterDeclaration')
+extension type TSTypeParameterDeclaration._(JSObject _)
+    implements TSDeclaration {
+  external TSIdentifier get name;
+  external TSTypeNode? get constraint;
 }
 
 @JS('NodeArray')

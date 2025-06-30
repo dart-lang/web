@@ -26,11 +26,11 @@ abstract interface class Config {
 
   bool get singleFileOutput => input.length == 1;
 
-  factory Config(
-      {required List<String> input,
-      required String output,
-      required Version languageVersion,
-      }) = ConfigImpl._;
+  factory Config({
+    required List<String> input,
+    required String output,
+    required Version languageVersion,
+  }) = ConfigImpl._;
 }
 
 class ConfigImpl implements Config {
@@ -55,11 +55,11 @@ class ConfigImpl implements Config {
   @override
   String? preamble;
 
-  ConfigImpl._(
-      {required this.input,
-      required this.output,
-      required this.languageVersion,
-      });
+  ConfigImpl._({
+    required this.input,
+    required this.output,
+    required this.languageVersion,
+  });
 
   @override
   // TODO: implement singleFileOutput
@@ -121,7 +121,6 @@ class YamlConfig implements Config {
         name: yaml['name'] as String?,
         description: yaml['description'] as String?,
         languageVersion: yaml['language_version'] as String?,
-        preamble: yaml['preamble'] as String?
-    );
+        preamble: yaml['preamble'] as String?);
   }
 }

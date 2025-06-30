@@ -23,7 +23,6 @@ import 'util.dart';
 // TODO(joshualitt): Use static interop methods for JSArray and JSPromise.
 // TODO(joshualitt): Find a way to generate bindings for JS builtins. This will
 // probably involve parsing the TC39 spec.
-
 void main(List<String> args) async {
   var languageVersionString = const String.fromEnvironment('languageVersion');
   if (languageVersionString.isEmpty) {
@@ -51,16 +50,14 @@ void main(List<String> args) async {
       final yaml = loadYamlDocument(configContent.toDart);
       config =
           YamlConfig.fromYaml(yaml.contents as YamlMap, filename: filename);
-
     } else {
       config = Config(
         input: argResult['input'] as List<String>,
         output: argResult['output'] as String,
         languageVersion: Version.parse(languageVersionString),
       );
-
     }
-    
+
     await generateJSInteropBindings(config);
   }
 }
@@ -76,8 +73,14 @@ Future<void> generateJSInteropBindings(Config config) async {
   final generatedCodeMap = dartDeclarations.generate();
 
   // write code to file
-  for (final entry in generatedCodeMap.entries) {
-    fs.writeFileSync(p.join(config.output, entry.key).toJS, entry.value.toJS);
+  if (generatedCodeMap.length == 1) {
+    final [entry] = generatedCodeMap.entries.toList();
+    fs.writeFileSync(config.output.toJS, entry.value.toJS);
+  } else {
+    for (final entry in generatedCodeMap.entries) {
+      fs.writeFileSync(
+          p.join(config.output, p.basename(entry.key)).toJS, entry.value.toJS);
+    }
   }
 }
 

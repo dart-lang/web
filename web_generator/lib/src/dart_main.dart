@@ -7,13 +7,14 @@ import 'dart:js_interop';
 import 'package:args/args.dart';
 import 'package:code_builder/code_builder.dart' as code;
 import 'package:dart_style/dart_style.dart';
+import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:yaml/yaml.dart';
 
 import 'config.dart';
-import 'dts/parser.dart';
-import 'dts/transform.dart';
 import 'generate_bindings.dart';
+import 'interop_gen/parser.dart';
+import 'interop_gen/transform.dart';
 import 'js/filesystem_api.dart';
 import 'util.dart';
 
@@ -33,7 +34,10 @@ void main(List<String> args) async {
 
   if (argResult.wasParsed('idl')) {
     await generateIDLBindings(
-      outputDirectory: argResult['output'] as String,
+      input: (argResult['input'] as List<String>).isEmpty
+          ? null
+          : argResult['input'] as Iterable<String>,
+      output: argResult['output'] as String,
       generateAll: argResult['generate-all'] as bool,
       languageVersion: Version.parse(languageVersionString),
     );
@@ -61,38 +65,63 @@ void main(List<String> args) async {
   }
 }
 
-// TODO(nikeokoronkwo): Add support for configuration
 Future<void> generateJSInteropBindings(Config config) async {
   // generate
   final jsDeclarations = parseDeclarationFiles(config.input);
 
   // transform declarations
-  final dartDeclarations = transformDeclarations(jsDeclarations);
+  final dartDeclarations = transform(jsDeclarations);
 
   // generate
-  final generatedCode = dartDeclarations.generate();
+  final generatedCodeMap = dartDeclarations.generate();
 
   // write code to file
-  fs.writeFileSync(config.output.toJS, generatedCode.toJS);
+  for (final entry in generatedCodeMap.entries) {
+    fs.writeFileSync(p.join(config.output, entry.key).toJS, entry.value.toJS);
+  }
 }
 
 Future<void> generateIDLBindings({
-  required String outputDirectory,
+  Iterable<String>? input,
+  required String output,
   required bool generateAll,
   required Version languageVersion,
 }) async {
-  const librarySubDir = 'dom';
+  if (input == null) {
+    // parse dom library as normal
+    const librarySubDir = 'dom';
 
-  ensureDirectoryExists('$outputDirectory/$librarySubDir');
+    ensureDirectoryExists('$output/$librarySubDir');
 
-  final bindings = await generateBindings(packageRoot, librarySubDir,
-      generateAll: generateAll);
-  for (var entry in bindings.entries) {
-    final libraryPath = entry.key;
-    final library = entry.value;
+    final bindings = await generateBindings(packageRoot, librarySubDir,
+        generateAll: generateAll);
 
-    final contents = _emitLibrary(library, languageVersion).toJS;
-    fs.writeFileSync('$outputDirectory/$libraryPath'.toJS, contents);
+    for (var entry in bindings.entries) {
+      final libraryPath = entry.key;
+      final library = entry.value;
+
+      final contents = _emitLibrary(library, languageVersion).toJS;
+      fs.writeFileSync('$output/$libraryPath'.toJS, contents);
+    }
+  } else {
+    // parse individual files
+    ensureDirectoryExists(output);
+
+    final bindings = await generateBindingsForFiles({
+      for (final file in input)
+        file: (fs.readFileSync(
+                    file.toJS, JSReadFileOptions(encoding: 'utf-8'.toJS))
+                as JSString)
+            .toDart
+    }, output);
+
+    for (var entry in bindings.entries) {
+      final libraryPath = entry.key;
+      final library = entry.value;
+
+      final contents = _emitLibrary(library, languageVersion).toJS;
+      fs.writeFileSync('$output/$libraryPath'.toJS, contents);
+    }
   }
 }
 

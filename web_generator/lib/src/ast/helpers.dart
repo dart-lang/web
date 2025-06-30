@@ -51,7 +51,6 @@ List<Parameter> spreadParam(ParameterDeclaration p, int count) {
   return List.generate(count - 1, (i) {
     final paramNumber = i + 2;
     final paramName = '${p.name}$paramNumber';
-    return ParameterDeclaration(name: paramName, type: p.type)
-        .emit();
+    return ParameterDeclaration(name: paramName, type: p.type).emit();
   });
 }

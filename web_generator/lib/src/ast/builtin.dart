@@ -60,12 +60,14 @@ class BuiltinType extends Type {
       List<Type> typeParams = const []}) {
     shouldEmitJsType ??= GlobalOptions.shouldEmitJsTypes;
     return switch (typeIdentifier) {
-      PrimitiveType.int || PrimitiveType.num || PrimitiveType.double 
-        when shouldEmitJsType => BuiltinType(
-          name: 'JSNumber', fromDartJSInterop: true, isNullable: isNullable),
+      PrimitiveType.int ||
+      PrimitiveType.num ||
+      PrimitiveType.double when shouldEmitJsType =>
+        BuiltinType(
+            name: 'JSNumber', fromDartJSInterop: true, isNullable: isNullable),
       PrimitiveType.int => BuiltinType(name: 'int', isNullable: isNullable),
       PrimitiveType.num => BuiltinType(name: 'num', isNullable: isNullable),
-      PrimitiveType.double => 
+      PrimitiveType.double =>
         BuiltinType(name: 'double', isNullable: isNullable),
       PrimitiveType.boolean => shouldEmitJsType
           ? BuiltinType(
@@ -77,9 +79,8 @@ class BuiltinType extends Type {
           ? BuiltinType(
               name: 'JSString', fromDartJSInterop: true, isNullable: isNullable)
           : BuiltinType(name: 'String', isNullable: isNullable),
-      PrimitiveType.$void => $voidType,
-      PrimitiveType.any || PrimitiveType.unknown || PrimitiveType.undefined 
-        => anyType,
+      PrimitiveType.$void || PrimitiveType.undefined => $voidType,
+      PrimitiveType.any || PrimitiveType.unknown => anyType,
       PrimitiveType.object => BuiltinType(
           name: 'JSObject', fromDartJSInterop: true, isNullable: isNullable),
       PrimitiveType.array => BuiltinType(

@@ -153,9 +153,7 @@ class Transformer {
   ///
   /// TODO(https://github.com/dart-lang/web/issues/384): Add support for literals (i.e individual booleans and `null`)
   /// TODO(https://github.com/dart-lang/web/issues/383): Add support for `typeof` types
-  Type _transformType(TSTypeNode type,
-      {bool parameter = false}) {
-
+  Type _transformType(TSTypeNode type, {bool parameter = false}) {
     if (type.kind == TSSyntaxKind.UnionType) {
       final unionType = type as TSUnionTypeNode;
       return UnionType(
@@ -207,12 +205,10 @@ class Transformer {
     }
 
     if (type.kind == TSSyntaxKind.ArrayType) {
-      return BuiltinType.primitiveType(
-        PrimitiveType.array, 
-        typeParams: [getJSTypeAlternative(
-          _transformType((type as TSArrayTypeNode).elementType)
-        )]
-      );
+      return BuiltinType.primitiveType(PrimitiveType.array, typeParams: [
+        getJSTypeAlternative(
+            _transformType((type as TSArrayTypeNode).elementType))
+      ]);
     }
 
     // check for primitive type via its kind
@@ -221,7 +217,8 @@ class Transformer {
       TSSyntaxKind.StringKeyword => PrimitiveType.string,
       TSSyntaxKind.AnyKeyword => PrimitiveType.any,
       TSSyntaxKind.ObjectKeyword => PrimitiveType.object,
-      TSSyntaxKind.NumberKeyword => (parameter ? PrimitiveType.num : PrimitiveType.double),
+      TSSyntaxKind.NumberKeyword =>
+        (parameter ? PrimitiveType.num : PrimitiveType.double),
       TSSyntaxKind.UndefinedKeyword => PrimitiveType.undefined,
       TSSyntaxKind.UnknownKeyword => PrimitiveType.unknown,
       TSSyntaxKind.BooleanKeyword => PrimitiveType.boolean,
@@ -230,9 +227,7 @@ class Transformer {
           'The given type with kind ${type.kind} is not supported yet')
     };
 
-    return BuiltinType.primitiveType(
-      primitiveType
-    );
+    return BuiltinType.primitiveType(primitiveType);
   }
 
   NodeMap filter() {

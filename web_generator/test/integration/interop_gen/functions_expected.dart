@@ -33,7 +33,7 @@ external _i1.JSArray<T> wrapInArray<T extends _i1.JSAny?>(T value);
 @_i1.JS()
 external T identity<T extends _i1.JSAny?>(T value);
 @_i1.JS()
-external _i1.JSAny? someFunction<A extends _i1.JSAny?>(_i1.JSArray<A> arr);
+external void someFunction<A extends _i1.JSAny?>(_i1.JSArray<A> arr);
 @_i1.JS('someFunction')
 external B someFunction$1<A extends _i1.JSAny?, B extends _i1.JSAny?>(
   _i1.JSArray<A> arr,

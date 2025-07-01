@@ -24,12 +24,6 @@ export declare enum BooleanLike {
     No = 0,
     Yes = "YES"
 }
-export declare enum MathConstants {
-    PI = 3.14,// constant
-    TwoPI = 6.28,// computed
-    Random,// computed at compile time
-    Length
-}
 export declare enum Status {
     Active = 1,
     Inactive = 0,

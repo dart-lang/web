@@ -198,6 +198,9 @@ class EnumMember {
   Field emit([bool? shouldUseJSRepType]) {
     final jsRep = shouldUseJSRepType ?? (value == null);
     return Field((f) {
+      // TODO(nikeokoronkwo): This does not render correctly on `code_builder`.
+      //  Until the update is made, we will omit examples concerning this
+      //  Luckily, not many real-world instances of enums use this anyways, https://github.com/dart-lang/tools/issues/2118
       if (value != null) {
         f.modifier = (!jsRep ? FieldModifier.constant : FieldModifier.final$);
       }

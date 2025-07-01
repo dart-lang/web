@@ -40,15 +40,6 @@ extension type BooleanLike._(_i1.JSAny? _) {
 
   static final BooleanLike Yes = BooleanLike._('YES'.toJS);
 }
-extension type MathConstants._(_i1.JSNumber _) {
-  static final MathConstants PI = MathConstants._(3.14.toJS);
-
-  static final MathConstants TwoPI = MathConstants._(6.28.toJS);
-
-  external static MathConstants Random;
-
-  external static MathConstants Length;
-}
 extension type const Status._(num _) {
   static const Status Active = Status._(1);
 
@@ -83,9 +74,6 @@ extension type const Permissions._(num _) {
   static const Permissions All = Permissions._(7);
 }
 @_i1.JS()
-external bool hasPermission(
-  Permissions perm,
-  Permissions flag,
-);
+external bool hasPermission(Permissions perm, Permissions flag);
 @_i1.JS()
 external Permissions get userPermissions;

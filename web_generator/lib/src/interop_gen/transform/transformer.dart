@@ -173,10 +173,13 @@ class Transformer {
         // TODO(https://github.com/dart-lang/web/issues/380): A better name
         //  for this, and adding support for "supported declarations"
         //  (also a better name for that)
-        final supportedType = getSupportedType(
-            name, (typeArguments ?? []).map(_transformType).toList());
-        if (supportedType != null) {
-          return supportedType;
+        final supportedType = supportedTypesMap[name];
+        if (supportedType case final resultType?) {
+          return resultType(
+              typeParams: (typeArguments ?? [])
+                .map(_transformType)
+                .map(getJSTypeAlternative)
+                .toList());
         }
 
         // TODO: In the case of overloading, should/shouldn't we handle more than one declaration?
@@ -223,6 +226,8 @@ class Transformer {
       TSSyntaxKind.UnknownKeyword => PrimitiveType.unknown,
       TSSyntaxKind.BooleanKeyword => PrimitiveType.boolean,
       TSSyntaxKind.VoidKeyword => PrimitiveType.$void,
+      TSSyntaxKind.BigIntKeyword => PrimitiveType.bigint,
+      TSSyntaxKind.SymbolKeyword => PrimitiveType.symbol,
       _ => throw UnsupportedError(
           'The given type with kind ${type.kind} is not supported yet')
     };

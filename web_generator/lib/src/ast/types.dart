@@ -24,8 +24,11 @@ class ReferredType<T extends Declaration> extends Type {
 
   @override
   Reference emit([TypeOptions? options]) {
-    // TODO: implement emit
-    throw UnimplementedError();
+    // TODO: Support referred types imported from URL
+    return TypeReference((t) => t
+      ..symbol = declaration.name
+      ..types.addAll(typeParams.map((t) => t.emit(options)))
+      ..isNullable = options?.nullable);
   }
 }
 

@@ -138,3 +138,79 @@ class ParameterDeclaration {
       ..type = type.emit(TypeOptions(nullable: optional)));
   }
 }
+
+class EnumDeclaration extends NamedDeclaration
+    implements ExportableDeclaration {
+  @override
+  final String name;
+
+  @override
+  final bool exported;
+
+  Type baseType;
+
+  final List<EnumMember> members;
+
+  EnumDeclaration(
+      {required this.name,
+      required this.baseType,
+      required this.members,
+      required this.exported});
+
+  @override
+  String? get dartName => null;
+
+  @override
+  Spec emit([DeclarationOptions? options]) {
+    final baseTypeIsJSType = getJSTypeAlternative(baseType) == baseType;
+    final shouldUseJSRepType =
+        members.any((m) => m.value == null) || baseTypeIsJSType;
+
+    return ExtensionType((e) => e
+      ..constant = !shouldUseJSRepType
+      ..name = name
+      ..primaryConstructorName = '_'
+      ..representationDeclaration = RepresentationDeclaration((r) => r
+        ..declaredRepresentationType = (
+                // if any member doesn't have a value, we have to use external
+                // so such type should be the JS rep type
+                shouldUseJSRepType ? getJSTypeAlternative(baseType) : baseType)
+            .emit(options?.toTypeOptions())
+        ..name = '_')
+      ..fields.addAll(members.map((mem) => mem.emit(shouldUseJSRepType))));
+  }
+
+  @override
+  ID get id => ID(type: 'enum', name: name);
+}
+
+class EnumMember {
+  final String name;
+
+  final Type? type;
+
+  final Object? value;
+
+  final String parent;
+
+  EnumMember(this.name, this.value, {this.type, required this.parent});
+
+  Field emit([bool? shouldUseJSRepType]) {
+    final jsRep = shouldUseJSRepType ?? (value == null);
+    return Field((f) {
+      if (value != null) {
+        f.modifier = (!jsRep ? FieldModifier.constant : FieldModifier.final$);
+      }
+      f
+        ..name = name
+        ..type = refer(parent)
+        ..external = value == null
+        ..static = true
+        ..assignment = value == null
+            ? null
+            : refer(parent).property('_').call([
+                jsRep ? literal(value).property('toJS') : literal(value)
+              ]).code;
+    });
+  }
+}

@@ -44,9 +44,11 @@ class Transformer {
         final decs = _transformVariable(node as TSVariableStatement);
         nodeMap.addAll({for (final d in decs) d.id.toString(): d});
       default:
-        final Declaration decl = switch (node.kind) {
+        final decl = switch (node.kind) {
           TSSyntaxKind.FunctionDeclaration =>
             _transformFunction(node as TSFunctionDeclaration),
+          TSSyntaxKind.EnumDeclaration =>
+            _transformEnum(node as TSEnumDeclaration),
           _ => throw Exception('Unsupported Declaration Kind: ${node.kind}')
         };
         // ignore: dead_code This line will not be dead in future decl additions
@@ -56,7 +58,82 @@ class Transformer {
     nodes.add(node);
   }
 
-  List<Declaration> _transformVariable(TSVariableStatement variable) {
+  EnumDeclaration _transformEnum(TSEnumDeclaration enumeration) {
+    final modifiers = enumeration.modifiers?.toDart;
+    final isExported = modifiers?.any((m) {
+          return m.kind == TSSyntaxKind.ExportKeyword;
+        }) ??
+        false;
+
+    // get the name
+    final name = enumeration.name.text;
+
+    // get the members and the rep type
+    final enumMembers = enumeration.members.toDart;
+
+    final members = <EnumMember>[];
+    PrimitiveType? enumRepType;
+
+    for (final mem in enumMembers) {
+      final memName = mem.name.text;
+      final memInitializer = mem.initializer;
+
+      // check the type of the initializer
+      if (memInitializer != null) {
+        switch (memInitializer.kind) {
+          case TSSyntaxKind.NumericLiteral:
+            // parse numeric literal
+            final value =
+                _parseNumericLiteral(memInitializer as TSNumericLiteral);
+            const primitiveType = PrimitiveType.num;
+            members.add(EnumMember(memName, value,
+                type: BuiltinType.primitiveType(primitiveType), parent: name));
+            if (enumRepType == null) {
+              enumRepType = primitiveType;
+            } else if (enumRepType != primitiveType) {
+              enumRepType = PrimitiveType.any;
+            }
+            break;
+          case TSSyntaxKind.StringLiteral:
+            // parse string literal
+            final value =
+                _parseStringLiteral(memInitializer as TSStringLiteral);
+            const primitiveType = PrimitiveType.string;
+            members.add(EnumMember(memName, value,
+                type: BuiltinType.primitiveType(primitiveType), parent: name));
+            if (enumRepType == null) {
+              enumRepType = primitiveType;
+            } else if (enumRepType != primitiveType) {
+              enumRepType = PrimitiveType.any;
+            }
+            break;
+          default:
+            // unsupported
+
+            break;
+        }
+      } else {
+        // get the type
+        members.add(EnumMember(memName, null, parent: name));
+      }
+    }
+
+    return EnumDeclaration(
+        name: name,
+        baseType: BuiltinType.primitiveType(enumRepType ?? PrimitiveType.num),
+        members: members,
+        exported: isExported);
+  }
+
+  num _parseNumericLiteral(TSNumericLiteral numericLiteral) {
+    return num.parse(numericLiteral.text);
+  }
+
+  String _parseStringLiteral(TSStringLiteral stringLiteral) {
+    return stringLiteral.text;
+  }
+
+  List<VariableDeclaration> _transformVariable(TSVariableStatement variable) {
     // get the modifier of the declaration
     final modifiers = variable.modifiers.toDart;
     final isExported = modifiers.any((m) {
@@ -258,6 +335,8 @@ class Transformer {
       }
     });
 
+    if (filteredDeclarations.isEmpty) return filteredDeclarations;
+
     // then filter for dependencies
     final otherDecls = filteredDeclarations.entries
         .map((e) => _getDependenciesOfDecl(e.value))
@@ -289,6 +368,8 @@ class Transformer {
               in f.typeParameters.map((p) => p.constraint).whereType<Type>())
             node.id.toString(): node
         });
+        break;
+      case final EnumDeclaration _:
         break;
       case final UnionType u:
         filteredDeclarations.addAll({

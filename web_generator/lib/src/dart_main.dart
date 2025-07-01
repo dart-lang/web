@@ -87,25 +87,21 @@ Future<void> generateIDLBindings({
 
     ensureDirectoryExists('$output/$librarySubDir');
 
-    final (bindings, renameMap) = await generateBindings(packageRoot, librarySubDir,
+    final (bindings, renameMap) = await generateBindings(
+        packageRoot, librarySubDir,
         generateAll: generateAll);
 
     if (renameMap.isNotEmpty) {
       final lib = code.Library((l) => l
-        ..body.add(
-          code.Field((f) => f
-            ..name = 'renameMap'
-            ..type = code.refer('Map<String, String>')
-            ..modifier = code.FieldModifier.constant
-            ..assignment = code.literalConstMap(renameMap).code
-          )
-        )
-      );
+        ..body.add(code.Field((f) => f
+          ..name = 'renameMap'
+          ..type = code.refer('Map<String, String>')
+          ..modifier = code.FieldModifier.constant
+          ..assignment = code.literalConstMap(renameMap).code)));
       final libCode = _emitLibrary(lib, languageVersion);
       fs.writeFileSync(
-        p.join(p.dirname(p.fromUri(url)), 'web_rename_map.dart').toJS, 
-        libCode.toJS
-      );
+          p.join(p.dirname(p.fromUri(url)), 'web_rename_map.dart').toJS,
+          libCode.toJS);
     }
 
     for (var entry in bindings.entries) {

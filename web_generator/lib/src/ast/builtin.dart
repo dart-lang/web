@@ -87,7 +87,7 @@ class BuiltinType extends Type {
       PrimitiveType.symbol => BuiltinType(
           name: 'JSSymbol', fromDartJSInterop: true, isNullable: isNullable),
       PrimitiveType.bigint => BuiltinType(
-        name: 'JSBigInt', fromDartJSInterop: true, isNullable: isNullable),
+          name: 'JSBigInt', fromDartJSInterop: true, isNullable: isNullable),
       PrimitiveType.array => BuiltinType(
           name: 'JSArray',
           typeParams: [typeParams.single],
@@ -113,10 +113,7 @@ class WebType extends Type {
   @override
   String? get dartName => null;
 
-  WebType._(
-      {required this.name,
-      this.typeParams = const [],
-      this.isNullable});
+  WebType._({required this.name, this.typeParams = const [], this.isNullable});
 
   @override
   Reference emit([TypeOptions? options]) {
@@ -132,8 +129,12 @@ class WebType extends Type {
       ..isNullable = isNullable ?? options!.nullable);
   }
 
-  static WebType parse(String name, {bool? isNullable, List<Type> typeParams = const []}) {
-    return WebType._(name: renameMap.containsKey(name) ? renameMap[name]! : name, isNullable: isNullable, typeParams: typeParams);
+  static WebType parse(String name,
+      {bool? isNullable, List<Type> typeParams = const []}) {
+    return WebType._(
+        name: renameMap.containsKey(name) ? renameMap[name]! : name,
+        isNullable: isNullable,
+        typeParams: typeParams);
   }
 }
 
@@ -150,7 +151,7 @@ enum PrimitiveType {
   undefined,
   symbol,
   array,
-  function, 
+  function,
   bigint
 }
 
@@ -162,8 +163,10 @@ const supportedTypesMap = {
   'ArrayBuffer': BuiltinTypeGenerator('JSArrayBuffer', fromDartJSInterop: true),
   'Function': BuiltinTypeGenerator('JSFunction', fromDartJSInterop: true),
   'DataView': BuiltinTypeGenerator('JSDataView', fromDartJSInterop: true),
-  'Float32Array': BuiltinTypeGenerator('JSFloat32Array', fromDartJSInterop: true),
-  'Float64Array': BuiltinTypeGenerator('JSFloat64Array', fromDartJSInterop: true),
+  'Float32Array':
+      BuiltinTypeGenerator('JSFloat32Array', fromDartJSInterop: true),
+  'Float64Array':
+      BuiltinTypeGenerator('JSFloat64Array', fromDartJSInterop: true),
   'Int8Array': BuiltinTypeGenerator('JSInt8Array', fromDartJSInterop: true),
   'Int16Array': BuiltinTypeGenerator('JSInt16Array', fromDartJSInterop: true),
   'Int32Array': BuiltinTypeGenerator('JSInt32Array', fromDartJSInterop: true),

@@ -168,9 +168,9 @@ class Transformer {
         if (supportedType case final resultType?) {
           return resultType(
               typeParams: (typeArguments ?? [])
-                .map(_transformType)
-                .map(getJSTypeAlternative)
-                .toList());
+                  .map(_transformType)
+                  .map(getJSTypeAlternative)
+                  .toList());
         }
 
         final symbol = typeChecker.getSymbolAtLocation(refType.typeName);
@@ -188,12 +188,14 @@ class Transformer {
 
         // check if this is from dom
         final declarationSource = declaration.getSourceFile().fileName;
-        if (p.basename(declarationSource) == 'lib.dom.d.ts' || declarationSource.contains('dom')) {
+        if (p.basename(declarationSource) == 'lib.dom.d.ts' ||
+            declarationSource.contains('dom')) {
           // dom declaration: supported by package:web
-          return WebType.parse(name, typeParams: (typeArguments ?? [])
-                .map(_transformType)
-                .map(getJSTypeAlternative)
-                .toList());
+          return WebType.parse(name,
+              typeParams: (typeArguments ?? [])
+                  .map(_transformType)
+                  .map(getJSTypeAlternative)
+                  .toList());
         }
 
         if (declaration.kind == TSSyntaxKind.TypeParameter) {
@@ -211,9 +213,9 @@ class Transformer {
 
       return firstNode.asReferredType(
         (typeArguments ?? [])
-                .map(_transformType)
-                .map(getJSTypeAlternative)
-                .toList(),
+            .map(_transformType)
+            .map(getJSTypeAlternative)
+            .toList(),
       );
     }
 

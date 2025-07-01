@@ -661,6 +661,9 @@ class Translator {
   final _interfacelikes = <String, _PartialInterfacelike>{};
   final _includes = <String, List<String>>{};
   final _usedTypes = <idl.Node>{};
+  final _renamedClasses = <String, String>{};
+
+  Map<String, String> get renamedClasses => _renamedClasses;
 
   late String _currentlyTranslatingUrl;
   late DocProvider docProvider;
@@ -1355,6 +1358,10 @@ class Translator {
     ];
 
     final rawType = _RawType(dartClassName, false);
+
+    if (!isNamespace && jsName != dartClassName) {
+      _renamedClasses[jsName] = dartClassName;
+    }
 
     return [
       if (getterName != null) _topLevelGetter(rawType, getterName),

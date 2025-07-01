@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:js_interop';
+import 'package:path/path.dart' as p;
 import '../../ast/base.dart';
 import '../../ast/builtin.dart';
 import '../../ast/declarations.dart';
@@ -79,16 +80,6 @@ class Transformer {
           modifier: modifier,
           exported: isExported);
     }).toList();
-  }
-
-  TSNode? _getDeclarationByName(TSIdentifier name) {
-    final symbol = typeChecker.getSymbolAtLocation(name);
-
-    final declarations = symbol?.getDeclarations();
-    // TODO(https://github.com/dart-lang/web/issues/387): Some declarations may not be defined on file,
-    //  and may be from an import statement
-    //  We should be able to handle these
-    return declarations?.toDart.first;
   }
 
   FunctionDeclaration _transformFunction(TSFunctionDeclaration function) {
@@ -182,11 +173,27 @@ class Transformer {
                 .toList());
         }
 
+        final symbol = typeChecker.getSymbolAtLocation(refType.typeName);
+        final declarations = symbol?.getDeclarations();
+
         // TODO: In the case of overloading, should/shouldn't we handle more than one declaration?
-        final declaration = _getDeclarationByName(refType.typeName);
+        // TODO(https://github.com/dart-lang/web/issues/387): Some declarations may not be defined on file,
+        //  and may be from an import statement
+        //  We should be able to handle these
+        final declaration = declarations?.toDart.first;
 
         if (declaration == null) {
           throw Exception('Found no declaration matching $name');
+        }
+
+        // check if this is from dom
+        final declarationSource = declaration.getSourceFile().fileName;
+        if (p.basename(declarationSource) == 'lib.dom.d.ts' || declarationSource.contains('dom')) {
+          // dom declaration: supported by package:web
+          return WebType.parse(name, typeParams: (typeArguments ?? [])
+                .map(_transformType)
+                .map(getJSTypeAlternative)
+                .toList());
         }
 
         if (declaration.kind == TSSyntaxKind.TypeParameter) {
@@ -203,7 +210,10 @@ class Transformer {
           declarationsMatching.whereType<NamedDeclaration>().first;
 
       return firstNode.asReferredType(
-        (typeArguments ?? []).map(_transformType).toList(),
+        (typeArguments ?? [])
+                .map(_transformType)
+                .map(getJSTypeAlternative)
+                .toList(),
       );
     }
 

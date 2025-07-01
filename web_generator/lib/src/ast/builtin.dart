@@ -7,6 +7,7 @@
 import 'package:code_builder/code_builder.dart';
 
 import '../interop_gen/namer.dart';
+import '../web_rename_map.dart';
 import 'base.dart';
 
 /// A built in type supported by `dart:js_interop` or by this library
@@ -95,6 +96,44 @@ class BuiltinType extends Type {
       PrimitiveType.function => BuiltinType(
           name: 'JSFunction', fromDartJSInterop: true, isNullable: isNullable),
     };
+  }
+}
+
+class WebType extends Type {
+  @override
+  final String name;
+
+  final List<Type> typeParams;
+
+  final bool? isNullable;
+
+  @override
+  ID get id => ID(type: 'type', name: name);
+
+  @override
+  String? get dartName => null;
+
+  WebType._(
+      {required this.name,
+      this.typeParams = const [],
+      this.isNullable});
+
+  @override
+  Reference emit([TypeOptions? options]) {
+    options ??= TypeOptions();
+
+    return TypeReference((t) => t
+      ..symbol = name
+      ..types.addAll(typeParams
+          // if there is only one type param, and it is void, ignore
+          .where((p) => typeParams.length != 1 || p != BuiltinType.$voidType)
+          .map((p) => p.emit(TypeOptions())))
+      ..url = 'package:web/web.dart'
+      ..isNullable = isNullable ?? options!.nullable);
+  }
+
+  static WebType parse(String name, {bool? isNullable, List<Type> typeParams = const []}) {
+    return WebType._(name: renameMap.containsKey(name) ? renameMap[name]! : name, isNullable: isNullable, typeParams: typeParams);
   }
 }
 

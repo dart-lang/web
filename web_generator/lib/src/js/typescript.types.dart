@@ -72,6 +72,7 @@ extension type TSNode._(JSObject _) implements JSObject {
   external TSNodeFlags get flags;
   external String getText([TSSourceFile? sourceFile]);
   external String getFullText([TSSourceFile? sourceFile]);
+  external TSSourceFile getSourceFile();
 }
 
 @JS('TypeNode')

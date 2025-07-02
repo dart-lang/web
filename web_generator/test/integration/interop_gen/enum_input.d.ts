@@ -58,3 +58,6 @@ export declare enum Permissions {
 }
 export declare function hasPermission(perm: Permissions, flag: Permissions): boolean;
 export declare const userPermissions: Permissions;
+export declare let currentTheme: "light" | "dark" | "system";
+export declare let buttonState: "default" | "hovered" | "pressed" | "disabled";
+export declare let retriesLeft: 0 | 1 | 2 | 3;

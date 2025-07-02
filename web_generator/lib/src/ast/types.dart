@@ -5,6 +5,14 @@
 import 'package:code_builder/code_builder.dart';
 import '../interop_gen/namer.dart';
 import 'base.dart';
+import 'builtin.dart';
+import 'declarations.dart';
+
+abstract interface class DeclarationAssociatedType {
+  String get declarationName;
+
+  Declaration get declaration;
+}
 
 class ReferredType<T extends Declaration> extends Type {
   @override
@@ -34,12 +42,12 @@ class ReferredType<T extends Declaration> extends Type {
 
 // TODO(https://github.com/dart-lang/web/issues/385): Implement Support for UnionType (including implementing `emit`)
 class UnionType extends Type {
-  List<Type> types;
+  final List<Type> types;
 
   UnionType({required this.types});
 
   @override
-  ID get id => ID(type: 'type', name: types.map((t) => t.id).join('|'));
+  ID get id => ID(type: 'type', name: types.map((t) => t.id.name).join('|'));
 
   @override
   Reference emit([TypeOptions? options]) {
@@ -48,6 +56,53 @@ class UnionType extends Type {
 
   @override
   String? get name => null;
+}
+
+class HomogenousUnionType<T extends LiteralType, D extends Declaration>
+    extends UnionType implements DeclarationAssociatedType {
+  final List<T> _types;
+
+  @override
+  List<T> get types => _types;
+
+  Type get baseType {
+    return types.first.baseType;
+  }
+
+  final bool isNullable;
+
+  HomogenousUnionType(
+      {required List<T> types, this.isNullable = false, required String name})
+      : declarationName = name,
+        _types = types,
+        super(types: types);
+
+  // TODO: We need a better way of naming declarations
+  @override
+  String declarationName;
+
+  @override
+  EnumDeclaration get declaration => EnumDeclaration(
+      name: declarationName,
+      dartName: UniqueNamer.makeNonConflicting(declarationName),
+      baseType: baseType,
+      members: types.map((t) {
+        final name = t.value.toString();
+        return EnumMember(
+          name,
+          t.value,
+          dartName: UniqueNamer.makeNonConflicting(name),
+          parent: UniqueNamer.makeNonConflicting(declarationName),
+        );
+      }).toList(),
+      exported: true);
+
+  @override
+  Reference emit([TypeOptions? options]) {
+    return TypeReference((t) => t
+      ..symbol = declarationName
+      ..isNullable = options?.nullable);
+  }
 }
 
 /// The base class for a type generic (like 'T')
@@ -71,3 +126,43 @@ class GenericType extends Type {
   ID get id =>
       ID(type: 'generic-type', name: '$name@${parent?.id ?? "(anonymous)"}');
 }
+
+/// A type representing a bare literal, such as `null`, a string or number
+class LiteralType extends Type {
+  final LiteralKind kind;
+
+  final Object? value;
+
+  @override
+  String get name => switch (kind) {
+        LiteralKind.$null => 'null',
+        LiteralKind.int || LiteralKind.double => 'number',
+        LiteralKind.string => 'string',
+        LiteralKind.$true => 'true',
+        LiteralKind.$false => 'false'
+      };
+
+  BuiltinType get baseType {
+    final primitive = switch (kind) {
+      LiteralKind.$null => PrimitiveType.undefined,
+      LiteralKind.string => PrimitiveType.string,
+      LiteralKind.int => PrimitiveType.num,
+      LiteralKind.double => PrimitiveType.double,
+      LiteralKind.$true || LiteralKind.$false => PrimitiveType.boolean
+    };
+
+    return BuiltinType.primitiveType(primitive);
+  }
+
+  LiteralType({required this.kind, required this.value});
+
+  @override
+  Reference emit([TypeOptions? options]) {
+    return baseType.emit(options);
+  }
+
+  @override
+  ID get id => ID(type: 'type', name: name);
+}
+
+enum LiteralKind { $null, string, double, $true, $false, int }

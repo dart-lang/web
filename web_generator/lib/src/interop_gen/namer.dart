@@ -23,6 +23,22 @@ class UniqueNamer {
   UniqueNamer([Iterable<String> used = const <String>[]])
       : _usedNames = used.toSet();
 
+  /// Makes a name that does not conflict with dart keywords
+  static String makeNonConflicting(String name) {
+    if (int.tryParse(name) != null) {
+      return '\$$name';
+    } else if (double.tryParse(name) != null) {
+      return '\$${name.splitMapJoin(
+        '.',
+        onMatch: (p0) => 'dot',
+      )}';
+    } else if (keywords.contains(name)) {
+      return '$name\$';
+    } else {
+      return name;
+    }
+  }
+
   /// Creates a unique name and ID for a given declaration to prevent
   /// name collisions in Dart applications
   ///
@@ -33,10 +49,7 @@ class UniqueNamer {
       name = 'unnamed';
     }
 
-    var newName = name;
-    if (keywords.contains(newName)) {
-      newName = '$newName\$';
-    }
+    var newName = UniqueNamer.makeNonConflicting(name);
 
     var i = 0;
     while (_usedNames.contains(newName)) {

@@ -30,6 +30,9 @@ extension type const TSSyntaxKind._(num _) {
   /// expressions
   static const TSSyntaxKind NumericLiteral = TSSyntaxKind._(9);
   static const TSSyntaxKind StringLiteral = TSSyntaxKind._(11);
+  static const TSSyntaxKind NullKeyword = TSSyntaxKind._(106);
+  static const TSSyntaxKind TrueKeyword = TSSyntaxKind._(112);
+  static const TSSyntaxKind FalseKeyword = TSSyntaxKind._(97);
 
   /// keywords
   static const TSSyntaxKind ExportKeyword = TSSyntaxKind._(95);
@@ -52,6 +55,7 @@ extension type const TSSyntaxKind._(num _) {
   static const TSSyntaxKind UnionType = TSSyntaxKind._(192);
   static const TSSyntaxKind TypeReference = TSSyntaxKind._(183);
   static const TSSyntaxKind ArrayType = TSSyntaxKind._(188);
+  static const TSSyntaxKind LiteralType = TSSyntaxKind._(201);
 
   /// Other
   static const TSSyntaxKind Identifier = TSSyntaxKind._(80);
@@ -103,6 +107,14 @@ extension type TSTypeReferenceNode._(JSObject _) implements TSTypeNode {
   external TSNodeArray<TSTypeNode>? get typeArguments;
 }
 
+@JS('LiteralTypeNode')
+extension type TSLiteralTypeNode._(JSObject _) implements TSTypeNode {
+  @redeclare
+  TSSyntaxKind get kind => TSSyntaxKind.LiteralType;
+
+  external TSLiteral get literal;
+}
+
 @JS('Expression')
 extension type TSExpression._(JSObject _) implements TSNode {}
 
@@ -115,16 +127,18 @@ extension type TSLiteralExpression._(JSObject _) implements TSExpression {
 @JS('Declaration')
 extension type TSDeclaration._(JSObject _) implements TSNode {}
 
+@JS()
+extension type TSLiteral._(JSObject _)
+    implements TSLiteralExpression, TSDeclaration {}
+
 @JS('NumericLiteral')
-extension type TSNumericLiteral._(JSObject _)
-    implements TSLiteralExpression, TSDeclaration {
+extension type TSNumericLiteral._(JSObject _) implements TSLiteral {
   @redeclare
   TSSyntaxKind get kind => TSSyntaxKind.NumericLiteral;
 }
 
 @JS('StringLiteral')
-extension type TSStringLiteral._(JSObject _)
-    implements TSLiteralExpression, TSDeclaration {
+extension type TSStringLiteral._(JSObject _) implements TSLiteral {
   @redeclare
   TSSyntaxKind get kind => TSSyntaxKind.StringLiteral;
 }

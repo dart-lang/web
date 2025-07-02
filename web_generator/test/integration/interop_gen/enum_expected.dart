@@ -77,3 +77,39 @@ extension type const Permissions._(num _) {
 external bool hasPermission(Permissions perm, Permissions flag);
 @_i1.JS()
 external Permissions get userPermissions;
+@_i1.JS()
+external AnonymousUnion currentTheme;
+@_i1.JS()
+external AnonymousUnion$1 buttonState;
+@_i1.JS()
+external AnonymousUnion$2 retriesLeft;
+extension type const AnonymousUnion._(String _) {
+  static const AnonymousUnion light = AnonymousUnion._('light');
+
+  static const AnonymousUnion dark = AnonymousUnion._('dark');
+
+  static const AnonymousUnion system = AnonymousUnion._('system');
+}
+extension type const AnonymousUnion$1._(String _) {
+  @_i1.JS('default')
+  static const AnonymousUnion$1 default$ = AnonymousUnion$1._('default');
+
+  static const AnonymousUnion$1 hovered = AnonymousUnion$1._('hovered');
+
+  static const AnonymousUnion$1 pressed = AnonymousUnion$1._('pressed');
+
+  static const AnonymousUnion$1 disabled = AnonymousUnion$1._('disabled');
+}
+extension type const AnonymousUnion$2._(num _) {
+  @_i1.JS('0')
+  static const AnonymousUnion$2 $0 = AnonymousUnion$2._(0);
+
+  @_i1.JS('1')
+  static const AnonymousUnion$2 $1 = AnonymousUnion$2._(1);
+
+  @_i1.JS('2')
+  static const AnonymousUnion$2 $2 = AnonymousUnion$2._(2);
+
+  @_i1.JS('3')
+  static const AnonymousUnion$2 $3 = AnonymousUnion$2._(3);
+}

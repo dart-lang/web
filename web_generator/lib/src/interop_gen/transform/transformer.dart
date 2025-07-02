@@ -76,6 +76,7 @@ class Transformer {
 
     for (final mem in enumMembers) {
       final memName = mem.name.text;
+      final dartMemName = UniqueNamer.makeNonConflicting(memName);
       final memInitializer = mem.initializer;
 
       // check the type of the initializer
@@ -87,7 +88,9 @@ class Transformer {
                 _parseNumericLiteral(memInitializer as TSNumericLiteral);
             const primitiveType = PrimitiveType.num;
             members.add(EnumMember(memName, value,
-                type: BuiltinType.primitiveType(primitiveType), parent: name));
+                type: BuiltinType.primitiveType(primitiveType),
+                parent: name,
+                dartName: dartMemName));
             if (enumRepType == null) {
               enumRepType = primitiveType;
             } else if (enumRepType != primitiveType) {
@@ -100,7 +103,9 @@ class Transformer {
                 _parseStringLiteral(memInitializer as TSStringLiteral);
             const primitiveType = PrimitiveType.string;
             members.add(EnumMember(memName, value,
-                type: BuiltinType.primitiveType(primitiveType), parent: name));
+                type: BuiltinType.primitiveType(primitiveType),
+                parent: name,
+                dartName: dartMemName));
             if (enumRepType == null) {
               enumRepType = primitiveType;
             } else if (enumRepType != primitiveType) {
@@ -114,7 +119,8 @@ class Transformer {
         }
       } else {
         // get the type
-        members.add(EnumMember(memName, null, parent: name));
+        members.add(
+            EnumMember(memName, null, parent: name, dartName: dartMemName));
       }
     }
 
@@ -231,80 +237,140 @@ class Transformer {
   /// TODO(https://github.com/dart-lang/web/issues/384): Add support for literals (i.e individual booleans and `null`)
   /// TODO(https://github.com/dart-lang/web/issues/383): Add support for `typeof` types
   Type _transformType(TSTypeNode type, {bool parameter = false}) {
-    if (type.kind == TSSyntaxKind.UnionType) {
-      final unionType = type as TSUnionTypeNode;
-      return UnionType(
-          types: unionType.types.toDart.map<Type>(_transformType).toList());
-    }
+    switch (type.kind) {
+      case TSSyntaxKind.TypeReference:
+        final refType = type as TSTypeReferenceNode;
 
-    if (type.kind == TSSyntaxKind.TypeReference) {
-      final refType = type as TSTypeReferenceNode;
+        final name = refType.typeName.text;
+        final typeArguments = refType.typeArguments?.toDart;
 
-      final name = refType.typeName.text;
-      final typeArguments = refType.typeArguments?.toDart;
+        var declarationsMatching = nodeMap.findByName(name);
 
-      var declarationsMatching = nodeMap.findByName(name);
+        if (declarationsMatching.isEmpty) {
+          // check if builtin
+          // TODO(https://github.com/dart-lang/web/issues/380): A better name
+          //  for this, and adding support for "supported declarations"
+          //  (also a better name for that)
+          final supportedType = getSupportedType(
+              name, (typeArguments ?? []).map(_transformType).toList());
+          if (supportedType != null) {
+            return supportedType;
+          }
 
-      if (declarationsMatching.isEmpty) {
-        // check if builtin
-        // TODO(https://github.com/dart-lang/web/issues/380): A better name
-        //  for this, and adding support for "supported declarations"
-        //  (also a better name for that)
-        final supportedType = getSupportedType(
-            name, (typeArguments ?? []).map(_transformType).toList());
-        if (supportedType != null) {
-          return supportedType;
+          // TODO: In the case of overloading, should/shouldn't we handle more than one declaration?
+          final declaration = _getDeclarationByName(refType.typeName);
+
+          if (declaration == null) {
+            throw Exception('Found no declaration matching $name');
+          }
+
+          if (declaration.kind == TSSyntaxKind.TypeParameter) {
+            return GenericType(name: name);
+          }
+
+          transform(declaration);
+
+          declarationsMatching = nodeMap.findByName(name);
         }
 
         // TODO: In the case of overloading, should/shouldn't we handle more than one declaration?
-        final declaration = _getDeclarationByName(refType.typeName);
+        final firstNode =
+            declarationsMatching.whereType<NamedDeclaration>().first;
 
-        if (declaration == null) {
-          throw Exception('Found no declaration matching $name');
+        return firstNode.asReferredType(
+          (typeArguments ?? []).map(_transformType).toList(),
+        );
+      // TODO: Union types are also anonymous by design
+      //  Unless we are making typedefs for them, we should
+      //  try to handle not making multiple of them for a given use-case
+      case TSSyntaxKind.UnionType:
+        final unionType = type as TSUnionTypeNode;
+        // TODO: Unions
+        final types = unionType.types.toDart.map<Type>(_transformType).toList();
+
+        // check if it is a union of literals
+        if (types.every((t) => t is LiteralType) &&
+            types.every((t) =>
+                (t as LiteralType).kind == (types.first as LiteralType).kind ||
+                t.kind == LiteralKind.$null)) {
+          // get the literal types other than null
+          final literalTypes = types.whereType<LiteralType>();
+          final nonNullLiteralTypes =
+              literalTypes.where((t) => t.kind != LiteralKind.$null).toList();
+
+          final isNullable = nonNullLiteralTypes.length == literalTypes.length;
+
+          if (nonNullLiteralTypes.map((t) => t.kind)
+              case [
+                LiteralKind.$true || LiteralKind.$false,
+                LiteralKind.$true || LiteralKind.$false
+              ]) {
+            return BuiltinType.primitiveType(PrimitiveType.boolean,
+                isNullable: isNullable);
+          }
+
+          final (id: _, name: name) =
+              namer.makeUnique('AnonymousUnion', 'type');
+
+          // TODO: Handle similar types here...
+          final type = HomogenousUnionType(
+              types: nonNullLiteralTypes, isNullable: isNullable, name: name);
+
+          return type;
         }
 
-        if (declaration.kind == TSSyntaxKind.TypeParameter) {
-          return GenericType(name: name);
-        }
+        return UnionType(types: types);
+      case TSSyntaxKind.LiteralType:
+        final literalType = type as TSLiteralTypeNode;
+        final literal = literalType.literal;
 
-        transform(declaration);
+        return LiteralType(
+            kind: switch (literal.kind) {
+              // TODO: Will we support Regex?
+              TSSyntaxKind.NumericLiteral => num.parse(literal.text) is int
+                  ? LiteralKind.int
+                  : LiteralKind.double,
+              TSSyntaxKind.StringLiteral => LiteralKind.string,
+              TSSyntaxKind.TrueKeyword => LiteralKind.$true,
+              TSSyntaxKind.FalseKeyword => LiteralKind.$false,
+              TSSyntaxKind.NullKeyword => LiteralKind.$null,
+              _ => throw UnimplementedError(
+                  'Unsupported Literal Kind ${literal.kind}')
+            },
+            value: switch (literal.kind) {
+              // TODO: Will we support Regex?
+              TSSyntaxKind.NumericLiteral => num.parse(literal.text),
+              TSSyntaxKind.StringLiteral => literal.text,
+              TSSyntaxKind.TrueKeyword => true,
+              TSSyntaxKind.FalseKeyword => false,
+              TSSyntaxKind.NullKeyword => null,
+              _ => throw UnimplementedError(
+                  'Unsupported Literal Kind ${literal.kind}')
+            });
+      case TSSyntaxKind.ArrayType:
+        return BuiltinType.primitiveType(PrimitiveType.array, typeParams: [
+          getJSTypeAlternative(
+              _transformType((type as TSArrayTypeNode).elementType))
+        ]);
+      default:
+        // check for primitive type via its kind
+        final primitiveType = switch (type.kind) {
+          TSSyntaxKind.ArrayType => PrimitiveType.array,
+          TSSyntaxKind.StringKeyword => PrimitiveType.string,
+          TSSyntaxKind.AnyKeyword => PrimitiveType.any,
+          TSSyntaxKind.ObjectKeyword => PrimitiveType.object,
+          TSSyntaxKind.NumberKeyword =>
+            (parameter ? PrimitiveType.num : PrimitiveType.double),
+          TSSyntaxKind.UndefinedKeyword => PrimitiveType.undefined,
+          TSSyntaxKind.UnknownKeyword => PrimitiveType.unknown,
+          TSSyntaxKind.BooleanKeyword => PrimitiveType.boolean,
+          TSSyntaxKind.VoidKeyword => PrimitiveType.$void,
+          _ => throw UnsupportedError(
+              'The given type with kind ${type.kind} is not supported yet')
+        };
 
-        declarationsMatching = nodeMap.findByName(name);
-      }
-
-      // TODO: In the case of overloading, should/shouldn't we handle more than one declaration?
-      final firstNode =
-          declarationsMatching.whereType<NamedDeclaration>().first;
-
-      return firstNode.asReferredType(
-        (typeArguments ?? []).map(_transformType).toList(),
-      );
+        return BuiltinType.primitiveType(primitiveType);
     }
-
-    if (type.kind == TSSyntaxKind.ArrayType) {
-      return BuiltinType.primitiveType(PrimitiveType.array, typeParams: [
-        getJSTypeAlternative(
-            _transformType((type as TSArrayTypeNode).elementType))
-      ]);
-    }
-
-    // check for primitive type via its kind
-    final primitiveType = switch (type.kind) {
-      TSSyntaxKind.ArrayType => PrimitiveType.array,
-      TSSyntaxKind.StringKeyword => PrimitiveType.string,
-      TSSyntaxKind.AnyKeyword => PrimitiveType.any,
-      TSSyntaxKind.ObjectKeyword => PrimitiveType.object,
-      TSSyntaxKind.NumberKeyword =>
-        (parameter ? PrimitiveType.num : PrimitiveType.double),
-      TSSyntaxKind.UndefinedKeyword => PrimitiveType.undefined,
-      TSSyntaxKind.UnknownKeyword => PrimitiveType.unknown,
-      TSSyntaxKind.BooleanKeyword => PrimitiveType.boolean,
-      TSSyntaxKind.VoidKeyword => PrimitiveType.$void,
-      _ => throw UnsupportedError(
-          'The given type with kind ${type.kind} is not supported yet')
-    };
-
-    return BuiltinType.primitiveType(primitiveType);
   }
 
   NodeMap filter() {
@@ -366,6 +432,9 @@ class Transformer {
         });
         break;
       case final EnumDeclaration _:
+        break;
+      case final HomogenousUnionType hu:
+        filteredDeclarations.add(hu.declaration);
         break;
       case final UnionType u:
         filteredDeclarations.addAll({

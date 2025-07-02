@@ -155,10 +155,11 @@ class EnumDeclaration extends NamedDeclaration
       {required this.name,
       required this.baseType,
       required this.members,
-      required this.exported});
+      required this.exported,
+      this.dartName});
 
   @override
-  String? get dartName => null;
+  String? dartName;
 
   @override
   Spec emit([DeclarationOptions? options]) {
@@ -167,8 +168,11 @@ class EnumDeclaration extends NamedDeclaration
         members.any((m) => m.value == null) || baseTypeIsJSType;
 
     return ExtensionType((e) => e
+      ..annotations.addAll([
+        if (dartName != null && dartName != name) generateJSAnnotation(name)
+      ])
       ..constant = !shouldUseJSRepType
-      ..name = name
+      ..name = dartName ?? name
       ..primaryConstructorName = '_'
       ..representationDeclaration = RepresentationDeclaration((r) => r
         ..declaredRepresentationType = (
@@ -193,7 +197,8 @@ class EnumMember {
 
   final String parent;
 
-  EnumMember(this.name, this.value, {this.type, required this.parent});
+  EnumMember(this.name, this.value,
+      {this.type, required this.parent, this.dartName});
 
   Field emit([bool? shouldUseJSRepType]) {
     final jsRep = shouldUseJSRepType ?? (value == null);
@@ -204,8 +209,11 @@ class EnumMember {
       if (value != null) {
         f.modifier = (!jsRep ? FieldModifier.constant : FieldModifier.final$);
       }
+      if (dartName != null && name != dartName) {
+        f.annotations.add(generateJSAnnotation(name));
+      }
       f
-        ..name = name
+        ..name = dartName ?? name
         ..type = refer(parent)
         ..external = value == null
         ..static = true
@@ -216,4 +224,6 @@ class EnumMember {
               ]).code;
     });
   }
+
+  String? dartName;
 }

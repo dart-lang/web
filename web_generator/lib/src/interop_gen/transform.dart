@@ -36,6 +36,7 @@ class TransformResult {
         ..ignoreForFile.addAll(
             ['constant_identifier_names', 'non_constant_identifier_names'])
         ..body.addAll(specs));
+      print('${lib.accept(emitter)}');
       return MapEntry(file, formatter.format('${lib.accept(emitter)}'));
     });
   }

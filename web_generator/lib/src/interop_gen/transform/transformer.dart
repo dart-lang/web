@@ -191,7 +191,8 @@ class Transformer {
         if (p.basename(declarationSource) == 'lib.dom.d.ts' ||
             declarationSource.contains('dom')) {
           // dom declaration: supported by package:web
-          return WebType.parse(name,
+          // TODO(nikeokoronkwo): It is possible that we may get a type that isn't in `package:web`
+          return PackageWebType.parse(name,
               typeParams: (typeArguments ?? [])
                   .map(_transformType)
                   .map(getJSTypeAlternative)

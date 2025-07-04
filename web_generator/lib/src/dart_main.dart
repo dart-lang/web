@@ -93,6 +93,13 @@ Future<void> generateIDLBindings({
 
     if (renameMap.isNotEmpty) {
       final lib = code.Library((l) => l
+        ..comments.add('''
+// Copyright (c) ${DateTime.now().year}, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+
+// AUTO GENERATED: DO NOT EDIT
+''')
         ..body.add(code.Field((f) => f
           ..name = 'renameMap'
           ..type = code.refer('Map<String, String>')

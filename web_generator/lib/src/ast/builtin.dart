@@ -93,13 +93,11 @@ class BuiltinType extends Type {
           typeParams: [typeParams.single],
           fromDartJSInterop: true,
           isNullable: isNullable),
-      PrimitiveType.function => BuiltinType(
-          name: 'JSFunction', fromDartJSInterop: true, isNullable: isNullable),
     };
   }
 }
 
-class WebType extends Type {
+class PackageWebType extends Type {
   @override
   final String name;
 
@@ -113,7 +111,8 @@ class WebType extends Type {
   @override
   String? get dartName => null;
 
-  WebType._({required this.name, this.typeParams = const [], this.isNullable});
+  PackageWebType._(
+      {required this.name, this.typeParams = const [], this.isNullable});
 
   @override
   Reference emit([TypeOptions? options]) {
@@ -129,9 +128,9 @@ class WebType extends Type {
       ..isNullable = isNullable ?? options!.nullable);
   }
 
-  static WebType parse(String name,
+  static PackageWebType parse(String name,
       {bool? isNullable, List<Type> typeParams = const []}) {
-    return WebType._(
+    return PackageWebType._(
         name: renameMap.containsKey(name) ? renameMap[name]! : name,
         isNullable: isNullable,
         typeParams: typeParams);
@@ -151,7 +150,6 @@ enum PrimitiveType {
   undefined,
   symbol,
   array,
-  function,
   bigint
 }
 

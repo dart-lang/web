@@ -7,6 +7,7 @@
 import 'package:code_builder/code_builder.dart';
 
 import '../interop_gen/namer.dart';
+import '../web_rename_map.dart';
 import 'base.dart';
 
 /// A built in type supported by `dart:js_interop` or by this library
@@ -83,19 +84,56 @@ class BuiltinType extends Type {
       PrimitiveType.any || PrimitiveType.unknown => anyType,
       PrimitiveType.object => BuiltinType(
           name: 'JSObject', fromDartJSInterop: true, isNullable: isNullable),
+      PrimitiveType.symbol => BuiltinType(
+          name: 'JSSymbol', fromDartJSInterop: true, isNullable: isNullable),
+      PrimitiveType.bigint => BuiltinType(
+          name: 'JSBigInt', fromDartJSInterop: true, isNullable: isNullable),
       PrimitiveType.array => BuiltinType(
           name: 'JSArray',
           typeParams: [typeParams.single],
           fromDartJSInterop: true,
           isNullable: isNullable),
-      PrimitiveType.promise => BuiltinType(
-          name: 'JSPromise',
-          typeParams: [typeParams.single],
-          fromDartJSInterop: true,
-          isNullable: isNullable),
-      PrimitiveType.function => BuiltinType(
-          name: 'JSFunction', fromDartJSInterop: true, isNullable: isNullable),
     };
+  }
+}
+
+class PackageWebType extends Type {
+  @override
+  final String name;
+
+  final List<Type> typeParams;
+
+  final bool? isNullable;
+
+  @override
+  ID get id => ID(type: 'type', name: name);
+
+  @override
+  String? get dartName => null;
+
+  PackageWebType._(
+      {required this.name, this.typeParams = const [], this.isNullable});
+
+  @override
+  Reference emit([TypeOptions? options]) {
+    options ??= TypeOptions();
+
+    return TypeReference((t) => t
+      ..symbol = name
+      ..types.addAll(typeParams
+          // if there is only one type param, and it is void, ignore
+          .where((p) => typeParams.length != 1 || p != BuiltinType.$voidType)
+          .map((p) => p.emit(TypeOptions())))
+      ..url = 'package:web/web.dart'
+      ..isNullable = isNullable ?? options!.nullable);
+  }
+
+  static PackageWebType parse(String name,
+      {bool? isNullable, List<Type> typeParams = const []}) {
+    return PackageWebType._(
+        name: renameMap.containsKey(name) ? renameMap[name]! : name,
+        isNullable: isNullable,
+        typeParams: typeParams);
   }
 }
 
@@ -110,7 +148,53 @@ enum PrimitiveType {
   object,
   unknown,
   undefined,
+  symbol,
   array,
-  promise,
-  function
+  bigint
+}
+
+const supportedTypesMap = {
+  'Array': BuiltinTypeGenerator('JSArray',
+      fromDartJSInterop: true, typeParamCount: 1),
+  'Promise': BuiltinTypeGenerator('JSPromise',
+      fromDartJSInterop: true, typeParamCount: 1),
+  'ArrayBuffer': BuiltinTypeGenerator('JSArrayBuffer', fromDartJSInterop: true),
+  'Function': BuiltinTypeGenerator('JSFunction', fromDartJSInterop: true),
+  'DataView': BuiltinTypeGenerator('JSDataView', fromDartJSInterop: true),
+  'Float32Array':
+      BuiltinTypeGenerator('JSFloat32Array', fromDartJSInterop: true),
+  'Float64Array':
+      BuiltinTypeGenerator('JSFloat64Array', fromDartJSInterop: true),
+  'Int8Array': BuiltinTypeGenerator('JSInt8Array', fromDartJSInterop: true),
+  'Int16Array': BuiltinTypeGenerator('JSInt16Array', fromDartJSInterop: true),
+  'Int32Array': BuiltinTypeGenerator('JSInt32Array', fromDartJSInterop: true),
+  'Uint8Array': BuiltinTypeGenerator('JSUint8Array', fromDartJSInterop: true),
+  'Uint16Array': BuiltinTypeGenerator('JSUint16Array', fromDartJSInterop: true),
+  'Uint32Array': BuiltinTypeGenerator('JSUint32Array', fromDartJSInterop: true),
+  'Uint8ClampedArray':
+      BuiltinTypeGenerator('JSUint8ClampedArray', fromDartJSInterop: true),
+};
+
+class BuiltinTypeGenerator {
+  final String name;
+
+  final bool fromDartJSInterop;
+
+  final int? typeParamCount;
+
+  const BuiltinTypeGenerator(
+    this.name, {
+    this.fromDartJSInterop = false,
+    this.typeParamCount,
+  });
+
+  BuiltinType call({bool? isNullable, List<Type> typeParams = const []}) {
+    assert(typeParamCount == null || typeParams.length == typeParamCount,
+        'Type param count not equal to the number of type params passed');
+    return BuiltinType(
+        name: name,
+        fromDartJSInterop: fromDartJSInterop,
+        isNullable: isNullable,
+        typeParams: typeParams);
+  }
 }

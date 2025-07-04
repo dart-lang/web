@@ -71,7 +71,7 @@ Future<Map<String, Set<String>>> _generateElementTagMap() async {
   return elementMap;
 }
 
-Future<TranslationResult> generateBindings(
+Future<(TranslationResult, Map<String, String>)> generateBindings(
     String packageRoot, String librarySubDir,
     {required bool generateAll}) async {
   final cssStyleDeclarations = await _generateCSSStyleDeclarations();
@@ -87,7 +87,10 @@ Future<TranslationResult> generateBindings(
     translator.collect(shortname, ast);
   }
   translator.addInterfacesAndNamespaces();
-  return translator.translate();
+  final result = translator.translate();
+  final renamedTypes = translator.renamedClasses;
+
+  return (result, renamedTypes);
 }
 
 Future<TranslationResult> generateBindingsForFiles(

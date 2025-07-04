@@ -43,7 +43,9 @@ extension type TSTypeChecker._(JSObject _) implements JSObject {
 }
 
 @JS('SourceFile')
-extension type TSSourceFile._(JSObject _) implements TSNode {}
+extension type TSSourceFile._(JSObject _) implements TSDeclaration {
+  external String fileName;
+}
 
 extension type TSNodeCallback<T extends JSAny>._(JSObject _)
     implements JSObject {

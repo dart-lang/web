@@ -50,14 +50,15 @@ class UnionType extends Type {
   ID get id => ID(type: 'type', name: types.map((t) => t.id.name).join('|'));
 
   @override
+  String? get name => null;
+
+  @override
   Reference emit([TypeOptions? options]) {
     throw UnimplementedError('TODO: Implement UnionType.emit');
   }
-
-  @override
-  String? get name => null;
 }
 
+// TODO: Handle naming anonymous declarations
 class HomogenousUnionType<T extends LiteralType, D extends Declaration>
     extends UnionType implements DeclarationAssociatedType {
   final List<T> _types;
@@ -65,21 +66,19 @@ class HomogenousUnionType<T extends LiteralType, D extends Declaration>
   @override
   List<T> get types => _types;
 
-  Type get baseType {
-    return types.first.baseType;
-  }
+  final Type baseType;
 
   final bool isNullable;
+
+  @override
+  String declarationName;
 
   HomogenousUnionType(
       {required List<T> types, this.isNullable = false, required String name})
       : declarationName = name,
         _types = types,
+        baseType = types.first.baseType,
         super(types: types);
-
-  // TODO: We need a better way of naming declarations
-  @override
-  String declarationName;
 
   @override
   EnumDeclaration get declaration => EnumDeclaration(
@@ -101,7 +100,7 @@ class HomogenousUnionType<T extends LiteralType, D extends Declaration>
   Reference emit([TypeOptions? options]) {
     return TypeReference((t) => t
       ..symbol = declarationName
-      ..isNullable = options?.nullable);
+      ..isNullable = options?.nullable ?? isNullable);
   }
 }
 
@@ -117,14 +116,14 @@ class GenericType extends Type {
   GenericType({required this.name, this.constraint, this.parent});
 
   @override
+  ID get id =>
+      ID(type: 'generic-type', name: '$name@${parent?.id ?? "(anonymous)"}');
+
+  @override
   Reference emit([TypeOptions? options]) => TypeReference((t) => t
     ..symbol = name
     ..bound = constraint?.emit()
     ..isNullable = options?.nullable);
-
-  @override
-  ID get id =>
-      ID(type: 'generic-type', name: '$name@${parent?.id ?? "(anonymous)"}');
 }
 
 /// A type representing a bare literal, such as `null`, a string or number
@@ -143,13 +142,7 @@ class LiteralType extends Type {
       };
 
   BuiltinType get baseType {
-    final primitive = switch (kind) {
-      LiteralKind.$null => PrimitiveType.undefined,
-      LiteralKind.string => PrimitiveType.string,
-      LiteralKind.int => PrimitiveType.num,
-      LiteralKind.double => PrimitiveType.double,
-      LiteralKind.$true || LiteralKind.$false => PrimitiveType.boolean
-    };
+    final primitive = kind.primitive;
 
     return BuiltinType.primitiveType(primitive);
   }
@@ -165,4 +158,19 @@ class LiteralType extends Type {
   ID get id => ID(type: 'type', name: name);
 }
 
-enum LiteralKind { $null, string, double, $true, $false, int }
+enum LiteralKind {
+  $null,
+  string,
+  double,
+  $true,
+  $false,
+  int;
+
+  PrimitiveType get primitive => switch (this) {
+        LiteralKind.$null => PrimitiveType.undefined,
+        LiteralKind.string => PrimitiveType.string,
+        LiteralKind.int => PrimitiveType.num,
+        LiteralKind.double => PrimitiveType.double,
+        LiteralKind.$true || LiteralKind.$false => PrimitiveType.boolean
+      };
+}

@@ -74,10 +74,10 @@ class Transformer {
     final members = <EnumMember>[];
     PrimitiveType? enumRepType;
 
-    for (final mem in enumMembers) {
-      final memName = mem.name.text;
+    for (final member in enumMembers) {
+      final memName = member.name.text;
       final dartMemName = UniqueNamer.makeNonConflicting(memName);
-      final memInitializer = mem.initializer;
+      final memInitializer = member.initializer;
 
       // check the type of the initializer
       if (memInitializer != null) {
@@ -86,12 +86,15 @@ class Transformer {
             // parse numeric literal
             final value =
                 _parseNumericLiteral(memInitializer as TSNumericLiteral);
-            const primitiveType = PrimitiveType.num;
+            final primitiveType =
+                value is int ? PrimitiveType.int : PrimitiveType.double;
             members.add(EnumMember(memName, value,
                 type: BuiltinType.primitiveType(primitiveType),
                 parent: name,
                 dartName: dartMemName));
-            if (enumRepType == null) {
+            if (enumRepType == null &&
+                !(primitiveType == PrimitiveType.int &&
+                    enumRepType == PrimitiveType.double)) {
               enumRepType = primitiveType;
             } else if (enumRepType != primitiveType) {
               enumRepType = PrimitiveType.any;
@@ -288,23 +291,39 @@ class Transformer {
         // TODO: Unions
         final types = unionType.types.toDart.map<Type>(_transformType).toList();
 
+        var isHomogenous = true;
+
+        for (final type in types) {
+          if (type is LiteralType) {
+            if (type.kind == LiteralKind.$null) continue;
+            if (type.kind.primitive !=
+                (types.first as LiteralType).kind.primitive) {
+              isHomogenous = false;
+            }
+          } else {
+            isHomogenous = false;
+          }
+        }
+
         // check if it is a union of literals
-        if (types.every((t) => t is LiteralType) &&
-            types.every((t) =>
-                (t as LiteralType).kind == (types.first as LiteralType).kind ||
-                t.kind == LiteralKind.$null)) {
+        if (isHomogenous) {
           // get the literal types other than null
-          final literalTypes = types.whereType<LiteralType>();
-          final nonNullLiteralTypes =
-              literalTypes.where((t) => t.kind != LiteralKind.$null).toList();
+          final literalTypes = <LiteralType>[];
+          final nonNullLiteralTypes = <LiteralType>[];
+          var isBooleanType = false;
 
-          final isNullable = nonNullLiteralTypes.length == literalTypes.length;
+          for (final type in types) {
+            literalTypes.add(type as LiteralType);
+            if (type.kind != LiteralKind.$null) {
+              nonNullLiteralTypes.add(type);
+              isBooleanType = (type.kind == LiteralKind.$true) ||
+                  (type.kind == LiteralKind.$false);
+            }
+          }
 
-          if (nonNullLiteralTypes.map((t) => t.kind)
-              case [
-                LiteralKind.$true || LiteralKind.$false,
-                LiteralKind.$true || LiteralKind.$false
-              ]) {
+          final isNullable = nonNullLiteralTypes.length != literalTypes.length;
+
+          if (isBooleanType) {
             return BuiltinType.primitiveType(PrimitiveType.boolean,
                 isNullable: isNullable);
           }

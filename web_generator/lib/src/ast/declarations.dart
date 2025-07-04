@@ -147,9 +147,13 @@ class EnumDeclaration extends NamedDeclaration
   @override
   final bool exported;
 
+  /// The underlying type of the enum (usually a number)
   Type baseType;
 
   final List<EnumMember> members;
+
+  @override
+  String? dartName;
 
   EnumDeclaration(
       {required this.name,
@@ -159,17 +163,15 @@ class EnumDeclaration extends NamedDeclaration
       this.dartName});
 
   @override
-  String? dartName;
-
-  @override
   Spec emit([DeclarationOptions? options]) {
     final baseTypeIsJSType = getJSTypeAlternative(baseType) == baseType;
-    final shouldUseJSRepType =
-        members.any((m) => m.value == null) || baseTypeIsJSType;
+    final externalMember = members.any((m) => m.isExternal);
+    final shouldUseJSRepType = externalMember || baseTypeIsJSType;
 
     return ExtensionType((e) => e
       ..annotations.addAll([
-        if (dartName != null && dartName != name) generateJSAnnotation(name)
+        if (dartName != null && dartName != name && externalMember)
+          generateJSAnnotation(name)
       ])
       ..constant = !shouldUseJSRepType
       ..name = dartName ?? name
@@ -181,7 +183,8 @@ class EnumDeclaration extends NamedDeclaration
                 shouldUseJSRepType ? getJSTypeAlternative(baseType) : baseType)
             .emit(options?.toTypeOptions())
         ..name = '_')
-      ..fields.addAll(members.map((mem) => mem.emit(shouldUseJSRepType))));
+      ..fields
+          .addAll(members.map((member) => member.emit(shouldUseJSRepType))));
   }
 
   @override
@@ -197,6 +200,8 @@ class EnumMember {
 
   final String parent;
 
+  bool get isExternal => value == null;
+
   EnumMember(this.name, this.value,
       {this.type, required this.parent, this.dartName});
 
@@ -206,10 +211,10 @@ class EnumMember {
       // TODO(nikeokoronkwo): This does not render correctly on `code_builder`.
       //  Until the update is made, we will omit examples concerning this
       //  Luckily, not many real-world instances of enums use this anyways, https://github.com/dart-lang/tools/issues/2118
-      if (value != null) {
+      if (!isExternal) {
         f.modifier = (!jsRep ? FieldModifier.constant : FieldModifier.final$);
       }
-      if (dartName != null && name != dartName) {
+      if (dartName != null && name != dartName && isExternal) {
         f.annotations.add(generateJSAnnotation(name));
       }
       f

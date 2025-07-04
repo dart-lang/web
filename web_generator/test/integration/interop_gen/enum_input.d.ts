@@ -9,6 +9,13 @@ export declare enum ResponseCode {
     NotFound = 404,
     ServerError = 500
 }
+export declare enum Fractions {
+    Half = 0.5,
+    Quarter = 0.25,
+    Fifth = 0.2,
+    Tenth = 0.1,
+    Third = 0.3333333333333333
+}
 export declare enum LogLevel {
     Info = "INFO",
     Warn = "WARN",
@@ -49,6 +56,18 @@ declare enum DuplicateValues {
     B = 2,
     C = 1
 }
+export declare enum MathConstants {
+  PI = 3.14,                  // constant
+  TwoPI = 6.28,
+  Random,     // computed at compile time
+  Length,  
+}
+export declare enum SomeRandomEnumValues {
+  moment = 2,
+  true = 6.28,
+  default,     
+  unknown,
+}
 declare const statusKeys: string[];
 export declare enum Permissions {
     Read = 1,// 0001
@@ -61,3 +80,6 @@ export declare const userPermissions: Permissions;
 export declare let currentTheme: "light" | "dark" | "system";
 export declare let buttonState: "default" | "hovered" | "pressed" | "disabled";
 export declare let retriesLeft: 0 | 1 | 2 | 3;
+export declare const direction: "N" | "S" | "E" | "W" | null;
+export declare const someUnionEnum: 2 | 4 | 6 | 8 | 10;
+export declare const myBooleanEnum: true | false;

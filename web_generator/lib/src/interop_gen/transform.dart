@@ -32,8 +32,14 @@ class TransformResult {
           final Type _ => null,
         };
       }).whereType<Spec>();
-      final lib = Library((l) => l..body.addAll(specs));
-      return MapEntry(file, formatter.format('${lib.accept(emitter)}'));
+      final lib = Library((l) => l
+        ..ignoreForFile.addAll(
+            ['constant_identifier_names', 'non_constant_identifier_names'])
+        ..body.addAll(specs));
+      return MapEntry(
+          file,
+          formatter.format('${lib.accept(emitter)}'
+              .replaceAll('static external', 'external static')));
     });
   }
 }

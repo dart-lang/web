@@ -1,0 +1,6 @@
+name: Nanoid and Lodash
+preamble: |
+  // GENERATED FILE: DO NOT EDIT
+input:
+  nanoid: 'nanoid.d.ts'
+output: output

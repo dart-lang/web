@@ -74,7 +74,7 @@ Future<void> generateJSInteropBindings(Config config) async {
 
   // write code to file
   if (generatedCodeMap.length == 1) {
-    final [entry] = generatedCodeMap.entries.toList();
+    final entry = generatedCodeMap.entries.first;
     fs.writeFileSync(config.output.toJS, entry.value.toJS);
   } else {
     for (final entry in generatedCodeMap.entries) {

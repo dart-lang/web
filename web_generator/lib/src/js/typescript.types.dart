@@ -24,6 +24,7 @@ extension type const TSSyntaxKind._(num _) {
   static const TSSyntaxKind InterfaceDeclaration = TSSyntaxKind._(264);
   static const TSSyntaxKind FunctionDeclaration = TSSyntaxKind._(262);
   static const TSSyntaxKind ExportDeclaration = TSSyntaxKind._(278);
+  static const TSSyntaxKind TypeAliasDeclaration = TSSyntaxKind._(265);
   static const TSSyntaxKind Parameter = TSSyntaxKind._(169);
 
   /// keywords
@@ -134,6 +135,15 @@ extension type TSFunctionDeclaration._(JSObject _) implements TSDeclaration {
   external TSNodeArray<TSParameterDeclaration> get parameters;
   external TSNodeArray<TSTypeParameterDeclaration>? get typeParameters;
   external TSNodeArray<TSNode> get modifiers;
+}
+
+@JS('TypeAliasDeclaration')
+extension type TSTypeAliasDeclaration._(JSObject _)
+    implements TSDeclaration, TSStatement {
+  external TSNodeArray<TSNode>? get modifiers;
+  external TSNodeArray<TSTypeParameterDeclaration>? get typeParameters;
+  external TSIdentifier get name;
+  external TSTypeNode get type;
 }
 
 @JS('ParameterDeclaration')

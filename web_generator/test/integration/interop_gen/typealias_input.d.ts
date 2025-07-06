@@ -1,0 +1,14 @@
+export type Username = string;
+export type Age = number;
+export type IsActive = boolean;
+export type Tags = string[];
+export type List<T> = T[];
+export type Box<T> = Array<Array<T>>;
+export type PromisedArray<U, T extends Array<U>> = Promise<T>;
+export declare const username: Username;
+export declare const age: Age;
+export declare const tagArray: Tags[];
+export declare const users: List<Username>;
+export declare const matrix: Box<number>;
+export declare function fetchNames(): PromisedArray<string, string[]>;
+export declare function isUserActive(status: IsActive): string;

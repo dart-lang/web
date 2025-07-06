@@ -44,9 +44,11 @@ class Transformer {
         final decs = _transformVariable(node as TSVariableStatement);
         nodeMap.addAll({for (final d in decs) d.id.toString(): d});
       default:
-        final Declaration decl = switch (node.kind) {
+        final decl = switch (node.kind) {
           TSSyntaxKind.FunctionDeclaration =>
             _transformFunction(node as TSFunctionDeclaration),
+          TSSyntaxKind.TypeAliasDeclaration =>
+            _transformTypeAlias(node as TSTypeAliasDeclaration),
           _ => throw Exception('Unsupported Declaration Kind: ${node.kind}')
         };
         // ignore: dead_code This line will not be dead in future decl additions
@@ -89,6 +91,30 @@ class Transformer {
     //  and may be from an import statement
     //  We should be able to handle these
     return declarations?.toDart.first;
+  }
+
+  TypeAliasDeclaration _transformTypeAlias(TSTypeAliasDeclaration typealias) {
+    final name = typealias.name.text;
+
+    final modifiers = typealias.modifiers?.toDart;
+    final isExported = modifiers?.any((m) {
+          return m.kind == TSSyntaxKind.ExportKeyword;
+        }) ??
+        false;
+
+    final typeParams = typealias.typeParameters?.toDart;
+
+    final type = typealias.type;
+
+    return TypeAliasDeclaration(
+        name: name,
+        // TODO: Can we find a way not to make the types be JS types
+        //  by default if possible. Leaving this for now,
+        //  so that using such typealiases in generics does not break
+        type: getJSTypeAlternative(_transformType(type)),
+        typeParameters:
+            typeParams?.map(_transformTypeParamDeclaration).toList() ?? [],
+        exported: isExported);
   }
 
   FunctionDeclaration _transformFunction(TSFunctionDeclaration function) {

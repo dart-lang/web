@@ -138,3 +138,40 @@ class ParameterDeclaration {
       ..type = type.emit(TypeOptions(nullable: optional)));
   }
 }
+
+class TypeAliasDeclaration extends NamedDeclaration
+    implements ExportableDeclaration {
+  @override
+  final String name;
+
+  final List<GenericType> typeParameters;
+
+  final Type type;
+
+  @override
+  final String? dartName;
+
+  @override
+  bool exported;
+
+  @override
+  ID get id => ID(type: 'typealias', name: name);
+
+  TypeAliasDeclaration(
+      {required this.name,
+      this.typeParameters = const [],
+      required this.type,
+      required this.exported})
+      : dartName = null;
+
+  @override
+  TypeDef emit([DeclarationOptions? options]) {
+    options ??= DeclarationOptions();
+
+    return TypeDef((t) => t
+      ..name = name
+      ..types
+          .addAll(typeParameters.map((t) => t.emit(options?.toTypeOptions())))
+      ..definition = type.emit(options?.toTypeOptions()));
+  }
+}

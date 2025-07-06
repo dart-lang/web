@@ -5,6 +5,7 @@
 import 'package:code_builder/code_builder.dart';
 import '../interop_gen/namer.dart';
 import 'base.dart';
+import 'helpers.dart';
 
 class ReferredType<T extends Declaration> extends Type {
   @override
@@ -23,10 +24,10 @@ class ReferredType<T extends Declaration> extends Type {
       this.typeParams = const []});
 
   @override
-  Reference emit([TypeOptions? options]) {
-    // TODO: implement emit
-    throw UnimplementedError();
-  }
+  Reference emit([TypeOptions? options]) => TypeReference((t) => t
+    ..symbol = name
+    ..types.addAll(typeParams.map((t) => getJSTypeAlternative(t).emit(options)))
+    ..isNullable = options?.nullable);
 }
 
 // TODO(https://github.com/dart-lang/web/issues/385): Implement Support for UnionType (including implementing `emit`)

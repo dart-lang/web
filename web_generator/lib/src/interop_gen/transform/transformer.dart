@@ -159,12 +159,11 @@ class Transformer {
 
     return variable.declarationList.declarations.toDart.map((d) {
       namer.markUsed(d.name.text);
-      final variableDeclaration = VariableDeclaration(
+      return VariableDeclaration(
           name: d.name.text,
           type: d.type == null ? BuiltinType.anyType : _transformType(d.type!),
           modifier: modifier,
           exported: isExported);
-      return variableDeclaration;
     }).toList();
   }
 
@@ -294,7 +293,7 @@ class Transformer {
 
         var isHomogenous = true;
         final nonNullLiteralTypes = <LiteralType>[];
-        bool? isBooleanType;
+        var onlyContainsBooleanTypes = true;
         var isNullable = false;
         LiteralType? firstNonNullablePrimitiveType;
 
@@ -305,15 +304,11 @@ class Transformer {
               continue;
             }
             firstNonNullablePrimitiveType ??= type;
-            isBooleanType ??= (type.kind == LiteralKind.$true) ||
+            onlyContainsBooleanTypes &= (type.kind == LiteralKind.$true) ||
                 (type.kind == LiteralKind.$false);
             if (type.kind.primitive !=
                 firstNonNullablePrimitiveType.kind.primitive) {
               isHomogenous = false;
-            }
-            if (isBooleanType) {
-              isBooleanType = (type.kind == LiteralKind.$true) ||
-                  (type.kind == LiteralKind.$false);
             }
             nonNullLiteralTypes.add(type);
           } else {
@@ -323,7 +318,7 @@ class Transformer {
 
         // check if it is a union of literals
         if (isHomogenous) {
-          if (isBooleanType ?? false) {
+          if (nonNullLiteralTypes.isNotEmpty && onlyContainsBooleanTypes) {
             return BuiltinType.primitiveType(PrimitiveType.boolean,
                 isNullable: isNullable);
           }
@@ -450,7 +445,8 @@ class Transformer {
         break;
       case final EnumDeclaration _:
         break;
-      // TODO: We can make (DeclarationAssociatedType) and use that rather than individual type names
+      // TODO: We can make (DeclarationAssociatedType) and use that
+      //  rather than individual type names
       case final HomogenousEnumType hu:
         filteredDeclarations.add(hu.declaration);
         break;

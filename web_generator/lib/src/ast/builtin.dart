@@ -118,6 +118,8 @@ class PackageWebType extends Type {
   Reference emit([TypeOptions? options]) {
     options ??= TypeOptions();
 
+    // TODO: We can make this a shared function as it is called a lot
+    //  between types
     return TypeReference((t) => t
       ..symbol = name
       ..types.addAll(typeParams

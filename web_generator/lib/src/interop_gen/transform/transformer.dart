@@ -159,11 +159,12 @@ class Transformer {
 
     return variable.declarationList.declarations.toDart.map((d) {
       namer.markUsed(d.name.text);
-      return VariableDeclaration(
+      final variableDeclaration = VariableDeclaration(
           name: d.name.text,
           type: d.type == null ? BuiltinType.anyType : _transformType(d.type!),
           modifier: modifier,
           exported: isExported);
+      return variableDeclaration;
     }).toList();
   }
 
@@ -292,14 +293,29 @@ class Transformer {
         final types = unionType.types.toDart.map<Type>(_transformType).toList();
 
         var isHomogenous = true;
+        final nonNullLiteralTypes = <LiteralType>[];
+        bool? isBooleanType;
+        var isNullable = false;
+        LiteralType? firstNonNullablePrimitiveType;
 
         for (final type in types) {
           if (type is LiteralType) {
-            if (type.kind == LiteralKind.$null) continue;
+            if (type.kind == LiteralKind.$null) {
+              isNullable = true;
+              continue;
+            }
+            firstNonNullablePrimitiveType ??= type;
+            isBooleanType ??= (type.kind == LiteralKind.$true) ||
+                (type.kind == LiteralKind.$false);
             if (type.kind.primitive !=
-                (types.first as LiteralType).kind.primitive) {
+                firstNonNullablePrimitiveType.kind.primitive) {
               isHomogenous = false;
             }
+            if (isBooleanType) {
+              isBooleanType = (type.kind == LiteralKind.$true) ||
+                  (type.kind == LiteralKind.$false);
+            }
+            nonNullLiteralTypes.add(type);
           } else {
             isHomogenous = false;
           }
@@ -307,23 +323,7 @@ class Transformer {
 
         // check if it is a union of literals
         if (isHomogenous) {
-          // get the literal types other than null
-          final literalTypes = <LiteralType>[];
-          final nonNullLiteralTypes = <LiteralType>[];
-          var isBooleanType = false;
-
-          for (final type in types) {
-            literalTypes.add(type as LiteralType);
-            if (type.kind != LiteralKind.$null) {
-              nonNullLiteralTypes.add(type);
-              isBooleanType = (type.kind == LiteralKind.$true) ||
-                  (type.kind == LiteralKind.$false);
-            }
-          }
-
-          final isNullable = nonNullLiteralTypes.length != literalTypes.length;
-
-          if (isBooleanType) {
+          if (isBooleanType ?? false) {
             return BuiltinType.primitiveType(PrimitiveType.boolean,
                 isNullable: isNullable);
           }
@@ -332,10 +332,8 @@ class Transformer {
               namer.makeUnique('AnonymousUnion', 'type');
 
           // TODO: Handle similar types here...
-          final type = HomogenousUnionType(
+          return HomogenousEnumType(
               types: nonNullLiteralTypes, isNullable: isNullable, name: name);
-
-          return type;
         }
 
         return UnionType(types: types);
@@ -452,7 +450,8 @@ class Transformer {
         break;
       case final EnumDeclaration _:
         break;
-      case final HomogenousUnionType hu:
+      // TODO: We can make (DeclarationAssociatedType) and use that rather than individual type names
+      case final HomogenousEnumType hu:
         filteredDeclarations.add(hu.declaration);
         break;
       case final UnionType u:

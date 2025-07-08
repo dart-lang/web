@@ -8,12 +8,6 @@ import 'base.dart';
 import 'builtin.dart';
 import 'declarations.dart';
 
-abstract interface class DeclarationAssociatedType {
-  String get declarationName;
-
-  Declaration get declaration;
-}
-
 class ReferredType<T extends Declaration> extends Type {
   @override
   String name;
@@ -59,8 +53,10 @@ class UnionType extends Type {
 }
 
 // TODO: Handle naming anonymous declarations
-class HomogenousUnionType<T extends LiteralType, D extends Declaration>
-    extends UnionType implements DeclarationAssociatedType {
+// TODO: Extract having a declaration associated with a type to its own type
+//  (e.g DeclarationAssociatedType)
+class HomogenousEnumType<T extends LiteralType, D extends Declaration>
+    extends UnionType {
   final List<T> _types;
 
   @override
@@ -70,17 +66,15 @@ class HomogenousUnionType<T extends LiteralType, D extends Declaration>
 
   final bool isNullable;
 
-  @override
   String declarationName;
 
-  HomogenousUnionType(
+  HomogenousEnumType(
       {required List<T> types, this.isNullable = false, required String name})
       : declarationName = name,
         _types = types,
         baseType = types.first.baseType,
         super(types: types);
 
-  @override
   EnumDeclaration get declaration => EnumDeclaration(
       name: declarationName,
       dartName: UniqueNamer.makeNonConflicting(declarationName),

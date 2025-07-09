@@ -111,7 +111,7 @@ class Transformer {
         // TODO: Can we find a way not to make the types be JS types
         //  by default if possible. Leaving this for now,
         //  so that using such typealiases in generics does not break
-        type: getJSTypeAlternative(_transformType(type)),
+        type: _transformType(type),
         typeParameters:
             typeParams?.map(_transformTypeParamDeclaration).toList() ?? [],
         exported: isExported);
@@ -167,12 +167,13 @@ class Transformer {
   }
 
   GenericType _transformTypeParamDeclaration(
-      TSTypeParameterDeclaration typeParam) {
+      TSTypeParameterDeclaration typeParam, {bool shouldUseJSConstraint = true}) {
+    final constraint = typeParam.constraint == null
+            ? BuiltinType.anyType
+            : _transformType(typeParam.constraint!);
     return GenericType(
         name: typeParam.name.text,
-        constraint: typeParam.constraint == null
-            ? BuiltinType.anyType
-            : _transformType(typeParam.constraint!));
+        constraint: shouldUseJSConstraint ? getJSTypeAlternative(constraint) : constraint);
   }
 
   /// Parses the type
@@ -224,6 +225,13 @@ class Transformer {
       // TODO: In the case of overloading, should/shouldn't we handle more than one declaration?
       final firstNode =
           declarationsMatching.whereType<NamedDeclaration>().first;
+      
+      // For Typealiases, we can either return the type itself 
+      // or the JS Alternative (if its underlying type isn't a JS type)
+      if (firstNode is TypeAliasDeclaration) {
+        final jsType = getJSTypeAlternative(firstNode.type);
+        if (jsType != firstNode.type) return firstNode.type;
+      }
 
       return firstNode.asReferredType(
         (typeArguments ?? []).map(_transformType).toList(),

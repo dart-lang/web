@@ -7,7 +7,6 @@ import '../interop_gen/namer.dart';
 import 'base.dart';
 import 'builtin.dart';
 import 'declarations.dart';
-import 'helpers.dart';
 
 class ReferredType<T extends Declaration> extends Type {
   @override

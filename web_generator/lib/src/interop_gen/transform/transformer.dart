@@ -488,6 +488,9 @@ class Transformer {
         break;
       case final EnumDeclaration _:
         break;
+      case final TypeAliasDeclaration t:
+        if (decl.type is! BuiltinType) filteredDeclarations.add(t.type);
+        break;
       // TODO: We can make (DeclarationAssociatedType) and use that
       //  rather than individual type names
       case final HomogenousEnumType hu:

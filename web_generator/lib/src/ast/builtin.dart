@@ -95,6 +95,37 @@ class BuiltinType extends Type {
           isNullable: isNullable),
     };
   }
+
+  static BuiltinType? referred(String name,
+      {bool? isNullable, List<Type> typeParams = const []}) {
+    final jsName = switch (name) {
+      'Array' => 'JSArray',
+      'Promise' => 'JSPromise',
+      'ArrayBuffer' => 'JSArrayBuffer',
+      'Function' => 'JSFunction',
+      'DataView' => 'JSDataView',
+      'Float32Array' => 'JSFloat32Array',
+      'Float64Array' => 'JSFloat64Array',
+      'Int8Array' => 'JSInt8Array',
+      'Int16Array' => 'JSInt16Array',
+      'Int32Array' => 'JSInt32Array',
+      'Int64Array' => 'JSInt64Array',
+      'Uint8Array' => 'JSUint8Array',
+      'Uint16Array' => 'JSUint16Array',
+      'Uint32Array' => 'JSUint32Array',
+      'Uint8ClampedArray' => 'JSUint8ClampedArray',
+      _ => null
+    };
+    final jsTypeArgs = switch (name) { 'Array' || 'Promise' => 1, _ => 0 };
+    if (jsName case final typeName?) {
+      return BuiltinType(
+          name: typeName,
+          fromDartJSInterop: true,
+          typeParams: typeParams.take(jsTypeArgs).toList(),
+          isNullable: isNullable);
+    }
+    return null;
+  }
 }
 
 class PackageWebType extends Type {
@@ -153,50 +184,4 @@ enum PrimitiveType {
   symbol,
   array,
   bigint
-}
-
-const supportedTypesMap = {
-  'Array': BuiltinTypeGenerator('JSArray',
-      fromDartJSInterop: true, typeParamCount: 1),
-  'Promise': BuiltinTypeGenerator('JSPromise',
-      fromDartJSInterop: true, typeParamCount: 1),
-  'ArrayBuffer': BuiltinTypeGenerator('JSArrayBuffer', fromDartJSInterop: true),
-  'Function': BuiltinTypeGenerator('JSFunction', fromDartJSInterop: true),
-  'DataView': BuiltinTypeGenerator('JSDataView', fromDartJSInterop: true),
-  'Float32Array':
-      BuiltinTypeGenerator('JSFloat32Array', fromDartJSInterop: true),
-  'Float64Array':
-      BuiltinTypeGenerator('JSFloat64Array', fromDartJSInterop: true),
-  'Int8Array': BuiltinTypeGenerator('JSInt8Array', fromDartJSInterop: true),
-  'Int16Array': BuiltinTypeGenerator('JSInt16Array', fromDartJSInterop: true),
-  'Int32Array': BuiltinTypeGenerator('JSInt32Array', fromDartJSInterop: true),
-  'Uint8Array': BuiltinTypeGenerator('JSUint8Array', fromDartJSInterop: true),
-  'Uint16Array': BuiltinTypeGenerator('JSUint16Array', fromDartJSInterop: true),
-  'Uint32Array': BuiltinTypeGenerator('JSUint32Array', fromDartJSInterop: true),
-  'Uint8ClampedArray':
-      BuiltinTypeGenerator('JSUint8ClampedArray', fromDartJSInterop: true),
-};
-
-class BuiltinTypeGenerator {
-  final String name;
-
-  final bool fromDartJSInterop;
-
-  final int? typeParamCount;
-
-  const BuiltinTypeGenerator(
-    this.name, {
-    this.fromDartJSInterop = false,
-    this.typeParamCount,
-  });
-
-  BuiltinType call({bool? isNullable, List<Type> typeParams = const []}) {
-    assert(typeParamCount == null || typeParams.length == typeParamCount,
-        'Type param count not equal to the number of type params passed');
-    return BuiltinType(
-        name: name,
-        fromDartJSInterop: fromDartJSInterop,
-        isNullable: isNullable,
-        typeParams: typeParams);
-  }
 }

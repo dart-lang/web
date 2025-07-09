@@ -164,13 +164,12 @@ class Transformer {
         // TODO(https://github.com/dart-lang/web/issues/380): A better name
         //  for this, and adding support for "supported declarations"
         //  (also a better name for that)
-        final supportedType = supportedTypesMap[name];
+        final supportedType = BuiltinType.referred(name,
+            typeParams: (typeArguments ?? [])
+                .map((t) => getJSTypeAlternative(_transformType(t)))
+                .toList());
         if (supportedType case final resultType?) {
-          return resultType(
-              typeParams: (typeArguments ?? [])
-                  .map(_transformType)
-                  .map(getJSTypeAlternative)
-                  .toList());
+          return resultType;
         }
 
         final symbol = typeChecker.getSymbolAtLocation(refType.typeName);

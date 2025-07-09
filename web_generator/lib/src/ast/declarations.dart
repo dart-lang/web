@@ -139,6 +139,100 @@ class ParameterDeclaration {
   }
 }
 
+class EnumDeclaration extends NamedDeclaration
+    implements ExportableDeclaration {
+  @override
+  final String name;
+
+  @override
+  final bool exported;
+
+  /// The underlying type of the enum (usually a number)
+  Type baseType;
+
+  final List<EnumMember> members;
+
+  @override
+  String? dartName;
+
+  EnumDeclaration(
+      {required this.name,
+      required this.baseType,
+      required this.members,
+      required this.exported,
+      this.dartName});
+
+  @override
+  Spec emit([DeclarationOptions? options]) {
+    final baseTypeIsJSType = getJSTypeAlternative(baseType) == baseType;
+    final externalMember = members.any((m) => m.isExternal);
+    final shouldUseJSRepType = externalMember || baseTypeIsJSType;
+
+    return ExtensionType((e) => e
+      ..annotations.addAll([
+        if (dartName != null && dartName != name && externalMember)
+          generateJSAnnotation(name)
+      ])
+      ..constant = !shouldUseJSRepType
+      ..name = dartName ?? name
+      ..primaryConstructorName = '_'
+      ..representationDeclaration = RepresentationDeclaration((r) => r
+        ..declaredRepresentationType = (
+                // if any member doesn't have a value, we have to use external
+                // so such type should be the JS rep type
+                shouldUseJSRepType ? getJSTypeAlternative(baseType) : baseType)
+            .emit(options?.toTypeOptions())
+        ..name = '_')
+      ..fields
+          .addAll(members.map((member) => member.emit(shouldUseJSRepType))));
+  }
+
+  @override
+  ID get id => ID(type: 'enum', name: name);
+}
+
+class EnumMember {
+  final String name;
+
+  final Type? type;
+
+  final Object? value;
+
+  final String parent;
+
+  bool get isExternal => value == null;
+
+  EnumMember(this.name, this.value,
+      {this.type, required this.parent, this.dartName});
+
+  Field emit([bool? shouldUseJSRepType]) {
+    final jsRep = shouldUseJSRepType ?? (value == null);
+    return Field((f) {
+      // TODO(nikeokoronkwo): This does not render correctly on `code_builder`.
+      //  Until the update is made, we will omit examples concerning this
+      //  Luckily, not many real-world instances of enums use this anyways, https://github.com/dart-lang/tools/issues/2118
+      if (!isExternal) {
+        f.modifier = (!jsRep ? FieldModifier.constant : FieldModifier.final$);
+      }
+      if (dartName != null && name != dartName && isExternal) {
+        f.annotations.add(generateJSAnnotation(name));
+      }
+      f
+        ..name = dartName ?? name
+        ..type = refer(parent)
+        ..external = value == null
+        ..static = true
+        ..assignment = value == null
+            ? null
+            : refer(parent).property('_').call([
+                jsRep ? literal(value).property('toJS') : literal(value)
+              ]).code;
+    });
+  }
+
+  String? dartName;
+}
+
 class TypeAliasDeclaration extends NamedDeclaration
     implements ExportableDeclaration {
   @override

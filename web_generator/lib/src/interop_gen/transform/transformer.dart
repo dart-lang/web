@@ -424,7 +424,8 @@ class Transformer {
               'The given type with kind ${type.kind} is not supported yet')
         };
 
-        return BuiltinType.primitiveType(primitiveType, shouldEmitJsType: typeArg ? true : null);
+        return BuiltinType.primitiveType(primitiveType,
+            shouldEmitJsType: typeArg ? true : null);
     }
   }
 

@@ -7,6 +7,7 @@ import 'package:code_builder/code_builder.dart';
 import 'base.dart';
 import 'builtin.dart';
 import 'declarations.dart';
+import 'types.dart';
 
 BuiltinType? getSupportedType(String name, [List<Type> typeParams = const []]) {
   final type = switch (name) {
@@ -38,6 +39,15 @@ Type getJSTypeAlternative(Type type) {
     if (primitiveType == null) return BuiltinType.anyType;
 
     return BuiltinType.primitiveType(primitiveType, shouldEmitJsType: true);
+  } else if (type is ReferredType) {
+    switch (type.declaration) {
+      case TypeAliasDeclaration(type: final t):
+      case EnumDeclaration(baseType: final t):
+        final jsTypeT = getJSTypeAlternative(t);
+        return jsTypeT == t ? type : jsTypeT;
+      default:
+        return type;
+    }
   }
   return type;
 }

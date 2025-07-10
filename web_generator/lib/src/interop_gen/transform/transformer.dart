@@ -313,9 +313,11 @@ class Transformer {
 
         // For Typealiases, we can either return the type itself
         // or the JS Alternative (if its underlying type isn't a JS type)
-        if (firstNode is TypeAliasDeclaration) {
-          final jsType = getJSTypeAlternative(firstNode.type);
-          if (jsType != firstNode.type && typeArg) return jsType;
+        switch (firstNode) {
+          case TypeAliasDeclaration(type: final t):
+          case EnumDeclaration(baseType: final t):
+            final jsType = getJSTypeAlternative(t);
+            if (jsType != t && typeArg) return jsType;
         }
 
         return firstNode.asReferredType(

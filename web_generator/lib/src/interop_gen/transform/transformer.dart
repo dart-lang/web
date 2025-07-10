@@ -42,8 +42,8 @@ class Transformer {
   final ProgramDeclarationMap programMap;
 
   Transformer(this.programMap, this.typeChecker,
-      {Iterable<String> exportSet = const [],
-      Iterable<String> filterDeclSet = const []})
+      {Set<String> exportSet = const {},
+      List<String> filterDeclSet = const []})
       : exportSet = exportSet.toSet(),
         filterDeclSet = filterDeclSet.toList(),
         namer = UniqueNamer();

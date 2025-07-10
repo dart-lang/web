@@ -185,9 +185,6 @@ class Transformer {
 
     return TypeAliasDeclaration(
         name: name,
-        // TODO: Can we find a way not to make the types be JS types
-        //  by default if possible. Leaving this for now,
-        //  so that using such typealiases in generics does not break
         type: _transformType(type),
         typeParameters:
             typeParams?.map(_transformTypeParamDeclaration).toList() ?? [],

@@ -103,7 +103,7 @@ void transformFile(ts.TSProgram program, String file,
   final typeChecker = program.getTypeChecker();
 
   final transformer = Transformer(programDeclarationMap, typeChecker,
-      filterDeclSet: config.include);
+      filterDeclSet: config.includedDeclarations);
 
   ts.forEachChild(
       src,

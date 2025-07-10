@@ -1,0 +1,13 @@
+name: Interop Config Test
+preamble: |
+  // This preamble is for testing only.
+  // GENERATED FILE: DO NOT EDIT
+  // 
+  // Created by `web_generator`
+include:
+  - APP_NAME
+  - "*User" # Glob
+  - "user*" # Glob
+  - currentUserCount
+  - toggleAdminMode
+  - systemStatus

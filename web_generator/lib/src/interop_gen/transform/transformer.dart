@@ -253,16 +253,13 @@ class Transformer {
   }
 
   GenericType _transformTypeParamDeclaration(
-      TSTypeParameterDeclaration typeParam,
-      {bool shouldUseJSConstraint = true}) {
+      TSTypeParameterDeclaration typeParam) {
     final constraint = typeParam.constraint == null
         ? BuiltinType.anyType
         : _transformType(typeParam.constraint!, typeArg: true);
     return GenericType(
         name: typeParam.name.text,
-        constraint: shouldUseJSConstraint
-            ? getJSTypeAlternative(constraint)
-            : constraint);
+        constraint: getJSTypeAlternative(constraint));
   }
 
   /// Parses the type

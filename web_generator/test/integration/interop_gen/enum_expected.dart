@@ -104,7 +104,10 @@ extension type const Permissions._(int _) {
   static const Permissions All = Permissions._(7);
 }
 @_i1.JS()
-external bool hasPermission(Permissions perm, Permissions flag);
+external bool hasPermission(
+  Permissions perm,
+  Permissions flag,
+);
 @_i1.JS()
 external Permissions get userPermissions;
 @_i1.JS()

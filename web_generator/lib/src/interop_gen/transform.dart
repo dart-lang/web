@@ -23,8 +23,8 @@ class TransformResult {
   //  (namespaces + functions, multiple interfaces, etc)
   Map<String, String> generate() {
     final emitter = DartEmitter.scoped(useNullSafetySyntax: true);
-    final formatter =
-        DartFormatter(languageVersion: DartFormatter.latestLanguageVersion);
+    final formatter = DartFormatter(
+        languageVersion: DartFormatter.latestShortStyleLanguageVersion);
     return programMap.map((file, declMap) {
       final specs = declMap.decls.values.map((d) {
         return switch (d) {

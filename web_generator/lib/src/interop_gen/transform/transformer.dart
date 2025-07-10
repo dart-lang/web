@@ -49,6 +49,8 @@ class Transformer {
             _transformFunction(node as TSFunctionDeclaration),
           TSSyntaxKind.EnumDeclaration =>
             _transformEnum(node as TSEnumDeclaration),
+          TSSyntaxKind.TypeAliasDeclaration =>
+            _transformTypeAlias(node as TSTypeAliasDeclaration),
           _ => throw Exception('Unsupported Declaration Kind: ${node.kind}')
         };
         // ignore: dead_code This line will not be dead in future decl additions
@@ -177,6 +179,30 @@ class Transformer {
     return declarations?.toDart.first;
   }
 
+  TypeAliasDeclaration _transformTypeAlias(TSTypeAliasDeclaration typealias) {
+    final name = typealias.name.text;
+
+    final modifiers = typealias.modifiers?.toDart;
+    final isExported = modifiers?.any((m) {
+          return m.kind == TSSyntaxKind.ExportKeyword;
+        }) ??
+        false;
+
+    final typeParams = typealias.typeParameters?.toDart;
+
+    final type = typealias.type;
+
+    return TypeAliasDeclaration(
+        name: name,
+        // TODO: Can we find a way not to make the types be JS types
+        //  by default if possible. Leaving this for now,
+        //  so that using such typealiases in generics does not break
+        type: _transformType(type),
+        typeParameters:
+            typeParams?.map(_transformTypeParamDeclaration).toList() ?? [],
+        exported: isExported);
+  }
+
   FunctionDeclaration _transformFunction(TSFunctionDeclaration function) {
     final name = function.name.text;
 
@@ -228,18 +254,20 @@ class Transformer {
 
   GenericType _transformTypeParamDeclaration(
       TSTypeParameterDeclaration typeParam) {
+    final constraint = typeParam.constraint == null
+        ? BuiltinType.anyType
+        : _transformType(typeParam.constraint!, typeArg: true);
     return GenericType(
         name: typeParam.name.text,
-        constraint: typeParam.constraint == null
-            ? BuiltinType.anyType
-            : _transformType(typeParam.constraint!));
+        constraint: getJSTypeAlternative(constraint));
   }
 
   /// Parses the type
   ///
   /// TODO(https://github.com/dart-lang/web/issues/384): Add support for literals (i.e individual booleans and `null`)
   /// TODO(https://github.com/dart-lang/web/issues/383): Add support for `typeof` types
-  Type _transformType(TSTypeNode type, {bool parameter = false}) {
+  Type _transformType(TSTypeNode type,
+      {bool parameter = false, bool typeArg = false}) {
     switch (type.kind) {
       case TSSyntaxKind.TypeReference:
         final refType = type as TSTypeReferenceNode;
@@ -255,7 +283,10 @@ class Transformer {
           //  for this, and adding support for "supported declarations"
           //  (also a better name for that)
           final supportedType = getSupportedType(
-              name, (typeArguments ?? []).map(_transformType).toList());
+              name,
+              (typeArguments ?? [])
+                  .map((type) => _transformType(type, typeArg: true))
+                  .toList());
           if (supportedType != null) {
             return supportedType;
           }
@@ -280,8 +311,19 @@ class Transformer {
         final firstNode =
             declarationsMatching.whereType<NamedDeclaration>().first;
 
+        // For Typealiases, we can either return the type itself
+        // or the JS Alternative (if its underlying type isn't a JS type)
+        switch (firstNode) {
+          case TypeAliasDeclaration(type: final t):
+          case EnumDeclaration(baseType: final t):
+            final jsType = getJSTypeAlternative(t);
+            if (jsType != t && typeArg) return jsType;
+        }
+
         return firstNode.asReferredType(
-          (typeArguments ?? []).map(_transformType).toList(),
+          (typeArguments ?? [])
+              .map((type) => _transformType(type, typeArg: true))
+              .toList(),
         );
       // TODO: Union types are also anonymous by design
       //  Unless we are making typedefs for them, we should
@@ -381,7 +423,8 @@ class Transformer {
               'The given type with kind ${type.kind} is not supported yet')
         };
 
-        return BuiltinType.primitiveType(primitiveType);
+        return BuiltinType.primitiveType(primitiveType,
+            shouldEmitJsType: typeArg ? true : null);
     }
   }
 
@@ -444,6 +487,9 @@ class Transformer {
         });
         break;
       case final EnumDeclaration _:
+        break;
+      case final TypeAliasDeclaration t:
+        if (decl.type is! BuiltinType) filteredDeclarations.add(t.type);
         break;
       // TODO: We can make (DeclarationAssociatedType) and use that
       //  rather than individual type names

@@ -13,6 +13,7 @@ declare enum HttpStatusCode {
     INTERNAL_SERVER_ERROR = "500 Internal Server Error"
 }
 export declare const APP_NAME: string;
+export declare const APP_NAMES: string;
 declare let currentUserCount: number;
 declare let isAdminMode: boolean;
 declare let systemStatus: string;
@@ -20,6 +21,8 @@ type User = string;
 export declare function initializeApp(): void;
 export declare function loginUser(username: string, role: UserRole): User;
 export declare function changeRoleOfUser(user: User, newRole: UserRole): User;
+export declare function changeRoleOfUsers(newRole: UserRole, ...users: User[]): User[]; /* Once we add maps, make this a map */
+export declare function changeRoleOfSetOfUsers(newRole: UserRole, ...users: User[]): User[];
 export declare function logoutUser(user: User): void;
 export declare function changeSystemStatus(newStatus: string): void;
 export declare function toggleAdminMode(): void;

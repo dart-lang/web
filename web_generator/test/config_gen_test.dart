@@ -16,7 +16,6 @@ void main() {
 
   group('Config Gen Test', () {
     final assetsPath = p.join('test', 'assets');
-    final inputDir = Directory(assetsPath);
     final outputPath = p.join('.dart_tool');
 
     setUpAll(() async {
@@ -29,7 +28,6 @@ void main() {
 
     final inputFile = p.join(assetsPath, 'test.d.ts');
 
-
     test('Generate Code for test.d.ts with no config', () async {
       final outputFile = p.join(outputPath, 'test_no_config.dart');
       final expectedFile = p.join(assetsPath, 'test_no_config.dart');
@@ -38,14 +36,14 @@ void main() {
       final outFilePath = p.relative(outputFile, from: bindingsGenPath);
 
       await runProc(
-            'node',
-            [
-              'main.mjs',
-              '--input=$inputFilePath',
-              '--output=$outFilePath',
-              '--declaration'
-            ],
-            workingDirectory: bindingsGenPath);
+          'node',
+          [
+            'main.mjs',
+            '--input=$inputFilePath',
+            '--output=$outFilePath',
+            '--declaration'
+          ],
+          workingDirectory: bindingsGenPath);
 
       final expectedOutput = await File(expectedFile).readAsString();
       final actualOutput = await File(outputFile).readAsString();
@@ -63,15 +61,15 @@ void main() {
       final configFilePath = p.relative(configFile, from: bindingsGenPath);
 
       await runProc(
-            'node',
-            [
-              'main.mjs',
-              '--input=$inputFilePath',
-              '--output=$outFilePath',
-              '--config=$configFilePath',
-              '--declaration'
-            ],
-            workingDirectory: bindingsGenPath);
+          'node',
+          [
+            'main.mjs',
+            '--input=$inputFilePath',
+            '--output=$outFilePath',
+            '--config=$configFilePath',
+            '--declaration'
+          ],
+          workingDirectory: bindingsGenPath);
 
       final expectedOutput = await File(expectedFile).readAsString();
       final actualOutput = await File(outputFile).readAsString();
@@ -79,5 +77,4 @@ void main() {
       expect(actualOutput, expectedOutput);
     });
   });
-  
 }

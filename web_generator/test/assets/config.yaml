@@ -4,10 +4,15 @@ preamble: |
   // GENERATED FILE: DO NOT EDIT
   // 
   // Created by `web_generator`
+input: test.d.ts
+output: '../../.dart_tool/test_config.dart'
 include:
   - APP_NAME
-  - "*User" # Glob
+  - "(.*)User" # Glob
   - "user*" # Glob
   - currentUserCount
   - toggleAdminMode
   - systemStatus
+  - changeRoleOfSetOfUsers
+functions:
+  varargs: 8

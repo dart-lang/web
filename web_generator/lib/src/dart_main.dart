@@ -48,8 +48,10 @@ void main(List<String> args) async {
       final configContent = fs.readFileSync(
           filename.toJS, JSReadFileOptions(encoding: 'utf8'.toJS)) as JSString;
       final yaml = loadYamlDocument(configContent.toDart);
-      config =
-          YamlConfig.fromYaml(yaml.contents as YamlMap, filename: filename);
+      config = YamlConfig.fromYaml(
+        yaml.contents as YamlMap,
+        filename: filename,
+      );
     } else {
       config = Config(
         input: argResult['input'] as List<String>,
@@ -67,19 +69,23 @@ Future<void> generateJSInteropBindings(Config config) async {
   final jsDeclarations = parseDeclarationFiles(config.input);
 
   // transform declarations
-  final dartDeclarations = transform(jsDeclarations);
+  final dartDeclarations = transform(jsDeclarations, config: config);
 
   // generate
-  final generatedCodeMap = dartDeclarations.generate();
+  final generatedCodeMap = dartDeclarations.generate(config);
+
+  final configOutput = config.output;
+
+  if (generatedCodeMap.isEmpty) return;
 
   // write code to file
   if (generatedCodeMap.length == 1) {
     final entry = generatedCodeMap.entries.first;
-    fs.writeFileSync(config.output.toJS, entry.value.toJS);
+    fs.writeFileSync(configOutput.toJS, entry.value.toJS);
   } else {
     for (final entry in generatedCodeMap.entries) {
       fs.writeFileSync(
-          p.join(config.output, p.basename(entry.key)).toJS, entry.value.toJS);
+          p.join(configOutput, p.basename(entry.key)).toJS, entry.value.toJS);
     }
   }
 }

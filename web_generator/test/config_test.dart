@@ -16,13 +16,13 @@ final configurationTests = {
   'basic': {
     'name': 'IDL Demo Gen',
     'single': true,
-    'input': ['intro.d.ts'],
+    'input': ['./intro.d.ts'],
     'valid': true
   },
   'multi_file': {
     'name': 'Nanoid and Lodash',
     'single': false,
-    'input': ['nanoid.d.ts', 'lodash.d.ts'],
+    'input': ['./nanoid.d.ts', './lodash.d.ts'],
     'valid': true
   },
   'invalid': {'valid': false},

@@ -23,8 +23,18 @@ class Transformer {
   /// The type checker for the given program
   final ts.TSTypeChecker typeChecker;
 
-  /// A set of declarations to export
+  /// A set of declarations to export updated during transformation
   final Set<String> exportSet;
+
+  /// A set of declarations to filter for
+  final List<String> filterDeclSet;
+
+  /// The declarations as globs
+  List<RegExp> get filterDeclSetPatterns => filterDeclSet.map((decl) {
+        final escapedDecl = RegExp.escape(decl);
+        if (escapedDecl == decl) return RegExp('^$decl\$');
+        return RegExp(decl);
+      }).toList();
 
   /// namer, for giving elements unique names
   final UniqueNamer namer;
@@ -32,8 +42,10 @@ class Transformer {
   final ProgramDeclarationMap programMap;
 
   Transformer(this.programMap, this.typeChecker,
-      {Iterable<String> exportSet = const []})
+      {Iterable<String> exportSet = const [],
+      Iterable<String> filterDeclSet = const []})
       : exportSet = exportSet.toSet(),
+        filterDeclSet = filterDeclSet.toList(),
         namer = UniqueNamer();
 
   void transform(TSNode node) {
@@ -433,14 +445,13 @@ class Transformer {
 
     // filter out for export declarations
     nodeMap.forEach((id, node) {
-      if (exportSet.contains(node.name)) {
-        filteredDeclarations[id] = node;
-      }
-
       // get decls with `export` keyword
       switch (node) {
         case final ExportableDeclaration e:
-          if (e.exported) {
+          if (e.exported &&
+              (filterDeclSet.isEmpty ||
+                  filterDeclSetPatterns
+                      .any((pattern) => pattern.hasMatch(e.name)))) {
             filteredDeclarations.add(e);
           }
           break;

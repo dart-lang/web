@@ -3,16 +3,15 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:dart_style/dart_style.dart';
+import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:yaml/yaml.dart';
 
 class FunctionConfig {
-  /// The number of variable arguments 
+  /// The number of variable arguments
   final int? varArgs;
 
-  const FunctionConfig({
-    this.varArgs
-  });
+  const FunctionConfig({this.varArgs});
 }
 
 abstract interface class Config {
@@ -41,12 +40,15 @@ abstract interface class Config {
 
   bool get singleFileOutput => input.length == 1;
 
-  factory Config({
-    required List<String> input,
-    required String output,
-    required Version languageVersion,
-    FunctionConfig? functions
-  }) = ConfigImpl._;
+  /// Include the following declarations
+  List<String> get include;
+
+  factory Config(
+      {required List<String> input,
+      required String output,
+      required Version languageVersion,
+      FunctionConfig? functions,
+      List<String> include}) = ConfigImpl._;
 }
 
 class ConfigImpl implements Config {
@@ -74,12 +76,15 @@ class ConfigImpl implements Config {
   @override
   FunctionConfig? functions;
 
-  ConfigImpl._({
-    required this.input,
-    required this.output,
-    required this.languageVersion,
-    this.functions,
-  });
+  @override
+  List<String> include;
+
+  ConfigImpl._(
+      {required this.input,
+      required this.output,
+      required this.languageVersion,
+      this.functions,
+      this.include = const []});
 
   @override
   bool get singleFileOutput => input.length == 1;
@@ -113,6 +118,9 @@ class YamlConfig implements Config {
   @override
   FunctionConfig? functions;
 
+  @override
+  List<String> include;
+
   YamlConfig._(
       {required this.filename,
       required this.input,
@@ -121,34 +129,44 @@ class YamlConfig implements Config {
       this.name,
       this.preamble,
       this.functions,
+      this.include = const [],
       String? languageVersion})
       : languageVersion = languageVersion == null
             ? DartFormatter.latestLanguageVersion
             : Version.parse(languageVersion);
 
-  factory YamlConfig.fromYaml(YamlMap yaml, {required String filename}) {
-    List<String> input;
+  factory YamlConfig.fromYaml(YamlMap yaml,
+      {required String filename, List<String>? input, String? output}) {
+    List<String> inputFiles;
     final yamlInput = yaml['input'];
     if (yamlInput is YamlList) {
-      input = yamlInput.map((y) => y is String ? y : y.toString()).toList();
+      inputFiles =
+          yamlInput.map((y) => y is String ? y : y.toString()).toList();
     } else if (yamlInput is String) {
-      input = [yamlInput];
+      inputFiles = [yamlInput];
+    } else if (input != null) {
+      inputFiles = input;
     } else {
       throw TypeError();
     }
 
     return YamlConfig._(
         filename: Uri.file(filename),
-        input: input,
-        output: yaml['output'] as String,
+        input: inputFiles
+            .map((file) => p.join(p.dirname(filename), file))
+            .toList(),
+        output:
+            p.join(p.dirname(filename), (yaml['output'] ?? output) as String),
         name: yaml['name'] as String?,
         description: yaml['description'] as String?,
         languageVersion: yaml['language_version'] as String?,
         preamble: yaml['preamble'] as String?,
         // TODO: Can we consider using `json_serializable`?
         functions: FunctionConfig(
-          varArgs: (yaml['functions'] as YamlMap?)?['varargs'] as int?
-        )
-      );
+            varArgs: (yaml['functions'] as YamlMap?)?['varargs'] as int?),
+        include: (yaml['include'] as YamlList?)
+                ?.map<String>((node) => node is String ? node : node.toString())
+                .toList() ??
+            []);
   }
 }

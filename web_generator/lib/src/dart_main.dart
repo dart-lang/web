@@ -9,7 +9,9 @@ import 'package:code_builder/code_builder.dart' as code;
 import 'package:dart_style/dart_style.dart';
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
+import 'package:yaml/yaml.dart';
 
+import 'config.dart';
 import 'generate_bindings.dart';
 import 'interop_gen/parser.dart';
 import 'interop_gen/transform.dart';
@@ -22,7 +24,6 @@ import 'util.dart';
 // TODO(joshualitt): Use static interop methods for JSArray and JSPromise.
 // TODO(joshualitt): Find a way to generate bindings for JS builtins. This will
 // probably involve parsing the TC39 spec.
-
 void main(List<String> args) async {
   var languageVersionString = const String.fromEnvironment('languageVersion');
   if (languageVersionString.isEmpty) {
@@ -41,22 +42,30 @@ void main(List<String> args) async {
       languageVersion: Version.parse(languageVersionString),
     );
   } else if (argResult.wasParsed('declaration')) {
-    await generateJSInteropBindings(
-      inputs: argResult['input'] as Iterable<String>,
-      output: argResult['output'] as String,
-      languageVersion: Version.parse(languageVersionString),
-    );
+    final Config config;
+
+    if (argResult.wasParsed('config')) {
+      final filename = argResult['config'] as String;
+      final configContent = fs.readFileSync(
+          filename.toJS, JSReadFileOptions(encoding: 'utf8'.toJS)) as JSString;
+      final yaml = loadYamlDocument(configContent.toDart);
+      config =
+          YamlConfig.fromYaml(yaml.contents as YamlMap, filename: filename);
+    } else {
+      config = Config(
+        input: argResult['input'] as List<String>,
+        output: argResult['output'] as String,
+        languageVersion: Version.parse(languageVersionString),
+      );
+    }
+
+    await generateJSInteropBindings(config);
   }
 }
 
-// TODO(https://github.com/dart-lang/web/issues/376): Add support for configuration
-Future<void> generateJSInteropBindings({
-  required Iterable<String> inputs,
-  required String output,
-  required Version languageVersion,
-}) async {
+Future<void> generateJSInteropBindings(Config config) async {
   // generate
-  final jsDeclarations = parseDeclarationFiles(inputs);
+  final jsDeclarations = parseDeclarationFiles(config.input);
 
   // transform declarations
   final dartDeclarations = transform(jsDeclarations);
@@ -64,13 +73,14 @@ Future<void> generateJSInteropBindings({
   // generate
   final generatedCodeMap = dartDeclarations.generate();
 
-  // write code to file(s)
-  if (inputs.length == 1) {
-    final singleEntry = generatedCodeMap.entries.single;
-    fs.writeFileSync(output.toJS, singleEntry.value.toJS);
+  // write code to file
+  if (generatedCodeMap.length == 1) {
+    final entry = generatedCodeMap.entries.first;
+    fs.writeFileSync(config.output.toJS, entry.value.toJS);
   } else {
     for (final entry in generatedCodeMap.entries) {
-      fs.writeFileSync(p.join(output, entry.key).toJS, entry.value.toJS);
+      fs.writeFileSync(
+          p.join(config.output, p.basename(entry.key)).toJS, entry.value.toJS);
     }
   }
 }

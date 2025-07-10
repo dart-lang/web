@@ -23,8 +23,8 @@ class TransformResult {
   //  (namespaces + functions, multiple interfaces, etc)
   Map<String, String> generate() {
     final emitter = DartEmitter.scoped(useNullSafetySyntax: true);
-    final formatter =
-        DartFormatter(languageVersion: DartFormatter.latestLanguageVersion);
+    final formatter = DartFormatter(
+        languageVersion: DartFormatter.latestShortStyleLanguageVersion);
     return programMap.map((file, declMap) {
       final specs = declMap.decls.values.map((d) {
         return switch (d) {
@@ -32,8 +32,14 @@ class TransformResult {
           final Type _ => null,
         };
       }).whereType<Spec>();
-      final lib = Library((l) => l..body.addAll(specs));
-      return MapEntry(file, formatter.format('${lib.accept(emitter)}'));
+      final lib = Library((l) => l
+        ..ignoreForFile.addAll(
+            ['constant_identifier_names', 'non_constant_identifier_names'])
+        ..body.addAll(specs));
+      return MapEntry(
+          file,
+          formatter.format('${lib.accept(emitter)}'
+              .replaceAll('static external', 'external static')));
     });
   }
 }

@@ -24,7 +24,16 @@ extension type const TSSyntaxKind._(num _) {
   static const TSSyntaxKind InterfaceDeclaration = TSSyntaxKind._(264);
   static const TSSyntaxKind FunctionDeclaration = TSSyntaxKind._(262);
   static const TSSyntaxKind ExportDeclaration = TSSyntaxKind._(278);
+  static const TSSyntaxKind TypeAliasDeclaration = TSSyntaxKind._(265);
   static const TSSyntaxKind Parameter = TSSyntaxKind._(169);
+  static const TSSyntaxKind EnumDeclaration = TSSyntaxKind._(266);
+
+  /// expressions
+  static const TSSyntaxKind NumericLiteral = TSSyntaxKind._(9);
+  static const TSSyntaxKind StringLiteral = TSSyntaxKind._(11);
+  static const TSSyntaxKind NullKeyword = TSSyntaxKind._(106);
+  static const TSSyntaxKind TrueKeyword = TSSyntaxKind._(112);
+  static const TSSyntaxKind FalseKeyword = TSSyntaxKind._(97);
 
   /// keywords
   static const TSSyntaxKind ExportKeyword = TSSyntaxKind._(95);
@@ -49,6 +58,7 @@ extension type const TSSyntaxKind._(num _) {
   static const TSSyntaxKind UnionType = TSSyntaxKind._(192);
   static const TSSyntaxKind TypeReference = TSSyntaxKind._(183);
   static const TSSyntaxKind ArrayType = TSSyntaxKind._(188);
+  static const TSSyntaxKind LiteralType = TSSyntaxKind._(201);
 
   /// Other
   static const TSSyntaxKind Identifier = TSSyntaxKind._(80);
@@ -101,8 +111,41 @@ extension type TSTypeReferenceNode._(JSObject _) implements TSTypeNode {
   external TSNodeArray<TSTypeNode>? get typeArguments;
 }
 
+@JS('LiteralTypeNode')
+extension type TSLiteralTypeNode._(JSObject _) implements TSTypeNode {
+  @redeclare
+  TSSyntaxKind get kind => TSSyntaxKind.LiteralType;
+
+  external TSLiteral get literal;
+}
+
+@JS('Expression')
+extension type TSExpression._(JSObject _) implements TSNode {}
+
+@JS('LiteralExpression')
+extension type TSLiteralExpression._(JSObject _) implements TSExpression {
+  external String text;
+  external bool? isUnterminated;
+}
+
 @JS('Declaration')
 extension type TSDeclaration._(JSObject _) implements TSNode {}
+
+@JS()
+extension type TSLiteral._(JSObject _)
+    implements TSLiteralExpression, TSDeclaration {}
+
+@JS('NumericLiteral')
+extension type TSNumericLiteral._(JSObject _) implements TSLiteral {
+  @redeclare
+  TSSyntaxKind get kind => TSSyntaxKind.NumericLiteral;
+}
+
+@JS('StringLiteral')
+extension type TSStringLiteral._(JSObject _) implements TSLiteral {
+  @redeclare
+  TSSyntaxKind get kind => TSSyntaxKind.StringLiteral;
+}
 
 @JS('Statement')
 extension type TSStatement._(JSObject _) implements TSNode {}
@@ -139,6 +182,15 @@ extension type TSFunctionDeclaration._(JSObject _) implements TSDeclaration {
   external TSNodeArray<TSNode> get modifiers;
 }
 
+@JS('TypeAliasDeclaration')
+extension type TSTypeAliasDeclaration._(JSObject _)
+    implements TSDeclaration, TSStatement {
+  external TSNodeArray<TSNode>? get modifiers;
+  external TSNodeArray<TSTypeParameterDeclaration>? get typeParameters;
+  external TSIdentifier get name;
+  external TSTypeNode get type;
+}
+
 @JS('ParameterDeclaration')
 extension type TSParameterDeclaration._(JSObject _) implements TSDeclaration {
   external TSNode get name;
@@ -153,6 +205,20 @@ extension type TSTypeParameterDeclaration._(JSObject _)
     implements TSDeclaration {
   external TSIdentifier get name;
   external TSTypeNode? get constraint;
+}
+
+@JS('EnumDeclaration')
+extension type TSEnumDeclaration._(JSObject _)
+    implements TSDeclaration, TSStatement {
+  external TSIdentifier get name;
+  external TSNodeArray<TSNode>? get modifiers;
+  external TSNodeArray<TSEnumMember> get members;
+}
+
+@JS('EnumMember')
+extension type TSEnumMember._(JSObject _) implements TSDeclaration {
+  external TSIdentifier get name;
+  external TSExpression? get initializer;
 }
 
 @JS('NodeArray')

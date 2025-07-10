@@ -1,0 +1,18 @@
+name: Interop Config Test
+preamble: |
+  // This preamble is for testing only.
+  // GENERATED FILE: DO NOT EDIT
+  // 
+  // Created by `web_generator`
+input: test.d.ts
+output: '../../.dart_tool/test_config.dart'
+include:
+  - APP_NAME
+  - "(.*)User" # Glob
+  - "user*" # Glob
+  - currentUserCount
+  - toggleAdminMode
+  - systemStatus
+  - changeRoleOfSetOfUsers
+functions:
+  varargs: 8

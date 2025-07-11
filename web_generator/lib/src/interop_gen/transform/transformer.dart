@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:js_interop';
+import 'package:path/path.dart' as p;
 import '../../ast/base.dart';
 import '../../ast/builtin.dart';
 import '../../ast/declarations.dart';
@@ -180,16 +181,6 @@ class Transformer {
     }).toList();
   }
 
-  TSNode? _getDeclarationByName(TSIdentifier name) {
-    final symbol = typeChecker.getSymbolAtLocation(name);
-
-    final declarations = symbol?.getDeclarations();
-    // TODO(https://github.com/dart-lang/web/issues/387): Some declarations may not be defined on file,
-    //  and may be from an import statement
-    //  We should be able to handle these
-    return declarations?.toDart.first;
-  }
-
   TypeAliasDeclaration _transformTypeAlias(TSTypeAliasDeclaration typealias) {
     final name = typealias.name.text;
 
@@ -205,9 +196,6 @@ class Transformer {
 
     return TypeAliasDeclaration(
         name: name,
-        // TODO: Can we find a way not to make the types be JS types
-        //  by default if possible. Leaving this for now,
-        //  so that using such typealiases in generics does not break
         type: _transformType(type),
         typeParameters:
             typeParams?.map(_transformTypeParamDeclaration).toList() ?? [],
@@ -293,20 +281,39 @@ class Transformer {
           // TODO(https://github.com/dart-lang/web/issues/380): A better name
           //  for this, and adding support for "supported declarations"
           //  (also a better name for that)
-          final supportedType = getSupportedType(
-              name,
-              (typeArguments ?? [])
-                  .map((type) => _transformType(type, typeArg: true))
+          final supportedType = BuiltinType.referred(name,
+              typeParams: (typeArguments ?? [])
+                  .map((t) => getJSTypeAlternative(_transformType(t)))
                   .toList());
-          if (supportedType != null) {
-            return supportedType;
+          if (supportedType case final resultType?) {
+            return resultType;
           }
 
+          final symbol = typeChecker.getSymbolAtLocation(refType.typeName);
+          final declarations = symbol?.getDeclarations();
+
           // TODO: In the case of overloading, should/shouldn't we handle more than one declaration?
-          final declaration = _getDeclarationByName(refType.typeName);
+          // TODO(https://github.com/dart-lang/web/issues/387): Some declarations may not be defined on file,
+          //  and may be from an import statement
+          //  We should be able to handle these
+          final declaration = declarations?.toDart.first;
 
           if (declaration == null) {
             throw Exception('Found no declaration matching $name');
+          }
+
+          // check if this is from dom
+          final declarationSource = declaration.getSourceFile().fileName;
+          if (p.basename(declarationSource) == 'lib.dom.d.ts' ||
+              declarationSource.contains('dom')) {
+            // dom declaration: supported by package:web
+            // TODO(nikeokoronkwo): It is possible that we may get a type
+            //  that isn't in `package:web`
+            return PackageWebType.parse(name,
+                typeParams: (typeArguments ?? [])
+                    .map(_transformType)
+                    .map(getJSTypeAlternative)
+                    .toList());
           }
 
           if (declaration.kind == TSSyntaxKind.TypeParameter) {
@@ -430,6 +437,8 @@ class Transformer {
           TSSyntaxKind.UnknownKeyword => PrimitiveType.unknown,
           TSSyntaxKind.BooleanKeyword => PrimitiveType.boolean,
           TSSyntaxKind.VoidKeyword => PrimitiveType.$void,
+          TSSyntaxKind.BigIntKeyword => PrimitiveType.bigint,
+          TSSyntaxKind.SymbolKeyword => PrimitiveType.symbol,
           _ => throw UnsupportedError(
               'The given type with kind ${type.kind} is not supported yet')
         };

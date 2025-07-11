@@ -16,6 +16,7 @@ import 'generate_bindings.dart';
 import 'interop_gen/parser.dart';
 import 'interop_gen/transform.dart';
 import 'js/filesystem_api.dart';
+import 'js/node.dart';
 import 'util.dart';
 
 // Generates DOM bindings for Dart.
@@ -102,8 +103,29 @@ Future<void> generateIDLBindings({
 
     ensureDirectoryExists('$output/$librarySubDir');
 
-    final bindings = await generateBindings(packageRoot, librarySubDir,
+    final (bindings, renameMap) = await generateBindings(
+        packageRoot, librarySubDir,
         generateAll: generateAll);
+
+    if (renameMap.isNotEmpty) {
+      final lib = code.Library((l) => l
+        ..comments.add('''
+// Copyright (c) ${DateTime.now().year}, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+
+// AUTO GENERATED: DO NOT EDIT
+''')
+        ..body.add(code.Field((f) => f
+          ..name = 'renameMap'
+          ..type = code.refer('Map<String, String>')
+          ..modifier = code.FieldModifier.constant
+          ..assignment = code.literalConstMap(renameMap).code)));
+      final libCode = _emitLibrary(lib, languageVersion);
+      fs.writeFileSync(
+          p.join(p.dirname(p.fromUri(url)), 'web_rename_map.dart').toJS,
+          libCode.toJS);
+    }
 
     for (var entry in bindings.entries) {
       final libraryPath = entry.key;

@@ -51,6 +51,8 @@ extension type const TSSyntaxKind._(num _) {
   static const TSSyntaxKind SetKeyword = TSSyntaxKind._(153);
   static const TSSyntaxKind UnknownKeyword = TSSyntaxKind._(159);
   static const TSSyntaxKind VoidKeyword = TSSyntaxKind._(116);
+  static const TSSyntaxKind BigIntKeyword = TSSyntaxKind._(163);
+  static const TSSyntaxKind SymbolKeyword = TSSyntaxKind._(155);
 
   // types
   static const TSSyntaxKind UnionType = TSSyntaxKind._(192);
@@ -80,6 +82,7 @@ extension type TSNode._(JSObject _) implements JSObject {
   external TSNodeFlags get flags;
   external String getText([TSSourceFile? sourceFile]);
   external String getFullText([TSSourceFile? sourceFile]);
+  external TSSourceFile getSourceFile();
 }
 
 @JS('TypeNode')

@@ -9,20 +9,6 @@ import 'builtin.dart';
 import 'declarations.dart';
 import 'types.dart';
 
-BuiltinType? getSupportedType(String name, [List<Type> typeParams = const []]) {
-  final type = switch (name) {
-    'Array' => PrimitiveType.array,
-    'Promise' => PrimitiveType.promise,
-    _ => null
-  };
-
-  if (type == null) return null;
-
-  return BuiltinType.primitiveType(type, typeParams: [
-    getJSTypeAlternative(typeParams.singleOrNull ?? BuiltinType.anyType)
-  ]);
-}
-
 Type getJSTypeAlternative(Type type) {
   if (type is BuiltinType) {
     if (type.fromDartJSInterop) return type;

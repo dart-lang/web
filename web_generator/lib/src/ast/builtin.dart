@@ -7,6 +7,7 @@
 import 'package:code_builder/code_builder.dart';
 
 import '../interop_gen/namer.dart';
+import '../web_rename_map.dart';
 import 'base.dart';
 
 /// A built in type supported by `dart:js_interop` or by this library
@@ -83,19 +84,89 @@ class BuiltinType extends Type {
       PrimitiveType.any || PrimitiveType.unknown => anyType,
       PrimitiveType.object => BuiltinType(
           name: 'JSObject', fromDartJSInterop: true, isNullable: isNullable),
+      PrimitiveType.symbol => BuiltinType(
+          name: 'JSSymbol', fromDartJSInterop: true, isNullable: isNullable),
+      PrimitiveType.bigint => BuiltinType(
+          name: 'JSBigInt', fromDartJSInterop: true, isNullable: isNullable),
       PrimitiveType.array => BuiltinType(
           name: 'JSArray',
           typeParams: [typeParams.single],
           fromDartJSInterop: true,
           isNullable: isNullable),
-      PrimitiveType.promise => BuiltinType(
-          name: 'JSPromise',
-          typeParams: [typeParams.single],
-          fromDartJSInterop: true,
-          isNullable: isNullable),
-      PrimitiveType.function => BuiltinType(
-          name: 'JSFunction', fromDartJSInterop: true, isNullable: isNullable),
     };
+  }
+
+  static BuiltinType? referred(String name,
+      {bool? isNullable, List<Type> typeParams = const []}) {
+    final jsName = switch (name) {
+      'Array' => 'JSArray',
+      'Promise' => 'JSPromise',
+      'ArrayBuffer' => 'JSArrayBuffer',
+      'Function' => 'JSFunction',
+      'DataView' => 'JSDataView',
+      'Float32Array' => 'JSFloat32Array',
+      'Float64Array' => 'JSFloat64Array',
+      'Int8Array' => 'JSInt8Array',
+      'Int16Array' => 'JSInt16Array',
+      'Int32Array' => 'JSInt32Array',
+      'Int64Array' => 'JSInt64Array',
+      'Uint8Array' => 'JSUint8Array',
+      'Uint16Array' => 'JSUint16Array',
+      'Uint32Array' => 'JSUint32Array',
+      'Uint8ClampedArray' => 'JSUint8ClampedArray',
+      _ => null
+    };
+    final jsTypeArgs = switch (name) { 'Array' || 'Promise' => 1, _ => 0 };
+    if (jsName case final typeName?) {
+      return BuiltinType(
+          name: typeName,
+          fromDartJSInterop: true,
+          typeParams: typeParams.take(jsTypeArgs).toList(),
+          isNullable: isNullable);
+    }
+    return null;
+  }
+}
+
+class PackageWebType extends Type {
+  @override
+  final String name;
+
+  final List<Type> typeParams;
+
+  final bool? isNullable;
+
+  @override
+  ID get id => ID(type: 'type', name: name);
+
+  @override
+  String? get dartName => null;
+
+  PackageWebType._(
+      {required this.name, this.typeParams = const [], this.isNullable});
+
+  @override
+  Reference emit([TypeOptions? options]) {
+    options ??= TypeOptions();
+
+    // TODO: We can make this a shared function as it is called a lot
+    //  between types
+    return TypeReference((t) => t
+      ..symbol = name
+      ..types.addAll(typeParams
+          // if there is only one type param, and it is void, ignore
+          .where((p) => typeParams.length != 1 || p != BuiltinType.$voidType)
+          .map((p) => p.emit(TypeOptions())))
+      ..url = 'package:web/web.dart'
+      ..isNullable = isNullable ?? options!.nullable);
+  }
+
+  static PackageWebType parse(String name,
+      {bool? isNullable, List<Type> typeParams = const []}) {
+    return PackageWebType._(
+        name: renameMap.containsKey(name) ? renameMap[name]! : name,
+        isNullable: isNullable,
+        typeParams: typeParams);
   }
 }
 
@@ -110,7 +181,7 @@ enum PrimitiveType {
   object,
   unknown,
   undefined,
+  symbol,
   array,
-  promise,
-  function
+  bigint
 }

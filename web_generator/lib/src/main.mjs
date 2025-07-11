@@ -23,6 +23,7 @@ globalThis.idl = idl;
 globalThis.webidl2 = webidl2;
 globalThis.ts = ts;
 globalThis.location = { href: `file://${process.cwd()}/` }
+globalThis.url = import.meta.url;
 
 globalThis.dartMainRunner = async function (main, args) {
   const dartArgs = process.argv.slice(2);

@@ -406,8 +406,6 @@ class Transformer {
       TSCallSignatureDeclaration callSignature,
       {required UniqueNamer parentNamer,
       required TypeDeclaration parent}) {
-    // TODO: Let's make the unique name types enums or extension types
-    //  to track the type more easily
     final (:id, name: dartName) = parentNamer.makeUnique('call', 'fun');
 
     final params = callSignature.parameters.toDart;
@@ -752,7 +750,6 @@ class Transformer {
 
   /// Parses the type
   ///
-  /// TODO(https://github.com/dart-lang/web/issues/384): Add support for literals (i.e individual booleans and `null`)
   /// TODO(https://github.com/dart-lang/web/issues/383): Add support for `typeof` types
   Type _transformType(TSTypeNode type,
       {bool parameter = false, bool typeArg = false}) {
@@ -765,9 +762,6 @@ class Transformer {
 
         return _getTypeFromDeclaration(typeName, typeArguments,
             typeArg: typeArg);
-      // TODO: Union types are also anonymous by design
-      //  Unless we are making typedefs for them, we should
-      //  try to handle not making multiple of them for a given use-case
       case TSSyntaxKind.UnionType:
         final unionType = type as TSUnionTypeNode;
         // TODO: Unions
@@ -1142,7 +1136,6 @@ class Transformer {
         scope = DeclScope.public;
         break;
       default:
-        // TODO: Abstract
         break;
     }
   }

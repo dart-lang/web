@@ -20,14 +20,12 @@ sealed class TypeDeclaration extends NamedDeclaration
   abstract final List<OperatorDeclaration> operators;
 }
 
-// TODO: Members with parents for name qualification
 abstract class MemberDeclaration {
   late final TypeDeclaration parent;
 
   abstract final DeclScope scope;
 }
 
-// TODO: Shared Declaration with PropertyDeclaration
 class VariableDeclaration extends FieldDeclaration
     implements ExportableDeclaration {
   /// The variable modifier, as represented in TypeScript
@@ -76,7 +74,6 @@ class VariableDeclaration extends FieldDeclaration
 
 enum VariableModifier { let, $const, $var }
 
-// TODO: Shared Declaration with MethodDeclaration
 class FunctionDeclaration extends CallableDeclaration
     implements ExportableDeclaration {
   @override
@@ -621,7 +618,7 @@ class MethodDeclaration extends CallableDeclaration
         ])
         ..types
             .addAll(typeParameters.map((t) => t.emit(options?.toTypeOptions())))
-        // TODO: We can make this function more typed
+        // TODO(nikeokoronkwo): We can make this function more typed in the future, https://github.com/dart-lang/sdk/issues/54557
         ..returns = TypeReference((t) => t
           ..symbol = 'JSFunction'
           ..isNullable = true
@@ -763,7 +760,6 @@ class OperatorDeclaration extends CallableDeclaration
       this.scope = DeclScope.public,
       this.static = false});
 
-  // TODO: Implement emit
   @override
   Method emit([covariant DeclarationOptions? options]) {
     options ??= DeclarationOptions();

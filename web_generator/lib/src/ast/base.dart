@@ -15,7 +15,6 @@ class GlobalOptions {
 
 class Options {}
 
-// TODO(nikeokoronkwo): Remove this once we address isNullable
 class DeclarationOptions extends Options {
   bool override;
 

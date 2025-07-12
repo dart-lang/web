@@ -77,7 +77,6 @@ extension type const TSSyntaxKind._(num _) {
   static const TSSyntaxKind TypeReference = TSSyntaxKind._(183);
   static const TSSyntaxKind ArrayType = TSSyntaxKind._(188);
   static const TSSyntaxKind LiteralType = TSSyntaxKind._(201);
-  // TODO: Fully implement usage of this type
   static const TSSyntaxKind ThisType = TSSyntaxKind._(197);
 
   /// Other

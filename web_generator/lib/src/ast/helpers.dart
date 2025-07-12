@@ -50,3 +50,68 @@ List<Parameter> spreadParam(ParameterDeclaration p, int count) {
     return ParameterDeclaration(name: paramName, type: p.type).emit();
   });
 }
+
+Set<String> getMemberHierarchy(TypeDeclaration type) {
+  final members = <String>{};
+
+  switch (type) {
+    case ClassDeclaration(
+        extendedType: final extendee,
+        implementedTypes: final implementees
+      ):
+      if (extendee case ReferredType<Declaration>(declaration: final d)
+          when d is TypeDeclaration) {
+        members.addAll(_getMemberHierarchy(d));
+      }
+      for (final implementedType in implementees) {
+        if (implementedType case ReferredType<Declaration>(declaration: final d)
+            when d is TypeDeclaration) {
+          members.addAll(_getMemberHierarchy(d));
+        }
+      }
+    case InterfaceDeclaration(extendedTypes: final extendees):
+      for (final extendedType in extendees) {
+        if (extendedType case ReferredType<Declaration>(declaration: final d)
+            when d is TypeDeclaration) {
+          members.addAll(_getMemberHierarchy(d));
+        }
+      }
+  }
+
+  return members;
+}
+
+Set<String> _getMemberHierarchy(TypeDeclaration type) {
+  final members = <String>{};
+
+  // add direct members
+  members.addAll(type.methods.map((m) => m.name));
+  members.addAll(type.properties.map((m) => m.name));
+  members.addAll(type.operators.map((m) => m.name));
+
+  switch (type) {
+    case ClassDeclaration(
+        extendedType: final extendee,
+        implementedTypes: final implementees
+      ):
+      if (extendee case ReferredType<Declaration>(declaration: final d)
+          when d is TypeDeclaration) {
+        members.addAll(_getMemberHierarchy(d));
+      }
+      for (final implementedType in implementees) {
+        if (implementedType case ReferredType<Declaration>(declaration: final d)
+            when d is TypeDeclaration) {
+          members.addAll(_getMemberHierarchy(d));
+        }
+      }
+    case InterfaceDeclaration(extendedTypes: final extendees):
+      for (final extendedType in extendees) {
+        if (extendedType case ReferredType<Declaration>(declaration: final d)
+            when d is TypeDeclaration) {
+          members.addAll(_getMemberHierarchy(d));
+        }
+      }
+  }
+
+  return members;
+}

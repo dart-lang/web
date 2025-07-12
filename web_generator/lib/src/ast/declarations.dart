@@ -326,13 +326,13 @@ class ClassDeclaration extends TypeDeclaration {
   ExtensionType emit([covariant DeclarationOptions? options]) {
     options ??= DeclarationOptions();
 
-    final heirarchy = getMemberHierarchy(this);
+    final hierarchy = getMemberHierarchy(this);
 
     final fieldDecs = <Field>[];
     final methodDecs = <Method>[];
 
     bool isOverride(String name) =>
-        heirarchy.contains(name) && GlobalOptions.redeclareOverrides;
+        hierarchy.contains(name) && GlobalOptions.redeclareOverrides;
 
     for (final prop in properties.where((p) => p.scope == DeclScope.public)) {
       final spec =
@@ -437,13 +437,13 @@ class InterfaceDeclaration extends TypeDeclaration {
   ExtensionType emit([covariant DeclarationOptions? options]) {
     options ??= DeclarationOptions();
 
-    final heirarchy = getMemberHierarchy(this);
+    final hierarchy = getMemberHierarchy(this);
 
     final fieldDecs = <Field>[];
     final methodDecs = <Method>[];
 
     bool isOverride(String name) =>
-        heirarchy.contains(name) && GlobalOptions.redeclareOverrides;
+        hierarchy.contains(name) && GlobalOptions.redeclareOverrides;
 
     for (final prop in properties.where((p) => p.scope == DeclScope.public)) {
       final spec =

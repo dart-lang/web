@@ -271,3 +271,52 @@ external Square drawSquare(
 ]);
 @_i1.JS()
 external Sphere drawSphere(Point3D center);
+extension type EpahsImpl<TMeta extends _i1.JSAny?>._(_i1.JSObject _)
+    implements Epahs<TMeta> {
+  external EpahsImpl(
+    String name, [
+    AnonymousUnion$1? type,
+  ]);
+
+  external factory EpahsImpl.unnamed$1(Epahs<TMeta> config);
+
+  external String name;
+
+  external TMeta? metadata;
+
+  @_i2.redeclare
+  external String get id;
+  @_i2.redeclare
+  external void onUpdate(Epahs<TMeta> prev);
+  external String get location;
+  external set location(String value);
+  @_i2.redeclare
+  external double area();
+  @_i1.JS('area')
+  external String area$1(AnonymousUnion unit);
+  external static EpahsImpl getById(String id);
+  @_i1.JS('toString')
+  external String toString$();
+}
+extension type const AnonymousUnion$1._(String _) {
+  static const AnonymousUnion$1 circle = AnonymousUnion$1._('circle');
+
+  static const AnonymousUnion$1 rectangle = AnonymousUnion$1._('rectangle');
+
+  static const AnonymousUnion$1 polygon = AnonymousUnion$1._('polygon');
+}
+extension type Epahs<TMetadata extends _i1.JSAny?>._(_i1.JSObject _)
+    implements _i1.JSObject {
+  external String name;
+
+  external String get id;
+  external double area();
+  @_i1.JS('area')
+  external String area$1(AnonymousUnion unit);
+  external _i1.JSFunction? get onUpdate;
+}
+extension type const AnonymousUnion._(String _) {
+  static const AnonymousUnion cm2 = AnonymousUnion._('cm2');
+
+  static const AnonymousUnion in2 = AnonymousUnion._('in2');
+}

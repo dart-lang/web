@@ -21,6 +21,9 @@ class Transformer {
   /// A map of declarations
   final NodeMap nodeMap = NodeMap();
 
+  /// A map of types
+  final NodeMap typeMap = NodeMap();
+
   /// The type checker for the given program
   final ts.TSTypeChecker typeChecker;
 
@@ -348,7 +351,21 @@ class Transformer {
         id: id,
         scope: scope,
         static: isStatic,
-        parameters: params.map(_transformParameter).toList(),
+        parameters: params.map((t) {
+          ReferredType? paramType;
+          final paramRawType = t.type;
+          if (paramRawType case final ty? when ts.isTypeReferenceNode(ty)) {
+            final referredType = ty as TSTypeReferenceNode;
+            if (referredType.typeName.text == parent.name) {
+              paramType = parent.asReferredType(ty.typeArguments?.toDart
+                  .map((t) => _transformType(t, typeArg: true))
+                  .toList());
+            }
+          } else if (paramRawType case final ty? when ts.isThisTypeNode(ty)) {
+            paramType = parent.asReferredType(parent.typeParameters);
+          }
+          return _transformParameter(t, paramType);
+        }).toList(),
         typeParameters:
             typeParams?.map(_transformTypeParamDeclaration).toList() ?? [],
         returnType: methodType ??
@@ -700,8 +717,9 @@ class Transformer {
         exported: isExported);
   }
 
-  ParameterDeclaration _transformParameter(TSParameterDeclaration parameter) {
-    final type = parameter.type != null
+  ParameterDeclaration _transformParameter(TSParameterDeclaration parameter,
+      [Type? type]) {
+    type ??= parameter.type != null
         ? _transformType(parameter.type!, parameter: true)
         : BuiltinType.anyType;
     final isOptional = parameter.questionToken != null;
@@ -787,12 +805,23 @@ class Transformer {
                 isNullable: isNullable);
           }
 
+          final expectedId =
+              ID(type: 'type', name: types.map((t) => t.id.name).join('|'));
+
+          if (typeMap.containsKey(expectedId.toString())) {
+            return typeMap[expectedId.toString()] as UnionType;
+          }
+
           final (id: _, name: name) =
               namer.makeUnique('AnonymousUnion', 'type');
 
           // TODO: Handle similar types here...
-          return HomogenousEnumType(
+          final homogenousEnumType = HomogenousEnumType(
               types: nonNullLiteralTypes, isNullable: isNullable, name: name);
+
+          return typeMap.putIfAbsent(
+                  expectedId.toString(), () => homogenousEnumType)
+              as HomogenousEnumType;
         }
 
         return UnionType(types: types);
@@ -979,18 +1008,15 @@ class Transformer {
   /// and return them as a declaration map
   NodeMap _getDependenciesOfDecl(Node? decl, [NodeMap? context]) {
     NodeMap getCallableDependencies(CallableDeclaration callable) {
-      return NodeMap()
-        ..add(callable.returnType)
-        ..addAll({
-          for (final node in callable.parameters.map((p) => p.type))
-            node.id.toString(): node
-        })
-        ..addAll({
-          for (final node in callable.typeParameters
-              .map((p) => p.constraint)
-              .whereType<Type>())
-            node.id.toString(): node
-        });
+      return NodeMap({
+        for (final node in callable.parameters.map((p) => p.type))
+          node.id.toString(): node,
+        for (final node in callable.typeParameters
+            .map((p) => p.constraint)
+            .whereType<Type>())
+          node.id.toString(): node,
+        callable.returnType.id.toString(): callable.returnType
+      });
     }
 
     final filteredDeclarations = NodeMap();

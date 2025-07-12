@@ -152,3 +152,26 @@ export interface DirectionAngles {
 export declare function drawCircle(center: Point2D, radius: number): Circle;
 export declare function drawSquare(start: Point2D, length: number, angle?: number): Square;
 export declare function drawSphere(center: Point3D): Sphere;
+
+interface Epahs<TMetadata = any> {
+    readonly id: string;
+    name: string;
+    area(): number;
+    area(unit: 'cm2' | 'in2'): string;
+    onUpdate?(prev: Epahs<TMetadata>): void;
+}
+export declare class EpahsImpl<TMeta = any> implements Epahs<TMeta> {
+    readonly id: string;
+    name: string;
+    /* other decls in Shape */
+    metadata?: TMeta;
+    constructor(name: string, type?: 'circle' | 'rectangle' | 'polygon');
+    onUpdate?(prev: Epahs<TMeta>): void;
+    constructor(config: Epahs<TMeta>);
+    get location(): string;
+    set location(value: string);
+    area(): number;
+    area(unit: 'cm2' | 'in2'): string;
+    static getById(id: string): EpahsImpl;
+    toString(): string;
+}

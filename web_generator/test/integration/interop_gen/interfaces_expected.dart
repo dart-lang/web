@@ -9,7 +9,7 @@ extension type ILogger._(_i1.JSObject _) implements _i1.JSObject {
   external String get name;
   external void log(String message);
   external void error(String message);
-  external _i1.JSPromise<_i1.JSAny?> flush();
+  external _i1.JSFunction? get flush;
 }
 extension type Dictionary._(_i1.JSObject _) implements _i1.JSObject {
   external String operator [](String key);
@@ -40,6 +40,8 @@ extension type User._(_i1.JSObject _) implements _i1.JSObject {
   external String id;
 
   external String email;
+
+  external _i1.JSFunction? get describe;
 }
 extension type Admin._(_i1.JSObject _) implements User, ILogger {
   external String role;

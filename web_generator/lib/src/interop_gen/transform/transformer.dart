@@ -318,7 +318,8 @@ class Transformer {
   MethodDeclaration _transformMethod(TSMethodEntity method,
       {required UniqueNamer parentNamer, required TypeDeclaration parent}) {
     final name = method.name.text;
-    // TODO: Let's make the unique name types enums or extension types to track the type more easily
+    // TODO(nikeokoronkwo): Let's make the unique name types enums
+    //  or extension types to track the type more easily
     final (:id, name: dartName) = parentNamer.makeUnique(name, 'fun');
 
     final params = method.parameters.toDart;
@@ -353,7 +354,9 @@ class Transformer {
         returnType: methodType ??
             (method.type != null
                 ? _transformType(method.type!)
-                : BuiltinType.anyType));
+                : BuiltinType.anyType),
+        isNullable: (method.kind == TSSyntaxKind.MethodSignature) &&
+            (method as TSMethodSignature).questionToken != null);
     methodDeclaration.parent = parent;
     return methodDeclaration;
   }
@@ -386,7 +389,8 @@ class Transformer {
       TSCallSignatureDeclaration callSignature,
       {required UniqueNamer parentNamer,
       required TypeDeclaration parent}) {
-    // TODO: Let's make the unique name types enums or extension types to track the type more easily
+    // TODO: Let's make the unique name types enums or extension types
+    //  to track the type more easily
     final (:id, name: dartName) = parentNamer.makeUnique('call', 'fun');
 
     final params = callSignature.parameters.toDart;
@@ -442,7 +446,7 @@ class Transformer {
             .map((t) => _transformType(t, typeArg: true))
             .toList());
       }
-    } else if (indexSignature.type case final type?
+    } else if (indexSignature.type case final type
         when ts.isThisTypeNode(type)) {
       indexerType = parent.asReferredType(parent.typeParameters);
     }
@@ -474,7 +478,6 @@ class Transformer {
   MethodDeclaration _transformGetter(TSGetAccessorDeclaration getter,
       {required UniqueNamer parentNamer, required TypeDeclaration parent}) {
     final name = getter.name.text;
-    // TODO: Let's make the unique name types enums or extension types to track the type more easily
     final (:id, name: dartName) = parentNamer.makeUnique(name, 'get');
 
     final params = getter.parameters.toDart;
@@ -740,7 +743,6 @@ class Transformer {
         final refType = type as TSTypeReferenceNode;
 
         final typeName = refType.typeName;
-        final name = typeName.text;
         final typeArguments = refType.typeArguments?.toDart;
 
         return _getTypeFromDeclaration(typeName, typeArguments,
@@ -1006,8 +1008,9 @@ class Transformer {
         if (decl.type is! BuiltinType) filteredDeclarations.add(t.type);
         break;
       case final ClassDeclaration cl:
-        if (cl.extendedType case final ext? when ext is! BuiltinType)
+        if (cl.extendedType case final ext? when ext is! BuiltinType) {
           filteredDeclarations.add(ext);
+        }
         for (final con in cl.constructors) {
           filteredDeclarations.addAll({
             for (final param in con.parameters.map((p) => p.type))

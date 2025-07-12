@@ -25,6 +25,7 @@ export interface AsyncService {
 export interface User {
     id: string;
     email: string;
+    describe?(): string;
 }
 export interface Admin extends User, ILogger {
     role: string;

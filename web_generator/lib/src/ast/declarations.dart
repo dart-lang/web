@@ -576,6 +576,8 @@ class MethodDeclaration extends CallableDeclaration
 
   final bool static;
 
+  final bool isNullable;
+
   MethodDeclaration(
       {required this.name,
       this.dartName,
@@ -585,7 +587,8 @@ class MethodDeclaration extends CallableDeclaration
       this.typeParameters = const [],
       required this.returnType,
       this.static = false,
-      this.scope = DeclScope.public});
+      this.scope = DeclScope.public,
+      this.isNullable = false});
 
   @override
   Method emit([covariant DeclarationOptions? options]) {
@@ -604,6 +607,25 @@ class MethodDeclaration extends CallableDeclaration
           requiredParams.add(p.emit(options));
         }
       }
+    }
+
+    if (isNullable) {
+      return Method((m) => m
+        ..external = true
+        ..name = '${scope == DeclScope.public ? '' : '_'}${dartName ?? name}'
+        ..type = MethodType.getter
+        ..static = static
+        ..annotations.addAll([
+          if (dartName != null && dartName != name) generateJSAnnotation(name),
+          if (options?.override ?? false) _redeclareExpression
+        ])
+        ..types
+            .addAll(typeParameters.map((t) => t.emit(options?.toTypeOptions())))
+        // TODO: We can make this function more typed
+        ..returns = TypeReference((t) => t
+          ..symbol = 'JSFunction'
+          ..isNullable = true
+          ..url = 'dart:js_interop'));
     }
 
     return Method((m) => m

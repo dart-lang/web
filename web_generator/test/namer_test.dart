@@ -3,7 +3,7 @@ import 'package:web_generator/src/interop_gen/namer.dart';
 
 void main() {
   group('Namer Test', () {
-    final UniqueNamer namer = UniqueNamer();
+    final namer = UniqueNamer();
 
     test('Names', () {
       var newName = namer.makeUnique('foo', 'fun');

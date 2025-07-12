@@ -24,6 +24,12 @@ external void forEachChild<T extends JSAny>(
     TSNode node, TSNodeCallback<T> cbNode,
     [TSNodeArrayCallback<T>? cdNodes]);
 
+@JS()
+external bool isTypeReferenceNode(TSNode node);
+
+@JS()
+external bool isThisTypeNode(TSNode node);
+
 @JS('CompilerOptions')
 extension type TSCompilerOptions._(JSObject _) implements JSObject {
   external TSCompilerOptions({bool? allowJs, bool? declaration});

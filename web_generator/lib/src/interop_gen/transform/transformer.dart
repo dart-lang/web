@@ -419,6 +419,37 @@ class Transformer {
               _ => throw UnimplementedError(
                   'Unsupported Literal Kind ${literal.kind}')
             });
+      case TSSyntaxKind.TypeQuery:
+        final typeQuery = type as TSTypeQueryNode;
+
+        // TODO(nikeokoronkwo): Refactor this once #402 lands, https://github.com/dart-lang/web/pull/415
+        final exprName = typeQuery.exprName;
+        final name = exprName.text;
+        final typeArguments = typeQuery.typeArguments?.toDart;
+
+        var declarationsMatching = nodeMap.findByName(name);
+        if (declarationsMatching.isEmpty) {
+          final symbol = typeChecker.getSymbolAtLocation(exprName);
+          final declarations = symbol?.getDeclarations();
+          final declaration = declarations?.toDart.first;
+
+          if (declaration == null) {
+            throw Exception('Found no declaration matching $name');
+          }
+
+          transform(declaration);
+
+          declarationsMatching = nodeMap.findByName(name);
+        }
+
+        final firstNode =
+            declarationsMatching.whereType<NamedDeclaration>().first;
+
+        return firstNode.asReferredType(
+          (typeArguments ?? [])
+              .map((type) => _transformType(type, typeArg: true))
+              .toList(),
+        );
       case TSSyntaxKind.ArrayType:
         return BuiltinType.primitiveType(PrimitiveType.array, typeParams: [
           getJSTypeAlternative(

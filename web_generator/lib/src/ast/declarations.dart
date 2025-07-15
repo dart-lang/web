@@ -6,6 +6,7 @@ import 'package:code_builder/code_builder.dart';
 
 import '../interop_gen/namer.dart';
 import 'base.dart';
+import 'builtin.dart';
 import 'helpers.dart';
 import 'types.dart';
 
@@ -52,6 +53,12 @@ class VariableDeclaration extends NamedDeclaration
 
   @override
   String? get dartName => null;
+
+  @override
+  ReferredType<VariableDeclaration> asReferredType([List<Type>? typeArgs]) {
+    return ReferredType<VariableDeclaration>.fromType(type, this,
+        typeParams: typeArgs ?? []);
+  }
 }
 
 enum VariableModifier { let, $const, $var }
@@ -114,6 +121,14 @@ class FunctionDeclaration extends NamedDeclaration
       ..returns = returnType.emit()
       ..requiredParameters.addAll(requiredParams)
       ..optionalParameters.addAll(optionalParams));
+  }
+
+  @override
+  ReferredType<FunctionDeclaration> asReferredType([List<Type>? typeArgs]) {
+    // TODO: We could do better here and make the function type typed
+    return ReferredType<FunctionDeclaration>.fromType(
+        BuiltinType.referred('Function', typeParams: typeArgs ?? [])!, this,
+        typeParams: typeArgs ?? []);
   }
 }
 

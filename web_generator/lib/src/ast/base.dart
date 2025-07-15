@@ -8,7 +8,7 @@ import '../interop_gen/namer.dart';
 import 'types.dart';
 
 class GlobalOptions {
-  static int variardicArgsCount = 4;
+  static int variadicArgsCount = 4;
   static bool shouldEmitJsTypes = false;
   static bool redeclareOverrides = true;
 }
@@ -33,11 +33,11 @@ class TypeOptions extends Options {
 class ASTOptions {
   bool parameter;
   bool emitJSTypes;
-  int variardicArgsCount;
+  int variadicArgsCount;
 
   ASTOptions(
       {this.parameter = false,
-      this.variardicArgsCount = 4,
+      this.variadicArgsCount = 4,
       this.emitJSTypes = false});
 }
 
@@ -98,13 +98,13 @@ class ParameterDeclaration {
 
   final Type type;
 
-  final bool variardic;
+  final bool variadic;
 
   ParameterDeclaration(
       {required this.name,
       this.optional = false,
       required this.type,
-      this.variardic = false});
+      this.variadic = false});
 
   Parameter emit([DeclarationOptions? options]) {
     return Parameter((p) => p

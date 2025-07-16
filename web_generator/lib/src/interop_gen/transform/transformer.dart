@@ -90,7 +90,6 @@ class Transformer {
         false;
 
     // get heritage clauses
-    // get heritage clauses
     final heritageClauses = interface.heritageClauses?.toDart ?? [];
 
     final extendees = <Type>[];
@@ -118,10 +117,10 @@ class Transformer {
         typeParameters:
             typeParams?.map(_transformTypeParamDeclaration).toList() ?? [],
         extendedTypes: extendees,
-        methods: List.empty(growable: true),
-        properties: List.empty(growable: true),
-        operators: List.empty(growable: true),
-        constructors: List.empty(growable: true));
+        methods: [],
+        properties: [],
+        operators: [],
+        constructors: []);
 
     final interfaceNamer = ScopedUniqueNamer({'get', 'set'});
 
@@ -228,7 +227,7 @@ class Transformer {
         constructors: List.empty(growable: true),
         methods: List.empty(growable: true),
         properties: List.empty(growable: true),
-        indexAccessors: List.empty(growable: true));
+        operators: List.empty(growable: true));
 
     final classNamer = ScopedUniqueNamer({'get', 'set'});
 
@@ -248,9 +247,9 @@ class Transformer {
           final (opGet, opSetOrNull) = _transformIndexer(
               member as TSIndexSignatureDeclaration,
               parent: outputClass);
-          outputClass.indexAccessors.add(opGet);
+          outputClass.operators.add(opGet);
           if (opSetOrNull case final opSet?) {
-            outputClass.indexAccessors.add(opSet);
+            outputClass.operators.add(opSet);
           }
           break;
         case TSSyntaxKind.Constructor:
@@ -1040,7 +1039,7 @@ class Transformer {
         for (final methods in cl.methods) {
           filteredDeclarations.addAll(getCallableDependencies(methods));
         }
-        for (final indexAccessors in cl.indexAccessors) {
+        for (final indexAccessors in cl.operators) {
           filteredDeclarations.addAll(getCallableDependencies(indexAccessors));
         }
         filteredDeclarations.addAll({

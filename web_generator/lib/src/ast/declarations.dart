@@ -301,10 +301,8 @@ class ClassDeclaration extends TypeDeclaration {
   @override
   final List<PropertyDeclaration> properties;
 
-  final List<OperatorDeclaration> indexAccessors;
-
   @override
-  List<OperatorDeclaration> get operators => indexAccessors;
+  final List<OperatorDeclaration> operators;
 
   ClassDeclaration(
       {required this.name,
@@ -317,7 +315,7 @@ class ClassDeclaration extends TypeDeclaration {
       this.constructors = const [],
       required this.methods,
       required this.properties,
-      this.indexAccessors = const []});
+      this.operators = const []});
 
   @override
   ExtensionType emit([covariant DeclarationOptions? options]) {
@@ -342,10 +340,8 @@ class ClassDeclaration extends TypeDeclaration {
     }
     methodDecs.addAll(methods.where((p) => p.scope == DeclScope.public).map(
         (m) => m.emit(options!..override = isOverride(m.dartName ?? m.name))));
-    methodDecs.addAll(indexAccessors
-        .where((p) => p.scope == DeclScope.public)
-        .map((m) =>
-            m.emit(options!..override = isOverride(m.dartName ?? m.name))));
+    methodDecs.addAll(operators.where((p) => p.scope == DeclScope.public).map(
+        (m) => m.emit(options!..override = isOverride(m.dartName ?? m.name))));
     return ExtensionType((e) => e
       ..name = dartName ?? name
       ..annotations.addAll([
@@ -768,14 +764,12 @@ class OperatorDeclaration extends CallableDeclaration
     final optionalParams = <Parameter>[];
     for (final p in parameters) {
       if (p.variardic) {
-        optionalParams.addAll(spreadParam(p, GlobalOptions.variardicArgsCount));
-        requiredParams.add(p.emit(options));
+        throw UnsupportedError('Variadic parameters are not supported for '
+            'operators.');
+      } else if (p.optional) {
+        optionalParams.add(p.emit(options));
       } else {
-        if (p.optional) {
-          optionalParams.add(p.emit(options));
-        } else {
-          requiredParams.add(p.emit(options));
-        }
+        requiredParams.add(p.emit(options));
       }
     }
 
@@ -795,8 +789,7 @@ class OperatorDeclaration extends CallableDeclaration
 
 enum OperatorKind {
   squareBracket('[]'),
-  squareBracketSet('[]='),
-  bracket('()');
+  squareBracketSet('[]=');
 
   const OperatorKind(this.expression);
   final String expression;

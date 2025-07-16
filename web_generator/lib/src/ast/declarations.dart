@@ -113,8 +113,8 @@ class FunctionDeclaration extends CallableDeclaration
     final requiredParams = <Parameter>[];
     final optionalParams = <Parameter>[];
     for (final p in parameters) {
-      if (p.variardic) {
-        optionalParams.addAll(spreadParam(p, GlobalOptions.variardicArgsCount));
+      if (p.variadic) {
+        optionalParams.addAll(spreadParam(p, GlobalOptions.variadicArgsCount));
         requiredParams.add(p.emit(options));
       } else {
         if (p.optional) {
@@ -590,8 +590,8 @@ class MethodDeclaration extends CallableDeclaration
     final requiredParams = <Parameter>[];
     final optionalParams = <Parameter>[];
     for (final p in parameters) {
-      if (p.variardic) {
-        optionalParams.addAll(spreadParam(p, GlobalOptions.variardicArgsCount));
+      if (p.variadic) {
+        optionalParams.addAll(spreadParam(p, GlobalOptions.variadicArgsCount));
         requiredParams.add(p.emit(options));
       } else {
         if (p.optional) {
@@ -694,8 +694,8 @@ class ConstructorDeclaration implements MemberDeclaration {
     final isFactory = dartName != null && dartName != name;
 
     for (final p in parameters) {
-      if (p.variardic) {
-        optionalParams.addAll(spreadParam(p, GlobalOptions.variardicArgsCount));
+      if (p.variadic) {
+        optionalParams.addAll(spreadParam(p, GlobalOptions.variadicArgsCount));
         requiredParams.add(p.emit(options));
       } else {
         if (p.optional) {
@@ -763,7 +763,7 @@ class OperatorDeclaration extends CallableDeclaration
     final requiredParams = <Parameter>[];
     final optionalParams = <Parameter>[];
     for (final p in parameters) {
-      if (p.variardic) {
+      if (p.variadic) {
         throw UnsupportedError('Variadic parameters are not supported for '
             'operators.');
       } else if (p.optional) {

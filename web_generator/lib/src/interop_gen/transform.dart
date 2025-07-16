@@ -17,7 +17,7 @@ import 'parser.dart';
 import 'transform/transformer.dart';
 
 void _setGlobalOptions(Config config) {
-  GlobalOptions.variardicArgsCount = config.functions?.varArgs ?? 4;
+  GlobalOptions.variadicArgsCount = config.functions?.varArgs ?? 4;
 }
 
 class TransformResult {

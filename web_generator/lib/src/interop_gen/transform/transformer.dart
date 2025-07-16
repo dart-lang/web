@@ -720,7 +720,7 @@ class Transformer {
         ? _transformType(parameter.type!, parameter: true)
         : BuiltinType.anyType;
     final isOptional = parameter.questionToken != null;
-    final isVariardic = parameter.dotDotDotToken != null;
+    final isvariadic = parameter.dotDotDotToken != null;
 
     // what kind of parameter is this
     switch (parameter.name.kind) {
@@ -728,7 +728,7 @@ class Transformer {
         return ParameterDeclaration(
             name: (parameter.name as TSIdentifier).text,
             type: type,
-            variardic: isVariardic,
+            variadic: isvariadic,
             optional: isOptional);
       default:
         // TODO: Support Destructured Object Parameters

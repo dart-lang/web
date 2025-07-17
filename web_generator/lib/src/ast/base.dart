@@ -40,7 +40,7 @@ class ASTOptions {
 }
 
 sealed class Node {
-  abstract final String? name;
+  String? get name;
   abstract final ID id;
   String? get dartName;
 
@@ -51,7 +51,11 @@ sealed class Node {
 
 abstract class Declaration extends Node {
   @override
-  abstract final String name;
+  String get name;
+
+  set name(String newValue);
+
+  set dartName(String? newValue);
 
   @override
   Spec emit([covariant DeclarationOptions? options]);

@@ -14,6 +14,25 @@ import '../../js/typescript.types.dart';
 import '../namer.dart';
 import '../transform.dart';
 
+class ExportReference {
+  final String name;
+  final String as;
+  final bool defaultExport;
+
+  const ExportReference(this.name,
+      {required this.as, this.defaultExport = false});
+
+  @override
+  bool operator ==(Object other) =>
+      other is ExportReference &&
+      name == other.name &&
+      as == other.as &&
+      defaultExport == other.defaultExport;
+
+  @override
+  int get hashCode => Object.hash(name, as, defaultExport);
+}
+
 class Transformer {
   /// A set of already resolved TS Nodes
   final Set<TSNode> nodes = {};
@@ -25,7 +44,7 @@ class Transformer {
   final ts.TSTypeChecker typeChecker;
 
   /// A set of declarations to export updated during transformation
-  final Set<String> exportSet;
+  final Set<ExportReference> exportSet;
 
   /// A set of declarations to filter for
   final List<String> filterDeclSet;
@@ -44,14 +63,17 @@ class Transformer {
 
   Transformer(this.programMap, this.typeChecker,
       {Set<String> exportSet = const {}, List<String> filterDeclSet = const []})
-      : exportSet = exportSet.toSet(),
+      : exportSet = exportSet.map((e) => ExportReference(e, as: e)).toSet(),
         filterDeclSet = filterDeclSet.toList(),
         namer = UniqueNamer();
 
+  // TODO(nikeokoronkwo): Handle default exports
   void transform(TSNode node) {
     if (nodes.contains(node)) return;
 
     switch (node.kind) {
+      case TSSyntaxKind.ExportDeclaration:
+        _parseExportDeclaration(node as TSExportDeclaration);
       case TSSyntaxKind.VariableStatement:
         final decs = _transformVariable(node as TSVariableStatement);
         nodeMap.addAll({for (final d in decs) d.id.toString(): d});
@@ -70,6 +92,24 @@ class Transformer {
     }
 
     nodes.add(node);
+  }
+
+  void _parseExportDeclaration(TSExportDeclaration export) {
+    // TODO(nikeokoronkwo): Support namespace exports
+    if (export.exportClause?.kind == TSSyntaxKind.NamedExports) {
+      // named exports
+      final exports = (export.exportClause as TSNamedExports).elements.toDart;
+
+      for (final exp in exports) {
+        // the name of the declaration in TS (name)
+        final actualName = (exp.propertyName ?? exp.name).text;
+
+        // The exported name to use
+        final dartName = exp.name.text;
+
+        exportSet.add(ExportReference(actualName, as: dartName));
+      }
+    }
   }
 
   EnumDeclaration _transformEnum(TSEnumDeclaration enumeration) {
@@ -450,6 +490,25 @@ class Transformer {
 
   NodeMap filter() {
     final filteredDeclarations = NodeMap();
+
+    for (final ExportReference(name: exportName, as: exportDartName)
+        in exportSet) {
+      final nodes = nodeMap.findByName(exportName);
+      for (final exportedNode in nodes) {
+        // TODO: Is there a better way of handling name changes than having
+        //  to make the properties non-final and override get/set?
+        // the actual decl name is `exportName` (dartName)
+        // while the name we want to use for @JS is `exportDartName` (name)
+        if (exportedNode case final Declaration decl) {
+          filteredDeclarations.add(decl
+            ..name = exportDartName
+            ..dartName =
+                decl.dartName ?? UniqueNamer.makeNonConflicting(exportName));
+        } else {
+          continue;
+        }
+      }
+    }
 
     // filter out for export declarations
     nodeMap.forEach((id, node) {

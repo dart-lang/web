@@ -27,6 +27,7 @@ extension type const TSSyntaxKind._(num _) {
   static const TSSyntaxKind TypeAliasDeclaration = TSSyntaxKind._(265);
   static const TSSyntaxKind Parameter = TSSyntaxKind._(169);
   static const TSSyntaxKind EnumDeclaration = TSSyntaxKind._(266);
+  static const TSSyntaxKind ExportAssignment = TSSyntaxKind._(277);
 
   /// expressions
   static const TSSyntaxKind NumericLiteral = TSSyntaxKind._(9);
@@ -40,6 +41,8 @@ extension type const TSSyntaxKind._(num _) {
   static const TSSyntaxKind DeclareKeyword = TSSyntaxKind._(138);
   static const TSSyntaxKind ExtendsKeyword = TSSyntaxKind._(96);
   static const TSSyntaxKind ImplementsKeyword = TSSyntaxKind._(119);
+  static const TSSyntaxKind WithKeyword = TSSyntaxKind._(118);
+  static const TSSyntaxKind AssertKeyword = TSSyntaxKind._(132);
 
   // types that are keywords
   static const TSSyntaxKind StringKeyword = TSSyntaxKind._(154);
@@ -67,6 +70,8 @@ extension type const TSSyntaxKind._(num _) {
   static const TSSyntaxKind TypeParameter = TSSyntaxKind._(168);
   static const TSSyntaxKind HeritageClause = TSSyntaxKind._(298);
   static const TSSyntaxKind ExpressionWithTypeArguments = TSSyntaxKind._(233);
+  static const TSSyntaxKind NamespaceExport = TSSyntaxKind._(280);
+  static const TSSyntaxKind NamedExports = TSSyntaxKind._(279);
 }
 
 extension type const TSNodeFlags._(int _) implements int {
@@ -153,6 +158,59 @@ extension type TSStatement._(JSObject _) implements TSNode {}
 @JS('Identifier')
 extension type TSIdentifier._(JSObject _) implements TSDeclaration {
   external String get text;
+}
+
+@JS('DeclarationStatement')
+extension type TSDeclarationStatement._(JSObject _)
+    implements TSDeclaration, TSStatement {
+  external TSIdentifier? get name;
+}
+
+@JS('ImportAttribute')
+extension type TSImportAttribute._(JSObject _) implements TSNode {
+  external TSIdentifier get name;
+  external TSExpression get value;
+}
+
+@JS('ImportAttributes')
+extension type TSImportAttributes._(JSObject _) implements TSNode {
+  external TSSyntaxKind get token;
+  external TSNodeArray<TSImportAttribute> get elements;
+}
+
+@JS('NamespaceExport')
+extension type TSNamespaceExport._(JSObject _) implements TSDeclaration {
+  external TSIdentifier get name;
+}
+
+@JS('NamedExports')
+extension type TSNamedExports._(JSObject _) implements TSNode {
+  external TSNodeArray<TSExportSpecifier> get elements;
+}
+
+@JS('ExportSpecifier')
+extension type TSExportSpecifier._(JSObject _) implements TSDeclaration {
+  external bool get isTypeOnly;
+  external TSIdentifier get name;
+  external TSIdentifier? get propertyName;
+}
+
+@JS('ExportDeclaration')
+extension type TSExportDeclaration._(JSObject _)
+    implements TSDeclarationStatement {
+  external TSNodeArray<TSNode>? get modifiers;
+  external bool get isTypeOnly;
+  external TSNode? get exportClause;
+  external TSExpression? get moduleSpecifier;
+  external TSImportAttributes? get attributes;
+}
+
+@JS('ExportAssignment')
+extension type TSExportAssignment._(JSObject _)
+    implements TSDeclarationStatement {
+  external TSNodeArray<TSNode>? get modifiers;
+  external bool? get isExportEquals;
+  external TSExpression get expression;
 }
 
 @JS('VariableStatement')

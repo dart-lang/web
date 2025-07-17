@@ -13,6 +13,16 @@ class ID {
 
   bool get isUnnamed => name == 'unnamed';
 
+  String get rename {
+    if (index != null && index != 0) {
+      final s =
+          name.endsWith(r'$') ? name.substring(0, name.indexOf(r'$')) : name;
+      return '$s\$$index';
+    } else {
+      return name;
+    }
+  }
+
   @override
   String toString() => '$type#$name${index != null ? '#$index' : ''}';
 }
@@ -20,8 +30,9 @@ class ID {
 class UniqueNamer {
   final Set<String> _usedNames;
 
-  UniqueNamer([Iterable<String> used = const <String>[]])
-      : _usedNames = used.toSet();
+  UniqueNamer([
+    Iterable<String> used = const <String>[],
+  ]) : _usedNames = used.toSet();
 
   /// Makes a name that does not conflict with dart keywords
   static String makeNonConflicting(String name) {
@@ -82,5 +93,51 @@ class UniqueNamer {
   /// Adds a [name] to used names.
   void markUsed(String name) {
     _usedNames.add(name);
+  }
+}
+
+class ScopedUniqueNamer implements UniqueNamer {
+  final Set<ID> _usedIDs;
+  final Set<String> _allowedEquals;
+
+  @override
+  Set<String> get _usedNames => _usedIDs.map((i) => i.rename).toSet();
+
+  ScopedUniqueNamer(
+      [Set<String>? allowedEquals, Iterable<String> used = const <String>[]])
+      : _usedIDs = used.map(UniqueNamer.parse).toSet(),
+        _allowedEquals = allowedEquals ?? {};
+
+  @override
+  ({ID id, String name}) makeUnique(String name, String type) {
+    // nested structures (and anonymous structures) may not have a name
+
+    final newName = UniqueNamer.makeNonConflicting(name);
+
+    var i = 0;
+    var id = ID(name: newName, type: type);
+    while (_usedIDs.any((usedID) {
+      if (usedID.name == id.name && usedID.index == id.index) {
+        // check if both types are allowed
+        if (_allowedEquals.contains(usedID.type) &&
+            _allowedEquals.contains(id.type)) {
+          return false;
+        }
+        return true;
+      }
+      return false;
+    })) {
+      ++i;
+      id = ID(name: newName, index: i, type: type);
+    }
+
+    markUsed(id.toString());
+
+    return (id: id, name: id.rename);
+  }
+
+  @override
+  void markUsed(String name) {
+    _usedIDs.add(UniqueNamer.parse(name));
   }
 }

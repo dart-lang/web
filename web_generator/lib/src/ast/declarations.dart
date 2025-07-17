@@ -6,10 +6,117 @@ import 'package:code_builder/code_builder.dart';
 
 import '../interop_gen/namer.dart';
 import 'base.dart';
+import 'builtin.dart';
 import 'helpers.dart';
 import 'types.dart';
 
-class VariableDeclaration extends NamedDeclaration
+/// A declaration that defines a type
+///
+// TODO: Add support for `ClassOrInterfaceDeclaration`
+//  once implementing namespaces and module support
+sealed class TypeDeclaration extends NamedDeclaration
+    implements ExportableDeclaration {
+  @override
+  final String name;
+
+  @override
+  final String? dartName;
+
+  @override
+  final bool exported;
+
+  final List<GenericType> typeParameters;
+
+  final List<MethodDeclaration> methods;
+
+  final List<PropertyDeclaration> properties;
+
+  final List<OperatorDeclaration> operators;
+
+  final List<ConstructorDeclaration> constructors;
+
+  TypeDeclaration(
+      {required this.name,
+      this.dartName,
+      required this.exported,
+      this.typeParameters = const [],
+      this.methods = const [],
+      this.properties = const [],
+      this.operators = const [],
+      this.constructors = const []});
+
+  ExtensionType _emit(
+      [covariant DeclarationOptions? options,
+      bool abstract = false,
+      List<Type> extendees = const [],
+      List<Type> implementees = const []]) {
+    options ??= DeclarationOptions();
+
+    final hierarchy = getMemberHierarchy(this);
+
+    final fieldDecs = <Field>[];
+    final methodDecs = <Method>[];
+
+    bool isOverride(String name) =>
+        hierarchy.contains(name) && GlobalOptions.redeclareOverrides;
+
+    for (final prop in properties.where((p) => p.scope == DeclScope.public)) {
+      final spec =
+          prop.emit(options..override = isOverride(prop.dartName ?? prop.name));
+      if (spec is Method) {
+        methodDecs.add(spec);
+      } else {
+        fieldDecs.add(spec as Field);
+      }
+    }
+
+    methodDecs.addAll(methods.where((p) => p.scope == DeclScope.public).map(
+        (m) => m.emit(options!..override = isOverride(m.dartName ?? m.name))));
+    methodDecs.addAll(operators.where((p) => p.scope == DeclScope.public).map(
+        (m) => m.emit(options!..override = isOverride(m.dartName ?? m.name))));
+
+    final repType = this is ClassDeclaration
+        ? getClassRepresentationType(this as ClassDeclaration)
+        : BuiltinType.primitiveType(PrimitiveType.object, isNullable: false);
+
+    return ExtensionType((e) => e
+      ..name = dartName ?? name
+      ..annotations.addAll([
+        if (dartName != null && dartName != name) generateJSAnnotation(name)
+      ])
+      ..primaryConstructorName = '_'
+      ..representationDeclaration = RepresentationDeclaration((r) => r
+        ..declaredRepresentationType = repType.emit(options?.toTypeOptions())
+        ..name = '_')
+      ..implements.addAll([
+        if (extendees.isEmpty && implementees.isEmpty)
+          refer('JSObject', 'dart:js_interop')
+        else ...[
+          ...extendees.map((e) => e.emit(options?.toTypeOptions())),
+          ...implementees.map((i) => i.emit(options?.toTypeOptions()))
+        ]
+      ])
+      ..types
+          .addAll(typeParameters.map((t) => t.emit(options?.toTypeOptions())))
+      ..constructors.addAll([
+        if (!abstract)
+          if (constructors.isEmpty && this is ClassDeclaration)
+            ConstructorDeclaration.defaultFor(this).emit(options)
+          else
+            ...constructors.map((c) => c.emit(options))
+      ])
+      ..fields.addAll(fieldDecs)
+      ..methods.addAll(methodDecs));
+  }
+}
+
+abstract class MemberDeclaration {
+  late final TypeDeclaration parent;
+
+  abstract final DeclScope scope;
+}
+
+class VariableDeclaration extends FieldDeclaration
     implements ExportableDeclaration {
   /// The variable modifier, as represented in TypeScript
   VariableModifier modifier;
@@ -17,6 +124,7 @@ class VariableDeclaration extends NamedDeclaration
   @override
   String name;
 
+  @override
   Type type;
 
   @override
@@ -39,13 +147,13 @@ class VariableDeclaration extends NamedDeclaration
         ..type = MethodType.getter
         ..annotations.add(generateJSAnnotation())
         ..external = true
-        ..returns = type.emit());
+        ..returns = type.emit(options?.toTypeOptions()));
     } else {
       // getter and setter -> single variable
       return Field((f) => f
         ..external = true
         ..name = name
-        ..type = type.emit()
+        ..type = type.emit(options?.toTypeOptions())
         ..annotations.add(generateJSAnnotation()));
     }
   }
@@ -56,7 +164,7 @@ class VariableDeclaration extends NamedDeclaration
 
 enum VariableModifier { let, $const, $var }
 
-class FunctionDeclaration extends NamedDeclaration
+class FunctionDeclaration extends CallableDeclaration
     implements ExportableDeclaration {
   @override
   final String name;
@@ -64,10 +172,13 @@ class FunctionDeclaration extends NamedDeclaration
   @override
   final String? dartName;
 
+  @override
   final List<ParameterDeclaration> parameters;
 
+  @override
   final List<GenericType> typeParameters;
 
+  @override
   final Type returnType;
 
   @override
@@ -92,8 +203,8 @@ class FunctionDeclaration extends NamedDeclaration
     final requiredParams = <Parameter>[];
     final optionalParams = <Parameter>[];
     for (final p in parameters) {
-      if (p.variardic) {
-        optionalParams.addAll(spreadParam(p, GlobalOptions.variardicArgsCount));
+      if (p.variadic) {
+        optionalParams.addAll(spreadParam(p, GlobalOptions.variadicArgsCount));
         requiredParams.add(p.emit(options));
       } else {
         if (p.optional) {
@@ -111,31 +222,9 @@ class FunctionDeclaration extends NamedDeclaration
           dartName == null || dartName == name ? null : name))
       ..types
           .addAll(typeParameters.map((t) => t.emit(options?.toTypeOptions())))
-      ..returns = returnType.emit()
+      ..returns = returnType.emit(options?.toTypeOptions())
       ..requiredParameters.addAll(requiredParams)
       ..optionalParameters.addAll(optionalParams));
-  }
-}
-
-class ParameterDeclaration {
-  final String name;
-
-  final bool optional;
-
-  final Type type;
-
-  final bool variardic;
-
-  ParameterDeclaration(
-      {required this.name,
-      this.optional = false,
-      required this.type,
-      this.variardic = false});
-
-  Parameter emit([DeclarationOptions? options]) {
-    return Parameter((p) => p
-      ..name = name
-      ..type = type.emit(TypeOptions(nullable: optional)));
   }
 }
 
@@ -269,3 +358,399 @@ class TypeAliasDeclaration extends NamedDeclaration
       ..definition = type.emit(options?.toTypeOptions()));
   }
 }
+
+/// The declaration node for a TypeScript/JavaScript Class
+///
+/// ```ts
+/// class A {}
+/// ```
+class ClassDeclaration extends TypeDeclaration {
+  final bool abstract;
+
+  final Type? extendedType;
+
+  final List<Type> implementedTypes;
+
+  ClassDeclaration(
+      {required super.name,
+      super.dartName,
+      this.abstract = false,
+      required super.exported,
+      super.typeParameters,
+      this.extendedType,
+      this.implementedTypes = const [],
+      super.constructors,
+      required super.methods,
+      required super.properties,
+      super.operators});
+
+  @override
+  ExtensionType emit([covariant DeclarationOptions? options]) {
+    return super._emit(options, abstract,
+        [if (extendedType case final extendee?) extendee], implementedTypes);
+  }
+
+  @override
+  ID get id => ID(type: 'class', name: name);
+}
+
+/// The declaration node for a TypeScript [Interface]()
+///
+/// ```ts
+/// interface Movable {
+///
+/// }
+/// ```
+class InterfaceDeclaration extends TypeDeclaration {
+  @override
+  ID id;
+
+  final List<Type> extendedTypes;
+
+  InterfaceDeclaration(
+      {required super.name,
+      required super.exported,
+      required this.id,
+      super.dartName,
+      super.typeParameters,
+      this.extendedTypes = const [],
+      super.methods,
+      super.properties,
+      super.operators,
+      super.constructors});
+
+  @override
+  ExtensionType emit([covariant DeclarationOptions? options]) {
+    return super._emit(
+      options,
+      false,
+      extendedTypes,
+    );
+  }
+}
+
+/// The declaration node for a field/property on a [TypeDeclaration]
+class PropertyDeclaration extends FieldDeclaration
+    implements MemberDeclaration {
+  @override
+  final String name;
+
+  @override
+  final ID id;
+
+  @override
+  final String? dartName;
+
+  @override
+  late final TypeDeclaration parent;
+
+  @override
+  final DeclScope scope;
+
+  final bool isNullable;
+
+  final bool readonly;
+
+  final bool static;
+
+  @override
+  Type type;
+
+  PropertyDeclaration(
+      {required this.name,
+      this.dartName,
+      required this.id,
+      required this.type,
+      this.scope = DeclScope.public,
+      this.readonly = false,
+      required this.static,
+      this.isNullable = false});
+
+  @override
+  Spec emit([covariant DeclarationOptions? options]) {
+    options ??= DeclarationOptions();
+    assert(scope == DeclScope.public, 'Only public members can be emitted');
+
+    if (readonly) {
+      return Method((m) => m
+        ..external = true
+        ..name = dartName ?? name
+        ..type = MethodType.getter
+        ..annotations.addAll([
+          if (dartName != null && dartName != name) generateJSAnnotation(name),
+          if (options?.override ?? false) _redeclareExpression
+        ])
+        ..returns = type.emit(options?.toTypeOptions(nullable: isNullable)));
+    } else {
+      return Field((f) => f
+        ..external = true
+        ..name = dartName ?? name
+        ..annotations.addAll([
+          if (dartName != null && dartName != name) generateJSAnnotation(name),
+        ])
+        ..type = type.emit(options?.toTypeOptions(nullable: isNullable)));
+    }
+  }
+}
+
+/// The declaration node for a method on a [TypeDeclaration]
+class MethodDeclaration extends CallableDeclaration
+    implements MemberDeclaration {
+  @override
+  String name;
+
+  @override
+  String? dartName;
+
+  @override
+  ID id;
+
+  MethodKind? kind;
+
+  @override
+  List<ParameterDeclaration> parameters;
+
+  @override
+  Type returnType;
+
+  @override
+  List<GenericType> typeParameters;
+
+  @override
+  late final TypeDeclaration parent;
+
+  @override
+  final DeclScope scope;
+
+  final bool static;
+
+  final bool isNullable;
+
+  MethodDeclaration(
+      {required this.name,
+      this.dartName,
+      required this.id,
+      this.kind = MethodKind.none,
+      this.parameters = const [],
+      this.typeParameters = const [],
+      required this.returnType,
+      this.static = false,
+      this.scope = DeclScope.public,
+      this.isNullable = false});
+
+  @override
+  Method emit([covariant DeclarationOptions? options]) {
+    options ??= DeclarationOptions();
+
+    final requiredParams = <Parameter>[];
+    final optionalParams = <Parameter>[];
+    for (final p in parameters) {
+      if (p.variadic) {
+        optionalParams.addAll(spreadParam(p, GlobalOptions.variadicArgsCount));
+        requiredParams.add(p.emit(options));
+      } else {
+        if (p.optional) {
+          optionalParams.add(p.emit(options));
+        } else {
+          requiredParams.add(p.emit(options));
+        }
+      }
+    }
+
+    assert(scope == DeclScope.public, 'Only public members can be emitted');
+
+    if (isNullable) {
+      return Method((m) => m
+        ..external = true
+        ..name = dartName ?? name
+        ..type = MethodType.getter
+        ..static = static
+        ..annotations.addAll([
+          if (dartName != null && dartName != name) generateJSAnnotation(name),
+          if (options?.override ?? false) _redeclareExpression
+        ])
+        ..types
+            .addAll(typeParameters.map((t) => t.emit(options?.toTypeOptions())))
+        // TODO(nikeokoronkwo): We can make this function more typed in the future, https://github.com/dart-lang/sdk/issues/54557
+        ..returns = TypeReference((t) => t
+          ..symbol = 'JSFunction'
+          ..isNullable = true
+          ..url = 'dart:js_interop'));
+    }
+
+    return Method((m) => m
+      ..external = true
+      ..name = dartName ?? name
+      ..type = switch (kind) {
+        MethodKind.getter => MethodType.getter,
+        MethodKind.setter => MethodType.setter,
+        _ => null
+      }
+      ..static = static
+      ..annotations.addAll([
+        if (dartName != null && dartName != name) generateJSAnnotation(name),
+        if (options?.override ?? false) _redeclareExpression
+      ])
+      ..types
+          .addAll(typeParameters.map((t) => t.emit(options?.toTypeOptions())))
+      ..returns = kind == MethodKind.setter
+          ? null
+          : returnType.emit(options?.toTypeOptions())
+      ..requiredParameters.addAll(requiredParams)
+      ..optionalParameters.addAll(optionalParams));
+  }
+}
+
+enum MethodKind { getter, setter, none }
+
+/// The declaration node for a constructor on a [ClassDeclaration]
+///
+/// ```ts
+/// class A {
+///   num: number;
+///
+///   constructor(num: number) {
+///     this.num = num;
+///   }
+/// }
+/// ```
+// TODO: Suggesting a config option for adding custom constructors (factories)
+class ConstructorDeclaration implements MemberDeclaration {
+  @override
+  late final TypeDeclaration parent;
+
+  @override
+  final DeclScope scope;
+
+  final List<ParameterDeclaration> parameters;
+
+  final String? name;
+
+  final ID id;
+
+  final String? dartName;
+
+  ConstructorDeclaration(
+      {this.parameters = const [],
+      this.name,
+      String? dartName,
+      required this.id,
+      this.scope = DeclScope.public})
+      : dartName = dartName == 'unnamed' ? null : dartName;
+
+  static ConstructorDeclaration defaultFor(TypeDeclaration decl) {
+    return ConstructorDeclaration(id: const ID(type: 'constructor', name: ''))
+      ..parent = decl;
+  }
+
+  Constructor emit([covariant DeclarationOptions? options]) {
+    options ??= DeclarationOptions();
+
+    final requiredParams = <Parameter>[];
+    final optionalParams = <Parameter>[];
+    final isFactory = dartName != null && dartName != name;
+
+    for (final p in parameters) {
+      if (p.variadic) {
+        optionalParams.addAll(spreadParam(p, GlobalOptions.variadicArgsCount));
+        requiredParams.add(p.emit(options));
+      } else {
+        if (p.optional) {
+          optionalParams.add(p.emit(options));
+        } else {
+          requiredParams.add(p.emit(options));
+        }
+      }
+    }
+
+    return Constructor((c) => c
+      ..external = true
+      ..name = dartName ?? name
+      ..annotations
+          .addAll([if (name != null && isFactory) generateJSAnnotation(name)])
+      ..factory = isFactory
+      ..requiredParameters.addAll(requiredParams)
+      ..optionalParameters.addAll(optionalParams));
+  }
+}
+
+/// The declaration node for an operator member on a class or interface,
+/// usually an indexed accessor for classes, and could be what represents
+/// callable/indexable interfaces
+class OperatorDeclaration extends CallableDeclaration
+    implements MemberDeclaration {
+  @override
+  String get name => kind.expression;
+
+  OperatorKind kind;
+
+  @override
+  String? dartName;
+
+  @override
+  List<ParameterDeclaration> parameters;
+
+  @override
+  Type returnType;
+
+  @override
+  List<GenericType> typeParameters;
+
+  @override
+  late final TypeDeclaration parent;
+
+  @override
+  final DeclScope scope;
+
+  final bool static;
+
+  OperatorDeclaration(
+      {required this.kind,
+      this.dartName,
+      this.parameters = const [],
+      required this.returnType,
+      this.typeParameters = const [],
+      this.scope = DeclScope.public,
+      this.static = false});
+
+  @override
+  Method emit([covariant DeclarationOptions? options]) {
+    options ??= DeclarationOptions();
+
+    final requiredParams = <Parameter>[];
+    final optionalParams = <Parameter>[];
+    for (final p in parameters) {
+      if (p.variadic) {
+        throw UnsupportedError('Variadic parameters are not supported for '
+            'operators.');
+      } else if (p.optional) {
+        optionalParams.add(p.emit(options));
+      } else {
+        requiredParams.add(p.emit(options));
+      }
+    }
+
+    return Method((m) => m
+      ..external = true
+      ..name = 'operator $name'
+      ..types
+          .addAll(typeParameters.map((t) => t.emit(options?.toTypeOptions())))
+      ..returns = returnType.emit(options?.toTypeOptions())
+      ..requiredParameters.addAll(requiredParams)
+      ..optionalParameters.addAll(optionalParams));
+  }
+
+  @override
+  ID get id => ID(type: 'op', name: name);
+}
+
+enum OperatorKind {
+  squareBracket('[]'),
+  squareBracketSet('[]=');
+
+  const OperatorKind(this.expression);
+  final String expression;
+}
+
+Expression get _redeclareExpression =>
+    refer('redeclare', 'package:meta/meta.dart');

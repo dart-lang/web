@@ -8,15 +8,17 @@ import '../interop_gen/namer.dart';
 import 'types.dart';
 
 class GlobalOptions {
-  static int variardicArgsCount = 4;
+  static int variadicArgsCount = 4;
   static bool shouldEmitJsTypes = false;
+  static bool redeclareOverrides = true;
 }
 
 class Options {}
 
-// TODO(nikeokoronkwo): Remove this once we address isNullable
 class DeclarationOptions extends Options {
-  DeclarationOptions();
+  bool override;
+
+  DeclarationOptions({this.override = false});
 
   TypeOptions toTypeOptions({bool nullable = false}) =>
       TypeOptions(nullable: nullable);
@@ -31,11 +33,11 @@ class TypeOptions extends Options {
 class ASTOptions {
   bool parameter;
   bool emitJSTypes;
-  int variardicArgsCount;
+  int variadicArgsCount;
 
   ASTOptions(
       {this.parameter = false,
-      this.variardicArgsCount = 4,
+      this.variadicArgsCount = 4,
       this.emitJSTypes = false});
 }
 
@@ -73,4 +75,40 @@ abstract class Type extends Node {
 
   @override
   Reference emit([covariant TypeOptions? options]);
+}
+
+abstract class FieldDeclaration extends NamedDeclaration {
+  abstract final Type type;
+}
+
+abstract class CallableDeclaration extends NamedDeclaration {
+  abstract final List<ParameterDeclaration> parameters;
+
+  abstract final List<GenericType> typeParameters;
+
+  abstract final Type returnType;
+}
+
+enum DeclScope { private, protected, public }
+
+class ParameterDeclaration {
+  final String name;
+
+  final bool optional;
+
+  final Type type;
+
+  final bool variadic;
+
+  ParameterDeclaration(
+      {required this.name,
+      this.optional = false,
+      required this.type,
+      this.variadic = false});
+
+  Parameter emit([DeclarationOptions? options]) {
+    return Parameter((p) => p
+      ..name = name
+      ..type = type.emit(TypeOptions(nullable: optional)));
+  }
 }

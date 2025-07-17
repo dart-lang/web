@@ -49,7 +49,6 @@ external User get user1;
 external User get user2;
 @_i1.JS()
 external User get adminUser;
-typedef User = String;
 extension type const UserRole._(int _) {
   static const UserRole Guest = UserRole._(0);
 
@@ -59,6 +58,7 @@ extension type const UserRole._(int _) {
 
   static const UserRole Administrator = UserRole._(3);
 }
+typedef User = String;
 extension type const HttpStatusCode._(String _) {
   static const HttpStatusCode OK = HttpStatusCode._('200 OK');
 

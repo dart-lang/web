@@ -57,6 +57,13 @@ Set<String> getMemberHierarchy(TypeDeclaration type,
     [bool addDirectMembers = false]) {
   final members = <String>{};
 
+  void addMembersIfReferredType(Type type) {
+    if (type case ReferredType<Declaration>(declaration: final d)
+        when d is TypeDeclaration) {
+      members.addAll(getMemberHierarchy(d, true));
+    }
+  }
+
   if (addDirectMembers) {
     if (_memberHierarchyCache.containsKey(type.name)) {
       return _memberHierarchyCache[type.name]!;
@@ -72,27 +79,36 @@ Set<String> getMemberHierarchy(TypeDeclaration type,
         extendedType: final extendee,
         implementedTypes: final implementees
       ):
-      if (extendee case ReferredType<Declaration>(declaration: final d)
-          when d is TypeDeclaration) {
-        members.addAll(
-            _memberHierarchyCache[d.name] ??= getMemberHierarchy(d, true));
+      if (extendee case final extendedType?) {
+        addMembersIfReferredType(extendedType);
       }
-      for (final implementedType in implementees) {
-        if (implementedType case ReferredType<Declaration>(declaration: final d)
-            when d is TypeDeclaration) {
-          members.addAll(
-              _memberHierarchyCache[d.name] ??= getMemberHierarchy(d, true));
-        }
-      }
+      implementees.forEach(addMembersIfReferredType);
+      break;
     case InterfaceDeclaration(extendedTypes: final extendees):
-      for (final extendedType in extendees) {
-        if (extendedType case ReferredType<Declaration>(declaration: final d)
-            when d is TypeDeclaration) {
-          members.addAll(
-              _memberHierarchyCache[d.name] ??= getMemberHierarchy(d, true));
-        }
-      }
+      extendees.forEach(addMembersIfReferredType);
+      break;
+  }
+
+  if (addDirectMembers) {
+    _memberHierarchyCache[type.name] ??= members;
   }
 
   return members;
+}
+
+Type getClassRepresentationType(ClassDeclaration cl) {
+  if (cl.extendedType case final extendee?) {
+    return switch (extendee) {
+      final ClassDeclaration classExtendee =>
+        getClassRepresentationType(classExtendee),
+      _ => BuiltinType.primitiveType(PrimitiveType.object, isNullable: false)
+    };
+  } else {
+    final primitiveType = switch (cl.name) {
+      'Array' => PrimitiveType.array,
+      _ => PrimitiveType.object
+    };
+
+    return BuiltinType.primitiveType(primitiveType, isNullable: false);
+  }
 }

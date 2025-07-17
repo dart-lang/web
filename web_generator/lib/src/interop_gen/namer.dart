@@ -111,9 +111,6 @@ class ScopedUniqueNamer implements UniqueNamer {
   @override
   ({ID id, String name}) makeUnique(String name, String type) {
     // nested structures (and anonymous structures) may not have a name
-    if (name.isEmpty) {
-      name = 'unnamed';
-    }
 
     final newName = UniqueNamer.makeNonConflicting(name);
 

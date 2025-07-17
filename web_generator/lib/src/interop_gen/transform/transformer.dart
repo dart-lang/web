@@ -66,10 +66,9 @@ class Transformer {
             _transformEnum(node as TSEnumDeclaration),
           TSSyntaxKind.TypeAliasDeclaration =>
             _transformTypeAlias(node as TSTypeAliasDeclaration),
-          TSSyntaxKind.ClassDeclaration =>
-            _transformClass(node as TSClassDeclaration),
+          TSSyntaxKind.ClassDeclaration ||
           TSSyntaxKind.InterfaceDeclaration =>
-            _transformInterface(node as TSInterfaceDeclaration),
+            _transformClassOrInterface(node as TSObjectDeclaration),
           _ => throw Exception('Unsupported Declaration Kind: ${node.kind}')
         };
         // ignore: dead_code This line will not be dead in future decl additions
@@ -79,110 +78,10 @@ class Transformer {
     nodes.add(node);
   }
 
-  InterfaceDeclaration _transformInterface(TSInterfaceDeclaration interface) {
-    // get name
-    final name = interface.name.text;
+  TypeDeclaration _transformClassOrInterface(TSObjectDeclaration typeDecl) {
+    final name = typeDecl.name.text;
 
-    final modifiers = interface.modifiers?.toDart;
-    final isExported = modifiers?.any((m) {
-          return m.kind == TSSyntaxKind.ExportKeyword;
-        }) ??
-        false;
-
-    // get heritage clauses
-    final heritageClauses = interface.heritageClauses?.toDart ?? [];
-
-    final extendees = <Type>[];
-    final implementees = <Type>[];
-
-    for (final clause in heritageClauses) {
-      if (clause.token == TSSyntaxKind.ExtendsKeyword) {
-        // extends
-        extendees.addAll(
-            clause.types.toDart.map(_transformTypeExpressionWithTypeArguments));
-      } else {
-        implementees.addAll(
-            clause.types.toDart.map(_transformTypeExpressionWithTypeArguments));
-      }
-    }
-
-    final (:id, name: dartName) = namer.makeUnique(name, 'interface');
-    final typeParams = interface.typeParameters?.toDart;
-
-    final outputInterface = InterfaceDeclaration(
-        name: name,
-        dartName: dartName,
-        id: id,
-        exported: isExported,
-        typeParameters:
-            typeParams?.map(_transformTypeParamDeclaration).toList() ?? [],
-        extendedTypes: extendees,
-        methods: [],
-        properties: [],
-        operators: [],
-        constructors: []);
-
-    final interfaceNamer = ScopedUniqueNamer({'get', 'set'});
-
-    for (final member in interface.members.toDart) {
-      switch (member.kind) {
-        case TSSyntaxKind.PropertySignature:
-          final prop = _transformProperty(member as TSPropertySignature,
-              parentNamer: interfaceNamer, parent: outputInterface);
-          outputInterface.properties.add(prop);
-          break;
-        case TSSyntaxKind.MethodSignature:
-          final method = _transformMethod(member as TSMethodSignature,
-              parentNamer: interfaceNamer, parent: outputInterface);
-          outputInterface.methods.add(method);
-          break;
-        case TSSyntaxKind.ConstructSignature:
-          final constructor = _transformConstructor(
-              member as TSConstructSignatureDeclaration,
-              parentNamer: interfaceNamer);
-          constructor.parent = outputInterface;
-          outputInterface.constructors.add(constructor);
-          break;
-        case TSSyntaxKind.IndexSignature:
-          final (opGet, opSetOrNull) = _transformIndexer(
-              member as TSIndexSignatureDeclaration,
-              parent: outputInterface);
-          outputInterface.operators.add(opGet);
-          if (opSetOrNull case final opSet?) {
-            outputInterface.operators.add(opSet);
-          }
-          break;
-        case TSSyntaxKind.CallSignature:
-          final callSignature = _transformCallSignature(
-              member as TSCallSignatureDeclaration,
-              parentNamer: interfaceNamer,
-              parent: outputInterface);
-          outputInterface.methods.add(callSignature);
-          break;
-        case TSSyntaxKind.GetAccessor:
-          final getter = _transformGetter(member as TSGetAccessorDeclaration,
-              parentNamer: interfaceNamer, parent: outputInterface);
-          outputInterface.methods.add(getter);
-          break;
-        case TSSyntaxKind.SetAccessor:
-          final setter = _transformSetter(member as TSSetAccessorDeclaration,
-              parentNamer: interfaceNamer);
-          setter.parent = outputInterface;
-          outputInterface.methods.add(setter);
-          break;
-        default:
-          break;
-      }
-    }
-
-    return outputInterface;
-  }
-
-  ClassDeclaration _transformClass(TSClassDeclaration classDecl) {
-    // get name
-    final name = classDecl.name.text;
-
-    final modifiers = classDecl.modifiers?.toDart;
+    final modifiers = typeDecl.modifiers?.toDart;
     var isExported = false;
     var isAbstract = false;
 
@@ -194,8 +93,7 @@ class Transformer {
       }
     }
 
-    // get heritage clauses
-    final heritageClauses = classDecl.heritageClauses?.toDart ?? [];
+    final heritageClauses = typeDecl.heritageClauses?.toDart ?? [];
 
     final extendees = <Type>[];
     final implementees = <Type>[];
@@ -211,64 +109,98 @@ class Transformer {
       }
     }
 
-    final dartName = UniqueNamer.makeNonConflicting(name);
+    final isInterface = typeDecl.kind == TSSyntaxKind.InterfaceDeclaration;
 
-    final typeParams = classDecl.typeParameters?.toDart;
+    final (:id, name: dartName) =
+        namer.makeUnique(name, isInterface ? 'interface' : 'class');
+    final typeParams = typeDecl.typeParameters?.toDart;
 
-    final outputClass = ClassDeclaration(
-        name: name,
-        dartName: dartName,
-        typeParameters:
-            typeParams?.map(_transformTypeParamDeclaration).toList() ?? [],
-        extendedType: extendees.firstOrNull,
-        implementedTypes: implementees,
-        exported: isExported,
-        abstract: isAbstract,
-        constructors: List.empty(growable: true),
-        methods: List.empty(growable: true),
-        properties: List.empty(growable: true),
-        operators: List.empty(growable: true));
+    final outputType = isInterface
+        ? InterfaceDeclaration(
+            name: name,
+            dartName: dartName,
+            id: id,
+            exported: isExported,
+            typeParameters:
+                typeParams?.map(_transformTypeParamDeclaration).toList() ?? [],
+            extendedTypes: extendees,
+            methods: [],
+            properties: [],
+            operators: [],
+            constructors: [])
+        : ClassDeclaration(
+            name: name,
+            dartName: dartName,
+            typeParameters:
+                typeParams?.map(_transformTypeParamDeclaration).toList() ?? [],
+            extendedType: extendees.firstOrNull,
+            implementedTypes: implementees,
+            exported: isExported,
+            abstract: isAbstract,
+            constructors: [],
+            methods: [],
+            properties: [],
+            operators: []);
 
-    final classNamer = ScopedUniqueNamer({'get', 'set'});
+    final typeNamer = ScopedUniqueNamer({'get', 'set'});
 
-    for (final member in classDecl.members.toDart) {
+    for (final member in typeDecl.members.toDart) {
       switch (member.kind) {
+        case TSSyntaxKind.PropertySignature:
         case TSSyntaxKind.PropertyDeclaration:
-          final prop = _transformProperty(member as TSPropertyDeclaration,
-              parentNamer: classNamer, parent: outputClass);
-          outputClass.properties.add(prop);
+          final prop = _transformProperty(member as TSPropertyEntity,
+              parentNamer: typeNamer, parent: outputType);
+          outputType.properties.add(prop);
+          break;
+        case TSSyntaxKind.MethodSignature:
+          final method = _transformMethod(member as TSMethodSignature,
+              parentNamer: typeNamer, parent: outputType);
+          outputType.methods.add(method);
           break;
         case TSSyntaxKind.MethodDeclaration:
           final method = _transformMethod(member as TSMethodDeclaration,
-              parentNamer: classNamer, parent: outputClass);
-          outputClass.methods.add(method);
+              parentNamer: typeNamer, parent: outputType);
+          outputType.methods.add(method);
           break;
         case TSSyntaxKind.IndexSignature:
           final (opGet, opSetOrNull) = _transformIndexer(
               member as TSIndexSignatureDeclaration,
-              parent: outputClass);
-          outputClass.operators.add(opGet);
+              parent: outputType);
+          outputType.operators.add(opGet);
           if (opSetOrNull case final opSet?) {
-            outputClass.operators.add(opSet);
+            outputType.operators.add(opSet);
           }
+          break;
+        case TSSyntaxKind.CallSignature:
+          final callSignature = _transformCallSignature(
+              member as TSCallSignatureDeclaration,
+              parentNamer: typeNamer,
+              parent: outputType);
+          outputType.methods.add(callSignature);
+          break;
+        case TSSyntaxKind.ConstructSignature:
+          final constructor = _transformConstructor(
+              member as TSConstructSignatureDeclaration,
+              parentNamer: typeNamer);
+          constructor.parent = outputType;
+          outputType.constructors.add(constructor);
           break;
         case TSSyntaxKind.Constructor:
           final constructor = _transformConstructor(
               member as TSConstructorDeclaration,
-              parentNamer: classNamer);
-          constructor.parent = outputClass;
-          outputClass.constructors.add(constructor);
+              parentNamer: typeNamer);
+          constructor.parent = outputType;
+          outputType.constructors.add(constructor);
           break;
         case TSSyntaxKind.GetAccessor:
           final getter = _transformGetter(member as TSGetAccessorDeclaration,
-              parentNamer: classNamer, parent: outputClass);
-          outputClass.methods.add(getter);
+              parentNamer: typeNamer, parent: outputType);
+          outputType.methods.add(getter);
           break;
         case TSSyntaxKind.SetAccessor:
           final setter = _transformSetter(member as TSSetAccessorDeclaration,
-              parentNamer: classNamer);
-          setter.parent = outputClass;
-          outputClass.methods.add(setter);
+              parentNamer: typeNamer, parent: outputType);
+          outputType.methods.add(setter);
           break;
         default:
           // skipping
@@ -276,7 +208,7 @@ class Transformer {
       }
     }
 
-    return outputClass;
+    return outputType;
   }
 
   PropertyDeclaration _transformProperty(TSPropertyEntity property,
@@ -389,7 +321,8 @@ class Transformer {
       isStatic: _,
       isReadonly: _,
       :scope
-    ) = (constructor.isA<TSConstructorDeclaration>())
+    ) = (constructor.isA<TSConstructorDeclaration>() ||
+            constructor.kind == TSSyntaxKind.Constructor)
         ? _parseModifiers((constructor as TSConstructorDeclaration).modifiers)
         : (isStatic: false, isReadonly: false, scope: DeclScope.public);
 
@@ -532,7 +465,7 @@ class Transformer {
   }
 
   MethodDeclaration _transformSetter(TSSetAccessorDeclaration setter,
-      {required UniqueNamer parentNamer}) {
+      {required UniqueNamer parentNamer, required TypeDeclaration parent}) {
     final name = setter.name.text;
     final (:id, name: dartName) = parentNamer.makeUnique(name, 'set');
 
@@ -543,18 +476,34 @@ class Transformer {
     final (isStatic: _, isReadonly: _, :scope) =
         _parseModifiers(setter.modifiers);
 
-    return MethodDeclaration(
+    final methodDeclaration = MethodDeclaration(
         name: name,
         dartName: dartName,
         kind: MethodKind.setter,
         id: id,
-        parameters: params.map(_transformParameter).toList(),
+        parameters: params.map((t) {
+          ReferredType? paramType;
+          final paramRawType = t.type;
+          if (paramRawType case final ty? when ts.isTypeReferenceNode(ty)) {
+            final referredType = ty as TSTypeReferenceNode;
+            if (referredType.typeName.text == parent.name) {
+              paramType = parent.asReferredType(ty.typeArguments?.toDart
+                  .map((t) => _transformType(t, typeArg: true))
+                  .toList());
+            }
+          } else if (paramRawType case final ty? when ts.isThisTypeNode(ty)) {
+            paramType = parent.asReferredType(parent.typeParameters);
+          }
+          return _transformParameter(t, paramType);
+        }).toList(),
         scope: scope,
         typeParameters:
             typeParams?.map(_transformTypeParamDeclaration).toList() ?? [],
         returnType: setter.type != null
             ? _transformType(setter.type!)
             : BuiltinType.anyType);
+    methodDeclaration.parent = parent;
+    return methodDeclaration;
   }
 
   FunctionDeclaration _transformFunction(TSFunctionDeclaration function) {
@@ -720,7 +669,7 @@ class Transformer {
         ? _transformType(parameter.type!, parameter: true)
         : BuiltinType.anyType;
     final isOptional = parameter.questionToken != null;
-    final isvariadic = parameter.dotDotDotToken != null;
+    final isVariadic = parameter.dotDotDotToken != null;
 
     // what kind of parameter is this
     switch (parameter.name.kind) {
@@ -728,7 +677,7 @@ class Transformer {
         return ParameterDeclaration(
             name: (parameter.name as TSIdentifier).text,
             type: type,
-            variadic: isvariadic,
+            variadic: isVariadic,
             optional: isOptional);
       default:
         // TODO: Support Destructured Object Parameters
@@ -1026,53 +975,46 @@ class Transformer {
       case final TypeAliasDeclaration t:
         if (decl.type is! BuiltinType) filteredDeclarations.add(t.type);
         break;
-      case final ClassDeclaration cl:
-        if (cl.extendedType case final ext? when ext is! BuiltinType) {
-          filteredDeclarations.add(ext);
-        }
-        for (final con in cl.constructors) {
+      case final TypeDeclaration t:
+        for (final con in t.constructors) {
           filteredDeclarations.addAll({
             for (final param in con.parameters.map((p) => p.type))
               param.id.toString(): param
           });
         }
-        for (final methods in cl.methods) {
+        for (final methods in t.methods) {
           filteredDeclarations.addAll(getCallableDependencies(methods));
         }
-        for (final indexAccessors in cl.operators) {
-          filteredDeclarations.addAll(getCallableDependencies(indexAccessors));
+        for (final operators in t.operators) {
+          filteredDeclarations.addAll(getCallableDependencies(operators));
         }
         filteredDeclarations.addAll({
-          for (final impl
-              in cl.implementedTypes.where((i) => i is! BuiltinType))
-            impl.id.toString(): impl,
-          for (final prop in cl.properties
+          for (final prop in t.properties
               .map((p) => p.type)
               .where((p) => p is! BuiltinType))
             prop.id.toString(): prop,
         });
-      case final InterfaceDeclaration interface:
-        for (final con in interface.constructors) {
-          filteredDeclarations.addAll({
-            for (final param in con.parameters.map((p) => p.type))
-              param.id.toString(): param
-          });
+        switch (t) {
+          case ClassDeclaration(
+              extendedType: final extendedType,
+              implementedTypes: final implementedTypes
+            ):
+            if (extendedType case final ext? when ext is! BuiltinType) {
+              filteredDeclarations.add(ext);
+            }
+            filteredDeclarations.addAll({
+              for (final impl
+                  in implementedTypes.where((i) => i is! BuiltinType))
+                impl.id.toString(): impl,
+            });
+            break;
+          case InterfaceDeclaration(extendedTypes: final extendedTypes):
+            filteredDeclarations.addAll({
+              for (final impl in extendedTypes.where((i) => i is! BuiltinType))
+                impl.id.toString(): impl,
+            });
+            break;
         }
-        for (final methods in interface.methods) {
-          filteredDeclarations.addAll(getCallableDependencies(methods));
-        }
-        for (final operator in interface.operators) {
-          filteredDeclarations.addAll(getCallableDependencies(operator));
-        }
-        filteredDeclarations.addAll({
-          for (final impl
-              in interface.extendedTypes.where((i) => i is! BuiltinType))
-            impl.id.toString(): impl,
-          for (final prop in interface.properties
-              .map((p) => p.type)
-              .where((p) => p is! BuiltinType))
-            prop.id.toString(): prop,
-        });
       // TODO: We can make (DeclarationAssociatedType) and use that
       //  rather than individual type names
       case final HomogenousEnumType hu:
@@ -1089,6 +1031,7 @@ class Transformer {
         break;
       case final ReferredType r:
         filteredDeclarations.add(r.declaration);
+        break;
       default:
         print('WARN: The given node type ${decl.runtimeType.toString()} '
             'is not supported for filtering. Skipping...');

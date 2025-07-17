@@ -66,7 +66,7 @@ extension type Rectangle._(_i1.JSObject _) implements Shape2D {
   @_i2.redeclare
   external double get perimeter;
 }
-extension type Square._(Rectangle _) implements Rectangle {
+extension type Square._(_i1.JSObject _) implements Rectangle {
   external Square(num length);
 
   external double length;
@@ -109,7 +109,7 @@ extension type Pyramid<S extends Shape2D>._(_i1.JSObject _) implements Shape3D {
   @_i2.redeclare
   external double surfaceArea();
 }
-extension type Cylinder._(Prism<Circle> _) implements Prism<Circle> {
+extension type Cylinder._(_i1.JSObject _) implements Prism<Circle> {
   external Cylinder(
     num radius,
     num height,
@@ -120,7 +120,7 @@ extension type Cylinder._(Prism<Circle> _) implements Prism<Circle> {
   @_i2.redeclare
   external double surfaceArea();
 }
-extension type Cuboid._(Prism<Rectangle> _) implements Prism<Rectangle> {
+extension type Cuboid._(_i1.JSObject _) implements Prism<Rectangle> {
   external Cuboid(
     num length,
     num width,
@@ -133,7 +133,7 @@ extension type Cuboid._(Prism<Rectangle> _) implements Prism<Rectangle> {
 
   external double height;
 }
-extension type Cube._(Prism<Square> _) implements Prism<Square> {
+extension type Cube._(_i1.JSObject _) implements Prism<Square> {
   external Cube(num length);
 
   external double length;
@@ -143,7 +143,7 @@ extension type Cube._(Prism<Square> _) implements Prism<Square> {
   @_i2.redeclare
   external double surfaceArea();
 }
-extension type Cone._(Pyramid<Circle> _) implements Pyramid<Circle> {
+extension type Cone._(_i1.JSObject _) implements Pyramid<Circle> {
   external Cone(
     num radius,
     num height,
@@ -278,7 +278,7 @@ extension type EpahsImpl<TMeta extends _i1.JSAny?>._(_i1.JSObject _)
     AnonymousUnion$1? type,
   ]);
 
-  external factory EpahsImpl.unnamed$1(Epahs<TMeta> config);
+  external factory EpahsImpl.$1(Epahs<TMeta> config);
 
   external String name;
 

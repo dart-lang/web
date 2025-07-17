@@ -6,18 +6,108 @@ import 'package:code_builder/code_builder.dart';
 
 import '../interop_gen/namer.dart';
 import 'base.dart';
+import 'builtin.dart';
 import 'helpers.dart';
 import 'types.dart';
 
+/// A declaration that defines a type
+///
+// TODO: Add support for `ClassOrInterfaceDeclaration`
+//  once implementing namespaces and module support
 sealed class TypeDeclaration extends NamedDeclaration
     implements ExportableDeclaration {
-  abstract final List<GenericType> typeParameters;
+  @override
+  final String name;
 
-  abstract final List<MethodDeclaration> methods;
+  @override
+  final String? dartName;
 
-  abstract final List<PropertyDeclaration> properties;
+  @override
+  final bool exported;
 
-  abstract final List<OperatorDeclaration> operators;
+  final List<GenericType> typeParameters;
+
+  final List<MethodDeclaration> methods;
+
+  final List<PropertyDeclaration> properties;
+
+  final List<OperatorDeclaration> operators;
+
+  final List<ConstructorDeclaration> constructors;
+
+  TypeDeclaration(
+      {required this.name,
+      this.dartName,
+      required this.exported,
+      this.typeParameters = const [],
+      this.methods = const [],
+      this.properties = const [],
+      this.operators = const [],
+      this.constructors = const []});
+
+  ExtensionType _emit(
+      [covariant DeclarationOptions? options,
+      bool abstract = false,
+      List<Type> extendees = const [],
+      List<Type> implementees = const []]) {
+    options ??= DeclarationOptions();
+
+    final hierarchy = getMemberHierarchy(this);
+
+    final fieldDecs = <Field>[];
+    final methodDecs = <Method>[];
+
+    bool isOverride(String name) =>
+        hierarchy.contains(name) && GlobalOptions.redeclareOverrides;
+
+    for (final prop in properties.where((p) => p.scope == DeclScope.public)) {
+      final spec =
+          prop.emit(options..override = isOverride(prop.dartName ?? prop.name));
+      if (spec is Method) {
+        methodDecs.add(spec);
+      } else {
+        fieldDecs.add(spec as Field);
+      }
+    }
+
+    methodDecs.addAll(methods.where((p) => p.scope == DeclScope.public).map(
+        (m) => m.emit(options!..override = isOverride(m.dartName ?? m.name))));
+    methodDecs.addAll(operators.where((p) => p.scope == DeclScope.public).map(
+        (m) => m.emit(options!..override = isOverride(m.dartName ?? m.name))));
+
+    final repType = this is ClassDeclaration
+        ? getClassRepresentationType(this as ClassDeclaration)
+        : BuiltinType.primitiveType(PrimitiveType.object, isNullable: false);
+
+    return ExtensionType((e) => e
+      ..name = dartName ?? name
+      ..annotations.addAll([
+        if (dartName != null && dartName != name) generateJSAnnotation(name)
+      ])
+      ..primaryConstructorName = '_'
+      ..representationDeclaration = RepresentationDeclaration((r) => r
+        ..declaredRepresentationType = repType.emit(options?.toTypeOptions())
+        ..name = '_')
+      ..implements.addAll([
+        if (extendees.isEmpty && implementees.isEmpty)
+          refer('JSObject', 'dart:js_interop')
+        else ...[
+          ...extendees.map((e) => e.emit(options?.toTypeOptions())),
+          ...implementees.map((i) => i.emit(options?.toTypeOptions()))
+        ]
+      ])
+      ..types
+          .addAll(typeParameters.map((t) => t.emit(options?.toTypeOptions())))
+      ..constructors.addAll([
+        if (!abstract)
+          if (constructors.isEmpty && this is ClassDeclaration)
+            ConstructorDeclaration.defaultFor(this).emit(options)
+          else
+            ...constructors.map((c) => c.emit(options))
+      ])
+      ..fields.addAll(fieldDecs)
+      ..methods.addAll(methodDecs));
+  }
 }
 
 abstract class MemberDeclaration {
@@ -275,103 +365,29 @@ class TypeAliasDeclaration extends NamedDeclaration
 /// class A {}
 /// ```
 class ClassDeclaration extends TypeDeclaration {
-  @override
-  final String name;
-
-  @override
-  final bool exported;
-
-  @override
-  final String? dartName;
-
   final bool abstract;
-
-  @override
-  final List<GenericType> typeParameters;
 
   final Type? extendedType;
 
   final List<Type> implementedTypes;
 
-  final List<ConstructorDeclaration> constructors;
-
-  @override
-  final List<MethodDeclaration> methods;
-
-  @override
-  final List<PropertyDeclaration> properties;
-
-  @override
-  final List<OperatorDeclaration> operators;
-
   ClassDeclaration(
-      {required this.name,
-      this.dartName,
+      {required super.name,
+      super.dartName,
       this.abstract = false,
-      required this.exported,
-      this.typeParameters = const [],
+      required super.exported,
+      super.typeParameters,
       this.extendedType,
       this.implementedTypes = const [],
-      this.constructors = const [],
-      required this.methods,
-      required this.properties,
-      this.operators = const []});
+      super.constructors,
+      required super.methods,
+      required super.properties,
+      super.operators});
 
   @override
   ExtensionType emit([covariant DeclarationOptions? options]) {
-    options ??= DeclarationOptions();
-
-    final hierarchy = getMemberHierarchy(this);
-
-    final fieldDecs = <Field>[];
-    final methodDecs = <Method>[];
-
-    bool isOverride(String name) =>
-        hierarchy.contains(name) && GlobalOptions.redeclareOverrides;
-
-    for (final prop in properties.where((p) => p.scope == DeclScope.public)) {
-      final spec =
-          prop.emit(options..override = isOverride(prop.dartName ?? prop.name));
-      if (spec is Method) {
-        methodDecs.add(spec);
-      } else {
-        fieldDecs.add(spec as Field);
-      }
-    }
-    methodDecs.addAll(methods.where((p) => p.scope == DeclScope.public).map(
-        (m) => m.emit(options!..override = isOverride(m.dartName ?? m.name))));
-    methodDecs.addAll(operators.where((p) => p.scope == DeclScope.public).map(
-        (m) => m.emit(options!..override = isOverride(m.dartName ?? m.name))));
-    return ExtensionType((e) => e
-      ..name = dartName ?? name
-      ..annotations.addAll([
-        if (dartName != null && dartName != name) generateJSAnnotation(name)
-      ])
-      ..primaryConstructorName = '_'
-      ..representationDeclaration = RepresentationDeclaration((r) => r
-        ..declaredRepresentationType =
-            extendedType?.emit(options?.toTypeOptions()) ??
-                refer('JSObject', 'dart:js_interop')
-        ..name = '_')
-      ..implements.addAll([
-        if (extendedType == null && implementedTypes.isEmpty)
-          refer('JSObject', 'dart:js_interop')
-        else ...[
-          if (extendedType case final e?) e.emit(options?.toTypeOptions()),
-          ...implementedTypes.map((i) => i.emit(options?.toTypeOptions()))
-        ]
-      ])
-      ..types
-          .addAll(typeParameters.map((t) => t.emit(options?.toTypeOptions())))
-      ..constructors.addAll([
-        if (!abstract)
-          if (constructors.isEmpty)
-            ConstructorDeclaration.defaultFor(this).emit(options)
-          else
-            ...constructors.map((c) => c.emit(options))
-      ])
-      ..fields.addAll(fieldDecs)
-      ..methods.addAll(methodDecs));
+    return super._emit(options, abstract,
+        [if (extendedType case final extendee?) extendee], implementedTypes);
   }
 
   @override
@@ -387,92 +403,29 @@ class ClassDeclaration extends TypeDeclaration {
 /// ```
 class InterfaceDeclaration extends TypeDeclaration {
   @override
-  final String name;
-
-  @override
-  final bool exported;
-
-  @override
-  final String? dartName;
-
-  @override
   ID id;
-
-  @override
-  final List<GenericType> typeParameters;
 
   final List<Type> extendedTypes;
 
-  @override
-  final List<MethodDeclaration> methods;
-
-  @override
-  final List<PropertyDeclaration> properties;
-
-  @override
-  final List<OperatorDeclaration> operators;
-
-  final List<ConstructorDeclaration> constructors;
-
   InterfaceDeclaration(
-      {required this.name,
-      required this.exported,
+      {required super.name,
+      required super.exported,
       required this.id,
-      this.dartName,
-      this.typeParameters = const [],
+      super.dartName,
+      super.typeParameters,
       this.extendedTypes = const [],
-      this.methods = const [],
-      this.properties = const [],
-      this.operators = const [],
-      this.constructors = const []});
+      super.methods,
+      super.properties,
+      super.operators,
+      super.constructors});
 
   @override
   ExtensionType emit([covariant DeclarationOptions? options]) {
-    options ??= DeclarationOptions();
-
-    final hierarchy = getMemberHierarchy(this);
-
-    final fieldDecs = <Field>[];
-    final methodDecs = <Method>[];
-
-    bool isOverride(String name) =>
-        hierarchy.contains(name) && GlobalOptions.redeclareOverrides;
-
-    for (final prop in properties.where((p) => p.scope == DeclScope.public)) {
-      final spec =
-          prop.emit(options..override = isOverride(prop.dartName ?? prop.name));
-      if (spec is Method) {
-        methodDecs.add(spec);
-      } else {
-        fieldDecs.add(spec as Field);
-      }
-    }
-
-    methodDecs.addAll(methods.where((p) => p.scope == DeclScope.public).map(
-        (m) => m.emit(options!..override = isOverride(m.dartName ?? m.name))));
-    methodDecs.addAll(operators.where((p) => p.scope == DeclScope.public).map(
-        (m) => m.emit(options!..override = isOverride(m.dartName ?? m.name))));
-
-    return ExtensionType((e) => e
-      ..name = dartName ?? name
-      ..annotations.addAll([
-        if (dartName != null && dartName != name) generateJSAnnotation(name)
-      ])
-      ..primaryConstructorName = '_'
-      ..implements.addAll([
-        if (extendedTypes.isEmpty)
-          refer('JSObject', 'dart:js_interop')
-        else
-          ...extendedTypes.map((i) => i.emit(options?.toTypeOptions()))
-      ])
-      ..representationDeclaration = RepresentationDeclaration((r) => r
-        ..declaredRepresentationType = refer('JSObject', 'dart:js_interop')
-        ..name = '_')
-      ..types
-          .addAll(typeParameters.map((t) => t.emit(options?.toTypeOptions())))
-      ..constructors.addAll([...constructors.map((c) => c.emit(options))])
-      ..fields.addAll(fieldDecs)
-      ..methods.addAll(methodDecs));
+    return super._emit(
+      options,
+      false,
+      extendedTypes,
+    );
   }
 }
 
@@ -516,10 +469,12 @@ class PropertyDeclaration extends FieldDeclaration
   @override
   Spec emit([covariant DeclarationOptions? options]) {
     options ??= DeclarationOptions();
+    assert(scope == DeclScope.public, 'Only public members can be emitted');
+
     if (readonly) {
       return Method((m) => m
         ..external = true
-        ..name = '${scope == DeclScope.public ? '' : '_'}${dartName ?? name}'
+        ..name = dartName ?? name
         ..type = MethodType.getter
         ..annotations.addAll([
           if (dartName != null && dartName != name) generateJSAnnotation(name),
@@ -529,7 +484,7 @@ class PropertyDeclaration extends FieldDeclaration
     } else {
       return Field((f) => f
         ..external = true
-        ..name = '${scope == DeclScope.public ? '' : '_'}${dartName ?? name}'
+        ..name = dartName ?? name
         ..annotations.addAll([
           if (dartName != null && dartName != name) generateJSAnnotation(name),
         ])
@@ -602,10 +557,12 @@ class MethodDeclaration extends CallableDeclaration
       }
     }
 
+    assert(scope == DeclScope.public, 'Only public members can be emitted');
+
     if (isNullable) {
       return Method((m) => m
         ..external = true
-        ..name = '${scope == DeclScope.public ? '' : '_'}${dartName ?? name}'
+        ..name = dartName ?? name
         ..type = MethodType.getter
         ..static = static
         ..annotations.addAll([
@@ -623,7 +580,7 @@ class MethodDeclaration extends CallableDeclaration
 
     return Method((m) => m
       ..external = true
-      ..name = '${scope == DeclScope.public ? '' : '_'}${dartName ?? name}'
+      ..name = dartName ?? name
       ..type = switch (kind) {
         MethodKind.getter => MethodType.getter,
         MethodKind.setter => MethodType.setter,

@@ -222,6 +222,8 @@ extension type TSFunctionDeclaration._(JSObject _)
 /// A common API for Classes and Interfaces
 extension type TSObjectDeclaration<T extends TSDeclaration>._(JSObject _)
     implements TSDeclaration, TSStatement {
+  // TODO: May be undefined for classes in default exports
+  external TSIdentifier get name;
   external TSNodeArray<TSNode>? get modifiers;
   external TSNodeArray<TSTypeParameterDeclaration>? get typeParameters;
   external TSNodeArray<TSHeritageClause>? get heritageClauses;
@@ -231,16 +233,11 @@ extension type TSObjectDeclaration<T extends TSDeclaration>._(JSObject _)
 // TODO: Will we consider class expressions?
 @JS('ClassDeclaration')
 extension type TSClassDeclaration._(JSObject _)
-    implements TSObjectDeclaration<TSClassElement> {
-  // TODO: May be undefined in default exports
-  external TSIdentifier get name;
-}
+    implements TSObjectDeclaration<TSClassElement> {}
 
 @JS('InterfaceDeclaration')
 extension type TSInterfaceDeclaration._(JSObject _)
-    implements TSObjectDeclaration<TSTypeElement> {
-  external TSIdentifier get name;
-}
+    implements TSObjectDeclaration<TSTypeElement> {}
 
 @JS('HeritageClause')
 extension type TSHeritageClause._(JSObject _) implements TSNode {

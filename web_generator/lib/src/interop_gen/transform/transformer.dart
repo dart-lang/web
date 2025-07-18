@@ -51,6 +51,7 @@ class Transformer {
         filterDeclSet = filterDeclSet.toList(),
         namer = UniqueNamer();
 
+  /// Transforms a TypeScript AST Node [TSNode] into a Dart representable [Node]
   void transform(TSNode node) {
     if (nodes.contains(node)) return;
 
@@ -695,7 +696,16 @@ class Transformer {
         constraint: getJSTypeAlternative(constraint));
   }
 
-  /// Parses the type
+  /// Parses a TypeScript AST Type Node [TSTypeNode] into a [Type] Node
+  /// used to represent a type
+  ///
+  /// [parameter] represents whether the [TSTypeNode] is being passed in
+  /// the context of a parameter, which is mainly used to differentiate between
+  /// using [num] and [double] in the context of a [JSNumber]
+  ///
+  /// [typeArg] represents whether the [TSTypeNode] is being passed in the
+  /// context of a type argument, as Dart core types are not allowed in
+  /// type arguments
   Type _transformType(TSTypeNode type,
       {bool parameter = false, bool typeArg = false}) {
     switch (type.kind) {
@@ -799,7 +809,7 @@ class Transformer {
         final typeArguments = typeQuery.typeArguments?.toDart;
 
         return _getTypeFromDeclaration(exprName, typeArguments,
-            typeArg: typeArg, declarationOnly: true);
+            typeArg: typeArg, isNotTypableDeclaration: true);
       case TSSyntaxKind.ArrayType:
         return BuiltinType.primitiveType(PrimitiveType.array, typeParams: [
           getJSTypeAlternative(
@@ -844,9 +854,27 @@ class Transformer {
     }
   }
 
+  /// Get the type of a type node named [typeName] by referencing its
+  /// declaration
+  ///
+  /// This method uses the TypeScript type checker [ts.TSTypeChecker] to get the
+  /// declaration associated with the [TSTypeNode] using its [typeName], and
+  /// refer to that type either as a [ReferredType] if defined in the file, or
+  /// not directly supported by `dart:js_interop`, or as a [BuiltinType] if
+  /// supported by `dart:js_interop`
+  ///
+  /// [typeArg] represents whether the [TSTypeNode] is being passed in the
+  /// context of a type argument, as Dart core types are not allowed in
+  /// type arguments
+  ///
+  /// [isNotTypableDeclaration] represents whether the declaration to search for
+  /// or refer to is not a typable declaration (i.e a declaration suitable for
+  /// use in a `typeof` type node, such as a variable). This reduces checks on
+  /// supported `dart:js_interop` types and related [EnumDeclaration]-like and
+  /// [TypeDeclaration]-like checks
   Type _getTypeFromDeclaration(
       TSIdentifier typeName, List<TSTypeNode>? typeArguments,
-      {bool typeArg = false, bool declarationOnly = false}) {
+      {bool typeArg = false, bool isNotTypableDeclaration = false}) {
     final name = typeName.text;
     var declarationsMatching = nodeMap.findByName(name);
 
@@ -855,7 +883,7 @@ class Transformer {
       // TODO(https://github.com/dart-lang/web/issues/380): A better name
       //  for this, and adding support for "supported declarations"
       //  (also a better name for that)
-      if (!declarationOnly) {
+      if (!isNotTypableDeclaration) {
         final supportedType = BuiltinType.referred(name,
             typeParams: (typeArguments ?? [])
                 .map((t) => getJSTypeAlternative(_transformType(t)))
@@ -878,7 +906,7 @@ class Transformer {
         throw Exception('Found no declaration matching $name');
       }
 
-      if (!declarationOnly) {
+      if (!isNotTypableDeclaration) {
         // check if this is from dom
         final declarationSource = declaration.getSourceFile().fileName;
         if (p.basename(declarationSource) == 'lib.dom.d.ts' ||
@@ -906,7 +934,7 @@ class Transformer {
     // TODO: In the case of overloading, should/shouldn't we handle more than one declaration?
     final firstNode = declarationsMatching.whereType<NamedDeclaration>().first;
 
-    if (!declarationOnly) {
+    if (!isNotTypableDeclaration) {
       // For Typealiases, we can either return the type itself
       // or the JS Alternative (if its underlying type isn't a JS type)
       switch (firstNode) {
@@ -932,7 +960,19 @@ class Transformer {
     return asReferredType;
   }
 
-  NodeMap filter() {
+  /// Filters out the declarations generated from the [transform] function and
+  /// returns the declarations needed based on:
+  ///
+  /// - Whether they are exported (contains the `export` keyword, or is in an
+  ///   export declaration captured by [exportSet])
+  /// - Whether they are denoted to be included in configuration
+  ///   ([filterDeclSet])
+  ///
+  /// The function also goes through declaration dependencies and filters those
+  /// in too
+  ///
+  /// Returns a [NodeMap] containing a map of the declared nodes and IDs.
+  NodeMap filterAndReturn() {
     final filteredDeclarations = NodeMap();
 
     // filter out for export declarations

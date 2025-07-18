@@ -160,6 +160,9 @@ class VariableDeclaration extends FieldDeclaration
 
   @override
   String? get dartName => null;
+
+  @override
+  set dartName(String? newValue) {}
 }
 
 enum VariableModifier { let, $const, $var }
@@ -167,10 +170,10 @@ enum VariableModifier { let, $const, $var }
 class FunctionDeclaration extends CallableDeclaration
     implements ExportableDeclaration {
   @override
-  final String name;
+  String name;
 
   @override
-  final String? dartName;
+  String? dartName;
 
   @override
   final List<ParameterDeclaration> parameters;
@@ -231,7 +234,7 @@ class FunctionDeclaration extends CallableDeclaration
 class EnumDeclaration extends NamedDeclaration
     implements ExportableDeclaration {
   @override
-  final String name;
+  String name;
 
   @override
   final bool exported;
@@ -325,14 +328,14 @@ class EnumMember {
 class TypeAliasDeclaration extends NamedDeclaration
     implements ExportableDeclaration {
   @override
-  final String name;
+  String name;
 
   final List<GenericType> typeParameters;
 
   final Type type;
 
   @override
-  final String? dartName;
+  String? dartName;
 
   @override
   bool exported;

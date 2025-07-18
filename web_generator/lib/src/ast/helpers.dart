@@ -50,3 +50,65 @@ List<Parameter> spreadParam(ParameterDeclaration p, int count) {
     return ParameterDeclaration(name: paramName, type: p.type).emit();
   });
 }
+
+final Map<String, Set<String>> _memberHierarchyCache = {};
+
+Set<String> getMemberHierarchy(TypeDeclaration type,
+    [bool addDirectMembers = false]) {
+  final members = <String>{};
+
+  void addMembersIfReferredType(Type type) {
+    if (type case ReferredType<Declaration>(declaration: final d)
+        when d is TypeDeclaration) {
+      members.addAll(getMemberHierarchy(d, true));
+    }
+  }
+
+  if (addDirectMembers) {
+    if (_memberHierarchyCache.containsKey(type.name)) {
+      return _memberHierarchyCache[type.name]!;
+    }
+    // add direct members
+    members.addAll(type.methods.map((m) => m.name));
+    members.addAll(type.properties.map((m) => m.name));
+    members.addAll(type.operators.map((m) => m.name));
+  }
+
+  switch (type) {
+    case ClassDeclaration(
+        extendedType: final extendee,
+        implementedTypes: final implementees
+      ):
+      if (extendee case final extendedType?) {
+        addMembersIfReferredType(extendedType);
+      }
+      implementees.forEach(addMembersIfReferredType);
+      break;
+    case InterfaceDeclaration(extendedTypes: final extendees):
+      extendees.forEach(addMembersIfReferredType);
+      break;
+  }
+
+  if (addDirectMembers) {
+    _memberHierarchyCache[type.name] ??= members;
+  }
+
+  return members;
+}
+
+Type getClassRepresentationType(ClassDeclaration cl) {
+  if (cl.extendedType case final extendee?) {
+    return switch (extendee) {
+      final ClassDeclaration classExtendee =>
+        getClassRepresentationType(classExtendee),
+      _ => BuiltinType.primitiveType(PrimitiveType.object, isNullable: false)
+    };
+  } else {
+    final primitiveType = switch (cl.name) {
+      'Array' => PrimitiveType.array,
+      _ => PrimitiveType.object
+    };
+
+    return BuiltinType.primitiveType(primitiveType, isNullable: false);
+  }
+}

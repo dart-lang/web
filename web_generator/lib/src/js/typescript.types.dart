@@ -27,6 +27,16 @@ extension type const TSSyntaxKind._(num _) {
   static const TSSyntaxKind TypeAliasDeclaration = TSSyntaxKind._(265);
   static const TSSyntaxKind Parameter = TSSyntaxKind._(169);
   static const TSSyntaxKind EnumDeclaration = TSSyntaxKind._(266);
+  static const TSSyntaxKind PropertyDeclaration = TSSyntaxKind._(172);
+  static const TSSyntaxKind MethodDeclaration = TSSyntaxKind._(174);
+  static const TSSyntaxKind Constructor = TSSyntaxKind._(176);
+  static const TSSyntaxKind GetAccessor = TSSyntaxKind._(177);
+  static const TSSyntaxKind SetAccessor = TSSyntaxKind._(178);
+  static const TSSyntaxKind IndexSignature = TSSyntaxKind._(181);
+  static const TSSyntaxKind PropertySignature = TSSyntaxKind._(171);
+  static const TSSyntaxKind MethodSignature = TSSyntaxKind._(173);
+  static const TSSyntaxKind CallSignature = TSSyntaxKind._(179);
+  static const TSSyntaxKind ConstructSignature = TSSyntaxKind._(180);
   static const TSSyntaxKind ExportAssignment = TSSyntaxKind._(277);
 
   /// expressions
@@ -43,6 +53,14 @@ extension type const TSSyntaxKind._(num _) {
   static const TSSyntaxKind ImplementsKeyword = TSSyntaxKind._(119);
   static const TSSyntaxKind WithKeyword = TSSyntaxKind._(118);
   static const TSSyntaxKind AssertKeyword = TSSyntaxKind._(132);
+  static const TSSyntaxKind AbstractKeyword = TSSyntaxKind._(128);
+
+  // keywords for scope
+  static const TSSyntaxKind PrivateKeyword = TSSyntaxKind._(123);
+  static const TSSyntaxKind ProtectedKeyword = TSSyntaxKind._(124);
+  static const TSSyntaxKind PublicKeyword = TSSyntaxKind._(125);
+  static const TSSyntaxKind StaticKeyword = TSSyntaxKind._(126);
+  static const TSSyntaxKind ReadonlyKeyword = TSSyntaxKind._(148);
 
   // types that are keywords
   static const TSSyntaxKind StringKeyword = TSSyntaxKind._(154);
@@ -62,6 +80,7 @@ extension type const TSSyntaxKind._(num _) {
   static const TSSyntaxKind TypeReference = TSSyntaxKind._(183);
   static const TSSyntaxKind ArrayType = TSSyntaxKind._(188);
   static const TSSyntaxKind LiteralType = TSSyntaxKind._(201);
+  static const TSSyntaxKind ThisType = TSSyntaxKind._(197);
 
   /// Other
   static const TSSyntaxKind Identifier = TSSyntaxKind._(80);
@@ -88,6 +107,12 @@ extension type TSNode._(JSObject _) implements JSObject {
   external String getText([TSSourceFile? sourceFile]);
   external String getFullText([TSSourceFile? sourceFile]);
   external TSSourceFile getSourceFile();
+}
+
+@JS('Token')
+extension type TSToken._(JSObject _) implements TSNode {
+  @redeclare
+  external TSNode get kind;
 }
 
 @JS('TypeNode')
@@ -230,14 +255,167 @@ extension type TSVariableDeclaration._(JSObject _) implements TSDeclaration {
   external TSTypeNode? get type;
 }
 
-@JS('FunctionDeclaration')
-extension type TSFunctionDeclaration._(JSObject _) implements TSDeclaration {
-  external TSIdentifier get name;
-  external TSTypeNode? get type;
-  external TSNode? get asteriskToken;
+@JS('SignatureDeclarationBase')
+extension type TSSignatureDeclarationBase._(JSObject _)
+    implements TSDeclaration {
   external TSNodeArray<TSParameterDeclaration> get parameters;
   external TSNodeArray<TSTypeParameterDeclaration>? get typeParameters;
+  external TSTypeNode? get type;
+  external TSIdentifier? get name;
+}
+
+@JS('FunctionLikeDeclarationBase')
+extension type TSFunctionLikeDeclarationBase._(JSObject _)
+    implements TSSignatureDeclarationBase {
+  external TSNode? get asteriskToken;
+}
+
+@JS('FunctionDeclaration')
+extension type TSFunctionDeclaration._(JSObject _)
+    implements TSFunctionLikeDeclarationBase {
+  external TSIdentifier get name;
   external TSNodeArray<TSNode> get modifiers;
+}
+
+/// A common API for Classes and Interfaces
+extension type TSObjectDeclaration<T extends TSDeclaration>._(JSObject _)
+    implements TSDeclaration, TSStatement {
+  // TODO: May be undefined for classes in default exports
+  external TSIdentifier get name;
+  external TSNodeArray<TSNode>? get modifiers;
+  external TSNodeArray<TSTypeParameterDeclaration>? get typeParameters;
+  external TSNodeArray<TSHeritageClause>? get heritageClauses;
+  external TSNodeArray<T> get members;
+}
+
+// TODO: Will we consider class expressions?
+@JS('ClassDeclaration')
+extension type TSClassDeclaration._(JSObject _)
+    implements TSObjectDeclaration<TSClassElement> {}
+
+@JS('InterfaceDeclaration')
+extension type TSInterfaceDeclaration._(JSObject _)
+    implements TSObjectDeclaration<TSTypeElement> {}
+
+@JS('HeritageClause')
+extension type TSHeritageClause._(JSObject _) implements TSNode {
+  external TSObjectDeclaration get parent;
+  external TSSyntaxKind get token;
+  external TSNodeArray<TSExpressionWithTypeArguments> get types;
+}
+
+@JS('ExpressionWithTypeArguments')
+extension type TSExpressionWithTypeArguments._(JSObject _)
+    implements TSExpression, TSTypeNode {
+  external TSExpression get expression;
+  external TSNodeArray<TSTypeNode>? get typeArguments;
+}
+
+extension type TSPropertyEntity._(JSObject _) implements TSDeclaration {
+  external TSNodeArray<TSNode>? get modifiers;
+  external TSIdentifier get name;
+  external TSToken? get questionToken;
+  external TSTypeNode? get type;
+}
+
+extension type TSMethodEntity._(JSObject _)
+    implements TSFunctionLikeDeclarationBase {
+  external TSNodeArray<TSNode>? get modifiers;
+  external TSIdentifier get name;
+}
+
+extension type TSConstructorEntity._(JSObject _)
+    implements TSSignatureDeclarationBase {
+  external TSIdentifier? get name;
+}
+
+@JS('ClassElement')
+extension type TSClassElement._(JSObject _) implements TSDeclaration {
+  external TSIdentifier? get name;
+}
+
+@JS('PropertyDeclaration')
+extension type TSPropertyDeclaration._(JSObject _)
+    implements TSClassElement, TSPropertyEntity {
+  @redeclare
+  external TSIdentifier get name;
+}
+
+@JS('MethodDeclaration')
+extension type TSMethodDeclaration._(JSObject _)
+    implements TSMethodEntity, TSClassElement {
+  @redeclare
+  external TSIdentifier get name;
+}
+
+@JS('ConstructorDeclaration')
+extension type TSConstructorDeclaration._(JSObject _)
+    implements
+        TSConstructorEntity,
+        TSFunctionLikeDeclarationBase,
+        TSClassElement {
+  @redeclare
+  external TSIdentifier? get name;
+  external TSNodeArray<TSNode>? get modifiers;
+}
+
+@JS('TypeElement')
+extension type TSTypeElement._(JSObject _) implements TSDeclaration {
+  external TSIdentifier? get name;
+  external TSToken? get questionToken;
+}
+
+@JS('PropertySignature')
+extension type TSPropertySignature._(JSObject _)
+    implements TSTypeElement, TSPropertyEntity {
+  @redeclare
+  external TSIdentifier get name;
+  @redeclare
+  external TSToken? get questionToken;
+}
+
+@JS('MethodSignature')
+extension type TSMethodSignature._(JSObject _)
+    implements TSMethodEntity, TSTypeElement {
+  @redeclare
+  external TSIdentifier get name;
+}
+
+@JS('CallSignatureDeclaration')
+extension type TSCallSignatureDeclaration._(JSObject _)
+    implements TSSignatureDeclarationBase, TSTypeElement {
+  @redeclare
+  external TSIdentifier? get name;
+}
+
+@JS('ConstructSignatureDeclaration')
+extension type TSConstructSignatureDeclaration._(JSObject _)
+    implements TSConstructorEntity, TSTypeElement {
+  @redeclare
+  external TSIdentifier? get name;
+}
+
+@JS('IndexSignatureDeclaration')
+extension type TSIndexSignatureDeclaration._(JSObject _)
+    implements TSSignatureDeclarationBase, TSClassElement, TSTypeElement {
+  external TSNodeArray<TSToken>? get modifiers;
+  external TSTypeNode get type;
+  external TSIdentifier? get name;
+}
+
+// TODO: ObjectLiteralElement implementation as well
+@JS('GetAccessorDeclaration')
+extension type TSGetAccessorDeclaration._(JSObject _)
+    implements TSFunctionLikeDeclarationBase, TSClassElement, TSTypeElement {
+  external TSIdentifier get name;
+  external TSNodeArray<TSNode>? get modifiers;
+}
+
+@JS('SetAccessorDeclaration')
+extension type TSSetAccessorDeclaration._(JSObject _)
+    implements TSFunctionLikeDeclarationBase, TSClassElement, TSTypeElement {
+  external TSIdentifier get name;
+  external TSNodeArray<TSNode>? get modifiers;
 }
 
 @JS('TypeAliasDeclaration')

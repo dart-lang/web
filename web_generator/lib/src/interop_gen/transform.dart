@@ -17,7 +17,7 @@ import 'parser.dart';
 import 'transform/transformer.dart';
 
 void _setGlobalOptions(Config config) {
-  GlobalOptions.variardicArgsCount = config.functions?.varArgs ?? 4;
+  GlobalOptions.variadicArgsCount = config.functions?.varArgs ?? 4;
 }
 
 class TransformResult {
@@ -65,7 +65,7 @@ class TransformResult {
 
 /// A map of declarations, where the key is the declaration's stringified [ID].
 extension type NodeMap._(Map<String, Node> decls) implements Map<String, Node> {
-  NodeMap() : decls = <String, Node>{};
+  NodeMap([Map<String, Node>? decls]) : decls = decls ?? <String, Node>{};
 
   List<Node> findByName(String name) {
     return decls.entries

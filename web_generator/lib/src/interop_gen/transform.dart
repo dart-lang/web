@@ -119,3 +119,38 @@ void transformFile(ts.TSProgram program, String file,
 
   programDeclarationMap.addAll({file: resolvedMap});
 }
+
+class TransformerManager {
+  final List<String> inputFiles;
+
+  final Map<String, NodeMap> programDeclarationMap = {};
+
+  final Map<String, Transformer> _activeTransformers = {};
+
+  final ts.TSProgram program;
+
+  final List<String> filterDeclSet;
+
+  final ts.TSTypeChecker typeChecker;
+
+  TransformerManager(this.program, this.inputFiles, {
+    this.filterDeclSet = const []
+  }) : typeChecker = program.getTypeChecker();
+
+  TransformResult transform() {
+    // run through each file
+
+    // when found a decl imported, find in [programDeclarationMap]
+    // transforming if possible
+
+    // to transform: find node in program
+    // then run transform on node
+
+    // once gotten, or transformed, 
+    // reference the actual decl name (dartName ?? name) as an imported type
+
+    // an imported type can then be made with the url of the symbol
+
+    // continue.
+  }
+}

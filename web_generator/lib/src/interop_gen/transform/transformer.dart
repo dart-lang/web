@@ -796,11 +796,10 @@ class Transformer {
 
         // TODO(nikeokoronkwo): Refactor this once #402 lands, https://github.com/dart-lang/web/pull/415
         final exprName = typeQuery.exprName;
-        final name = exprName.text;
         final typeArguments = typeQuery.typeArguments?.toDart;
 
-        return _getTypeFromDeclaration(
-          exprName, typeArguments, typeArg: typeArg, declarationOnly: true);
+        return _getTypeFromDeclaration(exprName, typeArguments,
+            typeArg: typeArg, declarationOnly: true);
       case TSSyntaxKind.ArrayType:
         return BuiltinType.primitiveType(PrimitiveType.array, typeParams: [
           getJSTypeAlternative(
@@ -858,9 +857,9 @@ class Transformer {
       //  (also a better name for that)
       if (!declarationOnly) {
         final supportedType = BuiltinType.referred(name,
-          typeParams: (typeArguments ?? [])
-              .map((t) => getJSTypeAlternative(_transformType(t)))
-              .toList());
+            typeParams: (typeArguments ?? [])
+                .map((t) => getJSTypeAlternative(_transformType(t)))
+                .toList());
         if (supportedType case final resultType?) {
           return resultType;
         }
@@ -889,8 +888,9 @@ class Transformer {
           //  that isn't in `package:web`
           return PackageWebType.parse(name,
               typeParams: typeArguments
-                  ?.map((t) => getJSTypeAlternative(_transformType(t)))
-                  .toList() ?? []);
+                      ?.map((t) => getJSTypeAlternative(_transformType(t)))
+                      .toList() ??
+                  []);
         }
 
         if (declaration.kind == TSSyntaxKind.TypeParameter) {
@@ -922,12 +922,13 @@ class Transformer {
           .map((type) => _transformType(type, typeArg: true))
           .toList(),
     );
-    
-    if (asReferredType case ReferredDeclarationType(type: final type) when type is BuiltinType) {
+
+    if (asReferredType case ReferredDeclarationType(type: final type)
+        when type is BuiltinType) {
       final jsType = getJSTypeAlternative(type);
       if (jsType != type && typeArg) asReferredType.type = jsType;
     }
-    
+
     return asReferredType;
   }
 
@@ -1048,7 +1049,7 @@ class Transformer {
       case BuiltinType(typeParams: final typeParams) when typeParams.isNotEmpty:
         filteredDeclarations.addAll({
           for (final t in typeParams.where((t) => t is! BuiltinType))
-            t.id.toString() : t
+            t.id.toString(): t
         });
         break;
       case final ReferredType r:

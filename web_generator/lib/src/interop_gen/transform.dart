@@ -115,7 +115,7 @@ void transformFile(ts.TSProgram program, String file,
       }).toJS as ts.TSNodeCallback);
 
   // filter
-  final resolvedMap = transformer.filter();
+  final resolvedMap = transformer.filterAndReturn();
 
   programDeclarationMap.addAll({file: resolvedMap});
 }

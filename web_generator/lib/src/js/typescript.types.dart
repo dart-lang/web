@@ -78,6 +78,7 @@ extension type const TSSyntaxKind._(num _) {
   static const TSSyntaxKind ArrayType = TSSyntaxKind._(188);
   static const TSSyntaxKind LiteralType = TSSyntaxKind._(201);
   static const TSSyntaxKind ThisType = TSSyntaxKind._(197);
+  static const TSSyntaxKind TypeQuery = TSSyntaxKind._(186);
 
   /// Other
   static const TSSyntaxKind Identifier = TSSyntaxKind._(80);
@@ -127,6 +128,21 @@ extension type TSUnionTypeNode._(JSObject _) implements TSTypeNode {
   external TSNodeArray<TSTypeNode> get types;
 }
 
+// TODO(nikeokoronkwo): Implements TSNodeWithTypeArguments
+//  once #402 and #409 are closed
+@JS('TypeQueryNode')
+extension type TSTypeQueryNode._(JSObject _) implements TSTypeNode {
+  @redeclare
+  TSSyntaxKind get kind => TSSyntaxKind.TypeQuery;
+
+  // TODO(nikeokoronkwo): Change to EntityName to support
+  //  qualified names, https://github.com/dart-lang/web/issues/416
+  external TSIdentifier get exprName;
+  external TSNodeArray<TSTypeNode>? get typeArguments;
+}
+
+// TODO(nikeokoronkwo): Implements TSNodeWithTypeArguments
+//  once #402 and #409 are closed
 @JS('TypeReferenceNode')
 extension type TSTypeReferenceNode._(JSObject _) implements TSTypeNode {
   @redeclare

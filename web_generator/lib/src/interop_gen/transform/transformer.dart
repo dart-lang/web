@@ -71,7 +71,6 @@ class Transformer {
             _transformClassOrInterface(node as TSObjectDeclaration),
           _ => throw Exception('Unsupported Declaration Kind: ${node.kind}')
         };
-        // ignore: dead_code This line will not be dead in future decl additions
         nodeMap.add(decl);
     }
 
@@ -697,8 +696,6 @@ class Transformer {
   }
 
   /// Parses the type
-  ///
-  /// TODO(https://github.com/dart-lang/web/issues/383): Add support for `typeof` types
   Type _transformType(TSTypeNode type,
       {bool parameter = false, bool typeArg = false}) {
     switch (type.kind) {
@@ -802,29 +799,8 @@ class Transformer {
         final name = exprName.text;
         final typeArguments = typeQuery.typeArguments?.toDart;
 
-        var declarationsMatching = nodeMap.findByName(name);
-        if (declarationsMatching.isEmpty) {
-          final symbol = typeChecker.getSymbolAtLocation(exprName);
-          final declarations = symbol?.getDeclarations();
-          final declaration = declarations?.toDart.first;
-
-          if (declaration == null) {
-            throw Exception('Found no declaration matching $name');
-          }
-
-          transform(declaration);
-
-          declarationsMatching = nodeMap.findByName(name);
-        }
-
-        final firstNode =
-            declarationsMatching.whereType<NamedDeclaration>().first;
-
-        return firstNode.asReferredType(
-          (typeArguments ?? [])
-              .map((type) => _transformType(type, typeArg: true))
-              .toList(),
-        );
+        return _getTypeFromDeclaration(
+          exprName, typeArguments, typeArg: typeArg, declarationOnly: true);
       case TSSyntaxKind.ArrayType:
         return BuiltinType.primitiveType(PrimitiveType.array, typeParams: [
           getJSTypeAlternative(
@@ -871,7 +847,7 @@ class Transformer {
 
   Type _getTypeFromDeclaration(
       TSIdentifier typeName, List<TSTypeNode>? typeArguments,
-      {bool typeArg = false}) {
+      {bool typeArg = false, bool declarationOnly = false}) {
     final name = typeName.text;
     var declarationsMatching = nodeMap.findByName(name);
 
@@ -880,12 +856,14 @@ class Transformer {
       // TODO(https://github.com/dart-lang/web/issues/380): A better name
       //  for this, and adding support for "supported declarations"
       //  (also a better name for that)
-      final supportedType = BuiltinType.referred(name,
+      if (!declarationOnly) {
+        final supportedType = BuiltinType.referred(name,
           typeParams: (typeArguments ?? [])
               .map((t) => getJSTypeAlternative(_transformType(t)))
               .toList());
-      if (supportedType case final resultType?) {
-        return resultType;
+        if (supportedType case final resultType?) {
+          return resultType;
+        }
       }
 
       final symbol = typeChecker.getSymbolAtLocation(typeName);
@@ -901,22 +879,23 @@ class Transformer {
         throw Exception('Found no declaration matching $name');
       }
 
-      // check if this is from dom
-      final declarationSource = declaration.getSourceFile().fileName;
-      if (p.basename(declarationSource) == 'lib.dom.d.ts' ||
-          declarationSource.contains('dom')) {
-        // dom declaration: supported by package:web
-        // TODO(nikeokoronkwo): It is possible that we may get a type
-        //  that isn't in `package:web`
-        return PackageWebType.parse(name,
-            typeParams: (typeArguments ?? [])
-                .map(_transformType)
-                .map(getJSTypeAlternative)
-                .toList());
-      }
+      if (!declarationOnly) {
+        // check if this is from dom
+        final declarationSource = declaration.getSourceFile().fileName;
+        if (p.basename(declarationSource) == 'lib.dom.d.ts' ||
+            declarationSource.contains('dom')) {
+          // dom declaration: supported by package:web
+          // TODO(nikeokoronkwo): It is possible that we may get a type
+          //  that isn't in `package:web`
+          return PackageWebType.parse(name,
+              typeParams: typeArguments
+                  ?.map((t) => getJSTypeAlternative(_transformType(t)))
+                  .toList() ?? []);
+        }
 
-      if (declaration.kind == TSSyntaxKind.TypeParameter) {
-        return GenericType(name: name);
+        if (declaration.kind == TSSyntaxKind.TypeParameter) {
+          return GenericType(name: name);
+        }
       }
 
       transform(declaration);
@@ -927,20 +906,29 @@ class Transformer {
     // TODO: In the case of overloading, should/shouldn't we handle more than one declaration?
     final firstNode = declarationsMatching.whereType<NamedDeclaration>().first;
 
-    // For Typealiases, we can either return the type itself
-    // or the JS Alternative (if its underlying type isn't a JS type)
-    switch (firstNode) {
-      case TypeAliasDeclaration(type: final t):
-      case EnumDeclaration(baseType: final t):
-        final jsType = getJSTypeAlternative(t);
-        if (jsType != t && typeArg) return jsType;
+    if (!declarationOnly) {
+      // For Typealiases, we can either return the type itself
+      // or the JS Alternative (if its underlying type isn't a JS type)
+      switch (firstNode) {
+        case TypeAliasDeclaration(type: final t):
+        case EnumDeclaration(baseType: final t):
+          final jsType = getJSTypeAlternative(t);
+          if (jsType != t && typeArg) return jsType;
+      }
     }
 
-    return firstNode.asReferredType(
+    final asReferredType = firstNode.asReferredType(
       (typeArguments ?? [])
           .map((type) => _transformType(type, typeArg: true))
           .toList(),
     );
+    
+    if (asReferredType case ReferredDeclarationType(type: final type) when type is BuiltinType) {
+      final jsType = getJSTypeAlternative(type);
+      if (jsType != type && typeArg) asReferredType.type = jsType;
+    }
+    
+    return asReferredType;
   }
 
   NodeMap filter() {
@@ -1057,8 +1045,11 @@ class Transformer {
             t.id.toString(): t
         });
         break;
-      case final BuiltinType _:
-        // primitive types are generated by default
+      case BuiltinType(typeParams: final typeParams) when typeParams.isNotEmpty:
+        filteredDeclarations.addAll({
+          for (final t in typeParams.where((t) => t is! BuiltinType))
+            t.id.toString() : t
+        });
         break;
       case final ReferredType r:
         filteredDeclarations.add(r.declaration);

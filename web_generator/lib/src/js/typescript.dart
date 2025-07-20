@@ -47,7 +47,7 @@ extension type TSProgram._(JSObject _) implements JSObject {
 extension type TSTypeChecker._(JSObject _) implements JSObject {
   external TSSymbol? getSymbolAtLocation(TSNode node);
   external TSSymbol getAliasedSymbol(TSSymbol symbol);
-  external TSType? getTypeFromTypeNode(TSTypeNode type);
+  external TSType getTypeFromTypeNode(TSTypeNode type);
 }
 
 // TODO: Can we make use of `FileReference`s

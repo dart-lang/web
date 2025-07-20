@@ -139,8 +139,8 @@ class ProgramMap {
     } else {
       final src = program.getSourceFile(file);
 
-      // TODO: We could add the exported declarations here ahead of time thanks to
-      //  the type checker.
+      // TODO: We could add the exported declarations here ahead of
+      //  time thanks to the type checker.
       //  @srujzs What do you think?
       final transformer =
           _activeTransformers.putIfAbsent(file, () => Transformer(this, src));
@@ -157,8 +157,8 @@ class ProgramMap {
         final symbol = typeChecker.getSymbolAtLocation(src)!;
         final exports = symbol.exports?.toDart ?? {};
 
-        if (exports.containsKey(decl.toJS)) {
-          final targetSymbol = exports[decl.toJS]!;
+        if (exports.containsKey(d.toJS)) {
+          final targetSymbol = exports[d.toJS]!;
           final first2 = targetSymbol.getDeclarations()!.toDart.first;
           transformer.transform(first2);
           nodeMap = transformer.filter();

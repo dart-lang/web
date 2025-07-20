@@ -749,8 +749,10 @@ class Transformer {
 
   /// Parses the type
   ///
-  /// TODO(nikeokoronkwo): Add support for `typeof` types, https://github.com/dart-lang/web/issues/383
-  /// TODO(nikeokoronkwo): Add support for constructor and function types, #410 and #422
+  // TODO(nikeokoronkwo): Add support for `typeof` types,
+  //  https://github.com/dart-lang/web/issues/383
+  // TODO(nikeokoronkwo): Add support for constructor and function types,
+  //  #410 and #422
   Type _transformType(TSTypeNode type,
       {bool parameter = false, bool typeArg = false}) {
     switch (type.kind) {
@@ -1013,7 +1015,7 @@ class Transformer {
       var importUrl = importDecl.moduleSpecifier.text;
       if (!importUrl.endsWith('ts')) importUrl = '$importUrl.d.ts';
 
-      var importedFile =
+      final importedFile =
           p.normalize(p.absolute(p.join(p.dirname(file), importUrl)));
 
       final decl = programMap.getDeclarationRef(

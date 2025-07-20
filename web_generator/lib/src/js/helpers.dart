@@ -2,16 +2,22 @@ import 'dart:collection';
 import 'dart:js_interop';
 
 /// A JS [Iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Iterator)
-/// There is no definition of the Iterator protocol in JS as it is **hidden**, and implementations inherit from its prototype
+/// There is no definition of the Iterator protocol in JS as it is **hidden**,
+/// and implementations inherit from its prototype
 ///
-/// This can be used as the base type used for implementing iterators used in Arrays, Maps, etc
-/// which can then be translated to iterator interfaces and more used in `dart:core`, `dart:async` and `dart:typed_data`
+/// This can be used as the base type used for implementing iterators used in
+/// Arrays, Maps, etc
+/// which can then be translated to iterator interfaces and more used in
+/// `dart:core`, `dart:async` and `dart:typed_data`
 ///
-/// The thing is: JavaScript handles iterators and their usage differently from how Dart does
+/// The thing is: JavaScript handles iterators and their usage differently from
+/// how Dart does
 ///
-/// When doing `for of` loops in JS, you use the `Iterator` itself, while in Dart, you use an `Iterable` (or `Stream` for `await for of`)
+/// When doing `for of` loops in JS, you use the `Iterator` itself, while in
+/// Dart, you use an `Iterable` (or `Stream` for `await for of`)
 ///
-/// Implementations converting an `Iterator` to both a Dart `Iterator` and `Iterable` are available
+/// Implementations converting an `Iterator` to both a Dart `Iterator` and
+/// `Iterable` are available
 @JS('Iterator')
 extension type JSIterator<T extends JSAny>._(JSObject _) implements JSObject {
   external factory JSIterator.from(JSIterator object);
@@ -19,7 +25,8 @@ extension type JSIterator<T extends JSAny>._(JSObject _) implements JSObject {
   external JSIteratorResult<T> next([T value]);
 
   // MDN says the rest are optional, but they are here for completeness.
-  // I've seen that `return` is useful when converting to Dart types, but most likely not `throw`
+  // I've seen that `return` is useful when converting to Dart types, but most
+  // likely not `throw`
   @JS('return')
   external JSIteratorResult<T> return$([T value]);
 }
@@ -80,7 +87,6 @@ class JSIteratorRep<T extends JSAny> implements Iterator<T> {
 @JS('Map')
 extension type JSMap<K extends JSAny, V extends JSAny>._(JSObject _)
     implements JSIterator {
-  // TODO: We could optimize this and make the property `JSArray<JSTuple2<K, V>>`
   external JSMap([JSArray<JSArray<JSAny>> iterable]);
 
   external int get size;

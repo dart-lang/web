@@ -70,7 +70,6 @@ void main() {
     final inputConfig = File(p.join(testGenFolder, 'config.yaml'));
     final outputDir = Directory(p.join('.dart_tool', 'interop_gen_project'));
     final outputExpectedPath = p.join(testGenFolder, 'output');
-    final outputExpectedDir = Directory(outputExpectedPath);
 
     setUpAll(() async {
       // set up npm
@@ -85,7 +84,6 @@ void main() {
     test('Project Test', () async {
       final inputConfigPath =
           p.relative(inputConfig.path, from: bindingsGenPath);
-      // final outFilePath = p.relative(outputActualPath, from: bindingsGenPath);
       // run the entrypoint
       await runProc(
           'node', ['main.mjs', '--config=$inputConfigPath', '--declaration'],

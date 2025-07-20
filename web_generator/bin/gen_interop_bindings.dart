@@ -100,5 +100,5 @@ final _parser = ArgParser()
   ..addOption('config',
       hide: true,
       abbr: 'c',
-      help: 'The configuration file to use for this tool (NOTE: Unimplemented)')
-  ..addFlag('help', negatable: false);
+      help:
+          'The configuration file to use for this tool (NOTE: Unimplemented)');

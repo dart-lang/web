@@ -19,18 +19,21 @@ class ReferredType<T extends Declaration> extends Type {
 
   List<Type> typeParams;
 
+  String? url;
+
   ReferredType(
       {required this.name,
       required this.declaration,
-      this.typeParams = const []});
+      this.typeParams = const [],
+      this.url});
 
   @override
   Reference emit([TypeOptions? options]) {
-    // TODO: Support referred types imported from URL
     return TypeReference((t) => t
-      ..symbol = declaration.name
+      ..symbol = declaration.dartName ?? declaration.name
       ..types.addAll(typeParams.map((t) => t.emit(options)))
-      ..isNullable = options?.nullable);
+      ..isNullable = options?.nullable
+      ..url = url);
   }
 }
 

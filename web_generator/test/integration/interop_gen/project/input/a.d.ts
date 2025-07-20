@@ -1,5 +1,5 @@
-import { Vector, Vector2D, Vector3D, Point2D, Point3D, origin2D as origin, origin3D } from "./classes_input"
-import { Comparator } from "./interfaces_input"
+import { Vector, Vector2D, Vector3D, Point2D, Point3D, origin2D as origin, origin3D } from "./b"
+import { Comparator } from "./c"
 interface PolarCoordinate {
     magnitude: number;
     angle: number;

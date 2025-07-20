@@ -64,8 +64,12 @@ abstract class Declaration extends Node {
 }
 
 abstract class NamedDeclaration extends Declaration {
-  ReferredType asReferredType([List<Type>? typeArgs]) =>
-      ReferredType(name: name, declaration: this, typeParams: typeArgs ?? []);
+  @override
+  abstract String name;
+
+  ReferredType asReferredType([List<Type>? typeArgs, String? url]) =>
+      ReferredType(
+          name: name, declaration: this, typeParams: typeArgs ?? [], url: url);
 }
 
 abstract interface class ExportableDeclaration extends Declaration {

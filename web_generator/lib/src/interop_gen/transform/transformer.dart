@@ -43,14 +43,17 @@ class Transformer {
   /// A map of types
   final NodeMap typeMap = NodeMap();
 
+  /// The program map
+  final ProgramMap programMap;
+
   /// The type checker for the given program
-  final ts.TSTypeChecker typeChecker;
+  ts.TSTypeChecker get typeChecker => programMap.typeChecker;
 
   /// A set of declarations to export updated during transformation
   final Set<ExportReference> exportSet;
 
   /// A set of declarations to filter for
-  final List<String> filterDeclSet;
+  List<String> get filterDeclSet => programMap.filterDeclSet;
 
   /// The declarations as globs
   List<RegExp> get filterDeclSetPatterns => filterDeclSet.map((decl) {
@@ -62,19 +65,27 @@ class Transformer {
   /// namer, for giving elements unique names
   final UniqueNamer namer;
 
-  final ProgramDeclarationMap programMap;
+  // final String _file;
+  final ts.TSSourceFile? _sourceFile;
+  final String? _fileName;
 
-  Transformer(this.programMap, this.typeChecker,
-      {Set<String> exportSet = const {}, List<String> filterDeclSet = const []})
+  String get file => (_sourceFile?.fileName ?? _fileName)!;
+
+  Transformer(this.programMap, this._sourceFile,
+      {Set<String> exportSet = const {}, String? file})
       : exportSet = exportSet.map((e) => ExportReference(e, as: e)).toSet(),
-        filterDeclSet = filterDeclSet.toList(),
-        namer = UniqueNamer();
+        namer = UniqueNamer(),
+        _fileName = file,
+        assert(
+            _sourceFile != null || file != null, 'Source file must be known');
 
   // TODO(nikeokoronkwo): Handle default exports
   void transform(TSNode node) {
     if (nodes.contains(node)) return;
 
     switch (node.kind) {
+      case TSSyntaxKind.ImportDeclaration || TSSyntaxKind.ImportSpecifier:
+        break;
       case TSSyntaxKind.ExportDeclaration:
         _parseExportDeclaration(node as TSExportDeclaration);
       case TSSyntaxKind.VariableStatement:
@@ -738,18 +749,21 @@ class Transformer {
 
   /// Parses the type
   ///
-  /// TODO(https://github.com/dart-lang/web/issues/383): Add support for `typeof` types
+  /// TODO(nikeokoronkwo): Add support for `typeof` types, https://github.com/dart-lang/web/issues/383
+  /// TODO(nikeokoronkwo): Add support for constructor and function types, #410 and #422
   Type _transformType(TSTypeNode type,
       {bool parameter = false, bool typeArg = false}) {
     switch (type.kind) {
+      case TSSyntaxKind.ParenthesizedType:
+        return _transformType((type as TSParenthesizedTypeNode).type,
+            parameter: parameter, typeArg: typeArg);
       case TSSyntaxKind.TypeReference:
         final refType = type as TSTypeReferenceNode;
 
-        final typeName = refType.typeName;
-        final typeArguments = refType.typeArguments?.toDart;
+        // final typeName = refType.typeName;
+        // final typeArguments = refType.typeArguments?.toDart;
 
-        return _getTypeFromDeclaration(typeName, typeArguments,
-            typeArg: typeArg);
+        return _getTypeFromTypeRefNode(refType, typeArg: typeArg);
       case TSSyntaxKind.UnionType:
         final unionType = type as TSUnionTypeNode;
         // TODO: Unions
@@ -872,10 +886,63 @@ class Transformer {
           _getTypeFromDeclaration(identifier, type.typeArguments?.toDart);
 
       return getTypeFromDeclaration;
+    } else if (type.expression.kind == TSSyntaxKind.PropertyAccessExpression) {
+      // TODO(nikeokoronkwo): Support Globbed Imports and Exports, https://github.com/dart-lang/web/issues/420
+      throw UnimplementedError("The given type expression's expression of kind "
+          '${type.expression.kind} is not supported yet');
     } else {
       throw UnimplementedError("The given type expression's expression of kind "
           '${type.expression.kind} is not supported yet');
     }
+  }
+
+  Type _getTypeFromTypeRefNode(TSTypeReferenceNode node,
+      {List<TSTypeNode>? typeArguments, bool typeArg = false}) {
+    typeArguments ??= node.typeArguments?.toDart;
+    final name = node.typeName.text;
+
+    var declarationsMatching = nodeMap.findByName(name);
+    if (declarationsMatching.isEmpty) {
+      // check if builtin
+      // TODO(https://github.com/dart-lang/web/issues/380): A better name
+      //  for this, and adding support for "supported declarations"
+      //  (also a better name for that)
+      final supportedType = BuiltinType.referred(name,
+          typeParams: (typeArguments ?? [])
+              .map((t) => getJSTypeAlternative(_transformType(t)))
+              .toList());
+      if (supportedType case final resultType?) {
+        return resultType;
+      }
+
+      final type = typeChecker.getTypeFromTypeNode(node)!;
+      final symbol = type.aliasSymbol ?? type.symbol;
+
+      final derivedType =
+          _deriveTypeOrTransform(symbol, name, typeArguments, typeArg);
+
+      if (derivedType != null) return derivedType;
+
+      declarationsMatching = nodeMap.findByName(name);
+    }
+
+    // TODO: In the case of overloading, should/shouldn't we handle more than one declaration?
+    final firstNode = declarationsMatching.whereType<NamedDeclaration>().first;
+
+    // For Typealiases, we can either return the type itself
+    // or the JS Alternative (if its underlying type isn't a JS type)
+    switch (firstNode) {
+      case TypeAliasDeclaration(type: final t):
+      case EnumDeclaration(baseType: final t):
+        final jsType = getJSTypeAlternative(t);
+        if (jsType != t && typeArg) return jsType;
+    }
+
+    return firstNode.asReferredType(
+      (typeArguments ?? [])
+          .map((type) => _transformType(type, typeArg: true))
+          .toList(),
+    );
   }
 
   Type _getTypeFromDeclaration(
@@ -898,37 +965,11 @@ class Transformer {
       }
 
       final symbol = typeChecker.getSymbolAtLocation(typeName);
-      final declarations = symbol?.getDeclarations();
+      final derivedType = symbol == null
+          ? null
+          : _deriveTypeOrTransform(symbol, name, typeArguments, typeArg);
 
-      // TODO: In the case of overloading, should/shouldn't we handle more than one declaration?
-      // TODO(https://github.com/dart-lang/web/issues/387): Some declarations may not be defined on file,
-      //  and may be from an import statement
-      //  We should be able to handle these
-      final declaration = declarations?.toDart.first;
-
-      if (declaration == null) {
-        throw Exception('Found no declaration matching $name');
-      }
-
-      // check if this is from dom
-      final declarationSource = declaration.getSourceFile().fileName;
-      if (p.basename(declarationSource) == 'lib.dom.d.ts' ||
-          declarationSource.contains('dom')) {
-        // dom declaration: supported by package:web
-        // TODO(nikeokoronkwo): It is possible that we may get a type
-        //  that isn't in `package:web`
-        return PackageWebType.parse(name,
-            typeParams: (typeArguments ?? [])
-                .map(_transformType)
-                .map(getJSTypeAlternative)
-                .toList());
-      }
-
-      if (declaration.kind == TSSyntaxKind.TypeParameter) {
-        return GenericType(name: name);
-      }
-
-      transform(declaration);
+      if (derivedType != null) return derivedType;
 
       declarationsMatching = nodeMap.findByName(name);
     }
@@ -950,6 +991,102 @@ class Transformer {
           .map((type) => _transformType(type, typeArg: true))
           .toList(),
     );
+  }
+
+  Type? _deriveTypeOrTransform(TSSymbol symbol,
+      [String? name, List<TSTypeNode>? typeArguments, bool typeArg = false]) {
+    name ??= symbol.name;
+    final declarations = symbol.getDeclarations();
+
+    final declaration = declarations?.toDart.first;
+
+    if (declaration == null) {
+      throw Exception('Found no declaration matching $name');
+    }
+
+    if (declaration.kind == TSSyntaxKind.TypeParameter) {
+      return GenericType(name: name);
+    } else if (declaration.kind == TSSyntaxKind.ImportSpecifier) {
+      // resolve import
+      final importSpecifier = declaration as TSImportSpecifer;
+      final importDecl = importSpecifier.parent.parent.parent;
+      var importUrl = importDecl.moduleSpecifier.text;
+      if (!importUrl.endsWith('ts')) importUrl = '$importUrl.d.ts';
+
+      var importedFile =
+          p.normalize(p.absolute(p.join(p.dirname(file), importUrl)));
+
+      final decl = programMap.getDeclarationRef(
+          importedFile, declaration, importSpecifier.name.text);
+
+      if (decl == null) {
+        throw Exception(
+            'Imported File not included in compilation: $importedFile');
+      }
+
+      final firstNode = decl.whereType<NamedDeclaration>().first;
+
+      switch (firstNode) {
+        case TypeAliasDeclaration(type: final t):
+        case EnumDeclaration(baseType: final t):
+          final jsType = getJSTypeAlternative(t);
+          if (jsType != t && typeArg) return jsType;
+      }
+
+      return firstNode.asReferredType(
+          (typeArguments ?? [])
+              .map((type) => _transformType(type, typeArg: true))
+              .toList(),
+          programMap.absoluteFiles.contains(importedFile)
+              ? p.normalize(importUrl.replaceFirst('.d.ts', '.dart'))
+              : null);
+    }
+
+    // check if this is from dom
+    final declarationSource = declaration.getSourceFile().fileName;
+
+    if (p.basename(declarationSource) == 'lib.dom.d.ts' ||
+        declarationSource.contains('dom')) {
+      // dom declaration: supported by package:web
+      // TODO(nikeokoronkwo): It is possible that we may get a type
+      //  that isn't in `package:web`
+      return PackageWebType.parse(name,
+          typeParams: (typeArguments ?? [])
+              .map(_transformType)
+              .map(getJSTypeAlternative)
+              .toList());
+    } else if (declarationSource != file &&
+        programMap.absoluteFiles.contains(declarationSource)) {
+      // get declaration from file source
+      // file path is absolute
+      // TODO: Handle star imports (`import * as Utils from "./utils"`)
+      final relativePath = p.relative(declarationSource, from: p.dirname(file));
+      final referencedDeclarations =
+          programMap.getDeclarationRef(declarationSource, declaration, name);
+
+      // TODO: In the case of overloading, should/shouldn't we handle more than one declaration?
+      final firstNode =
+          referencedDeclarations?.whereType<NamedDeclaration>().first;
+      // For Typealiases, we can either return the type itself
+      // or the JS Alternative (if its underlying type isn't a JS type)
+      switch (firstNode) {
+        case TypeAliasDeclaration(type: final t):
+        case EnumDeclaration(baseType: final t):
+          final jsType = getJSTypeAlternative(t);
+          if (jsType != t && typeArg) return jsType;
+      }
+
+      if (firstNode case final node?) {
+        return node.asReferredType(
+            (typeArguments ?? [])
+                .map((type) => _transformType(type, typeArg: true))
+                .toList(),
+            relativePath.replaceFirst('.d.ts', '.dart'));
+      }
+    }
+
+    transform(declaration);
+    return null;
   }
 
   NodeMap filter() {
@@ -1089,7 +1226,7 @@ class Transformer {
         // primitive types are generated by default
         break;
       case final ReferredType r:
-        filteredDeclarations.add(r.declaration);
+        if (r.url == null) filteredDeclarations.add(r.declaration);
         break;
       default:
         print('WARN: The given node type ${decl.runtimeType.toString()} '

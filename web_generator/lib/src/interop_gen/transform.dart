@@ -7,9 +7,11 @@ import 'dart:js_interop';
 
 import 'package:code_builder/code_builder.dart';
 import 'package:dart_style/dart_style.dart';
+import 'package:path/path.dart' as p;
 
 import '../ast/base.dart';
 import '../config.dart';
+import '../js/helpers.dart';
 import '../js/typescript.dart' as ts;
 import '../js/typescript.types.dart';
 import 'namer.dart';
@@ -28,13 +30,14 @@ class TransformResult {
   // TODO(https://github.com/dart-lang/web/issues/388): Handle union of overloads
   //  (namespaces + functions, multiple interfaces, etc)
   Map<String, String> generate(Config config) {
-    final emitter = DartEmitter.scoped(useNullSafetySyntax: true);
     final formatter = DartFormatter(
         languageVersion: DartFormatter.latestShortStyleLanguageVersion);
 
     _setGlobalOptions(config);
 
     return programMap.map((file, declMap) {
+      final emitter =
+          DartEmitter.scoped(useNullSafetySyntax: true, orderDirectives: true);
       final specs = declMap.decls.values.map((d) {
         return switch (d) {
           final Declaration n => n.emit(),
@@ -56,7 +59,7 @@ class TransformResult {
           ..body.addAll(specs);
       });
       return MapEntry(
-          file,
+          file.replaceAll('.d.ts', '.dart'),
           formatter.format('${lib.accept(emitter)}'
               .replaceAll('static external', 'external static')));
     });
@@ -74,83 +77,158 @@ extension type NodeMap._(Map<String, Node> decls) implements Map<String, Node> {
         .toList();
   }
 
+  /// Used to search for a declaration using the name it is exported with in TS,
+  /// which may be its actual name, and may not
+  List<Node> findByExportedName(String name) {
+    return decls.entries
+        .where((e) {
+          final decl = e.value;
+          if (decl case Declaration(name: final n)) {
+            return name == n;
+          }
+          return false;
+        })
+        .map((e) => e.value)
+        .toList();
+  }
+
   void add(Node decl) => decls[decl.id.toString()] = decl;
 }
 
 typedef ProgramDeclarationMap = Map<String, NodeMap>;
 
-TransformResult transform(ParserResult parsedDeclarations,
-    {required Config config}) {
-  final programDeclarationMap = <String, NodeMap>{};
+TransformResult transform(ParserResult parserResult, {required Config config}) {
+  final manager =
+      TransformerManager.fromParsedResults(parserResult, config: config);
 
-  for (final file in parsedDeclarations.files) {
-    if (programDeclarationMap.containsKey(file)) continue;
-
-    transformFile(parsedDeclarations.program, file, programDeclarationMap,
-        config: config);
-  }
-
-  return TransformResult._(programDeclarationMap);
+  return manager.transform();
 }
 
-void transformFile(ts.TSProgram program, String file,
-    Map<String, NodeMap> programDeclarationMap,
-    {required Config config}) {
-  final src = program.getSourceFile(file);
+class ProgramMap {
+  /// A map of files to already generated [NodeMap]s
+  ///
+  /// If a file is not included here, its node map is not complete
+  /// and should be generated via
+  final p.PathMap<NodeMap> _map = p.PathMap.of({});
 
-  if (src == null) return;
-
-  final typeChecker = program.getTypeChecker();
-
-  final transformer = Transformer(programDeclarationMap, typeChecker,
-      filterDeclSet: config.includedDeclarations);
-
-  ts.forEachChild(
-      src,
-      ((TSNode node) {
-        // ignore end of file
-        if (node.kind == TSSyntaxKind.EndOfFileToken) return;
-
-        transformer.transform(node);
-      }).toJS as ts.TSNodeCallback);
-
-  // filter
-  final resolvedMap = transformer.filter();
-
-  programDeclarationMap.addAll({file: resolvedMap});
-}
-
-class TransformerManager {
-  final List<String> inputFiles;
-
-  final Map<String, NodeMap> programDeclarationMap = {};
-
-  final Map<String, Transformer> _activeTransformers = {};
+  final p.PathMap<Transformer> _activeTransformers = p.PathMap.of({});
 
   final ts.TSProgram program;
 
-  final List<String> filterDeclSet;
-
   final ts.TSTypeChecker typeChecker;
 
-  TransformerManager(this.program, this.inputFiles, {
-    this.filterDeclSet = const []
-  }) : typeChecker = program.getTypeChecker();
+  final List<String> files;
+
+  List<String> get absoluteFiles =>
+      files.map((f) => p.normalize(p.absolute(f))).toList();
+
+  final List<String> filterDeclSet;
+
+  ProgramMap(this.program, this.files, {this.filterDeclSet = const []})
+      : typeChecker = program.getTypeChecker();
+
+  /// Find the node definition for a given declaration named [decl]
+  /// or associated with a TypeScript node [node] from the map of files
+  List<Node>? getDeclarationRef(String file, TSNode node, [String? decl]) {
+    // if (!absoluteFiles.contains(p.absolute(file))) return null;
+
+    // check
+    NodeMap nodeMap;
+    if (_map.containsKey(file)) {
+      nodeMap = _map[file]!;
+    } else {
+      final src = program.getSourceFile(file);
+
+      // TODO: We could add the exported declarations here ahead of time thanks to
+      //  the type checker.
+      //  @srujzs What do you think?
+      final transformer =
+          _activeTransformers.putIfAbsent(file, () => Transformer(this, src));
+
+      if (transformer.nodes.contains(node)) {
+        nodeMap = transformer.filter();
+      } else if (decl case final d?
+          when transformer.nodeMap.findByName(d).isNotEmpty) {
+        nodeMap = transformer.filter();
+      } else if (decl case final d?) {
+        // find the source file decl
+        if (src == null) return null;
+
+        final symbol = typeChecker.getSymbolAtLocation(src)!;
+        final exports = symbol.exports?.toDart ?? {};
+
+        if (exports.containsKey(decl.toJS)) {
+          final targetSymbol = exports[decl.toJS]!;
+          final first2 = targetSymbol.getDeclarations()!.toDart.first;
+          transformer.transform(first2);
+          nodeMap = transformer.filter();
+        } else {
+          return null;
+        }
+
+        // throw UnsupportedError('message');
+      } else {
+        transformer.transform(node);
+        nodeMap = transformer.filter();
+      }
+
+      _activeTransformers[file] = transformer;
+    }
+
+    final name = decl ?? (node as TSNamedDeclaration).name?.text;
+    return name == null ? null : nodeMap.findByName(name);
+  }
+
+  /// Get the node map for a given [file],
+  /// transforming it and generating it if needed.
+  NodeMap getNodeMap(String file) {
+    final absolutePath = p.normalize(p.absolute(file));
+    return _map.putIfAbsent(absolutePath, () {
+      final src = program.getSourceFile(file);
+      // transform file
+      _activeTransformers.putIfAbsent(
+          absolutePath, () => Transformer(this, src, file: file));
+
+      ts.forEachChild(
+          src!,
+          ((TSNode node) {
+            // ignore end of file
+            if (node.kind == TSSyntaxKind.EndOfFileToken) return;
+
+            _activeTransformers[absolutePath]!.transform(node);
+          }).toJS as ts.TSNodeCallback);
+
+      return _activeTransformers[absolutePath]!.filter();
+    });
+  }
+}
+
+class TransformerManager {
+  final ProgramMap programMap;
+
+  List<String> get inputFiles => programMap.files;
+
+  ts.TSProgram get program => programMap.program;
+
+  ts.TSTypeChecker get typeChecker => programMap.typeChecker;
+
+  TransformerManager(ts.TSProgram program, List<String> inputFiles,
+      {List<String> filterDeclSet = const []})
+      : programMap =
+            ProgramMap(program, inputFiles, filterDeclSet: filterDeclSet);
+
+  TransformerManager.fromParsedResults(ParserResult result, {Config? config})
+      : programMap = ProgramMap(result.program, result.files.toList(),
+            filterDeclSet: config?.includedDeclarations ?? []);
 
   TransformResult transform() {
+    final outputNodeMap = <String, NodeMap>{};
     // run through each file
+    for (final file in inputFiles) {
+      // transform
+      outputNodeMap[file] = programMap.getNodeMap(file);
+    }
 
-    // when found a decl imported, find in [programDeclarationMap]
-    // transforming if possible
-
-    // to transform: find node in program
-    // then run transform on node
-
-    // once gotten, or transformed, 
-    // reference the actual decl name (dartName ?? name) as an imported type
-
-    // an imported type can then be made with the url of the symbol
-
-    // continue.
+    return TransformResult._(outputNodeMap);
   }
 }

@@ -17,10 +17,10 @@ import 'types.dart';
 sealed class TypeDeclaration extends NamedDeclaration
     implements ExportableDeclaration {
   @override
-  final String name;
+  String name;
 
   @override
-  final String? dartName;
+  String? dartName;
 
   @override
   final bool exported;
@@ -436,13 +436,13 @@ class InterfaceDeclaration extends TypeDeclaration {
 class PropertyDeclaration extends FieldDeclaration
     implements MemberDeclaration {
   @override
-  final String name;
+  String name;
 
   @override
   final ID id;
 
   @override
-  final String? dartName;
+  String? dartName;
 
   @override
   late final TypeDeclaration parent;
@@ -684,6 +684,9 @@ class OperatorDeclaration extends CallableDeclaration
     implements MemberDeclaration {
   @override
   String get name => kind.expression;
+
+  @override
+  set name(String? name) {}
 
   OperatorKind kind;
 

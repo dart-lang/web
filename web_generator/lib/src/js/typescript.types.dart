@@ -11,6 +11,7 @@ import 'dart:js_interop';
 
 import 'package:meta/meta.dart';
 
+import 'helpers.dart';
 import 'typescript.dart';
 
 extension type const TSSyntaxKind._(num _) {
@@ -29,6 +30,10 @@ extension type const TSSyntaxKind._(num _) {
   static const TSSyntaxKind EnumDeclaration = TSSyntaxKind._(266);
   static const TSSyntaxKind PropertyDeclaration = TSSyntaxKind._(172);
   static const TSSyntaxKind MethodDeclaration = TSSyntaxKind._(174);
+  // TODO: Utilize ImportDeclaration and ImportSpecifier
+  static const TSSyntaxKind ImportDeclaration = TSSyntaxKind._(272);
+  static const TSSyntaxKind ImportSpecifier = TSSyntaxKind._(276);
+
   static const TSSyntaxKind Constructor = TSSyntaxKind._(176);
   static const TSSyntaxKind GetAccessor = TSSyntaxKind._(177);
   static const TSSyntaxKind SetAccessor = TSSyntaxKind._(178);
@@ -81,9 +86,11 @@ extension type const TSSyntaxKind._(num _) {
   static const TSSyntaxKind ArrayType = TSSyntaxKind._(188);
   static const TSSyntaxKind LiteralType = TSSyntaxKind._(201);
   static const TSSyntaxKind ThisType = TSSyntaxKind._(197);
+  static const TSSyntaxKind ParenthesizedType = TSSyntaxKind._(196);
 
   /// Other
   static const TSSyntaxKind Identifier = TSSyntaxKind._(80);
+  static const TSSyntaxKind PropertyAccessExpression = TSSyntaxKind._(211);
   static const TSSyntaxKind ObjectBindingPattern = TSSyntaxKind._(206);
   static const TSSyntaxKind ArrayBindingPattern = TSSyntaxKind._(207);
   static const TSSyntaxKind TypeParameter = TSSyntaxKind._(168);
@@ -149,6 +156,13 @@ extension type TSLiteralTypeNode._(JSObject _) implements TSTypeNode {
   external TSLiteral get literal;
 }
 
+@JS('ParenthesizedTypeNode')
+extension type TSParenthesizedTypeNode._(JSObject _) implements TSTypeNode {
+  @redeclare
+  TSSyntaxKind get kind => TSSyntaxKind.ParenthesizedType;
+  external TSTypeNode get type;
+}
+
 @JS('Expression')
 extension type TSExpression._(JSObject _) implements TSNode {}
 
@@ -156,6 +170,14 @@ extension type TSExpression._(JSObject _) implements TSNode {}
 extension type TSLiteralExpression._(JSObject _) implements TSExpression {
   external String text;
   external bool? isUnterminated;
+}
+
+@JS('PropertyAccessExpression')
+extension type TSPropertyAccessExpression._(JSObject _)
+    implements TSNamedDeclaration, TSExpression {
+  external TSExpression get expression;
+  external TSToken? get questionDotToken;
+  external TSIdentifier get name;
 }
 
 @JS('Declaration')
@@ -185,9 +207,15 @@ extension type TSIdentifier._(JSObject _) implements TSDeclaration {
   external String get text;
 }
 
+@JS('NamedDeclaration')
+extension type TSNamedDeclaration._(JSObject _) implements TSNode {
+  // TODO: Support other name specifiers
+  external TSIdentifier? get name;
+}
+
 @JS('DeclarationStatement')
 extension type TSDeclarationStatement._(JSObject _)
-    implements TSDeclaration, TSStatement {
+    implements TSNamedDeclaration, TSStatement {
   external TSIdentifier? get name;
 }
 
@@ -203,8 +231,15 @@ extension type TSImportAttributes._(JSObject _) implements TSNode {
   external TSNodeArray<TSImportAttribute> get elements;
 }
 
+@JS('NamedImports')
+extension type TSNamedImports._(JSObject _) implements TSNode {
+  @redeclare
+  external TSImportClause get parent;
+  external TSNodeArray<TSImportSpecifer> get elements;
+}
+
 @JS('NamespaceExport')
-extension type TSNamespaceExport._(JSObject _) implements TSDeclaration {
+extension type TSNamespaceExport._(JSObject _) implements TSNamedDeclaration {
   external TSIdentifier get name;
 }
 
@@ -214,10 +249,35 @@ extension type TSNamedExports._(JSObject _) implements TSNode {
 }
 
 @JS('ExportSpecifier')
-extension type TSExportSpecifier._(JSObject _) implements TSDeclaration {
+extension type TSExportSpecifier._(JSObject _) implements TSNamedDeclaration {
   external bool get isTypeOnly;
   external TSIdentifier get name;
   external TSIdentifier? get propertyName;
+}
+
+@JS('ImportSpecifer')
+extension type TSImportSpecifer._(JSObject _) implements TSNamedDeclaration {
+  external TSIdentifier get name;
+  external TSIdentifier? get propertyName;
+  external bool get isTypeOnly;
+  @redeclare
+  external TSNamedImports get parent;
+}
+
+@JS('ImportDeclaration')
+extension type TSImportDeclaration._(JSObject _) implements TSStatement {
+  external TSNodeArray<TSNode>? get modifiers;
+  external TSStringLiteral get moduleSpecifier;
+  external TSImportAttributes? get attributes;
+}
+
+@JS('ImportClause')
+extension type TSImportClause._(JSObject _) implements TSNamedDeclaration {
+  external bool get isTypeOnly;
+  external TSIdentifier? get name;
+  external TSNamedDeclaration? get namedBindings;
+  @redeclare
+  external TSImportDeclaration get parent;
 }
 
 @JS('ExportDeclaration')
@@ -250,14 +310,15 @@ extension type TSVariableDeclarationList._(JSObject _) implements TSNode {
 }
 
 @JS('VariableDeclaration')
-extension type TSVariableDeclaration._(JSObject _) implements TSDeclaration {
+extension type TSVariableDeclaration._(JSObject _)
+    implements TSNamedDeclaration {
   external TSIdentifier get name;
   external TSTypeNode? get type;
 }
 
 @JS('SignatureDeclarationBase')
 extension type TSSignatureDeclarationBase._(JSObject _)
-    implements TSDeclaration {
+    implements TSNamedDeclaration {
   external TSNodeArray<TSParameterDeclaration> get parameters;
   external TSNodeArray<TSTypeParameterDeclaration>? get typeParameters;
   external TSTypeNode? get type;
@@ -465,4 +526,13 @@ extension type TSNodeArray<T extends TSNode>._(JSArray<T> _)
 extension type TSSymbol._(JSObject _) implements JSObject {
   external String get name;
   external JSArray<TSDeclaration>? getDeclarations();
+  external TSSymbolTable? get exports;
+}
+
+typedef TSSymbolTable = JSMap<JSString, TSSymbol>;
+
+@JS('Type')
+extension type TSType._(JSObject _) implements JSObject {
+  external TSSymbol get symbol;
+  external TSSymbol? get aliasSymbol;
 }

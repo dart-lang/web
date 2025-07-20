@@ -33,6 +33,11 @@ class ExportReference {
   int get hashCode => Object.hash(name, as, defaultExport);
 }
 
+/// A class for transforming nodes in a given [file]
+///
+/// It references a [ProgramMap] in order to keep track of dependencies across
+/// files in the project
+// TODO(nikeokoronkwo): Add support for dynamic imports.
 class Transformer {
   /// A set of already resolved TS Nodes
   final Set<TSNode> nodes = {};

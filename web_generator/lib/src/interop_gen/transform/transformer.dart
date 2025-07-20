@@ -767,7 +767,6 @@ class Transformer {
       case TSSyntaxKind.TypeReference:
         final refType = type as TSTypeReferenceNode;
 
-
         return _getTypeFromTypeRefNode(refType, typeArg: typeArg);
       case TSSyntaxKind.UnionType:
         final unionType = type as TSUnionTypeNode;
@@ -920,13 +919,14 @@ class Transformer {
         return resultType;
       }
 
-      print('Searching for $name');
-
-      final type = typeChecker.getTypeFromTypeNode(node)!;
-      final symbol = type.aliasSymbol ?? type.symbol;
+      var symbol = typeChecker.getSymbolAtLocation(node.typeName);
+      if (symbol == null) {
+        final type = typeChecker.getTypeFromTypeNode(node);
+        symbol = type?.aliasSymbol ?? type?.symbol;
+      }
 
       final derivedType =
-          _deriveTypeOrTransform(symbol, name, typeArguments, typeArg);
+          _deriveTypeOrTransform(symbol!, name, typeArguments, typeArg);
 
       if (derivedType != null) return derivedType;
 

@@ -22,6 +22,8 @@ void _setGlobalOptions(Config config) {
   GlobalOptions.variadicArgsCount = config.functions?.varArgs ?? 4;
 }
 
+typedef ProgramDeclarationMap = Map<String, NodeMap>;
+
 class TransformResult {
   ProgramDeclarationMap programMap;
 
@@ -95,15 +97,21 @@ extension type NodeMap._(Map<String, Node> decls) implements Map<String, Node> {
   void add(Node decl) => decls[decl.id.toString()] = decl;
 }
 
-typedef ProgramDeclarationMap = Map<String, NodeMap>;
-
-TransformResult transform(ParserResult parserResult, {required Config config}) {
-  final manager =
-      TransformerManager.fromParsedResults(parserResult, config: config);
-
-  return manager.transform();
-}
-
+/// A program map is a map used for handling the context of
+/// transforming and resolving declarations across files in the project.
+///
+/// This helps us to work with imports and exports across files, and allow for
+/// quick transformation of declarations in files without having to re-transform
+/// declarations already generated for.
+///
+/// It keeps references of transformers and nodemaps (if already built) of files
+/// in the project using [p.PathMap]s (to allow easy indexing).ASTOptions
+///
+/// It also contains the program context [program] and declarations to filter
+/// out for via [filterDeclSet]
+///
+/// It is responsible for generating and updating/memoizing the individual transformer
+/// for a given file
 class ProgramMap {
   /// A map of files to already generated [NodeMap]s
   ///
@@ -113,10 +121,15 @@ class ProgramMap {
 
   final p.PathMap<Transformer> _activeTransformers = p.PathMap.of({});
 
+  /// The typescript program for the given project
   final ts.TSProgram program;
 
+  /// The type checker for the given program
+  ///
+  /// It is generated as this to prevent having to regenerate it multiple times
   final ts.TSTypeChecker typeChecker;
 
+  /// The files in the given project
   final List<String> files;
 
   List<String> get absoluteFiles =>
@@ -203,6 +216,9 @@ class ProgramMap {
   }
 }
 
+/// A transform manager is used for transforming the results from parsing
+/// the TS files. It uses [ProgramMap] under the hood to manage the
+/// transformation context while transforming through each file
 class TransformerManager {
   final ProgramMap programMap;
 

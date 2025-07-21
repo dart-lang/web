@@ -26,3 +26,20 @@ external _i2.HTMLDivElement get output;
 external void handleButtonClick(_i2.MouseEvent event);
 @_i1.JS()
 external void handleInputChange(_i2.Event event);
+@_i1.JS()
+external _i1.JSAny? transformElements(
+  _i1.JSArray<_i2.HTMLElement> el,
+  HTMLTransformFunc<_i2.HTMLElement, _i2.HTMLElement> transformer,
+);
+@_i1.JS()
+external _i1.JSAny? handleEvents(
+  _i2.Event event,
+  _i1.JSArray<EventManipulationFunc> onCallbacks,
+);
+extension type HTMLTransformFunc<T extends _i2.HTMLElement,
+    R extends _i2.HTMLElement>._(_i1.JSObject _) implements _i1.JSObject {
+  external R call(T element);
+}
+extension type EventManipulationFunc._(_i1.JSObject _) implements _i1.JSObject {
+  external _i1.JSAny? call(_i2.Event event);
+}

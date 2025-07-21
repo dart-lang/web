@@ -79,21 +79,6 @@ extension type NodeMap._(Map<String, Node> decls) implements Map<String, Node> {
         .toList();
   }
 
-  /// Used to search for a declaration using the name it is exported with in TS,
-  /// which may be its actual name, and may not
-  List<Node> findByExportedName(String name) {
-    return decls.entries
-        .where((e) {
-          final decl = e.value;
-          if (decl case Declaration(name: final n)) {
-            return name == n;
-          }
-          return false;
-        })
-        .map((e) => e.value)
-        .toList();
-  }
-
   void add(Node decl) => decls[decl.id.toString()] = decl;
 }
 
@@ -159,10 +144,10 @@ class ProgramMap {
           _activeTransformers.putIfAbsent(file, () => Transformer(this, src));
 
       if (transformer.nodes.contains(node)) {
-        nodeMap = transformer.filter();
+        nodeMap = transformer.filterAndReturn();
       } else if (decl case final d?
           when transformer.nodeMap.findByName(d).isNotEmpty) {
-        nodeMap = transformer.filter();
+        nodeMap = transformer.filterAndReturn();
       } else if (decl case final d?) {
         // find the source file decl
         if (src == null) return null;
@@ -174,7 +159,7 @@ class ProgramMap {
           final targetSymbol = exports[d.toJS]!;
           final first2 = targetSymbol.getDeclarations()!.toDart.first;
           transformer.transform(first2);
-          nodeMap = transformer.filter();
+          nodeMap = transformer.filterAndReturn();
         } else {
           return null;
         }
@@ -182,7 +167,7 @@ class ProgramMap {
         // throw UnsupportedError('message');
       } else {
         transformer.transform(node);
-        nodeMap = transformer.filter();
+        nodeMap = transformer.filterAndReturn();
       }
 
       _activeTransformers[file] = transformer;
@@ -211,7 +196,7 @@ class ProgramMap {
             _activeTransformers[absolutePath]!.transform(node);
           }).toJS as ts.TSNodeCallback);
 
-      return _activeTransformers[absolutePath]!.filter();
+      return _activeTransformers[absolutePath]!.filterAndReturn();
     });
   }
 }

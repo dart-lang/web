@@ -30,7 +30,6 @@ extension type const TSSyntaxKind._(num _) {
   static const TSSyntaxKind EnumDeclaration = TSSyntaxKind._(266);
   static const TSSyntaxKind PropertyDeclaration = TSSyntaxKind._(172);
   static const TSSyntaxKind MethodDeclaration = TSSyntaxKind._(174);
-  // TODO: Utilize ImportDeclaration and ImportSpecifier
   static const TSSyntaxKind ImportDeclaration = TSSyntaxKind._(272);
   static const TSSyntaxKind ImportSpecifier = TSSyntaxKind._(276);
 
@@ -86,6 +85,7 @@ extension type const TSSyntaxKind._(num _) {
   static const TSSyntaxKind ArrayType = TSSyntaxKind._(188);
   static const TSSyntaxKind LiteralType = TSSyntaxKind._(201);
   static const TSSyntaxKind ThisType = TSSyntaxKind._(197);
+  static const TSSyntaxKind TypeQuery = TSSyntaxKind._(186);
   static const TSSyntaxKind ParenthesizedType = TSSyntaxKind._(196);
 
   /// Other
@@ -138,6 +138,18 @@ extension type TSUnionTypeNode._(JSObject _) implements TSTypeNode {
   TSSyntaxKind get kind => TSSyntaxKind.UnionType;
   external TSNodeArray<TSTypeNode> get types;
 }
+
+@JS('TypeQueryNode')
+extension type TSTypeQueryNode._(JSObject _) implements TSTypeNode {
+  @redeclare
+  TSSyntaxKind get kind => TSSyntaxKind.TypeQuery;
+
+  // TODO(nikeokoronkwo): Change to EntityName to support
+  //  qualified names, https://github.com/dart-lang/web/issues/416
+  external TSIdentifier get exprName;
+  external TSNodeArray<TSTypeNode>? get typeArguments;
+}
+
 
 @JS('TypeReferenceNode')
 extension type TSTypeReferenceNode._(JSObject _) implements TSTypeNode {

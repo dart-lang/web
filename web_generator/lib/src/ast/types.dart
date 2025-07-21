@@ -8,6 +8,7 @@ import 'base.dart';
 import 'builtin.dart';
 import 'declarations.dart';
 
+/// A type referring to a type in the TypeScript AST
 class ReferredType<T extends Declaration> extends Type {
   @override
   String name;
@@ -27,6 +28,9 @@ class ReferredType<T extends Declaration> extends Type {
       this.typeParams = const [],
       this.url});
 
+  factory ReferredType.fromType(Type type, T declaration,
+      {List<Type> typeParams}) = ReferredDeclarationType;
+
   @override
   Reference emit([TypeOptions? options]) {
     return TypeReference((t) => t
@@ -34,6 +38,21 @@ class ReferredType<T extends Declaration> extends Type {
       ..types.addAll(typeParams.map((t) => t.emit(options)))
       ..isNullable = options?.nullable
       ..url = url);
+  }
+}
+
+class ReferredDeclarationType<T extends Declaration> extends ReferredType<T> {
+  Type type;
+
+  @override
+  String get name => type.name ?? declaration.name;
+
+  ReferredDeclarationType(this.type, T declaration, {super.typeParams})
+      : super(name: declaration.name, declaration: declaration);
+
+  @override
+  Reference emit([covariant TypeOptions? options]) {
+    return type.emit(options);
   }
 }
 

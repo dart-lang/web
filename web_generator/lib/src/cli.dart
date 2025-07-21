@@ -31,6 +31,17 @@ Future<void> compileDartMain({String? langVersion, String? dir}) async {
   );
 }
 
+Future<Process> runProcWithResult(String executable, List<String> arguments,
+    {required String workingDirectory}) async {
+  print(ansi.styleBold.wrap(['*', executable, ...arguments].join(' ')));
+  return Process.start(
+    executable,
+    arguments,
+    runInShell: Platform.isWindows,
+    workingDirectory: workingDirectory,
+  );
+}
+
 Future<void> runProc(String executable, List<String> arguments,
     {required String workingDirectory, bool detached = false}) async {
   print(ansi.styleBold.wrap(['*', executable, ...arguments].join(' ')));

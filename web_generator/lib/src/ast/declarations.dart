@@ -160,6 +160,12 @@ class VariableDeclaration extends FieldDeclaration
 
   @override
   String? get dartName => null;
+
+  @override
+  ReferredType<VariableDeclaration> asReferredType([List<Type>? typeArgs]) {
+    return ReferredType<VariableDeclaration>.fromType(type, this,
+        typeParams: typeArgs ?? []);
+  }
 }
 
 enum VariableModifier { let, $const, $var }
@@ -225,6 +231,14 @@ class FunctionDeclaration extends CallableDeclaration
       ..returns = returnType.emit(options?.toTypeOptions())
       ..requiredParameters.addAll(requiredParams)
       ..optionalParameters.addAll(optionalParams));
+  }
+
+  @override
+  ReferredType<FunctionDeclaration> asReferredType([List<Type>? typeArgs]) {
+    // TODO: We could do better here and make the function type typed
+    return ReferredType<FunctionDeclaration>.fromType(
+        BuiltinType.referred('Function', typeParams: typeArgs ?? [])!, this,
+        typeParams: typeArgs ?? []);
   }
 }
 

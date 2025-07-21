@@ -61,8 +61,11 @@ $_usage''');
   final inputFile = argResult.rest.first;
   final outputFile = argResult['output'] as String? ??
       p.join(p.current, inputFile.replaceAll('.d.ts', '.dart'));
-  final configFile =
-      argResult['config'] as String? ?? p.join(p.current, 'webgen.yaml');
+  final defaultWebGenConfigPath = p.join(p.current, 'webgen.yaml');
+  final configFile = argResult['config'] as String? ??
+      (File(defaultWebGenConfigPath).existsSync()
+          ? defaultWebGenConfigPath
+          : null);
   final relativeOutputPath =
       p.relative(outputFile, from: bindingsGeneratorPath);
   // Run app with `node`.
@@ -73,7 +76,7 @@ $_usage''');
       '--declaration',
       '--input=${p.relative(inputFile, from: bindingsGeneratorPath)}',
       '--output=$relativeOutputPath',
-      '--config=$configFile'
+      if (configFile case final config?) '--config=$config'
     ],
     workingDirectory: bindingsGeneratorPath,
   );
@@ -100,5 +103,5 @@ final _parser = ArgParser()
   ..addOption('config',
       hide: true,
       abbr: 'c',
-      help: 'The configuration file to use for this tool (NOTE: Unimplemented)')
-  ..addFlag('help', negatable: false);
+      help:
+          'The configuration file to use for this tool (NOTE: Unimplemented)');

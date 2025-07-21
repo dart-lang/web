@@ -3,6 +3,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:js_interop' as _i1;
 
+import 'package:meta/meta.dart' as _i4;
+
 import 'b.dart' as _i2;
 import 'c.dart' as _i3;
 
@@ -59,12 +61,47 @@ external CylindricalCoordinate toCylindricalCoordinate(_i2.Point3D point);
 external _i2.Vector2D get unitI2D;
 @_i1.JS()
 external _i2.Vector2D get unitJ2D;
+extension type CoordinateSystem2D._(_i1.JSObject _)
+    implements _i2.CoordinateSystem<_i2.Point2D> {
+  external CoordinateSystem2D(_i2.Point2D origin);
+
+  external _i1.JSArray<_i2.Point2D> points;
+
+  @_i4.redeclare
+  external _i2.Point2D get origin;
+  @_i4.redeclare
+  external void addPoint(_i2.Point2D point);
+  external void addVector(
+    _i2.Vector2D vector, [
+    _i2.Point2D? start,
+  ]);
+  external _i2.Vector2D get xAxis;
+  external _i2.Vector2D get yAxis;
+}
 @_i1.JS()
 external _i2.Vector3D get unitI3D;
 @_i1.JS()
 external _i2.Vector3D get unitJ3D;
 @_i1.JS()
 external _i2.Vector3D get unitK3D;
+extension type CoordinateSystem3D._(_i1.JSObject _)
+    implements _i2.CoordinateSystem<_i2.Point3D> {
+  external CoordinateSystem3D(_i2.Point3D origin);
+
+  external _i1.JSArray<_i2.Point3D> points;
+
+  @_i4.redeclare
+  external _i2.Point3D get origin;
+  @_i4.redeclare
+  external void addPoint(_i2.Point3D point);
+  external void addVector(
+    _i2.Vector3D vector, [
+    _i2.Point3D? start,
+  ]);
+  external _i2.Vector3D get xAxis;
+  external _i2.Vector3D get yAxis;
+  external _i2.Vector3D get zAxis;
+}
 extension type Matrix._(_i1.JSObject _) implements _i1.JSObject {
   external double rows;
 

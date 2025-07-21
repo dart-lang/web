@@ -150,7 +150,6 @@ extension type TSTypeQueryNode._(JSObject _) implements TSTypeNode {
   external TSNodeArray<TSTypeNode>? get typeArguments;
 }
 
-
 @JS('TypeReferenceNode')
 extension type TSTypeReferenceNode._(JSObject _) implements TSTypeNode {
   @redeclare
@@ -318,12 +317,16 @@ extension type TSVariableStatement._(JSObject _) implements TSStatement {
 
 @JS('VariableDeclarationList')
 extension type TSVariableDeclarationList._(JSObject _) implements TSNode {
+  @redeclare
+  external TSVariableStatement get parent;
   external TSNodeArray<TSVariableDeclaration> get declarations;
 }
 
 @JS('VariableDeclaration')
 extension type TSVariableDeclaration._(JSObject _)
     implements TSNamedDeclaration {
+  @redeclare
+  external TSVariableDeclarationList get parent;
   external TSIdentifier get name;
   external TSTypeNode? get type;
 }

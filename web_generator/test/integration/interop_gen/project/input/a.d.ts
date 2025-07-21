@@ -1,4 +1,4 @@
-import { Vector, Vector2D, Vector3D, Point2D, Point3D, origin2D as origin, origin3D } from "./b"
+import { Vector, Vector2D, Vector3D, Point2D, Point3D, origin2D as origin, origin3D, CoordinateSystem, origin2D } from "./b"
 import { Comparator } from "./c"
 interface PolarCoordinate {
     magnitude: number;
@@ -21,6 +21,25 @@ interface Matrix {
 }
 interface TransformerMatrix<V extends Vector2D> extends Matrix {
     (v: V): V;
+}
+export declare class CoordinateSystem2D implements CoordinateSystem<Point2D> {
+    constructor(origin: typeof origin2D);
+    points: Point2D[];
+    readonly origin: Point2D;
+    addPoint(point: Point2D): void;
+    addVector(vector: Vector2D, start?: Point2D): void;
+    static get xAxis(): typeof unitI2D;
+    static get yAxis(): typeof unitJ2D;
+}
+export declare class CoordinateSystem3D implements CoordinateSystem<Point3D> {
+    constructor(origin: typeof origin3D);
+    points: Point3D[];
+    readonly origin: Point3D;
+    addPoint(point: Point3D): void;
+    addVector(vector: Vector3D, start?: Point3D): void;
+    static get xAxis(): typeof unitI3D;
+    static get yAxis(): typeof unitJ3D;
+    static get zAxis(): typeof unitK3D;
 }
 interface ComparatorMatrix<V extends Vector2D> extends Matrix, Comparator<V> {}
 declare function dotProduct<V extends Vector>(v1: V, v2: V): V;

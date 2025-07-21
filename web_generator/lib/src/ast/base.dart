@@ -26,8 +26,9 @@ class DeclarationOptions extends Options {
 
 class TypeOptions extends Options {
   bool nullable;
+  String? url;
 
-  TypeOptions({this.nullable = false});
+  TypeOptions({this.nullable = false, this.url});
 }
 
 class ASTOptions {

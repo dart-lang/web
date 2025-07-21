@@ -1,30 +1,3 @@
-export declare class Configuration {
-    readonly version: string;
-    readonly apiUrl: string;
-    constructor(version: string, apiUrl: string);
-}
-export declare class Product {
-    private _name;
-    private _price;
-    private _quantity;
-    constructor(name: string, price: number, quantity: number);
-    get name(): string;
-    set price(newPrice: number);
-    get price(): number;
-    set quantity(newQuantity: number);
-    get quantity(): number;
-    get totalPrice(): number;
-}
-export declare class User {
-    id: number;
-    protected username: string;
-    private email;
-    constructor(id: number, // Public property
-    username: string, // Protected property
-    email: string);
-    greet(): string;
-    getEmail(): string;
-}
 export interface Shape {
 }
 export interface Shape2D extends Shape {
@@ -105,11 +78,12 @@ export declare class Hemi<S extends Shape3D> implements Shape3D {
     surfaceArea(): number;
 }
 export type HemiSphere = Hemi<Sphere>;
-export interface Point2D {
+interface Point {}
+export interface Point2D extends Point {
     x: number;
     y: number;
 }
-export interface Point3D {
+export interface Point3D extends Point {
     x: number;
     y: number;
     z: number;
@@ -174,4 +148,9 @@ export declare class EpahsImpl<TMeta = any> implements Epahs<TMeta> {
     area(unit: 'cm2' | 'in2'): string;
     static getById(id: string): EpahsImpl;
     toString(): string;
+}
+export interface CoordinateSystem<P extends Point> {
+    readonly origin: P;
+    points: P[];
+    addPoint(point: P): void;
 }

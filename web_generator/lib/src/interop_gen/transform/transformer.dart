@@ -101,6 +101,8 @@ class Transformer {
         nodeMap.addAll({for (final d in decs) d.id.toString(): d});
       default:
         final decl = switch (node.kind) {
+          TSSyntaxKind.VariableDeclaration =>
+            _transformVariableDecl(node as TSVariableDeclaration),
           TSSyntaxKind.FunctionDeclaration =>
             _transformFunction(node as TSFunctionDeclaration),
           TSSyntaxKind.EnumDeclaration =>
@@ -611,13 +613,29 @@ class Transformer {
     }
 
     return variable.declarationList.declarations.toDart.map((d) {
-      namer.markUsed(d.name.text);
-      return VariableDeclaration(
-          name: d.name.text,
-          type: d.type == null ? BuiltinType.anyType : _transformType(d.type!),
-          modifier: modifier,
-          exported: isExported);
+      return _transformVariableDecl(d, modifier, isExported);
     }).toList();
+  }
+
+  VariableDeclaration _transformVariableDecl(TSVariableDeclaration d,
+      [VariableModifier? modifier, bool? isExported]) {
+    final statement = d.parent.parent;
+    isExported ??= statement.modifiers.toDart.any((m) {
+      return m.kind == TSSyntaxKind.ExportKeyword;
+    });
+    modifier ??= switch (statement.declarationList.flags) {
+      final TSNodeFlags f when f & TSNodeFlags.Const != 0 =>
+        VariableModifier.$const,
+      final TSNodeFlags f when f & TSNodeFlags.Let != 0 => VariableModifier.let,
+      _ => VariableModifier.$var
+    };
+
+    namer.markUsed(d.name.text);
+    return VariableDeclaration(
+        name: d.name.text,
+        type: d.type == null ? BuiltinType.anyType : _transformType(d.type!),
+        modifier: modifier,
+        exported: isExported);
   }
 
   EnumDeclaration _transformEnum(TSEnumDeclaration enumeration) {
@@ -868,7 +886,6 @@ class Transformer {
       case TSSyntaxKind.TypeQuery:
         final typeQuery = type as TSTypeQueryNode;
 
-        // TODO(nikeokoronkwo): Refactor this once #402 lands, https://github.com/dart-lang/web/pull/415
         final exprName = typeQuery.exprName;
         final typeArguments = typeQuery.typeArguments?.toDart;
 
@@ -923,7 +940,9 @@ class Transformer {
   }
 
   Type _getTypeFromTypeRefNode(TSTypeReferenceNode node,
-      {List<TSTypeNode>? typeArguments, bool typeArg = false}) {
+      {List<TSTypeNode>? typeArguments,
+      bool typeArg = false,
+      bool isNotTypableDeclaration = false}) {
     typeArguments ??= node.typeArguments?.toDart;
     final name = node.typeName.text;
 
@@ -947,8 +966,8 @@ class Transformer {
         symbol = type?.aliasSymbol ?? type?.symbol;
       }
 
-      final derivedType =
-          _deriveTypeOrTransform(symbol!, name, typeArguments, typeArg);
+      final derivedType = _deriveTypeOrTransform(
+          symbol!, name, typeArguments, typeArg, isNotTypableDeclaration);
 
       if (derivedType != null) return derivedType;
 
@@ -1016,7 +1035,8 @@ class Transformer {
       final symbol = typeChecker.getSymbolAtLocation(typeName);
       final derivedType = symbol == null
           ? null
-          : _deriveTypeOrTransform(symbol, name, typeArguments, typeArg);
+          : _deriveTypeOrTransform(
+              symbol, name, typeArguments, typeArg, isNotTypableDeclaration);
 
       if (derivedType != null) return derivedType;
 
@@ -1037,15 +1057,26 @@ class Transformer {
       }
     }
 
-    return firstNode.asReferredType(
+    final asReferredType = firstNode.asReferredType(
       (typeArguments ?? [])
           .map((type) => _transformType(type, typeArg: true))
           .toList(),
     );
+
+    if (asReferredType case ReferredDeclarationType(type: final type)
+        when type is BuiltinType) {
+      final jsType = getJSTypeAlternative(type);
+      if (jsType != type && typeArg) asReferredType.type = jsType;
+    }
+
+    return asReferredType;
   }
 
   Type? _deriveTypeOrTransform(TSSymbol symbol,
-      [String? name, List<TSTypeNode>? typeArguments, bool typeArg = false]) {
+      [String? name,
+      List<TSTypeNode>? typeArguments,
+      bool typeArg = false,
+      bool isNotTypableDeclaration = false]) {
     name ??= symbol.name;
     final declarations = symbol.getDeclarations();
 
@@ -1095,7 +1126,7 @@ class Transformer {
               : null);
 
       if (asReferredType case ReferredDeclarationType(type: final type)
-      when type is BuiltinType) {
+          when type is BuiltinType) {
         final jsType = getJSTypeAlternative(type);
         if (jsType != type && typeArg) asReferredType.type = jsType;
       }
@@ -1107,7 +1138,8 @@ class Transformer {
     final declarationSource = declaration.getSourceFile().fileName;
 
     if ((p.basename(declarationSource) == 'lib.dom.d.ts' ||
-        declarationSource.contains('dom')) && !isNotTypableDeclaration) {
+            declarationSource.contains('dom')) &&
+        !isNotTypableDeclaration) {
       // dom declaration: supported by package:web
       // TODO(nikeokoronkwo): It is possible that we may get a type
       //  that isn't in `package:web`
@@ -1147,7 +1179,7 @@ class Transformer {
             relativePath.replaceFirst('.d.ts', '.dart'));
 
         if (outputType case ReferredDeclarationType(type: final type)
-        when type is BuiltinType) {
+            when type is BuiltinType) {
           final jsType = getJSTypeAlternative(type);
           if (jsType != type && typeArg) outputType.type = jsType;
         }
@@ -1159,7 +1191,6 @@ class Transformer {
     transform(declaration);
     return null;
   }
-
 
   /// Filters out the declarations generated from the [transform] function and
   /// returns the declarations needed based on:

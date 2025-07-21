@@ -162,9 +162,10 @@ class VariableDeclaration extends FieldDeclaration
   String? get dartName => null;
 
   @override
-  ReferredType<VariableDeclaration> asReferredType([List<Type>? typeArgs]) {
+  ReferredType<VariableDeclaration> asReferredType(
+      [List<Type>? typeArgs, String? url]) {
     return ReferredType<VariableDeclaration>.fromType(type, this,
-        typeParams: typeArgs ?? []);
+        typeParams: typeArgs ?? [], url: url);
   }
 
   @override
@@ -238,11 +239,12 @@ class FunctionDeclaration extends CallableDeclaration
   }
 
   @override
-  ReferredType<FunctionDeclaration> asReferredType([List<Type>? typeArgs]) {
+  ReferredType<FunctionDeclaration> asReferredType(
+      [List<Type>? typeArgs, String? url]) {
     // TODO: We could do better here and make the function type typed
     return ReferredType<FunctionDeclaration>.fromType(
         BuiltinType.referred('Function', typeParams: typeArgs ?? [])!, this,
-        typeParams: typeArgs ?? []);
+        typeParams: typeArgs ?? [], url: url);
   }
 }
 

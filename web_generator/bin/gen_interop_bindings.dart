@@ -62,8 +62,10 @@ $_usage''');
   final outputFile = argResult['output'] as String? ??
       p.join(p.current, inputFile.replaceAll('.d.ts', '.dart'));
   final defaultWebGenConfigPath = p.join(p.current, 'webgen.yaml');
-  final configFile =
-      argResult['config'] as String? ?? (File(defaultWebGenConfigPath).existsSync() ? defaultWebGenConfigPath : null);
+  final configFile = argResult['config'] as String? ??
+      (File(defaultWebGenConfigPath).existsSync()
+          ? defaultWebGenConfigPath
+          : null);
   final relativeOutputPath =
       p.relative(outputFile, from: bindingsGeneratorPath);
   // Run app with `node`.

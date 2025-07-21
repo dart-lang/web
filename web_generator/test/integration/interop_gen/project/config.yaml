@@ -4,4 +4,4 @@ input:
   - input/a.d.ts
   - input/b.d.ts
   - input/c.d.ts
-output: output
+output: ../../../../.dart_tool/interop_gen_project

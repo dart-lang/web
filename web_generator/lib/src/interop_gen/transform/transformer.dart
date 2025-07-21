@@ -1003,8 +1003,6 @@ class Transformer {
   Type? _deriveTypeOrTransform(TSSymbol symbol,
       [String? name, List<TSTypeNode>? typeArguments, bool typeArg = false]) {
     name ??= symbol.name;
-
-    print((symbol.name, symbol.getDeclarations()));
     final declarations = symbol.getDeclarations();
 
     final declaration = declarations?.toDart.first;

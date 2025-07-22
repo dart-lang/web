@@ -90,7 +90,7 @@ extension type NodeMap._(Map<String, Node> decls) implements Map<String, Node> {
 /// declarations already generated for.
 ///
 /// It keeps references of transformers and nodemaps (if already built) of files
-/// in the project using [p.PathMap]s (to allow easy indexing).ASTOptions
+/// in the project using [p.PathMap]s (to allow easy indexing).
 ///
 /// It also contains the program context [program] and declarations to filter
 /// out for via [filterDeclSet]
@@ -101,7 +101,7 @@ class ProgramMap {
   /// A map of files to already generated [NodeMap]s
   ///
   /// If a file is not included here, its node map is not complete
-  /// and should be generated via
+  /// and should be generated via [_activeTransformers]
   final p.PathMap<NodeMap> _map = p.PathMap.of({});
 
   final p.PathMap<Transformer> _activeTransformers = p.PathMap.of({});

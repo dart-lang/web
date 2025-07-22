@@ -146,7 +146,7 @@ Future<void> generateIDLBindings({
             input.map((i) => i.toJS).toList().toJS,
             FSGlobSyncOptions(
                 cwd: p.current.toJS,
-                exclude: excludeFileEntryFunc('.d.ts').toJS
+                exclude: excludeFileEntryFunc('.idl').toJS
                     as FSGlobSyncExcludeFunc))
         .toDart
         .map((i) => i.toDart)

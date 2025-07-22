@@ -2,10 +2,14 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:js_interop';
+
 import 'package:dart_style/dart_style.dart';
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:yaml/yaml.dart';
+
+import 'js/filesystem_api.dart';
 
 class FunctionConfig {
   /// The number of variable arguments
@@ -154,10 +158,13 @@ class YamlConfig implements Config {
       throw TypeError();
     }
 
+    final allFiles = fs.globSync(inputFiles.map((i) => i.toJS).toList().toJS,
+        FSGlobSyncOptions(cwd: p.dirname(filename).toJS));
+
     return YamlConfig._(
         filename: Uri.file(filename),
-        input: inputFiles
-            .map((file) => p.join(p.dirname(filename), file))
+        input: allFiles.toDart
+            .map((file) => p.join(p.dirname(filename), file.toDart))
             .toList(),
         output:
             p.join(p.dirname(filename), (yaml['output'] ?? output) as String),

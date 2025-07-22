@@ -40,4 +40,25 @@ extension type FileSystem._(JSObject _) implements JSObject {
   external JSAny readFileSync(JSString path, [JSReadFileOptions options]);
 
   external void writeFileSync(JSString path, JSString contents);
+
+  external JSArray<JSString> globSync(JSArray<JSString> patterns,
+      [FSGlobSyncOptions? options]);
+}
+
+extension type FSGlobSyncOptions._(JSObject _) implements JSObject {
+  external FSGlobSyncOptions({JSString cwd, FSGlobSyncExcludeFunc? exclude});
+
+  external JSString get cwd;
+  external JSArray<JSString>? get exclude;
+}
+
+extension type FSGlobSyncExcludeFunc._(JSObject _) implements JSObject {
+  external bool call(FSDirent entry);
+}
+
+extension type FSDirent._(JSObject _) implements JSObject {
+  external String name;
+  external String parentPath;
+  external bool isFile();
+  external bool isDirectory();
 }

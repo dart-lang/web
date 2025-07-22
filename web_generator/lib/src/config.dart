@@ -158,8 +158,12 @@ class YamlConfig implements Config {
       throw TypeError();
     }
 
-    final allFiles = fs.globSync(inputFiles.map((i) => i.toJS).toList().toJS,
-        FSGlobSyncOptions(cwd: p.dirname(filename).toJS));
+    final allFiles = fs.globSync(
+        inputFiles.map((i) => i.toJS).toList().toJS,
+        FSGlobSyncOptions(
+            cwd: p.dirname(filename).toJS,
+            exclude:
+                excludeFileEntryFunc('.d.ts').toJS as FSGlobSyncExcludeFunc));
 
     return YamlConfig._(
         filename: Uri.file(filename),
@@ -180,4 +184,15 @@ class YamlConfig implements Config {
                 .toList() ??
             []);
   }
+}
+
+/// Creates the `exclude` function for [FSGlobSyncOptions]'s `exclude` option
+/// to exclude all files not ending with the given extension
+///
+/// This helps support passing dir globs.
+bool Function(FSDirent entry) excludeFileEntryFunc(String extension) {
+  return (FSDirent entry) {
+    if (entry.isFile()) return !entry.name.endsWith(extension);
+    return true;
+  };
 }

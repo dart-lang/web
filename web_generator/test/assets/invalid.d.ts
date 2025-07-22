@@ -1,5 +1,12 @@
 // invalid-syntax.d.ts
-declare interface Person {
+export interface Person {
   name: string
-  age number  // ❌ missing colon
+  age number
+}
+interface User {
+  id: string;
+}
+export declare class Admin implements User {
+  constructor(name: string);
+  toString(): string;
 }

@@ -180,11 +180,9 @@ class ProgramMap {
       _activeTransformers.putIfAbsent(
           absolutePath,
           () => Transformer(
-                this, src,
+                this,
+                src,
                 file: file,
-                // exportSet: exportedSymbols?.keys
-                //   .map((k) => k.toDart)
-                //   .toSet() ?? {}
               ));
 
       for (final symbolEntry

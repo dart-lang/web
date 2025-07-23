@@ -38,6 +38,7 @@ class ExportReference {
 /// It references a [ProgramMap] in order to keep track of dependencies across
 /// files in the project
 // TODO(nikeokoronkwo): Add support for dynamic imports.
+// TODO: Add support for import = require() and export =
 class Transformer {
   /// A set of already resolved TS Nodes
   final Set<TSNode> nodes = {};
@@ -94,6 +95,8 @@ class Transformer {
         // We do not parse import declarations by default
         // so that generated code only makes use of declarations we need.
         break;
+      case TSSyntaxKind.ExportSpecifier:
+        _parseExportSpecifier(node as TSExportSpecifier);
       case TSSyntaxKind.ExportDeclaration:
         _parseExportDeclaration(node as TSExportDeclaration);
       case TSSyntaxKind.VariableStatement:
@@ -118,6 +121,22 @@ class Transformer {
     }
 
     nodes.add(node);
+  }
+
+  void _parseExportSpecifier(TSExportSpecifier specifier) {
+    final actualName = specifier.propertyName ?? specifier.name;
+
+    final dartName = specifier.name;
+
+    final decl = nodeMap.findByName(actualName.text);
+
+    // This just guarantees the declaration is transformed before adding the
+    // export reference
+    if (decl.isEmpty) _getTypeFromDeclaration(actualName, []);
+
+    print((actualName.text, dartName.text));
+
+    exportSet.add(ExportReference(actualName.text, as: dartName.text));
   }
 
   /// Parses an export declaration and converts it into an [ExportReference]
@@ -939,6 +958,10 @@ class Transformer {
     }
   }
 
+  /// Get the type of a type node [node] by gettings its type from
+  /// the node itself via the [ts.TSTypeChecker]
+  ///
+  /// This has similar options as [_getTypeFromDeclaration]
   Type _getTypeFromTypeRefNode(TSTypeReferenceNode node,
       {List<TSTypeNode>? typeArguments,
       bool typeArg = false,
@@ -966,12 +989,13 @@ class Transformer {
         symbol = type?.aliasSymbol ?? type?.symbol;
       }
 
-      final derivedType = _deriveTypeOrTransform(
+      final (derivedType, newName) = _deriveTypeOrTransform(
           symbol!, name, typeArguments, typeArg, isNotTypableDeclaration);
 
       if (derivedType != null) return derivedType;
 
-      declarationsMatching = nodeMap.findByName(name);
+      declarationsMatching =
+          nodeMap.findByName(newName != name ? newName : name);
     }
 
     // TODO: In the case of overloading, should/shouldn't we handle more than one declaration?
@@ -1033,14 +1057,17 @@ class Transformer {
       }
 
       final symbol = typeChecker.getSymbolAtLocation(typeName);
-      final derivedType = symbol == null
-          ? null
-          : _deriveTypeOrTransform(
-              symbol, name, typeArguments, typeArg, isNotTypableDeclaration);
+      if (symbol case final s?) {
+        final (derivedType, newName) = _deriveTypeOrTransform(
+            s, name, typeArguments, typeArg, isNotTypableDeclaration);
 
-      if (derivedType != null) return derivedType;
+        if (derivedType != null) return derivedType;
 
-      declarationsMatching = nodeMap.findByName(name);
+        declarationsMatching =
+            nodeMap.findByName(newName != name ? newName : name);
+      } else {
+        declarationsMatching = nodeMap.findByName(name);
+      }
     }
 
     // TODO: In the case of overloading, should/shouldn't we handle more than one declaration?
@@ -1072,24 +1099,28 @@ class Transformer {
     return asReferredType;
   }
 
-  Type? _deriveTypeOrTransform(TSSymbol symbol,
+  /// Either derives the type referenced by the [symbol], or
+  /// transforms the declaration(s) associated with the [symbol].
+  ///
+  ///
+  (Type?, String) _deriveTypeOrTransform(TSSymbol symbol,
       [String? name,
       List<TSTypeNode>? typeArguments,
       bool typeArg = false,
       bool isNotTypableDeclaration = false]) {
     name ??= symbol.name;
+
     final declarations = symbol.getDeclarations();
-
-    final declaration = declarations?.toDart.first;
-
-    if (declaration == null) {
+    if (declarations == null) {
       throw Exception('Found no declaration matching $name');
     }
 
+    final declaration = declarations.toDart.first;
+
     if (declaration.kind == TSSyntaxKind.TypeParameter) {
-      return GenericType(name: name);
+      return (GenericType(name: name), name);
     } else if (declaration.kind == TSSyntaxKind.ImportSpecifier) {
-      // resolve import
+      // unravel import statement to get source file
       final importSpecifier = declaration as TSImportSpecifer;
       final importDecl = importSpecifier.parent.parent.parent;
       var importUrl = importDecl.moduleSpecifier.text;
@@ -1098,6 +1129,7 @@ class Transformer {
       final importedFile =
           p.normalize(p.absolute(p.join(p.dirname(file), importUrl)));
 
+      // get declaration in source file
       final decl = programMap.getDeclarationRef(
           importedFile, declaration, importSpecifier.name.text);
 
@@ -1106,14 +1138,15 @@ class Transformer {
             'Imported File not included in compilation: $importedFile');
       }
 
-      final firstNode = decl.whereType<NamedDeclaration>().first;
+      final firstNode =
+          decl.firstWhere((d) => d is NamedDeclaration) as NamedDeclaration;
 
-      if (!isNotTypableDeclaration) {
+      if (!isNotTypableDeclaration && typeArg) {
         switch (firstNode) {
           case TypeAliasDeclaration(type: final t):
           case EnumDeclaration(baseType: final t):
             final jsType = getJSTypeAlternative(t);
-            if (jsType != t && typeArg) return jsType;
+            if (jsType != t) return (jsType, name);
         }
       }
 
@@ -1126,12 +1159,20 @@ class Transformer {
               : null);
 
       if (asReferredType case ReferredDeclarationType(type: final type)
-          when type is BuiltinType) {
+          when type is BuiltinType && typeArg) {
         final jsType = getJSTypeAlternative(type);
-        if (jsType != type && typeArg) asReferredType.type = jsType;
+        if (jsType != type) asReferredType.type = jsType;
       }
 
-      return asReferredType;
+      return (asReferredType, name);
+    } else if (declaration.kind == TSSyntaxKind.ExportSpecifier) {
+      // in order to prevent recursion, we need to find the source of the export
+      // specifier
+      final aliasedSymbol = typeChecker.getAliasedSymbol(symbol);
+      final aliasedSymbolName = aliasedSymbol.name;
+      exportSet.add(ExportReference(aliasedSymbolName, as: name));
+      return _deriveTypeOrTransform(aliasedSymbol, aliasedSymbolName,
+          typeArguments, typeArg, isNotTypableDeclaration);
     }
 
     // check if this is from dom
@@ -1143,11 +1184,14 @@ class Transformer {
       // dom declaration: supported by package:web
       // TODO(nikeokoronkwo): It is possible that we may get a type
       //  that isn't in `package:web`
-      return PackageWebType.parse(name,
-          typeParams: (typeArguments ?? [])
-              .map(_transformType)
-              .map(getJSTypeAlternative)
-              .toList());
+      return (
+        PackageWebType.parse(name,
+            typeParams: (typeArguments ?? [])
+                .map(_transformType)
+                .map(getJSTypeAlternative)
+                .toList()),
+        name
+      );
     } else if (declarationSource != file &&
         programMap.absoluteFiles.contains(declarationSource)) {
       // get declaration from file source
@@ -1160,14 +1204,14 @@ class Transformer {
       // TODO: In the case of overloading, should/shouldn't we handle more than one declaration?
       final firstNode =
           referencedDeclarations?.whereType<NamedDeclaration>().first;
-      if (!isNotTypableDeclaration) {
+      if (!isNotTypableDeclaration && typeArg) {
         // For Typealiases, we can either return the type itself
         // or the JS Alternative (if its underlying type isn't a JS type)
         switch (firstNode) {
           case TypeAliasDeclaration(type: final t):
           case EnumDeclaration(baseType: final t):
             final jsType = getJSTypeAlternative(t);
-            if (jsType != t && typeArg) return jsType;
+            if (jsType != t) return (jsType, name);
         }
       }
 
@@ -1179,17 +1223,17 @@ class Transformer {
             relativePath.replaceFirst('.d.ts', '.dart'));
 
         if (outputType case ReferredDeclarationType(type: final type)
-            when type is BuiltinType) {
+            when type is BuiltinType && typeArg) {
           final jsType = getJSTypeAlternative(type);
-          if (jsType != type && typeArg) outputType.type = jsType;
+          if (jsType != type) outputType.type = jsType;
         }
 
-        return outputType;
+        return (outputType, name);
       }
     }
 
     transform(declaration);
-    return null;
+    return (null, name);
   }
 
   /// Filters out the declarations generated from the [transform] function and
@@ -1215,7 +1259,7 @@ class Transformer {
         //  to make the properties non-final and override get/set?
         // the actual decl name is `exportName` (dartName)
         // while the name we want to use for @JS is `exportDartName` (name)
-        if (exportedNode case final Declaration decl) {
+        if (exportedNode case final ExportableDeclaration decl) {
           filteredDeclarations.add(decl
             ..name = exportDartName
             ..dartName =

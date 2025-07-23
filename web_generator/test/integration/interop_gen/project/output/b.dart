@@ -5,14 +5,23 @@ import 'dart:js_interop' as _i1;
 
 import 'package:meta/meta.dart' as _i2;
 
-extension type Vector._(_i1.JSObject _) implements _i1.JSObject {
-  external double get magnitude;
-  external double get directionAngle;
-}
 extension type Point2D._(_i1.JSObject _) implements Point {
   external double x;
 
   external double y;
+}
+extension type CoordinateSystem<P extends Point>._(_i1.JSObject _)
+    implements _i1.JSObject {
+  external _i1.JSArray<P> points;
+
+  external P get origin;
+  external void addPoint(P point);
+}
+@_i1.JS()
+external Point2D get origin2D;
+extension type Vector._(_i1.JSObject _) implements _i1.JSObject {
+  external double get magnitude;
+  external double get directionAngle;
 }
 extension type Vector2D._(_i1.JSObject _) implements Vector {
   external Vector2D(
@@ -39,15 +48,6 @@ extension type Vector2D._(_i1.JSObject _) implements Vector {
     Point2D end,
   );
 }
-extension type CoordinateSystem<P extends Point>._(_i1.JSObject _)
-    implements _i1.JSObject {
-  external _i1.JSArray<P> points;
-
-  external P get origin;
-  external void addPoint(P point);
-}
-@_i1.JS()
-external Point2D get origin2D;
 extension type Point3D._(_i1.JSObject _) implements Point {
   external double x;
 
@@ -99,10 +99,21 @@ extension type Shape2D._(_i1.JSObject _) implements Shape {
   external double get perimeter;
   external double get area;
 }
-extension type Shape3D._(_i1.JSObject _) implements Shape {
-  external double get volume;
-  external double surfaceArea();
+extension type Circle._(_i1.JSObject _) implements Shape2D {
+  external Circle(num radius);
+
+  external double radius;
+
+  @_i2.redeclare
+  external double get area;
+  @_i2.redeclare
+  external double get perimeter;
 }
+@_i1.JS()
+external Circle drawCircle(
+  Point2D center,
+  num radius,
+);
 extension type Rectangle._(_i1.JSObject _) implements Shape2D {
   external Rectangle(
     num length,
@@ -125,16 +136,28 @@ extension type Square._(_i1.JSObject _) implements Rectangle {
 
   external double length;
 }
-extension type Circle._(_i1.JSObject _) implements Shape2D {
-  external Circle(num radius);
+@_i1.JS()
+external Square drawSquare(
+  Point2D start,
+  num length, [
+  num? angle,
+]);
+extension type Shape3D._(_i1.JSObject _) implements Shape {
+  external double get volume;
+  external double surfaceArea();
+}
+extension type Sphere._(_i1.JSObject _) implements Shape3D {
+  external Sphere(num radius);
 
   external double radius;
 
   @_i2.redeclare
-  external double get area;
+  external double get volume;
   @_i2.redeclare
-  external double get perimeter;
+  external double surfaceArea();
 }
+@_i1.JS()
+external Sphere drawSphere(Point3D center);
 extension type Prism<S extends Shape2D>._(_i1.JSObject _) implements Shape3D {
   external Prism(
     S surface,
@@ -210,16 +233,6 @@ extension type Cone._(_i1.JSObject _) implements Pyramid<Circle> {
   @_i2.redeclare
   external double surfaceArea();
 }
-extension type Sphere._(_i1.JSObject _) implements Shape3D {
-  external Sphere(num radius);
-
-  external double radius;
-
-  @_i2.redeclare
-  external double get volume;
-  @_i2.redeclare
-  external double surfaceArea();
-}
 extension type Hemi<S extends Shape3D>._(_i1.JSObject _) implements Shape3D {
   external Hemi(S shape);
 
@@ -231,19 +244,6 @@ extension type Hemi<S extends Shape3D>._(_i1.JSObject _) implements Shape3D {
   external double surfaceArea();
 }
 typedef HemiSphere = Hemi<Sphere>;
-@_i1.JS()
-external Circle drawCircle(
-  Point2D center,
-  num radius,
-);
-@_i1.JS()
-external Square drawSquare(
-  Point2D start,
-  num length, [
-  num? angle,
-]);
-@_i1.JS()
-external Sphere drawSphere(Point3D center);
 extension type EpahsImpl<TMeta extends _i1.JSAny?>._(_i1.JSObject _)
     implements Epahs<TMeta> {
   external EpahsImpl(

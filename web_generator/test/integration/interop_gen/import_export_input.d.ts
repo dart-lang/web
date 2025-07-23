@@ -35,9 +35,11 @@ export declare const unitJ2D: Vector2D;
 export declare const unitI3D: Vector3D;
 export declare const unitJ3D: Vector3D;
 export declare const unitK3D: Vector3D;
+declare const ijk: Vector3D[];
 export {
-    origin, origin3D, dotProduct, crossProduct, mapTo3D,
-    TransformerMatrix, ComparatorMatrix
+    origin, origin3D, dotProduct as scalarProduct, crossProduct as vectorProduct, mapTo3D,
+    TransformerMatrix, ComparatorMatrix,
+    ijk as unitVectors
 }
 export {
     PolarCoordinate as PolarPoint, 

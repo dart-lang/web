@@ -140,6 +140,9 @@ class VariableDeclaration extends FieldDeclaration
   ID get id => ID(type: 'var', name: name);
 
   @override
+  String? dartName;
+
+  @override
   Spec emit([DeclarationOptions? options]) {
     if (modifier == VariableModifier.$const) {
       return Method((m) => m
@@ -159,18 +162,11 @@ class VariableDeclaration extends FieldDeclaration
   }
 
   @override
-  String? get dartName => null;
-
-  @override
   ReferredType<VariableDeclaration> asReferredType(
       [List<Type>? typeArgs, String? url]) {
     return ReferredType<VariableDeclaration>.fromType(type, this,
         typeParams: typeArgs ?? [], url: url);
   }
-
-  @override
-  // TODO: Any better options than having to set this every time?
-  set dartName(String? newValue) {}
 }
 
 enum VariableModifier { let, $const, $var }

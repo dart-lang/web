@@ -9,6 +9,10 @@ import 'b.dart' as _i2;
 import 'c.dart' as _i3;
 
 @_i1.JS()
+external _i2.Point2D get origin;
+@_i1.JS()
+external _i2.Point3D get origin3D;
+@_i1.JS()
 external V dotProduct<V extends _i2.Vector>(
   V v1,
   V v2,

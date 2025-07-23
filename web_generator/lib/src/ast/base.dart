@@ -56,10 +56,6 @@ abstract class Declaration extends Node {
   @override
   String get name;
 
-  set name(String newValue);
-
-  set dartName(String? newValue);
-
   @override
   Spec emit([covariant DeclarationOptions? options]);
 }
@@ -76,6 +72,12 @@ abstract class NamedDeclaration extends Declaration {
 abstract interface class ExportableDeclaration extends Declaration {
   /// Whether this declaration is exported.
   bool get exported;
+
+  @override
+  abstract String? dartName;
+
+  @override
+  abstract String name;
 }
 
 abstract class Type extends Node {

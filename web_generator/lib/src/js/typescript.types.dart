@@ -98,6 +98,7 @@ extension type const TSSyntaxKind._(num _) {
   static const TSSyntaxKind ExpressionWithTypeArguments = TSSyntaxKind._(233);
   static const TSSyntaxKind NamespaceExport = TSSyntaxKind._(280);
   static const TSSyntaxKind NamedExports = TSSyntaxKind._(279);
+  static const TSSyntaxKind ExportSpecifier = TSSyntaxKind._(281);
 }
 
 extension type const TSNodeFlags._(int _) implements int {

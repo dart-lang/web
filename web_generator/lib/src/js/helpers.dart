@@ -1,3 +1,5 @@
+// TODO: Add the following necessary types and extensions to `dart:js_interop`
+
 import 'dart:collection';
 import 'dart:js_interop';
 

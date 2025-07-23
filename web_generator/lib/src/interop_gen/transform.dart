@@ -170,14 +170,22 @@ class ProgramMap {
     final absolutePath = p.normalize(p.absolute(file));
     return _pathMap.putIfAbsent(absolutePath, () {
       final src = program.getSourceFile(file);
-      // transform file
-      _activeTransformers.putIfAbsent(
-          absolutePath, () => Transformer(this, src, file: file));
 
       if (src == null) return NodeMap({});
 
       final sourceSymbol = typeChecker.getSymbolAtLocation(src)!;
       final exportedSymbols = sourceSymbol.exports?.toDart;
+
+      // transform file
+      _activeTransformers.putIfAbsent(
+          absolutePath,
+          () => Transformer(
+                this, src,
+                file: file,
+                // exportSet: exportedSymbols?.keys
+                //   .map((k) => k.toDart)
+                //   .toSet() ?? {}
+              ));
 
       for (final symbolEntry
           in exportedSymbols?.entries ?? <MapEntry<JSString, TSSymbol>>[]) {

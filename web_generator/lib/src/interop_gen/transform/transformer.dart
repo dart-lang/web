@@ -134,8 +134,7 @@ class Transformer {
     // export reference
     if (decl.isEmpty) _getTypeFromDeclaration(actualName, []);
 
-    print((actualName.text, dartName.text));
-
+    exportSet.removeWhere((e) => e.name == actualName.text);
     exportSet.add(ExportReference(actualName.text, as: dartName.text));
   }
 
@@ -154,6 +153,7 @@ class Transformer {
         // The exported name to use
         final dartName = exp.name.text;
 
+        exportSet.removeWhere((e) => e.name == actualName);
         exportSet.add(ExportReference(actualName, as: dartName));
       }
     }
@@ -1170,6 +1170,8 @@ class Transformer {
       // specifier
       final aliasedSymbol = typeChecker.getAliasedSymbol(symbol);
       final aliasedSymbolName = aliasedSymbol.name;
+
+      exportSet.removeWhere((e) => e.name == aliasedSymbolName);
       exportSet.add(ExportReference(aliasedSymbolName, as: name));
       return _deriveTypeOrTransform(aliasedSymbol, aliasedSymbolName,
           typeArguments, typeArg, isNotTypableDeclaration);
@@ -1253,19 +1255,23 @@ class Transformer {
 
     for (final ExportReference(name: exportName, as: exportDartName)
         in exportSet) {
-      final nodes = nodeMap.findByName(exportName);
-      for (final exportedNode in nodes) {
-        // TODO: Is there a better way of handling name changes than having
-        //  to make the properties non-final and override get/set?
-        // the actual decl name is `exportName` (dartName)
-        // while the name we want to use for @JS is `exportDartName` (name)
-        if (exportedNode case final ExportableDeclaration decl) {
-          filteredDeclarations.add(decl
-            ..name = exportDartName
-            ..dartName =
-                decl.dartName ?? UniqueNamer.makeNonConflicting(exportName));
-        } else {
-          continue;
+      if (filterDeclSet.isEmpty ||
+          filterDeclSetPatterns.any(
+              (p) => p.hasMatch(exportName) || p.hasMatch(exportDartName))) {
+        final nodes = nodeMap.findByName(exportName);
+        for (final exportedNode in nodes) {
+          // TODO: Is there a better way of handling name changes than having
+          //  to make the properties non-final and override get/set?
+          // the actual decl name is `exportName` (dartName)
+          // while the name we want to use for @JS is `exportDartName` (name)
+          if (exportedNode case final ExportableDeclaration decl) {
+            filteredDeclarations.add(decl
+              ..name = exportDartName
+              ..dartName =
+                  decl.dartName ?? UniqueNamer.makeNonConflicting(exportName));
+          } else {
+            continue;
+          }
         }
       }
     }
@@ -1297,7 +1303,9 @@ class Transformer {
         .map((e) => _getDependenciesOfDecl(e.value))
         .reduce((value, element) => value..addAll(element));
 
-    return filteredDeclarations..addAll(otherDecls);
+    filteredDeclarations.addAll(otherDecls);
+
+    return filteredDeclarations;
   }
 
   /// Given an already filtered declaration [decl],
@@ -1389,6 +1397,8 @@ class Transformer {
         break;
       case final ReferredType r:
         if (r.url == null) filteredDeclarations.add(r.declaration);
+        break;
+      case BuiltinType() || GenericType():
         break;
       default:
         print('WARN: The given node type ${decl.runtimeType.toString()} '

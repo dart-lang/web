@@ -173,8 +173,7 @@ class ProgramMap {
 
       if (src == null) return NodeMap({});
 
-      final sourceSymbol = typeChecker.getSymbolAtLocation(src)!;
-      final exportedSymbols = sourceSymbol.exports?.toDart;
+      final sourceSymbol = typeChecker.getSymbolAtLocation(src);
 
       // transform file
       _activeTransformers.putIfAbsent(
@@ -184,19 +183,33 @@ class ProgramMap {
                 src,
                 file: file,
               ));
+      if (sourceSymbol == null) {
+        // fallback to transforming each node
+        // TODO: This is a temporary fix to running this with @types/web
+        ts.forEachChild(
+        src,
+        ((TSNode node) {
+          // ignore end of file
+          if (node.kind == TSSyntaxKind.EndOfFileToken) return;
 
-      for (final symbolEntry
-          in exportedSymbols?.entries ?? <MapEntry<JSString, TSSymbol>>[]) {
-        final MapEntry(key: name, value: symbol) = symbolEntry;
-        final decls = symbol.getDeclarations()?.toDart ?? [];
-        try {
-          final aliasedSymbol = typeChecker.getAliasedSymbol(symbol);
-          decls.addAll(aliasedSymbol.getDeclarations()?.toDart ?? []);
-        } catch (_) {
-          // throws error if no aliased symbol, so ignore
-        }
-        for (final decl in decls) {
-          _activeTransformers[absolutePath]!.transform(decl);
+          _activeTransformers[absolutePath]!.transform(node);
+        }).toJS as ts.TSNodeCallback);
+      } else {
+        final exportedSymbols = sourceSymbol?.exports?.toDart;
+
+        for (final symbolEntry
+            in exportedSymbols?.entries ?? <MapEntry<JSString, TSSymbol>>[]) {
+          final MapEntry(key: name, value: symbol) = symbolEntry;
+          final decls = symbol.getDeclarations()?.toDart ?? [];
+          try {
+            final aliasedSymbol = typeChecker.getAliasedSymbol(symbol);
+            decls.addAll(aliasedSymbol.getDeclarations()?.toDart ?? []);
+          } catch (_) {
+            // throws error if no aliased symbol, so ignore
+          }
+          for (final decl in decls) {
+            _activeTransformers[absolutePath]!.transform(decl);
+          }
         }
       }
 

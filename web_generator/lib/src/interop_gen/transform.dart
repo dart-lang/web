@@ -187,15 +187,15 @@ class ProgramMap {
         // fallback to transforming each node
         // TODO: This is a temporary fix to running this with @types/web
         ts.forEachChild(
-        src,
-        ((TSNode node) {
-          // ignore end of file
-          if (node.kind == TSSyntaxKind.EndOfFileToken) return;
+            src,
+            ((TSNode node) {
+              // ignore end of file
+              if (node.kind == TSSyntaxKind.EndOfFileToken) return;
 
-          _activeTransformers[absolutePath]!.transform(node);
-        }).toJS as ts.TSNodeCallback);
+              _activeTransformers[absolutePath]!.transform(node);
+            }).toJS as ts.TSNodeCallback);
       } else {
-        final exportedSymbols = sourceSymbol?.exports?.toDart;
+        final exportedSymbols = sourceSymbol.exports?.toDart;
 
         for (final symbolEntry
             in exportedSymbols?.entries ?? <MapEntry<JSString, TSSymbol>>[]) {

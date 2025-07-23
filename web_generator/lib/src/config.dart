@@ -187,12 +187,12 @@ class YamlConfig implements Config {
 }
 
 /// Creates the `exclude` function for [FSGlobSyncOptions]'s `exclude` option
-/// to exclude all files not ending with the given extension
+/// to exclude all files not ending with the given [allowedExtension]
 ///
 /// This helps support passing dir globs.
-bool Function(FSDirent entry) excludeFileEntryFunc(String extension) {
+bool Function(FSDirent entry) excludeFileEntryFunc(String allowedExtension) {
   return (FSDirent entry) {
-    if (entry.isFile()) return !entry.name.endsWith(extension);
+    if (entry.isFile()) return !entry.name.endsWith(allowedExtension);
     return true;
   };
 }

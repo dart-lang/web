@@ -52,7 +52,7 @@ extension type FSGlobSyncOptions._(JSObject _) implements JSObject {
   external JSArray<JSString>? get exclude;
 }
 
-extension type FSGlobSyncExcludeFunc._(JSObject _) implements JSObject {
+extension type FSGlobSyncExcludeFunc(JSFunction _) implements JSFunction {
   external bool call(FSDirent entry);
 }
 

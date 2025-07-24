@@ -1,0 +1,7 @@
+name: Interop Gen Integration Test
+# TODO: Support globs and dirs
+input: 
+  - input/a.d.ts
+  - input/b.d.ts
+  - input/c.d.ts
+output: ../../../../.dart_tool/interop_gen_project

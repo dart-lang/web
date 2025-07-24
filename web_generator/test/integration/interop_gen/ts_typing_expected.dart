@@ -4,6 +4,10 @@
 import 'dart:js_interop' as _i1;
 
 @_i1.JS()
+external String myFunction(String param);
+@_i1.JS()
+external String myEnclosingFunction(_i1.JSFunction func);
+@_i1.JS()
 external String get myString;
 @_i1.JS()
 external _i1.JSArray<_i1.JSNumber> get myNumberArray;
@@ -20,10 +24,6 @@ extension type const MyEnum._(int _) {
 
   static const MyEnum D = MyEnum._(4);
 }
-@_i1.JS()
-external String myFunction(String param);
-@_i1.JS()
-external String myEnclosingFunction(_i1.JSFunction func);
 @_i1.JS()
 external _i1.JSFunction copyOfmyEnclosingFunction;
 @_i1.JS()

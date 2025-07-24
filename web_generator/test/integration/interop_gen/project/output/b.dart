@@ -5,10 +5,93 @@ import 'dart:js_interop' as _i1;
 
 import 'package:meta/meta.dart' as _i2;
 
-extension type Point2D._(_i1.JSObject _) implements _i1.JSObject {
+extension type Point2D._(_i1.JSObject _) implements Point {
   external double x;
 
   external double y;
+}
+extension type CoordinateSystem<P extends Point>._(_i1.JSObject _)
+    implements _i1.JSObject {
+  external _i1.JSArray<P> points;
+
+  external P get origin;
+  external void addPoint(P point);
+}
+@_i1.JS()
+external Point2D get origin2D;
+extension type Vector._(_i1.JSObject _) implements _i1.JSObject {
+  external double get magnitude;
+  external double get directionAngle;
+}
+extension type Vector2D._(_i1.JSObject _) implements Vector {
+  external Vector2D(
+    num x,
+    num y,
+  );
+
+  external double x;
+
+  external double y;
+
+  external Vector2D unit();
+  @_i2.redeclare
+  external double get magnitude;
+  @_i2.redeclare
+  external double get directionAngle;
+  external Point2D moveFrom(Point2D point);
+  external static Vector2D from(
+    num magnitude,
+    num at,
+  );
+  external static Vector2D fromPoints(
+    Point2D start,
+    Point2D end,
+  );
+}
+extension type Point3D._(_i1.JSObject _) implements Point {
+  external double x;
+
+  external double y;
+
+  external double z;
+}
+@_i1.JS()
+external Point3D get origin3D;
+extension type DirectionAngles._(_i1.JSObject _) implements _i1.JSObject {
+  external double alpha;
+
+  external double beta;
+
+  external double gamma;
+}
+extension type Vector3D._(_i1.JSObject _) implements Vector {
+  external Vector3D(
+    num x,
+    num y,
+    num z,
+  );
+
+  external double x;
+
+  external double y;
+
+  external double z;
+
+  external Vector3D unit();
+  @_i2.redeclare
+  external double get magnitude;
+  external DirectionAngles get directionAngles;
+  @_i2.redeclare
+  external double get directionAngle;
+  external Point3D moveFrom(Point3D point);
+  external static Vector3D from(
+    num magnitude,
+    DirectionAngles at,
+  );
+  external static Vector3D fromPoints(
+    Point3D start,
+    Point3D end,
+  );
 }
 extension type Shape._(_i1.JSObject _) implements _i1.JSObject {}
 extension type Shape2D._(_i1.JSObject _) implements Shape {
@@ -59,13 +142,6 @@ external Square drawSquare(
   num length, [
   num? angle,
 ]);
-extension type Point3D._(_i1.JSObject _) implements _i1.JSObject {
-  external double x;
-
-  external double y;
-
-  external double z;
-}
 extension type Shape3D._(_i1.JSObject _) implements Shape {
   external double get volume;
   external double surfaceArea();
@@ -82,41 +158,6 @@ extension type Sphere._(_i1.JSObject _) implements Shape3D {
 }
 @_i1.JS()
 external Sphere drawSphere(Point3D center);
-extension type Configuration._(_i1.JSObject _) implements _i1.JSObject {
-  external Configuration(
-    String version,
-    String apiUrl,
-  );
-
-  external String get version;
-  external String get apiUrl;
-}
-extension type Product._(_i1.JSObject _) implements _i1.JSObject {
-  external Product(
-    String name,
-    num price,
-    num quantity,
-  );
-
-  external String get name;
-  external set price(num newPrice);
-  external double get price;
-  external set quantity(num newQuantity);
-  external double get quantity;
-  external double get totalPrice;
-}
-extension type User._(_i1.JSObject _) implements _i1.JSObject {
-  external User(
-    num id,
-    String username,
-    String email,
-  );
-
-  external double id;
-
-  external String greet();
-  external String getEmail();
-}
 extension type Prism<S extends Shape2D>._(_i1.JSObject _) implements Shape3D {
   external Prism(
     S surface,
@@ -203,75 +244,6 @@ extension type Hemi<S extends Shape3D>._(_i1.JSObject _) implements Shape3D {
   external double surfaceArea();
 }
 typedef HemiSphere = Hemi<Sphere>;
-@_i1.JS()
-external Point2D get origin2D;
-@_i1.JS()
-external Point3D get origin3D;
-extension type Vector._(_i1.JSObject _) implements _i1.JSObject {
-  external double get magnitude;
-  external double get directionAngle;
-}
-extension type Vector2D._(_i1.JSObject _) implements Vector {
-  external Vector2D(
-    num x,
-    num y,
-  );
-
-  external double x;
-
-  external double y;
-
-  external Vector2D unit();
-  @_i2.redeclare
-  external double get magnitude;
-  @_i2.redeclare
-  external double get directionAngle;
-  external Point2D moveFrom(Point2D point);
-  external static Vector2D from(
-    num magnitude,
-    num at,
-  );
-  external static Vector2D fromPoints(
-    Point2D start,
-    Point2D end,
-  );
-}
-extension type DirectionAngles._(_i1.JSObject _) implements _i1.JSObject {
-  external double alpha;
-
-  external double beta;
-
-  external double gamma;
-}
-extension type Vector3D._(_i1.JSObject _) implements Vector {
-  external Vector3D(
-    num x,
-    num y,
-    num z,
-  );
-
-  external double x;
-
-  external double y;
-
-  external double z;
-
-  external Vector3D unit();
-  @_i2.redeclare
-  external double get magnitude;
-  external DirectionAngles get directionAngles;
-  @_i2.redeclare
-  external double get directionAngle;
-  external Point3D moveFrom(Point3D point);
-  external static Vector3D from(
-    num magnitude,
-    DirectionAngles at,
-  );
-  external static Vector3D fromPoints(
-    Point3D start,
-    Point3D end,
-  );
-}
 extension type EpahsImpl<TMeta extends _i1.JSAny?>._(_i1.JSObject _)
     implements Epahs<TMeta> {
   external EpahsImpl(
@@ -299,6 +271,7 @@ extension type EpahsImpl<TMeta extends _i1.JSAny?>._(_i1.JSObject _)
   @_i1.JS('toString')
   external String toString$();
 }
+extension type Point._(_i1.JSObject _) implements _i1.JSObject {}
 extension type const AnonymousUnion$1._(String _) {
   static const AnonymousUnion$1 circle = AnonymousUnion$1._('circle');
 

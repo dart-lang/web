@@ -17,10 +17,10 @@ import 'types.dart';
 sealed class TypeDeclaration extends NamedDeclaration
     implements ExportableDeclaration {
   @override
-  final String name;
+  String name;
 
   @override
-  final String? dartName;
+  String? dartName;
 
   @override
   final bool exported;
@@ -140,6 +140,9 @@ class VariableDeclaration extends FieldDeclaration
   ID get id => ID(type: 'var', name: name);
 
   @override
+  String? dartName;
+
+  @override
   Spec emit([DeclarationOptions? options]) {
     if (modifier == VariableModifier.$const) {
       return Method((m) => m
@@ -159,12 +162,10 @@ class VariableDeclaration extends FieldDeclaration
   }
 
   @override
-  String? get dartName => null;
-
-  @override
-  ReferredType<VariableDeclaration> asReferredType([List<Type>? typeArgs]) {
+  ReferredType<VariableDeclaration> asReferredType(
+      [List<Type>? typeArgs, String? url]) {
     return ReferredType<VariableDeclaration>.fromType(type, this,
-        typeParams: typeArgs ?? []);
+        typeParams: typeArgs ?? [], url: url);
   }
 }
 
@@ -173,10 +174,10 @@ enum VariableModifier { let, $const, $var }
 class FunctionDeclaration extends CallableDeclaration
     implements ExportableDeclaration {
   @override
-  final String name;
+  String name;
 
   @override
-  final String? dartName;
+  String? dartName;
 
   @override
   final List<ParameterDeclaration> parameters;
@@ -234,18 +235,19 @@ class FunctionDeclaration extends CallableDeclaration
   }
 
   @override
-  ReferredType<FunctionDeclaration> asReferredType([List<Type>? typeArgs]) {
+  ReferredType<FunctionDeclaration> asReferredType(
+      [List<Type>? typeArgs, String? url]) {
     // TODO: We could do better here and make the function type typed
     return ReferredType<FunctionDeclaration>.fromType(
         BuiltinType.referred('Function', typeParams: typeArgs ?? [])!, this,
-        typeParams: typeArgs ?? []);
+        typeParams: typeArgs ?? [], url: url);
   }
 }
 
 class EnumDeclaration extends NamedDeclaration
     implements ExportableDeclaration {
   @override
-  final String name;
+  String name;
 
   @override
   final bool exported;
@@ -339,14 +341,14 @@ class EnumMember {
 class TypeAliasDeclaration extends NamedDeclaration
     implements ExportableDeclaration {
   @override
-  final String name;
+  String name;
 
   final List<GenericType> typeParameters;
 
   final Type type;
 
   @override
-  final String? dartName;
+  String? dartName;
 
   @override
   bool exported;
@@ -447,13 +449,13 @@ class InterfaceDeclaration extends TypeDeclaration {
 class PropertyDeclaration extends FieldDeclaration
     implements MemberDeclaration {
   @override
-  final String name;
+  String name;
 
   @override
   final ID id;
 
   @override
-  final String? dartName;
+  String? dartName;
 
   @override
   late final TypeDeclaration parent;
@@ -695,6 +697,9 @@ class OperatorDeclaration extends CallableDeclaration
     implements MemberDeclaration {
   @override
   String get name => kind.expression;
+
+  @override
+  set name(String? name) {}
 
   OperatorKind kind;
 

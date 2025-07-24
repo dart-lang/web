@@ -9,8 +9,6 @@
 import 'dart:js_interop' as _i1;
 
 @_i1.JS()
-external String get APP_NAME;
-@_i1.JS()
 external User loginUser(
   String username,
   UserRole role,
@@ -48,6 +46,8 @@ external _i1.JSArray<_i1.JSString> changeRoleOfSetOfUsers(
 external void logoutUser(User user);
 @_i1.JS()
 external void toggleAdminMode();
+@_i1.JS()
+external String get APP_NAME;
 @_i1.JS()
 external User get user1;
 @_i1.JS()

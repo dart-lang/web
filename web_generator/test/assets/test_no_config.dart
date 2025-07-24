@@ -4,10 +4,6 @@
 import 'dart:js_interop' as _i1;
 
 @_i1.JS()
-external String get APP_NAME;
-@_i1.JS()
-external String get APP_NAMES;
-@_i1.JS()
 external void initializeApp();
 @_i1.JS()
 external User loginUser(
@@ -43,6 +39,10 @@ external void changeSystemStatus(String newStatus);
 external void toggleAdminMode();
 @_i1.JS()
 external void processHttpRequest(HttpStatusCode statusCode);
+@_i1.JS()
+external String get APP_NAME;
+@_i1.JS()
+external String get APP_NAMES;
 @_i1.JS()
 external User get user1;
 @_i1.JS()

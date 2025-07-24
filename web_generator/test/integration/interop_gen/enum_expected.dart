@@ -3,6 +3,15 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:js_interop' as _i1;
 
+extension type const Status._(int _) {
+  static const Status Active = Status._(1);
+
+  static const Status Inactive = Status._(0);
+
+  static const Status Pending = Status._(2);
+}
+@_i1.JS()
+external void logStatus(Status status);
 extension type const Direction._(int _) {
   static const Direction Up = Direction._(0);
 
@@ -12,6 +21,22 @@ extension type const Direction._(int _) {
 
   static const Direction Right = Direction._(3);
 }
+@_i1.JS()
+external String handleDirection(Direction dir);
+extension type const Permissions._(int _) {
+  static const Permissions Read = Permissions._(1);
+
+  static const Permissions Write = Permissions._(2);
+
+  static const Permissions Execute = Permissions._(4);
+
+  static const Permissions All = Permissions._(7);
+}
+@_i1.JS()
+external bool hasPermission(
+  Permissions perm,
+  Permissions flag,
+);
 extension type const ResponseCode._(int _) {
   static const ResponseCode Success = ResponseCode._(200);
 
@@ -51,19 +76,8 @@ extension type BooleanLike._(_i1.JSAny? _) {
 
   static final BooleanLike Yes = BooleanLike._('YES'.toJS);
 }
-extension type const Status._(int _) {
-  static const Status Active = Status._(1);
-
-  static const Status Inactive = Status._(0);
-
-  static const Status Pending = Status._(2);
-}
 @_i1.JS()
 external Status get statusFromName;
-@_i1.JS()
-external void logStatus(Status status);
-@_i1.JS()
-external String handleDirection(Direction dir);
 extension type const HttpStatus._(int _) {
   static const HttpStatus OK = HttpStatus._(200);
 
@@ -94,20 +108,6 @@ extension type SomeRandomEnumValues._(_i1.JSAny? _) {
 
   external static SomeRandomEnumValues unknown;
 }
-extension type const Permissions._(int _) {
-  static const Permissions Read = Permissions._(1);
-
-  static const Permissions Write = Permissions._(2);
-
-  static const Permissions Execute = Permissions._(4);
-
-  static const Permissions All = Permissions._(7);
-}
-@_i1.JS()
-external bool hasPermission(
-  Permissions perm,
-  Permissions flag,
-);
 @_i1.JS()
 external Permissions get userPermissions;
 @_i1.JS()

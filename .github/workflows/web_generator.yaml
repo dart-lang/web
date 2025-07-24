@@ -25,7 +25,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        sdk: [stable]
+        sdk: [dev]
         test_config: ['', '-p chrome', '-p chrome -c dart2wasm']
 
     steps:
@@ -36,7 +36,7 @@ jobs:
 
       - run: dart pub get
       - run: dart format --output=none --set-exit-if-changed .
-        if: ${{ matrix.sdk == 'stable' }}
+        if: ${{ matrix.sdk == 'dev' }}
       - run: dart analyze --fatal-infos
       - run: dart test ${{ matrix.test_config }}
 

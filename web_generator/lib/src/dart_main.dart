@@ -36,7 +36,7 @@ void main(List<String> args) async {
     await generateIDLBindings(
       input: (argResult['input'] as List<String>).isEmpty
           ? null
-          : argResult['input'] as Iterable<String>,
+          : argResult['input'] as List<String>,
       output: argResult['output'] as String,
       generateAll: argResult['generate-all'] as bool,
       languageVersion: Version.parse(languageVersionString),
@@ -54,8 +54,14 @@ void main(List<String> args) async {
         filename: filename,
       );
     } else {
+      final allInputFiles = fs.globSync(
+          (argResult['input'] as List<String>).map((i) => i.toJS).toList().toJS,
+          FSGlobSyncOptions(
+              cwd: p.current.toJS,
+              exclude:
+                  excludeFileEntryFunc('.d.ts').toJS as FSGlobSyncExcludeFunc));
       config = Config(
-        input: argResult['input'] as List<String>,
+        input: allInputFiles.toDart.map((i) => i.toDart).toList(),
         output: argResult['output'] as String,
         languageVersion: Version.parse(languageVersionString),
       );
@@ -135,11 +141,21 @@ Future<void> generateIDLBindings({
       fs.writeFileSync('$output/$libraryPath'.toJS, contents);
     }
   } else {
+    final allInputFiles = fs
+        .globSync(
+            input.map((i) => i.toJS).toList().toJS,
+            FSGlobSyncOptions(
+                cwd: p.current.toJS,
+                exclude:
+                    excludeFileEntryFunc('.idl').toJS as FSGlobSyncExcludeFunc))
+        .toDart
+        .map((i) => i.toDart)
+        .toList();
     // parse individual files
     ensureDirectoryExists(output);
 
     final bindings = await generateBindingsForFiles({
-      for (final file in input)
+      for (final file in allInputFiles)
         file: (fs.readFileSync(
                     file.toJS, JSReadFileOptions(encoding: 'utf-8'.toJS))
                 as JSString)

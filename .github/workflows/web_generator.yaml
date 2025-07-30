@@ -1,0 +1,66 @@
+name: package:web_generator
+permissions: read-all
+
+on:
+  # Run CI on pushes to the main branch and on PRs.
+  push:
+    branches: [ main ]
+    paths:
+      - '.github/workflows/web_generator.yaml'
+      - 'web_generator/**'
+  pull_request:
+    paths:
+      - '.github/workflows/web_generator.yaml'
+      - 'web_generator/**'
+  schedule:
+    - cron: "0 0 * * 0"
+
+defaults:
+  run:
+    working-directory: web_generator/
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        sdk: [dev]
+        test_config: ['', '-p chrome', '-p chrome -c dart2wasm']
+
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: dart-lang/setup-dart@e51d8e571e22473a2ddebf0ef8a2123f0ab2c02c
+        with:
+          sdk: ${{ matrix.sdk }}
+
+      - run: dart pub get
+      - run: dart format --output=none --set-exit-if-changed .
+      - run: dart analyze --fatal-infos
+      - run: dart test ${{ matrix.test_config }}
+
+  # test bin/update_idl_bindings.dart
+  test_generate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: dart-lang/setup-dart@e51d8e571e22473a2ddebf0ef8a2123f0ab2c02c
+
+      - run: dart pub get
+      - run: dart pub -C ../web get
+      - run: dart bin/update_idl_bindings.dart
+      - run: dart analyze --fatal-infos ../web
+
+  # test bin/update_idl_bindings.dart --generate-all
+  test_generate_all:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: dart-lang/setup-dart@e51d8e571e22473a2ddebf0ef8a2123f0ab2c02c
+
+      - run: dart pub get
+      - run: dart pub -C ../web get
+      - run: dart bin/update_idl_bindings.dart --generate-all
+      - run: dart analyze --fatal-infos ../web

@@ -6,3 +6,9 @@ import 'dart:js_interop';
 
 @JS()
 external String get url;
+
+@JS('process.exit')
+external void exit(int code);
+
+@JS('console.error')
+external void printErr(String message);

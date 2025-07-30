@@ -197,9 +197,8 @@ class ProgramMap {
       } else {
         final exportedSymbols = sourceSymbol.exports?.toDart;
 
-        for (final symbolEntry
+        for (final MapEntry(value: symbol)
             in exportedSymbols?.entries ?? <MapEntry<JSString, TSSymbol>>[]) {
-          final MapEntry(key: name, value: symbol) = symbolEntry;
           final decls = symbol.getDeclarations()?.toDart ?? [];
           try {
             final aliasedSymbol = typeChecker.getAliasedSymbol(symbol);

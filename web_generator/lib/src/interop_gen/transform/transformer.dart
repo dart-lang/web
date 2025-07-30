@@ -1102,7 +1102,9 @@ class Transformer {
   /// Either derives the type referenced by the [symbol], or
   /// transforms the declaration(s) associated with the [symbol].
   ///
-  ///
+  /// Returns a record containing the type, if any, and the name of
+  /// the symbol, which, if not renamed by an export declaration, will
+  /// be the same as [name].
   (Type?, String) _deriveTypeOrTransform(TSSymbol symbol,
       [String? name,
       List<TSTypeNode>? typeArguments,

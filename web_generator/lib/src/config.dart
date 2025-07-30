@@ -190,9 +190,9 @@ class YamlConfig implements Config {
 /// to exclude all files not ending with the given [allowedExtension]
 ///
 /// This helps support passing dir globs.
-bool Function(FSDirent entry) excludeFileEntryFunc(String allowedExtension) {
-  return (FSDirent entry) {
-    if (entry.isFile()) return !entry.name.endsWith(allowedExtension);
+bool Function(String entry) excludeFileEntryFunc(String allowedExtension) {
+  return (String entry) {
+    if (p.extension(entry) != '') return !entry.endsWith(allowedExtension);
     return true;
   };
 }

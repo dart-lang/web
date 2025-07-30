@@ -53,12 +53,5 @@ extension type FSGlobSyncOptions._(JSObject _) implements JSObject {
 }
 
 extension type FSGlobSyncExcludeFunc(JSFunction _) implements JSFunction {
-  external bool call(FSDirent entry);
-}
-@JS('Dirent')
-extension type FSDirent._(JSObject _) implements JSObject {
-  external String name;
-  external String parentPath;
-  external bool isFile();
-  external bool isDirectory();
+  external bool call(String entry);
 }

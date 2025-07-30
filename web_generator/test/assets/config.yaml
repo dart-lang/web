@@ -4,7 +4,7 @@ preamble: |
   // GENERATED FILE: DO NOT EDIT
   // 
   // Created by `web_generator`
-input: '*.d.ts'
+input: 'test.d.ts'
 output: '../../.dart_tool/test_config.dart'
 include:
   - APP_NAME

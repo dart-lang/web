@@ -19,6 +19,8 @@ external _i1.JSPromise<U> delay<U extends _i1.JSAny?>(
 ]);
 @_i1.JS()
 external _i1.JSArray<_i1.JSNumber> toArray(num a);
+@_i1.JS('toArray')
+external _i1.JSArray<_i1.JSString> toArray$1(String a);
 @_i1.JS()
 external double square(num a);
 @_i1.JS()
@@ -28,8 +30,6 @@ external double pow$1(
   num a,
   num power,
 );
-@_i1.JS('toArray')
-external _i1.JSArray<_i1.JSString> toArray$1(String a);
 @_i1.JS()
 external _i1.JSObject createUser(
   String name, [

@@ -20,21 +20,24 @@ class ReferredType<T extends Declaration> extends Type {
 
   List<Type> typeParams;
 
+  String? url;
+
   ReferredType(
       {required this.name,
       required this.declaration,
-      this.typeParams = const []});
+      this.typeParams = const [],
+      this.url});
 
   factory ReferredType.fromType(Type type, T declaration,
-      {List<Type> typeParams}) = ReferredDeclarationType;
+      {List<Type> typeParams, String? url}) = ReferredDeclarationType;
 
   @override
   Reference emit([TypeOptions? options]) {
-    // TODO: Support referred types imported from URL
     return TypeReference((t) => t
-      ..symbol = declaration.name
+      ..symbol = declaration.dartName ?? declaration.name
       ..types.addAll(typeParams.map((t) => t.emit(options)))
-      ..isNullable = options?.nullable);
+      ..isNullable = options?.nullable
+      ..url = options?.url ?? url);
   }
 }
 
@@ -44,11 +47,15 @@ class ReferredDeclarationType<T extends Declaration> extends ReferredType<T> {
   @override
   String get name => type.name ?? declaration.name;
 
-  ReferredDeclarationType(this.type, T declaration, {super.typeParams})
+  ReferredDeclarationType(this.type, T declaration,
+      {super.typeParams, super.url})
       : super(name: declaration.name, declaration: declaration);
 
   @override
   Reference emit([covariant TypeOptions? options]) {
+    options ??= TypeOptions();
+    options.url = super.url;
+
     return type.emit(options);
   }
 }

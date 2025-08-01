@@ -26,8 +26,9 @@ class DeclarationOptions extends Options {
 
 class TypeOptions extends Options {
   bool nullable;
+  String? url;
 
-  TypeOptions({this.nullable = false});
+  TypeOptions({this.nullable = false, this.url});
 }
 
 class ASTOptions {
@@ -42,7 +43,7 @@ class ASTOptions {
 }
 
 sealed class Node {
-  abstract final String? name;
+  String? get name;
   abstract final ID id;
   String? get dartName;
 
@@ -53,20 +54,30 @@ sealed class Node {
 
 abstract class Declaration extends Node {
   @override
-  abstract final String name;
+  String get name;
 
   @override
   Spec emit([covariant DeclarationOptions? options]);
 }
 
 abstract class NamedDeclaration extends Declaration {
-  ReferredType asReferredType([List<Type>? typeArgs]) =>
-      ReferredType(name: name, declaration: this, typeParams: typeArgs ?? []);
+  @override
+  abstract String name;
+
+  ReferredType asReferredType([List<Type>? typeArgs, String? url]) =>
+      ReferredType(
+          name: name, declaration: this, typeParams: typeArgs ?? [], url: url);
 }
 
 abstract interface class ExportableDeclaration extends Declaration {
   /// Whether this declaration is exported.
   bool get exported;
+
+  @override
+  abstract String? dartName;
+
+  @override
+  abstract String name;
 }
 
 abstract class Type extends Node {

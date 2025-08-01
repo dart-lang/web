@@ -45,11 +45,14 @@ sealed class TypeDeclaration extends NamedDeclaration
       this.operators = const [],
       this.constructors = const []});
 
+  /// [assertRepType] is used to assert that the extension type generated
+  /// has a representation type of the first member of [extendees] if any.
   ExtensionType _emit(
       [covariant DeclarationOptions? options,
       bool abstract = false,
       List<Type> extendees = const [],
-      List<Type> implementees = const []]) {
+      List<Type> implementees = const [],
+      bool assertRepType = false]) {
     options ??= DeclarationOptions();
 
     final hierarchy = getMemberHierarchy(this);
@@ -75,8 +78,8 @@ sealed class TypeDeclaration extends NamedDeclaration
     methodDecs.addAll(operators.where((p) => p.scope == DeclScope.public).map(
         (m) => m.emit(options!..override = isOverride(m.dartName ?? m.name))));
 
-    final repType = this is ClassDeclaration
-        ? getClassRepresentationType(this as ClassDeclaration)
+    final repType = assertRepType || this is ClassDeclaration
+        ? getClassRepresentationType(this)
         : BuiltinType.primitiveType(PrimitiveType.object, isNullable: false);
 
     return ExtensionType((e) => e
@@ -114,6 +117,8 @@ abstract class MemberDeclaration {
   late final TypeDeclaration parent;
 
   abstract final DeclScope scope;
+
+  String? get name;
 }
 
 class VariableDeclaration extends FieldDeclaration
@@ -423,6 +428,11 @@ class InterfaceDeclaration extends TypeDeclaration {
 
   final List<Type> extendedTypes;
 
+  /// This asserts that the extension type generated produces a rep type
+  /// other than its default, which is denoted by the first member of
+  /// [extendedTypes] if any.
+  final bool assertRepType;
+
   InterfaceDeclaration(
       {required super.name,
       required super.exported,
@@ -433,15 +443,12 @@ class InterfaceDeclaration extends TypeDeclaration {
       super.methods,
       super.properties,
       super.operators,
-      super.constructors});
+      super.constructors,
+      this.assertRepType = false});
 
   @override
   ExtensionType emit([covariant DeclarationOptions? options]) {
-    return super._emit(
-      options,
-      false,
-      extendedTypes,
-    );
+    return super._emit(options, false, extendedTypes, [], assertRepType);
   }
 }
 

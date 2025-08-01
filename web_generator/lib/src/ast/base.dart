@@ -86,6 +86,14 @@ abstract class Type extends Node {
 
   @override
   Reference emit([covariant TypeOptions? options]);
+
+  @override
+  bool operator ==(Object other) {
+    return other is Type && id == other.id;
+  }
+
+  @override
+  int get hashCode => Object.hashAll([id]);
 }
 
 abstract class FieldDeclaration extends NamedDeclaration {
@@ -101,6 +109,12 @@ abstract class CallableDeclaration extends NamedDeclaration {
 }
 
 enum DeclScope { private, protected, public }
+
+abstract class DeclarationAssociatedType<T extends Declaration> extends Type {
+  T get declaration;
+
+  String get declarationName;
+}
 
 class ParameterDeclaration {
   final String name;

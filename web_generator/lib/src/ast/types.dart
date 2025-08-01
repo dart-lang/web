@@ -4,6 +4,7 @@
 
 import 'package:code_builder/code_builder.dart';
 import '../interop_gen/namer.dart';
+import '../interop_gen/sub_type.dart';
 import 'base.dart';
 import 'builtin.dart';
 import 'declarations.dart';
@@ -60,11 +61,46 @@ class ReferredDeclarationType<T extends Declaration> extends ReferredType<T> {
   }
 }
 
-// TODO(https://github.com/dart-lang/web/issues/385): Implement Support for UnionType (including implementing `emit`)
-class UnionType extends Type {
+class TupleType extends Type {
   final List<Type> types;
 
-  UnionType({required this.types});
+  TupleType({required this.types});
+
+  @override
+  ID get id => ID(type: 'type', name: types.map((t) => t.id.name).join(','));
+
+  @override
+  String? get name => null;
+
+  @override
+  Reference emit([TypeOptions? options]) {
+    return TypeReference((t) => t
+      ..symbol = 'JSTuple${types.length}'
+      ..types.addAll(types.map((type) => type.emit(options))));
+  }
+
+  @override
+  int get hashCode => Object.hashAllUnordered(types);
+
+  @override
+  bool operator ==(Object other) {
+    return other is TupleType && other.types.every(types.contains);
+  }
+}
+
+class UnionType extends Type implements DeclarationAssociatedType {
+  final List<Type> types;
+
+  final bool isNullable;
+
+  @override
+  String declarationName;
+
+  UnionType({
+    required this.types, 
+    required String name, 
+    this.isNullable = false
+  }) : declarationName = name;
 
   @override
   ID get id => ID(type: 'type', name: types.map((t) => t.id.name).join('|'));
@@ -73,16 +109,27 @@ class UnionType extends Type {
   String? get name => null;
 
   @override
+  Declaration get declaration =>
+      _UnionDeclaration(name: declarationName, types: types);
+
+  @override
   Reference emit([TypeOptions? options]) {
-    throw UnimplementedError('TODO: Implement UnionType.emit');
+    return TypeReference((t) => t
+      ..symbol = declarationName
+      ..isNullable = options?.nullable ?? isNullable);
+  }
+
+  @override
+  int get hashCode => Object.hashAllUnordered(types);
+
+  @override
+  bool operator ==(Object other) {
+    return other is TupleType && other.types.every(types.contains);
   }
 }
 
-// TODO: Handle naming anonymous declarations
-// TODO: Extract having a declaration associated with a type to its own type
-//  (e.g DeclarationAssociatedType)
 class HomogenousEnumType<T extends LiteralType, D extends Declaration>
-    extends UnionType {
+    extends UnionType implements DeclarationAssociatedType {
   final List<T> _types;
 
   @override
@@ -90,17 +137,14 @@ class HomogenousEnumType<T extends LiteralType, D extends Declaration>
 
   final Type baseType;
 
-  final bool isNullable;
-
-  String declarationName;
-
   HomogenousEnumType(
-      {required List<T> types, this.isNullable = false, required String name})
-      : declarationName = name,
-        _types = types,
-        baseType = types.first.baseType,
-        super(types: types);
+      {required List<T> super.types,
+      super.isNullable,
+      required super.name})
+      : _types = types,
+        baseType = types.first.baseType;
 
+  @override
   EnumDeclaration get declaration => EnumDeclaration(
       name: declarationName,
       dartName: UniqueNamer.makeNonConflicting(declarationName),
@@ -115,13 +159,6 @@ class HomogenousEnumType<T extends LiteralType, D extends Declaration>
         );
       }).toList(),
       exported: true);
-
-  @override
-  Reference emit([TypeOptions? options]) {
-    return TypeReference((t) => t
-      ..symbol = declarationName
-      ..isNullable = options?.nullable ?? isNullable);
-  }
 }
 
 /// The base class for a type generic (like 'T')
@@ -144,6 +181,16 @@ class GenericType extends Type {
     ..symbol = name
     ..bound = constraint?.emit()
     ..isNullable = options?.nullable);
+
+  @override
+  bool operator ==(Object other) {
+    return other is GenericType &&
+        other.name == name &&
+        other.constraint == constraint;
+  }
+
+  @override
+  int get hashCode => Object.hash(name, constraint);
 }
 
 /// A type representing a bare literal, such as `null`, a string or number
@@ -176,6 +223,14 @@ class LiteralType extends Type {
 
   @override
   ID get id => ID(type: 'type', name: name);
+
+  @override
+  bool operator ==(Object other) {
+    return other is LiteralType && other.name == name && other.value == value;
+  }
+
+  @override
+  int get hashCode => Object.hash(name, value);
 }
 
 enum LiteralKind {
@@ -193,4 +248,59 @@ enum LiteralKind {
         LiteralKind.double => PrimitiveType.double,
         LiteralKind.$true || LiteralKind.$false => PrimitiveType.boolean
       };
+}
+
+// TODO: Merge properties/methods of related types
+class _UnionDeclaration extends NamedDeclaration implements ExportableDeclaration {
+  @override
+  bool get exported => true;
+  
+  @override
+  ID get id => ID(type: 'union', name: name);
+
+  List<Type> types;
+  
+  _UnionDeclaration({
+    required this.name,
+    this.types = const [],
+  });
+  
+  @override
+  String? dartName;
+  
+  @override
+  String name;
+  
+  @override
+  Spec emit([covariant DeclarationOptions? options]) {
+    options ??= DeclarationOptions();
+
+    final repType = getSubTypeOfTypes(types);
+
+    return ExtensionType((e) => e
+      ..name = name
+      ..primaryConstructorName = '_'
+      ..representationDeclaration = RepresentationDeclaration((r) => r
+        ..name = '_'
+        ..declaredRepresentationType = repType.emit(options?.toTypeOptions())
+      )
+      ..implements.add(
+        repType.emit(options?.toTypeOptions())
+      )
+      ..methods.addAll(
+        types.map((t) {
+          final type = t.emit(options?.toTypeOptions());
+          return Method((m) => m
+            ..type = MethodType.getter
+            ..name = 'as${
+              t is DeclarationAssociatedType ? t.declarationName 
+                : (t.dartName ?? t.name ?? t.id.name)
+            }'
+            ..returns = type
+            ..body = refer('_').asA(type).returned.code
+          );
+        })
+      )
+    );
+  }
 }

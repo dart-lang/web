@@ -40,6 +40,30 @@ external _i1.JSFunction get myEnclosingFunctionAlias;
 external ComposedType get myComposedType;
 @_i1.JS()
 external ComposedType<_i1.JSString> get myComposedMyString;
+extension type JSTuple2<A extends _i1.JSAny?, B extends _i1.JSAny?>._(
+    _i1.JSArray<_i1.JSAny?> _) implements _i1.JSArray<_i1.JSAny?> {
+  external A $1;
+
+  external B $2;
+}
+@_i1.JS()
+external JSTuple2<_i1.JSString, _i1.JSNumber> get myTuple;
+@_i1.JS()
+external JSTuple2<_i1.JSString, _i1.JSString> get mySecondTuple;
+extension type JSTuple4<A extends _i1.JSAny?, B extends _i1.JSAny?,
+        C extends _i1.JSAny?, D extends _i1.JSAny?>._(_i1.JSArray<_i1.JSAny?> _)
+    implements _i1.JSArray<_i1.JSAny?> {
+  external A $1;
+
+  external B $2;
+
+  external C $3;
+
+  external D $4;
+}
+@_i1.JS()
+external JSTuple4<_i1.JSString, _i1.JSNumber, _i1.JSBoolean, _i1.JSSymbol>
+    get typesAsTuple;
 extension type ComposedType<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
   external T enclosed;

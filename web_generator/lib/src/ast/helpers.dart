@@ -4,6 +4,7 @@
 
 import 'package:code_builder/code_builder.dart';
 
+import '../interop_gen/namer.dart';
 import 'base.dart';
 import 'builtin.dart';
 import 'declarations.dart';
@@ -96,11 +97,19 @@ Set<String> getMemberHierarchy(TypeDeclaration type,
   return members;
 }
 
-Type getClassRepresentationType(ClassDeclaration cl) {
-  if (cl.extendedType case final extendee?) {
+Type getClassRepresentationType(TypeDeclaration cl) {
+  if (cl case ClassDeclaration(extendedType: final extendee?)) {
     return switch (extendee) {
-      final ClassDeclaration classExtendee =>
-        getClassRepresentationType(classExtendee),
+      ReferredType(declaration: final d) when d is ClassDeclaration =>
+        getClassRepresentationType(d),
+      final BuiltinType b => b,
+      _ => BuiltinType.primitiveType(PrimitiveType.object, isNullable: false)
+    };
+  } else if (cl case InterfaceDeclaration(extendedTypes: [final extendee])) {
+    return switch (extendee) {
+      ReferredType(declaration: final d) when d is ClassDeclaration =>
+        getClassRepresentationType(d),
+      final BuiltinType b => b,
       _ => BuiltinType.primitiveType(PrimitiveType.object, isNullable: false)
     };
   } else {
@@ -111,4 +120,32 @@ Type getClassRepresentationType(ClassDeclaration cl) {
 
     return BuiltinType.primitiveType(primitiveType, isNullable: false);
   }
+}
+
+Declaration generateTupleDeclaration(int count, {bool readonly = false}) {
+  final name = readonly ? 'JSReadonlyTuple$count' : 'JSTuple$count';
+  return InterfaceDeclaration(
+      name: name,
+      exported: true,
+      assertRepType: true,
+      id: ID(type: 'tuple', name: name),
+      typeParameters: List.generate(
+          count,
+          (index) => GenericType(
+              name: String.fromCharCode(65 + index),
+              constraint: BuiltinType.anyType)),
+      extendedTypes: [
+        BuiltinType.primitiveType(PrimitiveType.array,
+            shouldEmitJsType: true,
+            // TODO: get sub type instead
+            typeParams: [BuiltinType.anyType])
+      ],
+      properties: List.generate(
+          count,
+          (index) => PropertyDeclaration(
+              name: '\$${index + 1}',
+              id: ID(type: 'var', name: '\$${index + 1}'),
+              type: GenericType(name: String.fromCharCode(65 + index)),
+              static: false,
+              readonly: readonly)));
 }

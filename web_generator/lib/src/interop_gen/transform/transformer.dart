@@ -11,6 +11,7 @@ import '../../ast/helpers.dart';
 import '../../ast/types.dart';
 import '../../js/typescript.dart' as ts;
 import '../../js/typescript.types.dart';
+import '../hasher.dart';
 import '../namer.dart';
 import '../transform.dart';
 
@@ -822,17 +823,22 @@ class Transformer {
         final unionType = type as TSUnionTypeNode;
         // TODO: Unions
         final types = unionType.types.toDart.map<Type>(_transformType).toList();
+        final isNullable = unionType.types.toDart.any((t) => 
+          t.kind == TSSyntaxKind.UndefinedKeyword || 
+            t.kind == TSSyntaxKind.LiteralType 
+            && (t as TSLiteralTypeNode).literal.kind == TSSyntaxKind.NullKeyword
+        );
+
+        print(types.length);
 
         var isHomogenous = true;
         final nonNullLiteralTypes = <LiteralType>[];
         var onlyContainsBooleanTypes = true;
-        var isNullable = false;
         LiteralType? firstNonNullablePrimitiveType;
 
         for (final type in types) {
           if (type is LiteralType) {
             if (type.kind == LiteralKind.$null) {
-              isNullable = true;
               continue;
             }
             firstNonNullablePrimitiveType ??= type;
@@ -855,26 +861,64 @@ class Transformer {
                 isNullable: isNullable);
           }
 
-          final expectedId =
-              ID(type: 'type', name: types.map((t) => t.id.name).join('|'));
+          final idMap = types.map((t) => t.id.name);
+
+          final expectedId = ID(type: 'type', name: idMap.join('|'));
 
           if (typeMap.containsKey(expectedId.toString())) {
             return typeMap[expectedId.toString()] as UnionType;
           }
 
-          final (id: _, name: name) =
-              namer.makeUnique('AnonymousUnion', 'type');
+          final name =
+              'AnonymousUnion_${AnonymousHasher.hashUnion(idMap.toList())}';
 
           // TODO: Handle similar types here...
           final homogenousEnumType = HomogenousEnumType(
               types: nonNullLiteralTypes, isNullable: isNullable, name: name);
 
-          return typeMap.putIfAbsent(
-                  expectedId.toString(), () => homogenousEnumType)
-              as HomogenousEnumType;
+          return typeMap.putIfAbsent(expectedId.toString(), () {
+            namer.markUsed(name);
+            return homogenousEnumType;
+          }) as HomogenousEnumType;
+        } else {
+          final idMap = types.map((t) => t.id.name);
+
+          final expectedId = ID(type: 'type', name: idMap.join('|'));
+
+          if (typeMap.containsKey(expectedId.toString())) {
+            return typeMap[expectedId.toString()] as UnionType;
+          }
+
+          final name =
+              'AnonymousUnion_${AnonymousHasher.hashUnion(idMap.toList())}';
+
+          final homogenousEnumType =
+              UnionType(types: types, name: name);
+
+          return typeMap.putIfAbsent(expectedId.toString(), () {
+            namer.markUsed(name);
+            return homogenousEnumType;
+          }) as UnionType;
+        }
+      case TSSyntaxKind.TupleType:
+        // tuple type is array
+        final tupleType = type as TSTupleTypeNode;
+        // TODO: Handle named tuple params (`[x: number, y: number]`)
+        final types = tupleType.elements.toDart
+            .map<Type>((t) => _transformType(t, typeArg: true))
+            .toList();
+
+        // we will work based on the length of the types
+        final typeLength = types.length;
+
+        // check if a tuple of a certain length already exists
+        if (nodeMap.findByName('JSTuple$typeLength').isEmpty) {
+          // generate tuple
+          nodeMap.add(generateTupleDeclaration(typeLength));
         }
 
-        return UnionType(types: types);
+        return TupleType(types: types);
+
       case TSSyntaxKind.LiteralType:
         final literalType = type as TSLiteralTypeNode;
         final literal = literalType.literal;
@@ -1380,16 +1424,19 @@ class Transformer {
             });
             break;
         }
-      // TODO: We can make (DeclarationAssociatedType) and use that
-      //  rather than individual type names
-      case final HomogenousEnumType hu:
-        filteredDeclarations.add(hu.declaration);
-        break;
+      case final TupleType t:
+        filteredDeclarations.addAll({
+          for (final t in t.types.where((t) => t is! BuiltinType))
+            t.id.toString(): t
+        });
       case final UnionType u:
         filteredDeclarations.addAll({
           for (final t in u.types.where((t) => t is! BuiltinType))
             t.id.toString(): t
         });
+        filteredDeclarations.add(u.declaration);
+      case final DeclarationAssociatedType d:
+        filteredDeclarations.add(d.declaration);
         break;
       case BuiltinType(typeParams: final typeParams) when typeParams.isNotEmpty:
         filteredDeclarations.addAll({

@@ -2,8 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:js_interop';
-
 import 'package:code_builder/code_builder.dart';
 import '../interop_gen/namer.dart';
 import '../interop_gen/sub_type.dart';
@@ -291,46 +289,51 @@ class _UnionDeclaration extends NamedDeclaration
       ..methods.addAll(types.map((t) {
         final type = t.emit(options?.toTypeOptions());
         final jsTypeAlt = getJSTypeAlternative(t);
-        return Method((m) => m
-          ..type = MethodType.getter
-          ..name =
-              'as${uppercaseFirstLetter(t is DeclarationAssociatedType ? t.declarationName : (t.dartName ?? t.name ?? t.id.name))}'
-          ..returns = type
-          ..body = jsTypeAlt.id == t.id
-              ? refer('_').asA(type).code
-              : switch (t) {
-                  BuiltinType(name: final n) when n == 'int' => refer('_')
-                      .asA(jsTypeAlt.emit(options?.toTypeOptions()))
-                      .property('toDartInt')
-                      .code,
-                  BuiltinType(name: final n) when n == 'double' || n == 'num' =>
-                    refer('_')
+        return Method((m) {
+          final word = t is DeclarationAssociatedType
+              ? t.declarationName
+              : (t.dartName ?? t.name ?? t.id.name);
+          m
+            ..type = MethodType.getter
+            ..name = 'as${uppercaseFirstLetter(word)}'
+            ..returns = type
+            ..body = jsTypeAlt.id == t.id
+                ? refer('_').asA(type).code
+                : switch (t) {
+                    BuiltinType(name: final n) when n == 'int' => refer('_')
                         .asA(jsTypeAlt.emit(options?.toTypeOptions()))
-                        .property('toDartDouble')
+                        .property('toDartInt')
                         .code,
-                  BuiltinType() => refer('_')
-                      .asA(jsTypeAlt.emit(options?.toTypeOptions()))
-                      .property('toDart')
-                      .code,
-                  ReferredType(
-                    declaration: final decl,
-                    name: final n,
-                    url: final url
-                  )
-                      when decl is EnumDeclaration =>
-                    refer(n, url).property('_').call([
+                    BuiltinType(name: final n)
+                        when n == 'double' || n == 'num' =>
                       refer('_')
                           .asA(jsTypeAlt.emit(options?.toTypeOptions()))
-                          .property(switch (decl.baseType.name) {
-                            'int' => 'toDartInt',
-                            'num' || 'double' => 'toDartDouble',
-                            _ => 'toDart'
-                          })
-                    ]).code,
-                  _ => refer('_')
-                      .asA(jsTypeAlt.emit(options?.toTypeOptions()))
-                      .code
-                });
+                          .property('toDartDouble')
+                          .code,
+                    BuiltinType() => refer('_')
+                        .asA(jsTypeAlt.emit(options?.toTypeOptions()))
+                        .property('toDart')
+                        .code,
+                    ReferredType(
+                      declaration: final decl,
+                      name: final n,
+                      url: final url
+                    )
+                        when decl is EnumDeclaration =>
+                      refer(n, url).property('_').call([
+                        refer('_')
+                            .asA(jsTypeAlt.emit(options?.toTypeOptions()))
+                            .property(switch (decl.baseType.name) {
+                              'int' => 'toDartInt',
+                              'num' || 'double' => 'toDartDouble',
+                              _ => 'toDart'
+                            })
+                      ]).code,
+                    _ => refer('_')
+                        .asA(jsTypeAlt.emit(options?.toTypeOptions()))
+                        .code
+                  };
+        });
       })));
   }
 }

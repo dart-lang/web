@@ -123,29 +123,82 @@ Type getClassRepresentationType(TypeDeclaration cl) {
 }
 
 Declaration generateTupleDeclaration(int count, {bool readonly = false}) {
-  final name = readonly ? 'JSReadonlyTuple$count' : 'JSTuple$count';
-  return InterfaceDeclaration(
-      name: name,
-      exported: true,
-      assertRepType: true,
-      id: ID(type: 'tuple', name: name),
-      typeParameters: List.generate(
+  return _TupleDeclaration(count: count, readonly: readonly);
+}
+
+class _TupleDeclaration extends NamedDeclaration
+    implements ExportableDeclaration {
+  @override
+  bool get exported => true;
+
+  @override
+  ID get id => ID(type: 'tuple', name: name);
+
+  final int count;
+
+  final bool readonly;
+
+  _TupleDeclaration({required this.count, this.readonly = false});
+
+  @override
+  String? dartName;
+
+  @override
+  String get name => readonly ? 'JSReadonlyTuple$count' : 'JSTuple$count';
+
+  @override
+  set name(String name) {}
+
+  @override
+  Spec emit([covariant DeclarationOptions? options]) {
+    options ??= DeclarationOptions();
+
+    final repType = BuiltinType.primitiveType(PrimitiveType.array,
+        shouldEmitJsType: true,
+        // TODO: get sub type instead
+        typeParams: [BuiltinType.anyType]);
+
+    return ExtensionType((e) => e
+      ..name = name
+      ..primaryConstructorName = '_'
+      ..representationDeclaration = RepresentationDeclaration((r) => r
+        ..name = '_'
+        ..declaredRepresentationType = repType.emit(options?.toTypeOptions()))
+      ..implements.addAll([
+        if (repType != BuiltinType.anyType)
+          repType.emit(options?.toTypeOptions())
+      ])
+      ..types.addAll(List.generate(
           count,
-          (index) => GenericType(
-              name: String.fromCharCode(65 + index),
-              constraint: BuiltinType.anyType)),
-      extendedTypes: [
-        BuiltinType.primitiveType(PrimitiveType.array,
-            shouldEmitJsType: true,
-            // TODO: get sub type instead
-            typeParams: [BuiltinType.anyType])
-      ],
-      properties: List.generate(
-          count,
-          (index) => PropertyDeclaration(
-              name: '\$${index + 1}',
-              id: ID(type: 'var', name: '\$${index + 1}'),
-              type: GenericType(name: String.fromCharCode(65 + index)),
-              static: false,
-              readonly: readonly)));
+          (index) => TypeReference((t) => t
+            ..symbol = String.fromCharCode(65 + index)
+            ..bound = BuiltinType.anyType.emit())))
+      ..methods.addAll([
+        ...List.generate(count, (index) {
+          final returnType = String.fromCharCode(65 + index);
+          return Method((m) => m
+            ..name = '\$${index + 1}'
+            ..returns = refer(returnType)
+            ..type = MethodType.getter
+            ..body = refer('_')
+                .index(literalNum(index))
+                .asA(refer(returnType))
+                .code);
+        }),
+        if (!readonly)
+          ...List.generate(count, (index) {
+            final returnType = String.fromCharCode(65 + index);
+            return Method((m) => m
+              ..name = '\$${index + 1}'
+              ..type = MethodType.setter
+              ..requiredParameters.add(Parameter((p) => p
+                ..name = 'newValue'
+                ..type = refer(returnType)))
+              ..body = refer('_')
+                  .index(literalNum(index))
+                  .assign(refer('newValue'))
+                  .code);
+          })
+      ]));
+  }
 }

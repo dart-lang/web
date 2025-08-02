@@ -45,27 +45,43 @@ external ComposedType<_i1.JSString> get myComposedMyString;
 @_i1.JS()
 external _AnonymousUnion_5411652 get myUnion;
 @_i1.JS()
+external _AnonymousUnion_5411652 get myCloneUnion;
+@_i1.JS()
 external _AnonymousUnion_3781934 get mySecondUnion;
 extension type JSTuple2<A extends _i1.JSAny?, B extends _i1.JSAny?>._(
     _i1.JSArray<_i1.JSAny?> _) implements _i1.JSArray<_i1.JSAny?> {
-  external A $1;
+  A get $1 => (_[0] as A);
 
-  external B $2;
+  B get $2 => (_[1] as B);
+
+  set $1(A newValue) => _[0] = newValue;
+
+  set $2(B newValue) => _[1] = newValue;
 }
 @_i1.JS()
 external JSTuple2<_i1.JSString, _i1.JSNumber> get myTuple;
 @_i1.JS()
 external JSTuple2<_i1.JSString, _i1.JSString> get mySecondTuple;
+@_i1.JS()
+external JSTuple2<_i1.JSString, _i1.JSString> get myCloneTuple;
 extension type JSTuple4<A extends _i1.JSAny?, B extends _i1.JSAny?,
         C extends _i1.JSAny?, D extends _i1.JSAny?>._(_i1.JSArray<_i1.JSAny?> _)
     implements _i1.JSArray<_i1.JSAny?> {
-  external A $1;
+  A get $1 => (_[0] as A);
 
-  external B $2;
+  B get $2 => (_[1] as B);
 
-  external C $3;
+  C get $3 => (_[2] as C);
 
-  external D $4;
+  D get $4 => (_[3] as D);
+
+  set $1(A newValue) => _[0] = newValue;
+
+  set $2(B newValue) => _[1] = newValue;
+
+  set $3(C newValue) => _[2] = newValue;
+
+  set $4(D newValue) => _[3] = newValue;
 }
 @_i1.JS()
 external JSTuple4<_i1.JSString, _i1.JSNumber, _i1.JSBoolean, _i1.JSSymbol>

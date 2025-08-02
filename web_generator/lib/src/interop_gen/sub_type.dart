@@ -20,14 +20,14 @@ Type getSubTypeOfTypes(List<Type> types, {bool isNullable = false}) {
 Type? _getSharedTypeIfAny(List<Type> types, {bool isNullable = true}) {
   LiteralKind? kind;
   Type? equalType;
-  var isNull = false;
+  bool? isNull;
   var allEqualTypes = true;
   var allLiteralTypes = true;
 
   for (final t in types) {
     if (t is LiteralType) {
       if (t.kind == LiteralKind.$null) {
-        isNull = true;
+        isNull ??= true;
         continue;
       }
       kind ??= t.kind;
@@ -55,9 +55,12 @@ Type? _getSharedTypeIfAny(List<Type> types, {bool isNullable = true}) {
         _ => PrimitiveType.any
       };
 
-      return BuiltinType.primitiveType(primitiveType, isNullable: isNullable);
+      return BuiltinType.primitiveType(primitiveType,
+          isNullable: isNull ?? isNullable);
     } else {
       return equalType!;
     }
   }
+
+  return null;
 }

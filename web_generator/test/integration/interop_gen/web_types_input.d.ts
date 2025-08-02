@@ -22,5 +22,5 @@ declare const input: HTMLInputElement;
 export declare const output: HTMLDivElement;
 export declare function handleButtonClick(event: MouseEvent): void;
 export declare function handleInputChange(event: Event): void;
-export declare function transformElements(el: HTMLElement[], transformer: HTMLTransformFunc<HTMLElement, HTMLElement>);
+export declare function transformElements(el: HTMLElement[], transformer: HTMLTransformFunc<HTMLElement, HTMLElement>): any;
 export declare function handleEvents(event: Event, onCallbacks: EventManipulationFunc[]): any;

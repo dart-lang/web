@@ -25,6 +25,17 @@ class ID {
 
   @override
   String toString() => '$type#$name${index != null ? '#$index' : ''}';
+
+  @override
+  bool operator ==(Object other) {
+    return other is ID &&
+        other.name == name &&
+        other.type == type &&
+        other.index == index;
+  }
+
+  @override
+  int get hashCode => Object.hash(type, name, index);
 }
 
 class UniqueNamer {

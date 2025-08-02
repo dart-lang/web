@@ -4,6 +4,7 @@
 
 import 'package:code_builder/code_builder.dart';
 
+import '../interop_gen/namer.dart';
 import 'base.dart';
 import 'builtin.dart';
 import 'declarations.dart';
@@ -96,11 +97,19 @@ Set<String> getMemberHierarchy(TypeDeclaration type,
   return members;
 }
 
-Type getClassRepresentationType(ClassDeclaration cl) {
-  if (cl.extendedType case final extendee?) {
+Type getClassRepresentationType(TypeDeclaration cl) {
+  if (cl case ClassDeclaration(extendedType: final extendee?)) {
     return switch (extendee) {
-      final ClassDeclaration classExtendee =>
-        getClassRepresentationType(classExtendee),
+      ReferredType(declaration: final d) when d is ClassDeclaration =>
+        getClassRepresentationType(d),
+      final BuiltinType b => b,
+      _ => BuiltinType.primitiveType(PrimitiveType.object, isNullable: false)
+    };
+  } else if (cl case InterfaceDeclaration(extendedTypes: [final extendee])) {
+    return switch (extendee) {
+      ReferredType(declaration: final d) when d is ClassDeclaration =>
+        getClassRepresentationType(d),
+      final BuiltinType b => b,
       _ => BuiltinType.primitiveType(PrimitiveType.object, isNullable: false)
     };
   } else {
@@ -110,5 +119,83 @@ Type getClassRepresentationType(ClassDeclaration cl) {
     };
 
     return BuiltinType.primitiveType(primitiveType, isNullable: false);
+  }
+}
+
+Declaration generateTupleDeclaration(int count, {bool readonly = false}) {
+  return _TupleDeclaration(count: count, readonly: readonly);
+}
+
+class _TupleDeclaration extends NamedDeclaration
+    implements ExportableDeclaration {
+  @override
+  bool get exported => true;
+
+  @override
+  ID get id => ID(type: 'tuple', name: name);
+
+  final int count;
+
+  final bool readonly;
+
+  _TupleDeclaration({required this.count, this.readonly = false});
+
+  @override
+  String? dartName;
+
+  @override
+  String get name => readonly ? 'JSReadonlyTuple$count' : 'JSTuple$count';
+
+  @override
+  set name(String name) {}
+
+  @override
+  Spec emit([covariant DeclarationOptions? options]) {
+    options ??= DeclarationOptions();
+
+    final repType = BuiltinType.primitiveType(PrimitiveType.array,
+        shouldEmitJsType: true,
+        // TODO: get sub type instead
+        typeParams: [BuiltinType.anyType]);
+
+    return ExtensionType((e) => e
+      ..name = name
+      ..primaryConstructorName = '_'
+      ..representationDeclaration = RepresentationDeclaration((r) => r
+        ..name = '_'
+        ..declaredRepresentationType = repType.emit())
+      ..implements.addAll([if (repType != BuiltinType.anyType) repType.emit()])
+      ..types.addAll(List.generate(
+          count,
+          (index) => TypeReference((t) => t
+            ..symbol = String.fromCharCode(65 + index)
+            ..bound = BuiltinType.anyType.emit())))
+      ..methods.addAll([
+        ...List.generate(count, (index) {
+          final returnType = String.fromCharCode(65 + index);
+          return Method((m) => m
+            ..name = '\$${index + 1}'
+            ..returns = refer(returnType)
+            ..type = MethodType.getter
+            ..body = refer('_')
+                .index(literalNum(index))
+                .asA(refer(returnType))
+                .code);
+        }),
+        if (!readonly)
+          ...List.generate(count, (index) {
+            final returnType = String.fromCharCode(65 + index);
+            return Method((m) => m
+              ..name = '\$${index + 1}'
+              ..type = MethodType.setter
+              ..requiredParameters.add(Parameter((p) => p
+                ..name = 'newValue'
+                ..type = refer(returnType)))
+              ..body = refer('_')
+                  .index(literalNum(index))
+                  .assign(refer('newValue'))
+                  .code);
+          })
+      ]));
   }
 }

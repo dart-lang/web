@@ -5,6 +5,7 @@ declare enum LoggerType {
     File = 3,
     Other = 4
 }
+export type NameAndAge = [string, number];
 export type Username = string;
 export type Age = number;
 export type IsActive = boolean;

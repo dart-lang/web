@@ -56,8 +56,15 @@ class TransformResult {
           }));
         }
         l
-          ..ignoreForFile.addAll(
-              ['constant_identifier_names', 'non_constant_identifier_names'])
+          ..ignoreForFile.addAll([
+            'constant_identifier_names',
+            'non_constant_identifier_names',
+            if (declMap.values.any((v) => v.id.name.contains('Anonymous'))) ...[
+              'camel_case_types',
+              'library_private_types_in_public_api',
+              'unnecessary_parenthesis'
+            ]
+          ])
           ..body.addAll(specs);
       });
       return MapEntry(

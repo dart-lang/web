@@ -220,7 +220,7 @@ extension type TSIdentifier._(JSObject _) implements TSDeclaration {
 }
 
 @JS('NamedDeclaration')
-extension type TSNamedDeclaration._(JSObject _) implements TSNode {
+extension type TSNamedDeclaration._(JSObject _) implements TSDeclaration {
   // TODO: Support other name specifiers
   external TSIdentifier? get name;
 }
@@ -356,7 +356,7 @@ extension type TSFunctionDeclaration._(JSObject _)
 
 /// A common API for Classes and Interfaces
 extension type TSObjectDeclaration<T extends TSDeclaration>._(JSObject _)
-    implements TSDeclaration, TSStatement {
+    implements TSDeclarationStatement {
   // TODO: May be undefined for classes in default exports
   external TSIdentifier get name;
   external TSNodeArray<TSNode>? get modifiers;
@@ -388,7 +388,7 @@ extension type TSExpressionWithTypeArguments._(JSObject _)
   external TSNodeArray<TSTypeNode>? get typeArguments;
 }
 
-extension type TSPropertyEntity._(JSObject _) implements TSDeclaration {
+extension type TSPropertyEntity._(JSObject _) implements TSNamedDeclaration {
   external TSNodeArray<TSNode>? get modifiers;
   external TSIdentifier get name;
   external TSToken? get questionToken;
@@ -407,7 +407,7 @@ extension type TSConstructorEntity._(JSObject _)
 }
 
 @JS('ClassElement')
-extension type TSClassElement._(JSObject _) implements TSDeclaration {
+extension type TSClassElement._(JSObject _) implements TSNamedDeclaration {
   external TSIdentifier? get name;
 }
 
@@ -437,7 +437,7 @@ extension type TSConstructorDeclaration._(JSObject _)
 }
 
 @JS('TypeElement')
-extension type TSTypeElement._(JSObject _) implements TSDeclaration {
+extension type TSTypeElement._(JSObject _) implements TSNamedDeclaration {
   external TSIdentifier? get name;
   external TSToken? get questionToken;
 }
@@ -497,7 +497,7 @@ extension type TSSetAccessorDeclaration._(JSObject _)
 
 @JS('TypeAliasDeclaration')
 extension type TSTypeAliasDeclaration._(JSObject _)
-    implements TSDeclaration, TSStatement {
+    implements TSDeclarationStatement, TSStatement {
   external TSNodeArray<TSNode>? get modifiers;
   external TSNodeArray<TSTypeParameterDeclaration>? get typeParameters;
   external TSIdentifier get name;
@@ -522,14 +522,14 @@ extension type TSTypeParameterDeclaration._(JSObject _)
 
 @JS('EnumDeclaration')
 extension type TSEnumDeclaration._(JSObject _)
-    implements TSDeclaration, TSStatement {
+    implements TSDeclarationStatement, TSStatement {
   external TSIdentifier get name;
   external TSNodeArray<TSNode>? get modifiers;
   external TSNodeArray<TSEnumMember> get members;
 }
 
 @JS('EnumMember')
-extension type TSEnumMember._(JSObject _) implements TSDeclaration {
+extension type TSEnumMember._(JSObject _) implements TSNamedDeclaration {
   external TSIdentifier get name;
   external TSExpression? get initializer;
 }
@@ -543,13 +543,12 @@ extension type TSSymbol._(JSObject _) implements JSObject {
   external String get name;
   external JSArray<TSDeclaration>? getDeclarations();
   external JSArray<TSSymbolDisplayPart> getDocumentationComment(
-    TSTypeChecker? typeChecker);
+      TSTypeChecker? typeChecker);
   external JSArray<JSDocTagInfo> getJsDocTags([TSTypeChecker checker]);
   external TSSymbolTable? get exports;
 }
 
 typedef TSSymbolTable = JSMap<JSString, TSSymbol>;
-
 
 @JS('SymbolDisplayPart')
 extension type TSSymbolDisplayPart._(JSObject _) implements JSObject {

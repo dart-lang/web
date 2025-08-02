@@ -117,8 +117,14 @@ Type getClassRepresentationType(ClassDeclaration cl) {
 }
 
 (List<String>, List<Expression>) generateFromDocumentation(Documentation docs) {
+  if (docs.docs.trim().isEmpty) {
+    return ([], docs.annotations.map((d) => d.emit()).toList());
+  }
   return (
-    const LineSplitter().convert(docs.docs),
+    const LineSplitter()
+        .convert(docs.docs.trim())
+        .map((d) => '/// $d')
+        .toList(),
     docs.annotations.map((d) => d.emit()).toList()
   );
 }

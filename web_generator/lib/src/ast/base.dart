@@ -65,7 +65,7 @@ abstract class NamedDeclaration extends Declaration {
   @override
   abstract String name;
 
-  Documentation? documentation;
+  abstract Documentation? documentation;
 
   ReferredType asReferredType([List<Type>? typeArgs, String? url]) =>
       ReferredType(

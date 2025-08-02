@@ -542,10 +542,26 @@ extension type TSNodeArray<T extends TSNode>._(JSArray<T> _)
 extension type TSSymbol._(JSObject _) implements JSObject {
   external String get name;
   external JSArray<TSDeclaration>? getDeclarations();
+  external JSArray<TSSymbolDisplayPart> getDocumentationComment(
+    TSTypeChecker? typeChecker);
+  external JSArray<JSDocTagInfo> getJsDocTags([TSTypeChecker checker]);
   external TSSymbolTable? get exports;
 }
 
 typedef TSSymbolTable = JSMap<JSString, TSSymbol>;
+
+
+@JS('SymbolDisplayPart')
+extension type TSSymbolDisplayPart._(JSObject _) implements JSObject {
+  external String text;
+  external String kind;
+}
+
+@JS()
+extension type JSDocTagInfo._(JSObject _) implements JSObject {
+  external String name;
+  external JSArray<TSSymbolDisplayPart>? text;
+}
 
 @JS('Type')
 extension type TSType._(JSObject _) implements JSObject {

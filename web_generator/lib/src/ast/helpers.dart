@@ -2,11 +2,14 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:convert';
+
 import 'package:code_builder/code_builder.dart';
 
 import 'base.dart';
 import 'builtin.dart';
 import 'declarations.dart';
+import 'documentation.dart';
 import 'types.dart';
 
 Type getJSTypeAlternative(Type type) {
@@ -111,4 +114,11 @@ Type getClassRepresentationType(ClassDeclaration cl) {
 
     return BuiltinType.primitiveType(primitiveType, isNullable: false);
   }
+}
+
+(List<String>, List<Expression>) generateFromDocumentation(Documentation docs) {
+  return (
+    const LineSplitter().convert(docs.docs),
+    docs.annotations.map((d) => d.emit()).toList()
+  );
 }

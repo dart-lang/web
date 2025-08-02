@@ -2,11 +2,13 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:ffi';
 import 'dart:js_interop';
 import 'package:path/path.dart' as p;
 import '../../ast/base.dart';
 import '../../ast/builtin.dart';
 import '../../ast/declarations.dart';
+import '../../ast/documentation.dart';
 import '../../ast/helpers.dart';
 import '../../ast/types.dart';
 import '../../js/typescript.dart' as ts;
@@ -1238,6 +1240,148 @@ class Transformer {
 
     transform(declaration);
     return (null, name);
+  }
+
+  /// Extracts associated documentation (JSDoc) from a [TSNode] and transforms 
+  /// the JSDoc into associated Dart documentation for the given [node]
+  Documentation? _parseAndTransformDocumentation(TSNamedDeclaration node) {
+    // get symbol
+    if (node.name case final identifier?) {
+      final symbol = typeChecker.getSymbolAtLocation(identifier);
+      final jsDocTags = symbol?.getJsDocTags();
+      final doc = symbol?.getDocumentationComment(typeChecker);
+
+      // transform documentation
+      if (doc == null && jsDocTags == null) {
+        return null;
+      } else {
+        return _transformDocumentation(doc?.toDart ?? [], jsDocTags?.toDart ?? []);
+      }
+    } else {
+      // if (node.kind == TSSyntaxKind.Constructor || node.kind == TSSyntaxKind.ConstructSignature) {
+      //   // get the parent and get construct signature
+      // } 
+      return null;
+    }
+  }
+
+  Documentation _transformDocumentation(
+    List<TSSymbolDisplayPart> topLevelDocParts,
+    List<JSDocTagInfo> jsDocTags
+  ) {
+    final docBuffer = StringBuffer();
+    final annotations = <Annotation>[];
+
+    for (final doc in topLevelDocParts) {
+      final docString = _parseSymbolDisplayPart(doc);
+      docBuffer.write(docString);
+      annotations.addAll(annotations);
+    }
+
+    docBuffer.writeln();
+
+    // parse annotations
+    for (final tag in jsDocTags) {
+      switch (tag.name) {
+        case 'deprecated':
+          final tagBuffer = StringBuffer();
+          for (final part in tag.text?.toDart ?? <TSSymbolDisplayPart>[]) {
+            tagBuffer.write(_parseSymbolDisplayPart(part));
+          }
+          annotations.add(
+            Annotation(kind: AnnotationKind.deprecated,
+              arguments: [
+                if (tag.text?.toDart.isNotEmpty ?? false) (tagBuffer.toString(), name: null)
+              ]
+            )
+          );
+          break;
+        case 'experimental':
+          annotations.add(
+            Annotation(
+              kind: AnnotationKind.experimental
+            )
+          );
+          if (tag.text?.toDart case final expText? when expText.isNotEmpty) {
+            final tagBuffer = StringBuffer();
+            for (final part in expText) {
+              tagBuffer.write(_parseSymbolDisplayPart(part));
+            }
+            docBuffer.writeln('**EXPERIMENTAL**: ${tagBuffer.toString()}');
+          }
+          break;
+        case 'param':
+          final tags = tag.text?.toDart ?? [];
+          if (tags.isEmpty) continue;
+
+          final parameterName = tags
+            .firstWhere((t) => t.kind == 'parameterName');
+          final parameterDesc = tags.where((t) => t.kind == 'text')
+            .fold('', (prev, combine) => '$prev ${combine.text}');
+
+          docBuffer.writeln('- [$parameterName]: $parameterDesc');
+          break;
+        case 'returns':
+          final tagBuffer = StringBuffer();
+          for (final part in tag.text?.toDart ?? <TSSymbolDisplayPart>[]) {
+            tagBuffer.write(_parseSymbolDisplayPart(part));
+          }
+          docBuffer.writeln(tagBuffer);
+          break;
+        case 'example':
+          final tagBuffer = StringBuffer();
+          for (final part in tag.text?.toDart ?? <TSSymbolDisplayPart>[]) {
+            tagBuffer.write(_parseSymbolDisplayPart(part));
+          }
+          docBuffer.writeAll([
+            '\nExample:',
+            '```ts',
+            tagBuffer.toString(),
+            '```',
+          ], '\n');
+        case 'template':
+          final tags = tag.text?.toDart ?? [];
+          if (tags.isEmpty) continue;
+
+          final typeName = tags.where((t) => t.kind == 'typeParameterName').firstOrNull;
+
+          if (typeName == null) continue;
+
+          final tagBuffer = StringBuffer();
+          for (final part in tag.text?.toDart ?? <TSSymbolDisplayPart>[]) {
+            if (part.kind != 'typeParameterName') tagBuffer.write(_parseSymbolDisplayPart(part));
+          }
+          docBuffer.writeln('Type Name [$typeName]: ${tagBuffer.toString()}');
+        case 'type':
+          // TODO: @srujzs we could use this as aid for @Union maybe?
+          break;
+        default:
+          continue;
+      }
+    }
+
+    return Documentation(
+      docs: docBuffer.toString(),
+      annotations: annotations
+    );
+  }
+
+  String _parseSymbolDisplayPart(TSSymbolDisplayPart part) {
+    // what if decl is not already parsed?
+    if (part.kind == 'linkName') {
+      final decls = nodeMap.findByName(part.text);
+      if (decls.isNotEmpty) {
+        final firstNode = decls.first;
+        return firstNode.dartName ?? firstNode.name ?? firstNode.id.name;
+      } else {
+        return part.text;
+      }
+    } 
+    return switch (part.kind) {
+      'text' => part.text,
+      'link' => '',
+      _ => part.text
+    };
   }
 
   /// Filters out the declarations generated from the [transform] function and

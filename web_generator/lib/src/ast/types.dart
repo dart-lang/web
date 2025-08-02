@@ -2,12 +2,16 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:js_interop';
+
 import 'package:code_builder/code_builder.dart';
 import '../interop_gen/namer.dart';
 import '../interop_gen/sub_type.dart';
+import '../utils/case.dart';
 import 'base.dart';
 import 'builtin.dart';
 import 'declarations.dart';
+import 'helpers.dart';
 
 /// A type referring to a type in the TypeScript AST
 class ReferredType<T extends Declaration> extends Type {
@@ -96,11 +100,9 @@ class UnionType extends Type implements DeclarationAssociatedType {
   @override
   String declarationName;
 
-  UnionType({
-    required this.types, 
-    required String name, 
-    this.isNullable = false
-  }) : declarationName = name;
+  UnionType(
+      {required this.types, required String name, this.isNullable = false})
+      : declarationName = name;
 
   @override
   ID get id => ID(type: 'type', name: types.map((t) => t.id.name).join('|'));
@@ -109,8 +111,8 @@ class UnionType extends Type implements DeclarationAssociatedType {
   String? get name => null;
 
   @override
-  Declaration get declaration =>
-      _UnionDeclaration(name: declarationName, types: types);
+  Declaration get declaration => _UnionDeclaration(
+      name: declarationName, types: types, isNullable: isNullable);
 
   @override
   Reference emit([TypeOptions? options]) {
@@ -138,9 +140,7 @@ class HomogenousEnumType<T extends LiteralType, D extends Declaration>
   final Type baseType;
 
   HomogenousEnumType(
-      {required List<T> super.types,
-      super.isNullable,
-      required super.name})
+      {required List<T> super.types, super.isNullable, required super.name})
       : _types = types,
         baseType = types.first.baseType;
 
@@ -251,56 +251,86 @@ enum LiteralKind {
 }
 
 // TODO: Merge properties/methods of related types
-class _UnionDeclaration extends NamedDeclaration implements ExportableDeclaration {
+class _UnionDeclaration extends NamedDeclaration
+    implements ExportableDeclaration {
   @override
   bool get exported => true;
-  
+
   @override
   ID get id => ID(type: 'union', name: name);
 
+  bool isNullable;
+
   List<Type> types;
-  
-  _UnionDeclaration({
-    required this.name,
-    this.types = const [],
-  });
-  
+
+  _UnionDeclaration(
+      {required this.name, this.types = const [], this.isNullable = false});
+
   @override
   String? dartName;
-  
+
   @override
   String name;
-  
+
   @override
   Spec emit([covariant DeclarationOptions? options]) {
     options ??= DeclarationOptions();
 
-    final repType = getSubTypeOfTypes(types);
+    final repType = getSubTypeOfTypes(types, isNullable: isNullable);
 
     return ExtensionType((e) => e
       ..name = name
       ..primaryConstructorName = '_'
       ..representationDeclaration = RepresentationDeclaration((r) => r
         ..name = '_'
-        ..declaredRepresentationType = repType.emit(options?.toTypeOptions())
-      )
-      ..implements.add(
-        repType.emit(options?.toTypeOptions())
-      )
-      ..methods.addAll(
-        types.map((t) {
-          final type = t.emit(options?.toTypeOptions());
-          return Method((m) => m
-            ..type = MethodType.getter
-            ..name = 'as${
-              t is DeclarationAssociatedType ? t.declarationName 
-                : (t.dartName ?? t.name ?? t.id.name)
-            }'
-            ..returns = type
-            ..body = refer('_').asA(type).returned.code
-          );
-        })
-      )
-    );
+        ..declaredRepresentationType = repType.emit(options?.toTypeOptions()))
+      ..implements.addAll([
+        if (!isNullable || repType != BuiltinType.anyType)
+          repType.emit(options?.toTypeOptions())
+      ])
+      ..methods.addAll(types.map((t) {
+        final type = t.emit(options?.toTypeOptions());
+        final jsTypeAlt = getJSTypeAlternative(t);
+        return Method((m) => m
+          ..type = MethodType.getter
+          ..name =
+              'as${uppercaseFirstLetter(t is DeclarationAssociatedType ? t.declarationName : (t.dartName ?? t.name ?? t.id.name))}'
+          ..returns = type
+          ..body = jsTypeAlt.id == t.id
+              ? refer('_').asA(type).code
+              : switch (t) {
+                  BuiltinType(name: final n) when n == 'int' => refer('_')
+                      .asA(jsTypeAlt.emit(options?.toTypeOptions()))
+                      .property('toDartInt')
+                      .code,
+                  BuiltinType(name: final n) when n == 'double' || n == 'num' =>
+                    refer('_')
+                        .asA(jsTypeAlt.emit(options?.toTypeOptions()))
+                        .property('toDartDouble')
+                        .code,
+                  BuiltinType() => refer('_')
+                      .asA(jsTypeAlt.emit(options?.toTypeOptions()))
+                      .property('toDart')
+                      .code,
+                  ReferredType(
+                    declaration: final decl,
+                    name: final n,
+                    url: final url
+                  )
+                      when decl is EnumDeclaration =>
+                    refer(n, url).property('_').call([
+                      refer('_')
+                          .asA(jsTypeAlt.emit(options?.toTypeOptions()))
+                          .property(switch (decl.baseType.name) {
+                            'int' => 'toDartInt',
+                            'num' || 'double' => 'toDartDouble',
+                            _ => 'toDart'
+                          })
+                    ]).code,
+                  _ => refer('_')
+                      .asA(jsTypeAlt.emit(options?.toTypeOptions()))
+                      .code
+                });
+      })));
   }
 }

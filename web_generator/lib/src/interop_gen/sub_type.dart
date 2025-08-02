@@ -3,15 +3,16 @@ import '../ast/builtin.dart';
 import '../ast/types.dart';
 
 // TODO: Complete Implementation
-Type getSubTypeOfTypes(List<Type> types, {bool isNullable = true}) {
-  if (_getSharedTypeIfAny(types, isNullable: isNullable) case final t?)
+Type getSubTypeOfTypes(List<Type> types, {bool isNullable = false}) {
+  if (_getSharedTypeIfAny(types, isNullable: isNullable) case final t?) {
     return t;
+  }
 
   // get the type hierarchy of each type.
 
   // get the common
   // throw UnimplementedError('');
-  return BuiltinType.anyType;
+  return BuiltinType.primitiveType(PrimitiveType.any, isNullable: isNullable);
 }
 
 /// Checks if there is a type shared between the types, usually in the

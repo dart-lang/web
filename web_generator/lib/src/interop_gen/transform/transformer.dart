@@ -823,13 +823,11 @@ class Transformer {
         final unionType = type as TSUnionTypeNode;
         // TODO: Unions
         final types = unionType.types.toDart.map<Type>(_transformType).toList();
-        final isNullable = unionType.types.toDart.any((t) => 
-          t.kind == TSSyntaxKind.UndefinedKeyword || 
-            t.kind == TSSyntaxKind.LiteralType 
-            && (t as TSLiteralTypeNode).literal.kind == TSSyntaxKind.NullKeyword
-        );
-
-        print(types.length);
+        final isNullable = unionType.types.toDart.any((t) =>
+            t.kind == TSSyntaxKind.UndefinedKeyword ||
+            t.kind == TSSyntaxKind.LiteralType &&
+                (t as TSLiteralTypeNode).literal.kind ==
+                    TSSyntaxKind.NullKeyword);
 
         var isHomogenous = true;
         final nonNullLiteralTypes = <LiteralType>[];
@@ -890,10 +888,9 @@ class Transformer {
           }
 
           final name =
-              'AnonymousUnion_${AnonymousHasher.hashUnion(idMap.toList())}';
+              '_AnonymousUnion_${AnonymousHasher.hashUnion(idMap.toList())}';
 
-          final homogenousEnumType =
-              UnionType(types: types, name: name);
+          final homogenousEnumType = UnionType(types: types, name: name);
 
           return typeMap.putIfAbsent(expectedId.toString(), () {
             namer.markUsed(name);

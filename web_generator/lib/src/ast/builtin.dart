@@ -81,7 +81,10 @@ class BuiltinType extends Type {
               name: 'JSString', fromDartJSInterop: true, isNullable: isNullable)
           : BuiltinType(name: 'String', isNullable: isNullable),
       PrimitiveType.$void || PrimitiveType.undefined => $voidType,
-      PrimitiveType.any || PrimitiveType.unknown => anyType,
+      PrimitiveType.any => (isNullable ?? false)
+          ? anyType
+          : BuiltinType(name: 'JSAny', fromDartJSInterop: true),
+      PrimitiveType.unknown => anyType,
       PrimitiveType.object => BuiltinType(
           name: 'JSObject', fromDartJSInterop: true, isNullable: isNullable),
       PrimitiveType.symbol => BuiltinType(

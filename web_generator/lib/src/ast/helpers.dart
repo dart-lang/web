@@ -163,11 +163,8 @@ class _TupleDeclaration extends NamedDeclaration
       ..primaryConstructorName = '_'
       ..representationDeclaration = RepresentationDeclaration((r) => r
         ..name = '_'
-        ..declaredRepresentationType = repType.emit(options?.toTypeOptions()))
-      ..implements.addAll([
-        if (repType != BuiltinType.anyType)
-          repType.emit(options?.toTypeOptions())
-      ])
+        ..declaredRepresentationType = repType.emit())
+      ..implements.addAll([if (repType != BuiltinType.anyType) repType.emit()])
       ..types.addAll(List.generate(
           count,
           (index) => TypeReference((t) => t

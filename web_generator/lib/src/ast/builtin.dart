@@ -21,15 +21,20 @@ class BuiltinType extends Type {
   /// Whether the given type is present in "dart:js_interop"
   final bool fromDartJSInterop;
 
-  // TODO(nikeokoronkwo): Types in general should have an `isNullable`
-  //  property on them to indicate nullability for Dart generated code.
-  final bool? isNullable;
+  @override
+  bool get isNullable => _isNullable ?? false;
+
+  final bool? _isNullable;
+
+  @override
+  set isNullable(bool isNullable) {}
 
   BuiltinType(
       {required this.name,
       this.typeParams = const [],
       this.fromDartJSInterop = false,
-      this.isNullable});
+      bool? isNullable})
+      : _isNullable = isNullable;
 
   @override
   ID get id => ID(type: 'type', name: name);
@@ -39,16 +44,14 @@ class BuiltinType extends Type {
 
   @override
   Reference emit([TypeOptions? options]) {
-    options ??= TypeOptions();
-
     return TypeReference((t) => t
       ..symbol = name
       ..types.addAll(typeParams
           // if there is only one type param, and it is void, ignore
           .where((p) => typeParams.length != 1 || p != $voidType)
-          .map((p) => p.emit(TypeOptions())))
+          .map((p) => p.emit(options)))
       ..url = fromDartJSInterop ? 'dart:js_interop' : null
-      ..isNullable = isNullable ?? options!.nullable);
+      ..isNullable = _isNullable ?? options?.nullable);
   }
 
   static final BuiltinType $voidType = BuiltinType(name: 'void');
@@ -137,7 +140,13 @@ class PackageWebType extends Type {
 
   final List<Type> typeParams;
 
-  final bool? isNullable;
+  @override
+  bool get isNullable => _isNullable ?? false;
+
+  final bool? _isNullable;
+
+  @override
+  set isNullable(bool isNullable) {}
 
   @override
   ID get id => ID(type: 'type', name: name);
@@ -146,12 +155,11 @@ class PackageWebType extends Type {
   String? get dartName => null;
 
   PackageWebType._(
-      {required this.name, this.typeParams = const [], this.isNullable});
+      {required this.name, this.typeParams = const [], bool? isNullable})
+      : _isNullable = isNullable;
 
   @override
   Reference emit([TypeOptions? options]) {
-    options ??= TypeOptions();
-
     // TODO: We can make this a shared function as it is called a lot
     //  between types
     return TypeReference((t) => t
@@ -159,9 +167,9 @@ class PackageWebType extends Type {
       ..types.addAll(typeParams
           // if there is only one type param, and it is void, ignore
           .where((p) => typeParams.length != 1 || p != BuiltinType.$voidType)
-          .map((p) => p.emit(TypeOptions())))
+          .map((p) => p.emit(options)))
       ..url = 'package:web/web.dart'
-      ..isNullable = isNullable ?? options!.nullable);
+      ..isNullable = _isNullable ?? options?.nullable);
   }
 
   static PackageWebType parse(String name,

@@ -1,4 +1,6 @@
-// ignore_for_file: constant_identifier_names, non_constant_identifier_names
+// ignore_for_file: camel_case_types, constant_identifier_names
+// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: non_constant_identifier_names, unnecessary_parenthesis
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:js_interop' as _i1;
@@ -11,7 +13,7 @@ extension type Comparator<T extends _i1.JSAny?>._(_i1.JSObject _)
   );
 }
 extension type ILogger._(_i1.JSObject _) implements _i1.JSObject {
-  external AnonymousUnion? level;
+  external AnonymousUnion_1584724? level;
 
   external String get name;
   external void log(String message);
@@ -66,14 +68,14 @@ external Dictionary get dict;
 external LinkedList get rootList;
 @_i1.JS()
 external Comparator<_i1.JSNumber> get compareNumbers;
-extension type const AnonymousUnion._(String _) {
-  static const AnonymousUnion debug = AnonymousUnion._('debug');
+extension type const AnonymousUnion_1584724._(String _) {
+  static const AnonymousUnion_1584724 debug = AnonymousUnion_1584724._('debug');
 
-  static const AnonymousUnion info = AnonymousUnion._('info');
+  static const AnonymousUnion_1584724 info = AnonymousUnion_1584724._('info');
 
-  static const AnonymousUnion warn = AnonymousUnion._('warn');
+  static const AnonymousUnion_1584724 warn = AnonymousUnion_1584724._('warn');
 
-  static const AnonymousUnion error = AnonymousUnion._('error');
+  static const AnonymousUnion_1584724 error = AnonymousUnion_1584724._('error');
 }
 extension type LinkedList._(_i1.JSObject _) implements _i1.JSObject {
   external LinkedList next();

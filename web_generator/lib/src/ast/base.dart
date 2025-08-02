@@ -64,9 +64,14 @@ abstract class NamedDeclaration extends Declaration {
   @override
   abstract String name;
 
-  ReferredType asReferredType([List<Type>? typeArgs, String? url]) =>
+  ReferredType asReferredType(
+          [List<Type>? typeArgs, bool isNullable = false, String? url]) =>
       ReferredType(
-          name: name, declaration: this, typeParams: typeArgs ?? [], url: url);
+          name: name,
+          declaration: this,
+          typeParams: typeArgs ?? [],
+          url: url,
+          isNullable: isNullable);
 }
 
 abstract interface class ExportableDeclaration extends Declaration {
@@ -83,6 +88,8 @@ abstract interface class ExportableDeclaration extends Declaration {
 abstract class Type extends Node {
   @override
   String? dartName;
+
+  abstract bool isNullable;
 
   @override
   Reference emit([covariant TypeOptions? options]);

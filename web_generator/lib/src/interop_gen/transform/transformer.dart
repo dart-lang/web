@@ -806,28 +806,42 @@ class Transformer {
   /// [typeArg] represents whether the [TSTypeNode] is being passed in the
   /// context of a type argument, as Dart core types are not allowed in
   /// type arguments
+  ///
+  /// [isNullable] means that the given type is nullable, usually when it is
+  /// unionized with `undefined` or `null`
   // TODO(nikeokoronkwo): Add support for constructor and function types,
   //  https://github.com/dart-lang/web/issues/410
   //  https://github.com/dart-lang/web/issues/422
   Type _transformType(TSTypeNode type,
-      {bool parameter = false, bool typeArg = false}) {
+      {bool parameter = false, bool typeArg = false, bool? isNullable}) {
     switch (type.kind) {
       case TSSyntaxKind.ParenthesizedType:
         return _transformType((type as TSParenthesizedTypeNode).type,
-            parameter: parameter, typeArg: typeArg);
+            parameter: parameter, typeArg: typeArg, isNullable: isNullable);
       case TSSyntaxKind.TypeReference:
         final refType = type as TSTypeReferenceNode;
 
-        return _getTypeFromTypeRefNode(refType, typeArg: typeArg);
+        return _getTypeFromTypeRefNode(refType,
+            typeArg: typeArg, isNullable: isNullable ?? false);
       case TSSyntaxKind.UnionType:
         final unionType = type as TSUnionTypeNode;
         // TODO: Unions
-        final types = unionType.types.toDart.map<Type>(_transformType).toList();
-        final isNullable = unionType.types.toDart.any((t) =>
-            t.kind == TSSyntaxKind.UndefinedKeyword ||
-            t.kind == TSSyntaxKind.LiteralType &&
-                (t as TSLiteralTypeNode).literal.kind ==
-                    TSSyntaxKind.NullKeyword);
+        final unionTypes = unionType.types.toDart;
+        final nonNullableUnionTypes = unionTypes
+            .where((t) =>
+                t.kind != TSSyntaxKind.UndefinedKeyword &&
+                !(t.kind == TSSyntaxKind.LiteralType &&
+                    (t as TSLiteralTypeNode).literal.kind ==
+                        TSSyntaxKind.NullKeyword))
+            .toList();
+        final shouldBeNullable =
+            nonNullableUnionTypes.length != unionTypes.length;
+
+        if (nonNullableUnionTypes.singleOrNull case final singleTypeNode?) {
+          return _transformType(singleTypeNode, isNullable: shouldBeNullable);
+        }
+
+        final types = nonNullableUnionTypes.map<Type>(_transformType).toList();
 
         var isHomogenous = true;
         final nonNullLiteralTypes = <LiteralType>[];
@@ -836,9 +850,6 @@ class Transformer {
 
         for (final type in types) {
           if (type is LiteralType) {
-            if (type.kind == LiteralKind.$null) {
-              continue;
-            }
             firstNonNullablePrimitiveType ??= type;
             onlyContainsBooleanTypes &= (type.kind == LiteralKind.$true) ||
                 (type.kind == LiteralKind.$false);
@@ -856,10 +867,10 @@ class Transformer {
         if (isHomogenous) {
           if (nonNullLiteralTypes.isNotEmpty && onlyContainsBooleanTypes) {
             return BuiltinType.primitiveType(PrimitiveType.boolean,
-                isNullable: isNullable);
+                isNullable: shouldBeNullable);
           }
 
-          final idMap = types.map((t) => t.id.name);
+          final idMap = nonNullLiteralTypes.map((t) => t.value.toString());
 
           final expectedId = ID(type: 'type', name: idMap.join('|'));
 
@@ -872,13 +883,19 @@ class Transformer {
 
           // TODO: Handle similar types here...
           final homogenousEnumType = HomogenousEnumType(
-              types: nonNullLiteralTypes, isNullable: isNullable, name: name);
+              types: nonNullLiteralTypes,
+              isNullable: shouldBeNullable,
+              name: name);
 
-          return typeMap.putIfAbsent(expectedId.toString(), () {
+          final homogenousEnum = typeMap.putIfAbsent(expectedId.toString(), () {
             namer.markUsed(name);
             return homogenousEnumType;
           }) as HomogenousEnumType;
+
+          return homogenousEnum..isNullable = shouldBeNullable;
         } else {
+          // TODO: Support literal and normal subtype type
+          //  (i.e `"foo" | "bar" | string`)
           final idMap = types.map((t) => t.id.name);
 
           final expectedId = ID(type: 'type', name: idMap.join('|'));
@@ -890,12 +907,13 @@ class Transformer {
           final name =
               '_AnonymousUnion_${AnonymousHasher.hashUnion(idMap.toList())}';
 
-          final homogenousEnumType = UnionType(types: types, name: name);
+          final un = UnionType(types: types, name: name);
 
-          return typeMap.putIfAbsent(expectedId.toString(), () {
+          final unType = typeMap.putIfAbsent(expectedId.toString(), () {
             namer.markUsed(name);
-            return homogenousEnumType;
+            return un;
           }) as UnionType;
+          return unType..isNullable = shouldBeNullable;
         }
       case TSSyntaxKind.TupleType:
         // tuple type is array
@@ -914,13 +932,14 @@ class Transformer {
           nodeMap.add(generateTupleDeclaration(typeLength));
         }
 
-        return TupleType(types: types);
+        return TupleType(types: types, isNullable: isNullable ?? false);
 
       case TSSyntaxKind.LiteralType:
         final literalType = type as TSLiteralTypeNode;
         final literal = literalType.literal;
 
         return LiteralType(
+            isNullable: isNullable ?? false,
             kind: switch (literal.kind) {
               // TODO: Will we support Regex?
               TSSyntaxKind.NumericLiteral => num.parse(literal.text) is int
@@ -950,12 +969,16 @@ class Transformer {
         final typeArguments = typeQuery.typeArguments?.toDart;
 
         return _getTypeFromDeclaration(exprName, typeArguments,
-            typeArg: typeArg, isNotTypableDeclaration: true);
+            typeArg: typeArg,
+            isNotTypableDeclaration: true,
+            isNullable: isNullable ?? false);
       case TSSyntaxKind.ArrayType:
-        return BuiltinType.primitiveType(PrimitiveType.array, typeParams: [
-          getJSTypeAlternative(
-              _transformType((type as TSArrayTypeNode).elementType))
-        ]);
+        return BuiltinType.primitiveType(PrimitiveType.array,
+            typeParams: [
+              getJSTypeAlternative(
+                  _transformType((type as TSArrayTypeNode).elementType))
+            ],
+            isNullable: isNullable);
       default:
         // check for primitive type via its kind
         final primitiveType = switch (type.kind) {
@@ -976,7 +999,8 @@ class Transformer {
         };
 
         return BuiltinType.primitiveType(primitiveType,
-            shouldEmitJsType: typeArg ? true : null);
+            shouldEmitJsType: typeArg ? true : null,
+            isNullable: primitiveType == PrimitiveType.any ? true : isNullable);
     }
   }
 
@@ -1006,7 +1030,8 @@ class Transformer {
   Type _getTypeFromTypeRefNode(TSTypeReferenceNode node,
       {List<TSTypeNode>? typeArguments,
       bool typeArg = false,
-      bool isNotTypableDeclaration = false}) {
+      bool isNotTypableDeclaration = false,
+      bool isNullable = false}) {
     typeArguments ??= node.typeArguments?.toDart;
     final name = node.typeName.text;
 
@@ -1019,7 +1044,8 @@ class Transformer {
       final supportedType = BuiltinType.referred(name,
           typeParams: (typeArguments ?? [])
               .map((t) => getJSTypeAlternative(_transformType(t)))
-              .toList());
+              .toList(),
+          isNullable: isNullable);
       if (supportedType case final resultType?) {
         return resultType;
       }
@@ -1048,14 +1074,16 @@ class Transformer {
       case TypeAliasDeclaration(type: final t):
       case EnumDeclaration(baseType: final t):
         final jsType = getJSTypeAlternative(t);
-        if (jsType != t && typeArg) return jsType;
+        if (jsType != t && typeArg) {
+          return jsType..isNullable = isNullable;
+        }
     }
 
     return firstNode.asReferredType(
-      (typeArguments ?? [])
-          .map((type) => _transformType(type, typeArg: true))
-          .toList(),
-    );
+        (typeArguments ?? [])
+            .map((type) => _transformType(type, typeArg: true))
+            .toList(),
+        isNullable);
   }
 
   /// Get the type of a type node named [typeName] by referencing its
@@ -1076,9 +1104,13 @@ class Transformer {
   /// use in a `typeof` type node, such as a variable). This reduces checks on
   /// supported `dart:js_interop` types and related [EnumDeclaration]-like and
   /// [TypeDeclaration]-like checks
+  ///
+  /// [isNullable] denotes that a given type is nullable
   Type _getTypeFromDeclaration(
       TSIdentifier typeName, List<TSTypeNode>? typeArguments,
-      {bool typeArg = false, bool isNotTypableDeclaration = false}) {
+      {bool typeArg = false,
+      bool isNotTypableDeclaration = false,
+      bool isNullable = false}) {
     final name = typeName.text;
     var declarationsMatching = nodeMap.findByName(name);
 
@@ -1099,8 +1131,8 @@ class Transformer {
 
       final symbol = typeChecker.getSymbolAtLocation(typeName);
       if (symbol case final s?) {
-        final (derivedType, newName) = _deriveTypeOrTransform(
-            s, name, typeArguments, typeArg, isNotTypableDeclaration);
+        final (derivedType, newName) = _deriveTypeOrTransform(s, name,
+            typeArguments, typeArg, isNotTypableDeclaration, isNullable);
 
         if (derivedType != null) return derivedType;
 
@@ -1121,20 +1153,24 @@ class Transformer {
         case TypeAliasDeclaration(type: final t):
         case EnumDeclaration(baseType: final t):
           final jsType = getJSTypeAlternative(t);
-          if (jsType != t && typeArg) return jsType;
+          if (jsType != t && typeArg) {
+            return jsType..isNullable = isNullable;
+          }
       }
     }
 
     final asReferredType = firstNode.asReferredType(
-      (typeArguments ?? [])
-          .map((type) => _transformType(type, typeArg: true))
-          .toList(),
-    );
+        (typeArguments ?? [])
+            .map((type) => _transformType(type, typeArg: true))
+            .toList(),
+        isNullable);
 
     if (asReferredType case ReferredDeclarationType(type: final type)
         when type is BuiltinType) {
       final jsType = getJSTypeAlternative(type);
-      if (jsType != type && typeArg) asReferredType.type = jsType;
+      if (jsType != type && typeArg) {
+        asReferredType.type = jsType..isNullable = isNullable;
+      }
     }
 
     return asReferredType;
@@ -1150,7 +1186,8 @@ class Transformer {
       [String? name,
       List<TSTypeNode>? typeArguments,
       bool typeArg = false,
-      bool isNotTypableDeclaration = false]) {
+      bool isNotTypableDeclaration = false,
+      bool isNullable = false]) {
     name ??= symbol.name;
 
     final declarations = symbol.getDeclarations();
@@ -1189,7 +1226,9 @@ class Transformer {
           case TypeAliasDeclaration(type: final t):
           case EnumDeclaration(baseType: final t):
             final jsType = getJSTypeAlternative(t);
-            if (jsType != t) return (jsType, name);
+            if (jsType != t) {
+              return (jsType..isNullable = isNullable, name);
+            }
         }
       }
 
@@ -1197,6 +1236,7 @@ class Transformer {
           (typeArguments ?? [])
               .map((type) => _transformType(type, typeArg: true))
               .toList(),
+          isNullable,
           programMap.absoluteFiles.contains(importedFile)
               ? p.normalize(importUrl.replaceFirst('.d.ts', '.dart'))
               : null);
@@ -1204,7 +1244,9 @@ class Transformer {
       if (asReferredType case ReferredDeclarationType(type: final type)
           when type is BuiltinType && typeArg) {
         final jsType = getJSTypeAlternative(type);
-        if (jsType != type) asReferredType.type = jsType;
+        if (jsType != type) {
+          asReferredType.type = jsType..isNullable = isNullable;
+        }
       }
 
       return (asReferredType, name);
@@ -1217,7 +1259,7 @@ class Transformer {
       exportSet.removeWhere((e) => e.name == aliasedSymbolName);
       exportSet.add(ExportReference(aliasedSymbolName, as: name));
       return _deriveTypeOrTransform(aliasedSymbol, aliasedSymbolName,
-          typeArguments, typeArg, isNotTypableDeclaration);
+          typeArguments, typeArg, isNotTypableDeclaration, isNullable);
     }
 
     // check if this is from dom
@@ -1234,7 +1276,8 @@ class Transformer {
             typeParams: (typeArguments ?? [])
                 .map(_transformType)
                 .map(getJSTypeAlternative)
-                .toList()),
+                .toList(),
+            isNullable: isNullable),
         name
       );
     } else if (declarationSource != file &&
@@ -1256,7 +1299,9 @@ class Transformer {
           case TypeAliasDeclaration(type: final t):
           case EnumDeclaration(baseType: final t):
             final jsType = getJSTypeAlternative(t);
-            if (jsType != t) return (jsType, name);
+            if (jsType != t) {
+              return (jsType..isNullable = isNullable, name);
+            }
         }
       }
 
@@ -1265,12 +1310,15 @@ class Transformer {
             (typeArguments ?? [])
                 .map((type) => _transformType(type, typeArg: true))
                 .toList(),
+            isNullable,
             relativePath.replaceFirst('.d.ts', '.dart'));
 
         if (outputType case ReferredDeclarationType(type: final type)
             when type is BuiltinType && typeArg) {
           final jsType = getJSTypeAlternative(type);
-          if (jsType != type) outputType.type = jsType;
+          if (jsType != type) {
+            outputType.type = jsType..isNullable = isNullable;
+          }
         }
 
         return (outputType, name);

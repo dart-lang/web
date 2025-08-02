@@ -168,7 +168,7 @@ class VariableDeclaration extends FieldDeclaration
 
   @override
   ReferredType<VariableDeclaration> asReferredType(
-      [List<Type>? typeArgs, String? url]) {
+      [List<Type>? typeArgs, bool? isNullable, String? url]) {
     return ReferredType<VariableDeclaration>.fromType(type, this,
         typeParams: typeArgs ?? [], url: url);
   }
@@ -241,11 +241,11 @@ class FunctionDeclaration extends CallableDeclaration
 
   @override
   ReferredType<FunctionDeclaration> asReferredType(
-      [List<Type>? typeArgs, String? url]) {
+      [List<Type>? typeArgs, bool? isNullable, String? url]) {
     // TODO: We could do better here and make the function type typed
     return ReferredType<FunctionDeclaration>.fromType(
         BuiltinType.referred('Function', typeParams: typeArgs ?? [])!, this,
-        typeParams: typeArgs ?? [], url: url);
+        typeParams: typeArgs ?? [], url: url, isNullable: isNullable ?? false);
   }
 }
 

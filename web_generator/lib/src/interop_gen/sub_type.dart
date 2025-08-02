@@ -12,7 +12,7 @@ Type getSubTypeOfTypes(List<Type> types, {bool isNullable = false}) {
 
   // get the common
   // throw UnimplementedError('');
-  return BuiltinType.primitiveType(PrimitiveType.any, isNullable: isNullable);
+  return BuiltinType.primitiveType(PrimitiveType.any);
 }
 
 /// Checks if there is a type shared between the types, usually in the

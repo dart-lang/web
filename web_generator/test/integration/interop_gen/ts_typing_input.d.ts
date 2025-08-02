@@ -25,6 +25,8 @@ export declare const myComposedMyString: ComposedType<typeof myString>;
 export declare const myUnion: boolean | string;
 export declare const myCloneUnion: boolean | string;
 export declare const mySecondUnion: number | string | MyEnum | ComposedType;
+export declare const booleanOrUndefined: boolean | undefined;
+export declare const image: string | URL | null;
 export declare const myTuple: [string, number];
 export declare const mySecondTuple: [string, string];
 export declare const myCloneTuple: [string, string];

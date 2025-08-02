@@ -113,64 +113,64 @@ extension type SomeRandomEnumValues._(_i1.JSAny _) {
 @_i1.JS()
 external Permissions get userPermissions;
 @_i1.JS()
-external AnonymousUnion_9400745 currentTheme;
+external AnonymousUnion_3616711 currentTheme;
 @_i1.JS()
-external AnonymousUnion_1302184 buttonState;
+external AnonymousUnion_2355602 buttonState;
 @_i1.JS()
-external AnonymousUnion_1155453 retriesLeft;
+external AnonymousUnion_7456409 retriesLeft;
 @_i1.JS()
-external AnonymousUnion_4862796? get direction;
+external AnonymousUnion_1008525? get direction;
 @_i1.JS()
-external AnonymousUnion_3791512 get someUnionEnum;
+external AnonymousUnion_4522673 get someUnionEnum;
 @_i1.JS()
 external bool get myBooleanEnum;
-extension type const AnonymousUnion_9400745._(String _) {
-  static const AnonymousUnion_9400745 light = AnonymousUnion_9400745._('light');
+extension type const AnonymousUnion_3616711._(String _) {
+  static const AnonymousUnion_3616711 light = AnonymousUnion_3616711._('light');
 
-  static const AnonymousUnion_9400745 dark = AnonymousUnion_9400745._('dark');
+  static const AnonymousUnion_3616711 dark = AnonymousUnion_3616711._('dark');
 
-  static const AnonymousUnion_9400745 system =
-      AnonymousUnion_9400745._('system');
+  static const AnonymousUnion_3616711 system =
+      AnonymousUnion_3616711._('system');
 }
-extension type const AnonymousUnion_1302184._(String _) {
-  static const AnonymousUnion_1302184 default$ =
-      AnonymousUnion_1302184._('default');
+extension type const AnonymousUnion_2355602._(String _) {
+  static const AnonymousUnion_2355602 default$ =
+      AnonymousUnion_2355602._('default');
 
-  static const AnonymousUnion_1302184 hovered =
-      AnonymousUnion_1302184._('hovered');
+  static const AnonymousUnion_2355602 hovered =
+      AnonymousUnion_2355602._('hovered');
 
-  static const AnonymousUnion_1302184 pressed =
-      AnonymousUnion_1302184._('pressed');
+  static const AnonymousUnion_2355602 pressed =
+      AnonymousUnion_2355602._('pressed');
 
-  static const AnonymousUnion_1302184 disabled =
-      AnonymousUnion_1302184._('disabled');
+  static const AnonymousUnion_2355602 disabled =
+      AnonymousUnion_2355602._('disabled');
 }
-extension type const AnonymousUnion_1155453._(num _) {
-  static const AnonymousUnion_1155453 $0 = AnonymousUnion_1155453._(0);
+extension type const AnonymousUnion_7456409._(num _) {
+  static const AnonymousUnion_7456409 $0 = AnonymousUnion_7456409._(0);
 
-  static const AnonymousUnion_1155453 $1 = AnonymousUnion_1155453._(1);
+  static const AnonymousUnion_7456409 $1 = AnonymousUnion_7456409._(1);
 
-  static const AnonymousUnion_1155453 $2 = AnonymousUnion_1155453._(2);
+  static const AnonymousUnion_7456409 $2 = AnonymousUnion_7456409._(2);
 
-  static const AnonymousUnion_1155453 $3 = AnonymousUnion_1155453._(3);
+  static const AnonymousUnion_7456409 $3 = AnonymousUnion_7456409._(3);
 }
-extension type const AnonymousUnion_4862796._(String _) {
-  static const AnonymousUnion_4862796 N = AnonymousUnion_4862796._('N');
+extension type const AnonymousUnion_1008525._(String _) {
+  static const AnonymousUnion_1008525 N = AnonymousUnion_1008525._('N');
 
-  static const AnonymousUnion_4862796 S = AnonymousUnion_4862796._('S');
+  static const AnonymousUnion_1008525 S = AnonymousUnion_1008525._('S');
 
-  static const AnonymousUnion_4862796 E = AnonymousUnion_4862796._('E');
+  static const AnonymousUnion_1008525 E = AnonymousUnion_1008525._('E');
 
-  static const AnonymousUnion_4862796 W = AnonymousUnion_4862796._('W');
+  static const AnonymousUnion_1008525 W = AnonymousUnion_1008525._('W');
 }
-extension type const AnonymousUnion_3791512._(num _) {
-  static const AnonymousUnion_3791512 $2 = AnonymousUnion_3791512._(2);
+extension type const AnonymousUnion_4522673._(num _) {
+  static const AnonymousUnion_4522673 $2 = AnonymousUnion_4522673._(2);
 
-  static const AnonymousUnion_3791512 $4 = AnonymousUnion_3791512._(4);
+  static const AnonymousUnion_4522673 $4 = AnonymousUnion_4522673._(4);
 
-  static const AnonymousUnion_3791512 $6 = AnonymousUnion_3791512._(6);
+  static const AnonymousUnion_4522673 $6 = AnonymousUnion_4522673._(6);
 
-  static const AnonymousUnion_3791512 $8 = AnonymousUnion_3791512._(8);
+  static const AnonymousUnion_4522673 $8 = AnonymousUnion_4522673._(8);
 
-  static const AnonymousUnion_3791512 $10 = AnonymousUnion_3791512._(10);
+  static const AnonymousUnion_4522673 $10 = AnonymousUnion_4522673._(10);
 }

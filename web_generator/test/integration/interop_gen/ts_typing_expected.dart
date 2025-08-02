@@ -5,6 +5,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:js_interop' as _i1;
 
+import 'package:web/web.dart' as _i2;
+
 @_i1.JS()
 external String myFunction(String param);
 @_i1.JS()
@@ -48,6 +50,10 @@ external _AnonymousUnion_5411652 get myUnion;
 external _AnonymousUnion_5411652 get myCloneUnion;
 @_i1.JS()
 external _AnonymousUnion_3781934 get mySecondUnion;
+@_i1.JS()
+external bool? get booleanOrUndefined;
+@_i1.JS()
+external _AnonymousUnion_6216705? get image;
 extension type JSTuple2<A extends _i1.JSAny?, B extends _i1.JSAny?>._(
     _i1.JSArray<_i1.JSAny?> _) implements _i1.JSArray<_i1.JSAny?> {
   A get $1 => (_[0] as A);
@@ -103,4 +109,9 @@ extension type _AnonymousUnion_3781934._(_i1.JSAny _) implements _i1.JSAny {
   MyEnum get asMyEnum => MyEnum._((_ as _i1.JSNumber).toDartInt);
 
   ComposedType get asComposedType => (_ as ComposedType);
+}
+extension type _AnonymousUnion_6216705._(_i1.JSAny _) implements _i1.JSAny {
+  String get asString => (_ as _i1.JSString).toDart;
+
+  _i2.URL get asURL => (_ as _i2.URL);
 }

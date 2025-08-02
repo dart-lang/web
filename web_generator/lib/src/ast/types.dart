@@ -19,6 +19,9 @@ class ReferredType<T extends Declaration> extends Type {
   @override
   ID get id => ID(type: 'type', name: name);
 
+  @override
+  bool isNullable;
+
   T declaration;
 
   List<Type> typeParams;
@@ -29,17 +32,20 @@ class ReferredType<T extends Declaration> extends Type {
       {required this.name,
       required this.declaration,
       this.typeParams = const [],
-      this.url});
+      this.url,
+      this.isNullable = false});
 
   factory ReferredType.fromType(Type type, T declaration,
-      {List<Type> typeParams, String? url}) = ReferredDeclarationType;
+      {List<Type> typeParams,
+      String? url,
+      bool isNullable}) = ReferredDeclarationType;
 
   @override
   Reference emit([TypeOptions? options]) {
     return TypeReference((t) => t
       ..symbol = declaration.dartName ?? declaration.name
       ..types.addAll(typeParams.map((t) => t.emit(options)))
-      ..isNullable = options?.nullable
+      ..isNullable = options?.nullable ?? isNullable
       ..url = options?.url ?? url);
   }
 }
@@ -51,13 +57,14 @@ class ReferredDeclarationType<T extends Declaration> extends ReferredType<T> {
   String get name => type.name ?? declaration.name;
 
   ReferredDeclarationType(this.type, T declaration,
-      {super.typeParams, super.url})
+      {super.typeParams, super.url, super.isNullable})
       : super(name: declaration.name, declaration: declaration);
 
   @override
   Reference emit([covariant TypeOptions? options]) {
     options ??= TypeOptions();
     options.url = super.url;
+    options.nullable = super.isNullable;
 
     return type.emit(options);
   }
@@ -66,7 +73,10 @@ class ReferredDeclarationType<T extends Declaration> extends ReferredType<T> {
 class TupleType extends Type {
   final List<Type> types;
 
-  TupleType({required this.types});
+  @override
+  bool isNullable;
+
+  TupleType({required this.types, this.isNullable = false});
 
   @override
   ID get id => ID(type: 'type', name: types.map((t) => t.id.name).join(','));
@@ -78,7 +88,8 @@ class TupleType extends Type {
   Reference emit([TypeOptions? options]) {
     return TypeReference((t) => t
       ..symbol = 'JSTuple${types.length}'
-      ..types.addAll(types.map((type) => type.emit(options))));
+      ..types.addAll(types.map((type) => type.emit(options)))
+      ..isNullable = isNullable);
   }
 
   @override
@@ -93,7 +104,8 @@ class TupleType extends Type {
 class UnionType extends Type implements DeclarationAssociatedType {
   final List<Type> types;
 
-  final bool isNullable;
+  @override
+  bool isNullable;
 
   @override
   String declarationName;
@@ -168,6 +180,12 @@ class GenericType extends Type {
 
   final Declaration? parent;
 
+  @override
+  bool get isNullable => false;
+
+  @override
+  set isNullable(bool isNullable) {}
+
   GenericType({required this.name, this.constraint, this.parent});
 
   @override
@@ -198,6 +216,9 @@ class LiteralType extends Type {
   final Object? value;
 
   @override
+  bool isNullable;
+
+  @override
   String get name => switch (kind) {
         LiteralKind.$null => 'null',
         LiteralKind.int || LiteralKind.double => 'number',
@@ -212,10 +233,14 @@ class LiteralType extends Type {
     return BuiltinType.primitiveType(primitive);
   }
 
-  LiteralType({required this.kind, required this.value});
+  LiteralType(
+      {required this.kind, required this.value, this.isNullable = false});
 
   @override
   Reference emit([TypeOptions? options]) {
+    options ??= TypeOptions();
+    options.nullable = isNullable;
+
     return baseType.emit(options);
   }
 
@@ -282,10 +307,7 @@ class _UnionDeclaration extends NamedDeclaration
       ..representationDeclaration = RepresentationDeclaration((r) => r
         ..name = '_'
         ..declaredRepresentationType = repType.emit(options?.toTypeOptions()))
-      ..implements.addAll([
-        if (!isNullable || repType != BuiltinType.anyType)
-          repType.emit(options?.toTypeOptions())
-      ])
+      ..implements.addAll([repType.emit(options?.toTypeOptions())])
       ..methods.addAll(types.map((t) {
         final type = t.emit(options?.toTypeOptions());
         final jsTypeAlt = getJSTypeAlternative(t);

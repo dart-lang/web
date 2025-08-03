@@ -26,6 +26,7 @@ extension type const TSSyntaxKind._(num _) {
   static const TSSyntaxKind FunctionDeclaration = TSSyntaxKind._(262);
   static const TSSyntaxKind ExportDeclaration = TSSyntaxKind._(278);
   static const TSSyntaxKind TypeAliasDeclaration = TSSyntaxKind._(265);
+  static const TSSyntaxKind ModuleDeclaration = TSSyntaxKind._(267);
   static const TSSyntaxKind Parameter = TSSyntaxKind._(169);
   static const TSSyntaxKind EnumDeclaration = TSSyntaxKind._(266);
   static const TSSyntaxKind PropertyDeclaration = TSSyntaxKind._(172);

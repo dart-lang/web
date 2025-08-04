@@ -2,6 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:collection';
 import 'dart:js_interop';
 import 'package:path/path.dart' as p;
 import '../../ast/base.dart';
@@ -90,40 +91,58 @@ class Transformer {
   void transform(TSNode node) {
     if (nodes.contains(node)) return;
 
-    switch (node.kind) {
-      case TSSyntaxKind.ImportDeclaration || TSSyntaxKind.ImportSpecifier:
-        // We do not parse import declarations by default
-        // so that generated code only makes use of declarations we need.
-        break;
-      case TSSyntaxKind.ExportSpecifier:
-        _parseExportSpecifier(node as TSExportSpecifier);
-      case TSSyntaxKind.ExportDeclaration:
-        _parseExportDeclaration(node as TSExportDeclaration);
-      case TSSyntaxKind.VariableStatement:
-        final decs = _transformVariable(node as TSVariableStatement);
-        nodeMap.addAll({for (final d in decs) d.id.toString(): d});
-      default:
-        final decl = switch (node.kind) {
-          TSSyntaxKind.VariableDeclaration =>
-            _transformVariableDecl(node as TSVariableDeclaration),
-          TSSyntaxKind.FunctionDeclaration =>
-            _transformFunction(node as TSFunctionDeclaration),
-          TSSyntaxKind.EnumDeclaration =>
-            _transformEnum(node as TSEnumDeclaration),
-          TSSyntaxKind.TypeAliasDeclaration =>
-            _transformTypeAlias(node as TSTypeAliasDeclaration),
-          TSSyntaxKind.ClassDeclaration ||
-          TSSyntaxKind.InterfaceDeclaration =>
-            _transformClassOrInterface(node as TSObjectDeclaration),
-          _ => throw Exception('Unsupported Declaration Kind: ${node.kind}')
-        };
-        nodeMap.add(decl);
-    }
+    final decls = _transform(node);
+
+    nodeMap.addAll({for (final d in decls) d.id.toString(): d});
 
     nodes.add(node);
   }
 
-  void _parseExportSpecifier(TSExportSpecifier specifier) {
+  List<Declaration> _transform(TSNode node,
+      {Set<ExportReference>? exportSet, UniqueNamer? namer}) {
+    switch (node.kind) {
+      case TSSyntaxKind.ImportDeclaration || TSSyntaxKind.ImportSpecifier:
+        // We do not parse import declarations by default
+        // so that generated code only makes use of declarations we need.
+        return [];
+      case TSSyntaxKind.ExportSpecifier:
+        _parseExportSpecifier(node as TSExportSpecifier, exportSet: exportSet);
+        return [];
+      case TSSyntaxKind.ExportDeclaration:
+        _parseExportDeclaration(node as TSExportDeclaration,
+            exportSet: exportSet);
+        return [];
+      case TSSyntaxKind.VariableStatement:
+        return _transformVariable(node as TSVariableStatement, namer: namer);
+      default:
+        return [
+          switch (node.kind) {
+            TSSyntaxKind.VariableDeclaration => _transformVariableDecl(
+                node as TSVariableDeclaration,
+                namer: namer),
+            TSSyntaxKind.FunctionDeclaration =>
+              _transformFunction(node as TSFunctionDeclaration, namer: namer),
+            TSSyntaxKind.EnumDeclaration =>
+              _transformEnum(node as TSEnumDeclaration, namer: namer),
+            TSSyntaxKind.TypeAliasDeclaration =>
+              _transformTypeAlias(node as TSTypeAliasDeclaration, namer: namer),
+            TSSyntaxKind.ClassDeclaration ||
+            TSSyntaxKind.InterfaceDeclaration =>
+              _transformClassOrInterface(node as TSObjectDeclaration,
+                  namer: namer),
+            TSSyntaxKind.ModuleDeclaration
+                when (node as TSModuleDeclaration).name.kind ==
+                        TSSyntaxKind.Identifier &&
+                    (node.name as TSIdentifier).text != 'global' =>
+              _transformNamespace(node, namer: namer),
+            _ => throw Exception('Unsupported Declaration Kind: ${node.kind}')
+          }
+        ];
+    }
+  }
+
+  void _parseExportSpecifier(TSExportSpecifier specifier,
+      {Set<ExportReference>? exportSet}) {
     final actualName = specifier.propertyName ?? specifier.name;
 
     final dartName = specifier.name;
@@ -134,13 +153,15 @@ class Transformer {
     // export reference
     if (decl.isEmpty) _getTypeFromDeclaration(actualName, []);
 
-    exportSet.removeWhere((e) => e.name == actualName.text);
-    exportSet.add(ExportReference(actualName.text, as: dartName.text));
+    (exportSet ?? this.exportSet).removeWhere((e) => e.name == actualName.text);
+    (exportSet ?? this.exportSet)
+        .add(ExportReference(actualName.text, as: dartName.text));
   }
 
   /// Parses an export declaration and converts it into an [ExportReference]
   /// to be handled when returning results
-  void _parseExportDeclaration(TSExportDeclaration export) {
+  void _parseExportDeclaration(TSExportDeclaration export,
+      {Set<ExportReference>? exportSet}) {
     // TODO(nikeokoronkwo): Support namespace exports
     if (export.exportClause?.kind == TSSyntaxKind.NamedExports) {
       // named exports
@@ -153,15 +174,74 @@ class Transformer {
         // The exported name to use
         final dartName = exp.name.text;
 
-        exportSet.removeWhere((e) => e.name == actualName);
-        exportSet.add(ExportReference(actualName, as: dartName));
+        (exportSet ?? this.exportSet).removeWhere((e) => e.name == actualName);
+        (exportSet ?? this.exportSet)
+            .add(ExportReference(actualName, as: dartName));
       }
     }
   }
 
+  /// Transforms a TS Namespace (identified as a [TSModuleDeclaration] with
+  /// an identifier name that isn't "global") into a Dart Namespace.
+  NamespaceDeclaration _transformNamespace(TSModuleDeclaration namespace,
+      {UniqueNamer? namer}) {
+    namer ??= this.namer;
+
+    final namespaceName = (namespace.name as TSIdentifier).text;
+    final (name: dartName, :id) = namer.makeUnique(namespaceName, 'namespace');
+
+    // get modifiers
+    final modifiers = namespace.modifiers?.toDart ?? [];
+    final isExported = modifiers.any((m) {
+      return m.kind == TSSyntaxKind.ExportKeyword;
+    });
+
+    final scopedNamer = ScopedUniqueNamer();
+
+    final outputNamespace = NamespaceDeclaration(
+        name: namespaceName,
+        dartName: dartName,
+        id: id,
+        exported: isExported,
+        topLevelDeclarations: [],
+        namespaceDeclarations: [],
+        typeDeclarations: []);
+
+    // TODO: We could just get the declarations exported by the namespace
+    //  however, the type reference chain is unknown (for now)
+    if (namespace.body case final namespaceBody?) {
+      for (final statement in namespaceBody.statements.toDart) {
+        final outputDecls = _transform(statement, namer: scopedNamer);
+        switch (statement.kind) {
+          case TSSyntaxKind.ClassDeclaration ||
+                TSSyntaxKind.InterfaceDeclaration:
+            final outputDecl = outputDecls.first as TypeDeclaration;
+            outputDecl.parent = outputNamespace;
+            outputNamespace.typeDeclarations.add(outputDecl);
+          case TSSyntaxKind.EnumDeclaration:
+            final outputDecl = outputDecls.first as EnumDeclaration;
+            outputDecl.parent = outputNamespace;
+            outputNamespace.typeDeclarations.add(outputDecl);
+          case TSSyntaxKind.ModuleDeclaration:
+            final outputDecl = outputDecls.first as NamespaceDeclaration;
+            outputDecl.parent = outputNamespace;
+            outputNamespace.namespaceDeclarations.add(outputDecl);
+          default:
+            outputNamespace.topLevelDeclarations.addAll(outputDecls);
+        }
+      }
+    }
+
+    // get the exported symbols from the namespace
+    return outputNamespace;
+  }
+
   /// Transforms a TS Class or Interface declaration into a node representing
   /// a class or interface respectively.
-  TypeDeclaration _transformClassOrInterface(TSObjectDeclaration typeDecl) {
+  TypeDeclaration _transformClassOrInterface(TSObjectDeclaration typeDecl,
+      {UniqueNamer? namer}) {
+    namer ??= this.namer;
+
     final name = typeDecl.name.text;
 
     final modifiers = typeDecl.modifiers?.toDart;
@@ -589,10 +669,12 @@ class Transformer {
     return methodDeclaration;
   }
 
-  FunctionDeclaration _transformFunction(TSFunctionDeclaration function) {
+  FunctionDeclaration _transformFunction(TSFunctionDeclaration function,
+      {UniqueNamer? namer}) {
+    namer ??= this.namer;
     final name = function.name.text;
 
-    final modifiers = function.modifiers.toDart;
+    final modifiers = function.modifiers?.toDart ?? [];
     final isExported = modifiers.any((m) {
       return m.kind == TSSyntaxKind.ExportKeyword;
     });
@@ -616,9 +698,10 @@ class Transformer {
             : BuiltinType.anyType);
   }
 
-  List<VariableDeclaration> _transformVariable(TSVariableStatement variable) {
+  List<VariableDeclaration> _transformVariable(TSVariableStatement variable,
+      {UniqueNamer? namer}) {
     // get the modifier of the declaration
-    final modifiers = variable.modifiers.toDart;
+    final modifiers = variable.modifiers?.toDart ?? [];
     final isExported = modifiers.any((m) {
       return m.kind == TSSyntaxKind.ExportKeyword;
     });
@@ -632,14 +715,16 @@ class Transformer {
     }
 
     return variable.declarationList.declarations.toDart.map((d) {
-      return _transformVariableDecl(d, modifier, isExported);
+      return _transformVariableDecl(d,
+          modifier: modifier, isExported: isExported, namer: namer);
     }).toList();
   }
 
   VariableDeclaration _transformVariableDecl(TSVariableDeclaration d,
-      [VariableModifier? modifier, bool? isExported]) {
+      {VariableModifier? modifier, bool? isExported, UniqueNamer? namer}) {
+    namer ??= this.namer;
     final statement = d.parent.parent;
-    isExported ??= statement.modifiers.toDart.any((m) {
+    isExported ??= statement.modifiers?.toDart.any((m) {
       return m.kind == TSSyntaxKind.ExportKeyword;
     });
     modifier ??= switch (statement.declarationList.flags) {
@@ -649,15 +734,17 @@ class Transformer {
       _ => VariableModifier.$var
     };
 
-    namer.markUsed(d.name.text);
+    namer.markUsed(d.name.text, 'var');
     return VariableDeclaration(
         name: d.name.text,
         type: d.type == null ? BuiltinType.anyType : _transformType(d.type!),
         modifier: modifier,
-        exported: isExported);
+        exported: isExported ?? false);
   }
 
-  EnumDeclaration _transformEnum(TSEnumDeclaration enumeration) {
+  EnumDeclaration _transformEnum(TSEnumDeclaration enumeration,
+      {UniqueNamer? namer}) {
+    namer ??= this.namer;
     final modifiers = enumeration.modifiers?.toDart;
     final isExported = modifiers?.any((m) {
           return m.kind == TSSyntaxKind.ExportKeyword;
@@ -726,6 +813,8 @@ class Transformer {
       }
     }
 
+    namer.markUsed(name, 'enum');
+
     return EnumDeclaration(
         name: name,
         baseType: BuiltinType.primitiveType(enumRepType ?? PrimitiveType.num),
@@ -741,7 +830,9 @@ class Transformer {
     return stringLiteral.text;
   }
 
-  TypeAliasDeclaration _transformTypeAlias(TSTypeAliasDeclaration typealias) {
+  TypeAliasDeclaration _transformTypeAlias(TSTypeAliasDeclaration typealias,
+      {UniqueNamer? namer}) {
+    namer ??= this.namer;
     final name = typealias.name.text;
 
     final modifiers = typealias.modifiers?.toDart;
@@ -753,6 +844,8 @@ class Transformer {
     final typeParams = typealias.typeParameters?.toDart;
 
     final type = typealias.type;
+
+    namer.markUsed(name, 'typealias');
 
     return TypeAliasDeclaration(
         name: name,
@@ -1453,4 +1546,30 @@ class Transformer {
   }
 
   return (isStatic: isStatic, isReadonly: isReadonly, scope: scope);
+}
+
+final class QualifiedNamePart extends LinkedListEntry<QualifiedNamePart> {
+  final String part;
+
+  QualifiedNamePart(this.part);
+
+  @override
+  String toString() => part;
+}
+
+/// A wrapper around a [LinkedList] suitable for converting a [TSQualifiedName]
+/// into a more suitable representation for lookup, length deduction, etc
+extension type QualifiedName(LinkedList<QualifiedNamePart> _)
+    implements LinkedList<QualifiedNamePart> {
+  QualifiedName.fromNode(TSQualifiedName name) : _ = LinkedList() {
+    if (name.left.kind == TSSyntaxKind.Identifier) {
+      _.addAll(QualifiedName.fromNode(name.left as TSQualifiedName));
+    } else {
+      _.add(QualifiedNamePart((name.left as TSIdentifier).text));
+    }
+
+    _.add(QualifiedNamePart(name.right.text));
+  }
+
+  String get asName => _.join('.');
 }

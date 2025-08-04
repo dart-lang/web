@@ -10,6 +10,7 @@ import 'package:dart_style/dart_style.dart';
 import 'package:path/path.dart' as p;
 
 import '../ast/base.dart';
+import '../ast/declarations.dart';
 import '../config.dart';
 import '../js/helpers.dart';
 import '../js/typescript.dart' as ts;
@@ -40,12 +41,17 @@ class TransformResult {
     return programDeclarationMap.map((file, declMap) {
       final emitter =
           DartEmitter.scoped(useNullSafetySyntax: true, orderDirectives: true);
-      final specs = declMap.decls.values.map((d) {
-        return switch (d) {
-          final Declaration n => n.emit(),
-          final Type _ => null,
-        };
-      }).whereType<Spec>();
+      final specs = declMap.decls.values
+          .map((d) {
+            return switch (d) {
+              final NamespaceDeclaration n => [...n.emitChildren(), n.emit()],
+              final Declaration n => [n.emit()],
+              final Type _ => null,
+            };
+          })
+          .nonNulls
+          .fold(<Spec>[], (prev, combine) => [...prev, ...combine])
+          .whereType<Spec>();
       final lib = Library((l) {
         if (config.preamble case final preamble?) {
           l.comments.addAll(const LineSplitter().convert(preamble).map((l) {

@@ -11,6 +11,7 @@ import 'dart:js_interop';
 
 import 'package:meta/meta.dart';
 
+import 'annotations.dart';
 import 'helpers.dart';
 import 'typescript.dart';
 
@@ -91,6 +92,7 @@ extension type const TSSyntaxKind._(num _) {
 
   /// Other
   static const TSSyntaxKind Identifier = TSSyntaxKind._(80);
+  static const TSSyntaxKind QualifiedName = TSSyntaxKind._(167);
   static const TSSyntaxKind PropertyAccessExpression = TSSyntaxKind._(211);
   static const TSSyntaxKind ObjectBindingPattern = TSSyntaxKind._(206);
   static const TSSyntaxKind ArrayBindingPattern = TSSyntaxKind._(207);
@@ -100,6 +102,8 @@ extension type const TSSyntaxKind._(num _) {
   static const TSSyntaxKind NamespaceExport = TSSyntaxKind._(280);
   static const TSSyntaxKind NamedExports = TSSyntaxKind._(279);
   static const TSSyntaxKind ExportSpecifier = TSSyntaxKind._(281);
+  static const TSSyntaxKind ModuleBlock = TSSyntaxKind._(269);
+  static const TSSyntaxKind SourceFile = TSSyntaxKind._(308);
 }
 
 extension type const TSNodeFlags._(int _) implements int {
@@ -216,8 +220,16 @@ extension type TSStringLiteral._(JSObject _) implements TSLiteral {
 extension type TSStatement._(JSObject _) implements TSNode {}
 
 @JS('Identifier')
-extension type TSIdentifier._(JSObject _) implements TSDeclaration {
+extension type TSIdentifier._(JSObject _)
+    implements TSExpression, TSDeclaration {
   external String get text;
+}
+
+@JS('QualifiedName')
+extension type TSQualifiedName._(JSObject _) implements TSNode {
+  @UnionOf([TSIdentifier, TSQualifiedName])
+  external TSNode get left;
+  external TSIdentifier get right;
 }
 
 @JS('NamedDeclaration')
@@ -314,7 +326,7 @@ extension type TSExportAssignment._(JSObject _)
 @JS('VariableStatement')
 extension type TSVariableStatement._(JSObject _) implements TSStatement {
   external TSVariableDeclarationList get declarationList;
-  external TSNodeArray<TSNode> get modifiers;
+  external TSNodeArray<TSNode>? get modifiers;
 }
 
 @JS('VariableDeclarationList')
@@ -352,7 +364,7 @@ extension type TSFunctionLikeDeclarationBase._(JSObject _)
 extension type TSFunctionDeclaration._(JSObject _)
     implements TSFunctionLikeDeclarationBase {
   external TSIdentifier get name;
-  external TSNodeArray<TSNode> get modifiers;
+  external TSNodeArray<TSNode>? get modifiers;
 }
 
 /// A common API for Classes and Interfaces
@@ -533,6 +545,24 @@ extension type TSEnumDeclaration._(JSObject _)
 extension type TSEnumMember._(JSObject _) implements TSDeclaration {
   external TSIdentifier get name;
   external TSExpression? get initializer;
+}
+
+@JS('ModuleDeclaration')
+extension type TSModuleDeclaration._(JSObject _)
+    implements TSDeclarationStatement {
+  @UnionOf([TSSourceFile, TSModuleDeclaration])
+  @redeclare
+  external TSDeclaration get parent;
+
+  @UnionOf([TSIdentifier, TSStringLiteral])
+  external TSExpression get name;
+  external TSNodeArray<TSNode>? get modifiers;
+  external TSModuleBlock? get body;
+}
+
+@JS('ModuleBlock')
+extension type TSModuleBlock._(JSObject _) implements TSNode, TSStatement {
+  external TSNodeArray<TSStatement> get statements;
 }
 
 @JS('NodeArray')

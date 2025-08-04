@@ -102,7 +102,7 @@ extension type const TSSyntaxKind._(num _) {
   static const TSSyntaxKind NamespaceExport = TSSyntaxKind._(280);
   static const TSSyntaxKind NamedExports = TSSyntaxKind._(279);
   static const TSSyntaxKind ExportSpecifier = TSSyntaxKind._(281);
-  static const TSSyntaxKind ModuleBlock = TSSyntaxKind._(269);
+  static const TSSyntaxKind ModuleBlock = TSSyntaxKind._(268);
   static const TSSyntaxKind SourceFile = TSSyntaxKind._(308);
 }
 
@@ -161,7 +161,8 @@ extension type TSTypeReferenceNode._(JSObject _) implements TSTypeNode {
   @redeclare
   TSSyntaxKind get kind => TSSyntaxKind.TypeReference;
 
-  external TSIdentifier get typeName;
+  @UnionOf([TSIdentifier, TSQualifiedName])
+  external TSNode get typeName;
   external TSNodeArray<TSTypeNode>? get typeArguments;
 }
 
@@ -557,7 +558,15 @@ extension type TSModuleDeclaration._(JSObject _)
   @UnionOf([TSIdentifier, TSStringLiteral])
   external TSExpression get name;
   external TSNodeArray<TSNode>? get modifiers;
-  external TSModuleBlock? get body;
+  @UnionOf([TSModuleBlock, TSNamespaceDeclaration])
+  external TSStatement? get body;
+}
+
+@JS('NamespaceDeclaration')
+extension type TSNamespaceDeclaration._(JSObject _)
+    implements TSModuleDeclaration {
+  @redeclare
+  external TSIdentifier get name;
 }
 
 @JS('ModuleBlock')

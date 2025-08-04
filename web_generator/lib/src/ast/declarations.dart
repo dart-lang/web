@@ -21,10 +21,8 @@ abstract class NestableDeclaration extends NamedDeclaration {
       : (dartName ?? name);
 }
 
-/// A declaration that defines a type
-///
-// TODO: Add support for `ClassOrInterfaceDeclaration`
-//  once implementing namespaces and module support
+/// A declaration that defines a type (class or interface)
+/// which contains declarations
 sealed class TypeDeclaration extends NestableDeclaration
     implements ExportableDeclaration {
   @override
@@ -600,6 +598,7 @@ class NamespaceDeclaration extends NestableDeclaration
         else if (dartName != null && dartName != name)
           generateJSAnnotation(name)
       ])
+      ..implements.add(refer('JSObject', 'dart:js_interop'))
       ..primaryConstructorName = '_'
       ..representationDeclaration = RepresentationDeclaration((rep) => rep
         ..name = '_'

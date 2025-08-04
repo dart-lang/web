@@ -20,9 +20,16 @@ extension type CoreLogEntry._(_i1.JSObject _) implements _i1.JSObject {
 
   external String message;
 }
-extension type Core._(_i1.JSObject _) {
+@_i1.JS('Core.Internal')
+extension type CoreInternal._(_i1.JSObject _) implements _i1.JSObject {
+  external static String get internalName;
+  external static bool get devMode;
+}
+extension type Core._(_i1.JSObject _) implements _i1.JSObject {
   external static String get APP_NAME;
   external static String get APP_VERSION;
+  @_i1.JS('Core.Internal')
+  external static CoreInternal get Internal;
   @_i1.JS('Core.LogEntry')
   static CoreLogEntry LogEntry(
     String timestamp,
@@ -41,7 +48,7 @@ extension type SecurityIAuthToken._(_i1.JSObject _) implements _i1.JSObject {
 
   external double userId;
 }
-extension type Security._(_i1.JSObject _) {
+extension type Security._(_i1.JSObject _) implements _i1.JSObject {
   external static double get TOKEN_LIFETIME_SECONDS;
 }
 @_i1.JS('Data.IRepository')
@@ -60,8 +67,8 @@ extension type DataModelsIUser._(_i1.JSObject _) implements _i1.JSObject {
   external String email;
 }
 @_i1.JS('Data.Models')
-extension type DataModels._(_i1.JSObject _) {}
-extension type Data._(_i1.JSObject _) {
+extension type DataModels._(_i1.JSObject _) implements _i1.JSObject {}
+extension type Data._(_i1.JSObject _) implements _i1.JSObject {
   @_i1.JS('Data.Models')
   external static DataModels get Models;
 }
@@ -84,9 +91,10 @@ extension type EnterpriseAppModelsIProduct._(_i1.JSObject _)
   external double price;
 }
 @_i1.JS('EnterpriseApp.Models')
-extension type EnterpriseAppModels._(_i1.JSObject _) {}
+extension type EnterpriseAppModels._(_i1.JSObject _) implements _i1.JSObject {}
 @_i1.JS('EnterpriseApp.Utilities')
-extension type EnterpriseAppUtilities._(_i1.JSObject _) {
+extension type EnterpriseAppUtilities._(_i1.JSObject _)
+    implements _i1.JSObject {
   @_i1.JS()
   external static String formatCurrency(
     num amount, [
@@ -103,15 +111,17 @@ extension type EnterpriseAppDataServicesIDataService<T extends _i1.JSAny?>._(
   external void save(T item);
 }
 @_i1.JS('EnterpriseApp.DataServices')
-extension type EnterpriseAppDataServices._(_i1.JSObject _) {}
+extension type EnterpriseAppDataServices._(_i1.JSObject _)
+    implements _i1.JSObject {}
 @_i1.JS('EnterpriseApp.UI.Components')
-extension type EnterpriseAppUIComponents._(_i1.JSObject _) {}
+extension type EnterpriseAppUIComponents._(_i1.JSObject _)
+    implements _i1.JSObject {}
 @_i1.JS('EnterpriseApp.UI')
-extension type EnterpriseAppUI._(_i1.JSObject _) {
+extension type EnterpriseAppUI._(_i1.JSObject _) implements _i1.JSObject {
   @_i1.JS('EnterpriseApp.UI.Components')
   external static EnterpriseAppUIComponents get Components;
 }
-extension type EnterpriseApp._(_i1.JSObject _) {
+extension type EnterpriseApp._(_i1.JSObject _) implements _i1.JSObject {
   external static String get APP_VERSION;
   @_i1.JS('EnterpriseApp.Models')
   external static EnterpriseAppModels get Models;

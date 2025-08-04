@@ -15,6 +15,10 @@ export declare namespace Core {
         constructor(timestamp: string, message: string);
     }
 }
+export declare namespace Core.Internal {
+    const internalName: string;
+    const devMode: boolean;
+}
 export declare namespace Security {
     const TOKEN_LIFETIME_SECONDS: number;
     interface IAuthToken {

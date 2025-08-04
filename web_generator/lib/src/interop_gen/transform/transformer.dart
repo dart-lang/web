@@ -13,6 +13,7 @@ import '../../ast/types.dart';
 import '../../js/typescript.dart' as ts;
 import '../../js/typescript.types.dart';
 import '../namer.dart';
+import '../qualified_name.dart';
 import '../transform.dart';
 
 class ExportReference {
@@ -184,11 +185,10 @@ class Transformer {
   /// Transforms a TS Namespace (identified as a [TSModuleDeclaration] with
   /// an identifier name that isn't "global") into a Dart Namespace.
   NamespaceDeclaration _transformNamespace(TSModuleDeclaration namespace,
-      {UniqueNamer? namer}) {
+      {UniqueNamer? namer, NamespaceDeclaration? parent}) {
     namer ??= this.namer;
 
     final namespaceName = (namespace.name as TSIdentifier).text;
-    final (name: dartName, :id) = namer.makeUnique(namespaceName, 'namespace');
 
     // get modifiers
     final modifiers = namespace.modifiers?.toDart ?? [];
@@ -196,21 +196,31 @@ class Transformer {
       return m.kind == TSSyntaxKind.ExportKeyword;
     });
 
+    final currentNamespaces = parent != null
+        ? parent.namespaceDeclarations.where((n) => n.name == namespaceName)
+        : nodeMap.findByName(namespaceName).whereType<NamespaceDeclaration>();
+
+    final (name: dartName, :id) = namer.makeUnique(namespaceName, 'namespace');
+
     final scopedNamer = ScopedUniqueNamer();
 
-    final outputNamespace = NamespaceDeclaration(
-        name: namespaceName,
-        dartName: dartName,
-        id: id,
-        exported: isExported,
-        topLevelDeclarations: [],
-        namespaceDeclarations: [],
-        typeDeclarations: []);
+    final outputNamespace = currentNamespaces.isNotEmpty
+        ? currentNamespaces.first
+        : NamespaceDeclaration(
+            name: namespaceName,
+            dartName: dartName,
+            id: id,
+            exported: isExported,
+            topLevelDeclarations: [],
+            namespaceDeclarations: [],
+            typeDeclarations: []);
 
     // TODO: We could just get the declarations exported by the namespace
     //  however, the type reference chain is unknown (for now)
-    if (namespace.body case final namespaceBody?) {
-      for (final statement in namespaceBody.statements.toDart) {
+    if (namespace.body case final namespaceBody?
+        when namespaceBody.kind == TSSyntaxKind.ModuleBlock) {
+      for (final statement
+          in (namespaceBody as TSModuleBlock).statements.toDart) {
         final outputDecls = _transform(statement, namer: scopedNamer);
         switch (statement.kind) {
           case TSSyntaxKind.ClassDeclaration ||
@@ -230,6 +240,23 @@ class Transformer {
             outputNamespace.topLevelDeclarations.addAll(outputDecls);
         }
       }
+    } else if (namespace.body case final namespaceBody?) {
+      // namespace import
+      _transformNamespace(namespaceBody as TSNamespaceDeclaration,
+          namer: scopedNamer, parent: outputNamespace);
+    }
+
+    if (currentNamespaces.isNotEmpty) {
+      if (parent != null) {
+        final currentItemIndex =
+            parent.namespaceDeclarations.indexOf(currentNamespaces.first);
+        parent.namespaceDeclarations[currentItemIndex] = outputNamespace;
+      } else {
+        nodeMap.update(outputNamespace.id.toString(), (v) => outputNamespace);
+      }
+    } else if (parent != null) {
+      outputNamespace.parent = parent;
+      parent.namespaceDeclarations.add(outputNamespace);
     }
 
     // get the exported symbols from the namespace
@@ -1051,6 +1078,118 @@ class Transformer {
     }
   }
 
+  Type _searchForDeclRecursive(
+    Iterable<QualifiedNamePart> name,
+    NodeMap map, {
+    required TSSymbol symbol,
+    List<TSTypeNode>? typeArguments,
+    bool root = false,
+    bool typeArg = false,
+  }) {
+    final firstName = name.first.part;
+
+    var declarationsMatching = map.findByName(firstName);
+    if (declarationsMatching.isEmpty) {
+      // transform
+
+    }
+
+    // get node finally
+    final decl = declarationsMatching.whereType<NamedDeclaration>().first;
+
+    // are we done?
+    final rest = name.skip(1);
+    if (rest.isEmpty) {
+      // return decl
+      switch (decl) {
+        case TypeAliasDeclaration(type: final t):
+        case EnumDeclaration(baseType: final t):
+          final jsType = getJSTypeAlternative(t);
+          if (jsType != t && typeArg) return jsType;
+      }
+
+      return decl.asReferredType(
+        (typeArguments ?? [])
+            .map((type) => _transformType(type, typeArg: true))
+            .toList(),
+      );
+    } else {
+      // we go one more time
+
+      // TODO: Typealias resolving?
+      switch (decl) {
+        // if decl is class/interface, check if we're referring to generic
+        case TypeDeclaration(typeParameters: final typeParams):
+          if (rest.singleOrNull?.part case final generic?
+              when typeParams.any((t) => t.name == generic)) {
+            final typeParam = typeParams.firstWhere((t) => t.name == generic);
+            return typeParam;
+          }
+          break;
+        case NamespaceDeclaration(
+          topLevelDeclarations: final topLevelDecls,
+          typeDeclarations: final typeDecls,
+          namespaceDeclarations: final namespaceDecls
+        ):
+          final nodeMap = NodeMap([
+            ...typeDecls,
+            ...namespaceDecls
+          ].asMap().map((_, v) => MapEntry(v.id.toString(), v)));
+          return _searchForDeclRecursive(rest, nodeMap, symbol: symbol, typeArguments: typeArguments, typeArg: typeArg);
+        // recursive
+      }
+    }
+
+    throw Exception('Could not find type for given declaration');
+  }
+
+  Type ___getTypeFromTypeNode(TSTypeReferenceNode node,
+      {List<TSTypeNode>? typeArguments,
+      bool typeArg = false,
+      bool isNotTypableDeclaration = false}) {
+    typeArguments ??= node.typeArguments?.toDart;
+    final typeName = node.typeName;
+    final qualifiedName = typeName.kind == TSSyntaxKind.Identifier
+        ? QualifiedName.raw((typeName as TSIdentifier).text)
+        : parseQualifiedName(typeName as TSQualifiedName);
+
+    // get symbol
+    var symbol = typeChecker.getSymbolAtLocation(typeName);
+    if (symbol == null) {
+      final type = typeChecker.getTypeFromTypeNode(node);
+      symbol = type?.aliasSymbol ?? type?.symbol;
+    }
+
+    // get decl qualified name
+    final tsFullyQualifiedName = typeChecker.getFullyQualifiedName(symbol!);
+
+    // parse qualified name and import
+    final (fullyQualifiedName, nameImport) =
+        parseTSFullyQualifiedName(tsFullyQualifiedName);
+
+    if (nameImport == null) {
+      // if import not there, most likely from an import
+    } else {
+      final filePathWithoutExtension = file.replaceFirst('.d.ts', '');
+      if (p.equals(nameImport, filePathWithoutExtension)) {
+        // declared in this file
+        // if import there and this file, handle this file
+
+        // recursiveness
+        return _searchForDeclRecursive(fullyQualifiedName, nodeMap, symbol: symbol
+        );
+      } else {
+        // if import there and not this file, imported from specified file
+      }
+    }
+
+    // HANDLING FILE
+    // 1. recursive step through
+    // a. find decl
+    // b. if decl not there, generate
+    // c. else
+  }
+
   /// Get the type of a type node [node] by gettings its type from
   /// the node itself via the [ts.TSTypeChecker]
   ///
@@ -1060,7 +1199,24 @@ class Transformer {
       bool typeArg = false,
       bool isNotTypableDeclaration = false}) {
     typeArguments ??= node.typeArguments?.toDart;
-    final name = node.typeName.text;
+    final name = (node.typeName as TSIdentifier).text;
+
+    // check if decl being referenced is from namespace or not
+    var symbol = typeChecker.getSymbolAtLocation(node.typeName);
+    if (symbol == null) {
+      final type = typeChecker.getTypeFromTypeNode(node);
+      symbol = type?.aliasSymbol ?? type?.symbol;
+    }
+
+    final fullyQualifiedName = typeChecker.getFullyQualifiedName(symbol!);
+    // findings:
+    // 1. if not prefixed with import, then external declaration or generic type
+    // 2. if prefixed with import, declared en file
+    // 3. can get
+    print((
+      fullyQualifiedName,
+      file.replaceFirst('.d.ts', ''),
+    ));
 
     var declarationsMatching = nodeMap.findByName(name);
     if (declarationsMatching.isEmpty) {
@@ -1076,14 +1232,8 @@ class Transformer {
         return resultType;
       }
 
-      var symbol = typeChecker.getSymbolAtLocation(node.typeName);
-      if (symbol == null) {
-        final type = typeChecker.getTypeFromTypeNode(node);
-        symbol = type?.aliasSymbol ?? type?.symbol;
-      }
-
       final (derivedType, newName) = _deriveTypeOrTransform(
-          symbol!, name, typeArguments, typeArg, isNotTypableDeclaration);
+          symbol, name, typeArguments, typeArg, isNotTypableDeclaration);
 
       if (derivedType != null) return derivedType;
 
@@ -1567,28 +1717,19 @@ class Transformer {
   return (isStatic: isStatic, isReadonly: isReadonly, scope: scope);
 }
 
-final class QualifiedNamePart extends LinkedListEntry<QualifiedNamePart> {
-  final String part;
-
-  QualifiedNamePart(this.part);
-
-  @override
-  String toString() => part;
-}
-
-/// A wrapper around a [LinkedList] suitable for converting a [TSQualifiedName]
-/// into a more suitable representation for lookup, length deduction, etc
-extension type QualifiedName(LinkedList<QualifiedNamePart> _)
-    implements LinkedList<QualifiedNamePart> {
-  QualifiedName.fromNode(TSQualifiedName name) : _ = LinkedList() {
-    if (name.left.kind == TSSyntaxKind.Identifier) {
-      _.addAll(QualifiedName.fromNode(name.left as TSQualifiedName));
-    } else {
-      _.add(QualifiedNamePart((name.left as TSIdentifier).text));
-    }
-
-    _.add(QualifiedNamePart(name.right.text));
+LinkedList<QualifiedNamePart> _parseQualifiedName(TSQualifiedName name) {
+  final list = LinkedList<QualifiedNamePart>();
+  if (name.left.kind == TSSyntaxKind.Identifier) {
+    list.addAll(_parseQualifiedName(name.left as TSQualifiedName));
+  } else {
+    list.add(QualifiedNamePart((name.left as TSIdentifier).text));
   }
 
-  String get asName => _.join('.');
+  list.add(QualifiedNamePart(name.right.text));
+
+  return list;
+}
+
+QualifiedName parseQualifiedName(TSQualifiedName name) {
+  return QualifiedName(_parseQualifiedName(name));
 }

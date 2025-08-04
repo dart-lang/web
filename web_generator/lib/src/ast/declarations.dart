@@ -436,11 +436,9 @@ class NamespaceDeclaration extends NestableDeclaration
   List<Spec> emitChildren([covariant DeclarationOptions? options]) {
     return [
       ...typeDeclarations.map((t) => t.emit(options)),
-      ...namespaceDeclarations.map((n) => [
-        ...n.emitChildren(),
-        n.emit(options)
-      ]
-      ).fold(<Spec>[], (prev, combine) => [...prev, ...combine])
+      ...namespaceDeclarations
+          .map((n) => [...n.emitChildren(), n.emit(options)])
+          .fold(<Spec>[], (prev, combine) => [...prev, ...combine])
     ];
   }
 
@@ -528,8 +526,8 @@ class NamespaceDeclaration extends NestableDeclaration
             abstract: final abstract
           ):
           var constr = constructors
-            .where((c) => c.name == null || c.name == 'unnamed')
-            .firstOrNull;
+              .where((c) => c.name == null || c.name == 'unnamed')
+              .firstOrNull;
 
           if (constructors.isEmpty && !abstract) {
             constr = ConstructorDeclaration.defaultFor(nestable);

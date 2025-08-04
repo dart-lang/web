@@ -1419,104 +1419,106 @@ class Transformer {
       });
     }
 
-    void _updateFilteredDeclsForDecl(Node? decl, NodeMap filteredDeclarations) {
-     switch (decl) {
-      case final VariableDeclaration v:
-        if (v.type is! BuiltinType) filteredDeclarations.add(v.type);
-        break;
-      case final CallableDeclaration f:
-        filteredDeclarations.addAll(getCallableDependencies(f));
-        break;
-      case final EnumDeclaration _:
-        break;
-      case final TypeAliasDeclaration t:
-        if (decl.type is! BuiltinType) filteredDeclarations.add(t.type);
-        break;
-      case final TypeDeclaration t:
-        for (final con in t.constructors) {
+    void updateFilteredDeclsForDecl(Node? decl, NodeMap filteredDeclarations) {
+      switch (decl) {
+        case final VariableDeclaration v:
+          if (v.type is! BuiltinType) filteredDeclarations.add(v.type);
+          break;
+        case final CallableDeclaration f:
+          filteredDeclarations.addAll(getCallableDependencies(f));
+          break;
+        case final EnumDeclaration _:
+          break;
+        case final TypeAliasDeclaration t:
+          if (decl.type is! BuiltinType) filteredDeclarations.add(t.type);
+          break;
+        case final TypeDeclaration t:
+          for (final con in t.constructors) {
+            filteredDeclarations.addAll({
+              for (final param in con.parameters.map((p) => p.type))
+                param.id.toString(): param
+            });
+          }
+          for (final methods in t.methods) {
+            filteredDeclarations.addAll(getCallableDependencies(methods));
+          }
+          for (final operators in t.operators) {
+            filteredDeclarations.addAll(getCallableDependencies(operators));
+          }
           filteredDeclarations.addAll({
-            for (final param in con.parameters.map((p) => p.type))
-              param.id.toString(): param
+            for (final prop in t.properties
+                .map((p) => p.type)
+                .where((p) => p is! BuiltinType))
+              prop.id.toString(): prop,
           });
-        }
-        for (final methods in t.methods) {
-          filteredDeclarations.addAll(getCallableDependencies(methods));
-        }
-        for (final operators in t.operators) {
-          filteredDeclarations.addAll(getCallableDependencies(operators));
-        }
-        filteredDeclarations.addAll({
-          for (final prop in t.properties
-              .map((p) => p.type)
-              .where((p) => p is! BuiltinType))
-            prop.id.toString(): prop,
-        });
-        switch (t) {
-          case ClassDeclaration(
-              extendedType: final extendedType,
-              implementedTypes: final implementedTypes
-            ):
-            if (extendedType case final ext? when ext is! BuiltinType) {
-              filteredDeclarations.add(ext);
-            }
-            filteredDeclarations.addAll({
-              for (final impl
-                  in implementedTypes.where((i) => i is! BuiltinType))
-                impl.id.toString(): impl,
-            });
-            break;
-          case InterfaceDeclaration(extendedTypes: final extendedTypes):
-            filteredDeclarations.addAll({
-              for (final impl in extendedTypes.where((i) => i is! BuiltinType))
-                impl.id.toString(): impl,
-            });
-            break;
-        }
-      case NamespaceDeclaration(
-        topLevelDeclarations: final topLevelDecls,
-        typeDeclarations: final typeDecls,
-        namespaceDeclarations: final namespaceDecls,
-      ):
-        for (final topLevelDecl in [
-          ...topLevelDecls,
-          ...typeDecls,
-          ...namespaceDecls
-        ]) {
-          _updateFilteredDeclsForDecl(topLevelDecl, filteredDeclarations);
-        }
-        break;
-      // TODO: We can make (DeclarationAssociatedType) and use that
-      //  rather than individual type names
-      case final HomogenousEnumType hu:
-        filteredDeclarations.add(hu.declaration);
-        break;
-      case final UnionType u:
-        filteredDeclarations.addAll({
-          for (final t in u.types.where((t) => t is! BuiltinType))
-            t.id.toString(): t
-        });
-        break;
-      case BuiltinType(typeParams: final typeParams) when typeParams.isNotEmpty:
-        filteredDeclarations.addAll({
-          for (final t in typeParams.where((t) => t is! BuiltinType))
-            t.id.toString(): t
-        });
-        break;
-      case final ReferredType r:
-        if (r.url == null) filteredDeclarations.add(r.declaration);
-        break;
-      case BuiltinType() || GenericType():
-        break;
-      default:
-        print('WARN: The given node type ${decl.runtimeType.toString()} '
-            'is not supported for filtering. Skipping...');
-        break;
+          switch (t) {
+            case ClassDeclaration(
+                extendedType: final extendedType,
+                implementedTypes: final implementedTypes
+              ):
+              if (extendedType case final ext? when ext is! BuiltinType) {
+                filteredDeclarations.add(ext);
+              }
+              filteredDeclarations.addAll({
+                for (final impl
+                    in implementedTypes.where((i) => i is! BuiltinType))
+                  impl.id.toString(): impl,
+              });
+              break;
+            case InterfaceDeclaration(extendedTypes: final extendedTypes):
+              filteredDeclarations.addAll({
+                for (final impl
+                    in extendedTypes.where((i) => i is! BuiltinType))
+                  impl.id.toString(): impl,
+              });
+              break;
+          }
+        case NamespaceDeclaration(
+            topLevelDeclarations: final topLevelDecls,
+            typeDeclarations: final typeDecls,
+            namespaceDeclarations: final namespaceDecls,
+          ):
+          for (final topLevelDecl in [
+            ...topLevelDecls,
+            ...typeDecls,
+            ...namespaceDecls
+          ]) {
+            updateFilteredDeclsForDecl(topLevelDecl, filteredDeclarations);
+          }
+          break;
+        // TODO: We can make (DeclarationAssociatedType) and use that
+        //  rather than individual type names
+        case final HomogenousEnumType hu:
+          filteredDeclarations.add(hu.declaration);
+          break;
+        case final UnionType u:
+          filteredDeclarations.addAll({
+            for (final t in u.types.where((t) => t is! BuiltinType))
+              t.id.toString(): t
+          });
+          break;
+        case BuiltinType(typeParams: final typeParams)
+            when typeParams.isNotEmpty:
+          filteredDeclarations.addAll({
+            for (final t in typeParams.where((t) => t is! BuiltinType))
+              t.id.toString(): t
+          });
+          break;
+        case final ReferredType r:
+          if (r.url == null) filteredDeclarations.add(r.declaration);
+          break;
+        case BuiltinType() || GenericType():
+          break;
+        default:
+          print('WARN: The given node type ${decl.runtimeType.toString()} '
+              'is not supported for filtering. Skipping...');
+          break;
+      }
     }
-  }
 
     final filteredDeclarations = NodeMap();
 
-    _updateFilteredDeclsForDecl(decl, filteredDeclarations);
+    updateFilteredDeclsForDecl(decl, filteredDeclarations);
 
     filteredDeclarations
         .removeWhere((k, v) => context?.containsKey(k) ?? false);
@@ -1532,8 +1534,6 @@ class Transformer {
 
     return filteredDeclarations;
   }
-
-  
 }
 
 ({bool isReadonly, bool isStatic, DeclScope scope}) _parseModifiers(

@@ -10,9 +10,9 @@ export declare namespace Core {
         authRequired: boolean;
     }
     class LogEntry {
-        timestamp: Date;
+        timestamp: string;
         message: string;
-        constructor(timestamp: Date, message: string);
+        constructor(timestamp: string, message: string);
     }
 }
 export declare namespace Security {

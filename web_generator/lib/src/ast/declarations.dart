@@ -436,13 +436,17 @@ class NamespaceDeclaration extends NestableDeclaration
   List<Spec> emitChildren([covariant DeclarationOptions? options]) {
     return [
       ...typeDeclarations.map((t) => t.emit(options)),
-      ...namespaceDeclarations.map((n) => n.emit(options))
+      ...namespaceDeclarations.map((n) => [
+        ...n.emitChildren(),
+        n.emit(options)
+      ]
+      ).fold(<Spec>[], (prev, combine) => [...prev, ...combine])
     ];
   }
 
   // TODO: Use parent
   @override
-  Spec emit([covariant DeclarationOptions? options]) {
+  ExtensionType emit([covariant DeclarationOptions? options]) {
     // TODO: implement emit
     // static props and vars
     final methods = <Method>[];
@@ -530,7 +534,7 @@ class NamespaceDeclaration extends NestableDeclaration
           if (constructors.isEmpty && !abstract) {
             constr = ConstructorDeclaration.defaultFor(nestable);
           }
-          
+
           // static call to class constructor
           if (constr != null) {
             options ??= DeclarationOptions();

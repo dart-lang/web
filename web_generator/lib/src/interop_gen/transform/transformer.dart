@@ -1419,9 +1419,8 @@ class Transformer {
       });
     }
 
-    final filteredDeclarations = NodeMap();
-
-    switch (decl) {
+    void _updateFilteredDeclsForDecl(Node? decl, NodeMap filteredDeclarations) {
+     switch (decl) {
       case final VariableDeclaration v:
         if (v.type is! BuiltinType) filteredDeclarations.add(v.type);
         break;
@@ -1473,6 +1472,19 @@ class Transformer {
             });
             break;
         }
+      case NamespaceDeclaration(
+        topLevelDeclarations: final topLevelDecls,
+        typeDeclarations: final typeDecls,
+        namespaceDeclarations: final namespaceDecls,
+      ):
+        for (final topLevelDecl in [
+          ...topLevelDecls,
+          ...typeDecls,
+          ...namespaceDecls
+        ]) {
+          _updateFilteredDeclsForDecl(topLevelDecl, filteredDeclarations);
+        }
+        break;
       // TODO: We can make (DeclarationAssociatedType) and use that
       //  rather than individual type names
       case final HomogenousEnumType hu:
@@ -1500,6 +1512,11 @@ class Transformer {
             'is not supported for filtering. Skipping...');
         break;
     }
+  }
+
+    final filteredDeclarations = NodeMap();
+
+    _updateFilteredDeclsForDecl(decl, filteredDeclarations);
 
     filteredDeclarations
         .removeWhere((k, v) => context?.containsKey(k) ?? false);
@@ -1515,6 +1532,8 @@ class Transformer {
 
     return filteredDeclarations;
   }
+
+  
 }
 
 ({bool isReadonly, bool isStatic, DeclScope scope}) _parseModifiers(

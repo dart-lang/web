@@ -126,6 +126,14 @@ export declare namespace EnterpriseApp {
             getById(id: string): Models.User;
             save(user: Models.User): void;
         }
+        class ProductService implements IDataService<Models.Product> {
+            getById(id: string): Models.Product;
+            save(item: Models.Product): void;
+            private products;
+            add(product: Models.Product): void;
+            get(id: number): Models.Product;
+            getAll(): Models.Product[];
+        }
     }
     namespace UI {
         namespace Components {
@@ -133,3 +141,11 @@ export declare namespace EnterpriseApp {
         }
     }
 }
+export declare const user1: Data.Models.User;
+declare const user2: Data.Models.User;
+declare const product1: EnterpriseApp.Models.Product;
+export import UserService = EnterpriseApp.DataServices.UserService;
+export declare const userService: UserService;
+export import ProductService = EnterpriseApp.DataServices.ProductService;
+declare const productService: ProductService;
+export declare const allUsers: Data.Models.User[];

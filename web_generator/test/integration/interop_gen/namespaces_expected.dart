@@ -42,6 +42,14 @@ extension type EnterpriseApp._(_i1.JSObject _) implements _i1.JSObject {
   @_i1.JS('EnterpriseApp.UI')
   external static EnterpriseAppUI get UI;
 }
+@_i1.JS()
+external DataModelsUser get user1;
+typedef UserService = EnterpriseAppDataServicesUserService;
+@_i1.JS()
+external UserService get userService;
+typedef ProductService = EnterpriseAppDataServicesProductService;
+@_i1.JS()
+external _i1.JSArray<DataModelsUser> get allUsers;
 @_i1.JS('Core.IAppConfig')
 extension type CoreIAppConfig._(_i1.JSObject _) implements _i1.JSObject {
   external String apiEndpoint;
@@ -231,6 +239,10 @@ extension type EnterpriseAppDataServices._(_i1.JSObject _)
   @_i1.JS('EnterpriseApp.DataServices.UserService')
   static EnterpriseAppDataServicesUserService UserService() =>
       EnterpriseAppDataServicesUserService();
+
+  @_i1.JS('EnterpriseApp.DataServices.ProductService')
+  static EnterpriseAppDataServicesProductService ProductService() =>
+      EnterpriseAppDataServicesProductService();
 }
 @_i1.JS('EnterpriseApp.DataServices.IDataService')
 extension type EnterpriseAppDataServicesIDataService<T extends _i1.JSAny?>._(
@@ -250,6 +262,22 @@ extension type EnterpriseAppDataServicesUserService._(_i1.JSObject _)
   external EnterpriseAppModelsUser getById(String id);
   @_i2.redeclare
   external void save(EnterpriseAppModelsUser user);
+}
+@_i1.JS('EnterpriseApp.DataServices.ProductService')
+extension type EnterpriseAppDataServicesProductService._(_i1.JSObject _)
+    implements
+        EnterpriseAppDataServicesIDataService<EnterpriseAppModelsProduct> {
+  external EnterpriseAppDataServicesProductService();
+
+  @_i2.redeclare
+  external EnterpriseAppModelsProduct getById(String id);
+  @_i2.redeclare
+  external void save(EnterpriseAppModelsProduct item);
+  external void add(EnterpriseAppModelsProduct product);
+  @_i1.JS('get')
+  external EnterpriseAppModelsProduct get$(num id);
+  @_i2.redeclare
+  external _i1.JSArray<EnterpriseAppModelsProduct> getAll();
 }
 @_i1.JS('EnterpriseApp.UI')
 extension type EnterpriseAppUI._(_i1.JSObject _) implements _i1.JSObject {

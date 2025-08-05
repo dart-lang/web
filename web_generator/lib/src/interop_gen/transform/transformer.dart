@@ -135,6 +135,10 @@ class Transformer {
             TSSyntaxKind.InterfaceDeclaration =>
               _transformClassOrInterface(node as TSObjectDeclaration,
                   namer: namer),
+            TSSyntaxKind.ImportEqualsDeclaration
+                when (node as TSImportEqualsDeclaration).moduleReference.kind !=
+                    TSSyntaxKind.ExternalModuleReference =>
+              _transformImportEqualsDeclarationAsTypeAlias(node),
             TSSyntaxKind.ModuleDeclaration
                 when (node as TSModuleDeclaration).name.kind ==
                         TSSyntaxKind.Identifier &&
@@ -184,6 +188,30 @@ class Transformer {
             .add(ExportReference(actualName, as: dartName));
       }
     }
+  }
+
+  // TODO(): Support `import = require` declarations, https://github.com/dart-lang/web/issues/438
+  TypeAliasDeclaration _transformImportEqualsDeclarationAsTypeAlias(
+      TSImportEqualsDeclaration typealias,
+      {UniqueNamer? namer}) {
+    namer ??= this.namer;
+    final name = typealias.name.text;
+
+    // get modifiers
+    final modifiers = typealias.modifiers?.toDart ?? [];
+    final isExported = modifiers.any((m) {
+      return m.kind == TSSyntaxKind.ExportKeyword;
+    });
+
+    // As Identifier or Qualified Name
+    final type = typealias.moduleReference;
+
+    namer.markUsed(name, 'typealias');
+
+    return TypeAliasDeclaration(
+        name: name,
+        type: _getTypeFromDeclaration(type, null),
+        exported: isExported);
   }
 
   /// Transforms a TS Namespace (identified as a [TSModuleDeclaration] with
@@ -311,9 +339,6 @@ class Transformer {
             namer: scopedNamer, parent: outputNamespace);
       }
     }
-
-    // TODO: We could just get the declarations exported by the namespace
-    //  however, the type reference chain is unknown (for now)
 
     updateNSInParent();
 
@@ -1376,8 +1401,6 @@ class Transformer {
               declSource.contains('dom')) &&
           !isNotTypableDeclaration) {
         // dom declaration: supported by package:web
-        // TODO(nikeokoronkwo): It is possible that we may get a type
-        //  that isn't in `package:web`
         return PackageWebType.parse(firstName,
             typeParams: (typeArguments ?? [])
                 .map(_transformType)
@@ -1540,8 +1563,14 @@ class Transformer {
   /// supported `dart:js_interop` types and related [EnumDeclaration]-like and
   /// [TypeDeclaration]-like checks
   Type _getTypeFromDeclaration(
-      TSIdentifier typeName, List<TSTypeNode>? typeArguments,
-      {bool typeArg = false, bool isNotTypableDeclaration = false}) {
+      @UnionOf([TSIdentifier, TSQualifiedName]) TSNode typeName,
+      List<TSTypeNode>? typeArguments,
+      {bool typeArg = false,
+      bool isNotTypableDeclaration = false}) {
+    // union assertion
+    assert(typeName.kind == TSSyntaxKind.Identifier ||
+        typeName.kind == TSSyntaxKind.QualifiedName);
+
     final symbol = typeChecker.getSymbolAtLocation(typeName);
 
     return _getTypeFromSymbol(symbol, typeChecker.getTypeOfSymbol(symbol!),

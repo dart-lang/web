@@ -93,7 +93,7 @@ extension type const TSSyntaxKind._(num _) {
 
   /// Other
   static const TSSyntaxKind Identifier = TSSyntaxKind._(80);
-  static const TSSyntaxKind QualifiedName = TSSyntaxKind._(167);
+  static const TSSyntaxKind QualifiedName = TSSyntaxKind._(166);
   static const TSSyntaxKind PropertyAccessExpression = TSSyntaxKind._(211);
   static const TSSyntaxKind ObjectBindingPattern = TSSyntaxKind._(206);
   static const TSSyntaxKind ArrayBindingPattern = TSSyntaxKind._(207);
@@ -105,6 +105,7 @@ extension type const TSSyntaxKind._(num _) {
   static const TSSyntaxKind NamedImports = TSSyntaxKind._(275);
   static const TSSyntaxKind ExportSpecifier = TSSyntaxKind._(281);
   static const TSSyntaxKind ModuleBlock = TSSyntaxKind._(268);
+  static const TSSyntaxKind ExternalModuleReference = TSSyntaxKind._(283);
   static const TSSyntaxKind SourceFile = TSSyntaxKind._(308);
 }
 
@@ -320,6 +321,26 @@ extension type TSExportAssignment._(JSObject _)
     implements TSDeclarationStatement {
   external TSNodeArray<TSNode>? get modifiers;
   external bool? get isExportEquals;
+  external TSExpression get expression;
+}
+
+@JS('ImportEqualsDeclaration')
+extension type TSImportEqualsDeclaration._(JSObject _)
+    implements TSDeclarationStatement {
+  @UnionOf([TSSourceFile, TSModuleDeclaration])
+  @redeclare
+  external TSDeclaration get parent;
+
+  external TSNodeArray<TSNode>? get modifiers;
+  external TSIdentifier get name;
+  external bool get isTypeOnly;
+
+  @UnionOf([TSIdentifier, TSQualifiedName, TSExternalModuleReference])
+  external TSNode get moduleReference;
+}
+
+@JS('ExternalModuleReference')
+extension type TSExternalModuleReference._(JSObject _) implements TSNode {
   external TSExpression get expression;
 }
 

@@ -38,12 +38,9 @@ class TransformResult {
 
     _setGlobalOptions(config);
 
-    print('Map (${programDeclarationMap.values.map((v) => v.length)}):');
-
     return programDeclarationMap.map((file, declMap) {
       final emitter =
           DartEmitter.scoped(useNullSafetySyntax: true, orderDirectives: true);
-      print((declMap.length, declMap.keys.toList()));
       final specs = declMap.values
           .map((d) {
             return switch (d) {

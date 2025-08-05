@@ -442,15 +442,6 @@ class NamespaceDeclaration extends NestableDeclaration
       this.nestableDeclarations = const []})
       : _id = id;
 
-  void count() {
-    print('For $name: $completedDartName');
-    print((
-      nestableCount: nestableDeclarations.length,
-      namespaceCount: namespaceDeclarations.length,
-    ));
-    namespaceDeclarations.map((n) => n.count());
-  }
-
   @override
   ExtensionType emit([covariant DeclarationOptions? options]) {
     // static props and vars

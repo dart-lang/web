@@ -1191,15 +1191,6 @@ class Transformer {
 
     if (declarationsMatching.isEmpty) {
       // if not referred type, then check here
-
-      // print((
-      //   name.join('.'),
-      //   firstName,
-      //   matches: declarationsMatching.length,
-      //   map: map,
-      //   kind: symbol.getDeclarations()?.toDart.map((d) => d.kind)
-      // ));
-
       // transform
       final declarations = symbol.getDeclarations()?.toDart ?? [];
       var firstDecl = declarations.first as TSNamedDeclaration;
@@ -1365,12 +1356,6 @@ class Transformer {
     // parse qualified name and import
     final (fullyQualifiedName, nameImport) =
         parseTSFullyQualifiedName(tsFullyQualifiedName);
-
-    print((
-      fullyQualifiedName.asName,
-      from: nameImport,
-      declarations.map((d) => (d.kind, parent: d.parent.kind))
-    ));
 
     if (nameImport == null) {
       // if import not there, most likely from an import

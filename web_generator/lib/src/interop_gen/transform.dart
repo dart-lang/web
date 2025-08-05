@@ -10,13 +10,13 @@ import 'package:dart_style/dart_style.dart';
 import 'package:path/path.dart' as p;
 
 import '../ast/base.dart';
-import '../ast/declarations.dart';
 import '../config.dart';
 import '../js/helpers.dart';
 import '../js/typescript.dart' as ts;
 import '../js/typescript.types.dart';
 import 'namer.dart';
 import 'parser.dart';
+import 'qualified_name.dart';
 import 'transform/transformer.dart';
 
 void _setGlobalOptions(Config config) {
@@ -38,19 +38,20 @@ class TransformResult {
 
     _setGlobalOptions(config);
 
+    print('Map (${programDeclarationMap.values.map((v) => v.length)}):');
+
     return programDeclarationMap.map((file, declMap) {
       final emitter =
           DartEmitter.scoped(useNullSafetySyntax: true, orderDirectives: true);
-      final specs = declMap.decls.values
+      print((declMap.length, declMap.keys.toList()));
+      final specs = declMap.values
           .map((d) {
             return switch (d) {
-              final NamespaceDeclaration n => [...n.emitChildren(), n.emit()],
-              final Declaration n => [n.emit()],
+              final Declaration n => n.emit(),
               final Type _ => null,
             };
           })
           .nonNulls
-          .fold(<Spec>[], (prev, combine) => [...prev, ...combine])
           .whereType<Spec>();
       final lib = Library((l) {
         if (config.preamble case final preamble?) {
@@ -81,7 +82,22 @@ extension type NodeMap._(Map<String, Node> decls) implements Map<String, Node> {
   List<Node> findByName(String name) {
     return decls.entries
         .where((e) {
-          return UniqueNamer.parse(e.key).name == name;
+          final n = UniqueNamer.parse(e.key).name;
+          if (!n.contains('.')) return n == name;
+
+          final qualifiedName = QualifiedName.raw(n);
+          return qualifiedName.last.part == name;
+        })
+        .map((e) => e.value)
+        .toList();
+  }
+
+  List<Node> findByQualifiedName(QualifiedName qName) {
+    return decls.entries
+        .where((e) {
+          final name = UniqueNamer.parse(e.key).name;
+          final qualifiedName = QualifiedName.raw(name);
+          return qualifiedName.map((n) => n.part) == qName.map((n) => n.part);
         })
         .map((e) => e.value)
         .toList();

@@ -315,7 +315,7 @@ class EnumDeclaration extends NestableDeclaration
   }
 
   @override
-  ID get id => ID(type: 'enum', name: name);
+  ID get id => ID(type: 'enum', name: qualifiedName);
 }
 
 class EnumMember {
@@ -407,8 +407,10 @@ class NamespaceDeclaration extends NestableDeclaration
   @override
   String? dartName;
 
+  final ID _id;
+
   @override
-  ID id;
+  ID get id => ID(type: _id.type, name: qualifiedName, index: _id.index);
 
   @override
   bool exported;
@@ -425,24 +427,20 @@ class NamespaceDeclaration extends NestableDeclaration
   NamespaceDeclaration(
       {required this.name,
       this.exported = true,
-      required this.id,
+      required ID id,
       this.dartName,
       this.topLevelDeclarations = const [],
       this.namespaceDeclarations = const [],
-      this.nestableDeclarations = const []});
+      this.nestableDeclarations = const []})
+      : _id = id;
 
-  List<Spec> emitChildren([covariant DeclarationOptions? options]) {
+  void count() {
+    print('For $name: $completedDartName');
     print((
-      name,
-      namespaces: namespaceDeclarations.map((n) => n.completedDartName),
-      nestables: nestableDeclarations.map((n) => n.completedDartName)
+      nestableCount: nestableDeclarations.length,
+      namespaceCount: namespaceDeclarations.length,
     ));
-    return [
-      ...nestableDeclarations.map((t) => t.emit(options)),
-      ...namespaceDeclarations
-          .map((n) => [...n.emitChildren(options), n.emit(options)])
-          .fold(<Spec>[], (prev, combine) => [...prev, ...combine])
-    ];
+    namespaceDeclarations.map((n) => n.count());
   }
 
   @override
@@ -643,7 +641,7 @@ class ClassDeclaration extends TypeDeclaration {
   }
 
   @override
-  ID get id => ID(type: 'class', name: name);
+  ID get id => ID(type: 'class', name: qualifiedName);
 }
 
 /// The declaration node for a TypeScript [Interface]()
@@ -654,22 +652,25 @@ class ClassDeclaration extends TypeDeclaration {
 /// }
 /// ```
 class InterfaceDeclaration extends TypeDeclaration {
+  final ID _id;
+
   @override
-  ID id;
+  ID get id => ID(type: _id.type, name: qualifiedName, index: _id.index);
 
   final List<Type> extendedTypes;
 
   InterfaceDeclaration(
       {required super.name,
       required super.exported,
-      required this.id,
+      required ID id,
       super.dartName,
       super.typeParameters,
       this.extendedTypes = const [],
       super.methods,
       super.properties,
       super.operators,
-      super.constructors});
+      super.constructors})
+      : _id = id;
 
   @override
   ExtensionType emit([covariant DeclarationOptions? options]) {

@@ -123,15 +123,13 @@ class ProgramMap {
   final ts.TSTypeChecker typeChecker;
 
   /// The files in the given project
-  final List<String> files;
-
-  List<String> get absoluteFiles =>
-      files.map((f) => p.normalize(p.absolute(f))).toList();
+  final p.PathSet files;
 
   final List<String> filterDeclSet;
 
-  ProgramMap(this.program, this.files, {this.filterDeclSet = const []})
-      : typeChecker = program.getTypeChecker();
+  ProgramMap(this.program, List<String> files, {this.filterDeclSet = const []})
+      : typeChecker = program.getTypeChecker(),
+        files = p.PathSet.of(files);
 
   /// Find the node definition for a given declaration named [declName]
   /// or associated with a TypeScript node [node] from the map of files
@@ -156,6 +154,7 @@ class ProgramMap {
           final exports = symbol.exports?.toDart ?? {};
 
           final targetSymbol = exports[d.toJS]!;
+
           transformer.transform(targetSymbol.getDeclarations()!.toDart.first);
         } else {
           transformer.transform(node);
@@ -229,7 +228,7 @@ class ProgramMap {
 class TransformerManager {
   final ProgramMap programMap;
 
-  List<String> get inputFiles => programMap.files;
+  p.PathSet get inputFiles => programMap.files;
 
   ts.TSProgram get program => programMap.program;
 
@@ -249,7 +248,7 @@ class TransformerManager {
     // run through each file
     for (final file in inputFiles) {
       // transform
-      outputNodeMap[file] = programMap.getNodeMap(file);
+      outputNodeMap[file!] = programMap.getNodeMap(file);
     }
 
     return TransformResult._(outputNodeMap);

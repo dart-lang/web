@@ -13,7 +13,7 @@ final class QualifiedNamePart extends LinkedListEntry<QualifiedNamePart> {
   String toString() => part;
 }
 
-/// A wrapper around a [LinkedList] suitable for converting a [TSQualifiedName]
+/// A wrapper around a [LinkedList] suitable for converting a TS Qualified Name
 /// into a more suitable representation for lookup, length deduction, etc
 extension type QualifiedName(LinkedList<QualifiedNamePart> _)
     implements LinkedList<QualifiedNamePart> {

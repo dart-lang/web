@@ -30,10 +30,10 @@ export declare namespace Security {
      * A service for handling user authentication.
      * Demonstrates using a type from another namespace (Core.LogEntry).
      */
-    // class AuthService {
-    //     private logs;
-    //     login(username: string, password: string): IAuthToken | null;
-    // }
+    class AuthService {
+        private logs;
+        login(username: string, password: string): IAuthToken;
+    }
 }
 export declare namespace Data {
     /**
@@ -51,12 +51,12 @@ export declare namespace Data {
             name: string;
             email: string;
         }
-        // class User implements IUser {
-        //     id: number;
-        //     name: string;
-        //     email: string;
-        //     constructor(id: number, name: string, email: string);
-        // }
+        class User implements IUser {
+            id: number;
+            name: string;
+            email: string;
+            constructor(id: number, name: string, email: string);
+        }
     }
     /**
      * An implementation of the IRepository for User entities.
@@ -78,24 +78,26 @@ export declare namespace EnterpriseApp {
             name: string;
             email: string;
         }
-        // class User implements IUser {
-        //     id: number;
-        //     name: string;
-        //     email: string;
-        //     constructor(id: number, name: string, email: string);
-        //     getDisplayName(): string;
-        // }
+        class User implements IUser {
+            id: number;
+            name: string;
+            email: string;
+            constructor(id: number, name: string, email: string);
+            getDisplayName(): string;
+            linkUser(data: Data.Models.IUser): void;
+            createAuthToken(): Security.IAuthToken;
+        }
         interface IProduct {
             sku: string;
             title: string;
             price: number;
         }
-        // class Product implements IProduct {
-        //     sku: string;
-        //     title: string;
-        //     price: number;
-        //     constructor(sku: string, title: string, price: number);
-        // }
+        class Product implements IProduct {
+            sku: string;
+            title: string;
+            price: number;
+            constructor(sku: string, title: string, price: number);
+        }
     }
     namespace Utilities {
         /**
@@ -118,12 +120,12 @@ export declare namespace EnterpriseApp {
             getById(id: string): T;
             save(item: T): void;
         }
-        // class UserService implements IDataService<Models.User> {
-        //     private users;
-        //     getAll(): Models.User[];
-        //     getById(id: number): Models.User | undefined;
-        //     save(user: Models.User): void;
-        // }
+        class UserService implements IDataService<Models.User> {
+            private users;
+            getAll(): Models.User[];
+            getById(id: string): Models.User;
+            save(user: Models.User): void;
+        }
     }
     namespace UI {
         namespace Components {

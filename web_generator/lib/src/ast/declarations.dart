@@ -420,7 +420,7 @@ class NamespaceDeclaration extends NestableDeclaration
 
   List<Declaration> topLevelDeclarations;
 
-  List<NestableDeclaration> typeDeclarations;
+  List<NestableDeclaration> nestableDeclarations;
 
   NamespaceDeclaration(
       {required this.name,
@@ -429,21 +429,24 @@ class NamespaceDeclaration extends NestableDeclaration
       this.dartName,
       this.topLevelDeclarations = const [],
       this.namespaceDeclarations = const [],
-      this.typeDeclarations = const []});
+      this.nestableDeclarations = const []});
 
   List<Spec> emitChildren([covariant DeclarationOptions? options]) {
+    print((
+      name,
+      namespaces: namespaceDeclarations.map((n) => n.completedDartName),
+      nestables: nestableDeclarations.map((n) => n.completedDartName)
+    ));
     return [
-      ...typeDeclarations.map((t) => t.emit(options)),
+      ...nestableDeclarations.map((t) => t.emit(options)),
       ...namespaceDeclarations
-          .map((n) => [...n.emitChildren(), n.emit(options)])
+          .map((n) => [...n.emitChildren(options), n.emit(options)])
           .fold(<Spec>[], (prev, combine) => [...prev, ...combine])
     ];
   }
 
-  // TODO: Use parent
   @override
   ExtensionType emit([covariant DeclarationOptions? options]) {
-    // TODO: implement emit
     // static props and vars
     final methods = <Method>[];
     final fields = <Field>[];
@@ -514,7 +517,7 @@ class NamespaceDeclaration extends NestableDeclaration
     }
 
     // class refs
-    for (final nestable in typeDeclarations) {
+    for (final nestable in nestableDeclarations) {
       switch (nestable) {
         case ClassDeclaration(
             name: final className,

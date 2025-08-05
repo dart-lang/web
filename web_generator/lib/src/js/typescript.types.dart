@@ -101,6 +101,7 @@ extension type const TSSyntaxKind._(num _) {
   static const TSSyntaxKind ExpressionWithTypeArguments = TSSyntaxKind._(233);
   static const TSSyntaxKind NamespaceExport = TSSyntaxKind._(280);
   static const TSSyntaxKind NamedExports = TSSyntaxKind._(279);
+  static const TSSyntaxKind NamedImports = TSSyntaxKind._(275);
   static const TSSyntaxKind ExportSpecifier = TSSyntaxKind._(281);
   static const TSSyntaxKind ModuleBlock = TSSyntaxKind._(268);
   static const TSSyntaxKind SourceFile = TSSyntaxKind._(308);
@@ -212,10 +213,7 @@ extension type TSNumericLiteral._(JSObject _) implements TSLiteral {
 }
 
 @JS('StringLiteral')
-extension type TSStringLiteral._(JSObject _) implements TSLiteral {
-  @redeclare
-  TSSyntaxKind get kind => TSSyntaxKind.StringLiteral;
-}
+extension type TSStringLiteral._(JSObject _) implements TSLiteral {}
 
 @JS('Statement')
 extension type TSStatement._(JSObject _) implements TSNode {}
@@ -571,6 +569,8 @@ extension type TSNamespaceDeclaration._(JSObject _)
 
 @JS('ModuleBlock')
 extension type TSModuleBlock._(JSObject _) implements TSNode, TSStatement {
+  @redeclare
+  external TSModuleDeclaration get parent;
   external TSNodeArray<TSStatement> get statements;
 }
 
@@ -591,4 +591,5 @@ typedef TSSymbolTable = JSMap<JSString, TSSymbol>;
 extension type TSType._(JSObject _) implements JSObject {
   external TSSymbol get symbol;
   external TSSymbol? get aliasSymbol;
+  external bool isTypeParameter();
 }

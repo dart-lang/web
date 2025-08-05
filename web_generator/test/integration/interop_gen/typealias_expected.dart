@@ -24,6 +24,7 @@ typedef Box<T extends _i1.JSAny?> = _i1.JSArray<_i1.JSArray<T>>;
 typedef Logger = LoggerType;
 typedef Direction = AnonymousUnion;
 typedef Method = AnonymousUnion$1;
+typedef Planet = SpacePlanet;
 @_i1.JS()
 external LoggerContainer<_i1.JSNumber> get loggerContainers;
 @_i1.JS()
@@ -72,5 +73,9 @@ extension type const AnonymousUnion$1._(String _) {
   static const AnonymousUnion$1 PATCH = AnonymousUnion$1._('PATCH');
 
   static const AnonymousUnion$1 OPTIONS = AnonymousUnion$1._('OPTIONS');
+}
+@_i1.JS('Space.Planet')
+extension type SpacePlanet._(_i1.JSObject _) implements _i1.JSObject {
+  external double radius;
 }
 typedef LoggerContainer<N extends _i1.JSNumber> = _i1.JSArray<N>;

@@ -8,19 +8,19 @@ import 'package:code_builder/code_builder.dart';
 /// Some tags used in JSDoc may also be converted to Dart
 /// annotations
 class Documentation {
-  String docs;
+  final String docs;
 
-  List<Annotation> annotations;
+  final List<Annotation> annotations;
 
-  Documentation({required this.docs, this.annotations = const []});
+  const Documentation({required this.docs, this.annotations = const []});
 }
 
 class Annotation {
-  AnnotationKind kind;
+  final AnnotationKind kind;
 
-  List<(String, {String? name})> arguments;
+  final List<(String, {String? name})> arguments;
 
-  Annotation({required this.kind, this.arguments = const []});
+  const Annotation({required this.kind, this.arguments = const []});
 
   Expression emit() {
     if (arguments.isEmpty) {

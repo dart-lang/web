@@ -1307,7 +1307,7 @@ class Transformer {
               ]));
           break;
         case 'experimental':
-          annotations.add(Annotation(kind: AnnotationKind.experimental));
+          annotations.add(const Annotation(kind: AnnotationKind.experimental));
           if (tag.text?.toDart case final expText? when expText.isNotEmpty) {
             final tagBuffer = StringBuffer();
             for (final part in expText) {

@@ -5,6 +5,7 @@
 import 'package:code_builder/code_builder.dart';
 
 import '../interop_gen/namer.dart';
+import '../js/typescript.types.dart';
 import 'base.dart';
 import 'builtin.dart';
 import 'helpers.dart';
@@ -19,6 +20,10 @@ abstract class NestableDeclaration extends NamedDeclaration {
   String get completedDartName => parent != null
       ? '${parent!.completedDartName}${dartName ?? name}'
       : (dartName ?? name);
+}
+
+abstract class ParentDeclaration {
+  Set<TSNode> get nodes;
 }
 
 /// A declaration that defines a type (class or interface)
@@ -400,7 +405,7 @@ class TypeAliasDeclaration extends NamedDeclaration
 /// The declaration node for a TypeScript Namespace
 // TODO: Refactor into shared class when supporting modules
 class NamespaceDeclaration extends NestableDeclaration
-    implements ExportableDeclaration {
+    implements ExportableDeclaration, ParentDeclaration {
   @override
   String name;
 
@@ -423,6 +428,9 @@ class NamespaceDeclaration extends NestableDeclaration
   List<Declaration> topLevelDeclarations;
 
   List<NestableDeclaration> nestableDeclarations;
+
+  @override
+  Set<TSNode> nodes = {};
 
   NamespaceDeclaration(
       {required this.name,

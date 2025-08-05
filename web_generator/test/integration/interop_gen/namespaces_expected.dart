@@ -28,6 +28,8 @@ extension type Security._(_i1.JSObject _) implements _i1.JSObject {
 extension type Data._(_i1.JSObject _) implements _i1.JSObject {
   @_i1.JS('Data.Models')
   external static DataModels get Models;
+  @_i1.JS('Data.UserRepository')
+  static DataUserRepository UserRepository() => DataUserRepository();
 }
 extension type EnterpriseApp._(_i1.JSObject _) implements _i1.JSObject {
   external static String get APP_VERSION;
@@ -85,6 +87,18 @@ extension type DataIRepository<T extends _i1.JSAny?>._(_i1.JSObject _)
   external T findById(num id);
   external _i1.JSArray<T> findAll();
   external void save(T entity);
+}
+@_i1.JS('Data.UserRepository')
+extension type DataUserRepository._(_i1.JSObject _)
+    implements DataIRepository<DataModelsUser> {
+  external DataUserRepository();
+
+  @_i2.redeclare
+  external DataModelsUser findById(num id);
+  @_i2.redeclare
+  external _i1.JSArray<DataModelsUser> findAll();
+  @_i2.redeclare
+  external void save(DataModelsUser user);
 }
 @_i1.JS('Data.Models')
 extension type DataModels._(_i1.JSObject _) implements _i1.JSObject {
@@ -244,4 +258,8 @@ extension type EnterpriseAppUI._(_i1.JSObject _) implements _i1.JSObject {
 }
 @_i1.JS('EnterpriseApp.UI.Components')
 extension type EnterpriseAppUIComponents._(_i1.JSObject _)
-    implements _i1.JSObject {}
+    implements _i1.JSObject {
+  @_i1.JS()
+  external static void renderUserList(
+      _i1.JSArray<EnterpriseAppModelsUser> users);
+}

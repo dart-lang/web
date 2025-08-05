@@ -62,13 +62,13 @@ export declare namespace Data {
      * An implementation of the IRepository for User entities.
      * Demonstrates using a nested namespace alias.
      */
-    // import UserModel = Data.Models.User;
-    // class UserRepository implements IRepository<UserModel> {
-    //     private users;
-    //     findById(id: number): UserModel | undefined;
-    //     findAll(): UserModel[];
-    //     save(user: UserModel): void;
-    // }
+    import UserModel = Data.Models.User;
+    class UserRepository implements IRepository<UserModel> {
+        private users;
+        findById(id: number): UserModel;
+        findAll(): UserModel[];
+        save(user: UserModel): void;
+    }
 }
 export declare namespace EnterpriseApp {
     const APP_VERSION: string;
@@ -129,7 +129,7 @@ export declare namespace EnterpriseApp {
     }
     namespace UI {
         namespace Components {
-            // function renderUserList(users: Models.User[]): void;
+            function renderUserList(users: Models.User[]): void;
         }
     }
 }

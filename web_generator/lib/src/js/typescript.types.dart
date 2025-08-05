@@ -33,6 +33,7 @@ extension type const TSSyntaxKind._(num _) {
   static const TSSyntaxKind PropertyDeclaration = TSSyntaxKind._(172);
   static const TSSyntaxKind MethodDeclaration = TSSyntaxKind._(174);
   static const TSSyntaxKind ImportDeclaration = TSSyntaxKind._(272);
+  static const TSSyntaxKind ImportEqualsDeclaration = TSSyntaxKind._(271);
   static const TSSyntaxKind ImportSpecifier = TSSyntaxKind._(276);
 
   static const TSSyntaxKind Constructor = TSSyntaxKind._(176);

@@ -11,6 +11,7 @@ import '../../ast/declarations.dart';
 import '../../ast/helpers.dart';
 import '../../ast/types.dart';
 import '../../js/annotations.dart';
+import '../../js/helpers.dart';
 import '../../js/typescript.dart' as ts;
 import '../../js/typescript.types.dart';
 import '../namer.dart';
@@ -186,7 +187,8 @@ class Transformer {
   }
 
   /// Transforms a TS Namespace (identified as a [TSModuleDeclaration] with
-  /// an identifier name that isn't "global") into a Dart Namespace.
+  /// an identifier name that isn't "global") into a Dart Namespace
+  /// Representation.
   NamespaceDeclaration _transformNamespace(TSModuleDeclaration namespace,
       {UniqueNamer? namer, NamespaceDeclaration? parent}) {
     namer ??= this.namer;
@@ -244,35 +246,74 @@ class Transformer {
     // preload nodemap
     updateNSInParent();
 
+    // to reduce probing, we can use exported decls instead
+    final symbol = typeChecker.getSymbolAtLocation(namespace.name);
+    final exports = symbol?.exports?.toDart;
+
+    if (exports case final exportedMap?) {
+      for (final symbol in exportedMap.values) {
+        final decls = symbol.getDeclarations()?.toDart ?? [];
+        try {
+          final aliasedSymbol = typeChecker.getAliasedSymbol(symbol);
+          decls.addAll(aliasedSymbol.getDeclarations()?.toDart ?? []);
+        } catch (_) {
+          // throws error if no aliased symbol, so ignore
+        }
+        for (final decl in decls) {
+          // TODO: We could also ignore namespace decls with the same name, as
+          //  a single instance should consider such non-necessary
+          if (outputNamespace.nodes.contains(decl)) continue;
+          final outputDecls =
+              _transform(decl, namer: scopedNamer, parent: outputNamespace);
+          switch (decl.kind) {
+            case TSSyntaxKind.ClassDeclaration ||
+                  TSSyntaxKind.InterfaceDeclaration:
+              final outputDecl = outputDecls.first as TypeDeclaration;
+              outputDecl.parent = outputNamespace;
+              outputNamespace.nestableDeclarations.add(outputDecl);
+            case TSSyntaxKind.EnumDeclaration:
+              final outputDecl = outputDecls.first as EnumDeclaration;
+              outputDecl.parent = outputNamespace;
+              outputNamespace.nestableDeclarations.add(outputDecl);
+            default:
+              outputNamespace.topLevelDeclarations.addAll(outputDecls);
+          }
+          outputNamespace.nodes.add(decl);
+          updateNSInParent();
+        }
+      }
+    } else {
+      if (namespace.body case final namespaceBody?
+          when namespaceBody.kind == TSSyntaxKind.ModuleBlock) {
+        for (final statement
+            in (namespaceBody as TSModuleBlock).statements.toDart) {
+          final outputDecls = _transform(statement,
+              namer: scopedNamer, parent: outputNamespace);
+          switch (statement.kind) {
+            case TSSyntaxKind.ClassDeclaration ||
+                  TSSyntaxKind.InterfaceDeclaration:
+              final outputDecl = outputDecls.first as TypeDeclaration;
+              outputDecl.parent = outputNamespace;
+              outputNamespace.nestableDeclarations.add(outputDecl);
+            case TSSyntaxKind.EnumDeclaration:
+              final outputDecl = outputDecls.first as EnumDeclaration;
+              outputDecl.parent = outputNamespace;
+              outputNamespace.nestableDeclarations.add(outputDecl);
+            default:
+              outputNamespace.topLevelDeclarations.addAll(outputDecls);
+          }
+
+          updateNSInParent();
+        }
+      } else if (namespace.body case final namespaceBody?) {
+        // namespace import
+        _transformNamespace(namespaceBody as TSNamespaceDeclaration,
+            namer: scopedNamer, parent: outputNamespace);
+      }
+    }
+
     // TODO: We could just get the declarations exported by the namespace
     //  however, the type reference chain is unknown (for now)
-    if (namespace.body case final namespaceBody?
-        when namespaceBody.kind == TSSyntaxKind.ModuleBlock) {
-      for (final statement
-          in (namespaceBody as TSModuleBlock).statements.toDart) {
-        final outputDecls =
-            _transform(statement, namer: scopedNamer, parent: outputNamespace);
-        switch (statement.kind) {
-          case TSSyntaxKind.ClassDeclaration ||
-                TSSyntaxKind.InterfaceDeclaration:
-            final outputDecl = outputDecls.first as TypeDeclaration;
-            outputDecl.parent = outputNamespace;
-            outputNamespace.nestableDeclarations.add(outputDecl);
-          case TSSyntaxKind.EnumDeclaration:
-            final outputDecl = outputDecls.first as EnumDeclaration;
-            outputDecl.parent = outputNamespace;
-            outputNamespace.nestableDeclarations.add(outputDecl);
-          default:
-            outputNamespace.topLevelDeclarations.addAll(outputDecls);
-        }
-
-        updateNSInParent();
-      }
-    } else if (namespace.body case final namespaceBody?) {
-      // namespace import
-      _transformNamespace(namespaceBody as TSNamespaceDeclaration,
-          namer: scopedNamer, parent: outputNamespace);
-    }
 
     updateNSInParent();
 
@@ -1273,7 +1314,7 @@ class Transformer {
     if (symbol == null) {
       symbol = type?.aliasSymbol ?? type?.symbol;
     } else if (symbol.getDeclarations()?.toDart ?? [] case [final d]
-        when d.kind == TSSyntaxKind.ImportSpecifier) {
+        when d.kind == TSSyntaxKind.ImportSpecifier || d.kind == TSSyntaxKind.ImportEqualsDeclaration) {
       // prefer using type node ref for such cases
       // reduces import declaration handling
       symbol = type?.aliasSymbol ?? type?.symbol;
@@ -1299,11 +1340,11 @@ class Transformer {
     final (fullyQualifiedName, nameImport) =
         parseTSFullyQualifiedName(tsFullyQualifiedName);
 
-    // print((
-    //   fullyQualifiedName.asName,
-    //   from: nameImport,
-    //   declarations.map((d) => (d.kind, parent: d.parent.kind))
-    // ));
+    print((
+      fullyQualifiedName.asName,
+      from: nameImport,
+      declarations.map((d) => (d.kind, parent: d.parent.kind))
+    ));
 
     if (nameImport == null) {
       // if import not there, most likely from an import
@@ -1652,7 +1693,6 @@ class Transformer {
             namespaceDeclarations: final namespaceDecls,
           ):
           for (final tlDecl in [...typeDecls, ...namespaceDecls]) {
-            print((tlDecl.completedDartName, tlDecl.qualifiedName));
             filteredDeclarations.add(tlDecl);
             updateFilteredDeclsForDecl(tlDecl, filteredDeclarations);
           }

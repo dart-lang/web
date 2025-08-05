@@ -1314,7 +1314,8 @@ class Transformer {
     if (symbol == null) {
       symbol = type?.aliasSymbol ?? type?.symbol;
     } else if (symbol.getDeclarations()?.toDart ?? [] case [final d]
-        when d.kind == TSSyntaxKind.ImportSpecifier || d.kind == TSSyntaxKind.ImportEqualsDeclaration) {
+        when d.kind == TSSyntaxKind.ImportSpecifier ||
+            d.kind == TSSyntaxKind.ImportEqualsDeclaration) {
       // prefer using type node ref for such cases
       // reduces import declaration handling
       symbol = type?.aliasSymbol ?? type?.symbol;

@@ -71,7 +71,10 @@ Future<void> generateJSInteropBindings(Config config) async {
   final jsDeclarations = parseDeclarationFiles(config.input);
 
   // transform declarations
-  final dartDeclarations = transform(jsDeclarations, config: config);
+  final manager =
+      TransformerManager.fromParsedResults(jsDeclarations, config: config);
+
+  final dartDeclarations = manager.transform();
 
   // generate
   final generatedCodeMap = dartDeclarations.generate(config);

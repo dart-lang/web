@@ -1,4 +1,5 @@
-// ignore_for_file: constant_identifier_names, non_constant_identifier_names
+// ignore_for_file: camel_case_types, constant_identifier_names
+// ignore_for_file: non_constant_identifier_names
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:js_interop' as _i1;
@@ -24,7 +25,7 @@ typedef Box<T extends _i1.JSAny?> = _i1.JSArray<_i1.JSArray<T>>;
 typedef Logger = LoggerType;
 typedef Direction = AnonymousUnion;
 typedef Method = AnonymousUnion$1;
-typedef Planet = SpacePlanet;
+typedef Planet = Space_Planet;
 @_i1.JS()
 external LoggerContainer<_i1.JSNumber> get loggerContainers;
 @_i1.JS()
@@ -75,7 +76,7 @@ extension type const AnonymousUnion$1._(String _) {
   static const AnonymousUnion$1 OPTIONS = AnonymousUnion$1._('OPTIONS');
 }
 @_i1.JS('Space.Planet')
-extension type SpacePlanet._(_i1.JSObject _) implements _i1.JSObject {
+extension type Space_Planet._(_i1.JSObject _) implements _i1.JSObject {
   external double radius;
 }
 typedef LoggerContainer<N extends _i1.JSNumber> = _i1.JSArray<N>;

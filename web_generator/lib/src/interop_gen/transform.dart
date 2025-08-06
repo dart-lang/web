@@ -64,7 +64,8 @@ class TransformResult {
           ..ignoreForFile.addAll([
             'constant_identifier_names',
             'non_constant_identifier_names',
-            if (declMap.values.any((d) => d is NamespaceDeclaration))
+            if (declMap.values
+                .any((d) => d is NestableDeclaration && d.parent != null))
               'camel_case_types',
           ])
           ..body.addAll(specs);

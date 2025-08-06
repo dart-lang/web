@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:js_interop';
+import 'dart:js_interop_unsafe';
 
 import 'package:dart_style/dart_style.dart';
 import 'package:path/path.dart' as p;
@@ -160,12 +161,12 @@ class YamlConfig implements Config {
     }
 
     final allFiles =
-        expandGlobsJS(inputFiles, extension: '.d.ts', cwd: p.dirname(filename));
+        expandGlobs(inputFiles, extension: '.d.ts', cwd: p.dirname(filename));
 
     return YamlConfig._(
         filename: Uri.file(filename),
-        input: allFiles.toDart
-            .map((file) => p.join(p.dirname(filename), file.toDart))
+        input: allFiles
+            .map((file) => p.join(p.dirname(filename), file))
             .toList(),
         output:
             p.join(p.dirname(filename), (yaml['output'] ?? output) as String),
@@ -187,9 +188,11 @@ class YamlConfig implements Config {
 /// to exclude all files not ending with the given [allowedExtension]
 ///
 /// This helps support passing dir globs.
-bool Function(String entry) excludeFileEntryFunc(String allowedExtension) {
-  return (String entry) {
-    if (p.extension(entry) != '') return !entry.endsWith(allowedExtension);
-    return true;
+bool Function(JSAny entry) excludeFileEntryFunc(String allowedExtension) {
+  return (JSAny entry) {
+    print((entry, isString: entry.isA<JSString>(), isObject: entry.isA<JSObject>()));
+    // if (p.extension(entry).isNotEmpty) return !entry.endsWith(allowedExtension);
+    // return true;
+    return false;
   };
 }

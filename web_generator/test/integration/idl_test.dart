@@ -53,9 +53,9 @@ void main() {
             ],
             workingDirectory: bindingsGenPath);
 
-        // await File(
-        //         p.join(p.dirname(outputActualPath), '${inputName}_input.dart'))
-        //     .rename(outputActualPath);
+        await File(
+                p.join(p.dirname(outputActualPath), '${inputName}_input.dart'))
+            .rename(outputActualPath);
 
         // read files
         final expectedOutput = await File(outputExpectedPath).readAsString();

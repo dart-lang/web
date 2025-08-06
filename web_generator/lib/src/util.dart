@@ -51,19 +51,15 @@ const packageRoot = 'package:web';
 String capitalize(String s) =>
     s.isEmpty ? '' : '${s[0].toUpperCase()}${s.substring(1)}';
 
-JSArray<JSString> expandGlobsJS(List<String> input,
-    {String? cwd, required String extension}) {
-  cwd ??= p.current;
-  return fs.globSync(
-      input.map((i) => i.toJS).toList().toJS,
-      FSGlobSyncOptions(
-          cwd: p.current.toJS,
-          exclude:
-              excludeFileEntryFunc(extension).toJS as FSGlobSyncExcludeFunc));
-}
-
 List<String> expandGlobs(List<String> input,
     {String? cwd, required String extension}) {
-  final allInputFiles = expandGlobsJS(input, extension: extension, cwd: cwd);
-  return allInputFiles.toDart.map((i) => i.toDart).toList();
+  cwd ??= p.current;
+  final globSync = fs.globSync(
+      input.map((i) => i.toJS).toList().toJS,
+      FSGlobSyncOptions(
+          cwd: cwd.toJS,
+      ));
+  return globSync.toDart.map((i) => i.toDart)
+  .where((f) => f.endsWith(extension))
+  .toList();
 }

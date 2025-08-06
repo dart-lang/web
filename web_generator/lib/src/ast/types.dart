@@ -103,7 +103,7 @@ class TupleType extends Type {
   }
 }
 
-class UnionType extends Type implements DeclarationAssociatedType {
+class UnionType extends DeclarationAssociatedType {
   final List<Type> types;
 
   @override
@@ -272,6 +272,47 @@ enum LiteralKind {
         LiteralKind.double => PrimitiveType.double,
         LiteralKind.$true || LiteralKind.$false => PrimitiveType.boolean
       };
+}
+
+class ObjectLiteralType extends DeclarationAssociatedType<TypeDeclaration> {
+  List<PropertyDeclaration> properties;
+
+  List<MethodDeclaration> methods;
+
+  List<ConstructorDeclaration> constructors;
+
+  List<OperatorDeclaration> operators;
+
+  @override
+  String declarationName;
+
+  @override
+  String? get name => null;
+
+  @override
+  ID id;
+
+  ObjectLiteralType({
+    required this.declarationName,
+    required this.id,
+    this.properties = const [],
+    this.methods = const [],
+    this.constructors = const [],
+    this.operators = const []
+  });
+
+  ConstructorDeclaration get objectLiteralConstructor => ConstructorDeclaration(
+    id: id,
+    
+  );
+
+  @override
+  TypeDeclaration get declaration => InterfaceDeclaration(
+    name: declarationName, 
+    exported: true, 
+    id: ID(type: 'interface', name: id.name),
+
+  );
 }
 
 // TODO: Merge properties/methods of related types

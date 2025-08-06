@@ -496,7 +496,7 @@ class Transformer {
   }
 
   PropertyDeclaration _transformProperty(TSPropertyEntity property,
-      {required UniqueNamer parentNamer, required TypeDeclaration parent}) {
+      {required UniqueNamer parentNamer, TypeDeclaration? parent}) {
     final name = property.name.text;
 
     final (:id, name: dartName) = parentNamer.makeUnique(name, 'var');
@@ -509,13 +509,13 @@ class Transformer {
       // check if
       final referredType = type as TSTypeReferenceNode;
       final referredTypeName = parseQualifiedName(referredType.typeName);
-      if (referredTypeName.asName == parent.name) {
-        propType = parent.asReferredType(type.typeArguments?.toDart
+      if (referredTypeName.asName == parent?.name) {
+        propType = parent?.asReferredType(type.typeArguments?.toDart
             .map((t) => _transformType(t, typeArg: true))
             .toList());
       }
     } else if (property.type case final type? when ts.isThisTypeNode(type)) {
-      propType = parent.asReferredType(parent.typeParameters);
+      propType = parent?.asReferredType(parent.typeParameters);
     }
 
     final propertyDeclaration = PropertyDeclaration(
@@ -530,12 +530,12 @@ class Transformer {
         static: isStatic,
         readonly: isReadonly,
         isNullable: property.questionToken != null);
-    propertyDeclaration.parent = parent;
+    if (parent != null) propertyDeclaration.parent = parent;
     return propertyDeclaration;
   }
 
   MethodDeclaration _transformMethod(TSMethodEntity method,
-      {required UniqueNamer parentNamer, required TypeDeclaration parent}) {
+      {required UniqueNamer parentNamer, TypeDeclaration? parent}) {
     final name = method.name.text;
     // TODO(nikeokoronkwo): Let's make the unique name types enums
     //  or extension types to track the type more easily
@@ -1043,6 +1043,81 @@ class Transformer {
 
         return _getTypeFromTypeNode(refType,
             typeArg: typeArg, isNullable: isNullable ?? false);
+      case TSSyntaxKind.TypeLiteral:
+        // type literal
+        final typeLiteralNode = type as TSTypeLiteralNode;
+
+        // lists
+        final properties = <PropertyDeclaration>[];
+        final methods = <MethodDeclaration>[];
+        final constructors = <ConstructorDeclaration>[];
+        final operators = <OperatorDeclaration>[];
+        
+        final typeNamer = ScopedUniqueNamer({'get', 'set'});
+
+        // transform decls
+        for (final member in typeLiteralNode.members.toDart) {
+          switch (member.kind) {
+            case TSSyntaxKind.PropertySignature:
+              final prop = _transformProperty(member as TSPropertySignature,
+                  parentNamer: typeNamer);
+              properties.add(prop);
+            case TSSyntaxKind.MethodSignature:
+              final method = _transformMethod(member as TSMethodSignature,
+                parentNamer: typeNamer, parent: outputType);
+              methods.add(method);
+            case TSSyntaxKind.IndexSignature:
+              final (opGet, opSetOrNull) = _transformIndexer(
+                  member as TSIndexSignatureDeclaration,
+                  parent: outputType);
+              operators.add(opGet);
+              if (opSetOrNull case final opSet?) {
+                operators.add(opSet);
+              }
+            case TSSyntaxKind.CallSignature:
+              final callSignature = _transformCallSignature(
+                  member as TSCallSignatureDeclaration,
+                  parentNamer: typeNamer,
+                  parent: outputType);
+              methods.add(callSignature);
+            case TSSyntaxKind.ConstructSignature:
+              final constructor = _transformConstructor(
+                  member as TSConstructSignatureDeclaration,
+                  parentNamer: typeNamer);
+              constructors.add(constructor);
+            case TSSyntaxKind.GetAccessor:
+              final getter = _transformGetter(member as TSGetAccessorDeclaration,
+                  parentNamer: typeNamer, parent: outputType);
+              methods.add(getter);
+              break;
+            case TSSyntaxKind.SetAccessor:
+              final setter = _transformSetter(member as TSSetAccessorDeclaration,
+                  parentNamer: typeNamer, parent: outputType);
+              methods.add(setter);
+              break;
+            default:
+              break;
+          }
+        }
+
+        // get a name
+        final name = 'AnonymousType_${
+          AnonymousHasher.hashObject([
+            ...properties.map((p) => (p.name, p.type.id.name)),
+            ...methods.map((p) => (p.name, p.returnType.id.name)),
+            ...constructors.map((p) => (p.name ?? 'new', p.parameters.map((a) => a.type.id.name!).join(','))),
+            ...operators.map((p) => (p.name, p.returnType.id.name)),
+          ])
+        }';
+
+        // get an expected id
+        final expectedId = ID(type: 'type', name: name);
+        if (typeMap.containsKey(expectedId.toString())) {
+          return typeMap[expectedId.toString()] as ObjectLiteralType;
+        }
+
+
+        
       case TSSyntaxKind.UnionType:
         final unionType = type as TSUnionTypeNode;
         // TODO: Unions
@@ -1104,7 +1179,6 @@ class Transformer {
           // TODO: Handle similar types here...
           final homogenousEnumType = HomogenousEnumType(
               types: nonNullLiteralTypes,
-              isNullable: shouldBeNullable,
               name: name);
 
           final homogenousEnum = typeMap.putIfAbsent(expectedId.toString(), () {

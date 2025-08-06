@@ -309,9 +309,12 @@ class Transformer {
               outputNamespace.topLevelDeclarations.addAll(outputDecls);
           }
           outputNamespace.nodes.add(decl);
+
+          // update namespace state
           updateNSInParent();
         }
       }
+      // fallback
     } else {
       if (namespace.body case final namespaceBody?
           when namespaceBody.kind == TSSyntaxKind.ModuleBlock) {
@@ -333,6 +336,7 @@ class Transformer {
               outputNamespace.topLevelDeclarations.addAll(outputDecls);
           }
 
+          // update namespace state
           updateNSInParent();
         }
       } else if (namespace.body case final namespaceBody?) {
@@ -342,6 +346,7 @@ class Transformer {
       }
     }
 
+    // final update on namespace state
     updateNSInParent();
 
     // index names

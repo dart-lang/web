@@ -34,8 +34,7 @@ void main() {
       final inputFileName = p.basenameWithoutExtension(inputFile.path);
       final inputName = inputFileName.replaceFirst('_input', '');
 
-      final outputActualPath =
-          p.join(outputDir, '${inputName}_actual.dart');
+      final outputActualPath = p.join(outputDir, '${inputName}_actual.dart');
       final outputExpectedPath =
           p.join(testGenFolder, '${inputName}_expected.dart');
 

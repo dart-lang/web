@@ -2,15 +2,11 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:js_interop';
-import 'dart:js_interop_unsafe';
-
 import 'package:dart_style/dart_style.dart';
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:yaml/yaml.dart';
 
-import 'js/filesystem_api.dart';
 import 'util.dart';
 
 class FunctionConfig {
@@ -165,9 +161,8 @@ class YamlConfig implements Config {
 
     return YamlConfig._(
         filename: Uri.file(filename),
-        input: allFiles
-            .map((file) => p.join(p.dirname(filename), file))
-            .toList(),
+        input:
+            allFiles.map((file) => p.join(p.dirname(filename), file)).toList(),
         output:
             p.join(p.dirname(filename), (yaml['output'] ?? output) as String),
         name: yaml['name'] as String?,
@@ -182,17 +177,4 @@ class YamlConfig implements Config {
                 .toList() ??
             []);
   }
-}
-
-/// Creates the `exclude` function for [FSGlobSyncOptions]'s `exclude` option
-/// to exclude all files not ending with the given [allowedExtension]
-///
-/// This helps support passing dir globs.
-bool Function(JSAny entry) excludeFileEntryFunc(String allowedExtension) {
-  return (JSAny entry) {
-    print((entry, isString: entry.isA<JSString>(), isObject: entry.isA<JSObject>()));
-    // if (p.extension(entry).isNotEmpty) return !entry.endsWith(allowedExtension);
-    // return true;
-    return false;
-  };
 }

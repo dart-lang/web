@@ -4,6 +4,8 @@
 
 import 'dart:js_interop';
 
+import 'package:path/path.dart' as p;
+
 import 'js/filesystem_api.dart';
 
 // TODO(joshualitt): Let's find a better place for these.
@@ -47,3 +49,17 @@ const packageRoot = 'package:web';
 
 String capitalize(String s) =>
     s.isEmpty ? '' : '${s[0].toUpperCase()}${s.substring(1)}';
+
+List<String> expandGlobs(List<String> input,
+    {String? cwd, required String extension}) {
+  cwd ??= p.current;
+  final globSync = fs.globSync(
+      input.map((i) => i.toJS).toList().toJS,
+      FSGlobSyncOptions(
+        cwd: cwd.toJS,
+      ));
+  return globSync.toDart
+      .map((i) => i.toDart)
+      .where((f) => f.endsWith(extension))
+      .toList();
+}

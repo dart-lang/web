@@ -7,6 +7,8 @@ import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:yaml/yaml.dart';
 
+import 'util.dart';
+
 class FunctionConfig {
   /// The number of variable arguments
   final int? varArgs;
@@ -154,11 +156,13 @@ class YamlConfig implements Config {
       throw TypeError();
     }
 
+    final allFiles =
+        expandGlobs(inputFiles, extension: '.d.ts', cwd: p.dirname(filename));
+
     return YamlConfig._(
         filename: Uri.file(filename),
-        input: inputFiles
-            .map((file) => p.join(p.dirname(filename), file))
-            .toList(),
+        input:
+            allFiles.map((file) => p.join(p.dirname(filename), file)).toList(),
         output:
             p.join(p.dirname(filename), (yaml['output'] ?? output) as String),
         name: yaml['name'] as String?,

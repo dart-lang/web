@@ -13,6 +13,7 @@ void main() {
   group('IDL Integration Test', () {
     final testGenFolder = p.join('test', 'integration', 'idl');
     final inputDir = Directory(testGenFolder);
+    final outputDir = p.join('.dart_tool', 'idl');
 
     setUpAll(() async {
       // set up npm
@@ -20,6 +21,10 @@ void main() {
 
       // compile file
       await compileDartMain(dir: bindingsGenPath);
+
+      if (!(await Directory(outputDir).exists())) {
+        await Directory(outputDir).create(recursive: true);
+      }
     });
 
     for (final inputFile in inputDir
@@ -29,8 +34,7 @@ void main() {
       final inputFileName = p.basenameWithoutExtension(inputFile.path);
       final inputName = inputFileName.replaceFirst('_input', '');
 
-      final outputActualPath =
-          p.join('.dart_tool', 'idl', '${inputName}_actual.dart');
+      final outputActualPath = p.join(outputDir, '${inputName}_actual.dart');
       final outputExpectedPath =
           p.join(testGenFolder, '${inputName}_expected.dart');
 

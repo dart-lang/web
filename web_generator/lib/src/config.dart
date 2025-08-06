@@ -10,6 +10,7 @@ import 'package:pub_semver/pub_semver.dart';
 import 'package:yaml/yaml.dart';
 
 import 'js/filesystem_api.dart';
+import 'util.dart';
 
 class FunctionConfig {
   /// The number of variable arguments
@@ -158,12 +159,8 @@ class YamlConfig implements Config {
       throw TypeError();
     }
 
-    final allFiles = fs.globSync(
-        inputFiles.map((i) => i.toJS).toList().toJS,
-        FSGlobSyncOptions(
-            cwd: p.dirname(filename).toJS,
-            exclude:
-                excludeFileEntryFunc('.d.ts').toJS as FSGlobSyncExcludeFunc));
+    final allFiles =
+        expandGlobsJS(inputFiles, extension: '.d.ts', cwd: p.dirname(filename));
 
     return YamlConfig._(
         filename: Uri.file(filename),

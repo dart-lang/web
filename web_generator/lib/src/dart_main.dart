@@ -54,14 +54,9 @@ void main(List<String> args) async {
         filename: filename,
       );
     } else {
-      final allInputFiles = fs.globSync(
-          (argResult['input'] as List<String>).map((i) => i.toJS).toList().toJS,
-          FSGlobSyncOptions(
-              cwd: p.current.toJS,
-              exclude:
-                  excludeFileEntryFunc('.d.ts').toJS as FSGlobSyncExcludeFunc));
       config = Config(
-        input: allInputFiles.toDart.map((i) => i.toDart).toList(),
+        input:
+            expandGlobs(argResult['input'] as List<String>, extension: '.d.ts'),
         output: argResult['output'] as String,
         languageVersion: Version.parse(languageVersionString),
       );
@@ -141,16 +136,7 @@ Future<void> generateIDLBindings({
       fs.writeFileSync('$output/$libraryPath'.toJS, contents);
     }
   } else {
-    final allInputFiles = fs
-        .globSync(
-            input.map((i) => i.toJS).toList().toJS,
-            FSGlobSyncOptions(
-                cwd: p.current.toJS,
-                exclude:
-                    excludeFileEntryFunc('.idl').toJS as FSGlobSyncExcludeFunc))
-        .toDart
-        .map((i) => i.toDart)
-        .toList();
+    final allInputFiles = expandGlobs(input.toList(), extension: '.idl');
     // parse individual files
     ensureDirectoryExists(output);
 

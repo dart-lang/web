@@ -43,9 +43,11 @@ class ReferredType<T extends Declaration> extends Type {
   @override
   Reference emit([TypeOptions? options]) {
     return TypeReference((t) => t
-      ..symbol = declaration.dartName ?? declaration.name
+      ..symbol = (declaration is NestableDeclaration)
+          ? (declaration as NestableDeclaration).completedDartName
+          : declaration.dartName ?? declaration.name
       ..types.addAll(typeParams.map((t) => t.emit(options)))
-      ..isNullable = options?.nullable ?? isNullable
+      ..isNullable = (options?.nullable ?? false) || isNullable
       ..url = options?.url ?? url);
   }
 }
@@ -181,12 +183,11 @@ class GenericType extends Type {
   final Declaration? parent;
 
   @override
-  bool get isNullable => false;
+  bool isNullable = false;
 
-  @override
-  set isNullable(bool isNullable) {}
-
-  GenericType({required this.name, this.constraint, this.parent});
+  GenericType(
+      {required this.name, this.constraint, this.parent, bool? isNullable})
+      : isNullable = isNullable ?? false;
 
   @override
   ID get id =>
@@ -196,7 +197,7 @@ class GenericType extends Type {
   Reference emit([TypeOptions? options]) => TypeReference((t) => t
     ..symbol = name
     ..bound = constraint?.emit()
-    ..isNullable = options?.nullable);
+    ..isNullable = (options?.nullable ?? false) || isNullable);
 
   @override
   bool operator ==(Object other) {

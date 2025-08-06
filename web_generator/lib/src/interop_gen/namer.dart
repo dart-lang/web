@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import '../banned_names.dart';
+import 'qualified_name.dart';
 
 class ID {
   final String type;
@@ -40,6 +41,8 @@ class ID {
 
 class UniqueNamer {
   final Set<String> _usedNames;
+
+  Set<String> get used => _usedNames;
 
   UniqueNamer([
     Iterable<String> used = const <String>[],
@@ -86,6 +89,18 @@ class UniqueNamer {
     );
   }
 
+  /// Adds names from scoped declarations to [_usedNames]
+  void markUsedSet(ScopedUniqueNamer namer) {
+    for (final ID(name: name, type: type) in namer._usedIDs) {
+      if (['namespace', 'interface', 'class'].contains(type)) {
+        final qualifiedName = QualifiedName.raw(name);
+        // generate to completed name
+        final indexedName = qualifiedName.join('_');
+        markUsed(indexedName);
+      }
+    }
+  }
+
   static ID parse(String id) {
     String? index;
     String name;
@@ -102,7 +117,7 @@ class UniqueNamer {
   }
 
   /// Adds a [name] to used names.
-  void markUsed(String name) {
+  void markUsed(String name, [String? type]) {
     _usedNames.add(name);
   }
 }
@@ -113,6 +128,9 @@ class ScopedUniqueNamer implements UniqueNamer {
 
   @override
   Set<String> get _usedNames => _usedIDs.map((i) => i.rename).toSet();
+
+  @override
+  Set<String> get used => _usedNames;
 
   ScopedUniqueNamer(
       [Set<String>? allowedEquals, Iterable<String> used = const <String>[]])
@@ -148,7 +166,19 @@ class ScopedUniqueNamer implements UniqueNamer {
   }
 
   @override
-  void markUsed(String name) {
-    _usedIDs.add(UniqueNamer.parse(name));
+  void markUsed(String name, [String? type]) {
+    ID id;
+    try {
+      id = UniqueNamer.parse(name);
+    } catch (e) {
+      id = ID(type: type!, name: name);
+    }
+
+    _usedIDs.add(id);
+  }
+
+  @override
+  void markUsedSet(ScopedUniqueNamer namer) {
+    _usedIDs.addAll(namer._usedIDs);
   }
 }

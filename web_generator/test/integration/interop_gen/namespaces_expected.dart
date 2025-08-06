@@ -6,7 +6,9 @@ import 'dart:js_interop' as _i1;
 import 'package:meta/meta.dart' as _i2;
 
 extension type Core._(_i1.JSObject _) implements _i1.JSObject {
+  @_i1.JS()
   external static String get APP_NAME;
+  @_i1.JS()
   external static String get APP_VERSION;
   @_i1.JS('Core.Internal')
   external static CoreInternal get Internal;
@@ -21,6 +23,7 @@ extension type Core._(_i1.JSObject _) implements _i1.JSObject {
       );
 }
 extension type Security._(_i1.JSObject _) implements _i1.JSObject {
+  @_i1.JS()
   external static double get TOKEN_LIFETIME_SECONDS;
   @_i1.JS('Security.AuthService')
   static SecurityAuthService AuthService() => SecurityAuthService();
@@ -32,6 +35,7 @@ extension type Data._(_i1.JSObject _) implements _i1.JSObject {
   static DataUserRepository UserRepository() => DataUserRepository();
 }
 extension type EnterpriseApp._(_i1.JSObject _) implements _i1.JSObject {
+  @_i1.JS()
   external static String get APP_VERSION;
   @_i1.JS('EnterpriseApp.Models')
   external static EnterpriseAppModels get Models;
@@ -69,7 +73,9 @@ extension type CoreLogEntry._(_i1.JSObject _) implements _i1.JSObject {
 }
 @_i1.JS('Core.Internal')
 extension type CoreInternal._(_i1.JSObject _) implements _i1.JSObject {
+  @_i1.JS()
   external static String get internalName;
+  @_i1.JS()
   external static bool get devMode;
 }
 @_i1.JS('Security.IAuthToken')

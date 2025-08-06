@@ -171,11 +171,13 @@ class VariableDeclaration extends FieldDeclaration
         ..type = MethodType.getter
         ..annotations.add(generateJSAnnotation())
         ..external = true
+        ..static = options?.static ?? false
         ..returns = type.emit(options?.toTypeOptions()));
     } else {
       // getter and setter -> single variable
       return Field((f) => f
         ..external = true
+        ..static = options?.static ?? false
         ..name = name
         ..type = type.emit(options?.toTypeOptions())
         ..annotations.add(generateJSAnnotation()));
@@ -225,29 +227,18 @@ class FunctionDeclaration extends CallableDeclaration
       required this.returnType});
 
   @override
-  Spec emit([DeclarationOptions? options]) {
+  Method emit([DeclarationOptions? options]) {
     options ??= DeclarationOptions();
 
-    final requiredParams = <Parameter>[];
-    final optionalParams = <Parameter>[];
-    for (final p in parameters) {
-      if (p.variadic) {
-        optionalParams.addAll(spreadParam(p, GlobalOptions.variadicArgsCount));
-        requiredParams.add(p.emit(options));
-      } else {
-        if (p.optional) {
-          optionalParams.add(p.emit(options));
-        } else {
-          requiredParams.add(p.emit(options));
-        }
-      }
-    }
+    final (requiredParams, optionalParams) =
+        emitParameters(parameters, options);
 
     return Method((m) => m
       ..external = true
       ..name = dartName ?? name
       ..annotations.add(generateJSAnnotation(
           dartName == null || dartName == name ? null : name))
+      ..static = options?.static ?? false
       ..types
           .addAll(typeParameters.map((t) => t.emit(options?.toTypeOptions())))
       ..returns = returnType.emit(options?.toTypeOptions())
@@ -423,11 +414,11 @@ class NamespaceDeclaration extends NestableDeclaration
   @override
   NamespaceDeclaration? parent;
 
-  List<NamespaceDeclaration> namespaceDeclarations;
+  final List<NamespaceDeclaration> namespaceDeclarations;
 
-  List<Declaration> topLevelDeclarations;
+  final List<Declaration> topLevelDeclarations;
 
-  List<NestableDeclaration> nestableDeclarations;
+  final List<NestableDeclaration> nestableDeclarations;
 
   @override
   Set<TSNode> nodes = {};
@@ -444,6 +435,8 @@ class NamespaceDeclaration extends NestableDeclaration
 
   @override
   ExtensionType emit([covariant DeclarationOptions? options]) {
+    options ??= DeclarationOptions();
+    options.static = true;
     // static props and vars
     final methods = <Method>[];
     final fields = <Field>[];
@@ -451,49 +444,12 @@ class NamespaceDeclaration extends NestableDeclaration
     for (final decl in topLevelDeclarations) {
       if (decl case final VariableDeclaration variable) {
         if (variable.modifier == VariableModifier.$const) {
-          methods.add(Method((m) => m
-            ..name = variable.name
-            ..type = MethodType.getter
-            ..static = true
-            ..external = true
-            ..returns = variable.type.emit(options?.toTypeOptions())));
+          methods.add(variable.emit(options) as Method);
         } else {
-          fields.add(Field((f) => f
-            ..external = true
-            ..name = variable.name
-            ..static = true
-            ..type = variable.type.emit(options?.toTypeOptions())));
+          fields.add(variable.emit(options) as Field);
         }
       } else if (decl case final FunctionDeclaration fn) {
-        options ??= DeclarationOptions();
-
-        final requiredParams = <Parameter>[];
-        final optionalParams = <Parameter>[];
-        for (final p in fn.parameters) {
-          if (p.variadic) {
-            optionalParams
-                .addAll(spreadParam(p, GlobalOptions.variadicArgsCount));
-            requiredParams.add(p.emit(options));
-          } else {
-            if (p.optional) {
-              optionalParams.add(p.emit(options));
-            } else {
-              requiredParams.add(p.emit(options));
-            }
-          }
-        }
-
-        methods.add(Method((m) => m
-          ..external = true
-          ..static = true
-          ..name = fn.dartName ?? fn.name
-          ..annotations.add(generateJSAnnotation(
-              fn.dartName == null || fn.dartName == fn.name ? null : fn.name))
-          ..types.addAll(
-              fn.typeParameters.map((t) => t.emit(options?.toTypeOptions())))
-          ..returns = fn.returnType.emit(options?.toTypeOptions())
-          ..requiredParameters.addAll(requiredParams)
-          ..optionalParameters.addAll(optionalParams)));
+        methods.add(fn.emit(options));
       }
     }
 
@@ -535,22 +491,8 @@ class NamespaceDeclaration extends NestableDeclaration
           if (constr != null) {
             options ??= DeclarationOptions();
 
-            final requiredParams = <Parameter>[];
-            final optionalParams = <Parameter>[];
-
-            for (final p in constr.parameters) {
-              if (p.variadic) {
-                optionalParams
-                    .addAll(spreadParam(p, GlobalOptions.variadicArgsCount));
-                requiredParams.add(p.emit(options));
-              } else {
-                if (p.optional) {
-                  optionalParams.add(p.emit(options));
-                } else {
-                  requiredParams.add(p.emit(options));
-                }
-              }
-            }
+            final (requiredParams, optionalParams) =
+                emitParameters(constr.parameters, options);
 
             methods.add(Method((m) => m
               ..name = classDartName ?? className
@@ -566,19 +508,11 @@ class NamespaceDeclaration extends NestableDeclaration
               ..static = true
               ..body = refer(nestable.completedDartName).call(
                   [
-                    ...requiredParams
-                        .where((p) => !p.named)
-                        .map((p) => refer(p.name)),
+                    ...requiredParams.map((p) => refer(p.name)),
                     if (optionalParams.isNotEmpty)
-                      ...optionalParams
-                          .where((p) => !p.named)
-                          .map((p) => refer(p.name))
+                      ...optionalParams.map((p) => refer(p.name))
                   ],
-                  [
-                    ...requiredParams.where((p) => p.named),
-                    if (optionalParams.isNotEmpty)
-                      ...optionalParams.where((p) => p.named)
-                  ].asMap().map((_, v) => MapEntry(v.name, refer(v.name))),
+                  {},
                   typeParams
                       .map((t) => t.emit(options?.toTypeOptions()))
                       .toList()).code));
@@ -794,20 +728,8 @@ class MethodDeclaration extends CallableDeclaration
   Method emit([covariant DeclarationOptions? options]) {
     options ??= DeclarationOptions();
 
-    final requiredParams = <Parameter>[];
-    final optionalParams = <Parameter>[];
-    for (final p in parameters) {
-      if (p.variadic) {
-        optionalParams.addAll(spreadParam(p, GlobalOptions.variadicArgsCount));
-        requiredParams.add(p.emit(options));
-      } else {
-        if (p.optional) {
-          optionalParams.add(p.emit(options));
-        } else {
-          requiredParams.add(p.emit(options));
-        }
-      }
-    }
+    final (requiredParams, optionalParams) =
+        emitParameters(parameters, options);
 
     assert(scope == DeclScope.public, 'Only public members can be emitted');
 
@@ -898,22 +820,10 @@ class ConstructorDeclaration implements MemberDeclaration {
   Constructor emit([covariant DeclarationOptions? options]) {
     options ??= DeclarationOptions();
 
-    final requiredParams = <Parameter>[];
-    final optionalParams = <Parameter>[];
-    final isFactory = dartName != null && dartName != name;
+    final (requiredParams, optionalParams) =
+        emitParameters(parameters, options);
 
-    for (final p in parameters) {
-      if (p.variadic) {
-        optionalParams.addAll(spreadParam(p, GlobalOptions.variadicArgsCount));
-        requiredParams.add(p.emit(options));
-      } else {
-        if (p.optional) {
-          optionalParams.add(p.emit(options));
-        } else {
-          requiredParams.add(p.emit(options));
-        }
-      }
-    }
+    final isFactory = dartName != null && dartName != name;
 
     return Constructor((c) => c
       ..external = true

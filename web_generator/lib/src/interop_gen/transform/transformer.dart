@@ -119,34 +119,35 @@ class Transformer {
         return [];
       case TSSyntaxKind.VariableStatement:
         return _transformVariable(node as TSVariableStatement, namer: namer);
-      default:
+      case TSSyntaxKind.VariableDeclaration:
         return [
-          switch (node.kind) {
-            TSSyntaxKind.VariableDeclaration => _transformVariableDecl(
-                node as TSVariableDeclaration,
-                namer: namer),
-            TSSyntaxKind.FunctionDeclaration =>
-              _transformFunction(node as TSFunctionDeclaration, namer: namer),
-            TSSyntaxKind.EnumDeclaration =>
-              _transformEnum(node as TSEnumDeclaration, namer: namer),
-            TSSyntaxKind.TypeAliasDeclaration =>
-              _transformTypeAlias(node as TSTypeAliasDeclaration, namer: namer),
-            TSSyntaxKind.ClassDeclaration ||
-            TSSyntaxKind.InterfaceDeclaration =>
-              _transformClassOrInterface(node as TSObjectDeclaration,
-                  namer: namer),
-            TSSyntaxKind.ImportEqualsDeclaration
-                when (node as TSImportEqualsDeclaration).moduleReference.kind !=
-                    TSSyntaxKind.ExternalModuleReference =>
-              _transformImportEqualsDeclarationAsTypeAlias(node),
-            TSSyntaxKind.ModuleDeclaration
-                when (node as TSModuleDeclaration).name.kind ==
-                        TSSyntaxKind.Identifier &&
-                    (node.name as TSIdentifier).text != 'global' =>
-              _transformNamespace(node, namer: namer, parent: parent),
-            _ => throw Exception('Unsupported Declaration Kind: ${node.kind}')
-          }
+          _transformVariableDecl(node as TSVariableDeclaration, namer: namer)
         ];
+      case TSSyntaxKind.FunctionDeclaration:
+        return [
+          _transformFunction(node as TSFunctionDeclaration, namer: namer)
+        ];
+      case TSSyntaxKind.EnumDeclaration:
+        return [_transformEnum(node as TSEnumDeclaration, namer: namer)];
+      case TSSyntaxKind.TypeAliasDeclaration:
+        return [
+          _transformTypeAlias(node as TSTypeAliasDeclaration, namer: namer)
+        ];
+      case TSSyntaxKind.ClassDeclaration || TSSyntaxKind.InterfaceDeclaration:
+        return [
+          _transformClassOrInterface(node as TSObjectDeclaration, namer: namer)
+        ];
+      case TSSyntaxKind.ImportEqualsDeclaration
+          when (node as TSImportEqualsDeclaration).moduleReference.kind !=
+              TSSyntaxKind.ExternalModuleReference:
+        return [_transformImportEqualsDeclarationAsTypeAlias(node)];
+      case TSSyntaxKind.ModuleDeclaration
+          when (node as TSModuleDeclaration).name.kind ==
+                  TSSyntaxKind.Identifier &&
+              (node.name as TSIdentifier).text != 'global':
+        return [_transformNamespace(node, namer: namer, parent: parent)];
+      default:
+        throw Exception('Unsupported Declaration Kind: ${node.kind}');
     }
   }
 
@@ -233,7 +234,9 @@ class Transformer {
         ? parent.namespaceDeclarations.where((n) => n.name == namespaceName)
         : nodeMap.findByName(namespaceName).whereType<NamespaceDeclaration>();
 
-    final (name: dartName, :id) = namer.makeUnique(namespaceName, 'namespace');
+    final (name: dartName, :id) = currentNamespaces.isEmpty
+        ? namer.makeUnique(namespaceName, 'namespace')
+        : (name: null, id: null);
 
     final scopedNamer = ScopedUniqueNamer();
 
@@ -242,7 +245,7 @@ class Transformer {
         : NamespaceDeclaration(
             name: namespaceName,
             dartName: dartName,
-            id: id,
+            id: id!,
             exported: isExported,
             topLevelDeclarations: [],
             namespaceDeclarations: [],
@@ -255,16 +258,16 @@ class Transformer {
     /// allowing cross-references between types and declarations in the
     /// namespace, including the namespace itself
     void updateNSInParent() {
-      if (parent != null &&
-          (currentNamespaces.isNotEmpty ||
-              parent.namespaceDeclarations
-                  .any((n) => n.name == namespaceName))) {
-        final currentItemIndex =
-            parent.namespaceDeclarations.indexOf(currentNamespaces.first);
-        parent.namespaceDeclarations[currentItemIndex] = outputNamespace;
-      } else if (parent != null) {
-        outputNamespace.parent = parent;
-        parent.namespaceDeclarations.add(outputNamespace);
+      if (parent != null) {
+        if (currentNamespaces.isNotEmpty ||
+            parent.namespaceDeclarations.any((n) => n.name == namespaceName)) {
+          final currentItemIndex =
+              parent.namespaceDeclarations.indexOf(currentNamespaces.first);
+          parent.namespaceDeclarations[currentItemIndex] = outputNamespace;
+        } else {
+          outputNamespace.parent = parent;
+          parent.namespaceDeclarations.add(outputNamespace);
+        }
       } else {
         nodeMap.update(outputNamespace.id.toString(), (v) => outputNamespace,
             ifAbsent: () => outputNamespace);
@@ -1168,6 +1171,20 @@ class Transformer {
     }
   }
 
+  /// Given a [symbol] with declarations defined in the given file, this method
+  /// searches for the declaration recursively (either as a top level on the
+  /// [ts.TSSourceFile], or recursively inside a module or namespace).
+  ///
+  /// The method uses an iterable of [QualifiedNamePart], usually gotten from a
+  /// [QualifiedName] parsed from the identifier/qualified name used to associate
+  /// the given reference to recursively step through each part of the [name]
+  /// until all parts have been handled/parsed, and a single declaration is gotten
+  /// for the given [symbol]. If a declaration is not found at a given point,
+  /// the associated declaration with that part (usually as a parent of the
+  /// declaration gotten from the [symbol]) is transformed, and either added
+  /// to [nodeMap], or, if in recursion, added to its [parent] declaration.
+  ///
+  /// The referred type may accept [typeArguments], which are passed as well.
   Type _searchForDeclRecursive(
     Iterable<QualifiedNamePart> name,
     TSSymbol symbol, {
@@ -1341,7 +1358,21 @@ class Transformer {
         symbol, type, typeArguments, isNotTypableDeclaration, typeArg);
   }
 
-  /// Derives the type from a [TSSymbol]
+  /// Given a [TSSymbol] for a given TS node or declaration, and its associated
+  /// [TSType], this method gets the necessary AST [Type] defined by the given
+  /// [symbol].
+  ///
+  /// It uses the symbol's associated declarations, and its qualified name to
+  /// deduce the associated type being referred to by the symbol.
+  /// If the qualified name has no import file associated with it, it is either
+  /// a built-in type or an imported type. If it has an import file associated
+  /// with it and the file is this file, then the declaration is searched for
+  /// and transformed recursively via [_searchForDeclRecursive], else the
+  /// associated file is used to find and transform the associated declaration
+  /// through the [programMap].
+  ///
+  /// The referred type may accept [typeArguments] which are passed to it once
+  /// the referred declaration is deduced.
   Type _getTypeFromSymbol(
       TSSymbol? symbol,
       TSType? type,

@@ -11,6 +11,7 @@ import 'dart:js_interop';
 
 import 'package:meta/meta.dart';
 
+import 'annotations.dart';
 import 'helpers.dart';
 import 'typescript.dart';
 
@@ -26,11 +27,13 @@ extension type const TSSyntaxKind._(num _) {
   static const TSSyntaxKind FunctionDeclaration = TSSyntaxKind._(262);
   static const TSSyntaxKind ExportDeclaration = TSSyntaxKind._(278);
   static const TSSyntaxKind TypeAliasDeclaration = TSSyntaxKind._(265);
+  static const TSSyntaxKind ModuleDeclaration = TSSyntaxKind._(267);
   static const TSSyntaxKind Parameter = TSSyntaxKind._(169);
   static const TSSyntaxKind EnumDeclaration = TSSyntaxKind._(266);
   static const TSSyntaxKind PropertyDeclaration = TSSyntaxKind._(172);
   static const TSSyntaxKind MethodDeclaration = TSSyntaxKind._(174);
   static const TSSyntaxKind ImportDeclaration = TSSyntaxKind._(272);
+  static const TSSyntaxKind ImportEqualsDeclaration = TSSyntaxKind._(271);
   static const TSSyntaxKind ImportSpecifier = TSSyntaxKind._(276);
 
   static const TSSyntaxKind Constructor = TSSyntaxKind._(176);
@@ -90,6 +93,7 @@ extension type const TSSyntaxKind._(num _) {
 
   /// Other
   static const TSSyntaxKind Identifier = TSSyntaxKind._(80);
+  static const TSSyntaxKind QualifiedName = TSSyntaxKind._(166);
   static const TSSyntaxKind PropertyAccessExpression = TSSyntaxKind._(211);
   static const TSSyntaxKind ObjectBindingPattern = TSSyntaxKind._(206);
   static const TSSyntaxKind ArrayBindingPattern = TSSyntaxKind._(207);
@@ -98,7 +102,11 @@ extension type const TSSyntaxKind._(num _) {
   static const TSSyntaxKind ExpressionWithTypeArguments = TSSyntaxKind._(233);
   static const TSSyntaxKind NamespaceExport = TSSyntaxKind._(280);
   static const TSSyntaxKind NamedExports = TSSyntaxKind._(279);
+  static const TSSyntaxKind NamedImports = TSSyntaxKind._(275);
   static const TSSyntaxKind ExportSpecifier = TSSyntaxKind._(281);
+  static const TSSyntaxKind ModuleBlock = TSSyntaxKind._(268);
+  static const TSSyntaxKind ExternalModuleReference = TSSyntaxKind._(283);
+  static const TSSyntaxKind SourceFile = TSSyntaxKind._(308);
 }
 
 extension type const TSNodeFlags._(int _) implements int {
@@ -156,7 +164,8 @@ extension type TSTypeReferenceNode._(JSObject _) implements TSTypeNode {
   @redeclare
   TSSyntaxKind get kind => TSSyntaxKind.TypeReference;
 
-  external TSIdentifier get typeName;
+  @UnionOf([TSIdentifier, TSQualifiedName])
+  external TSNode get typeName;
   external TSNodeArray<TSTypeNode>? get typeArguments;
 }
 
@@ -206,17 +215,22 @@ extension type TSNumericLiteral._(JSObject _) implements TSLiteral {
 }
 
 @JS('StringLiteral')
-extension type TSStringLiteral._(JSObject _) implements TSLiteral {
-  @redeclare
-  TSSyntaxKind get kind => TSSyntaxKind.StringLiteral;
-}
+extension type TSStringLiteral._(JSObject _) implements TSLiteral {}
 
 @JS('Statement')
 extension type TSStatement._(JSObject _) implements TSNode {}
 
 @JS('Identifier')
-extension type TSIdentifier._(JSObject _) implements TSDeclaration {
+extension type TSIdentifier._(JSObject _)
+    implements TSExpression, TSDeclaration {
   external String get text;
+}
+
+@JS('QualifiedName')
+extension type TSQualifiedName._(JSObject _) implements TSNode {
+  @UnionOf([TSIdentifier, TSQualifiedName])
+  external TSNode get left;
+  external TSIdentifier get right;
 }
 
 @JS('NamedDeclaration')
@@ -310,10 +324,30 @@ extension type TSExportAssignment._(JSObject _)
   external TSExpression get expression;
 }
 
+@JS('ImportEqualsDeclaration')
+extension type TSImportEqualsDeclaration._(JSObject _)
+    implements TSDeclarationStatement {
+  @UnionOf([TSSourceFile, TSModuleDeclaration])
+  @redeclare
+  external TSDeclaration get parent;
+
+  external TSNodeArray<TSNode>? get modifiers;
+  external TSIdentifier get name;
+  external bool get isTypeOnly;
+
+  @UnionOf([TSIdentifier, TSQualifiedName, TSExternalModuleReference])
+  external TSNode get moduleReference;
+}
+
+@JS('ExternalModuleReference')
+extension type TSExternalModuleReference._(JSObject _) implements TSNode {
+  external TSExpression get expression;
+}
+
 @JS('VariableStatement')
 extension type TSVariableStatement._(JSObject _) implements TSStatement {
   external TSVariableDeclarationList get declarationList;
-  external TSNodeArray<TSNode> get modifiers;
+  external TSNodeArray<TSNode>? get modifiers;
 }
 
 @JS('VariableDeclarationList')
@@ -351,7 +385,7 @@ extension type TSFunctionLikeDeclarationBase._(JSObject _)
 extension type TSFunctionDeclaration._(JSObject _)
     implements TSFunctionLikeDeclarationBase {
   external TSIdentifier get name;
-  external TSNodeArray<TSNode> get modifiers;
+  external TSNodeArray<TSNode>? get modifiers;
 }
 
 /// A common API for Classes and Interfaces
@@ -534,6 +568,34 @@ extension type TSEnumMember._(JSObject _) implements TSDeclaration {
   external TSExpression? get initializer;
 }
 
+@JS('ModuleDeclaration')
+extension type TSModuleDeclaration._(JSObject _)
+    implements TSDeclarationStatement {
+  @UnionOf([TSSourceFile, TSModuleDeclaration])
+  @redeclare
+  external TSDeclaration get parent;
+
+  @UnionOf([TSIdentifier, TSStringLiteral])
+  external TSExpression get name;
+  external TSNodeArray<TSNode>? get modifiers;
+  @UnionOf([TSModuleBlock, TSNamespaceDeclaration])
+  external TSStatement? get body;
+}
+
+@JS('NamespaceDeclaration')
+extension type TSNamespaceDeclaration._(JSObject _)
+    implements TSModuleDeclaration {
+  @redeclare
+  external TSIdentifier get name;
+}
+
+@JS('ModuleBlock')
+extension type TSModuleBlock._(JSObject _) implements TSNode, TSStatement {
+  @redeclare
+  external TSModuleDeclaration get parent;
+  external TSNodeArray<TSStatement> get statements;
+}
+
 @JS('NodeArray')
 extension type TSNodeArray<T extends TSNode>._(JSArray<T> _)
     implements JSArray<T> {}
@@ -551,4 +613,5 @@ typedef TSSymbolTable = JSMap<JSString, TSSymbol>;
 extension type TSType._(JSObject _) implements JSObject {
   external TSSymbol get symbol;
   external TSSymbol? get aliasSymbol;
+  external bool isTypeParameter();
 }

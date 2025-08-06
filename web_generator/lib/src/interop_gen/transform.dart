@@ -10,6 +10,7 @@ import 'package:dart_style/dart_style.dart';
 import 'package:path/path.dart' as p;
 
 import '../ast/base.dart';
+import '../ast/declarations.dart';
 import '../config.dart';
 import '../js/helpers.dart';
 import '../js/typescript.dart' as ts;
@@ -60,8 +61,12 @@ class TransformResult {
           }));
         }
         l
-          ..ignoreForFile.addAll(
-              ['constant_identifier_names', 'non_constant_identifier_names'])
+          ..ignoreForFile.addAll([
+            'constant_identifier_names',
+            'non_constant_identifier_names',
+            if (declMap.values.any((d) => d is NamespaceDeclaration))
+              'camel_case_types',
+          ])
           ..body.addAll(specs);
       });
       return MapEntry(

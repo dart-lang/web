@@ -248,7 +248,7 @@ class Transformer {
             id: id!,
             exported: isExported,
             topLevelDeclarations: {},
-            namespaceDeclarations: [],
+            namespaceDeclarations: {},
             nestableDeclarations: {});
 
     // TODO: We can implement this in classes and interfaces.
@@ -261,9 +261,8 @@ class Transformer {
       if (parent != null) {
         if (currentNamespaces.isNotEmpty ||
             parent.namespaceDeclarations.any((n) => n.name == namespaceName)) {
-          final currentItemIndex =
-              parent.namespaceDeclarations.indexOf(currentNamespaces.first);
-          parent.namespaceDeclarations[currentItemIndex] = outputNamespace;
+          parent.namespaceDeclarations.remove(currentNamespaces.first);
+          parent.namespaceDeclarations.add(outputNamespace);
         } else {
           outputNamespace.parent = parent;
           parent.namespaceDeclarations.add(outputNamespace);
@@ -344,6 +343,9 @@ class Transformer {
     }
 
     updateNSInParent();
+
+    // index names
+    namer.markUsedSet(scopedNamer);
 
     // get the exported symbols from the namespace
     return outputNamespace;
@@ -1259,6 +1261,7 @@ class Transformer {
           default:
             parent.topLevelDeclarations.addAll(transformedDecls);
         }
+        parent.nodes.add(firstDecl);
       } else {
         nodeMap.addAll(
             {for (final decl in transformedDecls) decl.id.toString(): decl});

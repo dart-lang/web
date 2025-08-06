@@ -14,6 +14,8 @@ export declare namespace Core {
         message: string;
         constructor(timestamp: string, message: string);
     }
+    function addLogs(...logs: LogEntry[]): void;
+    function updateConfigEndpoint(apiEndpoint?: string): IAppConfig;
 }
 export declare namespace Core.Internal {
     const internalName: string;

@@ -18,7 +18,7 @@ abstract class NestableDeclaration extends NamedDeclaration {
       parent != null ? '${parent!.qualifiedName}.$name' : name;
 
   String get completedDartName => parent != null
-      ? '${parent!.completedDartName}${dartName ?? name}'
+      ? '${parent!.completedDartName}_${dartName ?? name}'
       : (dartName ?? name);
 }
 
@@ -414,7 +414,7 @@ class NamespaceDeclaration extends NestableDeclaration
   @override
   NamespaceDeclaration? parent;
 
-  final List<NamespaceDeclaration> namespaceDeclarations;
+  final Set<NamespaceDeclaration> namespaceDeclarations;
 
   final Set<Declaration> topLevelDeclarations;
 
@@ -429,7 +429,7 @@ class NamespaceDeclaration extends NestableDeclaration
       required ID id,
       this.dartName,
       this.topLevelDeclarations = const {},
-      this.namespaceDeclarations = const [],
+      this.namespaceDeclarations = const {},
       this.nestableDeclarations = const {}})
       : _id = id;
 
@@ -464,7 +464,7 @@ class NamespaceDeclaration extends NestableDeclaration
             .addAll([generateJSAnnotation('$qualifiedName.$namespaceName')])
         ..type = MethodType.getter
         ..returns =
-            refer('$completedDartName${namespaceDartName ?? namespaceName}')
+            refer('${completedDartName}_${namespaceDartName ?? namespaceName}')
         ..external = true
         ..static = true));
     }
@@ -503,7 +503,7 @@ class NamespaceDeclaration extends NestableDeclaration
               ..requiredParameters.addAll(requiredParams)
               ..optionalParameters.addAll(optionalParams)
               ..returns =
-                  refer('$completedDartName${classDartName ?? className}')
+                  refer('${completedDartName}_${classDartName ?? className}')
               ..lambda = true
               ..static = true
               ..body = refer(nestable.completedDartName).call(

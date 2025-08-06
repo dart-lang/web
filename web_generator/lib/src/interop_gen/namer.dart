@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import '../banned_names.dart';
+import 'qualified_name.dart';
 
 class ID {
   final String type;
@@ -75,6 +76,18 @@ class UniqueNamer {
       id: ID(type: type, name: name, index: i == 0 ? null : i),
       name: newName
     );
+  }
+
+  /// Adds names from scoped declarations to [_usedNames]
+  void markUsedSet(ScopedUniqueNamer namer) {
+    for (final ID(name: name, type: type) in namer._usedIDs) {
+      if (['namespace', 'interface', 'class'].contains(type)) {
+        final qualifiedName = QualifiedName.raw(name);
+        // generate to completed name
+        final indexedName = qualifiedName.join('_');
+        markUsed(indexedName);
+      }
+    }
   }
 
   static ID parse(String id) {
@@ -151,5 +164,10 @@ class ScopedUniqueNamer implements UniqueNamer {
     }
 
     _usedIDs.add(id);
+  }
+
+  @override
+  void markUsedSet(ScopedUniqueNamer namer) {
+    _usedIDs.addAll(namer._usedIDs);
   }
 }

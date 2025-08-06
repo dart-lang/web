@@ -1,4 +1,5 @@
-// ignore_for_file: constant_identifier_names, non_constant_identifier_names
+// ignore_for_file: camel_case_types, constant_identifier_names
+// ignore_for_file: non_constant_identifier_names
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:js_interop' as _i1;
@@ -7,17 +8,26 @@ import 'package:meta/meta.dart' as _i2;
 
 extension type Core._(_i1.JSObject _) implements _i1.JSObject {
   @_i1.JS()
+  external static void addLogs(
+    _i1.JSArray<Core_LogEntry> logs, [
+    _i1.JSArray<Core_LogEntry> logs2,
+    _i1.JSArray<Core_LogEntry> logs3,
+    _i1.JSArray<Core_LogEntry> logs4,
+  ]);
+  @_i1.JS()
+  external static Core_IAppConfig updateConfigEndpoint([String? apiEndpoint]);
+  @_i1.JS()
   external static String get APP_NAME;
   @_i1.JS()
   external static String get APP_VERSION;
   @_i1.JS('Core.Internal')
-  external static CoreInternal get Internal;
+  external static Core_Internal get Internal;
   @_i1.JS('Core.LogEntry')
-  static CoreLogEntry LogEntry(
+  static Core_LogEntry LogEntry(
     String timestamp,
     String message,
   ) =>
-      CoreLogEntry(
+      Core_LogEntry(
         timestamp,
         message,
       );
@@ -26,43 +36,37 @@ extension type Security._(_i1.JSObject _) implements _i1.JSObject {
   @_i1.JS()
   external static double get TOKEN_LIFETIME_SECONDS;
   @_i1.JS('Security.AuthService')
-  static SecurityAuthService AuthService() => SecurityAuthService();
+  static Security_AuthService AuthService() => Security_AuthService();
 }
 extension type Data._(_i1.JSObject _) implements _i1.JSObject {
   @_i1.JS('Data.Models')
-  external static DataModels get Models;
+  external static Data_Models get Models;
   @_i1.JS('Data.UserRepository')
-  static DataUserRepository UserRepository() => DataUserRepository();
+  static Data_UserRepository UserRepository() => Data_UserRepository();
 }
 extension type EnterpriseApp._(_i1.JSObject _) implements _i1.JSObject {
   @_i1.JS()
   external static String get APP_VERSION;
   @_i1.JS('EnterpriseApp.Models')
-  external static EnterpriseAppModels get Models;
+  external static EnterpriseApp_Models get Models;
   @_i1.JS('EnterpriseApp.Utilities')
-  external static EnterpriseAppUtilities get Utilities;
+  external static EnterpriseApp_Utilities get Utilities;
   @_i1.JS('EnterpriseApp.DataServices')
-  external static EnterpriseAppDataServices get DataServices;
+  external static EnterpriseApp_DataServices get DataServices;
   @_i1.JS('EnterpriseApp.UI')
-  external static EnterpriseAppUI get UI;
+  external static EnterpriseApp_UI get UI;
 }
 @_i1.JS()
-external DataModelsUser get user1;
-typedef UserService = EnterpriseAppDataServicesUserService;
+external Data_Models_User get user1;
+typedef UserService = EnterpriseApp_DataServices_UserService;
 @_i1.JS()
 external UserService get userService;
-typedef ProductService = EnterpriseAppDataServicesProductService;
+typedef ProductService = EnterpriseApp_DataServices_ProductService;
 @_i1.JS()
-external _i1.JSArray<DataModelsUser> get allUsers;
-@_i1.JS('Core.IAppConfig')
-extension type CoreIAppConfig._(_i1.JSObject _) implements _i1.JSObject {
-  external String apiEndpoint;
-
-  external bool authRequired;
-}
+external _i1.JSArray<Data_Models_User> get allUsers;
 @_i1.JS('Core.LogEntry')
-extension type CoreLogEntry._(_i1.JSObject _) implements _i1.JSObject {
-  external CoreLogEntry(
+extension type Core_LogEntry._(_i1.JSObject _) implements _i1.JSObject {
+  external Core_LogEntry(
     String timestamp,
     String message,
   );
@@ -71,15 +75,21 @@ extension type CoreLogEntry._(_i1.JSObject _) implements _i1.JSObject {
 
   external String message;
 }
+@_i1.JS('Core.IAppConfig')
+extension type Core_IAppConfig._(_i1.JSObject _) implements _i1.JSObject {
+  external String apiEndpoint;
+
+  external bool authRequired;
+}
 @_i1.JS('Core.Internal')
-extension type CoreInternal._(_i1.JSObject _) implements _i1.JSObject {
+extension type Core_Internal._(_i1.JSObject _) implements _i1.JSObject {
   @_i1.JS()
   external static String get internalName;
   @_i1.JS()
   external static bool get devMode;
 }
 @_i1.JS('Security.IAuthToken')
-extension type SecurityIAuthToken._(_i1.JSObject _) implements _i1.JSObject {
+extension type Security_IAuthToken._(_i1.JSObject _) implements _i1.JSObject {
   external String token;
 
   external double expiresIn;
@@ -87,49 +97,49 @@ extension type SecurityIAuthToken._(_i1.JSObject _) implements _i1.JSObject {
   external double userId;
 }
 @_i1.JS('Security.AuthService')
-extension type SecurityAuthService._(_i1.JSObject _) implements _i1.JSObject {
-  external SecurityAuthService();
+extension type Security_AuthService._(_i1.JSObject _) implements _i1.JSObject {
+  external Security_AuthService();
 
-  external SecurityIAuthToken login(
+  external Security_IAuthToken login(
     String username,
     String password,
   );
 }
 @_i1.JS('Data.IRepository')
-extension type DataIRepository<T extends _i1.JSAny?>._(_i1.JSObject _)
+extension type Data_IRepository<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
   external T findById(num id);
   external _i1.JSArray<T> findAll();
   external void save(T entity);
 }
 @_i1.JS('Data.UserRepository')
-extension type DataUserRepository._(_i1.JSObject _)
-    implements DataIRepository<DataModelsUser> {
-  external DataUserRepository();
+extension type Data_UserRepository._(_i1.JSObject _)
+    implements Data_IRepository<Data_Models_User> {
+  external Data_UserRepository();
 
   @_i2.redeclare
-  external DataModelsUser findById(num id);
+  external Data_Models_User findById(num id);
   @_i2.redeclare
-  external _i1.JSArray<DataModelsUser> findAll();
+  external _i1.JSArray<Data_Models_User> findAll();
   @_i2.redeclare
-  external void save(DataModelsUser user);
+  external void save(Data_Models_User user);
 }
 @_i1.JS('Data.Models')
-extension type DataModels._(_i1.JSObject _) implements _i1.JSObject {
+extension type Data_Models._(_i1.JSObject _) implements _i1.JSObject {
   @_i1.JS('Data.Models.User')
-  static DataModelsUser User(
+  static Data_Models_User User(
     num id,
     String name,
     String email,
   ) =>
-      DataModelsUser(
+      Data_Models_User(
         id,
         name,
         email,
       );
 }
 @_i1.JS('Data.Models.IUser')
-extension type DataModelsIUser._(_i1.JSObject _) implements _i1.JSObject {
+extension type Data_Models_IUser._(_i1.JSObject _) implements _i1.JSObject {
   external double id;
 
   external String name;
@@ -137,8 +147,8 @@ extension type DataModelsIUser._(_i1.JSObject _) implements _i1.JSObject {
   external String email;
 }
 @_i1.JS('Data.Models.User')
-extension type DataModelsUser._(_i1.JSObject _) implements DataModelsIUser {
-  external DataModelsUser(
+extension type Data_Models_User._(_i1.JSObject _) implements Data_Models_IUser {
+  external Data_Models_User(
     num id,
     String name,
     String email,
@@ -151,33 +161,33 @@ extension type DataModelsUser._(_i1.JSObject _) implements DataModelsIUser {
   external String email;
 }
 @_i1.JS('EnterpriseApp.Models')
-extension type EnterpriseAppModels._(_i1.JSObject _) implements _i1.JSObject {
+extension type EnterpriseApp_Models._(_i1.JSObject _) implements _i1.JSObject {
   @_i1.JS('EnterpriseApp.Models.User')
-  static EnterpriseAppModelsUser User(
+  static EnterpriseApp_Models_User User(
     num id,
     String name,
     String email,
   ) =>
-      EnterpriseAppModelsUser(
+      EnterpriseApp_Models_User(
         id,
         name,
         email,
       );
 
   @_i1.JS('EnterpriseApp.Models.Product')
-  static EnterpriseAppModelsProduct Product(
+  static EnterpriseApp_Models_Product Product(
     String sku,
     String title,
     num price,
   ) =>
-      EnterpriseAppModelsProduct(
+      EnterpriseApp_Models_Product(
         sku,
         title,
         price,
       );
 }
 @_i1.JS('EnterpriseApp.Models.IUser')
-extension type EnterpriseAppModelsIUser._(_i1.JSObject _)
+extension type EnterpriseApp_Models_IUser._(_i1.JSObject _)
     implements _i1.JSObject {
   external double id;
 
@@ -186,9 +196,9 @@ extension type EnterpriseAppModelsIUser._(_i1.JSObject _)
   external String email;
 }
 @_i1.JS('EnterpriseApp.Models.User')
-extension type EnterpriseAppModelsUser._(_i1.JSObject _)
-    implements EnterpriseAppModelsIUser {
-  external EnterpriseAppModelsUser(
+extension type EnterpriseApp_Models_User._(_i1.JSObject _)
+    implements EnterpriseApp_Models_IUser {
+  external EnterpriseApp_Models_User(
     num id,
     String name,
     String email,
@@ -201,11 +211,11 @@ extension type EnterpriseAppModelsUser._(_i1.JSObject _)
   external String email;
 
   external String getDisplayName();
-  external void linkUser(DataModelsIUser data);
-  external SecurityIAuthToken createAuthToken();
+  external void linkUser(Data_Models_IUser data);
+  external Security_IAuthToken createAuthToken();
 }
 @_i1.JS('EnterpriseApp.Models.IProduct')
-extension type EnterpriseAppModelsIProduct._(_i1.JSObject _)
+extension type EnterpriseApp_Models_IProduct._(_i1.JSObject _)
     implements _i1.JSObject {
   external String sku;
 
@@ -214,9 +224,9 @@ extension type EnterpriseAppModelsIProduct._(_i1.JSObject _)
   external double price;
 }
 @_i1.JS('EnterpriseApp.Models.Product')
-extension type EnterpriseAppModelsProduct._(_i1.JSObject _)
-    implements EnterpriseAppModelsIProduct {
-  external EnterpriseAppModelsProduct(
+extension type EnterpriseApp_Models_Product._(_i1.JSObject _)
+    implements EnterpriseApp_Models_IProduct {
+  external EnterpriseApp_Models_Product(
     String sku,
     String title,
     num price,
@@ -229,7 +239,7 @@ extension type EnterpriseAppModelsProduct._(_i1.JSObject _)
   external double price;
 }
 @_i1.JS('EnterpriseApp.Utilities')
-extension type EnterpriseAppUtilities._(_i1.JSObject _)
+extension type EnterpriseApp_Utilities._(_i1.JSObject _)
     implements _i1.JSObject {
   @_i1.JS()
   external static String formatCurrency(
@@ -240,60 +250,61 @@ extension type EnterpriseAppUtilities._(_i1.JSObject _)
   external static bool isValidEmail(String email);
 }
 @_i1.JS('EnterpriseApp.DataServices')
-extension type EnterpriseAppDataServices._(_i1.JSObject _)
+extension type EnterpriseApp_DataServices._(_i1.JSObject _)
     implements _i1.JSObject {
   @_i1.JS('EnterpriseApp.DataServices.UserService')
-  static EnterpriseAppDataServicesUserService UserService() =>
-      EnterpriseAppDataServicesUserService();
+  static EnterpriseApp_DataServices_UserService UserService() =>
+      EnterpriseApp_DataServices_UserService();
 
   @_i1.JS('EnterpriseApp.DataServices.ProductService')
-  static EnterpriseAppDataServicesProductService ProductService() =>
-      EnterpriseAppDataServicesProductService();
+  static EnterpriseApp_DataServices_ProductService ProductService() =>
+      EnterpriseApp_DataServices_ProductService();
 }
 @_i1.JS('EnterpriseApp.DataServices.IDataService')
-extension type EnterpriseAppDataServicesIDataService<T extends _i1.JSAny?>._(
+extension type EnterpriseApp_DataServices_IDataService<T extends _i1.JSAny?>._(
     _i1.JSObject _) implements _i1.JSObject {
   external _i1.JSArray<T> getAll();
   external T getById(String id);
   external void save(T item);
 }
 @_i1.JS('EnterpriseApp.DataServices.UserService')
-extension type EnterpriseAppDataServicesUserService._(_i1.JSObject _)
-    implements EnterpriseAppDataServicesIDataService<EnterpriseAppModelsUser> {
-  external EnterpriseAppDataServicesUserService();
+extension type EnterpriseApp_DataServices_UserService._(_i1.JSObject _)
+    implements
+        EnterpriseApp_DataServices_IDataService<EnterpriseApp_Models_User> {
+  external EnterpriseApp_DataServices_UserService();
 
   @_i2.redeclare
-  external _i1.JSArray<EnterpriseAppModelsUser> getAll();
+  external _i1.JSArray<EnterpriseApp_Models_User> getAll();
   @_i2.redeclare
-  external EnterpriseAppModelsUser getById(String id);
+  external EnterpriseApp_Models_User getById(String id);
   @_i2.redeclare
-  external void save(EnterpriseAppModelsUser user);
+  external void save(EnterpriseApp_Models_User user);
 }
 @_i1.JS('EnterpriseApp.DataServices.ProductService')
-extension type EnterpriseAppDataServicesProductService._(_i1.JSObject _)
+extension type EnterpriseApp_DataServices_ProductService._(_i1.JSObject _)
     implements
-        EnterpriseAppDataServicesIDataService<EnterpriseAppModelsProduct> {
-  external EnterpriseAppDataServicesProductService();
+        EnterpriseApp_DataServices_IDataService<EnterpriseApp_Models_Product> {
+  external EnterpriseApp_DataServices_ProductService();
 
   @_i2.redeclare
-  external EnterpriseAppModelsProduct getById(String id);
+  external EnterpriseApp_Models_Product getById(String id);
   @_i2.redeclare
-  external void save(EnterpriseAppModelsProduct item);
-  external void add(EnterpriseAppModelsProduct product);
+  external void save(EnterpriseApp_Models_Product item);
+  external void add(EnterpriseApp_Models_Product product);
   @_i1.JS('get')
-  external EnterpriseAppModelsProduct get$(num id);
+  external EnterpriseApp_Models_Product get$(num id);
   @_i2.redeclare
-  external _i1.JSArray<EnterpriseAppModelsProduct> getAll();
+  external _i1.JSArray<EnterpriseApp_Models_Product> getAll();
 }
 @_i1.JS('EnterpriseApp.UI')
-extension type EnterpriseAppUI._(_i1.JSObject _) implements _i1.JSObject {
+extension type EnterpriseApp_UI._(_i1.JSObject _) implements _i1.JSObject {
   @_i1.JS('EnterpriseApp.UI.Components')
-  external static EnterpriseAppUIComponents get Components;
+  external static EnterpriseApp_UI_Components get Components;
 }
 @_i1.JS('EnterpriseApp.UI.Components')
-extension type EnterpriseAppUIComponents._(_i1.JSObject _)
+extension type EnterpriseApp_UI_Components._(_i1.JSObject _)
     implements _i1.JSObject {
   @_i1.JS()
   external static void renderUserList(
-      _i1.JSArray<EnterpriseAppModelsUser> users);
+      _i1.JSArray<EnterpriseApp_Models_User> users);
 }

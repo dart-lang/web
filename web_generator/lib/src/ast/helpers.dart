@@ -128,3 +128,24 @@ Type getClassRepresentationType(ClassDeclaration cl) {
     docs.annotations.map((d) => d.emit()).toList()
   );
 }
+
+(List<Parameter>, List<Parameter>) emitParameters(
+    List<ParameterDeclaration> parameters,
+    [DeclarationOptions? options]) {
+  final requiredParams = <Parameter>[];
+  final optionalParams = <Parameter>[];
+  for (final p in parameters) {
+    if (p.variadic) {
+      optionalParams.addAll(spreadParam(p, GlobalOptions.variadicArgsCount));
+      requiredParams.add(p.emit(options));
+    } else {
+      if (p.optional) {
+        optionalParams.add(p.emit(options));
+      } else {
+        requiredParams.add(p.emit(options));
+      }
+    }
+  }
+
+  return (requiredParams, optionalParams);
+}

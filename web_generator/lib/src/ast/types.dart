@@ -34,7 +34,9 @@ class ReferredType<T extends Declaration> extends Type {
   @override
   Reference emit([TypeOptions? options]) {
     return TypeReference((t) => t
-      ..symbol = declaration.dartName ?? declaration.name
+      ..symbol = (declaration is NestableDeclaration)
+          ? (declaration as NestableDeclaration).completedDartName
+          : declaration.dartName ?? declaration.name
       ..types.addAll(typeParams.map((t) => t.emit(options)))
       ..isNullable = options?.nullable
       ..url = options?.url ?? url);

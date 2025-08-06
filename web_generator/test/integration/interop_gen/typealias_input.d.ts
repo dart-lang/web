@@ -5,6 +5,12 @@ declare enum LoggerType {
     File = 3,
     Other = 4
 }
+declare namespace Space {
+    interface Planet {
+        radius: number;
+    }
+    const earth: Planet;
+}
 export type Username = string;
 export type Age = number;
 export type IsActive = boolean;
@@ -17,6 +23,7 @@ export type PrismFromShape2D<S extends Shape2D> = Array<S>;
 export type Logger = LoggerType;
 export type Direction = "N" | "S" | "E" | "W";
 export type Method = "GET" | "POST" | "PUT" | "DELETE" | "PATCH" | "OPTIONS";
+export type Planet = Space.Planet;
 type LoggerContainer<N extends number> = N[];
 export declare const loggerContainers: LoggerContainer<Logger>;
 export declare let myLogger: Logger;

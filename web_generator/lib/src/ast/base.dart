@@ -18,8 +18,9 @@ class Options {}
 
 class DeclarationOptions extends Options {
   bool override;
+  bool static;
 
-  DeclarationOptions({this.override = false});
+  DeclarationOptions({this.override = false, this.static = false});
 
   TypeOptions toTypeOptions({bool nullable = false}) =>
       TypeOptions(nullable: nullable);

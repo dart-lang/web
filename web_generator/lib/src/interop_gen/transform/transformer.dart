@@ -247,9 +247,9 @@ class Transformer {
             dartName: dartName,
             id: id!,
             exported: isExported,
-            topLevelDeclarations: [],
+            topLevelDeclarations: {},
             namespaceDeclarations: [],
-            nestableDeclarations: []);
+            nestableDeclarations: {});
 
     // TODO: We can implement this in classes and interfaces.
     //  however, since namespaces and modules are a thing,

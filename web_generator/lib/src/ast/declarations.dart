@@ -416,9 +416,9 @@ class NamespaceDeclaration extends NestableDeclaration
 
   final List<NamespaceDeclaration> namespaceDeclarations;
 
-  final List<Declaration> topLevelDeclarations;
+  final Set<Declaration> topLevelDeclarations;
 
-  final List<NestableDeclaration> nestableDeclarations;
+  final Set<NestableDeclaration> nestableDeclarations;
 
   @override
   Set<TSNode> nodes = {};
@@ -428,9 +428,9 @@ class NamespaceDeclaration extends NestableDeclaration
       this.exported = true,
       required ID id,
       this.dartName,
-      this.topLevelDeclarations = const [],
+      this.topLevelDeclarations = const {},
       this.namespaceDeclarations = const [],
-      this.nestableDeclarations = const []})
+      this.nestableDeclarations = const {}})
       : _id = id;
 
   @override

@@ -31,3 +31,32 @@ export declare const myTuple: [string, number];
 export declare const mySecondTuple: [string, string];
 export declare const myCloneTuple: [string, string];
 export declare const typesAsTuple: [string, number, boolean, symbol];
+type Product = {
+    id: number;
+    name: string;
+    price: number;
+};
+export declare const randomNonTypedProduct: {
+    id: number;
+    name: string;
+    price: number;
+};
+export declare const config: {
+    discountRate: number;
+    taxRate: number;
+};
+export declare class MyProduct implements Product {
+    id: number;
+    name: string;
+    price: number;
+    constructor(id: number, name: string, price: number);
+}
+export function indexedArray<T>(arr: T[]): { id: number, value: T }[];
+export const responseObject: {
+    id: string;
+    value: any;
+} | {
+    id: string;
+    error: string;
+    data: any;
+}

@@ -284,6 +284,9 @@ class ObjectLiteralType extends DeclarationAssociatedType<TypeDeclaration> {
   List<OperatorDeclaration> operators;
 
   @override
+  bool isNullable;
+
+  @override
   String declarationName;
 
   @override
@@ -292,27 +295,33 @@ class ObjectLiteralType extends DeclarationAssociatedType<TypeDeclaration> {
   @override
   ID id;
 
-  ObjectLiteralType({
-    required this.declarationName,
-    required this.id,
-    this.properties = const [],
-    this.methods = const [],
-    this.constructors = const [],
-    this.operators = const []
-  });
-
-  ConstructorDeclaration get objectLiteralConstructor => ConstructorDeclaration(
-    id: id,
-    
-  );
+  ObjectLiteralType(
+      {required String name,
+      required this.id,
+      this.properties = const [],
+      this.methods = const [],
+      this.constructors = const [],
+      this.operators = const [],
+      this.isNullable = false})
+      : declarationName = name;
 
   @override
   TypeDeclaration get declaration => InterfaceDeclaration(
-    name: declarationName, 
-    exported: true, 
-    id: ID(type: 'interface', name: id.name),
+      name: declarationName,
+      exported: true,
+      id: ID(type: 'interface', name: id.name),
+      objectLiteralConstructor: true,
+      properties: properties,
+      methods: methods,
+      operators: operators,
+      constructors: constructors);
 
-  );
+  @override
+  Reference emit([TypeOptions? options]) {
+    return TypeReference((t) => t
+      ..symbol = declarationName
+      ..isNullable = options?.nullable ?? isNullable);
+  }
 }
 
 // TODO: Merge properties/methods of related types

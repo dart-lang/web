@@ -553,13 +553,13 @@ class Transformer {
       // check if
       final referredType = type as TSTypeReferenceNode;
       final referredTypeName = parseQualifiedName(referredType.typeName);
-      if (referredTypeName.asName == parent.name) {
-        methodType = parent.asReferredType(type.typeArguments?.toDart
+      if (referredTypeName.asName == parent?.name) {
+        methodType = parent?.asReferredType(type.typeArguments?.toDart
             .map((t) => _transformType(t, typeArg: true))
             .toList());
       }
     } else if (method.type case final type? when ts.isThisTypeNode(type)) {
-      methodType = parent.asReferredType(parent.typeParameters);
+      methodType = parent?.asReferredType(parent.typeParameters);
     }
 
     final methodDeclaration = MethodDeclaration(
@@ -574,13 +574,13 @@ class Transformer {
           if (paramRawType case final ty? when ts.isTypeReferenceNode(ty)) {
             final referredType = ty as TSTypeReferenceNode;
             final referredTypeName = parseQualifiedName(referredType.typeName);
-            if (referredTypeName.asName == parent.name) {
-              paramType = parent.asReferredType(ty.typeArguments?.toDart
+            if (referredTypeName.asName == parent?.name) {
+              paramType = parent?.asReferredType(ty.typeArguments?.toDart
                   .map((t) => _transformType(t, typeArg: true))
                   .toList());
             }
           } else if (paramRawType case final ty? when ts.isThisTypeNode(ty)) {
-            paramType = parent.asReferredType(parent.typeParameters);
+            paramType = parent?.asReferredType(parent.typeParameters);
           }
           return _transformParameter(t, paramType);
         }).toList(),
@@ -592,7 +592,7 @@ class Transformer {
                 : BuiltinType.anyType),
         isNullable: (method.kind == TSSyntaxKind.MethodSignature) &&
             (method as TSMethodSignature).questionToken != null);
-    methodDeclaration.parent = parent;
+    if (parent != null) methodDeclaration.parent = parent;
     return methodDeclaration;
   }
 
@@ -624,7 +624,7 @@ class Transformer {
   MethodDeclaration _transformCallSignature(
       TSCallSignatureDeclaration callSignature,
       {required UniqueNamer parentNamer,
-      required TypeDeclaration parent}) {
+      TypeDeclaration? parent}) {
     final (:id, name: dartName) = parentNamer.makeUnique('call', 'fun');
 
     final params = callSignature.parameters.toDart;
@@ -636,14 +636,14 @@ class Transformer {
       // check if
       final referredType = type as TSTypeReferenceNode;
       final referredTypeName = parseQualifiedName(referredType.typeName);
-      if (referredTypeName.asName == parent.name) {
-        methodType = parent.asReferredType(type.typeArguments?.toDart
+      if (referredTypeName.asName == parent?.name) {
+        methodType = parent?.asReferredType(type.typeArguments?.toDart
             .map((t) => _transformType(t, typeArg: true))
             .toList());
       }
     } else if (callSignature.type case final type?
         when ts.isThisTypeNode(type)) {
-      methodType = parent.asReferredType(parent.typeParameters);
+      methodType = parent?.asReferredType(parent.typeParameters);
     }
 
     final methodDeclaration = MethodDeclaration(
@@ -657,14 +657,14 @@ class Transformer {
             (callSignature.type != null
                 ? _transformType(callSignature.type!)
                 : BuiltinType.anyType));
-    methodDeclaration.parent = parent;
+    if (parent != null) methodDeclaration.parent = parent;
     return methodDeclaration;
   }
 
   // TODO: Handling overloading of indexers
   (OperatorDeclaration, OperatorDeclaration?) _transformIndexer(
       TSIndexSignatureDeclaration indexSignature,
-      {required TypeDeclaration parent}) {
+      {TypeDeclaration? parent}) {
     final params = indexSignature.parameters.toDart;
 
     final typeParams = indexSignature.typeParameters?.toDart;
@@ -677,14 +677,14 @@ class Transformer {
       // check if
       final referredType = type as TSTypeReferenceNode;
       final referredTypeName = parseQualifiedName(referredType.typeName);
-      if (referredTypeName.asName == parent.name) {
-        indexerType = parent.asReferredType(type.typeArguments?.toDart
+      if (referredTypeName.asName == parent?.name) {
+        indexerType = parent?.asReferredType(type.typeArguments?.toDart
             .map((t) => _transformType(t, typeArg: true))
             .toList());
       }
     } else if (indexSignature.type case final type
         when ts.isThisTypeNode(type)) {
-      indexerType = parent.asReferredType(parent.typeParameters);
+      indexerType = parent?.asReferredType(parent.typeParameters);
     }
 
     final getOperatorDeclaration = OperatorDeclaration(
@@ -706,13 +706,15 @@ class Transformer {
             static: isStatic)
         : null;
 
-    getOperatorDeclaration.parent = parent;
-    setOperatorDeclaration?.parent = parent;
+    if (parent != null) {
+      getOperatorDeclaration.parent = parent;
+      setOperatorDeclaration?.parent = parent;
+    }
     return (getOperatorDeclaration, setOperatorDeclaration);
   }
 
   MethodDeclaration _transformGetter(TSGetAccessorDeclaration getter,
-      {required UniqueNamer parentNamer, required TypeDeclaration parent}) {
+      {required UniqueNamer parentNamer, TypeDeclaration? parent}) {
     final name = getter.name.text;
     final (:id, name: dartName) = parentNamer.makeUnique(name, 'get');
 
@@ -728,13 +730,13 @@ class Transformer {
       // check if
       final referredType = type as TSTypeReferenceNode;
       final referredTypeName = parseQualifiedName(referredType.typeName);
-      if (referredTypeName.asName == parent.name) {
-        methodType = parent.asReferredType(type.typeArguments?.toDart
+      if (referredTypeName.asName == parent?.name) {
+        methodType = parent?.asReferredType(type.typeArguments?.toDart
             .map((t) => _transformType(t, typeArg: true))
             .toList());
       }
     } else if (getter.type case final type? when ts.isThisTypeNode(type)) {
-      methodType = parent.asReferredType(parent.typeParameters);
+      methodType = parent?.asReferredType(parent.typeParameters);
     }
 
     final methodDeclaration = MethodDeclaration(
@@ -750,12 +752,12 @@ class Transformer {
             (getter.type != null
                 ? _transformType(getter.type!)
                 : BuiltinType.anyType));
-    methodDeclaration.parent = parent;
+    if (parent != null) methodDeclaration.parent = parent;
     return methodDeclaration;
   }
 
   MethodDeclaration _transformSetter(TSSetAccessorDeclaration setter,
-      {required UniqueNamer parentNamer, required TypeDeclaration parent}) {
+      {required UniqueNamer parentNamer, TypeDeclaration? parent}) {
     final name = setter.name.text;
     final (:id, name: dartName) = parentNamer.makeUnique(name, 'set');
 
@@ -777,13 +779,13 @@ class Transformer {
           if (paramRawType case final ty? when ts.isTypeReferenceNode(ty)) {
             final referredType = ty as TSTypeReferenceNode;
             final referredTypeName = parseQualifiedName(referredType.typeName);
-            if (referredTypeName.asName == parent.name) {
-              paramType = parent.asReferredType(ty.typeArguments?.toDart
+            if (referredTypeName.asName == parent?.name) {
+              paramType = parent?.asReferredType(ty.typeArguments?.toDart
                   .map((t) => _transformType(t, typeArg: true))
                   .toList());
             }
           } else if (paramRawType case final ty? when ts.isThisTypeNode(ty)) {
-            paramType = parent.asReferredType(parent.typeParameters);
+            paramType = parent?.asReferredType(parent.typeParameters);
           }
           return _transformParameter(t, paramType);
         }).toList(),
@@ -793,7 +795,7 @@ class Transformer {
         returnType: setter.type != null
             ? _transformType(setter.type!)
             : BuiltinType.anyType);
-    methodDeclaration.parent = parent;
+    if (parent != null) methodDeclaration.parent = parent;
     return methodDeclaration;
   }
 
@@ -1052,8 +1054,12 @@ class Transformer {
         final methods = <MethodDeclaration>[];
         final constructors = <ConstructorDeclaration>[];
         final operators = <OperatorDeclaration>[];
-        
+
         final typeNamer = ScopedUniqueNamer({'get', 'set'});
+
+        // mark the default constructor as used
+        typeNamer.markUsed('', 'constructor');
+        typeNamer.markUsed('unnamed', 'constructor');
 
         // transform decls
         for (final member in typeLiteralNode.members.toDart) {
@@ -1064,21 +1070,21 @@ class Transformer {
               properties.add(prop);
             case TSSyntaxKind.MethodSignature:
               final method = _transformMethod(member as TSMethodSignature,
-                parentNamer: typeNamer, parent: outputType);
+                  parentNamer: typeNamer);
               methods.add(method);
             case TSSyntaxKind.IndexSignature:
               final (opGet, opSetOrNull) = _transformIndexer(
-                  member as TSIndexSignatureDeclaration,
-                  parent: outputType);
+                member as TSIndexSignatureDeclaration,
+              );
               operators.add(opGet);
               if (opSetOrNull case final opSet?) {
                 operators.add(opSet);
               }
             case TSSyntaxKind.CallSignature:
               final callSignature = _transformCallSignature(
-                  member as TSCallSignatureDeclaration,
-                  parentNamer: typeNamer,
-                  parent: outputType);
+                member as TSCallSignatureDeclaration,
+                parentNamer: typeNamer,
+              );
               methods.add(callSignature);
             case TSSyntaxKind.ConstructSignature:
               final constructor = _transformConstructor(
@@ -1086,13 +1092,15 @@ class Transformer {
                   parentNamer: typeNamer);
               constructors.add(constructor);
             case TSSyntaxKind.GetAccessor:
-              final getter = _transformGetter(member as TSGetAccessorDeclaration,
-                  parentNamer: typeNamer, parent: outputType);
+              final getter = _transformGetter(
+                  member as TSGetAccessorDeclaration,
+                  parentNamer: typeNamer);
               methods.add(getter);
               break;
             case TSSyntaxKind.SetAccessor:
-              final setter = _transformSetter(member as TSSetAccessorDeclaration,
-                  parentNamer: typeNamer, parent: outputType);
+              final setter = _transformSetter(
+                  member as TSSetAccessorDeclaration,
+                  parentNamer: typeNamer);
               methods.add(setter);
               break;
             default:
@@ -1101,14 +1109,15 @@ class Transformer {
         }
 
         // get a name
-        final name = 'AnonymousType_${
-          AnonymousHasher.hashObject([
-            ...properties.map((p) => (p.name, p.type.id.name)),
-            ...methods.map((p) => (p.name, p.returnType.id.name)),
-            ...constructors.map((p) => (p.name ?? 'new', p.parameters.map((a) => a.type.id.name!).join(','))),
-            ...operators.map((p) => (p.name, p.returnType.id.name)),
-          ])
-        }';
+        final name = 'AnonymousType_${AnonymousHasher.hashObject([
+              ...properties.map((p) => (p.name, p.type.id.name)),
+              ...methods.map((p) => (p.name, p.returnType.id.name)),
+              ...constructors.map((p) => (
+                    p.name ?? 'new',
+                    p.parameters.map((a) => a.type.id.name).join(',')
+                  )),
+              ...operators.map((p) => (p.name, p.returnType.id.name)),
+            ])}';
 
         // get an expected id
         final expectedId = ID(type: 'type', name: name);
@@ -1116,8 +1125,22 @@ class Transformer {
           return typeMap[expectedId.toString()] as ObjectLiteralType;
         }
 
+        final anonymousTypeObject = ObjectLiteralType(
+          name: name,
+          id: expectedId,
+          properties: properties,
+          methods: methods,
+          operators: operators,
+          constructors: constructors,
+        );
 
-        
+        final anonymousType = typeMap.putIfAbsent(expectedId.toString(), () {
+          namer.markUsed(name);
+          return anonymousTypeObject;
+        }) as ObjectLiteralType;
+
+        return anonymousType..isNullable = isNullable ?? false;
+
       case TSSyntaxKind.UnionType:
         final unionType = type as TSUnionTypeNode;
         // TODO: Unions
@@ -1177,9 +1200,8 @@ class Transformer {
               'AnonymousUnion_${AnonymousHasher.hashUnion(idMap.toList())}';
 
           // TODO: Handle similar types here...
-          final homogenousEnumType = HomogenousEnumType(
-              types: nonNullLiteralTypes,
-              name: name);
+          final homogenousEnumType =
+              HomogenousEnumType(types: nonNullLiteralTypes, name: name);
 
           final homogenousEnum = typeMap.putIfAbsent(expectedId.toString(), () {
             namer.markUsed(name);

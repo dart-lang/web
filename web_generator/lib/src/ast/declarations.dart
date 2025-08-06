@@ -65,12 +65,12 @@ sealed class TypeDeclaration extends NestableDeclaration
 
   /// [assertRepType] is used to assert that the extension type generated
   /// has a representation type of the first member of [extendees] if any.
-  ExtensionType _emit(
-      [covariant DeclarationOptions? options,
-      bool abstract = false,
+  ExtensionType _emit(covariant DeclarationOptions? options,
+      {bool abstract = false,
       List<Type> extendees = const [],
       List<Type> implementees = const [],
-      bool assertRepType = false]) {
+      bool assertRepType = false,
+      bool objectLiteralConstructor = false}) {
     options ??= DeclarationOptions();
 
     final hierarchy = getMemberHierarchy(this);
@@ -123,6 +123,15 @@ sealed class TypeDeclaration extends NestableDeclaration
       ..types
           .addAll(typeParameters.map((t) => t.emit(options?.toTypeOptions())))
       ..constructors.addAll([
+        if (objectLiteralConstructor)
+          Constructor((c) => c
+            ..external = true
+            ..optionalParameters.addAll(properties
+                .where((p) => p.scope == DeclScope.public)
+                .map((p) => Parameter((param) => param
+                  ..named = true
+                  ..name = p.name
+                  ..type = p.type.emit(options?.toTypeOptions()))))),
         if (!abstract)
           if (constructors.isEmpty && this is ClassDeclaration)
             ConstructorDeclaration.defaultFor(this).emit(options)
@@ -575,8 +584,10 @@ class ClassDeclaration extends TypeDeclaration {
 
   @override
   ExtensionType emit([covariant DeclarationOptions? options]) {
-    return super._emit(options, abstract,
-        [if (extendedType case final extendee?) extendee], implementedTypes);
+    return super._emit(options,
+        abstract: abstract,
+        extendees: [if (extendedType case final extendee?) extendee],
+        implementees: implementedTypes);
   }
 
   @override
@@ -603,6 +614,10 @@ class InterfaceDeclaration extends TypeDeclaration {
   /// [extendedTypes] if any.
   final bool assertRepType;
 
+  /// This asserts generating a constructor for creating the given interface
+  /// as an object literal via an object literal constructor
+  final bool objectLiteralConstructor;
+
   InterfaceDeclaration(
       {required super.name,
       required super.exported,
@@ -614,12 +629,16 @@ class InterfaceDeclaration extends TypeDeclaration {
       super.properties,
       super.operators,
       super.constructors,
-      this.assertRepType = false})
+      this.assertRepType = false,
+      this.objectLiteralConstructor = false})
       : _id = id;
 
   @override
   ExtensionType emit([covariant DeclarationOptions? options]) {
-    return super._emit(options, false, extendedTypes, [], assertRepType);
+    return super._emit(options,
+        extendees: extendedTypes,
+        assertRepType: assertRepType,
+        objectLiteralConstructor: objectLiteralConstructor);
   }
 }
 

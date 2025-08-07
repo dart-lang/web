@@ -144,10 +144,10 @@ Type getClassRepresentationType(TypeDeclaration cl) {
 }
 
 List<GenericType> getGenericTypes(Type t) {
-  final types = <String>[];
+  final types = <(String, Type?)>[];
   switch (t) {
     case GenericType():
-      types.add(t.name);
+      types.add((t.name, t.constraint));
       break;
     case ReferredType(typeParams: final referredTypeParams):
     case UnionType(types: final referredTypeParams):
@@ -155,7 +155,7 @@ List<GenericType> getGenericTypes(Type t) {
       types.addAll(referredTypeParams
           .map(getGenericTypes)
           .reduce((prev, combine) => [...prev, ...combine])
-          .map((t) => t.name));
+          .map((t) => (t.name, t.constraint)));
       break;
     case ObjectLiteralType(
         properties: final objectProps,
@@ -164,7 +164,8 @@ List<GenericType> getGenericTypes(Type t) {
         operators: final objectOperators
       ):
       for (final PropertyDeclaration(type: propType) in objectProps) {
-        types.addAll(getGenericTypes(propType).map((t) => t.name));
+        types.addAll(
+            getGenericTypes(propType).map((t) => (t.name, t.constraint)));
       }
 
       for (final MethodDeclaration(
@@ -178,7 +179,7 @@ List<GenericType> getGenericTypes(Type t) {
 
         types.addAll(typeParams.where((t) {
           return alreadyEstablishedTypeParams.any((al) => al.name == t.name);
-        }).map((t) => t.name));
+        }).map((t) => (t.name, t.constraint)));
       }
 
       for (final ConstructorDeclaration(parameters: methodParams)
@@ -186,7 +187,7 @@ List<GenericType> getGenericTypes(Type t) {
         types.addAll(methodParams
             .map((p) => getGenericTypes(p.type))
             .reduce((prev, combine) => [...prev, ...combine])
-            .map((t) => t.name));
+            .map((t) => (t.name, t.constraint)));
       }
 
       for (final OperatorDeclaration(
@@ -201,7 +202,7 @@ List<GenericType> getGenericTypes(Type t) {
         types.addAll(typeParams.where((t) {
           return !alreadyEstablishedTypeParams.contains(t) ||
               alreadyEstablishedTypeParams.any((al) => al.name == t.name);
-        }).map((t) => t.name));
+        }).map((t) => (t.name, t.constraint)));
       }
       break;
     case ClosureType(
@@ -215,12 +216,12 @@ List<GenericType> getGenericTypes(Type t) {
 
       types.addAll(typeParams.where((t) {
         return alreadyEstablishedTypeParams.any((al) => al.name == t.name);
-      }).map((t) => t.name));
+      }).map((t) => (t.name, t.constraint)));
       break;
     default:
       break;
   }
-  return types.map((t) => GenericType(name: t)).toList();
+  return types.map((t) => GenericType(name: t.$1, constraint: t.$2)).toList();
 }
 
 Type getDeepType(Type t) {

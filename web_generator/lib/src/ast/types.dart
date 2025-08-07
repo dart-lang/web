@@ -130,7 +130,7 @@ class UnionType extends DeclarationAssociatedType {
   Reference emit([TypeOptions? options]) {
     return TypeReference((t) => t
       ..symbol = declarationName
-      ..isNullable = options?.nullable ?? isNullable);
+      ..isNullable = (options?.nullable ?? false) || isNullable);
   }
 
   @override
@@ -510,8 +510,19 @@ class _UnionDeclaration extends NamedDeclaration
 
   List<Type> types;
 
+  List<GenericType> typeParameters;
+
   _UnionDeclaration(
-      {required this.name, this.types = const [], this.isNullable = false});
+      {required this.name,
+      this.types = const [],
+      this.isNullable = false,
+      List<GenericType>? typeParameters})
+      : typeParameters = typeParameters ??
+            types.map(getGenericTypes).fold(<GenericType>[],
+                (prev, combine) => [...prev, ...combine]).map((t) {
+              t.constraint ??= BuiltinType.anyType;
+              return t;
+            }).toList();
 
   @override
   String? dartName;
@@ -534,6 +545,8 @@ class _UnionDeclaration extends NamedDeclaration
         ..name = '_'
         ..declaredRepresentationType = repType.emit(options?.toTypeOptions()))
       ..implements.addAll([repType.emit(options?.toTypeOptions())])
+      ..types
+          .addAll(typeParameters.map((t) => t.emit(options?.toTypeOptions())))
       ..methods.addAll(types.map((t) {
         final type = t.emit(options?.toTypeOptions());
         final jsTypeAlt = getJSTypeAlternative(t);

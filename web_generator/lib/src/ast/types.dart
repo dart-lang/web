@@ -178,7 +178,7 @@ class GenericType extends Type {
   @override
   final String name;
 
-  final Type? constraint;
+  Type? constraint;
 
   final Declaration? parent;
 
@@ -275,25 +275,25 @@ enum LiteralKind {
 }
 
 class ObjectLiteralType extends DeclarationAssociatedType<TypeDeclaration> {
-  List<PropertyDeclaration> properties;
+  final List<PropertyDeclaration> properties;
 
-  List<MethodDeclaration> methods;
+  final List<MethodDeclaration> methods;
 
-  List<ConstructorDeclaration> constructors;
+  final List<ConstructorDeclaration> constructors;
 
-  List<OperatorDeclaration> operators;
+  final List<OperatorDeclaration> operators;
 
   @override
   bool isNullable;
 
   @override
-  String declarationName;
+  final String declarationName;
 
   @override
   String? get name => null;
 
   @override
-  ID id;
+  final ID id;
 
   ObjectLiteralType(
       {required String name,
@@ -314,13 +314,186 @@ class ObjectLiteralType extends DeclarationAssociatedType<TypeDeclaration> {
       properties: properties,
       methods: methods,
       operators: operators,
-      constructors: constructors);
+      constructors: constructors,
+      typeParameters: getGenericTypes(this).map((g) {
+        final t = g;
+        t.constraint ??= BuiltinType.anyType;
+        return t;
+      }).toList());
+
+  @override
+  Reference emit([TypeOptions? options]) {
+    return TypeReference((t) => t
+      ..symbol = declarationName
+      ..isNullable = options?.nullable ?? isNullable
+      ..types.addAll(getGenericTypes(this).map((t) => t.emit(options))));
+  }
+}
+
+sealed class ClosureType extends DeclarationAssociatedType {
+  final List<ParameterDeclaration> parameters;
+  final Type returnType;
+  final List<GenericType> typeParameters;
+  @override
+  bool isNullable;
+
+  @override
+  final String declarationName;
+
+  @override
+  final ID id;
+
+  @override
+  String? get name => null;
+
+  ClosureType({
+    required String name,
+    required this.id,
+    required this.returnType,
+    this.typeParameters = const [],
+    this.parameters = const [],
+    this.isNullable = false,
+  }) : declarationName = name;
 
   @override
   Reference emit([TypeOptions? options]) {
     return TypeReference((t) => t
       ..symbol = declarationName
       ..isNullable = options?.nullable ?? isNullable);
+  }
+}
+
+class ConstructorType extends ClosureType {
+  ConstructorType(
+      {required super.name,
+      required super.id,
+      required super.returnType,
+      super.typeParameters,
+      super.parameters,
+      super.isNullable});
+
+  @override
+  CallableDeclaration get declaration => _ConstructorDeclaration(
+      name: declarationName,
+      returnType: returnType,
+      parameters: parameters,
+      typeParameters: typeParameters);
+}
+
+class FunctionType extends ClosureType {
+  FunctionType(
+      {required super.name,
+      required super.id,
+      required super.returnType,
+      super.typeParameters,
+      super.parameters,
+      super.isNullable});
+
+  @override
+  InterfaceDeclaration get declaration => InterfaceDeclaration(
+          name: declarationName,
+          exported: true,
+          id: ID(type: 'interface', name: declarationName),
+          typeParameters: typeParameters,
+          assertRepType: true,
+          extendedTypes: [
+            BuiltinType.referred('Function')!
+          ],
+          methods: [
+            MethodDeclaration(
+                name: 'call',
+                id: const ID(type: 'fun', name: 'call'),
+                returnType: returnType,
+                parameters: parameters,
+                typeParameters: typeParameters)
+          ]);
+}
+
+class _ConstructorDeclaration extends CallableDeclaration
+    implements ExportableDeclaration {
+  @override
+  bool get exported => true;
+
+  @override
+  ID get id => ID(type: 'closure', name: name);
+
+  @override
+  String? dartName;
+
+  @override
+  String name;
+
+  @override
+  List<ParameterDeclaration> parameters;
+
+  @override
+  Type returnType;
+
+  @override
+  List<GenericType> typeParameters;
+
+  _ConstructorDeclaration(
+      {required this.name,
+      this.parameters = const [],
+      this.typeParameters = const [],
+      required this.returnType});
+
+  @override
+  Spec emit([covariant DeclarationOptions? options]) {
+    final (requiredParams, optionalParams) =
+        emitParameters(parameters, options);
+
+    final repType = BuiltinType.referred('Function')!;
+
+    final isNamedParams = getDeepType(returnType) is ObjectLiteralType &&
+        (getDeepType(returnType) as ObjectLiteralType).constructors.isEmpty;
+
+    return ExtensionType((eType) => eType
+      ..name = name
+      ..primaryConstructorName = '_'
+      ..representationDeclaration = RepresentationDeclaration((r) => r
+        ..declaredRepresentationType = repType.emit(options?.toTypeOptions())
+        ..name = '_')
+      ..implements.add(repType.emit(options?.toTypeOptions()))
+      ..types
+          .addAll(typeParameters.map((t) => t.emit(options?.toTypeOptions())))
+      ..methods.add(Method((m) => m
+        ..name = 'call'
+        ..types
+            .addAll(typeParameters.map((t) => t.emit(options?.toTypeOptions())))
+        ..returns = returnType.emit(options?.toTypeOptions())
+        ..requiredParameters.addAll(requiredParams)
+        ..optionalParameters.addAll(optionalParams)
+        ..lambda = true
+        ..body = returnType
+            .emit(options?.toTypeOptions())
+            .call(
+                isNamedParams
+                    ? []
+                    : [
+                        ...requiredParams.map((p) => refer(p.name)),
+                        if (optionalParams.isNotEmpty)
+                          ...optionalParams.map((p) => refer(p.name))
+                      ],
+                isNamedParams
+                    ? [
+                        ...requiredParams.map((p) => (p.name, p.type)),
+                        if (optionalParams.isNotEmpty)
+                          ...optionalParams.map((p) => (p.name, p.type))
+                      ].asMap().map((_, v) {
+                        final (name, type) = v;
+                        final isNumType = type?.symbol == 'num';
+                        return MapEntry(
+                            name,
+                            isNumType
+                                ? refer(name).property('toDouble').call([])
+                                : refer(name));
+                      })
+                    : {},
+                typeParameters
+                    .map((t) => t.emit(options?.toTypeOptions()))
+                    .toList())
+            .code)));
   }
 }
 

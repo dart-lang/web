@@ -60,3 +60,15 @@ export const responseObject: {
     error: string;
     data: any;
 }
+export declare const productConstr: new (id: number, name: string, price: number) => Product;
+export declare const createDiscountCalculator: (rate: number) => (originalPrice: number) => number;
+export declare const applyDiscount: (originalPrice: number) => number;
+export declare const shoppingCart: {
+    calculatedPrice: number;
+    displayInfo: () => void;
+    id: number;
+    name: string;
+    price: number;
+}[];
+export declare const createLogger: (prefix: string) => (message: string) => void;
+export declare const appLogger: (message: string) => void;

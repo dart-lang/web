@@ -26,6 +26,18 @@ class AnonymousHasher {
 
     return _hashValues(hashes).toString().substring(0, 7);
   }
+
+  static String hashFun(List<(String, String)> params, String returnType,
+      [bool constructor = false]) {
+    final hashes = params.map((v) {
+      return _hashValues([v.$1, v.$2]).toString();
+    });
+    final paramHash = _hashValues(hashes);
+    return _hashValues(
+            [constructor.toString(), paramHash.toString(), returnType])
+        .toString()
+        .substring(0, 7);
+  }
 }
 
 // TODO: A better way for hashing values

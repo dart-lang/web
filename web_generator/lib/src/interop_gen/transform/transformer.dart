@@ -1140,10 +1140,54 @@ class Transformer {
         }) as ObjectLiteralType;
 
         return anonymousType..isNullable = isNullable ?? false;
+      case TSSyntaxKind.ConstructorType || TSSyntaxKind.FunctionType:
+        final funType = type as TSFunctionOrConstructorTypeNodeBase;
 
+        final parameters =
+            funType.parameters.toDart.map(_transformParameter).toList();
+
+        final typeParameters = funType.typeParameters?.toDart
+                .map(_transformTypeParamDeclaration)
+                .toList() ??
+            [];
+
+        final returnType = _transformType(funType.type);
+
+        final isConstructor = type.kind == TSSyntaxKind.ConstructorType;
+
+        final name = '_Anonymous${isConstructor ? 'Constructor' : 'Function'}_'
+            '${AnonymousHasher.hashFun(parameters.map((a) => (
+                  a.name,
+                  a.type.id.name
+                )).toList(), returnType.id.name, isConstructor)}';
+
+        final expectedId = ID(type: 'type', name: name);
+        if (typeMap.containsKey(expectedId.toString())) {
+          return typeMap[expectedId.toString()] as ClosureType;
+        }
+
+        final closureTypeObject = isConstructor
+            ? ConstructorType(
+                name: name,
+                id: expectedId,
+                returnType: returnType,
+                parameters: parameters,
+                typeParameters: typeParameters)
+            : FunctionType(
+                name: name,
+                id: expectedId,
+                returnType: returnType,
+                parameters: parameters,
+                typeParameters: typeParameters);
+
+        final closureType = typeMap.putIfAbsent(expectedId.toString(), () {
+          namer.markUsed(name);
+          return closureTypeObject;
+        }) as ClosureType;
+
+        return closureType..isNullable = isNullable ?? false;
       case TSSyntaxKind.UnionType:
         final unionType = type as TSUnionTypeNode;
-        // TODO: Unions
         final unionTypes = unionType.types.toDart;
         final nonNullableUnionTypes = unionTypes
             .where((t) =>
@@ -1878,7 +1922,7 @@ class Transformer {
     void updateFilteredDeclsForDecl(Node? decl, NodeMap filteredDeclarations) {
       switch (decl) {
         case final VariableDeclaration v:
-          if (v.type is! BuiltinType) filteredDeclarations.add(v.type);
+          filteredDeclarations.add(v.type);
           break;
         case final CallableDeclaration f:
           filteredDeclarations.addAll(getCallableDependencies(f));
@@ -1886,7 +1930,7 @@ class Transformer {
         case final EnumDeclaration _:
           break;
         case final TypeAliasDeclaration t:
-          if (decl.type is! BuiltinType) filteredDeclarations.add(t.type);
+          filteredDeclarations.add(t.type);
           break;
         case final TypeDeclaration t:
           for (final con in t.constructors) {

@@ -143,6 +143,94 @@ Type getClassRepresentationType(TypeDeclaration cl) {
   return (requiredParams, optionalParams);
 }
 
+List<GenericType> getGenericTypes(Type t) {
+  final types = <String>[];
+  switch (t) {
+    case GenericType():
+      types.add(t.name);
+      break;
+    case ReferredType(typeParams: final referredTypeParams):
+    case UnionType(types: final referredTypeParams):
+    case TupleType(types: final referredTypeParams):
+      types.addAll(referredTypeParams
+          .map(getGenericTypes)
+          .reduce((prev, combine) => [...prev, ...combine])
+          .map((t) => t.name));
+      break;
+    case ObjectLiteralType(
+        properties: final objectProps,
+        methods: final objectMethods,
+        constructors: final objectConstructors,
+        operators: final objectOperators
+      ):
+      for (final PropertyDeclaration(type: propType) in objectProps) {
+        types.addAll(getGenericTypes(propType).map((t) => t.name));
+      }
+
+      for (final MethodDeclaration(
+            typeParameters: alreadyEstablishedTypeParams,
+            returnType: methodType,
+            parameters: methodParams
+          ) in objectMethods) {
+        final typeParams = [methodType, ...methodParams.map((p) => p.type)]
+            .map(getGenericTypes)
+            .reduce((prev, combine) => [...prev, ...combine]);
+
+        types.addAll(typeParams.where((t) {
+          return alreadyEstablishedTypeParams.any((al) => al.name == t.name);
+        }).map((t) => t.name));
+      }
+
+      for (final ConstructorDeclaration(parameters: methodParams)
+          in objectConstructors) {
+        types.addAll(methodParams
+            .map((p) => getGenericTypes(p.type))
+            .reduce((prev, combine) => [...prev, ...combine])
+            .map((t) => t.name));
+      }
+
+      for (final OperatorDeclaration(
+            typeParameters: alreadyEstablishedTypeParams,
+            returnType: methodType,
+            parameters: methodParams
+          ) in objectOperators) {
+        final typeParams = [methodType, ...methodParams.map((p) => p.type)]
+            .map(getGenericTypes)
+            .reduce((prev, combine) => [...prev, ...combine]);
+
+        types.addAll(typeParams.where((t) {
+          return !alreadyEstablishedTypeParams.contains(t) ||
+              alreadyEstablishedTypeParams.any((al) => al.name == t.name);
+        }).map((t) => t.name));
+      }
+      break;
+    case ClosureType(
+        typeParameters: final alreadyEstablishedTypeParams,
+        returnType: final closureType,
+        parameters: final closureParams
+      ):
+      final typeParams = [closureType, ...closureParams.map((p) => p.type)]
+          .map(getGenericTypes)
+          .reduce((prev, combine) => [...prev, ...combine]);
+
+      types.addAll(typeParams.where((t) {
+        return alreadyEstablishedTypeParams.any((al) => al.name == t.name);
+      }).map((t) => t.name));
+      break;
+    default:
+      break;
+  }
+  return types.map((t) => GenericType(name: t)).toList();
+}
+
+Type getDeepType(Type t) {
+  if (t case final ReferredType ref
+      when ref.declaration is TypeAliasDeclaration) {
+    return getDeepType((ref.declaration as TypeAliasDeclaration).type);
+  }
+  return t;
+}
+
 Declaration generateTupleDeclaration(int count, {bool readonly = false}) {
   return _TupleDeclaration(count: count, readonly: readonly);
 }

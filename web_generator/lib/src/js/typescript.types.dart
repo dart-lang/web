@@ -93,6 +93,8 @@ extension type const TSSyntaxKind._(num _) {
   static const TSSyntaxKind TupleType = TSSyntaxKind._(189);
   static const TSSyntaxKind NamedTupleMember = TSSyntaxKind._(202);
   static const TSSyntaxKind TypeLiteral = TSSyntaxKind._(187);
+  static const TSSyntaxKind FunctionType = TSSyntaxKind._(184);
+  static const TSSyntaxKind ConstructorType = TSSyntaxKind._(185);
 
   // Other
   static const TSSyntaxKind Identifier = TSSyntaxKind._(80);
@@ -205,6 +207,27 @@ extension type TSNamedTupleMember._(JSObject _)
 extension type TSTypeLiteralNode._(JSObject _)
     implements TSTypeNode, TSDeclaration {
   external TSNodeArray<TSTypeElement> get members;
+}
+
+@JS('FunctionOrConstructorTypeNodeBase')
+extension type TSFunctionOrConstructorTypeNodeBase._(JSObject _)
+    implements TSTypeNode, TSSignatureDeclarationBase {
+  external TSTypeNode get type;
+}
+
+@JS('FunctionTypeNode')
+extension type TSFunctionTypeNode._(JSObject _)
+    implements TSFunctionOrConstructorTypeNodeBase {
+  @redeclare
+  TSSyntaxKind get kind => TSSyntaxKind.FunctionType;
+}
+
+@JS('ConstructorTypeNode')
+extension type TSConstructorTypeNode._(JSObject _)
+    implements TSFunctionOrConstructorTypeNodeBase {
+  @redeclare
+  TSSyntaxKind get kind => TSSyntaxKind.ConstructorType;
+  external TSNodeArray<TSNode>? get modifiers;
 }
 
 @JS('Expression')

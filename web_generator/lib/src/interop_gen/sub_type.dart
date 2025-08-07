@@ -2,6 +2,53 @@ import '../ast/base.dart';
 import '../ast/builtin.dart';
 import '../ast/types.dart';
 
+class TypeMap {
+  List<TypeMap> nodes = [];
+
+  TypeMap? parent;
+
+  String value;
+
+  TypeMap(this.value);
+
+  bool lookup(String value) {
+    if (this.value == value) return true;
+    if (nodes.isEmpty) {
+      return false;
+    } else {
+      return nodes.any((n) => n.lookup(value));
+    }
+  }
+
+  void add(TypeMap map) {
+    map.parent = this;
+    return nodes.add(map);
+  }
+
+  Set<String> expand() {
+    return {
+      ...nodes.map((n) => n.value),
+      ...nodes.map((n) => n.expand()).reduce((prev, next) => {...prev, ...next})
+    };
+  }
+}
+
+// TypeMap getTypeHierarchy(Type type) {
+//   final map = TypeMap(type.name ?? type.id.name);
+
+//   switch (type) {
+//     case UnionType(types: final types):
+//       map.add(getTypeHierarchy(getSubTypeOfTypes(types)));
+//       break;
+//     case TupleType(types: final types):
+//       map.add(getTypeHierarchy(BuiltinType.primitiveType(PrimitiveType.array, typeParams: [
+//         getSubTypeOfTypes(types)
+//       ])));
+//       break;
+    
+//   }
+// }
+ 
 // TODO: Complete Implementation
 Type getSubTypeOfTypes(List<Type> types, {bool isNullable = false}) {
   if (_getSharedTypeIfAny(types, isNullable: isNullable) case final t?) {

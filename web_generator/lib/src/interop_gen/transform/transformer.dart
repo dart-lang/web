@@ -1730,9 +1730,6 @@ class Transformer {
           }
           docBuffer
               .writeln('Type Name [${typeName.text}]: ${tagBuffer.toString()}');
-        case 'type':
-          // TODO: @srujzs we could use this as aid for @Union maybe?
-          break;
         default:
           continue;
       }

@@ -77,9 +77,9 @@ sealed class TypeDeclaration extends NestableDeclaration
 
     final hierarchy = getMemberHierarchy(this);
 
-    final docGen = documentation != null
+    final (doc, annotations) = documentation != null
         ? generateFromDocumentation(documentation!)
-        : null;
+        : (null, null);
 
     final fieldDecs = <Field>[];
     final methodDecs = <Method>[];
@@ -107,9 +107,8 @@ sealed class TypeDeclaration extends NestableDeclaration
         : BuiltinType.primitiveType(PrimitiveType.object, isNullable: false);
 
     return ExtensionType((e) => e
-      ..docs.addAll([if (docGen case (final doc, _)?) ...doc])
-      ..annotations
-          .addAll([if (docGen case (_, final annotations)?) ...annotations])
+      ..docs.addAll([...?doc])
+      ..annotations.addAll([...?annotations])
       ..name = completedDartName
       ..annotations.addAll([
         if (parent != null)
@@ -181,14 +180,13 @@ class VariableDeclaration extends FieldDeclaration
 
   @override
   Spec emit([DeclarationOptions? options]) {
-    final docGen = documentation != null
+    final (doc, annotations) = documentation != null
         ? generateFromDocumentation(documentation!)
-        : null;
+        : (null, null);
     if (modifier == VariableModifier.$const) {
       return Method((m) => m
-        ..docs.addAll([if (docGen case (final doc, _)?) ...doc])
-        ..annotations
-            .addAll([if (docGen case (_, final annotations)?) ...annotations])
+        ..docs.addAll([...?doc])
+        ..annotations.addAll([...?annotations])
         ..name = name
         ..type = MethodType.getter
         ..annotations.add(generateJSAnnotation())
@@ -198,9 +196,8 @@ class VariableDeclaration extends FieldDeclaration
     } else {
       // getter and setter -> single variable
       return Field((f) => f
-        ..docs.addAll([if (docGen case (final doc, _)?) ...doc])
-        ..annotations
-            .addAll([if (docGen case (_, final annotations)?) ...annotations])
+        ..docs.addAll([...?doc])
+        ..annotations.addAll([...?annotations])
         ..external = true
         ..static = options?.static ?? false
         ..name = name
@@ -258,17 +255,16 @@ class FunctionDeclaration extends CallableDeclaration
   @override
   Method emit([DeclarationOptions? options]) {
     options ??= DeclarationOptions();
-    final docGen = documentation != null
+    final (doc, annotations) = documentation != null
         ? generateFromDocumentation(documentation!)
-        : null;
+        : (null, null);
 
     final (requiredParams, optionalParams) =
         emitParameters(parameters, options);
 
     return Method((m) => m
-      ..docs.addAll([if (docGen case (final doc, _)?) ...doc])
-      ..annotations
-          .addAll([if (docGen case (_, final annotations)?) ...annotations])
+      ..docs.addAll([...?doc])
+      ..annotations.addAll([...?annotations])
       ..external = true
       ..name = dartName ?? name
       ..annotations.add(generateJSAnnotation(
@@ -323,17 +319,16 @@ class EnumDeclaration extends NestableDeclaration
 
   @override
   Spec emit([DeclarationOptions? options]) {
-    final docGen = documentation != null
+    final (doc, annotations) = documentation != null
         ? generateFromDocumentation(documentation!)
-        : null;
+        : (null, null);
     final baseTypeIsJSType = getJSTypeAlternative(baseType) == baseType;
     final externalMember = members.any((m) => m.isExternal);
     final shouldUseJSRepType = externalMember || baseTypeIsJSType;
 
     return ExtensionType((e) => e
-      ..docs.addAll([if (docGen case (final doc, _)?) ...doc])
-      ..annotations
-          .addAll([if (docGen case (_, final annotations)?) ...annotations])
+      ..docs.addAll([...?doc])
+      ..annotations.addAll([...?annotations])
       ..annotations.addAll([
         if (externalMember)
           if (parent != null)
@@ -377,14 +372,13 @@ class EnumMember {
 
   Field emit([bool? shouldUseJSRepType]) {
     final jsRep = shouldUseJSRepType ?? (value == null);
-    final docGen = documentation != null
+    final (doc, annotations) = documentation != null
         ? generateFromDocumentation(documentation!)
-        : null;
+        : (null, null);
     return Field((f) {
       f
-        ..docs.addAll([if (docGen case (final doc, _)?) ...doc])
-        ..annotations
-            .addAll([if (docGen case (_, final annotations)?) ...annotations]);
+        ..docs.addAll([...?doc])
+        ..annotations.addAll([...?annotations]);
       // TODO(nikeokoronkwo): This does not render correctly on `code_builder`.
       //  Until the update is made, we will omit examples concerning this
       //  Luckily, not many real-world instances of enums use this anyways, https://github.com/dart-lang/tools/issues/2118
@@ -442,14 +436,13 @@ class TypeAliasDeclaration extends NamedDeclaration
   @override
   TypeDef emit([DeclarationOptions? options]) {
     options ??= DeclarationOptions();
-    final docGen = documentation != null
+    final (doc, annotations) = documentation != null
         ? generateFromDocumentation(documentation!)
-        : null;
+        : (null, null);
 
     return TypeDef((t) => t
-      ..docs.addAll([if (docGen case (final doc, _)?) ...doc])
-      ..annotations
-          .addAll([if (docGen case (_, final annotations)?) ...annotations])
+      ..docs.addAll([...?doc])
+      ..annotations.addAll([...?annotations])
       ..name = name
       ..types
           .addAll(typeParameters.map((t) => t.emit(options?.toTypeOptions())))
@@ -506,9 +499,9 @@ class NamespaceDeclaration extends NestableDeclaration
     options ??= DeclarationOptions();
     options.static = true;
 
-    final docGen = documentation != null
+    final (doc, annotations) = documentation != null
         ? generateFromDocumentation(documentation!)
-        : null;
+        : (null, null);
 
     // static props and vars
     final methods = <Method>[];
@@ -598,9 +591,8 @@ class NamespaceDeclaration extends NestableDeclaration
 
     // put them together...
     return ExtensionType((eType) => eType
-      ..docs.addAll([if (docGen case (final doc, _)?) ...doc])
-      ..annotations
-          .addAll([if (docGen case (_, final annotations)?) ...annotations])
+      ..docs.addAll([...?doc])
+      ..annotations.addAll([...?annotations])
       ..name = completedDartName
       ..annotations.addAll([
         if (parent != null)
@@ -739,15 +731,14 @@ class PropertyDeclaration extends FieldDeclaration
     options ??= DeclarationOptions();
     assert(scope == DeclScope.public, 'Only public members can be emitted');
 
-    final docGen = documentation != null
+    final (doc, annotations) = documentation != null
         ? generateFromDocumentation(documentation!)
-        : null;
+        : (null, null);
 
     if (readonly) {
       return Method((m) => m
-        ..docs.addAll([if (docGen case (final doc, _)?) ...doc])
-        ..annotations
-            .addAll([if (docGen case (_, final annotations)?) ...annotations])
+        ..docs.addAll([...?doc])
+        ..annotations.addAll([...?annotations])
         ..external = true
         ..name = dartName ?? name
         ..type = MethodType.getter
@@ -758,9 +749,8 @@ class PropertyDeclaration extends FieldDeclaration
         ..returns = type.emit(options?.toTypeOptions(nullable: isNullable)));
     } else {
       return Field((f) => f
-        ..docs.addAll([if (docGen case (final doc, _)?) ...doc])
-        ..annotations
-            .addAll([if (docGen case (_, final annotations)?) ...annotations])
+        ..docs.addAll([...?doc])
+        ..annotations.addAll([...?annotations])
         ..external = true
         ..name = dartName ?? name
         ..annotations.addAll([
@@ -824,9 +814,9 @@ class MethodDeclaration extends CallableDeclaration
   Method emit([covariant DeclarationOptions? options]) {
     options ??= DeclarationOptions();
 
-    final docGen = documentation != null
+    final (doc, annotations) = documentation != null
         ? generateFromDocumentation(documentation!)
-        : null;
+        : (null, null);
 
     final (requiredParams, optionalParams) =
         emitParameters(parameters, options);
@@ -835,9 +825,8 @@ class MethodDeclaration extends CallableDeclaration
 
     if (isNullable) {
       return Method((m) => m
-        ..docs.addAll([if (docGen case (final doc, _)?) ...doc])
-        ..annotations
-            .addAll([if (docGen case (_, final annotations)?) ...annotations])
+        ..docs.addAll([...?doc])
+        ..annotations.addAll([...?annotations])
         ..external = true
         ..name = dartName ?? name
         ..type = MethodType.getter
@@ -856,9 +845,8 @@ class MethodDeclaration extends CallableDeclaration
     }
 
     return Method((m) => m
-      ..docs.addAll([if (docGen case (final doc, _)?) ...doc])
-      ..annotations
-          .addAll([if (docGen case (_, final annotations)?) ...annotations])
+      ..docs.addAll([...?doc])
+      ..annotations.addAll([...?annotations])
       ..external = true
       ..name = dartName ?? name
       ..type = switch (kind) {
@@ -928,9 +916,9 @@ class ConstructorDeclaration implements MemberDeclaration {
 
   Constructor emit([covariant DeclarationOptions? options]) {
     options ??= DeclarationOptions();
-    final docGen = documentation != null
+    final (doc, annotations) = documentation != null
         ? generateFromDocumentation(documentation!)
-        : null;
+        : (null, null);
 
     final (requiredParams, optionalParams) =
         emitParameters(parameters, options);
@@ -938,9 +926,8 @@ class ConstructorDeclaration implements MemberDeclaration {
     final isFactory = dartName != null && dartName != name;
 
     return Constructor((c) => c
-      ..docs.addAll([if (docGen case (final doc, _)?) ...doc])
-      ..annotations
-          .addAll([if (docGen case (_, final annotations)?) ...annotations])
+      ..docs.addAll([...?doc])
+      ..annotations.addAll([...?annotations])
       ..external = true
       ..name = dartName ?? name
       ..annotations
@@ -1001,9 +988,9 @@ class OperatorDeclaration extends CallableDeclaration
   Method emit([covariant DeclarationOptions? options]) {
     options ??= DeclarationOptions();
 
-    final docGen = documentation != null
+    final (doc, annotations) = documentation != null
         ? generateFromDocumentation(documentation!)
-        : null;
+        : (null, null);
 
     final requiredParams = <Parameter>[];
     final optionalParams = <Parameter>[];
@@ -1019,9 +1006,8 @@ class OperatorDeclaration extends CallableDeclaration
     }
 
     return Method((m) => m
-      ..docs.addAll([if (docGen case (final doc, _)?) ...doc])
-      ..annotations
-          .addAll([if (docGen case (_, final annotations)?) ...annotations])
+      ..docs.addAll([...?doc])
+      ..annotations.addAll([...?annotations])
       ..external = true
       ..name = 'operator $name'
       ..types

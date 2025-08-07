@@ -233,8 +233,6 @@ Type getSubTypeOfTypes(List<Type> types,
   final commonTypes =
       parentHierarchy.reduce((val, element) => val.intersection(element));
 
-  print(commonTypes);
-
   // filter any
   final markedForRemoval = <String>{};
   for (final type in commonTypes) {
@@ -248,8 +246,6 @@ Type getSubTypeOfTypes(List<Type> types,
   }
 
   commonTypes.removeAll(markedForRemoval);
-
-  print(commonTypes);
 
   if (commonTypes.singleOrNull case final finalType?) {
     return deduceType(finalType, typeMap);

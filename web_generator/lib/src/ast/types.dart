@@ -536,8 +536,6 @@ class _UnionDeclaration extends NamedDeclaration
 
     final repType = getSubTypeOfTypes(types, isNullable: isNullable);
 
-    print(repType.id.toString());
-
     return ExtensionType((e) => e
       ..name = name
       ..primaryConstructorName = '_'

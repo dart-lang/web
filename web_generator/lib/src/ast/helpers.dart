@@ -154,8 +154,8 @@ List<GenericType> getGenericTypes(Type t) {
     case TupleType(types: final referredTypeParams):
       types.addAll(referredTypeParams
           .map(getGenericTypes)
-          .reduce((prev, combine) => [...prev, ...combine])
-          .map((t) => (t.name, t.constraint)));
+          .fold(<GenericType>[], (prev, combine) => [...prev, ...combine]).map(
+              (t) => (t.name, t.constraint)));
       break;
     case ObjectLiteralType(
         properties: final objectProps,
@@ -175,7 +175,7 @@ List<GenericType> getGenericTypes(Type t) {
           ) in objectMethods) {
         final typeParams = [methodType, ...methodParams.map((p) => p.type)]
             .map(getGenericTypes)
-            .reduce((prev, combine) => [...prev, ...combine]);
+            .fold(<GenericType>[], (prev, combine) => [...prev, ...combine]);
 
         types.addAll(typeParams.where((t) {
           return alreadyEstablishedTypeParams.any((al) => al.name == t.name);
@@ -184,10 +184,10 @@ List<GenericType> getGenericTypes(Type t) {
 
       for (final ConstructorDeclaration(parameters: methodParams)
           in objectConstructors) {
-        types.addAll(methodParams
-            .map((p) => getGenericTypes(p.type))
-            .reduce((prev, combine) => [...prev, ...combine])
-            .map((t) => (t.name, t.constraint)));
+        types.addAll(methodParams.map((p) => getGenericTypes(p.type)).fold(
+            <GenericType>[],
+            (prev, combine) =>
+                [...prev, ...combine]).map((t) => (t.name, t.constraint)));
       }
 
       for (final OperatorDeclaration(
@@ -197,7 +197,7 @@ List<GenericType> getGenericTypes(Type t) {
           ) in objectOperators) {
         final typeParams = [methodType, ...methodParams.map((p) => p.type)]
             .map(getGenericTypes)
-            .reduce((prev, combine) => [...prev, ...combine]);
+            .fold(<GenericType>[], (prev, combine) => [...prev, ...combine]);
 
         types.addAll(typeParams.where((t) {
           return !alreadyEstablishedTypeParams.contains(t) ||
@@ -212,7 +212,7 @@ List<GenericType> getGenericTypes(Type t) {
       ):
       final typeParams = [closureType, ...closureParams.map((p) => p.type)]
           .map(getGenericTypes)
-          .reduce((prev, combine) => [...prev, ...combine]);
+          .fold(<GenericType>[], (prev, combine) => [...prev, ...combine]);
 
       types.addAll(typeParams.where((t) {
         return alreadyEstablishedTypeParams.any((al) => al.name == t.name);

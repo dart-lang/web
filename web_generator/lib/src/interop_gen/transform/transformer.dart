@@ -52,7 +52,7 @@ class Transformer {
   final NodeMap nodeMap = NodeMap();
 
   /// A map of types
-  final NodeMap typeMap = NodeMap();
+  final TypeMap typeMap = TypeMap();
 
   /// The program map
   final ProgramMap programMap;
@@ -1254,8 +1254,6 @@ class Transformer {
 
           return homogenousEnum..isNullable = shouldBeNullable;
         } else {
-          // TODO: Support literal and normal subtype type
-          //  (i.e `"foo" | "bar" | string`)
           final idMap = types.map((t) => t.id.name);
 
           final expectedId = ID(type: 'type', name: idMap.join('|'));

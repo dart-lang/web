@@ -31,6 +31,7 @@ export declare const myTuple: [string, number];
 export declare const mySecondTuple: [string, string];
 export declare const myCloneTuple: [string, string];
 export declare const typesAsTuple: [string, number, boolean, symbol];
+export declare const eightOrSixteen: Uint8Array | Uint16Array;
 type Product = {
     id: number;
     name: string;

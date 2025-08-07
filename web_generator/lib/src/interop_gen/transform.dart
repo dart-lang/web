@@ -7,6 +7,7 @@ import 'dart:js_interop';
 
 import 'package:code_builder/code_builder.dart';
 import 'package:dart_style/dart_style.dart';
+import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 
 import '../ast/base.dart';
@@ -112,6 +113,13 @@ extension type NodeMap._(Map<String, Node> decls) implements Map<String, Node> {
   }
 
   void add(Node decl) => decls[decl.id.toString()] = decl;
+}
+
+extension type TypeMap._(Map<String, Type> types) implements NodeMap {
+  TypeMap([Map<String, Type>? types]) : types = types ?? <String, Type>{};
+
+  @redeclare
+  void add(Type decl) => types[decl.id.toString()] = decl;
 }
 
 /// A program map is a map used for handling the context of

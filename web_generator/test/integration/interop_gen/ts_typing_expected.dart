@@ -96,6 +96,8 @@ extension type JSTuple4<A extends _i1.JSAny?, B extends _i1.JSAny?,
 external JSTuple4<_i1.JSString, _i1.JSNumber, _i1.JSBoolean, _i1.JSSymbol>
     get typesAsTuple;
 @_i1.JS()
+external _AnonymousUnion_7503220 get eightOrSixteen;
+@_i1.JS()
 external AnonymousType_2194029 get randomNonTypedProduct;
 @_i1.JS()
 external AnonymousType_1358595 get config;
@@ -160,6 +162,12 @@ extension type _AnonymousUnion_6216705._(_i1.JSAny _) implements _i1.JSAny {
 
   _i2.URL get asURL => (_ as _i2.URL);
 }
+extension type _AnonymousUnion_7503220._(_i1.JSTypedArray _)
+    implements _i1.JSTypedArray {
+  _i1.JSUint8Array get asJSUint8Array => (_ as _i1.JSUint8Array);
+
+  _i1.JSUint16Array get asJSUint16Array => (_ as _i1.JSUint16Array);
+}
 extension type AnonymousType_2194029._(_i1.JSObject _) implements _i1.JSObject {
   external AnonymousType_2194029({
     double id,
@@ -184,7 +192,8 @@ extension type AnonymousType_1358595._(_i1.JSObject _) implements _i1.JSObject {
   external double taxRate;
 }
 typedef Product = AnonymousType_2194029;
-extension type _AnonymousUnion_1189263._(_i1.JSAny _) implements _i1.JSAny {
+extension type _AnonymousUnion_1189263._(_i1.JSObject _)
+    implements _i1.JSObject {
   AnonymousType_2773310 get asAnonymousType_2773310 =>
       (_ as AnonymousType_2773310);
 

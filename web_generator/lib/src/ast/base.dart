@@ -90,6 +90,8 @@ abstract class Type extends Node {
   @override
   String? dartName;
 
+  /// Whether the given type is nullable or not 
+  /// (unioned with `undefined` or `null`)
   abstract bool isNullable;
 
   @override
@@ -118,7 +120,7 @@ abstract class CallableDeclaration extends NamedDeclaration {
 
 enum DeclScope { private, protected, public }
 
-abstract class DeclarationAssociatedType<T extends Declaration> extends Type {
+abstract class DeclarationType<T extends Declaration> extends Type {
   T get declaration;
 
   String get declarationName;

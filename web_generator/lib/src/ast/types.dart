@@ -103,7 +103,7 @@ class TupleType extends Type {
   }
 }
 
-class UnionType extends DeclarationAssociatedType {
+class UnionType extends DeclarationType {
   final List<Type> types;
 
   @override
@@ -143,7 +143,7 @@ class UnionType extends DeclarationAssociatedType {
 }
 
 class HomogenousEnumType<T extends LiteralType, D extends Declaration>
-    extends UnionType implements DeclarationAssociatedType {
+    extends UnionType implements DeclarationType {
   final List<T> _types;
 
   @override
@@ -274,7 +274,7 @@ enum LiteralKind {
       };
 }
 
-class ObjectLiteralType extends DeclarationAssociatedType<TypeDeclaration> {
+class ObjectLiteralType extends DeclarationType<TypeDeclaration> {
   final List<PropertyDeclaration> properties;
 
   final List<MethodDeclaration> methods;
@@ -330,7 +330,7 @@ class ObjectLiteralType extends DeclarationAssociatedType<TypeDeclaration> {
   }
 }
 
-sealed class ClosureType extends DeclarationAssociatedType {
+sealed class ClosureType extends DeclarationType {
   final List<ParameterDeclaration> parameters;
   final Type returnType;
   final List<GenericType> typeParameters;
@@ -549,7 +549,7 @@ class _UnionDeclaration extends NamedDeclaration
         final type = t.emit(options?.toTypeOptions());
         final jsTypeAlt = getJSTypeAlternative(t);
         return Method((m) {
-          final word = t is DeclarationAssociatedType
+          final word = t is DeclarationType
               ? t.declarationName
               : (t.dartName ?? t.name ?? t.id.name);
           m

@@ -22,19 +22,14 @@ class BuiltinType extends Type {
   final bool fromDartJSInterop;
 
   @override
-  bool get isNullable => _isNullable ?? false;
-
-  final bool? _isNullable;
-
-  @override
-  set isNullable(bool isNullable) {}
+  bool isNullable;
 
   BuiltinType(
       {required this.name,
       this.typeParams = const [],
       this.fromDartJSInterop = false,
       bool? isNullable})
-      : _isNullable = isNullable;
+      : isNullable = isNullable ?? false;
 
   @override
   ID get id => ID(type: 'type', name: name);
@@ -51,7 +46,7 @@ class BuiltinType extends Type {
           .where((p) => typeParams.length != 1 || p != $voidType)
           .map((p) => p.emit(options)))
       ..url = fromDartJSInterop ? 'dart:js_interop' : null
-      ..isNullable = _isNullable ?? options?.nullable);
+      ..isNullable = isNullable || (options?.nullable ?? false));
   }
 
   static final BuiltinType $voidType = BuiltinType(name: 'void');
@@ -141,12 +136,7 @@ class PackageWebType extends Type {
   final List<Type> typeParams;
 
   @override
-  bool get isNullable => _isNullable ?? false;
-
-  final bool? _isNullable;
-
-  @override
-  set isNullable(bool isNullable) {}
+  bool isNullable;
 
   @override
   ID get id => ID(type: 'type', name: name);
@@ -155,8 +145,7 @@ class PackageWebType extends Type {
   String? get dartName => null;
 
   PackageWebType._(
-      {required this.name, this.typeParams = const [], bool? isNullable})
-      : _isNullable = isNullable;
+      {required this.name, this.typeParams = const [], this.isNullable = false});
 
   @override
   Reference emit([TypeOptions? options]) {
@@ -169,14 +158,14 @@ class PackageWebType extends Type {
           .where((p) => typeParams.length != 1 || p != BuiltinType.$voidType)
           .map((p) => p.emit(options)))
       ..url = 'package:web/web.dart'
-      ..isNullable = _isNullable ?? options?.nullable);
+      ..isNullable = isNullable || (options?.nullable ?? false));
   }
 
   static PackageWebType parse(String name,
       {bool? isNullable, List<Type> typeParams = const []}) {
     return PackageWebType._(
         name: renameMap.containsKey(name) ? renameMap[name]! : name,
-        isNullable: isNullable,
+        isNullable: isNullable ?? false,
         typeParams: typeParams);
   }
 }

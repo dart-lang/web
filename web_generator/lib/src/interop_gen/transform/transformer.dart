@@ -2000,7 +2000,7 @@ class Transformer {
               t.id.toString(): t
           });
           filteredDeclarations.add(u.declaration);
-        case final DeclarationAssociatedType d:
+        case final DeclarationType d:
           filteredDeclarations.add(d.declaration);
           break;
         case BuiltinType(typeParams: final typeParams)

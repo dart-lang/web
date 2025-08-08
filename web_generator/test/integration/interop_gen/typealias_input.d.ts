@@ -11,6 +11,7 @@ declare namespace Space {
     }
     const earth: Planet;
 }
+export type NameAndAge = [string, number];
 export type Username = string;
 export type Age = number;
 export type IsActive = boolean;

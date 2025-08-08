@@ -7,6 +7,7 @@ import 'dart:js_interop';
 
 import 'package:code_builder/code_builder.dart';
 import 'package:dart_style/dart_style.dart';
+import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 
 import '../ast/base.dart';
@@ -61,13 +62,18 @@ class TransformResult {
           }));
         }
         l
-          ..ignoreForFile.addAll([
+          ..ignoreForFile.addAll({
             'constant_identifier_names',
             'non_constant_identifier_names',
             if (declMap.values
                 .any((d) => d is NestableDeclaration && d.parent != null))
               'camel_case_types',
-          ])
+            if (declMap.values.any((v) => v.id.name.contains('Anonymous'))) ...[
+              'camel_case_types',
+              'library_private_types_in_public_api',
+              'unnecessary_parenthesis'
+            ]
+          })
           ..body.addAll(specs);
       });
       return MapEntry(
@@ -107,6 +113,13 @@ extension type NodeMap._(Map<String, Node> decls) implements Map<String, Node> {
   }
 
   void add(Node decl) => decls[decl.id.toString()] = decl;
+}
+
+extension type TypeMap._(Map<String, Type> types) implements NodeMap {
+  TypeMap([Map<String, Type>? types]) : types = types ?? <String, Type>{};
+
+  @redeclare
+  void add(Type decl) => types[decl.id.toString()] = decl;
 }
 
 /// A program map is a map used for handling the context of

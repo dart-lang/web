@@ -116,7 +116,10 @@ Type getClassRepresentationType(ClassDeclaration cl) {
   }
 }
 
-(List<String>, List<Expression>) generateFromDocumentation(Documentation docs) {
+(List<String>, List<Expression>) generateFromDocumentation(
+    Documentation? docs) {
+  if (docs == null) return ([], []);
+
   if (docs.docs.trim().isEmpty) {
     return ([], docs.annotations.map((d) => d.emit()).toList());
   }

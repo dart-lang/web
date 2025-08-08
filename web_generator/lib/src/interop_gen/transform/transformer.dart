@@ -1649,7 +1649,6 @@ class Transformer {
     for (final doc in topLevelDocParts) {
       final docString = _parseSymbolDisplayPart(doc);
       docBuffer.write(docString);
-      annotations.addAll(annotations);
     }
 
     docBuffer.writeln();

@@ -5,6 +5,7 @@
 import 'package:code_builder/code_builder.dart';
 
 import '../interop_gen/namer.dart';
+import 'documentation.dart';
 import 'types.dart';
 
 class GlobalOptions {
@@ -64,6 +65,8 @@ abstract class Declaration extends Node {
 abstract class NamedDeclaration extends Declaration {
   @override
   abstract String name;
+
+  abstract Documentation? documentation;
 
   ReferredType asReferredType([List<Type>? typeArgs, String? url]) =>
       ReferredType(

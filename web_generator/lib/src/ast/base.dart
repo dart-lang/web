@@ -90,7 +90,7 @@ abstract class Type extends Node {
   @override
   String? dartName;
 
-  /// Whether the given type is nullable or not 
+  /// Whether the given type is nullable or not
   /// (unioned with `undefined` or `null`)
   abstract bool isNullable;
 

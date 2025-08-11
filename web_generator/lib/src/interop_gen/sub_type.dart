@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'package:meta/meta.dart';
+
 import '../ast/base.dart';
 import '../ast/builtin.dart';
 import '../ast/declarations.dart';
@@ -11,33 +13,32 @@ import '../js_type_supertypes.dart';
 import 'hasher.dart';
 import 'transform.dart';
 
-class TypeHierarchalTree {
-  List<TypeHierarchalTree> nodes = [];
-
-  TypeHierarchalTree? parent;
+class TypeHierarchy {
+  List<TypeHierarchy> nodes = [];
 
   String value;
 
-  TypeHierarchalTree(this.value);
+  TypeHierarchy(this.value);
 
-  TypeHierarchalTree? getMapWithValue(String value) {
+  TypeHierarchy? getMapWithValue(String value) {
     if (this.value == value) return this;
     if (nodes.isEmpty) return null;
     return nodes.where((v) => v.getMapWithValue(value) != null).firstOrNull;
   }
 
-  TypeHierarchalTree getMapWithLookup(Iterable<int> path) {
-    final firstIndex = path.firstOrNull;
-    if (firstIndex == null) return this;
-    return nodes[firstIndex].getMapWithLookup(path.skip(1));
+  @visibleForTesting
+  TypeHierarchy getMapWithLookup(Iterable<int> path) {
+    if (path.isEmpty) return this;
+    return nodes[path.first].getMapWithLookup(path.skip(1));
   }
 
+  @visibleForTesting
   String getValueWithLookup(Iterable<int> path) {
-    final firstIndex = path.firstOrNull;
-    if (firstIndex == null) return value;
-    return nodes[firstIndex].getValueWithLookup(path.skip(1));
+    if (path.isEmpty) return value;
+    return nodes[path.first].getValueWithLookup(path.skip(1));
   }
 
+  @visibleForTesting
   ({int level, List<int> path})? lookup(String value) {
     return _lookup(value, 0, []);
   }
@@ -60,19 +61,14 @@ class TypeHierarchalTree {
     }
   }
 
-  void add(TypeHierarchalTree map) {
-    map.parent = this;
-    return nodes.add(map);
-  }
-
-  void addValues(Iterable<String> list) {
+  void addChainedValues(Iterable<String> list) {
     if (list.isEmpty) {
       return;
     } else if (list.length == 1) {
-      nodes.add(TypeHierarchalTree(list.single));
+      nodes.add(TypeHierarchy(list.single));
       return;
     }
-    nodes.add(TypeHierarchalTree(list.first)..addValues(list.skip(1)));
+    nodes.add(TypeHierarchy(list.first)..addChainedValues(list.skip(1)));
   }
 
   Set<String> expand() {
@@ -84,131 +80,222 @@ class TypeHierarchalTree {
           .fold(<String>{}, (prev, next) => {...prev, ...next})
     };
   }
+
+  @override
+  bool operator ==(Object other) {
+    return other is TypeHierarchy && other.value == value;
+  }
+
+  @override
+  int get hashCode => Object.hashAll([value]);
+
+  @override
+  String toString() => value.toString();
 }
 
-TypeHierarchalTree getTypeHierarchy(Type type) {
+Map<String, TypeHierarchy> _cachedTrees = {};
+
+Map<TypeHierarchy, int> generateMapFromNodes(List<TypeHierarchy> nodes) {
+  final graph = <TypeHierarchy, int>{};
+  for (final node in nodes) {
+    graph[node] = 0;
+    _mapFromNodes(node.nodes, graph);
+  }
+  return graph;
+}
+
+void _mapFromNodes(List<TypeHierarchy> nodes, Map<TypeHierarchy, int> map) {
+  for (final node in nodes) {
+    map.update(node, (v) => v++, ifAbsent: () => 1);
+    _mapFromNodes(node.nodes, map);
+  }
+}
+
+List<Set<String>> topologicalList(List<TypeHierarchy> nodes) {
+  final graph = generateMapFromNodes(nodes);
+  final outputList = <Set<String>>[];
+
+  final nodesWithoutEdges = <TypeHierarchy>{};
+  for (final MapEntry(key: node, value: noOfEdges) in graph.entries) {
+    if (noOfEdges == 0) nodesWithoutEdges.add(node);
+  }
+
+  while (nodesWithoutEdges.isNotEmpty) {
+    final listToAdd = <String>{};
+    final nodesToAddNext = <TypeHierarchy>{};
+    for (final node in nodesWithoutEdges) {
+      listToAdd.add(node.value);
+      for (final n in node.nodes) {
+        graph[n] = graph[n]! - 1;
+        if (graph[n] == 0) {
+          nodesToAddNext.add(n);
+        }
+      }
+    }
+
+    nodesWithoutEdges.clear();
+    nodesWithoutEdges.addAll(nodesToAddNext);
+    outputList.add(listToAdd);
+  }
+
+  return outputList;
+}
+
+TypeHierarchy getTypeHierarchy(Type type) {
   if (type case final ReferredType ref
       when ref.declaration is TypeAliasDeclaration) {
     return getTypeHierarchy((ref.declaration as TypeAliasDeclaration).type);
   }
 
-  final map = TypeHierarchalTree(type.name ?? type.id.name);
+  final name = type.name ?? type.id.name;
+  return _cachedTrees.putIfAbsent(name, () {
+    final hierarchy = TypeHierarchy(name);
 
-  switch (type) {
-    case HomogenousEnumType(types: final homogenousTypes):
-      map.add(getTypeHierarchy(homogenousTypes.first.baseType));
-      break;
-    case UnionType(types: final types):
-      // subtype is union
-      map.add(getTypeHierarchy(getSubTypeOfTypes(types)));
-      break;
-    case TupleType(types: final types):
-      // subtype is JSArray<union>
-      map.add(getTypeHierarchy(BuiltinType.primitiveType(PrimitiveType.array,
-          typeParams: [getSubTypeOfTypes(types)])));
-      break;
-    case GenericType(constraint: final constraintedType):
-      map.add(getTypeHierarchy(constraintedType ?? BuiltinType.anyType));
-      break;
-    case ReferredDeclarationType(type: final referredType):
-      return getTypeHierarchy(referredType);
-    case ReferredType(declaration: final decl) when decl is ClassDeclaration:
-      final types = [
-        if (decl.extendedType != null) decl.extendedType!,
-        ...decl.implementedTypes,
-      ];
-      if (types.isEmpty) {
-        map.add(
-            getTypeHierarchy(BuiltinType.primitiveType(PrimitiveType.object)));
-      } else {
-        for (final t in types) {
-          map.add(getTypeHierarchy(t));
+    switch (type) {
+      case HomogenousEnumType(types: final homogenousTypes):
+        hierarchy.nodes.add(getTypeHierarchy(homogenousTypes.first.baseType));
+        break;
+      case UnionType(types: final types):
+        // subtype is union
+        hierarchy.nodes
+            .add(getTypeHierarchy(getLowestCommonAncestorOfTypes(types)));
+        break;
+      case TupleType(types: final types):
+        // subtype is JSArray<union>
+        hierarchy.nodes.add(getTypeHierarchy(BuiltinType.primitiveType(
+            PrimitiveType.array,
+            typeParams: [getLowestCommonAncestorOfTypes(types)])));
+        break;
+      case GenericType(constraint: final constraintedType):
+        hierarchy.nodes
+            .add(getTypeHierarchy(constraintedType ?? BuiltinType.anyType));
+        break;
+      case ReferredDeclarationType(type: final referredType):
+        return getTypeHierarchy(referredType);
+      case ReferredType(declaration: final decl) when decl is ClassDeclaration:
+        final types = [
+          if (decl.extendedType != null) decl.extendedType!,
+          ...decl.implementedTypes,
+        ];
+        if (types.isEmpty) {
+          hierarchy.nodes.add(getTypeHierarchy(
+              BuiltinType.primitiveType(PrimitiveType.object)));
+        } else {
+          for (final t in types) {
+            hierarchy.nodes.add(getTypeHierarchy(t));
+          }
         }
-      }
-      break;
-    case ReferredType(declaration: final decl)
-        when decl is InterfaceDeclaration:
-      if (decl.extendedTypes.isEmpty) {
-        map.add(
-            getTypeHierarchy(BuiltinType.primitiveType(PrimitiveType.object)));
-      } else {
-        for (final t in decl.extendedTypes) {
-          map.add(getTypeHierarchy(t));
+        break;
+      case ReferredType(declaration: final decl)
+          when decl is InterfaceDeclaration:
+        if (decl.extendedTypes.isEmpty) {
+          hierarchy.nodes.add(getTypeHierarchy(
+              BuiltinType.primitiveType(PrimitiveType.object)));
+        } else {
+          for (final t in decl.extendedTypes) {
+            hierarchy.nodes.add(getTypeHierarchy(t));
+          }
         }
-      }
-      break;
-    case ReferredType(declaration: final decl)
-        when decl is NamespaceDeclaration:
-    case ObjectLiteralType():
-      // subtype is JSObject
-      map.add(
-          getTypeHierarchy(BuiltinType.primitiveType(PrimitiveType.object)));
-      break;
-    case ReferredType(declaration: final decl) when decl is FunctionDeclaration:
-    case ClosureType():
-      // subtype is JSFunction
-      map.add(getTypeHierarchy(BuiltinType.referred('Function')!));
-      break;
-    case LiteralType(baseType: final baseType):
-      map.add(getTypeHierarchy(baseType));
-      break;
+        break;
+      case ReferredType(declaration: final decl)
+          when decl is NamespaceDeclaration:
+      case ObjectLiteralType():
+        // subtype is JSObject
+        hierarchy.nodes.add(
+            getTypeHierarchy(BuiltinType.primitiveType(PrimitiveType.object)));
+        break;
+      case ReferredType(declaration: final decl)
+          when decl is FunctionDeclaration:
+      case ClosureType():
+        // subtype is JSFunction
+        hierarchy.nodes
+            .add(getTypeHierarchy(BuiltinType.referred('Function')!));
+        break;
+      case LiteralType(baseType: final baseType):
+        hierarchy.nodes.add(getTypeHierarchy(baseType));
+        break;
 
-    case BuiltinType():
-      // we can only use JS types
-      final BuiltinType(name: jsName) =
-          getJSTypeAlternative(type) as BuiltinType;
+      case BuiltinType():
+        // we can only use JS types
+        final BuiltinType(name: jsName) =
+            getJSTypeAlternative(type) as BuiltinType;
 
-      var value = jsTypeSupertypes[jsName];
-      final list = <String>[];
-      while (value != null) {
-        list.add(value);
-        value = jsTypeSupertypes[value];
-      }
-      map.addValues(list);
-      break;
-    default:
-      print('WARN: Could not get type hierarchy for type of kind '
-          '${type.runtimeType}. Skipping...');
-      break;
-  }
-  return map;
+        var value = jsTypeSupertypes[jsName];
+        final list = <String>[];
+        while (value != null) {
+          list.add(value);
+          value = jsTypeSupertypes[value];
+        }
+        hierarchy.addChainedValues(list);
+        break;
+      default:
+        print('WARN: Could not get type hierarchy for type of kind '
+            '${type.runtimeType}. Skipping...');
+        break;
+    }
+    return hierarchy;
+  });
 }
 
-TypeMap createTypeMap(List<Type> types) {
-  final outputMap = TypeMap();
+TypeMap createTypeMap(List<Type> types, {TypeMap? map}) {
+  final outputMap = map ??
+      TypeMap({
+        'JSBoolean': BuiltinType.primitiveType(PrimitiveType.boolean,
+            shouldEmitJsType: true),
+        'JSNumber': BuiltinType.primitiveType(PrimitiveType.num,
+            shouldEmitJsType: true),
+        'JSObject': BuiltinType.primitiveType(PrimitiveType.object,
+            shouldEmitJsType: true),
+        'JSString': BuiltinType.primitiveType(PrimitiveType.string,
+            shouldEmitJsType: true),
+        'JSVoid': BuiltinType.primitiveType(PrimitiveType.$void,
+            shouldEmitJsType: true),
+        'JSSymbol': BuiltinType.primitiveType(PrimitiveType.symbol,
+            shouldEmitJsType: true),
+        'JSBigInt': BuiltinType.primitiveType(PrimitiveType.bigint,
+            shouldEmitJsType: true),
+        'JSAny': BuiltinType.primitiveType(PrimitiveType.any),
+        'JSTypedArray':
+            BuiltinType(name: 'JSTypedArray', fromDartJSInterop: true),
+      });
 
   void addToMap(Type type) {
-    outputMap.addAll(<String, Type>{type.name ?? type.id.name: type});
+    outputMap[type.name ?? type.id.name] = type;
   }
 
   for (final type in types) {
+    final name = type.name ?? type.id.name;
+
+    if (outputMap.containsKey(name)) continue;
+
     addToMap(type);
     switch (type) {
       case ReferredDeclarationType(type: final referredType):
-        outputMap.addAll(createTypeMap([referredType]));
+        outputMap.addAll(createTypeMap([referredType], map: outputMap));
         break;
       case ReferredType(declaration: final decl) when decl is ClassDeclaration:
         outputMap.addAll(createTypeMap([
           if (decl.extendedType != null) decl.extendedType!,
           ...decl.implementedTypes
-        ]));
+        ], map: outputMap));
       case ReferredType(declaration: final decl)
           when decl is FunctionDeclaration:
         addToMap(BuiltinType.referred('Function')!);
         break;
       case ReferredType(declaration: final decl)
           when decl is InterfaceDeclaration:
-        outputMap.addAll(createTypeMap([...decl.extendedTypes]));
+        outputMap
+            .addAll(createTypeMap([...decl.extendedTypes], map: outputMap));
       case HomogenousEnumType(types: final homogenousTypes):
         outputMap.addAll(
-            createTypeMap(homogenousTypes.map((h) => h.baseType).toList()));
+            createTypeMap([homogenousTypes.first.baseType], map: outputMap));
         break;
       case TupleType(types: final types):
       case UnionType(types: final types):
-        outputMap.addAll(createTypeMap(types));
+        outputMap.addAll(createTypeMap(types, map: outputMap));
         break;
       case GenericType(constraint: final constraintedType?):
-        outputMap.addAll(createTypeMap([constraintedType]));
+        outputMap.addAll(createTypeMap([constraintedType], map: outputMap));
         break;
       default:
         break;
@@ -218,7 +305,7 @@ TypeMap createTypeMap(List<Type> types) {
   return outputMap;
 }
 
-Type getSubTypeOfTypes(List<Type> types,
+Type getLowestCommonAncestorOfTypes(List<Type> types,
     {bool isNullable = false, TypeMap? typeMap}) {
   typeMap ??= createTypeMap(types);
 
@@ -231,63 +318,35 @@ Type getSubTypeOfTypes(List<Type> types,
     return t;
   }
 
-  // get the type hierarchy of each type.
+  // Calculate the intersection of all type hierarchies
   final typeMaps = types.map(getTypeHierarchy);
   final parentHierarchy = typeMaps.map((map) => map.expand());
   final commonTypes =
       parentHierarchy.reduce((val, element) => val.intersection(element));
 
-  // filter any
-  final markedForRemoval = <String>{};
-  for (final type in commonTypes) {
-    // map should be same for all types
-    final lookupResult = typeMaps.first.lookup(type)!;
-    final typeMap = typeMaps.first.getMapWithLookup(lookupResult.path);
-
-    // remove types in map
-    markedForRemoval.addAll(commonTypes.where(
-        (t) => typeMap.lookup(t) != null && typeMap.lookup(t)!.level != 0));
+  final topoList = topologicalList(typeMaps.toList());
+  for (final level in topoList) {
+    final typesAtLevel = commonTypes.intersection(level);
+    if (typesAtLevel.isNotEmpty) {
+      if (typesAtLevel.singleOrNull case final finalType?) {
+        return deduceType(finalType, typeMap);
+      } else {
+        return UnionType(
+            types: typesAtLevel.map((c) => deduceType(c, typeMap!)).toList(),
+            name: '_AnonymousUnion_'
+                '${AnonymousHasher.hashUnion(commonTypes.toList())}');
+      }
+    }
   }
 
-  commonTypes.removeAll(markedForRemoval);
-
-  if (commonTypes.singleOrNull case final finalType?) {
-    return deduceType(finalType, typeMap);
-  } else if (commonTypes.isEmpty) {
-    return BuiltinType.primitiveType(PrimitiveType.any);
-  } else {
-    return UnionType(
-        types: commonTypes.map((c) => deduceType(c, typeMap!)).toList(),
-        name: '_AnonymousUnion_'
-            '${AnonymousHasher.hashUnion(commonTypes.toList())}');
-  }
+  return BuiltinType.primitiveType(PrimitiveType.any);
 }
 
-Type deduceType(String name, TypeMap map, {bool? shouldEmitJsType}) {
+Type deduceType(String name, TypeMap map) {
   final referredType =
       BuiltinType.referred(name.startsWith('JS') ? name.substring(2) : name);
   if (referredType != null) return referredType;
-  return (switch (name) {
-        'JSBoolean' => BuiltinType.primitiveType(PrimitiveType.boolean,
-            shouldEmitJsType: shouldEmitJsType),
-        'JSNumber' => BuiltinType.primitiveType(PrimitiveType.num,
-            shouldEmitJsType: shouldEmitJsType),
-        'JSObject' => BuiltinType.primitiveType(PrimitiveType.object,
-            shouldEmitJsType: shouldEmitJsType),
-        'JSString' => BuiltinType.primitiveType(PrimitiveType.string,
-            shouldEmitJsType: shouldEmitJsType),
-        'JSVoid' => BuiltinType.primitiveType(PrimitiveType.$void,
-            shouldEmitJsType: shouldEmitJsType),
-        'JSSymbol' => BuiltinType.primitiveType(PrimitiveType.symbol,
-            shouldEmitJsType: shouldEmitJsType),
-        'JSBigInt' => BuiltinType.primitiveType(PrimitiveType.bigint,
-            shouldEmitJsType: shouldEmitJsType),
-        'JSAny' => BuiltinType.primitiveType(PrimitiveType.any),
-        'JSTypedArray' =>
-          BuiltinType(name: 'JSTypedArray', fromDartJSInterop: true),
-        _ => map[name]
-      } ??
-      BuiltinType.primitiveType(PrimitiveType.any)) as Type;
+  return (map[name] ?? BuiltinType.primitiveType(PrimitiveType.any)) as Type;
 }
 
 /// Checks if there is a type shared between the types, usually in the

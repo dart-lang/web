@@ -63,13 +63,14 @@ sealed class TypeDeclaration extends NestableDeclaration
       this.constructors = const [],
       this.parent});
 
-  /// [assertRepType] is used to assert that the extension type generated
-  /// has a representation type of the first member of [extendees] if any.
+  /// [useFirstExtendeeAsRepType] is used to assert that the extension type
+  /// generated has a representation type of the first member of [extendees]
+  /// if any.
   ExtensionType _emit(covariant DeclarationOptions? options,
       {bool abstract = false,
       List<Type> extendees = const [],
       List<Type> implementees = const [],
-      bool assertRepType = false,
+      bool useFirstExtendeeAsRepType = false,
       bool objectLiteralConstructor = false}) {
     options ??= DeclarationOptions();
 
@@ -96,8 +97,8 @@ sealed class TypeDeclaration extends NestableDeclaration
     methodDecs.addAll(operators.where((p) => p.scope == DeclScope.public).map(
         (m) => m.emit(options!..override = isOverride(m.dartName ?? m.name))));
 
-    final repType = assertRepType || this is ClassDeclaration
-        ? getClassRepresentationType(this)
+    final repType = useFirstExtendeeAsRepType || this is ClassDeclaration
+        ? getRepresentationType(this)
         : BuiltinType.primitiveType(PrimitiveType.object, isNullable: false);
 
     return ExtensionType((e) => e
@@ -637,7 +638,7 @@ class InterfaceDeclaration extends TypeDeclaration {
   ExtensionType emit([covariant DeclarationOptions? options]) {
     return super._emit(options,
         extendees: extendedTypes,
-        assertRepType: assertRepType,
+        useFirstExtendeeAsRepType: assertRepType,
         objectLiteralConstructor: objectLiteralConstructor);
   }
 }

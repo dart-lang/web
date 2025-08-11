@@ -97,18 +97,18 @@ Set<String> getMemberHierarchy(TypeDeclaration type,
   return members;
 }
 
-Type getClassRepresentationType(TypeDeclaration cl) {
+Type getRepresentationType(TypeDeclaration cl) {
   if (cl case ClassDeclaration(extendedType: final extendee?)) {
     return switch (extendee) {
       ReferredType(declaration: final d) when d is ClassDeclaration =>
-        getClassRepresentationType(d),
+        getRepresentationType(d),
       final BuiltinType b => b,
       _ => BuiltinType.primitiveType(PrimitiveType.object, isNullable: false)
     };
   } else if (cl case InterfaceDeclaration(extendedTypes: [final extendee])) {
     return switch (extendee) {
-      ReferredType(declaration: final d) when d is ClassDeclaration =>
-        getClassRepresentationType(d),
+      ReferredType(declaration: final d) when d is TypeDeclaration =>
+        getRepresentationType(d),
       final BuiltinType b => b,
       _ => BuiltinType.primitiveType(PrimitiveType.object, isNullable: false)
     };
@@ -143,6 +143,7 @@ Type getClassRepresentationType(TypeDeclaration cl) {
   return (requiredParams, optionalParams);
 }
 
+/// Recursively get the generic types specified in a given type [t]
 List<GenericType> getGenericTypes(Type t) {
   final types = <(String, Type?)>[];
   switch (t) {
@@ -152,10 +153,10 @@ List<GenericType> getGenericTypes(Type t) {
     case ReferredType(typeParams: final referredTypeParams):
     case UnionType(types: final referredTypeParams):
     case TupleType(types: final referredTypeParams):
-      types.addAll(referredTypeParams
-          .map(getGenericTypes)
-          .fold(<GenericType>[], (prev, combine) => [...prev, ...combine]).map(
-              (t) => (t.name, t.constraint)));
+      for (final referredTypeParam in referredTypeParams) {
+        types.addAll(getGenericTypes(referredTypeParam)
+            .map((t) => (t.name, t.constraint)));
+      }
       break;
     case ObjectLiteralType(
         properties: final objectProps,
@@ -173,21 +174,26 @@ List<GenericType> getGenericTypes(Type t) {
             returnType: methodType,
             parameters: methodParams
           ) in objectMethods) {
-        final typeParams = [methodType, ...methodParams.map((p) => p.type)]
-            .map(getGenericTypes)
-            .fold(<GenericType>[], (prev, combine) => [...prev, ...combine]);
+        final typeParams = [methodType, ...methodParams.map((p) => p.type)];
 
-        types.addAll(typeParams.where((t) {
-          return alreadyEstablishedTypeParams.any((al) => al.name == t.name);
-        }).map((t) => (t.name, t.constraint)));
+        for (final type in typeParams) {
+          final genericTypes = getGenericTypes(type);
+          for (final genericType in genericTypes) {
+            if (alreadyEstablishedTypeParams
+                .any((al) => al.name == genericType.name)) {
+              types.add((genericType.name, genericType.constraint));
+            }
+          }
+        }
       }
 
       for (final ConstructorDeclaration(parameters: methodParams)
           in objectConstructors) {
-        types.addAll(methodParams.map((p) => getGenericTypes(p.type)).fold(
-            <GenericType>[],
-            (prev, combine) =>
-                [...prev, ...combine]).map((t) => (t.name, t.constraint)));
+        for (final ParameterDeclaration(type: methodParamType)
+            in methodParams) {
+          types.addAll(getGenericTypes(methodParamType)
+              .map((t) => (t.name, t.constraint)));
+        }
       }
 
       for (final OperatorDeclaration(
@@ -195,14 +201,17 @@ List<GenericType> getGenericTypes(Type t) {
             returnType: methodType,
             parameters: methodParams
           ) in objectOperators) {
-        final typeParams = [methodType, ...methodParams.map((p) => p.type)]
-            .map(getGenericTypes)
-            .fold(<GenericType>[], (prev, combine) => [...prev, ...combine]);
+        final typeParams = [methodType, ...methodParams.map((p) => p.type)];
 
-        types.addAll(typeParams.where((t) {
-          return !alreadyEstablishedTypeParams.contains(t) ||
-              alreadyEstablishedTypeParams.any((al) => al.name == t.name);
-        }).map((t) => (t.name, t.constraint)));
+        for (final type in typeParams) {
+          final genericTypes = getGenericTypes(type);
+          for (final genericType in genericTypes) {
+            if (alreadyEstablishedTypeParams
+                .any((al) => al.name == genericType.name)) {
+              types.add((genericType.name, genericType.constraint));
+            }
+          }
+        }
       }
       break;
     case ClosureType(
@@ -224,10 +233,10 @@ List<GenericType> getGenericTypes(Type t) {
   return types.map((t) => GenericType(name: t.$1, constraint: t.$2)).toList();
 }
 
-Type getDeepType(Type t) {
+Type desugarTypeAliases(Type t) {
   if (t case final ReferredType ref
       when ref.declaration is TypeAliasDeclaration) {
-    return getDeepType((ref.declaration as TypeAliasDeclaration).type);
+    return desugarTypeAliases((ref.declaration as TypeAliasDeclaration).type);
   }
   return t;
 }
@@ -257,16 +266,16 @@ class _TupleDeclaration extends NamedDeclaration
   String get name => readonly ? 'JSReadonlyTuple$count' : 'JSTuple$count';
 
   @override
-  set name(String name) {}
+  set name(String name) {
+    throw Exception('Forbidden: Cannot set name on tuple declaration');
+  }
 
   @override
   Spec emit([covariant DeclarationOptions? options]) {
     options ??= DeclarationOptions();
 
     final repType = BuiltinType.primitiveType(PrimitiveType.array,
-        shouldEmitJsType: true,
-        // TODO: get sub type instead
-        typeParams: [BuiltinType.anyType]);
+        shouldEmitJsType: true, typeParams: [BuiltinType.anyType]);
 
     return ExtensionType((e) => e
       ..name = name

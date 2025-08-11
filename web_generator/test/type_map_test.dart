@@ -58,17 +58,21 @@ void main() {
     });
 
     test('Sub Type Primitive Test', () {
-      expect(getSubTypeOfTypes([BuiltinType.anyType, BuiltinType.anyType]).name,
+      expect(
+          getLowestCommonAncestorOfTypes(
+              [BuiltinType.anyType, BuiltinType.anyType]).name,
           equals('JSAny'));
 
-      final numStringSubType = getSubTypeOfTypes([
+      final numStringSubType = getLowestCommonAncestorOfTypes([
         BuiltinType.primitiveType(PrimitiveType.num),
         BuiltinType.primitiveType(PrimitiveType.string)
       ]);
       expect(numStringSubType.name, equals('JSAny'));
     });
 
-    test('Sub Type Interface Test', () {
+    group('LCA Test (small)', () {});
+
+    group('LCA Test (medium)', () {
       final a = InterfaceDeclaration(
           name: 'A',
           exported: true,
@@ -106,30 +110,83 @@ void main() {
             b.asReferredType(),
             d.asReferredType()
           ]);
+      final h = InterfaceDeclaration(
+          name: 'H',
+          exported: true,
+          id: const ID(type: 'interface', name: 'H'),
+          extendedTypes: [g.asReferredType(), f.asReferredType()]);
 
-      final abType =
-          getSubTypeOfTypes([a.asReferredType(), b.asReferredType()]);
-      expect(abType.name, equals('JSObject'));
+      test('Topological List Test', () {
+        final abTopoMap = topologicalList([
+          a.asReferredType(),
+          b.asReferredType()
+        ].map(getTypeHierarchy).toList());
 
-      final acType =
-          getSubTypeOfTypes([a.asReferredType(), c.asReferredType()]);
-      expect(acType, isA<ReferredType>());
-      expect((acType as ReferredType).declaration.name, equals('A'));
+        expect(abTopoMap.first, equals({'A', 'B'}),
+            reason: 'Root Values should be interface types');
+        expect(abTopoMap[1], equals({'JSObject'}),
+            reason: 'A and B inherit JSObject');
+        assert(abTopoMap.last.single == 'JSAny',
+            'A and B must always inherit JSAny, and should be last in graph chain');
 
-      final acdType = getSubTypeOfTypes(
-          [a.asReferredType(), c.asReferredType(), d.asReferredType()]);
-      expect(acdType, isA<ReferredType>());
-      expect((acdType as ReferredType).declaration.name, equals('A'));
+        final cfTopoMap = topologicalList([
+          c.asReferredType(),
+          f.asReferredType()
+        ].map(getTypeHierarchy).toList());
 
-      final cfType =
-          getSubTypeOfTypes([c.asReferredType(), f.asReferredType()]);
-      expect(cfType, isA<ReferredType>());
-      expect((cfType as ReferredType).declaration.name, equals('C'));
+        expect(cfTopoMap[1], contains(equals('A')),
+            reason: 'C and F inherit A');
 
-      final egType =
-          getSubTypeOfTypes([e.asReferredType(), g.asReferredType()]);
-      expect(egType, isA<UnionType>());
-      expect((egType as UnionType).types.length, equals(2));
+        final egTopoMap = topologicalList([
+          e.asReferredType(),
+          g.asReferredType()
+        ].map(getTypeHierarchy).toList());
+        expect(egTopoMap[1], containsAll(['A', 'B']),
+            reason: 'E and G both inherit from A and B');
+      });
+
+      test('Sub Type Test', () {
+        final abType = getLowestCommonAncestorOfTypes(
+            [a.asReferredType(), b.asReferredType()]);
+        expect(abType.name, equals('JSObject'));
+
+        final acType = getLowestCommonAncestorOfTypes(
+            [a.asReferredType(), c.asReferredType()]);
+        expect(acType, isA<ReferredType>());
+        expect((acType as ReferredType).declaration.name, equals('A'));
+
+        final acdType = getLowestCommonAncestorOfTypes(
+            [a.asReferredType(), c.asReferredType(), d.asReferredType()]);
+        expect(acdType, isA<ReferredType>());
+        expect((acdType as ReferredType).declaration.name, equals('A'));
+
+        final cfType = getLowestCommonAncestorOfTypes(
+            [c.asReferredType(), f.asReferredType()]);
+        expect(cfType, isA<ReferredType>());
+        expect((cfType as ReferredType).declaration.name, equals('C'));
+
+        final egType = getLowestCommonAncestorOfTypes(
+            [e.asReferredType(), g.asReferredType()]);
+        expect(egType, isA<UnionType>(),
+            reason: 'Common types between E and G are more than one');
+        final UnionType(types: egUnionTypes) = egType as UnionType;
+        expect(egUnionTypes.length, equals(2),
+            reason: 'Common types between E and G are two');
+        expect(egUnionTypes.map((t) => t.name), equals(['A', 'B']),
+            reason: 'Common types between E and G are two: A and B');
+
+        final eghType = getLowestCommonAncestorOfTypes(
+            [e.asReferredType(), g.asReferredType(), h.asReferredType()]);
+        expect(eghType, isA<UnionType>(),
+            reason: 'Common types between E, G and H is more than one');
+        final UnionType(types: eghUnionTypes) = eghType as UnionType;
+        expect(eghUnionTypes.length, equals(2),
+            reason: 'Common types between E, G and H are two');
+        expect(eghUnionTypes.map((t) => t.name), equals(['A', 'B']),
+            reason: 'Common types between E, G and H are two: A and B');
+      });
     });
+
+    group('LCA Test (large)', () {});
   });
 }

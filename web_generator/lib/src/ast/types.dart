@@ -316,9 +316,8 @@ class ObjectLiteralType extends DeclarationType<TypeDeclaration> {
       operators: operators,
       constructors: constructors,
       typeParameters: getGenericTypes(this).map((g) {
-        final t = g;
-        t.constraint ??= BuiltinType.anyType;
-        return t;
+        g.constraint ??= BuiltinType.anyType;
+        return g;
       }).toList());
 
   @override
@@ -445,8 +444,10 @@ class _ConstructorDeclaration extends CallableDeclaration
 
     final repType = BuiltinType.referred('Function')!;
 
-    final isNamedParams = getDeepType(returnType) is ObjectLiteralType &&
-        (getDeepType(returnType) as ObjectLiteralType).constructors.isEmpty;
+    final isNamedParams = desugarTypeAliases(returnType) is ObjectLiteralType &&
+        (desugarTypeAliases(returnType) as ObjectLiteralType)
+            .constructors
+            .isEmpty;
 
     return ExtensionType((eType) => eType
       ..name = name
@@ -517,12 +518,16 @@ class _UnionDeclaration extends NamedDeclaration
       this.types = const [],
       this.isNullable = false,
       List<GenericType>? typeParameters})
-      : typeParameters = typeParameters ??
-            types.map(getGenericTypes).fold(<GenericType>[],
-                (prev, combine) => [...prev, ...combine]).map((t) {
+      : typeParameters = typeParameters ?? [] {
+    if (typeParameters == null) {
+      for (final type in types) {
+        this.typeParameters.addAll(getGenericTypes(type).map((t) {
               t.constraint ??= BuiltinType.anyType;
               return t;
-            }).toList();
+            }));
+      }
+    }
+  }
 
   @override
   String? dartName;
@@ -534,7 +539,8 @@ class _UnionDeclaration extends NamedDeclaration
   Spec emit([covariant DeclarationOptions? options]) {
     options ??= DeclarationOptions();
 
-    final repType = getSubTypeOfTypes(types, isNullable: isNullable);
+    final repType =
+        getLowestCommonAncestorOfTypes(types, isNullable: isNullable);
 
     return ExtensionType((e) => e
       ..name = name

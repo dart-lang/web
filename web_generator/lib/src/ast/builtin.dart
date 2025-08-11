@@ -145,7 +145,9 @@ class PackageWebType extends Type {
   String? get dartName => null;
 
   PackageWebType._(
-      {required this.name, this.typeParams = const [], this.isNullable = false});
+      {required this.name,
+      this.typeParams = const [],
+      this.isNullable = false});
 
   @override
   Reference emit([TypeOptions? options]) {

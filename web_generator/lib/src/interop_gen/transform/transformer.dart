@@ -1225,54 +1225,36 @@ class Transformer {
           }
         }
 
-        // check if it is a union of literals
-        if (isHomogenous) {
-          if (nonNullLiteralTypes.isNotEmpty && onlyContainsBooleanTypes) {
-            return BuiltinType.primitiveType(PrimitiveType.boolean,
-                isNullable: shouldBeNullable);
-          }
-
-          final idMap = nonNullLiteralTypes.map((t) => t.value.toString());
-
-          final expectedId = ID(type: 'type', name: idMap.join('|'));
-
-          if (typeMap.containsKey(expectedId.toString())) {
-            return typeMap[expectedId.toString()] as UnionType;
-          }
-
-          final name =
-              'AnonymousUnion_${AnonymousHasher.hashUnion(idMap.toList())}';
-
-          // TODO: Handle similar types here...
-          final homogenousEnumType =
-              HomogenousEnumType(types: nonNullLiteralTypes, name: name);
-
-          final homogenousEnum = typeMap.putIfAbsent(expectedId.toString(), () {
-            namer.markUsed(name);
-            return homogenousEnumType;
-          }) as HomogenousEnumType;
-
-          return homogenousEnum..isNullable = shouldBeNullable;
-        } else {
-          final idMap = types.map((t) => t.id.name);
-
-          final expectedId = ID(type: 'type', name: idMap.join('|'));
-
-          if (typeMap.containsKey(expectedId.toString())) {
-            return typeMap[expectedId.toString()] as UnionType;
-          }
-
-          final name =
-              '_AnonymousUnion_${AnonymousHasher.hashUnion(idMap.toList())}';
-
-          final un = UnionType(types: types, name: name);
-
-          final unType = typeMap.putIfAbsent(expectedId.toString(), () {
-            namer.markUsed(name);
-            return un;
-          }) as UnionType;
-          return unType..isNullable = shouldBeNullable;
+        if (isHomogenous &&
+            nonNullLiteralTypes.isNotEmpty &&
+            onlyContainsBooleanTypes) {
+          return BuiltinType.primitiveType(PrimitiveType.boolean,
+              isNullable: shouldBeNullable);
         }
+
+        final idMap = isHomogenous
+            ? nonNullLiteralTypes.map((t) => t.value.toString())
+            : types.map((t) => t.id.name);
+
+        final expectedId = ID(type: 'type', name: idMap.join('|'));
+
+        if (typeMap.containsKey(expectedId.toString())) {
+          return typeMap[expectedId.toString()] as UnionType;
+        }
+
+        final name =
+            'AnonymousUnion_${AnonymousHasher.hashUnion(idMap.toList())}';
+
+        final un = isHomogenous
+            ? HomogenousEnumType(types: nonNullLiteralTypes, name: name)
+            : UnionType(types: types, name: name);
+
+        final unType = typeMap.putIfAbsent(expectedId.toString(), () {
+          namer.markUsed(name);
+          return un;
+        }) as Type;
+        return unType..isNullable = shouldBeNullable;
+
       case TSSyntaxKind.TupleType:
         // tuple type is array
         final tupleType = type as TSTupleTypeNode;

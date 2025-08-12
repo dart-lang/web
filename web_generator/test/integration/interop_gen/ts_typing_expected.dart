@@ -5,7 +5,9 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:js_interop' as _i1;
 
-import 'package:web/web.dart' as _i2;
+import 'package:web/web.dart' as _i3;
+
+import '_tuples.dart' as _i2;
 
 @_i1.JS()
 external String myFunction(String param);
@@ -57,43 +59,14 @@ external AnonymousUnion_3781934 get mySecondUnion;
 external bool? get booleanOrUndefined;
 @_i1.JS()
 external AnonymousUnion_6216705? get image;
-extension type JSTuple2<A extends _i1.JSAny?, B extends _i1.JSAny?>._(
-    _i1.JSArray<_i1.JSAny?> _) implements _i1.JSArray<_i1.JSAny?> {
-  A get $1 => (_[0] as A);
-
-  B get $2 => (_[1] as B);
-
-  set $1(A newValue) => _[0] = newValue;
-
-  set $2(B newValue) => _[1] = newValue;
-}
 @_i1.JS()
-external JSTuple2<_i1.JSString, _i1.JSNumber> get myTuple;
+external _i2.JSTuple2<_i1.JSString, _i1.JSNumber> get myTuple;
 @_i1.JS()
-external JSTuple2<_i1.JSString, _i1.JSString> get mySecondTuple;
+external _i2.JSTuple2<_i1.JSString, _i1.JSString> get mySecondTuple;
 @_i1.JS()
-external JSTuple2<_i1.JSString, _i1.JSString> get myCloneTuple;
-extension type JSTuple4<A extends _i1.JSAny?, B extends _i1.JSAny?,
-        C extends _i1.JSAny?, D extends _i1.JSAny?>._(_i1.JSArray<_i1.JSAny?> _)
-    implements _i1.JSArray<_i1.JSAny?> {
-  A get $1 => (_[0] as A);
-
-  B get $2 => (_[1] as B);
-
-  C get $3 => (_[2] as C);
-
-  D get $4 => (_[3] as D);
-
-  set $1(A newValue) => _[0] = newValue;
-
-  set $2(B newValue) => _[1] = newValue;
-
-  set $3(C newValue) => _[2] = newValue;
-
-  set $4(D newValue) => _[3] = newValue;
-}
+external _i2.JSTuple2<_i1.JSString, _i1.JSString> get myCloneTuple;
 @_i1.JS()
-external JSTuple4<_i1.JSString, _i1.JSNumber, _i1.JSBoolean, _i1.JSSymbol>
+external _i2.JSTuple4<_i1.JSString, _i1.JSNumber, _i1.JSBoolean, _i1.JSSymbol>
     get typesAsTuple;
 @_i1.JS()
 external AnonymousUnion_7503220 get eightOrSixteen;
@@ -160,7 +133,7 @@ extension type AnonymousUnion_3781934._(_i1.JSAny _) implements _i1.JSAny {
 extension type AnonymousUnion_6216705._(_i1.JSAny _) implements _i1.JSAny {
   String get asString => (_ as _i1.JSString).toDart;
 
-  _i2.URL get asURL => (_ as _i2.URL);
+  _i3.URL get asURL => (_ as _i3.URL);
 }
 extension type AnonymousUnion_7503220._(_i1.JSTypedArray _)
     implements _i1.JSTypedArray {

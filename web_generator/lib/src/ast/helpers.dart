@@ -152,7 +152,6 @@ List<GenericType> getGenericTypes(Type t) {
       break;
     case ReferredType(typeParams: final referredTypeParams):
     case UnionType(types: final referredTypeParams):
-    case TupleType(types: final referredTypeParams):
       for (final referredTypeParam in referredTypeParams) {
         types.addAll(getGenericTypes(referredTypeParam)
             .map((t) => (t.name, t.constraint)));
@@ -269,6 +268,17 @@ class TupleDeclaration extends NamedDeclaration
   @override
   set name(String name) {
     throw Exception('Forbidden: Cannot set name on tuple declaration');
+  }
+
+  /// Creates a tuple from types.
+  ///
+  /// The type args represent the tuple types for the tuple declaration
+  @override
+  TupleType asReferredType(
+      [List<Type>? typeArgs, bool isNullable = false, String? url]) {
+    assert(typeArgs?.length == count,
+        'Type arguments must equal the number of tuples supported');
+    return TupleType(types: typeArgs ?? [], tupleDeclUrl: url);
   }
 
   @override

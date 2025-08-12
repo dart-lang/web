@@ -1252,7 +1252,7 @@ class Transformer {
         final unType = typeMap.putIfAbsent(expectedId.toString(), () {
           namer.markUsed(name);
           return un;
-        }) as Type;
+        });
         return unType..isNullable = shouldBeNullable;
 
       case TSSyntaxKind.TupleType:
@@ -1267,12 +1267,13 @@ class Transformer {
         final typeLength = types.length;
 
         // check if a tuple of a certain length already exists
-        if (nodeMap.findByName('JSTuple$typeLength').isEmpty) {
-          // generate tuple
-          nodeMap.add(TupleDeclaration(count: typeLength));
-        }
+        // generate if not
+        final (tupleUrl, tupleDeclaration) = programMap.getCommonType(
+            'JSTuple$typeLength',
+            ifAbsent: ('_tuples.dart', TupleDeclaration(count: typeLength)))!;
 
-        return TupleType(types: types, isNullable: isNullable ?? false);
+        return tupleDeclaration.asReferredType(
+            types, isNullable ?? false, tupleUrl);
 
       case TSSyntaxKind.LiteralType:
         final literalType = type as TSLiteralTypeNode;

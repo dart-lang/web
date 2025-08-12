@@ -12,6 +12,7 @@ import 'package:path/path.dart' as p;
 
 import '../ast/base.dart';
 import '../ast/declarations.dart';
+import '../ast/helpers.dart';
 import '../config.dart';
 import '../js/helpers.dart';
 import '../js/typescript.dart' as ts;
@@ -29,8 +30,11 @@ typedef ProgramDeclarationMap = Map<String, NodeMap>;
 
 class TransformResult {
   ProgramDeclarationMap programDeclarationMap;
+  ProgramDeclarationMap commonTypes;
+  bool multiFileOutput;
 
-  TransformResult._(this.programDeclarationMap);
+  TransformResult._(this.programDeclarationMap, {this.commonTypes = const {}})
+      : multiFileOutput = programDeclarationMap.length > 1;
 
   // TODO(https://github.com/dart-lang/web/issues/388): Handle union of overloads
   //  (namespaces + functions, multiple interfaces, etc)
@@ -40,7 +44,7 @@ class TransformResult {
 
     _setGlobalOptions(config);
 
-    return programDeclarationMap.map((file, declMap) {
+    return {...programDeclarationMap, ...commonTypes}.map((file, declMap) {
       final emitter =
           DartEmitter.scoped(useNullSafetySyntax: true, orderDirectives: true);
       final specs = declMap.values
@@ -72,6 +76,9 @@ class TransformResult {
               'camel_case_types',
               'library_private_types_in_public_api',
               'unnecessary_parenthesis'
+            ],
+            if (declMap.values.whereType<TupleDeclaration>().isNotEmpty) ...[
+              'unnecessary_parenthesis'
             ]
           })
           ..body.addAll(specs);
@@ -85,10 +92,11 @@ class TransformResult {
 }
 
 /// A map of declarations, where the key is the declaration's stringified [ID].
-extension type NodeMap._(Map<String, Node> decls) implements Map<String, Node> {
-  NodeMap([Map<String, Node>? decls]) : decls = decls ?? <String, Node>{};
+extension type NodeMap<N extends Node>._(Map<String, N> decls)
+    implements Map<String, N> {
+  NodeMap([Map<String, N>? decls]) : decls = decls ?? <String, N>{};
 
-  List<Node> findByName(String name) {
+  List<N> findByName(String name) {
     return decls.entries
         .where((e) {
           final n = UniqueNamer.parse(e.key).name;
@@ -101,7 +109,7 @@ extension type NodeMap._(Map<String, Node> decls) implements Map<String, Node> {
         .toList();
   }
 
-  List<Node> findByQualifiedName(QualifiedName qName) {
+  List<N> findByQualifiedName(QualifiedName qName) {
     return decls.entries
         .where((e) {
           final name = UniqueNamer.parse(e.key).name;
@@ -112,10 +120,10 @@ extension type NodeMap._(Map<String, Node> decls) implements Map<String, Node> {
         .toList();
   }
 
-  void add(Node decl) => decls[decl.id.toString()] = decl;
+  void add(N decl) => decls[decl.id.toString()] = decl;
 }
 
-extension type TypeMap._(Map<String, Type> types) implements NodeMap {
+extension type TypeMap._(Map<String, Type> types) implements NodeMap<Type> {
   TypeMap([Map<String, Type>? types]) : types = types ?? <String, Type>{};
 
   @redeclare
@@ -148,6 +156,11 @@ class ProgramMap {
 
   /// The typescript program for the given project
   final ts.TSProgram program;
+
+  /// Common types shared across files in the program.
+  ///
+  /// This includes builtin supported types like `JSTuple`
+  final p.PathMap<NodeMap<NamedDeclaration>> _commonTypes = p.PathMap.of({});
 
   /// The type checker for the given program
   ///
@@ -199,6 +212,31 @@ class ProgramMap {
 
     final name = declName ?? (node as TSNamedDeclaration).name?.text;
     return name == null ? null : nodeMap.findByName(name);
+  }
+
+  (String, NamedDeclaration)? getCommonType(String name,
+      {(String, NamedDeclaration)? ifAbsent}) {
+    try {
+      final MapEntry(key: url, value: nodeMap) = _commonTypes.entries
+          .firstWhere((e) => e.value.containsKey(name), orElse: () {
+        if (ifAbsent case (final file, final decl)) {
+          _commonTypes.update(
+            file,
+            (nodeMap) => nodeMap..add(decl),
+            ifAbsent: () => NodeMap()..add(decl),
+          );
+          return MapEntry(file, _commonTypes[file]!);
+        }
+        throw Exception('Could not find common type for decl $name');
+      });
+
+      if ((url, nodeMap) case (final declUrl?, final declarationMap)) {
+        return (declUrl, declarationMap.findByName(name).first);
+      }
+    } on Exception {
+      return null;
+    }
+    return null;
   }
 
   /// Get the node map for a given [file],
@@ -283,6 +321,7 @@ class TransformerManager {
       outputNodeMap[file!] = programMap.getNodeMap(file);
     }
 
-    return TransformResult._(outputNodeMap);
+    return TransformResult._(outputNodeMap,
+        commonTypes: programMap._commonTypes.cast());
   }
 }

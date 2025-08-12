@@ -83,13 +83,18 @@ Future<void> generateJSInteropBindings(Config config) async {
   if (generatedCodeMap.isEmpty) return;
 
   // write code to file
-  if (generatedCodeMap.length == 1) {
-    final entry = generatedCodeMap.entries.first;
-    fs.writeFileSync(configOutput.toJS, entry.value.toJS);
-  } else {
+  if (dartDeclarations.multiFileOutput) {
     for (final entry in generatedCodeMap.entries) {
       fs.writeFileSync(
           p.join(configOutput, p.basename(entry.key)).toJS, entry.value.toJS);
+    }
+  } else {
+    final entry = generatedCodeMap.entries.first;
+    fs.writeFileSync(configOutput.toJS, entry.value.toJS);
+    for (final entry in generatedCodeMap.entries.skip(1)) {
+      fs.writeFileSync(
+          p.join(p.dirname(configOutput), p.basename(entry.key)).toJS,
+          entry.value.toJS);
     }
   }
 }

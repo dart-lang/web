@@ -73,24 +73,21 @@ class ReferredDeclarationType<T extends Declaration> extends ReferredType<T> {
   }
 }
 
-class TupleType extends Type {
+class TupleType extends ReferredType<TupleDeclaration> {
   final List<Type> types;
 
   @override
-  bool isNullable;
+  List<Type> get typeParams => types;
 
-  TupleType({required this.types, this.isNullable = false});
+  TupleType(
+      {required this.types, super.isNullable, required String? tupleDeclUrl})
+      : super(
+            declaration: TupleDeclaration(count: types.length),
+            name: 'JSTuple${types.length}',
+            url: tupleDeclUrl);
 
   @override
   ID get id => ID(type: 'type', name: types.map((t) => t.id.name).join(','));
-
-  @override
-  Reference emit([TypeOptions? options]) {
-    return TypeReference((t) => t
-      ..symbol = 'JSTuple${types.length}'
-      ..types.addAll(types.map((type) => type.emit(options)))
-      ..isNullable = isNullable);
-  }
 
   @override
   int get hashCode => Object.hashAllUnordered(types);

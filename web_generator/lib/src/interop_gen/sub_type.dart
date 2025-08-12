@@ -2,6 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 
 import '../ast/base.dart';
@@ -22,6 +23,8 @@ class TypeHierarchy {
   String value;
 
   TypeHierarchy(this.value);
+
+  Set<String>? _cachedTypeHierarchy;
 
   TypeHierarchy? getMapWithValue(String value) {
     if (this.value == value) return this;
@@ -53,14 +56,10 @@ class TypeHierarchy {
       return null;
     } else {
       // find value
-      return nodes.indexed
-          .map((v) {
-            final lookupVal =
-                v.$2._lookup(value, level + 1, [...indexPath, v.$1]);
-            return lookupVal;
-          })
-          .nonNulls
-          .firstOrNull;
+      return nodes.mapIndexed((index, node) {
+        final lookupVal = node._lookup(value, level + 1, [...indexPath, index]);
+        return lookupVal;
+      }).firstWhereOrNull((v) => v != null);
     }
   }
 
@@ -75,11 +74,15 @@ class TypeHierarchy {
   }
 
   Set<String> expand() {
+    if (_cachedTypeHierarchy != null) return _cachedTypeHierarchy!;
     final set = <String>{value};
     for (final node in nodes) {
       set.add(node.value);
       set.addAll(node.expand());
     }
+
+    _cachedTypeHierarchy ??= set;
+
     return set;
   }
 
@@ -353,6 +356,8 @@ Type getLowestCommonAncestorOfTypes(List<Type> types,
   final topoList = topologicalList(typeMaps.toList());
   for (final level in topoList) {
     final typesAtLevel = commonTypes.intersection(level);
+    // look for level where common types are present
+    // the LCA are on the same topological level.
     if (typesAtLevel.isNotEmpty) {
       if (typesAtLevel.singleOrNull case final finalType?) {
         return deduceType(finalType, typeMap);
@@ -372,7 +377,7 @@ Type deduceType(String name, TypeMap map) {
   final referredType =
       BuiltinType.referred(name.startsWith('JS') ? name.substring(2) : name);
   if (referredType != null) return referredType;
-  return (map[name] ?? BuiltinType.primitiveType(PrimitiveType.any)) as Type;
+  return map[name] ?? BuiltinType.primitiveType(PrimitiveType.any);
 }
 
 /// Checks if there is a type shared between the types, usually in the

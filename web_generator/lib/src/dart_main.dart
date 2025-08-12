@@ -2,6 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:convert';
 import 'dart:js_interop';
 
 import 'package:args/args.dart';
@@ -54,12 +55,18 @@ void main(List<String> args) async {
         filename: filename,
       );
     } else {
+      final tsConfigFile = argResult['ts-config'] as String?;
       config = Config(
-        input:
-            expandGlobs(argResult['input'] as List<String>, extension: '.d.ts'),
-        output: argResult['output'] as String,
-        languageVersion: Version.parse(languageVersionString),
-      );
+          input: expandGlobs(argResult['input'] as List<String>,
+              extension: '.d.ts'),
+          output: argResult['output'] as String,
+          languageVersion: Version.parse(languageVersionString),
+          tsConfig: tsConfigFile != null
+              ? jsonDecode((fs.readFileSync(tsConfigFile.toJS,
+                      JSReadFileOptions(encoding: 'utf8'.toJS)) as JSString)
+                  .toDart) as Map<String, dynamic>
+              : {},
+          ignoreErrors: argResult.wasParsed('ignore-errors'));
     }
 
     await generateJSInteropBindings(config);
@@ -191,5 +198,7 @@ final _parser = ArgParser()
   ..addMultiOption('input',
       abbr: 'i',
       help: '[TS Declarations] The input file to read and generate types for')
+  ..addFlag('ignore-errors',
+      help: '[TS Declarations] Ignore Generator Errors', negatable: false)
   ..addOption('config',
       abbr: 'c', hide: true, valueHelp: '[file].yaml', help: 'Configuration');

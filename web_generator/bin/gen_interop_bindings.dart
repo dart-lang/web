@@ -81,7 +81,8 @@ $_usage''');
       '--input=${p.relative(inputFile, from: bindingsGeneratorPath)}',
       '--output=$relativeOutputPath',
       if (tsConfigRelativePath case final tsConfig?) '--ts-config=$tsConfig',
-      if (configFile case final config?) '--config=$config'
+      if (configFile case final config?) '--config=$config',
+      if (argResult.wasParsed('ignore-errors')) '--ignore-errors'
     ],
     workingDirectory: bindingsGeneratorPath,
   );
@@ -108,6 +109,7 @@ final _parser = ArgParser()
   ..addOption('ts-config',
       help: 'Path to TS Configuration Options File (tsconfig.json) to pass'
           ' to the parser/transformer')
+  ..addFlag('ignore-errors', help: 'Ignore Generator Errors', negatable: false)
   ..addOption('config',
       hide: true,
       abbr: 'c',

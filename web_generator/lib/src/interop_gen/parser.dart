@@ -17,7 +17,7 @@ class ParserResult {
 /// Parses the given TypeScript declaration [files], provides any diagnostics,
 /// if any, and generates a [ts.TSProgram] for transformation
 ParserResult parseDeclarationFiles(Iterable<String> files,
-    {Map<String, dynamic>? tsConfiguration}) {
+    {Map<String, dynamic>? tsConfiguration, bool ignoreErrors = false}) {
   final program = ts.createProgram(
       files.jsify() as JSArray<JSString>,
       tsConfiguration != null
@@ -44,7 +44,7 @@ ParserResult parseDeclarationFiles(Iterable<String> files,
     }
   }
 
-  if (diagnostics.isNotEmpty) {
+  if (diagnostics.isNotEmpty && !ignoreErrors) {
     // exit
     exit(1);
   }

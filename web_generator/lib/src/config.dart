@@ -57,13 +57,18 @@ abstract interface class Config {
   /// used for configuring the TypeScript Program/Compiler
   Map<String, dynamic> get tsConfig;
 
+  /// Whether to ignore source code warnings and errors
+  /// (they will still be printed)
+  bool get ignoreErrors;
+
   factory Config(
       {required List<String> input,
       required String output,
       required Version languageVersion,
       FunctionConfig? functions,
       Map<String, dynamic> tsConfig,
-      List<String> includedDeclarations}) = ConfigImpl._;
+      List<String> includedDeclarations,
+      bool ignoreErrors}) = ConfigImpl._;
 }
 
 class ConfigImpl implements Config {
@@ -97,13 +102,17 @@ class ConfigImpl implements Config {
   @override
   Map<String, dynamic> tsConfig;
 
+  @override
+  bool ignoreErrors;
+
   ConfigImpl._(
       {required this.input,
       required this.output,
       required this.languageVersion,
       this.functions,
       Map<String, dynamic>? tsConfig,
-      this.includedDeclarations = const []})
+      this.includedDeclarations = const [],
+      this.ignoreErrors = false})
       : tsConfig = tsConfig ?? {};
 
   @override
@@ -144,6 +153,9 @@ class YamlConfig implements Config {
   @override
   Map<String, dynamic> tsConfig;
 
+  @override
+  bool ignoreErrors;
+
   YamlConfig._(
       {required this.filename,
       required this.input,
@@ -154,7 +166,8 @@ class YamlConfig implements Config {
       this.functions,
       this.includedDeclarations = const [],
       required this.tsConfig,
-      String? languageVersion})
+      String? languageVersion,
+      this.ignoreErrors = false})
       : languageVersion = languageVersion == null
             ? DartFormatter.latestLanguageVersion
             : Version.parse(languageVersion);
@@ -206,6 +219,7 @@ class YamlConfig implements Config {
         includedDeclarations: (yaml['include'] as YamlList?)
                 ?.map<String>((node) => node.toString())
                 .toList() ??
-            []);
+            [],
+        ignoreErrors: yaml['ignore_errors'] as bool? ?? false);
   }
 }

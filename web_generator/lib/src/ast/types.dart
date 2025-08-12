@@ -517,14 +517,14 @@ class _UnionDeclaration extends NamedDeclaration
       {required this.name,
       this.types = const [],
       this.isNullable = false,
-      List<GenericType>? typeParameters})
-      : typeParameters = typeParameters ?? [] {
-    if (typeParameters == null) {
+      List<GenericType>? typeParams})
+      : typeParameters = typeParams ?? [] {
+    if (typeParams == null) {
       for (final type in types) {
-        this.typeParameters.addAll(getGenericTypes(type).map((t) {
-              t.constraint ??= BuiltinType.anyType;
-              return t;
-            }));
+        typeParameters.addAll(getGenericTypes(type).map((t) {
+          t.constraint ??= BuiltinType.anyType;
+          return t;
+        }));
       }
     }
   }

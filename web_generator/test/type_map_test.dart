@@ -126,8 +126,10 @@ void main() {
             reason: 'Root Values should be interface types');
         expect(abTopoMap[1], equals({'JSObject'}),
             reason: 'A and B inherit JSObject');
-        assert(abTopoMap.last.single == 'JSAny',
-            'A and B must always inherit JSAny, and should be last in graph chain');
+        assert(
+            abTopoMap.last.single == 'JSAny',
+            'A and B must always inherit JSAny, '
+            'and should be last in graph chain');
 
         final cfTopoMap = topologicalList([
           c.asReferredType(),

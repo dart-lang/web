@@ -179,7 +179,7 @@ List<GenericType> getGenericTypes(Type t) {
         for (final type in typeParams) {
           final genericTypes = getGenericTypes(type);
           for (final genericType in genericTypes) {
-            if (alreadyEstablishedTypeParams
+            if (!alreadyEstablishedTypeParams
                 .any((al) => al.name == genericType.name)) {
               types.add((genericType.name, genericType.constraint));
             }
@@ -206,7 +206,7 @@ List<GenericType> getGenericTypes(Type t) {
         for (final type in typeParams) {
           final genericTypes = getGenericTypes(type);
           for (final genericType in genericTypes) {
-            if (alreadyEstablishedTypeParams
+            if (!alreadyEstablishedTypeParams
                 .any((al) => al.name == genericType.name)) {
               types.add((genericType.name, genericType.constraint));
             }
@@ -219,17 +219,19 @@ List<GenericType> getGenericTypes(Type t) {
         returnType: final closureType,
         parameters: final closureParams
       ):
-      final typeParams = [closureType, ...closureParams.map((p) => p.type)]
-          .map(getGenericTypes)
-          .fold(<GenericType>[], (prev, combine) => [...prev, ...combine]);
-
-      types.addAll(typeParams.where((t) {
-        return alreadyEstablishedTypeParams.any((al) => al.name == t.name);
-      }).map((t) => (t.name, t.constraint)));
+      for (final type in [closureType, ...closureParams.map((p) => p.type)]) {
+        if (!alreadyEstablishedTypeParams.any((al) => al.name == t.name)) {
+          types
+              .addAll(getGenericTypes(type).map((t) => (t.name, t.constraint)));
+        }
+      }
       break;
     default:
       break;
   }
+
+  // Types are cloned so that modifications to constraints can happen without
+  // affecting initial references
   return types.map((t) => GenericType(name: t.$1, constraint: t.$2)).toList();
 }
 

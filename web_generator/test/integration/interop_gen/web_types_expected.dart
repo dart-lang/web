@@ -51,15 +51,15 @@ external _i2.HTMLDivElement get output;
 extension type AnonymousType_7051203<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
   external AnonymousType_7051203({
-    _AnonymousUnion_1500406? ref,
+    AnonymousUnion_1500406? ref,
     _i2.HTMLElement parent,
   });
 
-  external _AnonymousUnion_1500406? ref;
+  external AnonymousUnion_1500406? ref;
 
   external _i2.HTMLElement parent;
 }
-extension type _AnonymousUnion_1500406<T extends _i1.JSAny?>._(_i1.JSAny _)
+extension type AnonymousUnion_1500406<T extends _i1.JSAny?>._(_i1.JSAny _)
     implements _i1.JSAny {
   T get asT => (_ as T);
 

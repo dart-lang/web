@@ -13,6 +13,9 @@ import '../js_type_supertypes.dart';
 import 'hasher.dart';
 import 'transform.dart';
 
+/// A directed acyclic graph representation of an inverted type hierarchy,
+/// where a node (type) is connected to other nodes such that the given type
+/// is directed to a supertype of the given type.
 class TypeHierarchy {
   List<TypeHierarchy> nodes = [];
 
@@ -72,13 +75,12 @@ class TypeHierarchy {
   }
 
   Set<String> expand() {
-    return {
-      value,
-      ...nodes.map((n) => n.value),
-      ...nodes
-          .map((n) => n.expand())
-          .fold(<String>{}, (prev, next) => {...prev, ...next})
-    };
+    final set = <String>{value};
+    for (final node in nodes) {
+      set.add(node.value);
+      set.addAll(node.expand());
+    }
+    return set;
   }
 
   @override
@@ -95,6 +97,9 @@ class TypeHierarchy {
 
 Map<String, TypeHierarchy> _cachedTrees = {};
 
+/// Given a set of type hierarchies, form a map indexing the number of edges
+/// directed at a given node (the center for a specific [TypeHierarchy]) to the
+/// node.
 Map<TypeHierarchy, int> generateMapFromNodes(List<TypeHierarchy> nodes) {
   final graph = <TypeHierarchy, int>{};
   for (final node in nodes) {
@@ -111,6 +116,12 @@ void _mapFromNodes(List<TypeHierarchy> nodes, Map<TypeHierarchy, int> map) {
   }
 }
 
+/// Given a set of type hierarchies, form a topologically sorted list using
+/// (a modified version of) Kahn's algorithm on the type hierarchies,
+/// sorting each level as a [Set] of distinct types.
+///
+/// Returns a list of sets of strings forming the levels in the topological
+/// ordering
 List<Set<String>> topologicalList(List<TypeHierarchy> nodes) {
   final graph = generateMapFromNodes(nodes);
   final outputList = <Set<String>>[];
@@ -141,6 +152,12 @@ List<Set<String>> topologicalList(List<TypeHierarchy> nodes) {
   return outputList;
 }
 
+/// Given a [Type], get its ancestoral graph (a DAG) and form a [TypeHierarchy]
+/// from it.
+///
+/// The function recursively goes through the types [type] inherits from,
+/// depending on what kind of type it is, and follows this ancestral tree up
+/// until it gets to the final ancestor: `JSAny` (all types inherit `JSAny`)
 TypeHierarchy getTypeHierarchy(Type type) {
   if (type case final ReferredType ref
       when ref.declaration is TypeAliasDeclaration) {
@@ -294,8 +311,8 @@ TypeMap createTypeMap(List<Type> types, {TypeMap? map}) {
       case UnionType(types: final types):
         outputMap.addAll(createTypeMap(types, map: outputMap));
         break;
-      case GenericType(constraint: final constraintedType?):
-        outputMap.addAll(createTypeMap([constraintedType], map: outputMap));
+      case GenericType(constraint: final constrainedType?):
+        outputMap.addAll(createTypeMap([constrainedType], map: outputMap));
         break;
       default:
         break;
@@ -305,6 +322,14 @@ TypeMap createTypeMap(List<Type> types, {TypeMap? map}) {
   return outputMap;
 }
 
+/// Given a list of types, usually from a union, get the subtype shared by the
+/// types by getting the lowest common ancestor between the given types.
+///
+/// If a [typeMap] is not provided, it generates the smallest necessary typemap
+/// for the types. If only one type is provided, that type is returned.
+///
+/// Types may have more than one type in common. In such case, a union of those
+/// common types is returned by the given function.
 Type getLowestCommonAncestorOfTypes(List<Type> types,
     {bool isNullable = false, TypeMap? typeMap}) {
   typeMap ??= createTypeMap(types);
@@ -314,7 +339,8 @@ Type getLowestCommonAncestorOfTypes(List<Type> types,
     return singleType..isNullable = isNullable;
   }
 
-  if (_getSharedTypeIfAny(types, isNullable: isNullable) case final t?) {
+  if (_getSharedPrimitiveTypeIfAny(types, isNullable: isNullable)
+      case final t?) {
     return t;
   }
 
@@ -333,7 +359,7 @@ Type getLowestCommonAncestorOfTypes(List<Type> types,
       } else {
         return UnionType(
             types: typesAtLevel.map((c) => deduceType(c, typeMap!)).toList(),
-            name: '_AnonymousUnion_'
+            name: 'AnonymousUnion_'
                 '${AnonymousHasher.hashUnion(commonTypes.toList())}');
       }
     }
@@ -351,7 +377,7 @@ Type deduceType(String name, TypeMap map) {
 
 /// Checks if there is a type shared between the types, usually in the
 /// case of a literal
-Type? _getSharedTypeIfAny(List<Type> types, {bool isNullable = true}) {
+Type? _getSharedPrimitiveTypeIfAny(List<Type> types, {bool isNullable = true}) {
   LiteralKind? kind;
   Type? equalType;
   bool? isNull;

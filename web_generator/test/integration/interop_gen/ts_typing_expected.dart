@@ -48,15 +48,15 @@ external ComposedType get myComposedType;
 @_i1.JS()
 external ComposedType<_i1.JSString> get myComposedMyString;
 @_i1.JS()
-external _AnonymousUnion_5411652 get myUnion;
+external AnonymousUnion_5411652 get myUnion;
 @_i1.JS()
-external _AnonymousUnion_5411652 get myCloneUnion;
+external AnonymousUnion_5411652 get myCloneUnion;
 @_i1.JS()
-external _AnonymousUnion_3781934 get mySecondUnion;
+external AnonymousUnion_3781934 get mySecondUnion;
 @_i1.JS()
 external bool? get booleanOrUndefined;
 @_i1.JS()
-external _AnonymousUnion_6216705? get image;
+external AnonymousUnion_6216705? get image;
 extension type JSTuple2<A extends _i1.JSAny?, B extends _i1.JSAny?>._(
     _i1.JSArray<_i1.JSAny?> _) implements _i1.JSArray<_i1.JSAny?> {
   A get $1 => (_[0] as A);
@@ -96,7 +96,7 @@ extension type JSTuple4<A extends _i1.JSAny?, B extends _i1.JSAny?,
 external JSTuple4<_i1.JSString, _i1.JSNumber, _i1.JSBoolean, _i1.JSSymbol>
     get typesAsTuple;
 @_i1.JS()
-external _AnonymousUnion_7503220 get eightOrSixteen;
+external AnonymousUnion_7503220 get eightOrSixteen;
 @_i1.JS()
 external AnonymousType_2194029 get randomNonTypedProduct;
 @_i1.JS()
@@ -115,7 +115,7 @@ extension type MyProduct._(_i1.JSObject _) implements Product {
   external double price;
 }
 @_i1.JS()
-external _AnonymousUnion_1189263 get responseObject;
+external AnonymousUnion_1189263 get responseObject;
 @_i1.JS()
 external _AnonymousConstructor_1059824 get productConstr;
 @_i1.JS()
@@ -143,12 +143,12 @@ extension type ComposedType<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
   external T enclosed;
 }
-extension type _AnonymousUnion_5411652._(_i1.JSAny _) implements _i1.JSAny {
+extension type AnonymousUnion_5411652._(_i1.JSAny _) implements _i1.JSAny {
   bool get asBool => (_ as _i1.JSBoolean).toDart;
 
   String get asString => (_ as _i1.JSString).toDart;
 }
-extension type _AnonymousUnion_3781934._(_i1.JSAny _) implements _i1.JSAny {
+extension type AnonymousUnion_3781934._(_i1.JSAny _) implements _i1.JSAny {
   double get asDouble => (_ as _i1.JSNumber).toDartDouble;
 
   String get asString => (_ as _i1.JSString).toDart;
@@ -157,12 +157,12 @@ extension type _AnonymousUnion_3781934._(_i1.JSAny _) implements _i1.JSAny {
 
   ComposedType get asComposedType => (_ as ComposedType);
 }
-extension type _AnonymousUnion_6216705._(_i1.JSAny _) implements _i1.JSAny {
+extension type AnonymousUnion_6216705._(_i1.JSAny _) implements _i1.JSAny {
   String get asString => (_ as _i1.JSString).toDart;
 
   _i2.URL get asURL => (_ as _i2.URL);
 }
-extension type _AnonymousUnion_7503220._(_i1.JSTypedArray _)
+extension type AnonymousUnion_7503220._(_i1.JSTypedArray _)
     implements _i1.JSTypedArray {
   _i1.JSUint8Array get asJSUint8Array => (_ as _i1.JSUint8Array);
 
@@ -192,7 +192,7 @@ extension type AnonymousType_1358595._(_i1.JSObject _) implements _i1.JSObject {
   external double taxRate;
 }
 typedef Product = AnonymousType_2194029;
-extension type _AnonymousUnion_1189263._(_i1.JSObject _)
+extension type AnonymousUnion_1189263._(_i1.JSObject _)
     implements _i1.JSObject {
   AnonymousType_2773310 get asAnonymousType_2773310 =>
       (_ as AnonymousType_2773310);

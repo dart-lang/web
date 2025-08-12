@@ -16,14 +16,14 @@ class ParserResult {
 
 /// Parses the given TypeScript declaration [files], provides any diagnostics,
 /// if any, and generates a [ts.TSProgram] for transformation
-ParserResult parseDeclarationFiles(Iterable<String> files, {Map<String, dynamic>? tsConfiguration}) {
-  final program = ts.createProgram(files.jsify() as JSArray<JSString>,
-    tsConfiguration != null ? ts.TSCompilerOptions.fromJSObject({
-      ...tsConfiguration,
-      'declaration': true
-    }.jsify() as JSObject)
-    : ts.TSCompilerOptions(declaration: true)
-  );
+ParserResult parseDeclarationFiles(Iterable<String> files,
+    {Map<String, dynamic>? tsConfiguration}) {
+  final program = ts.createProgram(
+      files.jsify() as JSArray<JSString>,
+      tsConfiguration != null
+          ? ts.TSCompilerOptions.fromJSObject(
+              {...tsConfiguration, 'declaration': true}.jsify() as JSObject)
+          : ts.TSCompilerOptions(declaration: true));
 
   // get diagnostics
   final diagnostics = [

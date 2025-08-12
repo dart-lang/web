@@ -185,9 +185,9 @@ final _parser = ArgParser()
       negatable: false,
       help: '[IDL] Generate bindings for all IDL definitions, '
           'including experimental and non-standard APIs.')
-  ..addOption('ts-config', 
-    help: '[TS Declarations] Path to TS Configuration Options File (tsconfig.json) to pass'
-    ' to the parser/transformer')
+  ..addOption('ts-config',
+      help: '[TS Declarations] Path to TS Configuration Options File '
+          '(tsconfig.json) to pass to the parser/transformer')
   ..addMultiOption('input',
       abbr: 'i',
       help: '[TS Declarations] The input file to read and generate types for')

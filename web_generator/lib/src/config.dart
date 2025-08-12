@@ -103,8 +103,8 @@ class ConfigImpl implements Config {
       required this.languageVersion,
       this.functions,
       Map<String, dynamic>? tsConfig,
-      this.includedDeclarations = const []}) :
-      tsConfig = tsConfig ?? {};
+      this.includedDeclarations = const []})
+      : tsConfig = tsConfig ?? {};
 
   @override
   bool get singleFileOutput => input.length == 1;
@@ -179,16 +179,15 @@ class YamlConfig implements Config {
 
     var tsConfig = <String, dynamic>{};
     if (yaml['ts_config_file'] != null) {
-      tsConfig = json.decode(
-        (fs.readFileSync(
-          p.join(p.dirname(filename), yaml['ts_config_file'] as String).toJS,
-          JSReadFileOptions(encoding: 'utf8'.toJS)
-        ) as JSString).toDart
-      ) as Map<String, dynamic>;
+      tsConfig = json.decode((fs.readFileSync(
+              p
+                  .join(p.dirname(filename), yaml['ts_config_file'] as String)
+                  .toJS,
+              JSReadFileOptions(encoding: 'utf8'.toJS)) as JSString)
+          .toDart) as Map<String, dynamic>;
     } else if (yaml['ts_config'] != null && yaml['ts_config'] is YamlMap) {
-      tsConfig = jsonDecode(
-        jsonEncode(yaml['ts_config'] as YamlMap)
-      )  as Map<String, dynamic>;
+      tsConfig = jsonDecode(jsonEncode(yaml['ts_config'] as YamlMap))
+          as Map<String, dynamic>;
     }
 
     return YamlConfig._(

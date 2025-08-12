@@ -12,7 +12,7 @@ import 'declarations.dart';
 import 'helpers.dart';
 
 /// A type referring to a type in the TypeScript AST
-class ReferredType<T extends Declaration> extends Type {
+class ReferredType<T extends Declaration> extends NamedType {
   @override
   String name;
 
@@ -56,7 +56,8 @@ class ReferredDeclarationType<T extends Declaration> extends ReferredType<T> {
   Type type;
 
   @override
-  String get name => type.name ?? declaration.name;
+  String get name =>
+      type is NamedType ? (type as NamedType).name : declaration.name;
 
   ReferredDeclarationType(this.type, T declaration,
       {super.typeParams, super.url, super.isNullable})
@@ -82,9 +83,6 @@ class TupleType extends Type {
 
   @override
   ID get id => ID(type: 'type', name: types.map((t) => t.id.name).join(','));
-
-  @override
-  String? get name => null;
 
   @override
   Reference emit([TypeOptions? options]) {
@@ -118,9 +116,6 @@ class UnionType extends DeclarationType {
 
   @override
   ID get id => ID(type: 'type', name: types.map((t) => t.id.name).join('|'));
-
-  @override
-  String? get name => null;
 
   @override
   Declaration get declaration => _UnionDeclaration(
@@ -174,7 +169,7 @@ class HomogenousEnumType<T extends LiteralType, D extends Declaration>
 }
 
 /// The base class for a type generic (like 'T')
-class GenericType extends Type {
+class GenericType extends NamedType {
   @override
   final String name;
 
@@ -219,7 +214,6 @@ class LiteralType extends Type {
   @override
   bool isNullable;
 
-  @override
   String get name => switch (kind) {
         LiteralKind.$null => 'null',
         LiteralKind.int || LiteralKind.double => 'number',
@@ -246,7 +240,7 @@ class LiteralType extends Type {
   }
 
   @override
-  ID get id => ID(type: 'type', name: name);
+  ID get id => ID(type: 'type', name: '$name.$value');
 
   @override
   bool operator ==(Object other) {
@@ -288,9 +282,6 @@ class ObjectLiteralType extends DeclarationType<TypeDeclaration> {
 
   @override
   final String declarationName;
-
-  @override
-  String? get name => null;
 
   @override
   final ID id;
@@ -341,9 +332,6 @@ sealed class ClosureType extends DeclarationType {
 
   @override
   final ID id;
-
-  @override
-  String? get name => null;
 
   ClosureType({
     required String name,
@@ -555,9 +543,12 @@ class _UnionDeclaration extends NamedDeclaration
         final type = t.emit(options?.toTypeOptions());
         final jsTypeAlt = getJSTypeAlternative(t);
         return Method((m) {
-          final word = t is DeclarationType
-              ? t.declarationName
-              : (t.dartName ?? t.name ?? t.id.name);
+          final word = switch (t) {
+            DeclarationType(declarationName: final declName) => declName,
+            NamedType(name: final typeName, dartName: final dartTypeName) =>
+              dartTypeName ?? typeName,
+            _ => t.dartName ?? t.id.name
+          };
           m
             ..type = MethodType.getter
             ..name = 'as${uppercaseFirstLetter(word)}'
@@ -588,11 +579,13 @@ class _UnionDeclaration extends NamedDeclaration
                       refer(n, url).property('_').call([
                         refer('_')
                             .asA(jsTypeAlt.emit(options?.toTypeOptions()))
-                            .property(switch (decl.baseType.name) {
-                              'int' => 'toDartInt',
-                              'num' || 'double' => 'toDartDouble',
-                              _ => 'toDart'
-                            })
+                            .property(decl.baseType is NamedType
+                                ? switch ((decl.baseType as NamedType).name) {
+                                    'int' => 'toDartInt',
+                                    'num' || 'double' => 'toDartDouble',
+                                    _ => 'toDart'
+                                  }
+                                : 'toDart')
                       ]).code,
                     _ => refer('_')
                         .asA(jsTypeAlt.emit(options?.toTypeOptions()))

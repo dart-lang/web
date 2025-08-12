@@ -6,6 +6,7 @@
 library;
 
 import 'package:test/test.dart';
+import 'package:web_generator/src/ast/base.dart';
 import 'package:web_generator/src/ast/builtin.dart';
 import 'package:web_generator/src/ast/declarations.dart';
 import 'package:web_generator/src/ast/types.dart';
@@ -59,15 +60,16 @@ void main() {
 
     test('Sub Type Primitive Test', () {
       expect(
-          getLowestCommonAncestorOfTypes(
-              [BuiltinType.anyType, BuiltinType.anyType]).name,
+          (getLowestCommonAncestorOfTypes(
+                  [BuiltinType.anyType, BuiltinType.anyType]) as NamedType)
+              .name,
           equals('JSAny'));
 
       final numStringSubType = getLowestCommonAncestorOfTypes([
         BuiltinType.primitiveType(PrimitiveType.num),
         BuiltinType.primitiveType(PrimitiveType.string)
       ]);
-      expect(numStringSubType.name, equals('JSAny'));
+      expect((numStringSubType as NamedType).name, equals('JSAny'));
     });
 
     group('LCA Test (small)', () {});
@@ -148,9 +150,16 @@ void main() {
       });
 
       test('Sub Type Test', () {
+        final aType = getLowestCommonAncestorOfTypes([a.asReferredType()]);
+        expect(aType, isA<ReferredType>(),
+            reason: 'Union of a single referred type is a referred typed');
+        expect(aType, equals(aType), reason: 'Union of just A is A');
+
         final abType = getLowestCommonAncestorOfTypes(
             [a.asReferredType(), b.asReferredType()]);
-        expect(abType.name, equals('JSObject'));
+        expect(abType, isA<NamedType>(),
+            reason: 'Union of A and B is a builtin type');
+        expect((abType as NamedType).name, equals('JSObject'));
 
         final acType = getLowestCommonAncestorOfTypes(
             [a.asReferredType(), c.asReferredType()]);
@@ -174,7 +183,8 @@ void main() {
         final UnionType(types: egUnionTypes) = egType as UnionType;
         expect(egUnionTypes.length, equals(2),
             reason: 'Common types between E and G are two');
-        expect(egUnionTypes.map((t) => t.name), equals(['A', 'B']),
+        expect(
+            egUnionTypes.map((t) => (t as NamedType).name), equals(['A', 'B']),
             reason: 'Common types between E and G are two: A and B');
 
         final eghType = getLowestCommonAncestorOfTypes(
@@ -184,7 +194,8 @@ void main() {
         final UnionType(types: eghUnionTypes) = eghType as UnionType;
         expect(eghUnionTypes.length, equals(2),
             reason: 'Common types between E, G and H are two');
-        expect(eghUnionTypes.map((t) => t.name), equals(['A', 'B']),
+        expect(
+            eghUnionTypes.map((t) => (t as NamedType).name), equals(['A', 'B']),
             reason: 'Common types between E, G and H are two: A and B');
       });
     });

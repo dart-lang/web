@@ -44,7 +44,6 @@ class ASTOptions {
 }
 
 sealed class Node {
-  String? get name;
   abstract final ID id;
   String? get dartName;
 
@@ -54,7 +53,6 @@ sealed class Node {
 }
 
 abstract class Declaration extends Node {
-  @override
   String get name;
 
   @override
@@ -146,4 +144,8 @@ class ParameterDeclaration {
       ..name = name
       ..type = type.emit(TypeOptions(nullable: optional)));
   }
+}
+
+abstract class NamedType extends Type {
+  String get name;
 }

@@ -97,15 +97,15 @@ Set<String> getMemberHierarchy(TypeDeclaration type,
   return members;
 }
 
-Type getRepresentationType(TypeDeclaration cl) {
-  if (cl case ClassDeclaration(extendedType: final extendee?)) {
+Type getRepresentationType(TypeDeclaration td) {
+  if (td case ClassDeclaration(extendedType: final extendee?)) {
     return switch (extendee) {
-      ReferredType(declaration: final d) when d is ClassDeclaration =>
+      ReferredType(declaration: final d) when d is TypeDeclaration =>
         getRepresentationType(d),
       final BuiltinType b => b,
       _ => BuiltinType.primitiveType(PrimitiveType.object, isNullable: false)
     };
-  } else if (cl case InterfaceDeclaration(extendedTypes: [final extendee])) {
+  } else if (td case InterfaceDeclaration(extendedTypes: [final extendee])) {
     return switch (extendee) {
       ReferredType(declaration: final d) when d is TypeDeclaration =>
         getRepresentationType(d),
@@ -113,7 +113,7 @@ Type getRepresentationType(TypeDeclaration cl) {
       _ => BuiltinType.primitiveType(PrimitiveType.object, isNullable: false)
     };
   } else {
-    final primitiveType = switch (cl.name) {
+    final primitiveType = switch (td.name) {
       'Array' => PrimitiveType.array,
       _ => PrimitiveType.object
     };
@@ -220,9 +220,12 @@ List<GenericType> getGenericTypes(Type t) {
         parameters: final closureParams
       ):
       for (final type in [closureType, ...closureParams.map((p) => p.type)]) {
-        if (!alreadyEstablishedTypeParams.any((al) => al.name == t.name)) {
-          types
-              .addAll(getGenericTypes(type).map((t) => (t.name, t.constraint)));
+        final genericTypes = getGenericTypes(type);
+        for (final genericType in genericTypes) {
+          if (!alreadyEstablishedTypeParams
+              .any((al) => al.name == genericType.name)) {
+            types.add((genericType.name, genericType.constraint));
+          }
         }
       }
       break;
@@ -243,11 +246,7 @@ Type desugarTypeAliases(Type t) {
   return t;
 }
 
-Declaration generateTupleDeclaration(int count, {bool readonly = false}) {
-  return _TupleDeclaration(count: count, readonly: readonly);
-}
-
-class _TupleDeclaration extends NamedDeclaration
+class TupleDeclaration extends NamedDeclaration
     implements ExportableDeclaration {
   @override
   bool get exported => true;
@@ -259,7 +258,7 @@ class _TupleDeclaration extends NamedDeclaration
 
   final bool readonly;
 
-  _TupleDeclaration({required this.count, this.readonly = false});
+  TupleDeclaration({required this.count, this.readonly = false});
 
   @override
   String? dartName;

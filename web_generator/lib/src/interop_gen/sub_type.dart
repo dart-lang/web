@@ -164,7 +164,7 @@ TypeHierarchy getTypeHierarchy(Type type) {
     return getTypeHierarchy((ref.declaration as TypeAliasDeclaration).type);
   }
 
-  final name = type.name ?? type.id.name;
+  final name = type is NamedType ? type.name : type.id.name;
   return _cachedTrees.putIfAbsent(name, () {
     final hierarchy = TypeHierarchy(name);
 
@@ -277,11 +277,11 @@ TypeMap createTypeMap(List<Type> types, {TypeMap? map}) {
       });
 
   void addToMap(Type type) {
-    outputMap[type.name ?? type.id.name] = type;
+    outputMap[type is NamedType ? type.name : type.id.name] = type;
   }
 
   for (final type in types) {
-    final name = type.name ?? type.id.name;
+    final name = type is NamedType ? type.name : type.id.name;
 
     if (outputMap.containsKey(name)) continue;
 

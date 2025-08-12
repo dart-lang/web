@@ -1269,7 +1269,7 @@ class Transformer {
         // check if a tuple of a certain length already exists
         if (nodeMap.findByName('JSTuple$typeLength').isEmpty) {
           // generate tuple
-          nodeMap.add(generateTupleDeclaration(typeLength));
+          nodeMap.add(TupleDeclaration(count: typeLength));
         }
 
         return TupleType(types: types, isNullable: isNullable ?? false);

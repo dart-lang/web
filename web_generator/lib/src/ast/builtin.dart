@@ -12,7 +12,7 @@ import 'base.dart';
 
 /// A built in type supported by `dart:js_interop` or by this library
 /// (with generated declarations)
-class BuiltinType extends Type {
+class BuiltinType extends NamedType {
   @override
   final String name;
 
@@ -129,7 +129,7 @@ class BuiltinType extends Type {
   }
 }
 
-class PackageWebType extends Type {
+class PackageWebType extends NamedType {
   @override
   final String name;
 

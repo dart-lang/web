@@ -66,7 +66,8 @@ void main(List<String> args) async {
                       JSReadFileOptions(encoding: 'utf8'.toJS)) as JSString)
                   .toDart) as Map<String, dynamic>
               : {},
-          ignoreErrors: argResult.wasParsed('ignore-errors'));
+          ignoreErrors: argResult.wasParsed('ignore-errors'),
+          generateAll: argResult['generate-all'] as bool);
     }
 
     await generateJSInteropBindings(config);
@@ -190,8 +191,9 @@ final _parser = ArgParser()
           '(directory for IDL, file for TS Declarations)')
   ..addFlag('generate-all',
       negatable: false,
-      help: '[IDL] Generate bindings for all IDL definitions, '
-          'including experimental and non-standard APIs.')
+      help: 'Generate bindings for all IDL/TS Declaration definitions, '
+          'including experimental and non-standard APIs (IDL) '
+          '/ non-exported APIs (TS Declarations).')
   ..addOption('ts-config',
       help: '[TS Declarations] Path to TS Configuration Options File '
           '(tsconfig.json) to pass to the parser/transformer')

@@ -82,7 +82,8 @@ $_usage''');
       '--output=$relativeOutputPath',
       if (tsConfigRelativePath case final tsConfig?) '--ts-config=$tsConfig',
       if (configFile case final config?) '--config=$config',
-      if (argResult.wasParsed('ignore-errors')) '--ignore-errors'
+      if (argResult.wasParsed('ignore-errors')) '--ignore-errors',
+      if (argResult.wasParsed('generate-all')) '--generate-all',
     ],
     workingDirectory: bindingsGeneratorPath,
   );
@@ -110,6 +111,10 @@ final _parser = ArgParser()
       help: 'Path to TS Configuration Options File (tsconfig.json) to pass'
           ' to the parser/transformer')
   ..addFlag('ignore-errors', help: 'Ignore Generator Errors', negatable: false)
+  ..addFlag('generate-all',
+      help: 'Generate all declarations '
+          '(including private declarations)',
+      negatable: false)
   ..addOption('config',
       hide: true,
       abbr: 'c',

@@ -61,6 +61,10 @@ abstract interface class Config {
   /// (they will still be printed)
   bool get ignoreErrors;
 
+  /// Whether to generate code for all declarations, including non-exported
+  /// declarations
+  bool get generateAll;
+
   factory Config(
       {required List<String> input,
       required String output,
@@ -68,6 +72,7 @@ abstract interface class Config {
       FunctionConfig? functions,
       Map<String, dynamic> tsConfig,
       List<String> includedDeclarations,
+      bool generateAll,
       bool ignoreErrors}) = ConfigImpl._;
 }
 
@@ -105,6 +110,9 @@ class ConfigImpl implements Config {
   @override
   bool ignoreErrors;
 
+  @override
+  bool generateAll;
+
   ConfigImpl._(
       {required this.input,
       required this.output,
@@ -112,7 +120,8 @@ class ConfigImpl implements Config {
       this.functions,
       Map<String, dynamic>? tsConfig,
       this.includedDeclarations = const [],
-      this.ignoreErrors = false})
+      this.ignoreErrors = false,
+      this.generateAll = false})
       : tsConfig = tsConfig ?? {};
 
   @override
@@ -156,6 +165,9 @@ class YamlConfig implements Config {
   @override
   bool ignoreErrors;
 
+  @override
+  bool generateAll;
+
   YamlConfig._(
       {required this.filename,
       required this.input,
@@ -167,7 +179,8 @@ class YamlConfig implements Config {
       this.includedDeclarations = const [],
       required this.tsConfig,
       String? languageVersion,
-      this.ignoreErrors = false})
+      this.ignoreErrors = false,
+      this.generateAll = false})
       : languageVersion = languageVersion == null
             ? DartFormatter.latestLanguageVersion
             : Version.parse(languageVersion);
@@ -220,6 +233,7 @@ class YamlConfig implements Config {
                 ?.map<String>((node) => node.toString())
                 .toList() ??
             [],
-        ignoreErrors: yaml['ignore_errors'] as bool? ?? false);
+        ignoreErrors: yaml['ignore_errors'] as bool? ?? false,
+        generateAll: yaml['generate_all'] as bool? ?? false);
   }
 }

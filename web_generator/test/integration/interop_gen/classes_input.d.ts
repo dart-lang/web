@@ -19,8 +19,8 @@ export declare class User {
     id: number;
     protected username: string;
     private email;
-    constructor(id: number, // Public property
-    username: string, // Protected property
+    constructor(id: number,
+    username: string,
     email: string);
     greet(): string;
     getEmail(): string;
@@ -163,7 +163,6 @@ interface Epahs<TMetadata = any> {
 export declare class EpahsImpl<TMeta = any> implements Epahs<TMeta> {
     readonly id: string;
     name: string;
-    /* other decls in Shape */
     metadata?: TMeta;
     constructor(name: string, type?: 'circle' | 'rectangle' | 'polygon');
     onUpdate?(prev: Epahs<TMeta>): void;

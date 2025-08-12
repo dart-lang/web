@@ -75,6 +75,9 @@ extension type Core_LogEntry._(_i1.JSObject _) implements _i1.JSObject {
 
   external String message;
 }
+
+/// Represents the core application configuration.
+/// This interface is used across multiple services and modules.
 @_i1.JS('Core.IAppConfig')
 extension type Core_IAppConfig._(_i1.JSObject _) implements _i1.JSObject {
   external String apiEndpoint;
@@ -96,6 +99,9 @@ extension type Security_IAuthToken._(_i1.JSObject _) implements _i1.JSObject {
 
   external double userId;
 }
+
+/// A service for handling user authentication.
+/// Demonstrates using a type from another namespace (Core.LogEntry).
 @_i1.JS('Security.AuthService')
 extension type Security_AuthService._(_i1.JSObject _) implements _i1.JSObject {
   external Security_AuthService();
@@ -105,6 +111,9 @@ extension type Security_AuthService._(_i1.JSObject _) implements _i1.JSObject {
     String password,
   );
 }
+
+/// A generic repository pattern interface.
+/// T can be a class from another namespace, like Models.User.
 @_i1.JS('Data.IRepository')
 extension type Data_IRepository<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
@@ -241,11 +250,21 @@ extension type EnterpriseApp_Models_Product._(_i1.JSObject _)
 @_i1.JS('EnterpriseApp.Utilities')
 extension type EnterpriseApp_Utilities._(_i1.JSObject _)
     implements _i1.JSObject {
+  /// Formats a number as currency.
+  /// - [amount]:  The number to format.
+  /// - [currency]:  The currency symbol.
+  ///
+  /// Returns A formatted string.
   @_i1.JS()
   external static String formatCurrency(
     num amount, [
     String? currency,
   ]);
+
+  /// Validates an email address.
+  /// - [email]:  The email string to validate.
+  ///
+  /// Returns True if the email is valid, false otherwise.
   @_i1.JS()
   external static bool isValidEmail(String email);
 }

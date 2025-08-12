@@ -68,6 +68,10 @@ $_usage''');
           : null);
   final relativeOutputPath =
       p.relative(outputFile, from: bindingsGeneratorPath);
+  final tsConfigPath = argResult['ts-config'] as String?;
+  final tsConfigRelativePath = tsConfigPath != null ?
+   p.relative(tsConfigPath, from: bindingsGeneratorPath)
+   : null;
   // Run app with `node`.
   await runProc(
     'node',
@@ -76,6 +80,7 @@ $_usage''');
       '--declaration',
       '--input=${p.relative(inputFile, from: bindingsGeneratorPath)}',
       '--output=$relativeOutputPath',
+      if (tsConfigRelativePath case final tsConfig?) '--ts-config=$tsConfig',
       if (configFile case final config?) '--config=$config'
     ],
     workingDirectory: bindingsGeneratorPath,
@@ -100,6 +105,9 @@ final _parser = ArgParser()
   ..addFlag('compile', defaultsTo: true)
   ..addOption('output',
       abbr: 'o', help: 'The output path to generate the Dart interface code')
+  ..addOption('ts-config', 
+    help: 'Path to TS Configuration Options File (tsconfig.json) to pass'
+    ' to the parser/transformer')
   ..addOption('config',
       hide: true,
       abbr: 'c',

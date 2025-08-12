@@ -43,6 +43,7 @@ external String flattenDiagnosticMessageText(JSAny? diag, String newLine,
 @JS('CompilerOptions')
 extension type TSCompilerOptions._(JSObject _) implements JSObject {
   external TSCompilerOptions({bool? allowJs, bool? declaration});
+  factory TSCompilerOptions.fromJSObject(JSObject object) => TSCompilerOptions._(object);
   external bool? get allowJs;
   external bool? get declaration;
 }

@@ -66,9 +66,9 @@ $_usage''');
       (File(defaultWebGenConfigPath).existsSync()
           ? defaultWebGenConfigPath
           : null);
-  final relativeConfigFile = configFile != null ? 
-  p.relative(configFile, from: bindingsGeneratorPath)
-  : null;
+  final relativeConfigFile = configFile != null
+      ? p.relative(configFile, from: bindingsGeneratorPath)
+      : null;
   final relativeOutputPath =
       p.relative(outputFile, from: bindingsGeneratorPath);
   final tsConfigPath = argResult['ts-config'] as String?;

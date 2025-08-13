@@ -4,19 +4,58 @@
 
 import 'dart:js_interop';
 
+import '../js/filesystem_api.dart';
 import '../js/node.dart';
 import '../js/typescript.dart' as ts;
+
+class PreProcessResult {
+  List<String> modules;
+  List<String> referenceLibs;
+  List<String> referenceTypes;
+
+  PreProcessResult(
+      {this.modules = const [],
+      this.referenceLibs = const [],
+      this.referenceTypes = const []});
+}
 
 class ParserResult {
   ts.TSProgram program;
   Iterable<String> files;
+  Map<String, PreProcessResult> preprocessResult;
 
-  ParserResult({required this.program, required this.files});
+  ParserResult(
+      {required this.program,
+      required this.files,
+      this.preprocessResult = const {}});
 }
 
 /// Parses the given TypeScript declaration [files], provides any diagnostics,
 /// if any, and generates a [ts.TSProgram] for transformation
 ParserResult parseDeclarationFiles(Iterable<String> files) {
+  // preprocess file
+  final preProcessResultMap = <String, PreProcessResult>{};
+
+  for (final file in files) {
+    final contents = (fs.readFileSync(
+            file.toJS, JSReadFileOptions(encoding: 'utf8'.toJS)) as JSString)
+        .toDart;
+    final preProcessResult = ts.preProcessFile(contents);
+
+    preProcessResultMap[file] = PreProcessResult(
+      modules: preProcessResult.ambientExternalModules?.toDart
+              .map((t) => t.toDart)
+              .toList() ??
+          [],
+      referenceLibs: preProcessResult.libReferenceDirectives.toDart
+          .map((ref) => ref.fileName)
+          .toList(),
+      referenceTypes: preProcessResult.typeReferenceDirectives.toDart
+          .map((ref) => ref.fileName)
+          .toList(),
+    );
+  }
+
   final program = ts.createProgram(files.jsify() as JSArray<JSString>,
       ts.TSCompilerOptions(declaration: true));
 
@@ -44,5 +83,6 @@ ParserResult parseDeclarationFiles(Iterable<String> files) {
     exit(1);
   }
 
-  return ParserResult(program: program, files: files);
+  return ParserResult(
+      program: program, files: files, preprocessResult: preProcessResultMap);
 }

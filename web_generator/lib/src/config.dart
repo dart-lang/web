@@ -224,8 +224,9 @@ class YamlConfig implements Config {
         description: yaml['description'] as String?,
         languageVersion: yaml['language_version'] as String?,
         preamble: yaml['preamble'] as String?,
-        tsConfig: tsConfig != null ? jsonDecode(jsonEncode(tsConfig)) 
-          as Map<String, dynamic> : null,
+        tsConfig: tsConfig != null
+            ? jsonDecode(jsonEncode(tsConfig)) as Map<String, dynamic>
+            : null,
         tsConfigFile: yaml['ts_config_file'] as String?,
         functions: FunctionConfig(
             varArgs: (yaml['functions'] as YamlMap?)?['varargs'] as int?),

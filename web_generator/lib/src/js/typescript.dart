@@ -42,19 +42,14 @@ external String flattenDiagnosticMessageText(JSAny? diag, String newLine,
 
 @JS()
 external TSParsedCommandLine? getParsedCommandLineOfConfigFile(
-  String configFileName,
-  TSCompilerOptions? optionsToExtend,
-  TSParseConfigFileHost host
-);
+    String configFileName,
+    TSCompilerOptions? optionsToExtend,
+    TSParseConfigFileHost host);
 
 @JS()
 external TSParsedCommandLine parseJsonConfigFileContent(
-  JSObject json,
-  TSParseConfigFileHost host,
-  String basePath, [
-    TSCompilerOptions existingOptions,
-    String configFileName
-  ]);
+    JSObject json, TSParseConfigFileHost host, String basePath,
+    [TSCompilerOptions existingOptions, String configFileName]);
 
 @JS()
 external TSParseConfigFileHost sys;
@@ -66,8 +61,8 @@ extension type TSParsedCommandLine._(JSObject _) implements JSObject {
 }
 
 @JS('ParseConfigFileHost')
-extension type TSParseConfigFileHost._(JSObject _) 
-  implements TSParseConfigHost {
+extension type TSParseConfigFileHost._(JSObject _)
+    implements TSParseConfigHost {
   external TSParseConfigFileHost({
     FileExistsFunc fileExists,
     ReadFileFunc readFile,
@@ -96,12 +91,11 @@ extension type TSParseConfigHost._(JSObject _) implements JSObject {
   external bool fileExists(String path);
   external String? readFile(String path);
   external JSArray<JSString> readDirectory(
-    String rootDir,
-    JSArray<JSString> extensions,
-    JSArray<JSString>? excludes,
-    JSArray<JSString> includes, [
-      int depth
-    ]);
+      String rootDir,
+      JSArray<JSString> extensions,
+      JSArray<JSString>? excludes,
+      JSArray<JSString> includes,
+      [int depth]);
   external bool get useCaseSensitiveFileNames;
 }
 
@@ -114,20 +108,17 @@ extension type ReadFileFunc(JSFunction _) implements JSFunction {
 }
 
 extension type ReadDirectoryFunc(JSFunction _) implements JSFunction {
-  external JSArray<JSString> call(
-    String rootDir,
-    JSArray<JSString> extensions,
-    JSArray<JSString>? excludes,
-    JSArray<JSString> includes, [
-      int depth
-    ]);
+  external JSArray<JSString> call(String rootDir, JSArray<JSString> extensions,
+      JSArray<JSString>? excludes, JSArray<JSString> includes,
+      [int depth]);
 }
 
 extension type GetCurrentDirectoryFunc(JSFunction _) implements JSFunction {
   external String call();
 }
 
-extension type OnUnRecoverableConfigFileDiagnosticFunc(JSFunction _) implements JSFunction {
+extension type OnUnRecoverableConfigFileDiagnosticFunc(JSFunction _)
+    implements JSFunction {
   @doNotStore
   external JSAny call(TSDiagnostic diagnostic);
 }

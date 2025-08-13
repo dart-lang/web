@@ -40,6 +40,98 @@ external TSLineAndCharacter getLineAndCharacterOfPosition(
 external String flattenDiagnosticMessageText(JSAny? diag, String newLine,
     [int indent]);
 
+@JS()
+external TSParsedCommandLine? getParsedCommandLineOfConfigFile(
+  String configFileName,
+  TSCompilerOptions? optionsToExtend,
+  TSParseConfigFileHost host
+);
+
+@JS()
+external TSParsedCommandLine parseJsonConfigFileContent(
+  JSObject json,
+  TSParseConfigFileHost host,
+  String basePath, [
+    TSCompilerOptions existingOptions,
+    String configFileName
+  ]);
+
+@JS()
+external TSParseConfigFileHost sys;
+
+@JS('ParsedCommandLine')
+extension type TSParsedCommandLine._(JSObject _) implements JSObject {
+  external TSCompilerOptions options;
+  external JSArray<TSDiagnostic> errors;
+}
+
+@JS('ParseConfigFileHost')
+extension type TSParseConfigFileHost._(JSObject _) 
+  implements TSParseConfigHost {
+  external TSParseConfigFileHost({
+    FileExistsFunc fileExists,
+    ReadFileFunc readFile,
+    ReadDirectoryFunc readDirectory,
+    GetCurrentDirectoryFunc getCurrentDirectory,
+    OnUnRecoverableConfigFileDiagnosticFunc onUnRecoverableConfigFileDiagnostic,
+    bool useCaseSensitiveFileNames,
+  });
+
+  external String getCurrentDirectory();
+  @doNotStore
+  external JSAny onUnRecoverableConfigFileDiagnostic(TSDiagnostic diagnostic);
+}
+
+@JS('ParseConfigHost')
+extension type TSParseConfigHost._(JSObject _) implements JSObject {
+  // TODO: This would be a useful place to have the JSFunction generic
+  //  as the given constructor needs the object to be formed via closures/function tearoffs
+  external TSParseConfigHost({
+    FileExistsFunc fileExists,
+    ReadFileFunc readFile,
+    ReadDirectoryFunc readDirectory,
+    bool useCaseSensitiveFileNames,
+  });
+
+  external bool fileExists(String path);
+  external String? readFile(String path);
+  external JSArray<JSString> readDirectory(
+    String rootDir,
+    JSArray<JSString> extensions,
+    JSArray<JSString>? excludes,
+    JSArray<JSString> includes, [
+      int depth
+    ]);
+  external bool get useCaseSensitiveFileNames;
+}
+
+extension type FileExistsFunc(JSFunction _) implements JSFunction {
+  external bool call(String path);
+}
+
+extension type ReadFileFunc(JSFunction _) implements JSFunction {
+  external String? call(String path);
+}
+
+extension type ReadDirectoryFunc(JSFunction _) implements JSFunction {
+  external JSArray<JSString> call(
+    String rootDir,
+    JSArray<JSString> extensions,
+    JSArray<JSString>? excludes,
+    JSArray<JSString> includes, [
+      int depth
+    ]);
+}
+
+extension type GetCurrentDirectoryFunc(JSFunction _) implements JSFunction {
+  external String call();
+}
+
+extension type OnUnRecoverableConfigFileDiagnosticFunc(JSFunction _) implements JSFunction {
+  @doNotStore
+  external JSAny call(TSDiagnostic diagnostic);
+}
+
 @JS('CompilerOptions')
 extension type TSCompilerOptions._(JSObject _) implements JSObject {
   external TSCompilerOptions({bool? allowJs, bool? declaration});

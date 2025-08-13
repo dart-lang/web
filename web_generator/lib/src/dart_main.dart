@@ -2,7 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:convert';
 import 'dart:js_interop';
 
 import 'package:args/args.dart';
@@ -61,11 +60,7 @@ void main(List<String> args) async {
               extension: '.d.ts'),
           output: argResult['output'] as String,
           languageVersion: Version.parse(languageVersionString),
-          tsConfig: tsConfigFile != null
-              ? jsonDecode((fs.readFileSync(tsConfigFile.toJS,
-                      JSReadFileOptions(encoding: 'utf8'.toJS)) as JSString)
-                  .toDart) as Map<String, dynamic>
-              : {},
+          tsConfigFile: tsConfigFile,
           ignoreErrors: argResult.wasParsed('ignore-errors'),
           generateAll: argResult['generate-all'] as bool);
     }
@@ -76,7 +71,7 @@ void main(List<String> args) async {
 
 Future<void> generateJSInteropBindings(Config config) async {
   // generate
-  final jsDeclarations = parseDeclarationFiles(config.input);
+  final jsDeclarations = parseDeclarationFiles(config);
 
   // transform declarations
   final manager =

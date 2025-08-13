@@ -3,14 +3,12 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:convert';
-import 'dart:js_interop';
 
 import 'package:dart_style/dart_style.dart';
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:yaml/yaml.dart';
 
-import 'js/filesystem_api.dart';
 import 'util.dart';
 
 class FunctionConfig {
@@ -55,7 +53,10 @@ abstract interface class Config {
 
   /// An object consisting of TS Configurations from a tsconfig.json file
   /// used for configuring the TypeScript Program/Compiler
-  Map<String, dynamic> get tsConfig;
+  Map<String, dynamic>? get tsConfig;
+
+  /// The TS Configuration file (tsconfig.json) if any
+  String? get tsConfigFile;
 
   /// Whether to ignore source code warnings and errors
   /// (they will still be printed)
@@ -70,10 +71,11 @@ abstract interface class Config {
       required String output,
       required Version languageVersion,
       FunctionConfig? functions,
-      Map<String, dynamic> tsConfig,
+      Map<String, dynamic>? tsConfig,
       List<String> includedDeclarations,
       bool generateAll,
-      bool ignoreErrors}) = ConfigImpl._;
+      bool ignoreErrors,
+      String? tsConfigFile}) = ConfigImpl._;
 }
 
 class ConfigImpl implements Config {
@@ -105,7 +107,10 @@ class ConfigImpl implements Config {
   List<String> includedDeclarations;
 
   @override
-  Map<String, dynamic> tsConfig;
+  Map<String, dynamic>? tsConfig;
+
+  @override
+  String? tsConfigFile;
 
   @override
   bool ignoreErrors;
@@ -118,11 +123,11 @@ class ConfigImpl implements Config {
       required this.output,
       required this.languageVersion,
       this.functions,
-      Map<String, dynamic>? tsConfig,
+      this.tsConfig,
       this.includedDeclarations = const [],
       this.ignoreErrors = false,
-      this.generateAll = false})
-      : tsConfig = tsConfig ?? {};
+      this.generateAll = false,
+      this.tsConfigFile});
 
   @override
   bool get singleFileOutput => input.length == 1;
@@ -160,7 +165,10 @@ class YamlConfig implements Config {
   List<String> includedDeclarations;
 
   @override
-  Map<String, dynamic> tsConfig;
+  Map<String, dynamic>? tsConfig;
+
+  @override
+  String? tsConfigFile;
 
   @override
   bool ignoreErrors;
@@ -177,7 +185,8 @@ class YamlConfig implements Config {
       this.preamble,
       this.functions,
       this.includedDeclarations = const [],
-      required this.tsConfig,
+      this.tsConfig,
+      this.tsConfigFile,
       String? languageVersion,
       this.ignoreErrors = false,
       this.generateAll = false})
@@ -203,18 +212,7 @@ class YamlConfig implements Config {
     final allFiles =
         expandGlobs(inputFiles, extension: '.d.ts', cwd: p.dirname(filename));
 
-    var tsConfig = <String, dynamic>{};
-    if (yaml['ts_config_file'] != null) {
-      tsConfig = json.decode((fs.readFileSync(
-              p
-                  .join(p.dirname(filename), yaml['ts_config_file'] as String)
-                  .toJS,
-              JSReadFileOptions(encoding: 'utf8'.toJS)) as JSString)
-          .toDart) as Map<String, dynamic>;
-    } else if (yaml['ts_config'] != null && yaml['ts_config'] is YamlMap) {
-      tsConfig = jsonDecode(jsonEncode(yaml['ts_config'] as YamlMap))
-          as Map<String, dynamic>;
-    }
+    final tsConfig = yaml['ts_config'] as YamlMap?;
 
     return YamlConfig._(
         filename: Uri.file(filename),
@@ -226,7 +224,9 @@ class YamlConfig implements Config {
         description: yaml['description'] as String?,
         languageVersion: yaml['language_version'] as String?,
         preamble: yaml['preamble'] as String?,
-        tsConfig: tsConfig,
+        tsConfig: tsConfig != null ? jsonDecode(jsonEncode(tsConfig)) 
+          as Map<String, dynamic> : null,
+        tsConfigFile: yaml['ts_config_file'] as String?,
         functions: FunctionConfig(
             varArgs: (yaml['functions'] as YamlMap?)?['varargs'] as int?),
         includedDeclarations: (yaml['include'] as YamlList?)

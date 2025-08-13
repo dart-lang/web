@@ -29,7 +29,7 @@ $_usage''');
     return;
   }
 
-  if (argResult.rest.isEmpty) {
+  if (argResult.rest.isEmpty && !argResult.wasParsed('config')) {
     print('''
 ${ansi.lightRed.wrap('At least one argument is needed')}
 
@@ -58,14 +58,17 @@ $_usage''');
     await compileDartMain();
   }
 
-  final inputFile = argResult.rest.first;
+  final inputFile = argResult.rest.firstOrNull;
   final outputFile = argResult['output'] as String? ??
-      p.join(p.current, inputFile.replaceAll('.d.ts', '.dart'));
+      p.join(p.current, inputFile?.replaceAll('.d.ts', '.dart'));
   final defaultWebGenConfigPath = p.join(p.current, 'webgen.yaml');
   final configFile = argResult['config'] as String? ??
       (File(defaultWebGenConfigPath).existsSync()
           ? defaultWebGenConfigPath
           : null);
+  final relativeConfigFile = configFile != null ? 
+  p.relative(configFile, from: bindingsGeneratorPath)
+  : null;
   final relativeOutputPath =
       p.relative(outputFile, from: bindingsGeneratorPath);
   final tsConfigPath = argResult['ts-config'] as String?;
@@ -78,10 +81,12 @@ $_usage''');
     [
       'main.mjs',
       '--declaration',
-      '--input=${p.relative(inputFile, from: bindingsGeneratorPath)}',
-      '--output=$relativeOutputPath',
+      if (argResult.rest.isNotEmpty) ...[
+        '--input=${p.relative(inputFile!, from: bindingsGeneratorPath)}',
+        '--output=$relativeOutputPath',
+      ],
       if (tsConfigRelativePath case final tsConfig?) '--ts-config=$tsConfig',
-      if (configFile case final config?) '--config=$config',
+      if (relativeConfigFile case final config?) '--config=$config',
       if (argResult.wasParsed('ignore-errors')) '--ignore-errors',
       if (argResult.wasParsed('generate-all')) '--generate-all',
     ],

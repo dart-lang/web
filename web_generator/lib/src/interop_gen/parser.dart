@@ -100,6 +100,10 @@ void handleDiagnostics(List<ts.TSDiagnostic> diagnostics) {
           ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n');
       printErr('${diagnosticFile.fileName} '
           '(${line.toDartInt + 1},${char.toDartInt + 1}): $message');
+    } else {
+      final message =
+          ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n');
+      printErr('(anonymous): $message');
     }
   }
 }

@@ -8,10 +8,12 @@ import '../interop_gen/namer.dart';
 import '../js/typescript.types.dart';
 import 'base.dart';
 import 'builtin.dart';
+import 'documentation.dart';
 import 'helpers.dart';
 import 'types.dart';
 
-abstract class NestableDeclaration extends NamedDeclaration {
+abstract class NestableDeclaration extends NamedDeclaration
+    implements DocumentedDeclaration {
   NestableDeclaration? get parent;
 
   String get qualifiedName =>
@@ -52,6 +54,9 @@ sealed class TypeDeclaration extends NestableDeclaration
 
   final List<ConstructorDeclaration> constructors;
 
+  @override
+  Documentation? documentation;
+
   TypeDeclaration(
       {required this.name,
       this.dartName,
@@ -61,7 +66,8 @@ sealed class TypeDeclaration extends NestableDeclaration
       this.properties = const [],
       this.operators = const [],
       this.constructors = const [],
-      this.parent});
+      this.parent,
+      this.documentation});
 
   /// [useFirstExtendeeAsRepType] is used to assert that the extension type
   /// generated has a representation type of the first member of [extendees]
@@ -75,6 +81,8 @@ sealed class TypeDeclaration extends NestableDeclaration
     options ??= DeclarationOptions();
 
     final hierarchy = getMemberHierarchy(this);
+
+    final (doc, annotations) = generateFromDocumentation(documentation);
 
     final fieldDecs = <Field>[];
     final methodDecs = <Method>[];
@@ -102,6 +110,8 @@ sealed class TypeDeclaration extends NestableDeclaration
         : BuiltinType.primitiveType(PrimitiveType.object, isNullable: false);
 
     return ExtensionType((e) => e
+      ..docs.addAll([...doc])
+      ..annotations.addAll([...annotations])
       ..name = completedDartName
       ..annotations.addAll([
         if (parent != null)
@@ -144,7 +154,7 @@ sealed class TypeDeclaration extends NestableDeclaration
   }
 }
 
-abstract class MemberDeclaration {
+abstract class MemberDeclaration implements DocumentedDeclaration {
   late final TypeDeclaration parent;
 
   abstract final DeclScope scope;
@@ -153,7 +163,7 @@ abstract class MemberDeclaration {
 }
 
 class VariableDeclaration extends FieldDeclaration
-    implements ExportableDeclaration {
+    implements ExportableDeclaration, DocumentedDeclaration {
   /// The variable modifier, as represented in TypeScript
   VariableModifier modifier;
 
@@ -166,11 +176,15 @@ class VariableDeclaration extends FieldDeclaration
   @override
   bool exported;
 
+  @override
+  Documentation? documentation;
+
   VariableDeclaration(
       {required this.name,
       required this.type,
       required this.modifier,
-      required this.exported});
+      required this.exported,
+      this.documentation});
 
   @override
   ID get id => ID(type: 'var', name: name);
@@ -180,8 +194,11 @@ class VariableDeclaration extends FieldDeclaration
 
   @override
   Spec emit([DeclarationOptions? options]) {
+    final (doc, annotations) = generateFromDocumentation(documentation);
     if (modifier == VariableModifier.$const) {
       return Method((m) => m
+        ..docs.addAll([...doc])
+        ..annotations.addAll([...annotations])
         ..name = name
         ..type = MethodType.getter
         ..annotations.add(generateJSAnnotation())
@@ -191,6 +208,8 @@ class VariableDeclaration extends FieldDeclaration
     } else {
       // getter and setter -> single variable
       return Field((f) => f
+        ..docs.addAll([...doc])
+        ..annotations.addAll([...annotations])
         ..external = true
         ..static = options?.static ?? false
         ..name = name
@@ -210,7 +229,7 @@ class VariableDeclaration extends FieldDeclaration
 enum VariableModifier { let, $const, $var }
 
 class FunctionDeclaration extends CallableDeclaration
-    implements ExportableDeclaration {
+    implements ExportableDeclaration, DocumentedDeclaration {
   @override
   String name;
 
@@ -232,6 +251,9 @@ class FunctionDeclaration extends CallableDeclaration
   @override
   ID id;
 
+  @override
+  Documentation? documentation;
+
   FunctionDeclaration(
       {required this.name,
       required this.id,
@@ -239,16 +261,20 @@ class FunctionDeclaration extends CallableDeclaration
       this.parameters = const [],
       this.typeParameters = const [],
       required this.exported,
-      required this.returnType});
+      required this.returnType,
+      this.documentation});
 
   @override
   Method emit([DeclarationOptions? options]) {
     options ??= DeclarationOptions();
+    final (doc, annotations) = generateFromDocumentation(documentation);
 
     final (requiredParams, optionalParams) =
         emitParameters(parameters, options);
 
     return Method((m) => m
+      ..docs.addAll([...doc])
+      ..annotations.addAll([...annotations])
       ..external = true
       ..name = dartName ?? name
       ..annotations.add(generateJSAnnotation(
@@ -272,7 +298,7 @@ class FunctionDeclaration extends CallableDeclaration
 }
 
 class EnumDeclaration extends NestableDeclaration
-    implements ExportableDeclaration {
+    implements ExportableDeclaration, DocumentedDeclaration {
   @override
   String name;
 
@@ -290,20 +316,27 @@ class EnumDeclaration extends NestableDeclaration
   @override
   NestableDeclaration? parent;
 
+  @override
+  Documentation? documentation;
+
   EnumDeclaration(
       {required this.name,
       required this.baseType,
       required this.members,
       required this.exported,
-      this.dartName});
+      this.dartName,
+      this.documentation});
 
   @override
   Spec emit([DeclarationOptions? options]) {
+    final (doc, annotations) = generateFromDocumentation(documentation);
     final baseTypeIsJSType = getJSTypeAlternative(baseType) == baseType;
     final externalMember = members.any((m) => m.isExternal);
     final shouldUseJSRepType = externalMember || baseTypeIsJSType;
 
     return ExtensionType((e) => e
+      ..docs.addAll([...doc])
+      ..annotations.addAll([...annotations])
       ..annotations.addAll([
         if (externalMember)
           if (parent != null)
@@ -340,12 +373,18 @@ class EnumMember {
 
   bool get isExternal => value == null;
 
+  Documentation? documentation;
+
   EnumMember(this.name, this.value,
-      {this.type, required this.parent, this.dartName});
+      {this.type, required this.parent, this.dartName, this.documentation});
 
   Field emit([bool? shouldUseJSRepType]) {
     final jsRep = shouldUseJSRepType ?? (value == null);
+    final (doc, annotations) = generateFromDocumentation(documentation);
     return Field((f) {
+      f
+        ..docs.addAll([...doc])
+        ..annotations.addAll([...annotations]);
       // TODO(nikeokoronkwo): This does not render correctly on `code_builder`.
       //  Until the update is made, we will omit examples concerning this
       //  Luckily, not many real-world instances of enums use this anyways, https://github.com/dart-lang/tools/issues/2118
@@ -372,7 +411,7 @@ class EnumMember {
 }
 
 class TypeAliasDeclaration extends NamedDeclaration
-    implements ExportableDeclaration {
+    implements ExportableDeclaration, DocumentedDeclaration {
   @override
   String name;
 
@@ -389,18 +428,25 @@ class TypeAliasDeclaration extends NamedDeclaration
   @override
   ID get id => ID(type: 'typealias', name: name);
 
+  @override
+  Documentation? documentation;
+
   TypeAliasDeclaration(
       {required this.name,
       this.typeParameters = const [],
       required this.type,
-      required this.exported})
+      required this.exported,
+      this.documentation})
       : dartName = null;
 
   @override
   TypeDef emit([DeclarationOptions? options]) {
     options ??= DeclarationOptions();
+    final (doc, annotations) = generateFromDocumentation(documentation);
 
     return TypeDef((t) => t
+      ..docs.addAll([...doc])
+      ..annotations.addAll([...annotations])
       ..name = name
       ..types
           .addAll(typeParameters.map((t) => t.emit(options?.toTypeOptions())))
@@ -438,6 +484,9 @@ class NamespaceDeclaration extends NestableDeclaration
   @override
   Set<TSNode> nodes = {};
 
+  @override
+  Documentation? documentation;
+
   NamespaceDeclaration(
       {required this.name,
       this.exported = true,
@@ -445,12 +494,15 @@ class NamespaceDeclaration extends NestableDeclaration
       this.dartName,
       this.topLevelDeclarations = const {},
       this.namespaceDeclarations = const {},
-      this.nestableDeclarations = const {}})
+      this.nestableDeclarations = const {},
+      this.documentation})
       : _id = id;
 
   @override
   ExtensionType emit([covariant DeclarationOptions? options]) {
     options?.static = true;
+
+    final (doc, annotations) = generateFromDocumentation(documentation);
     // static props and vars
     final methods = <Method>[];
     final fields = <Field>[];
@@ -541,6 +593,8 @@ class NamespaceDeclaration extends NestableDeclaration
 
     // put them together...
     return ExtensionType((eType) => eType
+      ..docs.addAll([...doc])
+      ..annotations.addAll([...annotations])
       ..name = completedDartName
       ..annotations.addAll([
         if (parent != null)
@@ -581,7 +635,8 @@ class ClassDeclaration extends TypeDeclaration {
       super.constructors,
       required super.methods,
       required super.properties,
-      super.operators});
+      super.operators,
+      super.documentation});
 
   @override
   ExtensionType emit([covariant DeclarationOptions? options]) {
@@ -631,7 +686,8 @@ class InterfaceDeclaration extends TypeDeclaration {
       super.operators,
       super.constructors,
       this.assertRepType = false,
-      this.objectLiteralConstructor = false})
+      this.objectLiteralConstructor = false,
+      super.documentation})
       : _id = id;
 
   @override
@@ -670,6 +726,9 @@ class PropertyDeclaration extends FieldDeclaration
   @override
   Type type;
 
+  @override
+  Documentation? documentation;
+
   PropertyDeclaration(
       {required this.name,
       this.dartName,
@@ -678,15 +737,20 @@ class PropertyDeclaration extends FieldDeclaration
       this.scope = DeclScope.public,
       this.readonly = false,
       required this.static,
-      this.isNullable = false});
+      this.isNullable = false,
+      this.documentation});
 
   @override
   Spec emit([covariant DeclarationOptions? options]) {
     options ??= DeclarationOptions();
     assert(scope == DeclScope.public, 'Only public members can be emitted');
 
+    final (doc, annotations) = generateFromDocumentation(documentation);
+
     if (readonly) {
       return Method((m) => m
+        ..docs.addAll([...doc])
+        ..annotations.addAll([...annotations])
         ..external = true
         ..name = dartName ?? name
         ..type = MethodType.getter
@@ -697,6 +761,8 @@ class PropertyDeclaration extends FieldDeclaration
         ..returns = type.emit(options?.toTypeOptions(nullable: isNullable)));
     } else {
       return Field((f) => f
+        ..docs.addAll([...doc])
+        ..annotations.addAll([...annotations])
         ..external = true
         ..name = dartName ?? name
         ..annotations.addAll([
@@ -740,6 +806,9 @@ class MethodDeclaration extends CallableDeclaration
 
   final bool isNullable;
 
+  @override
+  Documentation? documentation;
+
   MethodDeclaration(
       {required this.name,
       this.dartName,
@@ -750,11 +819,14 @@ class MethodDeclaration extends CallableDeclaration
       required this.returnType,
       this.static = false,
       this.scope = DeclScope.public,
-      this.isNullable = false});
+      this.isNullable = false,
+      this.documentation});
 
   @override
   Method emit([covariant DeclarationOptions? options]) {
     options ??= DeclarationOptions();
+
+    final (doc, annotations) = generateFromDocumentation(documentation);
 
     final (requiredParams, optionalParams) =
         emitParameters(parameters, options);
@@ -763,6 +835,8 @@ class MethodDeclaration extends CallableDeclaration
 
     if (isNullable) {
       return Method((m) => m
+        ..docs.addAll([...doc])
+        ..annotations.addAll([...annotations])
         ..external = true
         ..name = dartName ?? name
         ..type = MethodType.getter
@@ -781,6 +855,8 @@ class MethodDeclaration extends CallableDeclaration
     }
 
     return Method((m) => m
+      ..docs.addAll([...doc])
+      ..annotations.addAll([...annotations])
       ..external = true
       ..name = dartName ?? name
       ..type = switch (kind) {
@@ -833,12 +909,16 @@ class ConstructorDeclaration implements MemberDeclaration {
 
   final String? dartName;
 
+  @override
+  Documentation? documentation;
+
   ConstructorDeclaration(
       {this.parameters = const [],
       this.name,
       String? dartName,
       required this.id,
-      this.scope = DeclScope.public})
+      this.scope = DeclScope.public,
+      this.documentation})
       : dartName = dartName == 'unnamed' ? null : dartName;
 
   static ConstructorDeclaration defaultFor(TypeDeclaration decl) {
@@ -848,6 +928,7 @@ class ConstructorDeclaration implements MemberDeclaration {
 
   Constructor emit([covariant DeclarationOptions? options]) {
     options ??= DeclarationOptions();
+    final (doc, annotations) = generateFromDocumentation(documentation);
 
     final (requiredParams, optionalParams) =
         emitParameters(parameters, options);
@@ -855,6 +936,8 @@ class ConstructorDeclaration implements MemberDeclaration {
     final isFactory = dartName != null && dartName != name;
 
     return Constructor((c) => c
+      ..docs.addAll([...doc])
+      ..annotations.addAll([...annotations])
       ..external = true
       ..name = dartName ?? name
       ..annotations
@@ -898,6 +981,9 @@ class OperatorDeclaration extends CallableDeclaration
 
   final bool static;
 
+  @override
+  Documentation? documentation;
+
   OperatorDeclaration(
       {required this.kind,
       this.dartName,
@@ -905,11 +991,14 @@ class OperatorDeclaration extends CallableDeclaration
       required this.returnType,
       this.typeParameters = const [],
       this.scope = DeclScope.public,
-      this.static = false});
+      this.static = false,
+      this.documentation});
 
   @override
   Method emit([covariant DeclarationOptions? options]) {
     options ??= DeclarationOptions();
+
+    final (doc, annotations) = generateFromDocumentation(documentation);
 
     final requiredParams = <Parameter>[];
     final optionalParams = <Parameter>[];
@@ -925,6 +1014,8 @@ class OperatorDeclaration extends CallableDeclaration
     }
 
     return Method((m) => m
+      ..docs.addAll([...doc])
+      ..annotations.addAll([...annotations])
       ..external = true
       ..name = 'operator $name'
       ..types

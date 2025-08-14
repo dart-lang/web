@@ -5,6 +5,7 @@
 import 'package:code_builder/code_builder.dart';
 
 import '../interop_gen/namer.dart';
+import 'documentation.dart';
 import 'types.dart';
 
 class GlobalOptions {
@@ -71,6 +72,11 @@ abstract class NamedDeclaration extends Declaration {
           typeParams: typeArgs ?? [],
           url: url,
           isNullable: isNullable);
+}
+
+abstract interface class DocumentedDeclaration {
+  /// The documentation associated with the given declaration
+  abstract Documentation? documentation;
 }
 
 abstract interface class ExportableDeclaration extends Declaration {

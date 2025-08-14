@@ -8,6 +8,7 @@ import 'package:path/path.dart' as p;
 import '../../ast/base.dart';
 import '../../ast/builtin.dart';
 import '../../ast/declarations.dart';
+import '../../ast/documentation.dart';
 import '../../ast/helpers.dart';
 import '../../ast/types.dart';
 import '../../js/annotations.dart';
@@ -213,7 +214,8 @@ class Transformer {
     return TypeAliasDeclaration(
         name: name,
         type: _getTypeFromDeclaration(type, null),
-        exported: isExported);
+        exported: isExported,
+        documentation: _parseAndTransformDocumentation(typealias));
   }
 
   /// Transforms a TS Namespace (identified as a [TSModuleDeclaration] with
@@ -250,7 +252,8 @@ class Transformer {
             exported: isExported,
             topLevelDeclarations: {},
             namespaceDeclarations: {},
-            nestableDeclarations: {});
+            nestableDeclarations: {},
+            documentation: _parseAndTransformDocumentation(namespace));
 
     // TODO: We can implement this in classes and interfaces.
     //  however, since namespaces and modules are a thing,
@@ -411,7 +414,8 @@ class Transformer {
             methods: [],
             properties: [],
             operators: [],
-            constructors: [])
+            constructors: [],
+            documentation: _parseAndTransformDocumentation(typeDecl))
         : ClassDeclaration(
             name: name,
             dartName: dartName,
@@ -424,7 +428,8 @@ class Transformer {
             constructors: [],
             methods: [],
             properties: [],
-            operators: []);
+            operators: [],
+            documentation: _parseAndTransformDocumentation(typeDecl));
 
     final typeNamer = ScopedUniqueNamer({'get', 'set'});
 
@@ -529,7 +534,9 @@ class Transformer {
                 : _transformType(property.type!)),
         static: isStatic,
         readonly: isReadonly,
-        isNullable: property.questionToken != null);
+        isNullable: property.questionToken != null,
+        documentation: _parseAndTransformDocumentation(property));
+
     if (parent != null) propertyDeclaration.parent = parent;
     return propertyDeclaration;
   }
@@ -591,7 +598,9 @@ class Transformer {
                 ? _transformType(method.type!)
                 : BuiltinType.anyType),
         isNullable: (method.kind == TSSyntaxKind.MethodSignature) &&
-            (method as TSMethodSignature).questionToken != null);
+            (method as TSMethodSignature).questionToken != null,
+        documentation: _parseAndTransformDocumentation(method));
+
     if (parent != null) methodDeclaration.parent = parent;
     return methodDeclaration;
   }
@@ -618,7 +627,8 @@ class Transformer {
         dartName: dartName.isEmpty ? null : dartName,
         name: name,
         parameters: params.map(_transformParameter).toList(),
-        scope: scope);
+        scope: scope,
+        documentation: _parseAndTransformDocumentation(constructor));
   }
 
   MethodDeclaration _transformCallSignature(
@@ -656,7 +666,9 @@ class Transformer {
         returnType: methodType ??
             (callSignature.type != null
                 ? _transformType(callSignature.type!)
-                : BuiltinType.anyType));
+                : BuiltinType.anyType),
+        documentation: _parseAndTransformDocumentation(callSignature));
+
     if (parent != null) methodDeclaration.parent = parent;
     return methodDeclaration;
   }
@@ -687,6 +699,8 @@ class Transformer {
       indexerType = parent?.asReferredType(parent.typeParameters);
     }
 
+    final doc = _parseAndTransformDocumentation(indexSignature);
+
     final getOperatorDeclaration = OperatorDeclaration(
         kind: OperatorKind.squareBracket,
         parameters: params.map(_transformParameter).toList(),
@@ -694,7 +708,8 @@ class Transformer {
         scope: scope,
         typeParameters:
             typeParams?.map(_transformTypeParamDeclaration).toList() ?? [],
-        static: isStatic);
+        static: isStatic,
+        documentation: doc);
     final setOperatorDeclaration = isReadonly
         ? OperatorDeclaration(
             kind: OperatorKind.squareBracketSet,
@@ -703,7 +718,8 @@ class Transformer {
             scope: scope,
             typeParameters:
                 typeParams?.map(_transformTypeParamDeclaration).toList() ?? [],
-            static: isStatic)
+            static: isStatic,
+            documentation: doc)
         : null;
 
     if (parent != null) {
@@ -751,7 +767,9 @@ class Transformer {
         returnType: methodType ??
             (getter.type != null
                 ? _transformType(getter.type!)
-                : BuiltinType.anyType));
+                : BuiltinType.anyType),
+        documentation: _parseAndTransformDocumentation(getter));
+
     if (parent != null) methodDeclaration.parent = parent;
     return methodDeclaration;
   }
@@ -794,7 +812,9 @@ class Transformer {
             typeParams?.map(_transformTypeParamDeclaration).toList() ?? [],
         returnType: setter.type != null
             ? _transformType(setter.type!)
-            : BuiltinType.anyType);
+            : BuiltinType.anyType,
+        documentation: _parseAndTransformDocumentation(setter));
+
     if (parent != null) methodDeclaration.parent = parent;
     return methodDeclaration;
   }
@@ -825,7 +845,8 @@ class Transformer {
             typeParams?.map(_transformTypeParamDeclaration).toList() ?? [],
         returnType: function.type != null
             ? _transformType(function.type!)
-            : BuiltinType.anyType);
+            : BuiltinType.anyType,
+        documentation: _parseAndTransformDocumentation(function));
   }
 
   List<VariableDeclaration> _transformVariable(TSVariableStatement variable,
@@ -869,7 +890,8 @@ class Transformer {
         name: d.name.text,
         type: d.type == null ? BuiltinType.anyType : _transformType(d.type!),
         modifier: modifier,
-        exported: isExported ?? false);
+        exported: isExported ?? false,
+        documentation: _parseAndTransformDocumentation(d));
   }
 
   EnumDeclaration _transformEnum(TSEnumDeclaration enumeration,
@@ -907,7 +929,8 @@ class Transformer {
             members.add(EnumMember(memName, value,
                 type: BuiltinType.primitiveType(primitiveType),
                 parent: name,
-                dartName: dartMemName));
+                dartName: dartMemName,
+                documentation: _parseAndTransformDocumentation(member)));
             if (enumRepType == null &&
                 !(primitiveType == PrimitiveType.int &&
                     enumRepType == PrimitiveType.double)) {
@@ -924,7 +947,8 @@ class Transformer {
             members.add(EnumMember(memName, value,
                 type: BuiltinType.primitiveType(primitiveType),
                 parent: name,
-                dartName: dartMemName));
+                dartName: dartMemName,
+                documentation: _parseAndTransformDocumentation(member)));
             if (enumRepType == null) {
               enumRepType = primitiveType;
             } else if (enumRepType != primitiveType) {
@@ -933,13 +957,14 @@ class Transformer {
             break;
           default:
             // unsupported
-
             break;
         }
       } else {
         // get the type
-        members.add(
-            EnumMember(memName, null, parent: name, dartName: dartMemName));
+        members.add(EnumMember(memName, null,
+            parent: name,
+            dartName: dartMemName,
+            documentation: _parseAndTransformDocumentation(member)));
       }
     }
 
@@ -949,7 +974,8 @@ class Transformer {
         name: name,
         baseType: BuiltinType.primitiveType(enumRepType ?? PrimitiveType.num),
         members: members,
-        exported: isExported);
+        exported: isExported,
+        documentation: _parseAndTransformDocumentation(enumeration));
   }
 
   num _parseNumericLiteral(TSNumericLiteral numericLiteral) {
@@ -982,7 +1008,8 @@ class Transformer {
         type: _transformType(type),
         typeParameters:
             typeParams?.map(_transformTypeParamDeclaration).toList() ?? [],
-        exported: isExported);
+        exported: isExported,
+        documentation: _parseAndTransformDocumentation(typealias));
   }
 
   ParameterDeclaration _transformParameter(TSParameterDeclaration parameter,
@@ -1812,6 +1839,138 @@ class Transformer {
 
     return _getTypeFromSymbol(symbol, typeChecker.getTypeOfSymbol(symbol!),
         typeArguments, isNotTypableDeclaration, typeArg, isNullable);
+  }
+
+  /// Extracts associated documentation (JSDoc) from a [TSNode] and transforms
+  /// the JSDoc into associated Dart documentation for the given [node]
+  Documentation? _parseAndTransformDocumentation(TSNamedDeclaration node) {
+    // get symbol
+    final symbol = typeChecker.getSymbolAtLocation(node.name ?? node);
+    final jsDocTags = symbol?.getJsDocTags();
+    final doc = symbol?.getDocumentationComment(typeChecker);
+
+    // transform documentation
+    if (doc == null && jsDocTags == null) {
+      return null;
+    } else {
+      return _transformDocumentation(
+          doc?.toDart ?? [], jsDocTags?.toDart ?? []);
+    }
+  }
+
+  Documentation _transformDocumentation(
+      List<TSSymbolDisplayPart> topLevelDocParts,
+      List<JSDocTagInfo> jsDocTags) {
+    final docBuffer = StringBuffer();
+    final annotations = <Annotation>[];
+
+    for (final doc in topLevelDocParts) {
+      final docString = _parseSymbolDisplayPart(doc);
+      docBuffer.write(docString);
+    }
+
+    docBuffer.writeln();
+
+    // parse annotations
+    for (final tag in jsDocTags) {
+      switch (tag.name) {
+        case 'deprecated':
+          final tagBuffer = StringBuffer();
+          for (final part in tag.text?.toDart ?? <TSSymbolDisplayPart>[]) {
+            tagBuffer.write(_parseSymbolDisplayPart(part));
+          }
+          annotations.add(Annotation(
+              kind: AnnotationKind.deprecated,
+              arguments: [
+                if (tag.text?.toDart.isNotEmpty ?? false)
+                  (tagBuffer.toString(), name: null)
+              ]));
+          break;
+        case 'experimental':
+          annotations.add(const Annotation(kind: AnnotationKind.experimental));
+          if (tag.text?.toDart case final expText? when expText.isNotEmpty) {
+            final tagBuffer = StringBuffer();
+            for (final part in expText) {
+              tagBuffer.write(_parseSymbolDisplayPart(part));
+            }
+            docBuffer.writeln('**EXPERIMENTAL**: ${tagBuffer.toString()}');
+          }
+          break;
+        case 'param':
+          final tags = tag.text?.toDart ?? [];
+          if (tags.isEmpty) continue;
+
+          final parameterName =
+              tags.where((t) => t.kind == 'parameterName').firstOrNull;
+          final parameterDesc = tags
+              .where((t) => t.kind == 'text')
+              .fold('', (prev, combine) => '$prev ${combine.text}');
+
+          if (parameterName != null) {
+            docBuffer.writeln('- [${parameterName.text}]: $parameterDesc');
+          }
+          break;
+        case 'returns':
+          final tagBuffer = StringBuffer();
+          for (final part in tag.text?.toDart ?? <TSSymbolDisplayPart>[]) {
+            tagBuffer.write(_parseSymbolDisplayPart(part));
+          }
+          if (tagBuffer.length != 0) {
+            docBuffer.writeln('\nReturns ${tagBuffer.toString()}');
+          }
+          break;
+        case 'example':
+          final tagBuffer = StringBuffer();
+          for (final part in tag.text?.toDart ?? <TSSymbolDisplayPart>[]) {
+            tagBuffer.write(_parseSymbolDisplayPart(part));
+          }
+          docBuffer.writeAll([
+            '\nExample:',
+            '```ts',
+            tagBuffer.toString(),
+            '```',
+          ], '\n');
+        case 'template':
+          final tags = tag.text?.toDart ?? [];
+          if (tags.isEmpty) continue;
+
+          final typeName =
+              tags.where((t) => t.kind == 'typeParameterName').firstOrNull;
+
+          if (typeName == null) continue;
+
+          final tagBuffer = StringBuffer();
+          for (final part in tag.text?.toDart ?? <TSSymbolDisplayPart>[]) {
+            if (part.kind != 'typeParameterName') {
+              tagBuffer.write(_parseSymbolDisplayPart(part));
+            }
+          }
+          docBuffer
+              .writeln('Type Name [${typeName.text}]: ${tagBuffer.toString()}');
+        default:
+          continue;
+      }
+    }
+
+    return Documentation(docs: docBuffer.toString(), annotations: annotations);
+  }
+
+  String _parseSymbolDisplayPart(TSSymbolDisplayPart part) {
+    // what if decl is not already parsed?
+    if (part.kind == 'linkName') {
+      final decls = nodeMap.findByName(part.text);
+      if (decls.isNotEmpty) {
+        final firstNode = decls.first;
+        return firstNode.dartName ?? (firstNode as Declaration).name;
+      } else {
+        return part.text;
+      }
+    }
+    return switch (part.kind) {
+      'text' => part.text,
+      'link' => '',
+      _ => part.text
+    };
   }
 
   /// Filters out the declarations generated from the [transform] function and

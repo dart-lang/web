@@ -36,7 +36,7 @@ void main(List<String> args) async {
     await generateIDLBindings(
       input: (argResult['input'] as List<String>).isEmpty
           ? null
-          : argResult['input'] as Iterable<String>,
+          : argResult['input'] as List<String>,
       output: argResult['output'] as String,
       generateAll: argResult['generate-all'] as bool,
       languageVersion: Version.parse(languageVersionString),
@@ -55,7 +55,8 @@ void main(List<String> args) async {
       );
     } else {
       config = Config(
-        input: argResult['input'] as List<String>,
+        input:
+            expandGlobs(argResult['input'] as List<String>, extension: '.d.ts'),
         output: argResult['output'] as String,
         languageVersion: Version.parse(languageVersionString),
       );
@@ -143,11 +144,12 @@ Future<void> generateIDLBindings({
       fs.writeFileSync('$output/$libraryPath'.toJS, contents);
     }
   } else {
+    final allInputFiles = expandGlobs(input.toList(), extension: '.idl');
     // parse individual files
     ensureDirectoryExists(output);
 
     final bindings = await generateBindingsForFiles({
-      for (final file in input)
+      for (final file in allInputFiles)
         file: (fs.readFileSync(
                     file.toJS, JSReadFileOptions(encoding: 'utf-8'.toJS))
                 as JSString)

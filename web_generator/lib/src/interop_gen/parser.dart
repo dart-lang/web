@@ -25,7 +25,6 @@ class ParserResult {
 /// options from the TS config file/config object to use alongside the compiler
 ParserResult parseDeclarationFiles(Config config) {
   final files = config.input;
-  // final tsConfiguration = config.
   final ignoreErrors = config.ignoreErrors;
 
   // create host for parsing TS configuration

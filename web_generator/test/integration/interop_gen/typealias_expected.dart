@@ -5,6 +5,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:js_interop' as _i1;
 
+import '_tuples.dart' as _i2;
+
 typedef Shape2D = String;
 typedef PrismFromShape2D<S extends _i1.JSString> = _i1.JSArray<S>;
 @_i1.JS()
@@ -18,17 +20,7 @@ external PromisedArray<_i1.JSString, _i1.JSArray<_i1.JSString>> fetchNames();
 typedef IsActive = bool;
 @_i1.JS()
 external String isUserActive(IsActive status);
-extension type JSTuple2<A extends _i1.JSAny?, B extends _i1.JSAny?>._(
-    _i1.JSArray<_i1.JSAny?> _) implements _i1.JSArray<_i1.JSAny?> {
-  A get $1 => (_[0] as A);
-
-  B get $2 => (_[1] as B);
-
-  set $1(A newValue) => _[0] = newValue;
-
-  set $2(B newValue) => _[1] = newValue;
-}
-typedef NameAndAge = JSTuple2<_i1.JSString, _i1.JSNumber>;
+typedef NameAndAge = _i2.JSTuple2<_i1.JSString, _i1.JSNumber>;
 typedef Username = String;
 typedef Age = double;
 typedef Tags = _i1.JSArray<_i1.JSString>;

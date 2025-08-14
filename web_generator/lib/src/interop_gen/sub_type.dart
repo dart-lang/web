@@ -155,6 +155,9 @@ List<Set<String>> topologicalList(List<TypeHierarchy> nodes) {
   return outputList;
 }
 
+@visibleForTesting
+void clearTypeHierarchyCache() => _cachedTrees.clear();
+
 /// Given a [Type], get its ancestoral graph (a DAG) and form a [TypeHierarchy]
 /// from it.
 ///
@@ -212,6 +215,7 @@ TypeHierarchy getTypeHierarchy(Type type) {
           hierarchy.nodes.add(getTypeHierarchy(
               BuiltinType.primitiveType(PrimitiveType.object)));
         } else {
+          print((decl.name, decl.extendedTypes));
           for (final t in decl.extendedTypes) {
             hierarchy.nodes.add(getTypeHierarchy(t));
           }
@@ -350,8 +354,11 @@ Type getLowestCommonAncestorOfTypes(List<Type> types,
   // Calculate the intersection of all type hierarchies
   final typeMaps = types.map(getTypeHierarchy);
   final parentHierarchy = typeMaps.map((map) => map.expand());
+  print(parentHierarchy);
   final commonTypes =
       parentHierarchy.reduce((val, element) => val.intersection(element));
+
+  print(commonTypes);
 
   final topoList = topologicalList(typeMaps.toList());
   for (final level in topoList) {

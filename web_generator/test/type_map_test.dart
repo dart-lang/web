@@ -101,8 +101,8 @@ void main() {
 
         final BuiltinType(name: typedArrayName) = typedArrUnion as BuiltinType;
         expect(typedArrayName, equals('JSTypedArray'),
-            reason:
-                'JSUint16Array & JSUint8ClampedArray both inherit JSTypedArray');
+            reason: 'JSUint16Array & JSUint8ClampedArray both inherit'
+                ' JSTypedArray');
 
         final arrayUnion = getLowestCommonAncestorOfTypes(
             [uint8ClampedArrType, uint16ArrType, arrayType]);

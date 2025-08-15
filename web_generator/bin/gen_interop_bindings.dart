@@ -29,7 +29,7 @@ $_usage''');
     return;
   }
 
-  if (argResult.rest.isEmpty) {
+  if (argResult.rest.isEmpty && !argResult.wasParsed('config')) {
     print('''
 ${ansi.lightRed.wrap('At least one argument is needed')}
 
@@ -58,25 +58,37 @@ $_usage''');
     await compileDartMain();
   }
 
-  final inputFile = argResult.rest.first;
+  final inputFile = argResult.rest.firstOrNull;
   final outputFile = argResult['output'] as String? ??
-      p.join(p.current, inputFile.replaceAll('.d.ts', '.dart'));
+      p.join(p.current, inputFile?.replaceAll('.d.ts', '.dart'));
   final defaultWebGenConfigPath = p.join(p.current, 'webgen.yaml');
   final configFile = argResult['config'] as String? ??
       (File(defaultWebGenConfigPath).existsSync()
           ? defaultWebGenConfigPath
           : null);
+  final relativeConfigFile = configFile != null
+      ? p.relative(configFile, from: bindingsGeneratorPath)
+      : null;
   final relativeOutputPath =
       p.relative(outputFile, from: bindingsGeneratorPath);
+  final tsConfigPath = argResult['ts-config'] as String?;
+  final tsConfigRelativePath = tsConfigPath != null
+      ? p.relative(tsConfigPath, from: bindingsGeneratorPath)
+      : null;
   // Run app with `node`.
   await runProc(
     'node',
     [
       'main.mjs',
       '--declaration',
-      '--input=${p.relative(inputFile, from: bindingsGeneratorPath)}',
-      '--output=$relativeOutputPath',
-      if (configFile case final config?) '--config=$config'
+      if (argResult.rest.isNotEmpty) ...[
+        '--input=${p.relative(inputFile!, from: bindingsGeneratorPath)}',
+        '--output=$relativeOutputPath',
+      ],
+      if (tsConfigRelativePath case final tsConfig?) '--ts-config=$tsConfig',
+      if (relativeConfigFile case final config?) '--config=$config',
+      if (argResult.wasParsed('ignore-errors')) '--ignore-errors',
+      if (argResult.wasParsed('generate-all')) '--generate-all',
     ],
     workingDirectory: bindingsGeneratorPath,
   );
@@ -100,6 +112,14 @@ final _parser = ArgParser()
   ..addFlag('compile', defaultsTo: true)
   ..addOption('output',
       abbr: 'o', help: 'The output path to generate the Dart interface code')
+  ..addOption('ts-config',
+      help: 'Path to TS Configuration Options File (tsconfig.json) to pass'
+          ' to the parser/transformer')
+  ..addFlag('ignore-errors', help: 'Ignore Generator Errors', negatable: false)
+  ..addFlag('generate-all',
+      help: 'Generate all declarations '
+          '(including private declarations)',
+      negatable: false)
   ..addOption('config',
       hide: true,
       abbr: 'c',

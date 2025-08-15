@@ -54,12 +54,15 @@ void main(List<String> args) async {
         filename: filename,
       );
     } else {
+      final tsConfigFile = argResult['ts-config'] as String?;
       config = Config(
-        input:
-            expandGlobs(argResult['input'] as List<String>, extension: '.d.ts'),
-        output: argResult['output'] as String,
-        languageVersion: Version.parse(languageVersionString),
-      );
+          input: expandGlobs(argResult['input'] as List<String>,
+              extension: '.d.ts'),
+          output: argResult['output'] as String,
+          languageVersion: Version.parse(languageVersionString),
+          tsConfigFile: tsConfigFile,
+          ignoreErrors: argResult.wasParsed('ignore-errors'),
+          generateAll: argResult['generate-all'] as bool);
     }
 
     await generateJSInteropBindings(config);
@@ -68,7 +71,7 @@ void main(List<String> args) async {
 
 Future<void> generateJSInteropBindings(Config config) async {
   // generate
-  final jsDeclarations = parseDeclarationFiles(config.input);
+  final jsDeclarations = parseDeclarationFiles(config);
 
   // transform declarations
   final manager =
@@ -183,10 +186,16 @@ final _parser = ArgParser()
           '(directory for IDL, file for TS Declarations)')
   ..addFlag('generate-all',
       negatable: false,
-      help: '[IDL] Generate bindings for all IDL definitions, '
-          'including experimental and non-standard APIs.')
+      help: 'Generate bindings for all IDL/TS Declaration definitions, '
+          'including experimental and non-standard APIs (IDL) '
+          '/ non-exported APIs (TS Declarations).')
+  ..addOption('ts-config',
+      help: '[TS Declarations] Path to TS Configuration Options File '
+          '(tsconfig.json) to pass to the parser/transformer')
   ..addMultiOption('input',
       abbr: 'i',
       help: '[TS Declarations] The input file to read and generate types for')
+  ..addFlag('ignore-errors',
+      help: '[TS Declarations] Ignore Generator Errors', negatable: false)
   ..addOption('config',
       abbr: 'c', hide: true, valueHelp: '[file].yaml', help: 'Configuration');

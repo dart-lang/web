@@ -82,6 +82,8 @@ class Transformer {
   /// Get the current file handled by this transformer
   String get file => (_sourceFile?.fileName ?? _fileName)!;
 
+  bool get generateAll => programMap.generateAll;
+
   Transformer(this.programMap, this._sourceFile,
       {Set<String> exportSet = const {}, String? file})
       : exportSet = exportSet.map((e) => ExportReference(e, as: e)).toSet(),
@@ -1798,7 +1800,7 @@ class Transformer {
       // get decls with `export` keyword
       switch (node) {
         case final ExportableDeclaration e:
-          if (e.exported &&
+          if ((e.exported || generateAll) &&
               (filterDeclSet.isEmpty ||
                   filterDeclSetPatterns
                       .any((pattern) => pattern.hasMatch(e.name)))) {

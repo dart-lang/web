@@ -146,8 +146,12 @@ class ProgramMap {
 
   final List<String> filterDeclSet;
 
-  ProgramMap(this.program, List<String> files, {this.filterDeclSet = const []})
+  final bool generateAll;
+
+  ProgramMap(this.program, List<String> files,
+      {this.filterDeclSet = const [], bool? generateAll})
       : typeChecker = program.getTypeChecker(),
+        generateAll = generateAll ?? false,
         files = p.PathSet.of(files);
 
   /// Find the node definition for a given declaration named [declName]
@@ -207,7 +211,7 @@ class ProgramMap {
                 src,
                 file: file,
               ));
-      if (sourceSymbol == null) {
+      if (sourceSymbol == null || generateAll) {
         // fallback to transforming each node
         // TODO: This is a temporary fix to running this with @types/web
         ts.forEachChild(
@@ -254,13 +258,14 @@ class TransformerManager {
   ts.TSTypeChecker get typeChecker => programMap.typeChecker;
 
   TransformerManager(ts.TSProgram program, List<String> inputFiles,
-      {List<String> filterDeclSet = const []})
-      : programMap =
-            ProgramMap(program, inputFiles, filterDeclSet: filterDeclSet);
+      {List<String> filterDeclSet = const [], bool? generateAll})
+      : programMap = ProgramMap(program, inputFiles,
+            filterDeclSet: filterDeclSet, generateAll: generateAll);
 
   TransformerManager.fromParsedResults(ParserResult result, {Config? config})
       : programMap = ProgramMap(result.program, result.files.toList(),
-            filterDeclSet: config?.includedDeclarations ?? []);
+            filterDeclSet: config?.includedDeclarations ?? [],
+            generateAll: config?.generateAll);
 
   TransformResult transform() {
     final outputNodeMap = <String, NodeMap>{};

@@ -1,7 +1,6 @@
 // ignore_for_file: camel_case_types, constant_identifier_names
 // ignore_for_file: library_private_types_in_public_api
-// ignore_for_file: lines_longer_than_80_chars, non_constant_identifier_names
-// ignore_for_file: unnecessary_parenthesis
+// ignore_for_file: non_constant_identifier_names, unnecessary_parenthesis
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:js_interop' as _i1;
@@ -76,7 +75,8 @@ extension type EventManipulationFunc._(_i1.JSObject _) implements _i1.JSObject {
 
 /// Enables basic storage and retrieval of dates and times.
 extension type Date._(_i1.JSObject _) implements _i1.JSObject {
-  /// Returns a string representation of a date. The format of the string depends on the locale.
+  /// Returns a string representation of a date. The format of the string
+  /// depends on the locale.
   @_i1.JS('toString')
   external String toString$();
 
@@ -86,28 +86,49 @@ extension type Date._(_i1.JSObject _) implements _i1.JSObject {
   /// Returns a time as a string value.
   external String toTimeString();
 
-  /// Returns a value as a string value appropriate to the host environment's current locale.
-  /// Converts a date and time to a string by using the current or specified locale.
-  /// - [locales]:  A locale string or array of locale strings that contain one or more language or locale tags. If you include more than one locale string, list them in descending order of priority so that the first entry is the preferred locale. If you omit this parameter, the default locale of the JavaScript runtime is used.
-  /// - [options]:  An object that contains one or more properties that specify comparison options.
+  /// Returns a value as a string value appropriate to the host environment's
+  /// current locale.
+  /// Converts a date and time to a string by using the current or specified
+  /// locale.
+  /// - [locales]:  A locale string or array of locale strings that contain one
+  ///   or more language or locale tags. If you include more than one locale
+  ///   string, list them in descending order of priority so that the first
+  ///   entry is the preferred locale. If you omit this parameter, the default
+  ///   locale of the JavaScript runtime is used.
+  /// - [options]:  An object that contains one or more properties that specify
+  ///   comparison options.
   external String toLocaleString();
 
-  /// Returns a date as a string value appropriate to the host environment's current locale.
+  /// Returns a date as a string value appropriate to the host environment's
+  /// current locale.
   /// Converts a date to a string by using the current or specified locale.
-  /// - [locales]:  A locale string or array of locale strings that contain one or more language or locale tags. If you include more than one locale string, list them in descending order of priority so that the first entry is the preferred locale. If you omit this parameter, the default locale of the JavaScript runtime is used.
-  /// - [options]:  An object that contains one or more properties that specify comparison options.
+  /// - [locales]:  A locale string or array of locale strings that contain one
+  ///   or more language or locale tags. If you include more than one locale
+  ///   string, list them in descending order of priority so that the first
+  ///   entry is the preferred locale. If you omit this parameter, the default
+  ///   locale of the JavaScript runtime is used.
+  /// - [options]:  An object that contains one or more properties that specify
+  ///   comparison options.
   external String toLocaleDateString();
 
-  /// Returns a time as a string value appropriate to the host environment's current locale.
+  /// Returns a time as a string value appropriate to the host environment's
+  /// current locale.
   /// Converts a time to a string by using the current or specified locale.
-  /// - [locales]:  A locale string or array of locale strings that contain one or more language or locale tags. If you include more than one locale string, list them in descending order of priority so that the first entry is the preferred locale. If you omit this parameter, the default locale of the JavaScript runtime is used.
-  /// - [options]:  An object that contains one or more properties that specify comparison options.
+  /// - [locales]:  A locale string or array of locale strings that contain one
+  ///   or more language or locale tags. If you include more than one locale
+  ///   string, list them in descending order of priority so that the first
+  ///   entry is the preferred locale. If you omit this parameter, the default
+  ///   locale of the JavaScript runtime is used.
+  /// - [options]:  An object that contains one or more properties that specify
+  ///   comparison options.
   external String toLocaleTimeString();
 
-  /// Returns the stored time value in milliseconds since midnight, January 1, 1970 UTC.
+  /// Returns the stored time value in milliseconds since midnight, January 1,
+  /// 1970 UTC.
   external double valueOf();
 
-  /// Returns the stored time value in milliseconds since midnight, January 1, 1970 UTC.
+  /// Returns the stored time value in milliseconds since midnight, January 1,
+  /// 1970 UTC.
   external double getTime();
 
   /// Gets the year, using local time.
@@ -137,7 +158,8 @@ extension type Date._(_i1.JSObject _) implements _i1.JSObject {
   /// Gets the hours in a date, using local time.
   external double getHours();
 
-  /// Gets the hours value in a Date object using Universal Coordinated Time (UTC).
+  /// Gets the hours value in a Date object using Universal Coordinated Time
+  /// (UTC).
   external double getUTCHours();
 
   /// Gets the minutes of a Date object, using local time.
@@ -155,21 +177,25 @@ extension type Date._(_i1.JSObject _) implements _i1.JSObject {
   /// Gets the milliseconds of a Date, using local time.
   external double getMilliseconds();
 
-  /// Gets the milliseconds of a Date object using Universal Coordinated Time (UTC).
+  /// Gets the milliseconds of a Date object using Universal Coordinated Time
+  /// (UTC).
   external double getUTCMilliseconds();
 
-  /// Gets the difference in minutes between Universal Coordinated Time (UTC) and the time on the local computer.
+  /// Gets the difference in minutes between Universal Coordinated Time (UTC)
+  /// and the time on the local computer.
   external double getTimezoneOffset();
 
   /// Sets the date and time value in the Date object.
-  /// - [time]:  A numeric value representing the number of elapsed milliseconds since midnight, January 1, 1970 GMT.
+  /// - [time]:  A numeric value representing the number of elapsed milliseconds
+  ///   since midnight, January 1, 1970 GMT.
   external double setTime(num time);
 
   /// Sets the milliseconds value in the Date object using local time.
   /// - [ms]:  A numeric value equal to the millisecond value.
   external double setMilliseconds(num ms);
 
-  /// Sets the milliseconds value in the Date object using Universal Coordinated Time (UTC).
+  /// Sets the milliseconds value in the Date object using Universal Coordinated
+  /// Time (UTC).
   /// - [ms]:  A numeric value equal to the millisecond value.
   external double setUTCMilliseconds(num ms);
 
@@ -181,7 +207,8 @@ extension type Date._(_i1.JSObject _) implements _i1.JSObject {
     num? ms,
   ]);
 
-  /// Sets the seconds value in the Date object using Universal Coordinated Time (UTC).
+  /// Sets the seconds value in the Date object using Universal Coordinated Time
+  /// (UTC).
   /// - [sec]:  A numeric value equal to the seconds value.
   /// - [ms]:  A numeric value equal to the milliseconds value.
   external double setUTCSeconds(
@@ -199,7 +226,8 @@ extension type Date._(_i1.JSObject _) implements _i1.JSObject {
     num? ms,
   ]);
 
-  /// Sets the minutes value in the Date object using Universal Coordinated Time (UTC).
+  /// Sets the minutes value in the Date object using Universal Coordinated Time
+  /// (UTC).
   /// - [min]:  A numeric value equal to the minutes value.
   /// - [sec]:  A numeric value equal to the seconds value.
   /// - [ms]:  A numeric value equal to the milliseconds value.
@@ -221,7 +249,8 @@ extension type Date._(_i1.JSObject _) implements _i1.JSObject {
     num? ms,
   ]);
 
-  /// Sets the hours value in the Date object using Universal Coordinated Time (UTC).
+  /// Sets the hours value in the Date object using Universal Coordinated Time
+  /// (UTC).
   /// - [hours]:  A numeric value equal to the hours value.
   /// - [min]:  A numeric value equal to the minutes value.
   /// - [sec]:  A numeric value equal to the seconds value.
@@ -233,25 +262,33 @@ extension type Date._(_i1.JSObject _) implements _i1.JSObject {
     num? ms,
   ]);
 
-  /// Sets the numeric day-of-the-month value of the Date object using local time.
+  /// Sets the numeric day-of-the-month value of the Date object using local
+  /// time.
   /// - [date]:  A numeric value equal to the day of the month.
   external double setDate(num date);
 
-  /// Sets the numeric day of the month in the Date object using Universal Coordinated Time (UTC).
+  /// Sets the numeric day of the month in the Date object using Universal
+  /// Coordinated Time (UTC).
   /// - [date]:  A numeric value equal to the day of the month.
   external double setUTCDate(num date);
 
   /// Sets the month value in the Date object using local time.
-  /// - [month]:  A numeric value equal to the month. The value for January is 0, and other month values follow consecutively.
-  /// - [date]:  A numeric value representing the day of the month. If this value is not supplied, the value from a call to the getDate method is used.
+  /// - [month]:  A numeric value equal to the month. The value for January is
+  ///   0, and other month values follow consecutively.
+  /// - [date]:  A numeric value representing the day of the month. If this
+  ///   value is not supplied, the value from a call to the getDate method is
+  ///   used.
   external double setMonth(
     num month, [
     num? date,
   ]);
 
-  /// Sets the month value in the Date object using Universal Coordinated Time (UTC).
-  /// - [month]:  A numeric value equal to the month. The value for January is 0, and other month values follow consecutively.
-  /// - [date]:  A numeric value representing the day of the month. If it is not supplied, the value from a call to the getUTCDate method is used.
+  /// Sets the month value in the Date object using Universal Coordinated Time
+  /// (UTC).
+  /// - [month]:  A numeric value equal to the month. The value for January is
+  ///   0, and other month values follow consecutively.
+  /// - [date]:  A numeric value representing the day of the month. If it is not
+  ///   supplied, the value from a call to the getUTCDate method is used.
   external double setUTCMonth(
     num month, [
     num? date,
@@ -259,7 +296,8 @@ extension type Date._(_i1.JSObject _) implements _i1.JSObject {
 
   /// Sets the year of the Date object using local time.
   /// - [year]:  A numeric value for the year.
-  /// - [month]:  A zero-based numeric value for the month (0 for January, 11 for December). Must be specified if numDate is specified.
+  /// - [month]:  A zero-based numeric value for the month (0 for January, 11
+  ///   for December). Must be specified if numDate is specified.
   /// - [date]:  A numeric value equal for the day of the month.
   external double setFullYear(
     num year, [
@@ -267,9 +305,12 @@ extension type Date._(_i1.JSObject _) implements _i1.JSObject {
     num? date,
   ]);
 
-  /// Sets the year value in the Date object using Universal Coordinated Time (UTC).
+  /// Sets the year value in the Date object using Universal Coordinated Time
+  /// (UTC).
   /// - [year]:  A numeric value equal to the year.
-  /// - [month]:  A numeric value equal to the month. The value for January is 0, and other month values follow consecutively. Must be supplied if numDate is supplied.
+  /// - [month]:  A numeric value equal to the month. The value for January is
+  ///   0, and other month values follow consecutively. Must be supplied if
+  ///   numDate is supplied.
   /// - [date]:  A numeric value equal to the day of the month.
   external double setUTCFullYear(
     num year, [
@@ -277,13 +318,15 @@ extension type Date._(_i1.JSObject _) implements _i1.JSObject {
     num? date,
   ]);
 
-  /// Returns a date converted to a string using Universal Coordinated Time (UTC).
+  /// Returns a date converted to a string using Universal Coordinated Time
+  /// (UTC).
   external String toUTCString();
 
   /// Returns a date as a string value in ISO format.
   external String toISOString();
 
-  /// Used by the JSON.stringify method to enable the transformation of an object's data for JavaScript Object Notation (JSON) serialization.
+  /// Used by the JSON.stringify method to enable the transformation of an
+  /// object's data for JavaScript Object Notation (JSON) serialization.
   external String toJSON([_i1.JSAny? key]);
 }
 extension type const AnonymousUnion_1506805._(String _) {

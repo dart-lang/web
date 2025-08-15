@@ -2,10 +2,9 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:convert';
-
 import 'package:code_builder/code_builder.dart';
 
+import '../formatting.dart';
 import '../interop_gen/namer.dart';
 import 'base.dart';
 import 'builtin.dart';
@@ -133,10 +132,8 @@ Type getRepresentationType(TypeDeclaration td) {
     return ([], docs.annotations.map((d) => d.emit()).toList());
   }
   return (
-    const LineSplitter()
-        .convert(docs.docs.trim())
-        .map((d) => '/// $d')
-        .toList(),
+    // setting it at 80 may not work depending on how long the sentence is
+    formatDocs(docs.docs.trim(), 78),
     docs.annotations.map((d) => d.emit()).toList()
   );
 }

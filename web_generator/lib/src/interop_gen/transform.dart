@@ -68,19 +68,12 @@ class TransformResult {
         var parentCaseIgnore = false;
         var anonymousIgnore = false;
         var tupleDecl = false;
-        var longDocs = false;
 
         for (final value in declMap.values) {
           if (value is TupleDeclaration) tupleDecl = true;
           if (value.id.name.contains('Anonymous')) anonymousIgnore = true;
           if (value case NestableDeclaration(parent: final _?)) {
             parentCaseIgnore = true;
-          }
-          if (value case DocumentedDeclaration(documentation: final docs?)
-              when const LineSplitter()
-                  .convert(docs.docs)
-                  .any((d) => d.length >= 50)) {
-            longDocs = true;
           }
         }
         l
@@ -94,7 +87,6 @@ class TransformResult {
               'unnecessary_parenthesis'
             ],
             if (tupleDecl) 'unnecessary_parenthesis',
-            if (longDocs) 'lines_longer_than_80_chars',
           })
           ..body.addAll(specs);
       });

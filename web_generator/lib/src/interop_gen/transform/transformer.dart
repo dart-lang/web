@@ -15,6 +15,7 @@ import '../../js/annotations.dart';
 import '../../js/helpers.dart';
 import '../../js/typescript.dart' as ts;
 import '../../js/typescript.types.dart';
+import '../hasher.dart';
 import '../namer.dart';
 import '../qualified_name.dart';
 import '../transform.dart';
@@ -52,7 +53,7 @@ class Transformer {
   final NodeMap nodeMap = NodeMap();
 
   /// A map of types
-  final NodeMap typeMap = NodeMap();
+  final TypeMap typeMap = TypeMap();
 
   /// The program map
   final ProgramMap programMap;
@@ -502,7 +503,7 @@ class Transformer {
   }
 
   PropertyDeclaration _transformProperty(TSPropertyEntity property,
-      {required UniqueNamer parentNamer, required TypeDeclaration parent}) {
+      {required UniqueNamer parentNamer, TypeDeclaration? parent}) {
     final name = property.name.text;
 
     final (:id, name: dartName) = parentNamer.makeUnique(name, 'var');
@@ -515,13 +516,13 @@ class Transformer {
       // check if
       final referredType = type as TSTypeReferenceNode;
       final referredTypeName = parseQualifiedName(referredType.typeName);
-      if (referredTypeName.asName == parent.name) {
-        propType = parent.asReferredType(type.typeArguments?.toDart
+      if (referredTypeName.asName == parent?.name) {
+        propType = parent?.asReferredType(type.typeArguments?.toDart
             .map((t) => _transformType(t, typeArg: true))
             .toList());
       }
     } else if (property.type case final type? when ts.isThisTypeNode(type)) {
-      propType = parent.asReferredType(parent.typeParameters);
+      propType = parent?.asReferredType(parent.typeParameters);
     }
 
     final propertyDeclaration = PropertyDeclaration(
@@ -537,12 +538,13 @@ class Transformer {
         readonly: isReadonly,
         isNullable: property.questionToken != null,
         documentation: _parseAndTransformDocumentation(property));
-    propertyDeclaration.parent = parent;
+
+    if (parent != null) propertyDeclaration.parent = parent;
     return propertyDeclaration;
   }
 
   MethodDeclaration _transformMethod(TSMethodEntity method,
-      {required UniqueNamer parentNamer, required TypeDeclaration parent}) {
+      {required UniqueNamer parentNamer, TypeDeclaration? parent}) {
     final name = method.name.text;
     // TODO(nikeokoronkwo): Let's make the unique name types enums
     //  or extension types to track the type more easily
@@ -560,13 +562,13 @@ class Transformer {
       // check if
       final referredType = type as TSTypeReferenceNode;
       final referredTypeName = parseQualifiedName(referredType.typeName);
-      if (referredTypeName.asName == parent.name) {
-        methodType = parent.asReferredType(type.typeArguments?.toDart
+      if (referredTypeName.asName == parent?.name) {
+        methodType = parent?.asReferredType(type.typeArguments?.toDart
             .map((t) => _transformType(t, typeArg: true))
             .toList());
       }
     } else if (method.type case final type? when ts.isThisTypeNode(type)) {
-      methodType = parent.asReferredType(parent.typeParameters);
+      methodType = parent?.asReferredType(parent.typeParameters);
     }
 
     final methodDeclaration = MethodDeclaration(
@@ -581,13 +583,13 @@ class Transformer {
           if (paramRawType case final ty? when ts.isTypeReferenceNode(ty)) {
             final referredType = ty as TSTypeReferenceNode;
             final referredTypeName = parseQualifiedName(referredType.typeName);
-            if (referredTypeName.asName == parent.name) {
-              paramType = parent.asReferredType(ty.typeArguments?.toDart
+            if (referredTypeName.asName == parent?.name) {
+              paramType = parent?.asReferredType(ty.typeArguments?.toDart
                   .map((t) => _transformType(t, typeArg: true))
                   .toList());
             }
           } else if (paramRawType case final ty? when ts.isThisTypeNode(ty)) {
-            paramType = parent.asReferredType(parent.typeParameters);
+            paramType = parent?.asReferredType(parent.typeParameters);
           }
           return _transformParameter(t, paramType);
         }).toList(),
@@ -600,7 +602,8 @@ class Transformer {
         isNullable: (method.kind == TSSyntaxKind.MethodSignature) &&
             (method as TSMethodSignature).questionToken != null,
         documentation: _parseAndTransformDocumentation(method));
-    methodDeclaration.parent = parent;
+
+    if (parent != null) methodDeclaration.parent = parent;
     return methodDeclaration;
   }
 
@@ -633,7 +636,7 @@ class Transformer {
   MethodDeclaration _transformCallSignature(
       TSCallSignatureDeclaration callSignature,
       {required UniqueNamer parentNamer,
-      required TypeDeclaration parent}) {
+      TypeDeclaration? parent}) {
     final (:id, name: dartName) = parentNamer.makeUnique('call', 'fun');
 
     final params = callSignature.parameters.toDart;
@@ -645,14 +648,14 @@ class Transformer {
       // check if
       final referredType = type as TSTypeReferenceNode;
       final referredTypeName = parseQualifiedName(referredType.typeName);
-      if (referredTypeName.asName == parent.name) {
-        methodType = parent.asReferredType(type.typeArguments?.toDart
+      if (referredTypeName.asName == parent?.name) {
+        methodType = parent?.asReferredType(type.typeArguments?.toDart
             .map((t) => _transformType(t, typeArg: true))
             .toList());
       }
     } else if (callSignature.type case final type?
         when ts.isThisTypeNode(type)) {
-      methodType = parent.asReferredType(parent.typeParameters);
+      methodType = parent?.asReferredType(parent.typeParameters);
     }
 
     final methodDeclaration = MethodDeclaration(
@@ -667,14 +670,15 @@ class Transformer {
                 ? _transformType(callSignature.type!)
                 : BuiltinType.anyType),
         documentation: _parseAndTransformDocumentation(callSignature));
-    methodDeclaration.parent = parent;
+
+    if (parent != null) methodDeclaration.parent = parent;
     return methodDeclaration;
   }
 
   // TODO: Handling overloading of indexers
   (OperatorDeclaration, OperatorDeclaration?) _transformIndexer(
       TSIndexSignatureDeclaration indexSignature,
-      {required TypeDeclaration parent}) {
+      {TypeDeclaration? parent}) {
     final params = indexSignature.parameters.toDart;
 
     final typeParams = indexSignature.typeParameters?.toDart;
@@ -687,14 +691,14 @@ class Transformer {
       // check if
       final referredType = type as TSTypeReferenceNode;
       final referredTypeName = parseQualifiedName(referredType.typeName);
-      if (referredTypeName.asName == parent.name) {
-        indexerType = parent.asReferredType(type.typeArguments?.toDart
+      if (referredTypeName.asName == parent?.name) {
+        indexerType = parent?.asReferredType(type.typeArguments?.toDart
             .map((t) => _transformType(t, typeArg: true))
             .toList());
       }
     } else if (indexSignature.type case final type
         when ts.isThisTypeNode(type)) {
-      indexerType = parent.asReferredType(parent.typeParameters);
+      indexerType = parent?.asReferredType(parent.typeParameters);
     }
 
     final doc = _parseAndTransformDocumentation(indexSignature);
@@ -720,13 +724,15 @@ class Transformer {
             documentation: doc)
         : null;
 
-    getOperatorDeclaration.parent = parent;
-    setOperatorDeclaration?.parent = parent;
+    if (parent != null) {
+      getOperatorDeclaration.parent = parent;
+      setOperatorDeclaration?.parent = parent;
+    }
     return (getOperatorDeclaration, setOperatorDeclaration);
   }
 
   MethodDeclaration _transformGetter(TSGetAccessorDeclaration getter,
-      {required UniqueNamer parentNamer, required TypeDeclaration parent}) {
+      {required UniqueNamer parentNamer, TypeDeclaration? parent}) {
     final name = getter.name.text;
     final (:id, name: dartName) = parentNamer.makeUnique(name, 'get');
 
@@ -742,13 +748,13 @@ class Transformer {
       // check if
       final referredType = type as TSTypeReferenceNode;
       final referredTypeName = parseQualifiedName(referredType.typeName);
-      if (referredTypeName.asName == parent.name) {
-        methodType = parent.asReferredType(type.typeArguments?.toDart
+      if (referredTypeName.asName == parent?.name) {
+        methodType = parent?.asReferredType(type.typeArguments?.toDart
             .map((t) => _transformType(t, typeArg: true))
             .toList());
       }
     } else if (getter.type case final type? when ts.isThisTypeNode(type)) {
-      methodType = parent.asReferredType(parent.typeParameters);
+      methodType = parent?.asReferredType(parent.typeParameters);
     }
 
     final methodDeclaration = MethodDeclaration(
@@ -765,12 +771,13 @@ class Transformer {
                 ? _transformType(getter.type!)
                 : BuiltinType.anyType),
         documentation: _parseAndTransformDocumentation(getter));
-    methodDeclaration.parent = parent;
+
+    if (parent != null) methodDeclaration.parent = parent;
     return methodDeclaration;
   }
 
   MethodDeclaration _transformSetter(TSSetAccessorDeclaration setter,
-      {required UniqueNamer parentNamer, required TypeDeclaration parent}) {
+      {required UniqueNamer parentNamer, TypeDeclaration? parent}) {
     final name = setter.name.text;
     final (:id, name: dartName) = parentNamer.makeUnique(name, 'set');
 
@@ -792,13 +799,13 @@ class Transformer {
           if (paramRawType case final ty? when ts.isTypeReferenceNode(ty)) {
             final referredType = ty as TSTypeReferenceNode;
             final referredTypeName = parseQualifiedName(referredType.typeName);
-            if (referredTypeName.asName == parent.name) {
-              paramType = parent.asReferredType(ty.typeArguments?.toDart
+            if (referredTypeName.asName == parent?.name) {
+              paramType = parent?.asReferredType(ty.typeArguments?.toDart
                   .map((t) => _transformType(t, typeArg: true))
                   .toList());
             }
           } else if (paramRawType case final ty? when ts.isThisTypeNode(ty)) {
-            paramType = parent.asReferredType(parent.typeParameters);
+            paramType = parent?.asReferredType(parent.typeParameters);
           }
           return _transformParameter(t, paramType);
         }).toList(),
@@ -809,7 +816,8 @@ class Transformer {
             ? _transformType(setter.type!)
             : BuiltinType.anyType,
         documentation: _parseAndTransformDocumentation(setter));
-    methodDeclaration.parent = parent;
+
+    if (parent != null) methodDeclaration.parent = parent;
     return methodDeclaration;
   }
 
@@ -1049,36 +1057,190 @@ class Transformer {
   /// [typeArg] represents whether the [TSTypeNode] is being passed in the
   /// context of a type argument, as Dart core types are not allowed in
   /// type arguments
+  ///
+  /// [isNullable] means that the given type is nullable, usually when it is
+  /// unionized with `undefined` or `null`
   // TODO(nikeokoronkwo): Add support for constructor and function types,
   //  https://github.com/dart-lang/web/issues/410
   //  https://github.com/dart-lang/web/issues/422
   Type _transformType(TSTypeNode type,
-      {bool parameter = false, bool typeArg = false}) {
+      {bool parameter = false, bool typeArg = false, bool? isNullable}) {
     switch (type.kind) {
       case TSSyntaxKind.ParenthesizedType:
         return _transformType((type as TSParenthesizedTypeNode).type,
-            parameter: parameter, typeArg: typeArg);
+            parameter: parameter, typeArg: typeArg, isNullable: isNullable);
       case TSSyntaxKind.TypeReference:
         final refType = type as TSTypeReferenceNode;
 
-        return _getTypeFromTypeNode(refType, typeArg: typeArg);
+        return _getTypeFromTypeNode(refType,
+            typeArg: typeArg, isNullable: isNullable ?? false);
+      case TSSyntaxKind.TypeLiteral:
+        // type literal
+        final typeLiteralNode = type as TSTypeLiteralNode;
+
+        // lists
+        final properties = <PropertyDeclaration>[];
+        final methods = <MethodDeclaration>[];
+        final constructors = <ConstructorDeclaration>[];
+        final operators = <OperatorDeclaration>[];
+
+        final typeNamer = ScopedUniqueNamer({'get', 'set'});
+
+        // mark the default constructor as used
+        typeNamer.markUsed('', 'constructor');
+        typeNamer.markUsed('unnamed', 'constructor');
+
+        // transform decls
+        for (final member in typeLiteralNode.members.toDart) {
+          switch (member.kind) {
+            case TSSyntaxKind.PropertySignature:
+              final prop = _transformProperty(member as TSPropertySignature,
+                  parentNamer: typeNamer);
+              properties.add(prop);
+            case TSSyntaxKind.MethodSignature:
+              final method = _transformMethod(member as TSMethodSignature,
+                  parentNamer: typeNamer);
+              methods.add(method);
+            case TSSyntaxKind.IndexSignature:
+              final (opGet, opSetOrNull) = _transformIndexer(
+                member as TSIndexSignatureDeclaration,
+              );
+              operators.add(opGet);
+              if (opSetOrNull case final opSet?) {
+                operators.add(opSet);
+              }
+            case TSSyntaxKind.CallSignature:
+              final callSignature = _transformCallSignature(
+                member as TSCallSignatureDeclaration,
+                parentNamer: typeNamer,
+              );
+              methods.add(callSignature);
+            case TSSyntaxKind.ConstructSignature:
+              final constructor = _transformConstructor(
+                  member as TSConstructSignatureDeclaration,
+                  parentNamer: typeNamer);
+              constructors.add(constructor);
+            case TSSyntaxKind.GetAccessor:
+              final getter = _transformGetter(
+                  member as TSGetAccessorDeclaration,
+                  parentNamer: typeNamer);
+              methods.add(getter);
+              break;
+            case TSSyntaxKind.SetAccessor:
+              final setter = _transformSetter(
+                  member as TSSetAccessorDeclaration,
+                  parentNamer: typeNamer);
+              methods.add(setter);
+              break;
+            default:
+              break;
+          }
+        }
+
+        // get a name
+        final name = 'AnonymousType_${AnonymousHasher.hashObject([
+              ...properties.map((p) => (p.name, p.type.id.name)),
+              ...methods.map((p) => (p.name, p.returnType.id.name)),
+              ...constructors.map((p) => (
+                    p.name ?? 'new',
+                    p.parameters.map((a) => a.type.id.name).join(',')
+                  )),
+              ...operators.map((p) => (p.name, p.returnType.id.name)),
+            ])}';
+
+        // get an expected id
+        final expectedId = ID(type: 'type', name: name);
+        if (typeMap.containsKey(expectedId.toString())) {
+          return typeMap[expectedId.toString()] as ObjectLiteralType;
+        }
+
+        final anonymousTypeObject = ObjectLiteralType(
+          name: name,
+          id: expectedId,
+          properties: properties,
+          methods: methods,
+          operators: operators,
+          constructors: constructors,
+        );
+
+        final anonymousType = typeMap.putIfAbsent(expectedId.toString(), () {
+          namer.markUsed(name);
+          return anonymousTypeObject;
+        }) as ObjectLiteralType;
+
+        return anonymousType..isNullable = isNullable ?? false;
+      case TSSyntaxKind.ConstructorType || TSSyntaxKind.FunctionType:
+        final funType = type as TSFunctionOrConstructorTypeNodeBase;
+
+        final parameters =
+            funType.parameters.toDart.map(_transformParameter).toList();
+
+        final typeParameters = funType.typeParameters?.toDart
+                .map(_transformTypeParamDeclaration)
+                .toList() ??
+            [];
+
+        final returnType = _transformType(funType.type);
+
+        final isConstructor = type.kind == TSSyntaxKind.ConstructorType;
+
+        final name = '_Anonymous${isConstructor ? 'Constructor' : 'Function'}_'
+            '${AnonymousHasher.hashFun(parameters.map((a) => (
+                  a.name,
+                  a.type.id.name
+                )).toList(), returnType.id.name, isConstructor)}';
+
+        final expectedId = ID(type: 'type', name: name);
+        if (typeMap.containsKey(expectedId.toString())) {
+          return typeMap[expectedId.toString()] as ClosureType;
+        }
+
+        final closureTypeObject = isConstructor
+            ? ConstructorType(
+                name: name,
+                id: expectedId,
+                returnType: returnType,
+                parameters: parameters,
+                typeParameters: typeParameters)
+            : FunctionType(
+                name: name,
+                id: expectedId,
+                returnType: returnType,
+                parameters: parameters,
+                typeParameters: typeParameters);
+
+        final closureType = typeMap.putIfAbsent(expectedId.toString(), () {
+          namer.markUsed(name);
+          return closureTypeObject;
+        }) as ClosureType;
+
+        return closureType..isNullable = isNullable ?? false;
       case TSSyntaxKind.UnionType:
         final unionType = type as TSUnionTypeNode;
-        // TODO: Unions
-        final types = unionType.types.toDart.map<Type>(_transformType).toList();
+        final unionTypes = unionType.types.toDart;
+        final nonNullableUnionTypes = unionTypes
+            .where((t) =>
+                t.kind != TSSyntaxKind.UndefinedKeyword &&
+                !(t.kind == TSSyntaxKind.LiteralType &&
+                    (t as TSLiteralTypeNode).literal.kind ==
+                        TSSyntaxKind.NullKeyword))
+            .toList();
+        final shouldBeNullable =
+            nonNullableUnionTypes.length != unionTypes.length;
+
+        if (nonNullableUnionTypes.singleOrNull case final singleTypeNode?) {
+          return _transformType(singleTypeNode, isNullable: shouldBeNullable);
+        }
+
+        final types = nonNullableUnionTypes.map<Type>(_transformType).toList();
 
         var isHomogenous = true;
         final nonNullLiteralTypes = <LiteralType>[];
         var onlyContainsBooleanTypes = true;
-        var isNullable = false;
         LiteralType? firstNonNullablePrimitiveType;
 
         for (final type in types) {
           if (type is LiteralType) {
-            if (type.kind == LiteralKind.$null) {
-              isNullable = true;
-              continue;
-            }
             firstNonNullablePrimitiveType ??= type;
             onlyContainsBooleanTypes &= (type.kind == LiteralKind.$true) ||
                 (type.kind == LiteralKind.$false);
@@ -1092,38 +1254,62 @@ class Transformer {
           }
         }
 
-        // check if it is a union of literals
-        if (isHomogenous) {
-          if (nonNullLiteralTypes.isNotEmpty && onlyContainsBooleanTypes) {
-            return BuiltinType.primitiveType(PrimitiveType.boolean,
-                isNullable: isNullable);
-          }
-
-          final expectedId =
-              ID(type: 'type', name: types.map((t) => t.id.name).join('|'));
-
-          if (typeMap.containsKey(expectedId.toString())) {
-            return typeMap[expectedId.toString()] as UnionType;
-          }
-
-          final (id: _, name: name) =
-              namer.makeUnique('AnonymousUnion', 'type');
-
-          // TODO: Handle similar types here...
-          final homogenousEnumType = HomogenousEnumType(
-              types: nonNullLiteralTypes, isNullable: isNullable, name: name);
-
-          return typeMap.putIfAbsent(
-                  expectedId.toString(), () => homogenousEnumType)
-              as HomogenousEnumType;
+        if (isHomogenous &&
+            nonNullLiteralTypes.isNotEmpty &&
+            onlyContainsBooleanTypes) {
+          return BuiltinType.primitiveType(PrimitiveType.boolean,
+              isNullable: shouldBeNullable);
         }
 
-        return UnionType(types: types);
+        final idMap = isHomogenous
+            ? nonNullLiteralTypes.map((t) => t.value.toString())
+            : types.map((t) => t.id.name);
+
+        final expectedId = ID(type: 'type', name: idMap.join('|'));
+
+        if (typeMap.containsKey(expectedId.toString())) {
+          return typeMap[expectedId.toString()] as UnionType;
+        }
+
+        final name =
+            'AnonymousUnion_${AnonymousHasher.hashUnion(idMap.toList())}';
+
+        final un = isHomogenous
+            ? HomogenousEnumType(types: nonNullLiteralTypes, name: name)
+            : UnionType(types: types, name: name);
+
+        final unType = typeMap.putIfAbsent(expectedId.toString(), () {
+          namer.markUsed(name);
+          return un;
+        });
+        return unType..isNullable = shouldBeNullable;
+
+      case TSSyntaxKind.TupleType:
+        // tuple type is array
+        final tupleType = type as TSTupleTypeNode;
+        // TODO: Handle named tuple params (`[x: number, y: number]`)
+        final types = tupleType.elements.toDart
+            .map<Type>((t) => _transformType(t, typeArg: true))
+            .toList();
+
+        // we will work based on the length of the types
+        final typeLength = types.length;
+
+        // check if a tuple of a certain length already exists
+        // generate if not
+        final (tupleUrl, tupleDeclaration) = programMap.getCommonType(
+            'JSTuple$typeLength',
+            ifAbsent: ('_tuples.dart', TupleDeclaration(count: typeLength)))!;
+
+        return tupleDeclaration.asReferredType(
+            types, isNullable ?? false, tupleUrl);
+
       case TSSyntaxKind.LiteralType:
         final literalType = type as TSLiteralTypeNode;
         final literal = literalType.literal;
 
         return LiteralType(
+            isNullable: isNullable ?? false,
             kind: switch (literal.kind) {
               // TODO: Will we support Regex?
               TSSyntaxKind.NumericLiteral => num.parse(literal.text) is int
@@ -1153,12 +1339,16 @@ class Transformer {
         final typeArguments = typeQuery.typeArguments?.toDart;
 
         return _getTypeFromDeclaration(exprName, typeArguments,
-            typeArg: typeArg, isNotTypableDeclaration: true);
+            typeArg: typeArg,
+            isNotTypableDeclaration: true,
+            isNullable: isNullable ?? false);
       case TSSyntaxKind.ArrayType:
-        return BuiltinType.primitiveType(PrimitiveType.array, typeParams: [
-          getJSTypeAlternative(
-              _transformType((type as TSArrayTypeNode).elementType))
-        ]);
+        return BuiltinType.primitiveType(PrimitiveType.array,
+            typeParams: [
+              getJSTypeAlternative(
+                  _transformType((type as TSArrayTypeNode).elementType))
+            ],
+            isNullable: isNullable);
       default:
         // check for primitive type via its kind
         final primitiveType = switch (type.kind) {
@@ -1179,7 +1369,8 @@ class Transformer {
         };
 
         return BuiltinType.primitiveType(primitiveType,
-            shouldEmitJsType: typeArg ? true : null);
+            shouldEmitJsType: typeArg ? true : null,
+            isNullable: primitiveType == PrimitiveType.any ? true : isNullable);
     }
   }
 
@@ -1217,13 +1408,12 @@ class Transformer {
   ///
   /// The referred type may accept [typeArguments], which are passed as well.
   Type _searchForDeclRecursive(
-    Iterable<QualifiedNamePart> name,
-    TSSymbol symbol, {
-    NamespaceDeclaration? parent,
-    List<TSTypeNode>? typeArguments,
-    bool isNotTypableDeclaration = false,
-    bool typeArg = false,
-  }) {
+      Iterable<QualifiedNamePart> name, TSSymbol symbol,
+      {NamespaceDeclaration? parent,
+      List<TSTypeNode>? typeArguments,
+      bool isNotTypableDeclaration = false,
+      bool typeArg = false,
+      bool isNullable = false}) {
     // get name and map
     final firstName = name.first.part;
 
@@ -1251,12 +1441,14 @@ class Transformer {
 
         exportSet.removeWhere((e) => e.name == aliasedSymbolName);
         exportSet.add(ExportReference(aliasedSymbolName, as: firstName));
+        // TODO: Is nullable
         return _getTypeFromSymbol(
             aliasedSymbol,
             typeChecker.getTypeOfSymbol(aliasedSymbol),
             typeArguments,
             typeArg,
-            isNotTypableDeclaration);
+            isNotTypableDeclaration,
+            isNullable);
       }
 
       while (firstDecl.name?.text != firstName &&
@@ -1318,19 +1510,23 @@ class Transformer {
         case TypeAliasDeclaration(type: final t):
         case EnumDeclaration(baseType: final t):
           final jsType = getJSTypeAlternative(t);
-          if (jsType != t && typeArg) return jsType;
+          if (jsType != t && typeArg) {
+            return jsType..isNullable = isNullable;
+          }
       }
 
       final asReferredType = decl.asReferredType(
-        (typeArguments ?? [])
-            .map((type) => _transformType(type, typeArg: true))
-            .toList(),
-      );
+          (typeArguments ?? [])
+              .map((type) => _transformType(type, typeArg: true))
+              .toList(),
+          isNullable);
 
       if (asReferredType case ReferredDeclarationType(type: final type)
           when type is BuiltinType) {
         final jsType = getJSTypeAlternative(type);
-        if (jsType != type && typeArg) asReferredType.type = jsType;
+        if (jsType != type && typeArg) {
+          asReferredType.type = jsType..isNullable = isNullable;
+        }
       }
 
       return asReferredType;
@@ -1344,12 +1540,16 @@ class Transformer {
           if (rest.singleOrNull?.part case final generic?
               when typeParams.any((t) => t.name == generic)) {
             final typeParam = typeParams.firstWhere((t) => t.name == generic);
-            return GenericType(name: typeParam.name, parent: decl);
+            return GenericType(
+                name: typeParam.name, parent: decl, isNullable: isNullable);
           }
           break;
         case final NamespaceDeclaration n:
           final searchForDeclRecursive = _searchForDeclRecursive(rest, symbol,
-              typeArguments: typeArguments, typeArg: typeArg, parent: n);
+              typeArguments: typeArguments,
+              typeArg: typeArg,
+              parent: n,
+              isNullable: isNullable);
           if (parent == null) {
             nodeMap.update(decl.id.toString(), (v) => n);
           }
@@ -1368,7 +1568,8 @@ class Transformer {
   Type _getTypeFromTypeNode(TSTypeReferenceNode node,
       {List<TSTypeNode>? typeArguments,
       bool typeArg = false,
-      bool isNotTypableDeclaration = false}) {
+      bool isNotTypableDeclaration = false,
+      bool isNullable = false}) {
     typeArguments ??= node.typeArguments?.toDart;
     final typeName = node.typeName;
 
@@ -1386,8 +1587,8 @@ class Transformer {
       symbol = type?.aliasSymbol ?? type?.symbol;
     }
 
-    return _getTypeFromSymbol(
-        symbol, type, typeArguments, isNotTypableDeclaration, typeArg);
+    return _getTypeFromSymbol(symbol, type, typeArguments,
+        isNotTypableDeclaration, typeArg, isNullable);
   }
 
   /// Given a [TSSymbol] for a given TS node or declaration, and its associated
@@ -1410,7 +1611,8 @@ class Transformer {
       TSType? type,
       List<TSTypeNode>? typeArguments,
       bool isNotTypableDeclaration,
-      bool typeArg) {
+      bool typeArg,
+      bool isNullable) {
     final declarations = symbol!.getDeclarations()?.toDart ?? [];
 
     // get decl qualified name
@@ -1425,7 +1627,8 @@ class Transformer {
 
       if (type?.isTypeParameter() ?? false) {
         // generic type
-        return GenericType(name: fullyQualifiedName.last.part);
+        return GenericType(
+            name: fullyQualifiedName.last.part, isNullable: isNullable);
       }
 
       // meaning others are imported
@@ -1435,7 +1638,8 @@ class Transformer {
       final supportedType = BuiltinType.referred(firstName,
           typeParams: (typeArguments ?? [])
               .map((t) => getJSTypeAlternative(_transformType(t)))
-              .toList());
+              .toList(),
+          isNullable: isNullable);
       if (supportedType case final resultType?) {
         return resultType;
       }
@@ -1453,7 +1657,8 @@ class Transformer {
             typeParams: (typeArguments ?? [])
                 .map(_transformType)
                 .map(getJSTypeAlternative)
-                .toList());
+                .toList(),
+            isNullable: isNullable);
       }
 
       // TODO(nikeokoronkwo): Update the version of typescript we are using
@@ -1504,7 +1709,9 @@ class Transformer {
           case TypeAliasDeclaration(type: final t):
           case EnumDeclaration(baseType: final t):
             final jsType = getJSTypeAlternative(t);
-            if (jsType != t) return jsType;
+            if (jsType != t) {
+              return jsType..isNullable = isNullable;
+            }
         }
       }
 
@@ -1513,12 +1720,15 @@ class Transformer {
             (typeArguments ?? [])
                 .map((type) => _transformType(type, typeArg: true))
                 .toList(),
+            isNullable,
             relativePath?.replaceFirst('.d.ts', '.dart'));
 
         if (outputType case ReferredDeclarationType(type: final type)
             when type is BuiltinType && typeArg) {
           final jsType = getJSTypeAlternative(type);
-          if (jsType != type) outputType.type = jsType;
+          if (jsType != type) {
+            outputType.type = jsType..isNullable = isNullable;
+          }
         }
 
         return outputType;
@@ -1533,14 +1743,16 @@ class Transformer {
         // let's just handle them before-hand
         if (type?.isTypeParameter() ?? false) {
           // generic type
-          return GenericType(name: fullyQualifiedName.last.part);
+          return GenericType(
+              name: fullyQualifiedName.last.part, isNullable: isNullable);
         }
 
         // recursiveness
         return _searchForDeclRecursive(fullyQualifiedName, symbol,
             typeArguments: typeArguments,
             typeArg: typeArg,
-            isNotTypableDeclaration: isNotTypableDeclaration);
+            isNotTypableDeclaration: isNotTypableDeclaration,
+            isNullable: isNullable);
       } else {
         // if import there and not this file, imported from specified file
         final importUrl =
@@ -1564,7 +1776,9 @@ class Transformer {
             case TypeAliasDeclaration(type: final t):
             case EnumDeclaration(baseType: final t):
               final jsType = getJSTypeAlternative(t);
-              if (jsType != t) return jsType;
+              if (jsType != t) {
+                return jsType..isNullable = isNullable;
+              }
           }
         }
 
@@ -1573,12 +1787,15 @@ class Transformer {
               (typeArguments ?? [])
                   .map((type) => _transformType(type, typeArg: true))
                   .toList(),
+              isNullable,
               relativePath?.replaceFirst('.d.ts', '.dart'));
 
           if (outputType case ReferredDeclarationType(type: final type)
               when type is BuiltinType && typeArg) {
             final jsType = getJSTypeAlternative(type);
-            if (jsType != type) outputType.type = jsType;
+            if (jsType != type) {
+              outputType.type = jsType..isNullable = isNullable;
+            }
           }
 
           return outputType;
@@ -1614,7 +1831,8 @@ class Transformer {
       @UnionOf([TSIdentifier, TSQualifiedName]) TSNode typeName,
       List<TSTypeNode>? typeArguments,
       {bool typeArg = false,
-      bool isNotTypableDeclaration = false}) {
+      bool isNotTypableDeclaration = false,
+      bool isNullable = false}) {
     // union assertion
     assert(typeName.kind == TSSyntaxKind.Identifier ||
         typeName.kind == TSSyntaxKind.QualifiedName);
@@ -1622,7 +1840,7 @@ class Transformer {
     final symbol = typeChecker.getSymbolAtLocation(typeName);
 
     return _getTypeFromSymbol(symbol, typeChecker.getTypeOfSymbol(symbol!),
-        typeArguments, isNotTypableDeclaration, typeArg);
+        typeArguments, isNotTypableDeclaration, typeArg, isNullable);
   }
 
   /// Extracts associated documentation (JSDoc) from a [TSNode] and transforms
@@ -1745,7 +1963,7 @@ class Transformer {
       final decls = nodeMap.findByName(part.text);
       if (decls.isNotEmpty) {
         final firstNode = decls.first;
-        return firstNode.dartName ?? firstNode.name ?? firstNode.id.name;
+        return firstNode.dartName ?? (firstNode as Declaration).name;
       } else {
         return part.text;
       }
@@ -1846,7 +2064,7 @@ class Transformer {
     void updateFilteredDeclsForDecl(Node? decl, NodeMap filteredDeclarations) {
       switch (decl) {
         case final VariableDeclaration v:
-          if (v.type is! BuiltinType) filteredDeclarations.add(v.type);
+          filteredDeclarations.add(v.type);
           break;
         case final CallableDeclaration f:
           filteredDeclarations.addAll(getCallableDependencies(f));
@@ -1854,7 +2072,7 @@ class Transformer {
         case final EnumDeclaration _:
           break;
         case final TypeAliasDeclaration t:
-          if (decl.type is! BuiltinType) filteredDeclarations.add(t.type);
+          filteredDeclarations.add(t.type);
           break;
         case final TypeDeclaration t:
           for (final con in t.constructors) {
@@ -1915,11 +2133,19 @@ class Transformer {
         case final HomogenousEnumType hu:
           filteredDeclarations.add(hu.declaration);
           break;
+        case final TupleType t:
+          filteredDeclarations.addAll({
+            for (final t in t.types.where((t) => t is! BuiltinType))
+              t.id.toString(): t
+          });
         case final UnionType u:
           filteredDeclarations.addAll({
             for (final t in u.types.where((t) => t is! BuiltinType))
               t.id.toString(): t
           });
+          filteredDeclarations.add(u.declaration);
+        case final DeclarationType d:
+          filteredDeclarations.add(d.declaration);
           break;
         case BuiltinType(typeParams: final typeParams)
             when typeParams.isNotEmpty:

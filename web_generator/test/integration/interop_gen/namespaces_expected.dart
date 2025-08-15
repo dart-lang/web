@@ -1,5 +1,6 @@
 // ignore_for_file: camel_case_types, constant_identifier_names
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: non_constant_identifier_names, unnecessary_parenthesis
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:js_interop' as _i1;
@@ -106,7 +107,7 @@ extension type Security_IAuthToken._(_i1.JSObject _) implements _i1.JSObject {
 extension type Security_AuthService._(_i1.JSObject _) implements _i1.JSObject {
   external Security_AuthService();
 
-  external Security_IAuthToken login(
+  external Security_IAuthToken? login(
     String username,
     String password,
   );
@@ -117,7 +118,7 @@ extension type Security_AuthService._(_i1.JSObject _) implements _i1.JSObject {
 @_i1.JS('Data.IRepository')
 extension type Data_IRepository<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
-  external T findById(num id);
+  external T? findById(num id);
   external _i1.JSArray<T> findAll();
   external void save(T entity);
 }
@@ -311,7 +312,7 @@ extension type EnterpriseApp_DataServices_ProductService._(_i1.JSObject _)
   external void save(EnterpriseApp_Models_Product item);
   external void add(EnterpriseApp_Models_Product product);
   @_i1.JS('get')
-  external EnterpriseApp_Models_Product get$(num id);
+  external EnterpriseApp_Models_Product get$(AnonymousUnion_1467782 id);
   @_i2.redeclare
   external _i1.JSArray<EnterpriseApp_Models_Product> getAll();
 }
@@ -326,4 +327,9 @@ extension type EnterpriseApp_UI_Components._(_i1.JSObject _)
   @_i1.JS()
   external static void renderUserList(
       _i1.JSArray<EnterpriseApp_Models_User> users);
+}
+extension type AnonymousUnion_1467782._(_i1.JSAny _) implements _i1.JSAny {
+  String get asString => (_ as _i1.JSString).toDart;
+
+  double get asDouble => (_ as _i1.JSNumber).toDartDouble;
 }

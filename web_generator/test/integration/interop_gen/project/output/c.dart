@@ -1,4 +1,6 @@
-// ignore_for_file: constant_identifier_names, non_constant_identifier_names
+// ignore_for_file: camel_case_types, constant_identifier_names
+// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: non_constant_identifier_names, unnecessary_parenthesis
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:js_interop' as _i1;
@@ -20,7 +22,7 @@ extension type Comparator<T extends _i1.JSAny?>._(_i1.JSObject _)
 /// Represents a basic logger interface with optional flush capability.
 extension type ILogger._(_i1.JSObject _) implements _i1.JSObject {
   /// Logging level. Defaults to "info" if unspecified.
-  external AnonymousUnion? level;
+  external AnonymousUnion_1584724? level;
 
   /// Name of the logger (e.g., subsystem or module).
   external String get name;
@@ -132,14 +134,14 @@ external LinkedList get rootList;
 /// A numeric comparator for sorting numbers.
 @_i1.JS()
 external Comparator<_i1.JSNumber> get compareNumbers;
-extension type const AnonymousUnion._(String _) {
-  static const AnonymousUnion debug = AnonymousUnion._('debug');
+extension type const AnonymousUnion_1584724._(String _) {
+  static const AnonymousUnion_1584724 debug = AnonymousUnion_1584724._('debug');
 
-  static const AnonymousUnion info = AnonymousUnion._('info');
+  static const AnonymousUnion_1584724 info = AnonymousUnion_1584724._('info');
 
-  static const AnonymousUnion warn = AnonymousUnion._('warn');
+  static const AnonymousUnion_1584724 warn = AnonymousUnion_1584724._('warn');
 
-  static const AnonymousUnion error = AnonymousUnion._('error');
+  static const AnonymousUnion_1584724 error = AnonymousUnion_1584724._('error');
 }
 
 /// A basic self-referencing linked list node.

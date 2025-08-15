@@ -12,7 +12,8 @@ import 'documentation.dart';
 import 'helpers.dart';
 import 'types.dart';
 
-abstract class NestableDeclaration extends NamedDeclaration {
+abstract class NestableDeclaration extends NamedDeclaration
+    implements DocumentedDeclaration {
   NestableDeclaration? get parent;
 
   String get qualifiedName =>
@@ -68,11 +69,15 @@ sealed class TypeDeclaration extends NestableDeclaration
       this.parent,
       this.documentation});
 
-  ExtensionType _emit(
-      [covariant DeclarationOptions? options,
-      bool abstract = false,
+  /// [useFirstExtendeeAsRepType] is used to assert that the extension type
+  /// generated has a representation type of the first member of [extendees]
+  /// if any.
+  ExtensionType _emit(covariant DeclarationOptions? options,
+      {bool abstract = false,
       List<Type> extendees = const [],
-      List<Type> implementees = const []]) {
+      List<Type> implementees = const [],
+      bool useFirstExtendeeAsRepType = false,
+      bool objectLiteralConstructor = false}) {
     options ??= DeclarationOptions();
 
     final hierarchy = getMemberHierarchy(this);
@@ -100,8 +105,8 @@ sealed class TypeDeclaration extends NestableDeclaration
     methodDecs.addAll(operators.where((p) => p.scope == DeclScope.public).map(
         (m) => m.emit(options!..override = isOverride(m.dartName ?? m.name))));
 
-    final repType = this is ClassDeclaration
-        ? getClassRepresentationType(this as ClassDeclaration)
+    final repType = useFirstExtendeeAsRepType || this is ClassDeclaration
+        ? getRepresentationType(this)
         : BuiltinType.primitiveType(PrimitiveType.object, isNullable: false);
 
     return ExtensionType((e) => e
@@ -129,6 +134,15 @@ sealed class TypeDeclaration extends NestableDeclaration
       ..types
           .addAll(typeParameters.map((t) => t.emit(options?.toTypeOptions())))
       ..constructors.addAll([
+        if (objectLiteralConstructor)
+          Constructor((c) => c
+            ..external = true
+            ..optionalParameters.addAll(properties
+                .where((p) => p.scope == DeclScope.public)
+                .map((p) => Parameter((param) => param
+                  ..named = true
+                  ..name = p.name
+                  ..type = p.type.emit(options?.toTypeOptions()))))),
         if (!abstract)
           if (constructors.isEmpty && this is ClassDeclaration)
             ConstructorDeclaration.defaultFor(this).emit(options)
@@ -140,14 +154,16 @@ sealed class TypeDeclaration extends NestableDeclaration
   }
 }
 
-abstract class MemberDeclaration {
+abstract class MemberDeclaration implements DocumentedDeclaration {
   late final TypeDeclaration parent;
 
   abstract final DeclScope scope;
+
+  String? get name;
 }
 
 class VariableDeclaration extends FieldDeclaration
-    implements ExportableDeclaration {
+    implements ExportableDeclaration, DocumentedDeclaration {
   /// The variable modifier, as represented in TypeScript
   VariableModifier modifier;
 
@@ -204,16 +220,16 @@ class VariableDeclaration extends FieldDeclaration
 
   @override
   ReferredType<VariableDeclaration> asReferredType(
-      [List<Type>? typeArgs, String? url]) {
+      [List<Type>? typeArgs, bool? isNullable, String? url]) {
     return ReferredType<VariableDeclaration>.fromType(type, this,
-        typeParams: typeArgs ?? [], url: url);
+        typeParams: typeArgs ?? [], url: url, isNullable: isNullable ?? false);
   }
 }
 
 enum VariableModifier { let, $const, $var }
 
 class FunctionDeclaration extends CallableDeclaration
-    implements ExportableDeclaration {
+    implements ExportableDeclaration, DocumentedDeclaration {
   @override
   String name;
 
@@ -273,16 +289,16 @@ class FunctionDeclaration extends CallableDeclaration
 
   @override
   ReferredType<FunctionDeclaration> asReferredType(
-      [List<Type>? typeArgs, String? url]) {
+      [List<Type>? typeArgs, bool? isNullable, String? url]) {
     // TODO: We could do better here and make the function type typed
     return ReferredType<FunctionDeclaration>.fromType(
         BuiltinType.referred('Function', typeParams: typeArgs ?? [])!, this,
-        typeParams: typeArgs ?? [], url: url);
+        typeParams: typeArgs ?? [], url: url, isNullable: isNullable ?? false);
   }
 }
 
 class EnumDeclaration extends NestableDeclaration
-    implements ExportableDeclaration {
+    implements ExportableDeclaration, DocumentedDeclaration {
   @override
   String name;
 
@@ -395,7 +411,7 @@ class EnumMember {
 }
 
 class TypeAliasDeclaration extends NamedDeclaration
-    implements ExportableDeclaration {
+    implements ExportableDeclaration, DocumentedDeclaration {
   @override
   String name;
 
@@ -484,11 +500,9 @@ class NamespaceDeclaration extends NestableDeclaration
 
   @override
   ExtensionType emit([covariant DeclarationOptions? options]) {
-    options ??= DeclarationOptions();
-    options.static = true;
+    options?.static = true;
 
     final (doc, annotations) = generateFromDocumentation(documentation);
-
     // static props and vars
     final methods = <Method>[];
     final fields = <Field>[];
@@ -496,12 +510,14 @@ class NamespaceDeclaration extends NestableDeclaration
     for (final decl in topLevelDeclarations) {
       if (decl case final VariableDeclaration variable) {
         if (variable.modifier == VariableModifier.$const) {
-          methods.add(variable.emit(options) as Method);
+          methods.add(variable.emit(options ?? DeclarationOptions(static: true))
+              as Method);
         } else {
-          fields.add(variable.emit(options) as Field);
+          fields.add(variable.emit(options ?? DeclarationOptions(static: true))
+              as Field);
         }
       } else if (decl case final FunctionDeclaration fn) {
-        methods.add(fn.emit(options));
+        methods.add(fn.emit(options ?? DeclarationOptions(static: true)));
       }
     }
 
@@ -624,8 +640,10 @@ class ClassDeclaration extends TypeDeclaration {
 
   @override
   ExtensionType emit([covariant DeclarationOptions? options]) {
-    return super._emit(options, abstract,
-        [if (extendedType case final extendee?) extendee], implementedTypes);
+    return super._emit(options,
+        abstract: abstract,
+        extendees: [if (extendedType case final extendee?) extendee],
+        implementees: implementedTypes);
   }
 
   @override
@@ -647,6 +665,15 @@ class InterfaceDeclaration extends TypeDeclaration {
 
   final List<Type> extendedTypes;
 
+  /// This asserts that the extension type generated produces a rep type
+  /// other than its default, which is denoted by the first member of
+  /// [extendedTypes] if any.
+  final bool assertRepType;
+
+  /// This asserts generating a constructor for creating the given interface
+  /// as an object literal via an object literal constructor
+  final bool objectLiteralConstructor;
+
   InterfaceDeclaration(
       {required super.name,
       required super.exported,
@@ -658,16 +685,17 @@ class InterfaceDeclaration extends TypeDeclaration {
       super.properties,
       super.operators,
       super.constructors,
+      this.assertRepType = false,
+      this.objectLiteralConstructor = false,
       super.documentation})
       : _id = id;
 
   @override
   ExtensionType emit([covariant DeclarationOptions? options]) {
-    return super._emit(
-      options,
-      false,
-      extendedTypes,
-    );
+    return super._emit(options,
+        extendees: extendedTypes,
+        useFirstExtendeeAsRepType: assertRepType,
+        objectLiteralConstructor: objectLiteralConstructor);
   }
 }
 
@@ -874,12 +902,14 @@ class ConstructorDeclaration implements MemberDeclaration {
 
   final List<ParameterDeclaration> parameters;
 
+  @override
   final String? name;
 
   final ID id;
 
   final String? dartName;
 
+  @override
   Documentation? documentation;
 
   ConstructorDeclaration(

@@ -12,7 +12,7 @@ import 'base.dart';
 
 /// A built in type supported by `dart:js_interop` or by this library
 /// (with generated declarations)
-class BuiltinType extends Type {
+class BuiltinType extends NamedType {
   @override
   final String name;
 
@@ -21,15 +21,15 @@ class BuiltinType extends Type {
   /// Whether the given type is present in "dart:js_interop"
   final bool fromDartJSInterop;
 
-  // TODO(nikeokoronkwo): Types in general should have an `isNullable`
-  //  property on them to indicate nullability for Dart generated code.
-  final bool? isNullable;
+  @override
+  bool isNullable;
 
   BuiltinType(
       {required this.name,
       this.typeParams = const [],
       this.fromDartJSInterop = false,
-      this.isNullable});
+      bool? isNullable})
+      : isNullable = isNullable ?? false;
 
   @override
   ID get id => ID(type: 'type', name: name);
@@ -39,16 +39,14 @@ class BuiltinType extends Type {
 
   @override
   Reference emit([TypeOptions? options]) {
-    options ??= TypeOptions();
-
     return TypeReference((t) => t
       ..symbol = name
       ..types.addAll(typeParams
           // if there is only one type param, and it is void, ignore
           .where((p) => typeParams.length != 1 || p != $voidType)
-          .map((p) => p.emit(TypeOptions())))
+          .map((p) => p.emit(options)))
       ..url = fromDartJSInterop ? 'dart:js_interop' : null
-      ..isNullable = isNullable ?? options!.nullable);
+      ..isNullable = isNullable || (options?.nullable ?? false));
   }
 
   static final BuiltinType $voidType = BuiltinType(name: 'void');
@@ -81,7 +79,10 @@ class BuiltinType extends Type {
               name: 'JSString', fromDartJSInterop: true, isNullable: isNullable)
           : BuiltinType(name: 'String', isNullable: isNullable),
       PrimitiveType.$void || PrimitiveType.undefined => $voidType,
-      PrimitiveType.any || PrimitiveType.unknown => anyType,
+      PrimitiveType.any => (isNullable ?? false)
+          ? anyType
+          : BuiltinType(name: 'JSAny', fromDartJSInterop: true),
+      PrimitiveType.unknown => anyType,
       PrimitiveType.object => BuiltinType(
           name: 'JSObject', fromDartJSInterop: true, isNullable: isNullable),
       PrimitiveType.symbol => BuiltinType(
@@ -128,13 +129,14 @@ class BuiltinType extends Type {
   }
 }
 
-class PackageWebType extends Type {
+class PackageWebType extends NamedType {
   @override
   final String name;
 
   final List<Type> typeParams;
 
-  final bool? isNullable;
+  @override
+  bool isNullable;
 
   @override
   ID get id => ID(type: 'type', name: name);
@@ -143,12 +145,12 @@ class PackageWebType extends Type {
   String? get dartName => null;
 
   PackageWebType._(
-      {required this.name, this.typeParams = const [], this.isNullable});
+      {required this.name,
+      this.typeParams = const [],
+      this.isNullable = false});
 
   @override
   Reference emit([TypeOptions? options]) {
-    options ??= TypeOptions();
-
     // TODO: We can make this a shared function as it is called a lot
     //  between types
     return TypeReference((t) => t
@@ -156,16 +158,16 @@ class PackageWebType extends Type {
       ..types.addAll(typeParams
           // if there is only one type param, and it is void, ignore
           .where((p) => typeParams.length != 1 || p != BuiltinType.$voidType)
-          .map((p) => p.emit(TypeOptions())))
+          .map((p) => p.emit(options)))
       ..url = 'package:web/web.dart'
-      ..isNullable = isNullable ?? options!.nullable);
+      ..isNullable = isNullable || (options?.nullable ?? false));
   }
 
   static PackageWebType parse(String name,
       {bool? isNullable, List<Type> typeParams = const []}) {
     return PackageWebType._(
         name: renameMap.containsKey(name) ? renameMap[name]! : name,
-        isNullable: isNullable,
+        isNullable: isNullable ?? false,
         typeParams: typeParams);
   }
 }

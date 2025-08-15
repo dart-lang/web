@@ -2,10 +2,10 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:convert';
-
 import 'package:code_builder/code_builder.dart';
 
+import '../formatting.dart';
+import '../interop_gen/namer.dart';
 import 'base.dart';
 import 'builtin.dart';
 import 'declarations.dart';
@@ -99,15 +99,23 @@ Set<String> getMemberHierarchy(TypeDeclaration type,
   return members;
 }
 
-Type getClassRepresentationType(ClassDeclaration cl) {
-  if (cl.extendedType case final extendee?) {
+Type getRepresentationType(TypeDeclaration td) {
+  if (td case ClassDeclaration(extendedType: final extendee?)) {
     return switch (extendee) {
-      final ClassDeclaration classExtendee =>
-        getClassRepresentationType(classExtendee),
+      ReferredType(declaration: final d) when d is TypeDeclaration =>
+        getRepresentationType(d),
+      final BuiltinType b => b,
+      _ => BuiltinType.primitiveType(PrimitiveType.object, isNullable: false)
+    };
+  } else if (td case InterfaceDeclaration(extendedTypes: [final extendee])) {
+    return switch (extendee) {
+      ReferredType(declaration: final d) when d is TypeDeclaration =>
+        getRepresentationType(d),
+      final BuiltinType b => b,
       _ => BuiltinType.primitiveType(PrimitiveType.object, isNullable: false)
     };
   } else {
-    final primitiveType = switch (cl.name) {
+    final primitiveType = switch (td.name) {
       'Array' => PrimitiveType.array,
       _ => PrimitiveType.object
     };
@@ -124,10 +132,8 @@ Type getClassRepresentationType(ClassDeclaration cl) {
     return ([], docs.annotations.map((d) => d.emit()).toList());
   }
   return (
-    const LineSplitter()
-        .convert(docs.docs.trim())
-        .map((d) => '/// $d')
-        .toList(),
+    // setting it at 80 may not work depending on how long the sentence is
+    formatDocs(docs.docs.trim(), 78),
     docs.annotations.map((d) => d.emit()).toList()
   );
 }
@@ -151,4 +157,191 @@ Type getClassRepresentationType(ClassDeclaration cl) {
   }
 
   return (requiredParams, optionalParams);
+}
+
+/// Recursively get the generic types specified in a given type [t]
+List<GenericType> getGenericTypes(Type t) {
+  final types = <(String, Type?)>[];
+  switch (t) {
+    case GenericType():
+      types.add((t.name, t.constraint));
+      break;
+    case ReferredType(typeParams: final referredTypeParams):
+    case UnionType(types: final referredTypeParams):
+      for (final referredTypeParam in referredTypeParams) {
+        types.addAll(getGenericTypes(referredTypeParam)
+            .map((t) => (t.name, t.constraint)));
+      }
+      break;
+    case ObjectLiteralType(
+        properties: final objectProps,
+        methods: final objectMethods,
+        constructors: final objectConstructors,
+        operators: final objectOperators
+      ):
+      for (final PropertyDeclaration(type: propType) in objectProps) {
+        types.addAll(
+            getGenericTypes(propType).map((t) => (t.name, t.constraint)));
+      }
+
+      for (final MethodDeclaration(
+            typeParameters: alreadyEstablishedTypeParams,
+            returnType: methodType,
+            parameters: methodParams
+          ) in objectMethods) {
+        final typeParams = [methodType, ...methodParams.map((p) => p.type)];
+
+        for (final type in typeParams) {
+          final genericTypes = getGenericTypes(type);
+          for (final genericType in genericTypes) {
+            if (!alreadyEstablishedTypeParams
+                .any((al) => al.name == genericType.name)) {
+              types.add((genericType.name, genericType.constraint));
+            }
+          }
+        }
+      }
+
+      for (final ConstructorDeclaration(parameters: methodParams)
+          in objectConstructors) {
+        for (final ParameterDeclaration(type: methodParamType)
+            in methodParams) {
+          types.addAll(getGenericTypes(methodParamType)
+              .map((t) => (t.name, t.constraint)));
+        }
+      }
+
+      for (final OperatorDeclaration(
+            typeParameters: alreadyEstablishedTypeParams,
+            returnType: methodType,
+            parameters: methodParams
+          ) in objectOperators) {
+        final typeParams = [methodType, ...methodParams.map((p) => p.type)];
+
+        for (final type in typeParams) {
+          final genericTypes = getGenericTypes(type);
+          for (final genericType in genericTypes) {
+            if (!alreadyEstablishedTypeParams
+                .any((al) => al.name == genericType.name)) {
+              types.add((genericType.name, genericType.constraint));
+            }
+          }
+        }
+      }
+      break;
+    case ClosureType(
+        typeParameters: final alreadyEstablishedTypeParams,
+        returnType: final closureType,
+        parameters: final closureParams
+      ):
+      for (final type in [closureType, ...closureParams.map((p) => p.type)]) {
+        final genericTypes = getGenericTypes(type);
+        for (final genericType in genericTypes) {
+          if (!alreadyEstablishedTypeParams
+              .any((al) => al.name == genericType.name)) {
+            types.add((genericType.name, genericType.constraint));
+          }
+        }
+      }
+      break;
+    default:
+      break;
+  }
+
+  // Types are cloned so that modifications to constraints can happen without
+  // affecting initial references
+  return types.map((t) => GenericType(name: t.$1, constraint: t.$2)).toList();
+}
+
+Type desugarTypeAliases(Type t) {
+  if (t case final ReferredType ref
+      when ref.declaration is TypeAliasDeclaration) {
+    return desugarTypeAliases((ref.declaration as TypeAliasDeclaration).type);
+  }
+  return t;
+}
+
+class TupleDeclaration extends NamedDeclaration
+    implements ExportableDeclaration {
+  @override
+  bool get exported => true;
+
+  @override
+  ID get id => ID(type: 'tuple', name: name);
+
+  final int count;
+
+  final bool readonly;
+
+  TupleDeclaration({required this.count, this.readonly = false});
+
+  @override
+  String? dartName;
+
+  @override
+  String get name => readonly ? 'JSReadonlyTuple$count' : 'JSTuple$count';
+
+  @override
+  set name(String name) {
+    throw Exception('Forbidden: Cannot set name on tuple declaration');
+  }
+
+  /// Creates a tuple from types.
+  ///
+  /// The type args represent the tuple types for the tuple declaration
+  @override
+  TupleType asReferredType(
+      [List<Type>? typeArgs, bool isNullable = false, String? url]) {
+    assert(typeArgs?.length == count,
+        'Type arguments must equal the number of tuples supported');
+    return TupleType(types: typeArgs ?? [], tupleDeclUrl: url);
+  }
+
+  @override
+  Spec emit([covariant DeclarationOptions? options]) {
+    options ??= DeclarationOptions();
+
+    final repType = BuiltinType.primitiveType(PrimitiveType.array,
+        shouldEmitJsType: true, typeParams: [BuiltinType.anyType]);
+
+    return ExtensionType((e) => e
+      ..name = name
+      ..primaryConstructorName = '_'
+      ..representationDeclaration = RepresentationDeclaration((r) => r
+        ..name = '_'
+        ..declaredRepresentationType = repType.emit())
+      ..implements.addAll([if (repType != BuiltinType.anyType) repType.emit()])
+      ..types.addAll(List.generate(
+          count,
+          (index) => TypeReference((t) => t
+            ..symbol = String.fromCharCode(65 + index)
+            ..bound = BuiltinType.anyType.emit())))
+      ..methods.addAll([
+        ...List.generate(count, (index) {
+          final returnType = String.fromCharCode(65 + index);
+          return Method((m) => m
+            ..name = '\$${index + 1}'
+            ..returns = refer(returnType)
+            ..type = MethodType.getter
+            ..body = refer('_')
+                .index(literalNum(index))
+                .asA(refer(returnType))
+                .code);
+        }),
+        if (!readonly)
+          ...List.generate(count, (index) {
+            final returnType = String.fromCharCode(65 + index);
+            return Method((m) => m
+              ..name = '\$${index + 1}'
+              ..type = MethodType.setter
+              ..requiredParameters.add(Parameter((p) => p
+                ..name = 'newValue'
+                ..type = refer(returnType)))
+              ..body = refer('_')
+                  .index(literalNum(index))
+                  .assign(refer('newValue'))
+                  .code);
+          })
+      ]));
+  }
 }

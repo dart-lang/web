@@ -1,4 +1,6 @@
-// ignore_for_file: constant_identifier_names, non_constant_identifier_names
+// ignore_for_file: camel_case_types, constant_identifier_names
+// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: non_constant_identifier_names, unnecessary_parenthesis
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:js_interop' as _i1;
@@ -248,7 +250,7 @@ extension type EpahsImpl<TMeta extends _i1.JSAny?>._(_i1.JSObject _)
     implements Epahs<TMeta> {
   external EpahsImpl(
     String name, [
-    AnonymousUnion$1? type,
+    AnonymousUnion_1113974? type,
   ]);
 
   external factory EpahsImpl.$1(Epahs<TMeta> config);
@@ -266,7 +268,7 @@ extension type EpahsImpl<TMeta extends _i1.JSAny?>._(_i1.JSObject _)
   @_i2.redeclare
   external double area();
   @_i1.JS('area')
-  external String area$1(AnonymousUnion unit);
+  external String area$1(AnonymousUnion_1594664 unit);
   external static EpahsImpl getById(String id);
 
   /// Returns a string representation of an object.
@@ -274,12 +276,15 @@ extension type EpahsImpl<TMeta extends _i1.JSAny?>._(_i1.JSObject _)
   external String toString$();
 }
 extension type Point._(_i1.JSObject _) implements _i1.JSObject {}
-extension type const AnonymousUnion$1._(String _) {
-  static const AnonymousUnion$1 circle = AnonymousUnion$1._('circle');
+extension type const AnonymousUnion_1113974._(String _) {
+  static const AnonymousUnion_1113974 circle =
+      AnonymousUnion_1113974._('circle');
 
-  static const AnonymousUnion$1 rectangle = AnonymousUnion$1._('rectangle');
+  static const AnonymousUnion_1113974 rectangle =
+      AnonymousUnion_1113974._('rectangle');
 
-  static const AnonymousUnion$1 polygon = AnonymousUnion$1._('polygon');
+  static const AnonymousUnion_1113974 polygon =
+      AnonymousUnion_1113974._('polygon');
 }
 extension type Epahs<TMetadata extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
@@ -288,11 +293,11 @@ extension type Epahs<TMetadata extends _i1.JSAny?>._(_i1.JSObject _)
   external String get id;
   external double area();
   @_i1.JS('area')
-  external String area$1(AnonymousUnion unit);
+  external String area$1(AnonymousUnion_1594664 unit);
   external _i1.JSFunction? get onUpdate;
 }
-extension type const AnonymousUnion._(String _) {
-  static const AnonymousUnion cm2 = AnonymousUnion._('cm2');
+extension type const AnonymousUnion_1594664._(String _) {
+  static const AnonymousUnion_1594664 cm2 = AnonymousUnion_1594664._('cm2');
 
-  static const AnonymousUnion in2 = AnonymousUnion._('in2');
+  static const AnonymousUnion_1594664 in2 = AnonymousUnion_1594664._('in2');
 }

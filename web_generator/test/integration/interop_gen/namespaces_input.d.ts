@@ -34,7 +34,7 @@ export declare namespace Security {
      */
     class AuthService {
         private logs;
-        login(username: string, password: string): IAuthToken;
+        login(username: string, password: string): IAuthToken | undefined;
     }
 }
 export declare namespace Data {
@@ -43,7 +43,7 @@ export declare namespace Data {
      * T can be a class from another namespace, like Models.User.
      */
     interface IRepository<T> {
-        findById(id: number): T;
+        findById(id: number): T | undefined;
         findAll(): T[];
         save(entity: T): void;
     }
@@ -133,7 +133,7 @@ export declare namespace EnterpriseApp {
             save(item: Models.Product): void;
             private products;
             add(product: Models.Product): void;
-            get(id: number): Models.Product;
+            get(id: string | number): Models.Product;
             getAll(): Models.Product[];
         }
     }

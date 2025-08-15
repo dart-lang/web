@@ -90,8 +90,13 @@ extension type const TSSyntaxKind._(num _) {
   static const TSSyntaxKind ThisType = TSSyntaxKind._(197);
   static const TSSyntaxKind TypeQuery = TSSyntaxKind._(186);
   static const TSSyntaxKind ParenthesizedType = TSSyntaxKind._(196);
+  static const TSSyntaxKind TupleType = TSSyntaxKind._(189);
+  static const TSSyntaxKind NamedTupleMember = TSSyntaxKind._(202);
+  static const TSSyntaxKind TypeLiteral = TSSyntaxKind._(187);
+  static const TSSyntaxKind FunctionType = TSSyntaxKind._(184);
+  static const TSSyntaxKind ConstructorType = TSSyntaxKind._(185);
 
-  /// Other
+  // Other
   static const TSSyntaxKind Identifier = TSSyntaxKind._(80);
   static const TSSyntaxKind QualifiedName = TSSyntaxKind._(166);
   static const TSSyntaxKind PropertyAccessExpression = TSSyntaxKind._(211);
@@ -182,6 +187,47 @@ extension type TSParenthesizedTypeNode._(JSObject _) implements TSTypeNode {
   @redeclare
   TSSyntaxKind get kind => TSSyntaxKind.ParenthesizedType;
   external TSTypeNode get type;
+}
+
+@JS('TupleTypeNode')
+extension type TSTupleTypeNode._(JSObject _) implements TSTypeNode {
+  external TSNodeArray<TSTypeNode> get elements;
+}
+
+@JS('NamedTupleMember')
+extension type TSNamedTupleMember._(JSObject _)
+    implements TSTypeNode, TSDeclaration {
+  external TSToken? get dotDotDotToken;
+  external TSIdentifier get name;
+  external TSToken? get questionToken;
+  external TSTypeNode get type;
+}
+
+@JS('TypeLiteralNode')
+extension type TSTypeLiteralNode._(JSObject _)
+    implements TSTypeNode, TSDeclaration {
+  external TSNodeArray<TSTypeElement> get members;
+}
+
+@JS('FunctionOrConstructorTypeNodeBase')
+extension type TSFunctionOrConstructorTypeNodeBase._(JSObject _)
+    implements TSTypeNode, TSSignatureDeclarationBase {
+  external TSTypeNode get type;
+}
+
+@JS('FunctionTypeNode')
+extension type TSFunctionTypeNode._(JSObject _)
+    implements TSFunctionOrConstructorTypeNodeBase {
+  @redeclare
+  TSSyntaxKind get kind => TSSyntaxKind.FunctionType;
+}
+
+@JS('ConstructorTypeNode')
+extension type TSConstructorTypeNode._(JSObject _)
+    implements TSFunctionOrConstructorTypeNodeBase {
+  @redeclare
+  TSSyntaxKind get kind => TSSyntaxKind.ConstructorType;
+  external TSNodeArray<TSNode>? get modifiers;
 }
 
 @JS('Expression')

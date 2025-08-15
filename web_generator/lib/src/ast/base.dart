@@ -45,7 +45,6 @@ class ASTOptions {
 }
 
 sealed class Node {
-  String? get name;
   abstract final ID id;
   String? get dartName;
 
@@ -55,7 +54,6 @@ sealed class Node {
 }
 
 abstract class Declaration extends Node {
-  @override
   String get name;
 
   @override
@@ -66,11 +64,19 @@ abstract class NamedDeclaration extends Declaration {
   @override
   abstract String name;
 
-  abstract Documentation? documentation;
-
-  ReferredType asReferredType([List<Type>? typeArgs, String? url]) =>
+  ReferredType asReferredType(
+          [List<Type>? typeArgs, bool isNullable = false, String? url]) =>
       ReferredType(
-          name: name, declaration: this, typeParams: typeArgs ?? [], url: url);
+          name: name,
+          declaration: this,
+          typeParams: typeArgs ?? [],
+          url: url,
+          isNullable: isNullable);
+}
+
+abstract interface class DocumentedDeclaration {
+  /// The documentation associated with the given declaration
+  abstract Documentation? documentation;
 }
 
 abstract interface class ExportableDeclaration extends Declaration {
@@ -88,8 +94,20 @@ abstract class Type extends Node {
   @override
   String? dartName;
 
+  /// Whether the given type is nullable or not
+  /// (unioned with `undefined` or `null`)
+  abstract bool isNullable;
+
   @override
   Reference emit([covariant TypeOptions? options]);
+
+  @override
+  bool operator ==(Object other) {
+    return other is Type && id == other.id;
+  }
+
+  @override
+  int get hashCode => Object.hashAll([id]);
 }
 
 abstract class FieldDeclaration extends NamedDeclaration {
@@ -105,6 +123,12 @@ abstract class CallableDeclaration extends NamedDeclaration {
 }
 
 enum DeclScope { private, protected, public }
+
+abstract class DeclarationType<T extends Declaration> extends Type {
+  T get declaration;
+
+  String get declarationName;
+}
 
 class ParameterDeclaration {
   final String name;
@@ -126,4 +150,8 @@ class ParameterDeclaration {
       ..name = name
       ..type = type.emit(TypeOptions(nullable: optional)));
   }
+}
+
+abstract class NamedType extends Type {
+  String get name;
 }

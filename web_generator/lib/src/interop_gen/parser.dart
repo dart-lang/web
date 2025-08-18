@@ -7,14 +7,30 @@ import 'dart:js_interop';
 import 'package:path/path.dart' as p;
 
 import '../config.dart';
+import '../js/filesystem_api.dart';
 import '../js/node.dart';
 import '../js/typescript.dart' as ts;
+
+class PreProcessResult {
+  final List<String> modules;
+  final List<String> referenceLibs;
+  final List<String> referenceTypes;
+
+  const PreProcessResult(
+      {this.modules = const [],
+      this.referenceLibs = const [],
+      this.referenceTypes = const []});
+}
 
 class ParserResult {
   ts.TSProgram program;
   Iterable<String> files;
+  Map<String, PreProcessResult> preprocessResult;
 
-  ParserResult({required this.program, required this.files});
+  ParserResult(
+      {required this.program,
+      required this.files,
+      this.preprocessResult = const {}});
 }
 
 /// Parses the given TypeScript declaration files in the [config],
@@ -25,6 +41,29 @@ class ParserResult {
 /// options from the TS config file/config object to use alongside the compiler
 ParserResult parseDeclarationFiles(Config config) {
   final files = config.input;
+  // preprocess file
+  final preProcessResultMap = <String, PreProcessResult>{};
+
+  for (final file in files) {
+    final contents = (fs.readFileSync(
+            file.toJS, JSReadFileOptions(encoding: 'utf8'.toJS)) as JSString)
+        .toDart;
+    final preProcessResult = ts.preProcessFile(contents);
+
+    preProcessResultMap[file] = PreProcessResult(
+      modules: preProcessResult.ambientExternalModules?.toDart
+              .map((t) => t.toDart)
+              .toList() ??
+          [],
+      referenceLibs: preProcessResult.libReferenceDirectives.toDart
+          .map((ref) => ref.fileName)
+          .toList(),
+      referenceTypes: preProcessResult.typeReferenceDirectives.toDart
+          .map((ref) => ref.fileName)
+          .toList(),
+    );
+  }
+
   final ignoreErrors = config.ignoreErrors;
 
   // create host for parsing TS configuration

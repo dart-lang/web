@@ -2,101 +2,23 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:convert';
 import 'dart:js_interop';
 
-import 'package:code_builder/code_builder.dart';
-import 'package:dart_style/dart_style.dart';
+import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 
 import '../ast/base.dart';
 import '../ast/declarations.dart';
-import '../ast/helpers.dart';
 import '../config.dart';
 import '../js/helpers.dart';
 import '../js/typescript.dart' as ts;
 import '../js/typescript.types.dart';
+import 'generate.dart';
 import 'namer.dart';
 import 'parser.dart';
 import 'qualified_name.dart';
 import 'transform/transformer.dart';
-
-void _setGlobalOptions(Config config) {
-  GlobalOptions.variadicArgsCount = config.functions?.varArgs ?? 4;
-}
-
-typedef ProgramDeclarationMap = Map<String, NodeMap>;
-
-class TransformResult {
-  ProgramDeclarationMap programDeclarationMap;
-  ProgramDeclarationMap commonTypes;
-  bool multiFileOutput;
-
-  TransformResult._(this.programDeclarationMap, {this.commonTypes = const {}})
-      : multiFileOutput = programDeclarationMap.length > 1;
-
-  // TODO(https://github.com/dart-lang/web/issues/388): Handle union of overloads
-  //  (namespaces + functions, multiple interfaces, etc)
-  Map<String, String> generate(Config config) {
-    final formatter = DartFormatter(
-        languageVersion: DartFormatter.latestShortStyleLanguageVersion);
-
-    _setGlobalOptions(config);
-
-    return {...programDeclarationMap, ...commonTypes}.map((file, declMap) {
-      final emitter =
-          DartEmitter.scoped(useNullSafetySyntax: true, orderDirectives: true);
-      final specs = declMap.values
-          .map((d) {
-            return switch (d) {
-              final Declaration n => n.emit(),
-              final Type _ => null,
-            };
-          })
-          .nonNulls
-          .whereType<Spec>();
-      final lib = Library((l) {
-        if (config.preamble case final preamble?) {
-          l.comments.addAll(const LineSplitter().convert(preamble).map((l) {
-            if (l.startsWith('//')) {
-              return l.replaceFirst(RegExp(r'^\/\/\s*'), '');
-            }
-            return l;
-          }));
-        }
-        var parentCaseIgnore = false;
-        var anonymousIgnore = false;
-        var tupleDecl = false;
-
-        for (final value in declMap.values) {
-          if (value is TupleDeclaration) tupleDecl = true;
-          if (value.id.name.contains('Anonymous')) anonymousIgnore = true;
-          if (value case NestableDeclaration(parent: final _?)) {
-            parentCaseIgnore = true;
-          }
-        }
-        l
-          ..ignoreForFile.addAll({
-            'constant_identifier_names',
-            'non_constant_identifier_names',
-            if (parentCaseIgnore) 'camel_case_types',
-            if (anonymousIgnore) ...[
-              'camel_case_types',
-              'library_private_types_in_public_api',
-              'unnecessary_parenthesis'
-            ],
-            if (tupleDecl) 'unnecessary_parenthesis',
-          })
-          ..body.addAll(specs);
-      });
-      return MapEntry(
-          file.replaceAll('.d.ts', '.dart'),
-          formatter.format('${lib.accept(emitter)}'
-              .replaceAll('static external', 'external static')));
-    });
-  }
-}
 
 /// A map of declarations, where the key is the declaration's stringified [ID].
 extension type NodeMap<N extends Node>._(Map<String, N> decls)
@@ -181,47 +103,170 @@ class ProgramMap {
 
   final bool generateAll;
 
+  /// A map of file paths to the modules they define
+  final p.PathMap<List<String>> moduleMap;
+
+  /// A map of module names to their respective modules
+  final Map<String, ModuleDeclaration> moduleDeclarations = {};
+
+  /// A reference to the global module declaration, if any
+  ModuleDeclaration? globalModule;
+
+  bool isDefinedModule(String name) {
+    return moduleMap.values.any((v) => v.contains(name));
+  }
+
+  bool isDefinedModuleInFile(String file, String name) {
+    return moduleMap[file]?.contains(name) ?? false;
+  }
+
+  bool isBuiltModule(String name) {
+    return moduleDeclarations.keys.contains(name);
+  }
+
   ProgramMap(this.program, List<String> files,
-      {this.filterDeclSet = const [], bool? generateAll})
+      {this.filterDeclSet = const [],
+      bool? generateAll,
+      p.PathMap<List<String>>? moduleMap})
       : typeChecker = program.getTypeChecker(),
         generateAll = generateAll ?? false,
-        files = p.PathSet.of(files);
+        files = p.PathSet.of(files),
+        moduleMap = moduleMap ?? p.PathMap();
+
+  /// Transforms a given module child declaration by finding the file where it
+  /// is defined and transforming it
 
   /// Find the node definition for a given declaration named [declName]
   /// or associated with a TypeScript node [node] from the map of files
-  List<Node>? getDeclarationRef(String file, TSNode node, [String? declName]) {
-    // check
-    NodeMap nodeMap;
-    if (_pathMap.containsKey(file)) {
-      nodeMap = _pathMap[file]!;
-    } else {
-      final src = program.getSourceFile(file);
+  ///
+  /// [context] provides the context of the import, for resolving relative
+  /// imports and [file] is the file to search in, if not provided, it will
+  /// search in the global module or the module that contains the file.
+  List<Node>? getDeclarationRef(String file, TSNode node, {String? declName}) {
+    Transformer? getTransformer(
+      String filePath, {
+      ModuleDeclaration? module,
+    }) {
+      final src = program.getSourceFile(filePath);
 
-      final transformer =
-          _activeTransformers.putIfAbsent(file, () => Transformer(this, src));
+      print((filePath, module?.name, srcIsNull: src == null));
+
+      final transformer = _activeTransformers.putIfAbsent(
+          filePath, () => Transformer(this, src));
 
       if (!transformer.nodes.contains(node)) {
-        if (declName case final d?
+        if (module != null) {
+          print(
+              (filePath, module.name, srcIsNull: src == null, kind: node.kind));
+          // just transform the node
+          final transformedDecls = transformer.transformNode(node);
+          switch (node.kind) {
+            case TSSyntaxKind.ClassDeclaration ||
+                  TSSyntaxKind.InterfaceDeclaration:
+              final outputDecl = transformedDecls.first as TypeDeclaration;
+              outputDecl.parent = module;
+              module.nestableDeclarations.add(outputDecl);
+            case TSSyntaxKind.EnumDeclaration:
+              final outputDecl = transformedDecls.first as EnumDeclaration;
+              outputDecl.parent = module;
+              module.nestableDeclarations.add(outputDecl);
+            default:
+              module.topLevelDeclarations.addAll(transformedDecls);
+          }
+          module.nodes.add(node);
+        } else if (declName case final d?
             when transformer.nodeMap.findByName(d).isEmpty) {
-          // find the source file decl
-          if (src == null) return null;
-
-          final symbol = typeChecker.getSymbolAtLocation(src)!;
+          // fetch the symbol for the node
+          // and transform the associated declaration
+          final symbol = typeChecker.getSymbolAtLocation(src!)!;
           final exports = symbol.exports?.toDart ?? {};
 
           final targetSymbol = exports[d.toJS]!;
-
           transformer.transform(targetSymbol.getDeclarations()!.toDart.first);
         } else {
           transformer.transform(node);
         }
       }
 
-      nodeMap = transformer.filterAndReturn();
-      _activeTransformers[file] = transformer;
+      return transformer;
     }
 
+    // check
+    var nodeMap = NodeMap<Node>();
     final name = declName ?? (node as TSNamedDeclaration).name?.text;
+
+    // search through modules first
+    if (file == 'global' || file.isEmpty) {
+      globalModule ??= ModuleDeclaration.global();
+      final globalNodeMap = globalModule!.nodeMap;
+      if ((name != null && globalNodeMap.findByName(name).isEmpty) ||
+          !globalModule!.nodes.contains(node)) {
+        final fileName = node.getSourceFile().fileName;
+        final transformer = getTransformer(fileName, module: globalModule);
+
+        if (transformer == null) {
+          // if no transformer, then we cannot find the node
+          return null;
+        }
+      }
+      nodeMap = globalModule!.nodeMap;
+    }
+    final moduleID = ID(name: file, type: 'module').toString();
+    if (moduleDeclarations.containsKey(moduleID)) {
+      final module = moduleDeclarations[moduleID]!;
+      if ((name != null && module.nodeMap.findByName(name).isEmpty) ||
+          !module.nodes.contains(node)) {
+        final fileName = node.getSourceFile().fileName;
+        final transformer = getTransformer(fileName, module: module);
+
+        moduleDeclarations[moduleID] = module;
+
+        if (transformer == null) {
+          // if no transformer, then we cannot find the node
+          // for a specific module, a file must be found
+          throw Exception(
+              'Could not find transformer containing the given module $file');
+        }
+      }
+
+      nodeMap = moduleDeclarations[moduleID]!.nodeMap;
+    } else if (moduleMap.entries.where((entry) => entry.value.contains(file))
+        case final targetModules when targetModules.isNotEmpty) {
+      // if the file is a module, we need to find the node map for the module
+      for (final MapEntry(key: moduleFile) in targetModules) {
+        // ensure module is transformed
+        if (moduleFile != null) {
+          final nm = getNodeMap(moduleFile);
+          final moduleDecl = nm.values
+              .whereType<ModuleReference>()
+              .firstWhereOrNull((m) => m.id.name == moduleFile);
+
+          if (moduleDecl != null) {
+            nodeMap = moduleDecl.reference.nodeMap;
+            break;
+          }
+        }
+      }
+    } else {
+      final fileWithExt = file.endsWith('.d.ts')
+          ? file
+          : '$file.d.ts'; // ensure we have the correct file extension
+
+      // if not, search through files
+      if (_pathMap.containsKey(fileWithExt)) {
+        nodeMap = _pathMap[fileWithExt]!;
+      } else {
+        final transformer = getTransformer(fileWithExt);
+        if (transformer == null) {
+          // if no transformer, then we cannot find the node
+          return null;
+        }
+
+        nodeMap = transformer.filterAndReturn();
+        _activeTransformers[fileWithExt] = transformer;
+      }
+    }
+
     return name == null ? null : nodeMap.findByName(name);
   }
 
@@ -323,7 +368,9 @@ class TransformerManager {
   TransformerManager.fromParsedResults(ParserResult result, {Config? config})
       : programMap = ProgramMap(result.program, result.files.toList(),
             filterDeclSet: config?.includedDeclarations ?? [],
-            generateAll: config?.generateAll);
+            generateAll: config?.generateAll,
+            moduleMap: p.PathMap.of(
+                result.preprocessResult.map((k, v) => MapEntry(k, v.modules))));
 
   TransformResult transform() {
     final outputNodeMap = <String, NodeMap>{};
@@ -333,7 +380,8 @@ class TransformerManager {
       outputNodeMap[file!] = programMap.getNodeMap(file);
     }
 
-    return TransformResult._(outputNodeMap,
-        commonTypes: programMap._commonTypes.cast());
+    return TransformResult(outputNodeMap,
+        commonTypes: programMap._commonTypes.cast(),
+        moduleDeclarations: programMap.moduleDeclarations);
   }
 }

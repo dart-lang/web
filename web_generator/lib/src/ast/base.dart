@@ -3,8 +3,10 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:code_builder/code_builder.dart';
+import 'package:path/path.dart' as p;
 
 import '../interop_gen/namer.dart';
+import 'declarations.dart';
 import 'documentation.dart';
 import 'types.dart';
 
@@ -154,4 +156,37 @@ class ParameterDeclaration {
 
 abstract class NamedType extends Type {
   String get name;
+}
+
+/// A reference to a given module
+class ModuleReference extends Node {
+  @override
+  String? get dartName =>
+      throw Exception('Error calling dartName on ModuleReference');
+
+  /// The name of the module being referenced
+  String get name => reference.name;
+
+  /// Where the module is being referenced from, as a relative path
+  String from;
+
+  /// The full path of the actual file being referenced, if any
+  String? get actualReference => reference.url;
+
+  /// The module being referenced
+  ModuleDeclaration reference;
+
+  ModuleReference({required this.from, required this.reference});
+
+  String get url => p.join(from, '$name.dart');
+
+  @override
+  Directive emit([Options? options]) {
+    return Directive.export(
+      url,
+    );
+  }
+
+  @override
+  ID get id => ID(type: 'module-ref', name: url);
 }

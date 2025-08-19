@@ -58,7 +58,6 @@ external TSPreProcessedFileInfo preProcessFile(String sourceText,
 @JS()
 external TSParseConfigFileHost sys;
 
-
 @JS('ParsedCommandLine')
 extension type TSParsedCommandLine._(JSObject _) implements JSObject {
   external TSCompilerOptions options;

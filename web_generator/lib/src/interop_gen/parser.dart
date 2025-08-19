@@ -126,7 +126,8 @@ ParserResult parseDeclarationFiles(Config config) {
     exit(1);
   }
 
-  return ParserResult(program: program, files: files);
+  return ParserResult(
+      program: program, files: files, preprocessResult: preProcessResultMap);
 }
 
 void handleDiagnostics(List<ts.TSDiagnostic> diagnostics) {

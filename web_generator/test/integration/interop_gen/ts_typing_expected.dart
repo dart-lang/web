@@ -33,6 +33,7 @@ extension type const MyEnum._(int _) {
 
   static const MyEnum D = MyEnum._(4);
 }
+typedef Transformer<T extends _i1.JSAny?> = _AnonymousFunction_5293571<T>;
 @_i1.JS()
 external _i1.JSFunction copyOfmyEnclosingFunction;
 @_i1.JS()
@@ -111,6 +112,10 @@ extension type AnonymousType_9143117<T extends _i1.JSAny?>._(_i1.JSObject _)
   external double id;
 
   external T value;
+}
+extension type _AnonymousFunction_5293571<T extends _i1.JSAny?>._(
+    _i1.JSFunction _) implements _i1.JSFunction {
+  external ComposedType<T> call(T object);
 }
 extension type ComposedType<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {

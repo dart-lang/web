@@ -11,6 +11,7 @@ export declare enum MyEnum {
 interface ComposedType<T = any> {
     enclosed: T;
 }
+export type Transformer<T> = (object: T) => ComposedType<T>;
 export declare let copyOfmyEnclosingFunction: typeof myEnclosingFunction;
 export declare const myEnumValue: MyEnum;
 export declare const myEnumValue2: typeof MyEnum;

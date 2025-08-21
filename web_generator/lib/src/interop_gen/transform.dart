@@ -217,7 +217,7 @@ class ProgramMap {
         }
       }
 
-      nodeMap = transformer.filterAndReturn();
+      nodeMap = transformer.processAndReturn();
       _activeTransformers[file] = transformer;
     }
 
@@ -298,7 +298,7 @@ class ProgramMap {
         }
       }
 
-      return _activeTransformers[absolutePath]!.filterAndReturn();
+      return _activeTransformers[absolutePath]!.processAndReturn();
     });
   }
 }

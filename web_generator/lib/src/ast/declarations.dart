@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:collection';
+
 import 'package:code_builder/code_builder.dart';
 
 import '../interop_gen/namer.dart';
@@ -38,13 +40,18 @@ sealed class TypeDeclaration extends NestableDeclaration
   @override
   String? dartName;
 
+  final ID _id;
+
+  @override
+  ID get id => ID(type: _id.type, name: qualifiedName, index: _id.index);
+
   @override
   final bool exported;
 
   @override
   NestableDeclaration? parent;
 
-  final List<GenericType> typeParameters;
+  final Set<GenericType> typeParameters;
 
   final List<MethodDeclaration> methods;
 
@@ -61,13 +68,15 @@ sealed class TypeDeclaration extends NestableDeclaration
       {required this.name,
       this.dartName,
       required this.exported,
-      this.typeParameters = const [],
+      this.typeParameters = const {},
       this.methods = const [],
       this.properties = const [],
       this.operators = const [],
       this.constructors = const [],
       this.parent,
-      this.documentation});
+      this.documentation,
+      required ID id})
+      : _id = id;
 
   /// [useFirstExtendeeAsRepType] is used to assert that the extension type
   /// generated has a representation type of the first member of [extendees]
@@ -220,9 +229,11 @@ class VariableDeclaration extends FieldDeclaration
 
   @override
   ReferredType<VariableDeclaration> asReferredType(
-      [List<Type>? typeArgs, bool? isNullable, String? url]) {
+      [Iterable<Type>? typeArgs, bool? isNullable, String? url]) {
     return ReferredType<VariableDeclaration>.fromType(type, this,
-        typeParams: typeArgs ?? [], url: url, isNullable: isNullable ?? false);
+        typeParams: typeArgs?.toList() ?? [],
+        url: url,
+        isNullable: isNullable ?? false);
   }
 }
 
@@ -289,11 +300,13 @@ class FunctionDeclaration extends CallableDeclaration
 
   @override
   ReferredType<FunctionDeclaration> asReferredType(
-      [List<Type>? typeArgs, bool? isNullable, String? url]) {
+      [IterableBase<Type>? typeArgs, bool? isNullable, String? url]) {
     // TODO: We could do better here and make the function type typed
     return ReferredType<FunctionDeclaration>.fromType(
-        BuiltinType.referred('Function', typeParams: typeArgs ?? [])!, this,
-        typeParams: typeArgs ?? [], url: url, isNullable: isNullable ?? false);
+        BuiltinType.referred('Function')!, this,
+        typeParams: typeArgs?.toList() ?? [],
+        url: url,
+        isNullable: isNullable ?? false);
   }
 }
 
@@ -538,53 +551,14 @@ class NamespaceDeclaration extends NestableDeclaration
     }
 
     // class refs
+    // TODO: Enum support
     for (final nestable in nestableDeclarations) {
       switch (nestable) {
-        case ClassDeclaration(
-            name: final className,
-            dartName: final classDartName,
-            constructors: final constructors,
-            typeParameters: final typeParams,
-            abstract: final abstract
-          ):
-          var constr = constructors
-              .where((c) => c.name == null || c.name == 'unnamed')
-              .firstOrNull;
-
-          if (constructors.isEmpty && !abstract) {
-            constr = ConstructorDeclaration.defaultFor(nestable);
-          }
-
-          // static call to class constructor
-          if (constr != null) {
-            options ??= DeclarationOptions();
-
-            final (requiredParams, optionalParams) =
-                emitParameters(constr.parameters, options);
-
-            methods.add(Method((m) => m
-              ..name = classDartName ?? className
-              ..annotations
-                  .addAll([generateJSAnnotation('$qualifiedName.$className')])
-              ..types.addAll(
-                  typeParams.map((t) => t.emit(options?.toTypeOptions())))
-              ..requiredParameters.addAll(requiredParams)
-              ..optionalParameters.addAll(optionalParams)
-              ..returns =
-                  refer('${completedDartName}_${classDartName ?? className}')
-              ..lambda = true
-              ..static = true
-              ..body = refer(nestable.completedDartName).call(
-                  [
-                    ...requiredParams.map((p) => refer(p.name)),
-                    if (optionalParams.isNotEmpty)
-                      ...optionalParams.map((p) => refer(p.name))
-                  ],
-                  {},
-                  typeParams
-                      .map((t) => t.emit(options?.toTypeOptions()))
-                      .toList()).code));
-          }
+        case ClassDeclaration cl:
+          final constr = _extractConstrFromClass(cl, options: options, parent: this);
+          methods.addAll([
+            if (constr != null) constr
+          ]);
           break;
         default:
           break;
@@ -609,6 +583,158 @@ class NamespaceDeclaration extends NestableDeclaration
         ..declaredRepresentationType = refer('JSObject', 'dart:js_interop'))
       ..fields.addAll(fields)
       ..methods.addAll(methods));
+  }
+
+  CompositeDeclaration get asComposite =>
+      CompositeDeclaration.fromNamespace(this);
+}
+
+class CompositeDeclaration extends TypeDeclaration {
+  final List<Type> extendedTypes;
+
+  final List<Type> implementedTypes;
+
+  /// This asserts that the extension type generated produces a rep type
+  /// other than its default, which is denoted by the first member of
+  /// [extendedTypes] if any.
+  final bool assertRepType;
+
+  /// This asserts generating a constructor for creating the given interface
+  /// as an object literal via an object literal constructor
+  final bool objectLiteralConstructor;
+
+  final List<Method> __methods;
+
+  CompositeDeclaration._(
+      {required super.name,
+      super.dartName,
+      required super.id,
+      super.typeParameters,
+      super.constructors,
+      super.methods,
+      super.properties,
+      super.operators,
+      super.documentation,
+      super.parent,
+      this.extendedTypes = const [],
+      this.implementedTypes = const [],
+      this.assertRepType = false,
+      this.objectLiteralConstructor = false,
+      List<Method> rawMethods = const []})
+      : __methods = rawMethods,
+        super(exported: true);
+
+  CompositeDeclaration.fromInterface(InterfaceDeclaration interface)
+      : extendedTypes = interface.extendedTypes,
+        implementedTypes = [],
+        assertRepType = interface.assertRepType,
+        objectLiteralConstructor = interface.objectLiteralConstructor,
+        __methods = [],
+        super(
+          name: interface.name,
+          dartName: interface.dartName,
+          exported: true,
+          id: interface.id,
+          parent: interface.parent,
+          typeParameters: interface.typeParameters,
+          methods: interface.methods,
+          properties: interface.properties,
+          operators: interface.operators,
+          constructors: interface.constructors,
+          documentation: interface.documentation,
+        );
+
+  factory CompositeDeclaration.fromNamespace(NamespaceDeclaration namespace) {
+    final methodDeclarations = <MethodDeclaration>[];
+    final propertyDeclarations = <PropertyDeclaration>[];
+
+    // TODO: Enum Support
+    final methods = <Method>[];
+
+    for (final decl in namespace.topLevelDeclarations) {
+      switch (decl) {
+        case final MethodDeclaration method:
+          methodDeclarations.add(MethodDeclaration(
+              name: method.name,
+              dartName: method.dartName,
+              documentation: method.documentation,
+              static: true,
+              id: method.id,
+              parameters: method.parameters,
+              typeParameters: method.typeParameters,
+              returnType: method.returnType));
+        case final VariableDeclaration variable:
+          propertyDeclarations.add(PropertyDeclaration(
+              name: variable.name,
+              id: variable.id,
+              type: variable.type,
+              static: true,
+              readonly: variable.modifier == VariableModifier.$const,
+              documentation: variable.documentation));
+        default:
+          break;
+      }
+    }
+
+    for (final decl in namespace.nestableDeclarations) {
+      switch (decl) {
+        case final EnumDeclaration enumeration:
+          propertyDeclarations.add(PropertyDeclaration(
+              name: enumeration.name,
+              id: enumeration.id,
+              type: enumeration.asReferredType(),
+              static: true,
+              readonly: true,
+              documentation: enumeration.documentation));
+        case final ClassDeclaration cl:
+          final constr = _extractConstrFromClass(cl, parent: namespace);
+          methods.addAll([
+            if (constr != null) constr
+          ]);
+        default:
+          break;
+      }
+    }
+
+    return CompositeDeclaration._(
+        name: namespace.name,
+        dartName: namespace.dartName,
+        parent: namespace.parent,
+        id: namespace.id,
+        typeParameters: {},
+        methods: methodDeclarations,
+        properties: propertyDeclarations,
+        operators: [],
+        constructors: [],
+        documentation: namespace.documentation,
+        extendedTypes: [],
+        implementedTypes: [],
+        assertRepType: true,
+        rawMethods: methods);
+  }
+
+  InterfaceDeclaration get asInterface => InterfaceDeclaration(
+      name: name,
+      exported: exported,
+      id: id,
+      dartName: dartName,
+      documentation: documentation,
+      typeParameters: typeParameters,
+      properties: properties,
+      methods: methods,
+      operators: operators,
+      constructors: constructors,
+      extendedTypes: extendedTypes,
+      assertRepType: assertRepType,
+      objectLiteralConstructor: objectLiteralConstructor);
+
+  @override
+  Spec emit([covariant DeclarationOptions? options]) {
+    return super._emit(options,
+        extendees: extendedTypes,
+        implementees: implementedTypes,
+        useFirstExtendeeAsRepType: assertRepType,
+        objectLiteralConstructor: objectLiteralConstructor);
   }
 }
 
@@ -636,7 +762,8 @@ class ClassDeclaration extends TypeDeclaration {
       required super.methods,
       required super.properties,
       super.operators,
-      super.documentation});
+      super.documentation})
+      : super(id: ID(type: 'class', name: name));
 
   @override
   ExtensionType emit([covariant DeclarationOptions? options]) {
@@ -645,9 +772,6 @@ class ClassDeclaration extends TypeDeclaration {
         extendees: [if (extendedType case final extendee?) extendee],
         implementees: implementedTypes);
   }
-
-  @override
-  ID get id => ID(type: 'class', name: qualifiedName);
 }
 
 /// The declaration node for a TypeScript [Interface]()
@@ -658,11 +782,6 @@ class ClassDeclaration extends TypeDeclaration {
 /// }
 /// ```
 class InterfaceDeclaration extends TypeDeclaration {
-  final ID _id;
-
-  @override
-  ID get id => ID(type: _id.type, name: qualifiedName, index: _id.index);
-
   final List<Type> extendedTypes;
 
   /// This asserts that the extension type generated produces a rep type
@@ -677,7 +796,7 @@ class InterfaceDeclaration extends TypeDeclaration {
   InterfaceDeclaration(
       {required super.name,
       required super.exported,
-      required ID id,
+      required super.id,
       super.dartName,
       super.typeParameters,
       this.extendedTypes = const [],
@@ -687,8 +806,7 @@ class InterfaceDeclaration extends TypeDeclaration {
       super.constructors,
       this.assertRepType = false,
       this.objectLiteralConstructor = false,
-      super.documentation})
-      : _id = id;
+      super.documentation});
 
   @override
   ExtensionType emit([covariant DeclarationOptions? options]) {
@@ -907,7 +1025,7 @@ class ConstructorDeclaration implements MemberDeclaration {
 
   final ID id;
 
-  final String? dartName;
+  String? dartName;
 
   @override
   Documentation? documentation;
@@ -922,7 +1040,7 @@ class ConstructorDeclaration implements MemberDeclaration {
       : dartName = dartName == 'unnamed' ? null : dartName;
 
   static ConstructorDeclaration defaultFor(TypeDeclaration decl) {
-    return ConstructorDeclaration(id: const ID(type: 'constructor', name: ''))
+    return ConstructorDeclaration(id: ID(type: 'constructor', name: ''))
       ..parent = decl;
   }
 
@@ -1039,3 +1157,56 @@ enum OperatorKind {
 
 Expression get _redeclareExpression =>
     refer('redeclare', 'package:meta/meta.dart');
+
+Method? _extractConstrFromClass(ClassDeclaration classDecl, {
+  DeclarationOptions? options,
+  NamespaceDeclaration? parent,
+}) {
+  String qualifiedName = parent?.qualifiedName ?? '';
+  String completedDartName = parent?.completedDartName ?? '';
+    final ClassDeclaration(
+            name: className,
+            dartName: classDartName,
+            constructors: constructors,
+            typeParameters: typeParams,
+            abstract: abstract
+          ) = classDecl;
+    var constr = constructors
+        .where((c) => c.name == null || c.name == 'unnamed')
+        .firstOrNull;
+    
+    if (constructors.isEmpty && !abstract) {
+      constr = ConstructorDeclaration.defaultFor(classDecl);
+    }
+    
+    // static call to class constructor
+    if (constr != null) {
+      options ??= DeclarationOptions();
+    
+      final (requiredParams, optionalParams) =
+          emitParameters(constr.parameters, options);
+    
+      return Method((m) => m
+        ..name = classDartName ?? className
+        ..annotations
+            .addAll([generateJSAnnotation('$qualifiedName.$className')])
+        ..types.addAll(
+            typeParams.map((t) => t.emit(options?.toTypeOptions())))
+        ..requiredParameters.addAll(requiredParams)
+        ..optionalParameters.addAll(optionalParams)
+        ..returns =
+            refer('${completedDartName}_${classDartName ?? className}')
+        ..lambda = true
+        ..static = true
+        ..body = refer(classDecl.completedDartName).call(
+            [
+              ...requiredParams.map((p) => refer(p.name)),
+              if (optionalParams.isNotEmpty)
+                ...optionalParams.map((p) => refer(p.name))
+            ],
+            {},
+            typeParams
+                .map((t) => t.emit(options?.toTypeOptions()))
+                .toList()).code);
+    }
+  }

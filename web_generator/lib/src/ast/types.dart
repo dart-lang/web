@@ -306,7 +306,7 @@ class ObjectLiteralType extends DeclarationType<TypeDeclaration> {
       typeParameters: getGenericTypes(this).map((g) {
         g.constraint ??= BuiltinType.anyType;
         return g;
-      }).toList());
+      }).toSet());
 
   @override
   Reference emit([TypeOptions? options]) {
@@ -389,7 +389,7 @@ class FunctionType extends ClosureType {
           name: declarationName,
           exported: true,
           id: ID(type: 'interface', name: declarationName),
-          typeParameters: typeParameters,
+          typeParameters: typeParameters.toSet(),
           assertRepType: true,
           extendedTypes: [
             BuiltinType.referred('Function')!
@@ -397,7 +397,7 @@ class FunctionType extends ClosureType {
           methods: [
             MethodDeclaration(
                 name: 'call',
-                id: const ID(type: 'fun', name: 'call'),
+                id: ID(type: 'fun', name: 'call'),
                 returnType: returnType,
                 parameters: parameters)
           ]);

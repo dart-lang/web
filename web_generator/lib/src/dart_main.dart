@@ -86,6 +86,8 @@ Future<void> generateJSInteropBindings(Config config) async {
 
   if (generatedCodeMap.isEmpty) return;
 
+  print(generatedCodeMap.keys);
+
   // write code to file
   if (dartDeclarations.multiFileOutput) {
     for (final entry in generatedCodeMap.entries) {
@@ -93,12 +95,13 @@ Future<void> generateJSInteropBindings(Config config) async {
           p.join(configOutput, p.basename(entry.key)).toJS, entry.value.toJS);
     }
   } else {
-    final entry = generatedCodeMap.entries.first;
-    fs.writeFileSync(configOutput.toJS, entry.value.toJS);
+    final mainLibrary = generatedCodeMap.entries.first;
+    fs.writeFileSync(configOutput.toJS, mainLibrary.value.toJS);
     for (final entry in generatedCodeMap.entries.skip(1)) {
-      fs.writeFileSync(
-          p.join(p.dirname(configOutput), p.basename(entry.key)).toJS,
-          entry.value.toJS);
+      final outputPath = p.join(p.dirname(configOutput), entry.key);
+      fs.mkdirSync(
+          p.dirname(outputPath).toJS, JSMkdirOptions(recursive: true.toJS));
+      fs.writeFileSync(outputPath.toJS, entry.value.toJS);
     }
   }
 }

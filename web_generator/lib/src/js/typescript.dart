@@ -52,6 +52,10 @@ external TSParsedCommandLine parseJsonConfigFileContent(
     [TSCompilerOptions existingOptions, String configFileName]);
 
 @JS()
+external TSPreProcessedFileInfo preProcessFile(String sourceText,
+    [bool readImportFiles, bool detectJavaScriptImports]);
+
+@JS()
 external TSParseConfigFileHost sys;
 
 @JS('ParsedCommandLine')
@@ -121,6 +125,19 @@ extension type OnUnRecoverableConfigFileDiagnosticFunc(JSFunction _)
     implements JSFunction {
   @doNotStore
   external JSAny call(TSDiagnostic diagnostic);
+}
+
+@JS('PreProcessedFileInfo')
+extension type TSPreProcessedFileInfo._(JSObject _) implements JSObject {
+  external JSArray<TSFileReference> referencedFiles;
+  external JSArray<TSFileReference> typeReferenceDirectives;
+  external JSArray<TSFileReference> libReferenceDirectives;
+  external JSArray<JSString>? ambientExternalModules;
+}
+
+@JS('FileReference')
+extension type TSFileReference._(JSObject _) implements JSObject {
+  external String fileName;
 }
 
 @JS('CompilerOptions')

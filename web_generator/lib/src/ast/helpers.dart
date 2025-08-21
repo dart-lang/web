@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:code_builder/code_builder.dart';
+import 'package:path/path.dart' as p;
 
 import '../formatting.dart';
 import '../interop_gen/namer.dart';
@@ -343,5 +344,15 @@ class TupleDeclaration extends NamedDeclaration
                   .code);
           })
       ]));
+  }
+}
+
+String realPathAsDir(String path) {
+  if (path.endsWith('.d.ts')) {
+    return path.replaceAll('.d.ts', '');
+  } else if (p.extension(path) != '') {
+    return p.setExtension(path, '');
+  } else {
+    return path;
   }
 }

@@ -160,8 +160,8 @@ Type getRepresentationType(TypeDeclaration td) {
 }
 
 /// Recursively get the generic types specified in a given type [t]
-List<GenericType> getGenericTypes(Type t) {
-  final types = <(String, Type?)>[];
+Set<GenericType> getGenericTypes(Type t) {
+  final types = <(String, Type?)>{};
   switch (t) {
     case GenericType():
       types.add((t.name, t.constraint));
@@ -250,7 +250,7 @@ List<GenericType> getGenericTypes(Type t) {
 
   // Types are cloned so that modifications to constraints can happen without
   // affecting initial references
-  return types.map((t) => GenericType(name: t.$1, constraint: t.$2)).toList();
+  return types.map((t) => GenericType(name: t.$1, constraint: t.$2)).toSet();
 }
 
 Type desugarTypeAliases(Type t) {

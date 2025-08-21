@@ -337,13 +337,24 @@ sealed class ClosureType extends DeclarationType {
     this.typeParameters = const [],
     this.parameters = const [],
     this.isNullable = false,
-  }) : declarationName = name;
+  }) : declarationName = name {
+    if (typeParameters.isEmpty) {
+      typeParameters.addAll(getGenericTypes(this).map((t) {
+        t.constraint ??= BuiltinType.anyType;
+        return t;
+      }));
+    }
+  }
 
   @override
   Reference emit([TypeOptions? options]) {
     return TypeReference((t) => t
       ..symbol = declarationName
-      ..isNullable = options?.nullable ?? isNullable);
+      ..isNullable = options?.nullable ?? isNullable
+      ..types.addAll(typeParameters.map((t) {
+        final clonedT = GenericType(name: t.name, isNullable: t.isNullable);
+        return clonedT.emit(options);
+      })));
   }
 }
 
@@ -388,8 +399,7 @@ class FunctionType extends ClosureType {
                 name: 'call',
                 id: const ID(type: 'fun', name: 'call'),
                 returnType: returnType,
-                parameters: parameters,
-                typeParameters: typeParameters)
+                parameters: parameters)
           ]);
 }
 
@@ -445,8 +455,6 @@ class _ConstructorDeclaration extends CallableDeclaration
           .addAll(typeParameters.map((t) => t.emit(options?.toTypeOptions())))
       ..methods.add(Method((m) => m
         ..name = 'call'
-        ..types
-            .addAll(typeParameters.map((t) => t.emit(options?.toTypeOptions())))
         ..returns = returnType.emit(options?.toTypeOptions())
         ..requiredParameters.addAll(requiredParams)
         ..optionalParameters.addAll(optionalParams)

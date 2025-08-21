@@ -14,8 +14,9 @@ import 'types.dart';
 (List<Declaration>, {List<Declaration> additionals}) mergeDeclarations(
     List<Declaration> declarations) {
   if (declarations.isEmpty) return ([], additionals: []);
-  if (declarations.singleOrNull case final singleDecl?)
+  if (declarations.singleOrNull case final singleDecl?) {
     return ([singleDecl], additionals: []);
+  }
 
   assert(declarations.every((d) => d.name == declarations.first.name),
       'All declarations must have the same name');
@@ -27,6 +28,7 @@ import 'types.dart';
   // TODO: Enums
   final functions = <FunctionDeclaration>[];
   final interfaces = <InterfaceDeclaration>[];
+  ClassDeclaration? classDecl; // there can be only 1 class
   final namespaces = <NamespaceDeclaration>[];
   final varDeclarations = <VariableDeclaration>[];
   final varDeclarationsWithBuiltinTypes = <VariableDeclaration>[];
@@ -38,6 +40,8 @@ import 'types.dart';
         functions.add(fun);
       case final InterfaceDeclaration interface:
         interfaces.add(interface);
+      case final ClassDeclaration cl:
+        classDecl ??= cl;
       case final NamespaceDeclaration namespace:
         namespaces.add(namespace);
       case VariableDeclaration(
@@ -73,13 +77,14 @@ import 'types.dart';
     if (mergedInterface != null) {
       // perform interface merge
       mergedComposite =
-          _mergeCompositeWithInterface(mergedComposite, mergedInterface);
+          _mergeCompositeWithType(mergedComposite, mergedInterface);
 
       // merge em and vars
-      final (newVariableDecl, _newComposite) =
+      final (newVariableDecl, newComposite) =
           _mergeInterfaceWithVars(mergedComposite, varDeclarations);
-      if (newVariableDecl != null)
-        mergedComposite = _newComposite as CompositeDeclaration;
+      if (newVariableDecl != null) {
+        mergedComposite = newComposite as CompositeDeclaration;
+      }
 
       // merge em and global vars
       final (anotherNewVariableDecl, newExtension) =
@@ -94,6 +99,11 @@ import 'types.dart';
       ]);
     }
 
+    // merge with class
+    if (classDecl != null) {
+      mergedComposite = _mergeCompositeWithType(mergedComposite, classDecl);
+    }
+
     // merge composite with funs
     mergedComposite = _mergeCompositeWithFunctions(mergedComposite, functions);
 
@@ -101,10 +111,11 @@ import 'types.dart';
     output.add(mergedComposite);
   } else if (mergedInterface != null) {
     // merge em and vars
-    final (newVariableDecl, _newComposite) =
+    final (newVariableDecl, newComposite) =
         _mergeInterfaceWithVars(mergedInterface, varDeclarations);
-    if (newVariableDecl != null)
-      mergedInterface = _newComposite as InterfaceDeclaration;
+    if (newVariableDecl != null) {
+      mergedInterface = newComposite as InterfaceDeclaration;
+    }
 
     // merge em and global vars
     final (anotherNewVariableDecl, newExtension) =
@@ -169,7 +180,8 @@ import 'types.dart';
                 .firstWhereOrNull((v) => v.documentation != null)
                 ?.documentation),
     interface is CompositeDeclaration
-        ? CompositeDeclaration.fromInterface(mergedInterface)
+        ? CompositeDeclaration.fromInterface(
+            mergedInterface, interface.rawMethods)
         : mergedInterface
   );
 }
@@ -192,12 +204,12 @@ import 'types.dart';
   }
 
   // get the var type
+  final unionHash =
+      AnonymousHasher.hashUnion(builtinTypes.map((b) => b.name).toList());
   final mergedType = builtinTypes.length == 1
       ? builtinTypes.single
       : UnionType(
-          types: builtinTypes.toList(),
-          name:
-              '_AnonymousUnion_${AnonymousHasher.hashUnion(builtinTypes.map((b) => b.name).toList())}');
+          types: builtinTypes.toList(), name: '_AnonymousUnion_$unionHash');
   final mergedTypeName = switch (mergedType) {
     NamedType(name: final name) => name,
     UnionType(declarationName: final name) => name,
@@ -234,11 +246,22 @@ import 'types.dart';
   );
 }
 
-CompositeDeclaration _mergeCompositeWithInterface(
-    CompositeDeclaration composite, InterfaceDeclaration interface) {
+CompositeDeclaration _mergeCompositeWithType(
+    CompositeDeclaration composite, TypeDeclaration interface) {
   return composite
     ..typeParameters.addAll(interface.typeParameters)
-    ..extendedTypes.addAll(interface.extendedTypes)
+    ..extendedTypes.addAll(switch (interface) {
+      ClassDeclaration(extendedType: final extendedType?) => [extendedType],
+      InterfaceDeclaration(extendedTypes: final extendedTypes) ||
+      CompositeDeclaration(extendedTypes: final extendedTypes) =>
+        extendedTypes,
+      _ => []
+    })
+    ..implementedTypes.addAll(switch (interface) {
+      ClassDeclaration(implementedTypes: final implementedTypes) =>
+        implementedTypes,
+      _ => []
+    })
     ..operators.addAll(interface.operators)
     ..constructors.addAll(interface.constructors)
     ..methods.addAll(interface.methods)
@@ -275,20 +298,19 @@ InterfaceDeclaration mergeInterfaces(List<InterfaceDeclaration> interfaces,
 
   return InterfaceDeclaration(
       name: referenceInterface.id.name,
-      exported: interfaces.any((i) => i.exported),
+      exported: true,
       id: ID(
           type: referenceInterface.id.type, name: referenceInterface.id.name),
       typeParameters: interfaces.map((i) => i.typeParameters).flattenedToSet,
-      extendedTypes:
-          interfaces.map((i) => i.extendedTypes).flattenedToSet.toList(),
+      extendedTypes: interfaces.map((i) => i.extendedTypes).flattenedToList,
       properties: interfaces
-          .map((i) => rescopeDecls(i.properties, namer: namer))
+          .map((i) => _rescopeDecls(i.properties, namer: namer))
           .flattenedToList,
       methods: interfaces
-          .map((i) => rescopeDecls(i.methods, namer: namer))
+          .map((i) => _rescopeDecls(i.methods, namer: namer))
           .flattenedToList,
       operators: interfaces
-          .map((i) => rescopeDecls(i.operators, namer: namer))
+          .map((i) => _rescopeDecls(i.operators, namer: namer))
           .flattenedToList,
       constructors: interfaces.map((i) {
         final newDecls = <ConstructorDeclaration>[];
@@ -314,7 +336,7 @@ InterfaceDeclaration mergeInterfaces(List<InterfaceDeclaration> interfaces,
 NamespaceDeclaration mergeNamespaces(List<NamespaceDeclaration> namespaces,
     {int referenceIndex = 0}) {
   if (namespaces.singleOrNull case final singleNamespace?) {
-    return singleNamespace;
+    return singleNamespace..dartName = null;
   }
 
   final refNamespace = namespaces[0];
@@ -347,7 +369,7 @@ NamespaceDeclaration mergeNamespaces(List<NamespaceDeclaration> namespaces,
       name: refNamespace.id.name,
       id: ID(type: refNamespace.id.type, name: refNamespace.id.name),
       topLevelDeclarations: namespaces
-          .map((n) => rescopeDecls(n.topLevelDeclarations, namer: namer))
+          .map((n) => _rescopeDecls(n.topLevelDeclarations, namer: namer))
           .flattenedToSet,
       namespaceDeclarations:
           namespaceGroups.values.map(mergeNamespaces).toSet(),
@@ -360,7 +382,7 @@ NamespaceDeclaration mergeNamespaces(List<NamespaceDeclaration> namespaces,
           ?.documentation);
 }
 
-Iterable<T> rescopeDecls<T extends Declaration>(Iterable<T> decls,
+Iterable<T> _rescopeDecls<T extends Declaration>(Iterable<T> decls,
     {required UniqueNamer namer}) {
   final newDecls = <T>[];
   for (final d in decls) {
@@ -380,6 +402,9 @@ class _ExtensionOfTypeDeclaration extends NamedDeclaration
 
   @override
   String name;
+
+  @override
+  String? dartName;
 
   final List<GenericType> typeParameters;
 

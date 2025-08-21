@@ -46,7 +46,7 @@ class ASTOptions {
 
 sealed class Node {
   abstract final ID id;
-  String? dartName;
+  abstract String? dartName;
 
   Spec emit([Options? options]);
 

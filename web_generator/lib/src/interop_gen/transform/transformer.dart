@@ -1507,12 +1507,13 @@ class Transformer {
     }
 
     // get node finally
-    // TODO: Merge
-    final decl = declarationsMatching.whereType<NamedDeclaration>().first;
+    // final decl = declarationsMatching.whereType<NamedDeclaration>().first;
 
     // are we done?
     final rest = name.skip(1);
     if (rest.isEmpty) {
+      // TODO: Merge
+      final decl = declarationsMatching.whereType<NamedDeclaration>().first;
       // return decl
       switch (decl) {
         case TypeAliasDeclaration(type: final t):
@@ -1542,31 +1543,34 @@ class Transformer {
       // we go one more time
 
       // TODO: Typealias resolving?
-      switch (decl) {
-        // if decl is class/interface, check if we're referring to generic
-        case TypeDeclaration(typeParameters: final typeParams):
-          if (rest.singleOrNull?.part case final generic?
-              when typeParams.any((t) => t.name == generic)) {
-            final typeParam = typeParams.firstWhere((t) => t.name == generic);
-            return GenericType(
-                name: typeParam.name, parent: decl, isNullable: isNullable);
-          }
-          break;
-        case final NamespaceDeclaration n:
-          final searchForDeclRecursive = _searchForDeclRecursive(rest, symbol,
-              typeArguments: typeArguments,
-              typeArg: typeArg,
-              parent: n,
-              isNullable: isNullable);
-          if (parent == null) {
-            nodeMap.update(decl.id.toString(), (v) => n);
-          }
-          return searchForDeclRecursive;
-        // recursive
+      for (final d in declarationsMatching) {
+        switch (d) {
+          // if decl is class/interface, check if we're referring to generic
+          case TypeDeclaration(typeParameters: final typeParams):
+            if (rest.singleOrNull?.part case final generic?
+                when typeParams.any((t) => t.name == generic)) {
+              final typeParam = typeParams.firstWhere((t) => t.name == generic);
+              return GenericType(
+                  name: typeParam.name, parent: d, isNullable: isNullable);
+            }
+            break;
+          case final NamespaceDeclaration n:
+            final searchForDeclRecursive = _searchForDeclRecursive(rest, symbol,
+                typeArguments: typeArguments,
+                typeArg: typeArg,
+                parent: n,
+                isNullable: isNullable);
+            if (parent == null) {
+              nodeMap.update(d.id.toString(), (v) => n);
+            }
+            return searchForDeclRecursive;
+          // recursive
+        }
       }
     }
 
-    throw Exception('Could not find type for given declaration');
+    throw Exception(
+        'Could not find type for given declaration ${name.join('.')}');
   }
 
   /// Get the type of a type node [node] by gettings its type from
@@ -1991,7 +1995,7 @@ class Transformer {
       final decls = nodeMap.findByName(part.text);
       if (decls.isNotEmpty) {
         final firstNode = decls.first;
-        return firstNode.dartName ?? (firstNode as Declaration).name;
+        return firstNode.dartName ?? firstNode.name;
       } else {
         return part.text;
       }
@@ -2016,7 +2020,7 @@ class Transformer {
   ///
   /// Returns a [NodeMap] containing a map of the declared nodes and IDs.
   NodeMap processAndReturn() {
-    var filteredDeclarations = NodeMap<Declaration>();
+    final filteredDeclarations = NodeMap<Declaration>();
 
     for (final ExportReference(name: exportName, as: exportDartName)
         in exportSet) {
@@ -2054,9 +2058,6 @@ class Transformer {
           }
           break;
         case Declaration():
-          // TODO: Handle this case.
-          throw UnimplementedError();
-        default:
           break;
       }
     });
@@ -2065,6 +2066,7 @@ class Transformer {
 
     final declGroups =
         groupBy(filteredDeclarations.values, (decl) => decl.id.name);
+
     final outputDeclSet = NodeMap<Declaration>();
 
     for (final declSet in declGroups.values) {
@@ -2079,6 +2081,16 @@ class Transformer {
     final otherDecls = filteredDeclarations.entries
         .map((e) => _getDependenciesOfDecl(e.value))
         .reduce((value, element) => value..addAll(element));
+
+    print((outputDeclSet.keys.toList(), otherDecls.keys.toList()));
+
+    // if already in filtered declarations, we remove
+    // because they may have been updated in merge
+    otherDecls.removeWhere((key, value) {
+      final id = UniqueNamer.parse(key);
+      return value is! FunctionDeclaration &&
+          outputDeclSet.values.any((v) => v.id.name == id.name);
+    });
 
     return NodeMap({...outputDeclSet, ...otherDecls});
   }

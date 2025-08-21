@@ -5,6 +5,7 @@
 import 'dart:collection';
 
 import 'package:code_builder/code_builder.dart';
+import 'package:collection/collection.dart';
 
 import '../interop_gen/namer.dart';
 import '../js/typescript.types.dart';
@@ -86,7 +87,8 @@ sealed class TypeDeclaration extends NestableDeclaration
       List<Type> extendees = const [],
       List<Type> implementees = const [],
       bool useFirstExtendeeAsRepType = false,
-      bool objectLiteralConstructor = false}) {
+      bool objectLiteralConstructor = false,
+      List<Method> extraMethods = const []}) {
     options ??= DeclarationOptions();
 
     final hierarchy = getMemberHierarchy(this);
@@ -159,7 +161,8 @@ sealed class TypeDeclaration extends NestableDeclaration
             ...constructors.map((c) => c.emit(options))
       ])
       ..fields.addAll(fieldDecs)
-      ..methods.addAll(methodDecs));
+      ..methods.addAll(methodDecs)
+      ..methods.addAll(extraMethods));
   }
 }
 
@@ -554,11 +557,10 @@ class NamespaceDeclaration extends NestableDeclaration
     // TODO: Enum support
     for (final nestable in nestableDeclarations) {
       switch (nestable) {
-        case ClassDeclaration cl:
-          final constr = _extractConstrFromClass(cl, options: options, parent: this);
-          methods.addAll([
-            if (constr != null) constr
-          ]);
+        case final ClassDeclaration cl:
+          final constr =
+              _extractConstrFromClass(cl, options: options, parent: this);
+          methods.addAll([if (constr != null) constr]);
           break;
         default:
           break;
@@ -603,7 +605,7 @@ class CompositeDeclaration extends TypeDeclaration {
   /// as an object literal via an object literal constructor
   final bool objectLiteralConstructor;
 
-  final List<Method> __methods;
+  final List<Method> rawMethods;
 
   CompositeDeclaration._(
       {required super.name,
@@ -619,17 +621,16 @@ class CompositeDeclaration extends TypeDeclaration {
       this.extendedTypes = const [],
       this.implementedTypes = const [],
       this.assertRepType = false,
-      this.objectLiteralConstructor = false,
-      List<Method> rawMethods = const []})
-      : __methods = rawMethods,
+      this.rawMethods = const []})
+      : objectLiteralConstructor = false,
         super(exported: true);
 
-  CompositeDeclaration.fromInterface(InterfaceDeclaration interface)
+  CompositeDeclaration.fromInterface(InterfaceDeclaration interface,
+      [this.rawMethods = const []])
       : extendedTypes = interface.extendedTypes,
         implementedTypes = [],
         assertRepType = interface.assertRepType,
         objectLiteralConstructor = interface.objectLiteralConstructor,
-        __methods = [],
         super(
           name: interface.name,
           dartName: interface.dartName,
@@ -653,16 +654,16 @@ class CompositeDeclaration extends TypeDeclaration {
 
     for (final decl in namespace.topLevelDeclarations) {
       switch (decl) {
-        case final MethodDeclaration method:
+        case final FunctionDeclaration fun:
           methodDeclarations.add(MethodDeclaration(
-              name: method.name,
-              dartName: method.dartName,
-              documentation: method.documentation,
+              name: fun.name,
+              dartName: fun.dartName,
+              documentation: fun.documentation,
               static: true,
-              id: method.id,
-              parameters: method.parameters,
-              typeParameters: method.typeParameters,
-              returnType: method.returnType));
+              id: fun.id,
+              parameters: fun.parameters,
+              typeParameters: fun.typeParameters,
+              returnType: fun.returnType));
         case final VariableDeclaration variable:
           propertyDeclarations.add(PropertyDeclaration(
               name: variable.name,
@@ -688,9 +689,7 @@ class CompositeDeclaration extends TypeDeclaration {
               documentation: enumeration.documentation));
         case final ClassDeclaration cl:
           final constr = _extractConstrFromClass(cl, parent: namespace);
-          methods.addAll([
-            if (constr != null) constr
-          ]);
+          methods.addAll([if (constr != null) constr]);
         default:
           break;
       }
@@ -734,7 +733,8 @@ class CompositeDeclaration extends TypeDeclaration {
         extendees: extendedTypes,
         implementees: implementedTypes,
         useFirstExtendeeAsRepType: assertRepType,
-        objectLiteralConstructor: objectLiteralConstructor);
+        objectLiteralConstructor: objectLiteralConstructor,
+        extraMethods: rawMethods);
   }
 }
 
@@ -1158,55 +1158,53 @@ enum OperatorKind {
 Expression get _redeclareExpression =>
     refer('redeclare', 'package:meta/meta.dart');
 
-Method? _extractConstrFromClass(ClassDeclaration classDecl, {
+Method? _extractConstrFromClass(
+  ClassDeclaration classDecl, {
   DeclarationOptions? options,
   NamespaceDeclaration? parent,
 }) {
-  String qualifiedName = parent?.qualifiedName ?? '';
-  String completedDartName = parent?.completedDartName ?? '';
-    final ClassDeclaration(
-            name: className,
-            dartName: classDartName,
-            constructors: constructors,
-            typeParameters: typeParams,
-            abstract: abstract
-          ) = classDecl;
-    var constr = constructors
-        .where((c) => c.name == null || c.name == 'unnamed')
-        .firstOrNull;
-    
-    if (constructors.isEmpty && !abstract) {
-      constr = ConstructorDeclaration.defaultFor(classDecl);
-    }
-    
-    // static call to class constructor
-    if (constr != null) {
-      options ??= DeclarationOptions();
-    
-      final (requiredParams, optionalParams) =
-          emitParameters(constr.parameters, options);
-    
-      return Method((m) => m
-        ..name = classDartName ?? className
-        ..annotations
-            .addAll([generateJSAnnotation('$qualifiedName.$className')])
-        ..types.addAll(
-            typeParams.map((t) => t.emit(options?.toTypeOptions())))
-        ..requiredParameters.addAll(requiredParams)
-        ..optionalParameters.addAll(optionalParams)
-        ..returns =
-            refer('${completedDartName}_${classDartName ?? className}')
-        ..lambda = true
-        ..static = true
-        ..body = refer(classDecl.completedDartName).call(
-            [
-              ...requiredParams.map((p) => refer(p.name)),
-              if (optionalParams.isNotEmpty)
-                ...optionalParams.map((p) => refer(p.name))
-            ],
-            {},
-            typeParams
-                .map((t) => t.emit(options?.toTypeOptions()))
-                .toList()).code);
-    }
+  final qualifiedName = parent?.qualifiedName ?? '';
+  final completedDartName = parent?.completedDartName ?? '';
+  final ClassDeclaration(
+    name: className,
+    dartName: classDartName,
+    constructors: constructors,
+    typeParameters: typeParams,
+    abstract: abstract
+  ) = classDecl;
+  var constr = constructors
+      .firstWhereOrNull((c) => c.name == null || c.name == 'unnamed');
+
+  if (constructors.isEmpty && !abstract) {
+    constr = ConstructorDeclaration.defaultFor(classDecl);
   }
+
+  // static call to class constructor
+  if (constr != null) {
+    options ??= DeclarationOptions();
+
+    final (requiredParams, optionalParams) =
+        emitParameters(constr.parameters, options);
+
+    return Method((m) => m
+      ..name = classDartName ?? className
+      ..annotations.addAll([generateJSAnnotation('$qualifiedName.$className')])
+      ..types.addAll(typeParams.map((t) => t.emit(options?.toTypeOptions())))
+      ..requiredParameters.addAll(requiredParams)
+      ..optionalParameters.addAll(optionalParams)
+      ..returns = refer('${completedDartName}_${classDartName ?? className}')
+      ..lambda = true
+      ..static = true
+      ..body = refer(classDecl.completedDartName).call(
+          [
+            ...requiredParams.map((p) => refer(p.name)),
+            if (optionalParams.isNotEmpty)
+              ...optionalParams.map((p) => refer(p.name))
+          ],
+          {},
+          typeParams
+              .map((t) => t.emit(options?.toTypeOptions()))
+              .toList()).code);
+  }
+  return null;
+}

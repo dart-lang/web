@@ -84,6 +84,7 @@ extension type const TSSyntaxKind._(num _) {
 
   // types
   static const TSSyntaxKind UnionType = TSSyntaxKind._(192);
+  static const TSSyntaxKind IntersectionType = TSSyntaxKind._(193);
   static const TSSyntaxKind TypeReference = TSSyntaxKind._(183);
   static const TSSyntaxKind ArrayType = TSSyntaxKind._(188);
   static const TSSyntaxKind LiteralType = TSSyntaxKind._(201);
@@ -150,6 +151,13 @@ extension type TSArrayTypeNode._(JSObject _) implements TSTypeNode {
 extension type TSUnionTypeNode._(JSObject _) implements TSTypeNode {
   @redeclare
   TSSyntaxKind get kind => TSSyntaxKind.UnionType;
+  external TSNodeArray<TSTypeNode> get types;
+}
+
+@JS('IntersectionTypeNode')
+extension type TSIntersectionTypeNode._(JSObject _) implements TSTypeNode {
+  @redeclare
+  TSSyntaxKind get kind => TSSyntaxKind.IntersectionType;
   external TSNodeArray<TSTypeNode> get types;
 }
 

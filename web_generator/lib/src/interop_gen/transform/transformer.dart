@@ -1379,7 +1379,7 @@ class Transformer {
                 ))!;
 
             return tupleDeclaration.asReferredType(
-                tuple.types, tuple.isNullable, tupleUrl);
+                tuple.types, isNullable ?? false, tupleUrl);
           // TODO: mapped types
           // by default just return
           default:

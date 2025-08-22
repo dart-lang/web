@@ -71,7 +71,8 @@ external AnonymousUnion_6216705? get image;
 @_i1.JS()
 external _i2.JSTuple2<_i1.JSString, _i1.JSNumber> get myTuple;
 @_i1.JS()
-external _i2.JSTuple2<_i1.JSString, _i1.JSNumber> get myReadonlyTuple;
+external _i2.JSReadonlyTuple3<_i1.JSString, _i1.JSNumber, _i1.JSString>
+    get myReadonlyTuple;
 @_i1.JS()
 external _i2.JSTuple2<_i1.JSString, _i1.JSString> get mySecondTuple;
 @_i1.JS()

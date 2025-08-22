@@ -294,7 +294,8 @@ class TupleDeclaration extends NamedDeclaration
       [List<Type>? typeArgs, bool isNullable = false, String? url]) {
     assert(typeArgs?.length == count,
         'Type arguments must equal the number of tuples supported');
-    return TupleType(types: typeArgs ?? [], tupleDeclUrl: url);
+    return TupleType(
+        types: typeArgs ?? [], tupleDeclUrl: url, readonly: readonly);
   }
 
   @override

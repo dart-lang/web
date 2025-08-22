@@ -79,15 +79,25 @@ class TupleType extends ReferredType<TupleDeclaration> {
   @override
   List<Type> get typeParams => types;
 
+  bool readonly;
+
   TupleType(
-      {required this.types, super.isNullable, required String? tupleDeclUrl})
+      {required this.types,
+      super.isNullable,
+      required String? tupleDeclUrl,
+      this.readonly = false})
       : super(
             declaration: TupleDeclaration(count: types.length),
-            name: 'JSTuple${types.length}',
+            name: readonly
+                ? 'JSReadonlyTuple${types.length}'
+                : 'JSTuple${types.length}',
             url: tupleDeclUrl);
 
   @override
-  ID get id => ID(type: 'type', name: types.map((t) => t.id.name).join(','));
+  ID get id => ID(
+      type: 'type',
+      name: types.map((t) => t.id.name).join(','),
+      index: readonly ? 1 : 0);
 
   @override
   int get hashCode => Object.hashAllUnordered(types);

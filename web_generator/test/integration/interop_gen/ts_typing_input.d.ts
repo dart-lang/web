@@ -40,7 +40,7 @@ export declare const mySecondUnion: number | string | MyEnum | ComposedType;
 export declare const booleanOrUndefined: boolean | undefined;
 export declare const image: string | URL | null;
 export declare const myTuple: [string, number];
-export declare const myReadonlyTuple: readonly [string, number];
+export declare const myReadonlyTuple: readonly [string, number, string];
 export declare const mySecondTuple: [string, string];
 export declare const myCloneTuple: [string, string];
 export declare const typesAsTuple: [string, number, boolean, symbol];

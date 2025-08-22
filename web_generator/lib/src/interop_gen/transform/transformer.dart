@@ -1364,6 +1364,7 @@ class Transformer {
           TSSyntaxKind.VoidKeyword => PrimitiveType.$void,
           TSSyntaxKind.BigIntKeyword => PrimitiveType.bigint,
           TSSyntaxKind.SymbolKeyword => PrimitiveType.symbol,
+          TSSyntaxKind.NeverKeyword => PrimitiveType.never,
           _ => throw UnsupportedError(
               'The given type with kind ${type.kind} is not supported yet')
         };

@@ -3,6 +3,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:js_interop' as _i1;
 
+import 'package:meta/meta.dart' as _i2;
+
 @_i1.JS()
 external double counter;
 @_i1.JS()
@@ -35,3 +37,6 @@ external _i1.JSAny? get maybeValue;
 external _i1.JSArray<_i1.JSString> get names;
 @_i1.JS()
 external _i1.JSArray<_i1.JSString> get newNames;
+@_i2.doNotStore
+@_i1.JS()
+external _i1.JSAny? get neverUseThis;

@@ -74,3 +74,13 @@ export declare const shoppingCart: {
 }[];
 export declare const createLogger: (prefix: string) => (message: string) => void;
 export declare const appLogger: (message: string) => void;
+export declare const myIntersection: string & number;
+export declare const mySecondIntersection: string & {
+    debugInfo: string;
+    tag: symbol
+} & {
+    toString(): string
+};
+export declare const myTypeGymnastic:
+  ({ a: number } | { b: string }) &
+  ({ c: boolean } | ({ d: bigint } & { e: symbol }));

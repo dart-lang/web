@@ -85,12 +85,10 @@ class Transformer {
 
   bool get generateAll => programMap.generateAll;
 
-  bool errorIfUnsupported = false;
+  bool get errorIfUnsupported => programMap.strictUnsupported;
 
   Transformer(this.programMap, this._sourceFile,
-      {Set<String> exportSet = const {},
-      String? file,
-      this.errorIfUnsupported = false})
+      {Set<String> exportSet = const {}, String? file})
       : exportSet = exportSet.map((e) => ExportReference(e, as: e)).toSet(),
         namer = UniqueNamer(),
         _fileName = file,

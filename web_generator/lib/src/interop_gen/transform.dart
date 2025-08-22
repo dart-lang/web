@@ -181,8 +181,12 @@ class ProgramMap {
 
   final bool generateAll;
 
+  final bool strictUnsupported;
+
   ProgramMap(this.program, List<String> files,
-      {this.filterDeclSet = const [], bool? generateAll})
+      {this.filterDeclSet = const [],
+      bool? generateAll,
+      this.strictUnsupported = false})
       : typeChecker = program.getTypeChecker(),
         generateAll = generateAll ?? false,
         files = p.PathSet.of(files);
@@ -323,7 +327,8 @@ class TransformerManager {
   TransformerManager.fromParsedResults(ParserResult result, {Config? config})
       : programMap = ProgramMap(result.program, result.files.toList(),
             filterDeclSet: config?.includedDeclarations ?? [],
-            generateAll: config?.generateAll);
+            generateAll: config?.generateAll,
+            strictUnsupported: config?.strictUnsupported ?? false);
 
   TransformResult transform() {
     final outputNodeMap = <String, NodeMap>{};

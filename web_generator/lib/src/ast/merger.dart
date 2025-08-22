@@ -88,23 +88,16 @@ import 'types.dart';
           _mergeCompositeWithType(mergedComposite, mergedInterface);
 
       // merge em and vars
-      final (newVariableDecl, newComposite) =
+      final newComposite =
           _mergeInterfaceWithVars(mergedComposite, varDeclarations);
-      if (newVariableDecl != null) {
+      if (newComposite != null) {
         mergedComposite = newComposite as CompositeDeclaration;
       }
 
       // merge em and global vars
-      final (anotherNewVariableDecl, newExtension) =
-          _mergeInterfaceWithVarsHavingBuiltinTypes(
-              mergedComposite, varDeclarationsWithBuiltinTypes);
-      additionals.addAll([
-        if (newVariableDecl != null) newVariableDecl,
-        if (anotherNewVariableDecl != null) ...[
-          anotherNewVariableDecl,
-          newExtension
-        ]
-      ]);
+      final newExtension = _mergeInterfaceWithVarsHavingBuiltinTypes(
+          mergedComposite, varDeclarationsWithBuiltinTypes);
+      additionals.addAll([if (newExtension != null) newExtension]);
     }
 
     if (enumDecl != null) {
@@ -124,23 +117,16 @@ import 'types.dart';
     output.add(mergedComposite);
   } else if (mergedInterface != null) {
     // merge em and vars
-    final (newVariableDecl, newComposite) =
+    final newComposite =
         _mergeInterfaceWithVars(mergedInterface, varDeclarations);
-    if (newVariableDecl != null) {
+    if (newComposite != null) {
       mergedInterface = newComposite as InterfaceDeclaration;
     }
 
     // merge em and global vars
-    final (anotherNewVariableDecl, newExtension) =
-        _mergeInterfaceWithVarsHavingBuiltinTypes(
-            mergedInterface, varDeclarationsWithBuiltinTypes);
-    additionals.addAll([
-      if (newVariableDecl != null) newVariableDecl,
-      if (anotherNewVariableDecl != null) ...[
-        anotherNewVariableDecl,
-        newExtension
-      ]
-    ]);
+    final newExtension = _mergeInterfaceWithVarsHavingBuiltinTypes(
+        mergedInterface, varDeclarationsWithBuiltinTypes);
+    additionals.addAll([if (newExtension != null) newExtension]);
 
     // that's it
     output.addAll([mergedInterface, ...functions]);
@@ -154,10 +140,8 @@ import 'types.dart';
   return (output, additionals: additionals);
 }
 
-(VariableDeclaration?, TypeDeclaration) _mergeInterfaceWithVars(
-    TypeDeclaration interface,
-    [List<VariableDeclaration> vars = const [],
-    bool baseOnVarTypes = false]) {
+TypeDeclaration? _mergeInterfaceWithVars(TypeDeclaration interface,
+    [List<VariableDeclaration> vars = const [], bool baseOnVarTypes = false]) {
   assert(vars.every((v) => v.modifier == VariableModifier.$var),
       'only "var" variables are needed');
 
@@ -165,9 +149,6 @@ import 'types.dart';
   final referredTypes = vars.map((v) => v.type as ReferredType);
   final interfaces =
       referredTypes.map((r) => r.declaration as InterfaceDeclaration);
-
-  final varTypeArgs = referredTypes.map((r) => r.typeParams).flattenedToSet;
-  final isNullable = referredTypes.any((r) => r.isNullable);
 
   final mergedInterface = mergeInterfaces([
     switch (interface) {
@@ -179,41 +160,24 @@ import 'types.dart';
     ...interfaces
   ], referenceIndex: baseOnVarTypes && interfaces.isNotEmpty ? 1 : 0);
 
-  return (
-    vars.isEmpty
-        ? null
-        : VariableDeclaration(
-            name: interface.name,
-            type: mergedInterface.asReferredType(
-                varTypeArgs.toList(), isNullable),
-            modifier: VariableModifier.$var,
-            exported: true,
-            // TODO: Should we be merging docs
-            documentation: vars
-                .firstWhereOrNull((v) => v.documentation != null)
-                ?.documentation),
-    interface is CompositeDeclaration
-        ? CompositeDeclaration.fromInterface(
-            mergedInterface, interface.rawMethods)
-        : mergedInterface
-  );
+  return (vars.isEmpty
+      ? null
+      : interface is CompositeDeclaration
+          ? CompositeDeclaration.fromInterface(
+              mergedInterface, interface.rawMethods)
+          : mergedInterface);
 }
 
-(VariableDeclaration?, _ExtensionOfTypeDeclaration)
-    _mergeInterfaceWithVarsHavingBuiltinTypes(TypeDeclaration interface,
-        [List<VariableDeclaration> vars = const []]) {
+_ExtensionOfTypeDeclaration? _mergeInterfaceWithVarsHavingBuiltinTypes(
+    TypeDeclaration interface,
+    [List<VariableDeclaration> vars = const []]) {
   assert(vars.every((v) => v.modifier == VariableModifier.$var),
       'only "var" variables are needed');
 
   final builtinTypes = vars.map((v) => v.type as BuiltinType);
 
   if (vars.isEmpty) {
-    return (
-      null,
-      _ExtensionOfTypeDeclaration(
-          name: '${interface.name}To${interface.name}',
-          baseType: interface.asReferredType())
-    );
+    return null;
   }
 
   // get the var type
@@ -246,17 +210,7 @@ import 'types.dart';
           ..body = refer('this').asA(interfaceAsReference).code)
       ]);
 
-  return (
-    VariableDeclaration(
-        name: interface.name,
-        type: extension.asReferredType(null, isNullable),
-        modifier: VariableModifier.$var,
-        exported: true,
-        documentation: vars
-            .firstWhereOrNull((v) => v.documentation != null)
-            ?.documentation),
-    extension
-  );
+  return extension;
 }
 
 /// Be sure to include the enumeration in the result, as the given function

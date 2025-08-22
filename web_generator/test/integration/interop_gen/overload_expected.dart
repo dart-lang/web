@@ -60,6 +60,38 @@ extension type const feeTypeEnum._(int _) {
 
   static const feeTypeEnum Premium = feeTypeEnum._(1);
 }
+extension type FiConstructor._(_i1.JSObject _) implements _i1.JSObject {
+  external factory FiConstructor();
+}
+
+/// Uses docs of
+/// [Map](https://github.com/microsoft/TypeScript/blob/main/src/lib/es2015.collection.d.ts)
+extension type Fi<K extends _i1.JSAny?, V extends _i1.JSAny?>._(_i1.JSObject _)
+    implements _i1.JSObject {
+  external factory Fi();
+
+  /// Returns a specified element from the Map object. If the value that is
+  /// associated to the provided key is an object, then you will get a reference
+  /// to that object and any change made to that object will effectively modify
+  /// it inside the Map.
+  ///
+  /// Returns Returns the element associated with the specified key. If no
+  /// element is associated with the specified key, undefined is returned.
+  @_i1.JS('get')
+  external V? get$(K key);
+
+  /// Returns boolean indicating whether an element with the specified key
+  /// exists or not.
+  external bool has(K key);
+
+  /// Adds a new element with a specified key and value to the Map. If an
+  /// element with the same key already exists, the element will be updated.
+  @_i1.JS('set')
+  external Fi<K, V> set$(
+    K key,
+    V value,
+  );
+}
 @_i1.JS('fooHelper.Options')
 extension type fooHelper_Options._(_i1.JSObject _) implements _i1.JSObject {
   external bool? round;

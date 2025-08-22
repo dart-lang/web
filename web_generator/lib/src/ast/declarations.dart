@@ -1053,11 +1053,15 @@ class ConstructorDeclaration implements MemberDeclaration {
 
     final isFactory = dartName != null && dartName != name;
 
+    final constructorName = (dartName ?? name)?.trim();
+
     return Constructor((c) => c
       ..docs.addAll([...doc])
       ..annotations.addAll([...annotations])
       ..external = true
-      ..name = dartName ?? name
+      ..name = constructorName == null || constructorName.isEmpty
+          ? null
+          : constructorName
       ..annotations
           .addAll([if (name != null && isFactory) generateJSAnnotation(name)])
       ..factory = isFactory

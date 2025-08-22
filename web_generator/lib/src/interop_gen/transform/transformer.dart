@@ -540,7 +540,8 @@ class Transformer {
             .toList());
       }
     } else if (property.type case final type? when ts.isThisTypeNode(type)) {
-      propType = parent?.asReferredType(parent.typeParameters);
+      propType = parent?.asReferredType(
+          parent.typeParameters.map((t) => GenericType(name: t.name)));
     }
 
     final propertyDeclaration = PropertyDeclaration(
@@ -586,7 +587,8 @@ class Transformer {
             .toList());
       }
     } else if (method.type case final type? when ts.isThisTypeNode(type)) {
-      methodType = parent?.asReferredType(parent.typeParameters);
+      methodType = parent?.asReferredType(
+          parent.typeParameters.map((t) => GenericType(name: t.name)));
     }
 
     final methodDeclaration = MethodDeclaration(
@@ -607,7 +609,8 @@ class Transformer {
                   .toList());
             }
           } else if (paramRawType case final ty? when ts.isThisTypeNode(ty)) {
-            paramType = parent?.asReferredType(parent.typeParameters);
+            paramType = parent?.asReferredType(
+                parent.typeParameters.map((t) => GenericType(name: t.name)));
           }
           return _transformParameter(t, paramType);
         }).toList(),
@@ -627,7 +630,7 @@ class Transformer {
 
   ConstructorDeclaration _transformConstructor(TSConstructorEntity constructor,
       {required UniqueNamer parentNamer}) {
-    final name = constructor.name?.text;
+    final name = constructor.name?.text.trim();
     final (:id, name: dartName) =
         parentNamer.makeUnique(name ?? '', 'constructor');
 
@@ -644,7 +647,7 @@ class Transformer {
 
     return ConstructorDeclaration(
         id: id,
-        dartName: dartName.isEmpty ? null : dartName,
+        dartName: dartName.trim().isEmpty ? null : dartName.trim(),
         name: name,
         parameters: params.map(_transformParameter).toList(),
         scope: scope,
@@ -673,7 +676,8 @@ class Transformer {
       }
     } else if (callSignature.type case final type?
         when ts.isThisTypeNode(type)) {
-      methodType = parent?.asReferredType(parent.typeParameters);
+      methodType = parent?.asReferredType(
+          parent.typeParameters.map((t) => GenericType(name: t.name)));
     }
 
     final methodDeclaration = MethodDeclaration(
@@ -716,7 +720,8 @@ class Transformer {
       }
     } else if (indexSignature.type case final type
         when ts.isThisTypeNode(type)) {
-      indexerType = parent?.asReferredType(parent.typeParameters);
+      indexerType = parent?.asReferredType(
+          parent.typeParameters.map((t) => GenericType(name: t.name)));
     }
 
     final doc = _parseAndTransformDocumentation(indexSignature);
@@ -772,7 +777,8 @@ class Transformer {
             .toList());
       }
     } else if (getter.type case final type? when ts.isThisTypeNode(type)) {
-      methodType = parent?.asReferredType(parent.typeParameters);
+      methodType = parent?.asReferredType(
+          parent.typeParameters.map((t) => GenericType(name: t.name)));
     }
 
     final methodDeclaration = MethodDeclaration(
@@ -823,7 +829,8 @@ class Transformer {
                   .toList());
             }
           } else if (paramRawType case final ty? when ts.isThisTypeNode(ty)) {
-            paramType = parent?.asReferredType(parent.typeParameters);
+            paramType = parent?.asReferredType(
+                parent.typeParameters.map((t) => GenericType(name: t.name)));
           }
           return _transformParameter(t, paramType);
         }).toList(),

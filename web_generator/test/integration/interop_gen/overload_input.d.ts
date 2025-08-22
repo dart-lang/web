@@ -31,13 +31,13 @@ export interface bar {
     active?: boolean;
 }
 export declare const b: bar;
-// export declare enum feeStatus {
-//     Pending = 0,
-//     Done = 1
-// }
-// export declare namespace feeStatus {
-//     function isFinal(s: feeStatus): s is feeStatus.Done;
-// }
+export declare enum feeStatus {
+    Pending = 0,
+    Done = 1
+}
+export declare namespace feeStatus {
+    function isFinal(s: feeStatus): boolean;
+}
 export declare function fooHelper(value: number): string;
 export declare namespace fooHelper {
     function format(value: number): string;
@@ -50,13 +50,10 @@ export declare namespace fooHelper {
     }
 }
 export declare const opts: fooHelper.Options;
-// export declare namespace feeType {
-//     const labels: {
-//         0: string;
-//         1: string;
-//     };
-// }
-// export declare enum feeType {
-//     Basic = 0,
-//     Premium = 1
-// }
+export declare namespace feeType {
+    const labels: string[];
+}
+export declare enum feeType {
+    Basic = 0,
+    Premium = 1
+}

@@ -385,7 +385,7 @@ class EnumMember {
 
   final Object? value;
 
-  final String parent;
+  String parent;
 
   bool get isExternal => value == null;
 

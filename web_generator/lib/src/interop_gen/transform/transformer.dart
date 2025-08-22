@@ -298,25 +298,41 @@ class Transformer {
           // throws error if no aliased symbol, so ignore
         }
         for (final decl in decls) {
-          // TODO: We could also ignore namespace decls with the same name, as
-          //  a single instance should consider such non-necessary
           if (outputNamespace.nodes.contains(decl)) continue;
-          final outputDecls =
-              _transform(decl, namer: scopedNamer, parent: outputNamespace);
-          switch (decl.kind) {
-            case TSSyntaxKind.ClassDeclaration ||
-                  TSSyntaxKind.InterfaceDeclaration:
-              final outputDecl = outputDecls.first as TypeDeclaration;
-              outputDecl.parent = outputNamespace;
-              outputNamespace.nestableDeclarations.add(outputDecl);
-            case TSSyntaxKind.EnumDeclaration:
-              final outputDecl = outputDecls.first as EnumDeclaration;
-              outputDecl.parent = outputNamespace;
-              outputNamespace.nestableDeclarations.add(outputDecl);
-            default:
-              outputNamespace.topLevelDeclarations.addAll(outputDecls);
+          if (decl.kind == TSSyntaxKind.EnumMember) {
+            final tsEnum = (decl as TSEnumMember).parent;
+            // parse whole enum
+            final transformedEnum = _transformEnum(tsEnum, namer: namer);
+
+            // add enum
+            if (parent != null) {
+              parent.nestableDeclarations.add(transformedEnum);
+              parent.nodes.add(tsEnum);
+            } else {
+              nodes.add(tsEnum);
+              nodeMap.add(transformedEnum);
+            }
+
+            // add all members to namespace
+            outputNamespace.nodes.addAll(tsEnum.members.toDart);
+          } else {
+            final outputDecls =
+                _transform(decl, namer: scopedNamer, parent: outputNamespace);
+            switch (decl.kind) {
+              case TSSyntaxKind.ClassDeclaration ||
+                    TSSyntaxKind.InterfaceDeclaration:
+                final outputDecl = outputDecls.first as TypeDeclaration;
+                outputDecl.parent = outputNamespace;
+                outputNamespace.nestableDeclarations.add(outputDecl);
+              case TSSyntaxKind.EnumDeclaration:
+                final outputDecl = outputDecls.first as EnumDeclaration;
+                outputDecl.parent = outputNamespace;
+                outputNamespace.nestableDeclarations.add(outputDecl);
+              default:
+                outputNamespace.topLevelDeclarations.addAll(outputDecls);
+            }
+            outputNamespace.nodes.add(decl);
           }
-          outputNamespace.nodes.add(decl);
 
           // update namespace state
           updateNSInParent();

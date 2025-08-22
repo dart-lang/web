@@ -8,9 +8,14 @@ import '../interop_gen/namer.dart';
 import 'base.dart';
 import 'builtin.dart';
 import 'declarations.dart';
+import 'helpers.dart';
 import 'types.dart';
 
-/// Merges
+/// Merges a given set of [declarations] into other declarations.
+///
+/// The process usually flattens namespaces, interfaces, and other declarations
+/// depending, providing a smaller set of merged declarations, as well as any
+/// other additional declarations
 (List<Declaration>, {List<Declaration> additionals}) mergeDeclarations(
     List<Declaration> declarations) {
   if (declarations.isEmpty) return ([], additionals: []);
@@ -28,6 +33,7 @@ import 'types.dart';
   // TODO: Enums
   final functions = <FunctionDeclaration>[];
   final interfaces = <InterfaceDeclaration>[];
+  EnumDeclaration? enumDecl;
   ClassDeclaration? classDecl; // there can be only 1 class
   final namespaces = <NamespaceDeclaration>[];
   final varDeclarations = <VariableDeclaration>[];
@@ -44,6 +50,8 @@ import 'types.dart';
         classDecl ??= cl;
       case final NamespaceDeclaration namespace:
         namespaces.add(namespace);
+      case final EnumDeclaration enumeration:
+        enumDecl ??= enumeration;
       case VariableDeclaration(
             modifier: final modifier,
             type: ReferredType(declaration: final variableTypeAsDecl)
@@ -97,6 +105,11 @@ import 'types.dart';
           newExtension
         ]
       ]);
+    }
+
+    if (enumDecl != null) {
+      mergedComposite = _mergeCompositeWithEnum(mergedComposite, enumDecl);
+      additionals.add(enumDecl);
     }
 
     // merge with class
@@ -244,6 +257,34 @@ import 'types.dart';
             ?.documentation),
     extension
   );
+}
+
+/// Be sure to include the enumeration in the result, as the given function
+/// just adds its members, which may still refer back to the enum
+CompositeDeclaration _mergeCompositeWithEnum(
+    CompositeDeclaration composite, EnumDeclaration enumeration) {
+  final enumAsReference = (enumeration
+        ..name = '${enumeration.name}Enum'
+        ..dartName ??= enumeration.name)
+      .asReferredType()
+      .emit();
+
+  for (final member in enumeration.members) {
+    member.parent = enumeration.name;
+  }
+  return composite
+    ..rawMethods.addAll(enumeration.members.map((e) => Method((m) {
+          if (e.dartName != null && e.name != e.dartName && e.isExternal) {
+            m.annotations.add(generateJSAnnotation(e.name));
+          }
+          m
+            ..name = e.dartName ?? e.name
+            ..type = MethodType.getter
+            ..static = true
+            ..lambda = true
+            ..returns = enumAsReference
+            ..body = enumAsReference.property(e.dartName ?? e.name).code;
+        })));
 }
 
 CompositeDeclaration _mergeCompositeWithType(

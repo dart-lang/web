@@ -36,8 +36,30 @@ extension type bar._(_i1.JSObject _) implements baz {
 }
 @_i1.JS()
 external bar get b;
+extension type feeStatus._(_i1.JSObject _) implements _i1.JSObject {
+  external static bool isFinal(feeStatusEnum s);
+  static feeStatusEnum get Pending => feeStatusEnum.Pending;
+
+  static feeStatusEnum get Done => feeStatusEnum.Done;
+}
+extension type const feeStatusEnum._(int _) {
+  static const feeStatusEnum Pending = feeStatusEnum._(0);
+
+  static const feeStatusEnum Done = feeStatusEnum._(1);
+}
 @_i1.JS()
 external fooHelper_Options get opts;
+extension type feeType._(_i1.JSObject _) implements _i1.JSObject {
+  external _i1.JSArray<_i1.JSString> get labels;
+  static feeTypeEnum get Basic => feeTypeEnum.Basic;
+
+  static feeTypeEnum get Premium => feeTypeEnum.Premium;
+}
+extension type const feeTypeEnum._(int _) {
+  static const feeTypeEnum Basic = feeTypeEnum._(0);
+
+  static const feeTypeEnum Premium = feeTypeEnum._(1);
+}
 @_i1.JS('fooHelper.Options')
 extension type fooHelper_Options._(_i1.JSObject _) implements _i1.JSObject {
   external bool? round;

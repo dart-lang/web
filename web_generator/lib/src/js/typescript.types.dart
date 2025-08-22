@@ -111,6 +111,7 @@ extension type const TSSyntaxKind._(num _) {
   static const TSSyntaxKind ExportSpecifier = TSSyntaxKind._(281);
   static const TSSyntaxKind ModuleBlock = TSSyntaxKind._(268);
   static const TSSyntaxKind ExternalModuleReference = TSSyntaxKind._(283);
+  static const TSSyntaxKind EnumMember = TSSyntaxKind._(306);
   static const TSSyntaxKind SourceFile = TSSyntaxKind._(308);
 }
 
@@ -612,6 +613,8 @@ extension type TSEnumDeclaration._(JSObject _)
 extension type TSEnumMember._(JSObject _) implements TSNamedDeclaration {
   external TSIdentifier get name;
   external TSExpression? get initializer;
+  @redeclare
+  external TSEnumDeclaration get parent;
 }
 
 @JS('ModuleDeclaration')

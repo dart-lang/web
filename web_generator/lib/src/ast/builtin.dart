@@ -27,7 +27,6 @@ class BuiltinType extends NamedType {
   /// This denotes a type that has a discardable result
   ///
   /// These are for types such as `void` or `never`
-  @override
   bool discardable;
 
   BuiltinType(

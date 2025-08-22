@@ -61,13 +61,15 @@ extension type const TSSyntaxKind._(num _) {
   static const TSSyntaxKind WithKeyword = TSSyntaxKind._(118);
   static const TSSyntaxKind AssertKeyword = TSSyntaxKind._(132);
   static const TSSyntaxKind AbstractKeyword = TSSyntaxKind._(128);
+  static const TSSyntaxKind KeyOfKeyword = TSSyntaxKind._(143);
+  static const TSSyntaxKind UniqueKeyword = TSSyntaxKind._(158);
+  static const TSSyntaxKind ReadonlyKeyword = TSSyntaxKind._(148);
 
   // keywords for scope
   static const TSSyntaxKind PrivateKeyword = TSSyntaxKind._(123);
   static const TSSyntaxKind ProtectedKeyword = TSSyntaxKind._(124);
   static const TSSyntaxKind PublicKeyword = TSSyntaxKind._(125);
   static const TSSyntaxKind StaticKeyword = TSSyntaxKind._(126);
-  static const TSSyntaxKind ReadonlyKeyword = TSSyntaxKind._(148);
 
   // types that are keywords
   static const TSSyntaxKind StringKeyword = TSSyntaxKind._(154);
@@ -95,6 +97,7 @@ extension type const TSSyntaxKind._(num _) {
   static const TSSyntaxKind TypeLiteral = TSSyntaxKind._(187);
   static const TSSyntaxKind FunctionType = TSSyntaxKind._(184);
   static const TSSyntaxKind ConstructorType = TSSyntaxKind._(185);
+  static const TSSyntaxKind TypeOperator = TSSyntaxKind._(198);
 
   // Other
   static const TSSyntaxKind Identifier = TSSyntaxKind._(80);
@@ -207,6 +210,12 @@ extension type TSNamedTupleMember._(JSObject _)
 extension type TSTypeLiteralNode._(JSObject _)
     implements TSTypeNode, TSDeclaration {
   external TSNodeArray<TSTypeElement> get members;
+}
+
+@JS('TypeOperatorNode')
+extension type TSTypeOperatorNode._(JSObject _) implements TSTypeNode {
+  external TSSyntaxKind operator;
+  external TSTypeNode type;
 }
 
 @JS('FunctionOrConstructorTypeNodeBase')

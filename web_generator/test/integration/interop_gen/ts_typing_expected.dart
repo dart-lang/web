@@ -33,13 +33,21 @@ extension type const MyEnum._(int _) {
 
   static const MyEnum D = MyEnum._(4);
 }
+@_i1.JS()
+external MyEnum_EnumType get myEnumKeys;
+@_i1.JS()
+external AnonymousUnion_3852877 userKeys;
+@_i1.JS()
+external AnonymousUnion_7177924 alphabeticLetter;
+@_i1.JS()
+external MyEnum_EnumType get myEnumType;
 typedef Transformer<T extends _i1.JSAny?> = _AnonymousFunction_5293571<T>;
 @_i1.JS()
 external _i1.JSFunction copyOfmyEnclosingFunction;
 @_i1.JS()
 external MyEnum get myEnumValue;
 @_i1.JS()
-external MyEnum get myEnumValue2;
+external MyEnum_EnumType get myEnumValue2;
 @_i1.JS()
 external _i1.JSFunction myFunctionAlias;
 @_i1.JS()
@@ -62,6 +70,8 @@ external bool? get booleanOrUndefined;
 external AnonymousUnion_6216705? get image;
 @_i1.JS()
 external _i2.JSTuple2<_i1.JSString, _i1.JSNumber> get myTuple;
+@_i1.JS()
+external _i2.JSTuple2<_i1.JSString, _i1.JSNumber> get myReadonlyTuple;
 @_i1.JS()
 external _i2.JSTuple2<_i1.JSString, _i1.JSString> get mySecondTuple;
 @_i1.JS()
@@ -112,6 +122,48 @@ extension type AnonymousType_9143117<T extends _i1.JSAny?>._(_i1.JSObject _)
   external double id;
 
   external T value;
+}
+extension type MyEnum_EnumType._(_i1.JSObject _) implements _i1.JSObject {
+  static const MyEnum A = MyEnum._(0);
+
+  static const MyEnum B = MyEnum._(1);
+
+  static const MyEnum C = MyEnum._(2);
+
+  static const MyEnum D = MyEnum._(4);
+
+  @_i1.JS('0')
+  static String get $0 => 'A';
+
+  @_i1.JS('1')
+  static String get $1 => 'B';
+
+  @_i1.JS('2')
+  static String get $2 => 'C';
+
+  @_i1.JS('4')
+  static String get $4 => 'D';
+}
+extension type const AnonymousUnion_3852877._(String _) {
+  static const AnonymousUnion_3852877 name = AnonymousUnion_3852877._('name');
+
+  static const AnonymousUnion_3852877 key = AnonymousUnion_3852877._('key');
+
+  static const AnonymousUnion_3852877 id = AnonymousUnion_3852877._('id');
+
+  static const AnonymousUnion_3852877 birthTimestamp =
+      AnonymousUnion_3852877._('birthTimestamp');
+
+  static const AnonymousUnion_3852877 email = AnonymousUnion_3852877._('email');
+}
+extension type const AnonymousUnion_7177924._(String _) {
+  static const AnonymousUnion_7177924 A = AnonymousUnion_7177924._('A');
+
+  static const AnonymousUnion_7177924 B = AnonymousUnion_7177924._('B');
+
+  static const AnonymousUnion_7177924 C = AnonymousUnion_7177924._('C');
+
+  static const AnonymousUnion_7177924 D = AnonymousUnion_7177924._('D');
 }
 extension type _AnonymousFunction_5293571<T extends _i1.JSAny?>._(
     _i1.JSFunction _) implements _i1.JSFunction {

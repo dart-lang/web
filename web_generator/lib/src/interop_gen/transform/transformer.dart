@@ -4,6 +4,7 @@
 
 import 'dart:collection';
 import 'dart:js_interop';
+import 'package:collection/collection.dart';
 import 'package:path/path.dart' as p;
 import '../../ast/base.dart';
 import '../../ast/builtin.dart';
@@ -1338,10 +1339,101 @@ class Transformer {
         final exprName = typeQuery.exprName;
         final typeArguments = typeQuery.typeArguments?.toDart;
 
-        return _getTypeFromDeclaration(exprName, typeArguments,
+        final getTypeFromDeclaration = _getTypeFromDeclaration(
+            exprName, typeArguments,
             typeArg: typeArg,
             isNotTypableDeclaration: true,
             isNullable: isNullable ?? false);
+
+        switch (getTypeFromDeclaration) {
+          case ReferredType(
+                declaration: final referredDecl,
+              )
+              when referredDecl is EnumDeclaration:
+            // check for type in type map
+            final enumName = '${referredDecl.name}_EnumType';
+            final enumID = ID(type: 'type', name: enumName);
+
+            // enum is actually an object
+            return typeMap.putIfAbsent(enumID.toString(), () {
+              return EnumObjectType(referredDecl,
+                  isNullable: isNullable ?? false);
+            });
+          default:
+            return getTypeFromDeclaration;
+        }
+      case TSSyntaxKind.TypeOperator
+          when (type as TSTypeOperatorNode).operator ==
+              TSSyntaxKind.ReadonlyKeyword:
+        final transformedType = _transformType(type.type,
+            parameter: parameter, typeArg: typeArg, isNullable: isNullable);
+        switch (transformedType) {
+          // turn tuple to readonly tuple
+          case final TupleType tuple:
+            // make readonly
+            final (tupleUrl, tupleDeclaration) = programMap.getCommonType(
+                'JSReadonlyTuple${tuple.types.length}',
+                ifAbsent: (
+                  '_tuples.dart',
+                  TupleDeclaration(count: tuple.types.length, readonly: true)
+                ))!;
+
+            return tupleDeclaration.asReferredType(
+                tuple.types, tuple.isNullable, tupleUrl);
+          // TODO: mapped types
+          // by default just return
+          default:
+            return transformedType;
+        }
+      case TSSyntaxKind.TypeOperator
+          when (type as TSTypeOperatorNode).operator ==
+              TSSyntaxKind.KeyOfKeyword:
+        (List<String>, Type?) extractKeysOrReturnType(Type targetType) {
+          switch (targetType) {
+            case ObjectLiteralType(
+                properties: final objectProps,
+              ):
+              return (objectProps.map((o) => o.name).toList(), null);
+            case EnumObjectType(enumeration: final enumeration):
+              return (enumeration.members.map((e) => e.name).toList(), null);
+            case ReferredType(declaration: final referredDecl)
+                when referredDecl is InterfaceDeclaration:
+              return (
+                referredDecl.properties.map((o) => o.name).toList(),
+                null
+              );
+            case ReferredDeclarationType(type: final referredToType):
+              return extractKeysOrReturnType(referredToType);
+            default:
+              return (
+                [],
+                BuiltinType.primitiveType(PrimitiveType.string,
+                    isNullable: isNullable)
+              );
+          }
+        }
+
+        final transformedType = _transformType(type.type,
+            parameter: parameter, typeArg: typeArg, isNullable: isNullable);
+
+        // keyof
+        final (keys, returnTypeOrNull) =
+            extractKeysOrReturnType(transformedType);
+
+        if (returnTypeOrNull != null) return returnTypeOrNull;
+
+        return HomogenousEnumType(
+            types: keys
+                .map((k) => LiteralType(kind: LiteralKind.string, value: k))
+                .toList(),
+            name: 'AnonymousUnion_${AnonymousHasher.hashUnion(keys)}');
+      case TSSyntaxKind.TypeOperator
+          when (type as TSTypeOperatorNode).operator ==
+              TSSyntaxKind.UniqueKeyword:
+        // Dart does not support unique symbols
+
+        return _transformType(type.type,
+            parameter: parameter, typeArg: typeArg, isNullable: isNullable);
       case TSSyntaxKind.ArrayType:
         return BuiltinType.primitiveType(PrimitiveType.array,
             typeParams: [

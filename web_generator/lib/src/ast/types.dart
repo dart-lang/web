@@ -85,9 +85,11 @@ class TupleType extends ReferredType<TupleDeclaration> {
       {required this.types,
       super.isNullable,
       required String? tupleDeclUrl,
-      this.readonly = false})
+      this.readonly = false,
+      TupleDeclaration? decl})
       : super(
-            declaration: TupleDeclaration(count: types.length),
+            declaration: decl ??
+                TupleDeclaration(count: types.length, readonly: readonly),
             name: readonly
                 ? 'JSReadonlyTuple${types.length}'
                 : 'JSTuple${types.length}',

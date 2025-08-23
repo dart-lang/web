@@ -33,13 +33,21 @@ extension type const MyEnum._(int _) {
 
   static const MyEnum D = MyEnum._(4);
 }
+@_i1.JS()
+external MyEnum_EnumType get myEnumKeys;
+@_i1.JS()
+external KeyOf_User userKeys;
+@_i1.JS()
+external KeyOf_TypeOf_MyEnum alphabeticLetter;
+@_i1.JS()
+external MyEnum_EnumType get myEnumType;
 typedef Transformer<T extends _i1.JSAny?> = _AnonymousFunction_5293571<T>;
 @_i1.JS()
 external _i1.JSFunction copyOfmyEnclosingFunction;
 @_i1.JS()
 external MyEnum get myEnumValue;
 @_i1.JS()
-external MyEnum get myEnumValue2;
+external MyEnum_EnumType get myEnumValue2;
 @_i1.JS()
 external _i1.JSFunction myFunctionAlias;
 @_i1.JS()
@@ -62,6 +70,9 @@ external bool? get booleanOrUndefined;
 external AnonymousUnion_6216705? get image;
 @_i1.JS()
 external _i2.JSTuple2<_i1.JSString, _i1.JSNumber> get myTuple;
+@_i1.JS()
+external _i2.JSReadonlyTuple3<_i1.JSString, _i1.JSNumber, _i1.JSString>
+    get myReadonlyTuple;
 @_i1.JS()
 external _i2.JSTuple2<_i1.JSString, _i1.JSString> get mySecondTuple;
 @_i1.JS()
@@ -112,6 +123,47 @@ extension type AnonymousType_9143117<T extends _i1.JSAny?>._(_i1.JSObject _)
   external double id;
 
   external T value;
+}
+extension type MyEnum_EnumType._(_i1.JSObject _) implements _i1.JSObject {
+  static const MyEnum A = MyEnum._(0);
+
+  static const MyEnum B = MyEnum._(1);
+
+  static const MyEnum C = MyEnum._(2);
+
+  static const MyEnum D = MyEnum._(4);
+
+  @_i1.JS('0')
+  static String get $0 => 'A';
+
+  @_i1.JS('1')
+  static String get $1 => 'B';
+
+  @_i1.JS('2')
+  static String get $2 => 'C';
+
+  @_i1.JS('4')
+  static String get $4 => 'D';
+}
+extension type const KeyOf_User._(String _) {
+  static const KeyOf_User name = KeyOf_User._('name');
+
+  static const KeyOf_User key = KeyOf_User._('key');
+
+  static const KeyOf_User id = KeyOf_User._('id');
+
+  static const KeyOf_User birthTimestamp = KeyOf_User._('birthTimestamp');
+
+  static const KeyOf_User email = KeyOf_User._('email');
+}
+extension type const KeyOf_TypeOf_MyEnum._(String _) {
+  static const KeyOf_TypeOf_MyEnum A = KeyOf_TypeOf_MyEnum._('A');
+
+  static const KeyOf_TypeOf_MyEnum B = KeyOf_TypeOf_MyEnum._('B');
+
+  static const KeyOf_TypeOf_MyEnum C = KeyOf_TypeOf_MyEnum._('C');
+
+  static const KeyOf_TypeOf_MyEnum D = KeyOf_TypeOf_MyEnum._('D');
 }
 extension type _AnonymousFunction_5293571<T extends _i1.JSAny?>._(
     _i1.JSFunction _) implements _i1.JSFunction {

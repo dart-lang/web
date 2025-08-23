@@ -267,7 +267,7 @@ class TupleDeclaration extends NamedDeclaration
   bool get exported => true;
 
   @override
-  ID get id => ID(type: 'tuple', name: name);
+  ID get id => ID(type: 'tuple', name: name, index: readonly ? 1 : 0);
 
   final int count;
 
@@ -294,7 +294,11 @@ class TupleDeclaration extends NamedDeclaration
       [List<Type>? typeArgs, bool isNullable = false, String? url]) {
     assert(typeArgs?.length == count,
         'Type arguments must equal the number of tuples supported');
-    return TupleType(types: typeArgs ?? [], tupleDeclUrl: url);
+    return TupleType(
+        types: typeArgs ?? [],
+        tupleDeclUrl: url,
+        readonly: readonly,
+        decl: this);
   }
 
   @override

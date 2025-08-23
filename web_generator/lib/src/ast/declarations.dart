@@ -238,6 +238,20 @@ class VariableDeclaration extends FieldDeclaration
         url: url,
         isNullable: isNullable ?? false);
   }
+
+  PropertyDeclaration cloneAsProperty(
+      {bool static = false, DeclScope scope = DeclScope.public}) {
+    return PropertyDeclaration(
+      name: name,
+      id: id,
+      dartName: dartName,
+      documentation: documentation,
+      type: type,
+      static: static,
+      readonly: modifier == VariableModifier.$const,
+      scope: scope,
+    );
+  }
 }
 
 enum VariableModifier { let, $const, $var }
@@ -311,6 +325,20 @@ class FunctionDeclaration extends CallableDeclaration
         url: url,
         isNullable: isNullable ?? false);
   }
+
+  MethodDeclaration cloneAsMethod(
+      {bool static = false, DeclScope scope = DeclScope.public}) {
+    return MethodDeclaration(
+        name: name,
+        id: id,
+        dartName: dartName,
+        static: static,
+        scope: scope,
+        documentation: documentation,
+        parameters: parameters,
+        typeParameters: typeParameters,
+        returnType: returnType);
+  }
 }
 
 class EnumDeclaration extends NestableDeclaration
@@ -376,6 +404,17 @@ class EnumDeclaration extends NestableDeclaration
 
   @override
   ID get id => ID(type: 'enum', name: qualifiedName);
+
+  PropertyDeclaration cloneAsProperty(
+      {bool static = false, DeclScope scope = DeclScope.public}) {
+    return PropertyDeclaration(
+        name: name,
+        id: id,
+        type: asReferredType(),
+        static: static,
+        scope: scope,
+        documentation: documentation);
+  }
 }
 
 class EnumMember {
@@ -554,7 +593,7 @@ class NamespaceDeclaration extends NestableDeclaration
     }
 
     // class refs
-    // TODO: Enum support
+    // TODO(nikeokoronkwo): Enum support
     for (final nestable in nestableDeclarations) {
       switch (nestable) {
         case final ClassDeclaration cl:
@@ -591,6 +630,11 @@ class NamespaceDeclaration extends NestableDeclaration
       CompositeDeclaration.fromNamespace(this);
 }
 
+/// A composite declaration is formed from merging declarations together,
+/// and is used to represent a JS Object derived from either a namespace or
+/// interface, but is no longer strictly one.
+///
+/// It is NOT derived from the TS AST, and should not be used in such AST cases
 class CompositeDeclaration extends TypeDeclaration {
   final List<Type> extendedTypes;
 
@@ -599,7 +643,7 @@ class CompositeDeclaration extends TypeDeclaration {
   /// This asserts that the extension type generated produces a rep type
   /// other than its default, which is denoted by the first member of
   /// [extendedTypes] if any.
-  final bool assertRepType;
+  final bool useFirstExtendeeAsRepType;
 
   /// This asserts generating a constructor for creating the given interface
   /// as an object literal via an object literal constructor
@@ -620,7 +664,7 @@ class CompositeDeclaration extends TypeDeclaration {
       super.parent,
       this.extendedTypes = const [],
       this.implementedTypes = const [],
-      this.assertRepType = false,
+      this.useFirstExtendeeAsRepType = false,
       this.rawMethods = const []})
       : objectLiteralConstructor = false,
         super(exported: true);
@@ -629,7 +673,7 @@ class CompositeDeclaration extends TypeDeclaration {
       [this.rawMethods = const []])
       : extendedTypes = interface.extendedTypes,
         implementedTypes = [],
-        assertRepType = interface.assertRepType,
+        useFirstExtendeeAsRepType = interface.useFirstExtendeeAsRepType,
         objectLiteralConstructor = interface.objectLiteralConstructor,
         super(
           name: interface.name,
@@ -655,23 +699,9 @@ class CompositeDeclaration extends TypeDeclaration {
     for (final decl in namespace.topLevelDeclarations) {
       switch (decl) {
         case final FunctionDeclaration fun:
-          methodDeclarations.add(MethodDeclaration(
-              name: fun.name,
-              dartName: fun.dartName,
-              documentation: fun.documentation,
-              static: true,
-              id: fun.id,
-              parameters: fun.parameters,
-              typeParameters: fun.typeParameters,
-              returnType: fun.returnType));
+          methodDeclarations.add(fun.cloneAsMethod(static: true));
         case final VariableDeclaration variable:
-          propertyDeclarations.add(PropertyDeclaration(
-              name: variable.name,
-              id: variable.id,
-              type: variable.type,
-              static: true,
-              readonly: variable.modifier == VariableModifier.$const,
-              documentation: variable.documentation));
+          propertyDeclarations.add(variable.cloneAsProperty(static: true));
         default:
           break;
       }
@@ -680,13 +710,7 @@ class CompositeDeclaration extends TypeDeclaration {
     for (final decl in namespace.nestableDeclarations) {
       switch (decl) {
         case final EnumDeclaration enumeration:
-          propertyDeclarations.add(PropertyDeclaration(
-              name: enumeration.name,
-              id: enumeration.id,
-              type: enumeration.asReferredType(),
-              static: true,
-              readonly: true,
-              documentation: enumeration.documentation));
+          propertyDeclarations.add(enumeration.cloneAsProperty());
         case final ClassDeclaration cl:
           final constr = _extractConstrFromClass(cl, parent: namespace);
           methods.addAll([if (constr != null) constr]);
@@ -708,7 +732,7 @@ class CompositeDeclaration extends TypeDeclaration {
         documentation: namespace.documentation,
         extendedTypes: [],
         implementedTypes: [],
-        assertRepType: true,
+        useFirstExtendeeAsRepType: true,
         rawMethods: methods);
   }
 
@@ -724,7 +748,7 @@ class CompositeDeclaration extends TypeDeclaration {
       operators: operators,
       constructors: constructors,
       extendedTypes: extendedTypes,
-      assertRepType: assertRepType,
+      useFirstExtendeeAsRepType: useFirstExtendeeAsRepType,
       objectLiteralConstructor: objectLiteralConstructor);
 
   @override
@@ -732,7 +756,7 @@ class CompositeDeclaration extends TypeDeclaration {
     return super._emit(options,
         extendees: extendedTypes,
         implementees: implementedTypes,
-        useFirstExtendeeAsRepType: assertRepType,
+        useFirstExtendeeAsRepType: useFirstExtendeeAsRepType,
         objectLiteralConstructor: objectLiteralConstructor,
         extraMethods: rawMethods);
   }
@@ -787,7 +811,7 @@ class InterfaceDeclaration extends TypeDeclaration {
   /// This asserts that the extension type generated produces a rep type
   /// other than its default, which is denoted by the first member of
   /// [extendedTypes] if any.
-  final bool assertRepType;
+  final bool useFirstExtendeeAsRepType;
 
   /// This asserts generating a constructor for creating the given interface
   /// as an object literal via an object literal constructor
@@ -804,7 +828,7 @@ class InterfaceDeclaration extends TypeDeclaration {
       super.properties,
       super.operators,
       super.constructors,
-      this.assertRepType = false,
+      this.useFirstExtendeeAsRepType = false,
       this.objectLiteralConstructor = false,
       super.documentation});
 
@@ -812,7 +836,7 @@ class InterfaceDeclaration extends TypeDeclaration {
   ExtensionType emit([covariant DeclarationOptions? options]) {
     return super._emit(options,
         extendees: extendedTypes,
-        useFirstExtendeeAsRepType: assertRepType,
+        useFirstExtendeeAsRepType: useFirstExtendeeAsRepType,
         objectLiteralConstructor: objectLiteralConstructor);
   }
 }

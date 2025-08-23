@@ -16,6 +16,35 @@ import 'types.dart';
 /// The process usually flattens namespaces, interfaces, and other declarations
 /// depending, providing a smaller set of merged declarations, as well as any
 /// other additional declarations
+///
+/// The following declarations can be merged:
+/// - Namespaces: All namespaces are merged into a single namespace. Namespaces
+/// can merge with the following declations:
+///   - Functions: Function declarations become `call` methods on the namespace
+///   - Interfaces and Classes: The properties/methods are merged into the
+///     namespace. Interfaces would be merged first before merging into the
+///     namespace.
+///   - Enums: The enum members from the enum are merged into the namespace as
+///     static properties on the namespace, forwarding their values to the
+///     actual enum declaration.
+///
+///   This usually leads to a [CompositeDeclaration] from the
+///   [NamespaceDeclaration] used to merge the given declarat
+///
+/// - Interfaces: All interfaces are merged into a single namespace. Interfaces
+/// can merge with variable declarations. In such case, the type of the variable
+/// declaration (which also needs to be an [InterfaceDeclaration]) is merged
+/// into the interface.
+///
+/// Other declarations are returned as is if they cannot be merged with the
+/// given declaration, or the given declaration instances do not exist.
+///
+/// Only one class declaration can have the same name, and only one enum
+/// declaration can bear the same name. The function defaults to the first
+/// class/enum it sees in the list.
+///
+/// For more information on declaration merging, see
+/// https://www.typescriptlang.org/docs/handbook/declaration-merging.html
 (List<Declaration>, {List<Declaration> additionals}) mergeDeclarations(
     List<Declaration> declarations) {
   if (declarations.isEmpty) return ([], additionals: []);
@@ -30,7 +59,6 @@ import 'types.dart';
   final additionals = <Declaration>[];
 
   // sort out declarations
-  // TODO: Enums
   final functions = <FunctionDeclaration>[];
   final interfaces = <InterfaceDeclaration>[];
   EnumDeclaration? enumDecl;
@@ -80,40 +108,31 @@ import 'types.dart';
       interfaces.isNotEmpty ? mergeInterfaces(interfaces) : null;
 
   if (mergedNamespace != null) {
-    var mergedComposite = mergedNamespace.asComposite;
+    var mergedComposite = mergedNamespace.asComposite
+      ..mergeType(mergedInterface);
 
-    if (mergedInterface != null) {
-      // perform interface merge
-      mergedComposite =
-          _mergeCompositeWithType(mergedComposite, mergedInterface);
-
-      // merge em and vars
-      final newComposite =
-          _mergeInterfaceWithVars(mergedComposite, varDeclarations);
-      if (newComposite != null) {
-        mergedComposite = newComposite as CompositeDeclaration;
-      }
-
-      // merge em and global vars
-      final newExtension = _mergeInterfaceWithVarsHavingBuiltinTypes(
-          mergedComposite, varDeclarationsWithBuiltinTypes);
-      additionals.addAll([if (newExtension != null) newExtension]);
+    // merge em and vars
+    final newComposite =
+        _mergeInterfaceWithVars(mergedComposite, varDeclarations);
+    if (newComposite != null) {
+      mergedComposite = newComposite as CompositeDeclaration;
     }
 
-    if (enumDecl != null) {
-      mergedComposite = _mergeCompositeWithEnum(mergedComposite, enumDecl);
-      additionals.add(enumDecl);
-    }
+    // merge em and global vars
+    final newExtension = _mergeInterfaceWithVarsHavingBuiltinTypes(
+        mergedComposite, varDeclarationsWithBuiltinTypes);
+    additionals.addAll([if (newExtension != null) newExtension]);
 
-    // merge with class
-    if (classDecl != null) {
-      mergedComposite = _mergeCompositeWithType(mergedComposite, classDecl);
-    }
+    mergedComposite
+      // merge with enums
+      ..mergeEnum(enumDecl)
+      // merge with class
+      ..mergeType(classDecl)
+      // merge composite with funs
+      ..mergeFunctions(functions);
 
-    // merge composite with funs
-    mergedComposite = _mergeCompositeWithFunctions(mergedComposite, functions);
+    additionals.addAll([if (enumDecl != null) enumDecl]);
 
-    // that's it!
     output.add(mergedComposite);
   } else if (mergedInterface != null) {
     // merge em and vars
@@ -128,8 +147,19 @@ import 'types.dart';
         mergedInterface, varDeclarationsWithBuiltinTypes);
     additionals.addAll([if (newExtension != null) newExtension]);
 
+    // merge with class
+    if (classDecl != null) {
+      final mergedComposite =
+          CompositeDeclaration.fromInterface(mergedInterface)
+            ..mergeType(classDecl);
+
+      output.add(mergedComposite);
+    } else {
+      output.add(mergedInterface);
+    }
+
     // that's it
-    output.addAll([mergedInterface, ...functions]);
+    output.addAll(functions);
   } else {
     return (declarations, additionals: []);
   }
@@ -140,8 +170,78 @@ import 'types.dart';
   return (output, additionals: additionals);
 }
 
+extension MergeDeclarationsOntoComposite on CompositeDeclaration {
+  void mergeType([TypeDeclaration? type]) {
+    if (type == null) return;
+    this
+      ..typeParameters.addAll(type.typeParameters)
+      ..extendedTypes.addAll(switch (type) {
+        ClassDeclaration(extendedType: final extendedType?) => [extendedType],
+        InterfaceDeclaration(extendedTypes: final extendedTypes) ||
+        CompositeDeclaration(extendedTypes: final extendedTypes) =>
+          extendedTypes,
+        _ => []
+      })
+      ..implementedTypes.addAll(switch (type) {
+        ClassDeclaration(implementedTypes: final implementedTypes) =>
+          implementedTypes,
+        _ => []
+      })
+      ..operators.addAll(type.operators)
+      ..constructors.addAll(type.constructors)
+      ..methods.addAll(type.methods)
+      ..properties.addAll(type.properties);
+  }
+
+  /// Be sure to include the enumeration in the result, as the given function
+  /// just adds its members, which may still refer back to the enum
+  void mergeEnum([EnumDeclaration? enumeration]) {
+    if (enumeration == null) return;
+    final enumAsReference = (enumeration
+          ..name = '${enumeration.name}Enum'
+          ..dartName ??= enumeration.name)
+        .asReferredType()
+        .emit();
+
+    for (final member in enumeration.members) {
+      member.parent = enumeration.name;
+    }
+
+    rawMethods.addAll(enumeration.members.map((e) => Method((m) {
+          if (e.dartName != null && e.name != e.dartName && e.isExternal) {
+            m.annotations.add(generateJSAnnotation(e.name));
+          }
+          m
+            ..name = e.dartName ?? e.name
+            ..type = MethodType.getter
+            ..static = true
+            ..lambda = true
+            ..returns = enumAsReference
+            ..body = enumAsReference.property(e.dartName ?? e.name).code;
+        })));
+  }
+
+  void mergeFunctions([List<FunctionDeclaration> funs = const []]) {
+    final namer = UniqueNamer(methods.map((m) => m.dartName ?? m.name));
+
+    methods.addAll(funs.map((f) {
+      final (name: dartName, :id) = namer.makeUnique('call', 'fun');
+      return MethodDeclaration(
+          name: 'call',
+          dartName: dartName,
+          id: id,
+          returnType: f.returnType,
+          parameters: f.parameters,
+          typeParameters: f.typeParameters,
+          documentation: f.documentation);
+    }));
+  }
+}
+
 TypeDeclaration? _mergeInterfaceWithVars(TypeDeclaration interface,
     [List<VariableDeclaration> vars = const [], bool baseOnVarTypes = false]) {
+  if (vars.isEmpty) return null;
+
   assert(vars.every((v) => v.modifier == VariableModifier.$var),
       'only "var" variables are needed');
 
@@ -160,25 +260,21 @@ TypeDeclaration? _mergeInterfaceWithVars(TypeDeclaration interface,
     ...interfaces
   ], referenceIndex: baseOnVarTypes && interfaces.isNotEmpty ? 1 : 0);
 
-  return (vars.isEmpty
-      ? null
-      : interface is CompositeDeclaration
-          ? CompositeDeclaration.fromInterface(
-              mergedInterface, interface.rawMethods)
-          : mergedInterface);
+  return (interface is CompositeDeclaration
+      ? CompositeDeclaration.fromInterface(
+          mergedInterface, interface.rawMethods)
+      : mergedInterface);
 }
 
 _ExtensionOfTypeDeclaration? _mergeInterfaceWithVarsHavingBuiltinTypes(
     TypeDeclaration interface,
     [List<VariableDeclaration> vars = const []]) {
+  if (vars.isEmpty) return null;
+
   assert(vars.every((v) => v.modifier == VariableModifier.$var),
       'only "var" variables are needed');
 
   final builtinTypes = vars.map((v) => v.type as BuiltinType);
-
-  if (vars.isEmpty) {
-    return null;
-  }
 
   // get the var type
   final unionHash =
@@ -211,74 +307,6 @@ _ExtensionOfTypeDeclaration? _mergeInterfaceWithVarsHavingBuiltinTypes(
       ]);
 
   return extension;
-}
-
-/// Be sure to include the enumeration in the result, as the given function
-/// just adds its members, which may still refer back to the enum
-CompositeDeclaration _mergeCompositeWithEnum(
-    CompositeDeclaration composite, EnumDeclaration enumeration) {
-  final enumAsReference = (enumeration
-        ..name = '${enumeration.name}Enum'
-        ..dartName ??= enumeration.name)
-      .asReferredType()
-      .emit();
-
-  for (final member in enumeration.members) {
-    member.parent = enumeration.name;
-  }
-  return composite
-    ..rawMethods.addAll(enumeration.members.map((e) => Method((m) {
-          if (e.dartName != null && e.name != e.dartName && e.isExternal) {
-            m.annotations.add(generateJSAnnotation(e.name));
-          }
-          m
-            ..name = e.dartName ?? e.name
-            ..type = MethodType.getter
-            ..static = true
-            ..lambda = true
-            ..returns = enumAsReference
-            ..body = enumAsReference.property(e.dartName ?? e.name).code;
-        })));
-}
-
-CompositeDeclaration _mergeCompositeWithType(
-    CompositeDeclaration composite, TypeDeclaration interface) {
-  return composite
-    ..typeParameters.addAll(interface.typeParameters)
-    ..extendedTypes.addAll(switch (interface) {
-      ClassDeclaration(extendedType: final extendedType?) => [extendedType],
-      InterfaceDeclaration(extendedTypes: final extendedTypes) ||
-      CompositeDeclaration(extendedTypes: final extendedTypes) =>
-        extendedTypes,
-      _ => []
-    })
-    ..implementedTypes.addAll(switch (interface) {
-      ClassDeclaration(implementedTypes: final implementedTypes) =>
-        implementedTypes,
-      _ => []
-    })
-    ..operators.addAll(interface.operators)
-    ..constructors.addAll(interface.constructors)
-    ..methods.addAll(interface.methods)
-    ..properties.addAll(interface.properties);
-}
-
-CompositeDeclaration _mergeCompositeWithFunctions(
-    CompositeDeclaration composite,
-    [List<FunctionDeclaration> funs = const []]) {
-  final namer = UniqueNamer(composite.methods.map((m) => m.dartName ?? m.name));
-  return composite
-    ..methods.addAll(funs.map((f) {
-      final (name: dartName, :id) = namer.makeUnique('call', 'fun');
-      return MethodDeclaration(
-          name: 'call',
-          dartName: dartName,
-          id: id,
-          returnType: f.returnType,
-          parameters: f.parameters,
-          typeParameters: f.typeParameters,
-          documentation: f.documentation);
-    }));
 }
 
 InterfaceDeclaration mergeInterfaces(List<InterfaceDeclaration> interfaces,
@@ -320,7 +348,8 @@ InterfaceDeclaration mergeInterfaces(List<InterfaceDeclaration> interfaces,
 
         return newDecls;
       }).flattenedToList,
-      assertRepType: interfaces.any((i) => i.assertRepType),
+      useFirstExtendeeAsRepType:
+          interfaces.any((i) => i.useFirstExtendeeAsRepType),
       objectLiteralConstructor:
           interfaces.any((i) => i.objectLiteralConstructor),
       documentation: interfaces

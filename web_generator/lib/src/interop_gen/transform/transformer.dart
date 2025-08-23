@@ -628,6 +628,11 @@ class Transformer {
     return methodDeclaration;
   }
 
+  // TODO: This does not properly work with all kinds of construct signatures
+  //  especially those that redirect, have generics, etc.
+  //  We should update constructor call to make some other name (or make it
+  //  private and use a static method if possible) if it contains generics,
+  //  and to be factory if redirecting constructor
   ConstructorDeclaration _transformConstructor(TSConstructorEntity constructor,
       {required UniqueNamer parentNamer}) {
     final name = constructor.name?.text.trim();
@@ -1517,7 +1522,6 @@ class Transformer {
           nodes.add(declaration);
         }
       }
-      // var firstDecl = declarations.first as TSNamedDeclaration;
 
       map = parent != null
           ? NodeMap([
@@ -1530,7 +1534,6 @@ class Transformer {
     }
 
     // get node finally
-    // final decl = declarationsMatching.whereType<NamedDeclaration>().first;
 
     // are we done?
     final rest = name.skip(1);
@@ -1648,6 +1651,39 @@ class Transformer {
       bool isNotTypableDeclaration,
       bool typeArg,
       bool isNullable) {
+    Type? returnNodeAsType(Declaration firstNode, [String? relativePath]) {
+      if (!isNotTypableDeclaration && typeArg) {
+        // For Typealiases, we can either return the type itself
+        // or the JS Alternative (if its underlying type isn't a JS type)
+        switch (firstNode) {
+          case TypeAliasDeclaration(type: final t):
+          case EnumDeclaration(baseType: final t):
+            final jsType = getJSTypeAlternative(t);
+            if (jsType != t) {
+              return jsType..isNullable = isNullable;
+            }
+        }
+      }
+
+      final outputType = (firstNode as NamedDeclaration).asReferredType(
+          (typeArguments ?? [])
+              .map((type) => _transformType(type, typeArg: true))
+              .toList(),
+          isNullable,
+          relativePath?.replaceFirst('.d.ts', '.dart'));
+
+      if (outputType case ReferredDeclarationType(type: final type)
+          when type is BuiltinType && typeArg) {
+        final jsType = getJSTypeAlternative(type);
+        if (jsType != type) {
+          outputType.type = jsType..isNullable = isNullable;
+        }
+      }
+
+      return outputType;
+    }
+
+    // begin
     final declarations = symbol!.getDeclarations()?.toDart ?? [];
 
     // get decl qualified name
@@ -1680,9 +1716,7 @@ class Transformer {
       }
 
       // now check if web type
-      // TODO: Use map on multiple declarations
       var mappedDecls = <Declaration>[];
-      // final NamedDeclaration? firstNode;
       String? relativePath;
       for (final decl in declarations) {
         var declSource = decl.getSourceFile().fileName;
@@ -1766,24 +1800,9 @@ class Transformer {
       }
 
       if (firstNode case final node?) {
-        final outputType = node.asReferredType(
-            (typeArguments ?? [])
-                .map((type) => _transformType(type, typeArg: true))
-                .toList(),
-            isNullable,
-            mappedDecls.length > 1
-                ? null
-                : relativePath?.replaceFirst('.d.ts', '.dart'));
-
-        if (outputType case ReferredDeclarationType(type: final type)
-            when type is BuiltinType && typeArg) {
-          final jsType = getJSTypeAlternative(type);
-          if (jsType != type) {
-            outputType.type = jsType..isNullable = isNullable;
-          }
-        }
-
-        return outputType;
+        final type = returnNodeAsType(
+            node, mappedDecls.length > 1 ? null : relativePath);
+        if (type != null) return type;
       }
     } else {
       final filePathWithoutExtension = file.replaceFirst('.d.ts', '');
@@ -1824,39 +1843,14 @@ class Transformer {
 
         final (mergedNodes, :additionals) = mergeDeclarations(nodes);
         nodeMap.addAll({for (final add in additionals) add.id.toString(): add});
+
         if (mergedNodes case [final firstNode]) {
-          if (!isNotTypableDeclaration && typeArg) {
-            // For Typealiases, we can either return the type itself
-            // or the JS Alternative (if its underlying type isn't a JS type)
-            switch (firstNode) {
-              case TypeAliasDeclaration(type: final t):
-              case EnumDeclaration(baseType: final t):
-                final jsType = getJSTypeAlternative(t);
-                if (jsType != t) {
-                  return jsType..isNullable = isNullable;
-                }
-            }
-          }
-
-          final outputType = (firstNode as NamedDeclaration).asReferredType(
-              (typeArguments ?? [])
-                  .map((type) => _transformType(type, typeArg: true))
-                  .toList(),
-              isNullable,
-              relativePath?.replaceFirst('.d.ts', '.dart'));
-
-          if (outputType case ReferredDeclarationType(type: final type)
-              when type is BuiltinType && typeArg) {
-            final jsType = getJSTypeAlternative(type);
-            if (jsType != type) {
-              outputType.type = jsType..isNullable = isNullable;
-            }
-          }
-
-          return outputType;
+          final type = returnNodeAsType(firstNode, relativePath);
+          if (type != null) return type;
         }
       }
     }
+
     throw Exception('Could not resolve type for node');
   }
 
@@ -2104,8 +2098,6 @@ class Transformer {
     final otherDecls = filteredDeclarations.entries
         .map((e) => _getDependenciesOfDecl(e.value))
         .reduce((value, element) => value..addAll(element));
-
-    print((outputDeclSet.keys.toList(), otherDecls.keys.toList()));
 
     // if already in filtered declarations, we remove
     // because they may have been updated in merge

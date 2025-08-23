@@ -13,7 +13,7 @@ export declare namespace foo {
     function isFoo(obj: any): boolean;
 }
 export declare namespace foo {
-    namespace fum {
+    export namespace fum {
         const blownByWolf: boolean;
     }
 }
@@ -59,7 +59,6 @@ export declare enum feeType {
 }
 export interface FiConstructor {
     new (): Fi<any, any>;
-    // new <K, V>(entries: [K, V][]): Fi<K, V>; TODO: Update constructor call to make .new if it contains generics, and to be factory if redirecting constructor
 }
 /**
  * Uses docs of [Map](https://github.com/microsoft/TypeScript/blob/main/src/lib/es2015.collection.d.ts)
@@ -80,3 +79,34 @@ export interface Fi<K, V> {
     set(key: K, value: V): this;
 }
 export declare var Fi: FiConstructor
+export namespace SomeNamespace {
+    export namespace NestedNamespace {
+        const id: string;
+        const hexBuffer: ArrayBuffer;
+        interface ByteBuffer {
+            new (arrayBuffer?: ArrayBuffer);
+            readonly length: number;
+        }
+    }
+}
+export namespace SomeNamespace {
+    export namespace NestedNamespace {
+        interface ByteBuilder {
+            buffer: ByteBuffer;
+            addByte(byte: number): void;
+            toUint8Array(): Uint8Array;
+            toUint16Array(): Uint16Array;
+        }
+    }
+    export interface BytesView {
+        readonly buffer: ArrayBuffer;
+    }
+    export function bytesToBuilder(bytes: ArrayBuffer): NestedNamespace.ByteBuilder;
+    export function arrayToByteBuffer(bytes: ArrayBuffer): NestedNamespace.ByteBuffer;
+}
+export namespace SomeNamespace {
+    const items: string[];
+}
+export interface SomeNamespace {
+    readonly mainBuffer: SomeNamespace.NestedNamespace.ByteBuffer;
+}

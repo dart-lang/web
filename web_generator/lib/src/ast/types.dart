@@ -390,7 +390,7 @@ class FunctionType extends ClosureType {
           exported: true,
           id: ID(type: 'interface', name: declarationName),
           typeParameters: typeParameters.toSet(),
-          assertRepType: true,
+          useFirstExtendeeAsRepType: true,
           extendedTypes: [
             BuiltinType.referred('Function')!
           ],

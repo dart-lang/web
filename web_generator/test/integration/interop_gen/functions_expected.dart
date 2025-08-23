@@ -3,6 +3,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:js_interop' as _i1;
 
+import 'package:meta/meta.dart' as _i2;
+
 @_i1.JS()
 external String greetUser(String name);
 @_i1.JS()
@@ -38,8 +40,12 @@ external _i1.JSObject createUser(
 ]);
 @_i1.JS()
 external T firstElement<T extends _i1.JSAny?>(_i1.JSArray<T> arr);
+@_i2.doNotStore
 @_i1.JS()
-external void throwError(String msg);
+external _i1.JSAny? throwError([String? msg]);
+@_i2.doNotStore
+@_i1.JS('throwError')
+external _i1.JSAny? throwError$1();
 @_i1.JS()
 external _i1.JSArray<T> wrapInArray<T extends _i1.JSAny?>(T value);
 @_i1.JS()

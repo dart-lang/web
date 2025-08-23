@@ -210,7 +210,11 @@ class VariableDeclaration extends FieldDeclaration
     if (modifier == VariableModifier.$const) {
       return Method((m) => m
         ..docs.addAll([...doc])
-        ..annotations.addAll([...annotations])
+        ..annotations.addAll([
+          ...annotations,
+          if (_checkIfDiscardable(type))
+            refer('doNotStore', 'package:meta/meta.dart')
+        ])
         ..name = name
         ..type = MethodType.getter
         ..annotations.add(generateJSAnnotation())
@@ -252,6 +256,14 @@ class VariableDeclaration extends FieldDeclaration
       scope: scope,
     );
   }
+}
+
+bool _checkIfDiscardable(Type type) {
+  if (type case BuiltinType(discardable: final typeIsDiscardable)
+      when typeIsDiscardable) {
+    return true;
+  }
+  return false;
 }
 
 enum VariableModifier { let, $const, $var }
@@ -302,7 +314,11 @@ class FunctionDeclaration extends CallableDeclaration
 
     return Method((m) => m
       ..docs.addAll([...doc])
-      ..annotations.addAll([...annotations])
+      ..annotations.addAll([
+        ...annotations,
+        if (_checkIfDiscardable(returnType))
+          refer('doNotStore', 'package:meta/meta.dart')
+      ])
       ..external = true
       ..name = dartName ?? name
       ..annotations.add(generateJSAnnotation(
@@ -909,7 +925,11 @@ class PropertyDeclaration extends FieldDeclaration
     if (readonly) {
       return Method((m) => m
         ..docs.addAll([...doc])
-        ..annotations.addAll([...annotations])
+        ..annotations.addAll([
+          ...annotations,
+          if (_checkIfDiscardable(type))
+            refer('doNotStore', 'package:meta/meta.dart')
+        ])
         ..external = true
         ..static = static
         ..name = dartName ?? name
@@ -997,7 +1017,11 @@ class MethodDeclaration extends CallableDeclaration
     if (isNullable) {
       return Method((m) => m
         ..docs.addAll([...doc])
-        ..annotations.addAll([...annotations])
+        ..annotations.addAll([
+          ...annotations,
+          if (_checkIfDiscardable(returnType))
+            refer('doNotStore', 'package:meta/meta.dart')
+        ])
         ..external = true
         ..name = dartName ?? name
         ..type = MethodType.getter
@@ -1180,7 +1204,11 @@ class OperatorDeclaration extends CallableDeclaration
 
     return Method((m) => m
       ..docs.addAll([...doc])
-      ..annotations.addAll([...annotations])
+      ..annotations.addAll([
+        ...annotations,
+        if (_checkIfDiscardable(returnType))
+          refer('doNotStore', 'package:meta/meta.dart')
+      ])
       ..external = true
       ..name = 'operator $name'
       ..types

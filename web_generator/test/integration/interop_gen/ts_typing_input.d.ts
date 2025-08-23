@@ -8,9 +8,20 @@ export declare enum MyEnum {
     C = 2,
     D = 4
 }
+export declare const myEnumKeys: typeof MyEnum;
 interface ComposedType<T = any> {
     enclosed: T;
 }
+interface User {
+    name: string;
+    key: string;
+    id: string;
+    birthTimestamp: number;
+    email: string
+}
+export declare let userKeys: keyof User;
+export declare let alphabeticLetter: keyof typeof MyEnum;
+export declare const myEnumType: typeof MyEnum;
 export type Transformer<T> = (object: T) => ComposedType<T>;
 export declare let copyOfmyEnclosingFunction: typeof myEnclosingFunction;
 export declare const myEnumValue: MyEnum;
@@ -29,6 +40,7 @@ export declare const mySecondUnion: number | string | MyEnum | ComposedType;
 export declare const booleanOrUndefined: boolean | undefined;
 export declare const image: string | URL | null;
 export declare const myTuple: [string, number];
+export declare const myReadonlyTuple: readonly [string, number, string];
 export declare const mySecondTuple: [string, string];
 export declare const myCloneTuple: [string, string];
 export declare const typesAsTuple: [string, number, boolean, symbol];

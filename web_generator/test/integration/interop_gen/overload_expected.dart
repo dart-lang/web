@@ -5,7 +5,7 @@
 import 'dart:js_interop' as _i1;
 
 extension type fee._(_i1.JSObject _) implements _i1.JSObject {
-  external String get description;
+  external static String get description;
   external static double triple(num x);
   external double call(num x);
 }
@@ -21,7 +21,8 @@ extension type foo._(_i1.JSObject _) implements _i1.JSObject {
 
   external String name;
 
-  external String get version;
+  external static String get version;
+  external static foo_fum get fum;
   external static bool isFoo(_i1.JSAny? obj);
   external String greet();
 }
@@ -50,7 +51,7 @@ extension type const feeStatusEnum._(int _) {
 @_i1.JS()
 external fooHelper_Options get opts;
 extension type feeType._(_i1.JSObject _) implements _i1.JSObject {
-  external _i1.JSArray<_i1.JSString> get labels;
+  external static _i1.JSArray<_i1.JSString> get labels;
   static feeTypeEnum get Basic => feeTypeEnum.Basic;
 
   static feeTypeEnum get Premium => feeTypeEnum.Premium;
@@ -92,6 +93,15 @@ extension type Fi<K extends _i1.JSAny?, V extends _i1.JSAny?>._(_i1.JSObject _)
     V value,
   );
 }
+extension type SomeNamespace._(_i1.JSObject _) implements _i1.JSObject {
+  external static _i1.JSArray<_i1.JSString> get items;
+  external static SomeNamespace_NestedNamespace get NestedNamespace;
+  external SomeNamespace_NestedNamespace_ByteBuffer get mainBuffer;
+  external static SomeNamespace_NestedNamespace_ByteBuilder bytesToBuilder(
+      _i1.JSArrayBuffer bytes);
+  external static SomeNamespace_NestedNamespace_ByteBuffer arrayToByteBuffer(
+      _i1.JSArrayBuffer bytes);
+}
 @_i1.JS('fooHelper.Options')
 extension type fooHelper_Options._(_i1.JSObject _) implements _i1.JSObject {
   external bool? round;
@@ -110,4 +120,34 @@ extension type foo_fum._(_i1.JSObject _) implements _i1.JSObject {
 }
 extension type baz._(_i1.JSObject _) implements _i1.JSObject {
   external String get debugString;
+}
+@_i1.JS('SomeNamespace.BytesView')
+extension type SomeNamespace_BytesView._(_i1.JSObject _)
+    implements _i1.JSObject {
+  external _i1.JSArrayBuffer get buffer;
+}
+@_i1.JS('SomeNamespace.NestedNamespace')
+extension type SomeNamespace_NestedNamespace._(_i1.JSObject _)
+    implements _i1.JSObject {
+  @_i1.JS()
+  external static String get id;
+  @_i1.JS()
+  external static _i1.JSArrayBuffer get hexBuffer;
+}
+@_i1.JS('SomeNamespace.NestedNamespace.ByteBuffer')
+extension type SomeNamespace_NestedNamespace_ByteBuffer._(_i1.JSObject _)
+    implements _i1.JSObject {
+  external SomeNamespace_NestedNamespace_ByteBuffer(
+      [_i1.JSArrayBuffer? arrayBuffer]);
+
+  external double get length;
+}
+@_i1.JS('SomeNamespace.NestedNamespace.ByteBuilder')
+extension type SomeNamespace_NestedNamespace_ByteBuilder._(_i1.JSObject _)
+    implements _i1.JSObject {
+  external SomeNamespace_NestedNamespace_ByteBuffer buffer;
+
+  external void addByte(num byte);
+  external _i1.JSUint8Array toUint8Array();
+  external _i1.JSUint16Array toUint16Array();
 }

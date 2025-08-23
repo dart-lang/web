@@ -719,6 +719,23 @@ class CompositeDeclaration extends TypeDeclaration {
       }
     }
 
+    for (final ns in namespace.namespaceDeclarations) {
+      final NamespaceDeclaration(
+        name: namespaceName,
+        id: namespaceId,
+        dartName: namespaceDartName,
+        documentation: namespaceDoc
+      ) = ns;
+      propertyDeclarations.add(PropertyDeclaration(
+        name: namespaceName,
+        id: namespaceId,
+        readonly: true,
+        type: ns.asReferredType(),
+        static: true,
+        documentation: namespaceDoc,
+      ));
+    }
+
     return CompositeDeclaration._(
         name: namespace.name,
         dartName: namespace.dartName,
@@ -894,6 +911,7 @@ class PropertyDeclaration extends FieldDeclaration
         ..docs.addAll([...doc])
         ..annotations.addAll([...annotations])
         ..external = true
+        ..static = static
         ..name = dartName ?? name
         ..type = MethodType.getter
         ..annotations.addAll([
@@ -906,6 +924,7 @@ class PropertyDeclaration extends FieldDeclaration
         ..docs.addAll([...doc])
         ..annotations.addAll([...annotations])
         ..external = true
+        ..static = static
         ..name = dartName ?? name
         ..annotations.addAll([
           if (dartName != null && dartName != name) generateJSAnnotation(name),

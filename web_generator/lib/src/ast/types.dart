@@ -366,7 +366,7 @@ class EnumObjectType extends DeclarationType {
       : _dartName = dartName ?? enumeration.dartName;
 
   @override
-  ID get id => ID(type: 'type', name: '${enumeration.name}_EnumType');
+  ID get id => ID(type: 'type', name: 'TypeOf_${enumeration.name}');
 
   @override
   Declaration get declaration => _EnumObjDeclaration(

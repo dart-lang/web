@@ -1351,7 +1351,7 @@ class Transformer {
               )
               when referredDecl is EnumDeclaration:
             // check for type in type map
-            final enumName = '${referredDecl.name}_EnumType';
+            final enumName = 'TypeOf_${referredDecl.name}';
             final enumID = ID(type: 'type', name: enumName);
 
             // enum is actually an object
@@ -1422,11 +1422,14 @@ class Transformer {
 
         if (returnTypeOrNull != null) return returnTypeOrNull;
 
+        final typeName = transformedType is NamedType
+            ? (transformedType.dartName ?? transformedType.name)
+            : transformedType.id.name;
         return HomogenousEnumType(
             types: keys
                 .map((k) => LiteralType(kind: LiteralKind.string, value: k))
                 .toList(),
-            name: 'AnonymousUnion_${AnonymousHasher.hashUnion(keys)}');
+            name: 'KeyOf_$typeName');
       case TSSyntaxKind.TypeOperator
           when (type as TSTypeOperatorNode).operator ==
               TSSyntaxKind.UniqueKeyword:

@@ -36,9 +36,9 @@ extension type const MyEnum._(int _) {
 @_i1.JS()
 external MyEnum_EnumType get myEnumKeys;
 @_i1.JS()
-external AnonymousUnion_3852877 userKeys;
+external KeyOf_User userKeys;
 @_i1.JS()
-external AnonymousUnion_7177924 alphabeticLetter;
+external KeyOf_TypeOf_MyEnum alphabeticLetter;
 @_i1.JS()
 external MyEnum_EnumType get myEnumType;
 typedef Transformer<T extends _i1.JSAny?> = _AnonymousFunction_5293571<T>;
@@ -145,26 +145,25 @@ extension type MyEnum_EnumType._(_i1.JSObject _) implements _i1.JSObject {
   @_i1.JS('4')
   static String get $4 => 'D';
 }
-extension type const AnonymousUnion_3852877._(String _) {
-  static const AnonymousUnion_3852877 name = AnonymousUnion_3852877._('name');
+extension type const KeyOf_User._(String _) {
+  static const KeyOf_User name = KeyOf_User._('name');
 
-  static const AnonymousUnion_3852877 key = AnonymousUnion_3852877._('key');
+  static const KeyOf_User key = KeyOf_User._('key');
 
-  static const AnonymousUnion_3852877 id = AnonymousUnion_3852877._('id');
+  static const KeyOf_User id = KeyOf_User._('id');
 
-  static const AnonymousUnion_3852877 birthTimestamp =
-      AnonymousUnion_3852877._('birthTimestamp');
+  static const KeyOf_User birthTimestamp = KeyOf_User._('birthTimestamp');
 
-  static const AnonymousUnion_3852877 email = AnonymousUnion_3852877._('email');
+  static const KeyOf_User email = KeyOf_User._('email');
 }
-extension type const AnonymousUnion_7177924._(String _) {
-  static const AnonymousUnion_7177924 A = AnonymousUnion_7177924._('A');
+extension type const KeyOf_TypeOf_MyEnum._(String _) {
+  static const KeyOf_TypeOf_MyEnum A = KeyOf_TypeOf_MyEnum._('A');
 
-  static const AnonymousUnion_7177924 B = AnonymousUnion_7177924._('B');
+  static const KeyOf_TypeOf_MyEnum B = KeyOf_TypeOf_MyEnum._('B');
 
-  static const AnonymousUnion_7177924 C = AnonymousUnion_7177924._('C');
+  static const KeyOf_TypeOf_MyEnum C = KeyOf_TypeOf_MyEnum._('C');
 
-  static const AnonymousUnion_7177924 D = AnonymousUnion_7177924._('D');
+  static const KeyOf_TypeOf_MyEnum D = KeyOf_TypeOf_MyEnum._('D');
 }
 extension type _AnonymousFunction_5293571<T extends _i1.JSAny?>._(
     _i1.JSFunction _) implements _i1.JSFunction {

@@ -2224,10 +2224,6 @@ class Transformer {
     void updateFilteredDeclsForDecl(Node? decl, NodeMap filteredDeclarations) {
       switch (decl) {
         case final VariableDeclaration v:
-          print((
-            v.name,
-            v.type is TupleType ? (v.type as TupleType).name : null
-          ));
           filteredDeclarations.add(v.type);
           break;
         case final CallableDeclaration f:

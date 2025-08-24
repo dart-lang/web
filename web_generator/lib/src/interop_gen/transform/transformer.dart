@@ -86,6 +86,8 @@ class Transformer {
 
   bool get generateAll => programMap.generateAll;
 
+  bool get errorIfUnsupported => programMap.strictUnsupported;
+
   Transformer(this.programMap, this._sourceFile,
       {Set<String> exportSet = const {}, String? file})
       : exportSet = exportSet.map((e) => ExportReference(e, as: e)).toSet(),
@@ -152,7 +154,12 @@ class Transformer {
               (node.name as TSIdentifier).text != 'global':
         return [_transformNamespace(node, namer: namer, parent: parent)];
       default:
-        throw Exception('Unsupported Declaration Kind: ${node.kind}');
+        if (errorIfUnsupported) {
+          throw Exception('Unsupported Declaration Kind: ${node.kind}');
+        } else {
+          print('WARN: Unsupported Declaration Kind: ${node.kind}');
+          return [];
+        }
     }
   }
 
@@ -1460,13 +1467,23 @@ class Transformer {
           TSSyntaxKind.BigIntKeyword => PrimitiveType.bigint,
           TSSyntaxKind.SymbolKeyword => PrimitiveType.symbol,
           TSSyntaxKind.NeverKeyword => PrimitiveType.never,
-          _ => throw UnsupportedError(
-              'The given type with kind ${type.kind} is not supported yet')
+          _ => null
         };
 
-        return BuiltinType.primitiveType(primitiveType,
-            shouldEmitJsType: typeArg ? true : null,
-            isNullable: primitiveType == PrimitiveType.any ? true : isNullable);
+        if (primitiveType != null) {
+          return BuiltinType.primitiveType(primitiveType,
+              shouldEmitJsType: typeArg ? true : null,
+              isNullable:
+                  primitiveType == PrimitiveType.any ? true : isNullable);
+        } else if (errorIfUnsupported) {
+          throw UnsupportedError(
+              'The given type with kind ${type.kind} is not supported yet');
+        } else {
+          print('WARN: The given type with kind ${type.kind} is '
+              'not supported yet');
+          return BuiltinType.primitiveType(PrimitiveType.any,
+              isNullable: isNullable);
+        }
     }
   }
 
@@ -2160,10 +2177,6 @@ class Transformer {
     void updateFilteredDeclsForDecl(Node? decl, NodeMap filteredDeclarations) {
       switch (decl) {
         case final VariableDeclaration v:
-          print((
-            v.name,
-            v.type is TupleType ? (v.type as TupleType).name : null
-          ));
           filteredDeclarations.add(v.type);
           break;
         case final CallableDeclaration f:

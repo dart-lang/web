@@ -62,7 +62,8 @@ void main(List<String> args) async {
           languageVersion: Version.parse(languageVersionString),
           tsConfigFile: tsConfigFile,
           ignoreErrors: argResult.wasParsed('ignore-errors'),
-          generateAll: argResult['generate-all'] as bool);
+          generateAll: argResult['generate-all'] as bool,
+          strictUnsupported: argResult.wasParsed('strict-unsupported'));
     }
 
     await generateJSInteropBindings(config);

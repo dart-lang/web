@@ -24,11 +24,17 @@ class BuiltinType extends NamedType {
   @override
   bool isNullable;
 
+  /// This denotes a type that has a discardable result
+  ///
+  /// These are for types such as `void` or `never`
+  bool discardable;
+
   BuiltinType(
       {required this.name,
       this.typeParams = const [],
       this.fromDartJSInterop = false,
-      bool? isNullable})
+      bool? isNullable,
+      this.discardable = false})
       : isNullable = isNullable ?? false;
 
   @override
@@ -82,6 +88,11 @@ class BuiltinType extends NamedType {
       PrimitiveType.any => (isNullable ?? false)
           ? anyType
           : BuiltinType(name: 'JSAny', fromDartJSInterop: true),
+      PrimitiveType.never => BuiltinType(
+          name: 'JSAny',
+          fromDartJSInterop: true,
+          discardable: true,
+          isNullable: true),
       PrimitiveType.unknown => anyType,
       PrimitiveType.object => BuiltinType(
           name: 'JSObject', fromDartJSInterop: true, isNullable: isNullable),
@@ -185,5 +196,6 @@ enum PrimitiveType {
   undefined,
   symbol,
   array,
-  bigint
+  bigint,
+  never
 }

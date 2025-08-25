@@ -201,28 +201,39 @@ class ProgramMap {
     } else {
       final src = program.getSourceFile(file);
 
-      final transformer =
+      if (src == null && !strictUnsupported) {
+        // print warning
+
+        // try to transform by yourself
+        final anonymousTransformer = 
+          _activeTransformers.putIfAbsent(file, () => Transformer(this, null, file: file));
+
+        // TODO: Replace with .transformAndReturn once #388 lands
+        return anonymousTransformer.transformAndReturn(node);
+      } else {
+        final transformer =
           _activeTransformers.putIfAbsent(file, () => Transformer(this, src));
 
-      if (!transformer.nodes.contains(node)) {
-        if (declName case final d?
-            when transformer.nodeMap.findByName(d).isEmpty) {
-          // find the source file decl
-          if (src == null) return null;
+        if (!transformer.nodes.contains(node)) {
+          if (declName case final d?
+              when transformer.nodeMap.findByName(d).isEmpty) {
+            // find the source file decl
+            if (src == null) return null;
 
-          final symbol = typeChecker.getSymbolAtLocation(src)!;
-          final exports = symbol.exports?.toDart ?? {};
+            final symbol = typeChecker.getSymbolAtLocation(src)!;
+            final exports = symbol.exports?.toDart ?? {};
 
-          final targetSymbol = exports[d.toJS]!;
+            final targetSymbol = exports[d.toJS]!;
 
-          transformer.transform(targetSymbol.getDeclarations()!.toDart.first);
-        } else {
-          transformer.transform(node);
+            transformer.transform(targetSymbol.getDeclarations()!.toDart.first);
+          } else {
+            transformer.transform(node);
+          }
         }
-      }
 
-      nodeMap = transformer.filterAndReturn();
-      _activeTransformers[file] = transformer;
+        nodeMap = transformer.filterAndReturn();
+        _activeTransformers[file] = transformer;
+      }
     }
 
     final name = declName ?? (node as TSNamedDeclaration).name?.text;

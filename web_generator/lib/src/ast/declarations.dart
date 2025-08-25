@@ -426,7 +426,7 @@ class EnumMember {
   String? dartName;
 }
 
-class TypeAliasDeclaration extends NamedDeclaration
+class TypeAliasDeclaration extends NestableDeclaration
     implements ExportableDeclaration, DocumentedDeclaration {
   @override
   String name;
@@ -452,7 +452,8 @@ class TypeAliasDeclaration extends NamedDeclaration
       this.typeParameters = const [],
       required this.type,
       required this.exported,
-      this.documentation})
+      this.documentation,
+      this.parent})
       : dartName = null;
 
   @override
@@ -463,11 +464,14 @@ class TypeAliasDeclaration extends NamedDeclaration
     return TypeDef((t) => t
       ..docs.addAll([...doc])
       ..annotations.addAll([...annotations])
-      ..name = name
+      ..name = completedDartName
       ..types
           .addAll(typeParameters.map((t) => t.emit(options?.toTypeOptions())))
       ..definition = type.emit(options?.toTypeOptions()));
   }
+  
+  @override
+  NestableDeclaration? parent;
 }
 
 /// The declaration node for a TypeScript Namespace

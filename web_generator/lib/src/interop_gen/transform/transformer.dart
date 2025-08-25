@@ -4,6 +4,7 @@
 
 import 'dart:collection';
 import 'dart:js_interop';
+import 'package:analyzer/dart/element/element2.dart';
 import 'package:collection/collection.dart';
 import 'package:path/path.dart' as p;
 import '../../ast/base.dart';
@@ -13,6 +14,7 @@ import '../../ast/documentation.dart';
 import '../../ast/helpers.dart';
 import '../../ast/types.dart';
 import '../../js/annotations.dart';
+import '../../js/filesystem_api.dart';
 import '../../js/helpers.dart';
 import '../../js/typescript.dart' as ts;
 import '../../js/typescript.types.dart';
@@ -101,14 +103,14 @@ class Transformer {
   void transform(TSNode node) {
     if (nodes.contains(node)) return;
 
-    final decls = _transform(node);
+    final decls = transformAndReturn(node);
 
     nodeMap.addAll({for (final d in decls) d.id.toString(): d});
 
     nodes.add(node);
   }
 
-  List<Declaration> _transform(TSNode node,
+  List<Declaration> transformAndReturn(TSNode node,
       {Set<ExportReference>? exportSet,
       UniqueNamer? namer,
       NamespaceDeclaration? parent}) {
@@ -287,6 +289,33 @@ class Transformer {
       }
     }
 
+    void transformDeclAndAppendParent(NamespaceDeclaration outputNamespace, TSNode decl) {
+      if (outputNamespace.nodes.contains(decl)) return;
+      final outputDecls =
+          transformAndReturn(decl, namer: scopedNamer, parent: outputNamespace);
+      switch (decl.kind) {
+        case TSSyntaxKind.ClassDeclaration ||
+              TSSyntaxKind.InterfaceDeclaration:
+          final outputDecl = outputDecls.first as TypeDeclaration;
+          outputDecl.parent = outputNamespace;
+          outputNamespace.nestableDeclarations.add(outputDecl);
+        case TSSyntaxKind.EnumDeclaration:
+          final outputDecl = outputDecls.first as EnumDeclaration;
+          outputDecl.parent = outputNamespace;
+          outputNamespace.nestableDeclarations.add(outputDecl);
+        case TSSyntaxKind.TypeAliasDeclaration:
+          final outputDecl = outputDecls.first as TypeAliasDeclaration;
+          outputDecl.parent = outputNamespace;
+          outputNamespace.nestableDeclarations.add(outputDecl);
+        default:
+          outputNamespace.topLevelDeclarations.addAll(outputDecls);
+      }
+      outputNamespace.nodes.add(decl);
+      
+      // update namespace state
+      updateNSInParent();
+    }
+
     // preload nodemap
     updateNSInParent();
 
@@ -306,26 +335,7 @@ class Transformer {
         for (final decl in decls) {
           // TODO: We could also ignore namespace decls with the same name, as
           //  a single instance should consider such non-necessary
-          if (outputNamespace.nodes.contains(decl)) continue;
-          final outputDecls =
-              _transform(decl, namer: scopedNamer, parent: outputNamespace);
-          switch (decl.kind) {
-            case TSSyntaxKind.ClassDeclaration ||
-                  TSSyntaxKind.InterfaceDeclaration:
-              final outputDecl = outputDecls.first as TypeDeclaration;
-              outputDecl.parent = outputNamespace;
-              outputNamespace.nestableDeclarations.add(outputDecl);
-            case TSSyntaxKind.EnumDeclaration:
-              final outputDecl = outputDecls.first as EnumDeclaration;
-              outputDecl.parent = outputNamespace;
-              outputNamespace.nestableDeclarations.add(outputDecl);
-            default:
-              outputNamespace.topLevelDeclarations.addAll(outputDecls);
-          }
-          outputNamespace.nodes.add(decl);
-
-          // update namespace state
-          updateNSInParent();
+          transformDeclAndAppendParent(outputNamespace, decl);
         }
       }
       // fallback
@@ -334,24 +344,7 @@ class Transformer {
           when namespaceBody.kind == TSSyntaxKind.ModuleBlock) {
         for (final statement
             in (namespaceBody as TSModuleBlock).statements.toDart) {
-          final outputDecls = _transform(statement,
-              namer: scopedNamer, parent: outputNamespace);
-          switch (statement.kind) {
-            case TSSyntaxKind.ClassDeclaration ||
-                  TSSyntaxKind.InterfaceDeclaration:
-              final outputDecl = outputDecls.first as TypeDeclaration;
-              outputDecl.parent = outputNamespace;
-              outputNamespace.nestableDeclarations.add(outputDecl);
-            case TSSyntaxKind.EnumDeclaration:
-              final outputDecl = outputDecls.first as EnumDeclaration;
-              outputDecl.parent = outputNamespace;
-              outputNamespace.nestableDeclarations.add(outputDecl);
-            default:
-              outputNamespace.topLevelDeclarations.addAll(outputDecls);
-          }
-
-          // update namespace state
-          updateNSInParent();
+          transformDeclAndAppendParent(outputNamespace, statement);
         }
       } else if (namespace.body case final namespaceBody?) {
         // namespace import
@@ -1041,7 +1034,7 @@ class Transformer {
       default:
         // TODO: Support Destructured Object Parameters
         //  and Destructured Array Parameters
-        throw Exception('Unsupported Parameter Name kind ${parameter.kind}');
+        throw Exception('Unsupported Parameter Name kind ${parameter.name.kind}');
     }
   }
 
@@ -1527,6 +1520,17 @@ class Transformer {
       bool isNotTypableDeclaration = false,
       bool typeArg = false,
       bool isNullable = false}) {
+    print((
+      name.map((d) => d.part).join('.'),
+      parentName: parent?.qualifiedName,
+      symbol.getDeclarations()?.toDart.map((d) => d.kind),
+      isNullable: isNullable,
+      typeArg: typeArg,
+      parentDecls: {
+        ...?parent?.namespaceDeclarations,
+        ...?parent?.nestableDeclarations
+      }.map((d) => d.name)
+    ));
     // get name and map
     final firstName = name.first.part;
 
@@ -1577,9 +1581,11 @@ class Transformer {
                 ...parent.topLevelDeclarations
               ].map((d) => d.id.toString()))
           : null;
+
+      
       // TODO: multi-decls
       final transformedDecls =
-          _transform(firstDecl, namer: namer, parent: parent);
+          transformAndReturn(firstDecl, namer: namer, parent: parent);
 
       if (parent != null) {
         switch (firstDecl.kind) {
@@ -1613,6 +1619,12 @@ class Transformer {
     }
 
     // get node finally
+    print((
+      name: name.map((n) => n.part).join('.'),
+      declarationsMatching.map((d) => (d.id, d is NamedDeclaration)),
+      symbol.getDeclarations()?.toDart.map((d) => d.kind),
+      name.first
+    ));
     final decl = declarationsMatching.whereType<NamedDeclaration>().first;
 
     // are we done?
@@ -1869,7 +1881,11 @@ class Transformer {
       } else {
         // if import there and not this file, imported from specified file
         final importUrl =
-            !nameImport.endsWith('.d.ts') ? '$nameImport.d.ts' : nameImport;
+            !nameImport.endsWith('.d.ts') && fs.existsSync(
+              (p.isAbsolute('$nameImport.d.ts') 
+              ? '$nameImport.d.ts' 
+              : p.join(p.dirname(file), '$nameImport.d.ts')).toJS
+            ).toDart ? '$nameImport.d.ts' : nameImport;
         final relativePath = programMap.files.contains(importUrl)
             ? p.relative(importUrl, from: p.dirname(file))
             : null;
@@ -1915,7 +1931,7 @@ class Transformer {
         }
       }
     }
-    throw Exception('Could not resolve type for node');
+    throw Exception('Could not resolve type for node ${fullyQualifiedName.asName}${nameImport == null ? '' : ' from $nameImport'}');
   }
 
   /// Get the type of a type node named [typeName] by referencing its

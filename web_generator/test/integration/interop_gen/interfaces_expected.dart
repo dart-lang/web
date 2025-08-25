@@ -52,9 +52,7 @@ extension type Admin._(_i1.JSObject _) implements User, ILogger {
 }
 extension type Config._(_i1.JSObject _) implements _i1.JSObject {
   external String env;
-}
-@_i1.JS('Config')
-extension type Config$1._(_i1.JSObject _) implements _i1.JSObject {
+
   external bool debug;
 }
 extension type SecureResource._(_i1.JSObject _) implements _i1.JSObject {

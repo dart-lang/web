@@ -46,7 +46,7 @@ class ASTOptions {
 
 sealed class Node {
   abstract final ID id;
-  String? get dartName;
+  abstract String? dartName;
 
   Spec emit([Options? options]);
 
@@ -65,11 +65,11 @@ abstract class NamedDeclaration extends Declaration {
   abstract String name;
 
   ReferredType asReferredType(
-          [List<Type>? typeArgs, bool isNullable = false, String? url]) =>
+          [Iterable<Type>? typeArgs, bool isNullable = false, String? url]) =>
       ReferredType(
           name: name,
           declaration: this,
-          typeParams: typeArgs ?? [],
+          typeParams: typeArgs?.toList() ?? [],
           url: url,
           isNullable: isNullable);
 }

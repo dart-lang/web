@@ -91,7 +91,7 @@ void main() {
           name: 'AnonymousUnion_123456');
       final closureType = FunctionType(
           name: 'AnonymousFun_123456',
-          id: const ID(type: 'type', name: 'AnonymousFun_123456'),
+          id: ID(type: 'type', name: 'AnonymousFun_123456'),
           returnType: arrayType);
 
       test('Sub Type Test', () {
@@ -132,37 +132,33 @@ void main() {
 
     group('LCA Test (medium)', () {
       final a = InterfaceDeclaration(
-          name: 'A',
-          exported: true,
-          id: const ID(type: 'interface', name: 'A'));
+          name: 'A', exported: true, id: ID(type: 'interface', name: 'A'));
       final b = InterfaceDeclaration(
-          name: 'B',
-          exported: true,
-          id: const ID(type: 'interface', name: 'B'));
+          name: 'B', exported: true, id: ID(type: 'interface', name: 'B'));
       final c = InterfaceDeclaration(
           name: 'C',
           exported: true,
-          id: const ID(type: 'interface', name: 'C'),
+          id: ID(type: 'interface', name: 'C'),
           extendedTypes: [a.asReferredType()]);
       final d = InterfaceDeclaration(
           name: 'D',
           exported: true,
-          id: const ID(type: 'interface', name: 'D'),
+          id: ID(type: 'interface', name: 'D'),
           extendedTypes: [a.asReferredType()]);
       final e = InterfaceDeclaration(
           name: 'E',
           exported: true,
-          id: const ID(type: 'interface', name: 'E'),
+          id: ID(type: 'interface', name: 'E'),
           extendedTypes: [a.asReferredType(), b.asReferredType()]);
       final f = InterfaceDeclaration(
           name: 'F',
           exported: true,
-          id: const ID(type: 'interface', name: 'F'),
+          id: ID(type: 'interface', name: 'F'),
           extendedTypes: [a.asReferredType(), c.asReferredType()]);
       final g = InterfaceDeclaration(
           name: 'G',
           exported: true,
-          id: const ID(type: 'interface', name: 'G'),
+          id: ID(type: 'interface', name: 'G'),
           extendedTypes: [
             a.asReferredType(),
             b.asReferredType(),
@@ -171,7 +167,7 @@ void main() {
       final h = InterfaceDeclaration(
           name: 'H',
           exported: true,
-          id: const ID(type: 'interface', name: 'H'),
+          id: ID(type: 'interface', name: 'H'),
           extendedTypes: [g.asReferredType(), f.asReferredType()]);
 
       test('Topological List Test', () {
@@ -258,57 +254,55 @@ void main() {
 
     group('LCA Test (large)', () {
       final a = InterfaceDeclaration(
-          name: 'A',
-          exported: true,
-          id: const ID(type: 'interface', name: 'A'));
+          name: 'A', exported: true, id: ID(type: 'interface', name: 'A'));
       final b = InterfaceDeclaration(
           name: 'B',
           exported: true,
-          id: const ID(type: 'interface', name: 'B'),
+          id: ID(type: 'interface', name: 'B'),
           extendedTypes: [a.asReferredType()]);
       final c = InterfaceDeclaration(
           name: 'C',
           exported: true,
-          id: const ID(type: 'interface', name: 'C'),
+          id: ID(type: 'interface', name: 'C'),
           extendedTypes: [b.asReferredType()]);
       final d = InterfaceDeclaration(
           name: 'D',
           exported: true,
-          id: const ID(type: 'interface', name: 'D'),
+          id: ID(type: 'interface', name: 'D'),
           extendedTypes: [b.asReferredType()]);
       final h = InterfaceDeclaration(
           name: 'H',
           exported: true,
-          id: const ID(type: 'interface', name: 'H'),
+          id: ID(type: 'interface', name: 'H'),
           extendedTypes: [b.asReferredType()]);
       final g = InterfaceDeclaration(
           name: 'G',
           exported: true,
-          id: const ID(type: 'interface', name: 'G'),
+          id: ID(type: 'interface', name: 'G'),
           extendedTypes: [
             a.asReferredType(),
           ]);
       final e = InterfaceDeclaration(
           name: 'E',
           exported: true,
-          id: const ID(type: 'interface', name: 'E'),
+          id: ID(type: 'interface', name: 'E'),
           extendedTypes: [d.asReferredType(), g.asReferredType()]);
       final f = InterfaceDeclaration(
           name: 'F',
           exported: true,
-          id: const ID(type: 'interface', name: 'F'),
+          id: ID(type: 'interface', name: 'F'),
           extendedTypes: [h.asReferredType(), g.asReferredType()]);
       final fun = InterfaceDeclaration(
           name: 'Fun',
           exported: true,
-          id: const ID(type: 'interface', name: 'Fun'),
+          id: ID(type: 'interface', name: 'Fun'),
           extendedTypes: [
             BuiltinType.referred('Function')!,
             c.asReferredType()
           ]);
       final closure = FunctionType(
           name: 'AnonymousFun_111111',
-          id: const ID(type: 'type', name: 'AnonymousFun_111111'),
+          id: ID(type: 'type', name: 'AnonymousFun_111111'),
           returnType: f.asReferredType());
 
       test('Sub Type Test', () {

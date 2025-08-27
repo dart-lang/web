@@ -469,7 +469,7 @@ class TypeAliasDeclaration extends NestableDeclaration
           .addAll(typeParameters.map((t) => t.emit(options?.toTypeOptions())))
       ..definition = type.emit(options?.toTypeOptions()));
   }
-  
+
   @override
   NestableDeclaration? parent;
 }

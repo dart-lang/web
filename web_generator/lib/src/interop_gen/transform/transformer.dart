@@ -4,7 +4,6 @@
 
 import 'dart:collection';
 import 'dart:js_interop';
-import 'package:analyzer/dart/element/element2.dart';
 import 'package:collection/collection.dart';
 import 'package:path/path.dart' as p;
 import '../../ast/base.dart';
@@ -289,29 +288,29 @@ class Transformer {
       }
     }
 
-    void transformDeclAndAppendParent(NamespaceDeclaration outputNamespace, TSNode decl) {
+    void transformDeclAndAppendParent(
+        NamespaceDeclaration outputNamespace, TSNode decl) {
       if (outputNamespace.nodes.contains(decl)) return;
       final outputDecls =
           transformAndReturn(decl, namer: scopedNamer, parent: outputNamespace);
       switch (decl.kind) {
-        case TSSyntaxKind.ClassDeclaration ||
-              TSSyntaxKind.InterfaceDeclaration:
-          final outputDecl = outputDecls.first as TypeDeclaration;
+        case TSSyntaxKind.ClassDeclaration || TSSyntaxKind.InterfaceDeclaration:
+          final outputDecl = outputDecls.single as TypeDeclaration;
           outputDecl.parent = outputNamespace;
           outputNamespace.nestableDeclarations.add(outputDecl);
         case TSSyntaxKind.EnumDeclaration:
-          final outputDecl = outputDecls.first as EnumDeclaration;
+          final outputDecl = outputDecls.single as EnumDeclaration;
           outputDecl.parent = outputNamespace;
           outputNamespace.nestableDeclarations.add(outputDecl);
         case TSSyntaxKind.TypeAliasDeclaration:
-          final outputDecl = outputDecls.first as TypeAliasDeclaration;
+          final outputDecl = outputDecls.single as TypeAliasDeclaration;
           outputDecl.parent = outputNamespace;
           outputNamespace.nestableDeclarations.add(outputDecl);
         default:
           outputNamespace.topLevelDeclarations.addAll(outputDecls);
       }
       outputNamespace.nodes.add(decl);
-      
+
       // update namespace state
       updateNSInParent();
     }
@@ -1034,7 +1033,8 @@ class Transformer {
       default:
         // TODO: Support Destructured Object Parameters
         //  and Destructured Array Parameters
-        throw Exception('Unsupported Parameter Name kind ${parameter.name.kind}');
+        throw Exception(
+            'Unsupported Parameter Name kind ${parameter.name.kind}');
     }
   }
 
@@ -1582,7 +1582,6 @@ class Transformer {
               ].map((d) => d.id.toString()))
           : null;
 
-      
       // TODO: multi-decls
       final transformedDecls =
           transformAndReturn(firstDecl, namer: namer, parent: parent);
@@ -1880,12 +1879,15 @@ class Transformer {
             isNullable: isNullable);
       } else {
         // if import there and not this file, imported from specified file
-        final importUrl =
-            !nameImport.endsWith('.d.ts') && fs.existsSync(
-              (p.isAbsolute('$nameImport.d.ts') 
-              ? '$nameImport.d.ts' 
-              : p.join(p.dirname(file), '$nameImport.d.ts')).toJS
-            ).toDart ? '$nameImport.d.ts' : nameImport;
+        final importUrl = !nameImport.endsWith('.d.ts') &&
+                fs
+                    .existsSync((p.isAbsolute('$nameImport.d.ts')
+                            ? '$nameImport.d.ts'
+                            : p.join(p.dirname(file), '$nameImport.d.ts'))
+                        .toJS)
+                    .toDart
+            ? '$nameImport.d.ts'
+            : nameImport;
         final relativePath = programMap.files.contains(importUrl)
             ? p.relative(importUrl, from: p.dirname(file))
             : null;
@@ -1931,7 +1933,9 @@ class Transformer {
         }
       }
     }
-    throw Exception('Could not resolve type for node ${fullyQualifiedName.asName}${nameImport == null ? '' : ' from $nameImport'}');
+    throw Exception(
+        'Could not resolve type for node ${fullyQualifiedName.asName}'
+        '${nameImport == null ? '' : ' from $nameImport'}');
   }
 
   /// Get the type of a type node named [typeName] by referencing its

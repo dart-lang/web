@@ -177,7 +177,15 @@ class ProgramMap {
   /// The files in the given project
   final p.PathSet files;
 
+  /// A list of declarations to include
   final List<String> filterDeclSet;
+
+  /// The declarations as globs
+  List<RegExp> get filterDeclSetPatterns => filterDeclSet.map((decl) {
+        final escapedDecl = RegExp.escape(decl);
+        if (escapedDecl == decl) return RegExp('^$decl\$');
+        return RegExp(decl);
+      }).toList();
 
   final bool generateAll;
 
@@ -203,16 +211,16 @@ class ProgramMap {
 
       if (src == null && !strictUnsupported) {
         // print warning
-
+        print('WARN: Could not find file $file');
         // try to transform by yourself
-        final anonymousTransformer = 
-          _activeTransformers.putIfAbsent(file, () => Transformer(this, null, file: file));
+        final anonymousTransformer = _activeTransformers.putIfAbsent(
+            file, () => Transformer(this, null, file: file));
 
         // TODO: Replace with .transformAndReturn once #388 lands
         return anonymousTransformer.transformAndReturn(node);
       } else {
         final transformer =
-          _activeTransformers.putIfAbsent(file, () => Transformer(this, src));
+            _activeTransformers.putIfAbsent(file, () => Transformer(this, src));
 
         if (!transformer.nodes.contains(node)) {
           if (declName case final d?
@@ -298,8 +306,14 @@ class ProgramMap {
       } else {
         final exportedSymbols = sourceSymbol.exports?.toDart;
 
-        for (final MapEntry(value: symbol)
+        for (final MapEntry(key: symbolName, value: symbol)
             in exportedSymbols?.entries ?? <MapEntry<JSString, TSSymbol>>[]) {
+          // if there are decls to filter by and it does not match any, skip
+          if (!filterDeclSetPatterns
+                  .any((f) => f.hasMatch(symbolName.toDart)) &&
+              filterDeclSet.isNotEmpty) {
+            continue;
+          }
           final decls = symbol.getDeclarations()?.toDart ?? [];
           try {
             final aliasedSymbol = typeChecker.getAliasedSymbol(symbol);

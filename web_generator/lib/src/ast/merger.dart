@@ -8,6 +8,7 @@ import '../interop_gen/namer.dart';
 import 'base.dart';
 import 'builtin.dart';
 import 'declarations.dart';
+import 'documentation.dart';
 import 'helpers.dart';
 import 'types.dart';
 
@@ -61,8 +62,9 @@ import 'types.dart';
   // sort out declarations
   final functions = <FunctionDeclaration>[];
   final interfaces = <InterfaceDeclaration>[];
-  EnumDeclaration? enumDecl;
+  EnumDeclaration? enumDecl; // there can be only 1 enum
   ClassDeclaration? classDecl; // there can be only 1 class
+  TypeAliasDeclaration? typealiasDecl; // there can be only 1 typedef
   final namespaces = <NamespaceDeclaration>[];
   final varDeclarations = <VariableDeclaration>[];
   final varDeclarationsWithBuiltinTypes = <VariableDeclaration>[];
@@ -80,6 +82,8 @@ import 'types.dart';
         namespaces.add(namespace);
       case final EnumDeclaration enumeration:
         enumDecl ??= enumeration;
+      case final TypeAliasDeclaration typealias:
+        typealiasDecl ??= typealias;
       case VariableDeclaration(
             modifier: final modifier,
             type: ReferredType(declaration: final variableTypeAsDecl)
@@ -107,16 +111,37 @@ import 'types.dart';
   var mergedInterface =
       interfaces.isNotEmpty ? mergeInterfaces(interfaces) : null;
 
-  if (mergedNamespace != null) {
+  if (typealiasDecl != null) {
+    assert(interfaces.isEmpty && namespaces.isEmpty,
+        'Typedefs in TS do not allow other decls');
+
+    for (final varDecl in varDeclarations) {
+      final VariableDeclaration(
+        type: varDeclType,
+        name: varDeclName,
+        dartName: varDeclDartName
+      ) = varDecl;
+      if (varDeclType case ReferredType(declaration: final referredDecl)
+          when referredDecl is TypeAliasDeclaration &&
+              referredDecl.name == typealiasDecl.name) {
+        // change type of var decl
+        varDecl.type = referredDecl.type;
+      }
+    }
+
+    output.addAll([...functions, ...varDeclarations]);
+  } else if (mergedNamespace != null) {
     var mergedComposite = mergedNamespace.asComposite
       ..mergeType(mergedInterface);
 
+    mergedComposite = _mergeInterfaceWithVars(mergedComposite, varDeclarations)
+            as CompositeDeclaration? ??
+        mergedComposite;
+
     // merge em and vars
-    final newComposite =
-        _mergeInterfaceWithVars(mergedComposite, varDeclarations);
-    if (newComposite != null) {
-      mergedComposite = newComposite as CompositeDeclaration;
-    }
+    mergedComposite = _mergeInterfaceWithVars(mergedComposite, varDeclarations)
+            as CompositeDeclaration? ??
+        mergedComposite;
 
     // merge em and global vars
     final newExtension = _mergeInterfaceWithVarsHavingBuiltinTypes(
@@ -136,11 +161,9 @@ import 'types.dart';
     output.add(mergedComposite);
   } else if (mergedInterface != null) {
     // merge em and vars
-    final newComposite =
-        _mergeInterfaceWithVars(mergedInterface, varDeclarations);
-    if (newComposite != null) {
-      mergedInterface = newComposite as InterfaceDeclaration;
-    }
+    mergedInterface = _mergeInterfaceWithVars(mergedInterface, varDeclarations)
+            as InterfaceDeclaration? ??
+        mergedInterface;
 
     // merge em and global vars
     final newExtension = _mergeInterfaceWithVarsHavingBuiltinTypes(
@@ -352,9 +375,14 @@ InterfaceDeclaration mergeInterfaces(List<InterfaceDeclaration> interfaces,
           interfaces.any((i) => i.useFirstExtendeeAsRepType),
       objectLiteralConstructor:
           interfaces.any((i) => i.objectLiteralConstructor),
-      documentation: interfaces
-          .firstWhereOrNull((n) => n.documentation != null)
-          ?.documentation);
+      documentation: Documentation(
+          docs: interfaces
+              .map((i) {
+                final d = i.documentation?.docs;
+                return (d?.trim().isEmpty ?? true) ? null : d?.trim();
+              })
+              .nonNulls
+              .join('\n${'-' * 20}\n')));
 }
 
 NamespaceDeclaration mergeNamespaces(List<NamespaceDeclaration> namespaces,
@@ -374,8 +402,18 @@ NamespaceDeclaration mergeNamespaces(List<NamespaceDeclaration> namespaces,
   final interfaceDeclarations = <InterfaceDeclaration>[];
   final otherNestableDeclarations = <NestableDeclaration>[];
 
-  for (final NamespaceDeclaration(nestableDeclarations: nestableDeclarations)
-      in namespaces) {
+  final docStrings = <String>[];
+
+  for (final NamespaceDeclaration(
+        nestableDeclarations: nestableDeclarations,
+        documentation: documentation
+      ) in namespaces) {
+    // TODO: In the future, we can be smart and prevent merging decls with
+    //  certain annotations (like experimental or deprecated)
+    if (documentation case Documentation(docs: final docs)?
+        when docs.trim().isNotEmpty) {
+      docStrings.add(docs.trim());
+    }
     for (final nestableDecl in nestableDeclarations) {
       switch (nestableDecl) {
         case final InterfaceDeclaration interface:
@@ -401,9 +439,7 @@ NamespaceDeclaration mergeNamespaces(List<NamespaceDeclaration> namespaces,
         ...interfaceGroups.values.map(mergeInterfaces).toSet(),
         ...otherNestableDeclarations
       },
-      documentation: namespaces
-          .firstWhereOrNull((n) => n.documentation != null)
-          ?.documentation);
+      documentation: Documentation(docs: docStrings.join('\n${'-' * 20}\n')));
 }
 
 Iterable<T> _rescopeDecls<T extends Declaration>(Iterable<T> decls,

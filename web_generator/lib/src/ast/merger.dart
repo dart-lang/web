@@ -405,8 +405,8 @@ NamespaceDeclaration mergeNamespaces(List<NamespaceDeclaration> namespaces,
         nestableDeclarations: nestableDeclarations,
         documentation: docs
       ) in namespaces) {
-    // TODO: In the future, we can be smart and prevent merging decls with certain annotations
-    //  (like experimental or deprecated)
+    // TODO: In the future, we can be smart and prevent merging decls with
+    //  certain annotations (like experimental or deprecated)
     if (docs case Documentation(docs: final docs)?) {
       docStrings.add(docs);
     }

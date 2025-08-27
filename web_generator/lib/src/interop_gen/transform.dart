@@ -107,7 +107,7 @@ class ProgramMap {
   final p.PathMap<List<String>> moduleMap;
 
   /// A map of module names to their respective modules
-  final Map<String, ModuleDeclaration> moduleDeclarations = {};
+  final NodeMap<ModuleDeclaration> moduleDeclarations = NodeMap({});
 
   /// A reference to the global module declaration, if any
   ModuleDeclaration? globalModule;
@@ -149,15 +149,11 @@ class ProgramMap {
     }) {
       final src = program.getSourceFile(filePath);
 
-      print((filePath, module?.name, srcIsNull: src == null));
-
       final transformer = _activeTransformers.putIfAbsent(
           filePath, () => Transformer(this, src));
 
       if (!transformer.nodes.contains(node)) {
         if (module != null) {
-          print(
-              (filePath, module.name, srcIsNull: src == null, kind: node.kind));
           // just transform the node
           final transformedDecls = transformer.transformNode(node);
           switch (node.kind) {

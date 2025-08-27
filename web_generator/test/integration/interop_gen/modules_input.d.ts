@@ -24,25 +24,24 @@ declare module "my-lib" {
 
 declare module "my-lib/extra" {
   // FIXME: A bug occurs when exporting decls from modules in the same file
-  export function extraFn(options?: { extract: boolean }): void;
+  import { Options } from "my-lib";
+  export function extraFn(options?: Options): void;
+
+  global {
+    const __APP_VERSION__: string;
+
+    interface Window {
+      myCustomMethod(): void;
+    }
+
+    interface Array<T> {
+      first(): T | undefined;
+    }
+  }
 }
-
-// // ----- Global augmentations -----
-// declare global {
-//   const __APP_VERSION__: string;
-
-//   interface Window {
-//     myCustomMethod(): void;
-//   }
-
-//   interface Array<T> {
-//     first(): T | undefined;
-//   }
-// }
 
 declare module "express" {
   interface Request {
     user?: { id: string; role: string };
   }
 }
-

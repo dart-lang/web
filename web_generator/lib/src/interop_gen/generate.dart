@@ -50,8 +50,6 @@ class TransformResult {
               .replaceAll('static external', 'external static')));
     });
 
-    // final mainFileMap =
-
     // TODO: If modules reference the given file, then add to map, and combine
     //  the declarations
     final mainFileMap = {

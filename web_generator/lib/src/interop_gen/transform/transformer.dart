@@ -306,7 +306,8 @@ class Transformer {
               topLevelDeclarations: {},
               namespaceDeclarations: {},
               nestableDeclarations: {},
-              documentation: _parseAndTransformDocumentation(namespace));
+              documentation: _parseAndTransformDocumentation(namespace),
+              url: file);
     }
 
     // final currentNamespaces = parent != null
@@ -1496,6 +1497,7 @@ class Transformer {
       bool isNotTypableDeclaration = false,
       bool typeArg = false,
       bool isNullable = false,
+      TSImportSpecifer? importSpecifier,
       ID? moduleID}) {
     if (moduleID != null && parent == null) {
       final module = programMap.moduleDeclarations[moduleID.toString()];
@@ -1508,7 +1510,8 @@ class Transformer {
           typeArg: typeArg,
           parent: module,
           isNullable: isNullable,
-          moduleID: moduleID);
+          moduleID: moduleID,
+          importSpecifier: importSpecifier);
 
       programMap.moduleDeclarations[moduleID.toString()] = module;
 
@@ -1620,11 +1623,44 @@ class Transformer {
           }
       }
 
+      final importSource = importSpecifier?.parent.parent.parent.parent;
+      final String? relativeImport;
+      if (importSource != null &&
+          importSource.kind == TSSyntaxKind.ModuleBlock) {
+        // get module name
+        final module = (importSource as TSModuleBlock).parent;
+        final moduleName = (module.name as TSIdentifier).text;
+        final moduleReference =
+            programMap.moduleDeclarations.findByName(moduleName).first;
+
+        print((
+          parent is ModuleDeclaration && parent.url != null
+              ? p.normalize(p.join(p.absolute(realPathAsDir(parent.url ?? '.')),
+                  '${parent.name}.dart'))
+              : 'unknown',
+          p.normalize(p.join(
+              p.absolute(realPathAsDir(moduleReference.url ?? '.')),
+              '$moduleName.dart'))
+        ));
+
+        relativeImport = parent is ModuleDeclaration && parent.url != null
+            ? p.relative(
+                p.normalize(p.join(p.absolute(realPathAsDir(parent.url ?? '.')),
+                    '${parent.name}.dart')),
+                from: p.dirname(p.normalize(p.join(
+                    p.absolute(realPathAsDir(moduleReference.url ?? '.')),
+                    '$moduleName.dart'))))
+            : null;
+      } else {
+        relativeImport = null;
+      }
+
       final asReferredType = decl.asReferredType(
           (typeArguments ?? [])
               .map((type) => _transformType(type, typeArg: true))
               .toList(),
-          isNullable);
+          isNullable,
+          relativeImport);
 
       if (asReferredType case ReferredDeclarationType(type: final type)
           when type is BuiltinType) {
@@ -1682,18 +1718,21 @@ class Transformer {
     final type = typeChecker.getTypeFromTypeNode(node);
     // from type: if symbol is null, or references an import
     var symbol = typeChecker.getSymbolAtLocation(typeName);
+    TSImportSpecifer? importSpecifier;
     if (symbol == null) {
       symbol = type?.aliasSymbol ?? type?.symbol;
     } else if (symbol.getDeclarations()?.toDart ?? [] case [final d]
-        when d.kind == TSSyntaxKind.ImportSpecifier ||
-            d.kind == TSSyntaxKind.ImportEqualsDeclaration) {
+        when d.kind == TSSyntaxKind.ImportSpecifier) {
+      importSpecifier = d as TSImportSpecifer;
       // prefer using type node ref for such cases
       // reduces import declaration handling
       symbol = type?.aliasSymbol ?? type?.symbol;
     }
 
+    print((importSpecifier?.kind, symbol?.name));
+
     return _getTypeFromSymbol(symbol, type, typeArguments,
-        isNotTypableDeclaration, typeArg, isNullable);
+        isNotTypableDeclaration, typeArg, isNullable, importSpecifier);
   }
 
   /// Given a [TSSymbol] for a given TS node or declaration, and its associated
@@ -1717,7 +1756,8 @@ class Transformer {
       List<TSTypeNode>? typeArguments,
       bool isNotTypableDeclaration,
       bool typeArg,
-      bool isNullable) {
+      bool isNullable,
+      [TSImportSpecifer? importSpecifier]) {
     final declarations = symbol!.getDeclarations()?.toDart ?? [];
 
     // get decl qualified name
@@ -1836,6 +1876,7 @@ class Transformer {
                 .map((type) => _transformType(type, typeArg: true))
                 .toList(),
             isNullable,
+            // TODO: Module Context Apply
             relativePath?.replaceFirst('.d.ts', '.dart'));
 
         if (outputType case ReferredDeclarationType(type: final type)
@@ -1851,15 +1892,7 @@ class Transformer {
     } else {
       final filePathWithoutExtension = file.replaceFirst('.d.ts', '');
       final nameIDImport = ID(name: nameImport, type: 'module');
-      // print((
-      //   filePathWithoutExtension,
-      //   nameIDImport,
-      //   nameImport,
-      //   programMap.moduleDeclarations.keys,
-      //   programMap.moduleMap,
-      //   declKinds: declarations.map((d) => d.kind),
-      //   name: fullyQualifiedName.asName,
-      // ));
+
       // if import is equal to this file (defined in the file)
       // or module declarations already have this, or the moduleMap
       if (p.equals(nameImport, filePathWithoutExtension) ||
@@ -1867,7 +1900,6 @@ class Transformer {
               (programMap.moduleMap[file]?.contains(nameImport) ?? false))) {
         // declared in this file
         // if import there and this file, handle this file
-        print('boo');
 
         // generics are tricky when they are for the same decl, so
         // let's just handle them before-hand
@@ -1877,13 +1909,25 @@ class Transformer {
               name: fullyQualifiedName.last.part, isNullable: isNullable);
         }
 
+        // print((
+        //   // filePathWithoutExtension,
+        //   // nameIDImport,
+        //   // nameImport,
+        //   // programMap.moduleDeclarations.keys,
+        //   // programMap.moduleMap,
+        //   declKinds: declarations.map((d) => d.kind),
+
+        //   name: fullyQualifiedName.asName,
+        // ));
+
         // recursiveness
         return _searchForDeclRecursive(fullyQualifiedName, symbol,
             typeArguments: typeArguments,
             typeArg: typeArg,
             isNotTypableDeclaration: isNotTypableDeclaration,
             isNullable: isNullable,
-            moduleID: nameIDImport);
+            moduleID: nameIDImport,
+            importSpecifier: importSpecifier);
       } else {
         // if import there and not this file, imported from specified file
         final importUrl =
@@ -1962,11 +2006,12 @@ class Transformer {
   /// supported `dart:js_interop` types and related [EnumDeclaration]-like and
   /// [TypeDeclaration]-like checks
   Type _getTypeFromDeclaration(
-      @UnionOf([TSIdentifier, TSQualifiedName]) TSNode typeName,
-      List<TSTypeNode>? typeArguments,
-      {bool typeArg = false,
-      bool isNotTypableDeclaration = false,
-      bool isNullable = false}) {
+    @UnionOf([TSIdentifier, TSQualifiedName]) TSNode typeName,
+    List<TSTypeNode>? typeArguments, {
+    bool typeArg = false,
+    bool isNotTypableDeclaration = false,
+    bool isNullable = false,
+  }) {
     // union assertion
     assert(typeName.kind == TSSyntaxKind.Identifier ||
         typeName.kind == TSSyntaxKind.QualifiedName);

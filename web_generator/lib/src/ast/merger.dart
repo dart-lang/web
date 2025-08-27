@@ -377,7 +377,10 @@ InterfaceDeclaration mergeInterfaces(List<InterfaceDeclaration> interfaces,
           interfaces.any((i) => i.objectLiteralConstructor),
       documentation: Documentation(
           docs: interfaces
-              .map((i) => i.documentation?.docs)
+              .map((i) {
+                final d = i.documentation?.docs;
+                return (d?.trim().isEmpty ?? true) ? null : d?.trim();
+              })
               .nonNulls
               .join('\n${'-' * 20}\n')));
 }
@@ -403,12 +406,13 @@ NamespaceDeclaration mergeNamespaces(List<NamespaceDeclaration> namespaces,
 
   for (final NamespaceDeclaration(
         nestableDeclarations: nestableDeclarations,
-        documentation: docs
+        documentation: documentation
       ) in namespaces) {
     // TODO: In the future, we can be smart and prevent merging decls with
     //  certain annotations (like experimental or deprecated)
-    if (docs case Documentation(docs: final docs)?) {
-      docStrings.add(docs);
+    if (documentation case Documentation(docs: final docs)?
+        when docs.trim().isNotEmpty) {
+      docStrings.add(docs.trim());
     }
     for (final nestableDecl in nestableDeclarations) {
       switch (nestableDecl) {

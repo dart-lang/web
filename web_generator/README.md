@@ -1,21 +1,74 @@
 ## What's this?
 
-This package contains tools to generate
+This package contains tools to generate Dart interfaces from TypeScript Declaration code and Web IDL definitions.
+
+This package is used to generate
 [`web`](https://github.com/dart-lang/web/tree/main/web) from Web IDL definitions
 and MDN API documentation.
 
-### Regenerating the package
-
-The tool to generate bindings is written in Dart, compiled to JavaScript, and
+## Using this
+The tools to generate bindings are written in Dart, compiled to JavaScript, and
 run on Node.
 
-To regenerate `web` bindings from the current IDL versions, run:
+There are two entrypoints present in this package:
+- `gen_interop_bindings.dart`: This entrypoint is for generating Dart interfaces from TS Declaration code, given the path to a `.d.ts` file
+- `update_idl_bindings.dart`: This entrypoint is for generating Dart interfaces from Web IDL definitions, given the path to a `.idl` file. If no idl file is present, it, by default, generates code for `package:web`.
+
+## TS Declarations
+To generate Dart interfaces for a given `.d.ts` file, run the following at the root of this package:
+```shell
+dart bin/gen_interop_bindings.dart <input.d.ts> 
+dart bin/gen_interop_bindings.dart -o <output> <input>
+```
+
+If multiple files are passed, the output option is regarded as an output directory instead.
+
+For more information on the command-line options you can pass alongside, you can check the help information
+```shell
+dart bin/gen_interop_bindings.dart --help
+```
+
+### Configuration
+The generator also has support for configurating the output of the generator, allowing support for configuring features like: variardic argument count, 
+
+These configuration options can either be passed from the command line, or via a YAML configuration file. To pass a configuration file, pass the `--config` option.
+
+Given a sample configuration file:
+```yaml
+input: a.d.ts
+output: b.d.ts
+ts-config-file: tsconfig.json
+```
+
+The following are equivalent
+```shell
+dart bin/gen_interop_bindings.dart -o b.d.ts --ts-config tsconfig.json a.d.ts
+dart bin/gen_interop_bindings.dart --config config.yaml
+```
+
+Note that not all configuration options are direct mappings between the CLI and the configuration file.
+
+### Configuration File Reference
+
+### Conventions
+
+
+
+## Web IDL Definitions
+To generate Dart interfaces for a given `.idl` file, run the following at the root of this package:
+```shell
+dart bin/update_idl_bindings.dart
+```
+
+If multiple files are passed, the output option is regarded as an output directory instead.
+
+To regenerate `web` bindings from the current IDL versions, run the entrypoint without any arguments:
 
 ```shell
 dart bin/update_idl_bindings.dart
 ```
 
-## Update to the latest Web IDL versions and regenerate
+### Update to the latest Web IDL versions and regenerate
 
 To re-generate the package from newer IDL versions, you can either run:
 
@@ -26,7 +79,7 @@ dart bin/update_idl_bindings.dart --update
 or, manually edit `lib/src/package.json` to use specific IDL versions, and
 re-run `update_idl_bindings.dart`.
 
-### Updating the dartdoc info from MDN
+#### Updating the dartdoc info from MDN
 
 package:web's dartdoc comments come from the
 [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web) project. In order
@@ -40,12 +93,12 @@ That will collect the MDN documentation into `third_party/mdn/mdn.json`; changes
 to that file should be committed to git. You'll need to run
 `update_idl_bindings.dart` to produce Dart code using the updated documentation.
 
-## Generation conventions
+### Generation conventions
 
 The generator scripts use a number of conventions to consistently handle Web IDL
 definitions:
 
-### Interfaces
+#### Interfaces
 
 - Interfaces are emitted as extension types that wrap and implement `JSObject`.
 - Interface inheritance is maintained using `implements` between extension
@@ -53,7 +106,7 @@ definitions:
 - Members of partial interfaces, partial mixins, and mixins are added to the
   interfaces that include them, and therefore do not have separate declarations.
 
-### Types
+#### Types
 
 - Generic types include the generic in the case of `JSArray` and `JSPromise`.
 - Enums are typedef'd to `String`.
@@ -67,7 +120,7 @@ definitions:
   JS type hierarchy, where every interface is equivalent to `JSObject`.
 - Dictionary and typedef types are only emitted if they're used by another API.
 
-### Compatibility
+#### Compatibility
 
 - The generator uses the
   [MDN compatibility data](https://github.com/mdn/browser-compat-data) to
@@ -75,7 +128,7 @@ definitions:
   emit code that is standards track and is not experimental to reduce the number
   of breaking changes.
 
-## Generate all bindings
+### Generate all bindings
 
 To ignore the compatibility data and emit all members, run:
 

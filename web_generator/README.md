@@ -29,7 +29,7 @@ dart bin/gen_interop_bindings.dart --help
 ```
 
 ### Configuration
-The generator also has support for configurating the output of the generator, allowing support for configuring features like: variardic argument count, 
+The generator also has support for configurating the output of the generator, allowing support for configuring features like: variardic argument count, preamble (if any), TS Compiler Options, etc.
 
 These configuration options can either be passed from the command line, or via a YAML configuration file. To pass a configuration file, pass the `--config` option.
 

@@ -54,10 +54,10 @@ Note that not all configuration options are direct mappings between the CLI and 
 |--------|-------------|---------|
 | `name` | The name of the bindings | <pre>`name: MyBindings`</pre> |
 | `description` | A description of the bindings (optional) | <pre>`description: My awesome bindings`</pre> |
-| `preamble` | Preamble text to insert before the bindings (optional) | <pre>`preamble: \|`<br>`  DO NOT EDIT`</pre> |
+| `preamble` | Preamble text to insert before the bindings (optional) | <pre>`preamble: \|`<br>`  // Generated. Do not edit.`</pre> |
 | `input` | A file (single string) or set of files (array of strings) passed into the generator | <pre>`input: bindings.d.ts`</pre> <br/> or <br/> <pre>`input: `<br>` - bindings.d.ts`</pre> |
 | `output` | The output file or directory to write the bindings to | <pre>`output: lib/src/js`</pre> |
-| `include` | Declarations to include in the generated output (as a list). Can either be passed as a raw string to match the full name, or as a regular expression. By defaults it outputs **all exported declarations** | <pre>`include: `<br>` - myNumber`</pre> |
+| `include` | Declarations to include in the generated output (as a list). Can either be passed as a raw string to match the full name, or as a regular expression. By default, the generator outputs **all exported declarations** | <pre>`include: `<br>` - myNumber`</pre> |
 | `language_version` | The Dart Language Version to use, usually for formatting (optional) | <pre>`language_version: 3.6.0`</pre> |
 | `ts_config` | An object consisting of TS Configurations following the [tsconfig.json file schema](https://www.typescriptlang.org/tsconfig/) used for configuring the TypeScript Program/Compiler (optional) | <pre>`ts_config: `<br>`  compilerOptions: `<br>`    target: es2020`</pre> |
 | `ts_config_file` | The TS Configuration file (tsconfig.json) if any (optional) | <pre>`ts_config_file: tsconfig.json`</pre> |
@@ -71,12 +71,12 @@ The generator scripts use a number of conventions to consistently handle TS
 definitions:
 
 #### Top Level Declarations
-- Top level declarations are handled as top level dart `external` declarations annotated with `@JS`
+- Top level declarations are handled as top level dart `external` declarations annotated with `@JS`.
 
 #### Enums
-- Enums are represented as extension types with static members
-- For most cases, enums are represented without any external calls, and can have their rep type as Dart primitive types where possible
-- If the value for an enum is not given, then the whole enum is treated as an external interop member, and any members without a value are marked as `external`
+- Enums are represented as extension types with static members.
+- In most cases, values are known beforehand, so the representation types of the resulting extension types are Dart primitive types with non-external static members.
+- If the value for an enum is not given, then the representation type is an interop type, and any members without a value are marked as `external`
 
 #### Interfaces and Classes
 - Interfaces and Classes are emitted as extension types that wrap and implement `JSObject`
@@ -90,28 +90,28 @@ definitions:
 #### Namespaces
 - Namespaces in TS are converted to extension types on `JSObject` with static members.
 - Typed declarations (such as enums, classes, interfaces and namespaces) are prefixed and generated in the general module space.
-- Classes are generated as well as static methods that redirect to constructor calls.
-- Namespaces nested inside the namespace are as well generated as static getters on the
+- Constructor calls for classes are generated for every class in a namespace as a static redirect method.
+- Namespaces nested inside the namespace are as well generated as static getters on the namespace, which are references to the namespaces themselves.
 - Supports overloading and declaration merging with classes, interfaces, enums, `var` declarations, and functions.
 
 #### Types
 - Supports mapping basic JS types to Dart `js_interop` types.
 - `never` type returned from a const declaration, function, readonly property or method has the declaration annotated with [`@doNotStore`](https://pub.dev/documentation/meta/latest/meta/doNotStore-constant.html). 
 - Supports automatically mapping web types to `package:web` types
-- Anonymous Unions/Intersections: Anonymous unions and intersections are represented as extension types with cast members to cast the value as a type in the union. If the union is homogenous and contains strings/numbers, then it is generated more like an enum, with specific static values. An intersection with `null` or `undefined` equals `never`
+- Anonymous Unions/Intersections: Anonymous unions and intersections are represented as extension types with cast members to cast the value as a type in the union/intersection. If the union is homogenous and contains strings/numbers, then it is generated more like an enum, with specific static values. An intersection with `null` or `undefined` equals `never`
 - Anonymous Objects: Anonymous objects are represented similar to interface declarations, with an object literal constructor.
-- Anonymous Closures and Construct Signatures: Anonymous closures and construct signatures are represented as extension types on `JSFunction` overriding the `call` method. This allows for more typing as opposed to just `JSFunction`. While closures have their calls as `external`, construct signatures were redirect calls to the class constructor itself.
+- Anonymous Closures and Construct Signatures: Anonymous closures and construct signatures are represented as extension types on `JSFunction` overriding the `call` method. This allows for a stronger type signature than just `JSFunction`. While closures leave their calls as `external`, construct signatures just redirect to the class constructor.
 - Generic types are represented as normal Dart generics, and they are constrained by `JSAny` by default.
 - `typeof` declarations are references to the type of the declaration, which are:
   - Variable: The variable's type
   - Enum: An object representation of the enum (in order to support `keyof` correctly). 
   - Function: `JSFunction`
-  - Rest: The extension type representation of the type that it refers to.
+  - Otherwise, the extension type representation of the type that it refers to is used.
 - `keyof` declarations are represented as unions of the keys for the operand type.
 
 #### Other
 - Supports importing/exporting declarations. If the files that are being imported are included in input, then such references are treated as imports in Dart, else the declarations are generated in-place.
-- Supports documentation (JSDoc), and maps some annotations to Dart annotations such as 
+- Supports documentation (JSDoc), and maps some annotations to Dart annotations such as `@deprecated` and `@experimental`
 
 ## Web IDL Definitions
 To generate Dart interfaces for a given `.idl` file, run the following at the root of this package:

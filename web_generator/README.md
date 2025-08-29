@@ -50,6 +50,21 @@ Note that not all configuration options are direct mappings between the CLI and 
 
 ### Configuration File Reference
 
+| Option | Description | Example |
+|--------|-------------|---------|
+| `name` | The name of the bindings | <pre>`name: MyBindings`</pre> |
+| `description` | A description of the bindings (optional) | <pre>`description: My awesome bindings`</pre> |
+| `preamble` | Preamble text to insert before the bindings (optional) | <pre>`preamble: \|`<br>`  DO NOT EDIT`</pre> |
+| `input` | A file (single string) or set of files (array of strings) passed into the generator | <pre>`input: bindings.d.ts`</pre> <br/> or <br/> <pre>`input: `<br>` - bindings.d.ts`</pre> |
+| `output` | The output file or directory to write the bindings to | <pre>`output: lib/src/js`</pre> |
+| `include` | Declarations to include in the generated output (as a list). Can either be passed as a raw string to match the full name, or as a regular expression. By defaults it outputs **all exported declarations** | <pre>`include: `<br>` - myNumber`</pre> |
+| `language_version` | The Dart Language Version to use, usually for formatting (optional) | <pre>`language_version: 3.6.0`</pre> |
+| `ts_config` | An object consisting of TS Configurations following the [tsconfig.json file schema](https://www.typescriptlang.org/tsconfig/) used for configuring the TypeScript Program/Compiler (optional) | <pre>`ts_config: `<br>`  compilerOptions: `<br>`    target: es2020`</pre> |
+| `ts_config_file` | The TS Configuration file (tsconfig.json) if any (optional) | <pre>`ts_config_file: tsconfig.json`</pre> |
+| `generate_all` | Include generating declarations for code that isn't exported. Defaults to false | <pre>`generate_all: true`</pre> |
+| `ignore_errors` | Ignore source code warnings and errors (they will still be printed). Defaults to false | <pre>`ignore_errors: true`</pre> |
+| `functions.varargs` | The number of arguments that variable-argument functions should take. Defaults to 4 | <pre>`functions: `<br>`  varargs: 6`</pre> |
+
 ### Conventions
 
 The generator scripts use a number of conventions to consistently handle TS

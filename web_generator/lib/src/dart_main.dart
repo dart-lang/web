@@ -86,8 +86,6 @@ Future<void> generateJSInteropBindings(Config config) async {
 
   if (generatedCodeMap.isEmpty) return;
 
-  print(generatedCodeMap.keys);
-
   // write code to file
   if (dartDeclarations.multiFileOutput) {
     for (final entry in generatedCodeMap.entries) {

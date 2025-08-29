@@ -215,6 +215,7 @@ extension type TSSourceFile._(JSObject _) implements TSDeclaration {
   external String fileName;
   external String? moduleName;
   external String text;
+  external TSNodeArray<TSStatement> get statements;
 }
 
 extension type TSNodeCallback<T extends JSAny>._(JSObject _)

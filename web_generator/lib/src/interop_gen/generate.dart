@@ -22,10 +22,13 @@ class TransformResult {
   final ProgramDeclarationMap programDeclarationMap;
   final ProgramDeclarationMap commonTypes;
   final Map<String, ModuleDeclaration> moduleDeclarations;
+  final ModuleDeclaration? globalModule;
   final bool multiFileOutput;
 
   TransformResult(this.programDeclarationMap,
-      {this.commonTypes = const {}, this.moduleDeclarations = const {}})
+      {this.commonTypes = const {},
+      this.moduleDeclarations = const {},
+      this.globalModule})
       : multiFileOutput = programDeclarationMap.length > 1;
 
   // TODO(https://github.com/dart-lang/web/issues/388): Handle union of overloads
@@ -49,6 +52,15 @@ class TransformResult {
           formatter.format('${lib.accept(emitter)}'
               .replaceAll('static external', 'external static')));
     });
+    if (globalModule != null) {
+      final emitter =
+          DartEmitter.scoped(useNullSafetySyntax: true, orderDirectives: true);
+      final lib = globalModule!.emit();
+      moduleFileMap.addAll({
+        '_global.dart': formatter.format('${lib.accept(emitter)}'
+            .replaceAll('static external', 'external static'))
+      });
+    }
 
     // TODO: If modules reference the given file, then add to map, and combine
     //  the declarations

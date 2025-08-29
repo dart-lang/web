@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:js_interop';
+import 'dart:math';
 
 import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
@@ -59,6 +60,24 @@ extension type TypeMap._(Map<String, Type> types) implements NodeMap<Type> {
   void add(Type decl) => types[decl.id.toString()] = decl;
 }
 
+String commonDir(String a, String b) {
+  final partsA = p.split(p.normalize(a));
+  final partsB = p.split(p.normalize(b));
+
+  final common = <String>[];
+  final length = min(partsA.length, partsB.length);
+
+  for (var i = 0; i < length; i++) {
+    if (partsA[i] == partsB[i]) {
+      common.add(partsA[i]);
+    } else {
+      break;
+    }
+  }
+
+  return common.isEmpty ? '.' : p.joinAll(common);
+}
+
 /// A program map is a map used for handling the context of
 /// transforming and resolving declarations across files in the project.
 ///
@@ -98,6 +117,21 @@ class ProgramMap {
 
   /// The files in the given project
   final p.PathSet files;
+
+  String get basePath => files.length == 1
+      ? (p.extension(files.single!) == ''
+          ? files.single!
+          : p.dirname(files.single!))
+      : files.reduce((prev, next) {
+          if (prev == null && next == null) {
+            return null;
+          } else if (prev == null) {
+            return p.extension(next!) == '' ? next : p.dirname(next);
+          } else if (next == null) {
+            return p.extension(prev) == '' ? prev : p.dirname(prev);
+          }
+          return commonDir(prev, next);
+        })!;
 
   final List<String> filterDeclSet;
 
@@ -324,6 +358,11 @@ class ProgramMap {
       } else {
         final exportedSymbols = sourceSymbol.exports?.toDart;
 
+        // global modules are not captured as exports
+        final globalModuleDeclarations = src.statements.toDart.where((s) =>
+            s.kind == TSSyntaxKind.ModuleDeclaration &&
+            ((s as TSModuleDeclaration).name as TSIdentifier).text == 'global');
+
         for (final MapEntry(value: symbol)
             in exportedSymbols?.entries ?? <MapEntry<JSString, TSSymbol>>[]) {
           final decls = symbol.getDeclarations()?.toDart ?? [];
@@ -336,6 +375,10 @@ class ProgramMap {
           for (final decl in decls) {
             _activeTransformers[absolutePath]!.transform(decl);
           }
+        }
+
+        for (final module in globalModuleDeclarations) {
+          _activeTransformers[absolutePath]!.transform(module);
         }
       }
 
@@ -378,6 +421,7 @@ class TransformerManager {
 
     return TransformResult(outputNodeMap,
         commonTypes: programMap._commonTypes.cast(),
-        moduleDeclarations: programMap.moduleDeclarations);
+        moduleDeclarations: programMap.moduleDeclarations,
+        globalModule: programMap.globalModule);
   }
 }

@@ -261,6 +261,7 @@ class Transformer {
     final isExported = modifiers.any((m) {
       return m.kind == TSSyntaxKind.ExportKeyword;
     });
+    final isGlobal = !isNamespace && moduleName == 'global';
 
     Iterable<ParentDeclaration> currentModules;
     final ParentDeclaration outputModule;
@@ -283,6 +284,16 @@ class Transformer {
               namespaceDeclarations: {},
               nestableDeclarations: {},
               documentation: _parseAndTransformDocumentation(namespace));
+    } else if (isGlobal) {
+      // add to global module
+      programMap.globalModule ??= ModuleDeclaration.global(
+        topLevelDeclarations: {},
+        namespaceDeclarations: {},
+        nestableDeclarations: {},
+      );
+
+      currentModules = [programMap.globalModule!];
+      outputModule = programMap.globalModule!;
     } else {
       currentModules =
           nodeMap.findByName(moduleName).whereType<ModuleDeclaration>();
@@ -310,27 +321,7 @@ class Transformer {
               url: file);
     }
 
-    // final currentNamespaces = parent != null
-    //     ? parent.namespaceDeclarations.where((n) => n.name == moduleName)
-    //     : nodeMap.findByName(moduleName).whereType<NamespaceDeclaration>();
-
-    // final (name: dartName, :id) = currentNamespaces.isEmpty
-    //     ? namer.makeUnique(moduleName, isNamespace ? 'namespace' : 'module')
-    //     : (name: null, id: null);
-
     final scopedNamer = ScopedUniqueNamer();
-
-    // final outputNamespace = currentNamespaces.isNotEmpty
-    //     ? currentNamespaces.first
-    //     : NamespaceDeclaration(
-    //         name: moduleName,
-    //         dartName: dartName,
-    //         id: id!,
-    //         exported: isExported,
-    //         topLevelDeclarations: {},
-    //         namespaceDeclarations: {},
-    //         nestableDeclarations: {},
-    //         documentation: _parseAndTransformDocumentation(namespace));
 
     // TODO: We can implement this in classes and interfaces.
     //  however, since namespaces and modules are a thing,
@@ -339,7 +330,9 @@ class Transformer {
     /// allowing cross-references between types and declarations in the
     /// namespace, including the namespace itself
     void updateNSInParent() {
-      if (parent != null) {
+      if (isGlobal) {
+        programMap.globalModule = outputModule as ModuleDeclaration;
+      } else if (parent != null) {
         if (currentModules.isNotEmpty ||
             parent.namespaceDeclarations.any((n) => n.name == moduleName)) {
           parent.namespaceDeclarations.remove(currentModules.first);
@@ -385,6 +378,10 @@ class Transformer {
           final outputDecls =
               transformNode(decl, namer: scopedNamer, parent: outputModule);
           switch (decl.kind) {
+            case TSSyntaxKind.ModuleDeclaration
+                when outputDecls.first is ModuleDeclaration &&
+                    outputDecls.first.name == 'global':
+              break;
             case TSSyntaxKind.ClassDeclaration ||
                   TSSyntaxKind.InterfaceDeclaration:
               final outputDecl = outputDecls.first as TypeDeclaration;
@@ -412,6 +409,10 @@ class Transformer {
           final outputDecls = transformNode(statement,
               namer: scopedNamer, parent: outputModule);
           switch (statement.kind) {
+            case TSSyntaxKind.ModuleDeclaration
+                when outputDecls.first is ModuleDeclaration &&
+                    outputDecls.first.name == 'global':
+              break;
             case TSSyntaxKind.ClassDeclaration ||
                   TSSyntaxKind.InterfaceDeclaration:
               final outputDecl = outputDecls.first as TypeDeclaration;
@@ -1498,7 +1499,23 @@ class Transformer {
       bool typeArg = false,
       bool isNullable = false,
       TSImportSpecifer? importSpecifier,
-      ID? moduleID}) {
+      ID? moduleID,
+      bool global = false}) {
+    if (global && parent == null) {
+      final module = programMap.globalModule ??= ModuleDeclaration.global();
+
+      final searchForDeclRecursive = _searchForDeclRecursive(name, symbol,
+          typeArguments: typeArguments,
+          typeArg: typeArg,
+          parent: module,
+          isNullable: isNullable,
+          global: true,
+          importSpecifier: importSpecifier);
+
+      programMap.globalModule = module;
+
+      return searchForDeclRecursive;
+    }
     if (moduleID != null && parent == null) {
       final module = programMap.moduleDeclarations[moduleID.toString()];
       if (module == null) {
@@ -1623,8 +1640,18 @@ class Transformer {
           }
       }
 
+      String? relativeImport;
+
+      if (parent is ModuleDeclaration && parent.name == 'global') {
+        relativeImport = p.relative(
+            p.normalize(p.absolute(p.join(
+              programMap.basePath,
+              '_global.dart',
+            ))),
+            from: p.dirname(file));
+      }
+
       final importSource = importSpecifier?.parent.parent.parent.parent;
-      final String? relativeImport;
       if (importSource != null &&
           importSource.kind == TSSyntaxKind.ModuleBlock) {
         // get module name
@@ -1632,16 +1659,6 @@ class Transformer {
         final moduleName = (module.name as TSIdentifier).text;
         final moduleReference =
             programMap.moduleDeclarations.findByName(moduleName).first;
-
-        print((
-          parent is ModuleDeclaration && parent.url != null
-              ? p.normalize(p.join(p.absolute(realPathAsDir(parent.url ?? '.')),
-                  '${parent.name}.dart'))
-              : 'unknown',
-          p.normalize(p.join(
-              p.absolute(realPathAsDir(moduleReference.url ?? '.')),
-              '$moduleName.dart'))
-        ));
 
         relativeImport = parent is ModuleDeclaration && parent.url != null
             ? p.relative(
@@ -1651,8 +1668,6 @@ class Transformer {
                     p.absolute(realPathAsDir(moduleReference.url ?? '.')),
                     '$moduleName.dart'))))
             : null;
-      } else {
-        relativeImport = null;
       }
 
       final asReferredType = decl.asReferredType(
@@ -1729,8 +1744,6 @@ class Transformer {
       symbol = type?.aliasSymbol ?? type?.symbol;
     }
 
-    print((importSpecifier?.kind, symbol?.name));
-
     return _getTypeFromSymbol(symbol, type, typeArguments,
         isNotTypableDeclaration, typeArg, isNullable, importSpecifier);
   }
@@ -1767,9 +1780,21 @@ class Transformer {
     final (fullyQualifiedName, nameImport) =
         parseTSFullyQualifiedName(tsFullyQualifiedName);
 
-    print((fullyQualifiedName, nameImport, declarations.map((d) => d.kind)));
+    if (declarations.first case final node
+        when node.parent.kind == TSSyntaxKind.ModuleBlock &&
+            fullyQualifiedName.first.part == 'global') {
+      // global module
+      final parentNode = node.parent.parent as TSModuleDeclaration;
+      transformNode(parentNode);
 
-    if (nameImport == null) {
+      return _searchForDeclRecursive(fullyQualifiedName.skip(1), symbol,
+          typeArguments: typeArguments,
+          typeArg: typeArg,
+          isNotTypableDeclaration: isNotTypableDeclaration,
+          isNullable: isNullable,
+          global: true,
+          importSpecifier: importSpecifier);
+    } else if (nameImport == null) {
       // if import not there, most likely from an import
 
       if (type?.isTypeParameter() ?? false) {
@@ -1908,17 +1933,6 @@ class Transformer {
           return GenericType(
               name: fullyQualifiedName.last.part, isNullable: isNullable);
         }
-
-        // print((
-        //   // filePathWithoutExtension,
-        //   // nameIDImport,
-        //   // nameImport,
-        //   // programMap.moduleDeclarations.keys,
-        //   // programMap.moduleMap,
-        //   declKinds: declarations.map((d) => d.kind),
-
-        //   name: fullyQualifiedName.asName,
-        // ));
 
         // recursiveness
         return _searchForDeclRecursive(fullyQualifiedName, symbol,

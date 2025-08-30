@@ -58,6 +58,7 @@ $_usage''');
     await compileDartMain();
   }
 
+  // TODO(nikeokoronkwo): Multi-file input
   final inputFile = argResult.rest.firstOrNull;
   final outputFile = argResult['output'] as String? ??
       p.join(p.current, inputFile?.replaceAll('.d.ts', '.dart'));

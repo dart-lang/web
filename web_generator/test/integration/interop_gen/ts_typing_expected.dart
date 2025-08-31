@@ -222,14 +222,6 @@ extension type AnonymousType_1358595._(_i1.JSObject _) implements _i1.JSObject {
   external double taxRate;
 }
 typedef Product = AnonymousType_2194029;
-extension type AnonymousUnion_1189263._(_i1.JSObject _)
-    implements _i1.JSObject {
-  AnonymousType_2773310 get asAnonymousType_2773310 =>
-      (_ as AnonymousType_2773310);
-
-  AnonymousType_1487785 get asAnonymousType_1487785 =>
-      (_ as AnonymousType_1487785);
-}
 extension type AnonymousType_2773310._(_i1.JSObject _) implements _i1.JSObject {
   external AnonymousType_2773310({
     String id,
@@ -252,6 +244,14 @@ extension type AnonymousType_1487785._(_i1.JSObject _) implements _i1.JSObject {
   external String error;
 
   external _i1.JSAny? data;
+}
+extension type AnonymousUnion_1189263._(_i1.JSObject _)
+    implements _i1.JSObject {
+  AnonymousType_2773310 get asAnonymousType_2773310 =>
+      (_ as AnonymousType_2773310);
+
+  AnonymousType_1487785 get asAnonymousType_1487785 =>
+      (_ as AnonymousType_1487785);
 }
 extension type _AnonymousConstructor_1059824._(_i1.JSFunction _)
     implements _i1.JSFunction {

@@ -66,6 +66,7 @@ import 'types.dart';
   ClassDeclaration? classDecl; // there can be only 1 class
   TypeAliasDeclaration? typealiasDecl; // there can be only 1 typedef
   final namespaces = <NamespaceDeclaration>[];
+  final otherVariableDeclarations = <VariableDeclaration>[];
   final varDeclarations = <VariableDeclaration>[];
   final varDeclarationsWithBuiltinTypes = <VariableDeclaration>[];
   final otherDeclarations = <Declaration>[];
@@ -97,6 +98,8 @@ import 'types.dart';
           )
           when modifier == VariableModifier.$var:
         varDeclarationsWithBuiltinTypes.add(decl);
+      case final VariableDeclaration v:
+        otherVariableDeclarations.add(v);
       default:
         otherDeclarations.add(decl);
         break;
@@ -115,7 +118,7 @@ import 'types.dart';
     assert(interfaces.isEmpty && namespaces.isEmpty,
         'Typedefs in TS do not allow other decls');
 
-    for (final varDecl in varDeclarations) {
+    for (final varDecl in [...varDeclarations, ...otherVariableDeclarations]) {
       final VariableDeclaration(
         type: varDeclType,
         name: varDeclName,
@@ -126,10 +129,11 @@ import 'types.dart';
               referredDecl.name == typealiasDecl.name) {
         // change type of var decl
         varDecl.type = referredDecl.type;
+        output.add(varDecl);
       }
     }
 
-    output.addAll([...functions, ...varDeclarations]);
+    output.addAll([...functions]);
   } else if (mergedNamespace != null) {
     var mergedComposite = mergedNamespace.asComposite
       ..mergeType(mergedInterface);
@@ -158,7 +162,7 @@ import 'types.dart';
 
     additionals.addAll([if (enumDecl != null) enumDecl]);
 
-    output.add(mergedComposite);
+    output.addAll([mergedComposite, ...otherVariableDeclarations]);
   } else if (mergedInterface != null) {
     // merge em and vars
     mergedInterface = _mergeInterfaceWithVars(mergedInterface, varDeclarations)
@@ -182,7 +186,7 @@ import 'types.dart';
     }
 
     // that's it
-    output.addAll(functions);
+    output.addAll([...functions, ...otherVariableDeclarations]);
   } else {
     return (declarations, additionals: []);
   }

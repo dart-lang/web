@@ -732,24 +732,32 @@ class Transformer {
     }
 
     final doc = _parseAndTransformDocumentation(indexSignature);
+    final transformedParameters = params.map(_transformParameter).toList();
+    final type = indexerType ?? _transformType(indexSignature.type);
+    final transformedTypeParams =
+        typeParams?.map(_transformTypeParamDeclaration).toList() ?? [];
 
     final getOperatorDeclaration = OperatorDeclaration(
         kind: OperatorKind.squareBracket,
-        parameters: params.map(_transformParameter).toList(),
-        returnType: indexerType ?? _transformType(indexSignature.type),
+        parameters: transformedParameters,
+        returnType: type,
         scope: scope,
-        typeParameters:
-            typeParams?.map(_transformTypeParamDeclaration).toList() ?? [],
+        typeParameters: transformedTypeParams,
         static: isStatic,
         documentation: doc);
     final setOperatorDeclaration = isReadonly
         ? OperatorDeclaration(
             kind: OperatorKind.squareBracketSet,
-            parameters: params.map(_transformParameter).toList(),
-            returnType: indexerType ?? _transformType(indexSignature.type),
+            parameters: [
+              ...transformedParameters,
+              ParameterDeclaration(
+                name: 'newValue',
+                type: type,
+              )
+            ],
+            returnType: BuiltinType.$voidType,
             scope: scope,
-            typeParameters:
-                typeParams?.map(_transformTypeParamDeclaration).toList() ?? [],
+            typeParameters: transformedTypeParams,
             static: isStatic,
             documentation: doc)
         : null;
@@ -2198,33 +2206,37 @@ class Transformer {
 
     if (filteredDeclarations.isEmpty) return filteredDeclarations;
 
-    final declGroups =
-        groupBy(filteredDeclarations.values, (decl) => decl.id.name);
-
-    final outputDeclSet = NodeMap<Declaration>();
-
-    for (final declSet in declGroups.values) {
-      final (mergedDeclSet, :additionals) = mergeDeclarations(declSet);
-
-      outputDeclSet.addAll({
-        for (final d in [...mergedDeclSet, ...additionals]) d.id.toString(): d
-      });
-    }
-
-    // then filter for dependencies
     final otherDecls = filteredDeclarations.entries
         .map((e) => _getDependenciesOfDecl(e.value))
         .reduce((value, element) => value..addAll(element));
 
-    // if already in filtered declarations, we remove
-    // because they may have been updated in merge
-    otherDecls.removeWhere((key, value) {
-      final id = UniqueNamer.parse(key);
-      return value is! FunctionDeclaration &&
-          outputDeclSet.values.any((v) => v.id.name == id.name);
-    });
+    final completedDecls = NodeMap({...filteredDeclarations, ...otherDecls});
 
-    return NodeMap({...outputDeclSet, ...otherDecls});
+    final declGroups = groupBy(completedDecls.values, (decl) => decl.id.name);
+
+    final outputDeclSet = NodeMap();
+
+    for (final declSet in declGroups.values) {
+      final nodes = <Node>[];
+      final declarations = <Declaration>[];
+
+      for (final d in declSet) {
+        if (d is Declaration) {
+          declarations.add(d);
+        } else {
+          nodes.add(d);
+        }
+      }
+
+      final (mergedDeclSet, :additionals) = mergeDeclarations(declarations);
+
+      outputDeclSet.addAll({
+        for (final d in [...mergedDeclSet, ...additionals, ...nodes])
+          d.id.toString(): d
+      });
+    }
+
+    return NodeMap(outputDeclSet);
   }
 
   /// Given an already filtered declaration [decl],

@@ -233,7 +233,10 @@ class ProgramMap {
 
             final targetSymbol = exports[d.toJS]!;
 
-            transformer.transform(targetSymbol.getDeclarations()!.toDart.first);
+            for (final decl in targetSymbol.getDeclarations()?.toDart ??
+                <TSDeclaration>[]) {
+              transformer.transform(decl);
+            }
           } else {
             transformer.transform(node);
           }

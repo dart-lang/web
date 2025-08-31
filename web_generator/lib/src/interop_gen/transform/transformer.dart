@@ -309,11 +309,11 @@ class Transformer {
         // add all members to namespace
         outputNamespace.nodes.addAll(tsEnum.members.toDart);
       } else {
-        final outputDecls =
-        transformAndReturn(decl, namer: scopedNamer, parent: outputNamespace);
+        final outputDecls = transformAndReturn(decl,
+            namer: scopedNamer, parent: outputNamespace);
         switch (decl.kind) {
-          case TSSyntaxKind.ClassDeclaration || TSSyntaxKind
-              .InterfaceDeclaration:
+          case TSSyntaxKind.ClassDeclaration ||
+                TSSyntaxKind.InterfaceDeclaration:
             final outputDecl = outputDecls.single as TypeDeclaration;
             outputDecl.parent = outputNamespace;
             outputNamespace.nestableDeclarations.add(outputDecl);
@@ -1605,10 +1605,9 @@ class Transformer {
           d = (declaration.parent as TSModuleBlock).parent;
         }
 
-
-      // TODO: multi-decls
-      final transformedDecls =
-          transformAndReturn(declaration, namer: namer, parent: parent);
+        // TODO: multi-decls
+        final transformedDecls =
+            transformAndReturn(declaration, namer: namer, parent: parent);
 
         if (parent != null) {
           switch (declaration.kind) {

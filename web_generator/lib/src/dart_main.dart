@@ -19,7 +19,7 @@ import 'js/filesystem_api.dart';
 import 'js/node.dart';
 import 'util.dart';
 
-// Generates DOM bindings for Dart.
+// Generates DOM and JS interop bindings for Dart.
 
 // TODO(joshualitt): Use static interop methods for JSArray and JSPromise.
 // TODO(joshualitt): Find a way to generate bindings for JS builtins. This will

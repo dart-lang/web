@@ -457,19 +457,17 @@ class Transformer {
 
     for (final member in typeDecl.members.toDart) {
       switch (member.kind) {
-        case TSSyntaxKind.PropertySignature:
-        case TSSyntaxKind.PropertyDeclaration:
+        case TSSyntaxKind.PropertySignature || TSSyntaxKind.PropertyDeclaration:
           final prop = _transformProperty(member as TSPropertyEntity,
               parentNamer: typeNamer, parent: outputType);
           outputType.properties.add(prop);
           break;
-        case TSSyntaxKind.MethodSignature:
-          final method = _transformMethod(member as TSMethodSignature,
-              parentNamer: typeNamer, parent: outputType);
-          outputType.methods.add(method);
-          break;
-        case TSSyntaxKind.MethodDeclaration:
-          final method = _transformMethod(member as TSMethodDeclaration,
+        // TODO: Support methods with computed and string property names
+        //  (e.g) [Symbol.iterator], "foo-bar"
+        case TSSyntaxKind.MethodSignature || TSSyntaxKind.MethodDeclaration
+            when (member as TSMethodEntity).name.kind ==
+                TSSyntaxKind.Identifier:
+          final method = _transformMethod(member,
               parentNamer: typeNamer, parent: outputType);
           outputType.methods.add(method);
           break;

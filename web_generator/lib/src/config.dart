@@ -66,6 +66,12 @@ abstract interface class Config {
   /// declarations
   bool get generateAll;
 
+  /// Treat any unsupported/unimplemented types/declarations as errors
+  ///
+  /// This is to be used for development purposes only and is not supported
+  /// as a config option in the configuration file
+  bool get strictUnsupported;
+
   factory Config(
       {required List<String> input,
       required String output,
@@ -75,7 +81,8 @@ abstract interface class Config {
       List<String> includedDeclarations,
       bool generateAll,
       bool ignoreErrors,
-      String? tsConfigFile}) = ConfigImpl._;
+      String? tsConfigFile,
+      bool strictUnsupported}) = ConfigImpl._;
 }
 
 class ConfigImpl implements Config {
@@ -118,6 +125,9 @@ class ConfigImpl implements Config {
   @override
   bool generateAll;
 
+  @override
+  bool strictUnsupported;
+
   ConfigImpl._(
       {required this.input,
       required this.output,
@@ -127,7 +137,8 @@ class ConfigImpl implements Config {
       this.includedDeclarations = const [],
       this.ignoreErrors = false,
       this.generateAll = false,
-      this.tsConfigFile});
+      this.tsConfigFile,
+      this.strictUnsupported = false});
 
   @override
   bool get singleFileOutput => input.length == 1;
@@ -175,6 +186,9 @@ class YamlConfig implements Config {
 
   @override
   bool generateAll;
+
+  @override
+  bool get strictUnsupported => false;
 
   YamlConfig._(
       {required this.filename,

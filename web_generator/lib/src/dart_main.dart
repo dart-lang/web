@@ -19,7 +19,7 @@ import 'js/filesystem_api.dart';
 import 'js/node.dart';
 import 'util.dart';
 
-// Generates DOM bindings for Dart.
+// Generates DOM and JS interop bindings for Dart.
 
 // TODO(joshualitt): Use static interop methods for JSArray and JSPromise.
 // TODO(joshualitt): Find a way to generate bindings for JS builtins. This will
@@ -62,7 +62,8 @@ void main(List<String> args) async {
           languageVersion: Version.parse(languageVersionString),
           tsConfigFile: tsConfigFile,
           ignoreErrors: argResult.wasParsed('ignore-errors'),
-          generateAll: argResult['generate-all'] as bool);
+          generateAll: argResult['generate-all'] as bool,
+          strictUnsupported: argResult.wasParsed('strict-unsupported'));
     }
 
     await generateJSInteropBindings(config);
@@ -202,5 +203,11 @@ final _parser = ArgParser()
       help: '[TS Declarations] The input file to read and generate types for')
   ..addFlag('ignore-errors',
       help: '[TS Declarations] Ignore Generator Errors', negatable: false)
+  ..addFlag(
+    'strict-unsupported',
+    help:
+        '[TS Declarations] Treat unsupported declarations/types as errors. Only used for development of the generator',
+    negatable: false,
+  )
   ..addOption('config',
       abbr: 'c', hide: true, valueHelp: '[file].yaml', help: 'Configuration');

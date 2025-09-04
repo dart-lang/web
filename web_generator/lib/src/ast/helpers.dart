@@ -90,6 +90,8 @@ Set<String> getMemberHierarchy(TypeDeclaration type,
     case InterfaceDeclaration(extendedTypes: final extendees):
       extendees.forEach(addMembersIfReferredType);
       break;
+    default:
+      break;
   }
 
   if (addDirectMembers) {
@@ -267,7 +269,7 @@ class TupleDeclaration extends NamedDeclaration
   bool get exported => true;
 
   @override
-  ID get id => ID(type: 'tuple', name: name);
+  ID get id => ID(type: 'tuple', name: name, index: readonly ? 1 : 0);
 
   final int count;
 
@@ -291,10 +293,14 @@ class TupleDeclaration extends NamedDeclaration
   /// The type args represent the tuple types for the tuple declaration
   @override
   TupleType asReferredType(
-      [List<Type>? typeArgs, bool isNullable = false, String? url]) {
+      [Iterable<Type>? typeArgs, bool isNullable = false, String? url]) {
     assert(typeArgs?.length == count,
         'Type arguments must equal the number of tuples supported');
-    return TupleType(types: typeArgs ?? [], tupleDeclUrl: url);
+    return TupleType(
+        types: typeArgs?.toList() ?? [],
+        tupleDeclUrl: url,
+        readonly: readonly,
+        decl: this);
   }
 
   @override

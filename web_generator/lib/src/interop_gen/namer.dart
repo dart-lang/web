@@ -7,10 +7,10 @@ import 'qualified_name.dart';
 
 class ID {
   final String type;
-  final String name;
+  String name;
   final int? index;
 
-  const ID({required this.type, required this.name, this.index});
+  ID({required this.type, required this.name, this.index});
 
   bool get isUnnamed => name == 'unnamed';
 

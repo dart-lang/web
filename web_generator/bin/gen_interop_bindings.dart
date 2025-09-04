@@ -58,6 +58,7 @@ $_usage''');
     await compileDartMain();
   }
 
+  // TODO(nikeokoronkwo): Multi-file input
   final inputFile = argResult.rest.firstOrNull;
   final outputFile = argResult['output'] as String? ??
       p.join(p.current, inputFile?.replaceAll('.d.ts', '.dart'));
@@ -89,6 +90,7 @@ $_usage''');
       if (relativeConfigFile case final config?) '--config=$config',
       if (argResult.wasParsed('ignore-errors')) '--ignore-errors',
       if (argResult.wasParsed('generate-all')) '--generate-all',
+      if (argResult.wasParsed('strict-unsupported')) '--strict-unsupported',
     ],
     workingDirectory: bindingsGeneratorPath,
   );
@@ -120,6 +122,11 @@ final _parser = ArgParser()
       help: 'Generate all declarations '
           '(including private declarations)',
       negatable: false)
+  ..addFlag('strict-unsupported',
+      help:
+          'Treat unsupported declarations/types as errors. Only used for development of the generator',
+      negatable: false,
+      hide: true)
   ..addOption('config',
       hide: true,
       abbr: 'c',

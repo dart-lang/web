@@ -79,15 +79,27 @@ class TupleType extends ReferredType<TupleDeclaration> {
   @override
   List<Type> get typeParams => types;
 
+  bool readonly;
+
   TupleType(
-      {required this.types, super.isNullable, required String? tupleDeclUrl})
+      {required this.types,
+      super.isNullable,
+      required String? tupleDeclUrl,
+      this.readonly = false,
+      TupleDeclaration? decl})
       : super(
-            declaration: TupleDeclaration(count: types.length),
-            name: 'JSTuple${types.length}',
+            declaration: decl ??
+                TupleDeclaration(count: types.length, readonly: readonly),
+            name: readonly
+                ? 'JSReadonlyTuple${types.length}'
+                : 'JSTuple${types.length}',
             url: tupleDeclUrl);
 
   @override
-  ID get id => ID(type: 'type', name: types.map((t) => t.id.name).join(','));
+  ID get id => ID(
+      type: 'type',
+      name: types.map((t) => t.id.name).join(','),
+      index: readonly ? 1 : 0);
 
   @override
   int get hashCode => Object.hashAllUnordered(types);
@@ -318,6 +330,18 @@ class ObjectLiteralType extends DeclarationType<TypeDeclaration> {
   @override
   final ID id;
 
+  bool readonly = false;
+
+  String? _dartName;
+
+  @override
+  String? get dartName => _dartName;
+
+  @override
+  set dartName(String? value) {
+    _dartName = value;
+  }
+
   ObjectLiteralType(
       {required String name,
       required this.id,
@@ -325,12 +349,15 @@ class ObjectLiteralType extends DeclarationType<TypeDeclaration> {
       this.methods = const [],
       this.constructors = const [],
       this.operators = const [],
-      this.isNullable = false})
-      : declarationName = name;
+      this.isNullable = false,
+      String? declarationDartName})
+      : declarationName = name,
+        _dartName = declarationDartName;
 
   @override
   TypeDeclaration get declaration => InterfaceDeclaration(
       name: declarationName,
+      dartName: dartName,
       exported: true,
       id: ID(type: 'interface', name: id.name),
       objectLiteralConstructor: true,
@@ -341,7 +368,7 @@ class ObjectLiteralType extends DeclarationType<TypeDeclaration> {
       typeParameters: getGenericTypes(this).map((g) {
         g.constraint ??= BuiltinType.anyType;
         return g;
-      }).toList());
+      }).toSet());
 
   @override
   Reference emit([TypeOptions? options]) {
@@ -349,6 +376,45 @@ class ObjectLiteralType extends DeclarationType<TypeDeclaration> {
       ..symbol = declarationName
       ..isNullable = options?.nullable ?? isNullable
       ..types.addAll(getGenericTypes(this).map((t) => t.emit(options))));
+  }
+}
+
+/// An object representation of a typescript enum, usually used
+/// either from a `typeof` expression, or a direct assignment.
+class EnumObjectType extends DeclarationType {
+  final EnumDeclaration enumeration;
+
+  String? _dartName;
+
+  @override
+  String? get dartName => _dartName;
+
+  @override
+  set dartName(String? value) {
+    _dartName = value;
+  }
+
+  @override
+  bool isNullable;
+
+  EnumObjectType(this.enumeration, {String? dartName, this.isNullable = false})
+      : _dartName = dartName ?? enumeration.dartName;
+
+  @override
+  ID get id => ID(type: 'type', name: 'TypeOf_${enumeration.name}');
+
+  @override
+  Declaration get declaration => _EnumObjDeclaration(
+      name: declarationName, dartName: dartName, reference: enumeration);
+
+  @override
+  String get declarationName => '${enumeration.name}_EnumType';
+
+  @override
+  Reference emit([covariant TypeOptions? options]) {
+    return TypeReference((t) => t
+      ..symbol = declarationName
+      ..isNullable = options?.nullable ?? isNullable);
   }
 }
 
@@ -424,15 +490,15 @@ class FunctionType extends ClosureType {
           name: declarationName,
           exported: true,
           id: ID(type: 'interface', name: declarationName),
-          typeParameters: typeParameters,
-          assertRepType: true,
+          typeParameters: typeParameters.toSet(),
+          useFirstExtendeeAsRepType: true,
           extendedTypes: [
             BuiltinType.referred('Function')!
           ],
           methods: [
             MethodDeclaration(
                 name: 'call',
-                id: const ID(type: 'fun', name: 'call'),
+                id: ID(type: 'fun', name: 'call'),
                 returnType: returnType,
                 parameters: parameters)
           ]);
@@ -652,6 +718,59 @@ sealed class _UnionOrIntersectionDeclaration extends NamedDeclaration
         });
       })));
   }
+}
+
+class _EnumObjDeclaration extends NamedDeclaration
+    implements ExportableDeclaration {
+  @override
+  bool get exported => true;
+
+  @override
+  String? dartName;
+
+  @override
+  String name;
+
+  EnumDeclaration reference;
+
+  _EnumObjDeclaration(
+      {required this.name, this.dartName, required this.reference});
+
+  @override
+  Spec emit([covariant DeclarationOptions? options]) {
+    final repType = BuiltinType.primitiveType(PrimitiveType.object);
+    return ExtensionType((e) => e
+      ..name = dartName ?? name
+      ..annotations.addAll([
+        if (dartName != null && dartName != name) generateJSAnnotation(name)
+      ])
+      ..primaryConstructorName = '_'
+      ..representationDeclaration = RepresentationDeclaration((r) => r
+        ..declaredRepresentationType = repType.emit(options?.toTypeOptions())
+        ..name = '_')
+      ..implements.add(repType.emit(options?.toTypeOptions()))
+      ..fields.addAll(reference.members.map((mem) => mem.emit()))
+      ..methods.addAll(reference.members.map((mem) {
+        return mem.value == null
+            ? null
+            : Method((m) => m
+              ..name =
+                  mem.value is int ? '\$${mem.value}' : mem.value.toString()
+              ..annotations.addAll([
+                if (mem.value is int)
+                  refer('JS', 'dart:js_interop')
+                      .call([literalString(mem.value.toString())])
+              ])
+              ..type = MethodType.getter
+              ..returns = refer('String')
+              ..lambda = true
+              ..static = true
+              ..body = literalString(mem.name).code);
+      }).nonNulls));
+  }
+
+  @override
+  ID get id => ID(type: 'enum-rep', name: name);
 }
 
 List<String> _nonObjectRepTypeTypes = [

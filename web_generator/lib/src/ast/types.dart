@@ -568,19 +568,33 @@ sealed class _UnionOrIntersectionDeclaration extends NamedDeclaration
     final repType =
         getLowestCommonAncestorOfTypes(types, isNullable: isNullable);
 
+    final extendees = <Type>[];
+    if (extendTypes) {
+      // check if any types are primitive
+      // TODO: We can be much smarter about this, but this works best so far
+      if (types.any((t) {
+            final jsAltType = getJSTypeAlternative(t);
+            return jsAltType is BuiltinType &&
+                _nonObjectRepTypeTypes.contains(jsAltType.name);
+          }) ||
+          (repType is BuiltinType && repType.name == 'JSAny')) {
+        extendees.add(
+            BuiltinType.primitiveType(PrimitiveType.any, isNullable: false));
+      } else {
+        extendees.addAll(types.map(getJSTypeAlternative));
+      }
+    } else {
+      extendees.add(repType);
+    }
+
     return ExtensionType((e) => e
       ..name = name
       ..primaryConstructorName = '_'
       ..representationDeclaration = RepresentationDeclaration((r) => r
         ..name = '_'
         ..declaredRepresentationType = repType.emit(options?.toTypeOptions()))
-      ..implements.addAll([
-        if (extendTypes)
-          ...types.map(
-              (t) => getJSTypeAlternative(t).emit(options?.toTypeOptions()))
-        else
-          repType.emit(options?.toTypeOptions())
-      ])
+      ..implements
+          .addAll(extendees.map((e) => e.emit(options?.toTypeOptions())))
       ..types
           .addAll(typeParameters.map((t) => t.emit(options?.toTypeOptions())))
       ..methods.addAll(types.map((t) {
@@ -639,6 +653,14 @@ sealed class _UnionOrIntersectionDeclaration extends NamedDeclaration
       })));
   }
 }
+
+List<String> _nonObjectRepTypeTypes = [
+  'JSAny',
+  'JSString',
+  'JSBoolean',
+  'JSNumber',
+  'JSSymbol'
+];
 
 class _IntersectionDeclaration extends _UnionOrIntersectionDeclaration {
   @override

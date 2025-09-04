@@ -260,13 +260,13 @@ extension type _AnonymousFunction_1707607._(_i1.JSFunction _)
   external void call(String message);
 }
 extension type AnonymousIntersection_1467782._(_i1.JSAny _)
-    implements _i1.JSString, _i1.JSNumber {
+    implements _i1.JSAny {
   String get asString => (_ as _i1.JSString).toDart;
 
   double get asDouble => (_ as _i1.JSNumber).toDartDouble;
 }
 extension type AnonymousIntersection_4895242._(_i1.JSAny _)
-    implements _i1.JSString, AnonymousType_1178025, AnonymousType_8266437 {
+    implements _i1.JSAny {
   String get asString => (_ as _i1.JSString).toDart;
 
   AnonymousType_1178025 get asAnonymousType_1178025 =>
@@ -292,7 +292,7 @@ extension type AnonymousType_8266437._(_i1.JSObject _) implements _i1.JSObject {
   external String toString$();
 }
 extension type AnonymousIntersection_1711585._(_i1.JSAny _)
-    implements AnonymousUnion_2392544, AnonymousUnion_5737239 {
+    implements _i1.JSAny {
   AnonymousUnion_2392544 get asAnonymousUnion_2392544 =>
       (_ as AnonymousUnion_2392544);
 

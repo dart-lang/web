@@ -14,6 +14,7 @@ import '../../ast/helpers.dart';
 import '../../ast/merger.dart';
 import '../../ast/types.dart';
 import '../../js/annotations.dart';
+import '../../js/filesystem_api.dart';
 import '../../js/helpers.dart';
 import '../../js/typescript.dart' as ts;
 import '../../js/typescript.types.dart';
@@ -102,14 +103,14 @@ class Transformer {
   void transform(TSNode node) {
     if (nodes.contains(node)) return;
 
-    final decls = _transform(node);
+    final decls = transformAndReturn(node);
 
     nodeMap.addAll({for (final d in decls) d.id.toString(): d});
 
     nodes.add(node);
   }
 
-  List<Declaration> _transform(TSNode node,
+  List<Declaration> transformAndReturn(TSNode node,
       {Set<ExportReference>? exportSet,
       UniqueNamer? namer,
       NamespaceDeclaration? parent}) {
@@ -288,6 +289,52 @@ class Transformer {
       }
     }
 
+    void transformDeclAndAppendParent(
+        NamespaceDeclaration outputNamespace, TSNode decl) {
+      if (outputNamespace.nodes.contains(decl)) return;
+      if (decl.kind == TSSyntaxKind.EnumMember) {
+        final tsEnum = (decl as TSEnumMember).parent;
+        // parse whole enum
+        final transformedEnum = _transformEnum(tsEnum, namer: namer);
+
+        // add enum
+        if (parent != null) {
+          parent.nestableDeclarations.add(transformedEnum);
+          parent.nodes.add(tsEnum);
+        } else {
+          nodes.add(tsEnum);
+          nodeMap.add(transformedEnum);
+        }
+
+        // add all members to namespace
+        outputNamespace.nodes.addAll(tsEnum.members.toDart);
+      } else {
+        final outputDecls = transformAndReturn(decl,
+            namer: scopedNamer, parent: outputNamespace);
+        switch (decl.kind) {
+          case TSSyntaxKind.ClassDeclaration ||
+                TSSyntaxKind.InterfaceDeclaration:
+            final outputDecl = outputDecls.single as TypeDeclaration;
+            outputDecl.parent = outputNamespace;
+            outputNamespace.nestableDeclarations.add(outputDecl);
+          case TSSyntaxKind.EnumDeclaration:
+            final outputDecl = outputDecls.single as EnumDeclaration;
+            outputDecl.parent = outputNamespace;
+            outputNamespace.nestableDeclarations.add(outputDecl);
+          case TSSyntaxKind.TypeAliasDeclaration:
+            final outputDecl = outputDecls.single as TypeAliasDeclaration;
+            outputDecl.parent = outputNamespace;
+            outputNamespace.nestableDeclarations.add(outputDecl);
+          default:
+            outputNamespace.topLevelDeclarations.addAll(outputDecls);
+        }
+        outputNamespace.nodes.add(decl);
+      }
+
+      // update namespace state
+      updateNSInParent();
+    }
+
     // preload nodemap
     updateNSInParent();
 
@@ -305,44 +352,9 @@ class Transformer {
           // throws error if no aliased symbol, so ignore
         }
         for (final decl in decls) {
-          if (outputNamespace.nodes.contains(decl)) continue;
-          if (decl.kind == TSSyntaxKind.EnumMember) {
-            final tsEnum = (decl as TSEnumMember).parent;
-            // parse whole enum
-            final transformedEnum = _transformEnum(tsEnum, namer: namer);
-
-            // add enum
-            if (parent != null) {
-              parent.nestableDeclarations.add(transformedEnum);
-              parent.nodes.add(tsEnum);
-            } else {
-              nodes.add(tsEnum);
-              nodeMap.add(transformedEnum);
-            }
-
-            // add all members to namespace
-            outputNamespace.nodes.addAll(tsEnum.members.toDart);
-          } else {
-            final outputDecls =
-                _transform(decl, namer: scopedNamer, parent: outputNamespace);
-            switch (decl.kind) {
-              case TSSyntaxKind.ClassDeclaration ||
-                    TSSyntaxKind.InterfaceDeclaration:
-                final outputDecl = outputDecls.first as TypeDeclaration;
-                outputDecl.parent = outputNamespace;
-                outputNamespace.nestableDeclarations.add(outputDecl);
-              case TSSyntaxKind.EnumDeclaration:
-                final outputDecl = outputDecls.first as EnumDeclaration;
-                outputDecl.parent = outputNamespace;
-                outputNamespace.nestableDeclarations.add(outputDecl);
-              default:
-                outputNamespace.topLevelDeclarations.addAll(outputDecls);
-            }
-            outputNamespace.nodes.add(decl);
-          }
-
-          // update namespace state
-          updateNSInParent();
+          // TODO: We could also ignore namespace decls with the same name, as
+          //  a single instance should consider such non-necessary
+          transformDeclAndAppendParent(outputNamespace, decl);
         }
       }
       // fallback
@@ -351,24 +363,7 @@ class Transformer {
           when namespaceBody.kind == TSSyntaxKind.ModuleBlock) {
         for (final statement
             in (namespaceBody as TSModuleBlock).statements.toDart) {
-          final outputDecls = _transform(statement,
-              namer: scopedNamer, parent: outputNamespace);
-          switch (statement.kind) {
-            case TSSyntaxKind.ClassDeclaration ||
-                  TSSyntaxKind.InterfaceDeclaration:
-              final outputDecl = outputDecls.first as TypeDeclaration;
-              outputDecl.parent = outputNamespace;
-              outputNamespace.nestableDeclarations.add(outputDecl);
-            case TSSyntaxKind.EnumDeclaration:
-              final outputDecl = outputDecls.first as EnumDeclaration;
-              outputDecl.parent = outputNamespace;
-              outputNamespace.nestableDeclarations.add(outputDecl);
-            default:
-              outputNamespace.topLevelDeclarations.addAll(outputDecls);
-          }
-
-          // update namespace state
-          updateNSInParent();
+          transformDeclAndAppendParent(outputNamespace, statement);
         }
       } else if (namespace.body case final namespaceBody?) {
         // namespace import
@@ -462,19 +457,17 @@ class Transformer {
 
     for (final member in typeDecl.members.toDart) {
       switch (member.kind) {
-        case TSSyntaxKind.PropertySignature:
-        case TSSyntaxKind.PropertyDeclaration:
+        case TSSyntaxKind.PropertySignature || TSSyntaxKind.PropertyDeclaration:
           final prop = _transformProperty(member as TSPropertyEntity,
               parentNamer: typeNamer, parent: outputType);
           outputType.properties.add(prop);
           break;
-        case TSSyntaxKind.MethodSignature:
-          final method = _transformMethod(member as TSMethodSignature,
-              parentNamer: typeNamer, parent: outputType);
-          outputType.methods.add(method);
-          break;
-        case TSSyntaxKind.MethodDeclaration:
-          final method = _transformMethod(member as TSMethodDeclaration,
+        // TODO: Support methods with computed and string property names
+        //  (e.g) [Symbol.iterator], "foo-bar"
+        case TSSyntaxKind.MethodSignature || TSSyntaxKind.MethodDeclaration
+            when (member as TSMethodEntity).name.kind ==
+                TSSyntaxKind.Identifier:
+          final method = _transformMethod(member,
               parentNamer: typeNamer, parent: outputType);
           outputType.methods.add(method);
           break;
@@ -737,24 +730,32 @@ class Transformer {
     }
 
     final doc = _parseAndTransformDocumentation(indexSignature);
+    final transformedParameters = params.map(_transformParameter).toList();
+    final type = indexerType ?? _transformType(indexSignature.type);
+    final transformedTypeParams =
+        typeParams?.map(_transformTypeParamDeclaration).toList() ?? [];
 
     final getOperatorDeclaration = OperatorDeclaration(
         kind: OperatorKind.squareBracket,
-        parameters: params.map(_transformParameter).toList(),
-        returnType: indexerType ?? _transformType(indexSignature.type),
+        parameters: transformedParameters,
+        returnType: type,
         scope: scope,
-        typeParameters:
-            typeParams?.map(_transformTypeParamDeclaration).toList() ?? [],
+        typeParameters: transformedTypeParams,
         static: isStatic,
         documentation: doc);
     final setOperatorDeclaration = isReadonly
         ? OperatorDeclaration(
             kind: OperatorKind.squareBracketSet,
-            parameters: params.map(_transformParameter).toList(),
-            returnType: indexerType ?? _transformType(indexSignature.type),
+            parameters: [
+              ...transformedParameters,
+              ParameterDeclaration(
+                name: 'newValue',
+                type: type,
+              )
+            ],
+            returnType: BuiltinType.$voidType,
             scope: scope,
-            typeParameters:
-                typeParams?.map(_transformTypeParamDeclaration).toList() ?? [],
+            typeParameters: transformedTypeParams,
             static: isStatic,
             documentation: doc)
         : null;
@@ -1070,7 +1071,8 @@ class Transformer {
       default:
         // TODO: Support Destructured Object Parameters
         //  and Destructured Array Parameters
-        throw Exception('Unsupported Parameter Name kind ${parameter.kind}');
+        throw Exception(
+            'Unsupported Parameter Name kind ${parameter.name.kind}');
     }
   }
 
@@ -1611,7 +1613,7 @@ class Transformer {
 
         // TODO: multi-decls
         final transformedDecls =
-            _transform(declaration, namer: namer, parent: parent);
+            transformAndReturn(declaration, namer: namer, parent: parent);
 
         if (parent != null) {
           switch (declaration.kind) {
@@ -1938,8 +1940,15 @@ class Transformer {
             isNullable: isNullable);
       } else {
         // if import there and not this file, imported from specified file
-        final importUrl =
-            !nameImport.endsWith('.d.ts') ? '$nameImport.d.ts' : nameImport;
+        final importUrl = !nameImport.endsWith('.d.ts') &&
+                fs
+                    .existsSync((p.isAbsolute('$nameImport.d.ts')
+                            ? '$nameImport.d.ts'
+                            : p.join(p.dirname(file), '$nameImport.d.ts'))
+                        .toJS)
+                    .toDart
+            ? '$nameImport.d.ts'
+            : nameImport;
         final relativePath = programMap.files.contains(importUrl)
             ? p.relative(importUrl, from: p.dirname(file))
             : null;
@@ -1963,7 +1972,9 @@ class Transformer {
       }
     }
 
-    throw Exception('Could not resolve type for node');
+    throw Exception(
+        'Could not resolve type for node ${fullyQualifiedName.asName}'
+        '${nameImport == null ? '' : ' from $nameImport'}');
   }
 
   /// Get the type of a type node named [typeName] by referencing its
@@ -2193,33 +2204,37 @@ class Transformer {
 
     if (filteredDeclarations.isEmpty) return filteredDeclarations;
 
-    final declGroups =
-        groupBy(filteredDeclarations.values, (decl) => decl.id.name);
-
-    final outputDeclSet = NodeMap<Declaration>();
-
-    for (final declSet in declGroups.values) {
-      final (mergedDeclSet, :additionals) = mergeDeclarations(declSet);
-
-      outputDeclSet.addAll({
-        for (final d in [...mergedDeclSet, ...additionals]) d.id.toString(): d
-      });
-    }
-
-    // then filter for dependencies
     final otherDecls = filteredDeclarations.entries
         .map((e) => _getDependenciesOfDecl(e.value))
         .reduce((value, element) => value..addAll(element));
 
-    // if already in filtered declarations, we remove
-    // because they may have been updated in merge
-    otherDecls.removeWhere((key, value) {
-      final id = UniqueNamer.parse(key);
-      return value is! FunctionDeclaration &&
-          outputDeclSet.values.any((v) => v.id.name == id.name);
-    });
+    final completedDecls = NodeMap({...filteredDeclarations, ...otherDecls});
 
-    return NodeMap({...outputDeclSet, ...otherDecls});
+    final declGroups = groupBy(completedDecls.values, (decl) => decl.id.name);
+
+    final outputDeclSet = NodeMap();
+
+    for (final declSet in declGroups.values) {
+      final nodes = <Node>[];
+      final declarations = <Declaration>[];
+
+      for (final d in declSet) {
+        if (d is Declaration) {
+          declarations.add(d);
+        } else {
+          nodes.add(d);
+        }
+      }
+
+      final (mergedDeclSet, :additionals) = mergeDeclarations(declarations);
+
+      outputDeclSet.addAll({
+        for (final d in [...mergedDeclSet, ...additionals, ...nodes])
+          d.id.toString(): d
+      });
+    }
+
+    return NodeMap(outputDeclSet);
   }
 
   /// Given an already filtered declaration [decl],

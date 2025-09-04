@@ -276,16 +276,6 @@ extension type EpahsImpl<TMeta extends _i1.JSAny?>._(_i1.JSObject _)
   external String toString$();
 }
 extension type Point._(_i1.JSObject _) implements _i1.JSObject {}
-extension type const AnonymousUnion_1113974._(String _) {
-  static const AnonymousUnion_1113974 circle =
-      AnonymousUnion_1113974._('circle');
-
-  static const AnonymousUnion_1113974 rectangle =
-      AnonymousUnion_1113974._('rectangle');
-
-  static const AnonymousUnion_1113974 polygon =
-      AnonymousUnion_1113974._('polygon');
-}
 extension type Epahs<TMetadata extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
   external String name;
@@ -295,6 +285,16 @@ extension type Epahs<TMetadata extends _i1.JSAny?>._(_i1.JSObject _)
   @_i1.JS('area')
   external String area$1(AnonymousUnion_1594664 unit);
   external _i1.JSFunction? get onUpdate;
+}
+extension type const AnonymousUnion_1113974._(String _) {
+  static const AnonymousUnion_1113974 circle =
+      AnonymousUnion_1113974._('circle');
+
+  static const AnonymousUnion_1113974 rectangle =
+      AnonymousUnion_1113974._('rectangle');
+
+  static const AnonymousUnion_1113974 polygon =
+      AnonymousUnion_1113974._('polygon');
 }
 extension type const AnonymousUnion_1594664._(String _) {
   static const AnonymousUnion_1594664 cm2 = AnonymousUnion_1594664._('cm2');

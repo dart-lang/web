@@ -177,7 +177,15 @@ class ProgramMap {
   /// The files in the given project
   final p.PathSet files;
 
+  /// A list of declarations to include
   final List<String> filterDeclSet;
+
+  /// The declarations as globs
+  List<RegExp> get filterDeclSetPatterns => filterDeclSet.map((decl) {
+        final escapedDecl = RegExp.escape(decl);
+        if (escapedDecl == decl) return RegExp('^$decl\$');
+        return RegExp(decl);
+      }).toList();
 
   final bool generateAll;
 
@@ -201,28 +209,42 @@ class ProgramMap {
     } else {
       final src = program.getSourceFile(file);
 
-      final transformer =
-          _activeTransformers.putIfAbsent(file, () => Transformer(this, src));
+      if (src == null && !strictUnsupported) {
+        // print warning
+        print('WARN: Could not find file $file');
+        // try to transform by yourself
+        final anonymousTransformer = _activeTransformers.putIfAbsent(
+            file, () => Transformer(this, null, file: file));
 
-      if (!transformer.nodes.contains(node)) {
-        if (declName case final d?
-            when transformer.nodeMap.findByName(d).isEmpty) {
-          // find the source file decl
-          if (src == null) return null;
+        // TODO: Replace with .transformAndReturn once #388 lands
+        return anonymousTransformer.transformAndReturn(node);
+      } else {
+        final transformer =
+            _activeTransformers.putIfAbsent(file, () => Transformer(this, src));
 
-          final symbol = typeChecker.getSymbolAtLocation(src)!;
-          final exports = symbol.exports?.toDart ?? {};
+        if (!transformer.nodes.contains(node)) {
+          if (declName case final d?
+              when transformer.nodeMap.findByName(d).isEmpty) {
+            // find the source file decl
+            if (src == null) return null;
 
-          final targetSymbol = exports[d.toJS]!;
+            final symbol = typeChecker.getSymbolAtLocation(src)!;
+            final exports = symbol.exports?.toDart ?? {};
 
-          transformer.transform(targetSymbol.getDeclarations()!.toDart.first);
-        } else {
-          transformer.transform(node);
+            final targetSymbol = exports[d.toJS]!;
+
+            for (final decl in targetSymbol.getDeclarations()?.toDart ??
+                <TSDeclaration>[]) {
+              transformer.transform(decl);
+            }
+          } else {
+            transformer.transform(node);
+          }
         }
-      }
 
-      nodeMap = transformer.processAndReturn();
-      _activeTransformers[file] = transformer;
+        nodeMap = transformer.processAndReturn();
+        _activeTransformers[file] = transformer;
+      }
     }
 
     final name = declName ?? (node as TSNamedDeclaration).name?.text;
@@ -287,8 +309,14 @@ class ProgramMap {
       } else {
         final exportedSymbols = sourceSymbol.exports?.toDart;
 
-        for (final MapEntry(value: symbol)
+        for (final MapEntry(key: symbolName, value: symbol)
             in exportedSymbols?.entries ?? <MapEntry<JSString, TSSymbol>>[]) {
+          // if there are decls to filter by and it does not match any, skip
+          if (!filterDeclSetPatterns
+                  .any((f) => f.hasMatch(symbolName.toDart)) &&
+              filterDeclSet.isNotEmpty) {
+            continue;
+          }
           final decls = symbol.getDeclarations()?.toDart ?? [];
           try {
             final aliasedSymbol = typeChecker.getAliasedSymbol(symbol);

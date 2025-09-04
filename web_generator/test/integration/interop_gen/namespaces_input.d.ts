@@ -20,6 +20,7 @@ export declare namespace Core {
 export declare namespace Core.Internal {
     const internalName: string;
     const devMode: boolean;
+    type Mode = "debug" | "profile" | "release";
 }
 export declare namespace Security {
     const TOKEN_LIFETIME_SECONDS: number;

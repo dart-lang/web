@@ -1268,7 +1268,8 @@ class Transformer {
             nonNullableUnionTypes.length != unionTypes.length;
 
         if (nonNullableUnionTypes.singleOrNull case final singleTypeNode?) {
-          return _transformType(singleTypeNode, isNullable: shouldBeNullable);
+          return _transformType(singleTypeNode,
+              isNullable: shouldBeNullable || (isNullable ?? false));
         }
 
         final types = nonNullableUnionTypes.map<Type>(_transformType).toList();
@@ -1307,7 +1308,8 @@ class Transformer {
         final expectedId = ID(type: 'type', name: idMap.join('|'));
 
         if (typeMap.containsKey(expectedId.toString())) {
-          return typeMap[expectedId.toString()] as UnionType;
+          return (typeMap[expectedId.toString()] as UnionType)
+            ..isNullable = (isNullable ?? false);
         }
 
         final name =
@@ -1323,6 +1325,50 @@ class Transformer {
         });
         return unType..isNullable = shouldBeNullable;
 
+      case TSSyntaxKind.IntersectionType:
+        final intersectionType = type as TSIntersectionTypeNode;
+        final intersectionTypes = intersectionType.types.toDart;
+        final nonNullableIntersectionTypes = intersectionTypes
+            .where((t) =>
+                t.kind != TSSyntaxKind.UndefinedKeyword &&
+                !(t.kind == TSSyntaxKind.LiteralType &&
+                    (t as TSLiteralTypeNode).literal.kind ==
+                        TSSyntaxKind.NullKeyword))
+            .toList();
+        final shouldBeNullable =
+            nonNullableIntersectionTypes.length != intersectionTypes.length;
+
+        if (shouldBeNullable) {
+          return BuiltinType.primitiveType(PrimitiveType.never,
+              isNullable: isNullable);
+        }
+
+        if (nonNullableIntersectionTypes.singleOrNull
+            case final singleTypeNode?) {
+          return _transformType(singleTypeNode, isNullable: isNullable);
+        }
+
+        final types =
+            nonNullableIntersectionTypes.map<Type>(_transformType).toList();
+
+        final idMap = types.map((t) => t.id.name);
+        final expectedId = ID(type: 'type', name: idMap.join('&'));
+        if (typeMap.containsKey(expectedId.toString())) {
+          return (typeMap[expectedId.toString()] as IntersectionType)
+            ..isNullable = (isNullable ?? false);
+        }
+
+        final intersectionHash = AnonymousHasher.hashUnion(idMap.toList());
+        final name = 'AnonymousIntersection_$intersectionHash';
+
+        final un = IntersectionType(types: types, name: name);
+
+        final unType = typeMap.putIfAbsent(expectedId.toString(), () {
+          namer.markUsed(name);
+          return un;
+        });
+
+        return unType..isNullable = isNullable ?? shouldBeNullable;
       case TSSyntaxKind.TupleType:
         // tuple type is array
         final tupleType = type as TSTupleTypeNode;
@@ -2332,12 +2378,13 @@ class Transformer {
             for (final t in t.types.where((t) => t is! BuiltinType))
               t.id.toString(): t
           });
-        case final UnionType u:
+        case UnionType(types: final uTypes, declaration: final uDecl) ||
+              IntersectionType(types: final uTypes, declaration: final uDecl):
           filteredDeclarations.addAll({
-            for (final t in u.types.where((t) => t is! BuiltinType))
+            for (final t in uTypes.where((t) => t is! BuiltinType))
               t.id.toString(): t
           });
-          filteredDeclarations.add(u.declaration);
+          filteredDeclarations.add(uDecl);
         case final DeclarationType d:
           filteredDeclarations.add(d.declaration);
           break;

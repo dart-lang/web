@@ -5,7 +5,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:js_interop' as _i1;
 
-import 'package:web/web.dart' as _i3;
+import 'package:meta/meta.dart' as _i3;
+import 'package:web/web.dart' as _i4;
 
 import '_tuples.dart' as _i2;
 
@@ -113,6 +114,17 @@ external _i1.JSArray<AnonymousType_5780756> get shoppingCart;
 external _AnonymousFunction_2181528 get createLogger;
 @_i1.JS()
 external _AnonymousFunction_1707607 get appLogger;
+@_i1.JS()
+external AnonymousIntersection_1467782 get myIntersection;
+@_i1.JS()
+external AnonymousIntersection_5583924? get myOtherIntersection;
+@_i3.doNotStore
+@_i1.JS()
+external _i1.JSAny? get someIntersection;
+@_i1.JS()
+external AnonymousIntersection_4895242 get myThirdIntersection;
+@_i1.JS()
+external AnonymousIntersection_1711585 get myTypeGymnastic;
 extension type AnonymousType_9143117<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
   external AnonymousType_9143117({
@@ -190,7 +202,7 @@ extension type AnonymousUnion_3781934._(_i1.JSAny _) implements _i1.JSAny {
 extension type AnonymousUnion_6216705._(_i1.JSAny _) implements _i1.JSAny {
   String get asString => (_ as _i1.JSString).toDart;
 
-  _i3.URL get asURL => (_ as _i3.URL);
+  _i4.URL get asURL => (_ as _i4.URL);
 }
 extension type AnonymousUnion_7503220._(_i1.JSTypedArray _)
     implements _i1.JSTypedArray {
@@ -304,4 +316,98 @@ extension type _AnonymousFunction_2181528._(_i1.JSFunction _)
 extension type _AnonymousFunction_1707607._(_i1.JSFunction _)
     implements _i1.JSFunction {
   external void call(String message);
+}
+extension type AnonymousIntersection_1467782._(_i1.JSAny _)
+    implements _i1.JSAny {
+  String get asString => (_ as _i1.JSString).toDart;
+
+  double get asDouble => (_ as _i1.JSNumber).toDartDouble;
+}
+extension type AnonymousIntersection_5583924._(_i1.JSAny _)
+    implements _i1.JSAny {
+  String get asString => (_ as _i1.JSString).toDart;
+
+  _i1.JSSymbol get asJSSymbol => (_ as _i1.JSSymbol);
+}
+extension type AnonymousType_1178025._(_i1.JSObject _) implements _i1.JSObject {
+  external AnonymousType_1178025({
+    String debugInfo,
+    _i1.JSSymbol tag,
+  });
+
+  external String debugInfo;
+
+  external _i1.JSSymbol tag;
+}
+extension type AnonymousType_8266437._(_i1.JSObject _) implements _i1.JSObject {
+  external AnonymousType_8266437();
+
+  @_i1.JS('toString')
+  external String toString$();
+}
+extension type AnonymousIntersection_4895242._(_i1.JSAny _)
+    implements _i1.JSAny {
+  String get asString => (_ as _i1.JSString).toDart;
+
+  AnonymousType_1178025 get asAnonymousType_1178025 =>
+      (_ as AnonymousType_1178025);
+
+  AnonymousType_8266437 get asAnonymousType_8266437 =>
+      (_ as AnonymousType_8266437);
+}
+extension type AnonymousIntersection_1711585._(_i1.JSAny _)
+    implements _i1.JSAny {
+  AnonymousUnion_2392544 get asAnonymousUnion_2392544 =>
+      (_ as AnonymousUnion_2392544);
+
+  AnonymousUnion_5737239 get asAnonymousUnion_5737239 =>
+      (_ as AnonymousUnion_5737239);
+}
+extension type AnonymousType_4207514._(_i1.JSObject _) implements _i1.JSObject {
+  external AnonymousType_4207514({double a});
+
+  external double a;
+}
+extension type AnonymousType_1806035._(_i1.JSObject _) implements _i1.JSObject {
+  external AnonymousType_1806035({String b});
+
+  external String b;
+}
+extension type AnonymousUnion_2392544._(_i1.JSObject _)
+    implements _i1.JSObject {
+  AnonymousType_4207514 get asAnonymousType_4207514 =>
+      (_ as AnonymousType_4207514);
+
+  AnonymousType_1806035 get asAnonymousType_1806035 =>
+      (_ as AnonymousType_1806035);
+}
+extension type AnonymousType_1417026._(_i1.JSObject _) implements _i1.JSObject {
+  external AnonymousType_1417026({bool c});
+
+  external bool c;
+}
+extension type AnonymousUnion_5737239._(_i1.JSAny _) implements _i1.JSAny {
+  AnonymousType_1417026 get asAnonymousType_1417026 =>
+      (_ as AnonymousType_1417026);
+
+  AnonymousIntersection_4953753 get asAnonymousIntersection_4953753 =>
+      (_ as AnonymousIntersection_4953753);
+}
+extension type AnonymousType_1229657._(_i1.JSObject _) implements _i1.JSObject {
+  external AnonymousType_1229657({_i1.JSBigInt d});
+
+  external _i1.JSBigInt d;
+}
+extension type AnonymousType_4825273._(_i1.JSObject _) implements _i1.JSObject {
+  external AnonymousType_4825273({_i1.JSSymbol e});
+
+  external _i1.JSSymbol e;
+}
+extension type AnonymousIntersection_4953753._(_i1.JSObject _)
+    implements AnonymousType_1229657, AnonymousType_4825273 {
+  AnonymousType_1229657 get asAnonymousType_1229657 =>
+      (_ as AnonymousType_1229657);
+
+  AnonymousType_4825273 get asAnonymousType_4825273 =>
+      (_ as AnonymousType_4825273);
 }

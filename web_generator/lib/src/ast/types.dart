@@ -146,6 +146,41 @@ class UnionType extends DeclarationType {
   }
 }
 
+class IntersectionType extends DeclarationType {
+  final List<Type> types;
+
+  @override
+  bool isNullable = false;
+
+  @override
+  String declarationName;
+
+  IntersectionType({required this.types, required String name})
+      : declarationName = name;
+
+  @override
+  ID get id => ID(type: 'type', name: types.map((t) => t.id.name).join('&'));
+
+  @override
+  Declaration get declaration =>
+      _IntersectionDeclaration(name: declarationName, types: types);
+
+  @override
+  Reference emit([TypeOptions? options]) {
+    return TypeReference((t) => t
+      ..symbol = declarationName
+      ..isNullable = (options?.nullable ?? false) || isNullable);
+  }
+
+  @override
+  int get hashCode => Object.hashAllUnordered(types);
+
+  @override
+  bool operator ==(Object other) {
+    return other is TupleType && other.types.every(types.contains);
+  }
+}
+
 class HomogenousEnumType<T extends LiteralType, D extends Declaration>
     extends UnionType implements DeclarationType {
   final List<T> _types;
@@ -557,25 +592,27 @@ class _ConstructorDeclaration extends CallableDeclaration
   }
 }
 
-// TODO: Merge properties/methods of related types
-class _UnionDeclaration extends NamedDeclaration
+sealed class _UnionOrIntersectionDeclaration extends NamedDeclaration
     implements ExportableDeclaration {
   @override
   bool get exported => true;
 
   @override
-  ID get id => ID(type: 'union', name: name);
-
-  bool isNullable;
+  ID get id;
 
   List<Type> types;
 
   List<GenericType> typeParameters;
 
-  _UnionDeclaration(
+  @override
+  String name;
+
+  @override
+  String? dartName;
+
+  _UnionOrIntersectionDeclaration(
       {required this.name,
       this.types = const [],
-      this.isNullable = false,
       List<GenericType>? typeParams})
       : typeParameters = typeParams ?? [] {
     if (typeParams == null) {
@@ -588,18 +625,33 @@ class _UnionDeclaration extends NamedDeclaration
     }
   }
 
-  @override
-  String? dartName;
-
-  @override
-  String name;
-
-  @override
-  Spec emit([covariant DeclarationOptions? options]) {
+  Spec _emit(
+      {covariant DeclarationOptions? options,
+      bool extendTypes = false,
+      bool isNullable = false}) {
     options ??= DeclarationOptions();
 
     final repType =
         getLowestCommonAncestorOfTypes(types, isNullable: isNullable);
+
+    final extendees = <Type>[];
+    if (extendTypes) {
+      // check if any types are primitive
+      // TODO: We can be much smarter about this, but this works best so far
+      if (types.any((t) {
+            final jsAltType = getJSTypeAlternative(t);
+            return jsAltType is BuiltinType &&
+                _nonObjectRepTypeTypes.contains(jsAltType.name);
+          }) ||
+          (repType is BuiltinType && repType.name == 'JSAny')) {
+        extendees.add(
+            BuiltinType.primitiveType(PrimitiveType.any, isNullable: false));
+      } else {
+        extendees.addAll(types.map(getJSTypeAlternative));
+      }
+    } else {
+      extendees.add(repType);
+    }
 
     return ExtensionType((e) => e
       ..name = name
@@ -607,7 +659,8 @@ class _UnionDeclaration extends NamedDeclaration
       ..representationDeclaration = RepresentationDeclaration((r) => r
         ..name = '_'
         ..declaredRepresentationType = repType.emit(options?.toTypeOptions()))
-      ..implements.addAll([repType.emit(options?.toTypeOptions())])
+      ..implements
+          .addAll(extendees.map((e) => e.emit(options?.toTypeOptions())))
       ..types
           .addAll(typeParameters.map((t) => t.emit(options?.toTypeOptions())))
       ..methods.addAll(types.map((t) {
@@ -718,4 +771,46 @@ class _EnumObjDeclaration extends NamedDeclaration
 
   @override
   ID get id => ID(type: 'enum-rep', name: name);
+}
+
+List<String> _nonObjectRepTypeTypes = [
+  'JSAny',
+  'JSString',
+  'JSBoolean',
+  'JSNumber',
+  'JSSymbol',
+  'JSBigInt'
+];
+
+class _IntersectionDeclaration extends _UnionOrIntersectionDeclaration {
+  @override
+  bool get exported => true;
+
+  @override
+  ID get id => ID(type: 'intersection', name: name);
+
+  _IntersectionDeclaration({required super.name, super.types}) : super();
+
+  @override
+  Spec emit([covariant DeclarationOptions? options]) {
+    return super._emit(options: options, extendTypes: true);
+  }
+}
+
+class _UnionDeclaration extends _UnionOrIntersectionDeclaration {
+  @override
+  bool get exported => true;
+
+  @override
+  ID get id => ID(type: 'union', name: name);
+
+  bool isNullable;
+
+  _UnionDeclaration({required super.name, super.types, this.isNullable = false})
+      : super();
+
+  @override
+  Spec emit([covariant DeclarationOptions? options]) {
+    return super._emit(options: options, isNullable: isNullable);
+  }
 }

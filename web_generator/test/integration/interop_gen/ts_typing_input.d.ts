@@ -87,7 +87,8 @@ export declare const shoppingCart: {
 export declare const createLogger: (prefix: string) => (message: string) => void;
 export declare const appLogger: (message: string) => void;
 export declare const myIntersection: string & number;
-export declare const mySecondIntersection: string & {
+export declare const myOtherIntersection: (string & symbol) | undefined;
+export declare const myThirdIntersection: string & {
     debugInfo: string;
     tag: symbol
 } & {

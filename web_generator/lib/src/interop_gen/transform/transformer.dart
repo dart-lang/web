@@ -1268,7 +1268,8 @@ class Transformer {
             nonNullableUnionTypes.length != unionTypes.length;
 
         if (nonNullableUnionTypes.singleOrNull case final singleTypeNode?) {
-          return _transformType(singleTypeNode, isNullable: shouldBeNullable);
+          return _transformType(singleTypeNode,
+              isNullable: shouldBeNullable || (isNullable ?? false));
         }
 
         final types = nonNullableUnionTypes.map<Type>(_transformType).toList();
@@ -1307,7 +1308,8 @@ class Transformer {
         final expectedId = ID(type: 'type', name: idMap.join('|'));
 
         if (typeMap.containsKey(expectedId.toString())) {
-          return typeMap[expectedId.toString()] as UnionType;
+          return (typeMap[expectedId.toString()] as UnionType)
+            ..isNullable = (isNullable ?? false);
         }
 
         final name =
@@ -1336,11 +1338,14 @@ class Transformer {
         final shouldBeNullable =
             nonNullableIntersectionTypes.length != intersectionTypes.length;
 
-        if (shouldBeNullable) return BuiltinType.$voidType;
+        if (shouldBeNullable) {
+          return BuiltinType.primitiveType(PrimitiveType.never,
+              isNullable: isNullable);
+        }
 
         if (nonNullableIntersectionTypes.singleOrNull
             case final singleTypeNode?) {
-          return _transformType(singleTypeNode, isNullable: shouldBeNullable);
+          return _transformType(singleTypeNode, isNullable: isNullable);
         }
 
         final types =
@@ -1349,7 +1354,8 @@ class Transformer {
         final idMap = types.map((t) => t.id.name);
         final expectedId = ID(type: 'type', name: idMap.join('&'));
         if (typeMap.containsKey(expectedId.toString())) {
-          return typeMap[expectedId.toString()] as UnionType;
+          return (typeMap[expectedId.toString()] as IntersectionType)
+            ..isNullable = (isNullable ?? false);
         }
 
         final intersectionHash = AnonymousHasher.hashUnion(idMap.toList());
@@ -1362,7 +1368,7 @@ class Transformer {
           return un;
         });
 
-        return unType..isNullable = shouldBeNullable;
+        return unType..isNullable = isNullable ?? shouldBeNullable;
       case TSSyntaxKind.TupleType:
         // tuple type is array
         final tupleType = type as TSTupleTypeNode;

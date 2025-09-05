@@ -778,7 +778,8 @@ List<String> _nonObjectRepTypeTypes = [
   'JSString',
   'JSBoolean',
   'JSNumber',
-  'JSSymbol'
+  'JSSymbol',
+  'JSBigInt'
 ];
 
 class _IntersectionDeclaration extends _UnionOrIntersectionDeclaration {

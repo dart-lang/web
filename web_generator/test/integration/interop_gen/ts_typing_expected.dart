@@ -116,7 +116,9 @@ external _AnonymousFunction_1707607 get appLogger;
 @_i1.JS()
 external AnonymousIntersection_1467782 get myIntersection;
 @_i1.JS()
-external AnonymousIntersection_4895242 get mySecondIntersection;
+external AnonymousIntersection_5583924? get myOtherIntersection;
+@_i1.JS()
+external AnonymousIntersection_4895242 get myThirdIntersection;
 @_i1.JS()
 external AnonymousIntersection_1711585 get myTypeGymnastic;
 extension type AnonymousType_9143117<T extends _i1.JSAny?>._(_i1.JSObject _)
@@ -316,6 +318,12 @@ extension type AnonymousIntersection_1467782._(_i1.JSAny _)
   String get asString => (_ as _i1.JSString).toDart;
 
   double get asDouble => (_ as _i1.JSNumber).toDartDouble;
+}
+extension type AnonymousIntersection_5583924._(_i1.JSAny _)
+    implements _i1.JSAny {
+  String get asString => (_ as _i1.JSString).toDart;
+
+  _i1.JSSymbol get asJSSymbol => (_ as _i1.JSSymbol);
 }
 extension type AnonymousType_1178025._(_i1.JSObject _) implements _i1.JSObject {
   external AnonymousType_1178025({

@@ -88,6 +88,7 @@ export declare const createLogger: (prefix: string) => (message: string) => void
 export declare const appLogger: (message: string) => void;
 export declare const myIntersection: string & number;
 export declare const myOtherIntersection: (string & symbol) | undefined;
+export declare const someIntersection: string & symbol & undefined;
 export declare const myThirdIntersection: string & {
     debugInfo: string;
     tag: symbol

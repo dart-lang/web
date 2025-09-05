@@ -5,7 +5,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:js_interop' as _i1;
 
-import 'package:web/web.dart' as _i3;
+import 'package:meta/meta.dart' as _i3;
+import 'package:web/web.dart' as _i4;
 
 import '_tuples.dart' as _i2;
 
@@ -117,6 +118,9 @@ external _AnonymousFunction_1707607 get appLogger;
 external AnonymousIntersection_1467782 get myIntersection;
 @_i1.JS()
 external AnonymousIntersection_5583924? get myOtherIntersection;
+@_i3.doNotStore
+@_i1.JS()
+external _i1.JSAny? get someIntersection;
 @_i1.JS()
 external AnonymousIntersection_4895242 get myThirdIntersection;
 @_i1.JS()
@@ -198,7 +202,7 @@ extension type AnonymousUnion_3781934._(_i1.JSAny _) implements _i1.JSAny {
 extension type AnonymousUnion_6216705._(_i1.JSAny _) implements _i1.JSAny {
   String get asString => (_ as _i1.JSString).toDart;
 
-  _i3.URL get asURL => (_ as _i3.URL);
+  _i4.URL get asURL => (_ as _i4.URL);
 }
 extension type AnonymousUnion_7503220._(_i1.JSTypedArray _)
     implements _i1.JSTypedArray {

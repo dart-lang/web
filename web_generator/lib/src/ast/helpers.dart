@@ -259,6 +259,8 @@ Type desugarTypeAliases(Type t) {
   if (t case final ReferredType ref
       when ref.declaration is TypeAliasDeclaration) {
     return desugarTypeAliases((ref.declaration as TypeAliasDeclaration).type);
+  } else if (t case ReferredDeclarationType(type: final actualType)) {
+    return desugarTypeAliases(actualType);
   }
   return t;
 }

@@ -15,6 +15,15 @@ external String myFunction(String param);
 @_i1.JS()
 external String myEnclosingFunction(_i1.JSFunction func);
 @_i1.JS()
+external bool objectIsProduct(_i1.JSObject obj);
+@_i1.JS()
+external AnonymousType_2194029 get randomNonTypedProduct;
+@_i1.JS()
+external ProductOrrandomNonTypedProduct objectAsProduct(
+  _i1.JSObject obj,
+  bool structured,
+);
+@_i1.JS()
 external _i1.JSArray<AnonymousType_9143117<T>>
     indexedArray<T extends _i1.JSAny?>(_i1.JSArray<T> arr);
 @_i1.JS()
@@ -84,8 +93,6 @@ external _i2.JSTuple4<_i1.JSString, _i1.JSNumber, _i1.JSBoolean, _i1.JSSymbol>
 @_i1.JS()
 external AnonymousUnion_7503220 get eightOrSixteen;
 @_i1.JS()
-external AnonymousType_2194029 get randomNonTypedProduct;
-@_i1.JS()
 external AnonymousType_1358595 get config;
 extension type MyProduct._(_i1.JSObject _) implements Product {
   external MyProduct(
@@ -125,6 +132,26 @@ external _i1.JSAny? get someIntersection;
 external AnonymousIntersection_4895242 get myThirdIntersection;
 @_i1.JS()
 external AnonymousIntersection_1711585 get myTypeGymnastic;
+extension type AnonymousType_2194029._(_i1.JSObject _) implements _i1.JSObject {
+  external AnonymousType_2194029({
+    double id,
+    String name,
+    double price,
+  });
+
+  external double id;
+
+  external String name;
+
+  external double price;
+}
+typedef Product = AnonymousType_2194029;
+extension type ProductOrrandomNonTypedProduct._(AnonymousType_2194029 _)
+    implements AnonymousType_2194029 {
+  Product get asProduct => _;
+
+  AnonymousType_2194029 get asRandomNonTypedProduct => _;
+}
 extension type AnonymousType_9143117<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
   external AnonymousType_9143117({
@@ -210,19 +237,6 @@ extension type AnonymousUnion_7503220._(_i1.JSTypedArray _)
 
   _i1.JSUint16Array get asJSUint16Array => (_ as _i1.JSUint16Array);
 }
-extension type AnonymousType_2194029._(_i1.JSObject _) implements _i1.JSObject {
-  external AnonymousType_2194029({
-    double id,
-    String name,
-    double price,
-  });
-
-  external double id;
-
-  external String name;
-
-  external double price;
-}
 extension type AnonymousType_1358595._(_i1.JSObject _) implements _i1.JSObject {
   external AnonymousType_1358595({
     double discountRate,
@@ -233,7 +247,6 @@ extension type AnonymousType_1358595._(_i1.JSObject _) implements _i1.JSObject {
 
   external double taxRate;
 }
-typedef Product = AnonymousType_2194029;
 extension type AnonymousType_2773310._(_i1.JSObject _) implements _i1.JSObject {
   external AnonymousType_2773310({
     String id,

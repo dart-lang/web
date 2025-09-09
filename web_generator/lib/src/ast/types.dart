@@ -673,48 +673,48 @@ sealed class _UnionOrIntersectionDeclaration extends NamedDeclaration
               dartTypeName ?? typeName,
             _ => t.dartName ?? t.id.name
           };
+          final Expression body;
+          if (desugarTypeAliases(t) == repType) {
+            body = refer('_');
+          } else if (jsTypeAlt.id == t.id) {
+            body = refer('_').asA(type);
+          } else {
+            body = switch (t) {
+              BuiltinType(name: final n) when n == 'int' => refer('_')
+                  .asA(jsTypeAlt.emit(options?.toTypeOptions()))
+                  .property('toDartInt'),
+              BuiltinType(name: final n) when n == 'double' || n == 'num' =>
+                refer('_')
+                    .asA(jsTypeAlt.emit(options?.toTypeOptions()))
+                    .property('toDartDouble'),
+              BuiltinType() => refer('_')
+                  .asA(jsTypeAlt.emit(options?.toTypeOptions()))
+                  .property('toDart'),
+              ReferredType(
+                declaration: final decl,
+                name: final n,
+                url: final url
+              )
+                  when decl is EnumDeclaration =>
+                refer(n, url).property('_').call([
+                  refer('_')
+                      .asA(jsTypeAlt.emit(options?.toTypeOptions()))
+                      .property(decl.baseType is NamedType
+                          ? switch ((decl.baseType as NamedType).name) {
+                              'int' => 'toDartInt',
+                              'num' || 'double' => 'toDartDouble',
+                              _ => 'toDart'
+                            }
+                          : 'toDart')
+                ]),
+              _ => refer('_').asA(jsTypeAlt.emit(options?.toTypeOptions()))
+            };
+          }
           m
             ..type = MethodType.getter
             ..name = 'as${uppercaseFirstLetter(word)}'
             ..returns = type
-            ..body = jsTypeAlt.id == t.id
-                ? refer('_').asA(type).code
-                : switch (t) {
-                    BuiltinType(name: final n) when n == 'int' => refer('_')
-                        .asA(jsTypeAlt.emit(options?.toTypeOptions()))
-                        .property('toDartInt')
-                        .code,
-                    BuiltinType(name: final n)
-                        when n == 'double' || n == 'num' =>
-                      refer('_')
-                          .asA(jsTypeAlt.emit(options?.toTypeOptions()))
-                          .property('toDartDouble')
-                          .code,
-                    BuiltinType() => refer('_')
-                        .asA(jsTypeAlt.emit(options?.toTypeOptions()))
-                        .property('toDart')
-                        .code,
-                    ReferredType(
-                      declaration: final decl,
-                      name: final n,
-                      url: final url
-                    )
-                        when decl is EnumDeclaration =>
-                      refer(n, url).property('_').call([
-                        refer('_')
-                            .asA(jsTypeAlt.emit(options?.toTypeOptions()))
-                            .property(decl.baseType is NamedType
-                                ? switch ((decl.baseType as NamedType).name) {
-                                    'int' => 'toDartInt',
-                                    'num' || 'double' => 'toDartDouble',
-                                    _ => 'toDart'
-                                  }
-                                : 'toDart')
-                      ]).code,
-                    _ => refer('_')
-                        .asA(jsTypeAlt.emit(options?.toTypeOptions()))
-                        .code
-                  };
+            ..body = body.code;
         });
       })));
   }

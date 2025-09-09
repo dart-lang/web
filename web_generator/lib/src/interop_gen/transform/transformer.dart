@@ -1113,6 +1113,42 @@ class Transformer {
 
         return _getTypeFromTypeNode(refType,
             typeArg: typeArg, isNullable: isNullable ?? false);
+      case TSSyntaxKind.TypePredicate:
+        // in the future, we can be smarter about this
+        // but for now, we just have this as a boolean
+        return BuiltinType.primitiveType(PrimitiveType.boolean,
+            isNullable: isNullable);
+      case TSSyntaxKind.ConditionalType:
+        final conditionalType = type as TSConditionalTypeNode;
+        final trueType = _transformType(conditionalType.trueType);
+        final falseType = _transformType(conditionalType.falseType);
+
+        final types = [trueType, falseType]
+            .sorted((a, b) => a.id.toString().compareTo(b.id.toString()));
+
+        final expectedID = ID(type: 'type', name: types.join('|'));
+
+        if (typeMap.containsKey(expectedID.toString())) {
+          return (typeMap[expectedID.toString()] as UnionType)
+            ..isNullable = (isNullable ?? false);
+        }
+
+        final trueTypeName = trueType is NamedType
+            ? trueType.name
+            : trueType.dartName ?? trueType.id.name;
+
+        final falseTypeName = falseType is NamedType
+            ? falseType.name
+            : falseType.dartName ?? falseType.id.name;
+        final conditionalName = '${trueTypeName}Or$falseTypeName';
+
+        final un = UnionType(types: types, name: conditionalName);
+        final unType = typeMap.putIfAbsent(expectedID.toString(), () {
+          namer.markUsed(conditionalName);
+          return un;
+        });
+
+        return unType..isNullable = (isNullable ?? false);
       case TSSyntaxKind.TypeLiteral:
         // type literal
         final typeLiteralNode = type as TSTypeLiteralNode;

@@ -352,7 +352,8 @@ InterfaceDeclaration mergeInterfaces(List<InterfaceDeclaration> interfaces,
       id: ID(
           type: referenceInterface.id.type, name: referenceInterface.id.name),
       typeParameters: interfaces.map((i) => i.typeParameters).flattenedToSet,
-      extendedTypes: interfaces.map((i) => i.extendedTypes).flattenedToList,
+      extendedTypes:
+          interfaces.map((i) => i.extendedTypes).flattenedToSet.toList(),
       properties: interfaces
           .map((i) => _rescopeDecls(i.properties, namer: namer))
           .flattenedToList,

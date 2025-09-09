@@ -1423,6 +1423,7 @@ class Transformer {
         final literalType = type as TSLiteralTypeNode;
         final literal = literalType.literal;
 
+        // TODO: Support Binary and Prefix Expression Literals
         return LiteralType(
             isNullable: isNullable ?? false,
             kind: switch (literal.kind) {
@@ -1435,7 +1436,8 @@ class Transformer {
               TSSyntaxKind.FalseKeyword => LiteralKind.$false,
               TSSyntaxKind.NullKeyword => LiteralKind.$null,
               _ => throw UnimplementedError(
-                  'Unsupported Literal Kind ${literal.kind}')
+                  'Unsupported Literal Kind ${literal.kind}:'
+                  ' ${literal.getText()}')
             },
             value: switch (literal.kind) {
               // TODO: Will we support Regex?
@@ -1445,7 +1447,8 @@ class Transformer {
               TSSyntaxKind.FalseKeyword => false,
               TSSyntaxKind.NullKeyword => null,
               _ => throw UnimplementedError(
-                  'Unsupported Literal Kind ${literal.kind}')
+                  'Unsupported Literal Kind ${literal.kind}:'
+                  ' ${literal.getText()}')
             });
       case TSSyntaxKind.TypeQuery:
         final typeQuery = type as TSTypeQueryNode;
@@ -1730,8 +1733,7 @@ class Transformer {
             typeArguments: typeArguments,
             isNotTypableDeclaration: isNotTypableDeclaration,
             parent: parent,
-            namer:namer
-        );
+            namer: namer);
 
         if (exportTypeOrNull != null) outputTypes.add(exportTypeOrNull);
 
@@ -1998,14 +2000,98 @@ class Transformer {
               referencedDeclarations?.whereType<NamedDeclaration>().toList() ??
                   [];
         } else {
-          var declarationsMatching = nodeMap.findByName(firstName);
-          if (declarationsMatching.isEmpty) {
-            transform(decl);
-            declarationsMatching = nodeMap.findByName(firstName);
-          }
+          if (fullyQualifiedName.length == 1) {
+            var declarationsMatching = nodeMap.findByName(firstName);
+            if (declarationsMatching.isEmpty) {
+              transform(decl);
+              declarationsMatching = nodeMap.findByName(firstName);
+            }
 
-          mappedDecls =
-              declarationsMatching.whereType<NamedDeclaration>().toList();
+            mappedDecls =
+                declarationsMatching.whereType<NamedDeclaration>().toList();
+          } else {
+            List<Declaration> findDecl(
+              Iterable<QualifiedNamePart> names,
+              List<NamedDeclaration> targetDecls,
+            ) {
+              final outputDecls = <Declaration>[];
+              for (final target in targetDecls) {
+                switch (target) {
+                  case NamespaceDeclaration(
+                      topLevelDeclarations: final topLevelDecls,
+                      nestableDeclarations: final nestableDecls,
+                      namespaceDeclarations: final namespaceDecls
+                    ):
+                    if (names.length == 1) {
+                      outputDecls.addAll([
+                        ...topLevelDecls,
+                        ...nestableDecls,
+                        ...namespaceDecls
+                      ].where((d) => d.name == names.first.part));
+                    } else {
+                      return findDecl(names.skip(1), [
+                        ...topLevelDecls.whereType<NamedDeclaration>(),
+                        ...nestableDecls,
+                        ...namespaceDecls
+                      ]);
+                    }
+                    break;
+                  case TypeDeclaration(
+                      properties: final properties,
+                      methods: final methods,
+                      operators: final operators
+                    ):
+                    outputDecls.addAll([...properties, ...methods, ...operators]
+                        .where((d) => d.name == names.first.part));
+                    break;
+                }
+              }
+
+              return outputDecls;
+            }
+
+            var declarationsMatching =
+                nodeMap.findByName(fullyQualifiedName.first.part);
+            TSNode rootDecl = decl;
+            for (var i = 1; i < fullyQualifiedName.length; ++i) {
+              rootDecl = decl.parent;
+              print((decl.kind, to: rootDecl.kind));
+            }
+
+            print((
+              'Final',
+              decl.kind,
+              to: rootDecl.kind,
+              toText: rootDecl.getText(),
+              parent: rootDecl.parent.getText()
+            ));
+
+            if (isTypeNode(rootDecl)) {
+              final rootType =
+                  _transformType(rootDecl as TSTypeNode, typeArg: typeArg);
+
+              if (rootType
+                  case DeclarationType(declaration: final transformedRootDecl)
+                  when transformedRootDecl is NamedDeclaration) {
+                mappedDecls =
+                    findDecl(fullyQualifiedName.skip(1), [transformedRootDecl]);
+              } else {
+                throw Exception('The given declaration root of kind'
+                    ' ${rootDecl.kind} is not supported for nested member '
+                    'search: ${rootDecl.getText()}');
+              }
+            } else {
+              transform(rootDecl);
+
+              declarationsMatching = nodeMap.findByName(firstName);
+
+              final mappedRootDecls =
+                  declarationsMatching.whereType<NamedDeclaration>().toList();
+
+              mappedDecls =
+                  findDecl(fullyQualifiedName.skip(1), mappedRootDecls);
+            }
+          }
         }
       }
 
@@ -2568,4 +2654,9 @@ QualifiedName parseQualifiedName(
   } else {
     return parseQualifiedNameFromTSQualifiedName(name as TSQualifiedName);
   }
+}
+
+bool isTypeNode(TSNode node) {
+  return node.kind >= TSSyntaxKind.FirstTypeNode &&
+      node.kind <= TSSyntaxKind.LastTypeNode;
 }

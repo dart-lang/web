@@ -101,6 +101,10 @@ extension type const TSSyntaxKind._(num _) {
   static const TSSyntaxKind ConstructorType = TSSyntaxKind._(185);
   static const TSSyntaxKind TypeOperator = TSSyntaxKind._(198);
 
+  // bounds
+  static const TSSyntaxKind FirstTypeNode = TSSyntaxKind._(182);
+  static const TSSyntaxKind LastTypeNode = TSSyntaxKind._(205);
+
   // Other
   static const TSSyntaxKind Identifier = TSSyntaxKind._(80);
   static const TSSyntaxKind QualifiedName = TSSyntaxKind._(166);
@@ -118,6 +122,9 @@ extension type const TSSyntaxKind._(num _) {
   static const TSSyntaxKind ExternalModuleReference = TSSyntaxKind._(283);
   static const TSSyntaxKind EnumMember = TSSyntaxKind._(306);
   static const TSSyntaxKind SourceFile = TSSyntaxKind._(308);
+
+  bool operator <=(TSSyntaxKind kind) => _ <= kind._;
+  bool operator >=(TSSyntaxKind kind) => _ >= kind._;
 }
 
 extension type const TSNodeFlags._(int _) implements int {

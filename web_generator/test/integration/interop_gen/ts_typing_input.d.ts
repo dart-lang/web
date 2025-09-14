@@ -29,7 +29,6 @@ export declare const myEnumValue2: typeof MyEnum;
 export declare function myFunction(param: string): string;
 export declare let myFunctionAlias: typeof myFunction;
 export declare let myFunctionAlias2: typeof myFunctionAlias;
-// export declare let myPreClone: typeof myComposedType;
 export declare function myEnclosingFunction(func: typeof myFunction): string;
 export declare const myEnclosingFunctionAlias: typeof myEnclosingFunction;
 export declare const myComposedType: ComposedType;
@@ -65,7 +64,9 @@ export declare class MyProduct implements Product {
     price: number;
     constructor(id: number, name: string, price: number);
 }
-export function indexedArray<T>(arr: T[]): { id: number, value: T }[];
+export declare function objectIsProduct(obj: object): obj is Product;
+export declare function objectAsProduct(obj: object, structured: boolean): (typeof structured) extends true ? Product : typeof randomNonTypedProduct;
+export declare function indexedArray<T>(arr: T[]): { id: number, value: T }[];
 export const responseObject: {
     id: string;
     value: any;

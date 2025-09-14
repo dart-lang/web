@@ -24,6 +24,17 @@ external V dotProduct<V extends _i2.Vector>(
   V v2,
 );
 
+/// Computes the dot product between two vectors.
+/// - [v1]:  First vector.
+/// - [v2]:  Second vector.
+///
+/// Returns A scalar projection as a vector.
+@_i1.JS('dotProduct')
+external V dotProduct$1<V extends _i2.Vector>(
+  V v1,
+  V v2,
+);
+
 /// Computes the cross product of two 3D vectors.
 /// - [v1]:  First vector.
 /// - [v2]:  Second vector.
@@ -35,6 +46,17 @@ external _i2.Vector3D crossProduct(
   _i2.Vector3D v2,
 );
 
+/// Computes the cross product of two 3D vectors.
+/// - [v1]:  First vector.
+/// - [v2]:  Second vector.
+///
+/// Returns A new 3D vector perpendicular to both.
+@_i1.JS('crossProduct')
+external _i2.Vector3D crossProduct$1(
+  _i2.Vector3D v1,
+  _i2.Vector3D v2,
+);
+
 /// Maps a 2D vector to a 3D vector (z = 0).
 /// - [v]:  Input 2D vector.
 ///
@@ -42,13 +64,28 @@ external _i2.Vector3D crossProduct(
 @_i1.JS()
 external _i2.Vector3D mapTo3D(_i2.Vector2D v);
 
+/// Maps a 2D vector to a 3D vector (z = 0).
+/// - [v]:  Input 2D vector.
+///
+/// Returns A 3D vector.
+@_i1.JS('mapTo3D')
+external _i2.Vector3D mapTo3D$1(_i2.Vector2D v);
+
+/// A transformation matrix that acts as a function on 2D vectors.
+/// Type Name [V]:  Vector2D subtype
+/// --------------------
 /// A transformation matrix that acts as a function on 2D vectors.
 /// Type Name [V]:  Vector2D subtype
 extension type TransformerMatrix<V extends _i2.Vector2D>._(_i1.JSObject _)
     implements Matrix {
   external V call(V v);
+  @_i1.JS('call')
+  external V call$1(V v);
 }
 
+/// A matrix that includes vector comparison capabilities.
+/// Type Name [V]:  Vector2D subtype
+/// --------------------
 /// A matrix that includes vector comparison capabilities.
 /// Type Name [V]:  Vector2D subtype
 extension type ComparatorMatrix<V extends _i2.Vector2D>._(_i1.JSObject _)
@@ -97,6 +134,13 @@ extension type SphericalCoordinate._(_i1.JSObject _) implements _i1.JSObject {
 @_i1.JS()
 external PolarCoordinate toPolarCoordinate(_i2.Point2D point);
 
+/// Converts a 2D point to polar coordinates.
+/// - [point]:  A 2D point.
+///
+/// Returns Polar representation of the point.
+@_i1.JS('toPolarCoordinate')
+external PolarCoordinate toPolarCoordinate$1(_i2.Point2D point);
+
 /// Converts a 3D point to spherical coordinates.
 /// Converts cylindrical coordinates to spherical coordinates.
 /// - [point]:  A 3D point.
@@ -117,7 +161,18 @@ external SphericalCoordinate toSphericalCoordinate(_i2.Point3D point);
 ///
 /// Returns Spherical representation.
 @_i1.JS('toSphericalCoordinate')
-external SphericalCoordinate toSphericalCoordinate$1(
+external SphericalCoordinate toSphericalCoordinate$1(_i2.Point3D point);
+
+/// Converts a 3D point to spherical coordinates.
+/// Converts cylindrical coordinates to spherical coordinates.
+/// - [point]:  A 3D point.
+///
+/// Returns Spherical representation.
+/// - [point]:  Cylindrical coordinate.
+///
+/// Returns Spherical representation.
+@_i1.JS('toSphericalCoordinate')
+external SphericalCoordinate toSphericalCoordinate$2(
     CylindricalCoordinate point);
 
 /// Converts a 3D point to cylindrical coordinates.
@@ -127,13 +182,12 @@ external SphericalCoordinate toSphericalCoordinate$1(
 @_i1.JS()
 external CylindricalCoordinate toCylindricalCoordinate(_i2.Point3D point);
 
-/// Unit vector in 2D x-direction.
-@_i1.JS()
-external _i2.Vector2D get unitI2D;
-
-/// Unit vector in 2D y-direction.
-@_i1.JS()
-external _i2.Vector2D get unitJ2D;
+/// Converts a 3D point to cylindrical coordinates.
+/// - [point]:  A 3D point.
+///
+/// Returns Cylindrical representation.
+@_i1.JS('toCylindricalCoordinate')
+external CylindricalCoordinate toCylindricalCoordinate$1(_i2.Point3D point);
 
 /// A 2D coordinate system with vector and point operations.
 extension type CoordinateSystem2D._(_i1.JSObject _)
@@ -167,17 +221,13 @@ extension type CoordinateSystem2D._(_i1.JSObject _)
   external _i2.Vector2D get yAxis;
 }
 
-/// Unit vector in 3D x-direction.
+/// Unit vector in 2D x-direction.
 @_i1.JS()
-external _i2.Vector3D get unitI3D;
+external _i2.Vector2D get unitI2D;
 
-/// Unit vector in 3D y-direction.
+/// Unit vector in 2D y-direction.
 @_i1.JS()
-external _i2.Vector3D get unitJ3D;
-
-/// Unit vector in 3D z-direction.
-@_i1.JS()
-external _i2.Vector3D get unitK3D;
+external _i2.Vector2D get unitJ2D;
 
 /// A 3D coordinate system with vector and point operations.
 extension type CoordinateSystem3D._(_i1.JSObject _)
@@ -213,6 +263,18 @@ extension type CoordinateSystem3D._(_i1.JSObject _)
   /// The unit vector along the z-axis.
   external _i2.Vector3D get zAxis;
 }
+
+/// Unit vector in 3D x-direction.
+@_i1.JS()
+external _i2.Vector3D get unitI3D;
+
+/// Unit vector in 3D y-direction.
+@_i1.JS()
+external _i2.Vector3D get unitJ3D;
+
+/// Unit vector in 3D z-direction.
+@_i1.JS()
+external _i2.Vector3D get unitK3D;
 
 /// Represents a mathematical matrix.
 /// - `rows`: number of rows.

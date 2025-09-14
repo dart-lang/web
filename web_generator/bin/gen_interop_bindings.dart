@@ -8,6 +8,7 @@ import 'package:args/args.dart';
 import 'package:io/ansi.dart' as ansi;
 import 'package:io/io.dart';
 import 'package:path/path.dart' as p;
+import 'package:web_generator/src/base_path.dart';
 import 'package:web_generator/src/cli.dart';
 
 void main(List<String> arguments) async {
@@ -58,10 +59,20 @@ $_usage''');
     await compileDartMain();
   }
 
-  // TODO(nikeokoronkwo): Multi-file input
-  final inputFile = argResult.rest.firstOrNull;
-  final outputFile = argResult['output'] as String? ??
-      p.join(p.current, inputFile?.replaceAll('.d.ts', '.dart'));
+  final inputFiles = argResult.rest;
+  if (inputFiles.isEmpty) {
+    throw Exception('Input files is empty: $_usage');
+  }
+  final String outputFile;
+  if (argResult['output'] case final out?) {
+    outputFile = out as String;
+  } else if (inputFiles.singleOrNull case final singleInput?) {
+    outputFile = p.join(p.current, singleInput.replaceAll('.d.ts', '.dart'));
+  } else {
+    final base = basePath(inputFiles);
+    outputFile =
+        p.join(p.current, p.extension(base) == '' ? base : p.dirname(base));
+  }
   final defaultWebGenConfigPath = p.join(p.current, 'webgen.yaml');
   final configFile = argResult['config'] as String? ??
       (File(defaultWebGenConfigPath).existsSync()
@@ -83,7 +94,8 @@ $_usage''');
       'main.mjs',
       '--declaration',
       if (argResult.rest.isNotEmpty) ...[
-        '--input=${p.relative(inputFile!, from: bindingsGeneratorPath)}',
+        ...inputFiles.map(
+            (inp) => '--input=${p.relative(inp, from: bindingsGeneratorPath)}'),
         '--output=$relativeOutputPath',
       ],
       if (tsConfigRelativePath case final tsConfig?) '--ts-config=$tsConfig',

@@ -2,10 +2,12 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:collection';
 import 'dart:convert';
 import 'dart:js_interop';
 
 import 'package:code_builder/code_builder.dart';
+import 'package:collection/collection.dart';
 import 'package:dart_style/dart_style.dart';
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
@@ -13,6 +15,7 @@ import 'package:path/path.dart' as p;
 import '../ast/base.dart';
 import '../ast/declarations.dart';
 import '../ast/helpers.dart';
+import '../ast/types.dart';
 import '../config.dart';
 import '../js/helpers.dart';
 import '../js/typescript.dart' as ts;
@@ -118,13 +121,22 @@ extension type NodeMap<N extends Node>._(Map<String, N> decls)
 
   List<N> findByQualifiedName(QualifiedName qName) {
     return decls.entries
-        .where((e) {
+        .map((e) {
           final name = UniqueNamer.parse(e.key).name;
           final qualifiedName = QualifiedName.raw(name);
-          return qualifiedName.map((n) => n.part) == qName.map((n) => n.part);
+          if (e.value case ParentDeclaration(nodeMap: final parentNodeMap)
+              when qName.length > 1) {
+            return parentNodeMap
+                .findByQualifiedName(QualifiedName.raw(
+                    qName.skip(1).map((p) => p.part).join('.')))
+                .whereType<N>();
+          }
+          return qualifiedName.map((n) => n.part) == qName.map((n) => n.part)
+              ? [e.value]
+              : null;
         })
-        .map((e) => e.value)
-        .toList();
+        .nonNulls
+        .flattenedToList;
   }
 
   void add(N decl) => decls[decl.id.toString()] = decl;
@@ -201,7 +213,8 @@ class ProgramMap {
 
   /// Find the node definition for a given declaration named [declName]
   /// or associated with a TypeScript node [node] from the map of files
-  List<Node>? getDeclarationRef(String file, TSNode node, [String? declName]) {
+  List<Node>? getDeclarationRef(String file, TSNode node,
+      [QualifiedName? declName, TSSymbol? symbol]) {
     // check
     NodeMap nodeMap;
     if (_pathMap.containsKey(file)) {
@@ -216,27 +229,59 @@ class ProgramMap {
         final anonymousTransformer = _activeTransformers.putIfAbsent(
             file, () => Transformer(this, null, file: file));
 
-        // TODO: Replace with .transformAndReturn once #388 lands
-        return anonymousTransformer.transformAndReturn(node);
+        if (declName == null) {
+          return anonymousTransformer.transformAndReturn(node);
+        } else {
+          final referredTypes = anonymousTransformer
+              .searchForDeclRecursive(
+                declName,
+                (symbol ?? typeChecker.getSymbolAtLocation(node))!,
+              )
+              .whereType<ReferredType>();
+          return referredTypes.map((r) => r.declaration).toList();
+        }
       } else {
         final transformer =
             _activeTransformers.putIfAbsent(file, () => Transformer(this, src));
 
         if (!transformer.nodes.contains(node)) {
+          // node might be nested
           if (declName case final d?
-              when transformer.nodeMap.findByName(d).isEmpty) {
+              when transformer.nodeMap.findByQualifiedName(d).isEmpty) {
             // find the source file decl
             if (src == null) return null;
 
-            final symbol = typeChecker.getSymbolAtLocation(src)!;
-            final exports = symbol.exports?.toDart ?? {};
+            final srcSymbol = typeChecker.getSymbolAtLocation(src);
+            // print((declName, file, node.kind, transformer.nodeMap));
+            if (srcSymbol == null) {
+              ts.forEachChild(
+                  src,
+                  (TSNode node) {
+                    if (node.kind == TSSyntaxKind.EndOfFileToken) return;
 
-            final targetSymbol = exports[d.toJS]!;
+                    transformer.transform(node);
+                  }.toJS as ts.TSNodeCallback);
+            } else {
+              final exports = srcSymbol.exports?.toDart ?? {};
 
-            for (final decl in targetSymbol.getDeclarations()?.toDart ??
-                <TSDeclaration>[]) {
-              transformer.transform(decl);
+              final targetSymbol = exports[d.first.part.toJS]!;
+
+              final referredTypes = transformer
+                  .searchForDeclRecursive(
+                    declName,
+                    targetSymbol,
+                  )
+                  .whereType<ReferredType>();
+              return referredTypes.map((r) => r.declaration).toList();
             }
+          } else if (declName != null) {
+            final referredTypes = transformer
+                .searchForDeclRecursive(
+                  declName,
+                  (symbol ?? typeChecker.getSymbolAtLocation(node))!,
+                )
+                .whereType<ReferredType>();
+            return referredTypes.map((r) => r.declaration).toList();
           } else {
             transformer.transform(node);
           }
@@ -247,8 +292,13 @@ class ProgramMap {
       }
     }
 
-    final name = declName ?? (node as TSNamedDeclaration).name?.text;
-    return name == null ? null : nodeMap.findByName(name);
+    final name = declName?.asName ?? (node as TSNamedDeclaration).name?.text;
+    return switch (name) {
+      final String n when n.contains('.') =>
+        nodeMap.findByQualifiedName(declName ?? QualifiedName.raw(name)),
+      null => null,
+      _ => nodeMap.findByName(name)
+    };
   }
 
   (String, NamedDeclaration)? getCommonType(String name,

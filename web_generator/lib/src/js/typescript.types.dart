@@ -632,6 +632,26 @@ extension type TSParameterDeclaration._(JSObject _) implements TSDeclaration {
   external TSNode? get dotDotDotToken;
 }
 
+@JS('BindingPattern')
+extension type TSBindingPattern<E extends TSNamedDeclaration>._(JSObject _)
+    implements TSNode {
+  external TSNodeArray<E> get elements;
+}
+
+@JS('ObjectBindingPattern')
+extension type TSObjectBindingPattern._(JSObject _)
+    implements TSBindingPattern<TSBindingElement> {}
+
+@JS('ArrayBindingPattern')
+extension type TSArrayBindingPattern._(JSObject _)
+    implements TSBindingPattern<TSBindingElement> {}
+
+/** We do not need much from this other than its name */
+@JS('BindingElement')
+extension type TSBindingElement._(JSObject _) implements TSNamedDeclaration {
+  external TSNode get name;
+}
+
 @JS('TypeParameterDeclaration')
 extension type TSTypeParameterDeclaration._(JSObject _)
     implements TSDeclaration {

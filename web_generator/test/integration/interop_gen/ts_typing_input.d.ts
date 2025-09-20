@@ -99,3 +99,6 @@ export declare const myThirdIntersection: string & {
 export declare const myTypeGymnastic:
   ({ a: number } | { b: string }) &
   ({ c: boolean } | ({ d: bigint } & { e: symbol }));
+export declare function firstTwoNumbers([a, b]: number[]): number;
+export declare function productInfo({ name, id }: Product, options?: { search?: boolean, showId?: boolean }): string;
+export declare function shortendedProductCartInfo(...[{ name: prod1, id: prod1ID }, { name: prod2, id: prod2ID }]: Product[]): string;

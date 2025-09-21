@@ -100,6 +100,8 @@ extension type const TSSyntaxKind._(num _) {
   static const TSSyntaxKind FunctionType = TSSyntaxKind._(184);
   static const TSSyntaxKind ConstructorType = TSSyntaxKind._(185);
   static const TSSyntaxKind TypeOperator = TSSyntaxKind._(198);
+  static const TSSyntaxKind TypePredicate = TSSyntaxKind._(182);
+  static const TSSyntaxKind ConditionalType = TSSyntaxKind._(194);
 
   // bounds
   static const TSSyntaxKind FirstTypeNode = TSSyntaxKind._(182);
@@ -207,6 +209,24 @@ extension type TSParenthesizedTypeNode._(JSObject _) implements TSTypeNode {
   @redeclare
   TSSyntaxKind get kind => TSSyntaxKind.ParenthesizedType;
   external TSTypeNode get type;
+}
+
+@JS('TypePredicateNode')
+extension type TSTypePredicateNode._(JSObject _) implements TSTypeNode {
+  @redeclare
+  TSSyntaxKind get kind => TSSyntaxKind.TypePredicate;
+  external TSIdentifier get parameterName;
+  external TSTypeNode? get type;
+}
+
+@JS('ConditionalTypeNode')
+extension type TSConditionalTypeNode._(JSObject _) implements TSTypeNode {
+  @redeclare
+  TSSyntaxKind get kind => TSSyntaxKind.ConditionalType;
+  external TSTypeNode get checkType;
+  external TSTypeNode get extendsType;
+  external TSTypeNode get trueType;
+  external TSTypeNode get falseType;
 }
 
 @JS('TupleTypeNode')

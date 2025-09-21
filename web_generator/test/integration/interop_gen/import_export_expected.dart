@@ -1,4 +1,5 @@
-// ignore_for_file: constant_identifier_names, non_constant_identifier_names
+// ignore_for_file: camel_case_types, constant_identifier_names
+// ignore_for_file: non_constant_identifier_names
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:js_interop' as _i1;
@@ -21,12 +22,14 @@ external Vector3D crossProduct(
 );
 @_i1.JS()
 external Vector3D mapTo3D(Vector2D v);
-extension type TransformerMatrix<V extends Vector2D>._(_i1.JSObject _)
-    implements Matrix {
+@_i1.JS('mapTo3D')
+external Vector3D mapTo3D$1(Vector2D v);
+extension type TransformerMatrix<V extends Vector>._(_i1.JSObject _)
+    implements Geometry_Matrix<_i1.JSNumber> {
   external V call(V v);
 }
 extension type ComparatorMatrix<V extends Vector2D>._(_i1.JSObject _)
-    implements Matrix, Comparator<V> {}
+    implements Geometry_Matrix<_i1.JSNumber>, Comparator<V> {}
 @_i1.JS()
 external _i1.JSArray<Vector3D> get unitVectors;
 @_i1.JS('PolarPoint')
@@ -53,13 +56,39 @@ extension type SphericalCoordinate._(_i1.JSObject _) implements _i1.JSObject {
 }
 @_i1.JS()
 external PolarCoordinate toPolarCoordinate(Point2D point);
+@_i1.JS('toPolarCoordinate')
+external PolarCoordinate toPolarCoordinate$1(Point2D point);
 @_i1.JS()
 external SphericalCoordinate toSphericalCoordinate(Point3D point);
 @_i1.JS('toSphericalCoordinate')
-external SphericalCoordinate toSphericalCoordinate$1(
+external SphericalCoordinate toSphericalCoordinate$1(Point3D point);
+@_i1.JS('toSphericalCoordinate')
+external SphericalCoordinate toSphericalCoordinate$2(
     CylindricalCoordinate point);
 @_i1.JS()
 external CylindricalCoordinate toCylindricalCoordinate(Point3D point);
+@_i1.JS('toCylindricalCoordinate')
+external CylindricalCoordinate toCylindricalCoordinate$1(Point3D point);
+@_i1.JS()
+external _i1.JSArray<V> transformVector<V extends Vector>(
+  Geometry_Matrix<_i1.JSNumber> matrix,
+  _i1.JSArray<V> vectors, [
+  _i1.JSArray<V> vectors2,
+  _i1.JSArray<V> vectors3,
+  _i1.JSArray<V> vectors4,
+]);
+@_i1.JS('transformVector')
+external _i1.JSArray<V> transformVector$1<V extends Vector>(
+  TransformerMatrix<V> matrix,
+  _i1.JSArray<V> vectors, [
+  _i1.JSArray<V> vectors2,
+  _i1.JSArray<V> vectors3,
+  _i1.JSArray<V> vectors4,
+]);
+extension type LocatableUser._(_i1.JSObject _)
+    implements Data_Models_IUser, Point2D {
+  external Point2D get locationAsPoint;
+}
 @_i1.JS()
 external Vector2D get unitI2D;
 @_i1.JS()
@@ -70,6 +99,8 @@ external Vector3D get unitI3D;
 external Vector3D get unitJ3D;
 @_i1.JS()
 external Vector3D get unitK3D;
+@_i1.JS()
+external Data_Models_User get userLocation;
 extension type Point2D._(_i1.JSObject _) implements _i1.JSObject {
   external double x;
 
@@ -147,12 +178,14 @@ extension type Vector2D._(_i1.JSObject _) implements Vector {
     Point2D end,
   );
 }
-extension type Matrix._(_i1.JSObject _) implements _i1.JSObject {
-  external double rows;
-
-  external double columns;
-
-  external _i1.JSArray<_i1.JSNumber> operator [](num index);
+@_i1.JS('Geometry.Matrix')
+extension type Geometry_Matrix<T extends _i1.JSAny?>._(_i1.JSObject _)
+    implements _i1.JSObject {
+  external double get rows;
+  external double get columns;
+  external _i1.JSArray<T> getColumn(num index);
+  external _i1.JSArray<T> getRow(num index);
+  external _i1.JSArray<T> operator [](num index);
 }
 extension type Comparator<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
@@ -160,4 +193,26 @@ extension type Comparator<T extends _i1.JSAny?>._(_i1.JSObject _)
     T a,
     T b,
   );
+}
+@_i1.JS('Data.Models.IUser')
+extension type Data_Models_IUser._(_i1.JSObject _) implements _i1.JSObject {
+  external double id;
+
+  external String name;
+
+  external String email;
+}
+@_i1.JS('Data.Models.User')
+extension type Data_Models_User._(_i1.JSObject _) implements Data_Models_IUser {
+  external Data_Models_User(
+    num id,
+    String name,
+    String email,
+  );
+
+  external double id;
+
+  external String name;
+
+  external String email;
 }

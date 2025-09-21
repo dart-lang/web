@@ -144,11 +144,28 @@ export declare namespace EnterpriseApp {
         }
     }
 }
+export namespace Geometry {
+  interface Matrix<T> {
+    readonly rows: number;
+    readonly columns: number;
+    /** TODO: Should produce 2, not 1 */
+    [index: number]: T[];
+    getColumn(index: number): T[];
+    getRow(index: number): T[];
+  }
+  
+  function addMatrices<T>(...matrices: Matrix<T>[]): Matrix<T>;
+  function subtractMatrices<T>(a: Matrix<T>, b: Matrix<T>): Matrix<T>;
+  function scalarMultiplyMatrix<T>(scalar: T, matrix: Matrix<T>): Matrix<T>;
+  function multiplyMatrices<T>(a: Matrix<T>, b: Matrix<T>): Matrix<T>;
+  function inverse<T>(matrix: Matrix<T>): Matrix<T>;
+  function transpose<T>(matrix: Matrix<T>): Matrix<T>;
+}
 export declare const user1: Data.Models.User;
 declare const user2: Data.Models.User;
 declare const product1: EnterpriseApp.Models.Product;
-export import UserService = EnterpriseApp.DataServices.UserService;
-export declare const userService: UserService;
+export import UService = EnterpriseApp.DataServices.UserService;
+export declare const userService: UService;
 export import ProductService = EnterpriseApp.DataServices.ProductService;
 declare const productService: ProductService;
 export declare const allUsers: Data.Models.User[];

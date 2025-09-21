@@ -8,6 +8,8 @@ import 'package:code_builder/code_builder.dart';
 import 'package:collection/collection.dart';
 
 import '../interop_gen/namer.dart';
+import '../interop_gen/qualified_name.dart';
+import '../interop_gen/transform.dart';
 import '../js/typescript.types.dart';
 import 'base.dart';
 import 'builtin.dart';
@@ -27,8 +29,10 @@ abstract class NestableDeclaration extends NamedDeclaration
       : (dartName ?? name);
 }
 
-abstract class ParentDeclaration {
+abstract class ParentDeclaration extends NestableDeclaration {
   Set<TSNode> get nodes;
+
+  NodeMap<Declaration> get nodeMap;
 }
 
 /// A declaration that defines a type (class or interface)
@@ -490,6 +494,8 @@ class TypeAliasDeclaration extends NestableDeclaration
 
   final Type type;
 
+  final String namedReference;
+
   @override
   String? dartName;
 
@@ -507,6 +513,7 @@ class TypeAliasDeclaration extends NestableDeclaration
       this.typeParameters = const [],
       required this.type,
       required this.exported,
+      required this.namedReference,
       this.documentation,
       this.parent})
       : dartName = null;
@@ -531,8 +538,8 @@ class TypeAliasDeclaration extends NestableDeclaration
 
 /// The declaration node for a TypeScript Namespace
 // TODO: Refactor into shared class when supporting modules
-class NamespaceDeclaration extends NestableDeclaration
-    implements ExportableDeclaration, ParentDeclaration {
+class NamespaceDeclaration extends ParentDeclaration
+    implements ExportableDeclaration {
   @override
   String name;
 
@@ -648,6 +655,25 @@ class NamespaceDeclaration extends NestableDeclaration
 
   CompositeDeclaration get asComposite =>
       CompositeDeclaration.fromNamespace(this);
+
+  @override
+  NodeMap<Declaration> get nodeMap => NodeMap({
+        ...{for (final decl in topLevelDeclarations) decl.id.toString(): decl},
+        ...[...nestableDeclarations, ...namespaceDeclarations]
+            .asMap()
+            .map((_, v) {
+          final mainName = QualifiedName.raw(v.id.name);
+          return MapEntry(
+              ID(
+                      type: v.id.type,
+                      index: v.id.index,
+                      name: mainName.length > 1
+                          ? mainName.skip(1).map((p) => p.part).join('.')
+                          : mainName.asName)
+                  .toString(),
+              v);
+        })
+      });
 }
 
 /// A composite declaration is formed from merging declarations together,

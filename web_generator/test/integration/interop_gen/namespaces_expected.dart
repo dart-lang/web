@@ -57,11 +57,41 @@ extension type EnterpriseApp._(_i1.JSObject _) implements _i1.JSObject {
   @_i1.JS('EnterpriseApp.UI')
   external static EnterpriseApp_UI get UI;
 }
+extension type Geometry._(_i1.JSObject _) implements _i1.JSObject {
+  @_i1.JS()
+  external static Geometry_Matrix<T> addMatrices<T extends _i1.JSAny?>(
+    _i1.JSArray<Geometry_Matrix<T>> matrices, [
+    _i1.JSArray<Geometry_Matrix<T>> matrices2,
+    _i1.JSArray<Geometry_Matrix<T>> matrices3,
+    _i1.JSArray<Geometry_Matrix<T>> matrices4,
+  ]);
+  @_i1.JS()
+  external static Geometry_Matrix<T> subtractMatrices<T extends _i1.JSAny?>(
+    Geometry_Matrix<T> a,
+    Geometry_Matrix<T> b,
+  );
+  @_i1.JS()
+  external static Geometry_Matrix<T> scalarMultiplyMatrix<T extends _i1.JSAny?>(
+    T scalar,
+    Geometry_Matrix<T> matrix,
+  );
+  @_i1.JS()
+  external static Geometry_Matrix<T> multiplyMatrices<T extends _i1.JSAny?>(
+    Geometry_Matrix<T> a,
+    Geometry_Matrix<T> b,
+  );
+  @_i1.JS()
+  external static Geometry_Matrix<T> inverse<T extends _i1.JSAny?>(
+      Geometry_Matrix<T> matrix);
+  @_i1.JS()
+  external static Geometry_Matrix<T> transpose<T extends _i1.JSAny?>(
+      Geometry_Matrix<T> matrix);
+}
 @_i1.JS()
 external Data_Models_User get user1;
-typedef UserService = EnterpriseApp_DataServices_UserService;
+typedef UService = EnterpriseApp_DataServices_UserService;
 @_i1.JS()
-external UserService get userService;
+external UService get userService;
 typedef ProductService = EnterpriseApp_DataServices_ProductService;
 @_i1.JS()
 external _i1.JSArray<Data_Models_User> get allUsers;
@@ -342,4 +372,13 @@ extension type AnonymousUnion_1467782._(_i1.JSAny _) implements _i1.JSAny {
   String get asString => (_ as _i1.JSString).toDart;
 
   double get asDouble => (_ as _i1.JSNumber).toDartDouble;
+}
+@_i1.JS('Geometry.Matrix')
+extension type Geometry_Matrix<T extends _i1.JSAny?>._(_i1.JSObject _)
+    implements _i1.JSObject {
+  external double get rows;
+  external double get columns;
+  external _i1.JSArray<T> getColumn(num index);
+  external _i1.JSArray<T> getRow(num index);
+  external _i1.JSArray<T> operator [](num index);
 }

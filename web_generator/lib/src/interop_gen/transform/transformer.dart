@@ -59,6 +59,11 @@ class Transformer {
   /// A map of types
   final TypeMap typeMap = TypeMap();
 
+  /// A map of nodes to types
+  /// This helps if a type has already been indexed to another, and prevents 
+  /// unnecessary transformations
+  final Map<TSTypeNode, Type> _nodeAliases = {};
+
   /// The program map
   final ProgramMap programMap;
 
@@ -1134,6 +1139,8 @@ class Transformer {
   //  https://github.com/dart-lang/web/issues/422
   Type _transformType(TSTypeNode type,
       {bool parameter = false, bool typeArg = false, bool? isNullable}) {
+    if (_nodeAliases.containsKey(type)) return _nodeAliases[type]!;
+    // print((type.getText(), type.kind));
     switch (type.kind) {
       case TSSyntaxKind.ParenthesizedType:
         return _transformType((type as TSParenthesizedTypeNode).type,
@@ -1627,8 +1634,8 @@ class Transformer {
         } else {
           print('WARN: The given type with kind ${type.kind} is '
               'not supported yet');
-          return BuiltinType.primitiveType(PrimitiveType.any,
-              isNullable: isNullable);
+          return _nodeAliases.putIfAbsent(type, () => BuiltinType.primitiveType(PrimitiveType.any,
+              isNullable: isNullable));
         }
     }
   }
@@ -1956,7 +1963,8 @@ class Transformer {
     print((
       fullyQualifiedName.asName,
       from: nameImport,
-      symbol.getDeclarations()?.toDart.map((m) => m.kind)
+      symbol.getDeclarations()?.toDart.map((m) => m.kind),
+      typeParam: type?.isTypeParameter()
     ));
 
     if (symbol.name == 'globalThis') {
@@ -1968,7 +1976,7 @@ class Transformer {
     if (nameImport == null) {
       // if import not there, most likely from an import
 
-      if (type?.isTypeParameter() ?? false) {
+      if ((type?.isTypeParameter() ?? false) || (symbol.getDeclarations()?.toDart.any((d) => d.kind == TSSyntaxKind.TypeParameter) ?? false)) {
         // generic type
         return GenericType(
             name: fullyQualifiedName.last.part, isNullable: isNullable);

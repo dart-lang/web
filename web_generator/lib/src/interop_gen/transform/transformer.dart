@@ -1101,7 +1101,7 @@ class Transformer {
           }
         }
         final name = parameter.name as TSBindingPattern;
-        // just return the object,
+        // just return the object
         final elements = expandBindingPatterns(name);
         final elementText = name.getText();
         final documentation = isVariadic

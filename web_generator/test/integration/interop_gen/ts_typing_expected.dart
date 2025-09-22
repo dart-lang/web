@@ -32,6 +32,11 @@ external double firstTwoNumbers(
     /// Parameter is of the form: [a, b]
     _i1.JSArray<_i1.JSNumber> arr117);
 @_i1.JS()
+external double pointlessArrayFunction(
+
+    /// Parameter is of the form: [{}]
+    _i1.JSArray<AnonymousType_4207514> unknownarr);
+@_i1.JS()
 external String productInfo(
   /// Parameter is of the form: { name, id }
   Product obj157, [
@@ -180,6 +185,11 @@ extension type AnonymousType_9143117<T extends _i1.JSAny?>._(_i1.JSObject _)
   external double id;
 
   external T value;
+}
+extension type AnonymousType_4207514._(_i1.JSObject _) implements _i1.JSObject {
+  external AnonymousType_4207514({double a});
+
+  external double a;
 }
 extension type AnonymousType_9686701._(_i1.JSObject _) implements _i1.JSObject {
   external AnonymousType_9686701({
@@ -403,11 +413,6 @@ extension type AnonymousIntersection_1711585._(_i1.JSAny _)
 
   AnonymousUnion_5737239 get asAnonymousUnion_5737239 =>
       (_ as AnonymousUnion_5737239);
-}
-extension type AnonymousType_4207514._(_i1.JSObject _) implements _i1.JSObject {
-  external AnonymousType_4207514({double a});
-
-  external double a;
 }
 extension type AnonymousType_1806035._(_i1.JSObject _) implements _i1.JSObject {
   external AnonymousType_1806035({String b});

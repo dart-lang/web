@@ -6,6 +6,7 @@ import 'package:code_builder/code_builder.dart';
 
 import '../interop_gen/namer.dart';
 import 'documentation.dart';
+import 'helpers.dart';
 import 'types.dart';
 
 class GlobalOptions {
@@ -130,7 +131,7 @@ abstract class DeclarationType<T extends Declaration> extends Type {
   String get declarationName;
 }
 
-class ParameterDeclaration {
+class ParameterDeclaration implements DocumentedDeclaration {
   final String name;
 
   final bool optional;
@@ -139,15 +140,22 @@ class ParameterDeclaration {
 
   final bool variadic;
 
+  @override
+  Documentation? documentation;
+
   ParameterDeclaration(
       {required this.name,
       this.optional = false,
       required this.type,
-      this.variadic = false});
+      this.variadic = false,
+      this.documentation});
 
   Parameter emit([DeclarationOptions? options]) {
+    final (doc, annotations) = generateFromDocumentation(documentation);
     return Parameter((p) => p
       ..name = name
+      ..annotations.addAll(annotations)
+      ..docs.addAll(doc)
       ..type = type.emit(TypeOptions(nullable: optional)));
   }
 }

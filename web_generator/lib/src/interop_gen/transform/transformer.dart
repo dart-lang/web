@@ -597,7 +597,7 @@ class Transformer {
         id: id,
         scope: scope,
         static: isStatic,
-        parameters: params.map((t) {
+        parameters: params.mapIndexed((index, t) {
           ReferredType? paramType;
           final paramRawType = t.type;
           if (paramRawType case final ty? when ts.isTypeReferenceNode(ty)) {
@@ -612,7 +612,7 @@ class Transformer {
             paramType = parent?.asReferredType(
                 parent.typeParameters.map((t) => GenericType(name: t.name)));
           }
-          return _transformParameter(t, paramType);
+          return _transformParameter(t, type: paramType, index: index);
         }).toList(),
         typeParameters:
             typeParams?.map(_transformTypeParamDeclaration).toList() ?? [],
@@ -654,7 +654,9 @@ class Transformer {
         id: id,
         dartName: dartName.trim().isEmpty ? null : dartName.trim(),
         name: name,
-        parameters: params.map(_transformParameter).toList(),
+        parameters: params
+            .mapIndexed((index, p) => _transformParameter(p, index: index))
+            .toList(),
         scope: scope,
         documentation: _parseAndTransformDocumentation(constructor));
   }
@@ -689,7 +691,9 @@ class Transformer {
         name: 'call',
         dartName: dartName,
         id: id,
-        parameters: params.map(_transformParameter).toList(),
+        parameters: params
+            .mapIndexed((index, p) => _transformParameter(p, index: index))
+            .toList(),
         typeParameters:
             typeParams?.map(_transformTypeParamDeclaration).toList() ?? [],
         returnType: methodType ??
@@ -730,7 +734,9 @@ class Transformer {
     }
 
     final doc = _parseAndTransformDocumentation(indexSignature);
-    final transformedParameters = params.map(_transformParameter).toList();
+    final transformedParameters = params
+        .mapIndexed((index, p) => _transformParameter(p, index: index))
+        .toList();
     final type = indexerType ?? _transformType(indexSignature.type);
     final transformedTypeParams =
         typeParams?.map(_transformTypeParamDeclaration).toList() ?? [];
@@ -800,7 +806,9 @@ class Transformer {
         id: id,
         kind: MethodKind.getter,
         scope: scope,
-        parameters: params.map(_transformParameter).toList(),
+        parameters: params
+            .mapIndexed((index, p) => _transformParameter(p, index: index))
+            .toList(),
         typeParameters:
             typeParams?.map(_transformTypeParamDeclaration).toList() ?? [],
         returnType: methodType ??
@@ -830,7 +838,7 @@ class Transformer {
         dartName: dartName,
         kind: MethodKind.setter,
         id: id,
-        parameters: params.map((t) {
+        parameters: params.mapIndexed((index, t) {
           ReferredType? paramType;
           final paramRawType = t.type;
           if (paramRawType case final ty? when ts.isTypeReferenceNode(ty)) {
@@ -845,7 +853,7 @@ class Transformer {
             paramType = parent?.asReferredType(
                 parent.typeParameters.map((t) => GenericType(name: t.name)));
           }
-          return _transformParameter(t, paramType);
+          return _transformParameter(t, type: paramType, index: index);
         }).toList(),
         scope: scope,
         typeParameters:
@@ -880,7 +888,9 @@ class Transformer {
         id: id,
         dartName: uniqueName,
         exported: isExported,
-        parameters: params.map(_transformParameter).toList(),
+        parameters: params
+            .mapIndexed((index, p) => _transformParameter(p, index: index))
+            .toList(),
         typeParameters:
             typeParams?.map(_transformTypeParamDeclaration).toList() ?? [],
         returnType: function.type != null
@@ -1053,7 +1063,7 @@ class Transformer {
   }
 
   ParameterDeclaration _transformParameter(TSParameterDeclaration parameter,
-      [Type? type]) {
+      {Type? type, int? index}) {
     type ??= parameter.type != null
         ? _transformType(parameter.type!, parameter: true)
         : BuiltinType.anyType;
@@ -1068,11 +1078,82 @@ class Transformer {
             type: type,
             variadic: isVariadic,
             optional: isOptional);
+      case TSSyntaxKind.ObjectBindingPattern ||
+            TSSyntaxKind.ArrayBindingPattern:
+        Iterable<TSDeclaration> expandBindingPatterns(
+            @UnionOf(
+                [TSIdentifier, TSObjectBindingPattern, TSArrayBindingPattern])
+            TSNode name) {
+          switch (name.kind) {
+            case TSSyntaxKind.Identifier:
+              return [name as TSIdentifier];
+            case TSSyntaxKind.ObjectBindingPattern ||
+                  TSSyntaxKind.ArrayBindingPattern:
+              return (name as TSBindingPattern)
+                  .elements
+                  .toDart
+                  .map((e) => e.name == null
+                      ? <TSDeclaration>[]
+                      : expandBindingPatterns(e.name!))
+                  .flattenedToList;
+            default:
+              return [];
+          }
+        }
+        final name = parameter.name as TSBindingPattern;
+        // just return the object
+        final elements = expandBindingPatterns(name);
+        final elementText = name.getText();
+        final documentation = isVariadic
+            ? null
+            : Documentation(docs: 'Parameter is of the form: $elementText');
+
+        final rearWord =
+            parameter.name.kind == TSSyntaxKind.ObjectBindingPattern
+                ? 'obj'
+                : 'arr';
+
+        if (elements.isEmpty) {
+          return ParameterDeclaration(
+              name: 'unknown$rearWord',
+              type: type,
+              variadic: isVariadic,
+              optional: isOptional,
+              documentation: documentation);
+        } else if (elements.singleOrNull case final singleEl?) {
+          final singleElName = singleEl.kind == TSSyntaxKind.Identifier
+              ? (singleEl as TSIdentifier).text
+              : (singleEl as TSNamedDeclaration).name?.text ?? 'unknown';
+          return ParameterDeclaration(
+              name: '$singleElName$rearWord',
+              type: type,
+              variadic: isVariadic,
+              optional: isOptional,
+              documentation: documentation);
+        } else {
+          final hash = AnonymousHasher.hashTuple(elements
+              .map((e) => e.kind == TSSyntaxKind.Identifier
+                  ? (e as TSIdentifier).text
+                  : (e as TSNamedDeclaration).name?.text ?? '')
+              .toList());
+          return ParameterDeclaration(
+              name: '$rearWord${hash.substring(0, 3)}',
+              type: type,
+              variadic: isVariadic,
+              optional: isOptional,
+              documentation: documentation);
+        }
       default:
-        // TODO: Support Destructured Object Parameters
-        //  and Destructured Array Parameters
-        throw Exception(
-            'Unsupported Parameter Name kind ${parameter.name.kind}');
+        final elementText = parameter.name.getText();
+        final documentation = isVariadic
+            ? null
+            : Documentation(docs: 'Parameter is of the form: $elementText');
+        return ParameterDeclaration(
+            name: 'unknown${index ?? ""}',
+            type: type,
+            variadic: isVariadic,
+            optional: isOptional,
+            documentation: documentation);
     }
   }
 
@@ -1247,8 +1328,9 @@ class Transformer {
       case TSSyntaxKind.ConstructorType || TSSyntaxKind.FunctionType:
         final funType = type as TSFunctionOrConstructorTypeNodeBase;
 
-        final parameters =
-            funType.parameters.toDart.map(_transformParameter).toList();
+        final parameters = funType.parameters.toDart
+            .mapIndexed((index, p) => _transformParameter(p, index: index))
+            .toList();
 
         final typeParameters = funType.typeParameters?.toDart
                 .map(_transformTypeParamDeclaration)

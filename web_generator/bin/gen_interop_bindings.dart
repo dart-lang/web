@@ -58,10 +58,17 @@ $_usage''');
     await compileDartMain();
   }
 
-  // TODO(nikeokoronkwo): Multi-file input
-  final inputFile = argResult.rest.firstOrNull;
-  final outputFile = argResult['output'] as String? ??
-      p.join(p.current, inputFile?.replaceAll('.d.ts', '.dart'));
+  final inputFiles = argResult.rest;
+  if (inputFiles.isEmpty) {
+    print('Pass an input file to get started');
+    print(_usage);
+    exit(1);
+  }
+  final specifiedOutput = argResult['output'] as String?;
+  final outputFile = specifiedOutput ??
+      (inputFiles.length > 1
+          ? p.join(p.current, inputFiles.first.replaceAll('.d.ts', '.dart'))
+          : p.join(p.current, inputFiles.single.replaceAll('.d.ts', '.dart')));
   final defaultWebGenConfigPath = p.join(p.current, 'webgen.yaml');
   final configFile = argResult['config'] as String? ??
       (File(defaultWebGenConfigPath).existsSync()
@@ -83,7 +90,8 @@ $_usage''');
       'main.mjs',
       '--declaration',
       if (argResult.rest.isNotEmpty) ...[
-        '--input=${p.relative(inputFile!, from: bindingsGeneratorPath)}',
+        ...inputFiles.map(
+            (i) => '--input=${p.relative(i, from: bindingsGeneratorPath)}'),
         '--output=$relativeOutputPath',
       ],
       if (tsConfigRelativePath case final tsConfig?) '--ts-config=$tsConfig',

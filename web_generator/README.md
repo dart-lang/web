@@ -1,6 +1,6 @@
 ## What's this?
 
-This package contains tools to generate Dart interfaces from TypeScript Declaration code and Web IDL definitions.
+Tools to generate Dart interfaces from TypeScript declaration files and Web IDL definitions.
 
 This package is used to generate
 [`web`](https://github.com/dart-lang/web/tree/main/web) from Web IDL definitions

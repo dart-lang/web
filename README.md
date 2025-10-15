@@ -1,6 +1,4 @@
-{% comment %}
-TODO(srujzs): Add links to CI once we have a badge that doesn't say "package:web" and is more generic.
-{% endcomment %}
+<!-- TODO(srujzs): Add links to CI once we have a badge that doesn't say "package:web" and is more generic. -->
 
 ## Packages
 

@@ -133,8 +133,6 @@ extension type NodeMap<N extends Node>._(Map<String, N> decls)
 extension type TypeMap._(Map<String, Type> types) implements NodeMap<Type> {
   TypeMap([Map<String, Type>? types]) : types = types ?? <String, Type>{};
 
-  // TODO(srujzs): Remove once redeclare is no longer experimental.
-  // ignore: experimental_member_use
   @redeclare
   void add(Type decl) => types[decl.id.toString()] = decl;
 }

@@ -272,7 +272,24 @@ extension type PublicKeyCredentialDescriptorJSON._(JSObject _)
 }
 extension type AuthenticationExtensionsClientInputsJSON._(JSObject _)
     implements JSObject {
-  AuthenticationExtensionsClientInputsJSON() : _ = JSObject();
+  external factory AuthenticationExtensionsClientInputsJSON({
+    String appid,
+    String appidExclude,
+    bool credProps,
+    AuthenticationExtensionsPRFInputsJSON prf,
+    AuthenticationExtensionsLargeBlobInputsJSON largeBlob,
+  });
+
+  external String get appid;
+  external set appid(String value);
+  external String get appidExclude;
+  external set appidExclude(String value);
+  external bool get credProps;
+  external set credProps(bool value);
+  external AuthenticationExtensionsPRFInputsJSON get prf;
+  external set prf(AuthenticationExtensionsPRFInputsJSON value);
+  external AuthenticationExtensionsLargeBlobInputsJSON get largeBlob;
+  external set largeBlob(AuthenticationExtensionsLargeBlobInputsJSON value);
 }
 extension type PublicKeyCredentialRequestOptionsJSON._(JSObject _)
     implements JSObject {
@@ -664,6 +681,7 @@ extension type AuthenticationExtensionsClientOutputs._(JSObject _)
   external factory AuthenticationExtensionsClientOutputs({
     bool hmacCreateSecret,
     HMACGetSecretOutput hmacGetSecret,
+    AuthenticationExtensionsPaymentOutputs payment,
     bool appid,
     bool appidExclude,
     CredentialPropertiesOutput credProps,
@@ -675,6 +693,8 @@ extension type AuthenticationExtensionsClientOutputs._(JSObject _)
   external set hmacCreateSecret(bool value);
   external HMACGetSecretOutput get hmacGetSecret;
   external set hmacGetSecret(HMACGetSecretOutput value);
+  external AuthenticationExtensionsPaymentOutputs get payment;
+  external set payment(AuthenticationExtensionsPaymentOutputs value);
   external bool get appid;
   external set appid(bool value);
   external bool get appidExclude;
@@ -718,6 +738,18 @@ extension type AuthenticationExtensionsPRFValues._(JSObject _)
   external BufferSource get second;
   external set second(BufferSource value);
 }
+extension type AuthenticationExtensionsPRFValuesJSON._(JSObject _)
+    implements JSObject {
+  external factory AuthenticationExtensionsPRFValuesJSON({
+    required Base64URLString first,
+    Base64URLString second,
+  });
+
+  external Base64URLString get first;
+  external set first(Base64URLString value);
+  external Base64URLString get second;
+  external set second(Base64URLString value);
+}
 extension type AuthenticationExtensionsPRFInputs._(JSObject _)
     implements JSObject {
   external factory AuthenticationExtensionsPRFInputs({
@@ -727,6 +759,18 @@ extension type AuthenticationExtensionsPRFInputs._(JSObject _)
 
   external AuthenticationExtensionsPRFValues get eval;
   external set eval(AuthenticationExtensionsPRFValues value);
+  external JSObject get evalByCredential;
+  external set evalByCredential(JSObject value);
+}
+extension type AuthenticationExtensionsPRFInputsJSON._(JSObject _)
+    implements JSObject {
+  external factory AuthenticationExtensionsPRFInputsJSON({
+    AuthenticationExtensionsPRFValuesJSON eval,
+    JSObject evalByCredential,
+  });
+
+  external AuthenticationExtensionsPRFValuesJSON get eval;
+  external set eval(AuthenticationExtensionsPRFValuesJSON value);
   external JSObject get evalByCredential;
   external set evalByCredential(JSObject value);
 }
@@ -756,6 +800,21 @@ extension type AuthenticationExtensionsLargeBlobInputs._(JSObject _)
   external set read(bool value);
   external BufferSource get write;
   external set write(BufferSource value);
+}
+extension type AuthenticationExtensionsLargeBlobInputsJSON._(JSObject _)
+    implements JSObject {
+  external factory AuthenticationExtensionsLargeBlobInputsJSON({
+    String support,
+    bool read,
+    Base64URLString write,
+  });
+
+  external String get support;
+  external set support(String value);
+  external bool get read;
+  external set read(bool value);
+  external Base64URLString get write;
+  external set write(Base64URLString value);
 }
 extension type AuthenticationExtensionsLargeBlobOutputs._(JSObject _)
     implements JSObject {

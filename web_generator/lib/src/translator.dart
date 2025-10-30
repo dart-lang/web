@@ -566,6 +566,7 @@ class _PartialInterfacelike {
         case 'maplike':
         case 'setlike':
         case 'iterable':
+        case 'async_iterable':
           // TODO(srujzs): Generate members for these types.
           break;
         default:

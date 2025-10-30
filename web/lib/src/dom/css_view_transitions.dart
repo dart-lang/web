@@ -15,9 +15,25 @@ library;
 
 import 'dart:js_interop';
 
-import 'css_view_transitions_2.dart';
+import 'cssom.dart';
 
 typedef ViewTransitionUpdateCallback = JSFunction;
+extension type CSSViewTransitionRule._(JSObject _)
+    implements CSSRule, JSObject {
+  external String get navigation;
+  external JSArray<JSString> get types;
+}
+extension type StartViewTransitionOptions._(JSObject _) implements JSObject {
+  external factory StartViewTransitionOptions({
+    ViewTransitionUpdateCallback? update,
+    JSArray<JSString>? types,
+  });
+
+  external ViewTransitionUpdateCallback? get update;
+  external set update(ViewTransitionUpdateCallback? value);
+  external JSArray<JSString>? get types;
+  external set types(JSArray<JSString>? value);
+}
 
 /// The **`ViewTransition`** interface of the [View Transition API] represents
 /// an active view transition, and provides functionality to react to the
@@ -90,3 +106,4 @@ extension type ViewTransition._(JSObject _) implements JSObject {
   external ViewTransitionTypeSet get types;
   external set types(ViewTransitionTypeSet value);
 }
+extension type ViewTransitionTypeSet._(JSObject _) implements JSObject {}

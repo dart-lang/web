@@ -20,7 +20,7 @@ import 'hr_time.dart';
 import 'html.dart';
 import 'mediacapture_streams.dart';
 import 'mst_content_hint.dart';
-import 'webcryptoapi.dart';
+import 'webcrypto.dart';
 import 'webidl.dart';
 import 'webrtc_encoded_transform.dart';
 import 'webrtc_identity.dart';
@@ -40,6 +40,7 @@ typedef RTCSdpType = String;
 typedef RTCIceProtocol = String;
 typedef RTCIceTcpCandidateType = String;
 typedef RTCIceCandidateType = String;
+typedef RTCIceServerTransportProtocol = String;
 typedef RTCRtpTransceiverDirection = String;
 typedef RTCDtlsTransportState = String;
 typedef RTCIceGathererState = String;
@@ -730,7 +731,8 @@ extension type RTCLocalSessionDescriptionInit._(JSObject _)
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCIceCandidate).
 extension type RTCIceCandidate._(JSObject _) implements JSObject {
-  external factory RTCIceCandidate([RTCIceCandidateInit candidateInitDict]);
+  external factory RTCIceCandidate(
+      [RTCLocalIceCandidateInit candidateInitDict]);
 
   /// The [RTCIceCandidate] method **`toJSON()`** converts the `RTCIceCandidate`
   /// on which it's called into JSON.
@@ -941,6 +943,22 @@ extension type RTCIceCandidateInit._(JSObject _) implements JSObject {
   external set sdpMLineIndex(int? value);
   external String? get usernameFragment;
   external set usernameFragment(String? value);
+}
+extension type RTCLocalIceCandidateInit._(JSObject _)
+    implements RTCIceCandidateInit, JSObject {
+  external factory RTCLocalIceCandidateInit({
+    String candidate,
+    String? sdpMid,
+    int? sdpMLineIndex,
+    String? usernameFragment,
+    RTCIceServerTransportProtocol? relayProtocol,
+    String? url,
+  });
+
+  external RTCIceServerTransportProtocol? get relayProtocol;
+  external set relayProtocol(RTCIceServerTransportProtocol? value);
+  external String? get url;
+  external set url(String? value);
 }
 
 /// The **`RTCPeerConnectionIceEvent`** interface represents events that occur

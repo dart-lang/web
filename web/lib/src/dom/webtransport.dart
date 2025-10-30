@@ -19,6 +19,7 @@ import 'streams.dart';
 import 'webidl.dart';
 
 typedef WebTransportCongestionControl = String;
+typedef DatagramsReadableMode = String;
 typedef WebTransportErrorSource = String;
 
 /// The **`WebTransportDatagramDuplexStream`** interface of the
@@ -53,18 +54,6 @@ extension type WebTransportDatagramDuplexStream._(JSObject _)
   /// state updates where each message supersedes the last one that arrives, and
   /// order is not important.
   external ReadableStream get readable;
-
-  /// The **`writable`** read-only property of the
-  /// [WebTransportDatagramDuplexStream] interface returns a [WritableStream]
-  /// instance that can be used to unreliably write outgoing datagrams to the
-  /// stream.
-  ///
-  /// "Unreliably" means that transmission of data is not guaranteed, nor is
-  /// arrival in a specific order. This is fine in some situations and provides
-  /// very fast delivery. For example, you might want to transmit regular game
-  /// state updates where each message supersedes the last one that arrives, and
-  /// order is not important.
-  external WritableStream get writable;
 
   /// The **`maxDatagramSize`** read-only property of the
   /// [WebTransportDatagramDuplexStream] interface returns the maximum allowable
@@ -234,6 +223,7 @@ extension type WebTransportOptions._(JSObject _) implements JSObject {
     int? anticipatedConcurrentIncomingUnidirectionalStreams,
     int? anticipatedConcurrentIncomingBidirectionalStreams,
     JSArray<JSString> protocols,
+    DatagramsReadableMode datagramsReadableMode,
   });
 
   external bool get allowPooling;
@@ -250,6 +240,8 @@ extension type WebTransportOptions._(JSObject _) implements JSObject {
   external set anticipatedConcurrentIncomingBidirectionalStreams(int? value);
   external JSArray<JSString> get protocols;
   external set protocols(JSArray<JSString> value);
+  external DatagramsReadableMode get datagramsReadableMode;
+  external set datagramsReadableMode(DatagramsReadableMode value);
 }
 extension type WebTransportCloseInfo._(JSObject _) implements JSObject {
   external factory WebTransportCloseInfo({
@@ -262,17 +254,25 @@ extension type WebTransportCloseInfo._(JSObject _) implements JSObject {
   external String get reason;
   external set reason(String value);
 }
-extension type WebTransportSendStreamOptions._(JSObject _) implements JSObject {
-  external factory WebTransportSendStreamOptions({
+extension type WebTransportSendOptions._(JSObject _) implements JSObject {
+  external factory WebTransportSendOptions({
     JSObject? sendGroup,
     int sendOrder,
-    bool waitUntilAvailable,
   });
 
   external JSObject? get sendGroup;
   external set sendGroup(JSObject? value);
   external int get sendOrder;
   external set sendOrder(int value);
+}
+extension type WebTransportSendStreamOptions._(JSObject _)
+    implements WebTransportSendOptions, JSObject {
+  external factory WebTransportSendStreamOptions({
+    JSObject? sendGroup,
+    int sendOrder,
+    bool waitUntilAvailable,
+  });
+
   external bool get waitUntilAvailable;
   external set waitUntilAvailable(bool value);
 }

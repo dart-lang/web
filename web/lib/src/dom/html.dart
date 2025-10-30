@@ -17,7 +17,7 @@ import 'dart:js_interop';
 
 import 'battery_status.dart';
 import 'clipboard_apis.dart';
-import 'cookie_store.dart';
+import 'cookiestore.dart';
 import 'credential_management.dart';
 import 'css_font_loading.dart';
 import 'css_typed_om.dart';
@@ -56,7 +56,7 @@ import 'vibration.dart';
 import 'video_rvfc.dart';
 import 'web_locks.dart';
 import 'web_share.dart';
-import 'webcryptoapi.dart';
+import 'webcrypto.dart';
 import 'webidl.dart';
 import 'webmidi.dart';
 import 'xhr.dart';
@@ -71,6 +71,7 @@ typedef EventHandler = EventHandlerNonNull?;
 typedef OnErrorEventHandler = OnErrorEventHandlerNonNull?;
 typedef OnBeforeUnloadEventHandler = OnBeforeUnloadEventHandlerNonNull?;
 typedef TimerHandler = JSAny;
+typedef ImageDataArray = JSTypedArray;
 typedef ImageBitmapSource = JSObject;
 typedef MessageEventSource = JSObject;
 typedef BlobCallback = JSFunction;
@@ -86,7 +87,6 @@ typedef CanPlayTypeResult = String;
 typedef TextTrackMode = String;
 typedef TextTrackKind = String;
 typedef SelectionMode = String;
-typedef PredefinedColorSpace = String;
 typedef CanvasColorType = String;
 typedef CanvasFillRule = String;
 typedef ImageSmoothingQuality = String;
@@ -100,8 +100,10 @@ typedef CanvasFontStretch = String;
 typedef CanvasFontVariantCaps = String;
 typedef CanvasTextRendering = String;
 typedef OffscreenRenderingContextId = String;
+typedef PredefinedColorSpace = String;
 typedef ScrollRestoration = String;
 typedef DOMParserSupportedType = String;
+typedef ImageDataPixelFormat = String;
 typedef ImageOrientation = String;
 typedef PremultiplyAlpha = String;
 typedef ColorSpaceConversion = String;
@@ -857,7 +859,7 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   /// >
   /// > The `style` property has the same priority in the CSS cascade as an
   /// > inline style declaration set via the `style` attribute.
-  external CSSStyleDeclaration get style;
+  external JSObject get style;
 
   /// The **`attributeStyleMap`** read-only property of the [HTMLElement]
   /// interface returns a live [StylePropertyMap] object that contains a list of
@@ -8355,6 +8357,17 @@ extension type HTMLDialogElement._(JSObject _)
   /// `returnValue` of the dialog.
   external void close([String returnValue]);
 
+  /// The **`requestClose()`** method of the [HTMLDialogElement] interface
+  /// requests to close the `dialog`.
+  /// An optional string may be passed as an argument, updating the
+  /// `returnValue` of the dialog.
+  ///
+  /// This method differs from the `HTMLDialogElement.close()` method by firing
+  /// a `cancel` event before firing the `close` event. This allows
+  /// authors to prevent the dialog from closing. This method exposes the same
+  /// behavior as the dialog's internal close watcher.
+  external void requestClose([String returnValue]);
+
   /// The **`open`** property of the
   /// [HTMLDialogElement] interface is a boolean value reflecting the
   /// [`open`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog#open)
@@ -8400,6 +8413,13 @@ extension type HTMLScriptElement._(JSObject _)
   /// which are supported by most modern browsers.
   external static bool supports(String type);
 
+  /// The **`type`** property of the [HTMLScriptElement] interface is a string
+  /// that reflects the type of the script.
+  ///
+  /// It reflects the `type` attribute of the `script` element.
+  external String get type;
+  external set type(String value);
+
   /// The **`src`** property of the [HTMLScriptElement] interface is a string
   /// representing the URL of an external script; this can be used as an
   /// alternative to embedding a script directly within a document.
@@ -8407,13 +8427,6 @@ extension type HTMLScriptElement._(JSObject _)
   /// It reflects the `src` attribute of the `script` element.
   external String get src;
   external set src(String value);
-
-  /// The **`type`** property of the [HTMLScriptElement] interface is a string
-  /// that reflects the type of the script.
-  ///
-  /// It reflects the `type` attribute of the `script` element.
-  external String get type;
-  external set type(String value);
 
   /// The **`noModule`** property of the [HTMLScriptElement] interface is a
   /// boolean value that indicates whether the script should be executed in
@@ -8452,6 +8465,13 @@ extension type HTMLScriptElement._(JSObject _)
   external bool get defer;
   external set defer(bool value);
 
+  /// The **`blocking`** property of the [HTMLScriptElement] interface is a
+  /// string indicating that certain operations should be blocked on the
+  /// fetching of the script.
+  ///
+  /// It reflects the `blocking` attribute of the `script` element.
+  external DOMTokenList get blocking;
+
   /// The **`crossOrigin`** property of the [HTMLScriptElement] interface
   /// reflects the  settings for the script element. For classic scripts from
   /// other [origins](https://developer.mozilla.org/en-US/docs/Glossary/Origin),
@@ -8462,22 +8482,6 @@ extension type HTMLScriptElement._(JSObject _)
   external String? get crossOrigin;
   external set crossOrigin(String? value);
 
-  /// The **`text`** property of the [HTMLScriptElement] interface is a string
-  /// that reflects the text content inside the `script` element. It acts the
-  /// same way as the [Node.textContent] property.
-  ///
-  /// It reflects the `text` attribute of the `script` element.
-  external String get text;
-  external set text(String value);
-
-  /// The **`integrity`** property of the [HTMLScriptElement] interface is a
-  /// string that contains inline metadata that a browser can use to verify that
-  /// a fetched resource has been delivered without unexpected manipulation.
-  ///
-  /// It reflects the `integrity` attribute of the `script` element.
-  external String get integrity;
-  external set integrity(String value);
-
   /// The **`referrerPolicy`** property of the
   /// [HTMLScriptElement] interface reflects the HTML
   /// [`referrerpolicy`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script#referrerpolicy)
@@ -8486,12 +8490,13 @@ extension type HTMLScriptElement._(JSObject _)
   external String get referrerPolicy;
   external set referrerPolicy(String value);
 
-  /// The **`blocking`** property of the [HTMLScriptElement] interface is a
-  /// string indicating that certain operations should be blocked on the
-  /// fetching of the script.
+  /// The **`integrity`** property of the [HTMLScriptElement] interface is a
+  /// string that contains inline metadata that a browser can use to verify that
+  /// a fetched resource has been delivered without unexpected manipulation.
   ///
-  /// It reflects the `blocking` attribute of the `script` element.
-  external DOMTokenList get blocking;
+  /// It reflects the `integrity` attribute of the `script` element.
+  external String get integrity;
+  external set integrity(String value);
 
   /// The **`fetchPriority`** property of the [HTMLScriptElement] interface
   /// represents a hint to the browser indicating how it should prioritize
@@ -8521,6 +8526,14 @@ extension type HTMLScriptElement._(JSObject _)
   /// impact of `fetchPriority` on the priority, are entirely browser dependent.
   external String get fetchPriority;
   external set fetchPriority(String value);
+
+  /// The **`text`** property of the [HTMLScriptElement] interface is a string
+  /// that reflects the text content inside the `script` element. It acts the
+  /// same way as the [Node.textContent] property.
+  ///
+  /// It reflects the `text` attribute of the `script` element.
+  external String get text;
+  external set text(String value);
   external String get charset;
   external set charset(String value);
   external String get event;
@@ -10091,60 +10104,6 @@ extension type TextMetrics._(JSObject _) implements JSObject {
   /// ideographic baseline of the line box, in CSS pixels.
   external double get ideographicBaseline;
 }
-extension type ImageDataSettings._(JSObject _) implements JSObject {
-  external factory ImageDataSettings({PredefinedColorSpace colorSpace});
-
-  external PredefinedColorSpace get colorSpace;
-  external set colorSpace(PredefinedColorSpace value);
-}
-
-/// The **`ImageData`** interface represents the underlying pixel data of an
-/// area of a `canvas` element.
-///
-/// It is created using the [ImageData.ImageData] constructor or creator methods
-/// on the [CanvasRenderingContext2D] object associated with a canvas:
-/// [CanvasRenderingContext2D.createImageData] and
-/// [CanvasRenderingContext2D.getImageData]. It can also be used to set a part
-/// of the canvas by using [CanvasRenderingContext2D.putImageData].
-///
-/// ---
-///
-/// API documentation sourced from
-/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ImageData).
-extension type ImageData._(JSObject _) implements JSObject {
-  external factory ImageData(
-    JSAny dataOrSw,
-    int shOrSw, [
-    JSAny settingsOrSh,
-    ImageDataSettings settings,
-  ]);
-
-  /// The readonly **`ImageData.width`** property returns the number
-  /// of pixels per row in the [ImageData] object.
-  external int get width;
-
-  /// The readonly **`ImageData.height`** property returns the number
-  /// of rows in the [ImageData] object.
-  external int get height;
-
-  /// The readonly **`ImageData.data`** property returns a
-  /// `Uint8ClampedArray` that contains the [ImageData] object's
-  /// pixel data. Data is stored as a one-dimensional array in the RGBA order,
-  /// with integer
-  /// values between `0` and `255` (inclusive).
-  external JSUint8ClampedArray get data;
-
-  /// The read-only **`ImageData.colorSpace`** property is a string indicating
-  /// the color space of the image data.
-  ///
-  /// The color space can be set during `ImageData` initialization using either
-  /// the
-  /// [`ImageData()`](https://developer.mozilla.org/en-US/docs/Web/API/ImageData/ImageData)
-  /// constructor or the
-  /// [`createImageData()`](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/createImageData)
-  /// method.
-  external PredefinedColorSpace get colorSpace;
-}
 
 /// The **`Path2D`** interface of the Canvas 2D API is used to declare a path
 /// that can then be used on a [CanvasRenderingContext2D] object. The
@@ -10772,6 +10731,8 @@ extension type ElementInternals._(JSObject _) implements JSObject {
   /// implicit ARIA role, if any, unless explicitly set.
   external String? get role;
   external set role(String? value);
+  external Element? get ariaActiveDescendantElement;
+  external set ariaActiveDescendantElement(Element? value);
 
   /// The **`ariaAtomic`** property of the [ElementInternals] interface reflects
   /// the value of the
@@ -10908,6 +10869,8 @@ extension type ElementInternals._(JSObject _) implements JSObject {
   /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
   external String? get ariaColSpan;
   external set ariaColSpan(String? value);
+  external JSArray<Element>? get ariaControlsElements;
+  external set ariaControlsElements(JSArray<Element>? value);
 
   /// The **`ariaCurrent`** property of the [ElementInternals] interface
   /// reflects the value of the
@@ -10924,6 +10887,8 @@ extension type ElementInternals._(JSObject _) implements JSObject {
   /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
   external String? get ariaCurrent;
   external set ariaCurrent(String? value);
+  external JSArray<Element>? get ariaDescribedByElements;
+  external set ariaDescribedByElements(JSArray<Element>? value);
 
   /// The **`ariaDescription`** property of the [ElementInternals] interface
   /// reflects the value of the
@@ -10940,6 +10905,8 @@ extension type ElementInternals._(JSObject _) implements JSObject {
   /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
   external String? get ariaDescription;
   external set ariaDescription(String? value);
+  external JSArray<Element>? get ariaDetailsElements;
+  external set ariaDetailsElements(JSArray<Element>? value);
 
   /// The **`ariaDisabled`** property of the [ElementInternals] interface
   /// reflects the value of the
@@ -10956,6 +10923,8 @@ extension type ElementInternals._(JSObject _) implements JSObject {
   /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
   external String? get ariaDisabled;
   external set ariaDisabled(String? value);
+  external JSArray<Element>? get ariaErrorMessageElements;
+  external set ariaErrorMessageElements(JSArray<Element>? value);
 
   /// The **`ariaExpanded`** property of the [ElementInternals] interface
   /// reflects the value of the
@@ -10972,6 +10941,8 @@ extension type ElementInternals._(JSObject _) implements JSObject {
   /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
   external String? get ariaExpanded;
   external set ariaExpanded(String? value);
+  external JSArray<Element>? get ariaFlowToElements;
+  external set ariaFlowToElements(JSArray<Element>? value);
 
   /// The **`ariaHasPopup`** property of the [ElementInternals] interface
   /// reflects the value of the
@@ -11037,6 +11008,8 @@ extension type ElementInternals._(JSObject _) implements JSObject {
   /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
   external String? get ariaLabel;
   external set ariaLabel(String? value);
+  external JSArray<Element>? get ariaLabelledByElements;
+  external set ariaLabelledByElements(JSArray<Element>? value);
 
   /// The **`ariaLevel`** property of the [ElementInternals] interface reflects
   /// the value of the
@@ -11133,6 +11106,8 @@ extension type ElementInternals._(JSObject _) implements JSObject {
   /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
   external String? get ariaOrientation;
   external set ariaOrientation(String? value);
+  external JSArray<Element>? get ariaOwnsElements;
+  external set ariaOwnsElements(JSArray<Element>? value);
 
   /// The **`ariaPlaceholder`** property of the [ElementInternals] interface
   /// reflects the value of the
@@ -11513,12 +11488,15 @@ extension type ToggleEventInit._(JSObject _) implements EventInit, JSObject {
     bool composed,
     String oldState,
     String newState,
+    Element? source,
   });
 
   external String get oldState;
   external set oldState(String value);
   external String get newState;
   external set newState(String value);
+  external Element? get source;
+  external set source(Element? value);
 }
 extension type FocusOptions._(JSObject _) implements JSObject {
   external factory FocusOptions({
@@ -12123,21 +12101,21 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
 
   /// The **`Window.scroll()`** method scrolls the window to a
   /// particular place in the document.
-  external void scroll([
+  external JSPromise<JSAny?> scroll([
     JSAny optionsOrX,
     num y,
   ]);
 
   /// **`Window.scrollTo()`** scrolls to a particular set of
   /// coordinates in the document.
-  external void scrollTo([
+  external JSPromise<JSAny?> scrollTo([
     JSAny optionsOrX,
     num y,
   ]);
 
   /// The **`Window.scrollBy()`** method scrolls the document in the
   /// window by the given amount.
-  external void scrollBy([
+  external JSPromise<JSAny?> scrollBy([
     JSAny optionsOrX,
     num y,
   ]);
@@ -12151,7 +12129,7 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// Individual CSS property values are accessed through APIs provided by the
   /// object, or by
   /// indexing with CSS property names.
-  external CSSStyleDeclaration getComputedStyle(
+  external JSObject getComputedStyle(
     Element elt, [
     String? pseudoElt,
   ]);
@@ -13098,21 +13076,6 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// asynchronously access the capabilities of indexed databases.
   external IDBFactory get indexedDB;
 
-  /// The **`crypto`** read-only property of the [Window] interface returns the
-  /// [Crypto] object for this window's scope. This object gives web pages
-  /// access to certain cryptographic related services.
-  ///
-  /// Although the property itself is read-only, all of its methods (and the
-  /// methods of its
-  /// child object, [SubtleCrypto]) are not read-only, and therefore vulnerable
-  /// to attack by .
-  ///
-  /// Although `crypto` is available on all windows, the returned `Crypto`
-  /// object only has one usable feature in insecure contexts: the
-  /// [Crypto.getRandomValues] method. In general, you should use this API only
-  /// in secure contexts.
-  external Crypto get crypto;
-
   /// The **`performance`** property of the [Window] interface returns a
   /// [Performance] object, which can be used to gather performance information
   /// about code running in the window's scope.
@@ -13141,6 +13104,21 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// returns the [TrustedTypePolicyFactory] object associated with the global
   /// object, providing the entry point for using the [Trusted Types API].
   external TrustedTypePolicyFactory get trustedTypes;
+
+  /// The **`crypto`** read-only property of the [Window] interface returns the
+  /// [Crypto] object for this window's scope. This object gives web pages
+  /// access to certain cryptographic related services.
+  ///
+  /// Although the property itself is read-only, all of its methods (and the
+  /// methods of its
+  /// child object, [SubtleCrypto]) are not read-only, and therefore vulnerable
+  /// to attack by .
+  ///
+  /// Although `crypto` is available on all windows, the returned `Crypto`
+  /// object only has one usable feature in insecure contexts: the
+  /// [Crypto.getRandomValues] method. In general, you should use this API only
+  /// in secure contexts.
+  external Crypto get crypto;
 
   /// The read-only **`sessionStorage`** property accesses a session [Storage]
   /// object for the current . `sessionStorage` is similar to
@@ -13905,6 +13883,25 @@ extension type DOMParser._(JSObject _) implements JSObject {
   );
 }
 
+/// The `XMLSerializer` interface provides the [XMLSerializer.serializeToString]
+/// method to construct an XML string representing a  tree.
+///
+/// > [!NOTE]
+/// > The resulting XML string is not guaranteed to be well-formed XML.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/XMLSerializer).
+extension type XMLSerializer._(JSObject _) implements JSObject {
+  external factory XMLSerializer();
+
+  /// The [XMLSerializer] method
+  /// **`serializeToString()`** constructs a string representing the
+  /// specified  tree in  form.
+  external String serializeToString(Node root);
+}
+
 /// The **`Navigator`** interface represents the state and the identity of the
 /// user agent. It allows scripts to query it and to register themselves to
 /// carry on some activities.
@@ -14614,6 +14611,65 @@ extension type MimeType._(JSObject _) implements JSObject {
   external String get suffixes;
   external Plugin get enabledPlugin;
 }
+extension type ImageDataSettings._(JSObject _) implements JSObject {
+  external factory ImageDataSettings({
+    PredefinedColorSpace colorSpace,
+    ImageDataPixelFormat pixelFormat,
+  });
+
+  external PredefinedColorSpace get colorSpace;
+  external set colorSpace(PredefinedColorSpace value);
+  external ImageDataPixelFormat get pixelFormat;
+  external set pixelFormat(ImageDataPixelFormat value);
+}
+
+/// The **`ImageData`** interface represents the underlying pixel data of an
+/// area of a `canvas` element.
+///
+/// It is created using the [ImageData.ImageData] constructor or creator methods
+/// on the [CanvasRenderingContext2D] object associated with a canvas:
+/// [CanvasRenderingContext2D.createImageData] and
+/// [CanvasRenderingContext2D.getImageData]. It can also be used to set a part
+/// of the canvas by using [CanvasRenderingContext2D.putImageData].
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ImageData).
+extension type ImageData._(JSObject _) implements JSObject {
+  external factory ImageData(
+    JSAny dataOrSw,
+    int shOrSw, [
+    JSAny settingsOrSh,
+    ImageDataSettings settings,
+  ]);
+
+  /// The readonly **`ImageData.width`** property returns the number
+  /// of pixels per row in the [ImageData] object.
+  external int get width;
+
+  /// The readonly **`ImageData.height`** property returns the number
+  /// of rows in the [ImageData] object.
+  external int get height;
+
+  /// The readonly **`ImageData.data`** property returns a
+  /// `Uint8ClampedArray` that contains the [ImageData] object's
+  /// pixel data. Data is stored as a one-dimensional array in the RGBA order,
+  /// with integer
+  /// values between `0` and `255` (inclusive).
+  external ImageDataArray get data;
+
+  /// The read-only **`ImageData.colorSpace`** property is a string indicating
+  /// the color space of the image data.
+  ///
+  /// The color space can be set during `ImageData` initialization using either
+  /// the
+  /// [`ImageData()`](https://developer.mozilla.org/en-US/docs/Web/API/ImageData/ImageData)
+  /// constructor or the
+  /// [`createImageData()`](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/createImageData)
+  /// method.
+  external PredefinedColorSpace get colorSpace;
+}
 
 /// The **`ImageBitmap`** interface represents a bitmap image which can be drawn
 /// to a `canvas` without undue latency. It can be created from a variety of
@@ -15302,23 +15358,6 @@ extension type WorkerGlobalScope._(JSObject _)
 
   /// @AvailableInWorkers("worker")
   ///
-  /// The **`crypto`** read-only property of the [WorkerGlobalScope] interface
-  /// returns the [Crypto] object for this worker. This object gives workers
-  /// access to certain cryptographic related services.
-  ///
-  /// Although the property itself is read-only, all of its methods (and the
-  /// methods of its
-  /// child object, [SubtleCrypto]) are not read-only, and therefore vulnerable
-  /// to attack by .
-  ///
-  /// Although `crypto` is available on all workers, the returned `Crypto`
-  /// object only has one usable feature in insecure contexts: the
-  /// [Crypto.getRandomValues] method. In general, you should use this API only
-  /// in secure contexts.
-  external Crypto get crypto;
-
-  /// @AvailableInWorkers("worker")
-  ///
   /// The **`performance`** property of the [WorkerGlobalScope] interface
   /// returns a [Performance] object, which can be used to gather performance
   /// information about code running in the worker's scope.
@@ -15365,6 +15404,23 @@ extension type WorkerGlobalScope._(JSObject _)
   /// the global object, providing the entry point for using the
   /// [Trusted Types API].
   external TrustedTypePolicyFactory get trustedTypes;
+
+  /// @AvailableInWorkers("worker")
+  ///
+  /// The **`crypto`** read-only property of the [WorkerGlobalScope] interface
+  /// returns the [Crypto] object for this worker. This object gives workers
+  /// access to certain cryptographic related services.
+  ///
+  /// Although the property itself is read-only, all of its methods (and the
+  /// methods of its
+  /// child object, [SubtleCrypto]) are not read-only, and therefore vulnerable
+  /// to attack by .
+  ///
+  /// Although `crypto` is available on all workers, the returned `Crypto`
+  /// object only has one usable feature in insecure contexts: the
+  /// [Crypto.getRandomValues] method. In general, you should use this API only
+  /// in secure contexts.
+  external Crypto get crypto;
 }
 
 /// @AvailableInWorkers("dedicated")
@@ -15568,17 +15624,17 @@ extension type Worker._(JSObject _) implements EventTarget, JSObject {
 }
 extension type WorkerOptions._(JSObject _) implements JSObject {
   external factory WorkerOptions({
+    String name,
     WorkerType type,
     RequestCredentials credentials,
-    String name,
   });
 
+  external String get name;
+  external set name(String value);
   external WorkerType get type;
   external set type(WorkerType value);
   external RequestCredentials get credentials;
   external set credentials(RequestCredentials value);
-  external String get name;
-  external set name(String value);
 }
 
 /// The **`SharedWorker`** interface represents a specific kind of worker that

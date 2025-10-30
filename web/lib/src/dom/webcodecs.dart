@@ -427,7 +427,7 @@ extension type AudioDecoderConfig._(JSObject _) implements JSObject {
     required String codec,
     required int sampleRate,
     required int numberOfChannels,
-    BufferSource description,
+    AllowSharedBufferSource description,
   });
 
   external String get codec;
@@ -436,8 +436,8 @@ extension type AudioDecoderConfig._(JSObject _) implements JSObject {
   external set sampleRate(int value);
   external int get numberOfChannels;
   external set numberOfChannels(int value);
-  external BufferSource get description;
-  external set description(BufferSource value);
+  external AllowSharedBufferSource get description;
+  external set description(AllowSharedBufferSource value);
 }
 extension type VideoDecoderConfig._(JSObject _) implements JSObject {
   external factory VideoDecoderConfig({

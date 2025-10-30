@@ -64,6 +64,14 @@ extension type SpeechRecognition._(JSObject _)
   /// [SpeechRecognitionResult].
   external void abort();
 
+  /// The **`grammars`** property of the
+  /// [SpeechRecognition] interface returns and sets a collection of
+  /// [SpeechGrammar] objects that represent the grammars that will be
+  /// understood
+  /// by the current `SpeechRecognition`.
+  external JSObject get grammars;
+  external set grammars(JSObject value);
+
   /// The **`lang`** property of the [SpeechRecognition]
   /// interface returns and sets the language of the current
   /// `SpeechRecognition`.

@@ -1391,16 +1391,12 @@ class Translator {
             ...mozLicenseHeader,
           ]);
         }
-        // TODO(https://github.com/dart-lang/sdk/issues/56450): Remove
-        //  this once this bug has been resolved.
         b
           ..ignoreForFile.addAll([
-            'unintended_html_in_doc_comment',
+            // JS constants are allowed to be all uppercased.
             'constant_identifier_names',
-            if (library.interfacelikes
-                .where((i) => i.type == 'namespace')
-                .isNotEmpty)
-              'non_constant_identifier_names'
+            // JS properties are allowed to not be camelcased.
+            'non_constant_identifier_names',
           ])
           ..generatedByComment = generatedFileDisclaimer
           // TODO(srujzs): This is to address the issue around extension type

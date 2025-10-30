@@ -119,7 +119,7 @@ Future<void> generateJsTypeSupertypes(String contextFile) async {
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-// Do not modify by hand.
+// Generated code. Do not modify by hand.
 
 const Map<String, String?> jsTypeSupertypes = {
 ${jsTypeSupertypes.entries.map((e) => "  ${e.key}: ${e.value},").join('\n')}

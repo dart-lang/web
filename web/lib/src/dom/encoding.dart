@@ -8,7 +8,7 @@
 
 // Generated from Web IDL definitions.
 
-// ignore_for_file: unintended_html_in_doc_comment
+// ignore_for_file: constant_identifier_names, non_constant_identifier_names
 
 @JS()
 library;

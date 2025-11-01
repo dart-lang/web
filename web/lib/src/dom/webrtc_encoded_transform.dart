@@ -16,25 +16,59 @@ library;
 import 'dart:js_interop';
 
 import 'dom.dart';
+import 'hr_time.dart';
 import 'html.dart';
 import 'streams.dart';
 
 typedef RTCRtpTransform = JSObject;
 typedef RTCEncodedVideoFrameType = String;
-extension type RTCEncodedVideoFrameMetadata._(JSObject _) implements JSObject {
+extension type RTCEncodedFrameMetadata._(JSObject _) implements JSObject {
+  external factory RTCEncodedFrameMetadata({
+    int synchronizationSource,
+    int payloadType,
+    JSArray<JSNumber> contributingSources,
+    int rtpTimestamp,
+    DOMHighResTimeStamp receiveTime,
+    DOMHighResTimeStamp captureTime,
+    DOMHighResTimeStamp senderCaptureTimeOffset,
+    String mimeType,
+  });
+
+  external int get synchronizationSource;
+  external set synchronizationSource(int value);
+  external int get payloadType;
+  external set payloadType(int value);
+  external JSArray<JSNumber> get contributingSources;
+  external set contributingSources(JSArray<JSNumber> value);
+  external int get rtpTimestamp;
+  external set rtpTimestamp(int value);
+  external double get receiveTime;
+  external set receiveTime(DOMHighResTimeStamp value);
+  external double get captureTime;
+  external set captureTime(DOMHighResTimeStamp value);
+  external double get senderCaptureTimeOffset;
+  external set senderCaptureTimeOffset(DOMHighResTimeStamp value);
+  external String get mimeType;
+  external set mimeType(String value);
+}
+extension type RTCEncodedVideoFrameMetadata._(JSObject _)
+    implements RTCEncodedFrameMetadata, JSObject {
   external factory RTCEncodedVideoFrameMetadata({
+    int synchronizationSource,
+    int payloadType,
+    JSArray<JSNumber> contributingSources,
+    int rtpTimestamp,
+    DOMHighResTimeStamp receiveTime,
+    DOMHighResTimeStamp captureTime,
+    DOMHighResTimeStamp senderCaptureTimeOffset,
+    String mimeType,
     int frameId,
     JSArray<JSNumber> dependencies,
     int width,
     int height,
     int spatialIndex,
     int temporalIndex,
-    int synchronizationSource,
-    int payloadType,
-    JSArray<JSNumber> contributingSources,
     int timestamp,
-    int rtpTimestamp,
-    String mimeType,
   });
 
   external int get frameId;
@@ -49,18 +83,8 @@ extension type RTCEncodedVideoFrameMetadata._(JSObject _) implements JSObject {
   external set spatialIndex(int value);
   external int get temporalIndex;
   external set temporalIndex(int value);
-  external int get synchronizationSource;
-  external set synchronizationSource(int value);
-  external int get payloadType;
-  external set payloadType(int value);
-  external JSArray<JSNumber> get contributingSources;
-  external set contributingSources(JSArray<JSNumber> value);
   external int get timestamp;
   external set timestamp(int value);
-  external int get rtpTimestamp;
-  external set rtpTimestamp(int value);
-  external String get mimeType;
-  external set mimeType(String value);
 }
 
 /// @AvailableInWorkers("window_and_dedicated")
@@ -99,28 +123,25 @@ extension type RTCEncodedVideoFrame._(JSObject _) implements JSObject {
   external JSArrayBuffer get data;
   external set data(JSArrayBuffer value);
 }
-extension type RTCEncodedAudioFrameMetadata._(JSObject _) implements JSObject {
+extension type RTCEncodedAudioFrameMetadata._(JSObject _)
+    implements RTCEncodedFrameMetadata, JSObject {
   external factory RTCEncodedAudioFrameMetadata({
     int synchronizationSource,
     int payloadType,
     JSArray<JSNumber> contributingSources,
-    int sequenceNumber,
     int rtpTimestamp,
+    DOMHighResTimeStamp receiveTime,
+    DOMHighResTimeStamp captureTime,
+    DOMHighResTimeStamp senderCaptureTimeOffset,
     String mimeType,
+    int sequenceNumber,
+    num audioLevel,
   });
 
-  external int get synchronizationSource;
-  external set synchronizationSource(int value);
-  external int get payloadType;
-  external set payloadType(int value);
-  external JSArray<JSNumber> get contributingSources;
-  external set contributingSources(JSArray<JSNumber> value);
   external int get sequenceNumber;
   external set sequenceNumber(int value);
-  external int get rtpTimestamp;
-  external set rtpTimestamp(int value);
-  external String get mimeType;
-  external set mimeType(String value);
+  external double get audioLevel;
+  external set audioLevel(num value);
 }
 
 /// @AvailableInWorkers("window_and_dedicated")
@@ -211,7 +232,7 @@ extension type RTCRtpScriptTransformer._(JSObject _)
     implements EventTarget, JSObject {
   /// The **`generateKeyFrame()`** method of the [RTCRtpScriptTransformer]
   /// interface causes a video encoder to generate a key frame.
-  external JSPromise<JSNumber> generateKeyFrame([String rid]);
+  external JSPromise<JSAny?> generateKeyFrame([String rid]);
 
   /// The **`sendKeyFrameRequest()`** method of the [RTCRtpScriptTransformer]
   /// interface may be called by a

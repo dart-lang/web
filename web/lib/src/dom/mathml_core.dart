@@ -16,7 +16,6 @@ library;
 import 'dart:js_interop';
 
 import 'css_typed_om.dart';
-import 'cssom.dart';
 import 'dom.dart';
 import 'html.dart';
 
@@ -281,7 +280,7 @@ extension type MathMLElement._(JSObject _) implements Element, JSObject {
   /// >
   /// > The `style` property has the same priority in the CSS cascade as an
   /// > inline style declaration set via the `style` attribute.
-  external CSSStyleDeclaration get style;
+  external JSObject get style;
 
   /// The **`attributeStyleMap`** read-only property of the [MathMLElement]
   /// interface returns a live [StylePropertyMap] object that contains a list of

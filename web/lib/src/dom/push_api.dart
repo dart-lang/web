@@ -17,6 +17,7 @@ import 'dart:js_interop';
 
 import 'fileapi.dart';
 import 'hr_time.dart';
+import 'notifications.dart';
 import 'service_workers.dart';
 
 typedef PushMessageDataInit = JSAny;
@@ -281,11 +282,14 @@ extension type PushEventInit._(JSObject _)
     bool bubbles,
     bool cancelable,
     bool composed,
-    PushMessageDataInit data,
+    PushMessageDataInit? data,
+    Notification? notification,
   });
 
-  external PushMessageDataInit get data;
-  external set data(PushMessageDataInit value);
+  external PushMessageDataInit? get data;
+  external set data(PushMessageDataInit? value);
+  external Notification? get notification;
+  external set notification(Notification? value);
 }
 extension type PushSubscriptionChangeEvent._(JSObject _)
     implements ExtendableEvent, JSObject {

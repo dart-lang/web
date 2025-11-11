@@ -1,0 +1,41 @@
+name: package:js_interop
+permissions: read-all
+
+on:
+  # Run CI on pushes to the main branch and on PRs.
+  push:
+    branches: [ main ]
+    paths:
+      - '.github/workflows/js_interop.yaml'
+      - 'js_interop/**'
+  pull_request:
+    paths:
+      - '.github/workflows/js_interop.yaml'
+      - 'js_interop/**'
+  schedule:
+    - cron: "0 0 * * 0"
+
+defaults:
+  run:
+    working-directory: js_interop/
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        sdk: [3.9, beta, dev]
+        test_config: ['-p chrome', '-p chrome -c dart2wasm', '-p node']
+
+    steps:
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
+      - uses: dart-lang/setup-dart@e51d8e571e22473a2ddebf0ef8a2123f0ab2c02c
+        with:
+          sdk: ${{ matrix.sdk }}
+
+      - run: dart pub get
+      - run: dart format --output=none --set-exit-if-changed .
+        if: ${{ matrix.sdk == 'dev' }}
+      - run: dart analyze --fatal-infos
+      - run: dart test ${{ matrix.test_config }}

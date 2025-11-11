@@ -12,7 +12,7 @@ extension type JSDate._(JSObject _) implements JSObject {
   /// The [Date constructor] that returns the current date and time.
   ///
   /// [Date constructor]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/Date
-  external JSDate.now();
+  external JSDate.nowAsDate();
 
   /// The [Date constructor] with the number of milliseconds since the epoch of
   /// January 1, 1970, UTC.
@@ -24,7 +24,7 @@ extension type JSDate._(JSObject _) implements JSObject {
   ///
   /// [Date constructor]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/Date
   /// [from a string]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/Date#date_string
-  external JSDate.parse(String dateString);
+  external JSDate.parseAsDate(String dateString);
 
   /// The [Date constructor] that copies its value [from an existing Date].
   ///
@@ -32,12 +32,75 @@ extension type JSDate._(JSObject _) implements JSObject {
   /// [from an existing Date]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/Date#date_object
   external JSDate.from(JSDate other);
 
-  /// The [Date constructor] that uses [individual component integers].
+  /// The [Date constructor] that uses [individual component integers],
+  /// interpreted in the local time zone.
   ///
   /// [Date constructor]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/Date
   /// [individual component integers]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/Date#individual_date_and_time_component_values
-  external JSDate(int year, int month,
-      [int? day, int? hours, int? minutes, int? seconds, int? milliseconds]);
+  external JSDate.localDate(
+    int year,
+    int month, [
+    int? day,
+    int? hours,
+    int? minutes,
+    int? seconds,
+    int? milliseconds,
+  ]);
+
+  /// The [Date constructor] that uses [individual component integers],
+  /// interpreted in the UTC time zone.
+  ///
+  /// [Date constructor]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/Date
+  /// [individual component integers]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/Date#individual_date_and_time_component_values
+  factory JSDate.utcDate(
+    int year,
+    int month, [
+    int? day,
+    int? hours,
+    int? minutes,
+    int? seconds,
+    int? milliseconds,
+  ]) {
+    var ms = switch ((day, hours, minutes, seconds, milliseconds)) {
+      (_, _, _, _, var milliseconds?) => JSDate.utcAsMillisecondsSinceEpoch(
+        year,
+        month,
+        day,
+        hours,
+        minutes,
+        seconds,
+        milliseconds,
+      ),
+      (_, _, _, var seconds?, _) => JSDate.utcAsMillisecondsSinceEpoch(
+        year,
+        month,
+        day,
+        hours,
+        minutes,
+        seconds,
+      ),
+      (_, _, var minutes?, _, _) => JSDate.utcAsMillisecondsSinceEpoch(
+        year,
+        month,
+        day,
+        hours,
+        minutes,
+      ),
+      (_, var hours?, _, _, _) => JSDate.utcAsMillisecondsSinceEpoch(
+        year,
+        month,
+        day,
+        hours,
+      ),
+      (var day?, _, _, _, _) => JSDate.utcAsMillisecondsSinceEpoch(
+        year,
+        month,
+        day,
+      ),
+      _ => JSDate.utcAsMillisecondsSinceEpoch(year, month),
+    };
+    return JSDate.fromMillisecondsSinceEpoch(ms);
+  }
 
   /// Dee [`Date.now()`].
   ///
@@ -55,13 +118,15 @@ extension type JSDate._(JSObject _) implements JSObject {
   ///
   /// [`Date.utc()`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/UTC
   @JS('UTC')
-  external static int utc(int year,
-      [int? month,
-      int? day,
-      int? hours,
-      int? minutes,
-      int? seconds,
-      int? milliseconds]);
+  external static int utcAsMillisecondsSinceEpoch(
+    int year, [
+    int? month,
+    int? day,
+    int? hours,
+    int? minutes,
+    int? seconds,
+    int? milliseconds,
+  ]);
 
   /// See [`Date.getDate()`] and [`Date.setDate()`].
   ///
@@ -81,13 +146,9 @@ extension type JSDate._(JSObject _) implements JSObject {
   /// [`Date.getDay()`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getDay
   /// [`Date.setDay()`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/setDay
   int get day => _getDay();
-  set day(int value) => _setDay(value);
 
   @JS('getDay')
   external int _getDay();
-
-  @JS('setDay')
-  external void _setDay(int value);
 
   /// See [`Date.getFullYear()`] and [`Date.setFullYear()`].
   ///

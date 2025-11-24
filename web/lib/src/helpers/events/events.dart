@@ -277,6 +277,24 @@ extension WindowEventGetters on Window {
   Stream<PopStateEvent> get onPopState =>
       EventStreamProviders.popStateEvent.forTarget(this);
 
+  Stream<TouchEvent> get onTouchCancel =>
+      EventStreamProviders.touchCancelEvent.forTarget(this);
+
+  Stream<TouchEvent> get onTouchEnd =>
+      EventStreamProviders.touchEndEvent.forTarget(this);
+
+  Stream<TouchEvent> get onTouchEnter =>
+      EventStreamProviders.touchEnterEvent.forTarget(this);
+
+  Stream<TouchEvent> get onTouchLeave =>
+      EventStreamProviders.touchLeaveEvent.forTarget(this);
+
+  Stream<TouchEvent> get onTouchMove =>
+      EventStreamProviders.touchMoveEvent.forTarget(this);
+
+  Stream<TouchEvent> get onTouchStart =>
+      EventStreamProviders.touchStartEvent.forTarget(this);
+
   Stream<MouseEvent> get onMouseDown =>
       EventStreamProviders.mouseDownEvent.forTarget(this);
 
@@ -318,6 +336,24 @@ extension WindowEventGetters on Window {
 }
 
 extension DocumentEventGetters on Document {
+  Stream<TouchEvent> get onTouchCancel =>
+      EventStreamProviders.touchCancelEvent.forTarget(this);
+
+  Stream<TouchEvent> get onTouchEnd =>
+      EventStreamProviders.touchEndEvent.forTarget(this);
+
+  Stream<TouchEvent> get onTouchEnter =>
+      EventStreamProviders.touchEnterEvent.forTarget(this);
+
+  Stream<TouchEvent> get onTouchLeave =>
+      EventStreamProviders.touchLeaveEvent.forTarget(this);
+
+  Stream<TouchEvent> get onTouchMove =>
+      EventStreamProviders.touchMoveEvent.forTarget(this);
+
+  Stream<TouchEvent> get onTouchStart =>
+      EventStreamProviders.touchStartEvent.forTarget(this);
+  
   Stream<MouseEvent> get onMouseDown =>
       EventStreamProviders.mouseDownEvent.forTarget(this);
 

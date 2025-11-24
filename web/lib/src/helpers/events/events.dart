@@ -353,7 +353,7 @@ extension DocumentEventGetters on Document {
 
   Stream<TouchEvent> get onTouchStart =>
       EventStreamProviders.touchStartEvent.forTarget(this);
-  
+
   Stream<MouseEvent> get onMouseDown =>
       EventStreamProviders.mouseDownEvent.forTarget(this);
 

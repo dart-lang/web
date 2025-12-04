@@ -14,20 +14,17 @@ Future<void> main(List<String> args) async {
   final offline = args.length == 1 && args.first == '--offline';
 
   // clone the repo
-  final repoPath =
-      p.fromUri(Platform.script.resolve('../.dart_tool/mdn_content'));
+  final repoPath = p.fromUri(
+    Platform.script.resolve('../.dart_tool/mdn_content'),
+  );
   final repoDir = Directory(repoPath);
   if (!repoDir.existsSync()) {
-    await _run(
-      'git',
-      [
-        'clone',
-        '--depth=1',
-        gitUrl,
-        p.basename(repoDir.path),
-      ],
-      cwd: repoDir.parent,
-    );
+    await _run('git', [
+      'clone',
+      '--depth=1',
+      gitUrl,
+      p.basename(repoDir.path),
+    ], cwd: repoDir.parent);
   } else {
     if (!offline) {
       await _run('git', ['pull'], cwd: repoDir);
@@ -38,8 +35,9 @@ Future<void> main(List<String> args) async {
 
   final interfaces = <InterfaceInfo>[];
 
-  final apiDir =
-      Directory(p.join(repoDir.path, 'files', 'en-us', 'web', 'api'));
+  final apiDir = Directory(
+    p.join(repoDir.path, 'files', 'en-us', 'web', 'api'),
+  );
   for (final dir in apiDir.listSync().whereType<Directory>()) {
     final interfaceIndex = File(p.join(dir.path, 'index.md'));
     if (!interfaceIndex.existsSync()) continue;
@@ -78,8 +76,9 @@ Future<void> main(List<String> args) async {
   print('${interfaces.length} items read from $gitUrl.');
 
   const encoder = JsonEncoder.withIndent('  ');
-  final filePath =
-      p.fromUri(Platform.script.resolve('../../third_party/mdn/mdn.json'));
+  final filePath = p.fromUri(
+    Platform.script.resolve('../../third_party/mdn/mdn.json'),
+  );
   final file = File(filePath);
   final json = {
     '__meta__': {
@@ -101,16 +100,13 @@ class InterfaceInfo implements Comparable<InterfaceInfo> {
 
   final List<Property> properties = [];
 
-  InterfaceInfo({
-    required this.name,
-    required this.docs,
-  });
+  InterfaceInfo({required this.name, required this.docs});
 
   Map<String, dynamic> get asJson => {
-        'docs': docs,
-        if (properties.isNotEmpty)
-          'properties': {for (var p in properties) p.name: p.docs},
-      };
+    'docs': docs,
+    if (properties.isNotEmpty)
+      'properties': {for (var p in properties) p.name: p.docs},
+  };
 
   @override
   int compareTo(InterfaceInfo other) => name.compareTo(other.name);
@@ -126,8 +122,9 @@ class Property implements Comparable<Property> {
   int compareTo(Property other) => name.compareTo(other.name);
 }
 
-final RegExp _xrefRegex =
-    RegExp(r'''{{\s*(\w+)\(([\w\., \n/\*"'\(\)]+)\)\s*}}''');
+final RegExp _xrefRegex = RegExp(
+  r'''{{\s*(\w+)\(([\w\., \n/\*"'\(\)]+)\)\s*}}''',
+);
 final RegExp _mustacheRegex = RegExp(r'''{{\s*([\S ]+?)\s*}}''');
 
 String? findTitle(String content) {
@@ -180,17 +177,19 @@ String convertMdnToMarkdown(String content) {
   //   "[WebGL API](/en-US/docs/Web/API/WebGL_API)"
   final linkRefRegex = RegExp(r'\[([^\]]+)\]\(([\w\/-]+)\)');
   lines = lines
-      .map((line) => line.replaceAllMapped(linkRefRegex, (match) {
-            final ref = match.group(1)!;
-            final link = match.group(2)!;
+      .map(
+        (line) => line.replaceAllMapped(linkRefRegex, (match) {
+          final ref = match.group(1)!;
+          final link = match.group(2)!;
 
-            if (link.startsWith('/en-US/')) {
-              // prefix with 'https://developer.mozilla.org'
-              return '[$ref](https://developer.mozilla.org$link)';
-            } else {
-              return match.group(0)!;
-            }
-          }))
+          if (link.startsWith('/en-US/')) {
+            // prefix with 'https://developer.mozilla.org'
+            return '[$ref](https://developer.mozilla.org$link)';
+          } else {
+            return match.group(0)!;
+          }
+        }),
+      )
       .toList();
 
   var text = lines.join('\n');

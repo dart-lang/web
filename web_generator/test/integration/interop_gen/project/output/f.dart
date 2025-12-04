@@ -33,20 +33,13 @@ external Product get rootUser;
 @_i1.JS()
 external Configuration get rootConfig;
 extension type Configuration._(_i1.JSObject _) implements _i1.JSObject {
-  external Configuration(
-    String version,
-    String apiUrl,
-  );
+  external Configuration(String version, String apiUrl);
 
   external String get version;
   external String get apiUrl;
 }
 extension type User._(_i1.JSObject _) implements _i1.JSObject {
-  external User(
-    num id,
-    String username,
-    String email,
-  );
+  external User(num id, String username, String email);
 
   external double id;
 
@@ -54,11 +47,7 @@ extension type User._(_i1.JSObject _) implements _i1.JSObject {
   external String getEmail();
 }
 extension type Product._(_i1.JSObject _) implements _i1.JSObject {
-  external Product(
-    String name,
-    num price,
-    num quantity,
-  );
+  external Product(String name, num price, num quantity);
 
   external String get name;
   external set price(num newPrice);

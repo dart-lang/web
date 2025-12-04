@@ -12,15 +12,19 @@ import '../bin/scrape_mdn.dart';
 void main() {
   group('convertMdnToMarkdown', () {
     test('simple', () {
-      compare('''
+      compare(
+        '''
 Hello world
-''', '''
+''',
+        '''
 Hello world
-''');
+''',
+      );
     });
 
     test('removes front matter', () {
-      compare('''
+      compare(
+        '''
 ---
 title: AudioNode
 slug: Web/API/AudioNode
@@ -29,129 +33,155 @@ browser-compat: api.AudioNode
 ---
 
 Hello world
-''', '''
+''',
+        '''
 Hello world
-''');
+''',
+      );
     });
 
     test('strips InheritanceDiagram', () {
-      compare('''
+      compare(
+        '''
 Hello world
 
 {{InheritanceDiagram}}
 
 foo bar
-''', '''
+''',
+        '''
 Hello world
 
 foo bar
-''');
+''',
+      );
     });
 
     test('strips AvailableInWorkers', () {
-      compare('''
+      compare(
+        '''
 Hello world
 
 {{AvailableInWorkers("notservice")}}
 
 foo bar
-''', '''
+''',
+        '''
 Hello world
 
 @AvailableInWorkers("notservice")
 
 foo bar
-''');
+''',
+      );
     });
 
     test('strips DefaultAPISidebar', () {
-      compare('''
+      compare(
+        '''
 {{DefaultAPISidebar("Streams API")}}
 
 The **`enqueue()`** method of the {{domxref("TransformStreamDefaultController")}} interface enqueues the given chunk in the readable side of the stream.
 
 For more information on readable streams and chunks see [Using Readable Streams](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API/Using_readable_streams).
-''', '''
+''',
+        '''
 The **`enqueue()`** method of the [TransformStreamDefaultController] interface enqueues the given chunk in the readable side of the stream.
 
 For more information on readable streams and chunks see [Using Readable Streams](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API/Using_readable_streams).
-''');
+''',
+      );
     });
 
     test('reference domxref', () {
-      compare('''
+      compare(
+        '''
 Examples include:
 
 - the audio destination,
 - intermediate processing module (e.g. a filter like {{domxref("BiquadFilterNode")}} or {{domxref("ConvolverNode")}}), or
 - volume control (like {{domxref("GainNode")}})
-''', '''
+''',
+        '''
 Examples include:
 
 - the audio destination,
 - intermediate processing module (e.g. a filter like [BiquadFilterNode] or [ConvolverNode]), or
 - volume control (like [GainNode])
-''');
+''',
+      );
 
-      compare('''
+      compare(
+        '''
 Examples include:
 
 ... of {{domxref("Response.type", "type")}} ...
-''', '''
+''',
+        '''
 Examples include:
 
 ... of [Response.type] ...
-''');
+''',
+      );
 
-      compare('''
+      compare(
+        '''
 The **`sampleRate`** property of the {{
   domxref("AudioBuffer") }} interface returns a float representing the sample rate, in
 samples per second, of the PCM data stored in the buffer.
-''', '''
+''',
+        '''
 The **`sampleRate`** property of the [AudioBuffer] interface returns a float representing the sample rate, in
 samples per second, of the PCM data stored in the buffer.
-''');
+''',
+      );
     });
 
     test('reference jsxref', () {
-      compare('''
+      compare(
+        '''
 ... or functions such as {{jsxref("Array.forEach", "forEach()")}}.
 
 - {{jsxref("JSON.parse()")}} - counterpart for {{jsxref("JSON")}} documents.
-''', '''
+''',
+        '''
 ... or functions such as `forEach()`.
 
 - `JSON.parse()` - counterpart for `JSON` documents.
-''');
+''',
+      );
     });
 
     test('expand links', () {
-      compare('''
+      compare(
+        '''
 some text
 [WebGL API](/en-US/docs/Web/API/WebGL_API)
 more text
 another [link](https://www.google.com)
-''', '''
+''',
+        '''
 some text
 [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API)
 more text
 another [link](https://www.google.com)
-''');
+''',
+      );
     });
 
     test('rewrite slash references', () {
-      compare('''
+      compare(
+        '''
 volume control (like {{domxref("FontFace/status")}})
-''', '''
+''',
+        '''
 volume control (like [FontFace.status])
-''');
+''',
+      );
     });
   });
 }
 
 void compare(String source, String output) {
-  expect(
-    convertMdnToMarkdown(source),
-    output.trimRight(),
-  );
+  expect(convertMdnToMarkdown(source), output.trimRight());
 }

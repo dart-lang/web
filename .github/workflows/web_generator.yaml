@@ -25,7 +25,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        sdk: [dev]
+        sdk: ['3.10', dev]
         test_config: ['', '-p chrome', '-p chrome -c dart2wasm']
 
     steps:
@@ -39,7 +39,9 @@ jobs:
 
       - run: dart pub get
       - run: dart format --output=none --set-exit-if-changed .
+        if: matrix.sdk == 'dev'
       - run: dart analyze --fatal-infos
+        if: matrix.sdk == 'dev'
       - run: dart test ${{ matrix.test_config }}
 
   # test bin/update_idl_bindings.dart

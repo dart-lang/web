@@ -34,19 +34,22 @@ class TransformResult {
   bool multiFileOutput;
 
   TransformResult._(this.programDeclarationMap, {this.commonTypes = const {}})
-      : multiFileOutput = programDeclarationMap.length > 1;
+    : multiFileOutput = programDeclarationMap.length > 1;
 
   // TODO(https://github.com/dart-lang/web/issues/388): Handle union of overloads
   //  (namespaces + functions, multiple interfaces, etc)
   Map<String, String> generate(Config config) {
     final formatter = DartFormatter(
-        languageVersion: DartFormatter.latestShortStyleLanguageVersion);
+      languageVersion: DartFormatter.latestShortStyleLanguageVersion,
+    );
 
     _setGlobalOptions(config);
 
     return {...programDeclarationMap, ...commonTypes}.map((file, declMap) {
-      final emitter =
-          DartEmitter.scoped(useNullSafetySyntax: true, orderDirectives: true);
+      final emitter = DartEmitter.scoped(
+        useNullSafetySyntax: true,
+        orderDirectives: true,
+      );
       final specs = declMap.values
           .map((d) {
             return switch (d) {
@@ -58,12 +61,14 @@ class TransformResult {
           .whereType<Spec>();
       final lib = Library((l) {
         if (config.preamble case final preamble?) {
-          l.comments.addAll(const LineSplitter().convert(preamble).map((l) {
-            if (l.startsWith('//')) {
-              return l.replaceFirst(RegExp(r'^\/\/\s*'), '');
-            }
-            return l;
-          }));
+          l.comments.addAll(
+            const LineSplitter().convert(preamble).map((l) {
+              if (l.startsWith('//')) {
+                return l.replaceFirst(RegExp(r'^\/\/\s*'), '');
+              }
+              return l;
+            }),
+          );
         }
         var parentCaseIgnore = false;
         var anonymousIgnore = false;
@@ -84,16 +89,21 @@ class TransformResult {
             if (anonymousIgnore) ...[
               'camel_case_types',
               'library_private_types_in_public_api',
-              'unnecessary_parenthesis'
+              'unnecessary_parenthesis',
             ],
             if (tupleDecl) 'unnecessary_parenthesis',
           })
           ..body.addAll(specs);
       });
       return MapEntry(
-          file.replaceAll('.d.ts', '.dart'),
-          formatter.format('${lib.accept(emitter)}'
-              .replaceAll('static external', 'external static')));
+        file.replaceAll('.d.ts', '.dart'),
+        formatter.format(
+          '${lib.accept(emitter)}'.replaceAll(
+            'static external',
+            'external static',
+          ),
+        ),
+      );
     });
   }
 }
@@ -182,22 +192,24 @@ class ProgramMap {
 
   /// The declarations as globs
   List<RegExp> get filterDeclSetPatterns => filterDeclSet.map((decl) {
-        final escapedDecl = RegExp.escape(decl);
-        if (escapedDecl == decl) return RegExp('^$decl\$');
-        return RegExp(decl);
-      }).toList();
+    final escapedDecl = RegExp.escape(decl);
+    if (escapedDecl == decl) return RegExp('^$decl\$');
+    return RegExp(decl);
+  }).toList();
 
   final bool generateAll;
 
   final bool strictUnsupported;
 
-  ProgramMap(this.program, List<String> files,
-      {this.filterDeclSet = const [],
-      bool? generateAll,
-      this.strictUnsupported = false})
-      : typeChecker = program.getTypeChecker(),
-        generateAll = generateAll ?? false,
-        files = p.PathSet.of(files);
+  ProgramMap(
+    this.program,
+    List<String> files, {
+    this.filterDeclSet = const [],
+    bool? generateAll,
+    this.strictUnsupported = false,
+  }) : typeChecker = program.getTypeChecker(),
+       generateAll = generateAll ?? false,
+       files = p.PathSet.of(files);
 
   /// Find the node definition for a given declaration named [declName]
   /// or associated with a TypeScript node [node] from the map of files
@@ -214,13 +226,17 @@ class ProgramMap {
         print('WARN: Could not find file $file');
         // try to transform by yourself
         final anonymousTransformer = _activeTransformers.putIfAbsent(
-            file, () => Transformer(this, null, file: file));
+          file,
+          () => Transformer(this, null, file: file),
+        );
 
         // TODO: Replace with .transformAndReturn once #388 lands
         return anonymousTransformer.transformAndReturn(node);
       } else {
-        final transformer =
-            _activeTransformers.putIfAbsent(file, () => Transformer(this, src));
+        final transformer = _activeTransformers.putIfAbsent(
+          file,
+          () => Transformer(this, src),
+        );
 
         if (!transformer.nodes.contains(node)) {
           if (declName case final d?
@@ -233,8 +249,9 @@ class ProgramMap {
 
             final targetSymbol = exports[d.toJS]!;
 
-            for (final decl in targetSymbol.getDeclarations()?.toDart ??
-                <TSDeclaration>[]) {
+            for (final decl
+                in targetSymbol.getDeclarations()?.toDart ??
+                    <TSDeclaration>[]) {
               transformer.transform(decl);
             }
           } else {
@@ -251,21 +268,26 @@ class ProgramMap {
     return name == null ? null : nodeMap.findByName(name);
   }
 
-  (String, NamedDeclaration)? getCommonType(String name,
-      {(String, NamedDeclaration)? ifAbsent}) {
+  (String, NamedDeclaration)? getCommonType(
+    String name, {
+    (String, NamedDeclaration)? ifAbsent,
+  }) {
     try {
       final MapEntry(key: url, value: nodeMap) = _commonTypes.entries
-          .firstWhere((e) => e.value.containsKey(name), orElse: () {
-        if (ifAbsent case (final file, final decl)) {
-          _commonTypes.update(
-            file,
-            (nodeMap) => nodeMap..add(decl),
-            ifAbsent: () => NodeMap()..add(decl),
+          .firstWhere(
+            (e) => e.value.containsKey(name),
+            orElse: () {
+              if (ifAbsent case (final file, final decl)) {
+                _commonTypes.update(
+                  file,
+                  (nodeMap) => nodeMap..add(decl),
+                  ifAbsent: () => NodeMap()..add(decl),
+                );
+                return MapEntry(file, _commonTypes[file]!);
+              }
+              throw Exception('Could not find common type for decl $name');
+            },
           );
-          return MapEntry(file, _commonTypes[file]!);
-        }
-        throw Exception('Could not find common type for decl $name');
-      });
 
       if ((url, nodeMap) case (final declUrl?, final declarationMap)) {
         return (declUrl, declarationMap.findByName(name).first);
@@ -289,31 +311,31 @@ class ProgramMap {
 
       // transform file
       _activeTransformers.putIfAbsent(
-          absolutePath,
-          () => Transformer(
-                this,
-                src,
-                file: file,
-              ));
+        absolutePath,
+        () => Transformer(this, src, file: file),
+      );
       if (sourceSymbol == null || generateAll) {
         // fallback to transforming each node
         // TODO: This is a temporary fix to running this with @types/web
         ts.forEachChild(
-            src,
-            ((TSNode node) {
-              // ignore end of file
-              if (node.kind == TSSyntaxKind.EndOfFileToken) return;
+          src,
+          ((TSNode node) {
+                // ignore end of file
+                if (node.kind == TSSyntaxKind.EndOfFileToken) return;
 
-              _activeTransformers[absolutePath]!.transform(node);
-            }).toJS as ts.TSNodeCallback);
+                _activeTransformers[absolutePath]!.transform(node);
+              }).toJS
+              as ts.TSNodeCallback,
+        );
       } else {
         final exportedSymbols = sourceSymbol.exports?.toDart;
 
         for (final MapEntry(key: symbolName, value: symbol)
             in exportedSymbols?.entries ?? <MapEntry<JSString, TSSymbol>>[]) {
           // if there are decls to filter by and it does not match any, skip
-          if (!filterDeclSetPatterns
-                  .any((f) => f.hasMatch(symbolName.toDart)) &&
+          if (!filterDeclSetPatterns.any(
+                (f) => f.hasMatch(symbolName.toDart),
+              ) &&
               filterDeclSet.isNotEmpty) {
             continue;
           }
@@ -347,16 +369,26 @@ class TransformerManager {
 
   ts.TSTypeChecker get typeChecker => programMap.typeChecker;
 
-  TransformerManager(ts.TSProgram program, List<String> inputFiles,
-      {List<String> filterDeclSet = const [], bool? generateAll})
-      : programMap = ProgramMap(program, inputFiles,
-            filterDeclSet: filterDeclSet, generateAll: generateAll);
+  TransformerManager(
+    ts.TSProgram program,
+    List<String> inputFiles, {
+    List<String> filterDeclSet = const [],
+    bool? generateAll,
+  }) : programMap = ProgramMap(
+         program,
+         inputFiles,
+         filterDeclSet: filterDeclSet,
+         generateAll: generateAll,
+       );
 
   TransformerManager.fromParsedResults(ParserResult result, {Config? config})
-      : programMap = ProgramMap(result.program, result.files.toList(),
-            filterDeclSet: config?.includedDeclarations ?? [],
-            generateAll: config?.generateAll,
-            strictUnsupported: config?.strictUnsupported ?? false);
+    : programMap = ProgramMap(
+        result.program,
+        result.files.toList(),
+        filterDeclSet: config?.includedDeclarations ?? [],
+        generateAll: config?.generateAll,
+        strictUnsupported: config?.strictUnsupported ?? false,
+      );
 
   TransformResult transform() {
     final outputNodeMap = <String, NodeMap>{};
@@ -366,7 +398,9 @@ class TransformerManager {
       outputNodeMap[file!] = programMap.getNodeMap(file);
     }
 
-    return TransformResult._(outputNodeMap,
-        commonTypes: programMap._commonTypes.cast());
+    return TransformResult._(
+      outputNodeMap,
+      commonTypes: programMap._commonTypes.cast(),
+    );
   }
 }

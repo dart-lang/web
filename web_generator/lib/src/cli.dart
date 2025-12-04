@@ -15,24 +15,23 @@ import 'package:path/path.dart' as p;
 final bindingsGeneratorPath = p.fromUri(Platform.script.resolve('../lib/src'));
 
 Future<void> compileDartMain({String? langVersion, String? dir}) async {
-  await runProc(
-    Platform.executable,
-    [
-      'compile',
-      'js',
-      '--enable-asserts',
-      '--server-mode',
-      if (langVersion != null) '-DlanguageVersion=$langVersion',
-      'dart_main.dart',
-      '-o',
-      'dart_main.js',
-    ],
-    workingDirectory: dir ?? bindingsGeneratorPath,
-  );
+  await runProc(Platform.executable, [
+    'compile',
+    'js',
+    '--enable-asserts',
+    '--server-mode',
+    if (langVersion != null) '-DlanguageVersion=$langVersion',
+    'dart_main.dart',
+    '-o',
+    'dart_main.js',
+  ], workingDirectory: dir ?? bindingsGeneratorPath);
 }
 
-Future<Process> runProcWithResult(String executable, List<String> arguments,
-    {required String workingDirectory}) async {
+Future<Process> runProcWithResult(
+  String executable,
+  List<String> arguments, {
+  required String workingDirectory,
+}) async {
   print(ansi.styleBold.wrap(['*', executable, ...arguments].join(' ')));
   return Process.start(
     executable,
@@ -42,8 +41,12 @@ Future<Process> runProcWithResult(String executable, List<String> arguments,
   );
 }
 
-Future<void> runProc(String executable, List<String> arguments,
-    {required String workingDirectory, bool detached = false}) async {
+Future<void> runProc(
+  String executable,
+  List<String> arguments, {
+  required String workingDirectory,
+  bool detached = false,
+}) async {
   print(ansi.styleBold.wrap(['*', executable, ...arguments].join(' ')));
   final proc = await Process.start(
     executable,
@@ -59,9 +62,9 @@ Future<void> runProc(String executable, List<String> arguments,
 }
 
 Future<File> createJsTypeSupertypeContext() async {
-  final contextFile =
-      await File(p.join(bindingsGeneratorPath, '_js_supertypes_src.dart'))
-          .create();
+  final contextFile = await File(
+    p.join(bindingsGeneratorPath, '_js_supertypes_src.dart'),
+  ).create();
   await contextFile.writeAsString('''
 import 'dart:js_interop';
 
@@ -75,11 +78,15 @@ external JSPromise get promise;
 /// used by both translators.
 Future<void> generateJsTypeSupertypes(String contextFile) async {
   // Use a file that uses `dart:js_interop` for analysis.
-  final contextCollection =
-      AnalysisContextCollection(includedPaths: [contextFile]);
-  final dartJsInterop = (await contextCollection.contexts.single.currentSession
-          .getLibraryByUri('dart:js_interop') as LibraryElementResult)
-      .element;
+  final contextCollection = AnalysisContextCollection(
+    includedPaths: [contextFile],
+  );
+  final dartJsInterop =
+      (await contextCollection.contexts.single.currentSession.getLibraryByUri(
+                'dart:js_interop',
+              )
+              as LibraryElementResult)
+          .element;
   final definedNames = dartJsInterop.exportNamespace.definedNames2;
   // `SplayTreeMap` to avoid moving types around in `dart:js_interop` affecting
   // the code generation.
@@ -114,7 +121,8 @@ Future<void> generateJsTypeSupertypes(String contextFile) async {
     }
   }
 
-  final jsTypeSupertypesScript = '''
+  final jsTypeSupertypesScript =
+      '''
 // Copyright (c) 2023, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
@@ -125,7 +133,9 @@ const Map<String, String?> jsTypeSupertypes = {
 ${jsTypeSupertypes.entries.map((e) => "  ${e.key}: ${e.value},").join('\n')}
 };
 ''';
-  final jsTypeSupertypesPath =
-      p.join(bindingsGeneratorPath, 'js_type_supertypes.dart');
+  final jsTypeSupertypesPath = p.join(
+    bindingsGeneratorPath,
+    'js_type_supertypes.dart',
+  );
   await File(jsTypeSupertypesPath).writeAsString(jsTypeSupertypesScript);
 }

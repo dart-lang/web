@@ -14,8 +14,10 @@ void main() {
   });
   test('Types are equal', () {
     expect(computeJsTypeUnion('JSAny', 'JSAny'), 'JSAny');
-    expect(computeJsTypeUnion('JSFloat32Array', 'JSFloat32Array'),
-        'JSFloat32Array');
+    expect(
+      computeJsTypeUnion('JSFloat32Array', 'JSFloat32Array'),
+      'JSFloat32Array',
+    );
   });
   test('One type is a supertype of the other', () {
     expect(computeJsTypeUnion('JSAny', 'JSString'), 'JSAny');
@@ -24,12 +26,16 @@ void main() {
   test('Direct sibling types', () {
     expect(computeJsTypeUnion('JSNumber', 'JSString'), 'JSAny');
     expect(
-        computeJsTypeUnion('JSFloat32Array', 'JSUint8Array'), 'JSTypedArray');
+      computeJsTypeUnion('JSFloat32Array', 'JSUint8Array'),
+      'JSTypedArray',
+    );
   });
   test('Indirect sibling types', () {
     expect(computeJsTypeUnion('JSInt8Array', 'JSArrayBuffer'), 'JSObject');
     expect(computeJsTypeUnion('JSBoolean', 'JSFunction'), 'JSAny');
-    expect(computeJsTypeUnion('JSExportedDartFunction', 'JSUint32Array'),
-        'JSObject');
+    expect(
+      computeJsTypeUnion('JSExportedDartFunction', 'JSUint32Array'),
+      'JSObject',
+    );
   });
 }

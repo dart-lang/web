@@ -29,31 +29,32 @@ void main() {
       await outputDir.create(recursive: true);
     });
 
-    for (final inputFile in inputDir
-        .listSync()
-        .whereType<File>()
-        .where((f) => p.basenameWithoutExtension(f.path).contains('_input'))) {
+    for (final inputFile in inputDir.listSync().whereType<File>().where(
+      (f) => p.basenameWithoutExtension(f.path).contains('_input'),
+    )) {
       final inputFileName = p.basenameWithoutExtension(inputFile.path);
       final inputName = inputFileName.replaceFirst('_input.d', '');
 
-      final outputActualPath =
-          p.join('.dart_tool', 'interop_gen', '${inputName}_actual.dart');
-      final outputExpectedPath =
-          p.join(testGenFolder, '${inputName}_expected.dart');
+      final outputActualPath = p.join(
+        '.dart_tool',
+        'interop_gen',
+        '${inputName}_actual.dart',
+      );
+      final outputExpectedPath = p.join(
+        testGenFolder,
+        '${inputName}_expected.dart',
+      );
 
       test(inputName, () async {
         final inputFilePath = p.relative(inputFile.path, from: bindingsGenPath);
         final outFilePath = p.relative(outputActualPath, from: bindingsGenPath);
         // run the entrypoint
-        await runProc(
-            'node',
-            [
-              'main.mjs',
-              '--input=$inputFilePath',
-              '--output=$outFilePath',
-              '--declaration'
-            ],
-            workingDirectory: bindingsGenPath);
+        await runProc('node', [
+          'main.mjs',
+          '--input=$inputFilePath',
+          '--output=$outFilePath',
+          '--declaration',
+        ], workingDirectory: bindingsGenPath);
 
         // read files
         final expectedOutput = await File(outputExpectedPath).readAsString();
@@ -65,8 +66,12 @@ void main() {
   });
 
   group('Interop Gen Integration Test (with config)', () {
-    final testGenFolder =
-        p.join('test', 'integration', 'interop_gen', 'project');
+    final testGenFolder = p.join(
+      'test',
+      'integration',
+      'interop_gen',
+      'project',
+    );
     final inputConfig = File(p.join(testGenFolder, 'config.yaml'));
     final outputDir = Directory(p.join('.dart_tool', 'interop_gen_project'));
     final outputExpectedPath = p.join(testGenFolder, 'output');
@@ -82,19 +87,24 @@ void main() {
     });
 
     test('Project Test', () async {
-      final inputConfigPath =
-          p.relative(inputConfig.path, from: bindingsGenPath);
+      final inputConfigPath = p.relative(
+        inputConfig.path,
+        from: bindingsGenPath,
+      );
       // run the entrypoint
-      await runProc(
-          'node', ['main.mjs', '--config=$inputConfigPath', '--declaration'],
-          workingDirectory: bindingsGenPath);
+      await runProc('node', [
+        'main.mjs',
+        '--config=$inputConfigPath',
+        '--declaration',
+      ], workingDirectory: bindingsGenPath);
 
       // read files
       for (final output in outputDir.listSync().whereType<File>()) {
         final outputContents = output.readAsStringSync();
 
-        final expectedOutput =
-            File(p.join(outputExpectedPath, p.basename(output.path)));
+        final expectedOutput = File(
+          p.join(outputExpectedPath, p.basename(output.path)),
+        );
         final expectedContents = expectedOutput.readAsStringSync();
 
         expect(outputContents, expectedContents);

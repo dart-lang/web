@@ -16,48 +16,48 @@ final normalStringExamples = {
     'EnterpriseApp',
     'DataServices',
     'IDataService',
-    'T'
-  ]
+    'T',
+  ],
 };
 
 final fullyQualifiedStringExamples = {
   'A': {
     'qualified': ['A'],
-    'import': null
+    'import': null,
   },
   'HTMLElement': {
     'qualified': ['HTMLElement'],
-    'import': null
+    'import': null,
   },
   '"../../test/integration/interop_gen/web_types_input".EventManipulationFunc':
       {
-    'qualified': ['EventManipulationFunc'],
-    'import': '../../test/integration/interop_gen/web_types_input'
-  },
+        'qualified': ['EventManipulationFunc'],
+        'import': '../../test/integration/interop_gen/web_types_input',
+      },
   '"dummy".Shape': {
     'qualified': ['Shape'],
-    'import': 'dummy'
+    'import': 'dummy',
   },
   '"../../test/integration/interop_gen/web_types_input".ElementStamp.T': {
     'qualified': ['ElementStamp', 'T'],
-    'import': '../../test/integration/interop_gen/web_types_input'
+    'import': '../../test/integration/interop_gen/web_types_input',
   },
   '"../../test/integration/interop_gen/ts_typing_input".ComposedType.T': {
     'qualified': ['ComposedType', 'T'],
-    'import': '../../test/integration/interop_gen/ts_typing_input'
+    'import': '../../test/integration/interop_gen/ts_typing_input',
   },
   '"../../test/integration/interop_gen/ts_typing_input".MyEnum': {
     'qualified': ['MyEnum'],
-    'import': '../../test/integration/interop_gen/ts_typing_input'
+    'import': '../../test/integration/interop_gen/ts_typing_input',
   },
   '"integration/interop_gen/classes_input".Geometry.Coordinates.Point2D': {
     'qualified': ['Geometry', 'Coordinates', 'Point2D'],
-    'import': 'integration/interop_gen/classes_input'
+    'import': 'integration/interop_gen/classes_input',
   },
   '"node:console".Console.Mode': {
     'qualified': ['Console', 'Mode'],
-    'import': 'node:console'
-  }
+    'import': 'node:console',
+  },
 };
 
 void main() {

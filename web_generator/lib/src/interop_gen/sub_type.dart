@@ -50,16 +50,24 @@ class TypeHierarchy {
   }
 
   ({int level, List<int> path})? _lookup(
-      String value, int level, List<int> indexPath) {
+    String value,
+    int level,
+    List<int> indexPath,
+  ) {
     if (this.value == value) return (level: level, path: indexPath);
     if (nodes.isEmpty) {
       return null;
     } else {
       // find value
-      return nodes.mapIndexed((index, node) {
-        final lookupVal = node._lookup(value, level + 1, [...indexPath, index]);
-        return lookupVal;
-      }).firstWhereOrNull((v) => v != null);
+      return nodes
+          .mapIndexed((index, node) {
+            final lookupVal = node._lookup(value, level + 1, [
+              ...indexPath,
+              index,
+            ]);
+            return lookupVal;
+          })
+          .firstWhereOrNull((v) => v != null);
     }
   }
 
@@ -180,18 +188,25 @@ TypeHierarchy getTypeHierarchy(Type type) {
         break;
       case UnionType(types: final types):
         // subtype is union
-        hierarchy.nodes
-            .add(getTypeHierarchy(getLowestCommonAncestorOfTypes(types)));
+        hierarchy.nodes.add(
+          getTypeHierarchy(getLowestCommonAncestorOfTypes(types)),
+        );
         break;
       case TupleType(types: final types):
         // subtype is JSArray<union>
-        hierarchy.nodes.add(getTypeHierarchy(BuiltinType.primitiveType(
-            PrimitiveType.array,
-            typeParams: [getLowestCommonAncestorOfTypes(types)])));
+        hierarchy.nodes.add(
+          getTypeHierarchy(
+            BuiltinType.primitiveType(
+              PrimitiveType.array,
+              typeParams: [getLowestCommonAncestorOfTypes(types)],
+            ),
+          ),
+        );
         break;
       case GenericType(constraint: final constraintedType):
-        hierarchy.nodes
-            .add(getTypeHierarchy(constraintedType ?? BuiltinType.anyType));
+        hierarchy.nodes.add(
+          getTypeHierarchy(constraintedType ?? BuiltinType.anyType),
+        );
         break;
       case ReferredDeclarationType(type: final referredType):
         return getTypeHierarchy(referredType);
@@ -201,8 +216,9 @@ TypeHierarchy getTypeHierarchy(Type type) {
           ...decl.implementedTypes,
         ];
         if (types.isEmpty) {
-          hierarchy.nodes.add(getTypeHierarchy(
-              BuiltinType.primitiveType(PrimitiveType.object)));
+          hierarchy.nodes.add(
+            getTypeHierarchy(BuiltinType.primitiveType(PrimitiveType.object)),
+          );
         } else {
           for (final t in types) {
             hierarchy.nodes.add(getTypeHierarchy(t));
@@ -212,8 +228,9 @@ TypeHierarchy getTypeHierarchy(Type type) {
       case ReferredType(declaration: final decl)
           when decl is InterfaceDeclaration:
         if (decl.extendedTypes.isEmpty) {
-          hierarchy.nodes.add(getTypeHierarchy(
-              BuiltinType.primitiveType(PrimitiveType.object)));
+          hierarchy.nodes.add(
+            getTypeHierarchy(BuiltinType.primitiveType(PrimitiveType.object)),
+          );
         } else {
           for (final t in decl.extendedTypes) {
             hierarchy.nodes.add(getTypeHierarchy(t));
@@ -225,14 +242,16 @@ TypeHierarchy getTypeHierarchy(Type type) {
       case ObjectLiteralType():
         // subtype is JSObject
         hierarchy.nodes.add(
-            getTypeHierarchy(BuiltinType.primitiveType(PrimitiveType.object)));
+          getTypeHierarchy(BuiltinType.primitiveType(PrimitiveType.object)),
+        );
         break;
       case ReferredType(declaration: final decl)
           when decl is FunctionDeclaration:
       case ClosureType():
         // subtype is JSFunction
-        hierarchy.nodes
-            .add(getTypeHierarchy(BuiltinType.referred('Function')!));
+        hierarchy.nodes.add(
+          getTypeHierarchy(BuiltinType.referred('Function')!),
+        );
         break;
       case LiteralType(baseType: final baseType):
         hierarchy.nodes.add(getTypeHierarchy(baseType));
@@ -252,8 +271,10 @@ TypeHierarchy getTypeHierarchy(Type type) {
         hierarchy.addChainedValues(list);
         break;
       default:
-        print('WARN: Could not get type hierarchy for type of kind '
-            '${type.runtimeType}. Skipping...');
+        print(
+          'WARN: Could not get type hierarchy for type of kind '
+          '${type.runtimeType}. Skipping...',
+        );
         break;
     }
     return hierarchy;
@@ -261,25 +282,42 @@ TypeHierarchy getTypeHierarchy(Type type) {
 }
 
 TypeMap createTypeMap(List<Type> types, {TypeMap? map}) {
-  final outputMap = map ??
+  final outputMap =
+      map ??
       TypeMap({
-        'JSBoolean': BuiltinType.primitiveType(PrimitiveType.boolean,
-            shouldEmitJsType: true),
-        'JSNumber': BuiltinType.primitiveType(PrimitiveType.num,
-            shouldEmitJsType: true),
-        'JSObject': BuiltinType.primitiveType(PrimitiveType.object,
-            shouldEmitJsType: true),
-        'JSString': BuiltinType.primitiveType(PrimitiveType.string,
-            shouldEmitJsType: true),
-        'JSVoid': BuiltinType.primitiveType(PrimitiveType.$void,
-            shouldEmitJsType: true),
-        'JSSymbol': BuiltinType.primitiveType(PrimitiveType.symbol,
-            shouldEmitJsType: true),
-        'JSBigInt': BuiltinType.primitiveType(PrimitiveType.bigint,
-            shouldEmitJsType: true),
+        'JSBoolean': BuiltinType.primitiveType(
+          PrimitiveType.boolean,
+          shouldEmitJsType: true,
+        ),
+        'JSNumber': BuiltinType.primitiveType(
+          PrimitiveType.num,
+          shouldEmitJsType: true,
+        ),
+        'JSObject': BuiltinType.primitiveType(
+          PrimitiveType.object,
+          shouldEmitJsType: true,
+        ),
+        'JSString': BuiltinType.primitiveType(
+          PrimitiveType.string,
+          shouldEmitJsType: true,
+        ),
+        'JSVoid': BuiltinType.primitiveType(
+          PrimitiveType.$void,
+          shouldEmitJsType: true,
+        ),
+        'JSSymbol': BuiltinType.primitiveType(
+          PrimitiveType.symbol,
+          shouldEmitJsType: true,
+        ),
+        'JSBigInt': BuiltinType.primitiveType(
+          PrimitiveType.bigint,
+          shouldEmitJsType: true,
+        ),
         'JSAny': BuiltinType.primitiveType(PrimitiveType.any),
-        'JSTypedArray':
-            BuiltinType(name: 'JSTypedArray', fromDartJSInterop: true),
+        'JSTypedArray': BuiltinType(
+          name: 'JSTypedArray',
+          fromDartJSInterop: true,
+        ),
       });
 
   void addToMap(Type type) {
@@ -297,21 +335,25 @@ TypeMap createTypeMap(List<Type> types, {TypeMap? map}) {
         outputMap.addAll(createTypeMap([referredType], map: outputMap));
         break;
       case ReferredType(declaration: final decl) when decl is ClassDeclaration:
-        outputMap.addAll(createTypeMap([
-          if (decl.extendedType != null) decl.extendedType!,
-          ...decl.implementedTypes
-        ], map: outputMap));
+        outputMap.addAll(
+          createTypeMap([
+            if (decl.extendedType != null) decl.extendedType!,
+            ...decl.implementedTypes,
+          ], map: outputMap),
+        );
       case ReferredType(declaration: final decl)
           when decl is FunctionDeclaration:
         addToMap(BuiltinType.referred('Function')!);
         break;
       case ReferredType(declaration: final decl)
           when decl is InterfaceDeclaration:
-        outputMap
-            .addAll(createTypeMap([...decl.extendedTypes], map: outputMap));
+        outputMap.addAll(
+          createTypeMap([...decl.extendedTypes], map: outputMap),
+        );
       case HomogenousEnumType(types: final homogenousTypes):
         outputMap.addAll(
-            createTypeMap([homogenousTypes.first.baseType], map: outputMap));
+          createTypeMap([homogenousTypes.first.baseType], map: outputMap),
+        );
         break;
       case TupleType(types: final types):
       case UnionType(types: final types):
@@ -336,8 +378,11 @@ TypeMap createTypeMap(List<Type> types, {TypeMap? map}) {
 ///
 /// Types may have more than one type in common. In such case, a union of those
 /// common types is returned by the given function.
-Type getLowestCommonAncestorOfTypes(List<Type> types,
-    {bool isNullable = false, TypeMap? typeMap}) {
+Type getLowestCommonAncestorOfTypes(
+  List<Type> types, {
+  bool isNullable = false,
+  TypeMap? typeMap,
+}) {
   typeMap ??= createTypeMap(types);
 
   if (types.isEmpty) throw Exception('You must pass types');
@@ -353,8 +398,9 @@ Type getLowestCommonAncestorOfTypes(List<Type> types,
   // Calculate the intersection of all type hierarchies
   final typeMaps = types.map(getTypeHierarchy);
   final parentHierarchy = typeMaps.map((map) => map.expand());
-  final commonTypes =
-      parentHierarchy.reduce((val, element) => val.intersection(element));
+  final commonTypes = parentHierarchy.reduce(
+    (val, element) => val.intersection(element),
+  );
 
   final topoList = topologicalList(typeMaps.toList());
   for (final level in topoList) {
@@ -366,9 +412,11 @@ Type getLowestCommonAncestorOfTypes(List<Type> types,
         return deduceType(finalType, typeMap);
       } else {
         return UnionType(
-            types: typesAtLevel.map((c) => deduceType(c, typeMap!)).toList(),
-            name: 'AnonymousUnion_'
-                '${AnonymousHasher.hashUnion(commonTypes.toList())}');
+          types: typesAtLevel.map((c) => deduceType(c, typeMap!)).toList(),
+          name:
+              'AnonymousUnion_'
+              '${AnonymousHasher.hashUnion(commonTypes.toList())}',
+        );
       }
     }
   }
@@ -377,8 +425,9 @@ Type getLowestCommonAncestorOfTypes(List<Type> types,
 }
 
 Type deduceType(String name, TypeMap map) {
-  final referredType =
-      BuiltinType.referred(name.startsWith('JS') ? name.substring(2) : name);
+  final referredType = BuiltinType.referred(
+    name.startsWith('JS') ? name.substring(2) : name,
+  );
   if (referredType != null) return referredType;
   return map[name] ?? BuiltinType.primitiveType(PrimitiveType.any);
 }
@@ -420,11 +469,13 @@ Type? _getSharedPrimitiveTypeIfAny(List<Type> types, {bool isNullable = true}) {
         LiteralKind.$false || LiteralKind.$true => PrimitiveType.boolean,
         LiteralKind.double => PrimitiveType.double,
         LiteralKind.int => PrimitiveType.int,
-        _ => PrimitiveType.any
+        _ => PrimitiveType.any,
       };
 
-      return BuiltinType.primitiveType(primitiveType,
-          isNullable: isNull ?? isNullable);
+      return BuiltinType.primitiveType(
+        primitiveType,
+        isNullable: isNull ?? isNullable,
+      );
     } else {
       return equalType!;
     }

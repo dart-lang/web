@@ -13,8 +13,8 @@ typedef PrismFromShape2D<S extends _i1.JSString> = _i1.JSArray<S>;
 external PrismFromShape2D<_i1.JSString> makePrism(Shape2D shape);
 @_i1.JS('makePrism')
 external PrismFromShape2D<S> makePrism$1<S extends _i1.JSString>(S shape);
-typedef PromisedArray<U extends _i1.JSAny?, T extends _i1.JSArray<U>>
-    = _i1.JSPromise<T>;
+typedef PromisedArray<U extends _i1.JSAny?, T extends _i1.JSArray<U>> =
+    _i1.JSPromise<T>;
 @_i1.JS()
 external PromisedArray<_i1.JSString, _i1.JSArray<_i1.JSString>> fetchNames();
 typedef IsActive = bool;
@@ -73,13 +73,15 @@ extension type const AnonymousUnion_1614079._(String _) {
 
   static const AnonymousUnion_1614079 PUT = AnonymousUnion_1614079._('PUT');
 
-  static const AnonymousUnion_1614079 DELETE =
-      AnonymousUnion_1614079._('DELETE');
+  static const AnonymousUnion_1614079 DELETE = AnonymousUnion_1614079._(
+    'DELETE',
+  );
 
   static const AnonymousUnion_1614079 PATCH = AnonymousUnion_1614079._('PATCH');
 
-  static const AnonymousUnion_1614079 OPTIONS =
-      AnonymousUnion_1614079._('OPTIONS');
+  static const AnonymousUnion_1614079 OPTIONS = AnonymousUnion_1614079._(
+    'OPTIONS',
+  );
 }
 @_i1.JS('Space.Planet')
 extension type Space_Planet._(_i1.JSObject _) implements _i1.JSObject {

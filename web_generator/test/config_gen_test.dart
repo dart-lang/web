@@ -35,15 +35,12 @@ void main() {
       final inputFilePath = p.relative(inputFile, from: bindingsGenPath);
       final outFilePath = p.relative(outputFile, from: bindingsGenPath);
 
-      await runProc(
-          'node',
-          [
-            'main.mjs',
-            '--input=$inputFilePath',
-            '--output=$outFilePath',
-            '--declaration'
-          ],
-          workingDirectory: bindingsGenPath);
+      await runProc('node', [
+        'main.mjs',
+        '--input=$inputFilePath',
+        '--output=$outFilePath',
+        '--declaration',
+      ], workingDirectory: bindingsGenPath);
 
       final expectedOutput = await File(expectedFile).readAsString();
       final actualOutput = await File(outputFile).readAsString();
@@ -60,16 +57,13 @@ void main() {
       final outFilePath = p.relative(outputFile, from: bindingsGenPath);
       final configFilePath = p.relative(configFile, from: bindingsGenPath);
 
-      await runProc(
-          'node',
-          [
-            'main.mjs',
-            '--input=$inputFilePath',
-            '--output=$outFilePath',
-            '--config=$configFilePath',
-            '--declaration'
-          ],
-          workingDirectory: bindingsGenPath);
+      await runProc('node', [
+        'main.mjs',
+        '--input=$inputFilePath',
+        '--output=$outFilePath',
+        '--config=$configFilePath',
+        '--declaration',
+      ], workingDirectory: bindingsGenPath);
 
       final expectedOutput = await File(expectedFile).readAsString();
       final actualOutput = await File(outputFile).readAsString();

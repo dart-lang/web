@@ -41,8 +41,10 @@ extension type FileSystem._(JSObject _) implements JSObject {
 
   external void writeFileSync(JSString path, JSString contents);
 
-  external JSArray<JSString> globSync(JSArray<JSString> patterns,
-      [FSGlobSyncOptions? options]);
+  external JSArray<JSString> globSync(
+    JSArray<JSString> patterns, [
+    FSGlobSyncOptions? options,
+  ]);
 }
 
 extension type FSGlobSyncOptions._(JSObject _) implements JSObject {

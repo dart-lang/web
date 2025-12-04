@@ -6,6 +6,8 @@
 - Fixed generation of variadic arguments to generate 4 optional parameters.
 - Removed all `@Deprecated` members.
 - Added `URL.toDart` and `Uri.toJS` extension methods.
+- Added missing `Document` and `Window` pointer event getters: `onDrag*`,
+  `onTouch*`, `onMouse*`.
 
 ## 1.1.1
 

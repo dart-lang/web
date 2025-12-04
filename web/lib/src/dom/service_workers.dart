@@ -16,7 +16,7 @@ library;
 import 'dart:js_interop';
 
 import 'background_sync.dart';
-import 'cookie_store.dart';
+import 'cookiestore.dart';
 import 'dom.dart';
 import 'fetch.dart';
 import 'html.dart';
@@ -130,7 +130,7 @@ extension type ServiceWorkerRegistration._(JSObject _)
   /// the worker
   /// bypasses any browser caches if the previous fetch occurred over 24 hours
   /// ago.
-  external JSPromise<JSAny?> update();
+  external JSPromise<ServiceWorkerRegistration> update();
 
   /// The **`unregister()`** method of the
   /// [ServiceWorkerRegistration] interface unregisters the service worker

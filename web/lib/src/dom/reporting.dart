@@ -36,9 +36,7 @@ typedef ReportingObserverCallback = JSFunction;
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ReportBody).
 extension type ReportBody._(JSObject _) implements JSObject {
-  /// The **`toJSON()`** method of the [ReportBody] interface is a _serializer_,
-  /// and returns a JSON representation of the `ReportBody` object.
-  external JSObject toJSON();
+  ReportBody() : _ = JSObject();
 }
 
 /// The `Report` interface of the
@@ -60,21 +58,28 @@ extension type ReportBody._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Report).
 extension type Report._(JSObject _) implements JSObject {
-  external JSObject toJSON();
+  external factory Report({
+    String type,
+    String url,
+    ReportBody? body,
+  });
 
   /// The **`type`** read-only property of the [Report]
   /// interface returns the type of report generated, e.g. `deprecation` or
   /// `intervention`.
   external String get type;
+  external set type(String value);
 
   /// The **`url`** read-only property of the [Report]
   /// interface returns the URL of the document that generated the report.
   external String get url;
+  external set url(String value);
 
   /// The **`body`** read-only property of the [Report]
   /// interface returns the body of the report, which is a `ReportBody` object
   /// containing the detailed report information.
   external ReportBody? get body;
+  external set body(ReportBody? value);
 }
 
 /// The `ReportingObserver` interface of the

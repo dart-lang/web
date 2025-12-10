@@ -45,10 +45,7 @@ external _i1.JSPromise<User> registerUser(User newUser);
 /// - [event]:  - The name of the event.
 /// - [payload]:  - Additional data associated with the event.
 @_i1.JS()
-external void logEvent(
-  String event,
-  _i1.JSObject payload,
-);
+external void logEvent(String event, _i1.JSObject payload);
 
 /// Represents a configuration object for the app.
 extension type AppConfig._(_i1.JSObject _) implements _i1.JSObject {

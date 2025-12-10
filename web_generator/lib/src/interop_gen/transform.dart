@@ -40,7 +40,7 @@ class TransformResult {
   //  (namespaces + functions, multiple interfaces, etc)
   Map<String, String> generate(Config config) {
     final formatter = DartFormatter(
-      languageVersion: DartFormatter.latestShortStyleLanguageVersion,
+      languageVersion: config.languageVersion,
     );
 
     _setGlobalOptions(config);

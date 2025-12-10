@@ -39,9 +39,7 @@ class TransformResult {
   // TODO(https://github.com/dart-lang/web/issues/388): Handle union of overloads
   //  (namespaces + functions, multiple interfaces, etc)
   Map<String, String> generate(Config config) {
-    final formatter = DartFormatter(
-      languageVersion: config.languageVersion,
-    );
+    final formatter = DartFormatter(languageVersion: config.languageVersion);
 
     _setGlobalOptions(config);
 

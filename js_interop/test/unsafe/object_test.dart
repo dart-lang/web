@@ -39,7 +39,14 @@ void main() {
 
   test("freeze", () {
     object.freeze();
-    object.setProperty("foo".toJS, 3.toJS);
+
+    try {
+      object.setProperty("foo".toJS, 3.toJS);
+    } catch (e) {
+      // This throws a JavaScriptError on WASM but does not throw in JS. Either
+      // way, it shouldn't modify the object.
+    }
+
     expect(object.dartify(), equals({"foo": 1, "bar": 2}));
   });
 

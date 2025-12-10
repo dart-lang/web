@@ -283,12 +283,6 @@ extension WindowEventGetters on Window {
   Stream<TouchEvent> get onTouchEnd =>
       EventStreamProviders.touchEndEvent.forTarget(this);
 
-  Stream<TouchEvent> get onTouchEnter =>
-      EventStreamProviders.touchEnterEvent.forTarget(this);
-
-  Stream<TouchEvent> get onTouchLeave =>
-      EventStreamProviders.touchLeaveEvent.forTarget(this);
-
   Stream<TouchEvent> get onTouchMove =>
       EventStreamProviders.touchMoveEvent.forTarget(this);
 
@@ -341,12 +335,6 @@ extension DocumentEventGetters on Document {
 
   Stream<TouchEvent> get onTouchEnd =>
       EventStreamProviders.touchEndEvent.forTarget(this);
-
-  Stream<TouchEvent> get onTouchEnter =>
-      EventStreamProviders.touchEnterEvent.forTarget(this);
-
-  Stream<TouchEvent> get onTouchLeave =>
-      EventStreamProviders.touchLeaveEvent.forTarget(this);
 
   Stream<TouchEvent> get onTouchMove =>
       EventStreamProviders.touchMoveEvent.forTarget(this);

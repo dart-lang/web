@@ -72,13 +72,19 @@ Future<Map<String, Set<String>>> _generateElementTagMap() async {
 }
 
 Future<(TranslationResult, Map<String, String>)> generateBindings(
-    String packageRoot, String librarySubDir,
-    {required bool generateAll}) async {
+  String packageRoot,
+  String librarySubDir, {
+  required bool generateAll,
+}) async {
   final cssStyleDeclarations = await _generateCSSStyleDeclarations();
   final elementHTMLMap = await _generateElementTagMap();
   final translator = Translator(
-      librarySubDir, cssStyleDeclarations, elementHTMLMap,
-      generateAll: generateAll, packageRoot: packageRoot);
+    librarySubDir,
+    cssStyleDeclarations,
+    elementHTMLMap,
+    generateAll: generateAll,
+    packageRoot: packageRoot,
+  );
   final array = objectEntries(await idl.parseAll().toDart);
   for (var i = 0; i < array.length; i++) {
     final entry = array[i] as JSArray<JSAny?>;
@@ -94,13 +100,20 @@ Future<(TranslationResult, Map<String, String>)> generateBindings(
 }
 
 Future<TranslationResult> generateBindingsForFiles(
-    Map<String, String> fileContents, String output) async {
+  Map<String, String> fileContents,
+  String output,
+) async {
   // generate CSS style declarations and element tag map incase they are
   // needed for the input files.
   final cssStyleDeclarations = await _generateCSSStyleDeclarations();
   final elementHTMLMap = await _generateElementTagMap();
-  final translator = Translator(output, cssStyleDeclarations, elementHTMLMap,
-      generateAll: true, generateForWeb: false);
+  final translator = Translator(
+    output,
+    cssStyleDeclarations,
+    elementHTMLMap,
+    generateAll: true,
+    generateForWeb: false,
+  );
 
   for (final file in fileContents.entries) {
     final ast = webidl2.parse(file.value);

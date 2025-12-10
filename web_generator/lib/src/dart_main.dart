@@ -46,8 +46,12 @@ void main(List<String> args) async {
 
     if (argResult.wasParsed('config')) {
       final filename = argResult['config'] as String;
-      final configContent = fs.readFileSync(
-          filename.toJS, JSReadFileOptions(encoding: 'utf8'.toJS)) as JSString;
+      final configContent =
+          fs.readFileSync(
+                filename.toJS,
+                JSReadFileOptions(encoding: 'utf8'.toJS),
+              )
+              as JSString;
       final yaml = loadYamlDocument(configContent.toDart);
       config = YamlConfig.fromYaml(
         yaml.contents as YamlMap,
@@ -56,14 +60,17 @@ void main(List<String> args) async {
     } else {
       final tsConfigFile = argResult['ts-config'] as String?;
       config = Config(
-          input: expandGlobs(argResult['input'] as List<String>,
-              extension: '.d.ts'),
-          output: argResult['output'] as String,
-          languageVersion: Version.parse(languageVersionString),
-          tsConfigFile: tsConfigFile,
-          ignoreErrors: argResult.wasParsed('ignore-errors'),
-          generateAll: argResult['generate-all'] as bool,
-          strictUnsupported: argResult.wasParsed('strict-unsupported'));
+        input: expandGlobs(
+          argResult['input'] as List<String>,
+          extension: '.d.ts',
+        ),
+        output: argResult['output'] as String,
+        languageVersion: Version.parse(languageVersionString),
+        tsConfigFile: tsConfigFile,
+        ignoreErrors: argResult.wasParsed('ignore-errors'),
+        generateAll: argResult['generate-all'] as bool,
+        strictUnsupported: argResult.wasParsed('strict-unsupported'),
+      );
     }
 
     await generateJSInteropBindings(config);
@@ -75,8 +82,10 @@ Future<void> generateJSInteropBindings(Config config) async {
   final jsDeclarations = parseDeclarationFiles(config);
 
   // transform declarations
-  final manager =
-      TransformerManager.fromParsedResults(jsDeclarations, config: config);
+  final manager = TransformerManager.fromParsedResults(
+    jsDeclarations,
+    config: config,
+  );
 
   final dartDeclarations = manager.transform();
 
@@ -91,15 +100,18 @@ Future<void> generateJSInteropBindings(Config config) async {
   if (dartDeclarations.multiFileOutput) {
     for (final entry in generatedCodeMap.entries) {
       fs.writeFileSync(
-          p.join(configOutput, p.basename(entry.key)).toJS, entry.value.toJS);
+        p.join(configOutput, p.basename(entry.key)).toJS,
+        entry.value.toJS,
+      );
     }
   } else {
     final entry = generatedCodeMap.entries.first;
     fs.writeFileSync(configOutput.toJS, entry.value.toJS);
     for (final entry in generatedCodeMap.entries.skip(1)) {
       fs.writeFileSync(
-          p.join(p.dirname(configOutput), p.basename(entry.key)).toJS,
-          entry.value.toJS);
+        p.join(p.dirname(configOutput), p.basename(entry.key)).toJS,
+        entry.value.toJS,
+      );
     }
   }
 }
@@ -117,27 +129,36 @@ Future<void> generateIDLBindings({
     ensureDirectoryExists('$output/$librarySubDir');
 
     final (bindings, renameMap) = await generateBindings(
-        packageRoot, librarySubDir,
-        generateAll: generateAll);
+      packageRoot,
+      librarySubDir,
+      generateAll: generateAll,
+    );
 
     if (renameMap.isNotEmpty) {
-      final lib = code.Library((l) => l
-        ..comments.add('''
+      final lib = code.Library(
+        (l) => l
+          ..comments.add('''
 // Copyright (c) ${DateTime.now().year}, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
 // AUTO GENERATED: DO NOT EDIT
 ''')
-        ..body.add(code.Field((f) => f
-          ..name = 'renameMap'
-          ..type = code.refer('Map<String, String>')
-          ..modifier = code.FieldModifier.constant
-          ..assignment = code.literalConstMap(renameMap).code)));
+          ..body.add(
+            code.Field(
+              (f) => f
+                ..name = 'renameMap'
+                ..type = code.refer('Map<String, String>')
+                ..modifier = code.FieldModifier.constant
+                ..assignment = code.literalConstMap(renameMap).code,
+            ),
+          ),
+      );
       final libCode = _emitLibrary(lib, languageVersion);
       fs.writeFileSync(
-          p.join(p.dirname(p.fromUri(url)), 'web_rename_map.dart').toJS,
-          libCode.toJS);
+        p.join(p.dirname(p.fromUri(url)), 'web_rename_map.dart').toJS,
+        libCode.toJS,
+      );
     }
 
     for (var entry in bindings.entries) {
@@ -154,10 +175,13 @@ Future<void> generateIDLBindings({
 
     final bindings = await generateBindingsForFiles({
       for (final file in allInputFiles)
-        file: (fs.readFileSync(
-                    file.toJS, JSReadFileOptions(encoding: 'utf-8'.toJS))
-                as JSString)
-            .toDart
+        file:
+            (fs.readFileSync(
+                      file.toJS,
+                      JSReadFileOptions(encoding: 'utf-8'.toJS),
+                    )
+                    as JSString)
+                .toDart,
     }, output);
 
     for (var entry in bindings.entries) {
@@ -178,36 +202,56 @@ String _emitLibrary(code.Library library, Version languageVersion) {
   );
 
   final source = library.accept(emitter);
-  return DartFormatter(languageVersion: languageVersion)
-      .format(source.toString());
+  return DartFormatter(
+    languageVersion: languageVersion,
+  ).format(source.toString());
 }
 
 final _parser = ArgParser()
   ..addFlag('idl', negatable: false)
   ..addFlag('declaration', negatable: false)
-  ..addOption('output',
-      mandatory: true,
-      abbr: 'o',
-      help: 'Output where bindings will be generated to '
-          '(directory for IDL, file for TS Declarations)')
-  ..addFlag('generate-all',
-      negatable: false,
-      help: 'Generate bindings for all IDL/TS Declaration definitions, '
-          'including experimental and non-standard APIs (IDL) '
-          '/ non-exported APIs (TS Declarations).')
-  ..addOption('ts-config',
-      help: '[TS Declarations] Path to TS Configuration Options File '
-          '(tsconfig.json) to pass to the parser/transformer')
-  ..addMultiOption('input',
-      abbr: 'i',
-      help: '[TS Declarations] The input file to read and generate types for')
-  ..addFlag('ignore-errors',
-      help: '[TS Declarations] Ignore Generator Errors', negatable: false)
+  ..addOption(
+    'output',
+    mandatory: true,
+    abbr: 'o',
+    help:
+        'Output where bindings will be generated to '
+        '(directory for IDL, file for TS Declarations)',
+  )
+  ..addFlag(
+    'generate-all',
+    negatable: false,
+    help:
+        'Generate bindings for all IDL/TS Declaration definitions, '
+        'including experimental and non-standard APIs (IDL) '
+        '/ non-exported APIs (TS Declarations).',
+  )
+  ..addOption(
+    'ts-config',
+    help:
+        '[TS Declarations] Path to TS Configuration Options File '
+        '(tsconfig.json) to pass to the parser/transformer',
+  )
+  ..addMultiOption(
+    'input',
+    abbr: 'i',
+    help: '[TS Declarations] The input file to read and generate types for',
+  )
+  ..addFlag(
+    'ignore-errors',
+    help: '[TS Declarations] Ignore Generator Errors',
+    negatable: false,
+  )
   ..addFlag(
     'strict-unsupported',
     help:
         '[TS Declarations] Treat unsupported declarations/types as errors. Only used for development of the generator',
     negatable: false,
   )
-  ..addOption('config',
-      abbr: 'c', hide: true, valueHelp: '[file].yaml', help: 'Configuration');
+  ..addOption(
+    'config',
+    abbr: 'c',
+    hide: true,
+    valueHelp: '[file].yaml',
+    help: 'Configuration',
+  );

@@ -47,14 +47,17 @@ import 'types.dart';
 /// For more information on declaration merging, see
 /// https://www.typescriptlang.org/docs/handbook/declaration-merging.html
 (List<Declaration>, {List<Declaration> additionals}) mergeDeclarations(
-    List<Declaration> declarations) {
+  List<Declaration> declarations,
+) {
   if (declarations.isEmpty) return ([], additionals: []);
   if (declarations.singleOrNull case final singleDecl?) {
     return ([singleDecl], additionals: []);
   }
 
-  assert(declarations.every((d) => d.name == declarations.first.name),
-      'All declarations must have the same name');
+  assert(
+    declarations.every((d) => d.name == declarations.first.name),
+    'All declarations must have the same name',
+  );
 
   final output = <Declaration>[];
   final additionals = <Declaration>[];
@@ -87,14 +90,14 @@ import 'types.dart';
         typealiasDecl ??= typealias;
       case VariableDeclaration(
             modifier: final modifier,
-            type: ReferredType(declaration: final variableTypeAsDecl)
+            type: ReferredType(declaration: final variableTypeAsDecl),
           )
           when modifier == VariableModifier.$var &&
               variableTypeAsDecl is InterfaceDeclaration:
         varDeclarations.add(decl);
       case VariableDeclaration(
             modifier: final modifier,
-            type: BuiltinType() || PackageWebType()
+            type: BuiltinType() || PackageWebType(),
           )
           when modifier == VariableModifier.$var:
         varDeclarationsWithBuiltinTypes.add(decl);
@@ -107,22 +110,26 @@ import 'types.dart';
   }
 
   // merge namespaces
-  final mergedNamespace =
-      namespaces.isNotEmpty ? mergeNamespaces(namespaces) : null;
+  final mergedNamespace = namespaces.isNotEmpty
+      ? mergeNamespaces(namespaces)
+      : null;
 
   // then merge interfaces
-  var mergedInterface =
-      interfaces.isNotEmpty ? mergeInterfaces(interfaces) : null;
+  var mergedInterface = interfaces.isNotEmpty
+      ? mergeInterfaces(interfaces)
+      : null;
 
   if (typealiasDecl != null) {
-    assert(interfaces.isEmpty && namespaces.isEmpty,
-        'Typedefs in TS do not allow other decls');
+    assert(
+      interfaces.isEmpty && namespaces.isEmpty,
+      'Typedefs in TS do not allow other decls',
+    );
 
     for (final varDecl in [...varDeclarations, ...otherVariableDeclarations]) {
       final VariableDeclaration(
         type: varDeclType,
         name: varDeclName,
-        dartName: varDeclDartName
+        dartName: varDeclDartName,
       ) = varDecl;
       if (varDeclType case ReferredType(declaration: final referredDecl)
           when referredDecl is TypeAliasDeclaration &&
@@ -138,18 +145,22 @@ import 'types.dart';
     var mergedComposite = mergedNamespace.asComposite
       ..mergeType(mergedInterface);
 
-    mergedComposite = _mergeInterfaceWithVars(mergedComposite, varDeclarations)
+    mergedComposite =
+        _mergeInterfaceWithVars(mergedComposite, varDeclarations)
             as CompositeDeclaration? ??
         mergedComposite;
 
     // merge em and vars
-    mergedComposite = _mergeInterfaceWithVars(mergedComposite, varDeclarations)
+    mergedComposite =
+        _mergeInterfaceWithVars(mergedComposite, varDeclarations)
             as CompositeDeclaration? ??
         mergedComposite;
 
     // merge em and global vars
     final newExtension = _mergeInterfaceWithVarsHavingBuiltinTypes(
-        mergedComposite, varDeclarationsWithBuiltinTypes);
+      mergedComposite,
+      varDeclarationsWithBuiltinTypes,
+    );
     additionals.addAll([if (newExtension != null) newExtension]);
 
     mergedComposite
@@ -165,20 +176,23 @@ import 'types.dart';
     output.addAll([mergedComposite, ...otherVariableDeclarations]);
   } else if (mergedInterface != null) {
     // merge em and vars
-    mergedInterface = _mergeInterfaceWithVars(mergedInterface, varDeclarations)
+    mergedInterface =
+        _mergeInterfaceWithVars(mergedInterface, varDeclarations)
             as InterfaceDeclaration? ??
         mergedInterface;
 
     // merge em and global vars
     final newExtension = _mergeInterfaceWithVarsHavingBuiltinTypes(
-        mergedInterface, varDeclarationsWithBuiltinTypes);
+      mergedInterface,
+      varDeclarationsWithBuiltinTypes,
+    );
     additionals.addAll([if (newExtension != null) newExtension]);
 
     // merge with class
     if (classDecl != null) {
-      final mergedComposite =
-          CompositeDeclaration.fromInterface(mergedInterface)
-            ..mergeType(classDecl);
+      final mergedComposite = CompositeDeclaration.fromInterface(
+        mergedInterface,
+      )..mergeType(classDecl);
 
       output.add(mergedComposite);
     } else {
@@ -205,14 +219,15 @@ extension MergeDeclarationsOntoComposite on CompositeDeclaration {
       ..extendedTypes.addAll(switch (type) {
         ClassDeclaration(extendedType: final extendedType?) => [extendedType],
         InterfaceDeclaration(extendedTypes: final extendedTypes) ||
-        CompositeDeclaration(extendedTypes: final extendedTypes) =>
-          extendedTypes,
-        _ => []
+        CompositeDeclaration(
+          extendedTypes: final extendedTypes,
+        ) => extendedTypes,
+        _ => [],
       })
       ..implementedTypes.addAll(switch (type) {
         ClassDeclaration(implementedTypes: final implementedTypes) =>
           implementedTypes,
-        _ => []
+        _ => [],
       })
       ..operators.addAll(type.operators)
       ..constructors.addAll(type.constructors)
@@ -224,17 +239,20 @@ extension MergeDeclarationsOntoComposite on CompositeDeclaration {
   /// just adds its members, which may still refer back to the enum
   void mergeEnum([EnumDeclaration? enumeration]) {
     if (enumeration == null) return;
-    final enumAsReference = (enumeration
-          ..name = '${enumeration.name}Enum'
-          ..dartName ??= enumeration.name)
-        .asReferredType()
-        .emit();
+    final enumAsReference =
+        (enumeration
+              ..name = '${enumeration.name}Enum'
+              ..dartName ??= enumeration.name)
+            .asReferredType()
+            .emit();
 
     for (final member in enumeration.members) {
       member.parent = enumeration.name;
     }
 
-    rawMethods.addAll(enumeration.members.map((e) => Method((m) {
+    rawMethods.addAll(
+      enumeration.members.map(
+        (e) => Method((m) {
           if (e.dartName != null && e.name != e.dartName && e.isExternal) {
             m.annotations.add(generateJSAnnotation(e.name));
           }
@@ -245,99 +263,125 @@ extension MergeDeclarationsOntoComposite on CompositeDeclaration {
             ..lambda = true
             ..returns = enumAsReference
             ..body = enumAsReference.property(e.dartName ?? e.name).code;
-        })));
+        }),
+      ),
+    );
   }
 
   void mergeFunctions([List<FunctionDeclaration> funs = const []]) {
     final namer = UniqueNamer(methods.map((m) => m.dartName ?? m.name));
 
-    methods.addAll(funs.map((f) {
-      final (name: dartName, :id) = namer.makeUnique('call', 'fun');
-      return MethodDeclaration(
+    methods.addAll(
+      funs.map((f) {
+        final (name: dartName, :id) = namer.makeUnique('call', 'fun');
+        return MethodDeclaration(
           name: 'call',
           dartName: dartName,
           id: id,
           returnType: f.returnType,
           parameters: f.parameters,
           typeParameters: f.typeParameters,
-          documentation: f.documentation);
-    }));
+          documentation: f.documentation,
+        );
+      }),
+    );
   }
 }
 
-TypeDeclaration? _mergeInterfaceWithVars(TypeDeclaration interface,
-    [List<VariableDeclaration> vars = const [], bool baseOnVarTypes = false]) {
+TypeDeclaration? _mergeInterfaceWithVars(
+  TypeDeclaration interface, [
+  List<VariableDeclaration> vars = const [],
+  bool baseOnVarTypes = false,
+]) {
   if (vars.isEmpty) return null;
 
-  assert(vars.every((v) => v.modifier == VariableModifier.$var),
-      'only "var" variables are needed');
+  assert(
+    vars.every((v) => v.modifier == VariableModifier.$var),
+    'only "var" variables are needed',
+  );
 
   // get vars merged
   final referredTypes = vars.map((v) => v.type as ReferredType);
-  final interfaces =
-      referredTypes.map((r) => r.declaration as InterfaceDeclaration);
+  final interfaces = referredTypes.map(
+    (r) => r.declaration as InterfaceDeclaration,
+  );
 
   final mergedInterface = mergeInterfaces([
     switch (interface) {
       final InterfaceDeclaration i => i,
       final CompositeDeclaration c => c.asInterface,
-      _ =>
-        throw Exception('"interface" should be either interface or composite')
+      _ => throw Exception(
+        '"interface" should be either interface or composite',
+      ),
     },
-    ...interfaces
+    ...interfaces,
   ], referenceIndex: baseOnVarTypes && interfaces.isNotEmpty ? 1 : 0);
 
   return (interface is CompositeDeclaration
       ? CompositeDeclaration.fromInterface(
-          mergedInterface, interface.rawMethods)
+          mergedInterface,
+          interface.rawMethods,
+        )
       : mergedInterface);
 }
 
 _ExtensionOfTypeDeclaration? _mergeInterfaceWithVarsHavingBuiltinTypes(
-    TypeDeclaration interface,
-    [List<VariableDeclaration> vars = const []]) {
+  TypeDeclaration interface, [
+  List<VariableDeclaration> vars = const [],
+]) {
   if (vars.isEmpty) return null;
 
-  assert(vars.every((v) => v.modifier == VariableModifier.$var),
-      'only "var" variables are needed');
+  assert(
+    vars.every((v) => v.modifier == VariableModifier.$var),
+    'only "var" variables are needed',
+  );
 
   final builtinTypes = vars.map((v) => v.type as BuiltinType);
 
   // get the var type
-  final unionHash =
-      AnonymousHasher.hashUnion(builtinTypes.map((b) => b.name).toList());
+  final unionHash = AnonymousHasher.hashUnion(
+    builtinTypes.map((b) => b.name).toList(),
+  );
   final mergedType = builtinTypes.length == 1
       ? builtinTypes.single
       : UnionType(
-          types: builtinTypes.toList(), name: '_AnonymousUnion_$unionHash');
+          types: builtinTypes.toList(),
+          name: '_AnonymousUnion_$unionHash',
+        );
   final mergedTypeName = switch (mergedType) {
     NamedType(name: final name) => name,
     UnionType(declarationName: final name) => name,
-    _ => throw Exception('mergedType should either be builtin or union')
+    _ => throw Exception('mergedType should either be builtin or union'),
   };
 
   // create an extension on the type of the var
   final isNullable = builtinTypes.any((b) => b.isNullable);
-  final interfaceAsReference =
-      interface.asReferredType(null, isNullable).emit();
+  final interfaceAsReference = interface
+      .asReferredType(null, isNullable)
+      .emit();
 
   final extension = _ExtensionOfTypeDeclaration(
-      name: '${mergedTypeName}To${interface.name}',
-      baseType: mergedType,
-      rawMethods: [
-        Method((m) => m
+    name: '${mergedTypeName}To${interface.name}',
+    baseType: mergedType,
+    rawMethods: [
+      Method(
+        (m) => m
           ..name = 'as${interface.name}'
           ..returns = interfaceAsReference
           ..type = MethodType.getter
           ..lambda = true
-          ..body = refer('this').asA(interfaceAsReference).code)
-      ]);
+          ..body = refer('this').asA(interfaceAsReference).code,
+      ),
+    ],
+  );
 
   return extension;
 }
 
-InterfaceDeclaration mergeInterfaces(List<InterfaceDeclaration> interfaces,
-    {int referenceIndex = 0}) {
+InterfaceDeclaration mergeInterfaces(
+  List<InterfaceDeclaration> interfaces, {
+  int referenceIndex = 0,
+}) {
   if (interfaces.singleOrNull case final singleInterface?) {
     return singleInterface;
   }
@@ -347,61 +391,68 @@ InterfaceDeclaration mergeInterfaces(List<InterfaceDeclaration> interfaces,
   final namer = ScopedUniqueNamer({'get', 'set'});
 
   return InterfaceDeclaration(
-      name: referenceInterface.id.name,
-      exported: true,
-      id: ID(
-          type: referenceInterface.id.type, name: referenceInterface.id.name),
-      typeParameters: interfaces.map((i) => i.typeParameters).flattenedToSet,
-      extendedTypes: interfaces.map((i) => i.extendedTypes).flattenedToList,
-      properties: interfaces
-          .map((i) => _rescopeDecls(i.properties, namer: namer))
-          .flattenedToList,
-      methods: interfaces
-          .map((i) => _rescopeDecls(i.methods, namer: namer))
-          .flattenedToList,
-      operators: interfaces
-          .map((i) => _rescopeDecls(i.operators, namer: namer))
-          .flattenedToList,
-      constructors: interfaces.map((i) {
-        final newDecls = <ConstructorDeclaration>[];
-        for (final d in i.constructors) {
-          final (name: dartName, :id) =
-              namer.makeUnique(d.name ?? '', d.id.type);
+    name: referenceInterface.id.name,
+    exported: true,
+    id: ID(type: referenceInterface.id.type, name: referenceInterface.id.name),
+    typeParameters: interfaces.map((i) => i.typeParameters).flattenedToSet,
+    extendedTypes: interfaces.map((i) => i.extendedTypes).flattenedToList,
+    properties: interfaces
+        .map((i) => _rescopeDecls(i.properties, namer: namer))
+        .flattenedToList,
+    methods: interfaces
+        .map((i) => _rescopeDecls(i.methods, namer: namer))
+        .flattenedToList,
+    operators: interfaces
+        .map((i) => _rescopeDecls(i.operators, namer: namer))
+        .flattenedToList,
+    constructors: interfaces.map((i) {
+      final newDecls = <ConstructorDeclaration>[];
+      for (final d in i.constructors) {
+        final (name: dartName, :id) = namer.makeUnique(d.name ?? '', d.id.type);
 
-          newDecls.add(d
+        newDecls.add(
+          d
             ..id.name = id.name
-            ..dartName = dartName);
-        }
+            ..dartName = dartName,
+        );
+      }
 
-        return newDecls;
-      }).flattenedToList,
-      useFirstExtendeeAsRepType:
-          interfaces.any((i) => i.useFirstExtendeeAsRepType),
-      objectLiteralConstructor:
-          interfaces.any((i) => i.objectLiteralConstructor),
-      documentation: Documentation(
-          docs: interfaces
-              .map((i) {
-                final d = i.documentation?.docs;
-                return (d?.trim().isEmpty ?? true) ? null : d?.trim();
-              })
-              .nonNulls
-              .join('\n${'-' * 20}\n')));
+      return newDecls;
+    }).flattenedToList,
+    useFirstExtendeeAsRepType: interfaces.any(
+      (i) => i.useFirstExtendeeAsRepType,
+    ),
+    objectLiteralConstructor: interfaces.any((i) => i.objectLiteralConstructor),
+    documentation: Documentation(
+      docs: interfaces
+          .map((i) {
+            final d = i.documentation?.docs;
+            return (d?.trim().isEmpty ?? true) ? null : d?.trim();
+          })
+          .nonNulls
+          .join('\n${'-' * 20}\n'),
+    ),
+  );
 }
 
-NamespaceDeclaration mergeNamespaces(List<NamespaceDeclaration> namespaces,
-    {int referenceIndex = 0}) {
+NamespaceDeclaration mergeNamespaces(
+  List<NamespaceDeclaration> namespaces, {
+  int referenceIndex = 0,
+}) {
   if (namespaces.singleOrNull case final singleNamespace?) {
     return singleNamespace..dartName = null;
   }
 
   final refNamespace = namespaces[0];
   final namer = ScopedUniqueNamer({'get', 'set'});
-  final namespaceDeclarations =
-      namespaces.map((n) => n.namespaceDeclarations).flattenedToList;
+  final namespaceDeclarations = namespaces
+      .map((n) => n.namespaceDeclarations)
+      .flattenedToList;
 
-  final namespaceGroups =
-      groupBy(namespaceDeclarations, (namespace) => namespace.name);
+  final namespaceGroups = groupBy(
+    namespaceDeclarations,
+    (namespace) => namespace.name,
+  );
 
   final interfaceDeclarations = <InterfaceDeclaration>[];
   final otherNestableDeclarations = <NestableDeclaration>[];
@@ -410,8 +461,9 @@ NamespaceDeclaration mergeNamespaces(List<NamespaceDeclaration> namespaces,
 
   for (final NamespaceDeclaration(
         nestableDeclarations: nestableDeclarations,
-        documentation: documentation
-      ) in namespaces) {
+        documentation: documentation,
+      )
+      in namespaces) {
     // TODO: In the future, we can be smart and prevent merging decls with
     //  certain annotations (like experimental or deprecated)
     if (documentation case Documentation(docs: final docs)?
@@ -428,33 +480,39 @@ NamespaceDeclaration mergeNamespaces(List<NamespaceDeclaration> namespaces,
     }
   }
 
-  final interfaceGroups =
-      groupBy(interfaceDeclarations, (interface) => interface.name);
+  final interfaceGroups = groupBy(
+    interfaceDeclarations,
+    (interface) => interface.name,
+  );
 
   return NamespaceDeclaration(
-      name: refNamespace.id.name,
-      id: ID(type: refNamespace.id.type, name: refNamespace.id.name),
-      topLevelDeclarations: namespaces
-          .map((n) => _rescopeDecls(n.topLevelDeclarations, namer: namer))
-          .flattenedToSet,
-      namespaceDeclarations:
-          namespaceGroups.values.map(mergeNamespaces).toSet(),
-      nestableDeclarations: {
-        ...interfaceGroups.values.map(mergeInterfaces).toSet(),
-        ...otherNestableDeclarations
-      },
-      documentation: Documentation(docs: docStrings.join('\n${'-' * 20}\n')));
+    name: refNamespace.id.name,
+    id: ID(type: refNamespace.id.type, name: refNamespace.id.name),
+    topLevelDeclarations: namespaces
+        .map((n) => _rescopeDecls(n.topLevelDeclarations, namer: namer))
+        .flattenedToSet,
+    namespaceDeclarations: namespaceGroups.values.map(mergeNamespaces).toSet(),
+    nestableDeclarations: {
+      ...interfaceGroups.values.map(mergeInterfaces).toSet(),
+      ...otherNestableDeclarations,
+    },
+    documentation: Documentation(docs: docStrings.join('\n${'-' * 20}\n')),
+  );
 }
 
-Iterable<T> _rescopeDecls<T extends Declaration>(Iterable<T> decls,
-    {required UniqueNamer namer}) {
+Iterable<T> _rescopeDecls<T extends Declaration>(
+  Iterable<T> decls, {
+  required UniqueNamer namer,
+}) {
   final newDecls = <T>[];
   for (final d in decls) {
     final (name: dartName, :id) = namer.makeUnique(d.name, d.id.type);
 
-    newDecls.add(d
-      ..id.name = id.name
-      ..dartName = dartName);
+    newDecls.add(
+      d
+        ..id.name = id.name
+        ..dartName = dartName,
+    );
   }
 
   return newDecls;
@@ -481,15 +539,15 @@ class _ExtensionOfTypeDeclaration extends NamedDeclaration
   /// Raw methods
   final List<Method> __methods;
 
-  _ExtensionOfTypeDeclaration(
-      {required this.name,
-      required this.baseType,
-      this.properties = const [],
-      this.methods = const [],
-      this.operators = const [],
-      this.typeParameters = const [],
-      List<Method> rawMethods = const []})
-      : __methods = rawMethods;
+  _ExtensionOfTypeDeclaration({
+    required this.name,
+    required this.baseType,
+    this.properties = const [],
+    this.methods = const [],
+    this.operators = const [],
+    this.typeParameters = const [],
+    List<Method> rawMethods = const [],
+  }) : __methods = rawMethods;
 
   @override
   Spec emit([covariant DeclarationOptions? options]) {
@@ -505,21 +563,28 @@ class _ExtensionOfTypeDeclaration extends NamedDeclaration
       }
     }
 
-    methodDecs.addAll(methods
-        .where((p) => p.scope == DeclScope.public)
-        .map((m) => m.emit(options)));
-    methodDecs.addAll(operators
-        .where((p) => p.scope == DeclScope.public)
-        .map((m) => m.emit(options)));
+    methodDecs.addAll(
+      methods
+          .where((p) => p.scope == DeclScope.public)
+          .map((m) => m.emit(options)),
+    );
+    methodDecs.addAll(
+      operators
+          .where((p) => p.scope == DeclScope.public)
+          .map((m) => m.emit(options)),
+    );
 
-    return Extension((e) => e
-      ..name = name
-      ..types
-          .addAll(typeParameters.map((t) => t.emit(options?.toTypeOptions())))
-      ..on = baseType.emit(options?.toTypeOptions())
-      ..fields.addAll(fieldDecs)
-      ..methods.addAll(methodDecs)
-      ..methods.addAll(__methods));
+    return Extension(
+      (e) => e
+        ..name = name
+        ..types.addAll(
+          typeParameters.map((t) => t.emit(options?.toTypeOptions())),
+        )
+        ..on = baseType.emit(options?.toTypeOptions())
+        ..fields.addAll(fieldDecs)
+        ..methods.addAll(methodDecs)
+        ..methods.addAll(__methods),
+    );
   }
 
   @override
@@ -527,5 +592,7 @@ class _ExtensionOfTypeDeclaration extends NamedDeclaration
 
   @override
   ID get id => ID(
-      type: 'extension@(${baseType.id.type}-${baseType.id.name})', name: name);
+    type: 'extension@(${baseType.id.type}-${baseType.id.name})',
+    name: name,
+  );
 }

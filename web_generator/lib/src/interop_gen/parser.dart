@@ -35,9 +35,10 @@ ParserResult parseDeclarationFiles(Config config) {
   var compilerOptions = ts.TSCompilerOptions(declaration: true);
   if (config.tsConfigFile case final tsConfigFile?) {
     final parsedCommandLine = ts.getParsedCommandLineOfConfigFile(
-        p.absolute(tsConfigFile),
-        ts.TSCompilerOptions(declaration: true),
-        host);
+      p.absolute(tsConfigFile),
+      ts.TSCompilerOptions(declaration: true),
+      host,
+    );
 
     if (parsedCommandLine != null) {
       compilerOptions = parsedCommandLine.options;
@@ -53,10 +54,11 @@ ParserResult parseDeclarationFiles(Config config) {
   } else if (config.tsConfig case final tsConfig?
       when config.filename != null) {
     final parsedCommandLine = ts.parseJsonConfigFileContent(
-        tsConfig.jsify() as JSObject,
-        host,
-        p.dirname(config.filename!.toFilePath()),
-        ts.TSCompilerOptions(declaration: true));
+      tsConfig.jsify() as JSObject,
+      host,
+      p.dirname(config.filename!.toFilePath()),
+      ts.TSCompilerOptions(declaration: true),
+    );
 
     compilerOptions = parsedCommandLine.options;
 
@@ -69,8 +71,10 @@ ParserResult parseDeclarationFiles(Config config) {
     }
   }
 
-  final program =
-      ts.createProgram(files.jsify() as JSArray<JSString>, compilerOptions);
+  final program = ts.createProgram(
+    files.jsify() as JSArray<JSString>,
+    compilerOptions,
+  );
 
   // get diagnostics
   final diagnostics = [
@@ -93,15 +97,21 @@ ParserResult parseDeclarationFiles(Config config) {
 void handleDiagnostics(List<ts.TSDiagnostic> diagnostics) {
   for (final diagnostic in diagnostics) {
     if (diagnostic.file case final diagnosticFile?) {
-      final ts.TSLineAndCharacter(line: line, character: char) =
-          ts.getLineAndCharacterOfPosition(diagnosticFile, diagnostic.start!);
-      final message =
-          ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n');
-      printErr('${diagnosticFile.fileName} '
-          '(${line.toDartInt + 1},${char.toDartInt + 1}): $message');
+      final ts.TSLineAndCharacter(line: line, character: char) = ts
+          .getLineAndCharacterOfPosition(diagnosticFile, diagnostic.start!);
+      final message = ts.flattenDiagnosticMessageText(
+        diagnostic.messageText,
+        '\n',
+      );
+      printErr(
+        '${diagnosticFile.fileName} '
+        '(${line.toDartInt + 1},${char.toDartInt + 1}): $message',
+      );
     } else {
-      final message =
-          ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n');
+      final message = ts.flattenDiagnosticMessageText(
+        diagnostic.messageText,
+        '\n',
+      );
       printErr('(anonymous): $message');
     }
   }

@@ -69,7 +69,7 @@ const keywords = {
   'while',
   'with',
   'yield',
-  'toString'
+  'toString',
 };
 
 const bannedNames = <String>{

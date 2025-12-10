@@ -39,7 +39,7 @@ jobs:
 
       - run: dart pub get
       - run: dart format --output=none --set-exit-if-changed .
-        if: matrix.sdk == 'dev' && matrix.test_config == ''
+        if: matrix.test_config == ''
       - run: dart analyze --fatal-infos
         if: matrix.sdk == 'dev' && matrix.test_config == ''
       - run: dart test ${{ matrix.test_config }}

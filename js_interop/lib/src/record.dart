@@ -29,7 +29,8 @@ import 'unsafe/object.dart';
 /// fail-safes to throw errors if this happens. So be extra careful!
 extension type JSRecord<V extends JSAny?>._(JSObject _) implements JSObject {
   /// Returns an iterable over tuples of the `key`/`value` pairs in this record.
-  Iterable<(String, V)> get pairs => JSObjectUnsafeExtension(this).entries.cast<(String, V)>();
+  Iterable<(String, V)> get pairs =>
+      JSObjectUnsafeExtension(this).entries.cast<(String, V)>();
 
   /// See [Map.entries].
   Iterable<MapEntry<String, V>> get entries sync* {

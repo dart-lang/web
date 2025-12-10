@@ -11,6 +11,8 @@ import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:web_generator/src/cli.dart';
 
+import '../test_shared.dart';
+
 /// Actual test output can be found in `.dart_tool/idl`
 void main() {
   final bindingsGenPath = p.join('lib', 'src');
@@ -56,11 +58,7 @@ void main() {
           '--declaration',
         ], workingDirectory: bindingsGenPath);
 
-        // read files
-        final expectedOutput = await File(outputExpectedPath).readAsString();
-        final actualOutput = await File(outputActualPath).readAsString();
-
-        expect(actualOutput, expectedOutput);
+        expectFilesEqual(outputExpectedPath, outputActualPath);
       });
     }
   });
@@ -100,14 +98,10 @@ void main() {
 
       // read files
       for (final output in outputDir.listSync().whereType<File>()) {
-        final outputContents = output.readAsStringSync();
-
-        final expectedOutput = File(
+        expectFilesEqual(
           p.join(outputExpectedPath, p.basename(output.path)),
+          output.path,
         );
-        final expectedContents = expectedOutput.readAsStringSync();
-
-        expect(outputContents, expectedContents);
       }
     });
   });

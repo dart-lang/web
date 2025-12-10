@@ -18,7 +18,10 @@ extension type Dictionary._(_i1.JSObject _) implements _i1.JSObject {
 }
 extension type Comparator<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
-  external double call(T a, T b);
+  external double call(
+    T a,
+    T b,
+  );
 }
 extension type Repository<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
@@ -30,7 +33,10 @@ extension type RepoConstructor._(_i1.JSObject _) implements _i1.JSObject {
 }
 extension type AsyncService._(_i1.JSObject _) implements _i1.JSObject {
   external _i1.JSPromise<_i1.JSAny?> fetchData(String url);
-  external _i1.JSPromise<_i1.JSBoolean> updateData(String id, String payload);
+  external _i1.JSPromise<_i1.JSBoolean> updateData(
+    String id,
+    String payload,
+  );
 }
 extension type User._(_i1.JSObject _) implements _i1.JSObject {
   external String id;

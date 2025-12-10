@@ -25,17 +25,17 @@ external ProductOrrandomNonTypedProduct objectAsProduct(
 );
 @_i1.JS()
 external _i1.JSArray<AnonymousType_9143117<T>>
-indexedArray<T extends _i1.JSAny?>(_i1.JSArray<T> arr);
+    indexedArray<T extends _i1.JSAny?>(_i1.JSArray<T> arr);
 @_i1.JS()
 external double firstTwoNumbers(
-  /// Parameter is of the form: [a, b]
-  _i1.JSArray<_i1.JSNumber> arr117,
-);
+
+    /// Parameter is of the form: [a, b]
+    _i1.JSArray<_i1.JSNumber> arr117);
 @_i1.JS()
 external double pointlessArrayFunction(
-  /// Parameter is of the form: [{}]
-  _i1.JSArray<AnonymousType_4207514> unknownarr,
-);
+
+    /// Parameter is of the form: [{}]
+    _i1.JSArray<AnonymousType_4207514> unknownarr);
 @_i1.JS()
 external String productInfo(
   /// Parameter is of the form: { name, id }
@@ -105,20 +105,24 @@ external AnonymousUnion_6216705? get image;
 external _i2.JSTuple2<_i1.JSString, _i1.JSNumber> get myTuple;
 @_i1.JS()
 external _i2.JSReadonlyTuple3<_i1.JSString, _i1.JSNumber, _i1.JSString>
-get myReadonlyTuple;
+    get myReadonlyTuple;
 @_i1.JS()
 external _i2.JSTuple2<_i1.JSString, _i1.JSString> get mySecondTuple;
 @_i1.JS()
 external _i2.JSTuple2<_i1.JSString, _i1.JSString> get myCloneTuple;
 @_i1.JS()
 external _i2.JSTuple4<_i1.JSString, _i1.JSNumber, _i1.JSBoolean, _i1.JSSymbol>
-get typesAsTuple;
+    get typesAsTuple;
 @_i1.JS()
 external AnonymousUnion_7503220 get eightOrSixteen;
 @_i1.JS()
 external AnonymousType_1358595 get config;
 extension type MyProduct._(_i1.JSObject _) implements Product {
-  external MyProduct(num id, String name, num price);
+  external MyProduct(
+    num id,
+    String name,
+    num price,
+  );
 
   external double id;
 
@@ -152,7 +156,11 @@ external AnonymousIntersection_4895242 get myThirdIntersection;
 @_i1.JS()
 external AnonymousIntersection_1711585 get myTypeGymnastic;
 extension type AnonymousType_2194029._(_i1.JSObject _) implements _i1.JSObject {
-  external AnonymousType_2194029({double id, String name, double price});
+  external AnonymousType_2194029({
+    double id,
+    String name,
+    double price,
+  });
 
   external double id;
 
@@ -169,7 +177,10 @@ extension type ProductOrrandomNonTypedProduct._(AnonymousType_2194029 _)
 }
 extension type AnonymousType_9143117<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
-  external AnonymousType_9143117({double id, T value});
+  external AnonymousType_9143117({
+    double id,
+    T value,
+  });
 
   external double id;
 
@@ -181,7 +192,10 @@ extension type AnonymousType_4207514._(_i1.JSObject _) implements _i1.JSObject {
   external double a;
 }
 extension type AnonymousType_9686701._(_i1.JSObject _) implements _i1.JSObject {
-  external AnonymousType_9686701({bool search, bool showId});
+  external AnonymousType_9686701({
+    bool search,
+    bool showId,
+  });
 
   external bool? search;
 
@@ -229,9 +243,7 @@ extension type const KeyOf_TypeOf_MyEnum._(String _) {
   static const KeyOf_TypeOf_MyEnum D = KeyOf_TypeOf_MyEnum._('D');
 }
 extension type _AnonymousFunction_5293571<T extends _i1.JSAny?>._(
-  _i1.JSFunction _
-)
-    implements _i1.JSFunction {
+    _i1.JSFunction _) implements _i1.JSFunction {
   external ComposedType<T> call(T object);
 }
 extension type ComposedType<T extends _i1.JSAny?>._(_i1.JSObject _)
@@ -264,21 +276,31 @@ extension type AnonymousUnion_7503220._(_i1.JSTypedArray _)
   _i1.JSUint16Array get asJSUint16Array => (_ as _i1.JSUint16Array);
 }
 extension type AnonymousType_1358595._(_i1.JSObject _) implements _i1.JSObject {
-  external AnonymousType_1358595({double discountRate, double taxRate});
+  external AnonymousType_1358595({
+    double discountRate,
+    double taxRate,
+  });
 
   external double discountRate;
 
   external double taxRate;
 }
 extension type AnonymousType_2773310._(_i1.JSObject _) implements _i1.JSObject {
-  external AnonymousType_2773310({String id, _i1.JSAny? value});
+  external AnonymousType_2773310({
+    String id,
+    _i1.JSAny? value,
+  });
 
   external String id;
 
   external _i1.JSAny? value;
 }
 extension type AnonymousType_1487785._(_i1.JSObject _) implements _i1.JSObject {
-  external AnonymousType_1487785({String id, String error, _i1.JSAny? data});
+  external AnonymousType_1487785({
+    String id,
+    String error,
+    _i1.JSAny? data,
+  });
 
   external String id;
 
@@ -296,8 +318,16 @@ extension type AnonymousUnion_1189263._(_i1.JSObject _)
 }
 extension type _AnonymousConstructor_1059824._(_i1.JSFunction _)
     implements _i1.JSFunction {
-  Product call(num id, String name, num price) =>
-      Product(id: id.toDouble(), name: name, price: price.toDouble());
+  Product call(
+    num id,
+    String name,
+    num price,
+  ) =>
+      Product(
+        id: id.toDouble(),
+        name: name,
+        price: price.toDouble(),
+      );
 }
 extension type _AnonymousFunction_1331744._(_i1.JSFunction _)
     implements _i1.JSFunction {
@@ -351,7 +381,10 @@ extension type AnonymousIntersection_5583924._(_i1.JSAny _)
   _i1.JSSymbol get asJSSymbol => (_ as _i1.JSSymbol);
 }
 extension type AnonymousType_1178025._(_i1.JSObject _) implements _i1.JSObject {
-  external AnonymousType_1178025({String debugInfo, _i1.JSSymbol tag});
+  external AnonymousType_1178025({
+    String debugInfo,
+    _i1.JSSymbol tag,
+  });
 
   external String debugInfo;
 

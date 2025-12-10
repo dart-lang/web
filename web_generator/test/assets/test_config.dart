@@ -9,9 +9,15 @@
 import 'dart:js_interop' as _i1;
 
 @_i1.JS()
-external User loginUser(String username, UserRole role);
+external User loginUser(
+  String username,
+  UserRole role,
+);
 @_i1.JS()
-external User changeRoleOfUser(User user, UserRole newRole);
+external User changeRoleOfUser(
+  User user,
+  UserRole newRole,
+);
 @_i1.JS()
 external _i1.JSArray<_i1.JSString> changeRoleOfUsers(
   UserRole newRole,

@@ -5,11 +5,12 @@
 @TestOn('vm')
 library;
 
-import 'dart:io';
 
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:web_generator/src/cli.dart';
+
+import 'test_shared.dart';
 
 void main() {
   final bindingsGenPath = p.join('lib', 'src');
@@ -42,10 +43,7 @@ void main() {
         '--declaration',
       ], workingDirectory: bindingsGenPath);
 
-      final expectedOutput = await File(expectedFile).readAsString();
-      final actualOutput = await File(outputFile).readAsString();
-
-      expect(actualOutput, expectedOutput);
+      expectFilesEqual(expectedFile, outputFile);
     });
 
     test('Generate Code for test.d.ts with config config.yaml', () async {
@@ -65,10 +63,7 @@ void main() {
         '--declaration',
       ], workingDirectory: bindingsGenPath);
 
-      final expectedOutput = await File(expectedFile).readAsString();
-      final actualOutput = await File(outputFile).readAsString();
-
-      expect(actualOutput, expectedOutput);
+      expectFilesEqual(expectedFile, outputFile);
     });
   });
 }

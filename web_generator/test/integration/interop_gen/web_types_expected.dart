@@ -13,11 +13,10 @@ external void handleMouseEvent(_i2.MouseEvent event);
 external _i2.URL generateUrl(String path);
 @_i1.JS()
 external _i1.JSPromise<_i2.WebGLBuffer> convertToWebGL(
-  _i1.JSArrayBuffer buffer,
-);
+    _i1.JSArrayBuffer buffer);
 @_i1.JS()
 external AnonymousType_7051203<T>
-getHTMLElementContent<T extends _i2.HTMLElement>(T element);
+    getHTMLElementContent<T extends _i2.HTMLElement>(T element);
 @_i1.JS()
 external void handleButtonClick(_i2.MouseEvent event);
 @_i1.JS()
@@ -66,11 +65,8 @@ extension type AnonymousUnion_1500406<T extends _i1.JSAny?>._(_i1.JSAny _)
 
   String get asString => (_ as _i1.JSString).toDart;
 }
-extension type HTMLTransformFunc<
-  T extends _i2.HTMLElement,
-  R extends _i2.HTMLElement
->._(_i1.JSObject _)
-    implements _i1.JSObject {
+extension type HTMLTransformFunc<T extends _i2.HTMLElement,
+    R extends _i2.HTMLElement>._(_i1.JSObject _) implements _i1.JSObject {
   external R call(T element);
 }
 extension type EventManipulationFunc._(_i1.JSObject _) implements _i1.JSObject {
@@ -206,33 +202,52 @@ extension type Date._(_i1.JSObject _) implements _i1.JSObject {
   /// Sets the seconds value in the Date object using local time.
   /// - [sec]:  A numeric value equal to the seconds value.
   /// - [ms]:  A numeric value equal to the milliseconds value.
-  external double setSeconds(num sec, [num? ms]);
+  external double setSeconds(
+    num sec, [
+    num? ms,
+  ]);
 
   /// Sets the seconds value in the Date object using Universal Coordinated Time
   /// (UTC).
   /// - [sec]:  A numeric value equal to the seconds value.
   /// - [ms]:  A numeric value equal to the milliseconds value.
-  external double setUTCSeconds(num sec, [num? ms]);
+  external double setUTCSeconds(
+    num sec, [
+    num? ms,
+  ]);
 
   /// Sets the minutes value in the Date object using local time.
   /// - [min]:  A numeric value equal to the minutes value.
   /// - [sec]:  A numeric value equal to the seconds value.
   /// - [ms]:  A numeric value equal to the milliseconds value.
-  external double setMinutes(num min, [num? sec, num? ms]);
+  external double setMinutes(
+    num min, [
+    num? sec,
+    num? ms,
+  ]);
 
   /// Sets the minutes value in the Date object using Universal Coordinated Time
   /// (UTC).
   /// - [min]:  A numeric value equal to the minutes value.
   /// - [sec]:  A numeric value equal to the seconds value.
   /// - [ms]:  A numeric value equal to the milliseconds value.
-  external double setUTCMinutes(num min, [num? sec, num? ms]);
+  external double setUTCMinutes(
+    num min, [
+    num? sec,
+    num? ms,
+  ]);
 
   /// Sets the hour value in the Date object using local time.
   /// - [hours]:  A numeric value equal to the hours value.
   /// - [min]:  A numeric value equal to the minutes value.
   /// - [sec]:  A numeric value equal to the seconds value.
   /// - [ms]:  A numeric value equal to the milliseconds value.
-  external double setHours(num hours, [num? min, num? sec, num? ms]);
+  external double setHours(
+    num hours, [
+    num? min,
+    num? sec,
+    num? ms,
+  ]);
 
   /// Sets the hours value in the Date object using Universal Coordinated Time
   /// (UTC).
@@ -240,7 +255,12 @@ extension type Date._(_i1.JSObject _) implements _i1.JSObject {
   /// - [min]:  A numeric value equal to the minutes value.
   /// - [sec]:  A numeric value equal to the seconds value.
   /// - [ms]:  A numeric value equal to the milliseconds value.
-  external double setUTCHours(num hours, [num? min, num? sec, num? ms]);
+  external double setUTCHours(
+    num hours, [
+    num? min,
+    num? sec,
+    num? ms,
+  ]);
 
   /// Sets the numeric day-of-the-month value of the Date object using local
   /// time.
@@ -258,7 +278,10 @@ extension type Date._(_i1.JSObject _) implements _i1.JSObject {
   /// - [date]:  A numeric value representing the day of the month. If this
   ///   value is not supplied, the value from a call to the getDate method is
   ///   used.
-  external double setMonth(num month, [num? date]);
+  external double setMonth(
+    num month, [
+    num? date,
+  ]);
 
   /// Sets the month value in the Date object using Universal Coordinated Time
   /// (UTC).
@@ -266,14 +289,21 @@ extension type Date._(_i1.JSObject _) implements _i1.JSObject {
   ///   0, and other month values follow consecutively.
   /// - [date]:  A numeric value representing the day of the month. If it is not
   ///   supplied, the value from a call to the getUTCDate method is used.
-  external double setUTCMonth(num month, [num? date]);
+  external double setUTCMonth(
+    num month, [
+    num? date,
+  ]);
 
   /// Sets the year of the Date object using local time.
   /// - [year]:  A numeric value for the year.
   /// - [month]:  A zero-based numeric value for the month (0 for January, 11
   ///   for December). Must be specified if numDate is specified.
   /// - [date]:  A numeric value equal for the day of the month.
-  external double setFullYear(num year, [num? month, num? date]);
+  external double setFullYear(
+    num year, [
+    num? month,
+    num? date,
+  ]);
 
   /// Sets the year value in the Date object using Universal Coordinated Time
   /// (UTC).
@@ -282,7 +312,11 @@ extension type Date._(_i1.JSObject _) implements _i1.JSObject {
   ///   0, and other month values follow consecutively. Must be supplied if
   ///   numDate is supplied.
   /// - [date]:  A numeric value equal to the day of the month.
-  external double setUTCFullYear(num year, [num? month, num? date]);
+  external double setUTCFullYear(
+    num year, [
+    num? month,
+    num? date,
+  ]);
 
   /// Returns a date converted to a string using Universal Coordinated Time
   /// (UTC).

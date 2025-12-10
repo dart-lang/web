@@ -10,9 +10,15 @@ external Point2D get origin;
 @_i1.JS()
 external Point3D get origin3D;
 @_i1.JS('scalarProduct')
-external V dotProduct<V extends Vector>(V v1, V v2);
+external V dotProduct<V extends Vector>(
+  V v1,
+  V v2,
+);
 @_i1.JS('vectorProduct')
-external Vector3D crossProduct(Vector3D v1, Vector3D v2);
+external Vector3D crossProduct(
+  Vector3D v1,
+  Vector3D v2,
+);
 @_i1.JS()
 external Vector3D mapTo3D(Vector2D v);
 extension type TransformerMatrix<V extends Vector2D>._(_i1.JSObject _)
@@ -51,8 +57,7 @@ external PolarCoordinate toPolarCoordinate(Point2D point);
 external SphericalCoordinate toSphericalCoordinate(Point3D point);
 @_i1.JS('toSphericalCoordinate')
 external SphericalCoordinate toSphericalCoordinate$1(
-  CylindricalCoordinate point,
-);
+    CylindricalCoordinate point);
 @_i1.JS()
 external CylindricalCoordinate toCylindricalCoordinate(Point3D point);
 @_i1.JS()
@@ -82,7 +87,11 @@ extension type Vector._(_i1.JSObject _) implements _i1.JSObject {
   external double get directionAngle;
 }
 extension type Vector3D._(_i1.JSObject _) implements Vector {
-  external Vector3D(num x, num y, num z);
+  external Vector3D(
+    num x,
+    num y,
+    num z,
+  );
 
   external double x;
 
@@ -97,8 +106,14 @@ extension type Vector3D._(_i1.JSObject _) implements Vector {
   @_i2.redeclare
   external double get directionAngle;
   external Point3D moveFrom(Point3D point);
-  external static Vector3D from(num magnitude, DirectionAngles at);
-  external static Vector3D fromPoints(Point3D start, Point3D end);
+  external static Vector3D from(
+    num magnitude,
+    DirectionAngles at,
+  );
+  external static Vector3D fromPoints(
+    Point3D start,
+    Point3D end,
+  );
 }
 extension type DirectionAngles._(_i1.JSObject _) implements _i1.JSObject {
   external double alpha;
@@ -108,7 +123,10 @@ extension type DirectionAngles._(_i1.JSObject _) implements _i1.JSObject {
   external double gamma;
 }
 extension type Vector2D._(_i1.JSObject _) implements Vector {
-  external Vector2D(num x, num y);
+  external Vector2D(
+    num x,
+    num y,
+  );
 
   external double x;
 
@@ -120,8 +138,14 @@ extension type Vector2D._(_i1.JSObject _) implements Vector {
   @_i2.redeclare
   external double get directionAngle;
   external Point2D moveFrom(Point2D point);
-  external static Vector2D from(num magnitude, num at);
-  external static Vector2D fromPoints(Point2D start, Point2D end);
+  external static Vector2D from(
+    num magnitude,
+    num at,
+  );
+  external static Vector2D fromPoints(
+    Point2D start,
+    Point2D end,
+  );
 }
 extension type Matrix._(_i1.JSObject _) implements _i1.JSObject {
   external double rows;
@@ -132,5 +156,8 @@ extension type Matrix._(_i1.JSObject _) implements _i1.JSObject {
 }
 extension type Comparator<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
-  external double call(T a, T b);
+  external double call(
+    T a,
+    T b,
+  );
 }

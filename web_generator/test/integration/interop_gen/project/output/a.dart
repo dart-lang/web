@@ -19,7 +19,10 @@ external _i2.Point3D get origin3D;
 ///
 /// Returns A scalar projection as a vector.
 @_i1.JS()
-external V dotProduct<V extends _i2.Vector>(V v1, V v2);
+external V dotProduct<V extends _i2.Vector>(
+  V v1,
+  V v2,
+);
 
 /// Computes the cross product of two 3D vectors.
 /// - [v1]:  First vector.
@@ -27,7 +30,10 @@ external V dotProduct<V extends _i2.Vector>(V v1, V v2);
 ///
 /// Returns A new 3D vector perpendicular to both.
 @_i1.JS()
-external _i2.Vector3D crossProduct(_i2.Vector3D v1, _i2.Vector3D v2);
+external _i2.Vector3D crossProduct(
+  _i2.Vector3D v1,
+  _i2.Vector3D v2,
+);
 
 /// Maps a 2D vector to a 3D vector (z = 0).
 /// - [v]:  Input 2D vector.
@@ -112,8 +118,7 @@ external SphericalCoordinate toSphericalCoordinate(_i2.Point3D point);
 /// Returns Spherical representation.
 @_i1.JS('toSphericalCoordinate')
 external SphericalCoordinate toSphericalCoordinate$1(
-  CylindricalCoordinate point,
-);
+    CylindricalCoordinate point);
 
 /// Converts a 3D point to cylindrical coordinates.
 /// - [point]:  A 3D point.
@@ -150,7 +155,10 @@ extension type CoordinateSystem2D._(_i1.JSObject _)
   /// Adds a vector to the coordinate system from a starting point.
   /// - [vector]:  The vector to add.
   /// - [start]:  The start point (defaults to origin).
-  external void addVector(_i2.Vector2D vector, [_i2.Point2D? start]);
+  external void addVector(
+    _i2.Vector2D vector, [
+    _i2.Point2D? start,
+  ]);
 
   /// The unit vector along the x-axis.
   external _i2.Vector2D get xAxis;
@@ -191,7 +199,10 @@ extension type CoordinateSystem3D._(_i1.JSObject _)
   /// Adds a vector to the coordinate system from a starting point.
   /// - [vector]:  The vector to add.
   /// - [start]:  The start point (defaults to origin).
-  external void addVector(_i2.Vector3D vector, [_i2.Point3D? start]);
+  external void addVector(
+    _i2.Vector3D vector, [
+    _i2.Point3D? start,
+  ]);
 
   /// The unit vector along the x-axis.
   external _i2.Vector3D get xAxis;

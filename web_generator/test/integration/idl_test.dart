@@ -7,6 +7,8 @@ import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:web_generator/src/cli.dart';
 
+import '../test_shared.dart';
+
 /// Actual test output can be found in `.dart_tool/idl`
 void main() {
   final bindingsGenPath = p.join('lib', 'src');
@@ -54,11 +56,7 @@ void main() {
           p.join(p.dirname(outputActualPath), '${inputName}_input.dart'),
         ).rename(outputActualPath);
 
-        // read files
-        final expectedOutput = await File(outputExpectedPath).readAsString();
-        final actualOutput = await File(outputActualPath).readAsString();
-
-        expect(actualOutput, expectedOutput);
+        expectFilesEqual(outputExpectedPath, outputActualPath);
       });
 
       tearDownAll(() {

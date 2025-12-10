@@ -35,7 +35,10 @@ extension type const Permissions._(int _) {
   static const Permissions All = Permissions._(7);
 }
 @_i1.JS()
-external bool hasPermission(Permissions perm, Permissions flag);
+external bool hasPermission(
+  Permissions perm,
+  Permissions flag,
+);
 extension type const ResponseCode._(int _) {
   static const ResponseCode Success = ResponseCode._(200);
 
@@ -126,26 +129,21 @@ extension type const AnonymousUnion_3616711._(String _) {
 
   static const AnonymousUnion_3616711 dark = AnonymousUnion_3616711._('dark');
 
-  static const AnonymousUnion_3616711 system = AnonymousUnion_3616711._(
-    'system',
-  );
+  static const AnonymousUnion_3616711 system =
+      AnonymousUnion_3616711._('system');
 }
 extension type const AnonymousUnion_2355602._(String _) {
-  static const AnonymousUnion_2355602 default$ = AnonymousUnion_2355602._(
-    'default',
-  );
+  static const AnonymousUnion_2355602 default$ =
+      AnonymousUnion_2355602._('default');
 
-  static const AnonymousUnion_2355602 hovered = AnonymousUnion_2355602._(
-    'hovered',
-  );
+  static const AnonymousUnion_2355602 hovered =
+      AnonymousUnion_2355602._('hovered');
 
-  static const AnonymousUnion_2355602 pressed = AnonymousUnion_2355602._(
-    'pressed',
-  );
+  static const AnonymousUnion_2355602 pressed =
+      AnonymousUnion_2355602._('pressed');
 
-  static const AnonymousUnion_2355602 disabled = AnonymousUnion_2355602._(
-    'disabled',
-  );
+  static const AnonymousUnion_2355602 disabled =
+      AnonymousUnion_2355602._('disabled');
 }
 extension type const AnonymousUnion_7456409._(num _) {
   static const AnonymousUnion_7456409 $0 = AnonymousUnion_7456409._(0);

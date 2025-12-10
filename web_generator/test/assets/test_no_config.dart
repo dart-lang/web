@@ -6,9 +6,15 @@ import 'dart:js_interop' as _i1;
 @_i1.JS()
 external void initializeApp();
 @_i1.JS()
-external User loginUser(String username, UserRole role);
+external User loginUser(
+  String username,
+  UserRole role,
+);
 @_i1.JS()
-external User changeRoleOfUser(User user, UserRole newRole);
+external User changeRoleOfUser(
+  User user,
+  UserRole newRole,
+);
 @_i1.JS()
 external _i1.JSArray<_i1.JSString> changeRoleOfUsers(
   UserRole newRole,
@@ -60,13 +66,11 @@ extension type const HttpStatusCode._(String _) {
 
   static const HttpStatusCode BAD_REQUEST = HttpStatusCode._('400 Bad Request');
 
-  static const HttpStatusCode UNAUTHORIZED = HttpStatusCode._(
-    '401 Unauthorized',
-  );
+  static const HttpStatusCode UNAUTHORIZED =
+      HttpStatusCode._('401 Unauthorized');
 
   static const HttpStatusCode NOT_FOUND = HttpStatusCode._('404 Not Found');
 
-  static const HttpStatusCode INTERNAL_SERVER_ERROR = HttpStatusCode._(
-    '500 Internal Server Error',
-  );
+  static const HttpStatusCode INTERNAL_SERVER_ERROR =
+      HttpStatusCode._('500 Internal Server Error');
 }

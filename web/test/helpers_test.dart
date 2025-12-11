@@ -96,8 +96,8 @@ void main() {
     expect(childrenList.length, 2);
 
     // test []= range exception
-    expect(() => childNodesList[10] = document.createTextNode('nope'), throwsRangeError);
-
+    expect(() => childNodesList[10] = document.createTextNode('nope'),
+        throwsRangeError);
   });
 
   test('responseHeaders transforms headers into a map', () async {

@@ -4,6 +4,7 @@
 
 import 'dart:collection';
 import 'dart:js_interop';
+import '../dom/dom.dart';
 
 /// `_JSList` acts as a wrapper around a JS list object providing an interface to
 /// access the list items and list length while also allowing us to specify the
@@ -68,4 +69,36 @@ class JSImmutableListWrapper<T extends JSObject, U extends JSObject>
 
   @override
   U elementAt(int index) => this[index];
+}
+
+/// A wrapper for live node lists. `NodeList` and `HTMLCollection` that are
+/// [live](https://developer.mozilla.org/en-US/docs/Web/API/NodeList#live_vs._static_nodelists)
+/// can be safely modified at runtime. This requires an instance of `P`, a
+/// container that elements would be added to or removed from.
+class JSLiveNodeListWrapper<P extends Node, T extends JSObject, U extends Node>
+    extends JSImmutableListWrapper<T, U> {
+  P parentNode;
+
+  JSLiveNodeListWrapper(this.parentNode, super.original);
+
+  @override
+  set length(int value) {
+    if (value > length) {
+      throw UnsupportedError('Cannot add null to live node List.');
+    }
+    for (var i = length - 1; i >= value; i--) {
+      parentNode.removeChild(_jsList.item(i));
+    }
+  }
+
+  @override
+  void operator []=(int index, Node value) {
+    parentNode.replaceChild(_jsList.item(index), value);
+  }
+
+  @override
+  void add(Node element) {
+    // `ListMixin` implementation only works for lists that allow `null`.
+    parentNode.appendChild(element);
+  }
 }

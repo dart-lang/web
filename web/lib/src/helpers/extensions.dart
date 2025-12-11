@@ -25,6 +25,7 @@ import 'dart:convert';
 import 'dart:js_interop';
 
 import '../dom.dart';
+import 'lists.dart';
 
 export 'cross_origin.dart'
     show CrossOriginContentWindowExtension, CrossOriginWindowExtension;
@@ -102,4 +103,15 @@ extension UriToURL on Uri {
       throw ArgumentError.value(this, 'this', '"$this" isn\'t a valid JS URL.');
     }
   }
+}
+
+extension NodeExtension on Node {
+  /// Returns [childNodes] ad modifiable [List]
+  List<Node> get childNodesAsList => JSLiveNodeListWrapper(this, childNodes);
+}
+
+extension ElementExtension on Element {
+  /// Returns [children] ad modifiable [List]
+  List<Element> get childrenAsList =>
+      JSLiveNodeListWrapper<Element, HTMLCollection, Element>(this, children);
 }

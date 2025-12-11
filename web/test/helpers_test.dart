@@ -40,6 +40,52 @@ void main() {
     expect(() => dartList[0], returnsNormally);
   });
 
+  test('modify child nodes using JSLiveNodeListWrapper', () {
+    final div = (document.createElement('div'))
+      ..append(document.createElement('div')..textContent = '1')
+      ..append(document.createElement('div')..textContent = '2')
+      ..append(document.createElement('div')..textContent = '3');
+
+    final childNodesList = div.childNodesAsList;
+    final childrenList = div.childrenAsList;
+
+    // Ensure initial list length is correct.
+    expect(childNodesList.length, 3);
+    expect(childrenList.length, 3);
+
+    childrenList.removeWhere((node) => node.textContent == '2');
+
+    // Ensure both list were updated.
+    expect(childNodesList.length, 2);
+    expect(childrenList.length, 2);
+
+    // add node via children
+    childrenList.add(document.createElement('div')..textContent = '4');
+    // add node via childNodes
+    childNodesList.add(document.createElement('div')..textContent = '5');
+    // add node directly to parent
+    div.appendChild(document.createElement('div')..textContent = '6');
+
+    // Ensure 3 elements were added to both lists
+    expect(childNodesList.length, 5);
+    expect(childrenList.length, 5);
+
+    // add only text nodes
+    childNodesList.addAll(
+        [document.createTextNode('txt1'), document.createTextNode('txt2')]);
+
+    // Ensure only childNodes list changed
+    expect(childNodesList.length, 7);
+    expect(childrenList.length, 5);
+
+    // test retainWhere, keep Elements only
+    childNodesList.retainWhere((e) => e.isA<Element>());
+
+    // Ensure only text nodes were removed
+    expect(childNodesList.length, 5);
+    expect(childrenList.length, 5);
+  });
+
   test('responseHeaders transforms headers into a map', () async {
     final request = XMLHttpRequest()
       ..open('GET', 'www.google.com')

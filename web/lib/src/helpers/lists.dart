@@ -92,13 +92,22 @@ class JSLiveNodeListWrapper<P extends Node, T extends JSObject, U extends Node>
   }
 
   @override
-  void operator []=(int index, Node value) {
+  void operator []=(int index, U value) {
+    RangeError.checkValidRange(index, null, length);
     parentNode.replaceChild(value, _jsList.item(index));
   }
 
   @override
-  void add(Node element) {
+  void add(U element) {
     // `ListMixin` implementation only works for lists that allow `null`.
     parentNode.appendChild(element);
+  }
+
+  @override
+  void removeRange(int start, int end) {
+    RangeError.checkValidRange(start, end, length);
+    for (var i = 0; i < end - start + 1; i++) {
+      parentNode.removeChild(this[start]);
+    }
   }
 }

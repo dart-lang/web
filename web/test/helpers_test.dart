@@ -87,6 +87,17 @@ void main() {
     // Ensure only text nodes were removed
     expect(childNodesList.length, 4);
     expect(childrenList.length, 4);
+
+    // test removeRange
+    childrenList.removeRange(1, 2);
+
+    // Ensure 2 elements were removed
+    expect(childNodesList.length, 2);
+    expect(childrenList.length, 2);
+
+    // test []= range exception
+    expect(() => childNodesList[10] = document.createTextNode('nope'), throwsRangeError);
+
   });
 
   test('responseHeaders transforms headers into a map', () async {

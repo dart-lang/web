@@ -8,6 +8,9 @@
 - Added `URL.toDart` and `Uri.toJS` extension methods.
 - Added missing `Document` and `Window` pointer event getters: `onDrag*`,
   `onTouch*`, `onMouse*`.
+- Added `JSLiveNodeListWrapper` to support mutable operations on nodes lists. 
+- Added `childNodesAsList` to `Node` and `childrenAsList` to `Element` via 
+  extensions.  
 
 ## 1.1.1
 

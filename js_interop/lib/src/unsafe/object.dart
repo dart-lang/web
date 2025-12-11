@@ -116,7 +116,7 @@ extension JSObjectUnsafeExtension on JSObject {
   ///
   /// The [name] must be a [JSString] or a [JSSymbol].
   ///
-  /// [`Reflect.set()`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect/get
+  /// [`Reflect.set()`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect/set
   bool setPropertyWithThis(JSAny name, JSAny? thisArg, JSAny? value) =>
       _set(this, name, value, thisArg);
 

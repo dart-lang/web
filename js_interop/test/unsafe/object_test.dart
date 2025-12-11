@@ -24,7 +24,7 @@ void main() {
   );
 
   test(
-    "ownPropertyName",
+    "ownPropertyNames",
     () => expect(object.ownPropertyNames, equals(["foo".toJS, "bar".toJS])),
   );
 
@@ -62,7 +62,7 @@ void main() {
   );
 
   test(
-    "propertyIsEnumerale",
+    "propertyIsEnumerable",
     () => expect(object.propertyIsEnumerable("foo".toJS), isTrue),
   );
 }

@@ -116,7 +116,7 @@ void main() {
     );
   });
 
-  test("addPairs()", () {
+  test("clear()", () {
     record.clear();
     expect(record.toDart, equals({}));
   });

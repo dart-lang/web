@@ -53,7 +53,7 @@ extension type JSRecord<V extends JSAny?>._(JSObject _) implements JSObject {
   }
 
   /// See [Map.length].
-  int get length => keys.length;
+  int get length => JSObjectUnsafeExtension(this).keys.length;
 
   /// See [Map.values].
   Iterable<V> get values => JSObjectUnsafeExtension(this).values.cast<V>();
@@ -119,8 +119,8 @@ extension type JSRecord<V extends JSAny?>._(JSObject _) implements JSObject {
 
   /// See [Map.clear].
   void clear() {
-    for (var key in keys) {
-      delete(key.toJS);
+    for (var key in JSObjectUnsafeExtension(this).keys) {
+      delete(key);
     }
   }
 

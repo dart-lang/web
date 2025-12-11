@@ -77,7 +77,7 @@ class JSImmutableListWrapper<T extends JSObject, U extends JSObject>
 /// container that elements would be added to or removed from.
 class JSLiveNodeListWrapper<P extends Node, T extends JSObject, U extends Node>
     extends JSImmutableListWrapper<T, U> {
-  P parentNode;
+  final P parentNode;
 
   JSLiveNodeListWrapper(this.parentNode, super.original);
 

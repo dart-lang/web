@@ -78,12 +78,15 @@ void main() {
     expect(childNodesList.length, 7);
     expect(childrenList.length, 5);
 
+    // replace element with text node
+    childNodesList[2] = document.createTextNode('txt3');
+
     // test retainWhere, keep Elements only
     childNodesList.retainWhere((e) => e.isA<Element>());
 
     // Ensure only text nodes were removed
-    expect(childNodesList.length, 5);
-    expect(childrenList.length, 5);
+    expect(childNodesList.length, 4);
+    expect(childrenList.length, 4);
   });
 
   test('responseHeaders transforms headers into a map', () async {

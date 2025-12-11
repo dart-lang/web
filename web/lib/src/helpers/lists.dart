@@ -93,7 +93,7 @@ class JSLiveNodeListWrapper<P extends Node, T extends JSObject, U extends Node>
 
   @override
   void operator []=(int index, Node value) {
-    parentNode.replaceChild(_jsList.item(index), value);
+    parentNode.replaceChild(value, _jsList.item(index));
   }
 
   @override

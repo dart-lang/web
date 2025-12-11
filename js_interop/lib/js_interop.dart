@@ -3,4 +3,6 @@
 // BSD-style license that can be found in the LICENSE file.
 
 export 'src/dart/date_time.dart';
+export 'src/dart/map.dart';
 export 'src/date.dart';
+export 'src/record.dart';

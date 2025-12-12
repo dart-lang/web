@@ -106,12 +106,12 @@ extension UriToURL on Uri {
 }
 
 extension NodeExtension on Node {
-  /// Returns [childNodes] as a modifiable [List]
+  /// Returns [childNodes] as a modifiable [List].
   List<Node> get childNodesAsList => JSLiveNodeListWrapper(this, childNodes);
 }
 
 extension ElementExtension on Element {
-  /// Returns [children] as a modifiable [List]
+  /// Returns [children] as a modifiable [List].
   List<Element> get childrenAsList =>
       JSLiveNodeListWrapper<Element, HTMLCollection, Element>(this, children);
 }

@@ -98,6 +98,18 @@ void main() {
     // test []= range exception
     expect(() => childNodesList[10] = document.createTextNode('nope'),
         throwsRangeError);
+
+    // test remove
+    final removeMe = childNodesList[0];
+    expect(childNodesList.remove(removeMe), true);
+    expect(childNodesList.length, 1);
+
+    // test remove non existing element
+    expect(childNodesList.remove(removeMe), false);
+    expect(childNodesList.remove(null), false);
+    // ignore: collection_methods_unrelated_type
+    expect(childNodesList.remove('test'), false);
+    expect(childNodesList.length, 1);
   });
 
   test('responseHeaders transforms headers into a map', () async {

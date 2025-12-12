@@ -104,6 +104,17 @@ class JSLiveNodeListWrapper<P extends Node, T extends JSObject, U extends Node>
   }
 
   @override
+  bool remove(Object? element) {
+    if ((element as JSAny?)?.isA<Node>() ?? false) {
+      if (identical((element as Node).parentNode, parentNode)) {
+        parentNode.removeChild(element);
+        return true;
+      }
+    }
+    return false;
+  }
+
+  @override
   void removeRange(int start, int end) {
     RangeError.checkValidRange(start, end, length);
     for (var i = 0; i < end - start; i++) {

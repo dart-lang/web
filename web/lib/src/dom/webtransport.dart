@@ -205,8 +205,8 @@ extension type WebTransport._(JSObject _) implements JSObject {
 }
 extension type WebTransportHash._(JSObject _) implements JSObject {
   external factory WebTransportHash({
-    String algorithm,
-    BufferSource value,
+    required String algorithm,
+    required BufferSource value,
   });
 
   external String get algorithm;

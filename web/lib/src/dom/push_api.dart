@@ -293,6 +293,26 @@ extension type PushEventInit._(JSObject _)
 }
 extension type PushSubscriptionChangeEvent._(JSObject _)
     implements ExtendableEvent, JSObject {
+  external factory PushSubscriptionChangeEvent(
+    String type, [
+    PushSubscriptionChangeEventInit eventInitDict,
+  ]);
+
   external PushSubscription? get newSubscription;
   external PushSubscription? get oldSubscription;
+}
+extension type PushSubscriptionChangeEventInit._(JSObject _)
+    implements ExtendableEventInit, JSObject {
+  external factory PushSubscriptionChangeEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
+    PushSubscription newSubscription,
+    PushSubscription oldSubscription,
+  });
+
+  external PushSubscription get newSubscription;
+  external set newSubscription(PushSubscription value);
+  external PushSubscription get oldSubscription;
+  external set oldSubscription(PushSubscription value);
 }

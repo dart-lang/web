@@ -223,6 +223,17 @@ extension type ServiceWorkerRegistration._(JSObject _)
   /// processes.
   external SyncManager get sync;
 
+  /// @AvailableInWorkers("window_and_service")
+  ///
+  /// The **`cookies`** read-only property of the [ServiceWorkerRegistration]
+  /// interface returns a reference to the [CookieStoreManager] interface, which
+  /// enables a web app to subscribe to and unsubscribe from cookie change
+  /// events in a
+  /// [service worker](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API).
+  /// This is an entry point for the
+  /// [Cookie Store API](https://developer.mozilla.org/en-US/docs/Web/API/Cookie_Store_API).
+  external CookieStoreManager get cookies;
+
   /// The **`pushManager`** read-only property of the
   /// [ServiceWorkerRegistration] interface returns a reference to the
   /// [PushManager] interface for managing push subscriptions; this includes
@@ -498,6 +509,8 @@ extension type ServiceWorkerGlobalScope._(JSObject _)
   /// interface returns a reference to the [CookieStore] object associated with
   /// this service worker.
   external CookieStore get cookieStore;
+  external EventHandler get oncookiechange;
+  external set oncookiechange(EventHandler value);
   external EventHandler get onnotificationclick;
   external set onnotificationclick(EventHandler value);
   external EventHandler get onnotificationclose;

@@ -1896,6 +1896,10 @@ extension type Document._(JSObject _) implements Node, JSObject {
     JSAny node3,
     JSAny node4,
   ]);
+  external void moveBefore(
+    Node node,
+    Node? child,
+  );
 
   /// The [Document] method **`querySelector()`**
   /// returns the first [Element] within the document that matches the specified
@@ -2011,6 +2015,7 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// [Document.documentElement], which returns the root element for all
   /// documents.
   external SVGSVGElement? get rootElement;
+  external ViewTransition? get activeViewTransition;
 
   /// The **`scrollingElement`** read-only property of the
   /// [Document] interface returns a reference to the [Element] that
@@ -2469,6 +2474,8 @@ extension type Document._(JSObject _) implements Node, JSObject {
   external set onauxclick(EventHandler value);
   external EventHandler get onbeforeinput;
   external set onbeforeinput(EventHandler value);
+  external EventHandler get onbeforematch;
+  external set onbeforematch(EventHandler value);
   external EventHandler get onbeforetoggle;
   external set onbeforetoggle(EventHandler value);
   external EventHandler get onblur;
@@ -2485,6 +2492,8 @@ extension type Document._(JSObject _) implements Node, JSObject {
   external set onclick(EventHandler value);
   external EventHandler get onclose;
   external set onclose(EventHandler value);
+  external EventHandler get oncommand;
+  external set oncommand(EventHandler value);
   external EventHandler get oncontextlost;
   external set oncontextlost(EventHandler value);
   external EventHandler get oncontextmenu;
@@ -2627,6 +2636,8 @@ extension type Document._(JSObject _) implements Node, JSObject {
   external set onpointerdown(EventHandler value);
   external EventHandler get onpointermove;
   external set onpointermove(EventHandler value);
+  external EventHandler get onpointerrawupdate;
+  external set onpointerrawupdate(EventHandler value);
   external EventHandler get onpointerup;
   external set onpointerup(EventHandler value);
   external EventHandler get onpointercancel;
@@ -2665,12 +2676,12 @@ extension type Document._(JSObject _) implements Node, JSObject {
 extension type XMLDocument._(JSObject _) implements Document, JSObject {}
 extension type ElementCreationOptions._(JSObject _) implements JSObject {
   external factory ElementCreationOptions({
-    CustomElementRegistry customElementRegistry,
+    CustomElementRegistry? customElementRegistry,
     String is_,
   });
 
-  external CustomElementRegistry get customElementRegistry;
-  external set customElementRegistry(CustomElementRegistry value);
+  external CustomElementRegistry? get customElementRegistry;
+  external set customElementRegistry(CustomElementRegistry? value);
   @JS('is')
   external String get is_;
   @JS('is')
@@ -2869,6 +2880,10 @@ extension type DocumentFragment._(JSObject _) implements Node, JSObject {
     JSAny node3,
     JSAny node4,
   ]);
+  external void moveBefore(
+    Node node,
+    Node? child,
+  );
 
   /// The **`DocumentFragment.querySelector()`** method returns the
   /// first element, or `null` if no matches are found, within the
@@ -3208,7 +3223,7 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// method instead.
   external void setAttribute(
     String qualifiedName,
-    String value,
+    JSAny value,
   );
 
   /// `setAttributeNS` adds a new attribute or changes the value of an attribute
@@ -3220,7 +3235,7 @@ extension type Element._(JSObject _) implements Node, JSObject {
   external void setAttributeNS(
     String? namespace,
     String qualifiedName,
-    String value,
+    JSAny value,
   );
 
   /// The [Element] method
@@ -3622,6 +3637,10 @@ extension type Element._(JSObject _) implements Node, JSObject {
     JSAny node3,
     JSAny node4,
   ]);
+  external void moveBefore(
+    Node node,
+    Node? child,
+  );
 
   /// The **`querySelector()`** method of the [Element]
   /// interface returns the first element that is a descendant of the element on

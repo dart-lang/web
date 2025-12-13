@@ -16,6 +16,7 @@ library;
 import 'dart:js_interop';
 
 import 'fileapi.dart';
+import 'html.dart';
 import 'mediacapture_streams.dart';
 
 typedef ConstrainPoint2D = JSObject;
@@ -52,6 +53,12 @@ extension type ImageCapture._(JSObject _) implements JSObject {
   /// resolves with an object containing the current photo
   /// configuration settings.
   external JSPromise<PhotoSettings> getPhotoSettings();
+
+  /// The **`grabFrame()`** method of the
+  /// [ImageCapture] interface takes a snapshot of the live video in a
+  /// [MediaStreamTrack] and returns a `Promise` that resolves with
+  /// a [ImageBitmap] containing the snapshot.
+  external JSPromise<ImageBitmap> grabFrame();
 
   /// The **`track`** read-only property of the
   /// [ImageCapture] interface returns a reference to the

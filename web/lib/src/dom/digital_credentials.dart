@@ -15,6 +15,8 @@ library;
 
 import 'dart:js_interop';
 
+import 'credential_management.dart';
+
 extension type DigitalCredentialRequestOptions._(JSObject _)
     implements JSObject {
   external factory DigitalCredentialRequestOptions(
@@ -53,4 +55,10 @@ extension type DigitalCredentialCreateRequest._(JSObject _)
   external set protocol(String value);
   external JSObject get data;
   external set data(JSObject value);
+}
+extension type DigitalCredential._(JSObject _) implements Credential, JSObject {
+  external static bool userAgentAllowsProtocol(String protocol);
+  external JSObject toJSON();
+  external String get protocol;
+  external JSObject get data;
 }

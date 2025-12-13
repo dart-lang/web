@@ -15,6 +15,7 @@ library;
 
 import 'dart:js_interop';
 
+import 'attribution_reporting_api.dart';
 import 'dom.dart';
 import 'html.dart';
 
@@ -244,6 +245,19 @@ extension type XMLHttpRequest._(JSObject _)
   /// it
   /// as such. This method must be called before calling [XMLHttpRequest.send].
   external void overrideMimeType(String mime);
+
+  /// The **`setAttributionReporting()`** method of the
+  /// [XMLHttpRequest] interface indicates that you want the request's response
+  /// to be able to register a JavaScript-based
+  /// [attribution source](https://developer.mozilla.org/en-US/docs/Web/API/Attribution_Reporting_API/Registering_sources#javascript-based_event_sources)
+  /// or
+  /// [attribution trigger](https://developer.mozilla.org/en-US/docs/Web/API/Attribution_Reporting_API/Registering_triggers#javascript-based_attribution_triggers).
+  ///
+  /// See the
+  /// [Attribution Reporting API](https://developer.mozilla.org/en-US/docs/Web/API/Attribution_Reporting_API)
+  /// for more details.
+  external void setAttributionReporting(
+      AttributionReportingRequestOptions options);
   external EventHandler get onreadystatechange;
   external set onreadystatechange(EventHandler value);
 

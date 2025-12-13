@@ -59,4 +59,6 @@ extension type LargestContentfulPaint._(JSObject _)
   /// interface returns an object representing the [Element] that is the largest
   /// contentful paint.
   external Element? get element;
+  external double get paintTime;
+  external double? get presentationTime;
 }

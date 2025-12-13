@@ -16,6 +16,7 @@ library;
 import 'dart:js_interop';
 
 import 'css_typed_om.dart';
+import 'cssom.dart';
 import 'dom.dart';
 import 'html.dart';
 
@@ -280,7 +281,7 @@ extension type MathMLElement._(JSObject _) implements Element, JSObject {
   /// >
   /// > The `style` property has the same priority in the CSS cascade as an
   /// > inline style declaration set via the `style` attribute.
-  external JSObject get style;
+  external CSSStyleProperties get style;
 
   /// The **`attributeStyleMap`** read-only property of the [MathMLElement]
   /// interface returns a live [StylePropertyMap] object that contains a list of
@@ -307,6 +308,8 @@ extension type MathMLElement._(JSObject _) implements Element, JSObject {
   external set onauxclick(EventHandler value);
   external EventHandler get onbeforeinput;
   external set onbeforeinput(EventHandler value);
+  external EventHandler get onbeforematch;
+  external set onbeforematch(EventHandler value);
   external EventHandler get onbeforetoggle;
   external set onbeforetoggle(EventHandler value);
   external EventHandler get onblur;
@@ -323,6 +326,8 @@ extension type MathMLElement._(JSObject _) implements Element, JSObject {
   external set onclick(EventHandler value);
   external EventHandler get onclose;
   external set onclose(EventHandler value);
+  external EventHandler get oncommand;
+  external set oncommand(EventHandler value);
   external EventHandler get oncontextlost;
   external set oncontextlost(EventHandler value);
   external EventHandler get oncontextmenu;
@@ -465,6 +470,8 @@ extension type MathMLElement._(JSObject _) implements Element, JSObject {
   external set onpointerdown(EventHandler value);
   external EventHandler get onpointermove;
   external set onpointermove(EventHandler value);
+  external EventHandler get onpointerrawupdate;
+  external set onpointerrawupdate(EventHandler value);
   external EventHandler get onpointerup;
   external set onpointerup(EventHandler value);
   external EventHandler get onpointercancel;

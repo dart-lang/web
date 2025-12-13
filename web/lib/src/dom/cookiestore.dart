@@ -90,6 +90,7 @@ extension type CookieInit._(JSObject _) implements JSObject {
     String path,
     CookieSameSite sameSite,
     bool partitioned,
+    int? maxAge,
   });
 
   external String get name;
@@ -106,6 +107,8 @@ extension type CookieInit._(JSObject _) implements JSObject {
   external set sameSite(CookieSameSite value);
   external bool get partitioned;
   external set partitioned(bool value);
+  external int? get maxAge;
+  external set maxAge(int? value);
 }
 extension type CookieStoreDeleteOptions._(JSObject _) implements JSObject {
   external factory CookieStoreDeleteOptions({

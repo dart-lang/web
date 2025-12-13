@@ -71,6 +71,7 @@ extension type $WebAssembly._(JSObject _) implements JSObject {
     JSObject importObject,
     WebAssemblyCompileOptions options,
   ]);
+  external Tag get JSTag;
 }
 extension type ModuleExportDescriptor._(JSObject _) implements JSObject {
   external factory ModuleExportDescriptor({

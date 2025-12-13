@@ -19,9 +19,9 @@ import 'dom.dart';
 import 'hr_time.dart';
 import 'html.dart';
 import 'streams.dart';
+import 'webcodecs.dart';
 
 typedef RTCRtpTransform = JSObject;
-typedef RTCEncodedVideoFrameType = String;
 extension type RTCEncodedFrameMetadata._(JSObject _) implements JSObject {
   external factory RTCEncodedFrameMetadata({
     int synchronizationSource,
@@ -86,6 +86,13 @@ extension type RTCEncodedVideoFrameMetadata._(JSObject _)
   external int get timestamp;
   external set timestamp(int value);
 }
+extension type RTCEncodedVideoFrameOptions._(JSObject _) implements JSObject {
+  external factory RTCEncodedVideoFrameOptions(
+      {RTCEncodedVideoFrameMetadata metadata});
+
+  external RTCEncodedVideoFrameMetadata get metadata;
+  external set metadata(RTCEncodedVideoFrameMetadata value);
+}
 
 /// @AvailableInWorkers("window_and_dedicated")
 ///
@@ -100,6 +107,11 @@ extension type RTCEncodedVideoFrameMetadata._(JSObject _)
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCEncodedVideoFrame).
 extension type RTCEncodedVideoFrame._(JSObject _) implements JSObject {
+  external factory RTCEncodedVideoFrame(
+    RTCEncodedVideoFrame originalFrame, [
+    RTCEncodedVideoFrameOptions options,
+  ]);
+
   /// @AvailableInWorkers("window_and_dedicated")
   ///
   /// The **`getMetadata()`** method of the [RTCEncodedVideoFrame] interface
@@ -114,7 +126,7 @@ extension type RTCEncodedVideoFrame._(JSObject _) implements JSObject {
   ///
   /// The **`type`** read-only property of the [RTCEncodedVideoFrame] interface
   /// indicates whether this frame is a key frame, delta frame, or empty frame.
-  external RTCEncodedVideoFrameType get type;
+  external EncodedVideoChunkType get type;
 
   /// @AvailableInWorkers("window_and_dedicated")
   ///
@@ -143,6 +155,13 @@ extension type RTCEncodedAudioFrameMetadata._(JSObject _)
   external double get audioLevel;
   external set audioLevel(num value);
 }
+extension type RTCEncodedAudioFrameOptions._(JSObject _) implements JSObject {
+  external factory RTCEncodedAudioFrameOptions(
+      {RTCEncodedAudioFrameMetadata metadata});
+
+  external RTCEncodedAudioFrameMetadata get metadata;
+  external set metadata(RTCEncodedAudioFrameMetadata value);
+}
 
 /// @AvailableInWorkers("window_and_dedicated")
 ///
@@ -163,6 +182,11 @@ extension type RTCEncodedAudioFrameMetadata._(JSObject _)
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCEncodedAudioFrame).
 extension type RTCEncodedAudioFrame._(JSObject _) implements JSObject {
+  external factory RTCEncodedAudioFrame(
+    RTCEncodedAudioFrame originalFrame, [
+    RTCEncodedAudioFrameOptions options,
+  ]);
+
   /// @AvailableInWorkers("window_and_dedicated")
   ///
   /// The **`getMetadata()`** method of the [RTCEncodedAudioFrame] interface

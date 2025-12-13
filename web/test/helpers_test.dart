@@ -109,8 +109,12 @@ void main() {
     expect(childNodesList.remove(null), false);
     // ignore: collection_methods_unrelated_type
     expect(childNodesList.remove('test'), false);
-    expect(childNodesList.remove(document.createTextNode('t1')), false);
 
+    final differentParentDiv = document.createElement('div');
+    document.createElement('div').append(differentParentDiv);
+    expect(childNodesList.remove(differentParentDiv), false);
+
+    // test if nothing was removed
     expect(childNodesList.length, 1);
   });
 

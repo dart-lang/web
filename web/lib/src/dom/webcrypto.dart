@@ -15,12 +15,11 @@ library;
 
 import 'dart:js_interop';
 
+import 'webcrypto_modern_algos.dart';
 import 'webidl.dart';
 
 typedef AlgorithmIdentifier = JSAny;
 typedef KeyType = String;
-typedef KeyUsage = String;
-typedef KeyFormat = String;
 
 /// The **`Crypto`** interface represents basic cryptography features available
 /// in the current context.
@@ -413,6 +412,8 @@ extension type JsonWebKey._(JSObject _) implements JSObject {
     String qi,
     JSArray<RsaOtherPrimesInfo> oth,
     String k,
+    String pub,
+    String priv,
   });
 
   external String get kty;
@@ -451,6 +452,10 @@ extension type JsonWebKey._(JSObject _) implements JSObject {
   external set oth(JSArray<RsaOtherPrimesInfo> value);
   external String get k;
   external set k(String value);
+  external String get pub;
+  external set pub(String value);
+  external String get priv;
+  external set priv(String value);
 }
 
 /// The **`CryptoKeyPair`** dictionary of the

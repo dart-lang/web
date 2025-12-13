@@ -8,7 +8,7 @@ library;
 import 'dart:js_interop';
 
 import 'package:test/test.dart';
-import 'package:web/web.dart';
+import 'package:web/web.dart' hide Exception;
 
 void main() {
   test('Basic method', () {

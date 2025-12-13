@@ -214,6 +214,7 @@ extension type Performance._(JSObject _) implements EventTarget, JSObject {
   /// Not all event types are exposed. You can only get counts for event types
   /// supported by the [PerformanceEventTiming] interface.
   external EventCounts get eventCounts;
+  external int get interactionCount;
 
   /// The legacy
   /// **`Performance.timing`** read-only

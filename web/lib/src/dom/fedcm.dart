@@ -60,15 +60,12 @@ extension type IdentityProviderRequestOptions._(JSObject _)
   external factory IdentityProviderRequestOptions({
     required String configURL,
     required String clientId,
-    String nonce,
     String loginHint,
     String domainHint,
     JSArray<JSString> fields,
     JSAny? params,
   });
 
-  external String get nonce;
-  external set nonce(String value);
   external String get loginHint;
   external set loginHint(String value);
   external String get domainHint;

@@ -105,8 +105,9 @@ class JSLiveNodeListWrapper<P extends Node, T extends JSObject, U extends Node>
 
   @override
   bool remove(Object? element) {
-    if ((element as JSAny?)?.isA<Node>() ?? false) {
-      if (identical((element as Node).parentNode, parentNode)) {
+    // ignore: invalid_runtime_check_with_js_interop_types
+    if ((element is JSAny?) && (element?.isA<Node>() ?? false)) {
+      if ((element as Node).parentNode == parentNode) {
         parentNode.removeChild(element);
         return true;
       }

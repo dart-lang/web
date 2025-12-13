@@ -104,11 +104,13 @@ void main() {
     expect(childNodesList.remove(removeMe), true);
     expect(childNodesList.length, 1);
 
-    // test remove non existing element
+    // test remove with objects that are not in list
     expect(childNodesList.remove(removeMe), false);
     expect(childNodesList.remove(null), false);
     // ignore: collection_methods_unrelated_type
     expect(childNodesList.remove('test'), false);
+    expect(childNodesList.remove(document.createTextNode('t1')), false);
+
     expect(childNodesList.length, 1);
   });
 

@@ -41,6 +41,13 @@ void main() {
   });
 
   test('modify child nodes using JSLiveNodeListWrapper', () {
+    void expectNodeListEquals(List<Node> list, List<String> contents) {
+      expect(list.length, contents.length);
+      for (var i = 0; i < contents.length; i++) {
+        expect(list[i].textContent, contents[i]);
+      }
+    }
+
     final div = (document.createElement('div'))
       ..append(document.createElement('div')..textContent = 'e1')
       ..append(document.createElement('div')..textContent = 'e2')
@@ -49,15 +56,23 @@ void main() {
     final childNodesList = div.childNodesAsList;
     final childrenList = div.childrenAsList;
 
-    // Ensure initial list length is correct.
-    expect(childNodesList.length, 3);
-    expect(childrenList.length, 3);
+    // Ensure initial lists are correct.
+    expectNodeListEquals(childNodesList, ['e1', 'e2', 'e3']);
+    expectNodeListEquals(childrenList, ['e1', 'e2', 'e3']);
 
     childrenList.removeWhere((node) => node.textContent == 'e2');
 
     // Ensure both list were updated.
-    expect(childNodesList.length, 2);
-    expect(childrenList.length, 2);
+    expectNodeListEquals(childNodesList, ['e1', 'e3']);
+    expectNodeListEquals(childrenList, ['e1', 'e3']);
+
+    // add only text nodes
+    childNodesList
+        .addAll([document.createTextNode('t1'), document.createTextNode('t2')]);
+
+    // Ensure only childNodes list changed
+    expectNodeListEquals(childNodesList, ['e1', 'e3', 't1', 't2']);
+    expectNodeListEquals(childrenList, ['e1', 'e3']);
 
     // add node via children
     childrenList.add(document.createElement('div')..textContent = 'e4');
@@ -67,33 +82,26 @@ void main() {
     div.appendChild(document.createElement('div')..textContent = 'e6');
 
     // Ensure 3 elements were added to both lists
-    expect(childNodesList.length, 5);
-    expect(childrenList.length, 5);
-
-    // add only text nodes
-    childNodesList
-        .addAll([document.createTextNode('t1'), document.createTextNode('t2')]);
-
-    // Ensure only childNodes list changed
-    expect(childNodesList.map((e) => e.textContent).join(), 'e1e3e4e5e6t1t2');
-    expect(childrenList.map((e) => e.textContent).join(), 'e1e3e4e5e6');
+    expectNodeListEquals(
+        childNodesList, ['e1', 'e3', 't1', 't2', 'e4', 'e5', 'e6']);
+    expectNodeListEquals(childrenList, ['e1', 'e3', 'e4', 'e5', 'e6']);
 
     // replace element with text node
-    childNodesList[2] = document.createTextNode('t3');
+    childNodesList[4] = document.createTextNode('t3');
 
     // test retainWhere, keep Elements only
     childNodesList.retainWhere((e) => e.isA<Element>());
 
     // Ensure only text nodes were removed
-    expect(childNodesList.length, 4);
-    expect(childrenList.length, 4);
+    expectNodeListEquals(childNodesList, ['e1', 'e3', 'e5', 'e6']);
+    expectNodeListEquals(childrenList, ['e1', 'e3', 'e5', 'e6']);
 
     // test removeRange
     childrenList.removeRange(1, 3);
 
     // Ensure 2 elements were removed
-    expect(childNodesList.map((e) => e.textContent).join(), 'e1e6');
-    expect(childrenList.map((e) => e.textContent).join(), 'e1e6');
+    expectNodeListEquals(childNodesList, ['e1', 'e6']);
+    expectNodeListEquals(childrenList, ['e1', 'e6']);
 
     // test []= range exception
     expect(() => childNodesList[10] = document.createTextNode('nope'),
@@ -102,7 +110,7 @@ void main() {
     // test remove
     final removeMe = childNodesList[0];
     expect(childNodesList.remove(removeMe), true);
-    expect(childNodesList.length, 1);
+    expectNodeListEquals(childNodesList, ['e6']);
 
     // test remove with objects that are not in list
     expect(childNodesList.remove(removeMe), false);
@@ -115,7 +123,47 @@ void main() {
     expect(childNodesList.remove(differentParentDiv), false);
 
     // test if nothing was removed
-    expect(childNodesList.length, 1);
+    expectNodeListEquals(childNodesList, ['e6']);
+
+    final newTextNodes = [
+      document.createTextNode('t3'),
+      document.createTextNode('t4')
+    ];
+    final newDiv = (document.createElement('div'))
+      ..append(document.createElement('div')..textContent = 'e7')
+      ..append(document.createElement('div')..textContent = 'e8');
+
+    // adding text nodes via addAll
+    childNodesList.addAll(newTextNodes);
+    expectNodeListEquals(childNodesList, ['e6', 't3', 't4']);
+    expectNodeListEquals(childrenList, ['e6']);
+
+    // adding div nodes from other element
+    childrenList.addAll(newDiv.childrenAsList);
+    expectNodeListEquals(childNodesList, ['e6', 't3', 't4', 'e7', 'e8']);
+    expectNodeListEquals(childrenList, ['e6', 'e7', 'e8']);
+
+    // adding from self should throw exception
+    expect(() => childrenList.addAll(div.childrenAsList), throwsArgumentError);
+    expect(
+        () => childNodesList.addAll(div.childNodesAsList), throwsArgumentError);
+
+    // insertAll test
+    childNodesList.insertAll(
+        1, [document.createTextNode('t5'), document.createTextNode('t6')]);
+    expectNodeListEquals(
+        childNodesList, ['e6', 't5', 't6', 't3', 't4', 'e7', 'e8']);
+    expectNodeListEquals(childrenList, ['e6', 'e7', 'e8']);
+
+    // empty elements list
+    childrenList.clear();
+    expectNodeListEquals(childNodesList, ['t5', 't6', 't3', 't4']);
+    expectNodeListEquals(childrenList, []);
+
+    // empty both lists
+    childNodesList.clear();
+    expectNodeListEquals(childNodesList, []);
+    expectNodeListEquals(childrenList, []);
   });
 
   test('responseHeaders transforms headers into a map', () async {

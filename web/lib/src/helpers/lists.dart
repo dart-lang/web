@@ -81,7 +81,7 @@ abstract mixin class _LiveNodeListMixin<P extends Node, U extends Node> {
     // TODO(srujzs): migrate this ifs to isJSAny once we have it
     // ignore: invalid_runtime_check_with_js_interop_types
     if ((element is JSAny?) && (element?.isA<Node>() ?? false)) {
-      if ((element as Node).parentNode == _parent) {
+      if ((element as Node).parentNode.strictEquals(_parent).toDart) {
         return true;
       }
     }

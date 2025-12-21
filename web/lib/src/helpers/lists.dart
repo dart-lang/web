@@ -152,16 +152,16 @@ abstract mixin class _LiveNodeListMixin<P extends Node, U extends Node> {
   }
 
   void removeWhere(bool Function(U element) test) {
-    _filter(test, true);
+    _filter(test, false);
   }
 
   void retainWhere(bool Function(U element) test) {
-    _filter(test, false);
+    _filter(test, true);
   }
 
   Iterator<U> get iterator;
 
-  void _filter(bool Function(U element) test, bool removeMatching) {
+  void _filter(bool Function(U element) test, bool requiredTestValue) {
     // This implementation of removeWhere/retainWhere is more efficient
     // than the default in ListBase. Child nodes can be removed in constant
     // time.
@@ -172,7 +172,7 @@ abstract mixin class _LiveNodeListMixin<P extends Node, U extends Node> {
         _parent.removeChild(removeMe);
         removeMe = null;
       }
-      if (test(i.current) == removeMatching) {
+      if (test(i.current) != requiredTestValue) {
         removeMe = i.current;
       }
     }

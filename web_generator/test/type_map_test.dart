@@ -92,10 +92,9 @@ void main() {
     test('Sub Type Primitive Test', () {
       expect(
         (getLowestCommonAncestorOfTypes([
-                  BuiltinType.anyType,
-                  BuiltinType.anyType,
-                ])
-                as NamedType)
+          BuiltinType.anyType,
+          BuiltinType.anyType,
+        ]) as NamedType)
             .name,
         equals('JSAny'),
       );
@@ -144,8 +143,7 @@ void main() {
         expect(
           typedArrayName,
           equals('JSTypedArray'),
-          reason:
-              'JSUint16Array & JSUint8ClampedArray both inherit'
+          reason: 'JSUint16Array & JSUint8ClampedArray both inherit'
               ' JSTypedArray',
         );
 
@@ -159,8 +157,7 @@ void main() {
         expect(
           arrayUnionName,
           equals('JSObject'),
-          reason:
-              'JSUint16Array and JSUint8ClampedArray both inherit '
+          reason: 'JSUint16Array and JSUint8ClampedArray both inherit '
               "JSTypedArray but JSArray doesn't",
         );
 
@@ -492,8 +489,7 @@ void main() {
         expect(
           funFunUnion,
           equals(BuiltinType.referred('Function')),
-          reason:
-              'Union of an interface type implementing JSFunction and a '
+          reason: 'Union of an interface type implementing JSFunction and a '
               'closure should equal JSFunction',
         );
       });

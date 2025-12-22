@@ -75,10 +75,10 @@ class Transformer {
 
   /// The declarations as globs
   List<RegExp> get filterDeclSetPatterns => filterDeclSet.map((decl) {
-    final escapedDecl = RegExp.escape(decl);
-    if (escapedDecl == decl) return RegExp('^$decl\$');
-    return RegExp(decl);
-  }).toList();
+        final escapedDecl = RegExp.escape(decl);
+        if (escapedDecl == decl) return RegExp('^$decl\$');
+        return RegExp(decl);
+      }).toList();
 
   /// namer, for giving elements unique names
   final UniqueNamer namer;
@@ -98,10 +98,11 @@ class Transformer {
     this._sourceFile, {
     Set<String> exportSet = const {},
     String? file,
-  }) : exportSet = exportSet.map((e) => ExportReference(e, as: e)).toSet(),
-       namer = UniqueNamer(),
-       _fileName = file,
-       assert(_sourceFile != null || file != null, 'Source file must be known');
+  })  : exportSet = exportSet.map((e) => ExportReference(e, as: e)).toSet(),
+        namer = UniqueNamer(),
+        _fileName = file,
+        assert(
+            _sourceFile != null || file != null, 'Source file must be known');
 
   // TODO(nikeokoronkwo): Handle default exports
   /// Transforms a TypeScript AST Node [TSNode] into a Dart representable [Node]
@@ -342,7 +343,7 @@ class Transformer {
         );
         switch (decl.kind) {
           case TSSyntaxKind.ClassDeclaration ||
-              TSSyntaxKind.InterfaceDeclaration:
+                TSSyntaxKind.InterfaceDeclaration:
             final outputDecl = outputDecls.single as TypeDeclaration;
             outputDecl.parent = outputNamespace;
             outputNamespace.nestableDeclarations.add(outputDecl);
@@ -612,8 +613,7 @@ class Transformer {
       dartName: dartName,
       id: id,
       scope: scope,
-      type:
-          propType ??
+      type: propType ??
           (property.type == null
               ? BuiltinType.anyType
               : _transformType(property.type!)),
@@ -691,13 +691,11 @@ class Transformer {
       }).toList(),
       typeParameters:
           typeParams?.map(_transformTypeParamDeclaration).toList() ?? [],
-      returnType:
-          methodType ??
+      returnType: methodType ??
           (method.type != null
               ? _transformType(method.type!)
               : BuiltinType.anyType),
-      isNullable:
-          (method.kind == TSSyntaxKind.MethodSignature) &&
+      isNullable: (method.kind == TSSyntaxKind.MethodSignature) &&
           (method as TSMethodSignature).questionToken != null,
       documentation: _parseAndTransformDocumentation(method),
     );
@@ -723,8 +721,11 @@ class Transformer {
 
     final params = constructor.parameters.toDart;
 
-    final (isStatic: _, isReadonly: _, :scope) =
-        (constructor.isA<TSConstructorDeclaration>() ||
+    final (
+      isStatic: _,
+      isReadonly: _,
+      :scope
+    ) = (constructor.isA<TSConstructorDeclaration>() ||
             constructor.kind == TSSyntaxKind.Constructor)
         ? _parseModifiers((constructor as TSConstructorDeclaration).modifiers)
         : (isStatic: false, isReadonly: false, scope: DeclScope.public);
@@ -780,8 +781,7 @@ class Transformer {
           .toList(),
       typeParameters:
           typeParams?.map(_transformTypeParamDeclaration).toList() ?? [],
-      returnType:
-          methodType ??
+      returnType: methodType ??
           (callSignature.type != null
               ? _transformType(callSignature.type!)
               : BuiltinType.anyType),
@@ -908,8 +908,7 @@ class Transformer {
           .toList(),
       typeParameters:
           typeParams?.map(_transformTypeParamDeclaration).toList() ?? [],
-      returnType:
-          methodType ??
+      returnType: methodType ??
           (getter.type != null
               ? _transformType(getter.type!)
               : BuiltinType.anyType),
@@ -1071,8 +1070,7 @@ class Transformer {
   }) {
     namer ??= this.namer;
     final modifiers = enumeration.modifiers?.toDart;
-    final isExported =
-        modifiers?.any((m) {
+    final isExported = modifiers?.any((m) {
           return m.kind == TSSyntaxKind.ExportKeyword;
         }) ??
         false;
@@ -1099,9 +1097,8 @@ class Transformer {
             final value = _parseNumericLiteral(
               memInitializer as TSNumericLiteral,
             );
-            final primitiveType = value is int
-                ? PrimitiveType.int
-                : PrimitiveType.double;
+            final primitiveType =
+                value is int ? PrimitiveType.int : PrimitiveType.double;
             members.add(
               EnumMember(
                 memName,
@@ -1187,8 +1184,7 @@ class Transformer {
     final name = typealias.name.text;
 
     final modifiers = typealias.modifiers?.toDart;
-    final isExported =
-        modifiers?.any((m) {
+    final isExported = modifiers?.any((m) {
           return m.kind == TSSyntaxKind.ExportKeyword;
         }) ??
         false;
@@ -1230,7 +1226,7 @@ class Transformer {
           optional: isOptional,
         );
       case TSSyntaxKind.ObjectBindingPattern ||
-          TSSyntaxKind.ArrayBindingPattern:
+            TSSyntaxKind.ArrayBindingPattern:
         Iterable<TSDeclaration> expandBindingPatterns(
           @UnionOf([
             TSIdentifier,
@@ -1243,8 +1239,10 @@ class Transformer {
             case TSSyntaxKind.Identifier:
               return [name as TSIdentifier];
             case TSSyntaxKind.ObjectBindingPattern ||
-                TSSyntaxKind.ArrayBindingPattern:
-              return (name as TSBindingPattern).elements.toDart
+                  TSSyntaxKind.ArrayBindingPattern:
+              return (name as TSBindingPattern)
+                  .elements
+                  .toDart
                   .map(
                     (e) => e.name == null
                         ? <TSDeclaration>[]
@@ -1265,8 +1263,8 @@ class Transformer {
 
         final rearWord =
             parameter.name.kind == TSSyntaxKind.ObjectBindingPattern
-            ? 'obj'
-            : 'arr';
+                ? 'obj'
+                : 'arr';
 
         if (elements.isEmpty) {
           return ParameterDeclaration(
@@ -1509,12 +1507,10 @@ class Transformer {
           constructors: constructors,
         );
 
-        final anonymousType =
-            typeMap.putIfAbsent(expectedId.toString(), () {
-                  namer.markUsed(name);
-                  return anonymousTypeObject;
-                })
-                as ObjectLiteralType;
+        final anonymousType = typeMap.putIfAbsent(expectedId.toString(), () {
+          namer.markUsed(name);
+          return anonymousTypeObject;
+        }) as ObjectLiteralType;
 
         return anonymousType..isNullable = isNullable ?? false;
       case TSSyntaxKind.ConstructorType || TSSyntaxKind.FunctionType:
@@ -1524,8 +1520,7 @@ class Transformer {
             .mapIndexed((index, p) => _transformParameter(p, index: index))
             .toList();
 
-        final typeParameters =
-            funType.typeParameters?.toDart
+        final typeParameters = funType.typeParameters?.toDart
                 .map(_transformTypeParamDeclaration)
                 .toList() ??
             [];
@@ -1563,12 +1558,10 @@ class Transformer {
                 typeParameters: typeParameters,
               );
 
-        final closureType =
-            typeMap.putIfAbsent(expectedId.toString(), () {
-                  namer.markUsed(name);
-                  return closureTypeObject;
-                })
-                as ClosureType;
+        final closureType = typeMap.putIfAbsent(expectedId.toString(), () {
+          namer.markUsed(name);
+          return closureTypeObject;
+        }) as ClosureType;
 
         return closureType..isNullable = isNullable ?? false;
       case TSSyntaxKind.UnionType:
@@ -1603,8 +1596,7 @@ class Transformer {
         for (final type in types) {
           if (type is LiteralType) {
             firstNonNullablePrimitiveType ??= type;
-            onlyContainsBooleanTypes &=
-                (type.kind == LiteralKind.$true) ||
+            onlyContainsBooleanTypes &= (type.kind == LiteralKind.$true) ||
                 (type.kind == LiteralKind.$false);
             if (type.kind.primitive !=
                 firstNonNullablePrimitiveType.kind.primitive) {
@@ -1676,9 +1668,8 @@ class Transformer {
           return _transformType(singleTypeNode, isNullable: isNullable);
         }
 
-        final types = nonNullableIntersectionTypes
-            .map<Type>(_transformType)
-            .toList();
+        final types =
+            nonNullableIntersectionTypes.map<Type>(_transformType).toList();
 
         final idMap = types.map((t) => t.id.name);
         final expectedId = ID(type: 'type', name: idMap.join('&'));
@@ -1730,17 +1721,16 @@ class Transformer {
           isNullable: isNullable ?? false,
           kind: switch (literal.kind) {
             // TODO: Will we support Regex?
-            TSSyntaxKind.NumericLiteral =>
-              num.parse(literal.text) is int
-                  ? LiteralKind.int
-                  : LiteralKind.double,
+            TSSyntaxKind.NumericLiteral => num.parse(literal.text) is int
+                ? LiteralKind.int
+                : LiteralKind.double,
             TSSyntaxKind.StringLiteral => LiteralKind.string,
             TSSyntaxKind.TrueKeyword => LiteralKind.$true,
             TSSyntaxKind.FalseKeyword => LiteralKind.$false,
             TSSyntaxKind.NullKeyword => LiteralKind.$null,
             _ => throw UnimplementedError(
-              'Unsupported Literal Kind ${literal.kind}',
-            ),
+                'Unsupported Literal Kind ${literal.kind}',
+              ),
           },
           value: switch (literal.kind) {
             // TODO: Will we support Regex?
@@ -1750,8 +1740,8 @@ class Transformer {
             TSSyntaxKind.FalseKeyword => false,
             TSSyntaxKind.NullKeyword => null,
             _ => throw UnimplementedError(
-              'Unsupported Literal Kind ${literal.kind}',
-            ),
+                'Unsupported Literal Kind ${literal.kind}',
+              ),
           },
         );
       case TSSyntaxKind.TypeQuery:
@@ -2046,7 +2036,7 @@ class Transformer {
         if (parent != null) {
           switch (declaration.kind) {
             case TSSyntaxKind.ClassDeclaration ||
-                TSSyntaxKind.InterfaceDeclaration:
+                  TSSyntaxKind.InterfaceDeclaration:
               final outputDecl = transformedDecls.first as TypeDeclaration;
               outputDecl.parent = parent;
               parent.nestableDeclarations.add(outputDecl);
@@ -2102,9 +2092,10 @@ class Transformer {
         isNullable,
       );
 
-      if (asReferredType case ReferredDeclarationType(
-        type: final type,
-      ) when type is BuiltinType) {
+      if (asReferredType
+          case ReferredDeclarationType(
+            type: final type,
+          ) when type is BuiltinType) {
         final jsType = getJSTypeAlternative(type);
         if (jsType != type && typeArg) {
           asReferredType.type = jsType..isNullable = isNullable;
@@ -2236,9 +2227,10 @@ class Transformer {
         relativePath?.replaceFirst('.d.ts', '.dart'),
       );
 
-      if (outputType case ReferredDeclarationType(
-        type: final type,
-      ) when type is BuiltinType && typeArg) {
+      if (outputType
+          case ReferredDeclarationType(
+            type: final type,
+          ) when type is BuiltinType && typeArg) {
         final jsType = getJSTypeAlternative(type);
         if (jsType != type) {
           outputType.type = jsType..isNullable = isNullable;
@@ -2338,7 +2330,7 @@ class Transformer {
 
           mappedDecls =
               referencedDeclarations?.whereType<NamedDeclaration>().toList() ??
-              [];
+                  [];
         } else {
           var declarationsMatching = nodeMap.findByName(firstName);
           if (declarationsMatching.isEmpty) {
@@ -2346,9 +2338,8 @@ class Transformer {
             declarationsMatching = nodeMap.findByName(firstName);
           }
 
-          mappedDecls = declarationsMatching
-              .whereType<NamedDeclaration>()
-              .toList();
+          mappedDecls =
+              declarationsMatching.whereType<NamedDeclaration>().toList();
         }
       }
 
@@ -2372,10 +2363,8 @@ class Transformer {
 
         firstNode = firstDecl as NamedDeclaration;
       } else if (decls.length > 1) {
-        firstNode =
-            (decls.firstWhereOrNull((d) => d is NamedDeclaration) ??
-                    decls.first)
-                as NamedDeclaration;
+        firstNode = (decls.firstWhereOrNull((d) => d is NamedDeclaration) ??
+            decls.first) as NamedDeclaration;
       }
 
       if (firstNode case final node?) {
@@ -2412,8 +2401,7 @@ class Transformer {
         );
       } else {
         // if import there and not this file, imported from specified file
-        final importUrl =
-            !nameImport.endsWith('.d.ts') &&
+        final importUrl = !nameImport.endsWith('.d.ts') &&
                 fs
                     .existsSync(
                       (p.isAbsolute('$nameImport.d.ts')
@@ -2427,24 +2415,22 @@ class Transformer {
         final relativePath = programMap.files.contains(importUrl)
             ? p.relative(importUrl, from: p.dirname(file))
             : null;
-        final referencedDeclarations = declarations
-            .map((decl) {
-              return programMap.getDeclarationRef(
-                importUrl,
-                decl,
-                fullyQualifiedName.asName,
-              );
-            })
-            .reduce(
-              (prev, next) => [
-                if (prev != null) ...prev,
-                if (next != null) ...next,
-              ],
-            );
+        final referencedDeclarations = declarations.map((decl) {
+          return programMap.getDeclarationRef(
+            importUrl,
+            decl,
+            fullyQualifiedName.asName,
+          );
+        }).reduce(
+          (prev, next) => [
+            if (prev != null) ...prev,
+            if (next != null) ...next,
+          ],
+        );
 
         final nodes =
             referencedDeclarations?.whereType<NamedDeclaration>().toList() ??
-            [];
+                [];
 
         final (mergedNodes, :additionals) = mergeDeclarations(nodes);
         nodeMap.addAll({for (final add in additionals) add.id.toString(): add});
@@ -2574,9 +2560,8 @@ class Transformer {
           final tags = tag.text?.toDart ?? [];
           if (tags.isEmpty) continue;
 
-          final parameterName = tags
-              .where((t) => t.kind == 'parameterName')
-              .firstOrNull;
+          final parameterName =
+              tags.where((t) => t.kind == 'parameterName').firstOrNull;
           final parameterDesc = tags
               .where((t) => t.kind == 'text')
               .fold('', (prev, combine) => '$prev ${combine.text}');
@@ -2609,9 +2594,8 @@ class Transformer {
           final tags = tag.text?.toDart ?? [];
           if (tags.isEmpty) continue;
 
-          final typeName = tags
-              .where((t) => t.kind == 'typeParameterName')
-              .firstOrNull;
+          final typeName =
+              tags.where((t) => t.kind == 'typeParameterName').firstOrNull;
 
           if (typeName == null) continue;
 
@@ -2752,10 +2736,9 @@ class Transformer {
       return NodeMap({
         for (final node in callable.parameters.map((p) => p.type))
           node.id.toString(): node,
-        for (final node
-            in callable.typeParameters
-                .map((p) => p.constraint)
-                .whereType<Type>())
+        for (final node in callable.typeParameters
+            .map((p) => p.constraint)
+            .whereType<Type>())
           node.id.toString(): node,
         callable.returnType.id.toString(): callable.returnType,
       });
@@ -2788,17 +2771,16 @@ class Transformer {
             filteredDeclarations.addAll(getCallableDependencies(operators));
           }
           filteredDeclarations.addAll({
-            for (final prop
-                in t.properties
-                    .map((p) => p.type)
-                    .where((p) => p is! BuiltinType))
+            for (final prop in t.properties
+                .map((p) => p.type)
+                .where((p) => p is! BuiltinType))
               prop.id.toString(): prop,
           });
           switch (t) {
             case ClassDeclaration(
-              extendedType: final extendedType,
-              implementedTypes: final implementedTypes,
-            ):
+                extendedType: final extendedType,
+                implementedTypes: final implementedTypes,
+              ):
               if (extendedType case final ext? when ext is! BuiltinType) {
                 filteredDeclarations.add(ext);
               }
@@ -2821,10 +2803,10 @@ class Transformer {
               break;
           }
         case NamespaceDeclaration(
-          topLevelDeclarations: final topLevelDecls,
-          nestableDeclarations: final typeDecls,
-          namespaceDeclarations: final namespaceDecls,
-        ):
+            topLevelDeclarations: final topLevelDecls,
+            nestableDeclarations: final typeDecls,
+            namespaceDeclarations: final namespaceDecls,
+          ):
           for (final tlDecl in [...typeDecls, ...namespaceDecls]) {
             filteredDeclarations.add(tlDecl);
             updateFilteredDeclsForDecl(tlDecl, filteredDeclarations);
@@ -2844,7 +2826,7 @@ class Transformer {
               t.id.toString(): t,
           });
         case UnionType(types: final uTypes, declaration: final uDecl) ||
-            IntersectionType(types: final uTypes, declaration: final uDecl):
+              IntersectionType(types: final uTypes, declaration: final uDecl):
           filteredDeclarations.addAll({
             for (final t in uTypes.where((t) => t is! BuiltinType))
               t.id.toString(): t,

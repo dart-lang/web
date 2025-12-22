@@ -19,12 +19,15 @@ Future<void> main(List<String> args) async {
   );
   final repoDir = Directory(repoPath);
   if (!repoDir.existsSync()) {
-    await _run('git', [
-      'clone',
-      '--depth=1',
-      gitUrl,
-      p.basename(repoDir.path),
-    ], cwd: repoDir.parent);
+    await _run(
+        'git',
+        [
+          'clone',
+          '--depth=1',
+          gitUrl,
+          p.basename(repoDir.path),
+        ],
+        cwd: repoDir.parent);
   } else {
     if (!offline) {
       await _run('git', ['pull'], cwd: repoDir);
@@ -103,10 +106,10 @@ class InterfaceInfo implements Comparable<InterfaceInfo> {
   InterfaceInfo({required this.name, required this.docs});
 
   Map<String, dynamic> get asJson => {
-    'docs': docs,
-    if (properties.isNotEmpty)
-      'properties': {for (var p in properties) p.name: p.docs},
-  };
+        'docs': docs,
+        if (properties.isNotEmpty)
+          'properties': {for (var p in properties) p.name: p.docs},
+      };
 
   @override
   int compareTo(InterfaceInfo other) => name.compareTo(other.name);

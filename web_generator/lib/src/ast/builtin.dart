@@ -76,66 +76,64 @@ class BuiltinType extends NamedType {
     return switch (typeIdentifier) {
       PrimitiveType.int ||
       PrimitiveType.num ||
-      PrimitiveType.double when shouldEmitJsType => BuiltinType(
-        name: 'JSNumber',
-        fromDartJSInterop: true,
-        isNullable: isNullable,
-      ),
+      PrimitiveType.double when shouldEmitJsType =>
+        BuiltinType(
+          name: 'JSNumber',
+          fromDartJSInterop: true,
+          isNullable: isNullable,
+        ),
       PrimitiveType.int => BuiltinType(name: 'int', isNullable: isNullable),
       PrimitiveType.num => BuiltinType(name: 'num', isNullable: isNullable),
       PrimitiveType.double => BuiltinType(
-        name: 'double',
-        isNullable: isNullable,
-      ),
-      PrimitiveType.boolean =>
-        shouldEmitJsType
-            ? BuiltinType(
-                name: 'JSBoolean',
-                fromDartJSInterop: true,
-                isNullable: isNullable,
-              )
-            : BuiltinType(name: 'bool', isNullable: isNullable),
-      PrimitiveType.string =>
-        shouldEmitJsType
-            ? BuiltinType(
-                name: 'JSString',
-                fromDartJSInterop: true,
-                isNullable: isNullable,
-              )
-            : BuiltinType(name: 'String', isNullable: isNullable),
+          name: 'double',
+          isNullable: isNullable,
+        ),
+      PrimitiveType.boolean => shouldEmitJsType
+          ? BuiltinType(
+              name: 'JSBoolean',
+              fromDartJSInterop: true,
+              isNullable: isNullable,
+            )
+          : BuiltinType(name: 'bool', isNullable: isNullable),
+      PrimitiveType.string => shouldEmitJsType
+          ? BuiltinType(
+              name: 'JSString',
+              fromDartJSInterop: true,
+              isNullable: isNullable,
+            )
+          : BuiltinType(name: 'String', isNullable: isNullable),
       PrimitiveType.$void || PrimitiveType.undefined => $voidType,
-      PrimitiveType.any =>
-        (isNullable ?? false)
-            ? anyType
-            : BuiltinType(name: 'JSAny', fromDartJSInterop: true),
+      PrimitiveType.any => (isNullable ?? false)
+          ? anyType
+          : BuiltinType(name: 'JSAny', fromDartJSInterop: true),
       PrimitiveType.never => BuiltinType(
-        name: 'JSAny',
-        fromDartJSInterop: true,
-        discardable: true,
-        isNullable: true,
-      ),
+          name: 'JSAny',
+          fromDartJSInterop: true,
+          discardable: true,
+          isNullable: true,
+        ),
       PrimitiveType.unknown => anyType,
       PrimitiveType.object => BuiltinType(
-        name: 'JSObject',
-        fromDartJSInterop: true,
-        isNullable: isNullable,
-      ),
+          name: 'JSObject',
+          fromDartJSInterop: true,
+          isNullable: isNullable,
+        ),
       PrimitiveType.symbol => BuiltinType(
-        name: 'JSSymbol',
-        fromDartJSInterop: true,
-        isNullable: isNullable,
-      ),
+          name: 'JSSymbol',
+          fromDartJSInterop: true,
+          isNullable: isNullable,
+        ),
       PrimitiveType.bigint => BuiltinType(
-        name: 'JSBigInt',
-        fromDartJSInterop: true,
-        isNullable: isNullable,
-      ),
+          name: 'JSBigInt',
+          fromDartJSInterop: true,
+          isNullable: isNullable,
+        ),
       PrimitiveType.array => BuiltinType(
-        name: 'JSArray',
-        typeParams: [typeParams.single],
-        fromDartJSInterop: true,
-        isNullable: isNullable,
-      ),
+          name: 'JSArray',
+          typeParams: [typeParams.single],
+          fromDartJSInterop: true,
+          isNullable: isNullable,
+        ),
     };
   }
 

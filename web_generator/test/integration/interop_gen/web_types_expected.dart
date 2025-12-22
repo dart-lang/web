@@ -17,7 +17,7 @@ external _i1.JSPromise<_i2.WebGLBuffer> convertToWebGL(
 );
 @_i1.JS()
 external AnonymousType_7051203<T>
-getHTMLElementContent<T extends _i2.HTMLElement>(T element);
+    getHTMLElementContent<T extends _i2.HTMLElement>(T element);
 @_i1.JS()
 external void handleButtonClick(_i2.MouseEvent event);
 @_i1.JS()
@@ -66,11 +66,8 @@ extension type AnonymousUnion_1500406<T extends _i1.JSAny?>._(_i1.JSAny _)
 
   String get asString => (_ as _i1.JSString).toDart;
 }
-extension type HTMLTransformFunc<
-  T extends _i2.HTMLElement,
-  R extends _i2.HTMLElement
->._(_i1.JSObject _)
-    implements _i1.JSObject {
+extension type HTMLTransformFunc<T extends _i2.HTMLElement,
+    R extends _i2.HTMLElement>._(_i1.JSObject _) implements _i1.JSObject {
   external R call(T element);
 }
 extension type EventManipulationFunc._(_i1.JSObject _) implements _i1.JSObject {

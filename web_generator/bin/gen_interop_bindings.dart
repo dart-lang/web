@@ -42,9 +42,12 @@ $_usage''');
 
   // Run `npm install` or `npm update` as needed.
   final update = argResult['update'] as bool;
-  await runProc('npm', [
-    update ? 'update' : 'install',
-  ], workingDirectory: bindingsGeneratorPath);
+  await runProc(
+      'npm',
+      [
+        update ? 'update' : 'install',
+      ],
+      workingDirectory: bindingsGeneratorPath);
 
   final contextFile = await createJsTypeSupertypeContext();
 
@@ -63,14 +66,12 @@ $_usage''');
     exit(1);
   }
   final specifiedOutput = argResult['output'] as String?;
-  final outputFile =
-      specifiedOutput ??
+  final outputFile = specifiedOutput ??
       (inputFiles.length > 1
           ? p.join(p.current, inputFiles.first.replaceAll('.d.ts', '.dart'))
           : p.join(p.current, inputFiles.single.replaceAll('.d.ts', '.dart')));
   final defaultWebGenConfigPath = p.join(p.current, 'webgen.yaml');
-  final configFile =
-      argResult['config'] as String? ??
+  final configFile = argResult['config'] as String? ??
       (File(defaultWebGenConfigPath).existsSync()
           ? defaultWebGenConfigPath
           : null);
@@ -86,21 +87,24 @@ $_usage''');
       ? p.relative(tsConfigPath, from: bindingsGeneratorPath)
       : null;
   // Run app with `node`.
-  await runProc('node', [
-    'main.mjs',
-    '--declaration',
-    if (argResult.rest.isNotEmpty) ...[
-      ...inputFiles.map(
-        (i) => '--input=${p.relative(i, from: bindingsGeneratorPath)}',
-      ),
-      '--output=$relativeOutputPath',
-    ],
-    if (tsConfigRelativePath case final tsConfig?) '--ts-config=$tsConfig',
-    if (relativeConfigFile case final config?) '--config=$config',
-    if (argResult.wasParsed('ignore-errors')) '--ignore-errors',
-    if (argResult.wasParsed('generate-all')) '--generate-all',
-    if (argResult.wasParsed('strict-unsupported')) '--strict-unsupported',
-  ], workingDirectory: bindingsGeneratorPath);
+  await runProc(
+      'node',
+      [
+        'main.mjs',
+        '--declaration',
+        if (argResult.rest.isNotEmpty) ...[
+          ...inputFiles.map(
+            (i) => '--input=${p.relative(i, from: bindingsGeneratorPath)}',
+          ),
+          '--output=$relativeOutputPath',
+        ],
+        if (tsConfigRelativePath case final tsConfig?) '--ts-config=$tsConfig',
+        if (relativeConfigFile case final config?) '--config=$config',
+        if (argResult.wasParsed('ignore-errors')) '--ignore-errors',
+        if (argResult.wasParsed('generate-all')) '--generate-all',
+        if (argResult.wasParsed('strict-unsupported')) '--strict-unsupported',
+      ],
+      workingDirectory: bindingsGeneratorPath);
 
   await contextFile.delete();
   return;
@@ -108,8 +112,7 @@ $_usage''');
 
 final _thisScript = Uri.parse('bin/gen_interop_bindings.dart');
 
-final _usage =
-    '''
+final _usage = '''
 ${ansi.styleBold.wrap('Dart Interop Gen')}:
 $_thisScript dts <.d.ts file> [options]
 
@@ -127,15 +130,13 @@ final _parser = ArgParser()
   )
   ..addOption(
     'ts-config',
-    help:
-        'Path to TS Configuration Options File (tsconfig.json) to pass'
+    help: 'Path to TS Configuration Options File (tsconfig.json) to pass'
         ' to the parser/transformer',
   )
   ..addFlag('ignore-errors', help: 'Ignore Generator Errors', negatable: false)
   ..addFlag(
     'generate-all',
-    help:
-        'Generate all declarations '
+    help: 'Generate all declarations '
         '(including private declarations)',
     negatable: false,
   )

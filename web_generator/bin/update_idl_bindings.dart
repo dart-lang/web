@@ -35,9 +35,12 @@ $_usage''');
 
   // Run `npm install` or `npm update` as needed.
   final update = argResult['update'] as bool;
-  await runProc('npm', [
-    update ? 'update' : 'install',
-  ], workingDirectory: bindingsGeneratorPath);
+  await runProc(
+      'npm',
+      [
+        update ? 'update' : 'install',
+      ],
+      workingDirectory: bindingsGeneratorPath);
 
   final contextFile = await createJsTypeSupertypeContext();
 
@@ -52,16 +55,13 @@ $_usage''');
 
   // Determine the set of previously generated files.
   final domDir = Directory(p.join(_webPackagePath, 'lib', 'src', 'dom'));
-  final existingFiles = domDir
-      .listSync(recursive: true)
-      .whereType<File>()
-      .where((file) {
-        if (!file.path.endsWith('.dart')) return false;
+  final existingFiles =
+      domDir.listSync(recursive: true).whereType<File>().where((file) {
+    if (!file.path.endsWith('.dart')) return false;
 
-        final contents = file.readAsStringSync();
-        return contents.contains('Generated from Web IDL definitions');
-      })
-      .toList();
+    final contents = file.readAsStringSync();
+    return contents.contains('Generated from Web IDL definitions');
+  }).toList();
   final timeStamps = {
     for (final file in existingFiles) file.path: file.lastModifiedSync(),
   };
@@ -69,16 +69,19 @@ $_usage''');
   // Run app with `node`.
   final generateAll = argResult['generate-all'] as bool;
   final inputFiles = argResult['input'] as List<String>;
-  await runProc('node', [
-    'main.mjs',
-    '--idl',
-    for (String inputFile in inputFiles) '--input=$inputFile',
-    if (inputFiles.isEmpty)
-      '--output=${p.join(_webPackagePath, 'lib', 'src')}'
-    else
-      '--output=${argResult['output'] as String? ?? p.current}',
-    if (generateAll) '--generate-all',
-  ], workingDirectory: bindingsGeneratorPath);
+  await runProc(
+      'node',
+      [
+        'main.mjs',
+        '--idl',
+        for (String inputFile in inputFiles) '--input=$inputFile',
+        if (inputFiles.isEmpty)
+          '--output=${p.join(_webPackagePath, 'lib', 'src')}'
+        else
+          '--output=${argResult['output'] as String? ?? p.current}',
+        if (generateAll) '--generate-all',
+      ],
+      workingDirectory: bindingsGeneratorPath);
 
   // Delete previously generated files that have not been updated.
   for (final file in existingFiles) {
@@ -102,8 +105,7 @@ $_usage''');
     final cssVersion = _packageLockVersion(_webRefCss);
     final elementsVersion = _packageLockVersion(_webRefElements);
     final idlVersion = _packageLockVersion(_webRefIdl);
-    final versions =
-        '''
+    final versions = '''
 $_startComment
 | Item | Version |
 | --- | --: |
@@ -114,8 +116,8 @@ $_startComment
 
     final newContent =
         sourceContent.substring(0, sourceContent.indexOf(_startComment)) +
-        versions +
-        sourceContent.substring(sourceContent.indexOf(_endComment));
+            versions +
+            sourceContent.substring(sourceContent.indexOf(_endComment));
     if (newContent == sourceContent) {
       print(ansi.styleBold.wrap('No update for readme.'));
     } else {
@@ -146,13 +148,11 @@ Future<String> _webPackageLanguageVersion(String pkgPath) async {
 final _webPackagePath = p.fromUri(Platform.script.resolve('../../web'));
 
 String _packageLockVersion(String package) {
-  final packageLockData =
-      jsonDecode(
-            File(
-              p.join(bindingsGeneratorPath, 'package-lock.json'),
-            ).readAsStringSync(),
-          )
-          as Map<String, dynamic>;
+  final packageLockData = jsonDecode(
+    File(
+      p.join(bindingsGeneratorPath, 'package-lock.json'),
+    ).readAsStringSync(),
+  ) as Map<String, dynamic>;
 
   final packages = packageLockData['packages'] as Map<String, dynamic>;
   final webRefIdl = packages['node_modules/$package'] as Map<String, dynamic>;
@@ -171,8 +171,7 @@ final _startComment =
 final _endComment =
     '<!-- END updated by $_scriptPOSIXPath. Do not modify by hand -->';
 
-final _usage =
-    '''
+final _usage = '''
 ${ansi.styleBold.wrap('WebIDL Gen')}:
 $_thisScript [options]
 
@@ -188,21 +187,18 @@ final _parser = ArgParser()
   ..addOption(
     'output',
     abbr: 'o',
-    help:
-        'Output directory where bindings will be generated to '
+    help: 'Output directory where bindings will be generated to '
         '(defaults to `lib/src` in the web package when no IDL file is provided)',
   )
   ..addMultiOption(
     'input',
     abbr: 'i',
-    help:
-        'The input IDL file(s) to read and generate bindings for. '
+    help: 'The input IDL file(s) to read and generate bindings for. '
         'If not provided, the default WebIDL definitions will be used.',
   )
   ..addFlag(
     'generate-all',
     negatable: false,
-    help:
-        'Generate bindings for all IDL definitions, including experimental '
+    help: 'Generate bindings for all IDL definitions, including experimental '
         'and non-standard APIs.',
   );

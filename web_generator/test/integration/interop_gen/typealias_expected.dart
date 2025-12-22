@@ -13,8 +13,8 @@ typedef PrismFromShape2D<S extends _i1.JSString> = _i1.JSArray<S>;
 external PrismFromShape2D<_i1.JSString> makePrism(Shape2D shape);
 @_i1.JS('makePrism')
 external PrismFromShape2D<S> makePrism$1<S extends _i1.JSString>(S shape);
-typedef PromisedArray<U extends _i1.JSAny?, T extends _i1.JSArray<U>> =
-    _i1.JSPromise<T>;
+typedef PromisedArray<U extends _i1.JSAny?, T extends _i1.JSArray<U>>
+    = _i1.JSPromise<T>;
 @_i1.JS()
 external PromisedArray<_i1.JSString, _i1.JSArray<_i1.JSString>> fetchNames();
 typedef IsActive = bool;

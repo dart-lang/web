@@ -109,13 +109,14 @@ _RawType? _desugarTypedef(_RawType rawType) {
   final decl = Translator.instance!._typeToDeclaration[rawType.type];
   return switch (decl?.type) {
     'typedef' => _getRawType(
-      (decl as idl.Typedef).idlType,
-    )..nullable |= rawType.nullable,
+        (decl as idl.Typedef).idlType,
+      )..nullable |= rawType.nullable,
     // TODO(srujzs): If we ever add a generic JS function type, we should
     // maybe leverage that here so we have stronger type-checking of
     // callbacks.
     'callback' ||
-    'callback interface' => _RawType('JSFunction', rawType.nullable),
+    'callback interface' =>
+      _RawType('JSFunction', rawType.nullable),
     // TODO(srujzs): Enums in the WebIDL are just strings, but we could make
     // them easier to work with on the Dart side.
     'enum' => _RawType('JSString', rawType.nullable),
@@ -163,8 +164,8 @@ _RawType _computeRawTypeUnion(_RawType rawType1, _RawType rawType2) {
   // generic type, so return null.
   _RawType? computeTypeParamUnion(_RawType? typeParam1, _RawType? typeParam2) =>
       typeParam1 != null && typeParam2 != null
-      ? _computeRawTypeUnion(typeParam1, typeParam2)
-      : null;
+          ? _computeRawTypeUnion(typeParam1, typeParam2)
+          : null;
 
   // Equality.
   if (type1 == type2) {
@@ -270,8 +271,7 @@ class _RawType {
   }
 
   @override
-  String toString() =>
-      '_RawType(type: $type, nullable: $nullable, '
+  String toString() => '_RawType(type: $type, nullable: $nullable, '
       'typeParameter: $typeParameter)';
 }
 
@@ -285,11 +285,11 @@ class _Parameter {
   _Parameter._(this._names, this.type, this.isOptional, this.isVariadic);
 
   factory _Parameter(idl.Argument argument) => _Parameter._(
-    {argument.name},
-    _getRawType(argument.idlType),
-    argument.optional,
-    argument.variadic,
-  );
+        {argument.name},
+        _getRawType(argument.idlType),
+        argument.optional,
+        argument.variadic,
+      );
 
   String _generateName() {
     final namesList = _names.toList();
@@ -322,13 +322,12 @@ sealed class _Property {
   // https://github.com/dart-lang/sdk/issues/55720 is resolved.
   // ignore: unused_element_parameter
   _Property(_MemberName name, idl.IDLType idlType, [this.mdnProperty])
-    : type = _getRawType(idlType) {
+      : type = _getRawType(idlType) {
     // Rename the property if there's a collision with the type name.
     final dartName = name.name;
     final jsName = name.jsOverride.isEmpty ? dartName : name.jsOverride;
-    this.name = dartName == type.type
-        ? _MemberName('${dartName}_', jsName)
-        : name;
+    this.name =
+        dartName == type.type ? _MemberName('${dartName}_', jsName) : name;
   }
 }
 
@@ -412,13 +411,14 @@ class _OverridableOperation extends _OverridableMember {
     idl.Operation operation,
     _MemberName memberName,
     MdnProperty? mdnProperty,
-  ) => _OverridableOperation._(
-    memberName,
-    operation.special,
-    _getRawType(operation.idlType),
-    mdnProperty,
-    operation.arguments,
-  );
+  ) =>
+      _OverridableOperation._(
+        memberName,
+        operation.special,
+        _getRawType(operation.idlType),
+        mdnProperty,
+        operation.arguments,
+      );
 
   bool get isStatic => special == 'static';
 
@@ -458,7 +458,7 @@ class _OverridableOperation extends _OverridableMember {
 
 class _OverridableConstructor extends _OverridableMember {
   _OverridableConstructor(idl.Constructor constructor)
-    : super(constructor.arguments);
+      : super(constructor.arguments);
 
   void update(idl.Constructor that) => _processParameters(that.arguments);
 }
@@ -538,9 +538,8 @@ class _PartialInterfacelike {
           // explicitly.
           final isExtensionMember =
               name == 'SVGElement' && attributeName == 'className';
-          final memberList = isExtensionMember
-              ? extensionProperties
-              : properties;
+          final memberList =
+              isExtensionMember ? extensionProperties : properties;
           memberList.add(
             _Attribute(
               _MemberName(attributeName),
@@ -650,10 +649,9 @@ class _PartialInterfacelike {
         inheritance = declaredInheritance;
         break;
       } else {
-        declaredInheritance =
-            (translator._typeToDeclaration[declaredInheritance]
-                    as idl.Interfacelike)
-                .inheritance;
+        declaredInheritance = (translator
+                ._typeToDeclaration[declaredInheritance] as idl.Interfacelike)
+            .inheritance;
       }
     }
   }
@@ -665,8 +663,8 @@ class _PartialInterfacelike {
     // Compat data only exists for interfaces and namespaces. Mixins and
     // dictionaries should always generate their members.
     if (type != 'interface' && type != 'namespace') return true;
-    final interfaceBcd = Translator.instance!.browserCompatData
-        .retrieveInterfaceFor(name)!;
+    final interfaceBcd =
+        Translator.instance!.browserCompatData.retrieveInterfaceFor(name)!;
     final bcd = interfaceBcd.retrievePropertyFor(
       memberName,
       // Compat data treats namespace members as static, but the IDL does not.
@@ -702,10 +700,9 @@ class _PartialInterfacelike {
   // Constructors with the attribute `HTMLConstructor` are intended for custom
   // element behavior, and are not useful otherwise, so avoid emitting them.
   // https://html.spec.whatwg.org/#html-element-constructors
-  bool _hasHTMLConstructorAttribute(idl.Constructor constructor) => constructor
-      .extAttrs
-      .toDart
-      .any((extAttr) => extAttr.name == 'HTMLConstructor');
+  bool _hasHTMLConstructorAttribute(idl.Constructor constructor) =>
+      constructor.extAttrs.toDart
+          .any((extAttr) => extAttr.name == 'HTMLConstructor');
 }
 
 class _MemberName {
@@ -911,21 +908,21 @@ class Translator {
   }
 
   code.TypeDef _typedef(String name, _RawType rawType) => code.TypeDef(
-    (b) => b
-      ..name = name
-      // Any typedefs that need to be handled differently when used in a return
-      // type context will be handled in `_typeReference` separately.
-      ..definition = _typeReference(rawType),
-  );
+        (b) => b
+          ..name = name
+          // Any typedefs that need to be handled differently when used in a
+          // return type context will be handled in `_typeReference` separately.
+          ..definition = _typeReference(rawType),
+      );
 
   code.Method _topLevelGetter(_RawType type, String getterName) => code.Method(
-    (b) => b
-      ..annotations.addAll(_jsOverride('', alwaysEmit: true))
-      ..external = true
-      ..returns = _typeReference(type, returnType: true)
-      ..name = getterName
-      ..type = code.MethodType.getter,
-  );
+        (b) => b
+          ..annotations.addAll(_jsOverride('', alwaysEmit: true))
+          ..external = true
+          ..returns = _typeReference(type, returnType: true)
+          ..name = getterName
+          ..type = code.MethodType.getter,
+      );
 
   /// Given a raw type, convert it to the Dart type that will be emitted by the
   /// translator.
@@ -1032,8 +1029,7 @@ class Translator {
     T Function(
       List<code.Parameter> requiredParameters,
       List<code.Parameter> optionalParameters,
-    )
-    generator,
+    ) generator,
   ) {
     final requiredParameters = <code.Parameter>[];
     final optionalParameters = <code.Parameter>[];
@@ -1148,12 +1144,13 @@ class Translator {
   List<code.Expression> _jsOverride(
     String jsOverride, {
     bool alwaysEmit = false,
-  }) => [
-    if (jsOverride.isNotEmpty || alwaysEmit)
-      code.refer('JS', 'dart:js_interop').call([
-        if (jsOverride.isNotEmpty) code.literalString(jsOverride),
-      ]),
-  ];
+  }) =>
+      [
+        if (jsOverride.isNotEmpty || alwaysEmit)
+          code.refer('JS', 'dart:js_interop').call([
+            if (jsOverride.isNotEmpty) code.literalString(jsOverride),
+          ]),
+      ];
 
   code.Method _operation(_OverridableOperation operation) {
     final memberName = operation.name;
@@ -1189,7 +1186,7 @@ class Translator {
     final name = memberName.name;
     final docs =
         mdnInterface?.propertyFor(name, isStatic: isStatic)?.formattedDocs ??
-        [];
+            [];
 
     return [
       code.Method(
@@ -1243,8 +1240,8 @@ class Translator {
       'string' => code.literalString((constant.value as JSString).toDart),
       'boolean' => code.literalBool((constant.value as JSBoolean).toDart),
       'number' => code.literalNum(
-        num.parse((constant.value as JSString).toDart),
-      ),
+          num.parse((constant.value as JSString).toDart),
+        ),
       'null' => code.literalNull,
       _ => null,
     };
@@ -1294,23 +1291,25 @@ class Translator {
   (List<code.Field>, List<code.Method>) _property(
     _Property member,
     MdnInterface? mdnInterface,
-  ) => switch (member) {
-    _Attribute() => ([], _attribute(member, mdnInterface)),
-    _Field() => ([], _field(member, mdnInterface)),
-    _Constant() => _constant(member),
-  };
+  ) =>
+      switch (member) {
+        _Attribute() => ([], _attribute(member, mdnInterface)),
+        _Field() => ([], _field(member, mdnInterface)),
+        _Constant() => _constant(member),
+      };
 
   (List<code.Field>, List<code.Method>) _properties(
     List<_Property> properties,
     MdnInterface? mdnInterface,
-  ) => properties.fold(([], []), (specs, property) {
-    final (fields, methods) = _property(property, mdnInterface);
-    return (specs.$1..addAll(fields), specs.$2..addAll(methods));
-  });
+  ) =>
+      properties.fold(([], []), (specs, property) {
+        final (fields, methods) = _property(property, mdnInterface);
+        return (specs.$1..addAll(fields), specs.$2..addAll(methods));
+      });
 
   List<code.Method> _operations(List<_OverridableOperation> operations) => [
-    for (final operation in operations) _operation(operation),
-  ];
+        for (final operation in operations) _operation(operation),
+      ];
 
   List<code.Method> _cssStyleDeclarationProperties() {
     return [
@@ -1340,9 +1339,8 @@ class Translator {
     if (tags != null) {
       final uri = uriForElement(jsName);
       assert(tags.isNotEmpty);
-      final createElementMethod = uri != null
-          ? 'createElementNS'
-          : 'createElement';
+      final createElementMethod =
+          uri != null ? 'createElementNS' : 'createElement';
       for (final tag in tags) {
         final article = singularArticleForElement(dartClassName);
         elementConstructors.add(
@@ -1367,13 +1365,13 @@ class Translator {
                           .refer('document', _urlForType('Document'))
                           .property(createElementMethod)
                           .call([
-                            // TODO(srujzs): Should we make these URIs a
-                            // constant and refer to the constant instead?
-                            // Downside is that it requires another manual hack
-                            // to generate them.
-                            if (uri != null) code.literalString(uri),
-                            code.literalString(tag),
-                          ]),
+                        // TODO(srujzs): Should we make these URIs a
+                        // constant and refer to the constant instead?
+                        // Downside is that it requires another manual hack
+                        // to generate them.
+                        if (uri != null) code.literalString(uri),
+                        code.literalString(tag),
+                      ]),
                     )
                     .code,
               ]),
@@ -1456,15 +1454,15 @@ class Translator {
           (isObjectLiteral
                   ? [_objectLiteral(jsName, representationFieldName)]
                   : constructor != null
-                  ? [_constructor(constructor)]
-                  : <code.Constructor>[])
+                      ? [_constructor(constructor)]
+                      : <code.Constructor>[])
               .followedBy(
-                _elementConstructors(
-                  jsName,
-                  dartClassName,
-                  representationFieldName,
-                ),
-              ),
+            _elementConstructors(
+              jsName,
+              dartClassName,
+              representationFieldName,
+            ),
+          ),
         )
         ..fields.addAll(propertySpecs.$1)
         ..methods.addAll(
@@ -1536,55 +1534,56 @@ class Translator {
   }
 
   code.Library _library(_Library library) => code.Library((b) {
-    if (_generateForWeb) {
-      b.comments.addAll([...licenseHeader, '', ...mozLicenseHeader]);
-    }
-    b
-      ..ignoreForFile.addAll([
-        // JS constants are allowed to be all uppercased.
-        'constant_identifier_names',
-        // JS properties are allowed to not be camelcased.
-        'non_constant_identifier_names',
-      ])
-      ..generatedByComment = generatedFileDisclaimer
-      // TODO(srujzs): This is to address the issue around extension type
-      // object literal constructors in
-      // https://github.com/dart-lang/sdk/issues/54801.
-      // Once this package moves to an SDK version that contains a fix
-      // for that, this can be removed.
-      ..annotations.addAll(_jsOverride('', alwaysEmit: true))
-      ..body.addAll([
-        for (final typedef in library.typedefs.where(_usedTypes.contains))
-          _typedef(
-            typedef.name,
-            _desugarTypedef(_RawType(typedef.name, false))!,
-          ),
-        for (final callback in library.callbacks.where(_usedTypes.contains))
-          _typedef(
-            callback.name,
-            _desugarTypedef(_RawType(callback.name, false))!,
-          ),
-        for (final callbackInterface in library.callbackInterfaces.where(
-          _usedTypes.contains,
-        ))
-          _typedef(
-            callbackInterface.name,
-            _desugarTypedef(_RawType(callbackInterface.name, false))!,
-          ),
-        for (final enum_ in library.enums.where(_usedTypes.contains))
-          _typedef(enum_.name, _desugarTypedef(_RawType(enum_.name, false))!),
-        for (final interfacelike in library.interfacelikes.where(
-          _usedTypes.contains,
-        ))
-          ..._interfacelike(interfacelike),
-      ]);
-  });
+        if (_generateForWeb) {
+          b.comments.addAll([...licenseHeader, '', ...mozLicenseHeader]);
+        }
+        b
+          ..ignoreForFile.addAll([
+            // JS constants are allowed to be all uppercased.
+            'constant_identifier_names',
+            // JS properties are allowed to not be camelcased.
+            'non_constant_identifier_names',
+          ])
+          ..generatedByComment = generatedFileDisclaimer
+          // TODO(srujzs): This is to address the issue around extension type
+          // object literal constructors in
+          // https://github.com/dart-lang/sdk/issues/54801.
+          // Once this package moves to an SDK version that contains a fix
+          // for that, this can be removed.
+          ..annotations.addAll(_jsOverride('', alwaysEmit: true))
+          ..body.addAll([
+            for (final typedef in library.typedefs.where(_usedTypes.contains))
+              _typedef(
+                typedef.name,
+                _desugarTypedef(_RawType(typedef.name, false))!,
+              ),
+            for (final callback in library.callbacks.where(_usedTypes.contains))
+              _typedef(
+                callback.name,
+                _desugarTypedef(_RawType(callback.name, false))!,
+              ),
+            for (final callbackInterface in library.callbackInterfaces.where(
+              _usedTypes.contains,
+            ))
+              _typedef(
+                callbackInterface.name,
+                _desugarTypedef(_RawType(callbackInterface.name, false))!,
+              ),
+            for (final enum_ in library.enums.where(_usedTypes.contains))
+              _typedef(
+                  enum_.name, _desugarTypedef(_RawType(enum_.name, false))!),
+            for (final interfacelike in library.interfacelikes.where(
+              _usedTypes.contains,
+            ))
+              ..._interfacelike(interfacelike),
+          ]);
+      });
 
   code.Library generateRootImport(Iterable<String> files) => code.Library(
-    (b) => b
-      ..comments.addAll(licenseHeader)
-      ..directives.addAll(files.map(code.Directive.export)),
-  );
+        (b) => b
+          ..comments.addAll(licenseHeader)
+          ..directives.addAll(files.map(code.Directive.export)),
+      );
 
   TranslationResult translate() {
     // Create a root import that exports all of the other libraries.

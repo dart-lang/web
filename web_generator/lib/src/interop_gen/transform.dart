@@ -34,7 +34,7 @@ class TransformResult {
   bool multiFileOutput;
 
   TransformResult._(this.programDeclarationMap, {this.commonTypes = const {}})
-    : multiFileOutput = programDeclarationMap.length > 1;
+      : multiFileOutput = programDeclarationMap.length > 1;
 
   // TODO(https://github.com/dart-lang/web/issues/388): Handle union of overloads
   //  (namespaces + functions, multiple interfaces, etc)
@@ -190,10 +190,10 @@ class ProgramMap {
 
   /// The declarations as globs
   List<RegExp> get filterDeclSetPatterns => filterDeclSet.map((decl) {
-    final escapedDecl = RegExp.escape(decl);
-    if (escapedDecl == decl) return RegExp('^$decl\$');
-    return RegExp(decl);
-  }).toList();
+        final escapedDecl = RegExp.escape(decl);
+        if (escapedDecl == decl) return RegExp('^$decl\$');
+        return RegExp(decl);
+      }).toList();
 
   final bool generateAll;
 
@@ -205,9 +205,9 @@ class ProgramMap {
     this.filterDeclSet = const [],
     bool? generateAll,
     this.strictUnsupported = false,
-  }) : typeChecker = program.getTypeChecker(),
-       generateAll = generateAll ?? false,
-       files = p.PathSet.of(files);
+  })  : typeChecker = program.getTypeChecker(),
+        generateAll = generateAll ?? false,
+        files = p.PathSet.of(files);
 
   /// Find the node definition for a given declaration named [declName]
   /// or associated with a TypeScript node [node] from the map of files
@@ -247,9 +247,8 @@ class ProgramMap {
 
             final targetSymbol = exports[d.toJS]!;
 
-            for (final decl
-                in targetSymbol.getDeclarations()?.toDart ??
-                    <TSDeclaration>[]) {
+            for (final decl in targetSymbol.getDeclarations()?.toDart ??
+                <TSDeclaration>[]) {
               transformer.transform(decl);
             }
           } else {
@@ -271,21 +270,21 @@ class ProgramMap {
     (String, NamedDeclaration)? ifAbsent,
   }) {
     try {
-      final MapEntry(key: url, value: nodeMap) = _commonTypes.entries
-          .firstWhere(
-            (e) => e.value.containsKey(name),
-            orElse: () {
-              if (ifAbsent case (final file, final decl)) {
-                _commonTypes.update(
-                  file,
-                  (nodeMap) => nodeMap..add(decl),
-                  ifAbsent: () => NodeMap()..add(decl),
-                );
-                return MapEntry(file, _commonTypes[file]!);
-              }
-              throw Exception('Could not find common type for decl $name');
-            },
-          );
+      final MapEntry(key: url, value: nodeMap) =
+          _commonTypes.entries.firstWhere(
+        (e) => e.value.containsKey(name),
+        orElse: () {
+          if (ifAbsent case (final file, final decl)) {
+            _commonTypes.update(
+              file,
+              (nodeMap) => nodeMap..add(decl),
+              ifAbsent: () => NodeMap()..add(decl),
+            );
+            return MapEntry(file, _commonTypes[file]!);
+          }
+          throw Exception('Could not find common type for decl $name');
+        },
+      );
 
       if ((url, nodeMap) case (final declUrl?, final declarationMap)) {
         return (declUrl, declarationMap.findByName(name).first);
@@ -318,12 +317,11 @@ class ProgramMap {
         ts.forEachChild(
           src,
           ((TSNode node) {
-                // ignore end of file
-                if (node.kind == TSSyntaxKind.EndOfFileToken) return;
+            // ignore end of file
+            if (node.kind == TSSyntaxKind.EndOfFileToken) return;
 
-                _activeTransformers[absolutePath]!.transform(node);
-              }).toJS
-              as ts.TSNodeCallback,
+            _activeTransformers[absolutePath]!.transform(node);
+          }).toJS as ts.TSNodeCallback,
         );
       } else {
         final exportedSymbols = sourceSymbol.exports?.toDart;
@@ -373,20 +371,20 @@ class TransformerManager {
     List<String> filterDeclSet = const [],
     bool? generateAll,
   }) : programMap = ProgramMap(
-         program,
-         inputFiles,
-         filterDeclSet: filterDeclSet,
-         generateAll: generateAll,
-       );
+          program,
+          inputFiles,
+          filterDeclSet: filterDeclSet,
+          generateAll: generateAll,
+        );
 
   TransformerManager.fromParsedResults(ParserResult result, {Config? config})
-    : programMap = ProgramMap(
-        result.program,
-        result.files.toList(),
-        filterDeclSet: config?.includedDeclarations ?? [],
-        generateAll: config?.generateAll,
-        strictUnsupported: config?.strictUnsupported ?? false,
-      );
+      : programMap = ProgramMap(
+          result.program,
+          result.files.toList(),
+          filterDeclSet: config?.includedDeclarations ?? [],
+          generateAll: config?.generateAll,
+          strictUnsupported: config?.strictUnsupported ?? false,
+        );
 
   TransformResult transform() {
     final outputNodeMap = <String, NodeMap>{};

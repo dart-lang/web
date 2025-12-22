@@ -30,12 +30,15 @@ void main() {
       final inputFilePath = p.relative(testFile, from: bindingsGenPath);
       final outputFilePath = p.relative(outputFile, from: bindingsGenPath);
 
-      final process = await runProcWithResult('node', [
-        'main.mjs',
-        '--input=$inputFilePath',
-        '--output=$outputFilePath',
-        '--declaration',
-      ], workingDirectory: bindingsGenPath);
+      final process = await runProcWithResult(
+          'node',
+          [
+            'main.mjs',
+            '--input=$inputFilePath',
+            '--output=$outputFilePath',
+            '--declaration',
+          ],
+          workingDirectory: bindingsGenPath);
 
       final stderr = await process.stderr.transform(utf8.decoder).toList();
 

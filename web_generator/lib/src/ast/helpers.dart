@@ -65,9 +65,10 @@ Set<String> getMemberHierarchy(
   final members = <String>{};
 
   void addMembersIfReferredType(Type type) {
-    if (type case ReferredType<Declaration>(
-      declaration: final d,
-    ) when d is TypeDeclaration) {
+    if (type
+        case ReferredType<Declaration>(
+          declaration: final d,
+        ) when d is TypeDeclaration) {
       members.addAll(getMemberHierarchy(d, true));
     }
   }
@@ -84,9 +85,9 @@ Set<String> getMemberHierarchy(
 
   switch (type) {
     case ClassDeclaration(
-      extendedType: final extendee,
-      implementedTypes: final implementees,
-    ):
+        extendedType: final extendee,
+        implementedTypes: final implementees,
+      ):
       if (extendee case final extendedType?) {
         addMembersIfReferredType(extendedType);
       }
@@ -184,11 +185,11 @@ Set<GenericType> getGenericTypes(Type t) {
       }
       break;
     case ObjectLiteralType(
-      properties: final objectProps,
-      methods: final objectMethods,
-      constructors: final objectConstructors,
-      operators: final objectOperators,
-    ):
+        properties: final objectProps,
+        methods: final objectMethods,
+        constructors: final objectConstructors,
+        operators: final objectOperators,
+      ):
       for (final PropertyDeclaration(type: propType) in objectProps) {
         types.addAll(
           getGenericTypes(propType).map((t) => (t.name, t.constraint)),
@@ -199,8 +200,7 @@ Set<GenericType> getGenericTypes(Type t) {
             typeParameters: alreadyEstablishedTypeParams,
             returnType: methodType,
             parameters: methodParams,
-          )
-          in objectMethods) {
+          ) in objectMethods) {
         final typeParams = [methodType, ...methodParams.map((p) => p.type)];
 
         for (final type in typeParams) {
@@ -229,8 +229,7 @@ Set<GenericType> getGenericTypes(Type t) {
             typeParameters: alreadyEstablishedTypeParams,
             returnType: methodType,
             parameters: methodParams,
-          )
-          in objectOperators) {
+          ) in objectOperators) {
         final typeParams = [methodType, ...methodParams.map((p) => p.type)];
 
         for (final type in typeParams) {
@@ -246,10 +245,10 @@ Set<GenericType> getGenericTypes(Type t) {
       }
       break;
     case ClosureType(
-      typeParameters: final alreadyEstablishedTypeParams,
-      returnType: final closureType,
-      parameters: final closureParams,
-    ):
+        typeParameters: final alreadyEstablishedTypeParams,
+        returnType: final closureType,
+        parameters: final closureParams,
+      ):
       for (final type in [closureType, ...closureParams.map((p) => p.type)]) {
         final genericTypes = getGenericTypes(type);
         for (final genericType in genericTypes) {

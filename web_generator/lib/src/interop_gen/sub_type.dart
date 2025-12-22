@@ -59,15 +59,13 @@ class TypeHierarchy {
       return null;
     } else {
       // find value
-      return nodes
-          .mapIndexed((index, node) {
-            final lookupVal = node._lookup(value, level + 1, [
-              ...indexPath,
-              index,
-            ]);
-            return lookupVal;
-          })
-          .firstWhereOrNull((v) => v != null);
+      return nodes.mapIndexed((index, node) {
+        final lookupVal = node._lookup(value, level + 1, [
+          ...indexPath,
+          index,
+        ]);
+        return lookupVal;
+      }).firstWhereOrNull((v) => v != null);
     }
   }
 
@@ -282,8 +280,7 @@ TypeHierarchy getTypeHierarchy(Type type) {
 }
 
 TypeMap createTypeMap(List<Type> types, {TypeMap? map}) {
-  final outputMap =
-      map ??
+  final outputMap = map ??
       TypeMap({
         'JSBoolean': BuiltinType.primitiveType(
           PrimitiveType.boolean,
@@ -413,8 +410,7 @@ Type getLowestCommonAncestorOfTypes(
       } else {
         return UnionType(
           types: typesAtLevel.map((c) => deduceType(c, typeMap!)).toList(),
-          name:
-              'AnonymousUnion_'
+          name: 'AnonymousUnion_'
               '${AnonymousHasher.hashUnion(commonTypes.toList())}',
         );
       }

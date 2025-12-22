@@ -30,8 +30,8 @@ void main() {
     });
 
     for (final inputFile in inputDir.listSync().whereType<File>().where(
-      (f) => p.basenameWithoutExtension(f.path).endsWith('_input'),
-    )) {
+          (f) => p.basenameWithoutExtension(f.path).endsWith('_input'),
+        )) {
       final inputFileName = p.basenameWithoutExtension(inputFile.path);
       final inputName = inputFileName.replaceFirst('_input', '');
 
@@ -45,12 +45,15 @@ void main() {
         final inputFilePath = p.relative(inputFile.path, from: bindingsGenPath);
         final outFilePath = p.relative(outputActualPath, from: bindingsGenPath);
         // run the entrypoint
-        await runProc('node', [
-          'main.mjs',
-          '--input=$inputFilePath',
-          '--output=${p.dirname(outFilePath)}',
-          '--idl',
-        ], workingDirectory: bindingsGenPath);
+        await runProc(
+            'node',
+            [
+              'main.mjs',
+              '--input=$inputFilePath',
+              '--output=${p.dirname(outFilePath)}',
+              '--idl',
+            ],
+            workingDirectory: bindingsGenPath);
 
         await File(
           p.join(p.dirname(outputActualPath), '${inputName}_input.dart'),

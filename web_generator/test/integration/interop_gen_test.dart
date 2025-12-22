@@ -32,8 +32,8 @@ void main() {
     });
 
     for (final inputFile in inputDir.listSync().whereType<File>().where(
-      (f) => p.basenameWithoutExtension(f.path).contains('_input'),
-    )) {
+          (f) => p.basenameWithoutExtension(f.path).contains('_input'),
+        )) {
       final inputFileName = p.basenameWithoutExtension(inputFile.path);
       final inputName = inputFileName.replaceFirst('_input.d', '');
 
@@ -51,12 +51,15 @@ void main() {
         final inputFilePath = p.relative(inputFile.path, from: bindingsGenPath);
         final outFilePath = p.relative(outputActualPath, from: bindingsGenPath);
         // run the entrypoint
-        await runProc('node', [
-          'main.mjs',
-          '--input=$inputFilePath',
-          '--output=$outFilePath',
-          '--declaration',
-        ], workingDirectory: bindingsGenPath);
+        await runProc(
+            'node',
+            [
+              'main.mjs',
+              '--input=$inputFilePath',
+              '--output=$outFilePath',
+              '--declaration',
+            ],
+            workingDirectory: bindingsGenPath);
 
         expectFilesEqual(outputExpectedPath, outputActualPath);
       });
@@ -90,11 +93,14 @@ void main() {
         from: bindingsGenPath,
       );
       // run the entrypoint
-      await runProc('node', [
-        'main.mjs',
-        '--config=$inputConfigPath',
-        '--declaration',
-      ], workingDirectory: bindingsGenPath);
+      await runProc(
+          'node',
+          [
+            'main.mjs',
+            '--config=$inputConfigPath',
+            '--declaration',
+          ],
+          workingDirectory: bindingsGenPath);
 
       // read files
       for (final output in outputDir.listSync().whereType<File>()) {

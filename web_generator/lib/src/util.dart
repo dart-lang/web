@@ -38,9 +38,9 @@ extension StringExt on String {
   String get kebabToSnake => toLowerCase().replaceAll('-', '_');
 
   String get snakeToPascal => replaceAllMapped(
-    _snakeBit,
-    (match) => match[0]!.toUpperCase(),
-  ).replaceAll('_', '');
+        _snakeBit,
+        (match) => match[0]!.toUpperCase(),
+      ).replaceAll('_', '');
 }
 
 final _snakeBit = RegExp('_[a-zA-Z]');

@@ -97,8 +97,8 @@ ParserResult parseDeclarationFiles(Config config) {
 void handleDiagnostics(List<ts.TSDiagnostic> diagnostics) {
   for (final diagnostic in diagnostics) {
     if (diagnostic.file case final diagnosticFile?) {
-      final ts.TSLineAndCharacter(line: line, character: char) = ts
-          .getLineAndCharacterOfPosition(diagnosticFile, diagnostic.start!);
+      final ts.TSLineAndCharacter(line: line, character: char) =
+          ts.getLineAndCharacterOfPosition(diagnosticFile, diagnostic.start!);
       final message = ts.flattenDiagnosticMessageText(
         diagnostic.messageText,
         '\n',

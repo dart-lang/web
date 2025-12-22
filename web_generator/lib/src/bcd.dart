@@ -27,18 +27,16 @@ class BrowserCompatData {
       'browser-compat-data',
       'data.json',
     );
-    final content =
-        (fs.readFileSync(path.toJS, JSReadFileOptions(encoding: 'utf8'.toJS))
-                as JSString)
-            .toDart;
+    final content = (fs.readFileSync(
+            path.toJS, JSReadFileOptions(encoding: 'utf8'.toJS)) as JSString)
+        .toDart;
 
     final contentMap = jsonDecode(content) as Map;
     final api = contentMap['api'] as Map<String, dynamic>;
     // MDN files WebAssembly compat data in a separate folder, so we need to
     // unify.
-    final webassembly =
-        (contentMap['webassembly'] as Map<String, dynamic>)['api']
-            as Map<String, dynamic>;
+    final webassembly = (contentMap['webassembly']
+        as Map<String, dynamic>)['api'] as Map<String, dynamic>;
     api.addAll(webassembly);
     // Add info for the namespace as well.
     api['WebAssembly'] = webassembly;
@@ -166,10 +164,10 @@ abstract class BCDItem {
   bool get standardTrack => _status['standard_track'] as bool? ?? false;
 
   List<String> get status => [
-    if (standardTrack) 'standards-track',
-    if (deprecated) 'deprecated',
-    if (experimental) 'experimental',
-  ];
+        if (standardTrack) 'standards-track',
+        if (deprecated) 'deprecated',
+        if (experimental) 'experimental',
+      ];
 
   String get _statusDescription => status.join(', ');
 
@@ -178,19 +176,17 @@ abstract class BCDItem {
   bool get safariSupported => _supportedInBrowser('safari');
 
   List<String> get browsers => [
-    if (chromeSupported) 'chrome',
-    if (firefoxSupported) 'firefox',
-    if (safariSupported) 'safari',
-  ];
+        if (chromeSupported) 'chrome',
+        if (firefoxSupported) 'firefox',
+        if (safariSupported) 'safari',
+      ];
 
   String get _browsersDescription => browsers.join(', ');
 
   bool _supportedInBrowser(String browser) {
-    final map =
-        (_support[browser] is List
-                ? (_support[browser] as List).first
-                : _support[browser])
-            as Map<String, dynamic>;
+    final map = (_support[browser] is List
+        ? (_support[browser] as List).first
+        : _support[browser]) as Map<String, dynamic>;
 
     if (map.containsKey('version_removed')) {
       return false;

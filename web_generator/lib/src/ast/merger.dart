@@ -110,14 +110,12 @@ import 'types.dart';
   }
 
   // merge namespaces
-  final mergedNamespace = namespaces.isNotEmpty
-      ? mergeNamespaces(namespaces)
-      : null;
+  final mergedNamespace =
+      namespaces.isNotEmpty ? mergeNamespaces(namespaces) : null;
 
   // then merge interfaces
-  var mergedInterface = interfaces.isNotEmpty
-      ? mergeInterfaces(interfaces)
-      : null;
+  var mergedInterface =
+      interfaces.isNotEmpty ? mergeInterfaces(interfaces) : null;
 
   if (typealiasDecl != null) {
     assert(
@@ -145,14 +143,12 @@ import 'types.dart';
     var mergedComposite = mergedNamespace.asComposite
       ..mergeType(mergedInterface);
 
-    mergedComposite =
-        _mergeInterfaceWithVars(mergedComposite, varDeclarations)
+    mergedComposite = _mergeInterfaceWithVars(mergedComposite, varDeclarations)
             as CompositeDeclaration? ??
         mergedComposite;
 
     // merge em and vars
-    mergedComposite =
-        _mergeInterfaceWithVars(mergedComposite, varDeclarations)
+    mergedComposite = _mergeInterfaceWithVars(mergedComposite, varDeclarations)
             as CompositeDeclaration? ??
         mergedComposite;
 
@@ -176,8 +172,7 @@ import 'types.dart';
     output.addAll([mergedComposite, ...otherVariableDeclarations]);
   } else if (mergedInterface != null) {
     // merge em and vars
-    mergedInterface =
-        _mergeInterfaceWithVars(mergedInterface, varDeclarations)
+    mergedInterface = _mergeInterfaceWithVars(mergedInterface, varDeclarations)
             as InterfaceDeclaration? ??
         mergedInterface;
 
@@ -221,7 +216,8 @@ extension MergeDeclarationsOntoComposite on CompositeDeclaration {
         InterfaceDeclaration(extendedTypes: final extendedTypes) ||
         CompositeDeclaration(
           extendedTypes: final extendedTypes,
-        ) => extendedTypes,
+        ) =>
+          extendedTypes,
         _ => [],
       })
       ..implementedTypes.addAll(switch (type) {
@@ -239,12 +235,11 @@ extension MergeDeclarationsOntoComposite on CompositeDeclaration {
   /// just adds its members, which may still refer back to the enum
   void mergeEnum([EnumDeclaration? enumeration]) {
     if (enumeration == null) return;
-    final enumAsReference =
-        (enumeration
-              ..name = '${enumeration.name}Enum'
-              ..dartName ??= enumeration.name)
-            .asReferredType()
-            .emit();
+    final enumAsReference = (enumeration
+          ..name = '${enumeration.name}Enum'
+          ..dartName ??= enumeration.name)
+        .asReferredType()
+        .emit();
 
     for (final member in enumeration.members) {
       member.parent = enumeration.name;
@@ -311,8 +306,8 @@ TypeDeclaration? _mergeInterfaceWithVars(
       final InterfaceDeclaration i => i,
       final CompositeDeclaration c => c.asInterface,
       _ => throw Exception(
-        '"interface" should be either interface or composite',
-      ),
+          '"interface" should be either interface or composite',
+        ),
     },
     ...interfaces,
   ], referenceIndex: baseOnVarTypes && interfaces.isNotEmpty ? 1 : 0);
@@ -356,9 +351,8 @@ _ExtensionOfTypeDeclaration? _mergeInterfaceWithVarsHavingBuiltinTypes(
 
   // create an extension on the type of the var
   final isNullable = builtinTypes.any((b) => b.isNullable);
-  final interfaceAsReference = interface
-      .asReferredType(null, isNullable)
-      .emit();
+  final interfaceAsReference =
+      interface.asReferredType(null, isNullable).emit();
 
   final extension = _ExtensionOfTypeDeclaration(
     name: '${mergedTypeName}To${interface.name}',
@@ -445,9 +439,8 @@ NamespaceDeclaration mergeNamespaces(
 
   final refNamespace = namespaces[0];
   final namer = ScopedUniqueNamer({'get', 'set'});
-  final namespaceDeclarations = namespaces
-      .map((n) => n.namespaceDeclarations)
-      .flattenedToList;
+  final namespaceDeclarations =
+      namespaces.map((n) => n.namespaceDeclarations).flattenedToList;
 
   final namespaceGroups = groupBy(
     namespaceDeclarations,
@@ -462,8 +455,7 @@ NamespaceDeclaration mergeNamespaces(
   for (final NamespaceDeclaration(
         nestableDeclarations: nestableDeclarations,
         documentation: documentation,
-      )
-      in namespaces) {
+      ) in namespaces) {
     // TODO: In the future, we can be smart and prevent merging decls with
     //  certain annotations (like experimental or deprecated)
     if (documentation case Documentation(docs: final docs)?
@@ -592,7 +584,7 @@ class _ExtensionOfTypeDeclaration extends NamedDeclaration
 
   @override
   ID get id => ID(
-    type: 'extension@(${baseType.id.type}-${baseType.id.name})',
-    name: name,
-  );
+        type: 'extension@(${baseType.id.type}-${baseType.id.name})',
+        name: name,
+      );
 }

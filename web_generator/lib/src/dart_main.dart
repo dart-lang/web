@@ -46,12 +46,10 @@ void main(List<String> args) async {
 
     if (argResult.wasParsed('config')) {
       final filename = argResult['config'] as String;
-      final configContent =
-          fs.readFileSync(
-                filename.toJS,
-                JSReadFileOptions(encoding: 'utf8'.toJS),
-              )
-              as JSString;
+      final configContent = fs.readFileSync(
+        filename.toJS,
+        JSReadFileOptions(encoding: 'utf8'.toJS),
+      ) as JSString;
       final yaml = loadYamlDocument(configContent.toDart);
       config = YamlConfig.fromYaml(
         yaml.contents as YamlMap,
@@ -175,13 +173,11 @@ Future<void> generateIDLBindings({
 
     final bindings = await generateBindingsForFiles({
       for (final file in allInputFiles)
-        file:
-            (fs.readFileSync(
-                      file.toJS,
-                      JSReadFileOptions(encoding: 'utf-8'.toJS),
-                    )
-                    as JSString)
-                .toDart,
+        file: (fs.readFileSync(
+          file.toJS,
+          JSReadFileOptions(encoding: 'utf-8'.toJS),
+        ) as JSString)
+            .toDart,
     }, output);
 
     for (var entry in bindings.entries) {
@@ -214,22 +210,19 @@ final _parser = ArgParser()
     'output',
     mandatory: true,
     abbr: 'o',
-    help:
-        'Output where bindings will be generated to '
+    help: 'Output where bindings will be generated to '
         '(directory for IDL, file for TS Declarations)',
   )
   ..addFlag(
     'generate-all',
     negatable: false,
-    help:
-        'Generate bindings for all IDL/TS Declaration definitions, '
+    help: 'Generate bindings for all IDL/TS Declaration definitions, '
         'including experimental and non-standard APIs (IDL) '
         '/ non-exported APIs (TS Declarations).',
   )
   ..addOption(
     'ts-config',
-    help:
-        '[TS Declarations] Path to TS Configuration Options File '
+    help: '[TS Declarations] Path to TS Configuration Options File '
         '(tsconfig.json) to pass to the parser/transformer',
   )
   ..addMultiOption(

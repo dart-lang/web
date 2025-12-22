@@ -16,9 +16,8 @@ class ID {
 
   String get rename {
     if (index != null && index != 0) {
-      final s = name.endsWith(r'$')
-          ? name.substring(0, name.indexOf(r'$'))
-          : name;
+      final s =
+          name.endsWith(r'$') ? name.substring(0, name.indexOf(r'$')) : name;
       return '$s\$$index';
     } else {
       return name;
@@ -46,7 +45,7 @@ class UniqueNamer {
   Set<String> get used => _usedNames;
 
   UniqueNamer([Iterable<String> used = const <String>[]])
-    : _usedNames = used.toSet();
+      : _usedNames = used.toSet();
 
   /// Makes a name that does not conflict with dart keywords
   static String makeNonConflicting(String name) {
@@ -135,8 +134,8 @@ class ScopedUniqueNamer implements UniqueNamer {
   ScopedUniqueNamer([
     Set<String>? allowedEquals,
     Iterable<String> used = const <String>[],
-  ]) : _usedIDs = used.map(UniqueNamer.parse).toSet(),
-       _allowedEquals = allowedEquals ?? {};
+  ])  : _usedIDs = used.map(UniqueNamer.parse).toSet(),
+        _allowedEquals = allowedEquals ?? {};
 
   @override
   ({ID id, String name}) makeUnique(String name, String type) {

@@ -31,9 +31,9 @@ final fullyQualifiedStringExamples = {
   },
   '"../../test/integration/interop_gen/web_types_input".EventManipulationFunc':
       {
-        'qualified': ['EventManipulationFunc'],
-        'import': '../../test/integration/interop_gen/web_types_input',
-      },
+    'qualified': ['EventManipulationFunc'],
+    'import': '../../test/integration/interop_gen/web_types_input',
+  },
   '"dummy".Shape': {
     'qualified': ['Shape'],
     'import': 'dummy',

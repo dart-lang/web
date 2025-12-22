@@ -25,7 +25,7 @@ external ProductOrrandomNonTypedProduct objectAsProduct(
 );
 @_i1.JS()
 external _i1.JSArray<AnonymousType_9143117<T>>
-indexedArray<T extends _i1.JSAny?>(_i1.JSArray<T> arr);
+    indexedArray<T extends _i1.JSAny?>(_i1.JSArray<T> arr);
 @_i1.JS()
 external double firstTwoNumbers(
   /// Parameter is of the form: [a, b]
@@ -105,14 +105,14 @@ external AnonymousUnion_6216705? get image;
 external _i2.JSTuple2<_i1.JSString, _i1.JSNumber> get myTuple;
 @_i1.JS()
 external _i2.JSReadonlyTuple3<_i1.JSString, _i1.JSNumber, _i1.JSString>
-get myReadonlyTuple;
+    get myReadonlyTuple;
 @_i1.JS()
 external _i2.JSTuple2<_i1.JSString, _i1.JSString> get mySecondTuple;
 @_i1.JS()
 external _i2.JSTuple2<_i1.JSString, _i1.JSString> get myCloneTuple;
 @_i1.JS()
 external _i2.JSTuple4<_i1.JSString, _i1.JSNumber, _i1.JSBoolean, _i1.JSSymbol>
-get typesAsTuple;
+    get typesAsTuple;
 @_i1.JS()
 external AnonymousUnion_7503220 get eightOrSixteen;
 @_i1.JS()
@@ -229,9 +229,7 @@ extension type const KeyOf_TypeOf_MyEnum._(String _) {
   static const KeyOf_TypeOf_MyEnum D = KeyOf_TypeOf_MyEnum._('D');
 }
 extension type _AnonymousFunction_5293571<T extends _i1.JSAny?>._(
-  _i1.JSFunction _
-)
-    implements _i1.JSFunction {
+    _i1.JSFunction _) implements _i1.JSFunction {
   external ComposedType<T> call(T object);
 }
 extension type ComposedType<T extends _i1.JSAny?>._(_i1.JSObject _)

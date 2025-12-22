@@ -35,12 +35,15 @@ void main() {
       final inputFilePath = p.relative(inputFile, from: bindingsGenPath);
       final outFilePath = p.relative(outputFile, from: bindingsGenPath);
 
-      await runProc('node', [
-        'main.mjs',
-        '--input=$inputFilePath',
-        '--output=$outFilePath',
-        '--declaration',
-      ], workingDirectory: bindingsGenPath);
+      await runProc(
+          'node',
+          [
+            'main.mjs',
+            '--input=$inputFilePath',
+            '--output=$outFilePath',
+            '--declaration',
+          ],
+          workingDirectory: bindingsGenPath);
 
       expectFilesEqual(expectedFile, outputFile);
     });
@@ -54,13 +57,16 @@ void main() {
       final outFilePath = p.relative(outputFile, from: bindingsGenPath);
       final configFilePath = p.relative(configFile, from: bindingsGenPath);
 
-      await runProc('node', [
-        'main.mjs',
-        '--input=$inputFilePath',
-        '--output=$outFilePath',
-        '--config=$configFilePath',
-        '--declaration',
-      ], workingDirectory: bindingsGenPath);
+      await runProc(
+          'node',
+          [
+            'main.mjs',
+            '--input=$inputFilePath',
+            '--output=$outFilePath',
+            '--config=$configFilePath',
+            '--declaration',
+          ],
+          workingDirectory: bindingsGenPath);
 
       expectFilesEqual(expectedFile, outputFile);
     });

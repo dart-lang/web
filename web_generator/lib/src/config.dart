@@ -207,8 +207,8 @@ class YamlConfig implements Config {
     this.ignoreErrors = false,
     this.generateAll = false,
   }) : languageVersion = languageVersion == null
-           ? DartFormatter.latestLanguageVersion
-           : Version.parse(languageVersion);
+            ? DartFormatter.latestLanguageVersion
+            : Version.parse(languageVersion);
 
   factory YamlConfig.fromYaml(
     YamlMap yaml, {
@@ -219,9 +219,8 @@ class YamlConfig implements Config {
     List<String> inputFiles;
     final yamlInput = yaml['input'];
     if (yamlInput is YamlList) {
-      inputFiles = yamlInput
-          .map((y) => y is String ? y : y.toString())
-          .toList();
+      inputFiles =
+          yamlInput.map((y) => y is String ? y : y.toString()).toList();
     } else if (yamlInput is String) {
       inputFiles = [yamlInput];
     } else if (input != null) {
@@ -253,8 +252,7 @@ class YamlConfig implements Config {
       functions: FunctionConfig(
         varArgs: (yaml['functions'] as YamlMap?)?['varargs'] as int?,
       ),
-      includedDeclarations:
-          (yaml['include'] as YamlList?)
+      includedDeclarations: (yaml['include'] as YamlList?)
               ?.map<String>((node) => node.toString())
               .toList() ??
           [],

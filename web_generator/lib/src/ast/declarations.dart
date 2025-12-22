@@ -115,17 +115,13 @@ sealed class TypeDeclaration extends NestableDeclaration
     }
 
     methodDecs.addAll(
-      methods
-          .where((p) => p.scope == DeclScope.public)
-          .map(
+      methods.where((p) => p.scope == DeclScope.public).map(
             (m) =>
                 m.emit(options!..override = isOverride(m.dartName ?? m.name)),
           ),
     );
     methodDecs.addAll(
-      operators
-          .where((p) => p.scope == DeclScope.public)
-          .map(
+      operators.where((p) => p.scope == DeclScope.public).map(
             (m) =>
                 m.emit(options!..override = isOverride(m.dartName ?? m.name)),
           ),
@@ -171,9 +167,7 @@ sealed class TypeDeclaration extends NestableDeclaration
               (c) => c
                 ..external = true
                 ..optionalParameters.addAll(
-                  properties
-                      .where((p) => p.scope == DeclScope.public)
-                      .map(
+                  properties.where((p) => p.scope == DeclScope.public).map(
                         (p) => Parameter(
                           (param) => param
                             ..named = true
@@ -302,9 +296,10 @@ class VariableDeclaration extends FieldDeclaration
 }
 
 bool _checkIfDiscardable(Type type) {
-  if (type case BuiltinType(
-    discardable: final typeIsDiscardable,
-  ) when typeIsDiscardable) {
+  if (type
+      case BuiltinType(
+        discardable: final typeIsDiscardable,
+      ) when typeIsDiscardable) {
     return true;
   }
   return false;
@@ -682,8 +677,7 @@ class NamespaceDeclaration extends NestableDeclaration
     for (final NamespaceDeclaration(
           name: namespaceName,
           dartName: namespaceDartName,
-        )
-        in namespaceDeclarations) {
+        ) in namespaceDeclarations) {
       methods.add(
         Method(
           (m) => m
@@ -782,29 +776,29 @@ class CompositeDeclaration extends TypeDeclaration {
     this.implementedTypes = const [],
     this.useFirstExtendeeAsRepType = false,
     this.rawMethods = const [],
-  }) : objectLiteralConstructor = false,
-       super(exported: true);
+  })  : objectLiteralConstructor = false,
+        super(exported: true);
 
   CompositeDeclaration.fromInterface(
     InterfaceDeclaration interface, [
     this.rawMethods = const [],
-  ]) : extendedTypes = interface.extendedTypes,
-       implementedTypes = [],
-       useFirstExtendeeAsRepType = interface.useFirstExtendeeAsRepType,
-       objectLiteralConstructor = interface.objectLiteralConstructor,
-       super(
-         name: interface.name,
-         dartName: interface.dartName,
-         exported: true,
-         id: interface.id,
-         parent: interface.parent,
-         typeParameters: interface.typeParameters,
-         methods: interface.methods,
-         properties: interface.properties,
-         operators: interface.operators,
-         constructors: interface.constructors,
-         documentation: interface.documentation,
-       );
+  ])  : extendedTypes = interface.extendedTypes,
+        implementedTypes = [],
+        useFirstExtendeeAsRepType = interface.useFirstExtendeeAsRepType,
+        objectLiteralConstructor = interface.objectLiteralConstructor,
+        super(
+          name: interface.name,
+          dartName: interface.dartName,
+          exported: true,
+          id: interface.id,
+          parent: interface.parent,
+          typeParameters: interface.typeParameters,
+          methods: interface.methods,
+          properties: interface.properties,
+          operators: interface.operators,
+          constructors: interface.constructors,
+          documentation: interface.documentation,
+        );
 
   factory CompositeDeclaration.fromNamespace(NamespaceDeclaration namespace) {
     final methodDeclarations = <MethodDeclaration>[];
@@ -874,20 +868,20 @@ class CompositeDeclaration extends TypeDeclaration {
   }
 
   InterfaceDeclaration get asInterface => InterfaceDeclaration(
-    name: name,
-    exported: exported,
-    id: id,
-    dartName: dartName,
-    documentation: documentation,
-    typeParameters: typeParameters,
-    properties: properties,
-    methods: methods,
-    operators: operators,
-    constructors: constructors,
-    extendedTypes: extendedTypes,
-    useFirstExtendeeAsRepType: useFirstExtendeeAsRepType,
-    objectLiteralConstructor: objectLiteralConstructor,
-  );
+        name: name,
+        exported: exported,
+        id: id,
+        dartName: dartName,
+        documentation: documentation,
+        typeParameters: typeParameters,
+        properties: properties,
+        methods: methods,
+        operators: operators,
+        constructors: constructors,
+        extendedTypes: extendedTypes,
+        useFirstExtendeeAsRepType: useFirstExtendeeAsRepType,
+        objectLiteralConstructor: objectLiteralConstructor,
+      );
 
   @override
   Spec emit([covariant DeclarationOptions? options]) {
@@ -928,8 +922,8 @@ class ClassDeclaration extends TypeDeclaration {
     super.operators,
     super.documentation,
   }) : super(
-         id: ID(type: 'class', name: name),
-       );
+          id: ID(type: 'class', name: name),
+        );
 
   @override
   ExtensionType emit([covariant DeclarationOptions? options]) {
@@ -1421,17 +1415,15 @@ Method? _extractConstrFromClass(
         ..returns = refer('${completedDartName}_${classDartName ?? className}')
         ..lambda = true
         ..static = true
-        ..body = refer(classDecl.completedDartName)
-            .call(
-              [
-                ...requiredParams.map((p) => refer(p.name)),
-                if (optionalParams.isNotEmpty)
-                  ...optionalParams.map((p) => refer(p.name)),
-              ],
-              {},
-              typeParams.map((t) => t.emit(options?.toTypeOptions())).toList(),
-            )
-            .code,
+        ..body = refer(classDecl.completedDartName).call(
+          [
+            ...requiredParams.map((p) => refer(p.name)),
+            if (optionalParams.isNotEmpty)
+              ...optionalParams.map((p) => refer(p.name)),
+          ],
+          {},
+          typeParams.map((t) => t.emit(options?.toTypeOptions())).toList(),
+        ).code,
     );
   }
   return null;

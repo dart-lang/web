@@ -70,13 +70,14 @@ abstract class NamedDeclaration extends Declaration {
     Iterable<Type>? typeArgs,
     bool isNullable = false,
     String? url,
-  ]) => ReferredType(
-    name: name,
-    declaration: this,
-    typeParams: typeArgs?.toList() ?? [],
-    url: url,
-    isNullable: isNullable,
-  );
+  ]) =>
+      ReferredType(
+        name: name,
+        declaration: this,
+        typeParams: typeArgs?.toList() ?? [],
+        url: url,
+        isNullable: isNullable,
+      );
 }
 
 abstract interface class DocumentedDeclaration {

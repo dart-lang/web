@@ -56,6 +56,16 @@ void main() {
         expect(object.getPropertyWithThis("foo".toJS, object), equals(1.toJS)),
   );
 
+  test("hasOwnProperty", () {
+    expect(object.hasOwnProperty("foo".toJS), isTrue);
+    expect(object.hasOwnProperty("toString".toJS), isFalse);
+  });
+
+  test("setPropertyWithThis", () {
+    expect(object.setPropertyWithThis("baz".toJS, object, 3.toJS), isTrue);
+    expect(object.getProperty("baz".toJS), equals(3.toJS));
+  });
+
   test(
     "isPrototypeOf",
     () => expect(object.isPrototypeOf(JSObject()), isFalse),

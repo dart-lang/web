@@ -92,8 +92,8 @@ void main() {
     );
   });
 
-  test("addAllRecord()", () {
-    record.addAllRecord({"bar": 3.toJS, "baz": 4.toJS}.toJSRecord);
+  test("addAllFromRecord()", () {
+    record.addAllFromRecord({"bar": 3.toJS, "baz": 4.toJS}.toJSRecord);
     expect(
       record.toDart,
       equals({"foo": 1.toJS, "bar": 3.toJS, "baz": 4.toJS}),
@@ -124,6 +124,11 @@ void main() {
   test("containsKey()", () {
     expect(record.containsKey("foo"), isTrue);
     expect(record.containsKey("baz"), isFalse);
+  });
+
+  test("containsValue()", () {
+    expect(record.containsValue(1.toJS), isTrue);
+    expect(record.containsValue(3.toJS), isFalse);
   });
 
   test("forEach()", () {

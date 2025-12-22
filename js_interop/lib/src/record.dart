@@ -66,7 +66,7 @@ extension type JSRecord<V extends JSAny?>._(JSObject _) implements JSObject {
 
   /// Creates a [JSRecord] with the same keys and values as [other].
   static JSRecord<V> ofRecord<V extends JSAny?>(JSRecord<V> other) =>
-      JSRecord<V>()..addAllRecord(other);
+      JSRecord<V>()..addAllFromRecord(other);
 
   /// Like [Map.of], but creates a record.
   static JSRecord<V> ofMap<V extends JSAny?>(Map<String, V> other) =>
@@ -95,7 +95,7 @@ extension type JSRecord<V extends JSAny?>._(JSObject _) implements JSObject {
   /// The operation is equivalent to doing `this[key] = value` for each key and
   /// associated value in [other]. It iterates over [other], which must therefore
   /// not change during the iteration.
-  void addAllRecord(JSRecord<V> other) => addPairs(other.pairs);
+  void addAllFromRecord(JSRecord<V> other) => addPairs(other.pairs);
 
   /// See [Map.addEntries].
   void addEntries(Iterable<MapEntry<String, V>> entries) {

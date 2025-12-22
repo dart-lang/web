@@ -43,9 +43,8 @@ external bool _set(JSObject object, JSAny name, JSAny? value, JSAny? thisArg);
 @JS('Object.values')
 external JSArray<JSAny?> _values(JSObject object);
 
-/// Additional instance methods for the `dart:js_interop` [interop.JSObject]
-/// type meant to be used when the names of properties or methods are not known
-/// statically.
+/// Additional instance methods for the `dart:js_interop` [JSObject] type meant
+/// to be used when the names of properties or methods are not known statically.
 extension JSObjectUnsafeExtension on JSObject {
   /// See [`Object.entries()`].
   ///

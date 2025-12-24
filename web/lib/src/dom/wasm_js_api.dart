@@ -18,7 +18,9 @@ import 'dart:js_interop';
 import 'fetch.dart';
 import 'webidl.dart';
 
+typedef AddressValue = JSAny?;
 typedef ImportExportKind = String;
+typedef AddressType = String;
 typedef TableKind = String;
 typedef ValueType = String;
 extension type WebAssemblyInstantiatedSource._(JSObject _) implements JSObject {
@@ -32,21 +34,44 @@ extension type WebAssemblyInstantiatedSource._(JSObject _) implements JSObject {
   external Instance get instance;
   external set instance(Instance value);
 }
+extension type WebAssemblyCompileOptions._(JSObject _) implements JSObject {
+  external factory WebAssemblyCompileOptions({
+    String? importedStringConstants,
+    JSArray<JSString> builtins,
+  });
+
+  external String? get importedStringConstants;
+  external set importedStringConstants(String? value);
+  external JSArray<JSString> get builtins;
+  external set builtins(JSArray<JSString> value);
+}
 @JS()
 external $WebAssembly get WebAssembly;
 @JS('WebAssembly')
 extension type $WebAssembly._(JSObject _) implements JSObject {
-  external bool validate(BufferSource bytes);
-  external JSPromise<Module> compile(BufferSource bytes);
+  external bool validate(
+    BufferSource bytes, [
+    WebAssemblyCompileOptions options,
+  ]);
+  external JSPromise<Module> compile(
+    BufferSource bytes, [
+    WebAssemblyCompileOptions options,
+  ]);
   external JSPromise<JSObject> instantiate(
     JSObject bytesOrModuleObject, [
     JSObject importObject,
+    WebAssemblyCompileOptions options,
   ]);
-  external JSPromise<Module> compileStreaming(JSPromise<Response> source);
+  external JSPromise<Module> compileStreaming(
+    JSPromise<Response> source, [
+    WebAssemblyCompileOptions options,
+  ]);
   external JSPromise<WebAssemblyInstantiatedSource> instantiateStreaming(
     JSPromise<Response> source, [
     JSObject importObject,
+    WebAssemblyCompileOptions options,
   ]);
+  external Tag get JSTag;
 }
 extension type ModuleExportDescriptor._(JSObject _) implements JSObject {
   external factory ModuleExportDescriptor({
@@ -75,7 +100,10 @@ extension type ModuleImportDescriptor._(JSObject _) implements JSObject {
 }
 @JS('WebAssembly.Module')
 extension type Module._(JSObject _) implements JSObject {
-  external factory Module(BufferSource bytes);
+  external factory Module(
+    BufferSource bytes, [
+    WebAssemblyCompileOptions options,
+  ]);
 
   external static JSArray<ModuleExportDescriptor> exports(Module moduleObject);
   external static JSArray<ModuleImportDescriptor> imports(Module moduleObject);
@@ -95,35 +123,41 @@ extension type Instance._(JSObject _) implements JSObject {
 }
 extension type MemoryDescriptor._(JSObject _) implements JSObject {
   external factory MemoryDescriptor({
-    required int initial,
-    int maximum,
+    required AddressValue initial,
+    AddressValue maximum,
+    AddressType address,
   });
 
-  external int get initial;
-  external set initial(int value);
-  external int get maximum;
-  external set maximum(int value);
+  external AddressValue get initial;
+  external set initial(AddressValue value);
+  external AddressValue get maximum;
+  external set maximum(AddressValue value);
+  external AddressType get address;
+  external set address(AddressType value);
 }
 @JS('WebAssembly.Memory')
 extension type Memory._(JSObject _) implements JSObject {
   external factory Memory(MemoryDescriptor descriptor);
 
-  external int grow(int delta);
+  external AddressValue grow(AddressValue delta);
   external JSArrayBuffer get buffer;
 }
 extension type TableDescriptor._(JSObject _) implements JSObject {
   external factory TableDescriptor({
     required TableKind element,
-    required int initial,
-    int maximum,
+    required AddressValue initial,
+    AddressValue maximum,
+    AddressType address,
   });
 
   external TableKind get element;
   external set element(TableKind value);
-  external int get initial;
-  external set initial(int value);
-  external int get maximum;
-  external set maximum(int value);
+  external AddressValue get initial;
+  external set initial(AddressValue value);
+  external AddressValue get maximum;
+  external set maximum(AddressValue value);
+  external AddressType get address;
+  external set address(AddressType value);
 }
 @JS('WebAssembly.Table')
 extension type Table._(JSObject _) implements JSObject {
@@ -132,16 +166,16 @@ extension type Table._(JSObject _) implements JSObject {
     JSAny? value,
   ]);
 
-  external int grow(
-    int delta, [
+  external AddressValue grow(
+    AddressValue delta, [
     JSAny? value,
   ]);
-  external JSAny? get(int index);
+  external JSAny? get(AddressValue index);
   external void set(
-    int index, [
+    AddressValue index, [
     JSAny? value,
   ]);
-  external int get length;
+  external AddressValue get length;
 }
 extension type GlobalDescriptor._(JSObject _) implements JSObject {
   external factory GlobalDescriptor({
@@ -164,4 +198,32 @@ extension type Global._(JSObject _) implements JSObject {
   external JSAny? valueOf();
   external JSAny? get value;
   external set value(JSAny? value);
+}
+extension type TagType._(JSObject _) implements JSObject {
+  external factory TagType({required JSArray<JSString> parameters});
+
+  external JSArray<JSString> get parameters;
+  external set parameters(JSArray<JSString> value);
+}
+@JS('WebAssembly.Tag')
+extension type Tag._(JSObject _) implements JSObject {
+  external factory Tag(TagType type);
+}
+extension type ExceptionOptions._(JSObject _) implements JSObject {
+  external factory ExceptionOptions({bool traceStack});
+
+  external bool get traceStack;
+  external set traceStack(bool value);
+}
+@JS('WebAssembly.Exception')
+extension type Exception._(JSObject _) implements JSObject {
+  external factory Exception(
+    Tag exceptionTag,
+    JSArray<JSAny?> payload, [
+    ExceptionOptions options,
+  ]);
+
+  external JSAny? getArg(int index);
+  @JS('is')
+  external bool is_(Tag exceptionTag);
 }

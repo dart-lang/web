@@ -16,21 +16,28 @@ library;
 import 'dart:js_interop';
 
 import 'payment_request.dart';
+import 'webauthn.dart';
 
 extension type AuthenticationExtensionsPaymentInputs._(JSObject _)
     implements JSObject {
   external factory AuthenticationExtensionsPaymentInputs({
     bool isPayment,
+    JSArray<PublicKeyCredentialParameters> browserBoundPubKeyCredParams,
     String rpId,
     String topOrigin,
     String payeeName,
     String payeeOrigin,
+    JSArray<PaymentEntityLogo> paymentEntitiesLogos,
     PaymentCurrencyAmount total,
     PaymentCredentialInstrument instrument,
   });
 
   external bool get isPayment;
   external set isPayment(bool value);
+  external JSArray<PublicKeyCredentialParameters>
+      get browserBoundPubKeyCredParams;
+  external set browserBoundPubKeyCredParams(
+      JSArray<PublicKeyCredentialParameters> value);
   external String get rpId;
   external set rpId(String value);
   external String get topOrigin;
@@ -39,16 +46,33 @@ extension type AuthenticationExtensionsPaymentInputs._(JSObject _)
   external set payeeName(String value);
   external String get payeeOrigin;
   external set payeeOrigin(String value);
+  external JSArray<PaymentEntityLogo> get paymentEntitiesLogos;
+  external set paymentEntitiesLogos(JSArray<PaymentEntityLogo> value);
   external PaymentCurrencyAmount get total;
   external set total(PaymentCurrencyAmount value);
   external PaymentCredentialInstrument get instrument;
   external set instrument(PaymentCredentialInstrument value);
+}
+extension type AuthenticationExtensionsPaymentOutputs._(JSObject _)
+    implements JSObject {
+  external factory AuthenticationExtensionsPaymentOutputs(
+      {BrowserBoundSignature browserBoundSignature});
+
+  external BrowserBoundSignature get browserBoundSignature;
+  external set browserBoundSignature(BrowserBoundSignature value);
+}
+extension type BrowserBoundSignature._(JSObject _) implements JSObject {
+  external factory BrowserBoundSignature({required JSArrayBuffer signature});
+
+  external JSArrayBuffer get signature;
+  external set signature(JSArrayBuffer value);
 }
 extension type PaymentCredentialInstrument._(JSObject _) implements JSObject {
   external factory PaymentCredentialInstrument({
     required String displayName,
     required String icon,
     bool iconMustBeShown,
+    String details,
   });
 
   external String get displayName;
@@ -57,4 +81,17 @@ extension type PaymentCredentialInstrument._(JSObject _) implements JSObject {
   external set icon(String value);
   external bool get iconMustBeShown;
   external set iconMustBeShown(bool value);
+  external String get details;
+  external set details(String value);
+}
+extension type PaymentEntityLogo._(JSObject _) implements JSObject {
+  external factory PaymentEntityLogo({
+    required String url,
+    required String label,
+  });
+
+  external String get url;
+  external set url(String value);
+  external String get label;
+  external set label(String value);
 }

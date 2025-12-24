@@ -24,14 +24,8 @@ extension type Core._(_i1.JSObject _) implements _i1.JSObject {
   @_i1.JS('Core.Internal')
   external static Core_Internal get Internal;
   @_i1.JS('Core.LogEntry')
-  static Core_LogEntry LogEntry(
-    String timestamp,
-    String message,
-  ) =>
-      Core_LogEntry(
-        timestamp,
-        message,
-      );
+  static Core_LogEntry LogEntry(String timestamp, String message) =>
+      Core_LogEntry(timestamp, message);
 }
 extension type Security._(_i1.JSObject _) implements _i1.JSObject {
   @_i1.JS()
@@ -67,10 +61,7 @@ typedef ProductService = EnterpriseApp_DataServices_ProductService;
 external _i1.JSArray<Data_Models_User> get allUsers;
 @_i1.JS('Core.LogEntry')
 extension type Core_LogEntry._(_i1.JSObject _) implements _i1.JSObject {
-  external Core_LogEntry(
-    String timestamp,
-    String message,
-  );
+  external Core_LogEntry(String timestamp, String message);
 
   external String timestamp;
 
@@ -96,11 +87,13 @@ typedef Core_Internal_Mode = AnonymousUnion_9945138;
 extension type const AnonymousUnion_9945138._(String _) {
   static const AnonymousUnion_9945138 debug = AnonymousUnion_9945138._('debug');
 
-  static const AnonymousUnion_9945138 profile =
-      AnonymousUnion_9945138._('profile');
+  static const AnonymousUnion_9945138 profile = AnonymousUnion_9945138._(
+    'profile',
+  );
 
-  static const AnonymousUnion_9945138 release =
-      AnonymousUnion_9945138._('release');
+  static const AnonymousUnion_9945138 release = AnonymousUnion_9945138._(
+    'release',
+  );
 }
 @_i1.JS('Security.IAuthToken')
 extension type Security_IAuthToken._(_i1.JSObject _) implements _i1.JSObject {
@@ -117,10 +110,7 @@ extension type Security_IAuthToken._(_i1.JSObject _) implements _i1.JSObject {
 extension type Security_AuthService._(_i1.JSObject _) implements _i1.JSObject {
   external Security_AuthService();
 
-  external Security_IAuthToken? login(
-    String username,
-    String password,
-  );
+  external Security_IAuthToken? login(String username, String password);
 }
 
 /// A generic repository pattern interface.
@@ -147,16 +137,8 @@ extension type Data_UserRepository._(_i1.JSObject _)
 @_i1.JS('Data.Models')
 extension type Data_Models._(_i1.JSObject _) implements _i1.JSObject {
   @_i1.JS('Data.Models.User')
-  static Data_Models_User User(
-    num id,
-    String name,
-    String email,
-  ) =>
-      Data_Models_User(
-        id,
-        name,
-        email,
-      );
+  static Data_Models_User User(num id, String name, String email) =>
+      Data_Models_User(id, name, email);
 }
 @_i1.JS('Data.Models.IUser')
 extension type Data_Models_IUser._(_i1.JSObject _) implements _i1.JSObject {
@@ -168,11 +150,7 @@ extension type Data_Models_IUser._(_i1.JSObject _) implements _i1.JSObject {
 }
 @_i1.JS('Data.Models.User')
 extension type Data_Models_User._(_i1.JSObject _) implements Data_Models_IUser {
-  external Data_Models_User(
-    num id,
-    String name,
-    String email,
-  );
+  external Data_Models_User(num id, String name, String email);
 
   external double id;
 
@@ -183,28 +161,15 @@ extension type Data_Models_User._(_i1.JSObject _) implements Data_Models_IUser {
 @_i1.JS('EnterpriseApp.Models')
 extension type EnterpriseApp_Models._(_i1.JSObject _) implements _i1.JSObject {
   @_i1.JS('EnterpriseApp.Models.User')
-  static EnterpriseApp_Models_User User(
-    num id,
-    String name,
-    String email,
-  ) =>
-      EnterpriseApp_Models_User(
-        id,
-        name,
-        email,
-      );
+  static EnterpriseApp_Models_User User(num id, String name, String email) =>
+      EnterpriseApp_Models_User(id, name, email);
 
   @_i1.JS('EnterpriseApp.Models.Product')
   static EnterpriseApp_Models_Product Product(
     String sku,
     String title,
     num price,
-  ) =>
-      EnterpriseApp_Models_Product(
-        sku,
-        title,
-        price,
-      );
+  ) => EnterpriseApp_Models_Product(sku, title, price);
 }
 @_i1.JS('EnterpriseApp.Models.IUser')
 extension type EnterpriseApp_Models_IUser._(_i1.JSObject _)
@@ -218,11 +183,7 @@ extension type EnterpriseApp_Models_IUser._(_i1.JSObject _)
 @_i1.JS('EnterpriseApp.Models.User')
 extension type EnterpriseApp_Models_User._(_i1.JSObject _)
     implements EnterpriseApp_Models_IUser {
-  external EnterpriseApp_Models_User(
-    num id,
-    String name,
-    String email,
-  );
+  external EnterpriseApp_Models_User(num id, String name, String email);
 
   external double id;
 
@@ -246,11 +207,7 @@ extension type EnterpriseApp_Models_IProduct._(_i1.JSObject _)
 @_i1.JS('EnterpriseApp.Models.Product')
 extension type EnterpriseApp_Models_Product._(_i1.JSObject _)
     implements EnterpriseApp_Models_IProduct {
-  external EnterpriseApp_Models_Product(
-    String sku,
-    String title,
-    num price,
-  );
+  external EnterpriseApp_Models_Product(String sku, String title, num price);
 
   external String sku;
 
@@ -267,10 +224,7 @@ extension type EnterpriseApp_Utilities._(_i1.JSObject _)
   ///
   /// Returns A formatted string.
   @_i1.JS()
-  external static String formatCurrency(
-    num amount, [
-    String? currency,
-  ]);
+  external static String formatCurrency(num amount, [String? currency]);
 
   /// Validates an email address.
   /// - [email]:  The email string to validate.
@@ -292,7 +246,9 @@ extension type EnterpriseApp_DataServices._(_i1.JSObject _)
 }
 @_i1.JS('EnterpriseApp.DataServices.IDataService')
 extension type EnterpriseApp_DataServices_IDataService<T extends _i1.JSAny?>._(
-    _i1.JSObject _) implements _i1.JSObject {
+  _i1.JSObject _
+)
+    implements _i1.JSObject {
   external _i1.JSArray<T> getAll();
   external T getById(String id);
   external void save(T item);
@@ -336,7 +292,8 @@ extension type EnterpriseApp_UI_Components._(_i1.JSObject _)
     implements _i1.JSObject {
   @_i1.JS()
   external static void renderUserList(
-      _i1.JSArray<EnterpriseApp_Models_User> users);
+    _i1.JSArray<EnterpriseApp_Models_User> users,
+  );
 }
 extension type AnonymousUnion_1467782._(_i1.JSAny _) implements _i1.JSAny {
   String get asString => (_ as _i1.JSString).toDart;

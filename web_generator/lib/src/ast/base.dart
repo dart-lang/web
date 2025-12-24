@@ -39,10 +39,11 @@ class ASTOptions {
   bool emitJSTypes;
   int variadicArgsCount;
 
-  ASTOptions(
-      {this.parameter = false,
-      this.variadicArgsCount = 4,
-      this.emitJSTypes = false});
+  ASTOptions({
+    this.parameter = false,
+    this.variadicArgsCount = 4,
+    this.emitJSTypes = false,
+  });
 }
 
 sealed class Node {
@@ -65,14 +66,17 @@ abstract class NamedDeclaration extends Declaration {
   @override
   abstract String name;
 
-  ReferredType asReferredType(
-          [Iterable<Type>? typeArgs, bool isNullable = false, String? url]) =>
-      ReferredType(
-          name: name,
-          declaration: this,
-          typeParams: typeArgs?.toList() ?? [],
-          url: url,
-          isNullable: isNullable);
+  ReferredType asReferredType([
+    Iterable<Type>? typeArgs,
+    bool isNullable = false,
+    String? url,
+  ]) => ReferredType(
+    name: name,
+    declaration: this,
+    typeParams: typeArgs?.toList() ?? [],
+    url: url,
+    isNullable: isNullable,
+  );
 }
 
 abstract interface class DocumentedDeclaration {
@@ -143,20 +147,23 @@ class ParameterDeclaration implements DocumentedDeclaration {
   @override
   Documentation? documentation;
 
-  ParameterDeclaration(
-      {required this.name,
-      this.optional = false,
-      required this.type,
-      this.variadic = false,
-      this.documentation});
+  ParameterDeclaration({
+    required this.name,
+    this.optional = false,
+    required this.type,
+    this.variadic = false,
+    this.documentation,
+  });
 
   Parameter emit([DeclarationOptions? options]) {
     final (doc, annotations) = generateFromDocumentation(documentation);
-    return Parameter((p) => p
-      ..name = name
-      ..annotations.addAll(annotations)
-      ..docs.addAll(doc)
-      ..type = type.emit(TypeOptions(nullable: optional)));
+    return Parameter(
+      (p) => p
+        ..name = name
+        ..annotations.addAll(annotations)
+        ..docs.addAll(doc)
+        ..type = type.emit(TypeOptions(nullable: optional)),
+    );
   }
 }
 

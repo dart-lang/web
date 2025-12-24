@@ -72,17 +72,18 @@ abstract interface class Config {
   /// as a config option in the configuration file
   bool get strictUnsupported;
 
-  factory Config(
-      {required List<String> input,
-      required String output,
-      required Version languageVersion,
-      FunctionConfig? functions,
-      Map<String, dynamic>? tsConfig,
-      List<String> includedDeclarations,
-      bool generateAll,
-      bool ignoreErrors,
-      String? tsConfigFile,
-      bool strictUnsupported}) = ConfigImpl._;
+  factory Config({
+    required List<String> input,
+    required String output,
+    required Version languageVersion,
+    FunctionConfig? functions,
+    Map<String, dynamic>? tsConfig,
+    List<String> includedDeclarations,
+    bool generateAll,
+    bool ignoreErrors,
+    String? tsConfigFile,
+    bool strictUnsupported,
+  }) = ConfigImpl._;
 }
 
 class ConfigImpl implements Config {
@@ -128,17 +129,18 @@ class ConfigImpl implements Config {
   @override
   bool strictUnsupported;
 
-  ConfigImpl._(
-      {required this.input,
-      required this.output,
-      required this.languageVersion,
-      this.functions,
-      this.tsConfig,
-      this.includedDeclarations = const [],
-      this.ignoreErrors = false,
-      this.generateAll = false,
-      this.tsConfigFile,
-      this.strictUnsupported = false});
+  ConfigImpl._({
+    required this.input,
+    required this.output,
+    required this.languageVersion,
+    this.functions,
+    this.tsConfig,
+    this.includedDeclarations = const [],
+    this.ignoreErrors = false,
+    this.generateAll = false,
+    this.tsConfigFile,
+    this.strictUnsupported = false,
+  });
 
   @override
   bool get singleFileOutput => input.length == 1;
@@ -190,31 +192,36 @@ class YamlConfig implements Config {
   @override
   bool get strictUnsupported => false;
 
-  YamlConfig._(
-      {required this.filename,
-      required this.input,
-      required this.output,
-      this.description,
-      this.name,
-      this.preamble,
-      this.functions,
-      this.includedDeclarations = const [],
-      this.tsConfig,
-      this.tsConfigFile,
-      String? languageVersion,
-      this.ignoreErrors = false,
-      this.generateAll = false})
-      : languageVersion = languageVersion == null
-            ? DartFormatter.latestLanguageVersion
-            : Version.parse(languageVersion);
+  YamlConfig._({
+    required this.filename,
+    required this.input,
+    required this.output,
+    this.description,
+    this.name,
+    this.preamble,
+    this.functions,
+    this.includedDeclarations = const [],
+    this.tsConfig,
+    this.tsConfigFile,
+    String? languageVersion,
+    this.ignoreErrors = false,
+    this.generateAll = false,
+  }) : languageVersion = languageVersion == null
+           ? DartFormatter.latestLanguageVersion
+           : Version.parse(languageVersion);
 
-  factory YamlConfig.fromYaml(YamlMap yaml,
-      {required String filename, List<String>? input, String? output}) {
+  factory YamlConfig.fromYaml(
+    YamlMap yaml, {
+    required String filename,
+    List<String>? input,
+    String? output,
+  }) {
     List<String> inputFiles;
     final yamlInput = yaml['input'];
     if (yamlInput is YamlList) {
-      inputFiles =
-          yamlInput.map((y) => y is String ? y : y.toString()).toList();
+      inputFiles = yamlInput
+          .map((y) => y is String ? y : y.toString())
+          .toList();
     } else if (yamlInput is String) {
       inputFiles = [yamlInput];
     } else if (input != null) {
@@ -223,32 +230,36 @@ class YamlConfig implements Config {
       throw TypeError();
     }
 
-    final allFiles =
-        expandGlobs(inputFiles, extension: '.d.ts', cwd: p.dirname(filename));
+    final allFiles = expandGlobs(
+      inputFiles,
+      extension: '.d.ts',
+      cwd: p.dirname(filename),
+    );
 
     final tsConfig = yaml['ts_config'] as YamlMap?;
 
     return YamlConfig._(
-        filename: Uri.file(filename),
-        input:
-            allFiles.map((file) => p.join(p.dirname(filename), file)).toList(),
-        output:
-            p.join(p.dirname(filename), (yaml['output'] ?? output) as String),
-        name: yaml['name'] as String?,
-        description: yaml['description'] as String?,
-        languageVersion: yaml['language_version'] as String?,
-        preamble: yaml['preamble'] as String?,
-        tsConfig: tsConfig != null
-            ? jsonDecode(jsonEncode(tsConfig)) as Map<String, dynamic>
-            : null,
-        tsConfigFile: yaml['ts_config_file'] as String?,
-        functions: FunctionConfig(
-            varArgs: (yaml['functions'] as YamlMap?)?['varargs'] as int?),
-        includedDeclarations: (yaml['include'] as YamlList?)
-                ?.map<String>((node) => node.toString())
-                .toList() ??
-            [],
-        ignoreErrors: yaml['ignore_errors'] as bool? ?? false,
-        generateAll: yaml['generate_all'] as bool? ?? false);
+      filename: Uri.file(filename),
+      input: allFiles.map((file) => p.join(p.dirname(filename), file)).toList(),
+      output: p.join(p.dirname(filename), (yaml['output'] ?? output) as String),
+      name: yaml['name'] as String?,
+      description: yaml['description'] as String?,
+      languageVersion: yaml['language_version'] as String?,
+      preamble: yaml['preamble'] as String?,
+      tsConfig: tsConfig != null
+          ? jsonDecode(jsonEncode(tsConfig)) as Map<String, dynamic>
+          : null,
+      tsConfigFile: yaml['ts_config_file'] as String?,
+      functions: FunctionConfig(
+        varArgs: (yaml['functions'] as YamlMap?)?['varargs'] as int?,
+      ),
+      includedDeclarations:
+          (yaml['include'] as YamlList?)
+              ?.map<String>((node) => node.toString())
+              .toList() ??
+          [],
+      ignoreErrors: yaml['ignore_errors'] as bool? ?? false,
+      generateAll: yaml['generate_all'] as bool? ?? false,
+    );
   }
 }

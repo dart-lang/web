@@ -6,11 +6,12 @@
 library;
 
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:web_generator/src/cli.dart';
+
+import 'test_shared.dart';
 
 /// Actual test output can be found in `.dart_tool/idl`
 void main() {
@@ -18,8 +19,11 @@ void main() {
   group('Interop Gen Unsupported Test', () {
     final testFile = p.join('test', 'assets', 'unsupported_test.d.ts');
     final outputFile = p.join('.dart_tool', 'unsupported_test.dart');
-    final expectedFile =
-        p.join('test', 'assets', 'unsupported_test_expected.dart');
+    final expectedFile = p.join(
+      'test',
+      'assets',
+      'unsupported_test_expected.dart',
+    );
 
     setUpAll(() async {
       // set up npm
@@ -33,16 +37,13 @@ void main() {
       final inputFilePath = p.relative(testFile, from: bindingsGenPath);
       final outputFilePath = p.relative(outputFile, from: bindingsGenPath);
 
-      final process = await runProcWithResult(
-          'node',
-          [
-            'main.mjs',
-            '--input=$inputFilePath',
-            '--output=$outputFilePath',
-            '--strict-unsupported',
-            '--declaration'
-          ],
-          workingDirectory: bindingsGenPath);
+      final process = await runProcWithResult('node', [
+        'main.mjs',
+        '--input=$inputFilePath',
+        '--output=$outputFilePath',
+        '--strict-unsupported',
+        '--declaration',
+      ], workingDirectory: bindingsGenPath);
 
       final stderr = await process.stderr.transform(utf8.decoder).toList();
 
@@ -54,21 +55,14 @@ void main() {
       final inputFilePath = p.relative(testFile, from: bindingsGenPath);
       final outputFilePath = p.relative(outputFile, from: bindingsGenPath);
 
-      await runProc(
-          'node',
-          [
-            'main.mjs',
-            '--input=$inputFilePath',
-            '--output=$outputFilePath',
-            '--declaration'
-          ],
-          workingDirectory: bindingsGenPath);
+      await runProc('node', [
+        'main.mjs',
+        '--input=$inputFilePath',
+        '--output=$outputFilePath',
+        '--declaration',
+      ], workingDirectory: bindingsGenPath);
 
-      // read files
-      final expectedOutput = await File(expectedFile).readAsString();
-      final actualOutput = await File(outputFile).readAsString();
-
-      expect(actualOutput, expectedOutput);
+      expectFilesEqual(expectedFile, outputFile);
     });
   });
 }

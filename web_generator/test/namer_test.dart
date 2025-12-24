@@ -52,7 +52,10 @@ void main() {
 }
 
 void expectNameMatches(
-    ({ID id, String name}) name, String newName, String type) {
+  ({ID id, String name}) name,
+  String newName,
+  String type,
+) {
   expect(name.name, newName);
   expect(name.id.type, type);
 }

@@ -16,8 +16,9 @@ class ID {
 
   String get rename {
     if (index != null && index != 0) {
-      final s =
-          name.endsWith(r'$') ? name.substring(0, name.indexOf(r'$')) : name;
+      final s = name.endsWith(r'$')
+          ? name.substring(0, name.indexOf(r'$'))
+          : name;
       return '$s\$$index';
     } else {
       return name;
@@ -44,19 +45,15 @@ class UniqueNamer {
 
   Set<String> get used => _usedNames;
 
-  UniqueNamer([
-    Iterable<String> used = const <String>[],
-  ]) : _usedNames = used.toSet();
+  UniqueNamer([Iterable<String> used = const <String>[]])
+    : _usedNames = used.toSet();
 
   /// Makes a name that does not conflict with dart keywords
   static String makeNonConflicting(String name) {
     if (int.tryParse(name) != null) {
       return '\$$name';
     } else if (double.tryParse(name) != null) {
-      return '\$${name.splitMapJoin(
-        '.',
-        onMatch: (p0) => 'dot',
-      )}';
+      return '\$${name.splitMapJoin('.', onMatch: (p0) => 'dot')}';
     } else if (keywords.contains(name)) {
       return '$name\$';
     } else {
@@ -85,7 +82,7 @@ class UniqueNamer {
     markUsed(newName);
     return (
       id: ID(type: type, name: name, index: i == 0 ? null : i),
-      name: newName
+      name: newName,
     );
   }
 
@@ -113,7 +110,10 @@ class UniqueNamer {
     }
 
     return ID(
-        type: type, name: name, index: index == null ? null : int.parse(index));
+      type: type,
+      name: name,
+      index: index == null ? null : int.parse(index),
+    );
   }
 
   /// Adds a [name] to used names.
@@ -132,10 +132,11 @@ class ScopedUniqueNamer implements UniqueNamer {
   @override
   Set<String> get used => _usedNames;
 
-  ScopedUniqueNamer(
-      [Set<String>? allowedEquals, Iterable<String> used = const <String>[]])
-      : _usedIDs = used.map(UniqueNamer.parse).toSet(),
-        _allowedEquals = allowedEquals ?? {};
+  ScopedUniqueNamer([
+    Set<String>? allowedEquals,
+    Iterable<String> used = const <String>[],
+  ]) : _usedIDs = used.map(UniqueNamer.parse).toSet(),
+       _allowedEquals = allowedEquals ?? {};
 
   @override
   ({ID id, String name}) makeUnique(String name, String type) {

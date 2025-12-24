@@ -29,15 +29,9 @@ extension type Circle._(_i1.JSObject _) implements Shape2D {
   external double get perimeter;
 }
 @_i1.JS()
-external Circle drawCircle(
-  Point2D center,
-  num radius,
-);
+external Circle drawCircle(Point2D center, num radius);
 extension type Rectangle._(_i1.JSObject _) implements Shape2D {
-  external Rectangle(
-    num length,
-    num width,
-  );
+  external Rectangle(num length, num width);
 
   external double length;
 
@@ -56,11 +50,7 @@ extension type Square._(_i1.JSObject _) implements Rectangle {
   external double length;
 }
 @_i1.JS()
-external Square drawSquare(
-  Point2D start,
-  num length, [
-  num? angle,
-]);
+external Square drawSquare(Point2D start, num length, [num? angle]);
 extension type Point3D._(_i1.JSObject _) implements _i1.JSObject {
   external double x;
 
@@ -85,20 +75,13 @@ extension type Sphere._(_i1.JSObject _) implements Shape3D {
 @_i1.JS()
 external Sphere drawSphere(Point3D center);
 extension type Configuration._(_i1.JSObject _) implements _i1.JSObject {
-  external Configuration(
-    String version,
-    String apiUrl,
-  );
+  external Configuration(String version, String apiUrl);
 
   external String get version;
   external String get apiUrl;
 }
 extension type Product._(_i1.JSObject _) implements _i1.JSObject {
-  external Product(
-    String name,
-    num price,
-    num quantity,
-  );
+  external Product(String name, num price, num quantity);
 
   external String get name;
   external set price(num newPrice);
@@ -108,11 +91,7 @@ extension type Product._(_i1.JSObject _) implements _i1.JSObject {
   external double get totalPrice;
 }
 extension type User._(_i1.JSObject _) implements _i1.JSObject {
-  external User(
-    num id,
-    String username,
-    String email,
-  );
+  external User(num id, String username, String email);
 
   external double id;
 
@@ -120,10 +99,7 @@ extension type User._(_i1.JSObject _) implements _i1.JSObject {
   external String getEmail();
 }
 extension type Prism<S extends Shape2D>._(_i1.JSObject _) implements Shape3D {
-  external Prism(
-    S surface,
-    num height,
-  );
+  external Prism(S surface, num height);
 
   external double height;
 
@@ -134,10 +110,7 @@ extension type Prism<S extends Shape2D>._(_i1.JSObject _) implements Shape3D {
   external double surfaceArea();
 }
 extension type Pyramid<S extends Shape2D>._(_i1.JSObject _) implements Shape3D {
-  external Pyramid(
-    S surface,
-    num height,
-  );
+  external Pyramid(S surface, num height);
 
   external double height;
 
@@ -148,10 +121,7 @@ extension type Pyramid<S extends Shape2D>._(_i1.JSObject _) implements Shape3D {
   external double surfaceArea();
 }
 extension type Cylinder._(_i1.JSObject _) implements Prism<Circle> {
-  external Cylinder(
-    num radius,
-    num height,
-  );
+  external Cylinder(num radius, num height);
 
   external double radius;
 
@@ -159,11 +129,7 @@ extension type Cylinder._(_i1.JSObject _) implements Prism<Circle> {
   external double surfaceArea();
 }
 extension type Cuboid._(_i1.JSObject _) implements Prism<Rectangle> {
-  external Cuboid(
-    num length,
-    num width,
-    num height,
-  );
+  external Cuboid(num length, num width, num height);
 
   external double length;
 
@@ -182,10 +148,7 @@ extension type Cube._(_i1.JSObject _) implements Prism<Square> {
   external double surfaceArea();
 }
 extension type Cone._(_i1.JSObject _) implements Pyramid<Circle> {
-  external Cone(
-    num radius,
-    num height,
-  );
+  external Cone(num radius, num height);
 
   external double radius;
 
@@ -214,10 +177,7 @@ extension type Vector._(_i1.JSObject _) implements _i1.JSObject {
   external double get directionAngle;
 }
 extension type Vector2D._(_i1.JSObject _) implements Vector {
-  external Vector2D(
-    num x,
-    num y,
-  );
+  external Vector2D(num x, num y);
 
   external double x;
 
@@ -229,14 +189,8 @@ extension type Vector2D._(_i1.JSObject _) implements Vector {
   @_i2.redeclare
   external double get directionAngle;
   external Point2D moveFrom(Point2D point);
-  external static Vector2D from(
-    num magnitude,
-    num at,
-  );
-  external static Vector2D fromPoints(
-    Point2D start,
-    Point2D end,
-  );
+  external static Vector2D from(num magnitude, num at);
+  external static Vector2D fromPoints(Point2D start, Point2D end);
 }
 extension type DirectionAngles._(_i1.JSObject _) implements _i1.JSObject {
   external double alpha;
@@ -246,11 +200,7 @@ extension type DirectionAngles._(_i1.JSObject _) implements _i1.JSObject {
   external double gamma;
 }
 extension type Vector3D._(_i1.JSObject _) implements Vector {
-  external Vector3D(
-    num x,
-    num y,
-    num z,
-  );
+  external Vector3D(num x, num y, num z);
 
   external double x;
 
@@ -265,21 +215,12 @@ extension type Vector3D._(_i1.JSObject _) implements Vector {
   @_i2.redeclare
   external double get directionAngle;
   external Point3D moveFrom(Point3D point);
-  external static Vector3D from(
-    num magnitude,
-    DirectionAngles at,
-  );
-  external static Vector3D fromPoints(
-    Point3D start,
-    Point3D end,
-  );
+  external static Vector3D from(num magnitude, DirectionAngles at);
+  external static Vector3D fromPoints(Point3D start, Point3D end);
 }
 extension type EpahsImpl<TMeta extends _i1.JSAny?>._(_i1.JSObject _)
     implements Epahs<TMeta> {
-  external EpahsImpl(
-    String name, [
-    AnonymousUnion_1113974? type,
-  ]);
+  external EpahsImpl(String name, [AnonymousUnion_1113974? type]);
 
   external factory EpahsImpl.$1(Epahs<TMeta> config);
 
@@ -314,14 +255,17 @@ extension type Epahs<TMetadata extends _i1.JSAny?>._(_i1.JSObject _)
   external _i1.JSFunction? get onUpdate;
 }
 extension type const AnonymousUnion_1113974._(String _) {
-  static const AnonymousUnion_1113974 circle =
-      AnonymousUnion_1113974._('circle');
+  static const AnonymousUnion_1113974 circle = AnonymousUnion_1113974._(
+    'circle',
+  );
 
-  static const AnonymousUnion_1113974 rectangle =
-      AnonymousUnion_1113974._('rectangle');
+  static const AnonymousUnion_1113974 rectangle = AnonymousUnion_1113974._(
+    'rectangle',
+  );
 
-  static const AnonymousUnion_1113974 polygon =
-      AnonymousUnion_1113974._('polygon');
+  static const AnonymousUnion_1113974 polygon = AnonymousUnion_1113974._(
+    'polygon',
+  );
 }
 extension type const AnonymousUnion_1594664._(String _) {
   static const AnonymousUnion_1594664 cm2 = AnonymousUnion_1594664._('cm2');

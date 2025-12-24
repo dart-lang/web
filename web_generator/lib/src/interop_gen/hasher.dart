@@ -31,16 +31,20 @@ class AnonymousHasher {
     return _hashValues(hashes).toString().substring(0, 7);
   }
 
-  static String hashFun(List<(String, String)> params, String returnType,
-      [bool constructor = false]) {
+  static String hashFun(
+    List<(String, String)> params,
+    String returnType, [
+    bool constructor = false,
+  ]) {
     final hashes = params.map((v) {
       return _hashValues([v.$1, v.$2]).toString();
     });
     final paramHash = _hashValues(hashes);
-    return _hashValues(
-            [constructor.toString(), paramHash.toString(), returnType])
-        .toString()
-        .substring(0, 7);
+    return _hashValues([
+      constructor.toString(),
+      paramHash.toString(),
+      returnType,
+    ]).toString().substring(0, 7);
   }
 }
 
@@ -58,10 +62,7 @@ int _hashValues(Iterable<String> values) {
   final digest = output.events.single.bytes;
 
   return BigInt.parse(
-          digest
-              .sublist(0, 8)
-              .map((b) => b.toRadixString(16).padLeft(2, '0'))
-              .join(),
-          radix: 16)
-      .toInt();
+    digest.sublist(0, 8).map((b) => b.toRadixString(16).padLeft(2, '0')).join(),
+    radix: 16,
+  ).toInt();
 }

@@ -13,18 +13,19 @@ import 'typescript.types.dart';
 
 @JS()
 external TSProgram createProgram(
-    JSArray<JSString> files, TSCompilerOptions options);
-
-@JS()
-external TSSourceFile createSourceFile(
-  String filename,
-  String contents,
+  JSArray<JSString> files,
+  TSCompilerOptions options,
 );
 
 @JS()
+external TSSourceFile createSourceFile(String filename, String contents);
+
+@JS()
 external void forEachChild<T extends JSAny>(
-    TSNode node, TSNodeCallback<T> cbNode,
-    [TSNodeArrayCallback<T>? cdNodes]);
+  TSNode node,
+  TSNodeCallback<T> cbNode, [
+  TSNodeArrayCallback<T>? cdNodes,
+]);
 
 @JS()
 external bool isTypeReferenceNode(TSNode node);
@@ -34,22 +35,32 @@ external bool isThisTypeNode(TSNode node);
 
 @JS()
 external TSLineAndCharacter getLineAndCharacterOfPosition(
-    TSSourceFile sourceFile, int position);
+  TSSourceFile sourceFile,
+  int position,
+);
 
 @JS()
-external String flattenDiagnosticMessageText(JSAny? diag, String newLine,
-    [int indent]);
+external String flattenDiagnosticMessageText(
+  JSAny? diag,
+  String newLine, [
+  int indent,
+]);
 
 @JS()
 external TSParsedCommandLine? getParsedCommandLineOfConfigFile(
-    String configFileName,
-    TSCompilerOptions? optionsToExtend,
-    TSParseConfigFileHost host);
+  String configFileName,
+  TSCompilerOptions? optionsToExtend,
+  TSParseConfigFileHost host,
+);
 
 @JS()
 external TSParsedCommandLine parseJsonConfigFileContent(
-    JSObject json, TSParseConfigFileHost host, String basePath,
-    [TSCompilerOptions existingOptions, String configFileName]);
+  JSObject json,
+  TSParseConfigFileHost host,
+  String basePath, [
+  TSCompilerOptions existingOptions,
+  String configFileName,
+]);
 
 @JS()
 external TSParseConfigFileHost sys;
@@ -91,11 +102,12 @@ extension type TSParseConfigHost._(JSObject _) implements JSObject {
   external bool fileExists(String path);
   external String? readFile(String path);
   external JSArray<JSString> readDirectory(
-      String rootDir,
-      JSArray<JSString> extensions,
-      JSArray<JSString>? excludes,
-      JSArray<JSString> includes,
-      [int depth]);
+    String rootDir,
+    JSArray<JSString> extensions,
+    JSArray<JSString>? excludes,
+    JSArray<JSString> includes, [
+    int depth,
+  ]);
   external bool get useCaseSensitiveFileNames;
 }
 
@@ -108,9 +120,13 @@ extension type ReadFileFunc(JSFunction _) implements JSFunction {
 }
 
 extension type ReadDirectoryFunc(JSFunction _) implements JSFunction {
-  external JSArray<JSString> call(String rootDir, JSArray<JSString> extensions,
-      JSArray<JSString>? excludes, JSArray<JSString> includes,
-      [int depth]);
+  external JSArray<JSString> call(
+    String rootDir,
+    JSArray<JSString> extensions,
+    JSArray<JSString>? excludes,
+    JSArray<JSString> includes, [
+    int depth,
+  ]);
 }
 
 extension type GetCurrentDirectoryFunc(JSFunction _) implements JSFunction {

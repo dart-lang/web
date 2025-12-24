@@ -712,7 +712,8 @@ extension type TSSymbol._(JSObject _) implements JSObject {
   external String get name;
   external JSArray<TSDeclaration>? getDeclarations();
   external JSArray<TSSymbolDisplayPart> getDocumentationComment(
-      TSTypeChecker? typeChecker);
+    TSTypeChecker? typeChecker,
+  );
   external JSArray<JSDocTagInfo> getJsDocTags([TSTypeChecker checker]);
   external TSSymbolTable? get exports;
 }

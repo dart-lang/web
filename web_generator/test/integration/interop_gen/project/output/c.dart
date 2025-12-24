@@ -13,10 +13,7 @@ import 'package:meta/meta.dart' as _i2;
 /// - `> 0` if `a > b`
 extension type Comparator<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
-  external double call(
-    T a,
-    T b,
-  );
+  external double call(T a, T b);
 }
 
 /// Represents a basic logger interface with optional flush capability.
@@ -77,10 +74,7 @@ extension type AsyncService._(_i1.JSObject _) implements _i1.JSObject {
   /// - [payload]:  - The update content.
   ///
   /// Returns `true` if update succeeded, otherwise `false`.
-  external _i1.JSPromise<_i1.JSBoolean> updateData(
-    String id,
-    String payload,
-  );
+  external _i1.JSPromise<_i1.JSBoolean> updateData(String id, String payload);
 }
 
 /// Represents a basic user.

@@ -88,19 +88,18 @@ extension type Fi<K extends _i1.JSAny?, V extends _i1.JSAny?>._(_i1.JSObject _)
   /// Adds a new element with a specified key and value to the Map. If an
   /// element with the same key already exists, the element will be updated.
   @_i1.JS('set')
-  external Fi<K, V> set$(
-    K key,
-    V value,
-  );
+  external Fi<K, V> set$(K key, V value);
 }
 extension type SomeNamespace._(_i1.JSObject _) implements _i1.JSObject {
   external static _i1.JSArray<_i1.JSString> get items;
   external static SomeNamespace_NestedNamespace get NestedNamespace;
   external SomeNamespace_NestedNamespace_ByteBuffer get mainBuffer;
   external static SomeNamespace_NestedNamespace_ByteBuilder bytesToBuilder(
-      _i1.JSArrayBuffer bytes);
+    _i1.JSArrayBuffer bytes,
+  );
   external static SomeNamespace_NestedNamespace_ByteBuffer arrayToByteBuffer(
-      _i1.JSArrayBuffer bytes);
+    _i1.JSArrayBuffer bytes,
+  );
 }
 @_i1.JS('fooHelper.Options')
 extension type fooHelper_Options._(_i1.JSObject _) implements _i1.JSObject {
@@ -137,8 +136,9 @@ extension type SomeNamespace_NestedNamespace._(_i1.JSObject _)
 @_i1.JS('SomeNamespace.NestedNamespace.ByteBuffer')
 extension type SomeNamespace_NestedNamespace_ByteBuffer._(_i1.JSObject _)
     implements _i1.JSObject {
-  external SomeNamespace_NestedNamespace_ByteBuffer(
-      [_i1.JSArrayBuffer? arrayBuffer]);
+  external SomeNamespace_NestedNamespace_ByteBuffer([
+    _i1.JSArrayBuffer? arrayBuffer,
+  ]);
 
   external double get length;
 }

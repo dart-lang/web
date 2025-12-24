@@ -28,27 +28,33 @@ class ReferredType<T extends Declaration> extends NamedType {
 
   String? url;
 
-  ReferredType(
-      {required this.name,
-      required this.declaration,
-      this.typeParams = const [],
-      this.url,
-      this.isNullable = false});
+  ReferredType({
+    required this.name,
+    required this.declaration,
+    this.typeParams = const [],
+    this.url,
+    this.isNullable = false,
+  });
 
-  factory ReferredType.fromType(Type type, T declaration,
-      {List<Type> typeParams,
-      String? url,
-      bool isNullable}) = ReferredDeclarationType;
+  factory ReferredType.fromType(
+    Type type,
+    T declaration, {
+    List<Type> typeParams,
+    String? url,
+    bool isNullable,
+  }) = ReferredDeclarationType;
 
   @override
   Reference emit([TypeOptions? options]) {
-    return TypeReference((t) => t
-      ..symbol = (declaration is NestableDeclaration)
-          ? (declaration as NestableDeclaration).completedDartName
-          : declaration.dartName ?? declaration.name
-      ..types.addAll(typeParams.map((t) => t.emit(options)))
-      ..isNullable = (options?.nullable ?? false) || isNullable
-      ..url = options?.url ?? url);
+    return TypeReference(
+      (t) => t
+        ..symbol = (declaration is NestableDeclaration)
+            ? (declaration as NestableDeclaration).completedDartName
+            : declaration.dartName ?? declaration.name
+        ..types.addAll(typeParams.map((t) => t.emit(options)))
+        ..isNullable = (options?.nullable ?? false) || isNullable
+        ..url = options?.url ?? url,
+    );
   }
 }
 
@@ -59,9 +65,13 @@ class ReferredDeclarationType<T extends Declaration> extends ReferredType<T> {
   String get name =>
       type is NamedType ? (type as NamedType).name : declaration.name;
 
-  ReferredDeclarationType(this.type, T declaration,
-      {super.typeParams, super.url, super.isNullable})
-      : super(name: declaration.name, declaration: declaration);
+  ReferredDeclarationType(
+    this.type,
+    T declaration, {
+    super.typeParams,
+    super.url,
+    super.isNullable,
+  }) : super(name: declaration.name, declaration: declaration);
 
   @override
   Reference emit([covariant TypeOptions? options]) {
@@ -81,25 +91,27 @@ class TupleType extends ReferredType<TupleDeclaration> {
 
   bool readonly;
 
-  TupleType(
-      {required this.types,
-      super.isNullable,
-      required String? tupleDeclUrl,
-      this.readonly = false,
-      TupleDeclaration? decl})
-      : super(
-            declaration: decl ??
-                TupleDeclaration(count: types.length, readonly: readonly),
-            name: readonly
-                ? 'JSReadonlyTuple${types.length}'
-                : 'JSTuple${types.length}',
-            url: tupleDeclUrl);
+  TupleType({
+    required this.types,
+    super.isNullable,
+    required String? tupleDeclUrl,
+    this.readonly = false,
+    TupleDeclaration? decl,
+  }) : super(
+         declaration:
+             decl ?? TupleDeclaration(count: types.length, readonly: readonly),
+         name: readonly
+             ? 'JSReadonlyTuple${types.length}'
+             : 'JSTuple${types.length}',
+         url: tupleDeclUrl,
+       );
 
   @override
   ID get id => ID(
-      type: 'type',
-      name: types.map((t) => t.id.name).join(','),
-      index: readonly ? 1 : 0);
+    type: 'type',
+    name: types.map((t) => t.id.name).join(','),
+    index: readonly ? 1 : 0,
+  );
 
   @override
   int get hashCode => Object.hashAllUnordered(types);
@@ -119,22 +131,29 @@ class UnionType extends DeclarationType {
   @override
   String declarationName;
 
-  UnionType(
-      {required this.types, required String name, this.isNullable = false})
-      : declarationName = name;
+  UnionType({
+    required this.types,
+    required String name,
+    this.isNullable = false,
+  }) : declarationName = name;
 
   @override
   ID get id => ID(type: 'type', name: types.map((t) => t.id.name).join('|'));
 
   @override
   Declaration get declaration => _UnionDeclaration(
-      name: declarationName, types: types, isNullable: isNullable);
+    name: declarationName,
+    types: types,
+    isNullable: isNullable,
+  );
 
   @override
   Reference emit([TypeOptions? options]) {
-    return TypeReference((t) => t
-      ..symbol = declarationName
-      ..isNullable = (options?.nullable ?? false) || isNullable);
+    return TypeReference(
+      (t) => t
+        ..symbol = declarationName
+        ..isNullable = (options?.nullable ?? false) || isNullable,
+    );
   }
 
   @override
@@ -156,7 +175,7 @@ class IntersectionType extends DeclarationType {
   String declarationName;
 
   IntersectionType({required this.types, required String name})
-      : declarationName = name;
+    : declarationName = name;
 
   @override
   ID get id => ID(type: 'type', name: types.map((t) => t.id.name).join('&'));
@@ -167,9 +186,11 @@ class IntersectionType extends DeclarationType {
 
   @override
   Reference emit([TypeOptions? options]) {
-    return TypeReference((t) => t
-      ..symbol = declarationName
-      ..isNullable = (options?.nullable ?? false) || isNullable);
+    return TypeReference(
+      (t) => t
+        ..symbol = declarationName
+        ..isNullable = (options?.nullable ?? false) || isNullable,
+    );
   }
 
   @override
@@ -182,7 +203,8 @@ class IntersectionType extends DeclarationType {
 }
 
 class HomogenousEnumType<T extends LiteralType, D extends Declaration>
-    extends UnionType implements DeclarationType {
+    extends UnionType
+    implements DeclarationType {
   final List<T> _types;
 
   @override
@@ -190,26 +212,29 @@ class HomogenousEnumType<T extends LiteralType, D extends Declaration>
 
   final Type baseType;
 
-  HomogenousEnumType(
-      {required List<T> super.types, super.isNullable, required super.name})
-      : _types = types,
-        baseType = types.first.baseType;
+  HomogenousEnumType({
+    required List<T> super.types,
+    super.isNullable,
+    required super.name,
+  }) : _types = types,
+       baseType = types.first.baseType;
 
   @override
   EnumDeclaration get declaration => EnumDeclaration(
-      name: declarationName,
-      dartName: UniqueNamer.makeNonConflicting(declarationName),
-      baseType: baseType,
-      members: types.map((t) {
-        final name = t.value.toString();
-        return EnumMember(
-          name,
-          t.value,
-          dartName: UniqueNamer.makeNonConflicting(name),
-          parent: UniqueNamer.makeNonConflicting(declarationName),
-        );
-      }).toList(),
-      exported: true);
+    name: declarationName,
+    dartName: UniqueNamer.makeNonConflicting(declarationName),
+    baseType: baseType,
+    members: types.map((t) {
+      final name = t.value.toString();
+      return EnumMember(
+        name,
+        t.value,
+        dartName: UniqueNamer.makeNonConflicting(name),
+        parent: UniqueNamer.makeNonConflicting(declarationName),
+      );
+    }).toList(),
+    exported: true,
+  );
 }
 
 /// The base class for a type generic (like 'T')
@@ -224,19 +249,24 @@ class GenericType extends NamedType {
   @override
   bool isNullable = false;
 
-  GenericType(
-      {required this.name, this.constraint, this.parent, bool? isNullable})
-      : isNullable = isNullable ?? false;
+  GenericType({
+    required this.name,
+    this.constraint,
+    this.parent,
+    bool? isNullable,
+  }) : isNullable = isNullable ?? false;
 
   @override
   ID get id =>
       ID(type: 'generic-type', name: '$name@${parent?.id ?? "(anonymous)"}');
 
   @override
-  Reference emit([TypeOptions? options]) => TypeReference((t) => t
-    ..symbol = name
-    ..bound = constraint?.emit()
-    ..isNullable = (options?.nullable ?? false) || isNullable);
+  Reference emit([TypeOptions? options]) => TypeReference(
+    (t) => t
+      ..symbol = name
+      ..bound = constraint?.emit()
+      ..isNullable = (options?.nullable ?? false) || isNullable,
+  );
 
   @override
   bool operator ==(Object other) {
@@ -259,12 +289,12 @@ class LiteralType extends Type {
   bool isNullable;
 
   String get name => switch (kind) {
-        LiteralKind.$null => 'null',
-        LiteralKind.int || LiteralKind.double => 'number',
-        LiteralKind.string => 'string',
-        LiteralKind.$true => 'true',
-        LiteralKind.$false => 'false'
-      };
+    LiteralKind.$null => 'null',
+    LiteralKind.int || LiteralKind.double => 'number',
+    LiteralKind.string => 'string',
+    LiteralKind.$true => 'true',
+    LiteralKind.$false => 'false',
+  };
 
   BuiltinType get baseType {
     final primitive = kind.primitive;
@@ -272,8 +302,11 @@ class LiteralType extends Type {
     return BuiltinType.primitiveType(primitive);
   }
 
-  LiteralType(
-      {required this.kind, required this.value, this.isNullable = false});
+  LiteralType({
+    required this.kind,
+    required this.value,
+    this.isNullable = false,
+  });
 
   @override
   Reference emit([TypeOptions? options]) {
@@ -304,12 +337,12 @@ enum LiteralKind {
   int;
 
   PrimitiveType get primitive => switch (this) {
-        LiteralKind.$null => PrimitiveType.undefined,
-        LiteralKind.string => PrimitiveType.string,
-        LiteralKind.int => PrimitiveType.num,
-        LiteralKind.double => PrimitiveType.double,
-        LiteralKind.$true || LiteralKind.$false => PrimitiveType.boolean
-      };
+    LiteralKind.$null => PrimitiveType.undefined,
+    LiteralKind.string => PrimitiveType.string,
+    LiteralKind.int => PrimitiveType.num,
+    LiteralKind.double => PrimitiveType.double,
+    LiteralKind.$true || LiteralKind.$false => PrimitiveType.boolean,
+  };
 }
 
 class ObjectLiteralType extends DeclarationType<TypeDeclaration> {
@@ -342,40 +375,43 @@ class ObjectLiteralType extends DeclarationType<TypeDeclaration> {
     _dartName = value;
   }
 
-  ObjectLiteralType(
-      {required String name,
-      required this.id,
-      this.properties = const [],
-      this.methods = const [],
-      this.constructors = const [],
-      this.operators = const [],
-      this.isNullable = false,
-      String? declarationDartName})
-      : declarationName = name,
-        _dartName = declarationDartName;
+  ObjectLiteralType({
+    required String name,
+    required this.id,
+    this.properties = const [],
+    this.methods = const [],
+    this.constructors = const [],
+    this.operators = const [],
+    this.isNullable = false,
+    String? declarationDartName,
+  }) : declarationName = name,
+       _dartName = declarationDartName;
 
   @override
   TypeDeclaration get declaration => InterfaceDeclaration(
-      name: declarationName,
-      dartName: dartName,
-      exported: true,
-      id: ID(type: 'interface', name: id.name),
-      objectLiteralConstructor: true,
-      properties: properties,
-      methods: methods,
-      operators: operators,
-      constructors: constructors,
-      typeParameters: getGenericTypes(this).map((g) {
-        g.constraint ??= BuiltinType.anyType;
-        return g;
-      }).toSet());
+    name: declarationName,
+    dartName: dartName,
+    exported: true,
+    id: ID(type: 'interface', name: id.name),
+    objectLiteralConstructor: true,
+    properties: properties,
+    methods: methods,
+    operators: operators,
+    constructors: constructors,
+    typeParameters: getGenericTypes(this).map((g) {
+      g.constraint ??= BuiltinType.anyType;
+      return g;
+    }).toSet(),
+  );
 
   @override
   Reference emit([TypeOptions? options]) {
-    return TypeReference((t) => t
-      ..symbol = declarationName
-      ..isNullable = options?.nullable ?? isNullable
-      ..types.addAll(getGenericTypes(this).map((t) => t.emit(options))));
+    return TypeReference(
+      (t) => t
+        ..symbol = declarationName
+        ..isNullable = options?.nullable ?? isNullable
+        ..types.addAll(getGenericTypes(this).map((t) => t.emit(options))),
+    );
   }
 }
 
@@ -398,23 +434,28 @@ class EnumObjectType extends DeclarationType {
   bool isNullable;
 
   EnumObjectType(this.enumeration, {String? dartName, this.isNullable = false})
-      : _dartName = dartName ?? enumeration.dartName;
+    : _dartName = dartName ?? enumeration.dartName;
 
   @override
   ID get id => ID(type: 'type', name: 'TypeOf_${enumeration.name}');
 
   @override
   Declaration get declaration => _EnumObjDeclaration(
-      name: declarationName, dartName: dartName, reference: enumeration);
+    name: declarationName,
+    dartName: dartName,
+    reference: enumeration,
+  );
 
   @override
   String get declarationName => '${enumeration.name}_EnumType';
 
   @override
   Reference emit([covariant TypeOptions? options]) {
-    return TypeReference((t) => t
-      ..symbol = declarationName
-      ..isNullable = options?.nullable ?? isNullable);
+    return TypeReference(
+      (t) => t
+        ..symbol = declarationName
+        ..isNullable = options?.nullable ?? isNullable,
+    );
   }
 }
 
@@ -440,68 +481,77 @@ sealed class ClosureType extends DeclarationType {
     this.isNullable = false,
   }) : declarationName = name {
     if (typeParameters.isEmpty) {
-      typeParameters.addAll(getGenericTypes(this).map((t) {
-        t.constraint ??= BuiltinType.anyType;
-        return t;
-      }));
+      typeParameters.addAll(
+        getGenericTypes(this).map((t) {
+          t.constraint ??= BuiltinType.anyType;
+          return t;
+        }),
+      );
     }
   }
 
   @override
   Reference emit([TypeOptions? options]) {
-    return TypeReference((t) => t
-      ..symbol = declarationName
-      ..isNullable = options?.nullable ?? isNullable
-      ..types.addAll(typeParameters.map((t) {
-        final clonedT = GenericType(name: t.name, isNullable: t.isNullable);
-        return clonedT.emit(options);
-      })));
+    return TypeReference(
+      (t) => t
+        ..symbol = declarationName
+        ..isNullable = options?.nullable ?? isNullable
+        ..types.addAll(
+          typeParameters.map((t) {
+            final clonedT = GenericType(name: t.name, isNullable: t.isNullable);
+            return clonedT.emit(options);
+          }),
+        ),
+    );
   }
 }
 
 class ConstructorType extends ClosureType {
-  ConstructorType(
-      {required super.name,
-      required super.id,
-      required super.returnType,
-      super.typeParameters,
-      super.parameters,
-      super.isNullable});
+  ConstructorType({
+    required super.name,
+    required super.id,
+    required super.returnType,
+    super.typeParameters,
+    super.parameters,
+    super.isNullable,
+  });
 
   @override
   CallableDeclaration get declaration => _ConstructorDeclaration(
-      name: declarationName,
-      returnType: returnType,
-      parameters: parameters,
-      typeParameters: typeParameters);
+    name: declarationName,
+    returnType: returnType,
+    parameters: parameters,
+    typeParameters: typeParameters,
+  );
 }
 
 class FunctionType extends ClosureType {
-  FunctionType(
-      {required super.name,
-      required super.id,
-      required super.returnType,
-      super.typeParameters,
-      super.parameters,
-      super.isNullable});
+  FunctionType({
+    required super.name,
+    required super.id,
+    required super.returnType,
+    super.typeParameters,
+    super.parameters,
+    super.isNullable,
+  });
 
   @override
   InterfaceDeclaration get declaration => InterfaceDeclaration(
-          name: declarationName,
-          exported: true,
-          id: ID(type: 'interface', name: declarationName),
-          typeParameters: typeParameters.toSet(),
-          useFirstExtendeeAsRepType: true,
-          extendedTypes: [
-            BuiltinType.referred('Function')!
-          ],
-          methods: [
-            MethodDeclaration(
-                name: 'call',
-                id: ID(type: 'fun', name: 'call'),
-                returnType: returnType,
-                parameters: parameters)
-          ]);
+    name: declarationName,
+    exported: true,
+    id: ID(type: 'interface', name: declarationName),
+    typeParameters: typeParameters.toSet(),
+    useFirstExtendeeAsRepType: true,
+    extendedTypes: [BuiltinType.referred('Function')!],
+    methods: [
+      MethodDeclaration(
+        name: 'call',
+        id: ID(type: 'fun', name: 'call'),
+        returnType: returnType,
+        parameters: parameters,
+      ),
+    ],
+  );
 }
 
 class _ConstructorDeclaration extends CallableDeclaration
@@ -527,68 +577,85 @@ class _ConstructorDeclaration extends CallableDeclaration
   @override
   List<GenericType> typeParameters;
 
-  _ConstructorDeclaration(
-      {required this.name,
-      this.parameters = const [],
-      this.typeParameters = const [],
-      required this.returnType});
+  _ConstructorDeclaration({
+    required this.name,
+    this.parameters = const [],
+    this.typeParameters = const [],
+    required this.returnType,
+  });
 
   @override
   Spec emit([covariant DeclarationOptions? options]) {
-    final (requiredParams, optionalParams) =
-        emitParameters(parameters, options);
+    final (requiredParams, optionalParams) = emitParameters(
+      parameters,
+      options,
+    );
 
     final repType = BuiltinType.referred('Function')!;
 
-    final isNamedParams = desugarTypeAliases(returnType) is ObjectLiteralType &&
+    final isNamedParams =
+        desugarTypeAliases(returnType) is ObjectLiteralType &&
         (desugarTypeAliases(returnType) as ObjectLiteralType)
             .constructors
             .isEmpty;
 
-    return ExtensionType((eType) => eType
-      ..name = name
-      ..primaryConstructorName = '_'
-      ..representationDeclaration = RepresentationDeclaration((r) => r
-        ..declaredRepresentationType = repType.emit(options?.toTypeOptions())
-        ..name = '_')
-      ..implements.add(repType.emit(options?.toTypeOptions()))
-      ..types
-          .addAll(typeParameters.map((t) => t.emit(options?.toTypeOptions())))
-      ..methods.add(Method((m) => m
-        ..name = 'call'
-        ..returns = returnType.emit(options?.toTypeOptions())
-        ..requiredParameters.addAll(requiredParams)
-        ..optionalParameters.addAll(optionalParams)
-        ..lambda = true
-        ..body = returnType
-            .emit(options?.toTypeOptions())
-            .call(
-                isNamedParams
-                    ? []
-                    : [
-                        ...requiredParams.map((p) => refer(p.name)),
-                        if (optionalParams.isNotEmpty)
-                          ...optionalParams.map((p) => refer(p.name))
-                      ],
-                isNamedParams
-                    ? [
-                        ...requiredParams.map((p) => (p.name, p.type)),
-                        if (optionalParams.isNotEmpty)
-                          ...optionalParams.map((p) => (p.name, p.type))
-                      ].asMap().map((_, v) {
-                        final (name, type) = v;
-                        final isNumType = type?.symbol == 'num';
-                        return MapEntry(
-                            name,
-                            isNumType
-                                ? refer(name).property('toDouble').call([])
-                                : refer(name));
-                      })
-                    : {},
-                typeParameters
-                    .map((t) => t.emit(options?.toTypeOptions()))
-                    .toList())
-            .code)));
+    return ExtensionType(
+      (eType) => eType
+        ..name = name
+        ..primaryConstructorName = '_'
+        ..representationDeclaration = RepresentationDeclaration(
+          (r) => r
+            ..declaredRepresentationType = repType.emit(
+              options?.toTypeOptions(),
+            )
+            ..name = '_',
+        )
+        ..implements.add(repType.emit(options?.toTypeOptions()))
+        ..types.addAll(
+          typeParameters.map((t) => t.emit(options?.toTypeOptions())),
+        )
+        ..methods.add(
+          Method(
+            (m) => m
+              ..name = 'call'
+              ..returns = returnType.emit(options?.toTypeOptions())
+              ..requiredParameters.addAll(requiredParams)
+              ..optionalParameters.addAll(optionalParams)
+              ..lambda = true
+              ..body = returnType
+                  .emit(options?.toTypeOptions())
+                  .call(
+                    isNamedParams
+                        ? []
+                        : [
+                            ...requiredParams.map((p) => refer(p.name)),
+                            if (optionalParams.isNotEmpty)
+                              ...optionalParams.map((p) => refer(p.name)),
+                          ],
+                    isNamedParams
+                        ? [
+                            ...requiredParams.map((p) => (p.name, p.type)),
+                            if (optionalParams.isNotEmpty)
+                              ...optionalParams.map((p) => (p.name, p.type)),
+                          ].asMap().map((_, v) {
+                            final (name, type) = v;
+                            final isNumType = type?.symbol == 'num';
+                            return MapEntry(
+                              name,
+                              isNumType
+                                  ? refer(name).property('toDouble').call([])
+                                  : refer(name),
+                            );
+                          })
+                        : {},
+                    typeParameters
+                        .map((t) => t.emit(options?.toTypeOptions()))
+                        .toList(),
+                  )
+                  .code,
+          ),
+        ),
+    );
   }
 }
 
@@ -610,29 +677,34 @@ sealed class _UnionOrIntersectionDeclaration extends NamedDeclaration
   @override
   String? dartName;
 
-  _UnionOrIntersectionDeclaration(
-      {required this.name,
-      this.types = const [],
-      List<GenericType>? typeParams})
-      : typeParameters = typeParams ?? [] {
+  _UnionOrIntersectionDeclaration({
+    required this.name,
+    this.types = const [],
+    List<GenericType>? typeParams,
+  }) : typeParameters = typeParams ?? [] {
     if (typeParams == null) {
       for (final type in types) {
-        typeParameters.addAll(getGenericTypes(type).map((t) {
-          t.constraint ??= BuiltinType.anyType;
-          return t;
-        }));
+        typeParameters.addAll(
+          getGenericTypes(type).map((t) {
+            t.constraint ??= BuiltinType.anyType;
+            return t;
+          }),
+        );
       }
     }
   }
 
-  Spec _emit(
-      {covariant DeclarationOptions? options,
-      bool extendTypes = false,
-      bool isNullable = false}) {
+  Spec _emit({
+    covariant DeclarationOptions? options,
+    bool extendTypes = false,
+    bool isNullable = false,
+  }) {
     options ??= DeclarationOptions();
 
-    final repType =
-        getLowestCommonAncestorOfTypes(types, isNullable: isNullable);
+    final repType = getLowestCommonAncestorOfTypes(
+      types,
+      isNullable: isNullable,
+    );
 
     final extendees = <Type>[];
     if (extendTypes) {
@@ -645,7 +717,8 @@ sealed class _UnionOrIntersectionDeclaration extends NamedDeclaration
           }) ||
           (repType is BuiltinType && repType.name == 'JSAny')) {
         extendees.add(
-            BuiltinType.primitiveType(PrimitiveType.any, isNullable: false));
+          BuiltinType.primitiveType(PrimitiveType.any, isNullable: false),
+        );
       } else {
         extendees.addAll(types.map(getJSTypeAlternative));
       }
@@ -653,70 +726,84 @@ sealed class _UnionOrIntersectionDeclaration extends NamedDeclaration
       extendees.add(repType);
     }
 
-    return ExtensionType((e) => e
-      ..name = name
-      ..primaryConstructorName = '_'
-      ..representationDeclaration = RepresentationDeclaration((r) => r
-        ..name = '_'
-        ..declaredRepresentationType = repType.emit(options?.toTypeOptions()))
-      ..implements
-          .addAll(extendees.map((e) => e.emit(options?.toTypeOptions())))
-      ..types
-          .addAll(typeParameters.map((t) => t.emit(options?.toTypeOptions())))
-      ..methods.addAll(types.map((t) {
-        final type = t.emit(options?.toTypeOptions());
-        final jsTypeAlt = getJSTypeAlternative(t);
-        return Method((m) {
-          final word = switch (t) {
-            DeclarationType(declarationName: final declName) => declName,
-            NamedType(name: final typeName, dartName: final dartTypeName) =>
-              dartTypeName ?? typeName,
-            _ => t.dartName ?? t.id.name
-          };
-          final Expression body;
-          if (desugarTypeAliases(t) == repType) {
-            body = refer('_');
-          } else if (jsTypeAlt.id == t.id) {
-            body = refer('_').asA(type);
-          } else {
-            body = switch (t) {
-              BuiltinType(name: final n) when n == 'int' => refer('_')
-                  .asA(jsTypeAlt.emit(options?.toTypeOptions()))
-                  .property('toDartInt'),
-              BuiltinType(name: final n) when n == 'double' || n == 'num' =>
-                refer('_')
-                    .asA(jsTypeAlt.emit(options?.toTypeOptions()))
-                    .property('toDartDouble'),
-              BuiltinType() => refer('_')
-                  .asA(jsTypeAlt.emit(options?.toTypeOptions()))
-                  .property('toDart'),
-              ReferredType(
-                declaration: final decl,
-                name: final n,
-                url: final url
-              )
-                  when decl is EnumDeclaration =>
-                refer(n, url).property('_').call([
-                  refer('_')
-                      .asA(jsTypeAlt.emit(options?.toTypeOptions()))
-                      .property(decl.baseType is NamedType
-                          ? switch ((decl.baseType as NamedType).name) {
-                              'int' => 'toDartInt',
-                              'num' || 'double' => 'toDartDouble',
-                              _ => 'toDart'
-                            }
-                          : 'toDart')
-                ]),
-              _ => refer('_').asA(jsTypeAlt.emit(options?.toTypeOptions()))
-            };
-          }
-          m
-            ..type = MethodType.getter
-            ..name = 'as${uppercaseFirstLetter(word)}'
-            ..returns = type
-            ..body = body.code;
-        });
-      })));
+    return ExtensionType(
+      (e) => e
+        ..name = name
+        ..primaryConstructorName = '_'
+        ..representationDeclaration = RepresentationDeclaration(
+          (r) => r
+            ..name = '_'
+            ..declaredRepresentationType = repType.emit(
+              options?.toTypeOptions(),
+            ),
+        )
+        ..implements.addAll(
+          extendees.map((e) => e.emit(options?.toTypeOptions())),
+        )
+        ..types.addAll(
+          typeParameters.map((t) => t.emit(options?.toTypeOptions())),
+        )
+        ..methods.addAll(
+          types.map((t) {
+            final type = t.emit(options?.toTypeOptions());
+            final jsTypeAlt = getJSTypeAlternative(t);
+            return Method((m) {
+              final word = switch (t) {
+                DeclarationType(declarationName: final declName) => declName,
+                NamedType(name: final typeName, dartName: final dartTypeName) =>
+                  dartTypeName ?? typeName,
+                _ => t.dartName ?? t.id.name,
+              };
+              final Expression body;
+              if (desugarTypeAliases(t) == repType) {
+                body = refer('_');
+              } else if (jsTypeAlt.id == t.id) {
+                body = refer('_').asA(type);
+              } else {
+                body = switch (t) {
+                  BuiltinType(name: final n) when n == 'int' =>
+                    refer('_')
+                        .asA(jsTypeAlt.emit(options?.toTypeOptions()))
+                        .property('toDartInt'),
+                  BuiltinType(name: final n) when n == 'double' || n == 'num' =>
+                    refer('_')
+                        .asA(jsTypeAlt.emit(options?.toTypeOptions()))
+                        .property('toDartDouble'),
+                  BuiltinType() =>
+                    refer('_')
+                        .asA(jsTypeAlt.emit(options?.toTypeOptions()))
+                        .property('toDart'),
+                  ReferredType(
+                    declaration: final decl,
+                    name: final n,
+                    url: final url,
+                  )
+                      when decl is EnumDeclaration =>
+                    refer(n, url).property('_').call([
+                      refer('_')
+                          .asA(jsTypeAlt.emit(options?.toTypeOptions()))
+                          .property(
+                            decl.baseType is NamedType
+                                ? switch ((decl.baseType as NamedType).name) {
+                                    'int' => 'toDartInt',
+                                    'num' || 'double' => 'toDartDouble',
+                                    _ => 'toDart',
+                                  }
+                                : 'toDart',
+                          ),
+                    ]),
+                  _ => refer('_').asA(jsTypeAlt.emit(options?.toTypeOptions())),
+                };
+              }
+              m
+                ..type = MethodType.getter
+                ..name = 'as${uppercaseFirstLetter(word)}'
+                ..returns = type
+                ..body = body.code;
+            });
+          }),
+        ),
+    );
   }
 }
 
@@ -733,40 +820,56 @@ class _EnumObjDeclaration extends NamedDeclaration
 
   EnumDeclaration reference;
 
-  _EnumObjDeclaration(
-      {required this.name, this.dartName, required this.reference});
+  _EnumObjDeclaration({
+    required this.name,
+    this.dartName,
+    required this.reference,
+  });
 
   @override
   Spec emit([covariant DeclarationOptions? options]) {
     final repType = BuiltinType.primitiveType(PrimitiveType.object);
-    return ExtensionType((e) => e
-      ..name = dartName ?? name
-      ..annotations.addAll([
-        if (dartName != null && dartName != name) generateJSAnnotation(name)
-      ])
-      ..primaryConstructorName = '_'
-      ..representationDeclaration = RepresentationDeclaration((r) => r
-        ..declaredRepresentationType = repType.emit(options?.toTypeOptions())
-        ..name = '_')
-      ..implements.add(repType.emit(options?.toTypeOptions()))
-      ..fields.addAll(reference.members.map((mem) => mem.emit()))
-      ..methods.addAll(reference.members.map((mem) {
-        return mem.value == null
-            ? null
-            : Method((m) => m
-              ..name =
-                  mem.value is int ? '\$${mem.value}' : mem.value.toString()
-              ..annotations.addAll([
-                if (mem.value is int)
-                  refer('JS', 'dart:js_interop')
-                      .call([literalString(mem.value.toString())])
-              ])
-              ..type = MethodType.getter
-              ..returns = refer('String')
-              ..lambda = true
-              ..static = true
-              ..body = literalString(mem.name).code);
-      }).nonNulls));
+    return ExtensionType(
+      (e) => e
+        ..name = dartName ?? name
+        ..annotations.addAll([
+          if (dartName != null && dartName != name) generateJSAnnotation(name),
+        ])
+        ..primaryConstructorName = '_'
+        ..representationDeclaration = RepresentationDeclaration(
+          (r) => r
+            ..declaredRepresentationType = repType.emit(
+              options?.toTypeOptions(),
+            )
+            ..name = '_',
+        )
+        ..implements.add(repType.emit(options?.toTypeOptions()))
+        ..fields.addAll(reference.members.map((mem) => mem.emit()))
+        ..methods.addAll(
+          reference.members.map((mem) {
+            return mem.value == null
+                ? null
+                : Method(
+                    (m) => m
+                      ..name = mem.value is int
+                          ? '\$${mem.value}'
+                          : mem.value.toString()
+                      ..annotations.addAll([
+                        if (mem.value is int)
+                          refer(
+                            'JS',
+                            'dart:js_interop',
+                          ).call([literalString(mem.value.toString())]),
+                      ])
+                      ..type = MethodType.getter
+                      ..returns = refer('String')
+                      ..lambda = true
+                      ..static = true
+                      ..body = literalString(mem.name).code,
+                  );
+          }).nonNulls,
+        ),
+    );
   }
 
   @override
@@ -779,7 +882,7 @@ List<String> _nonObjectRepTypeTypes = [
   'JSBoolean',
   'JSNumber',
   'JSSymbol',
-  'JSBigInt'
+  'JSBigInt',
 ];
 
 class _IntersectionDeclaration extends _UnionOrIntersectionDeclaration {
@@ -807,7 +910,7 @@ class _UnionDeclaration extends _UnionOrIntersectionDeclaration {
   bool isNullable;
 
   _UnionDeclaration({required super.name, super.types, this.isNullable = false})
-      : super();
+    : super();
 
   @override
   Spec emit([covariant DeclarationOptions? options]) {

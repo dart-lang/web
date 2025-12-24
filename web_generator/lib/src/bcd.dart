@@ -21,20 +21,24 @@ class BrowserCompatData {
       _eventHandlers[name]?.any((bcd) => bcd.shouldGenerate) == true;
 
   static BrowserCompatData read({required bool generateAll}) {
-    final path =
-        p.join('node_modules', '@mdn', 'browser-compat-data', 'data.json');
-    final content = (fs.readFileSync(
-      path.toJS,
-      JSReadFileOptions(encoding: 'utf8'.toJS),
-    ) as JSString)
-        .toDart;
+    final path = p.join(
+      'node_modules',
+      '@mdn',
+      'browser-compat-data',
+      'data.json',
+    );
+    final content =
+        (fs.readFileSync(path.toJS, JSReadFileOptions(encoding: 'utf8'.toJS))
+                as JSString)
+            .toDart;
 
     final contentMap = jsonDecode(content) as Map;
     final api = contentMap['api'] as Map<String, dynamic>;
     // MDN files WebAssembly compat data in a separate folder, so we need to
     // unify.
-    final webassembly = (contentMap['webassembly']
-        as Map<String, dynamic>)['api'] as Map<String, dynamic>;
+    final webassembly =
+        (contentMap['webassembly'] as Map<String, dynamic>)['api']
+            as Map<String, dynamic>;
     api.addAll(webassembly);
     // Add info for the namespace as well.
     api['WebAssembly'] = webassembly;
@@ -72,11 +76,9 @@ class BrowserCompatData {
     });
 
     return BrowserCompatData(
-        Map.fromIterable(
-          interfaces,
-          key: (i) => (i as BCDInterfaceStatus).name,
-        ),
-        generateAll);
+      Map.fromIterable(interfaces, key: (i) => (i as BCDInterfaceStatus).name),
+      generateAll,
+    );
   }
 
   final Map<String, BCDInterfaceStatus> interfaces;
@@ -100,13 +102,19 @@ class BCDInterfaceStatus extends BCDItem {
   BCDInterfaceStatus(super.name, super.json, bool generateAll) {
     for (final symbolName in json.symbolNames) {
       addProperty(
-          symbolName, json[symbolName] as Map<String, dynamic>, generateAll);
+        symbolName,
+        json[symbolName] as Map<String, dynamic>,
+        generateAll,
+      );
     }
     shouldGenerate = generateAll || (standardTrack && !experimental);
   }
 
   void addProperty(
-      String property, Map<String, dynamic> compat, bool generateAll) {
+    String property,
+    Map<String, dynamic> compat,
+    bool generateAll,
+  ) {
     // Event compatibility data is stored as `<name_of_event>_event`. In order
     // to have compatibility data for `onX` properties, we need to replace such
     // property names. See https://github.com/mdn/browser-compat-data/blob/main/docs/data-guidelines/api.md#dom-events-eventname_event
@@ -158,10 +166,10 @@ abstract class BCDItem {
   bool get standardTrack => _status['standard_track'] as bool? ?? false;
 
   List<String> get status => [
-        if (standardTrack) 'standards-track',
-        if (deprecated) 'deprecated',
-        if (experimental) 'experimental',
-      ];
+    if (standardTrack) 'standards-track',
+    if (deprecated) 'deprecated',
+    if (experimental) 'experimental',
+  ];
 
   String get _statusDescription => status.join(', ');
 
@@ -170,17 +178,19 @@ abstract class BCDItem {
   bool get safariSupported => _supportedInBrowser('safari');
 
   List<String> get browsers => [
-        if (chromeSupported) 'chrome',
-        if (firefoxSupported) 'firefox',
-        if (safariSupported) 'safari',
-      ];
+    if (chromeSupported) 'chrome',
+    if (firefoxSupported) 'firefox',
+    if (safariSupported) 'safari',
+  ];
 
   String get _browsersDescription => browsers.join(', ');
 
   bool _supportedInBrowser(String browser) {
-    final map = (_support[browser] is List
-        ? (_support[browser] as List).first
-        : _support[browser]) as Map<String, dynamic>;
+    final map =
+        (_support[browser] is List
+                ? (_support[browser] as List).first
+                : _support[browser])
+            as Map<String, dynamic>;
 
     if (map.containsKey('version_removed')) {
       return false;

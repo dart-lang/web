@@ -14,16 +14,21 @@ import 'package:path/path.dart' as p;
 
 final bindingsGeneratorPath = p.fromUri(Platform.script.resolve('../lib/src'));
 
+/// Experimental flag to compile to WebAssembly instead of JavaScript.
+///
+/// Leaving this as false, since it's slower. But it does work!
+const _compileWasm = false;
+
 Future<void> compileDartMain({String? langVersion, String? dir}) async {
+  const compileTarget = _compileWasm ? 'wasm' : 'js';
   await runProc(Platform.executable, [
     'compile',
-    'js',
+    compileTarget,
     '--enable-asserts',
-    '--server-mode',
     if (langVersion != null) '-DlanguageVersion=$langVersion',
     'dart_main.dart',
     '-o',
-    'dart_main.js',
+    'dart_main.$compileTarget',
   ], workingDirectory: dir ?? bindingsGeneratorPath);
 }
 

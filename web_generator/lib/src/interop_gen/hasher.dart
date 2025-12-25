@@ -80,7 +80,7 @@ extension on int {
 
     // p1 = (aHi * bLo) & 0xFFFF
     final p1 = (aHi * 403) & 0xFFFF;
-    
+
     // p2 = (aLo * bHi) & 0xFFFF
     final p2 = (aLo * 256) & 0xFFFF;
 

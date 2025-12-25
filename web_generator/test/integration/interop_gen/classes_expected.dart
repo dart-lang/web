@@ -220,7 +220,7 @@ extension type Vector3D._(_i1.JSObject _) implements Vector {
 }
 extension type EpahsImpl<TMeta extends _i1.JSAny?>._(_i1.JSObject _)
     implements Epahs<TMeta> {
-  external EpahsImpl(String name, [AnonymousUnion_1113974? type]);
+  external EpahsImpl(String name, [AnonymousUnion_7177595? type]);
 
   external factory EpahsImpl.$1(Epahs<TMeta> config);
 
@@ -237,7 +237,7 @@ extension type EpahsImpl<TMeta extends _i1.JSAny?>._(_i1.JSObject _)
   @_i2.redeclare
   external double area();
   @_i1.JS('area')
-  external String area$1(AnonymousUnion_1594664 unit);
+  external String area$1(AnonymousUnion_4033716 unit);
   external static EpahsImpl getById(String id);
 
   /// Returns a string representation of an object.
@@ -251,24 +251,24 @@ extension type Epahs<TMetadata extends _i1.JSAny?>._(_i1.JSObject _)
   external String get id;
   external double area();
   @_i1.JS('area')
-  external String area$1(AnonymousUnion_1594664 unit);
+  external String area$1(AnonymousUnion_4033716 unit);
   external _i1.JSFunction? get onUpdate;
 }
-extension type const AnonymousUnion_1113974._(String _) {
-  static const AnonymousUnion_1113974 circle = AnonymousUnion_1113974._(
+extension type const AnonymousUnion_7177595._(String _) {
+  static const AnonymousUnion_7177595 circle = AnonymousUnion_7177595._(
     'circle',
   );
 
-  static const AnonymousUnion_1113974 rectangle = AnonymousUnion_1113974._(
+  static const AnonymousUnion_7177595 rectangle = AnonymousUnion_7177595._(
     'rectangle',
   );
 
-  static const AnonymousUnion_1113974 polygon = AnonymousUnion_1113974._(
+  static const AnonymousUnion_7177595 polygon = AnonymousUnion_7177595._(
     'polygon',
   );
 }
-extension type const AnonymousUnion_1594664._(String _) {
-  static const AnonymousUnion_1594664 cm2 = AnonymousUnion_1594664._('cm2');
+extension type const AnonymousUnion_4033716._(String _) {
+  static const AnonymousUnion_4033716 cm2 = AnonymousUnion_4033716._('cm2');
 
-  static const AnonymousUnion_1594664 in2 = AnonymousUnion_1594664._('in2');
+  static const AnonymousUnion_4033716 in2 = AnonymousUnion_4033716._('in2');
 }

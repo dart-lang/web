@@ -11,9 +11,8 @@ abstract final class AnonymousHasher {
     return parts.hashValues().to7DigitString();
   }
 
-  static String hashTuple(List<String> parts) {
-    return parts.hashValues().to7DigitString();
-  }
+  static String hashTuple(List<String> parts) =>
+      parts.hashValues().to7DigitString();
 
   /// Warning: [parts] is sorted by this function.
   static String hashObject(List<(String, String)> parts) {
@@ -38,28 +37,7 @@ abstract final class AnonymousHasher {
 
 extension on int {
   String to7DigitString() => toString().padLeft(7, '0').substring(0, 7);
-}
 
-extension on Iterable<String> {
-  /// A hash function based on FNV-1a.
-  ///
-  /// Ensures consistency across platforms vs [Object.hashValues].
-  int hashValues() {
-    var hash = 2166136261;
-    for (final v in this) {
-      for (final codeUnit in v.runes) {
-        hash ^= codeUnit;
-        hash = hash.mul32();
-      }
-      // A "virtual" byte to separate the values in `this`.
-      hash ^= 0;
-      hash = hash.mul32();
-    }
-    return hash.abs();
-  }
-}
-
-extension on int {
   /// Multiplying by `16777619` for the FNV-1a algorithm.
   ///
   /// 32-bit wraparound multiplication safe for web/JS (53-bit limit).
@@ -82,5 +60,24 @@ extension on int {
 
     // Combine
     return (p0 + ((p1 + p2) << 16)) & 0xFFFFFFFF;
+  }
+}
+
+extension on Iterable<String> {
+  /// A hash function based on FNV-1a.
+  ///
+  /// Ensures consistency across platforms vs [Object.hashValues].
+  int hashValues() {
+    var hash = 2166136261;
+    for (final v in this) {
+      for (final codeUnit in v.runes) {
+        hash ^= codeUnit;
+        hash = hash.mul32();
+      }
+      // A "virtual" byte to separate the values in `this`.
+      hash ^= 0;
+      hash = hash.mul32();
+    }
+    return hash.abs();
   }
 }

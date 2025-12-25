@@ -16,7 +16,7 @@ external _i1.JSPromise<_i2.WebGLBuffer> convertToWebGL(
   _i1.JSArrayBuffer buffer,
 );
 @_i1.JS()
-external AnonymousType_1355647<T>
+external AnonymousType_5408739<T>
 getHTMLElementContent<T extends _i2.HTMLElement>(T element);
 @_i1.JS()
 external void handleButtonClick(_i2.MouseEvent event);
@@ -49,9 +49,9 @@ external _i2.ShadowRoot myShadowRoot;
 external _i2.HTMLButtonElement get button;
 @_i1.JS()
 external _i2.HTMLDivElement get output;
-extension type AnonymousType_1355647<T extends _i1.JSAny?>._(_i1.JSObject _)
+extension type AnonymousType_5408739<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
-  external AnonymousType_1355647({
+  external AnonymousType_5408739({
     AnonymousUnion_3403652? ref,
     _i2.HTMLElement parent,
   });

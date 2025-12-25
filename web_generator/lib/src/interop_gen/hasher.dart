@@ -19,7 +19,7 @@ abstract final class AnonymousHasher {
   static String hashObject(List<(String, String)> parts) {
     parts.sort((a, b) => a.$1.compareTo(b.$1));
 
-    return parts.hashes.hashValues().to7DigitString();
+    return parts.expand((p) => [p.$1, p.$2]).hashValues().to7DigitString();
   }
 
   static String hashFun(
@@ -27,17 +27,13 @@ abstract final class AnonymousHasher {
     String returnType, [
     bool constructor = false,
   ]) {
-    final paramHash = params.hashes.hashValues();
+    final paramHash = params.expand((p) => [p.$1, p.$2]).hashValues();
     return [
       constructor.toString(),
       paramHash.toString(),
       returnType,
     ].hashValues().to7DigitString();
   }
-}
-
-extension on Iterable<(String, String)> {
-  Iterable<String> get hashes => map((v) => v.$1 + v.$2);
 }
 
 extension on int {

@@ -2,33 +2,24 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:convert';
-
-import 'package:convert/convert.dart';
-import 'package:crypto/crypto.dart';
-
 /// A hasher is used to give a unique hash to a given anonymous declaration
-class AnonymousHasher {
+abstract final class AnonymousHasher {
+  /// Warning: [parts] is sorted by this function.
   static String hashUnion(List<String> parts) {
-    final cloneParts = parts;
-    cloneParts.sort((a, b) => a.compareTo(b));
+    parts.sort((a, b) => a.compareTo(b));
 
-    return _hashValues(cloneParts).toString().substring(0, 7);
+    return parts.hashValues().to7DigitString();
   }
 
   static String hashTuple(List<String> parts) {
-    return _hashValues(parts).toString().substring(0, 7);
+    return parts.hashValues().to7DigitString();
   }
 
+  /// Warning: [parts] is sorted by this function.
   static String hashObject(List<(String, String)> parts) {
-    final cloneParts = parts;
-    cloneParts.sort((a, b) => a.$1.compareTo(b.$1));
+    parts.sort((a, b) => a.$1.compareTo(b.$1));
 
-    final hashes = cloneParts.map((v) {
-      return _hashValues([v.$1, v.$2]).toString();
-    });
-
-    return _hashValues(hashes).toString().substring(0, 7);
+    return parts.hashes.hashValues().to7DigitString();
   }
 
   static String hashFun(
@@ -36,33 +27,64 @@ class AnonymousHasher {
     String returnType, [
     bool constructor = false,
   ]) {
-    final hashes = params.map((v) {
-      return _hashValues([v.$1, v.$2]).toString();
-    });
-    final paramHash = _hashValues(hashes);
-    return _hashValues([
+    final paramHash = params.hashes.hashValues();
+    return [
       constructor.toString(),
       paramHash.toString(),
       returnType,
-    ]).toString().substring(0, 7);
+    ].hashValues().to7DigitString();
   }
 }
 
-// TODO: A better way for hashing values
-int _hashValues(Iterable<String> values) {
-  final output = AccumulatorSink<Digest>();
-  final input = sha512.startChunkedConversion(output);
+extension on Iterable<(String, String)> {
+  Iterable<String> get hashes => map((v) => v.$1 + v.$2);
+}
 
-  for (final v in values) {
-    final encoded = jsonEncode(v);
-    input.add(utf8.encode(encoded));
+extension on int {
+  String to7DigitString() => toString().padLeft(7, '0').substring(0, 7);
+}
+
+extension on Iterable<String> {
+  /// A hash function based on FNV-1a.
+  ///
+  /// Ensures consistency across platforms vs [Object.hashValues].
+  int hashValues() {
+    var hash = 2166136261;
+    for (final v in this) {
+      for (final codeUnit in v.runes) {
+        hash ^= codeUnit;
+        hash = hash.mul32();
+      }
+      // A "virtual" byte to separate the values in `this`.
+      hash ^= 0;
+      hash = hash.mul32();
+    }
+    return hash.abs();
   }
+}
 
-  input.close();
-  final digest = output.events.single.bytes;
+extension on int {
+  /// Multiplying by `16777619` for the FNV-1a algorithm.
+  ///
+  /// 32-bit wraparound multiplication safe for web/JS (53-bit limit).
+  int mul32() {
+    // Split into 16-bit parts
+    final aLo = this & 0xFFFF;
+    final aHi = this >>> 16;
 
-  return BigInt.parse(
-    digest.sublist(0, 8).map((b) => b.toRadixString(16).padLeft(2, '0')).join(),
-    radix: 16,
-  ).toInt();
+    // Constant parts of 16777619 (0x01000193)
+    // bLo = 403, bHi = 256
+
+    // p0 = aLo * bLo
+    final p0 = aLo * 403;
+
+    // p1 = (aHi * bLo) & 0xFFFF
+    final p1 = (aHi * 403) & 0xFFFF;
+    
+    // p2 = (aLo * bHi) & 0xFFFF
+    final p2 = (aLo * 256) & 0xFFFF;
+
+    // Combine
+    return (p0 + ((p1 + p2) << 16)) & 0xFFFFFFFF;
+  }
 }

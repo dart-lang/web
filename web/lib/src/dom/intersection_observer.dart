@@ -1,4 +1,4 @@
-// Copyright (c) 2025, the Dart project authors.  Please see the AUTHORS file
+// Copyright (c) 2026, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 //
@@ -135,6 +135,7 @@ extension type IntersectionObserver._(JSObject _) implements JSObject {
   /// for a more in-depth look at the root margin and how it works with
   /// the root's bounding box.
   external String get rootMargin;
+  external String get scrollMargin;
 
   /// The [IntersectionObserver] interface's read-only
   /// **`thresholds`** property returns the list of intersection

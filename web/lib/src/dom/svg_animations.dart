@@ -1,4 +1,4 @@
-// Copyright (c) 2025, the Dart project authors.  Please see the AUTHORS file
+// Copyright (c) 2026, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 //
@@ -30,10 +30,10 @@ import 'svg.dart';
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/TimeEvent).
 extension type TimeEvent._(JSObject _) implements Event, JSObject {
   external void initTimeEvent(
-    String typeArg,
+    String typeArg, [
     Window? viewArg,
     int detailArg,
-  );
+  ]);
   external Window? get view;
   external int get detail;
 }
@@ -216,5 +216,3 @@ extension type SVGAnimateTransformElement._(JSObject _)
           'animateTransform',
         );
 }
-extension type SVGDiscardElement._(JSObject _)
-    implements SVGAnimationElement, JSObject {}

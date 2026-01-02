@@ -1,4 +1,4 @@
-// Copyright (c) 2025, the Dart project authors.  Please see the AUTHORS file
+// Copyright (c) 2026, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 //
@@ -53,6 +53,11 @@ extension type PerformanceEventTiming._(JSObject _)
   /// [`target`](https://developer.mozilla.org/en-US/docs/Web/API/Event/target)
   /// which is the node onto which the event was last dispatched.
   external Node? get target;
+
+  /// The read-only **`interactionId`** property returns an ID that uniquely
+  /// identifies a user interaction which triggered a series of associated
+  /// events.
+  external int get interactionId;
 }
 
 /// The **`EventCounts`** interface of the

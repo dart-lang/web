@@ -1,4 +1,4 @@
-// Copyright (c) 2025, the Dart project authors.  Please see the AUTHORS file
+// Copyright (c) 2026, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 //
@@ -427,7 +427,7 @@ extension type AudioDecoderConfig._(JSObject _) implements JSObject {
     required String codec,
     required int sampleRate,
     required int numberOfChannels,
-    BufferSource description,
+    AllowSharedBufferSource description,
   });
 
   external String get codec;
@@ -436,8 +436,8 @@ extension type AudioDecoderConfig._(JSObject _) implements JSObject {
   external set sampleRate(int value);
   external int get numberOfChannels;
   external set numberOfChannels(int value);
-  external BufferSource get description;
-  external set description(BufferSource value);
+  external AllowSharedBufferSource get description;
+  external set description(AllowSharedBufferSource value);
 }
 extension type VideoDecoderConfig._(JSObject _) implements JSObject {
   external factory VideoDecoderConfig({

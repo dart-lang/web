@@ -1,4 +1,4 @@
-// Copyright (c) 2025, the Dart project authors.  Please see the AUTHORS file
+// Copyright (c) 2026, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 //
@@ -60,15 +60,12 @@ extension type IdentityProviderRequestOptions._(JSObject _)
   external factory IdentityProviderRequestOptions({
     required String configURL,
     required String clientId,
-    String nonce,
     String loginHint,
     String domainHint,
     JSArray<JSString> fields,
     JSAny? params,
   });
 
-  external String get nonce;
-  external set nonce(String value);
   external String get loginHint;
   external set loginHint(String value);
   external String get domainHint;

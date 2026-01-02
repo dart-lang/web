@@ -1,4 +1,4 @@
-// Copyright (c) 2025, the Dart project authors.  Please see the AUTHORS file
+// Copyright (c) 2026, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 //
@@ -182,6 +182,7 @@ extension type CredentialCreationOptions._(JSObject _) implements JSObject {
     AbortSignal signal,
     PasswordCredentialInit password,
     FederatedCredentialInit federated,
+    DigitalCredentialCreationOptions digital,
     PublicKeyCredentialCreationOptions publicKey,
   });
 
@@ -193,6 +194,8 @@ extension type CredentialCreationOptions._(JSObject _) implements JSObject {
   external set password(PasswordCredentialInit value);
   external FederatedCredentialInit get federated;
   external set federated(FederatedCredentialInit value);
+  external DigitalCredentialCreationOptions get digital;
+  external set digital(DigitalCredentialCreationOptions value);
   external PublicKeyCredentialCreationOptions get publicKey;
   external set publicKey(PublicKeyCredentialCreationOptions value);
 }

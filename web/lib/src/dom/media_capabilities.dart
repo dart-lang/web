@@ -1,4 +1,4 @@
-// Copyright (c) 2025, the Dart project authors.  Please see the AUTHORS file
+// Copyright (c) 2026, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 //
@@ -176,7 +176,7 @@ extension type MediaCapabilitiesDecodingInfo._(JSObject _)
     required bool smooth,
     required bool powerEfficient,
     required MediaKeySystemAccess? keySystemAccess,
-    MediaDecodingConfiguration configuration,
+    required MediaDecodingConfiguration configuration,
   });
 
   external MediaKeySystemAccess? get keySystemAccess;
@@ -190,7 +190,7 @@ extension type MediaCapabilitiesEncodingInfo._(JSObject _)
     required bool supported,
     required bool smooth,
     required bool powerEfficient,
-    MediaEncodingConfiguration configuration,
+    required MediaEncodingConfiguration configuration,
   });
 
   external MediaEncodingConfiguration get configuration;

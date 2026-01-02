@@ -1,4 +1,4 @@
-// Copyright (c) 2025, the Dart project authors.  Please see the AUTHORS file
+// Copyright (c) 2026, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 //
@@ -46,6 +46,7 @@ extension type AnimationTimeline._(JSObject _) implements JSObject {
   /// [AnimationTimeline] interface returns the timeline's current time in
   /// milliseconds, or `null` if the timeline is inactive.
   external CSSNumberish? get currentTime;
+  external CSSNumberish? get duration;
 }
 extension type DocumentTimelineOptions._(JSObject _) implements JSObject {
   external factory DocumentTimelineOptions({DOMHighResTimeStamp originTime});
@@ -280,6 +281,15 @@ extension type Animation._(JSObject _) implements EventTarget, JSObject {
   /// played yet, `currentTime`'s return value is `null`.
   external CSSNumberish? get currentTime;
   external set currentTime(CSSNumberish? value);
+
+  /// The **`overallProgress`** read-only property of the [Animation] interface
+  /// returns a number between `0` and `1` indicating the animation's overall
+  /// progress towards its finished state. This is the overall progress across
+  /// all of the animation's iterations, not each individual iteration.
+  ///
+  /// `overallProgress` works consistently across all animations, regardless of
+  /// the type of [AnimationTimeline].
+  external double? get overallProgress;
 }
 
 /// The `AnimationEffect` interface of the

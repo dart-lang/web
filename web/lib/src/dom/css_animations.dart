@@ -1,4 +1,4 @@
-// Copyright (c) 2025, the Dart project authors.  Please see the AUTHORS file
+// Copyright (c) 2026, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 //
@@ -92,7 +92,7 @@ extension type CSSKeyframeRule._(JSObject _) implements CSSRule, JSObject {
   /// The read-only **`CSSKeyframeRule.style`** property is the
   /// [CSSStyleDeclaration] interface for the declaration block of the
   /// [CSSKeyframeRule].
-  external JSObject get style;
+  external CSSStyleProperties get style;
 }
 
 /// The **`CSSKeyframesRule`** interface describes an object representing a

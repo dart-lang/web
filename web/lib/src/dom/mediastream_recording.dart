@@ -1,4 +1,4 @@
-// Copyright (c) 2025, the Dart project authors.  Please see the AUTHORS file
+// Copyright (c) 2026, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 //
@@ -261,8 +261,11 @@ extension type BlobEvent._(JSObject _) implements Event, JSObject {
   /// to be zero.
   external double get timecode;
 }
-extension type BlobEventInit._(JSObject _) implements JSObject {
+extension type BlobEventInit._(JSObject _) implements EventInit, JSObject {
   external factory BlobEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
     required Blob data,
     DOMHighResTimeStamp timecode,
   });

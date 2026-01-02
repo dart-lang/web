@@ -1,4 +1,4 @@
-// Copyright (c) 2025, the Dart project authors.  Please see the AUTHORS file
+// Copyright (c) 2026, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 //
@@ -44,4 +44,6 @@ import 'performance_timeline.dart';
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PerformancePaintTiming).
 extension type PerformancePaintTiming._(JSObject _)
-    implements PerformanceEntry, JSObject {}
+    implements PerformanceEntry, JSObject {
+  external JSObject toJSON();
+}

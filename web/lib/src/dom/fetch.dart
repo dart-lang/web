@@ -1,4 +1,4 @@
-// Copyright (c) 2025, the Dart project authors.  Please see the AUTHORS file
+// Copyright (c) 2026, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 //
@@ -18,7 +18,7 @@ import 'dart:js_interop';
 import 'attribution_reporting_api.dart';
 import 'dom.dart';
 import 'fileapi.dart';
-import 'private_network_access.dart';
+import 'local_network_access.dart';
 import 'referrer_policy.dart';
 import 'streams.dart';
 import 'trust_token_api.dart';

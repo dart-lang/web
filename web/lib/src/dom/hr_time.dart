@@ -1,4 +1,4 @@
-// Copyright (c) 2025, the Dart project authors.  Please see the AUTHORS file
+// Copyright (c) 2026, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 //
@@ -214,6 +214,7 @@ extension type Performance._(JSObject _) implements EventTarget, JSObject {
   /// Not all event types are exposed. You can only get counts for event types
   /// supported by the [PerformanceEventTiming] interface.
   external EventCounts get eventCounts;
+  external int get interactionCount;
 
   /// The legacy
   /// **`Performance.timing`** read-only

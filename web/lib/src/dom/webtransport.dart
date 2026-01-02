@@ -1,4 +1,4 @@
-// Copyright (c) 2025, the Dart project authors.  Please see the AUTHORS file
+// Copyright (c) 2026, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 //
@@ -19,7 +19,6 @@ import 'streams.dart';
 import 'webidl.dart';
 
 typedef WebTransportCongestionControl = String;
-typedef DatagramsReadableMode = String;
 typedef WebTransportErrorSource = String;
 
 /// The **`WebTransportDatagramDuplexStream`** interface of the
@@ -223,7 +222,7 @@ extension type WebTransportOptions._(JSObject _) implements JSObject {
     int? anticipatedConcurrentIncomingUnidirectionalStreams,
     int? anticipatedConcurrentIncomingBidirectionalStreams,
     JSArray<JSString> protocols,
-    DatagramsReadableMode datagramsReadableMode,
+    ReadableStreamType datagramsReadableType,
   });
 
   external bool get allowPooling;
@@ -240,8 +239,8 @@ extension type WebTransportOptions._(JSObject _) implements JSObject {
   external set anticipatedConcurrentIncomingBidirectionalStreams(int? value);
   external JSArray<JSString> get protocols;
   external set protocols(JSArray<JSString> value);
-  external DatagramsReadableMode get datagramsReadableMode;
-  external set datagramsReadableMode(DatagramsReadableMode value);
+  external ReadableStreamType get datagramsReadableType;
+  external set datagramsReadableType(ReadableStreamType value);
 }
 extension type WebTransportCloseInfo._(JSObject _) implements JSObject {
   external factory WebTransportCloseInfo({

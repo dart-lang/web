@@ -35,28 +35,29 @@ abstract final class AnonymousHasher {
   }
 }
 
-extension on int {
+extension HasherIntExtension on int {
   String to7DigitString() => toString().padLeft(7, '0').substring(0, 7);
 
   /// Multiplying by `16777619` for the FNV-1a algorithm.
   ///
   /// 32-bit wraparound multiplication safe for web/JS (53-bit limit).
-  int mul32() {
+  int mul32(int multiplier) {
     // Split into 16-bit parts
     final aLo = this & 0xFFFF;
     final aHi = this >>> 16;
 
-    // Constant parts of 16777619 (0x01000193)
-    // bLo = 403, bHi = 256
+    // Split multiplier into 16-bit parts
+    final bLo = multiplier & 0xFFFF;
+    final bHi = multiplier >>> 16;
 
     // p0 = aLo * bLo
-    final p0 = aLo * 403;
+    final p0 = aLo * bLo;
 
     // p1 = (aHi * bLo) & 0xFFFF
-    final p1 = (aHi * 403) & 0xFFFF;
+    final p1 = (aHi * bLo) & 0xFFFF;
 
     // p2 = (aLo * bHi) & 0xFFFF
-    final p2 = (aLo * 256) & 0xFFFF;
+    final p2 = (aLo * bHi) & 0xFFFF;
 
     // Combine
     return (p0 + ((p1 + p2) << 16)) & 0xFFFFFFFF;
@@ -72,11 +73,11 @@ extension on Iterable<String> {
     for (final v in this) {
       for (final codeUnit in v.runes) {
         hash ^= codeUnit;
-        hash = hash.mul32();
+        hash = hash.mul32(16777619);
       }
       // A "virtual" byte to separate the values in `this`.
       hash ^= 0;
-      hash = hash.mul32();
+      hash = hash.mul32(16777619);
     }
     return hash.abs();
   }

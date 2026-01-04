@@ -38,8 +38,6 @@ abstract final class AnonymousHasher {
 extension HasherIntExtension on int {
   String to7DigitString() => toString().padLeft(7, '0').substring(0, 7);
 
-  /// Multiplying by `16777619` for the FNV-1a algorithm.
-  ///
   /// 32-bit wraparound multiplication safe for web/JS (53-bit limit).
   int mul32(int multiplier) {
     // Split into 16-bit parts

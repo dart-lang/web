@@ -27,8 +27,8 @@ typedef Tags = _i1.JSArray<_i1.JSString>;
 typedef List<T extends _i1.JSAny?> = _i1.JSArray<T>;
 typedef Box<T extends _i1.JSAny?> = _i1.JSArray<_i1.JSArray<T>>;
 typedef Logger = LoggerType;
-typedef Direction = AnonymousUnion_1008525;
-typedef Method = AnonymousUnion_1614079;
+typedef Direction = AnonymousUnion_2718349;
+typedef Method = AnonymousUnion_2375200;
 typedef Planet = Space_Planet;
 @_i1.JS()
 external LoggerContainer<_i1.JSNumber> get loggerContainers;
@@ -57,29 +57,29 @@ extension type const LoggerType._(int _) {
 
   static const LoggerType Other = LoggerType._(4);
 }
-extension type const AnonymousUnion_1008525._(String _) {
-  static const AnonymousUnion_1008525 N = AnonymousUnion_1008525._('N');
+extension type const AnonymousUnion_2718349._(String _) {
+  static const AnonymousUnion_2718349 N = AnonymousUnion_2718349._('N');
 
-  static const AnonymousUnion_1008525 S = AnonymousUnion_1008525._('S');
+  static const AnonymousUnion_2718349 S = AnonymousUnion_2718349._('S');
 
-  static const AnonymousUnion_1008525 E = AnonymousUnion_1008525._('E');
+  static const AnonymousUnion_2718349 E = AnonymousUnion_2718349._('E');
 
-  static const AnonymousUnion_1008525 W = AnonymousUnion_1008525._('W');
+  static const AnonymousUnion_2718349 W = AnonymousUnion_2718349._('W');
 }
-extension type const AnonymousUnion_1614079._(String _) {
-  static const AnonymousUnion_1614079 GET = AnonymousUnion_1614079._('GET');
+extension type const AnonymousUnion_2375200._(String _) {
+  static const AnonymousUnion_2375200 GET = AnonymousUnion_2375200._('GET');
 
-  static const AnonymousUnion_1614079 POST = AnonymousUnion_1614079._('POST');
+  static const AnonymousUnion_2375200 POST = AnonymousUnion_2375200._('POST');
 
-  static const AnonymousUnion_1614079 PUT = AnonymousUnion_1614079._('PUT');
+  static const AnonymousUnion_2375200 PUT = AnonymousUnion_2375200._('PUT');
 
-  static const AnonymousUnion_1614079 DELETE = AnonymousUnion_1614079._(
+  static const AnonymousUnion_2375200 DELETE = AnonymousUnion_2375200._(
     'DELETE',
   );
 
-  static const AnonymousUnion_1614079 PATCH = AnonymousUnion_1614079._('PATCH');
+  static const AnonymousUnion_2375200 PATCH = AnonymousUnion_2375200._('PATCH');
 
-  static const AnonymousUnion_1614079 OPTIONS = AnonymousUnion_1614079._(
+  static const AnonymousUnion_2375200 OPTIONS = AnonymousUnion_2375200._(
     'OPTIONS',
   );
 }

@@ -24,7 +24,7 @@ $_usage''');
     return;
   }
 
-  if (argResult['help'] as bool) {
+  if (argResult.flag('help')) {
     print(_usage);
     return;
   }
@@ -41,7 +41,7 @@ $_usage''');
   assert(p.fromUri(Platform.script).endsWith(_thisScript.toFilePath()));
 
   // Run `npm install` or `npm update` as needed.
-  final update = argResult['update'] as bool;
+  final update = argResult.flag('update');
   await runProc('npm', [
     update ? 'update' : 'install',
   ], workingDirectory: bindingsGeneratorPath);
@@ -51,7 +51,7 @@ $_usage''');
   // Compute JS type supertypes for union calculation in translator.
   await generateJsTypeSupertypes(contextFile.path);
 
-  if (argResult['compile'] as bool) {
+  if (argResult.flag('compile')) {
     // Compile Dart to Javascript.
     await compileDartMain();
   }
@@ -62,7 +62,7 @@ $_usage''');
     print(_usage);
     exit(1);
   }
-  final specifiedOutput = argResult['output'] as String?;
+  final specifiedOutput = argResult.option('output');
   final outputFile =
       specifiedOutput ??
       (inputFiles.length > 1
@@ -70,7 +70,7 @@ $_usage''');
           : p.join(p.current, inputFiles.single.replaceAll('.d.ts', '.dart')));
   final defaultWebGenConfigPath = p.join(p.current, 'webgen.yaml');
   final configFile =
-      argResult['config'] as String? ??
+      argResult.option('config') ??
       (File(defaultWebGenConfigPath).existsSync()
           ? defaultWebGenConfigPath
           : null);
@@ -81,7 +81,7 @@ $_usage''');
     outputFile,
     from: bindingsGeneratorPath,
   );
-  final tsConfigPath = argResult['ts-config'] as String?;
+  final tsConfigPath = argResult.option('ts-config');
   final tsConfigRelativePath = tsConfigPath != null
       ? p.relative(tsConfigPath, from: bindingsGeneratorPath)
       : null;

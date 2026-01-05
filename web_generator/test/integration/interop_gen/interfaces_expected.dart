@@ -6,7 +6,7 @@
 import 'dart:js_interop' as _i1;
 
 extension type ILogger._(_i1.JSObject _) implements _i1.JSObject {
-  external AnonymousUnion_1584724? level;
+  external AnonymousUnion_1885558? level;
 
   external String get name;
   external void log(String message);
@@ -60,14 +60,14 @@ external Dictionary get dict;
 external LinkedList get rootList;
 @_i1.JS()
 external Comparator<_i1.JSNumber> get compareNumbers;
-extension type const AnonymousUnion_1584724._(String _) {
-  static const AnonymousUnion_1584724 debug = AnonymousUnion_1584724._('debug');
+extension type const AnonymousUnion_1885558._(String _) {
+  static const AnonymousUnion_1885558 debug = AnonymousUnion_1885558._('debug');
 
-  static const AnonymousUnion_1584724 info = AnonymousUnion_1584724._('info');
+  static const AnonymousUnion_1885558 info = AnonymousUnion_1885558._('info');
 
-  static const AnonymousUnion_1584724 warn = AnonymousUnion_1584724._('warn');
+  static const AnonymousUnion_1885558 warn = AnonymousUnion_1885558._('warn');
 
-  static const AnonymousUnion_1584724 error = AnonymousUnion_1584724._('error');
+  static const AnonymousUnion_1885558 error = AnonymousUnion_1885558._('error');
 }
 extension type LinkedList._(_i1.JSObject _) implements _i1.JSObject {
   external LinkedList next();

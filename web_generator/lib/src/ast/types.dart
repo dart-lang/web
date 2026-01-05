@@ -876,14 +876,14 @@ class _EnumObjDeclaration extends NamedDeclaration
   ID get id => ID(type: 'enum-rep', name: name);
 }
 
-List<String> _nonObjectRepTypeTypes = [
+const _nonObjectRepTypeTypes = {
   'JSAny',
   'JSString',
   'JSBoolean',
   'JSNumber',
   'JSSymbol',
   'JSBigInt',
-];
+};
 
 class _IntersectionDeclaration extends _UnionOrIntersectionDeclaration {
   @override

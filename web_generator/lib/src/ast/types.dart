@@ -112,7 +112,6 @@ class TupleType extends ReferredType<TupleDeclaration> {
     name: types.map((t) => t.id.name).join(','),
     index: readonly ? 1 : 0,
   );
-
 }
 
 class UnionType extends DeclarationType {
@@ -148,7 +147,6 @@ class UnionType extends DeclarationType {
         ..isNullable = (options?.nullable ?? false) || isNullable,
     );
   }
-
 }
 
 class IntersectionType extends DeclarationType {
@@ -245,7 +243,6 @@ class GenericType extends NamedType {
       ..bound = constraint?.emit()
       ..isNullable = (options?.nullable ?? false) || isNullable,
   );
-
 }
 
 /// A type representing a bare literal, such as `null`, a string or number
@@ -287,7 +284,6 @@ class LiteralType extends Type {
 
   @override
   ID get id => ID(type: 'type', name: '$name.$value');
-
 }
 
 enum LiteralKind {

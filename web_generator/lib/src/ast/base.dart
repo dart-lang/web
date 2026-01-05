@@ -105,14 +105,6 @@ abstract class Type extends Node {
 
   @override
   Reference emit([covariant TypeOptions? options]);
-
-  @override
-  bool operator ==(Object other) {
-    return other is Type && id == other.id;
-  }
-
-  @override
-  int get hashCode => Object.hashAll([id]);
 }
 
 abstract class FieldDeclaration extends NamedDeclaration {

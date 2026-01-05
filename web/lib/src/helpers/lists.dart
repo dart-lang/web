@@ -159,26 +159,17 @@ abstract mixin class _LiveNodeListMixin<P extends Node, U extends Node> {
     _filter(test, true);
   }
 
-  Iterator<U> get iterator;
-
   void _filter(bool Function(U element) test, bool requiredTestValue) {
-    // This implementation of removeWhere/retainWhere is more efficient
-    // than the default in ListBase. Child nodes can be removed in constant
-    // time.
-    final i = iterator;
-    U? removeMe;
-    while (i.moveNext()) {
-      if (removeMe != null) {
-        _parent.removeChild(removeMe);
-        removeMe = null;
-      }
-      if (test(i.current) != requiredTestValue) {
-        removeMe = i.current;
+    final toRemove = <U>[];
+    final length = this.length;
+    for (var i = 0; i < length; i++) {
+      final element = this[i];
+      if (test(element) != requiredTestValue) {
+        toRemove.add(element);
       }
     }
-    if (removeMe != null) {
-      _parent.removeChild(removeMe);
-      removeMe = null;
+    for (var element in toRemove) {
+      _parent.removeChild(element);
     }
   }
 
@@ -233,30 +224,43 @@ abstract mixin class _LiveNodeListMixin<P extends Node, U extends Node> {
   }
 }
 
-/// Allows iterating `HTMLCollection` with `nextElementSibling` for optimisation and easier encapsulation
-class _HTMLCollectionIterator implements Iterator<Element> {
+/// Iterates [_LiveNodeListMixin]. Compared to default `ListIterator`, this
+/// iterator skips `length` check for `ConcurrentModificationError` to improve
+/// performance in WASM.
+class _NodeListIterator<E> implements Iterator<E> {
+  final Iterable<E> _iterable;
+  final int _length;
+  int _index;
+  E? _current;
+
+  _NodeListIterator(Iterable<E> iterable)
+      : _iterable = iterable,
+        _length = iterable.length,
+        _index = 0;
+
   @override
-  Element get current => _current!;
-
-  Element? _current;
-  bool start = true;
-
-  _HTMLCollectionIterator(this._current);
+  E get current => _current!;
 
   @override
+  @pragma('vm:prefer-inline')
+  @pragma('wasm:prefer-inline')
   bool moveNext() {
-    if (start) {
-      start = false;
+    if (_index >= _length) {
+      _current = null;
+      return false;
     } else {
-      _current = _current?.nextElementSibling;
+      _current = _iterable.elementAt(_index);
+      _index++;
+      return true;
     }
-    return _current != null;
   }
 }
 
-/// Wrapper for `HTMLCollection` returned from `children` that implements modifiable list interface and allows easier DOM manipulation.
-/// This is loosely based on `_ChildrenElementList` from `dart:html` to preserve compatibility
-class HTMLCollectionListWrapper
+/// Wrapper for `HTMLCollection` returned from `children` that implements
+/// modifiable list interface and allows easier DOM manipulation.
+/// This is loosely based on `_ChildrenElementList` from `dart:html` to
+/// preserve compatibility.
+class _HTMLCollectionListWrapper
     with ListMixin<Element>, _LiveNodeListMixin<Element, Element> {
   @override
   final Element _parent;
@@ -265,11 +269,12 @@ class HTMLCollectionListWrapper
 
   final HTMLCollection _htmlCollection;
 
-  HTMLCollectionListWrapper(this._parent, this._htmlCollection);
+  _HTMLCollectionListWrapper(this._parent, this._htmlCollection);
 
   @override
-  Iterator<Element> get iterator =>
-      _HTMLCollectionIterator(_parent.firstElementChild);
+
+  ///See [_NodeListIterator] for information.
+  Iterator<Element> get iterator => _NodeListIterator(this);
 
   @override
   bool get isEmpty {
@@ -306,30 +311,10 @@ class HTMLCollectionListWrapper
   }
 }
 
-/// Allows iterating `NodeList` with `nextSibling` for optimisation and easier encapsulation
-class _NodeListIterator implements Iterator<Node> {
-  @override
-  Node get current => _current!;
-
-  Node? _current;
-  bool start = true;
-
-  _NodeListIterator(this._current);
-
-  @override
-  bool moveNext() {
-    if (start) {
-      start = false;
-    } else {
-      _current = _current?.nextSibling;
-    }
-    return _current != null;
-  }
-}
-
 /// Wrapper for `NodeList` returned from `childNodes` that implements modifiable list interface and allows easier DOM manipulation.
 /// This is loosely based on `_ChildNodeListLazy` from `dart:html` to preserve compatibility
-class NodeListListWrapper with ListMixin<Node>, _LiveNodeListMixin<Node, Node> {
+class _NodeListListWrapper
+    with ListMixin<Node>, _LiveNodeListMixin<Node, Node> {
   @override
   final Node _parent;
   @override
@@ -337,10 +322,12 @@ class NodeListListWrapper with ListMixin<Node>, _LiveNodeListMixin<Node, Node> {
 
   final NodeList _nodeList;
 
-  NodeListListWrapper(this._parent, this._nodeList);
+  _NodeListListWrapper(this._parent, this._nodeList);
 
   @override
-  Iterator<Node> get iterator => _NodeListIterator(_parent.firstChild);
+
+  ///See [_NodeListIterator] for information.
+  Iterator<Node> get iterator => _NodeListIterator(this);
 
   @override
   bool get isEmpty {
@@ -375,4 +362,17 @@ class NodeListListWrapper with ListMixin<Node>, _LiveNodeListMixin<Node, Node> {
       _parent.removeChild(_parent.firstChild!);
     }
   }
+}
+
+extension NodeExtension on Node {
+  /// Returns [childNodes] as a modifiable [List].
+  /// This replaces functionality of the `nodes` getter from `dart:html`.
+  List<Node> get childNodesAsList => _NodeListListWrapper(this, childNodes);
+}
+
+extension ElementExtension on Element {
+  /// Returns [children] as a modifiable [List].
+  /// This replaces functionality of the `children` getter from `dart:html`.
+  List<Element> get childrenAsList =>
+      _HTMLCollectionListWrapper(this, children);
 }

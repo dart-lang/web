@@ -105,16 +105,6 @@ extension UriToURL on Uri {
   }
 }
 
-extension NodeExtension on Node {
-  /// Returns [childNodes] as a modifiable [List].
-  List<Node> get childNodesAsList => NodeListListWrapper(this, childNodes);
-}
-
-extension ElementExtension on Element {
-  /// Returns [children] as a modifiable [List].
-  List<Element> get childrenAsList => HTMLCollectionListWrapper(this, children);
-}
-
 extension NodeListExtension on NodeList {
   /// Returns node list as a modifiable [List].
   List<Element> get asList => JSImmutableListWrapper(this);

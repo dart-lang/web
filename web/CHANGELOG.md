@@ -8,10 +8,8 @@
 - Added `URL.toDart` and `Uri.toJS` extension methods.
 - Added missing `Document` and `Window` pointer event getters: `onDrag*`,
   `onTouch*`, `onMouse*`.
-- Added `HTMLCollectionListWrapper` and `NodeListListWrapper` to support
-  mutable operations on node lists.
 - Added `childNodesAsList` to `Node` and `childrenAsList` to `Element` via 
-  extensions.
+  extensions to support mutable operations on node lists.
 - Added `asList` to `NodeList` via extension.
 
 ## 1.1.1

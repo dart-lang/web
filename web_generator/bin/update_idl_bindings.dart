@@ -37,6 +37,15 @@ $_usage''');
 
   if (!isSnapshot) assert(script.endsWith(_thisScript.toFilePath()));
 
+  final inputFiles = argResult['input'] as List<String>;
+  if (inputFiles.isEmpty) {
+    print(
+      ansi.lightRed.wrap('Input files must be provided for IDL conversion.'),
+    );
+    exitCode = ExitCode.usage.code;
+    return;
+  }
+
   // Run `npm install` or `npm update` as needed.
   final update = argResult['update'] as bool;
   await runProc('npm', [
@@ -61,15 +70,11 @@ $_usage''');
   if (isSnapshot) {
     // Do not run webdev setup script stuff for published snapshots
     final generateAll = argResult['generate-all'] as bool;
-    final inputFiles = argResult['input'] as List<String>;
     await runProc('node', [
       'main.mjs',
       '--idl',
       for (String inputFile in inputFiles) '--input=$inputFile',
-      if (inputFiles.isEmpty)
-        '--output=${p.join(_webPackagePath, 'lib', 'src')}'
-      else
-        '--output=${argResult['output'] as String? ?? p.current}',
+      '--output=${argResult['output'] as String? ?? p.current}',
       if (generateAll) '--generate-all',
     ], workingDirectory: bindingsGeneratorPath);
 
@@ -94,7 +99,6 @@ $_usage''');
 
   // Run app with `node`.
   final generateAll = argResult['generate-all'] as bool;
-  final inputFiles = argResult['input'] as List<String>;
   await runProc('node', [
     'main.mjs',
     '--idl',

@@ -6,6 +6,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:args/args.dart';
+import 'package:dart_style/dart_style.dart';
 import 'package:io/ansi.dart' as ansi;
 import 'package:io/io.dart';
 import 'package:package_config/package_config.dart';
@@ -31,7 +32,10 @@ $_usage''');
     return;
   }
 
-  assert(p.fromUri(Platform.script).endsWith(_thisScript.toFilePath()));
+  final script = p.fromUri(Platform.script);
+  final isSnapshot = p.extension(script) == 'snapshot';
+
+  assert(script.endsWith(_thisScript.toFilePath()));
 
   // Run `npm install` or `npm update` as needed.
   final update = argResult['update'] as bool;
@@ -45,9 +49,31 @@ $_usage''');
   await generateJsTypeSupertypes(contextFile.path);
 
   if (argResult['compile'] as bool) {
-    final webPkgLangVersion = await _webPackageLanguageVersion(_webPackagePath);
+    final webPkgLangVersion = isSnapshot
+        ? DartFormatter.latestLanguageVersion.toString()
+        : await _webPackageLanguageVersion(_webPackagePath);
     // Compile Dart to Javascript.
     await compileDartMain(langVersion: webPkgLangVersion);
+  }
+
+  // TODO: we should consider moving package:web related stuff to a separate,
+  //  private script since it is only needed during CI and/or for maintainers
+  if (isSnapshot) {
+    // Do not run webdev setup script stuff for published snapshots
+    final generateAll = argResult['generate-all'] as bool;
+    final inputFiles = argResult['input'] as List<String>;
+    await runProc('node', [
+      'main.mjs',
+      '--idl',
+      for (String inputFile in inputFiles) '--input=$inputFile',
+      if (inputFiles.isEmpty)
+        '--output=${p.join(_webPackagePath, 'lib', 'src')}'
+      else
+        '--output=${argResult['output'] as String? ?? p.current}',
+      if (generateAll) '--generate-all',
+    ], workingDirectory: bindingsGeneratorPath);
+
+    return;
   }
 
   // Determine the set of previously generated files.

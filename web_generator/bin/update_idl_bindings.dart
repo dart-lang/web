@@ -38,7 +38,7 @@ $_usage''');
   if (!isSnapshot) assert(script.endsWith(_thisScript.toFilePath()));
 
   final inputFiles = argResult['input'] as List<String>;
-  if (inputFiles.isEmpty) {
+  if (inputFiles.isEmpty && isSnapshot) {
     print(
       ansi.lightRed.wrap('Input files must be provided for IDL conversion.'),
     );

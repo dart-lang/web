@@ -35,7 +35,7 @@ $_usage''');
   final script = p.fromUri(Platform.script);
   final isSnapshot = p.extension(script) == 'snapshot';
 
-  assert(script.endsWith(_thisScript.toFilePath()));
+  if (!isSnapshot) assert(script.endsWith(_thisScript.toFilePath()));
 
   // Run `npm install` or `npm update` as needed.
   final update = argResult['update'] as bool;

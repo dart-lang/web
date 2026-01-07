@@ -13775,6 +13775,14 @@ extension type Navigation._(JSObject _) implements EventTarget, JSObject {
   /// entry list),
   /// and `false` if it is not.
   external bool get canGoForward;
+  external EventHandler get onnavigate;
+  external set onnavigate(EventHandler value);
+  external EventHandler get onnavigatesuccess;
+  external set onnavigatesuccess(EventHandler value);
+  external EventHandler get onnavigateerror;
+  external set onnavigateerror(EventHandler value);
+  external EventHandler get oncurrententrychange;
+  external set oncurrententrychange(EventHandler value);
 }
 extension type NavigationUpdateCurrentEntryOptions._(JSObject _)
     implements JSObject {

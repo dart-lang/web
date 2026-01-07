@@ -21,7 +21,8 @@ import 'html.dart';
 import 'streams.dart';
 import 'webcodecs.dart';
 
-typedef RTCRtpTransform = JSObject;
+typedef RTCRtpSenderTransform = JSObject;
+typedef RTCRtpReceiverTransform = JSObject;
 extension type RTCEncodedFrameMetadata._(JSObject _) implements JSObject {
   external factory RTCEncodedFrameMetadata({
     int synchronizationSource,
@@ -205,34 +206,23 @@ extension type RTCEncodedAudioFrame._(JSObject _) implements JSObject {
   external set data(JSArrayBuffer value);
 }
 
-/// The **`RTCTransformEvent`** of the
-/// [WebRTC API](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API)
-/// represent an event that is fired in a dedicated worker when an encoded frame
-/// has been queued for processing by a
-/// [WebRTC Encoded Transform](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Using_Encoded_Transforms).
-///
-/// The interface has a [RTCTransformEvent.transformer] property that exposes a
-/// readable stream and a writable stream.
-/// A worker should read encoded frames from `transformer.readable`, modify them
-/// as needed, and write them to `transformer.writable` in the same order and
-/// without any duplication.
-///
-/// At time of writing there is just one event based on `RTCTransformEvent`:
-/// [DedicatedWorkerGlobalScope.rtctransform_event].
+/// The **`RTCRtpScriptTransform`** interface of the
+/// [WebRTC API](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API) is
+/// used to insert a
+/// [WebRTC Encoded Transform](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Using_Encoded_Transforms)
+/// (a [TransformStream] running in a worker thread) into the WebRTC sender and
+/// receiver pipelines.
 ///
 /// ---
 ///
 /// API documentation sourced from
-/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCTransformEvent).
-extension type RTCTransformEvent._(JSObject _) implements Event, JSObject {
-  /// The read-only **`transformer`** property of the [RTCTransformEvent]
-  /// interface returns the [RTCRtpScriptTransformer] associated with the event.
-  ///
-  /// The property exposes the WebRTC sender or receiver pipeline as a readable
-  /// and writable stream of encoded media frames, which a
-  /// [WebRTC Encoded Transform](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Using_Encoded_Transforms)
-  /// can insert itself into in order to modify frames.
-  external RTCRtpScriptTransformer get transformer;
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCRtpScriptTransform).
+extension type RTCRtpScriptTransform._(JSObject _) implements JSObject {
+  external factory RTCRtpScriptTransform(
+    Worker worker, [
+    JSAny? options,
+    JSArray<JSObject> transfer,
+  ]);
 }
 
 /// The **`RTCRtpScriptTransformer`** interface of the
@@ -319,21 +309,32 @@ extension type RTCRtpScriptTransformer._(JSObject _)
   external JSAny? get options;
 }
 
-/// The **`RTCRtpScriptTransform`** interface of the
-/// [WebRTC API](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API) is
-/// used to insert a
-/// [WebRTC Encoded Transform](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Using_Encoded_Transforms)
-/// (a [TransformStream] running in a worker thread) into the WebRTC sender and
-/// receiver pipelines.
+/// The **`RTCTransformEvent`** of the
+/// [WebRTC API](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API)
+/// represent an event that is fired in a dedicated worker when an encoded frame
+/// has been queued for processing by a
+/// [WebRTC Encoded Transform](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Using_Encoded_Transforms).
+///
+/// The interface has a [RTCTransformEvent.transformer] property that exposes a
+/// readable stream and a writable stream.
+/// A worker should read encoded frames from `transformer.readable`, modify them
+/// as needed, and write them to `transformer.writable` in the same order and
+/// without any duplication.
+///
+/// At time of writing there is just one event based on `RTCTransformEvent`:
+/// [DedicatedWorkerGlobalScope.rtctransform_event].
 ///
 /// ---
 ///
 /// API documentation sourced from
-/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCRtpScriptTransform).
-extension type RTCRtpScriptTransform._(JSObject _) implements JSObject {
-  external factory RTCRtpScriptTransform(
-    Worker worker, [
-    JSAny? options,
-    JSArray<JSObject> transfer,
-  ]);
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCTransformEvent).
+extension type RTCTransformEvent._(JSObject _) implements Event, JSObject {
+  /// The read-only **`transformer`** property of the [RTCTransformEvent]
+  /// interface returns the [RTCRtpScriptTransformer] associated with the event.
+  ///
+  /// The property exposes the WebRTC sender or receiver pipeline as a readable
+  /// and writable stream of encoded media frames, which a
+  /// [WebRTC Encoded Transform](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Using_Encoded_Transforms)
+  /// can insert itself into in order to modify frames.
+  external RTCRtpScriptTransformer get transformer;
 }

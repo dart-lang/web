@@ -1208,8 +1208,8 @@ extension type RTCRtpSender._(JSObject _) implements JSObject {
   ///
   /// A [RTCRtpScriptTransform]<!-- or [SFrameTransform] -->, or `null` if the
   /// sender has no associated transform stream.
-  external RTCRtpTransform? get transform;
-  external set transform(RTCRtpTransform? value);
+  external RTCRtpSenderTransform? get transform;
+  external set transform(RTCRtpSenderTransform? value);
 
   /// The read-only **`dtmf`** property on the
   /// **[RTCRtpSender]** interface returns a
@@ -1461,8 +1461,8 @@ extension type RTCRtpReceiver._(JSObject _) implements JSObject {
   ///
   /// A [RTCRtpScriptTransform]<!-- or [SFrameTransform] -->, or `null` if the
   /// receiver has no associated transform stream.
-  external RTCRtpTransform? get transform;
-  external set transform(RTCRtpTransform? value);
+  external RTCRtpReceiverTransform? get transform;
+  external set transform(RTCRtpReceiverTransform? value);
 }
 extension type RTCRtpContributingSource._(JSObject _) implements JSObject {
   external factory RTCRtpContributingSource({

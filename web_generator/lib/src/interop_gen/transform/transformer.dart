@@ -503,7 +503,7 @@ class Transformer {
             parentNamer: typeNamer,
             parent: outputType,
           );
-          outputType.properties.add(prop);
+          if (prop != null) outputType.properties.add(prop);
           break;
         // TODO: Support methods with computed and string property names
         //  (e.g) [Symbol.iterator], "foo-bar"
@@ -576,12 +576,25 @@ class Transformer {
     return outputType;
   }
 
-  PropertyDeclaration _transformProperty(
+  PropertyDeclaration? _transformProperty(
     TSPropertyEntity property, {
     required UniqueNamer parentNamer,
     TypeDeclaration? parent,
   }) {
+    final nameNode = property.name as TSNode;
+    // We only support identifying properties via identifiers or string literals.
+    // Computed properties (e.g. `[Symbol.iterator]`) and numeric headers
+    // (e.g. `123`) are not supported across many backends effectively.
+    if (nameNode.kind != TSSyntaxKind.Identifier &&
+        nameNode.kind != TSSyntaxKind.StringLiteral) {
+      return null;
+    }
+
     final name = property.name.text;
+    var nameForDart = name;
+    if (nameNode.kind == TSSyntaxKind.StringLiteral) {
+      nameForDart = _toCamelCase(name);
+    }
 
     final (:id, name: dartName) = parentNamer.makeUnique(name, 'var');
 
@@ -1434,7 +1447,7 @@ class Transformer {
                 member as TSPropertySignature,
                 parentNamer: typeNamer,
               );
-              properties.add(prop);
+              if (prop != null) properties.add(prop);
             case TSSyntaxKind.MethodSignature:
               final method = _transformMethod(
                 member as TSMethodSignature,
@@ -2958,4 +2971,17 @@ QualifiedName parseQualifiedName(
   } else {
     return parseQualifiedNameFromTSQualifiedName(name as TSQualifiedName);
   }
+}
+
+String _toCamelCase(String text) {
+  final parts = text.split(RegExp(r'[^a-zA-Z0-9$]'));
+  if (parts.isEmpty) return text;
+  final buffer = StringBuffer(parts[0]);
+  for (var i = 1; i < parts.length; i++) {
+    final part = parts[i];
+    if (part.isNotEmpty) {
+      buffer.write(part[0].toUpperCase() + part.substring(1));
+    }
+  }
+  return buffer.toString();
 }

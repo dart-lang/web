@@ -596,7 +596,7 @@ class Transformer {
       nameForDart = _toCamelCase(name);
     }
 
-    final (:id, name: dartName) = parentNamer.makeUnique(name, 'var');
+    final (:id, name: dartName) = parentNamer.makeUnique(nameForDart, 'var');
 
     final (:isStatic, :isReadonly, :scope) = _parseModifiers(
       property.modifiers,
@@ -2975,13 +2975,14 @@ QualifiedName parseQualifiedName(
 
 String _toCamelCase(String text) {
   final parts = text.split(RegExp(r'[^a-zA-Z0-9$]'));
-  if (parts.isEmpty) return text;
-  final buffer = StringBuffer(parts[0]);
-  for (var i = 1; i < parts.length; i++) {
-    final part = parts[i];
-    if (part.isNotEmpty) {
-      buffer.write(part[0].toUpperCase() + part.substring(1));
-    }
+  final nonEmptyParts = parts.where((p) => p.isNotEmpty).toList();
+  if (nonEmptyParts.isEmpty) return text;
+
+  final buffer = StringBuffer(
+      nonEmptyParts[0][0].toLowerCase() + nonEmptyParts[0].substring(1));
+  for (var i = 1; i < nonEmptyParts.length; i++) {
+    final part = nonEmptyParts[i];
+    buffer.write(part[0].toUpperCase() + part.substring(1));
   }
   return buffer.toString();
 }

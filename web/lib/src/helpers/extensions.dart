@@ -25,6 +25,7 @@ import 'dart:convert';
 import 'dart:js_interop';
 
 import '../dom.dart';
+import 'lists.dart';
 
 export 'cross_origin.dart'
     show CrossOriginContentWindowExtension, CrossOriginWindowExtension;
@@ -102,4 +103,9 @@ extension UriToURL on Uri {
       throw ArgumentError.value(this, 'this', '"$this" isn\'t a valid JS URL.');
     }
   }
+}
+
+extension NodeListExtension on NodeList {
+  /// Returns node list as a modifiable [List].
+  List<Element> get asList => JSImmutableListWrapper(this);
 }

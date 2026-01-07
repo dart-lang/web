@@ -4,6 +4,7 @@
 
 import 'dart:collection';
 import 'dart:js_interop';
+import '../dom/dom.dart';
 
 /// `_JSList` acts as a wrapper around a JS list object providing an interface to
 /// access the list items and list length while also allowing us to specify the
@@ -65,7 +66,313 @@ class JSImmutableListWrapper<T extends JSObject, U extends JSObject>
     if (length > 1) throw StateError('More than one element');
     return first;
   }
+}
+
+/// This mixin exists to avoid repetition in `NodeListListWrapper` and `HTMLCollectionListWrapper`
+/// It can be also used for `HTMLCollection` and `NodeList` that is
+/// [live](https://developer.mozilla.org/en-US/docs/Web/API/NodeList#live_vs._static_nodelists)
+/// and can be safely modified at runtime.
+/// This requires an instance of `P`, a container that elements would be added to or removed from.
+abstract mixin class _LiveNodeListMixin<P extends Node, U extends Node> {
+  P get _parent;
+  _JSList<U> get _list;
+
+  bool contains(Object? element) {
+    // TODO(srujzs): migrate this ifs to isJSAny once we have it
+    // ignore: invalid_runtime_check_with_js_interop_types
+    if ((element is JSAny?) && (element?.isA<Node>() ?? false)) {
+      if ((element as Node).parentNode.strictEquals(_parent).toDart) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  bool remove(Object? element) {
+    if (contains(element)) {
+      _parent.removeChild(element as Node);
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  int get length => _list.length;
+
+  set length(int value) {
+    if (value > length) {
+      throw UnsupportedError('Cannot add empty nodes.');
+    }
+    for (var i = length - 1; i >= value; i--) {
+      _parent.removeChild(_list.item(i));
+    }
+  }
+
+  U operator [](int index) {
+    if (index > length || index < 0) {
+      throw IndexError.withLength(index, length, indexable: this);
+    }
+    return _list.item(index);
+  }
+
+  void operator []=(int index, U value) {
+    RangeError.checkValidRange(index, null, length);
+    _parent.replaceChild(value, _list.item(index));
+  }
+
+  void add(U value) {
+    _parent.appendChild(value);
+  }
+
+  void removeRange(int start, int end) {
+    RangeError.checkValidRange(start, end, length);
+    for (var i = 0; i < end - start; i++) {
+      _parent.removeChild(this[start]);
+    }
+  }
+
+  U removeAt(int index) {
+    final result = this[index];
+    _parent.removeChild(result);
+    return result;
+  }
+
+  void fillRange(int start, int end, [U? fill]) {
+    // without cloning the element we would end up with one `fill` instance
+    // this method does not make much sense in nodes lists
+    throw UnsupportedError('Cannot fillRange on Node list');
+  }
+
+  U get last;
+
+  U removeLast() {
+    final result = last;
+    _parent.removeChild(result);
+    return result;
+  }
+
+  void removeWhere(bool Function(U element) test) {
+    _filter(test, false);
+  }
+
+  void retainWhere(bool Function(U element) test) {
+    _filter(test, true);
+  }
+
+  void _filter(bool Function(U element) test, bool requiredTestValue) {
+    final toRemove = <U>[];
+    final length = this.length;
+    for (var i = 0; i < length; i++) {
+      final element = this[i];
+      if (test(element) != requiredTestValue) {
+        toRemove.add(element);
+      }
+    }
+    for (var element in toRemove) {
+      _parent.removeChild(element);
+    }
+  }
+
+  void insert(int index, U element) {
+    if (index < 0 || index > length) {
+      throw RangeError.range(index, 0, length);
+    }
+    if (index == length) {
+      _parent.appendChild(element);
+    } else {
+      _parent.insertBefore(element, this[index]);
+    }
+  }
+
+  void addAll(Iterable<U> iterable) {
+    if (iterable is _LiveNodeListMixin) {
+      final otherList = iterable as _LiveNodeListMixin;
+      if (otherList._parent.strictEquals(_parent).toDart) {
+        throw ArgumentError('Cannot add nodes from same parent');
+      }
+      // Optimized route for copying between nodes.
+      for (var len = otherList.length; len > 0; --len) {
+        _parent.appendChild(otherList._parent.firstChild!);
+      }
+    }
+
+    for (var element in iterable) {
+      _parent.appendChild(element);
+    }
+  }
+
+  void insertAll(int index, Iterable<U> iterable) {
+    if (index == length) {
+      addAll(iterable);
+    } else {
+      final child = this[index];
+      if (iterable is _LiveNodeListMixin) {
+        final otherList = iterable as _LiveNodeListMixin;
+        if (otherList._parent.strictEquals(_parent).toDart) {
+          throw ArgumentError('Cannot add nodes from same parent');
+        }
+        // Optimized route for copying between nodes.
+        for (var len = otherList.length; len > 0; --len) {
+          _parent.insertBefore(otherList._parent.firstChild!, child);
+        }
+      } else {
+        for (var node in iterable) {
+          _parent.insertBefore(node, child);
+        }
+      }
+    }
+  }
+}
+
+/// Iterates [_LiveNodeListMixin]. Compared to default `ListIterator`, this
+/// iterator skips `length` check for `ConcurrentModificationError` to improve
+/// performance in WASM.
+class _NodeListIterator<E> implements Iterator<E> {
+  final Iterable<E> _iterable;
+  final int _length;
+  int _index;
+  E? _current;
+
+  _NodeListIterator(Iterable<E> iterable)
+      : _iterable = iterable,
+        _length = iterable.length,
+        _index = 0;
 
   @override
-  U elementAt(int index) => this[index];
+  E get current => _current!;
+
+  @override
+  @pragma('vm:prefer-inline')
+  @pragma('wasm:prefer-inline')
+  bool moveNext() {
+    if (_index >= _length) {
+      _current = null;
+      return false;
+    } else {
+      _current = _iterable.elementAt(_index);
+      _index++;
+      return true;
+    }
+  }
+}
+
+/// Wrapper for `HTMLCollection` returned from `children` that implements
+/// modifiable list interface and allows easier DOM manipulation.
+/// This is loosely based on `_ChildrenElementList` from `dart:html` to
+/// preserve compatibility.
+class _HTMLCollectionListWrapper
+    with ListMixin<Element>, _LiveNodeListMixin<Element, Element> {
+  @override
+  final Element _parent;
+  @override
+  _JSList<Element> get _list => _JSList<Element>(_htmlCollection);
+
+  final HTMLCollection _htmlCollection;
+
+  _HTMLCollectionListWrapper(this._parent, this._htmlCollection);
+
+  @override
+
+  ///See [_NodeListIterator] for information.
+  Iterator<Element> get iterator => _NodeListIterator(this);
+
+  @override
+  bool get isEmpty {
+    return _parent.firstElementChild == null;
+  }
+
+  @override
+  Element get first {
+    final result = _parent.firstElementChild;
+    if (result == null) throw StateError('No elements');
+    return result;
+  }
+
+  @override
+  Element get last {
+    final result = _parent.lastElementChild;
+    if (result == null) throw StateError('No elements');
+    return result;
+  }
+
+  @override
+  Element get single {
+    final l = length;
+    if (l == 0) throw StateError('No elements');
+    if (l > 1) throw StateError('More than one element');
+    return _parent.firstElementChild!;
+  }
+
+  @override
+  void clear() {
+    while (_parent.firstElementChild != null) {
+      _parent.removeChild(_parent.firstElementChild!);
+    }
+  }
+}
+
+/// Wrapper for `NodeList` returned from `childNodes` that implements modifiable list interface and allows easier DOM manipulation.
+/// This is loosely based on `_ChildNodeListLazy` from `dart:html` to preserve compatibility
+class _NodeListListWrapper
+    with ListMixin<Node>, _LiveNodeListMixin<Node, Node> {
+  @override
+  final Node _parent;
+  @override
+  _JSList<Node> get _list => _JSList<Node>(_nodeList);
+
+  final NodeList _nodeList;
+
+  _NodeListListWrapper(this._parent, this._nodeList);
+
+  @override
+
+  ///See [_NodeListIterator] for information.
+  Iterator<Node> get iterator => _NodeListIterator(this);
+
+  @override
+  bool get isEmpty {
+    return _parent.firstChild == null;
+  }
+
+  @override
+  Node get first {
+    final result = _parent.firstChild;
+    if (result == null) throw StateError('No elements');
+    return result;
+  }
+
+  @override
+  Node get last {
+    final result = _parent.lastChild;
+    if (result == null) throw StateError('No elements');
+    return result;
+  }
+
+  @override
+  Node get single {
+    final l = length;
+    if (l == 0) throw StateError('No elements');
+    if (l > 1) throw StateError('More than one element');
+    return _parent.firstChild!;
+  }
+
+  @override
+  void clear() {
+    while (_parent.firstChild != null) {
+      _parent.removeChild(_parent.firstChild!);
+    }
+  }
+}
+
+extension NodeExtension on Node {
+  /// Returns [childNodes] as a modifiable [List].
+  /// This replaces functionality of the `nodes` getter from `dart:html`.
+  List<Node> get childNodesAsList => _NodeListListWrapper(this, childNodes);
+}
+
+extension ElementExtension on Element {
+  /// Returns [children] as a modifiable [List].
+  /// This replaces functionality of the `children` getter from `dart:html`.
+  List<Element> get childrenAsList =>
+      _HTMLCollectionListWrapper(this, children);
 }

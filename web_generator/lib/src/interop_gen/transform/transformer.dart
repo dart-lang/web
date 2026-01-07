@@ -6,6 +6,7 @@ import 'dart:collection';
 import 'dart:js_interop';
 import 'package:collection/collection.dart';
 import 'package:path/path.dart' as p;
+import '../../banned_names.dart';
 import '../../ast/base.dart';
 import '../../ast/builtin.dart';
 import '../../ast/declarations.dart';
@@ -593,7 +594,7 @@ class Transformer {
     final name = property.name.text;
     var nameForDart = name;
     if (nameNode.kind == TSSyntaxKind.StringLiteral) {
-      nameForDart = _toCamelCase(name);
+      nameForDart = dartRename(name);
     }
 
     final (:id, name: dartName) = parentNamer.makeUnique(nameForDart, 'var');
@@ -2971,19 +2972,4 @@ QualifiedName parseQualifiedName(
   } else {
     return parseQualifiedNameFromTSQualifiedName(name as TSQualifiedName);
   }
-}
-
-String _toCamelCase(String text) {
-  final parts = text.split(RegExp(r'[^a-zA-Z0-9$]'));
-  final nonEmptyParts = parts.where((p) => p.isNotEmpty).toList();
-  if (nonEmptyParts.isEmpty) return text;
-
-  final buffer = StringBuffer(
-    nonEmptyParts[0][0].toLowerCase() + nonEmptyParts[0].substring(1),
-  );
-  for (var i = 1; i < nonEmptyParts.length; i++) {
-    final part = nonEmptyParts[i];
-    buffer.write(part[0].toUpperCase() + part.substring(1));
-  }
-  return buffer.toString();
 }

@@ -2979,7 +2979,8 @@ String _toCamelCase(String text) {
   if (nonEmptyParts.isEmpty) return text;
 
   final buffer = StringBuffer(
-      nonEmptyParts[0][0].toLowerCase() + nonEmptyParts[0].substring(1));
+    nonEmptyParts[0][0].toLowerCase() + nonEmptyParts[0].substring(1),
+  );
   for (var i = 1; i < nonEmptyParts.length; i++) {
     final part = nonEmptyParts[i];
     buffer.write(part[0].toUpperCase() + part.substring(1));

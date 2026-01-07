@@ -20,50 +20,50 @@ extension type const TSSyntaxKind._(num _) {
   static const TSSyntaxKind EndOfFileToken = TSSyntaxKind._(1);
 
   /// declarations
-  static const TSSyntaxKind ClassDeclaration = TSSyntaxKind._(263);
-  static const TSSyntaxKind VariableStatement = TSSyntaxKind._(243);
-  static const TSSyntaxKind VariableDeclaration = TSSyntaxKind._(260);
-  static const TSSyntaxKind InterfaceDeclaration = TSSyntaxKind._(264);
-  static const TSSyntaxKind FunctionDeclaration = TSSyntaxKind._(262);
-  static const TSSyntaxKind ExportDeclaration = TSSyntaxKind._(278);
-  static const TSSyntaxKind TypeAliasDeclaration = TSSyntaxKind._(265);
-  static const TSSyntaxKind ModuleDeclaration = TSSyntaxKind._(267);
-  static const TSSyntaxKind Parameter = TSSyntaxKind._(169);
-  static const TSSyntaxKind EnumDeclaration = TSSyntaxKind._(266);
-  static const TSSyntaxKind PropertyDeclaration = TSSyntaxKind._(172);
-  static const TSSyntaxKind MethodDeclaration = TSSyntaxKind._(174);
-  static const TSSyntaxKind ImportDeclaration = TSSyntaxKind._(272);
-  static const TSSyntaxKind ImportEqualsDeclaration = TSSyntaxKind._(271);
-  static const TSSyntaxKind ImportSpecifier = TSSyntaxKind._(276);
+  static const TSSyntaxKind Parameter = TSSyntaxKind._(170);
+  static const TSSyntaxKind PropertyDeclaration = TSSyntaxKind._(173);
+  static const TSSyntaxKind MethodDeclaration = TSSyntaxKind._(175);
+  static const TSSyntaxKind VariableStatement = TSSyntaxKind._(244);
+  static const TSSyntaxKind VariableDeclaration = TSSyntaxKind._(261);
+  static const TSSyntaxKind FunctionDeclaration = TSSyntaxKind._(263);
+  static const TSSyntaxKind ClassDeclaration = TSSyntaxKind._(264);
+  static const TSSyntaxKind InterfaceDeclaration = TSSyntaxKind._(265);
+  static const TSSyntaxKind TypeAliasDeclaration = TSSyntaxKind._(266);
+  static const TSSyntaxKind EnumDeclaration = TSSyntaxKind._(267);
+  static const TSSyntaxKind ModuleDeclaration = TSSyntaxKind._(268);
+  static const TSSyntaxKind ImportEqualsDeclaration = TSSyntaxKind._(272);
+  static const TSSyntaxKind ImportDeclaration = TSSyntaxKind._(273);
+  static const TSSyntaxKind ImportSpecifier = TSSyntaxKind._(277);
+  static const TSSyntaxKind ExportDeclaration = TSSyntaxKind._(279);
 
-  static const TSSyntaxKind Constructor = TSSyntaxKind._(176);
-  static const TSSyntaxKind GetAccessor = TSSyntaxKind._(177);
-  static const TSSyntaxKind SetAccessor = TSSyntaxKind._(178);
-  static const TSSyntaxKind IndexSignature = TSSyntaxKind._(181);
-  static const TSSyntaxKind PropertySignature = TSSyntaxKind._(171);
-  static const TSSyntaxKind MethodSignature = TSSyntaxKind._(173);
-  static const TSSyntaxKind CallSignature = TSSyntaxKind._(179);
-  static const TSSyntaxKind ConstructSignature = TSSyntaxKind._(180);
-  static const TSSyntaxKind ExportAssignment = TSSyntaxKind._(277);
+  static const TSSyntaxKind PropertySignature = TSSyntaxKind._(172);
+  static const TSSyntaxKind MethodSignature = TSSyntaxKind._(174);
+  static const TSSyntaxKind Constructor = TSSyntaxKind._(177);
+  static const TSSyntaxKind GetAccessor = TSSyntaxKind._(178);
+  static const TSSyntaxKind SetAccessor = TSSyntaxKind._(179);
+  static const TSSyntaxKind CallSignature = TSSyntaxKind._(180);
+  static const TSSyntaxKind ConstructSignature = TSSyntaxKind._(181);
+  static const TSSyntaxKind IndexSignature = TSSyntaxKind._(182);
+  static const TSSyntaxKind ExportAssignment = TSSyntaxKind._(278);
 
   /// expressions
   static const TSSyntaxKind NumericLiteral = TSSyntaxKind._(9);
   static const TSSyntaxKind StringLiteral = TSSyntaxKind._(11);
+  static const TSSyntaxKind FalseKeyword = TSSyntaxKind._(97);
   static const TSSyntaxKind NullKeyword = TSSyntaxKind._(106);
   static const TSSyntaxKind TrueKeyword = TSSyntaxKind._(112);
-  static const TSSyntaxKind FalseKeyword = TSSyntaxKind._(97);
 
   /// keywords
   static const TSSyntaxKind ExportKeyword = TSSyntaxKind._(95);
-  static const TSSyntaxKind DeclareKeyword = TSSyntaxKind._(138);
   static const TSSyntaxKind ExtendsKeyword = TSSyntaxKind._(96);
-  static const TSSyntaxKind ImplementsKeyword = TSSyntaxKind._(119);
   static const TSSyntaxKind WithKeyword = TSSyntaxKind._(118);
-  static const TSSyntaxKind AssertKeyword = TSSyntaxKind._(132);
+  static const TSSyntaxKind ImplementsKeyword = TSSyntaxKind._(119);
   static const TSSyntaxKind AbstractKeyword = TSSyntaxKind._(128);
+  static const TSSyntaxKind AssertKeyword = TSSyntaxKind._(132);
+  static const TSSyntaxKind DeclareKeyword = TSSyntaxKind._(138);
   static const TSSyntaxKind KeyOfKeyword = TSSyntaxKind._(143);
-  static const TSSyntaxKind UniqueKeyword = TSSyntaxKind._(158);
   static const TSSyntaxKind ReadonlyKeyword = TSSyntaxKind._(148);
+  static const TSSyntaxKind UniqueKeyword = TSSyntaxKind._(158);
 
   // keywords for scope
   static const TSSyntaxKind PrivateKeyword = TSSyntaxKind._(123);
@@ -72,53 +72,53 @@ extension type const TSSyntaxKind._(num _) {
   static const TSSyntaxKind StaticKeyword = TSSyntaxKind._(126);
 
   // types that are keywords
-  static const TSSyntaxKind StringKeyword = TSSyntaxKind._(154);
-  static const TSSyntaxKind NumberKeyword = TSSyntaxKind._(150);
-  static const TSSyntaxKind BooleanKeyword = TSSyntaxKind._(136);
-  static const TSSyntaxKind ObjectKeyword = TSSyntaxKind._(151);
-  static const TSSyntaxKind AnyKeyword = TSSyntaxKind._(133);
-  static const TSSyntaxKind UndefinedKeyword = TSSyntaxKind._(157);
-  static const TSSyntaxKind SetKeyword = TSSyntaxKind._(153);
-  static const TSSyntaxKind UnknownKeyword = TSSyntaxKind._(159);
   static const TSSyntaxKind VoidKeyword = TSSyntaxKind._(116);
-  static const TSSyntaxKind BigIntKeyword = TSSyntaxKind._(163);
-  static const TSSyntaxKind SymbolKeyword = TSSyntaxKind._(155);
+  static const TSSyntaxKind AnyKeyword = TSSyntaxKind._(133);
+  static const TSSyntaxKind BooleanKeyword = TSSyntaxKind._(136);
   static const TSSyntaxKind NeverKeyword = TSSyntaxKind._(146);
+  static const TSSyntaxKind NumberKeyword = TSSyntaxKind._(150);
+  static const TSSyntaxKind ObjectKeyword = TSSyntaxKind._(151);
+  static const TSSyntaxKind SetKeyword = TSSyntaxKind._(153);
+  static const TSSyntaxKind StringKeyword = TSSyntaxKind._(154);
+  static const TSSyntaxKind SymbolKeyword = TSSyntaxKind._(155);
+  static const TSSyntaxKind UndefinedKeyword = TSSyntaxKind._(157);
+  static const TSSyntaxKind UnknownKeyword = TSSyntaxKind._(159);
+  static const TSSyntaxKind BigIntKeyword = TSSyntaxKind._(163);
 
   // types
-  static const TSSyntaxKind UnionType = TSSyntaxKind._(192);
-  static const TSSyntaxKind IntersectionType = TSSyntaxKind._(193);
-  static const TSSyntaxKind TypeReference = TSSyntaxKind._(183);
-  static const TSSyntaxKind ArrayType = TSSyntaxKind._(188);
-  static const TSSyntaxKind LiteralType = TSSyntaxKind._(201);
-  static const TSSyntaxKind ThisType = TSSyntaxKind._(197);
-  static const TSSyntaxKind TypeQuery = TSSyntaxKind._(186);
-  static const TSSyntaxKind ParenthesizedType = TSSyntaxKind._(196);
-  static const TSSyntaxKind TupleType = TSSyntaxKind._(189);
-  static const TSSyntaxKind NamedTupleMember = TSSyntaxKind._(202);
-  static const TSSyntaxKind TypeLiteral = TSSyntaxKind._(187);
-  static const TSSyntaxKind FunctionType = TSSyntaxKind._(184);
-  static const TSSyntaxKind ConstructorType = TSSyntaxKind._(185);
-  static const TSSyntaxKind TypeOperator = TSSyntaxKind._(198);
-  static const TSSyntaxKind TypePredicate = TSSyntaxKind._(182);
-  static const TSSyntaxKind ConditionalType = TSSyntaxKind._(194);
+  static const TSSyntaxKind TypePredicate = TSSyntaxKind._(183);
+  static const TSSyntaxKind TypeReference = TSSyntaxKind._(184);
+  static const TSSyntaxKind FunctionType = TSSyntaxKind._(185);
+  static const TSSyntaxKind ConstructorType = TSSyntaxKind._(186);
+  static const TSSyntaxKind TypeQuery = TSSyntaxKind._(187);
+  static const TSSyntaxKind TypeLiteral = TSSyntaxKind._(188);
+  static const TSSyntaxKind ArrayType = TSSyntaxKind._(189);
+  static const TSSyntaxKind TupleType = TSSyntaxKind._(190);
+  static const TSSyntaxKind UnionType = TSSyntaxKind._(193);
+  static const TSSyntaxKind IntersectionType = TSSyntaxKind._(194);
+  static const TSSyntaxKind ConditionalType = TSSyntaxKind._(195);
+  static const TSSyntaxKind ParenthesizedType = TSSyntaxKind._(197);
+  static const TSSyntaxKind ThisType = TSSyntaxKind._(198);
+  static const TSSyntaxKind TypeOperator = TSSyntaxKind._(199);
+  static const TSSyntaxKind LiteralType = TSSyntaxKind._(202);
+  static const TSSyntaxKind NamedTupleMember = TSSyntaxKind._(203);
 
   // Other
   static const TSSyntaxKind Identifier = TSSyntaxKind._(80);
-  static const TSSyntaxKind QualifiedName = TSSyntaxKind._(166);
-  static const TSSyntaxKind PropertyAccessExpression = TSSyntaxKind._(211);
-  static const TSSyntaxKind ObjectBindingPattern = TSSyntaxKind._(206);
-  static const TSSyntaxKind ArrayBindingPattern = TSSyntaxKind._(207);
-  static const TSSyntaxKind TypeParameter = TSSyntaxKind._(168);
-  static const TSSyntaxKind HeritageClause = TSSyntaxKind._(298);
-  static const TSSyntaxKind ExpressionWithTypeArguments = TSSyntaxKind._(233);
-  static const TSSyntaxKind NamespaceExport = TSSyntaxKind._(280);
-  static const TSSyntaxKind NamedExports = TSSyntaxKind._(279);
-  static const TSSyntaxKind NamedImports = TSSyntaxKind._(275);
-  static const TSSyntaxKind ExportSpecifier = TSSyntaxKind._(281);
-  static const TSSyntaxKind ModuleBlock = TSSyntaxKind._(268);
-  static const TSSyntaxKind ExternalModuleReference = TSSyntaxKind._(283);
-  static const TSSyntaxKind EnumMember = TSSyntaxKind._(306);
+  static const TSSyntaxKind QualifiedName = TSSyntaxKind._(167);
+  static const TSSyntaxKind TypeParameter = TSSyntaxKind._(169);
+  static const TSSyntaxKind ObjectBindingPattern = TSSyntaxKind._(207);
+  static const TSSyntaxKind ArrayBindingPattern = TSSyntaxKind._(208);
+  static const TSSyntaxKind PropertyAccessExpression = TSSyntaxKind._(212);
+  static const TSSyntaxKind ExpressionWithTypeArguments = TSSyntaxKind._(234);
+  static const TSSyntaxKind ModuleBlock = TSSyntaxKind._(269);
+  static const TSSyntaxKind NamedImports = TSSyntaxKind._(276);
+  static const TSSyntaxKind NamedExports = TSSyntaxKind._(280);
+  static const TSSyntaxKind NamespaceExport = TSSyntaxKind._(281);
+  static const TSSyntaxKind ExportSpecifier = TSSyntaxKind._(282);
+  static const TSSyntaxKind ExternalModuleReference = TSSyntaxKind._(284);
+  static const TSSyntaxKind HeritageClause = TSSyntaxKind._(299);
+  static const TSSyntaxKind EnumMember = TSSyntaxKind._(307);
   static const TSSyntaxKind SourceFile = TSSyntaxKind._(308);
 }
 

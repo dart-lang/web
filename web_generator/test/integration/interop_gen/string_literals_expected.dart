@@ -8,8 +8,11 @@ extension type Headers._(_i1.JSObject _) implements _i1.JSObject {
   external String contentType;
 
   @_i1.JS('Content-Length')
-  external num contentLength;
+  external double contentLength;
 
   @_i1.JS('x-custom-header')
   external String? xCustomHeader;
+
+  @_i1.JS('contentType')
+  external String contentType$1;
 }

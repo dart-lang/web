@@ -582,7 +582,7 @@ class Transformer {
     required UniqueNamer parentNamer,
     TypeDeclaration? parent,
   }) {
-    final nameNode = property.name as TSNode;
+    final nameNode = property.name;
     // We only support identifying properties via identifiers or string literals.
     // Computed properties (e.g. `[Symbol.iterator]`) and numeric headers
     // (e.g. `123`) are not supported across many backends effectively.
@@ -591,10 +591,12 @@ class Transformer {
       return null;
     }
 
-    final name = property.name.text;
+    final name = nameNode.kind == TSSyntaxKind.Identifier
+        ? (nameNode as TSIdentifier).text
+        : (nameNode as TSLiteralExpression).text;
     var nameForDart = name;
     if (nameNode.kind == TSSyntaxKind.StringLiteral) {
-      nameForDart = dartRename(name);
+      nameForDart = dartRename(_toCamelCase(name));
     }
 
     final (:id, name: dartName) = parentNamer.makeUnique(nameForDart, 'var');
@@ -2972,4 +2974,19 @@ QualifiedName parseQualifiedName(
   } else {
     return parseQualifiedNameFromTSQualifiedName(name as TSQualifiedName);
   }
+}
+
+String _toCamelCase(String text) {
+  final parts = text.split('-');
+  final sb = StringBuffer();
+  for (var i = 0; i < parts.length; i++) {
+    var part = parts[i];
+    if (part.isEmpty) continue;
+    if (i == 0) {
+      sb.write(part.substring(0, 1).toLowerCase() + part.substring(1));
+    } else {
+      sb.write(part.substring(0, 1).toUpperCase() + part.substring(1));
+    }
+  }
+  return sb.toString();
 }

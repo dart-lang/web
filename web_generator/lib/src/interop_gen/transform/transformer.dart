@@ -6,7 +6,6 @@ import 'dart:collection';
 import 'dart:js_interop';
 import 'package:collection/collection.dart';
 import 'package:path/path.dart' as p;
-import '../../banned_names.dart';
 import '../../ast/base.dart';
 import '../../ast/builtin.dart';
 import '../../ast/declarations.dart';
@@ -14,6 +13,7 @@ import '../../ast/documentation.dart';
 import '../../ast/helpers.dart';
 import '../../ast/merger.dart';
 import '../../ast/types.dart';
+import '../../banned_names.dart';
 import '../../js/annotations.dart';
 import '../../js/filesystem_api.dart';
 import '../../js/helpers.dart';
@@ -583,7 +583,7 @@ class Transformer {
     TypeDeclaration? parent,
   }) {
     final nameNode = property.name;
-    // We only support identifying properties via identifiers or string literals.
+    // we support identifying properties via identifiers or string literals.
     // Computed properties (e.g. `[Symbol.iterator]`) and numeric headers
     // (e.g. `123`) are not supported across many backends effectively.
     if (nameNode.kind != TSSyntaxKind.Identifier &&
@@ -599,7 +599,8 @@ class Transformer {
       nameForDart = dartRename(_toCamelCase(name));
     }
 
-    final (:id, name: dartName) = parentNamer.makeUnique(nameForDart, 'var');
+    final (:id, name: dartName) =
+     parentNamer.makeUnique(nameForDart, 'var');
 
     final (:isStatic, :isReadonly, :scope) = _parseModifiers(
       property.modifiers,
@@ -2980,7 +2981,7 @@ String _toCamelCase(String text) {
   final parts = text.split(RegExp(r'[-=]'));
   final sb = StringBuffer();
   for (var i = 0; i < parts.length; i++) {
-    var part = parts[i];
+    final part = parts[i];
     if (part.isEmpty) continue;
     if (i == 0) {
       sb.write(part.substring(0, 1).toLowerCase() + part.substring(1));

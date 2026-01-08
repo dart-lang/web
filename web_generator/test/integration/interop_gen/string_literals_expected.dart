@@ -7,12 +7,15 @@ extension type Headers._(_i1.JSObject _) implements _i1.JSObject {
   @_i1.JS('content-type')
   external String contentType;
 
-  @_i1.JS('Content-Length')
-  external double contentLength;
-
-  @_i1.JS('x-custom-header')
-  external String? xCustomHeader;
-
-  @_i1.JS('contentType')
+  @_i1.JS('Content-type')
   external String contentType$1;
+
+  @_i1.JS('content-Type')
+  external String contentType$2;
+
+  @_i1.JS('Content-Type')
+  external String contentType$3;
+
+  @_i1.JS('content=type')
+  external String contentType$4;
 }

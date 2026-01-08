@@ -2977,7 +2977,7 @@ QualifiedName parseQualifiedName(
 }
 
 String _toCamelCase(String text) {
-  final parts = text.split('-');
+  final parts = text.split(RegExp(r'[-=]'));
   final sb = StringBuffer();
   for (var i = 0; i < parts.length; i++) {
     var part = parts[i];

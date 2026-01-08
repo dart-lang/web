@@ -1,6 +1,7 @@
 export interface Headers {
     "content-type": string;
-    "Content-Length": number;
-    "x-custom-header"?: string;
-    contentType: string;
+    "Content-type": string;
+    "content-Type": string;
+    "Content-Type": string;
+    "content=type": string;
 }

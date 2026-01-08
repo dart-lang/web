@@ -534,7 +534,6 @@ extension type TSClassElement._(JSObject _) implements TSNamedDeclaration {
 @JS('PropertyDeclaration')
 extension type TSPropertyDeclaration._(JSObject _)
     implements TSClassElement, TSPropertyEntity {
-  @redeclare
   external TSNode get name;
 }
 
@@ -565,7 +564,6 @@ extension type TSTypeElement._(JSObject _) implements TSNamedDeclaration {
 @JS('PropertySignature')
 extension type TSPropertySignature._(JSObject _)
     implements TSTypeElement, TSPropertyEntity {
-  @redeclare
   external TSNode get name;
   @redeclare
   external TSToken? get questionToken;

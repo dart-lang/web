@@ -599,8 +599,7 @@ class Transformer {
       nameForDart = dartRename(_toCamelCase(name));
     }
 
-    final (:id, name: dartName) =
-     parentNamer.makeUnique(nameForDart, 'var');
+    final (:id, name: dartName) = parentNamer.makeUnique(nameForDart, 'var');
 
     final (:isStatic, :isReadonly, :scope) = _parseModifiers(
       property.modifiers,

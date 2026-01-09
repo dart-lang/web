@@ -13,6 +13,7 @@ import '../../ast/documentation.dart';
 import '../../ast/helpers.dart';
 import '../../ast/merger.dart';
 import '../../ast/types.dart';
+import '../../banned_names.dart';
 import '../../js/annotations.dart';
 import '../../js/filesystem_api.dart';
 import '../../js/helpers.dart';
@@ -503,7 +504,7 @@ class Transformer {
             parentNamer: typeNamer,
             parent: outputType,
           );
-          outputType.properties.add(prop);
+          if (prop != null) outputType.properties.add(prop);
           break;
         // TODO: Support methods with computed and string property names
         //  (e.g) [Symbol.iterator], "foo-bar"
@@ -576,14 +577,29 @@ class Transformer {
     return outputType;
   }
 
-  PropertyDeclaration _transformProperty(
+  PropertyDeclaration? _transformProperty(
     TSPropertyEntity property, {
     required UniqueNamer parentNamer,
     TypeDeclaration? parent,
   }) {
-    final name = property.name.text;
+    final nameNode = property.name;
+    // we support identifying properties via identifiers or string literals.
+    // Computed properties (e.g. `[Symbol.iterator]`) and numeric headers
+    // (e.g. `123`) are not supported across many backends effectively.
+    if (nameNode.kind != TSSyntaxKind.Identifier &&
+        nameNode.kind != TSSyntaxKind.StringLiteral) {
+      return null;
+    }
 
-    final (:id, name: dartName) = parentNamer.makeUnique(name, 'var');
+    final name = nameNode.kind == TSSyntaxKind.Identifier
+        ? (nameNode as TSIdentifier).text
+        : (nameNode as TSLiteralExpression).text;
+    var nameForDart = name;
+    if (nameNode.kind == TSSyntaxKind.StringLiteral) {
+      nameForDart = dartRename(_toCamelCase(name));
+    }
+
+    final (:id, name: dartName) = parentNamer.makeUnique(nameForDart, 'var');
 
     final (:isStatic, :isReadonly, :scope) = _parseModifiers(
       property.modifiers,
@@ -1434,7 +1450,7 @@ class Transformer {
                 member as TSPropertySignature,
                 parentNamer: typeNamer,
               );
-              properties.add(prop);
+              if (prop != null) properties.add(prop);
             case TSSyntaxKind.MethodSignature:
               final method = _transformMethod(
                 member as TSMethodSignature,
@@ -2958,4 +2974,19 @@ QualifiedName parseQualifiedName(
   } else {
     return parseQualifiedNameFromTSQualifiedName(name as TSQualifiedName);
   }
+}
+
+String _toCamelCase(String text) {
+  final parts = text.split(RegExp(r'[-=]'));
+  final sb = StringBuffer();
+  for (var i = 0; i < parts.length; i++) {
+    final part = parts[i];
+    if (part.isEmpty) continue;
+    if (i == 0) {
+      sb.write(part.substring(0, 1).toLowerCase() + part.substring(1));
+    } else {
+      sb.write(part.substring(0, 1).toUpperCase() + part.substring(1));
+    }
+  }
+  return sb.toString();
 }

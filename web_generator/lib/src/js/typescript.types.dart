@@ -509,7 +509,8 @@ extension type TSExpressionWithTypeArguments._(JSObject _)
 
 extension type TSPropertyEntity._(JSObject _) implements TSNamedDeclaration {
   external TSNodeArray<TSNode>? get modifiers;
-  external TSIdentifier get name;
+  @UnionOf([TSIdentifier, TSStringLiteral, TSNumericLiteral])
+  external TSNode get name;
   external TSToken? get questionToken;
   external TSTypeNode? get type;
 }
@@ -533,8 +534,7 @@ extension type TSClassElement._(JSObject _) implements TSNamedDeclaration {
 @JS('PropertyDeclaration')
 extension type TSPropertyDeclaration._(JSObject _)
     implements TSClassElement, TSPropertyEntity {
-  @redeclare
-  external TSIdentifier get name;
+  external TSNode get name;
 }
 
 @JS('MethodDeclaration')
@@ -564,8 +564,7 @@ extension type TSTypeElement._(JSObject _) implements TSNamedDeclaration {
 @JS('PropertySignature')
 extension type TSPropertySignature._(JSObject _)
     implements TSTypeElement, TSPropertyEntity {
-  @redeclare
-  external TSIdentifier get name;
+  external TSNode get name;
   @redeclare
   external TSToken? get questionToken;
 }

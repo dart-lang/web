@@ -4,6 +4,7 @@
 
 import 'dart:collection';
 import 'dart:io';
+import 'dart:isolate';
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/element/element.dart';
@@ -12,7 +13,9 @@ import 'package:io/ansi.dart' as ansi;
 
 import 'package:path/path.dart' as p;
 
-final bindingsGeneratorPath = p.fromUri(Platform.script.resolve('../lib/src'));
+final bindingsGeneratorPath = p.fromUri(
+  Isolate.resolvePackageUriSync(Uri.parse('package:web_generator/src')),
+);
 
 Future<void> compileDartMain({String? langVersion, String? dir}) async {
   await runProc(Platform.executable, [

@@ -100,7 +100,7 @@ class TypeHierarchy {
   }
 
   @override
-  int get hashCode => Object.hashAll([value]);
+  int get hashCode => value.hashCode;
 
   @override
   String toString() => value.toString();

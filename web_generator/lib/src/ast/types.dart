@@ -112,14 +112,6 @@ class TupleType extends ReferredType<TupleDeclaration> {
     name: types.map((t) => t.id.name).join(','),
     index: readonly ? 1 : 0,
   );
-
-  @override
-  int get hashCode => Object.hashAllUnordered(types);
-
-  @override
-  bool operator ==(Object other) {
-    return other is TupleType && other.types.every(types.contains);
-  }
 }
 
 class UnionType extends DeclarationType {
@@ -155,14 +147,6 @@ class UnionType extends DeclarationType {
         ..isNullable = (options?.nullable ?? false) || isNullable,
     );
   }
-
-  @override
-  int get hashCode => Object.hashAllUnordered(types);
-
-  @override
-  bool operator ==(Object other) {
-    return other is TupleType && other.types.every(types.contains);
-  }
 }
 
 class IntersectionType extends DeclarationType {
@@ -191,14 +175,6 @@ class IntersectionType extends DeclarationType {
         ..symbol = declarationName
         ..isNullable = (options?.nullable ?? false) || isNullable,
     );
-  }
-
-  @override
-  int get hashCode => Object.hashAllUnordered(types);
-
-  @override
-  bool operator ==(Object other) {
-    return other is TupleType && other.types.every(types.contains);
   }
 }
 
@@ -267,16 +243,6 @@ class GenericType extends NamedType {
       ..bound = constraint?.emit()
       ..isNullable = (options?.nullable ?? false) || isNullable,
   );
-
-  @override
-  bool operator ==(Object other) {
-    return other is GenericType &&
-        other.name == name &&
-        other.constraint == constraint;
-  }
-
-  @override
-  int get hashCode => Object.hash(name, constraint);
 }
 
 /// A type representing a bare literal, such as `null`, a string or number
@@ -318,14 +284,6 @@ class LiteralType extends Type {
 
   @override
   ID get id => ID(type: 'type', name: '$name.$value');
-
-  @override
-  bool operator ==(Object other) {
-    return other is LiteralType && other.name == name && other.value == value;
-  }
-
-  @override
-  int get hashCode => Object.hash(name, value);
 }
 
 enum LiteralKind {

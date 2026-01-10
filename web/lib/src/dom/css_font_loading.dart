@@ -136,6 +136,13 @@ extension type FontFace._(JSObject _) implements JSObject {
   external String get featureSettings;
   external set featureSettings(String value);
 
+  /// The **`variationSettings`** property of the [FontFace] interface retrieves
+  /// or sets low-level OpenType or TrueType font variations.
+  ///
+  /// This property is equivalent to the  descriptor.
+  external String get variationSettings;
+  external set variationSettings(String value);
+
   /// The **`display`** property of the [FontFace] interface determines how a
   /// font face is displayed based on whether and when it is downloaded and
   /// ready to use.

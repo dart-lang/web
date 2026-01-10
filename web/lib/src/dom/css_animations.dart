@@ -92,7 +92,7 @@ extension type CSSKeyframeRule._(JSObject _) implements CSSRule, JSObject {
   /// The read-only **`CSSKeyframeRule.style`** property is the
   /// [CSSStyleDeclaration] interface for the declaration block of the
   /// [CSSKeyframeRule].
-  external JSObject get style;
+  external CSSStyleProperties get style;
 }
 
 /// The **`CSSKeyframesRule`** interface describes an object representing a

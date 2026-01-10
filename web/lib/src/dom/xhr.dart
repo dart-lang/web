@@ -15,6 +15,7 @@ library;
 
 import 'dart:js_interop';
 
+import 'attribution_reporting_api.dart';
 import 'dom.dart';
 import 'html.dart';
 
@@ -244,6 +245,19 @@ extension type XMLHttpRequest._(JSObject _)
   /// it
   /// as such. This method must be called before calling [XMLHttpRequest.send].
   external void overrideMimeType(String mime);
+
+  /// The **`setAttributionReporting()`** method of the
+  /// [XMLHttpRequest] interface indicates that you want the request's response
+  /// to be able to register a JavaScript-based
+  /// [attribution source](https://developer.mozilla.org/en-US/docs/Web/API/Attribution_Reporting_API/Registering_sources#javascript-based_event_sources)
+  /// or
+  /// [attribution trigger](https://developer.mozilla.org/en-US/docs/Web/API/Attribution_Reporting_API/Registering_triggers#javascript-based_attribution_triggers).
+  ///
+  /// See the
+  /// [Attribution Reporting API](https://developer.mozilla.org/en-US/docs/Web/API/Attribution_Reporting_API)
+  /// for more details.
+  external void setAttributionReporting(
+      AttributionReportingRequestOptions options);
   external EventHandler get onreadystatechange;
   external set onreadystatechange(EventHandler value);
 
@@ -604,7 +618,7 @@ extension type ProgressEvent._(JSObject _) implements Event, JSObject {
   /// contain the size of the compressed, or decompressed, data, depending on
   /// the browser. As of 2024, it contains the size of the compressed data in
   /// Firefox, and the size of the uncompressed data in Chrome.
-  external int get loaded;
+  external double get loaded;
 
   /// The **`ProgressEvent.total`** read-only property is a 64-bit unsigned
   /// integer
@@ -617,7 +631,7 @@ extension type ProgressEvent._(JSObject _) implements Event, JSObject {
   ///
   /// If the event's [ProgressEvent.lengthComputable]
   /// property is `false`, this value is meaningless and should be ignored.
-  external int get total;
+  external double get total;
 }
 extension type ProgressEventInit._(JSObject _) implements EventInit, JSObject {
   external factory ProgressEventInit({
@@ -625,14 +639,14 @@ extension type ProgressEventInit._(JSObject _) implements EventInit, JSObject {
     bool cancelable,
     bool composed,
     bool lengthComputable,
-    int loaded,
-    int total,
+    num loaded,
+    num total,
   });
 
   external bool get lengthComputable;
   external set lengthComputable(bool value);
-  external int get loaded;
-  external set loaded(int value);
-  external int get total;
-  external set total(int value);
+  external double get loaded;
+  external set loaded(num value);
+  external double get total;
+  external set total(num value);
 }

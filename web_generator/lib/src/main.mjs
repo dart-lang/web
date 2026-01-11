@@ -37,13 +37,7 @@ globalThis.fs = {
     ) {
       return nodeFs.existsSync(fullPath) ? [fullPath] : [];
     }
-      return [];
-  },
-
-  writeFileSync(filePath, data, options) {
-    const dir = path.dirname(filePath);
-    nodeFs.mkdirSync(dir, { recursive: true });
-    return nodeFs.writeFileSync(filePath, data, options);
+    return [];
   },
 };
 

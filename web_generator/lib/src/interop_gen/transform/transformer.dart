@@ -1745,12 +1745,11 @@ class Transformer {
         // Try to handle simple literals first
         switch (literal.kind) {
           case TSSyntaxKind.NumericLiteral:
+            final value = num.parse(literal.text);
             return LiteralType(
               isNullable: isNullable ?? false,
-              kind: num.parse(literal.text) is int
-                  ? LiteralKind.int
-                  : LiteralKind.double,
-              value: num.parse(literal.text),
+              kind: value is int ? LiteralKind.int : LiteralKind.double,
+              value: value,
             );
           case TSSyntaxKind.StringLiteral:
             return LiteralType(
@@ -1799,17 +1798,12 @@ class Transformer {
                 // fall back to the type string
                 // to infer true/false.
                 final typeStr = typeChecker.typeToString(resolvedType);
-                if (typeStr == 'true') {
+                if (typeStr == 'true' || typeStr == 'false') {
+                  final value = typeStr == 'true';
                   return LiteralType(
                     isNullable: isNullable ?? false,
-                    kind: LiteralKind.$true,
-                    value: true,
-                  );
-                } else if (typeStr == 'false') {
-                  return LiteralType(
-                    isNullable: isNullable ?? false,
-                    kind: LiteralKind.$false,
-                    value: false,
+                    kind: value ? LiteralKind.$true : LiteralKind.$false,
+                    value: value,
                   );
                 }
               }

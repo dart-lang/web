@@ -809,7 +809,7 @@ extension type TSType._(JSObject _) implements JSObject {
 
 @JS('LiteralType')
 extension type TSLiteralType._(JSObject _) implements TSType {
-  external num? get value;
+  external JSAny? get value;
   // value can be string too, but we might need specific types for that
 }
 

@@ -48,9 +48,13 @@ extension type const TSTypeFlags._(int _) implements int {
   static const TSTypeFlags AnyOrUnknown = TSTypeFlags._(3);
   static const TSTypeFlags Nullable = TSTypeFlags._(65536 | 32768 | 16384);
   static const TSTypeFlags Literal = TSTypeFlags._(128 | 256 | 512 | 2048);
-  static const TSTypeFlags Unit = TSTypeFlags._(128 | 256 | 512 | 1024 | 2048 | 8192 | 16384 | 32768 | 65536);
+  static const TSTypeFlags Unit = TSTypeFlags._(
+    128 | 256 | 512 | 1024 | 2048 | 8192 | 16384 | 32768 | 65536,
+  );
   static const TSTypeFlags StringOrNumberLiteral = TSTypeFlags._(128 | 256);
-  static const TSTypeFlags PossiblyFalsy = TSTypeFlags._(512 | 16384 | 32768 | 65536);
+  static const TSTypeFlags PossiblyFalsy = TSTypeFlags._(
+    512 | 16384 | 32768 | 65536,
+  );
   static const TSTypeFlags StringLike = TSTypeFlags._(4 | 128 | 134217728);
   static const TSTypeFlags NumberLike = TSTypeFlags._(8 | 256 | 32);
   static const TSTypeFlags BigIntLike = TSTypeFlags._(64 | 2048);
@@ -58,8 +62,20 @@ extension type const TSTypeFlags._(int _) implements int {
   static const TSTypeFlags EnumLike = TSTypeFlags._(32 | 1024);
   static const TSTypeFlags ESSymbolLike = TSTypeFlags._(4096 | 8192);
   static const TSTypeFlags VoidLike = TSTypeFlags._(16384 | 32768);
-  static const TSTypeFlags UnionOrIntersection = TSTypeFlags._(1048576 | 2097152);
-  static const TSTypeFlags StructuredType = TSTypeFlags._(524288 | 1048576 | 2097152 | 4194304 | 8388608 | 16777216 | 33554432 | 134217728 | 268435456);
+  static const TSTypeFlags UnionOrIntersection = TSTypeFlags._(
+    1048576 | 2097152,
+  );
+  static const TSTypeFlags StructuredType = TSTypeFlags._(
+    524288 |
+        1048576 |
+        2097152 |
+        4194304 |
+        8388608 |
+        16777216 |
+        33554432 |
+        134217728 |
+        268435456,
+  );
 }
 
 extension type const TSSyntaxKind._(num _) {

@@ -1795,11 +1795,9 @@ class Transformer {
                 );
               } else if ((resolvedType.flags & TSTypeFlags.BooleanLiteral) !=
                   0) {
-                // BooleanLiteralType typically has 'intrinsicName' as "true" or "false"
-                // but we might not have exposed intrinsicName.
-                // However, since it is a boolean literal, we can infer from the expression or just assume boolean.
-                // But we need the value.
-                // If intrinsicName is not available, we can try to rely on the type string serialization?
+                // BooleanLiteralType may not expose its value;
+                // fall back to the type string
+                // to infer true/false.
                 final typeStr = typeChecker.typeToString(resolvedType);
                 if (typeStr == 'true') {
                   return LiteralType(
@@ -1819,15 +1817,12 @@ class Transformer {
               // Fallback to underlying type if not a literal
               final underlyingTypeNode = typeChecker.typeToTypeNode(
                 resolvedType,
-                null,
-                null,
               );
               if (underlyingTypeNode != null) {
                 return _transformType(
                   underlyingTypeNode,
-                  isNullable: isNullable,
-                  // Avoid recursion loops if underlying type node is same literal?
-                  // Usually typeToTypeNode returns a keyword type for primitives.
+                  //Avoid recursion if the underlying type is the same literal.
+                  //typeToTypeNode usually returns a keyword type for primitives
                 );
               }
             }

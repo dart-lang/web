@@ -8,7 +8,7 @@ import 'dart:js_interop_unsafe';
 import '../dom/html.dart';
 import '../dom/svg.dart';
 
-/// Provides nullable api on `DOMStringMap`
+/// Provides nullable api on `DOMStringMap`.
 /// When data-* attribute is missing, `[]` operator will return null.
 /// It also allows to remove data-* attributes by using `remove()`.
 extension type NullableDOMStringMap._(JSObject _) implements JSObject {

@@ -291,22 +291,29 @@ void main() {
   });
 
   test('nullable dataset extension', () {
-    final div = (document.createElement('div') as HTMLElement)
-      ..setAttribute('data-foo', 'bar')
-      ..setAttribute('data-foo-camel', 'bar');
+    final elements = [SVGSVGElement(), HTMLDivElement()];
 
-    //read existing and not existing data
-    expect(div.data['foo'], equals('bar'));
-    expect(div.data['fooCamel'], equals('bar'));
-    expect(div.data['nonexisting'], isNull);
+    for (var element in elements) {
+      element.setAttribute('data-foo', 'bar');
+      element.setAttribute('data-foo-camel', 'bar');
+      final data = element.isA<SVGElement>()
+          ? (element as SVGElement).data
+          : (element as HTMLElement).data;
+      //read existing and not existing data
+      expect(data['foo'], equals('bar'));
+      expect(data['fooCamel'], equals('bar'));
+      expect(data['nonexisting'], isNull);
 
-    //update data
-    div.data['foo'] = div.data['fooCamel'] = 'bar2';
-    expect(div.data['foo'], equals('bar2'));
-    expect(div.data['fooCamel'], equals('bar2'));
+      //update data
+      data['foo'] = data['fooCamel'] = 'bar2';
+      expect(data['foo'], equals('bar2'));
+      expect(data['fooCamel'], equals('bar2'));
 
-    //unset data
-    expect(div.data.remove('foo'), equals('bar2'));
-    expect(div.data['foo'], isNull);
+      //unset data
+      expect(data.remove('foo'), equals('bar2'));
+      expect(data.remove('fooCamel'), equals('bar2'));
+      expect(data['foo'], isNull);
+      expect(element.getAttribute('data-foo-camel'), isNull);
+    }
   });
 }

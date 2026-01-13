@@ -289,4 +289,21 @@ void main() {
   test('Uri.toJS throws an ArgumentError for a relative URL', () {
     expect(() => Uri.parse('/path').toJS, throwsArgumentError);
   });
+
+  test('nullable dataset extension', () {
+    final div = (document.createElement('div') as HTMLElement)
+      ..setAttribute('data-foo', 'bar');
+
+    //read existing and not existing data
+    expect(div.data['foo'], equals('bar'));
+    expect(div.data['nonexisting'], isNull);
+
+    //update data
+    div.data['foo'] = 'bar2';
+    expect(div.data['foo'], equals('bar2'));
+
+    //unset data
+    div.data['foo'] = null;
+    expect(div.data['foo'], isNull);
+  });
 }

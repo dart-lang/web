@@ -312,7 +312,7 @@ void main() {
       expect(data['fooCamel'], equals('bar2'));
 
       //unset data
-      expect(data.remove('foo'), equals('bar2'));
+      data['foo'] = null;
       expect(data.remove('fooCamel'), equals('bar2'));
       expect(data['foo'], isNull);
       expect(element.getAttribute('data-foo-camel'), isNull);

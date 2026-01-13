@@ -10,6 +10,7 @@ import '../dom/mathml_core.dart';
 import '../dom/svg.dart';
 
 /// Provides nullable api on `DOMStringMap`.
+///
 /// Native `DOMStringMap` returns non nullable `DOMString` from getter and
 /// returns `undefined` when given key does not exist. As in Dart there is no
 /// `undefined`, this wrapper will return null in such case.
@@ -20,10 +21,16 @@ extension type NullableDOMStringMap._(JSObject _) implements JSObject {
   /// When it is not set (`data-*` attribute is missing) returns `null`.
   external String? operator [](String name);
 
-  external void operator []=(
+  void operator []=(
     String name,
-    String value,
-  );
+    String? value,
+  ) {
+    if (value != null) {
+      setProperty(name.toJS, value.toJS);
+    } else {
+      remove(name);
+    }
+  }
 
   /// Removes `dataset` element (and corresponding `data-*` attribute)
   String? remove(String name) {

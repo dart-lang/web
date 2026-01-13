@@ -16,7 +16,8 @@ import '../dom/svg.dart';
 /// This extension also allows removing `dataset` elements.
 extension type NullableDOMStringMap._(JSObject _) implements JSObject {
   /// Retrieves `dataset` element.
-  /// When it is not set (`data-*` attribute is missing) returns null.
+  ///
+  /// When it is not set (`data-*` attribute is missing) returns `null`.
   external String? operator [](String name);
 
   external void operator []=(

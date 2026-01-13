@@ -21,6 +21,9 @@ extension type NullableDOMStringMap._(JSObject _) implements JSObject {
   /// When it is not set (`data-*` attribute is missing) returns `null`.
   external String? operator [](String name);
 
+  /// Sets `dataset` element (and corresponding `data-*` attribute).
+  ///
+  /// Removes attribute if `value` is `null`.
   void operator []=(
     String name,
     String? value,

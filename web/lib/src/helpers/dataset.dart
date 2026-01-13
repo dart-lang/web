@@ -32,7 +32,7 @@ extension type NullableDOMStringMap._(JSObject _) implements JSObject {
 }
 
 extension HTMLElementDatasetExtension on HTMLElement {
-  /// Wrapper for nullable dataset. See [NullableDOMStringMap] for details.
+  /// Wrapper for nullable [dataset]. See [NullableDOMStringMap] for details.
   @JS('dataset')
   external NullableDOMStringMap get data;
 }

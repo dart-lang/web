@@ -3,51 +3,42 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:js_interop';
+import 'dart:js_interop_unsafe';
 
 import '../dom/html.dart';
 import '../dom/svg.dart';
 
-/// `_ElementWithDataset` is a wrapper around an Element with `dataset` getter
-/// It is used to abstract `HTMLElement` and `SVGElement` in `NullableDatasetWrapper`
-extension type _ElementWithDataset<T extends JSObject>(JSObject _)
-    implements JSObject {
-  external DOMStringMap get dataset;
-  external bool hasAttribute(String qualifiedName);
-  external void removeAttribute(String qualifiedName);
-}
-
 /// Provides nullable api on `DOMStringMap`
-/// When data-* attribute is missing `[]` operator will return null instead of
-/// throwing runtime exception.
-/// It also allows to clear data-* attributes by setting value to `null`.
-class NullableDatasetWrapper<T extends JSObject> {
-  final _ElementWithDataset<T> _element;
+/// When data-* attribute is missing, `[]` operator will return null.
+/// It also allows to remove data-* attributes by using `remove()`.
+extension type NullableDOMStringMap._(JSObject _) implements JSObject {
+  /// `DOMStringMap` returns non nullable `DOMString` from getter.
+  /// It returns `undefined` when given key does not exist.
+  /// As in Dart there is no `undefined` we return null in such case.
+  external String? operator [](String name);
 
-  NullableDatasetWrapper._(T element)
-      : _element = _ElementWithDataset<T>(element);
+  external void operator []=(
+    String name,
+    String value,
+  );
 
-  String? operator [](String name) {
-    if (_element.hasAttribute('data-$name')) {
-      return _element.dataset[name];
-    }
-    return null;
-  }
-
-  void operator []=(String name, String? value) {
-    if (value != null) {
-      _element.dataset[name] = value;
-    } else {
-      _element.removeAttribute('data-$name');
-    }
+  /// `DomStringMap` uses unnamed deleter that cant be mapped to dart.
+  /// This allows calling js `delete` operator on dataset.
+  String? remove(String name) {
+    final ret = this[name];
+    delete(name.toJS);
+    return ret;
   }
 }
 
 extension HTMLElementDatasetExtension on HTMLElement {
-  /// Wrapper for nullable dataset.
-  NullableDatasetWrapper get data => NullableDatasetWrapper._(this);
+  /// Wrapper for nullable dataset. See [NullableDOMStringMap] for details.
+  @JS('dataset')
+  external NullableDOMStringMap get data;
 }
 
 extension SVGElementDatasetExtension on SVGElement {
-  /// Wrapper for nullable dataset.
-  NullableDatasetWrapper get data => NullableDatasetWrapper._(this);
+  /// Wrapper for nullable dataset. See [NullableDOMStringMap] for details.
+  @JS('dataset')
+  external NullableDOMStringMap get data;
 }

@@ -291,14 +291,16 @@ void main() {
   });
 
   test('nullable dataset extension', () {
-    final elements = [SVGSVGElement(), HTMLDivElement()];
+    final elements = [SVGSVGElement(), HTMLDivElement(), MathMLElement.mi()];
 
     for (var element in elements) {
       element.setAttribute('data-foo', 'bar');
       element.setAttribute('data-foo-camel', 'bar');
       final data = element.isA<SVGElement>()
           ? (element as SVGElement).data
-          : (element as HTMLElement).data;
+          : element.isA<MathMLElement>()
+              ? (element as MathMLElement).data
+              : (element as HTMLElement).data;
       //read existing and not existing data
       expect(data['foo'], equals('bar'));
       expect(data['fooCamel'], equals('bar'));

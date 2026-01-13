@@ -6,15 +6,17 @@ import 'dart:js_interop';
 import 'dart:js_interop_unsafe';
 
 import '../dom/html.dart';
+import '../dom/mathml_core.dart';
 import '../dom/svg.dart';
 
 /// Provides nullable api on `DOMStringMap`.
-/// When data-* attribute is missing, `[]` operator will return null.
-/// It also allows to remove data-* attributes by using `remove()`.
+/// Native `DOMStringMap` returns non nullable `DOMString` from getter and
+/// returns `undefined` when given key does not exist. As in Dart there is no
+/// `undefined`, this wrapper will return null in such case.
+/// This extension also allows removing `dataset` elements.
 extension type NullableDOMStringMap._(JSObject _) implements JSObject {
-  /// `DOMStringMap` returns non nullable `DOMString` from getter.
-  /// It returns `undefined` when given key does not exist.
-  /// As in Dart there is no `undefined` we return null in such case.
+  /// Retrieves `dataset` element.
+  /// When it is not set (`data-*` attribute is missing) returns null.
   external String? operator [](String name);
 
   external void operator []=(
@@ -22,8 +24,7 @@ extension type NullableDOMStringMap._(JSObject _) implements JSObject {
     String value,
   );
 
-  /// `DomStringMap` uses unnamed deleter that cant be mapped to dart.
-  /// This allows calling js `delete` operator on dataset.
+  /// Removes `dataset` element (and corresponding `data-*` attribute)
   String? remove(String name) {
     final ret = this[name];
     delete(name.toJS);
@@ -38,7 +39,13 @@ extension HTMLElementDatasetExtension on HTMLElement {
 }
 
 extension SVGElementDatasetExtension on SVGElement {
-  /// Wrapper for nullable dataset. See [NullableDOMStringMap] for details.
+  /// Wrapper for nullable [dataset]. See [NullableDOMStringMap] for details.
+  @JS('dataset')
+  external NullableDOMStringMap get data;
+}
+
+extension MathMLElementDatasetExtension on MathMLElement {
+  /// Wrapper for nullable [dataset]. See [NullableDOMStringMap] for details.
   @JS('dataset')
   external NullableDOMStringMap get data;
 }

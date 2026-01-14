@@ -1365,7 +1365,6 @@ class Transformer {
   //  https://github.com/dart-lang/web/issues/410
   //  https://github.com/dart-lang/web/issues/422
 
-
   Type _transformType(
     TSTypeNode type, {
     bool parameter = false,
@@ -1373,22 +1372,22 @@ class Transformer {
     bool? isNullable,
   }) {
     LiteralType literalFromNum(num value) => LiteralType(
-          isNullable: isNullable ?? false,
-          kind: value is int ? LiteralKind.int : LiteralKind.double,
-          value: value,
-        );
+      isNullable: isNullable ?? false,
+      kind: value is int ? LiteralKind.int : LiteralKind.double,
+      value: value,
+    );
 
     LiteralType literalFromString(String value) => LiteralType(
-          isNullable: isNullable ?? false,
-          kind: LiteralKind.string,
-          value: value,
-        );
+      isNullable: isNullable ?? false,
+      kind: LiteralKind.string,
+      value: value,
+    );
 
     LiteralType literalFromBool(bool value) => LiteralType(
-          isNullable: isNullable ?? false,
-          kind: value ? LiteralKind.$true : LiteralKind.$false,
-          value: value,
-        );
+      isNullable: isNullable ?? false,
+      kind: value ? LiteralKind.$true : LiteralKind.$false,
+      value: value,
+    );
 
     LiteralType literalFromNull() {
       // Null literals usually come through the syntax path.
@@ -1400,6 +1399,7 @@ class Transformer {
         value: null,
       );
     }
+
     switch (type.kind) {
       case TSSyntaxKind.ParenthesizedType:
         return _transformType(

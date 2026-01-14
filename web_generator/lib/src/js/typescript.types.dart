@@ -15,67 +15,9 @@ import 'annotations.dart';
 import 'helpers.dart';
 import 'typescript.dart';
 
+// TODO: add other flags as needed
 extension type const TSTypeFlags._(int _) implements int {
-  static const TSTypeFlags Any = TSTypeFlags._(1);
-  static const TSTypeFlags Unknown = TSTypeFlags._(2);
-  static const TSTypeFlags String = TSTypeFlags._(4);
-  static const TSTypeFlags Number = TSTypeFlags._(8);
-  static const TSTypeFlags Boolean = TSTypeFlags._(16);
-  static const TSTypeFlags Enum = TSTypeFlags._(32);
-  static const TSTypeFlags BigInt = TSTypeFlags._(64);
-  static const TSTypeFlags StringLiteral = TSTypeFlags._(128);
-  static const TSTypeFlags NumberLiteral = TSTypeFlags._(256);
   static const TSTypeFlags BooleanLiteral = TSTypeFlags._(512);
-  static const TSTypeFlags EnumLiteral = TSTypeFlags._(1024);
-  static const TSTypeFlags BigIntLiteral = TSTypeFlags._(2048);
-  static const TSTypeFlags ESSymbol = TSTypeFlags._(4096);
-  static const TSTypeFlags UniqueESSymbol = TSTypeFlags._(8192);
-  static const TSTypeFlags Void = TSTypeFlags._(16384);
-  static const TSTypeFlags Undefined = TSTypeFlags._(32768);
-  static const TSTypeFlags Null = TSTypeFlags._(65536);
-  static const TSTypeFlags Never = TSTypeFlags._(131072);
-  static const TSTypeFlags TypeParameter = TSTypeFlags._(262144);
-  static const TSTypeFlags Object = TSTypeFlags._(524288);
-  static const TSTypeFlags Union = TSTypeFlags._(1048576);
-  static const TSTypeFlags Intersection = TSTypeFlags._(2097152);
-  static const TSTypeFlags Index = TSTypeFlags._(4194304);
-  static const TSTypeFlags IndexedAccess = TSTypeFlags._(8388608);
-  static const TSTypeFlags Conditional = TSTypeFlags._(16777216);
-  static const TSTypeFlags Substitution = TSTypeFlags._(33554432);
-  static const TSTypeFlags NonPrimitive = TSTypeFlags._(67108864);
-  static const TSTypeFlags TemplateLiteral = TSTypeFlags._(134217728);
-  static const TSTypeFlags StringMapping = TSTypeFlags._(268435456);
-  static const TSTypeFlags AnyOrUnknown = TSTypeFlags._(3);
-  static const TSTypeFlags Nullable = TSTypeFlags._(65536 | 32768 | 16384);
-  static const TSTypeFlags Literal = TSTypeFlags._(128 | 256 | 512 | 2048);
-  static const TSTypeFlags Unit = TSTypeFlags._(
-    128 | 256 | 512 | 1024 | 2048 | 8192 | 16384 | 32768 | 65536,
-  );
-  static const TSTypeFlags StringOrNumberLiteral = TSTypeFlags._(128 | 256);
-  static const TSTypeFlags PossiblyFalsy = TSTypeFlags._(
-    512 | 16384 | 32768 | 65536,
-  );
-  static const TSTypeFlags StringLike = TSTypeFlags._(4 | 128 | 134217728);
-  static const TSTypeFlags NumberLike = TSTypeFlags._(8 | 256 | 32);
-  static const TSTypeFlags BigIntLike = TSTypeFlags._(64 | 2048);
-  static const TSTypeFlags BooleanLike = TSTypeFlags._(16 | 512);
-  static const TSTypeFlags EnumLike = TSTypeFlags._(32 | 1024);
-  static const TSTypeFlags ESSymbolLike = TSTypeFlags._(4096 | 8192);
-  static const TSTypeFlags VoidLike = TSTypeFlags._(16384 | 32768);
-  static const TSTypeFlags UnionOrIntersection = TSTypeFlags._(
-    1048576 | 2097152,
-  );
-  static const TSTypeFlags StructuredType = TSTypeFlags._(
-    524288 |
-        1048576 |
-        2097152 |
-        4194304 |
-        8388608 |
-        16777216 |
-        33554432 |
-        134217728 |
-        268435456,
-  );
 }
 
 extension type const TSSyntaxKind._(num _) {

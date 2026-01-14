@@ -6,8 +6,10 @@ import 'dart:js_interop' as _i1;
 @_i1.JS()
 external num get negativeOne;
 @_i1.JS()
-external num get existingLiteral;
-@_i1.JS()
 external String get existingString;
 @_i1.JS()
 external bool get existingBoolean;
+@_i1.JS()
+external bool get falsy;
+@_i1.JS()
+external void get nully;

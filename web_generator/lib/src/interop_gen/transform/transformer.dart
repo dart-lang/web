@@ -1364,37 +1364,7 @@ class Transformer {
   // TODO(nikeokoronkwo): Add support for constructor and function types,
   //  https://github.com/dart-lang/web/issues/410
   //  https://github.com/dart-lang/web/issues/422
-  LiteralType _literalFromValue(Object? value, {bool isNullable = false}) {
-    if (value is num) {
-      return LiteralType(
-        isNullable: isNullable,
-        kind: value is int ? LiteralKind.int : LiteralKind.double,
-        value: value,
-      );
-    } else if (value is String) {
-      return LiteralType(
-        isNullable: isNullable,
-        kind: LiteralKind.string,
-        value: value,
-      );
-    } else if (value is bool) {
-      return LiteralType(
-        isNullable: isNullable,
-        kind: value ? LiteralKind.$true : LiteralKind.$false,
-        value: value,
-      );
-    } else if (value == null) {
-      // Null literals usually come through the syntax path.
-      // This fallback handling is for completeness
-      //and safety in resolved paths.
-      return LiteralType(
-        isNullable: isNullable,
-        kind: LiteralKind.$null,
-        value: null,
-      );
-    }
-    throw ArgumentError('Unsupported literal value: $value');
-  }
+
 
   Type _transformType(
     TSTypeNode type, {
@@ -1402,6 +1372,34 @@ class Transformer {
     bool typeArg = false,
     bool? isNullable,
   }) {
+    LiteralType literalFromNum(num value) => LiteralType(
+          isNullable: isNullable ?? false,
+          kind: value is int ? LiteralKind.int : LiteralKind.double,
+          value: value,
+        );
+
+    LiteralType literalFromString(String value) => LiteralType(
+          isNullable: isNullable ?? false,
+          kind: LiteralKind.string,
+          value: value,
+        );
+
+    LiteralType literalFromBool(bool value) => LiteralType(
+          isNullable: isNullable ?? false,
+          kind: value ? LiteralKind.$true : LiteralKind.$false,
+          value: value,
+        );
+
+    LiteralType literalFromNull() {
+      // Null literals usually come through the syntax path.
+      // This fallback handling is for completeness
+      // and safety in resolved paths.
+      return LiteralType(
+        isNullable: isNullable ?? false,
+        kind: LiteralKind.$null,
+        value: null,
+      );
+    }
     switch (type.kind) {
       case TSSyntaxKind.ParenthesizedType:
         return _transformType(
@@ -1777,34 +1775,26 @@ class Transformer {
         // Try to handle simple literals first
         switch (literal.kind) {
           case TSSyntaxKind.NumericLiteral:
-            return _literalFromValue(
-              num.parse(literal.text),
-              isNullable: isNullable ?? false,
-            );
+            return literalFromNum(num.parse(literal.text));
           case TSSyntaxKind.StringLiteral:
-            return _literalFromValue(
-              literal.text,
-              isNullable: isNullable ?? false,
-            );
+            return literalFromString(literal.text);
           case TSSyntaxKind.TrueKeyword:
-            return _literalFromValue(true, isNullable: isNullable ?? false);
+            return literalFromBool(true);
           case TSSyntaxKind.FalseKeyword:
-            return _literalFromValue(false, isNullable: isNullable ?? false);
+            return literalFromBool(false);
           case TSSyntaxKind.NullKeyword:
-            return _literalFromValue(null, isNullable: isNullable ?? false);
+            return literalFromNull();
           default:
             final resolvedType = typeChecker.getTypeFromTypeNode(literalType);
 
             if (resolvedType != null) {
               if (resolvedType.isNumberLiteral()) {
-                return _literalFromValue(
+                return literalFromNum(
                   (resolvedType as TSNumberLiteralType).value,
-                  isNullable: isNullable ?? false,
                 );
               } else if (resolvedType.isStringLiteral()) {
-                return _literalFromValue(
+                return literalFromString(
                   (resolvedType as TSStringLiteralType).value,
-                  isNullable: isNullable ?? false,
                 );
               } else if ((resolvedType.flags & TSTypeFlags.BooleanLiteral) !=
                   0) {
@@ -1813,10 +1803,7 @@ class Transformer {
                 // to infer true/false.
                 final typeStr = typeChecker.typeToString(resolvedType);
                 if (typeStr == 'true' || typeStr == 'false') {
-                  return _literalFromValue(
-                    typeStr == 'true',
-                    isNullable: isNullable ?? false,
-                  );
+                  return literalFromBool(typeStr == 'true');
                 }
               }
 

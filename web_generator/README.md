@@ -14,6 +14,14 @@ There are two entrypoints present in this package:
 - `gen_interop_bindings.dart`: This entrypoint is for generating Dart interfaces from TS Declaration code, given the path to a `.d.ts` file
 - `update_idl_bindings.dart`: This entrypoint is for generating Dart interfaces from Web IDL definitions, given the path to a `.idl` file. If no idl file is present, it, by default, generates code for `package:web`.
 
+### Requirements
+#### Node.js
+
+The web_generator requires **Node.js v22 or newer**.
+
+Older Node versions are not supported and may result in runtime failures, particularly in the Node ESM environment used by the generator.
+
+
 ## TS Declarations
 To generate Dart interfaces for a given `.d.ts` file, run the following at the root of this package:
 ```shell

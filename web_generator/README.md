@@ -16,11 +16,8 @@ There are two entrypoints present in this package:
 
 ### Requirements
 #### Node.js
-
 The web_generator requires **Node.js v22 or newer**.
-
-Older Node versions are not supported and may result in runtime failures, particularly in the Node ESM environment used by the generator.
-
+Older Node versions are not supported and may result in runtime failures.
 
 ## TS Declarations
 To generate Dart interfaces for a given `.d.ts` file, run the following at the root of this package:

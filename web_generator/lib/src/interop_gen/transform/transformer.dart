@@ -1364,12 +1364,42 @@ class Transformer {
   // TODO(nikeokoronkwo): Add support for constructor and function types,
   //  https://github.com/dart-lang/web/issues/410
   //  https://github.com/dart-lang/web/issues/422
+
   Type _transformType(
     TSTypeNode type, {
     bool parameter = false,
     bool typeArg = false,
     bool? isNullable,
   }) {
+    LiteralType literalFromNum(num value) => LiteralType(
+      isNullable: isNullable ?? false,
+      kind: value is int ? LiteralKind.int : LiteralKind.double,
+      value: value,
+    );
+
+    LiteralType literalFromString(String value) => LiteralType(
+      isNullable: isNullable ?? false,
+      kind: LiteralKind.string,
+      value: value,
+    );
+
+    LiteralType literalFromBool(bool value) => LiteralType(
+      isNullable: isNullable ?? false,
+      kind: value ? LiteralKind.$true : LiteralKind.$false,
+      value: value,
+    );
+
+    LiteralType literalFromNull() {
+      // Null literals usually come through the syntax path.
+      // This fallback handling is for completeness
+      // and safety in resolved paths.
+      return LiteralType(
+        isNullable: isNullable ?? false,
+        kind: LiteralKind.$null,
+        value: null,
+      );
+    }
+
     switch (type.kind) {
       case TSSyntaxKind.ParenthesizedType:
         return _transformType(
@@ -1742,34 +1772,59 @@ class Transformer {
         final literalType = type as TSLiteralTypeNode;
         final literal = literalType.literal;
 
-        return LiteralType(
-          isNullable: isNullable ?? false,
-          kind: switch (literal.kind) {
-            // TODO: Will we support Regex?
-            TSSyntaxKind.NumericLiteral =>
-              num.parse(literal.text) is int
-                  ? LiteralKind.int
-                  : LiteralKind.double,
-            TSSyntaxKind.StringLiteral => LiteralKind.string,
-            TSSyntaxKind.TrueKeyword => LiteralKind.$true,
-            TSSyntaxKind.FalseKeyword => LiteralKind.$false,
-            TSSyntaxKind.NullKeyword => LiteralKind.$null,
-            _ => throw UnimplementedError(
-              'Unsupported Literal Kind ${literal.kind}',
-            ),
-          },
-          value: switch (literal.kind) {
-            // TODO: Will we support Regex?
-            TSSyntaxKind.NumericLiteral => num.parse(literal.text),
-            TSSyntaxKind.StringLiteral => literal.text,
-            TSSyntaxKind.TrueKeyword => true,
-            TSSyntaxKind.FalseKeyword => false,
-            TSSyntaxKind.NullKeyword => null,
-            _ => throw UnimplementedError(
-              'Unsupported Literal Kind ${literal.kind}',
-            ),
-          },
-        );
+        // Try to handle simple literals first
+        switch (literal.kind) {
+          case TSSyntaxKind.NumericLiteral:
+            return literalFromNum(num.parse(literal.text));
+          case TSSyntaxKind.StringLiteral:
+            return literalFromString(literal.text);
+          case TSSyntaxKind.TrueKeyword:
+            return literalFromBool(true);
+          case TSSyntaxKind.FalseKeyword:
+            return literalFromBool(false);
+          case TSSyntaxKind.NullKeyword:
+            return literalFromNull();
+          default:
+            final resolvedType = typeChecker.getTypeFromTypeNode(literalType);
+
+            if (resolvedType != null) {
+              if (resolvedType.isNumberLiteral()) {
+                return literalFromNum(
+                  (resolvedType as TSNumberLiteralType).value,
+                );
+              } else if (resolvedType.isStringLiteral()) {
+                return literalFromString(
+                  (resolvedType as TSStringLiteralType).value,
+                );
+              } else if ((resolvedType.flags & TSTypeFlags.BooleanLiteral) !=
+                  0) {
+                // BooleanLiteralType may not expose its value;
+                // fall back to the type string
+                // to infer true/false.
+                final typeStr = typeChecker.typeToString(resolvedType);
+                if (typeStr == 'true' || typeStr == 'false') {
+                  return literalFromBool(typeStr == 'true');
+                }
+              }
+
+              // Fallback to underlying type if not a literal
+              final underlyingTypeNode = typeChecker.typeToTypeNode(
+                resolvedType,
+              );
+              if (underlyingTypeNode != null) {
+                return _transformType(
+                  underlyingTypeNode,
+                  //Avoid recursion if the underlying type is the same literal.
+                  //typeToTypeNode usually returns a keyword type for primitives
+                );
+              }
+            }
+
+            return BuiltinType.primitiveType(
+              PrimitiveType.any,
+              isNullable: isNullable,
+            );
+        }
       case TSSyntaxKind.TypeQuery:
         final typeQuery = type as TSTypeQueryNode;
 

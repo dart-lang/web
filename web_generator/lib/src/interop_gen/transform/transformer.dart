@@ -1949,6 +1949,95 @@ class Transformer {
           typeArg: typeArg,
           isNullable: isNullable,
         );
+      case TSSyntaxKind.IndexedAccessType:
+        final accessNode = type as TSIndexedAccessType;
+
+        // Step A: Primary Resolution via TypeChecker
+        // Source of truth for complex types (unions, mapped, conditionals).
+        try {
+          final resolvedType = typeChecker.getTypeFromTypeNode(accessNode);
+          if (resolvedType != null) {
+            // Convert back to AST node to re-use existing transformation logic
+            // Using NoTruncation to ensure we get the full type structure
+            final resolvedNode = typeChecker.typeToTypeNode(resolvedType);
+
+            if (resolvedNode != null) {
+              return _transformType(
+                resolvedNode,
+                parameter: parameter,
+                typeArg: typeArg,
+                isNullable: isNullable,
+              );
+            }
+          }
+        } catch (e) {
+          // Fallback to manual resolution if TypeChecker fails
+          print('WARN: IndexedAccessType resolution failed: $e');
+        }
+
+        // Step B: Manual Fallback (Minimal support for obvious cases)
+        // This runs only if TypeChecker failed or returned null.
+        final objectType = _transformType(accessNode.objectType);
+        final indexType = _transformType(accessNode.indexType);
+
+        Type? lookupProperty(Type obj, String key) {
+          if (obj is ObjectLiteralType) {
+            return obj.properties.firstWhereOrNull((p) => p.name == key)?.type;
+          } else if (obj is ReferredType &&
+              obj.declaration is InterfaceDeclaration) {
+            final interfaceDecl = obj.declaration as InterfaceDeclaration;
+            return interfaceDecl.properties
+                .firstWhereOrNull((p) => p.name == key)
+                ?.type;
+          }
+          // Minimal fallback: no deep union merging or inheritance traversal
+          return null;
+        }
+
+        if (indexType is LiteralType && indexType.kind == LiteralKind.string) {
+          // Case: T['key']
+          final key = indexType.value as String;
+          final propType = lookupProperty(objectType, key);
+          if (propType != null) {
+            return propType..isNullable = (isNullable ?? false);
+          }
+        } else if (indexType is HomogenousEnumType) {
+          // Case: T['a' | 'b'] -> Union of properties
+          // Or T[keyof T] -> Union of all properties
+          final keys = indexType.types
+              .where((t) => t.kind == LiteralKind.string)
+              .map((t) => t.value as String)
+              .toList();
+
+          if (keys.isNotEmpty) {
+            final propertyTypes = <Type>[];
+            for (final key in keys) {
+              final propType = lookupProperty(objectType, key);
+              if (propType != null) propertyTypes.add(propType);
+            }
+
+            if (propertyTypes.isNotEmpty) {
+              // Use internal logic to merge types if needed, or just return Union/first
+              if (propertyTypes.length == 1) {
+                return propertyTypes.first..isNullable = (isNullable ?? false);
+              }
+              // Combine the property types we found.
+              // We don’t want to create a new Dart IR union here, so:
+              //if they’re all the same, just return that type
+              //if they differ, fall back to `any` like other unresolved cases
+              final firstTypeId = propertyTypes.first.id.toString();
+              if (propertyTypes.every((t) => t.id.toString() == firstTypeId)) {
+                return propertyTypes.first..isNullable = (isNullable ?? false);
+              }
+            }
+          }
+        }
+
+        // Default fallback
+        return BuiltinType.primitiveType(
+          PrimitiveType.any,
+          isNullable: isNullable,
+        );
       case TSSyntaxKind.ArrayType:
         return BuiltinType.primitiveType(
           PrimitiveType.array,

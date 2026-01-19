@@ -107,6 +107,7 @@ extension type const TSSyntaxKind._(num _) {
   static const TSSyntaxKind TypeOperator = TSSyntaxKind._(199);
   static const TSSyntaxKind LiteralType = TSSyntaxKind._(202);
   static const TSSyntaxKind NamedTupleMember = TSSyntaxKind._(203);
+  static const TSSyntaxKind IndexedAccessType = TSSyntaxKind._(200);
 
   // Other
   static const TSSyntaxKind Identifier = TSSyntaxKind._(80);
@@ -131,6 +132,13 @@ extension type const TSNodeFlags._(int _) implements int {
   static const TSNodeFlags None = TSNodeFlags._(0);
   static const TSNodeFlags Let = TSNodeFlags._(1);
   static const TSNodeFlags Const = TSNodeFlags._(2);
+}
+
+// TODO: add other flags as needed
+extension type const TSNodeBuilderFlags._(int _) implements int {
+  static const TSNodeBuilderFlags None = TSNodeBuilderFlags._(0);
+  static const TSNodeBuilderFlags ForbidIndexedAccessSymbolReference =
+      TSNodeBuilderFlags._(16);
 }
 
 @JS('Node')
@@ -200,6 +208,15 @@ extension type TSLiteralTypeNode._(JSObject _) implements TSTypeNode {
   TSSyntaxKind get kind => TSSyntaxKind.LiteralType;
 
   external TSLiteral get literal;
+}
+
+@JS('IndexedAccessType')
+extension type TSIndexedAccessType._(JSObject _) implements TSTypeNode {
+  @redeclare
+  TSSyntaxKind get kind => TSSyntaxKind.IndexedAccessType;
+
+  external TSTypeNode get objectType;
+  external TSTypeNode get indexType;
 }
 
 @JS('ParenthesizedTypeNode')

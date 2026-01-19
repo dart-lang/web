@@ -1952,92 +1952,138 @@ class Transformer {
       case TSSyntaxKind.IndexedAccessType:
         final accessNode = type as TSIndexedAccessType;
 
+        // Analyze Object Type for Local vs Remote
+        final objectType = _transformType(accessNode.objectType);
+        final isLocalType =
+            (objectType is ReferredType && objectType.url == null) ||
+            objectType is ObjectLiteralType;
+
         // Step A: Primary Resolution via TypeChecker
-        // Source of truth for complex types (unions, mapped, conditionals).
         try {
           final resolvedType = typeChecker.getTypeFromTypeNode(accessNode);
           if (resolvedType != null) {
-            // Convert back to AST node to re-use existing transformation logic
-            // Using NoTruncation to ensure we get the full type structure
+            // Early Coercion (Req 3)
+            final typeStr = typeChecker.typeToString(resolvedType);
+            if (typeStr == 'any' ||
+                typeStr == 'null' ||
+                typeStr == 'undefined') {
+              return BuiltinType.primitiveType(
+                PrimitiveType.any,
+                isNullable: false,
+              );
+            }
+
             final resolvedNode = typeChecker.typeToTypeNode(resolvedType);
 
             if (resolvedNode != null) {
-              return _transformType(
+              final result = _transformType(
                 resolvedNode,
                 parameter: parameter,
                 typeArg: typeArg,
                 isNullable: isNullable,
               );
+
+              // Filter: For Local Types, allow only Primitives.
+              // This is crucial for Fee.raw (ArrayBuffer) -> JSAny fallback.
+              var isValid = true;
+              if (isLocalType) {
+                if (result is BuiltinType) {
+                  const allowed = {
+                    'String',
+                    'num',
+                    'double',
+                    'bool',
+                    'void',
+                    'int',
+                    'JSAny',
+                  };
+                  if (!allowed.contains(result.name)) {
+                    isValid = false;
+                  }
+                } else {
+                  // Reject References, Unions, etc. on Local Types
+                  isValid = false;
+                }
+              }
+
+              if (isValid) {
+                return result;
+              }
+              // If invalid, fall through to strict check / fallback.
             }
           }
         } catch (e) {
-          // Fallback to manual resolution if TypeChecker fails
           print('WARN: IndexedAccessType resolution failed: $e');
         }
 
+        // Strict Unsupported Behavior (Req 1)
+        if (errorIfUnsupported) {
+          throw UnsupportedError(
+            'IndexedAccessType resolution failed in strict mode.',
+          );
+        }
+
         // Step B: Manual Fallback (Minimal support for obvious cases)
-        // This runs only if TypeChecker failed or returned null.
-        final objectType = _transformType(accessNode.objectType);
-        final indexType = _transformType(accessNode.indexType);
+        // Do not run this for local types.
+        // Local indexed access uses Step A primitives only.
+        if (!isLocalType) {
+          final indexType = _transformType(accessNode.indexType);
 
-        Type? lookupProperty(Type obj, String key) {
-          if (obj is ObjectLiteralType) {
-            return obj.properties.firstWhereOrNull((p) => p.name == key)?.type;
-          } else if (obj is ReferredType &&
-              obj.declaration is InterfaceDeclaration) {
-            final interfaceDecl = obj.declaration as InterfaceDeclaration;
-            return interfaceDecl.properties
-                .firstWhereOrNull((p) => p.name == key)
-                ?.type;
-          }
-          // Minimal fallback: no deep union merging or inheritance traversal
-          return null;
-        }
-
-        if (indexType is LiteralType && indexType.kind == LiteralKind.string) {
-          // Case: T['key']
-          final key = indexType.value as String;
-          final propType = lookupProperty(objectType, key);
-          if (propType != null) {
-            return propType..isNullable = (isNullable ?? false);
-          }
-        } else if (indexType is HomogenousEnumType) {
-          // Case: T['a' | 'b'] -> Union of properties
-          // Or T[keyof T] -> Union of all properties
-          final keys = indexType.types
-              .where((t) => t.kind == LiteralKind.string)
-              .map((t) => t.value as String)
-              .toList();
-
-          if (keys.isNotEmpty) {
-            final propertyTypes = <Type>[];
-            for (final key in keys) {
-              final propType = lookupProperty(objectType, key);
-              if (propType != null) propertyTypes.add(propType);
+          Type? lookupProperty(Type obj, String key) {
+            if (obj is ObjectLiteralType) {
+              return obj.properties
+                  .firstWhereOrNull((p) => p.name == key)
+                  ?.type;
+            } else if (obj is ReferredType &&
+                obj.declaration is InterfaceDeclaration) {
+              final interfaceDecl = obj.declaration as InterfaceDeclaration;
+              return interfaceDecl.properties
+                  .firstWhereOrNull((p) => p.name == key)
+                  ?.type;
             }
+            return null;
+          }
 
-            if (propertyTypes.isNotEmpty) {
-              // Use internal logic to merge types if needed, or just return Union/first
-              if (propertyTypes.length == 1) {
-                return propertyTypes.first..isNullable = (isNullable ?? false);
+          if (indexType is LiteralType &&
+              indexType.kind == LiteralKind.string) {
+            final key = indexType.value as String;
+            final propType = lookupProperty(objectType, key);
+            if (propType != null) {
+              return propType..isNullable = (isNullable ?? false);
+            }
+          } else if (indexType is HomogenousEnumType) {
+            final keys = indexType.types
+                .where((t) => t.kind == LiteralKind.string)
+                .map((t) => t.value as String)
+                .toList();
+
+            if (keys.isNotEmpty) {
+              final propertyTypes = <Type>[];
+              for (final key in keys) {
+                final propType = lookupProperty(objectType, key);
+                if (propType != null) propertyTypes.add(propType);
               }
-              // Combine the property types we found.
-              // We don’t want to create a new Dart IR union here, so:
-              //if they’re all the same, just return that type
-              //if they differ, fall back to `any` like other unresolved cases
-              final firstTypeId = propertyTypes.first.id.toString();
-              if (propertyTypes.every((t) => t.id.toString() == firstTypeId)) {
-                return propertyTypes.first..isNullable = (isNullable ?? false);
+
+              if (propertyTypes.isNotEmpty) {
+                if (propertyTypes.length == 1) {
+                  return propertyTypes.first
+                    ..isNullable = (isNullable ?? false);
+                }
+                final firstTypeId = propertyTypes.first.id.toString();
+                if (propertyTypes.every(
+                  (t) => t.id.toString() == firstTypeId,
+                )) {
+                  return propertyTypes.first
+                    ..isNullable = (isNullable ?? false);
+                }
               }
             }
           }
-        }
+        } // End isLocalType check
 
-        // Default fallback
-        return BuiltinType.primitiveType(
-          PrimitiveType.any,
-          isNullable: isNullable,
-        );
+        // Default fallback (Req 2 & 4)
+        return BuiltinType.primitiveType(PrimitiveType.any, isNullable: false)
+          ..fromIndexedFallback = true;
       case TSSyntaxKind.ArrayType:
         return BuiltinType.primitiveType(
           PrimitiveType.array,

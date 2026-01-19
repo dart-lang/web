@@ -13,7 +13,7 @@ typedef AgeType = double;
 typedef NameOrAge = _i1.JSAny;
 typedef PersonKeys = KeyOf_Person;
 typedef KeyValues = _i1.JSAny;
-typedef Missing = _i1.JSAny?;
+typedef Missing = _i1.JSAny;
 extension type const KeyOf_Person._(String _) {
   static const KeyOf_Person name = KeyOf_Person._('name');
 

@@ -103,6 +103,9 @@ abstract class Type extends Node {
   /// (unioned with `undefined` or `null`)
   abstract bool isNullable;
 
+  /// Whether this type was generated as a fallback for an IndexedAccessType
+  bool fromIndexedFallback = false;
+
   @override
   Reference emit([covariant TypeOptions? options]);
 

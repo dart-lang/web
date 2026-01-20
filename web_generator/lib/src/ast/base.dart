@@ -103,8 +103,6 @@ abstract class Type extends Node {
   /// (unioned with `undefined` or `null`)
   abstract bool isNullable;
 
-
-
   @override
   Reference emit([covariant TypeOptions? options]);
 

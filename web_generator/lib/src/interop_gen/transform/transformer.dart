@@ -1958,132 +1958,117 @@ class Transformer {
             (objectType is ReferredType && objectType.url == null) ||
             objectType is ObjectLiteralType;
 
-        // Step A: Primary Resolution via TypeChecker
-        try {
-          final resolvedType = typeChecker.getTypeFromTypeNode(accessNode);
-          if (resolvedType != null) {
-            // Early Coercion (Req 3)
-            final typeStr = typeChecker.typeToString(resolvedType);
-            if (typeStr == 'any' ||
-                typeStr == 'null' ||
-                typeStr == 'undefined') {
-              return BuiltinType.primitiveType(
-                PrimitiveType.any,
-                isNullable: false,
-              );
+        final indexType = _transformType(accessNode.indexType);
+
+        final keys = <String>{};
+
+        void collectKeys(Type t) {
+          if (t is LiteralType) {
+            if (t.kind == LiteralKind.string) {
+              keys.add(t.value as String);
+            } else if (t.kind == LiteralKind.int ||
+                t.kind == LiteralKind.double) {
+              keys.add(t.value.toString());
             }
-
-            final resolvedNode = typeChecker.typeToTypeNode(resolvedType);
-
-            if (resolvedNode != null) {
-              final result = _transformType(
-                resolvedNode,
-                parameter: parameter,
-                typeArg: typeArg,
-                isNullable: isNullable,
-              );
-
-              // Filter: For Local Types, allow only Primitives.
-              // This is crucial for Fee.raw (ArrayBuffer) -> JSAny fallback.
-              var isValid = true;
-              if (isLocalType) {
-                if (result is BuiltinType) {
-                  const allowed = {
-                    'String',
-                    'num',
-                    'double',
-                    'bool',
-                    'void',
-                    'int',
-                    'JSAny',
-                  };
-                  if (!allowed.contains(result.name)) {
-                    isValid = false;
-                  }
-                } else {
-                  // Reject References, Unions, etc. on Local Types
-                  isValid = false;
-                }
-              }
-
-              if (isValid) {
-                return result;
-              }
-              // If invalid, fall through to strict check / fallback.
-            }
+          } else if (t is HomogenousEnumType) {
+            for (final sub in t.types) collectKeys(sub);
+          } else if (t is UnionType) {
+            for (final sub in t.types) collectKeys(sub);
           }
-        } catch (e) {
-          print('WARN: IndexedAccessType resolution failed: $e');
         }
 
-        // Strict Unsupported Behavior (Req 1)
+        collectKeys(indexType);
+
+        // Handle symbol-based keys via typeof Symbol.*
+        if (accessNode.indexType.kind == TSSyntaxKind.TypeQuery) {
+          final query = accessNode.indexType as TSTypeQueryNode;
+          final text = query.exprName.getText();
+          if (text.startsWith('Symbol.')) {
+            keys.add(text);
+          }
+        }
+
+        var matchingTypes = <Type>[];
+
+        void lookup(Type obj, String key) {
+          final candidates = <PropertyDeclaration>[];
+          if (obj is ObjectLiteralType) {
+            candidates.addAll(obj.properties);
+          } else if (obj is ReferredType &&
+              obj.declaration is InterfaceDeclaration) {
+            final decl = obj.declaration as InterfaceDeclaration;
+            candidates.addAll(decl.properties);
+          }
+
+          for (final prop in candidates) {
+            if (prop.name == key) {
+              matchingTypes.add(prop.type);
+            }
+          }
+        }
+
+        for (final key in keys) {
+          lookup(objectType, key);
+        }
+
+        // Filter: For Local Types, allow only Primitives.
+        if (isLocalType && matchingTypes.isNotEmpty) {
+          const allowed = {
+            'String',
+            'num',
+            'double',
+            'bool',
+            'void',
+            'int',
+            'JSAny',
+          };
+          matchingTypes = matchingTypes.where((t) {
+            if (t is LiteralType && t.kind == LiteralKind.$null) return true;
+            if (t is BuiltinType) return allowed.contains(t.name);
+            return false;
+          }).toList();
+        }
+
+        if (matchingTypes.isNotEmpty) {
+          if (matchingTypes.length == 1) {
+            return matchingTypes.first..isNullable = (isNullable ?? false);
+          }
+
+          final uniqueMap = LinkedHashMap<String, Type>();
+          for (var t in matchingTypes) uniqueMap[t.id.toString()] = t;
+          final types = uniqueMap.values.toList();
+
+          if (types.length == 1) {
+            return types.first..isNullable = (isNullable ?? false);
+          }
+
+          final idMap = types.map((t) => t.id.name).join('|');
+          final expectedId = ID(type: 'type', name: idMap);
+          if (typeMap.containsKey(expectedId.toString())) {
+            return (typeMap[expectedId.toString()] as UnionType)
+              ..isNullable = (isNullable ?? false);
+          }
+
+          final un = UnionType(
+            types: types,
+            name:
+                'AnonymousUnion_${AnonymousHasher.hashUnion(types.map((t) => t.id.name).toList())}',
+          );
+          final unType = typeMap.putIfAbsent(expectedId.toString(), () {
+            namer.markUsed(un.declarationName);
+            return un;
+          });
+          return unType..isNullable = (isNullable ?? false);
+        }
+
+        // Strict Unsupported Behavior
         if (errorIfUnsupported) {
           throw UnsupportedError(
             'IndexedAccessType resolution failed in strict mode.',
           );
         }
 
-        // Step B: Manual Fallback (Minimal support for obvious cases)
-        // Do not run this for local types.
-        // Local indexed access uses Step A primitives only.
-        if (!isLocalType) {
-          final indexType = _transformType(accessNode.indexType);
-
-          Type? lookupProperty(Type obj, String key) {
-            if (obj is ObjectLiteralType) {
-              return obj.properties
-                  .firstWhereOrNull((p) => p.name == key)
-                  ?.type;
-            } else if (obj is ReferredType &&
-                obj.declaration is InterfaceDeclaration) {
-              final interfaceDecl = obj.declaration as InterfaceDeclaration;
-              return interfaceDecl.properties
-                  .firstWhereOrNull((p) => p.name == key)
-                  ?.type;
-            }
-            return null;
-          }
-
-          if (indexType is LiteralType &&
-              indexType.kind == LiteralKind.string) {
-            final key = indexType.value as String;
-            final propType = lookupProperty(objectType, key);
-            if (propType != null) {
-              return propType..isNullable = (isNullable ?? false);
-            }
-          } else if (indexType is HomogenousEnumType) {
-            final keys = indexType.types
-                .where((t) => t.kind == LiteralKind.string)
-                .map((t) => t.value as String)
-                .toList();
-
-            if (keys.isNotEmpty) {
-              final propertyTypes = <Type>[];
-              for (final key in keys) {
-                final propType = lookupProperty(objectType, key);
-                if (propType != null) propertyTypes.add(propType);
-              }
-
-              if (propertyTypes.isNotEmpty) {
-                if (propertyTypes.length == 1) {
-                  return propertyTypes.first
-                    ..isNullable = (isNullable ?? false);
-                }
-                final firstTypeId = propertyTypes.first.id.toString();
-                if (propertyTypes.every(
-                  (t) => t.id.toString() == firstTypeId,
-                )) {
-                  return propertyTypes.first
-                    ..isNullable = (isNullable ?? false);
-                }
-              }
-            }
-          }
-        } // End isLocalType check
-
-        // Default fallback (Req 2 & 4)
-        return BuiltinType.primitiveType(PrimitiveType.any, isNullable: false)
-          ..fromIndexedFallback = true;
+        return BuiltinType.primitiveType(PrimitiveType.any, isNullable: false);
       case TSSyntaxKind.ArrayType:
         return BuiltinType.primitiveType(
           PrimitiveType.array,

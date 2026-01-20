@@ -1971,9 +1971,13 @@ class Transformer {
               keys.add(t.value.toString());
             }
           } else if (t is HomogenousEnumType) {
-            for (final sub in t.types) collectKeys(sub);
+            for (final sub in t.types) {
+              collectKeys(sub);
+            }
           } else if (t is UnionType) {
-            for (final sub in t.types) collectKeys(sub);
+            for (final sub in t.types) {
+              collectKeys(sub);
+            }
           }
         }
 
@@ -2034,8 +2038,10 @@ class Transformer {
             return matchingTypes.first..isNullable = (isNullable ?? false);
           }
 
-          final uniqueMap = LinkedHashMap<String, Type>();
-          for (var t in matchingTypes) uniqueMap[t.id.toString()] = t;
+          final uniqueMap = <String, Type>{};
+          for (var t in matchingTypes) {
+            uniqueMap[t.id.toString()] = t;
+          }
           final types = uniqueMap.values.toList();
 
           if (types.length == 1) {
@@ -2049,11 +2055,9 @@ class Transformer {
               ..isNullable = (isNullable ?? false);
           }
 
-          final un = UnionType(
-            types: types,
-            name:
-                'AnonymousUnion_${AnonymousHasher.hashUnion(types.map((t) => t.id.name).toList())}',
-          );
+          final typeNames = types.map((t) => t.id.name).toList();
+          final unionHash = AnonymousHasher.hashUnion(typeNames);
+          final un = UnionType(types: types, name: 'AnonymousUnion_$unionHash');
           final unType = typeMap.putIfAbsent(expectedId.toString(), () {
             namer.markUsed(un.declarationName);
             return un;

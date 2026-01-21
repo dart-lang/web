@@ -76,8 +76,8 @@ extension type Blob._(JSObject _) implements JSObject {
   /// the size of the [Blob] or [File] in bytes.
   external int get size;
 
-  /// The **`type`** read-only property of the [Blob] interface returns the  of
-  /// the file.
+  /// The **`type`** read-only property of the [Blob] interface returns the MIME
+  /// type of the file.
   ///
   /// > [!NOTE]
   /// > Based on the current implementation, browsers won't actually read the

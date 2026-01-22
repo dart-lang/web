@@ -1960,9 +1960,8 @@ class Transformer {
 
         final indexType = _transformType(accessNode.indexType);
 
-        final keys = <String>{};
-
-        void collectKeys(Type t) {
+        Set<String> collectKeys(Type t) {
+          final keys = <String>{};
           if (t is LiteralType) {
             if (t.kind == LiteralKind.string) {
               keys.add(t.value as String);
@@ -1972,16 +1971,17 @@ class Transformer {
             }
           } else if (t is HomogenousEnumType) {
             for (final sub in t.types) {
-              collectKeys(sub);
+              keys.addAll(collectKeys(sub));
             }
           } else if (t is UnionType) {
             for (final sub in t.types) {
-              collectKeys(sub);
+              keys.addAll(collectKeys(sub));
             }
           }
+          return keys;
         }
 
-        collectKeys(indexType);
+        final keys = collectKeys(indexType);
 
         // Handle symbol-based keys via typeof Symbol.*
         if (accessNode.indexType.kind == TSSyntaxKind.TypeQuery) {
@@ -1992,9 +1992,8 @@ class Transformer {
           }
         }
 
-        var matchingTypes = <Type>[];
-
-        void lookup(Type obj, String key) {
+        List<Type> lookup(Type obj, String key) {
+          final matchingTypes = <Type>[];
           final candidates = <PropertyDeclaration>[];
           if (obj is ObjectLiteralType) {
             candidates.addAll(obj.properties);
@@ -2009,28 +2008,39 @@ class Transformer {
               matchingTypes.add(prop.type);
             }
           }
+          return matchingTypes;
         }
-
+        //ignore: prefer_final_locals
+        var matchingTypes = <Type>[];
         for (final key in keys) {
-          lookup(objectType, key);
-        }
+          var results = lookup(objectType, key);
 
-        // Filter: For Local Types, allow only Primitives.
-        if (isLocalType && matchingTypes.isNotEmpty) {
-          const allowed = {
-            'String',
-            'num',
-            'double',
-            'bool',
-            'void',
-            'int',
-            'JSAny',
-          };
-          matchingTypes = matchingTypes.where((t) {
-            if (t is LiteralType && t.kind == LiteralKind.$null) return true;
-            if (t is BuiltinType) return allowed.contains(t.name);
-            return false;
-          }).toList();
+          // Filter: For Local Types, allow only Primitives unless the key is
+          // numeric (e.g. array/tuple access) or a Symbol (well-defined unique key).
+          if (isLocalType && results.isNotEmpty) {
+            final isNumeric = double.tryParse(key) != null;
+            final isSymbol = key.startsWith('Symbol.');
+
+            if (!isNumeric && !isSymbol) {
+              const allowed = {
+                'String',
+                'num',
+                'double',
+                'bool',
+                'void',
+                'int',
+                'JSAny',
+              };
+              results = results.where((t) {
+                if (t is LiteralType && t.kind == LiteralKind.$null) {
+                  return true;
+                }
+                if (t is BuiltinType) return allowed.contains(t.name);
+                return false;
+              }).toList();
+            }
+          }
+          matchingTypes.addAll(results);
         }
 
         if (matchingTypes.isNotEmpty) {
@@ -2038,11 +2048,10 @@ class Transformer {
             return matchingTypes.first..isNullable = (isNullable ?? false);
           }
 
-          final uniqueMap = <String, Type>{};
-          for (var t in matchingTypes) {
-            uniqueMap[t.id.toString()] = t;
-          }
-          final types = uniqueMap.values.toList();
+          final seenIds = <String>{};
+          final types = matchingTypes
+              .where((t) => seenIds.add(t.id.toString()))
+              .toList();
 
           if (types.length == 1) {
             return types.first..isNullable = (isNullable ?? false);

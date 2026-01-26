@@ -33,7 +33,9 @@ long-term web interop solution. To learn how to migrate from `dart:html`
 APIs to `package:web`, see our
 [migration guide](https://dart.dev/go/package-web).
 
-### `document.cookie` nullability
+### Specific APIs
+
+#### `document.cookie` 
 
 When migrating from `dart:html` to `package:web`, note that `document.cookie` is now **non-nullable** and always returns a `String`.
 

@@ -286,7 +286,6 @@ class Transformer {
         topLevelDeclarations: {},
         namespaceDeclarations: {},
         nestableDeclarations: {},
-        documentation: null,
       );
     }
 
@@ -395,7 +394,7 @@ class Transformer {
     // preload nodemap
     updateNSInParent();
 
-    // Resolve the symbol at the import name location to get the module's exports
+    // Resolve the symbol at the import name location to get the module's export
     final symbol = typeChecker.getSymbolAtLocation(importEquals.name);
     final exports = symbol?.exports?.toDart;
 

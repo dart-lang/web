@@ -157,6 +157,12 @@ class Transformer {
           _transformClassOrInterface(node as TSObjectDeclaration, namer: namer),
         ];
       case TSSyntaxKind.ImportEqualsDeclaration
+          when (node as TSImportEqualsDeclaration).moduleReference.kind ==
+              TSSyntaxKind.ExternalModuleReference:
+        return [
+          _transformImportEqualsAsNamespace(node, namer: namer, parent: parent),
+        ];
+      case TSSyntaxKind.ImportEqualsDeclaration
           when (node as TSImportEqualsDeclaration).moduleReference.kind !=
               TSSyntaxKind.ExternalModuleReference:
         return [_transformImportEqualsDeclarationAsTypeAlias(node)];
@@ -221,7 +227,6 @@ class Transformer {
     }
   }
 
-  // TODO(): Support `import = require` declarations, https://github.com/dart-lang/web/issues/438
   TypeAliasDeclaration _transformImportEqualsDeclarationAsTypeAlias(
     TSImportEqualsDeclaration typealias, {
     UniqueNamer? namer,
@@ -246,6 +251,176 @@ class Transformer {
       exported: isExported,
       documentation: _parseAndTransformDocumentation(typealias),
     );
+  }
+
+  /// Transforms an import equals declaration with an external module reference
+  /// (e.g., `import foo = require("bar")`) into a namespace declaration.
+  /// This normalizes CommonJS-style imports into the same representation as
+  /// ES6 namespace imports (`import * as foo from "bar"`).
+  NamespaceDeclaration _transformImportEqualsAsNamespace(
+    TSImportEqualsDeclaration importEquals, {
+    UniqueNamer? namer,
+    NamespaceDeclaration? parent,
+  }) {
+    namer ??= this.namer;
+
+    final namespaceName = importEquals.name.text;
+    final moduleRef = importEquals.moduleReference as TSExternalModuleReference;
+
+    // Validate that the expression is a string literal
+    if (moduleRef.expression.kind != TSSyntaxKind.StringLiteral) {
+      print(
+        'WARN: Unsupported import = require() with non-string expression: '
+        '${moduleRef.expression.kind}',
+      );
+      // Return empty namespace as fallback
+      final (:id, name: dartName) = namer.makeUnique(
+        namespaceName,
+        'namespace',
+      );
+      return NamespaceDeclaration(
+        name: namespaceName,
+        dartName: dartName,
+        id: id,
+        exported: false,
+        topLevelDeclarations: {},
+        namespaceDeclarations: {},
+        nestableDeclarations: {},
+        documentation: null,
+      );
+    }
+
+    // get modifiers
+    final modifiers = importEquals.modifiers?.toDart ?? [];
+    final isExported = modifiers.any((m) {
+      return m.kind == TSSyntaxKind.ExportKeyword;
+    });
+
+    final currentNamespaces = parent != null
+        ? parent.namespaceDeclarations.where((n) => n.name == namespaceName)
+        : nodeMap.findByName(namespaceName).whereType<NamespaceDeclaration>();
+
+    final (name: dartName, :id) = currentNamespaces.isEmpty
+        ? namer.makeUnique(namespaceName, 'namespace')
+        : (name: null, id: null);
+
+    final scopedNamer = ScopedUniqueNamer();
+
+    final outputNamespace = currentNamespaces.isNotEmpty
+        ? currentNamespaces.first
+        : NamespaceDeclaration(
+            name: namespaceName,
+            dartName: dartName,
+            id: id!,
+            exported: isExported,
+            topLevelDeclarations: {},
+            namespaceDeclarations: {},
+            nestableDeclarations: {},
+            documentation: _parseAndTransformDocumentation(importEquals),
+          );
+
+    /// Updates the state of the given declaration,
+    /// allowing cross-references between types and declarations in the
+    /// namespace, including the namespace itself
+    void updateNSInParent() {
+      if (parent != null) {
+        if (currentNamespaces.isNotEmpty ||
+            parent.namespaceDeclarations.any((n) => n.name == namespaceName)) {
+          parent.namespaceDeclarations.remove(currentNamespaces.first);
+          parent.namespaceDeclarations.add(outputNamespace);
+        } else {
+          outputNamespace.parent = parent;
+          parent.namespaceDeclarations.add(outputNamespace);
+        }
+      } else {
+        nodeMap.update(
+          outputNamespace.id.toString(),
+          (v) => outputNamespace,
+          ifAbsent: () => outputNamespace,
+        );
+      }
+    }
+
+    void transformDeclAndAppendParent(
+      NamespaceDeclaration outputNamespace,
+      TSNode decl,
+    ) {
+      if (outputNamespace.nodes.contains(decl)) return;
+      if (decl.kind == TSSyntaxKind.EnumMember) {
+        final tsEnum = (decl as TSEnumMember).parent;
+        // parse whole enum
+        final transformedEnum = _transformEnum(tsEnum, namer: namer);
+
+        // add enum
+        if (parent != null) {
+          parent.nestableDeclarations.add(transformedEnum);
+          parent.nodes.add(tsEnum);
+        } else {
+          nodes.add(tsEnum);
+          nodeMap.add(transformedEnum);
+        }
+
+        // add all members to namespace
+        outputNamespace.nodes.addAll(tsEnum.members.toDart);
+      } else {
+        final outputDecls = transformAndReturn(
+          decl,
+          namer: scopedNamer,
+          parent: outputNamespace,
+        );
+        switch (decl.kind) {
+          case TSSyntaxKind.ClassDeclaration ||
+              TSSyntaxKind.InterfaceDeclaration:
+            final outputDecl = outputDecls.single as TypeDeclaration;
+            outputDecl.parent = outputNamespace;
+            outputNamespace.nestableDeclarations.add(outputDecl);
+          case TSSyntaxKind.EnumDeclaration:
+            final outputDecl = outputDecls.single as EnumDeclaration;
+            outputDecl.parent = outputNamespace;
+            outputNamespace.nestableDeclarations.add(outputDecl);
+          case TSSyntaxKind.TypeAliasDeclaration:
+            final outputDecl = outputDecls.single as TypeAliasDeclaration;
+            outputDecl.parent = outputNamespace;
+            outputNamespace.nestableDeclarations.add(outputDecl);
+          default:
+            outputNamespace.topLevelDeclarations.addAll(outputDecls);
+        }
+        outputNamespace.nodes.add(decl);
+      }
+
+      // update namespace state
+      updateNSInParent();
+    }
+
+    // preload nodemap
+    updateNSInParent();
+
+    // Resolve the symbol at the import name location to get the module's exports
+    final symbol = typeChecker.getSymbolAtLocation(importEquals.name);
+    final exports = symbol?.exports?.toDart;
+
+    if (exports case final exportedMap?) {
+      for (final symbol in exportedMap.values) {
+        final decls = symbol.getDeclarations()?.toDart ?? [];
+        try {
+          final aliasedSymbol = typeChecker.getAliasedSymbol(symbol);
+          decls.addAll(aliasedSymbol.getDeclarations()?.toDart ?? []);
+        } catch (_) {
+          // throws error if no aliased symbol, so ignore
+        }
+        for (final decl in decls) {
+          transformDeclAndAppendParent(outputNamespace, decl);
+        }
+      }
+    }
+
+    // final update on namespace state
+    updateNSInParent();
+
+    // index names
+    namer.markUsedSet(scopedNamer);
+
+    return outputNamespace;
   }
 
   /// Transforms a TS Namespace (identified as a [TSModuleDeclaration] with

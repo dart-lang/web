@@ -677,7 +677,7 @@ class NamespaceDeclaration extends NestableDeclaration
         methods.add(fn.emit(options ?? DeclarationOptions(static: true)));
       }
     }
-    
+
     // class refs
     // TODO(nikeokoronkwo): Enum support
     for (final nestable in nestableDeclarations) {

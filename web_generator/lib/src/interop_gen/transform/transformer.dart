@@ -426,16 +426,21 @@ class Transformer {
     final name = typeDecl.name.text;
 
     final modifiers = typeDecl.modifiers?.toDart;
-    var isExported = false;
-    var isAbstract = false;
 
-    for (final mod in modifiers ?? <TSNode>[]) {
-      if (mod.kind == TSSyntaxKind.ExportKeyword) {
-        isExported = true;
-      } else if (mod.kind == TSSyntaxKind.AbstractKeyword) {
-        isAbstract = true;
+    ({bool isExported, bool isAbstract}) parseModifiers(List<TSNode>? mods) {
+      var exported = false;
+      var abstract = false;
+      for (final mod in mods ?? <TSNode>[]) {
+        if (mod.kind == TSSyntaxKind.ExportKeyword) {
+          exported = true;
+        } else if (mod.kind == TSSyntaxKind.AbstractKeyword) {
+          abstract = true;
+        }
       }
+      return (isExported: exported, isAbstract: abstract);
     }
+
+    final (:isExported, :isAbstract) = parseModifiers(modifiers);
 
     final heritageClauses = typeDecl.heritageClauses?.toDart ?? [];
 
@@ -594,10 +599,9 @@ class Transformer {
     final name = nameNode.kind == TSSyntaxKind.Identifier
         ? (nameNode as TSIdentifier).text
         : (nameNode as TSLiteralExpression).text;
-    var nameForDart = name;
-    if (nameNode.kind == TSSyntaxKind.StringLiteral) {
-      nameForDart = dartRename(_toCamelCase(name));
-    }
+    final nameForDart = nameNode.kind == TSSyntaxKind.StringLiteral
+        ? dartRename(_toCamelCase(name))
+        : name;
 
     final (:id, name: dartName) = parentNamer.makeUnique(nameForDart, 'var');
 
@@ -2010,38 +2014,42 @@ class Transformer {
           }
           return matchingTypes;
         }
-        //ignore: prefer_final_locals
-        var matchingTypes = <Type>[];
-        for (final key in keys) {
-          var results = lookup(objectType, key);
 
+        List<Type> filterResults(List<Type> results, String key) {
           // Filter: For Local Types, allow only Primitives unless the key is
           // numeric (e.g. array/tuple access) or a Symbol (well-defined unique key).
-          if (isLocalType && results.isNotEmpty) {
-            final isNumeric = double.tryParse(key) != null;
-            final isSymbol = key.startsWith('Symbol.');
-
-            if (!isNumeric && !isSymbol) {
-              const allowed = {
-                'String',
-                'num',
-                'double',
-                'bool',
-                'void',
-                'int',
-                'JSAny',
-              };
-              results = results.where((t) {
-                if (t is LiteralType && t.kind == LiteralKind.$null) {
-                  return true;
-                }
-                if (t is BuiltinType) return allowed.contains(t.name);
-                return false;
-              }).toList();
-            }
+          if (!isLocalType || results.isEmpty) {
+            return results;
           }
-          matchingTypes.addAll(results);
+
+          final isNumeric = double.tryParse(key) != null;
+          final isSymbol = key.startsWith('Symbol.');
+
+          if (isNumeric || isSymbol) {
+            return results;
+          }
+
+          const allowed = {
+            'String',
+            'num',
+            'double',
+            'bool',
+            'void',
+            'int',
+            'JSAny',
+          };
+          return results.where((t) {
+            if (t is LiteralType && t.kind == LiteralKind.$null) {
+              return true;
+            }
+            if (t is BuiltinType) return allowed.contains(t.name);
+            return false;
+          }).toList();
         }
+
+        final matchingTypes = keys
+            .expand((key) => filterResults(lookup(objectType, key), key))
+            .toList();
 
         if (matchingTypes.isNotEmpty) {
           if (matchingTypes.length == 1) {

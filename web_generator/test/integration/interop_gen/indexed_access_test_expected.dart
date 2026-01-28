@@ -27,6 +27,7 @@ typedef FeeIterator = _i1.JSAny;
 typedef FeeBar = double;
 typedef FeeFromFoo = _i1.JSAny;
 typedef FeeAll = double;
+typedef FeeTag = _i1.JSAny;
 extension type AnonymousUnion_2683278._(_i1.JSAny _) implements _i1.JSAny {
   String get asString => (_ as _i1.JSString).toDart;
 

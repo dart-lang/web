@@ -16,10 +16,10 @@ extension type MyLibrary(JSObject _) implements JSObject {
   static const int VERSION_MAJOR = 1;
   static const int VERSION_MINOR = 4;
 
-  static external void initialize();
-  static external String stringify(JSObject input);
-  static external JSPromise<JSAny?> fetchResource(String url);
-  static external void log(String message, [LogLevel level]);
-  static external ConfigOptions getDefaultConfig();
-  static external void forEach(JSArray<JSString> items, Comparator compareFn);
+  external static void initialize();
+  external static String stringify(JSObject input);
+  external static JSPromise<JSAny?> fetchResource(String url);
+  external static void log(String message, [LogLevel level]);
+  external static ConfigOptions getDefaultConfig();
+  external static void forEach(JSArray<JSString> items, Comparator compareFn);
 }

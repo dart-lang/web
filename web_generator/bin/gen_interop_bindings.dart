@@ -55,6 +55,8 @@ $_usage''');
     // Compile Dart to Javascript.
     await compileDartMain();
   }
+  final generateAllTopLevelDeclarations =
+    argResult.flag('generate-all-top-level-declarations');
 
   final inputFiles = argResult.rest;
   if (inputFiles.isEmpty) {
@@ -99,6 +101,7 @@ $_usage''');
     if (relativeConfigFile case final config?) '--config=$config',
     if (argResult.wasParsed('ignore-errors')) '--ignore-errors',
     if (argResult.wasParsed('generate-all')) '--generate-all',
+    if (generateAllTopLevelDeclarations) '--generate-all-top-level-declarations',
     if (argResult.wasParsed('strict-unsupported')) '--strict-unsupported',
   ], workingDirectory: bindingsGeneratorPath);
 
@@ -151,4 +154,9 @@ final _parser = ArgParser()
     hide: true,
     abbr: 'c',
     help: 'The configuration file to use for this tool (NOTE: Unimplemented)',
+  )
+  ..addFlag(
+    'generate-all-top-level-declarations',
+    defaultsTo: false,
+    help: 'Generate all top-level WebIDL declarations (enums, callbacks, etc.)',
   );

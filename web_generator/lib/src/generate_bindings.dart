@@ -75,6 +75,7 @@ Future<(TranslationResult, Map<String, String>)> generateBindings(
   String packageRoot,
   String librarySubDir, {
   required bool generateAll,
+  required bool generateAllTopLevelDeclarations,
 }) async {
   final cssStyleDeclarations = await _generateCSSStyleDeclarations();
   final elementHTMLMap = await _generateElementTagMap();
@@ -83,6 +84,7 @@ Future<(TranslationResult, Map<String, String>)> generateBindings(
     cssStyleDeclarations,
     elementHTMLMap,
     generateAll: generateAll,
+    generateAllTopLevelDeclarations: generateAllTopLevelDeclarations,
     packageRoot: packageRoot,
   );
   final array = objectEntries(await idl.parseAll().toDart);
@@ -112,6 +114,7 @@ Future<TranslationResult> generateBindingsForFiles(
     cssStyleDeclarations,
     elementHTMLMap,
     generateAll: true,
+    generateAllTopLevelDeclarations: true,
     generateForWeb: false,
   );
 

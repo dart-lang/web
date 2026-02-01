@@ -176,6 +176,7 @@ extension type NotificationOptions._(JSObject _) implements JSObject {
     NotificationDirection dir,
     String lang,
     String body,
+    String navigate,
     String tag,
     String image,
     String icon,
@@ -195,6 +196,8 @@ extension type NotificationOptions._(JSObject _) implements JSObject {
   external set lang(String value);
   external String get body;
   external set body(String value);
+  external String get navigate;
+  external set navigate(String value);
   external String get tag;
   external set tag(String value);
   external String get image;
@@ -222,6 +225,7 @@ extension type NotificationAction._(JSObject _) implements JSObject {
   external factory NotificationAction({
     required String action,
     required String title,
+    String navigate,
     String icon,
   });
 
@@ -229,6 +233,8 @@ extension type NotificationAction._(JSObject _) implements JSObject {
   external set action(String value);
   external String get title;
   external set title(String value);
+  external String get navigate;
+  external set navigate(String value);
   external String get icon;
   external set icon(String value);
 }

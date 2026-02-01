@@ -17,7 +17,7 @@ import 'dart:js_interop';
 
 import 'battery_status.dart';
 import 'clipboard_apis.dart';
-import 'cookie_store.dart';
+import 'cookiestore.dart';
 import 'credential_management.dart';
 import 'css_font_loading.dart';
 import 'css_typed_om.dart';
@@ -34,6 +34,7 @@ import 'geolocation.dart';
 import 'geometry.dart';
 import 'hr_time.dart';
 import 'indexeddb.dart';
+import 'login_status.dart';
 import 'media_capabilities.dart';
 import 'media_playback_quality.dart';
 import 'media_source.dart';
@@ -48,6 +49,7 @@ import 'scheduling_apis.dart';
 import 'screen_wake_lock.dart';
 import 'selection_api.dart';
 import 'service_workers.dart';
+import 'shared_storage.dart';
 import 'speech_api.dart';
 import 'storage.dart';
 import 'trusted_types.dart';
@@ -56,7 +58,8 @@ import 'vibration.dart';
 import 'video_rvfc.dart';
 import 'web_locks.dart';
 import 'web_share.dart';
-import 'webcryptoapi.dart';
+import 'webcrypto.dart';
+import 'webgpu.dart';
 import 'webidl.dart';
 import 'webmidi.dart';
 import 'xhr.dart';
@@ -71,11 +74,14 @@ typedef EventHandler = EventHandlerNonNull?;
 typedef OnErrorEventHandler = OnErrorEventHandlerNonNull?;
 typedef OnBeforeUnloadEventHandler = OnBeforeUnloadEventHandlerNonNull?;
 typedef TimerHandler = JSAny;
+typedef ImageDataArray = JSTypedArray;
 typedef ImageBitmapSource = JSObject;
 typedef MessageEventSource = JSObject;
 typedef BlobCallback = JSFunction;
 typedef CustomElementConstructor = JSFunction;
 typedef FunctionStringCallback = JSFunction;
+typedef NavigationInterceptHandler = JSFunction;
+typedef NavigationPrecommitHandler = JSFunction;
 typedef EventHandlerNonNull = JSFunction;
 typedef OnErrorEventHandlerNonNull = JSFunction;
 typedef OnBeforeUnloadEventHandlerNonNull = JSFunction;
@@ -86,7 +92,6 @@ typedef CanPlayTypeResult = String;
 typedef TextTrackMode = String;
 typedef TextTrackKind = String;
 typedef SelectionMode = String;
-typedef PredefinedColorSpace = String;
 typedef CanvasColorType = String;
 typedef CanvasFillRule = String;
 typedef ImageSmoothingQuality = String;
@@ -100,8 +105,14 @@ typedef CanvasFontStretch = String;
 typedef CanvasFontVariantCaps = String;
 typedef CanvasTextRendering = String;
 typedef OffscreenRenderingContextId = String;
+typedef PredefinedColorSpace = String;
 typedef ScrollRestoration = String;
+typedef NavigationHistoryBehavior = String;
+typedef NavigationType = String;
+typedef NavigationFocusReset = String;
+typedef NavigationScrollBehavior = String;
 typedef DOMParserSupportedType = String;
+typedef ImageDataPixelFormat = String;
 typedef ImageOrientation = String;
 typedef PremultiplyAlpha = String;
 typedef ColorSpaceConversion = String;
@@ -857,7 +868,7 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   /// >
   /// > The `style` property has the same priority in the CSS cascade as an
   /// > inline style declaration set via the `style` attribute.
-  external CSSStyleDeclaration get style;
+  external CSSStyleProperties get style;
 
   /// The **`attributeStyleMap`** read-only property of the [HTMLElement]
   /// interface returns a live [StylePropertyMap] object that contains a list of
@@ -884,6 +895,8 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   external set onauxclick(EventHandler value);
   external EventHandler get onbeforeinput;
   external set onbeforeinput(EventHandler value);
+  external EventHandler get onbeforematch;
+  external set onbeforematch(EventHandler value);
   external EventHandler get onbeforetoggle;
   external set onbeforetoggle(EventHandler value);
   external EventHandler get onblur;
@@ -900,6 +913,8 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   external set onclick(EventHandler value);
   external EventHandler get onclose;
   external set onclose(EventHandler value);
+  external EventHandler get oncommand;
+  external set oncommand(EventHandler value);
   external EventHandler get oncontextlost;
   external set oncontextlost(EventHandler value);
   external EventHandler get oncontextmenu;
@@ -1042,6 +1057,8 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   external set onpointerdown(EventHandler value);
   external EventHandler get onpointermove;
   external set onpointermove(EventHandler value);
+  external EventHandler get onpointerrawupdate;
+  external set onpointerrawupdate(EventHandler value);
   external EventHandler get onpointerup;
   external set onpointerup(EventHandler value);
   external EventHandler get onpointercancel;
@@ -2231,6 +2248,28 @@ extension type HTMLAnchorElement._(JSObject _)
   external String get shape;
   external set shape(String value);
 
+  /// The **`attributionSrc`** property of the [HTMLAnchorElement] interface
+  /// gets and sets the
+  /// [`attributionsrc`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributionsrc)
+  /// attribute on an `a` element programmatically, reflecting the value of that
+  /// attribute. `attributionsrc` specifies that you want the browser to send an
+  /// header. On the server-side this is used to trigger sending an  header in
+  /// the response, to register of a
+  /// [navigation-based attribution source](https://developer.mozilla.org/en-US/docs/Web/API/Attribution_Reporting_API/Registering_sources#navigation-based_attribution_sources).
+  ///
+  /// The browser stores the source data associated with the navigation-based
+  /// attribution source (as provided in the  response header) when it receives
+  /// the navigation response.
+  ///
+  /// See the
+  /// [Attribution Reporting API](https://developer.mozilla.org/en-US/docs/Web/API/Attribution_Reporting_API)
+  /// for more details.
+  ///
+  /// > **Note:** `<a>` elements cannot be used as attribution triggers, only
+  /// > sources.
+  external String get attributionSrc;
+  external set attributionSrc(String value);
+
   /// The **`HTMLAnchorElement.href`** property is a
   /// that returns a string containing the whole URL, and allows
   /// the href to be updated.
@@ -2948,6 +2987,39 @@ extension type HTMLImageElement._(JSObject _) implements HTMLElement, JSObject {
   /// , and .
   external String get border;
   external set border(String value);
+
+  /// The
+  /// **`attributionSrc`** property of the [HTMLImageElement] interface gets and
+  /// sets the
+  /// [`attributionsrc`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attributionsrc)
+  /// attribute on an `img` element programmatically, reflecting the value of
+  /// that attribute. `attributionsrc` specifies that you want the browser to
+  /// send an  header along with the image request.
+  ///
+  /// On the server-side this is used to trigger sending an  or  header in the
+  /// response, to register an image-based
+  /// [attribution source](https://developer.mozilla.org/en-US/docs/Web/API/Attribution_Reporting_API/Registering_sources#html-based_event_sources)
+  /// or
+  /// [attribution trigger](https://developer.mozilla.org/en-US/docs/Web/API/Attribution_Reporting_API/Registering_triggers#html-based_attribution_triggers),
+  /// respectively. Which response header should be sent back depends on the
+  /// value of the `Attribution-Reporting-Eligible` header that triggered the
+  /// registration.
+  ///
+  /// The source/trigger is registered once the browser receives the response
+  /// containing the image file.
+  ///
+  /// > [!NOTE]
+  /// > Bear in mind that users might not necessarily be able to perceive the
+  /// > image at all — it might be a 1x1 transparent tracking pixel that is only
+  /// > being used for attribution reporting.
+  ///
+  /// See the
+  /// [Attribution Reporting API](https://developer.mozilla.org/en-US/docs/Web/API/Attribution_Reporting_API)
+  /// for more details.
+  external String get attributionSrc;
+  external set attributionSrc(String value);
+  external bool get sharedStorageWritable;
+  external set sharedStorageWritable(bool value);
 }
 
 /// The **`HTMLIFrameElement`** interface provides special properties and
@@ -3090,6 +3162,8 @@ extension type HTMLIFrameElement._(JSObject _)
   external set marginHeight(String value);
   external String get marginWidth;
   external set marginWidth(String value);
+  external bool get sharedStorageWritable;
+  external set sharedStorageWritable(bool value);
 }
 
 /// The **`HTMLEmbedElement`** interface provides special properties (beyond the
@@ -4675,6 +4749,8 @@ extension type HTMLAreaElement._(JSObject _) implements HTMLElement, JSObject {
   external set referrerPolicy(String value);
   external bool get noHref;
   external set noHref(bool value);
+  external String get attributionSrc;
+  external set attributionSrc(String value);
 
   /// The **`HTMLAreaElement.href`** property is a
   /// that returns a string containing the whole URL, and allows
@@ -6783,6 +6859,27 @@ extension type HTMLButtonElement._(JSObject _)
   /// error.
   external void setCustomValidity(String error);
 
+  /// The **`command`** property of the [HTMLButtonElement] interface gets and
+  /// sets the action to be performed on an element being controlled by this
+  /// button. For this to have an effect,
+  /// [`commandfor`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#commandfor)
+  /// must be set.
+  ///
+  /// It reflects the
+  /// [`command`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#command)
+  /// HTML attribute.
+  external String get command;
+  external set command(String value);
+
+  /// The **`commandForElement`** property of the [HTMLButtonElement] interface
+  /// gets and sets the element to control via a button.
+  ///
+  /// It is the JavaScript equivalent of the
+  /// [`commandfor`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#commandfor)
+  /// HTML attribute.
+  external Element? get commandForElement;
+  external set commandForElement(Element? value);
+
   /// The **`HTMLButtonElement.disabled`** property indicates whether the
   /// control is disabled, meaning that it does not accept any clicks.
   external bool get disabled;
@@ -8355,6 +8452,17 @@ extension type HTMLDialogElement._(JSObject _)
   /// `returnValue` of the dialog.
   external void close([String returnValue]);
 
+  /// The **`requestClose()`** method of the [HTMLDialogElement] interface
+  /// requests to close the `dialog`.
+  /// An optional string may be passed as an argument, updating the
+  /// `returnValue` of the dialog.
+  ///
+  /// This method differs from the `HTMLDialogElement.close()` method by firing
+  /// a `cancel` event before firing the `close` event. This allows
+  /// authors to prevent the dialog from closing. This method exposes the same
+  /// behavior as the dialog's internal close watcher.
+  external void requestClose([String returnValue]);
+
   /// The **`open`** property of the
   /// [HTMLDialogElement] interface is a boolean value reflecting the
   /// [`open`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog#open)
@@ -8368,6 +8476,8 @@ extension type HTMLDialogElement._(JSObject _)
   /// button the user pressed to close it.
   external String get returnValue;
   external set returnValue(String value);
+  external String get closedBy;
+  external set closedBy(String value);
 }
 
 /// HTML `script` elements expose the **`HTMLScriptElement`** interface, which
@@ -8400,6 +8510,13 @@ extension type HTMLScriptElement._(JSObject _)
   /// which are supported by most modern browsers.
   external static bool supports(String type);
 
+  /// The **`type`** property of the [HTMLScriptElement] interface is a string
+  /// that reflects the type of the script.
+  ///
+  /// It reflects the `type` attribute of the `script` element.
+  external String get type;
+  external set type(String value);
+
   /// The **`src`** property of the [HTMLScriptElement] interface is a string
   /// representing the URL of an external script; this can be used as an
   /// alternative to embedding a script directly within a document.
@@ -8407,13 +8524,6 @@ extension type HTMLScriptElement._(JSObject _)
   /// It reflects the `src` attribute of the `script` element.
   external String get src;
   external set src(String value);
-
-  /// The **`type`** property of the [HTMLScriptElement] interface is a string
-  /// that reflects the type of the script.
-  ///
-  /// It reflects the `type` attribute of the `script` element.
-  external String get type;
-  external set type(String value);
 
   /// The **`noModule`** property of the [HTMLScriptElement] interface is a
   /// boolean value that indicates whether the script should be executed in
@@ -8452,6 +8562,13 @@ extension type HTMLScriptElement._(JSObject _)
   external bool get defer;
   external set defer(bool value);
 
+  /// The **`blocking`** property of the [HTMLScriptElement] interface is a
+  /// string indicating that certain operations should be blocked on the
+  /// fetching of the script.
+  ///
+  /// It reflects the `blocking` attribute of the `script` element.
+  external DOMTokenList get blocking;
+
   /// The **`crossOrigin`** property of the [HTMLScriptElement] interface
   /// reflects the  settings for the script element. For classic scripts from
   /// other [origins](https://developer.mozilla.org/en-US/docs/Glossary/Origin),
@@ -8462,22 +8579,6 @@ extension type HTMLScriptElement._(JSObject _)
   external String? get crossOrigin;
   external set crossOrigin(String? value);
 
-  /// The **`text`** property of the [HTMLScriptElement] interface is a string
-  /// that reflects the text content inside the `script` element. It acts the
-  /// same way as the [Node.textContent] property.
-  ///
-  /// It reflects the `text` attribute of the `script` element.
-  external String get text;
-  external set text(String value);
-
-  /// The **`integrity`** property of the [HTMLScriptElement] interface is a
-  /// string that contains inline metadata that a browser can use to verify that
-  /// a fetched resource has been delivered without unexpected manipulation.
-  ///
-  /// It reflects the `integrity` attribute of the `script` element.
-  external String get integrity;
-  external set integrity(String value);
-
   /// The **`referrerPolicy`** property of the
   /// [HTMLScriptElement] interface reflects the HTML
   /// [`referrerpolicy`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script#referrerpolicy)
@@ -8486,12 +8587,13 @@ extension type HTMLScriptElement._(JSObject _)
   external String get referrerPolicy;
   external set referrerPolicy(String value);
 
-  /// The **`blocking`** property of the [HTMLScriptElement] interface is a
-  /// string indicating that certain operations should be blocked on the
-  /// fetching of the script.
+  /// The **`integrity`** property of the [HTMLScriptElement] interface is a
+  /// string that contains inline metadata that a browser can use to verify that
+  /// a fetched resource has been delivered without unexpected manipulation.
   ///
-  /// It reflects the `blocking` attribute of the `script` element.
-  external DOMTokenList get blocking;
+  /// It reflects the `integrity` attribute of the `script` element.
+  external String get integrity;
+  external set integrity(String value);
 
   /// The **`fetchPriority`** property of the [HTMLScriptElement] interface
   /// represents a hint to the browser indicating how it should prioritize
@@ -8521,12 +8623,50 @@ extension type HTMLScriptElement._(JSObject _)
   /// impact of `fetchPriority` on the priority, are entirely browser dependent.
   external String get fetchPriority;
   external set fetchPriority(String value);
+
+  /// The **`text`** property of the [HTMLScriptElement] interface is a string
+  /// that reflects the text content inside the `script` element. It acts the
+  /// same way as the [Node.textContent] property.
+  ///
+  /// It reflects the `text` attribute of the `script` element.
+  external String get text;
+  external set text(String value);
   external String get charset;
   external set charset(String value);
   external String get event;
   external set event(String value);
   external String get htmlFor;
   external set htmlFor(String value);
+
+  /// The **`attributionSrc`** property of the [HTMLScriptElement] interface
+  /// gets and sets the
+  /// [`attributionsrc`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script#attributionsrc)
+  /// attribute on an `script` element programmatically, reflecting the value of
+  /// that attribute. `attributionsrc` specifies that you want the browser to
+  /// send an  header along with the script resource request.
+  ///
+  /// On the server-side this is used to trigger sending an  or  header in the
+  /// response, to register a JavaScript-based
+  /// [attribution source](https://developer.mozilla.org/en-US/docs/Web/API/Attribution_Reporting_API/Registering_sources#javascript-based_event_sources)
+  /// or
+  /// [attribution trigger](https://developer.mozilla.org/en-US/docs/Web/API/Attribution_Reporting_API/Registering_triggers#javascript-based_attribution_triggers),
+  /// respectively. Which response header should be sent back depends on the
+  /// value of the `Attribution-Reporting-Eligible` header that triggered the
+  /// registration.
+  ///
+  /// > [!NOTE]
+  /// > Alternatively, JavaScript-based attribution sources or triggers can be
+  /// > registered by sending a [Window.fetch] request containing the
+  /// > `attributionReporting` option (either set directly on the `fetch()` call
+  /// > or on a [Request] object passed into the `fetch()` call), or by sending
+  /// > an [XMLHttpRequest] with [XMLHttpRequest.setAttributionReporting]
+  /// > invoked on the request object.
+  ///
+  /// See the
+  /// [Attribution Reporting API](https://developer.mozilla.org/en-US/docs/Web/API/Attribution_Reporting_API)
+  /// for more details.
+  external String get attributionSrc;
+  external set attributionSrc(String value);
 }
 
 /// The **`HTMLTemplateElement`** interface enables access to the contents of an
@@ -10091,60 +10231,6 @@ extension type TextMetrics._(JSObject _) implements JSObject {
   /// ideographic baseline of the line box, in CSS pixels.
   external double get ideographicBaseline;
 }
-extension type ImageDataSettings._(JSObject _) implements JSObject {
-  external factory ImageDataSettings({PredefinedColorSpace colorSpace});
-
-  external PredefinedColorSpace get colorSpace;
-  external set colorSpace(PredefinedColorSpace value);
-}
-
-/// The **`ImageData`** interface represents the underlying pixel data of an
-/// area of a `canvas` element.
-///
-/// It is created using the [ImageData.ImageData] constructor or creator methods
-/// on the [CanvasRenderingContext2D] object associated with a canvas:
-/// [CanvasRenderingContext2D.createImageData] and
-/// [CanvasRenderingContext2D.getImageData]. It can also be used to set a part
-/// of the canvas by using [CanvasRenderingContext2D.putImageData].
-///
-/// ---
-///
-/// API documentation sourced from
-/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ImageData).
-extension type ImageData._(JSObject _) implements JSObject {
-  external factory ImageData(
-    JSAny dataOrSw,
-    int shOrSw, [
-    JSAny settingsOrSh,
-    ImageDataSettings settings,
-  ]);
-
-  /// The readonly **`ImageData.width`** property returns the number
-  /// of pixels per row in the [ImageData] object.
-  external int get width;
-
-  /// The readonly **`ImageData.height`** property returns the number
-  /// of rows in the [ImageData] object.
-  external int get height;
-
-  /// The readonly **`ImageData.data`** property returns a
-  /// `Uint8ClampedArray` that contains the [ImageData] object's
-  /// pixel data. Data is stored as a one-dimensional array in the RGBA order,
-  /// with integer
-  /// values between `0` and `255` (inclusive).
-  external JSUint8ClampedArray get data;
-
-  /// The read-only **`ImageData.colorSpace`** property is a string indicating
-  /// the color space of the image data.
-  ///
-  /// The color space can be set during `ImageData` initialization using either
-  /// the
-  /// [`ImageData()`](https://developer.mozilla.org/en-US/docs/Web/API/ImageData/ImageData)
-  /// constructor or the
-  /// [`createImageData()`](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/createImageData)
-  /// method.
-  external PredefinedColorSpace get colorSpace;
-}
 
 /// The **`Path2D`** interface of the Canvas 2D API is used to declare a path
 /// that can then be used on a [CanvasRenderingContext2D] object. The
@@ -10772,6 +10858,8 @@ extension type ElementInternals._(JSObject _) implements JSObject {
   /// implicit ARIA role, if any, unless explicitly set.
   external String? get role;
   external set role(String? value);
+  external Element? get ariaActiveDescendantElement;
+  external set ariaActiveDescendantElement(Element? value);
 
   /// The **`ariaAtomic`** property of the [ElementInternals] interface reflects
   /// the value of the
@@ -10908,6 +10996,8 @@ extension type ElementInternals._(JSObject _) implements JSObject {
   /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
   external String? get ariaColSpan;
   external set ariaColSpan(String? value);
+  external JSArray<Element>? get ariaControlsElements;
+  external set ariaControlsElements(JSArray<Element>? value);
 
   /// The **`ariaCurrent`** property of the [ElementInternals] interface
   /// reflects the value of the
@@ -10924,6 +11014,8 @@ extension type ElementInternals._(JSObject _) implements JSObject {
   /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
   external String? get ariaCurrent;
   external set ariaCurrent(String? value);
+  external JSArray<Element>? get ariaDescribedByElements;
+  external set ariaDescribedByElements(JSArray<Element>? value);
 
   /// The **`ariaDescription`** property of the [ElementInternals] interface
   /// reflects the value of the
@@ -10940,6 +11032,8 @@ extension type ElementInternals._(JSObject _) implements JSObject {
   /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
   external String? get ariaDescription;
   external set ariaDescription(String? value);
+  external JSArray<Element>? get ariaDetailsElements;
+  external set ariaDetailsElements(JSArray<Element>? value);
 
   /// The **`ariaDisabled`** property of the [ElementInternals] interface
   /// reflects the value of the
@@ -10956,6 +11050,8 @@ extension type ElementInternals._(JSObject _) implements JSObject {
   /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
   external String? get ariaDisabled;
   external set ariaDisabled(String? value);
+  external JSArray<Element>? get ariaErrorMessageElements;
+  external set ariaErrorMessageElements(JSArray<Element>? value);
 
   /// The **`ariaExpanded`** property of the [ElementInternals] interface
   /// reflects the value of the
@@ -10972,6 +11068,8 @@ extension type ElementInternals._(JSObject _) implements JSObject {
   /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
   external String? get ariaExpanded;
   external set ariaExpanded(String? value);
+  external JSArray<Element>? get ariaFlowToElements;
+  external set ariaFlowToElements(JSArray<Element>? value);
 
   /// The **`ariaHasPopup`** property of the [ElementInternals] interface
   /// reflects the value of the
@@ -11037,6 +11135,8 @@ extension type ElementInternals._(JSObject _) implements JSObject {
   /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
   external String? get ariaLabel;
   external set ariaLabel(String? value);
+  external JSArray<Element>? get ariaLabelledByElements;
+  external set ariaLabelledByElements(JSArray<Element>? value);
 
   /// The **`ariaLevel`** property of the [ElementInternals] interface reflects
   /// the value of the
@@ -11133,6 +11233,8 @@ extension type ElementInternals._(JSObject _) implements JSObject {
   /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
   external String? get ariaOrientation;
   external set ariaOrientation(String? value);
+  external JSArray<Element>? get ariaOwnsElements;
+  external set ariaOwnsElements(JSArray<Element>? value);
 
   /// The **`ariaPlaceholder`** property of the [ElementInternals] interface
   /// reflects the value of the
@@ -11505,6 +11607,7 @@ extension type ToggleEvent._(JSObject _) implements Event, JSObject {
   /// The **`newState`** read-only property of the [ToggleEvent] interface is a
   /// string representing the state the element is transitioning to.
   external String get newState;
+  external Element? get source;
 }
 extension type ToggleEventInit._(JSObject _) implements EventInit, JSObject {
   external factory ToggleEventInit({
@@ -11513,12 +11616,59 @@ extension type ToggleEventInit._(JSObject _) implements EventInit, JSObject {
     bool composed,
     String oldState,
     String newState,
+    Element? source,
   });
 
   external String get oldState;
   external set oldState(String value);
   external String get newState;
   external set newState(String value);
+  external Element? get source;
+  external set source(Element? value);
+}
+
+/// The **`CommandEvent`** interface represents an event notifying the user when
+/// a [HTMLButtonElement] element with valid
+/// [HTMLButtonElement.commandForElement] and [HTMLButtonElement.command]
+/// attributes is about to invoke an interactive element.
+///
+/// This is the event object for the `HTMLElement` [HTMLElement.command_event]
+/// event, which represents an action from an Invoker Control when it is invoked
+/// (for example when it is clicked or pressed).
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CommandEvent).
+extension type CommandEvent._(JSObject _) implements Event, JSObject {
+  external factory CommandEvent(
+    String type, [
+    CommandEventInit eventInitDict,
+  ]);
+
+  /// The **`source`** read-only property of the [CommandEvent] interface
+  /// returns an [EventTarget] representing the control that invoked the given
+  /// command.
+  external Element? get source;
+
+  /// The **`command`** read-only property of the [CommandEvent] interface
+  /// returns a string containing the value of the [HTMLButtonElement.command]
+  /// property at the time the event was dispatched.
+  external String get command;
+}
+extension type CommandEventInit._(JSObject _) implements EventInit, JSObject {
+  external factory CommandEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
+    Element? source,
+    String command,
+  });
+
+  external Element? get source;
+  external set source(Element? value);
+  external String get command;
+  external set command(String value);
 }
 extension type FocusOptions._(JSObject _) implements JSObject {
   external factory FocusOptions({
@@ -12123,21 +12273,21 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
 
   /// The **`Window.scroll()`** method scrolls the window to a
   /// particular place in the document.
-  external void scroll([
+  external JSPromise<JSAny?> scroll([
     JSAny optionsOrX,
     num y,
   ]);
 
   /// **`Window.scrollTo()`** scrolls to a particular set of
   /// coordinates in the document.
-  external void scrollTo([
+  external JSPromise<JSAny?> scrollTo([
     JSAny optionsOrX,
     num y,
   ]);
 
   /// The **`Window.scrollBy()`** method scrolls the document in the
   /// window by the given amount.
-  external void scrollBy([
+  external JSPromise<JSAny?> scrollBy([
     JSAny optionsOrX,
     num y,
   ]);
@@ -12151,7 +12301,7 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// Individual CSS property values are accessed through APIs provided by the
   /// object, or by
   /// indexing with CSS property names.
-  external CSSStyleDeclaration getComputedStyle(
+  external CSSStyleProperties getComputedStyle(
     Element elt, [
     String? pseudoElt,
   ]);
@@ -12507,6 +12657,12 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// that you should be aware of before using them.
   external History get history;
 
+  /// The **`navigation`** read-only property of the [Window] interface returns
+  /// the current `window`'s associated [Navigation] object.
+  ///
+  /// This is the entry point for the [Navigation API].
+  external Navigation get navigation;
+
   /// The **`customElements`** read-only property of the [Window] interface
   /// returns a reference to the [CustomElementRegistry] object, which can be
   /// used to register new
@@ -12638,6 +12794,36 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// about
   /// the application running the script.
   external Navigator get navigator;
+
+  /// The **`originAgentCluster`** read-only property of the [Window] interface
+  /// returns `true` if this window belongs to an _origin-keyed
+  /// [agent cluster](https://tc39.es/ecma262/#sec-agent-clusters)_: this means
+  /// that the operating system has provided dedicated resources (for example an
+  /// operating system process) to this window's origin that are not shared with
+  /// windows from other origins.
+  ///
+  /// Otherwise this property returns `false`.
+  ///
+  /// Windows that are part of an origin-keyed agent cluster are subjects to
+  /// some additional restrictions, compared with windows that are not. In
+  /// particular, they cannot:
+  ///
+  /// - Set [Document.domain], which is a legacy feature that normally allows
+  ///   same-site cross-origin pages to synchronously access each other's DOM.
+  /// - Send
+  ///   [`WebAssembly.Module`](https://developer.mozilla.org/en-US/docs/WebAssembly/Reference/JavaScript_interface/Module)
+  ///   objects to other same-site cross-origin pages via [Window.postMessage].
+  /// - Send `SharedArrayBuffer` or
+  ///   [`WebAssembly.Memory`](https://developer.mozilla.org/en-US/docs/WebAssembly/Reference/JavaScript_interface/Memory)
+  ///   objects to other same-site cross-origin pages.
+  ///
+  /// To request that the browser assign this window to an origin-keyed agent
+  /// cluster, the server must send the  response header.
+  ///
+  /// Note that the origin-keyed agent cluster feature is only supported in . If
+  /// a site is not a secure context, the `window.originAgentCluster` will
+  /// always return `false`.
+  external bool get originAgentCluster;
 
   /// Returns the orientation in degrees (in 90-degree increments) of the
   /// viewport relative to the device's natural orientation.
@@ -12812,6 +12998,17 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   external EventHandler get ondevicemotion;
   external set ondevicemotion(EventHandler value);
 
+  /// The global read-only **`sharedStorage`** property returns the
+  /// [WindowSharedStorage] object for the current origin. This is the main
+  /// entry point for writing data to shared storage using the
+  /// [Shared Storage API](https://developer.mozilla.org/en-US/docs/Web/API/Shared_Storage_API).
+  ///
+  /// > **Note:** `sharedStorage` is not available inside workers. It is
+  /// > implemented by [Window] and is also available in shared storage worklets
+  /// > (see [SharedStorageWorkletGlobalScope.sharedStorage], which returns
+  /// > [WorkletSharedStorage]).
+  external SharedStorage? get sharedStorage;
+
   /// The `speechSynthesis` read-only property of the Window object returns a
   /// [SpeechSynthesis] object, which is the entry point into using
   /// [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API)
@@ -12823,6 +13020,8 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   external set onauxclick(EventHandler value);
   external EventHandler get onbeforeinput;
   external set onbeforeinput(EventHandler value);
+  external EventHandler get onbeforematch;
+  external set onbeforematch(EventHandler value);
   external EventHandler get onbeforetoggle;
   external set onbeforetoggle(EventHandler value);
   external EventHandler get onblur;
@@ -12839,6 +13038,8 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   external set onclick(EventHandler value);
   external EventHandler get onclose;
   external set onclose(EventHandler value);
+  external EventHandler get oncommand;
+  external set oncommand(EventHandler value);
   external EventHandler get oncontextlost;
   external set oncontextlost(EventHandler value);
   external EventHandler get oncontextmenu;
@@ -12981,6 +13182,8 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   external set onpointerdown(EventHandler value);
   external EventHandler get onpointermove;
   external set onpointermove(EventHandler value);
+  external EventHandler get onpointerrawupdate;
+  external set onpointerrawupdate(EventHandler value);
   external EventHandler get onpointerup;
   external set onpointerup(EventHandler value);
   external EventHandler get onpointercancel;
@@ -13098,21 +13301,6 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// asynchronously access the capabilities of indexed databases.
   external IDBFactory get indexedDB;
 
-  /// The **`crypto`** read-only property of the [Window] interface returns the
-  /// [Crypto] object for this window's scope. This object gives web pages
-  /// access to certain cryptographic related services.
-  ///
-  /// Although the property itself is read-only, all of its methods (and the
-  /// methods of its
-  /// child object, [SubtleCrypto]) are not read-only, and therefore vulnerable
-  /// to attack by .
-  ///
-  /// Although `crypto` is available on all windows, the returned `Crypto`
-  /// object only has one usable feature in insecure contexts: the
-  /// [Crypto.getRandomValues] method. In general, you should use this API only
-  /// in secure contexts.
-  external Crypto get crypto;
-
   /// The **`performance`** property of the [Window] interface returns a
   /// [Performance] object, which can be used to gather performance information
   /// about code running in the window's scope.
@@ -13141,6 +13329,21 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// returns the [TrustedTypePolicyFactory] object associated with the global
   /// object, providing the entry point for using the [Trusted Types API].
   external TrustedTypePolicyFactory get trustedTypes;
+
+  /// The **`crypto`** read-only property of the [Window] interface returns the
+  /// [Crypto] object for this window's scope. This object gives web pages
+  /// access to certain cryptographic related services.
+  ///
+  /// Although the property itself is read-only, all of its methods (and the
+  /// methods of its
+  /// child object, [SubtleCrypto]) are not read-only, and therefore vulnerable
+  /// to attack by .
+  ///
+  /// Although `crypto` is available on all windows, the returned `Crypto`
+  /// object only has one usable feature in insecure contexts: the
+  /// [Crypto.getRandomValues] method. In general, you should use this API only
+  /// in secure contexts.
+  external Crypto get crypto;
 
   /// The read-only **`sessionStorage`** property accesses a session [Storage]
   /// object for the current . `sessionStorage` is similar to
@@ -13481,6 +13684,599 @@ extension type History._(JSObject _) implements JSObject {
   external JSAny? get state;
 }
 
+/// The **`Navigation`** interface of the [Navigation API] allows control over
+/// all navigation actions for the current `window` in one central place,
+/// including initiating navigations programmatically, examining navigation
+/// history entries, and managing navigations as they happen.
+///
+/// It is accessed via the [Window.navigation] property.
+///
+/// The Navigation API only exposes history entries created in the current
+/// browsing context that have the same origin as the current page (e.g. not
+/// navigations inside embedded `iframe`s, or cross-origin navigations),
+/// providing an accurate list of all previous history entries just for your
+/// app. This makes traversing the history a much less fragile proposition than
+/// with the older [History API].
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Navigation).
+extension type Navigation._(JSObject _) implements EventTarget, JSObject {
+  /// The **`entries()`** method of the
+  /// [Navigation] interface returns an array of [NavigationHistoryEntry]
+  /// objects representing all existing history entries.
+  external JSArray<NavigationHistoryEntry> entries();
+
+  /// The **`updateCurrentEntry()`** method of the [Navigation] interface
+  /// updates the `state` of the [Navigation.currentEntry]; used in cases where
+  /// the state change will be independent of a navigation or reload.
+  external void updateCurrentEntry(NavigationUpdateCurrentEntryOptions options);
+
+  /// The **`navigate()`** method of the
+  /// [Navigation] interface navigates to a specific URL, updating any provided
+  /// state in the history entries list.
+  external NavigationResult navigate(
+    String url, [
+    NavigationNavigateOptions options,
+  ]);
+
+  /// The **`reload()`** method of the
+  /// [Navigation] interface reloads the current URL, updating any provided
+  /// state in the history entries list.
+  external NavigationResult reload([NavigationReloadOptions options]);
+
+  /// The **`traverseTo()`** method of the [Navigation] interface navigates to
+  /// the [NavigationHistoryEntry] identified by the given
+  /// [NavigationHistoryEntry.key].
+  external NavigationResult traverseTo(
+    String key, [
+    NavigationOptions options,
+  ]);
+
+  /// The **`back()`** method of the
+  /// [Navigation] interface navigates backwards by one entry in the navigation
+  /// history.
+  external NavigationResult back([NavigationOptions options]);
+
+  /// The **`forward()`** method of the
+  /// [Navigation] interface navigates forwards by one entry in the navigation
+  /// history.
+  external NavigationResult forward([NavigationOptions options]);
+
+  /// The **`currentEntry`** read-only property of the
+  /// [Navigation] interface returns a [NavigationHistoryEntry] object
+  /// representing the location the user is currently navigated to right now.
+  external NavigationHistoryEntry? get currentEntry;
+
+  /// The **`transition`** read-only property of the [Navigation] interface
+  /// returns a [NavigationTransition] object representing the status of an
+  /// in-progress navigation, which can be used to track it.
+  external NavigationTransition? get transition;
+
+  /// The **`activation`** read-only property of the [Navigation] interface
+  /// returns a [NavigationActivation] object containing information about the
+  /// most recent cross-document navigation, which "activated" this Document.
+  /// The property will stay constant during same-document navigations.
+  external NavigationActivation? get activation;
+
+  /// The **`canGoBack`** read-only property of the
+  /// [Navigation] interface returns `true`
+  /// if it is possible to navigate backwards in the navigation history
+  /// (i.e. the [Navigation.currentEntry] is
+  /// not the first one in the history entry list),
+  /// and `false` if it is not.
+  external bool get canGoBack;
+
+  /// The **`canGoForward`** read-only property of the
+  /// [Navigation] interface returns `true` if it is possible to navigate
+  /// forwards in the navigation history
+  /// (i.e. the [Navigation.currentEntry] is not the last one in the history
+  /// entry list),
+  /// and `false` if it is not.
+  external bool get canGoForward;
+  external EventHandler get onnavigate;
+  external set onnavigate(EventHandler value);
+  external EventHandler get onnavigatesuccess;
+  external set onnavigatesuccess(EventHandler value);
+  external EventHandler get onnavigateerror;
+  external set onnavigateerror(EventHandler value);
+  external EventHandler get oncurrententrychange;
+  external set oncurrententrychange(EventHandler value);
+}
+extension type NavigationUpdateCurrentEntryOptions._(JSObject _)
+    implements JSObject {
+  external factory NavigationUpdateCurrentEntryOptions({required JSAny? state});
+
+  external JSAny? get state;
+  external set state(JSAny? value);
+}
+extension type NavigationOptions._(JSObject _) implements JSObject {
+  external factory NavigationOptions({JSAny? info});
+
+  external JSAny? get info;
+  external set info(JSAny? value);
+}
+extension type NavigationNavigateOptions._(JSObject _)
+    implements NavigationOptions, JSObject {
+  external factory NavigationNavigateOptions({
+    JSAny? info,
+    JSAny? state,
+    NavigationHistoryBehavior history,
+  });
+
+  external JSAny? get state;
+  external set state(JSAny? value);
+  external NavigationHistoryBehavior get history;
+  external set history(NavigationHistoryBehavior value);
+}
+extension type NavigationReloadOptions._(JSObject _)
+    implements NavigationOptions, JSObject {
+  external factory NavigationReloadOptions({
+    JSAny? info,
+    JSAny? state,
+  });
+
+  external JSAny? get state;
+  external set state(JSAny? value);
+}
+extension type NavigationResult._(JSObject _) implements JSObject {
+  external factory NavigationResult({
+    JSPromise<NavigationHistoryEntry> committed,
+    JSPromise<NavigationHistoryEntry> finished,
+  });
+
+  external JSPromise<NavigationHistoryEntry> get committed;
+  external set committed(JSPromise<NavigationHistoryEntry> value);
+  external JSPromise<NavigationHistoryEntry> get finished;
+  external set finished(JSPromise<NavigationHistoryEntry> value);
+}
+
+/// The **`NavigationHistoryEntry`** interface of the [Navigation API]
+/// represents a single navigation history entry.
+///
+/// These objects are commonly accessed via the [Navigation.currentEntry]
+/// property and [Navigation.entries] method.
+///
+/// The Navigation API only exposes history entries created in the current
+/// browsing context that have the same origin as the current page (e.g. not
+/// navigations inside embedded `iframe`s, or cross-origin navigations),
+/// providing an accurate list of all previous history entries just for your
+/// app. This makes traversing the history a much less fragile proposition than
+/// with the older [History API].
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/NavigationHistoryEntry).
+extension type NavigationHistoryEntry._(JSObject _)
+    implements EventTarget, JSObject {
+  /// The **`getState()`** method of the [NavigationHistoryEntry] interface
+  /// returns a clone of the developer-supplied state associated with this
+  /// history entry.
+  external JSAny? getState();
+
+  /// The **`url`** read-only property of the [NavigationHistoryEntry] interface
+  /// returns the absolute URL of this history entry. If the entry corresponds
+  /// to a different Document than the current one (like `sameDocument` property
+  /// is `false`), and that Document was fetched with a  header set to
+  /// `no-referrer` or `origin`, the property returns `null`. If current
+  /// document is not fully active, it returns an empty string.
+  external String? get url;
+
+  /// The **`key`** read-only property of the [NavigationHistoryEntry] interface
+  /// returns the `key` of the history entry, or an empty string if current
+  /// document is not fully active. This is a unique, UA-generated value that
+  /// represents the history entry's slot in the entries list. It is used to
+  /// navigate that particular slot via [Navigation.traverseTo]. The `key` will
+  /// be reused by other entries that replace the entry in the list (that is, if
+  /// the [NavigateEvent.navigationType] is `replace`).
+  ///
+  /// This differs from the [NavigationHistoryEntry.id] of a history entry. The
+  /// `id` is a unique, UA-generated value that always represents a specific
+  /// history entry rather than its slot in the entries list. This is useful to
+  /// correlate it with an external resource such as a storage cache.
+  external String get key;
+
+  /// The **`id`** read-only property of the [NavigationHistoryEntry] interface
+  /// returns the `id` of the history entry, or an empty string if current
+  /// document is not fully active. This is a unique, UA-generated value that
+  /// always represents a specific history entry, useful to correlate it with an
+  /// external resource such as a storage cache.
+  ///
+  /// This differs from the [NavigationHistoryEntry.key] of a history entry. The
+  /// `key` is a unique, UA-generated value that represents the history entry's
+  /// slot in the entries list rather than the entry itself. It is used to
+  /// navigate that particular slot via [Navigation.traverseTo]. The `key` will
+  /// be reused by other entries that replace the entry in the list (that is, if
+  /// the [NavigateEvent.navigationType] is `replace`).
+  external String get id;
+
+  /// The **`index`** read-only property of the [NavigationHistoryEntry]
+  /// interface returns the index of the history entry in the history entries
+  /// list (that is, the list returned by [Navigation.entries]), or `-1` if the
+  /// entry does not appear in the list or if current document is not fully
+  /// active.
+  external int get index;
+
+  /// The **`sameDocument`** read-only property of the [NavigationHistoryEntry]
+  /// interface returns `true` if this history entry is for the same `document`
+  /// as the current [Document] value and current document is fully active, or
+  /// `false` otherwise.
+  external bool get sameDocument;
+  external EventHandler get ondispose;
+  external set ondispose(EventHandler value);
+}
+
+/// The **`NavigationTransition`** interface of the [Navigation API] represents
+/// an ongoing navigation, that is, a navigation that hasn't yet reached the
+/// [Navigation.navigatesuccess_event] or [Navigation.navigateerror_event]
+/// stage.
+///
+/// It is accessed via the [Navigation.transition] property.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/NavigationTransition).
+extension type NavigationTransition._(JSObject _) implements JSObject {
+  /// The **`navigationType`** read-only property of the
+  /// [NavigationTransition] interface returns the type of the ongoing
+  /// navigation.
+  external NavigationType get navigationType;
+
+  /// The **`from`** read-only property of the
+  /// [NavigationTransition] interface returns the [NavigationHistoryEntry] that
+  /// the transition is coming from.
+  external NavigationHistoryEntry get from;
+  external JSPromise<JSAny?> get committed;
+
+  /// The **`finished`** read-only property of the
+  /// [NavigationTransition] interface returns a `Promise` that fulfills at the
+  /// same time the [Navigation.navigatesuccess_event] event fires, or rejects
+  /// at the same time the [Navigation.navigateerror_event] event fires.
+  external JSPromise<JSAny?> get finished;
+}
+
+/// The **`NavigationActivation`** interface of the
+/// [Navigation API](https://developer.mozilla.org/en-US/docs/Web/API/Navigation_API)
+/// represents a recent cross-document navigation. It contains the navigation
+/// type and outgoing and inbound document history entries.
+///
+/// This object is accessed via the [PageSwapEvent.activation] and
+/// [Navigation.activation] properties. Note that, in each case, the
+/// `NavigationActivation` represents a different navigation:
+///
+/// - `Navigation.activation` represents information about the navigation to the
+///   current page.
+/// - `PageSwapEvent.activation` represents information about the navigation to
+///   the next page.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/NavigationActivation).
+extension type NavigationActivation._(JSObject _) implements JSObject {
+  /// The **`from`** read-only property of the [NavigationActivation] interface
+  /// contains a [NavigationHistoryEntry] object representing the history entry
+  /// for the outgoing ("from") document in the navigation.
+  external NavigationHistoryEntry? get from;
+
+  /// The **`entry`** read-only property of the [NavigationActivation] interface
+  /// contains a [NavigationHistoryEntry] object representing the history entry
+  /// for the inbound ("to") document in the navigation. This is equivalent to
+  /// the [Navigation.currentEntry] property at the moment the inbound document
+  /// was activated.
+  ///
+  /// There are some cases in which either the `from` or `entry`
+  /// [NavigationHistoryEntry] objects would not be viable targets for the
+  /// `traverseTo()` method, as they might not be retained in history. For
+  /// example, the document can be activated using `location.replace()` or its
+  /// initial entry could be replaced by `history.replaceState()`. However,
+  /// those entries' `url` properties and `getState()` methods are still
+  /// accessible.
+  external NavigationHistoryEntry get entry;
+
+  /// The **`navigationType`** read-only property of the [NavigationActivation]
+  /// interface contains a string indicating the type of navigation.
+  external NavigationType get navigationType;
+}
+
+/// The **`NavigateEvent`** interface of the [Navigation API] is the event
+/// object for the [Navigation.navigate_event] event, which fires when
+/// [any type of navigation](https://github.com/WICG/navigation-api#appendix-types-of-navigations)
+/// is initiated (this includes usage of [History API] features like
+/// [History.go]). `NavigateEvent` provides access to information about that
+/// navigation, and allows developers to intercept and control the navigation
+/// handling.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/NavigateEvent).
+extension type NavigateEvent._(JSObject _) implements Event, JSObject {
+  external factory NavigateEvent(
+    String type,
+    NavigateEventInit eventInitDict,
+  );
+
+  /// The **`intercept()`** method of the
+  /// [NavigateEvent] interface intercepts this navigation, turning it into a
+  /// same-document navigation to the [NavigationDestination.url] URL.
+  external void intercept([NavigationInterceptOptions options]);
+
+  /// The **`scroll()`** method of the
+  /// [NavigateEvent] interface can be called to manually trigger the
+  /// browser-driven scrolling behavior that occurs in response to the
+  /// navigation, if you want it to happen before the navigation handling has
+  /// completed.
+  external void scroll();
+
+  /// The **`navigationType`** read-only property of the
+  /// [NavigateEvent] interface returns the type of the navigation — `push`,
+  /// `reload`, `replace`, or `traverse`.
+  external NavigationType get navigationType;
+
+  /// The **`destination`** read-only property of the
+  /// [NavigateEvent] interface returns a [NavigationDestination] object
+  /// representing the destination being navigated to.
+  external NavigationDestination get destination;
+
+  /// The **`canIntercept`** read-only property of the
+  /// [NavigateEvent] interface returns `true` if the navigation can be
+  /// intercepted and have its URL rewritten, or `false` otherwise
+  ///
+  /// There are several rules around when a navigation can be intercepted. For
+  /// example:
+  ///
+  /// - You can't intercept cross-origin navigations.
+  /// - You can intercept `http` or `https` URLs if only the `path`, `query`,
+  ///   and `fragment` portions of the new URL differ from the current URL.
+  /// - You can intercept `file` URLs if only the `query` and `fragment`
+  ///   portions of the new URL differ.
+  /// - For other URL types you can intercept the navigation if only the
+  ///   `fragment` portion differs.
+  ///
+  /// See the spec for more explanation on
+  /// [when a Document can have its URL rewritten](https://html.spec.whatwg.org/multipage/nav-history-apis.html#can-have-its-url-rewritten),
+  /// including a table of examples.
+  external bool get canIntercept;
+
+  /// The **`userInitiated`** read-only property of the
+  /// [NavigateEvent] interface returns `true` if the navigation was initiated
+  /// by the user (e.g. by clicking a link, submitting a form, or pressing the
+  /// browser's "Back"/"Forward" buttons), or `false` otherwise.
+  ///
+  /// > [!NOTE]
+  /// > The table found at [Appendix: types of
+  /// > navigations](https://github.com/WICG/navigation-api#appendix-types-of-navigations)
+  /// > shows which navigation types are user-initiated.
+  external bool get userInitiated;
+
+  /// The **`hashChange`** read-only property of the
+  /// [NavigateEvent] interface returns `true` if the navigation is a fragment
+  /// navigation (i.e. to a fragment identifier in the same document), or
+  /// `false` otherwise.
+  external bool get hashChange;
+
+  /// The **`signal`** read-only property of the
+  /// [NavigateEvent] interface returns an [AbortSignal], which will become
+  /// aborted if the navigation is cancelled (e.g. by the user pressing the
+  /// browser's "Stop" button, or another navigation starting and thus
+  /// cancelling the ongoing one).
+  external AbortSignal get signal;
+
+  /// The **`formData`** read-only property of the
+  /// [NavigateEvent] interface returns the [FormData] object representing the
+  /// submitted data in the case of a
+  /// [`POST`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST)
+  /// form submission, or `null` otherwise.
+  external FormData? get formData;
+
+  /// The **`downloadRequest`** read-only property of the
+  /// [NavigateEvent] interface returns the filename of the file requested for
+  /// download, in the case of a download navigation (e.g. an `a` or `area`
+  /// element with a `download` attribute), or `null` otherwise.
+  external String? get downloadRequest;
+
+  /// The **`info`** read-only property of the
+  /// [NavigateEvent] interface returns the `info` data value passed by the
+  /// initiating navigation operation (e.g. [Navigation.back], or
+  /// [Navigation.navigate]), or `undefined` if no `info` data was passed.
+  external JSAny? get info;
+
+  /// The **`hasUAVisualTransition`** read-only property of the [NavigateEvent]
+  /// interface returns `true` if the user agent performed a visual transition
+  /// for this navigation before dispatching this event, or `false` otherwise.
+  ///
+  /// User agents may provide a built-in visual transition when executing site
+  /// navigations. If the site author also adds a visual transition, user agent
+  /// and author transitions may conflict and confuse a visitor. The property
+  /// lets you detect whether a UA transition was provided so that you can skip
+  /// author transitions for a better user experience.
+  external bool get hasUAVisualTransition;
+  external Element? get sourceElement;
+}
+extension type NavigateEventInit._(JSObject _) implements EventInit, JSObject {
+  external factory NavigateEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
+    NavigationType navigationType,
+    required NavigationDestination destination,
+    bool canIntercept,
+    bool userInitiated,
+    bool hashChange,
+    required AbortSignal signal,
+    FormData? formData,
+    String? downloadRequest,
+    JSAny? info,
+    bool hasUAVisualTransition,
+    Element? sourceElement,
+  });
+
+  external NavigationType get navigationType;
+  external set navigationType(NavigationType value);
+  external NavigationDestination get destination;
+  external set destination(NavigationDestination value);
+  external bool get canIntercept;
+  external set canIntercept(bool value);
+  external bool get userInitiated;
+  external set userInitiated(bool value);
+  external bool get hashChange;
+  external set hashChange(bool value);
+  external AbortSignal get signal;
+  external set signal(AbortSignal value);
+  external FormData? get formData;
+  external set formData(FormData? value);
+  external String? get downloadRequest;
+  external set downloadRequest(String? value);
+  external JSAny? get info;
+  external set info(JSAny? value);
+  external bool get hasUAVisualTransition;
+  external set hasUAVisualTransition(bool value);
+  external Element? get sourceElement;
+  external set sourceElement(Element? value);
+}
+extension type NavigationInterceptOptions._(JSObject _) implements JSObject {
+  external factory NavigationInterceptOptions({
+    NavigationPrecommitHandler precommitHandler,
+    NavigationInterceptHandler handler,
+    NavigationFocusReset focusReset,
+    NavigationScrollBehavior scroll,
+  });
+
+  external NavigationPrecommitHandler get precommitHandler;
+  external set precommitHandler(NavigationPrecommitHandler value);
+  external NavigationInterceptHandler get handler;
+  external set handler(NavigationInterceptHandler value);
+  external NavigationFocusReset get focusReset;
+  external set focusReset(NavigationFocusReset value);
+  external NavigationScrollBehavior get scroll;
+  external set scroll(NavigationScrollBehavior value);
+}
+extension type NavigationPrecommitController._(JSObject _) implements JSObject {
+  external void redirect(
+    String url, [
+    NavigationNavigateOptions options,
+  ]);
+}
+
+/// The **`NavigationDestination`** interface of the [Navigation API] represents
+/// the destination being navigated to in the current navigation.
+///
+/// It is accessed via the [NavigateEvent.destination] property.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/NavigationDestination).
+extension type NavigationDestination._(JSObject _) implements JSObject {
+  /// The **`getState()`** method of the
+  /// [NavigationDestination] interface returns a clone of the
+  /// developer-supplied state associated with the destination
+  /// [NavigationHistoryEntry], or navigation operation (e.g.
+  /// [Navigation.navigate]) as appropriate.
+  external JSAny? getState();
+
+  /// The **`url`** read-only property of the
+  /// [NavigationDestination] interface returns the URL being navigated to.
+  external String get url;
+
+  /// The **`key`** read-only property of the
+  /// [NavigationDestination] interface returns the [NavigationHistoryEntry.key]
+  /// value of the destination [NavigationHistoryEntry] if the
+  /// [NavigateEvent.navigationType] is `traverse`, or an empty string
+  /// otherwise.
+  ///
+  /// The `key` is a unique, UA-generated value that represents the history
+  /// entry's slot in the history entries list, used to navigate to this place
+  /// in the history via [Navigation.traverseTo]. It will be reused by other
+  /// entries that replace the entry in the list (i.e. if the
+  /// [NavigateEvent.navigationType] is `replace`).
+  external String get key;
+
+  /// The **`id`** read-only property of the
+  /// [NavigationDestination] interface returns the [NavigationHistoryEntry.id]
+  /// value of the destination [NavigationHistoryEntry] if the
+  /// [NavigateEvent.navigationType] is `traverse`, or an empty string
+  /// otherwise.
+  ///
+  /// The `id` is a unique, UA-generated value that always represents the
+  /// history entry, useful to correlate a history entry with an external
+  /// resource such as a storage cache.
+  external String get id;
+
+  /// The **`index`** read-only property of the
+  /// [NavigationDestination] interface returns the
+  /// [NavigationHistoryEntry.index] value of the destination
+  /// [NavigationHistoryEntry] if the [NavigateEvent.navigationType] is
+  /// `traverse`, or `-1` otherwise.
+  external int get index;
+
+  /// The **`sameDocument`** read-only property of the
+  /// [NavigationDestination] interface returns `true` if the navigation is to
+  /// the same `document` as the current [Document] value, or `false` otherwise.
+  ///
+  /// This is useful for checking whether the navigation will be same-document
+  /// or cross-document.
+  external bool get sameDocument;
+}
+
+/// The **`NavigationCurrentEntryChangeEvent`** interface of the
+/// [Navigation API] is the event object for the
+/// [Navigation.currententrychange_event] event, which fires when the
+/// [Navigation.currentEntry] has changed.
+///
+/// This event will fire for same-document navigations (e.g. [Navigation.back]
+/// or [Navigation.traverseTo]), replacements (i.e. a [Navigation.navigate] call
+/// with `history` set to `replace`), or other calls that change the entry's
+/// state (e.g. [Navigation.updateCurrentEntry], or the [History API]'s
+/// [History.replaceState]).
+///
+/// This event fires after the navigation is committed, meaning that the visible
+/// URL has changed and the [NavigationHistoryEntry] update has occurred. It is
+/// useful for migrating from usage of older API features like the
+/// [Window.hashchange_event] or [Window.popstate_event] events.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/NavigationCurrentEntryChangeEvent).
+extension type NavigationCurrentEntryChangeEvent._(JSObject _)
+    implements Event, JSObject {
+  external factory NavigationCurrentEntryChangeEvent(
+    String type,
+    NavigationCurrentEntryChangeEventInit eventInitDict,
+  );
+
+  /// The **`navigationType`** read-only property of the
+  /// [NavigationCurrentEntryChangeEvent] interface returns the type of the
+  /// navigation that resulted in the change. The property may be `null` if the
+  /// change occurs due to [Navigation.updateCurrentEntry].
+  external NavigationType? get navigationType;
+
+  /// The **`from`** read-only property of the
+  /// [NavigationCurrentEntryChangeEvent] interface returns the
+  /// [NavigationHistoryEntry] that was navigated from.
+  external NavigationHistoryEntry get from;
+}
+extension type NavigationCurrentEntryChangeEventInit._(JSObject _)
+    implements EventInit, JSObject {
+  external factory NavigationCurrentEntryChangeEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
+    NavigationType? navigationType,
+    required NavigationHistoryEntry from,
+  });
+
+  external NavigationType? get navigationType;
+  external set navigationType(NavigationType? value);
+  external NavigationHistoryEntry get from;
+  external set from(NavigationHistoryEntry value);
+}
+
 /// **`PopStateEvent`** is an interface for the [Window.popstate_event] event.
 ///
 /// A `popstate` event is dispatched to the window every time the active history
@@ -13602,7 +14398,7 @@ extension type PageSwapEvent._(JSObject _) implements Event, JSObject {
   /// contains a [NavigationActivation] object containing the navigation type
   /// and current and destination document history entries for a same-origin
   /// navigation.
-  external JSObject? get activation;
+  external NavigationActivation? get activation;
 
   /// The **`viewTransition`** read-only property of the [PageRevealEvent]
   /// interface contains a [ViewTransition] object representing the active view
@@ -13614,12 +14410,12 @@ extension type PageSwapEventInit._(JSObject _) implements EventInit, JSObject {
     bool bubbles,
     bool cancelable,
     bool composed,
-    JSObject? activation,
+    NavigationActivation? activation,
     ViewTransition? viewTransition,
   });
 
-  external JSObject? get activation;
-  external set activation(JSObject? value);
+  external NavigationActivation? get activation;
+  external set activation(NavigationActivation? value);
   external ViewTransition? get viewTransition;
   external set viewTransition(ViewTransition? value);
 }
@@ -13905,6 +14701,25 @@ extension type DOMParser._(JSObject _) implements JSObject {
   );
 }
 
+/// The `XMLSerializer` interface provides the [XMLSerializer.serializeToString]
+/// method to construct an XML string representing a  tree.
+///
+/// > [!NOTE]
+/// > The resulting XML string is not guaranteed to be well-formed XML.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/XMLSerializer).
+extension type XMLSerializer._(JSObject _) implements JSObject {
+  external factory XMLSerializer();
+
+  /// The [XMLSerializer] method
+  /// **`serializeToString()`** constructs a string representing the
+  /// specified  tree in  form.
+  external String serializeToString(Node root);
+}
+
 /// The **`Navigator`** interface represents the state and the identity of the
 /// user agent. It allows scripts to query it and to register themselves to
 /// carry on some activities.
@@ -14154,6 +14969,16 @@ extension type Navigator._(JSObject _) implements JSObject {
   /// returns a [UserActivation] object which contains information about the
   /// current window's user activation state.
   external UserActivation get userActivation;
+
+  /// The **`login`** read-only property of the [Navigator] interface provides
+  /// access to the browser's [NavigatorLogin] object, which a federated
+  /// identity provider (IdP) can use to set its login status when a user signs
+  /// into or out of the IdP.
+  ///
+  /// See
+  /// [Update login status using the Login Status API](https://developer.mozilla.org/en-US/docs/Web/API/FedCM_API/IDP_integration#update_login_status_using_the_login_status_api)
+  /// for more details of how this is used.
+  external NavigatorLogin get login;
 
   /// The **`mediaCapabilities`** read-only property of the [Navigator]
   /// interface references a [MediaCapabilities] object that can expose
@@ -14536,6 +15361,11 @@ extension type Navigator._(JSObject _) implements JSObject {
   ///   - : The `marionette.enabled` preference or `--marionette` flag is
   /// passed.
   external bool get webdriver;
+
+  /// The **`Navigator.gpu`** read-only property returns the [GPU] object for
+  /// the current browsing context, which is the entry point for the
+  /// [WebGPU_API].
+  external GPU get gpu;
 }
 
 /// The `PluginArray` interface is used to store a list of [Plugin] objects;
@@ -14613,6 +15443,65 @@ extension type MimeType._(JSObject _) implements JSObject {
   external String get description;
   external String get suffixes;
   external Plugin get enabledPlugin;
+}
+extension type ImageDataSettings._(JSObject _) implements JSObject {
+  external factory ImageDataSettings({
+    PredefinedColorSpace colorSpace,
+    ImageDataPixelFormat pixelFormat,
+  });
+
+  external PredefinedColorSpace get colorSpace;
+  external set colorSpace(PredefinedColorSpace value);
+  external ImageDataPixelFormat get pixelFormat;
+  external set pixelFormat(ImageDataPixelFormat value);
+}
+
+/// The **`ImageData`** interface represents the underlying pixel data of an
+/// area of a `canvas` element.
+///
+/// It is created using the [ImageData.ImageData] constructor or creator methods
+/// on the [CanvasRenderingContext2D] object associated with a canvas:
+/// [CanvasRenderingContext2D.createImageData] and
+/// [CanvasRenderingContext2D.getImageData]. It can also be used to set a part
+/// of the canvas by using [CanvasRenderingContext2D.putImageData].
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ImageData).
+extension type ImageData._(JSObject _) implements JSObject {
+  external factory ImageData(
+    JSAny dataOrSw,
+    int shOrSw, [
+    JSAny settingsOrSh,
+    ImageDataSettings settings,
+  ]);
+
+  /// The readonly **`ImageData.width`** property returns the number
+  /// of pixels per row in the [ImageData] object.
+  external int get width;
+
+  /// The readonly **`ImageData.height`** property returns the number
+  /// of rows in the [ImageData] object.
+  external int get height;
+
+  /// The readonly **`ImageData.data`** property returns a
+  /// `Uint8ClampedArray` that contains the [ImageData] object's
+  /// pixel data. Data is stored as a one-dimensional array in the RGBA order,
+  /// with integer
+  /// values between `0` and `255` (inclusive).
+  external ImageDataArray get data;
+
+  /// The read-only **`ImageData.colorSpace`** property is a string indicating
+  /// the color space of the image data.
+  ///
+  /// The color space can be set during `ImageData` initialization using either
+  /// the
+  /// [`ImageData()`](https://developer.mozilla.org/en-US/docs/Web/API/ImageData/ImageData)
+  /// constructor or the
+  /// [`createImageData()`](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/createImageData)
+  /// method.
+  external PredefinedColorSpace get colorSpace;
 }
 
 /// The **`ImageBitmap`** interface represents a bitmap image which can be drawn
@@ -15302,23 +16191,6 @@ extension type WorkerGlobalScope._(JSObject _)
 
   /// @AvailableInWorkers("worker")
   ///
-  /// The **`crypto`** read-only property of the [WorkerGlobalScope] interface
-  /// returns the [Crypto] object for this worker. This object gives workers
-  /// access to certain cryptographic related services.
-  ///
-  /// Although the property itself is read-only, all of its methods (and the
-  /// methods of its
-  /// child object, [SubtleCrypto]) are not read-only, and therefore vulnerable
-  /// to attack by .
-  ///
-  /// Although `crypto` is available on all workers, the returned `Crypto`
-  /// object only has one usable feature in insecure contexts: the
-  /// [Crypto.getRandomValues] method. In general, you should use this API only
-  /// in secure contexts.
-  external Crypto get crypto;
-
-  /// @AvailableInWorkers("worker")
-  ///
   /// The **`performance`** property of the [WorkerGlobalScope] interface
   /// returns a [Performance] object, which can be used to gather performance
   /// information about code running in the worker's scope.
@@ -15365,6 +16237,23 @@ extension type WorkerGlobalScope._(JSObject _)
   /// the global object, providing the entry point for using the
   /// [Trusted Types API].
   external TrustedTypePolicyFactory get trustedTypes;
+
+  /// @AvailableInWorkers("worker")
+  ///
+  /// The **`crypto`** read-only property of the [WorkerGlobalScope] interface
+  /// returns the [Crypto] object for this worker. This object gives workers
+  /// access to certain cryptographic related services.
+  ///
+  /// Although the property itself is read-only, all of its methods (and the
+  /// methods of its
+  /// child object, [SubtleCrypto]) are not read-only, and therefore vulnerable
+  /// to attack by .
+  ///
+  /// Although `crypto` is available on all workers, the returned `Crypto`
+  /// object only has one usable feature in insecure contexts: the
+  /// [Crypto.getRandomValues] method. In general, you should use this API only
+  /// in secure contexts.
+  external Crypto get crypto;
 }
 
 /// @AvailableInWorkers("dedicated")
@@ -15568,17 +16457,17 @@ extension type Worker._(JSObject _) implements EventTarget, JSObject {
 }
 extension type WorkerOptions._(JSObject _) implements JSObject {
   external factory WorkerOptions({
+    String name,
     WorkerType type,
     RequestCredentials credentials,
-    String name,
   });
 
+  external String get name;
+  external set name(String value);
   external WorkerType get type;
   external set type(WorkerType value);
   external RequestCredentials get credentials;
   external set credentials(RequestCredentials value);
-  external String get name;
-  external set name(String value);
 }
 
 /// The **`SharedWorker`** interface represents a specific kind of worker that
@@ -15860,6 +16749,13 @@ extension type WorkerNavigator._(JSObject _) implements JSObject {
   /// object which provides methods for requesting a new [Lock] object and
   /// querying for an existing `Lock` object.
   external LockManager get locks;
+
+  /// @AvailableInWorkers("worker")
+  ///
+  /// The **`gpu`** read-only property of the [WorkerNavigator] interface
+  /// returns the [GPU] object for the current worker context, which is the
+  /// entry point for the [WebGPU_API].
+  external GPU get gpu;
 }
 
 /// @AvailableInWorkers("worker")

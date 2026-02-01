@@ -135,6 +135,7 @@ extension type IntersectionObserver._(JSObject _) implements JSObject {
   /// for a more in-depth look at the root margin and how it works with
   /// the root's bounding box.
   external String get rootMargin;
+  external String get scrollMargin;
 
   /// The [IntersectionObserver] interface's read-only
   /// **`thresholds`** property returns the list of intersection

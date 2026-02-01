@@ -91,9 +91,9 @@ extension type StorageAccessHandle._(JSObject _) implements JSObject {
 extension type SharedWorkerOptions._(JSObject _)
     implements WorkerOptions, JSObject {
   external factory SharedWorkerOptions({
+    String name,
     WorkerType type,
     RequestCredentials credentials,
-    String name,
     SameSiteCookiesType sameSiteCookies,
   });
 

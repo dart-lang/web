@@ -261,8 +261,11 @@ extension type BlobEvent._(JSObject _) implements Event, JSObject {
   /// to be zero.
   external double get timecode;
 }
-extension type BlobEventInit._(JSObject _) implements JSObject {
+extension type BlobEventInit._(JSObject _) implements EventInit, JSObject {
   external factory BlobEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
     required Blob data,
     DOMHighResTimeStamp timecode,
   });

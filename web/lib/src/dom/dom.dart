@@ -1489,7 +1489,7 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// original document. The imported node is a clone of the original.
   external Node importNode(
     Node node, [
-    bool subtree,
+    JSAny options,
   ]);
 
   /// **`Document.adoptNode()`** transfers a  from another [Document] into the
@@ -1896,6 +1896,10 @@ extension type Document._(JSObject _) implements Node, JSObject {
     JSAny node3,
     JSAny node4,
   ]);
+  external void moveBefore(
+    Node node,
+    Node? child,
+  );
 
   /// The [Document] method **`querySelector()`**
   /// returns the first [Element] within the document that matches the specified
@@ -2011,6 +2015,7 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// [Document.documentElement], which returns the root element for all
   /// documents.
   external SVGSVGElement? get rootElement;
+  external ViewTransition? get activeViewTransition;
 
   /// The **`scrollingElement`** read-only property of the
   /// [Document] interface returns a reference to the [Element] that
@@ -2469,6 +2474,8 @@ extension type Document._(JSObject _) implements Node, JSObject {
   external set onauxclick(EventHandler value);
   external EventHandler get onbeforeinput;
   external set onbeforeinput(EventHandler value);
+  external EventHandler get onbeforematch;
+  external set onbeforematch(EventHandler value);
   external EventHandler get onbeforetoggle;
   external set onbeforetoggle(EventHandler value);
   external EventHandler get onblur;
@@ -2485,6 +2492,8 @@ extension type Document._(JSObject _) implements Node, JSObject {
   external set onclick(EventHandler value);
   external EventHandler get onclose;
   external set onclose(EventHandler value);
+  external EventHandler get oncommand;
+  external set oncommand(EventHandler value);
   external EventHandler get oncontextlost;
   external set oncontextlost(EventHandler value);
   external EventHandler get oncontextmenu;
@@ -2627,6 +2636,8 @@ extension type Document._(JSObject _) implements Node, JSObject {
   external set onpointerdown(EventHandler value);
   external EventHandler get onpointermove;
   external set onpointermove(EventHandler value);
+  external EventHandler get onpointerrawupdate;
+  external set onpointerrawupdate(EventHandler value);
   external EventHandler get onpointerup;
   external set onpointerup(EventHandler value);
   external EventHandler get onpointercancel;
@@ -2664,12 +2675,28 @@ extension type Document._(JSObject _) implements Node, JSObject {
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/XMLDocument).
 extension type XMLDocument._(JSObject _) implements Document, JSObject {}
 extension type ElementCreationOptions._(JSObject _) implements JSObject {
-  external factory ElementCreationOptions({String is_});
+  external factory ElementCreationOptions({
+    CustomElementRegistry? customElementRegistry,
+    String is_,
+  });
 
+  external CustomElementRegistry? get customElementRegistry;
+  external set customElementRegistry(CustomElementRegistry? value);
   @JS('is')
   external String get is_;
   @JS('is')
   external set is_(String value);
+}
+extension type ImportNodeOptions._(JSObject _) implements JSObject {
+  external factory ImportNodeOptions({
+    CustomElementRegistry customElementRegistry,
+    bool selfOnly,
+  });
+
+  external CustomElementRegistry get customElementRegistry;
+  external set customElementRegistry(CustomElementRegistry value);
+  external bool get selfOnly;
+  external set selfOnly(bool value);
 }
 
 /// The **`DOMImplementation`** interface represents an object providing methods
@@ -2687,7 +2714,7 @@ extension type DOMImplementation._(JSObject _) implements JSObject {
   /// into the document via methods like [Node.insertBefore] or
   /// [Node.replaceChild].
   external DocumentType createDocumentType(
-    String qualifiedName,
+    String name,
     String publicId,
     String systemId,
   );
@@ -2853,6 +2880,10 @@ extension type DocumentFragment._(JSObject _) implements Node, JSObject {
     JSAny node3,
     JSAny node4,
   ]);
+  external void moveBefore(
+    Node node,
+    Node? child,
+  );
 
   /// The **`DocumentFragment.querySelector()`** method returns the
   /// first element, or `null` if no matches are found, within the
@@ -3192,7 +3223,7 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// method instead.
   external void setAttribute(
     String qualifiedName,
-    String value,
+    JSAny value,
   );
 
   /// `setAttributeNS` adds a new attribute or changes the value of an attribute
@@ -3204,7 +3235,7 @@ extension type Element._(JSObject _) implements Node, JSObject {
   external void setAttributeNS(
     String? namespace,
     String qualifiedName,
-    String value,
+    JSAny value,
   );
 
   /// The [Element] method
@@ -3432,13 +3463,13 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// **`scrollIntoView()`** method scrolls the element's ancestor
   /// containers such that the element on which `scrollIntoView()` is called is
   /// visible to the user.
-  external void scrollIntoView([JSAny arg]);
+  external JSPromise<JSAny?> scrollIntoView([JSAny arg]);
 
   /// The **`scroll()`** method of the [Element]
   /// interface scrolls the element to a particular set of coordinates inside a
   /// given
   /// element.
-  external void scroll([
+  external JSPromise<JSAny?> scroll([
     JSAny optionsOrX,
     num y,
   ]);
@@ -3446,14 +3477,14 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// The **`scrollTo()`** method of the [Element]
   /// interface scrolls to a particular set of coordinates inside a given
   /// element.
-  external void scrollTo([
+  external JSPromise<JSAny?> scrollTo([
     JSAny optionsOrX,
     num y,
   ]);
 
   /// The **`scrollBy()`** method of the [Element]
   /// interface scrolls an element by the given amount.
-  external void scrollBy([
+  external JSPromise<JSAny?> scrollBy([
     JSAny optionsOrX,
     num y,
   ]);
@@ -3606,6 +3637,10 @@ extension type Element._(JSObject _) implements Node, JSObject {
     JSAny node3,
     JSAny node4,
   ]);
+  external void moveBefore(
+    Node node,
+    Node? child,
+  );
 
   /// The **`querySelector()`** method of the [Element]
   /// interface returns the first element that is a descendant of the element on
@@ -4044,6 +4079,8 @@ extension type Element._(JSObject _) implements Node, JSObject {
   external HTMLSlotElement? get assignedSlot;
   external String? get role;
   external set role(String? value);
+  external Element? get ariaActiveDescendantElement;
+  external set ariaActiveDescendantElement(Element? value);
 
   /// The **`ariaAtomic`** property of the [Element] interface reflects the
   /// value of the
@@ -4149,6 +4186,8 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// gridcell within a table, grid, or treegrid.
   external String? get ariaColSpan;
   external set ariaColSpan(String? value);
+  external JSArray<Element>? get ariaControlsElements;
+  external set ariaControlsElements(JSArray<Element>? value);
 
   /// The **`ariaCurrent`** property of the [Element] interface reflects the
   /// value of the
@@ -4157,6 +4196,8 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// within a container or set of related elements.
   external String? get ariaCurrent;
   external set ariaCurrent(String? value);
+  external JSArray<Element>? get ariaDescribedByElements;
+  external set ariaDescribedByElements(JSArray<Element>? value);
 
   /// The **`ariaDescription`** property of the [Element] interface reflects the
   /// value of the
@@ -4165,6 +4206,8 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// current element.
   external String? get ariaDescription;
   external set ariaDescription(String? value);
+  external JSArray<Element>? get ariaDetailsElements;
+  external set ariaDetailsElements(JSArray<Element>? value);
 
   /// The **`ariaDisabled`** property of the [Element] interface reflects the
   /// value of the
@@ -4178,6 +4221,8 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// > not require ARIA attributes.
   external String? get ariaDisabled;
   external set ariaDisabled(String? value);
+  external JSArray<Element>? get ariaErrorMessageElements;
+  external set ariaErrorMessageElements(JSArray<Element>? value);
 
   /// The **`ariaExpanded`** property of the [Element] interface reflects the
   /// value of the
@@ -4186,6 +4231,8 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// by this element is expanded or collapsed.
   external String? get ariaExpanded;
   external set ariaExpanded(String? value);
+  external JSArray<Element>? get ariaFlowToElements;
+  external set ariaFlowToElements(JSArray<Element>? value);
 
   /// The **`ariaHasPopup`** property of the [Element] interface reflects the
   /// value of the
@@ -4218,6 +4265,8 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// attribute, which defines a string value that labels the current element.
   external String? get ariaLabel;
   external set ariaLabel(String? value);
+  external JSArray<Element>? get ariaLabelledByElements;
+  external set ariaLabelledByElements(JSArray<Element>? value);
 
   /// The **`ariaLevel`** property of the [Element] interface reflects the value
   /// of the `aria-level` attribute, which defines the hierarchical level of an
@@ -4280,6 +4329,8 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// horizontal, vertical, or unknown/ambiguous.
   external String? get ariaOrientation;
   external set ariaOrientation(String? value);
+  external JSArray<Element>? get ariaOwnsElements;
+  external set ariaOwnsElements(JSArray<Element>? value);
 
   /// The **`ariaPlaceholder`** property of the [Element] interface reflects the
   /// value of the `aria-placeholder` attribute, which defines a short hint
@@ -4436,6 +4487,7 @@ extension type ShadowRootInit._(JSObject _) implements JSObject {
     SlotAssignmentMode slotAssignment,
     bool clonable,
     bool serializable,
+    CustomElementRegistry? customElementRegistry,
   });
 
   external ShadowRootMode get mode;
@@ -4448,6 +4500,8 @@ extension type ShadowRootInit._(JSObject _) implements JSObject {
   external set clonable(bool value);
   external bool get serializable;
   external set serializable(bool value);
+  external CustomElementRegistry? get customElementRegistry;
+  external set customElementRegistry(CustomElementRegistry? value);
 }
 
 /// The **`NamedNodeMap`** interface represents a collection of [Attr] objects.

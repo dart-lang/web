@@ -129,6 +129,7 @@ $_usage''');
 
     final sourceContent = readmeFile.readAsStringSync();
 
+    final browserCompatDataVersion = _packageLockVersion(_browserCompatData);
     final cssVersion = _packageLockVersion(_webRefCss);
     final elementsVersion = _packageLockVersion(_webRefElements);
     final idlVersion = _packageLockVersion(_webRefIdl);
@@ -137,6 +138,7 @@ $_usage''');
 $_startComment
 | Item | Version |
 | --- | --: |
+| `$_browserCompatData` | [$browserCompatDataVersion](https://www.npmjs.com/package/$_browserCompatData/v/$browserCompatDataVersion) |
 | `$_webRefCss` | [$cssVersion](https://www.npmjs.com/package/$_webRefCss/v/$cssVersion) |
 | `$_webRefElements` | [$elementsVersion](https://www.npmjs.com/package/$_webRefElements/v/$elementsVersion) |
 | `$_webRefIdl` | [$idlVersion](https://www.npmjs.com/package/$_webRefIdl/v/$idlVersion) |
@@ -189,6 +191,7 @@ String _packageLockVersion(String package) {
   return webRefIdl['version'] as String;
 }
 
+const _browserCompatData = '@mdn/browser-compat-data';
 const _webRefCss = '@webref/css';
 const _webRefElements = '@webref/elements';
 const _webRefIdl = '@webref/idl';

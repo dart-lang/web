@@ -9,7 +9,7 @@
   "author": "Dart project authors",
   "license": "BSD 3",
   "dependencies": {
-    "@mdn/browser-compat-data": "^5.5.2",
+    "@mdn/browser-compat-data": "^7.1.17",
     "@webref/css": "^6.11.0",
     "@webref/elements": "^2.2.2",
     "@webref/idl": "^3.43.1",

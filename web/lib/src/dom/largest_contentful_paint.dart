@@ -31,13 +31,13 @@ extension type LargestContentfulPaint._(JSObject _)
   /// it returns a JSON representation of the [LargestContentfulPaint] object.
   external JSObject toJSON();
 
-  /// The **`renderTime`** read-only property of the [LargestContentfulPaint]
-  /// interface represents the time that the element was rendered to the screen.
-  external double get renderTime;
-
   /// The **`loadTime`** read-only property of the [LargestContentfulPaint]
   /// interface returns the time that the element was loaded.
   external double get loadTime;
+
+  /// The **`renderTime`** read-only property of the [LargestContentfulPaint]
+  /// interface represents the time that the element was rendered to the screen.
+  external double get renderTime;
 
   /// The **`size`** read-only property of the [LargestContentfulPaint]
   /// interface returns the intrinsic size of the element that is the largest
@@ -59,4 +59,6 @@ extension type LargestContentfulPaint._(JSObject _)
   /// interface returns an object representing the [Element] that is the largest
   /// contentful paint.
   external Element? get element;
+  external double get paintTime;
+  external double? get presentationTime;
 }

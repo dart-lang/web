@@ -11,6 +11,9 @@
 - Added `childNodesAsList` to `Node` and `childrenAsList` to `Element` via 
   extensions to support mutable operations on node lists.
 - Added `asList` to `NodeList` via extension.
+- Added `data` to `HTMLElement`, `SVGElement` and `MathMLElement` via
+  extension. It provides nullable interface for `dataset` allowing to check if
+  data attribute is set.
 
 ## 1.1.1
 

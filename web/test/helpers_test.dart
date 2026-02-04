@@ -289,4 +289,33 @@ void main() {
   test('Uri.toJS throws an ArgumentError for a relative URL', () {
     expect(() => Uri.parse('/path').toJS, throwsArgumentError);
   });
+
+  test('nullable dataset extension', () {
+    final elements = [SVGSVGElement(), HTMLDivElement(), MathMLElement.mi()];
+
+    for (var element in elements) {
+      element.setAttribute('data-foo', 'bar');
+      element.setAttribute('data-foo-camel', 'bar');
+      final data = element.isA<SVGElement>()
+          ? (element as SVGElement).data
+          : element.isA<MathMLElement>()
+              ? (element as MathMLElement).data
+              : (element as HTMLElement).data;
+      //read existing and not existing data
+      expect(data['foo'], equals('bar'));
+      expect(data['fooCamel'], equals('bar'));
+      expect(data['nonexisting'], isNull);
+
+      //update data
+      data['foo'] = data['fooCamel'] = 'bar2';
+      expect(data['foo'], equals('bar2'));
+      expect(data['fooCamel'], equals('bar2'));
+
+      //unset data
+      data['foo'] = null;
+      expect(data.remove('fooCamel'), equals('bar2'));
+      expect(data['foo'], isNull);
+      expect(element.getAttribute('data-foo-camel'), isNull);
+    }
+  });
 }

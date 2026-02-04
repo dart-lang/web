@@ -22,6 +22,7 @@
 library;
 
 export 'helpers/cross_origin.dart' show CrossOriginLocation, CrossOriginWindow;
+export 'helpers/dataset.dart';
 export 'helpers/enums.dart';
 export 'helpers/events/events.dart';
 export 'helpers/events/providers.dart';

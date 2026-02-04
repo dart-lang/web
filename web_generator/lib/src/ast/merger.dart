@@ -161,7 +161,7 @@ import 'types.dart';
       mergedComposite,
       varDeclarationsWithBuiltinTypes,
     );
-    additionals.addAll([if (newExtension != null) newExtension]);
+    additionals.addAll([?newExtension]);
 
     mergedComposite
       // merge with enums
@@ -171,7 +171,7 @@ import 'types.dart';
       // merge composite with funs
       ..mergeFunctions(functions);
 
-    additionals.addAll([if (enumDecl != null) enumDecl]);
+    additionals.addAll([?enumDecl]);
 
     output.addAll([mergedComposite, ...otherVariableDeclarations]);
   } else if (mergedInterface != null) {
@@ -186,7 +186,7 @@ import 'types.dart';
       mergedInterface,
       varDeclarationsWithBuiltinTypes,
     );
-    additionals.addAll([if (newExtension != null) newExtension]);
+    additionals.addAll([?newExtension]);
 
     // merge with class
     if (classDecl != null) {

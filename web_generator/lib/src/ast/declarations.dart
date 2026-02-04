@@ -711,7 +711,7 @@ class NamespaceDeclaration extends NestableDeclaration
             options: options,
             parent: this,
           );
-          methods.addAll([if (constr != null) constr]);
+          methods.addAll([?constr]);
           break;
         default:
           break;
@@ -830,7 +830,7 @@ class CompositeDeclaration extends TypeDeclaration {
           propertyDeclarations.add(enumeration.cloneAsProperty());
         case final ClassDeclaration cl:
           final constr = _extractConstrFromClass(cl, parent: namespace);
-          methods.addAll([if (constr != null) constr]);
+          methods.addAll([?constr]);
         default:
           break;
       }
@@ -936,7 +936,7 @@ class ClassDeclaration extends TypeDeclaration {
     return super._emit(
       options,
       abstract: abstract,
-      extendees: [if (extendedType case final extendee?) extendee],
+      extendees: [?extendedType],
       implementees: implementedTypes,
     );
   }

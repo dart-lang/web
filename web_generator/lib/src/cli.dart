@@ -108,7 +108,7 @@ Future<void> generateJsTypeSupertypes(String contextFile) async {
       String? parentJsType;
       final supertype = element.supertype;
       final immediateSupertypes = <InterfaceType>[
-        if (supertype != null) supertype,
+        ?supertype,
         ...element.interfaces,
       ]..removeWhere((supertype) => supertype.isDartCoreObject);
       // We should have at most one non-trivial supertype.

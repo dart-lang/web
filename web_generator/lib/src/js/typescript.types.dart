@@ -105,6 +105,7 @@ extension type const TSSyntaxKind._(num _) {
   static const TSSyntaxKind ParenthesizedType = TSSyntaxKind._(197);
   static const TSSyntaxKind ThisType = TSSyntaxKind._(198);
   static const TSSyntaxKind TypeOperator = TSSyntaxKind._(199);
+  static const TSSyntaxKind IndexedAccessType = TSSyntaxKind._(200);
   static const TSSyntaxKind LiteralType = TSSyntaxKind._(202);
   static const TSSyntaxKind NamedTupleMember = TSSyntaxKind._(203);
 
@@ -200,6 +201,15 @@ extension type TSLiteralTypeNode._(JSObject _) implements TSTypeNode {
   TSSyntaxKind get kind => TSSyntaxKind.LiteralType;
 
   external TSLiteral get literal;
+}
+
+@JS('IndexedAccessType')
+extension type TSIndexedAccessType._(JSObject _) implements TSTypeNode {
+  @redeclare
+  TSSyntaxKind get kind => TSSyntaxKind.IndexedAccessType;
+
+  external TSTypeNode get objectType;
+  external TSTypeNode get indexType;
 }
 
 @JS('ParenthesizedTypeNode')

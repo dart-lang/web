@@ -132,6 +132,7 @@ Future<void> generateIDLBindings({
       packageRoot,
       librarySubDir,
       generateAll: generateAll,
+      generateAllTopLevelDeclarations: false,
     );
 
     if (renameMap.isNotEmpty) {

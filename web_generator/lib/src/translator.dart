@@ -727,6 +727,7 @@ class Translator {
   final List<String> _cssStyleDeclarations;
   final Map<String, Set<String>> _elementTagMap;
   final bool _generateForWeb;
+  final bool generateAllTopLevelDeclarations;
 
   final _libraries = <String, _Library>{};
   final _typeToDeclaration = <String, idl.Node>{};
@@ -752,6 +753,7 @@ class Translator {
     this._elementTagMap, {
     this.packageRoot,
     required bool generateAll,
+    required this.generateAllTopLevelDeclarations,
     bool generateForWeb = true,
   }) : _generateForWeb = generateForWeb {
     instance = this;
@@ -787,6 +789,12 @@ class Translator {
     for (final library in _libraries.values) {
       for (final interfacelike in library.interfacelikes) {
         final name = interfacelike.name;
+
+        if (generateAllTopLevelDeclarations) {
+          markTypeAsUsed(name);
+          continue;
+        }
+
         switch (interfacelike.type) {
           case 'interface':
           case 'namespace':
@@ -844,6 +852,16 @@ class Translator {
   ///
   /// Returns whether the type has been or will be marked as used.
   bool markTypeAsUsed(String type) {
+    if (generateAllTopLevelDeclarations) {
+      final decl = _typeToDeclaration[type];
+      if (decl == null) return false;
+      _usedTypes.add(decl);
+      if (decl is idl.Interfacelike) {
+        _combineInterfacelikes(decl.name);
+      }
+      return true;
+    }
+
     final decl = _typeToDeclaration[type];
     if (decl == null) return false;
     if (_usedTypes.contains(decl)) return true;
@@ -992,10 +1010,15 @@ class Translator {
     final typeArguments = <code.TypeReference>[];
     if (typeParameter != null &&
         (dartType == 'JSArray' || dartType == 'JSPromise')) {
-      typeArguments.add(
-        _typeReference(typeParameter, onlyEmitInteropTypes: true),
-      );
+      // Issue #397: JSVoid does not extend JSAny, so it must not be used
+      // as a type argument (e.g. Promise<void> → JSPromise).
+      if (typeParameter.type != 'JSVoid') {
+        typeArguments.add(
+          _typeReference(typeParameter, onlyEmitInteropTypes: true),
+        );
+      }
     }
+
     final url = _urlForType(dartType);
     return code.TypeReference(
       (b) => b

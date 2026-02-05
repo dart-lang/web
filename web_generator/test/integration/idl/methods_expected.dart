@@ -32,3 +32,7 @@ extension type Button._(JSObject _) implements JSObject {
   external bool isMouseOver();
   external void setDimensions(JSAny sizeOrWidth, [int height]);
 }
+@JS()
+extension type VoidPromiseTest._(JSObject _) implements JSObject {
+  external JSPromise doSomething();
+}

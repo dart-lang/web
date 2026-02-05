@@ -992,10 +992,15 @@ class Translator {
     final typeArguments = <code.TypeReference>[];
     if (typeParameter != null &&
         (dartType == 'JSArray' || dartType == 'JSPromise')) {
-      typeArguments.add(
-        _typeReference(typeParameter, onlyEmitInteropTypes: true),
-      );
+      // Issue #397: JSVoid does not extend JSAny, so it must not be used
+      // as a type argument (e.g. Promise<void> → JSPromise).
+      if (typeParameter.type != 'JSVoid') {
+        typeArguments.add(
+          _typeReference(typeParameter, onlyEmitInteropTypes: true),
+        );
+      }
     }
+
     final url = _urlForType(dartType);
     return code.TypeReference(
       (b) => b

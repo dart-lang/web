@@ -18,10 +18,21 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'hr_time.dart';
 import 'html.dart';
+import 'permissions.dart';
 
 typedef MIDIPortType = String;
 typedef MIDIPortDeviceState = String;
 typedef MIDIPortConnectionState = String;
+extension type MidiPermissionDescriptor._(JSObject _)
+    implements PermissionDescriptor, JSObject {
+  external factory MidiPermissionDescriptor({
+    required String name,
+    bool sysex,
+  });
+
+  external bool get sysex;
+  external set sysex(bool value);
+}
 extension type MIDIOptions._(JSObject _) implements JSObject {
   external factory MIDIOptions({
     bool sysex,

@@ -20,6 +20,7 @@ import 'html.dart';
 
 typedef Megabit = num;
 typedef Millisecond = int;
+typedef ConnectionType = String;
 typedef EffectiveConnectionType = String;
 
 /// The **`NetworkInformation`** interface of the
@@ -37,6 +38,11 @@ typedef EffectiveConnectionType = String;
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation).
 extension type NetworkInformation._(JSObject _)
     implements EventTarget, JSObject {
+  /// The **`type`** read-only property of the [NetworkInformation] interface
+  /// returns the type of connection a device is using to communicate with the
+  /// network.
+  external ConnectionType get type;
+
   /// The **`effectiveType`** read-only property of the
   /// [NetworkInformation] interface returns the effective type of the
   /// connection
@@ -44,6 +50,11 @@ extension type NetworkInformation._(JSObject _)
   /// using a
   /// combination of recently observed, round-trip time and downlink values.
   external EffectiveConnectionType get effectiveType;
+
+  /// The **`downlinkMax`** read-only property of the [NetworkInformation]
+  /// interface returns the maximum downlink speed, in megabits per second
+  /// (Mbps), for the underlying connection technology.
+  external double get downlinkMax;
 
   /// The **`downlink`** read-only property of the
   /// [NetworkInformation] interface returns the effective bandwidth estimate in

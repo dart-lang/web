@@ -17,7 +17,8 @@ import 'dart:js_interop';
 
 import 'webgl1.dart';
 
-extension type WebGLTimerQueryEXT._(JSObject _) implements JSObject {}
+extension type WebGLTimerQueryEXT._(JSObject _)
+    implements WebGLObject, JSObject {}
 extension type EXT_disjoint_timer_query._(JSObject _) implements JSObject {
   static const GLenum QUERY_COUNTER_BITS_EXT = 34916;
 

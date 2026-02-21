@@ -57,6 +57,14 @@ extension type Notification._(JSObject _) implements EventTarget, JSObject {
   /// display web notifications.
   external static NotificationPermission get permission;
 
+  /// The **`maxActions`** read-only static property of the
+  /// [Notification] interface returns the maximum number of actions supported
+  /// by
+  /// the device and the User Agent. Effectively, this is the maximum number of
+  /// elements in
+  /// [Notification.actions] array which will be respected by the User Agent.
+  external static int get maxActions;
+
   /// The **`close()`** method of the [Notification] interface is used to
   /// close/remove a previously displayed notification.
   ///
@@ -112,6 +120,7 @@ extension type Notification._(JSObject _) implements EventTarget, JSObject {
   /// specified in the `body` option of the
   /// [Notification.Notification] constructor.
   external String get body;
+  external String get navigate;
 
   /// The **`tag`** read-only property of the
   /// [Notification] interface signifies an identifying tag for the
@@ -128,6 +137,12 @@ extension type Notification._(JSObject _) implements EventTarget, JSObject {
   /// notifications.
   external String get tag;
 
+  /// The **`image`** read-only property of the
+  /// [Notification] interface contains the URL of an image to be displayed as
+  /// part of the notification, as specified in the `image` option of the
+  /// [Notification.Notification] constructor.
+  external String get image;
+
   /// The **`icon`** read-only property of the
   /// [Notification] interface contains the URL of an icon to be displayed as
   /// part of the notification, as specified in the `icon` option of the
@@ -141,6 +156,38 @@ extension type Notification._(JSObject _) implements EventTarget, JSObject {
   /// should accommodate devices up to 4x resolution, about 96 by 96 px, and the
   /// image will be automatically masked.
   external String get badge;
+
+  /// The **`vibrate`** read-only property of the [Notification]
+  /// interface specifies a
+  /// [vibration pattern](https://developer.mozilla.org/en-US/docs/Web/API/Vibration_API#vibration_patterns)
+  /// for the device's vibration hardware to emit when the notification fires.
+  /// This is
+  /// specified in the `vibrate` option of the
+  /// [Notification.Notification] constructor.
+  external JSArray<JSNumber> get vibrate;
+
+  /// The **`timestamp`** read-only property of the
+  /// [Notification] interface returns a number, as
+  /// specified in the `timestamp` option of the
+  /// [Notification.Notification] constructor.
+  ///
+  /// The notification's timestamp can represent the time, in milliseconds since
+  /// 00:00:00 UTC
+  /// on 1 January 1970, of the event for which the notification was created, or
+  /// it can be an
+  /// arbitrary timestamp that you want associated with the notification. For
+  /// example, a
+  /// timestamp for an upcoming meeting could be set in the future, whereas a
+  /// timestamp for a
+  /// missed message could be set in the past.
+  external EpochTimeStamp get timestamp;
+
+  /// The **`renotify`** read-only property of the
+  /// [Notification] interface specifies whether the user should be notified
+  /// after a new notification replaces an old one, as specified in the
+  /// `renotify`
+  /// option of the [Notification.Notification] constructor.
+  external bool get renotify;
 
   /// The **`silent`** read-only property of the
   /// [Notification] interface specifies whether the notification should be
@@ -170,12 +217,27 @@ extension type Notification._(JSObject _) implements EventTarget, JSObject {
   /// with the
   /// notification.
   external JSAny? get data;
+
+  /// The **`actions`** read-only property of the [Notification] interface
+  /// provides the actions available for users to choose from for interacting
+  /// with the notification.
+  ///
+  /// The actions are set using the `actions` option of the second argument for
+  /// the [ServiceWorkerRegistration.showNotification] method and
+  /// [Notification.Notification] constructor.
+  ///
+  /// > [!NOTE]
+  /// > Browsers typically limit the maximum number of actions they will display
+  /// > for a particular notification. Check the static
+  /// > [Notification.maxActions_static] property to determine the limit.
+  external JSArray<NotificationAction> get actions;
 }
 extension type NotificationOptions._(JSObject _) implements JSObject {
   external factory NotificationOptions({
     NotificationDirection dir,
     String lang,
     String body,
+    String navigate,
     String tag,
     String image,
     String icon,
@@ -195,6 +257,8 @@ extension type NotificationOptions._(JSObject _) implements JSObject {
   external set lang(String value);
   external String get body;
   external set body(String value);
+  external String get navigate;
+  external set navigate(String value);
   external String get tag;
   external set tag(String value);
   external String get image;
@@ -222,6 +286,7 @@ extension type NotificationAction._(JSObject _) implements JSObject {
   external factory NotificationAction({
     required String action,
     required String title,
+    String navigate,
     String icon,
   });
 
@@ -229,6 +294,8 @@ extension type NotificationAction._(JSObject _) implements JSObject {
   external set action(String value);
   external String get title;
   external set title(String value);
+  external String get navigate;
+  external set navigate(String value);
   external String get icon;
   external set icon(String value);
 }

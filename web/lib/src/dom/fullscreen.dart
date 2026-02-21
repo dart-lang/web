@@ -15,15 +15,17 @@ library;
 
 import 'dart:js_interop';
 
+import 'window_management.dart';
+
 typedef FullscreenNavigationUI = String;
 extension type FullscreenOptions._(JSObject _) implements JSObject {
   external factory FullscreenOptions({
     FullscreenNavigationUI navigationUI,
-    JSObject screen,
+    ScreenDetailed screen,
   });
 
   external FullscreenNavigationUI get navigationUI;
   external set navigationUI(FullscreenNavigationUI value);
-  external JSObject get screen;
-  external set screen(JSObject value);
+  external ScreenDetailed get screen;
+  external set screen(ScreenDetailed value);
 }

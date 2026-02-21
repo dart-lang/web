@@ -15,9 +15,13 @@ library;
 
 import 'dart:js_interop';
 
+import 'audio_output.dart';
+import 'capture_handle_identity.dart';
 import 'dom.dart';
 import 'html.dart';
 import 'image_capture.dart';
+import 'mediacapture_handle_actions.dart';
+import 'permissions.dart';
 import 'screen_capture.dart';
 import 'webidl.dart';
 
@@ -25,6 +29,7 @@ typedef ConstrainULong = JSAny;
 typedef ConstrainDouble = JSAny;
 typedef ConstrainBoolean = JSAny;
 typedef ConstrainDOMString = JSAny;
+typedef ConstrainBooleanOrDOMString = JSAny;
 typedef MediaStreamTrackState = String;
 typedef MediaDeviceKind = String;
 
@@ -204,6 +209,9 @@ extension type MediaStreamTrack._(JSObject _) implements EventTarget, JSObject {
   /// for more information on how to apply your preferred constraints.
   external JSPromise<JSAny?> applyConstraints(
       [MediaTrackConstraints constraints]);
+  external CaptureHandle? getCaptureHandle();
+  external JSArray<JSString> getSupportedCaptureActions();
+  external JSPromise<JSAny?> sendCaptureAction(CaptureAction action);
 
   /// The **`kind`** read-only property of the [MediaStreamTrack] interface
   /// returns a string set to `"audio"` if the track is an audio track and to
@@ -277,12 +285,17 @@ extension type MediaStreamTrack._(JSObject _) implements EventTarget, JSObject {
   external MediaStreamTrackState get readyState;
   external EventHandler get onended;
   external set onended(EventHandler value);
+  external EventHandler get oncapturehandlechange;
+  external set oncapturehandlechange(EventHandler value);
 
   /// The **`contentHint`** property of the [MediaStreamTrack] interface is a
   /// string that hints at the type of content the track contains. Allowable
   /// values depend on the value of the [MediaStreamTrack.kind] property.
   external String get contentHint;
   external set contentHint(String value);
+  external bool get isolated;
+  external EventHandler get onisolationchange;
+  external set onisolationchange(EventHandler value);
 }
 
 /// The **`MediaTrackSupportedConstraints`** dictionary establishes the list of
@@ -643,7 +656,7 @@ extension type MediaTrackCapabilities._(JSObject _) implements JSObject {
     JSArray<JSString> resizeMode,
     ULongRange sampleRate,
     ULongRange sampleSize,
-    JSArray<JSBoolean> echoCancellation,
+    JSArray<JSAny> echoCancellation,
     JSArray<JSBoolean> autoGainControl,
     JSArray<JSBoolean> noiseSuppression,
     DoubleRange latency,
@@ -688,8 +701,8 @@ extension type MediaTrackCapabilities._(JSObject _) implements JSObject {
   external set sampleRate(ULongRange value);
   external ULongRange get sampleSize;
   external set sampleSize(ULongRange value);
-  external JSArray<JSBoolean> get echoCancellation;
-  external set echoCancellation(JSArray<JSBoolean> value);
+  external JSArray<JSAny> get echoCancellation;
+  external set echoCancellation(JSArray<JSAny> value);
   external JSArray<JSBoolean> get autoGainControl;
   external set autoGainControl(JSArray<JSBoolean> value);
   external JSArray<JSBoolean> get noiseSuppression;
@@ -767,7 +780,7 @@ extension type MediaTrackConstraints._(JSObject _)
     ConstrainDOMString resizeMode,
     ConstrainULong sampleRate,
     ConstrainULong sampleSize,
-    ConstrainBoolean echoCancellation,
+    ConstrainBooleanOrDOMString echoCancellation,
     ConstrainBoolean autoGainControl,
     ConstrainBoolean noiseSuppression,
     ConstrainDouble latency,
@@ -813,7 +826,7 @@ extension type MediaTrackConstraintSet._(JSObject _) implements JSObject {
     ConstrainDOMString resizeMode,
     ConstrainULong sampleRate,
     ConstrainULong sampleSize,
-    ConstrainBoolean echoCancellation,
+    ConstrainBooleanOrDOMString echoCancellation,
     ConstrainBoolean autoGainControl,
     ConstrainBoolean noiseSuppression,
     ConstrainDouble latency,
@@ -861,8 +874,8 @@ extension type MediaTrackConstraintSet._(JSObject _) implements JSObject {
   external set sampleRate(ConstrainULong value);
   external ConstrainULong get sampleSize;
   external set sampleSize(ConstrainULong value);
-  external ConstrainBoolean get echoCancellation;
-  external set echoCancellation(ConstrainBoolean value);
+  external ConstrainBooleanOrDOMString get echoCancellation;
+  external set echoCancellation(ConstrainBooleanOrDOMString value);
   external ConstrainBoolean get autoGainControl;
   external set autoGainControl(ConstrainBoolean value);
   external ConstrainBoolean get noiseSuppression;
@@ -949,7 +962,7 @@ extension type MediaTrackSettings._(JSObject _) implements JSObject {
     String resizeMode,
     int sampleRate,
     int sampleSize,
-    bool echoCancellation,
+    JSAny echoCancellation,
     bool autoGainControl,
     bool noiseSuppression,
     num latency,
@@ -979,6 +992,7 @@ extension type MediaTrackSettings._(JSObject _) implements JSObject {
     String cursor,
     bool restrictOwnAudio,
     bool suppressLocalAudioPlayback,
+    num screenPixelRatio,
   });
 
   /// The [MediaTrackSettings] dictionary's **`width`**
@@ -1152,8 +1166,8 @@ extension type MediaTrackSettings._(JSObject _) implements JSObject {
   /// [WebRTC](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API)
   /// [RTCPeerConnection]
   /// will never include this property.
-  external bool get echoCancellation;
-  external set echoCancellation(bool value);
+  external JSAny get echoCancellation;
+  external set echoCancellation(JSAny value);
 
   /// The [MediaTrackSettings] dictionary's
   /// **`autoGainControl`** property is a Boolean value whose value
@@ -1384,6 +1398,8 @@ extension type MediaTrackSettings._(JSObject _) implements JSObject {
   /// clearer, and also in sync with the conference video.
   external bool get suppressLocalAudioPlayback;
   external set suppressLocalAudioPlayback(bool value);
+  external double get screenPixelRatio;
+  external set screenPixelRatio(num value);
 }
 
 /// The **`MediaStreamTrackEvent`** interface of the
@@ -1475,6 +1491,22 @@ extension type MediaDevices._(JSObject _) implements EventTarget, JSObject {
   /// permission.
   external JSPromise<JSArray<MediaDeviceInfo>> enumerateDevices();
 
+  /// The **`selectAudioOutput()`** method of the [MediaDevices] interface
+  /// prompts the user to select an audio output device, such as a speaker or
+  /// headset. If the user selects a device, the method grants user permission
+  /// to use the selected device as an audio output sink.
+  ///
+  /// Following selection, if the device is available it can be enumerated using
+  /// [MediaDevices.enumerateDevices] and set as the audio output sink using
+  /// [HTMLMediaElement.setSinkId].
+  ///
+  /// On success, the returned `Promise` is resolved with a [MediaDeviceInfo]
+  /// describing the selected device.
+  external JSPromise<MediaDeviceInfo> selectAudioOutput(
+      [AudioOutputOptions options]);
+  external void setCaptureHandleConfig([CaptureHandleConfig config]);
+  external void setSupportedCaptureActions(JSArray<JSString> actions);
+
   /// The **`getSupportedConstraints()`** method of the [MediaDevices] interface
   /// returns an object based on the [MediaTrackSupportedConstraints]
   /// dictionary, whose member fields each specify one of the constrainable
@@ -1502,6 +1534,8 @@ extension type MediaDevices._(JSObject _) implements EventTarget, JSObject {
   /// > request.
   external JSPromise<MediaStream> getUserMedia(
       [MediaStreamConstraints constraints]);
+  external JSPromise<MediaStream> getViewportMedia(
+      [DisplayMediaStreamOptions options]);
 
   /// The **`getDisplayMedia()`** method of the [MediaDevices] interface prompts
   /// the user to select and
@@ -1522,6 +1556,8 @@ extension type MediaDevices._(JSObject _) implements EventTarget, JSObject {
       [DisplayMediaStreamOptions options]);
   external EventHandler get ondevicechange;
   external set ondevicechange(EventHandler value);
+  external EventHandler get oncaptureaction;
+  external set oncaptureaction(EventHandler value);
 }
 
 /// The **`MediaDeviceInfo`** interface of the [Media Capture and Streams API]
@@ -1591,6 +1627,27 @@ extension type InputDeviceInfo._(JSObject _)
   /// returns a `MediaTrackCapabilities` object describing the primary audio or
   /// video track of the device's [MediaStream].
   external MediaTrackCapabilities getCapabilities();
+}
+extension type DeviceChangeEvent._(JSObject _) implements Event, JSObject {
+  external factory DeviceChangeEvent(
+    String type, [
+    DeviceChangeEventInit eventInitDict,
+  ]);
+
+  external JSArray<MediaDeviceInfo> get devices;
+  external JSArray<MediaDeviceInfo> get userInsertedDevices;
+}
+extension type DeviceChangeEventInit._(JSObject _)
+    implements EventInit, JSObject {
+  external factory DeviceChangeEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
+    JSArray<MediaDeviceInfo> devices,
+  });
+
+  external JSArray<MediaDeviceInfo> get devices;
+  external set devices(JSArray<MediaDeviceInfo> value);
 }
 extension type MediaStreamConstraints._(JSObject _) implements JSObject {
   external factory MediaStreamConstraints({
@@ -1680,4 +1737,26 @@ extension type ConstrainDOMStringParameters._(JSObject _) implements JSObject {
   external set exact(JSAny value);
   external JSAny get ideal;
   external set ideal(JSAny value);
+}
+extension type ConstrainBooleanOrDOMStringParameters._(JSObject _)
+    implements JSObject {
+  external factory ConstrainBooleanOrDOMStringParameters({
+    JSAny exact,
+    JSAny ideal,
+  });
+
+  external JSAny get exact;
+  external set exact(JSAny value);
+  external JSAny get ideal;
+  external set ideal(JSAny value);
+}
+extension type CameraDevicePermissionDescriptor._(JSObject _)
+    implements PermissionDescriptor, JSObject {
+  external factory CameraDevicePermissionDescriptor({
+    required String name,
+    bool panTiltZoom,
+  });
+
+  external bool get panTiltZoom;
+  external set panTiltZoom(bool value);
 }

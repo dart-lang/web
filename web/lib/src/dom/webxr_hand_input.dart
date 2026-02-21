@@ -28,7 +28,10 @@ typedef XRHandJoint = String;
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/XRHand).
-extension type XRHand._(JSObject _) implements JSObject {}
+extension type XRHand._(JSObject _) implements JSObject {
+  external XRJointSpace get(XRHandJoint key);
+  external int get size;
+}
 
 /// The **`XRJointSpace`** interface is an [XRSpace] and represents the position
 /// and orientation of an [XRHand] joint.

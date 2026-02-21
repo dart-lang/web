@@ -47,6 +47,11 @@ extension type PerformanceResourceTiming._(JSObject _)
   /// > the `initiatorType` will be `css` and not `img`.
   external String get initiatorType;
 
+  /// The **`deliveryType`** read-only property is a string indicating how the
+  /// resource was delivered — for example from the cache or from a navigational
+  /// prefetch.
+  external String get deliveryType;
+
   /// The **`nextHopProtocol`** read-only property is a string representing the
   /// network protocol used to fetch the resource, as identified by the [ALPN
   /// Protocol ID
@@ -150,6 +155,31 @@ extension type PerformanceResourceTiming._(JSObject _)
   /// (see the example below).
   external double get requestStart;
 
+  /// The **`finalResponseHeadersStart`** read-only property returns a
+  /// [DOMHighResTimeStamp] immediately after the browser receives the first
+  /// byte of the final document response (for example, 200 OK) from the server.
+  ///
+  /// This differs from **`[PerformanceResourceTiming.requestStart]`** (which
+  /// may also be represented as
+  /// **`[PerformanceResourceTiming.firstInterimResponseStart]`**), as this
+  /// starts from the first bytes of any response including interim responses
+  /// (for example, 103 Early Hints) with the final response coming potentially
+  /// much later.
+  ///
+  /// When there are no interim responses, `requestStart` is the same as
+  /// `finalResponseHeadersStart` and `firstInterimResponseStart` is 0.
+  ///
+  /// There is no _end_ property for `finalResponseHeadersStart`.
+  external double get finalResponseHeadersStart;
+
+  /// The **`firstInterimResponseStart`** read-only property returns a
+  /// [DOMHighResTimeStamp] immediately after the browser receives the first
+  /// byte of the interim 1xx response (for example, 100 Continue or 103 Early
+  /// Hints) from the server.
+  ///
+  /// There is no _end_ property for `firstInterimResponseStart`.
+  external double get firstInterimResponseStart;
+
   /// The **`responseStart`** read-only property returns a [DOMHighResTimeStamp]
   /// immediately after the browser receives the first byte of the response from
   /// the server, cache, or local resource.
@@ -164,6 +194,10 @@ extension type PerformanceResourceTiming._(JSObject _)
   /// `responseEnd` property is available for cross-origin requests without the
   /// need of the  HTTP response header.
   external double get responseEnd;
+  external double get workerRouterEvaluationStart;
+  external double get workerCacheLookupStart;
+  external String get workerMatchedRouterSource;
+  external String get workerFinalRouterSource;
 
   /// The **`transferSize`** read-only property represents the size (in octets)
   /// of the fetched resource. The size includes the response header fields plus
@@ -205,6 +239,22 @@ extension type PerformanceResourceTiming._(JSObject _)
   /// - weren't render-blocking and therefore could be delayed, or
   /// - were render-blocking and therefore could be preloaded.
   external RenderBlockingStatusType get renderBlockingStatus;
+
+  /// The **`contentType`** read-only property of the
+  /// [PerformanceResourceTiming] interface is a string indicating the content
+  /// type of the fetched resource, formatted as a  and subtype separated by a
+  /// forward slash.
+  ///
+  /// The content type is a minimized and "standardized" version of the MIME
+  /// type that is extracted from the  HTTP header sent in the resource's fetch
+  /// response.
+  /// For JavaScript, JSON, SVG, and XML, the MIME type is replaced by a
+  /// representative MIME type/subtype string.
+  /// Other types supported by the browser are represented by the MIME
+  /// type/subtype string in the header (other information in the header is
+  /// discarded).
+  external String get contentType;
+  external String get contentEncoding;
 
   /// The **`serverTiming`** read-only property returns an array of
   /// [PerformanceServerTiming] entries containing server timing metrics.

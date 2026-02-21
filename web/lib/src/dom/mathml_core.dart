@@ -210,6 +210,13 @@ extension type MathMLElement._(JSObject _) implements Element, JSObject {
           'mtd',
         );
 
+  /// Creates a [MathMLElement] using the tag 'a'.
+  MathMLElement.a()
+      : _ = document.createElementNS(
+          'http://www.w3.org/1998/Math/MathML',
+          'a',
+        );
+
   /// Creates a [MathMLElement] using the tag 'maction'.
   MathMLElement.maction()
       : _ = document.createElementNS(
@@ -281,7 +288,7 @@ extension type MathMLElement._(JSObject _) implements Element, JSObject {
   /// >
   /// > The `style` property has the same priority in the CSS cascade as an
   /// > inline style declaration set via the `style` attribute.
-  external CSSStyleDeclaration get style;
+  external CSSStyleProperties get style;
 
   /// The **`attributeStyleMap`** read-only property of the [MathMLElement]
   /// interface returns a live [StylePropertyMap] object that contains a list of
@@ -308,6 +315,8 @@ extension type MathMLElement._(JSObject _) implements Element, JSObject {
   external set onauxclick(EventHandler value);
   external EventHandler get onbeforeinput;
   external set onbeforeinput(EventHandler value);
+  external EventHandler get onbeforematch;
+  external set onbeforematch(EventHandler value);
   external EventHandler get onbeforetoggle;
   external set onbeforetoggle(EventHandler value);
   external EventHandler get onblur;
@@ -324,6 +333,8 @@ extension type MathMLElement._(JSObject _) implements Element, JSObject {
   external set onclick(EventHandler value);
   external EventHandler get onclose;
   external set onclose(EventHandler value);
+  external EventHandler get oncommand;
+  external set oncommand(EventHandler value);
   external EventHandler get oncontextlost;
   external set oncontextlost(EventHandler value);
   external EventHandler get oncontextmenu;
@@ -440,6 +451,14 @@ extension type MathMLElement._(JSObject _) implements Element, JSObject {
   external set onvolumechange(EventHandler value);
   external EventHandler get onwaiting;
   external set onwaiting(EventHandler value);
+  external EventHandler get onwebkitanimationend;
+  external set onwebkitanimationend(EventHandler value);
+  external EventHandler get onwebkitanimationiteration;
+  external set onwebkitanimationiteration(EventHandler value);
+  external EventHandler get onwebkitanimationstart;
+  external set onwebkitanimationstart(EventHandler value);
+  external EventHandler get onwebkittransitionend;
+  external set onwebkittransitionend(EventHandler value);
   external EventHandler get onwheel;
   external set onwheel(EventHandler value);
   external EventHandler get onanimationstart;
@@ -450,6 +469,10 @@ extension type MathMLElement._(JSObject _) implements Element, JSObject {
   external set onanimationend(EventHandler value);
   external EventHandler get onanimationcancel;
   external set onanimationcancel(EventHandler value);
+  external EventHandler get onsnapchanged;
+  external set onsnapchanged(EventHandler value);
+  external EventHandler get onsnapchanging;
+  external set onsnapchanging(EventHandler value);
   external EventHandler get ontransitionrun;
   external set ontransitionrun(EventHandler value);
   external EventHandler get ontransitionstart;
@@ -458,6 +481,8 @@ extension type MathMLElement._(JSObject _) implements Element, JSObject {
   external set ontransitionend(EventHandler value);
   external EventHandler get ontransitioncancel;
   external set ontransitioncancel(EventHandler value);
+  external EventHandler get onfencedtreeclick;
+  external set onfencedtreeclick(EventHandler value);
   external EventHandler get onpointerover;
   external set onpointerover(EventHandler value);
   external EventHandler get onpointerenter;
@@ -466,6 +491,8 @@ extension type MathMLElement._(JSObject _) implements Element, JSObject {
   external set onpointerdown(EventHandler value);
   external EventHandler get onpointermove;
   external set onpointermove(EventHandler value);
+  external EventHandler get onpointerrawupdate;
+  external set onpointerrawupdate(EventHandler value);
   external EventHandler get onpointerup;
   external set onpointerup(EventHandler value);
   external EventHandler get onpointercancel;
@@ -490,6 +517,8 @@ extension type MathMLElement._(JSObject _) implements Element, JSObject {
   external set ontouchmove(EventHandler value);
   external EventHandler get ontouchcancel;
   external set ontouchcancel(EventHandler value);
+  external EventHandler get onbeforexrselect;
+  external set onbeforexrselect(EventHandler value);
   external DOMStringMap get dataset;
   external String get nonce;
   external set nonce(String value);

@@ -80,6 +80,37 @@ extension type Selection._(JSObject _) implements JSObject {
   /// > This method is an alias for the [Selection.removeAllRanges] method.
   external void empty();
 
+  /// The **`Selection.getComposedRanges()`** method returns an array of
+  /// [StaticRange] objects representing the current selection ranges, and can
+  /// return ranges that potentially cross shadow boundaries.
+  ///
+  /// As the selection range endpoints may be within a shadow tree, or even
+  /// different shadow trees, and because these may be closed, the method cannot
+  /// by default return nodes from within a shadow tree.
+  /// If the method needs to return a selection that includes nodes inside
+  /// shadow trees, then the [ShadowRoot] objects for these trees must be passed
+  /// as arguments to the method.
+  /// If a corresponding roots are not provided and the start or endpoint of the
+  /// selection are within a shadow tree, the returned range is re-scoped to
+  /// include the host of the shadow root rather than some node with in the
+  /// root.
+  ///
+  /// The returned ranges represent the range at the time that
+  /// `getComposedRanges()` was called.
+  /// If the DOM or a shadow DOM is mutated, the selected range is likely to be
+  /// incorrect.
+  /// Application code might use a [MutationObserver] to monitor for DOM
+  /// mutations and then call [Selection.setBaseAndExtent] to update the
+  /// selection.
+  ///
+  /// > [!NOTE]
+  /// > This method should be used instead of [Selection.getRangeAt] when
+  /// > selecting ranges that can potentially cross shadow root boundaries.
+  /// > [Selection.getRangeAt] is not aware of shadow roots.
+  /// > The returned range is not specified, and varies between browsers.
+  external JSArray<StaticRange> getComposedRanges(
+      [GetComposedRangesOptions options]);
+
   /// The **`Selection.collapse()`** method collapses the current selection to a
   /// single point. The document is not modified. If the content is focused and
   /// editable, the caret will blink there.
@@ -271,4 +302,10 @@ extension type Selection._(JSObject _) implements JSObject {
   /// The direction does not change if a selection's range is mutated, for
   /// example, using methods like [Range.selectNode].
   external String get direction;
+}
+extension type GetComposedRangesOptions._(JSObject _) implements JSObject {
+  external factory GetComposedRangesOptions({JSArray<ShadowRoot> shadowRoots});
+
+  external JSArray<ShadowRoot> get shadowRoots;
+  external set shadowRoots(JSArray<ShadowRoot> value);
 }

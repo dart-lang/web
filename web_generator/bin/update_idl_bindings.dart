@@ -70,12 +70,16 @@ $_usage''');
   if (isSnapshot) {
     // Do not run webdev setup script stuff for published snapshots
     final generateAll = argResult['generate-all'] as bool;
+    final generateAllTopLevelDeclarations =
+    argResult['generate-all-top-level-declarations'] as bool;
     await runProc('node', [
       'main.mjs',
       '--idl',
       for (String inputFile in inputFiles) '--input=$inputFile',
       '--output=${argResult['output'] as String? ?? p.current}',
       if (generateAll) '--generate-all',
+      if (generateAllTopLevelDeclarations)
+        '--generate-all-top-level-declarations',
     ], workingDirectory: bindingsGeneratorPath);
 
     return;
@@ -215,6 +219,11 @@ final _parser = ArgParser()
   ..addFlag('help', negatable: false, help: 'Show help information')
   ..addFlag('update', abbr: 'u', help: 'Update npm dependencies')
   ..addFlag('compile', defaultsTo: true)
+  ..addFlag(
+  'generate-all-top-level-declarations',
+  defaultsTo: false,
+  help: 'Generate all top-level WebIDL declarations (enums, callbacks, etc.)',
+)
   ..addOption(
     'output',
     abbr: 'o',

@@ -19,6 +19,27 @@ typedef ArrayBufferView = JSObject;
 typedef BufferSource = JSObject;
 typedef AllowSharedBufferSource = JSObject;
 typedef VoidFunction = JSFunction;
+extension type QuotaExceededError._(JSObject _)
+    implements DOMException, JSObject {
+  external factory QuotaExceededError([
+    String message,
+    QuotaExceededErrorOptions options,
+  ]);
+
+  external double? get quota;
+  external double? get requested;
+}
+extension type QuotaExceededErrorOptions._(JSObject _) implements JSObject {
+  external factory QuotaExceededErrorOptions({
+    num quota,
+    num requested,
+  });
+
+  external double get quota;
+  external set quota(num value);
+  external double get requested;
+  external set requested(num value);
+}
 
 /// The **`DOMException`** interface represents an abnormal event (called an
 /// **exception**) that occurs as a result of calling a method or accessing a

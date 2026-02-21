@@ -346,6 +346,7 @@ extension type BaseAudioContext._(JSObject _) implements EventTarget, JSObject {
   /// The `state` read-only property of the [BaseAudioContext]
   /// interface returns the current state of the `AudioContext`.
   external AudioContextState get state;
+  external int get renderQuantumSize;
 
   /// The `audioWorklet` read-only property of the
   /// [BaseAudioContext] interface returns an instance of
@@ -428,6 +429,20 @@ extension type AudioContext._(JSObject _)
   /// [OfflineAudioContext].
   external JSPromise<JSAny?> close();
 
+  /// The **`setSinkId()`** method of the [AudioContext] interface sets the
+  /// output audio device for the `AudioContext`. If a sink ID is not explicitly
+  /// set, the default system audio output device will be used.
+  ///
+  /// To set the audio device to a device different than the default one, the
+  /// developer needs permission to access to audio devices. If required, the
+  /// user can be prompted to grant the required permission via a
+  /// [MediaDevices.getUserMedia] call.
+  ///
+  /// In addition, this feature may be blocked by a
+  /// [`speaker-selection`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy/speaker-selection)
+  /// [Permissions Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Permissions_Policy).
+  external JSPromise<JSAny?> setSinkId(JSAny sinkId);
+
   /// The `createMediaElementSource()` method of the [AudioContext] Interface is
   /// used to create a new [MediaElementAudioSourceNode] object, given an
   /// existing HTML `audio` or `video` element, the audio from which can then be
@@ -503,6 +518,16 @@ extension type AudioContext._(JSObject _)
   ///
   /// It varies depending on the platform and the available hardware.
   external double get outputLatency;
+
+  /// The **`sinkId`** read-only property of the
+  /// [AudioContext] interface returns the sink ID of the current output audio
+  /// device.
+  external JSAny get sinkId;
+  external EventHandler get onsinkchange;
+  external set onsinkchange(EventHandler value);
+  external EventHandler get onerror;
+  external set onerror(EventHandler value);
+  external AudioPlaybackStats get playbackStats;
 }
 extension type AudioContextOptions._(JSObject _) implements JSObject {
   external factory AudioContextOptions({
@@ -526,6 +551,20 @@ extension type AudioSinkOptions._(JSObject _) implements JSObject {
 
   external AudioSinkType get type;
   external set type(AudioSinkType value);
+}
+
+/// The **`AudioSinkInfo`** interface of the [Web Audio API] represents
+/// information describing an [AudioContext]'s sink ID, retrieved via
+/// [AudioContext.sinkId].
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AudioSinkInfo).
+extension type AudioSinkInfo._(JSObject _) implements JSObject {
+  /// The **`type`** read-only property of the [AudioSinkInfo] interface returns
+  /// the type of the audio output device.
+  external AudioSinkType get type;
 }
 extension type AudioTimestamp._(JSObject _) implements JSObject {
   external factory AudioTimestamp({
@@ -3466,7 +3505,9 @@ extension type WaveShaperOptions._(JSObject _)
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorklet).
-extension type AudioWorklet._(JSObject _) implements Worklet, JSObject {}
+extension type AudioWorklet._(JSObject _) implements Worklet, JSObject {
+  external MessagePort get port;
+}
 
 /// The **`AudioWorkletGlobalScope`** interface of the
 /// [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
@@ -3513,6 +3554,8 @@ extension type AudioWorkletGlobalScope._(JSObject _)
   /// interface returns a float that represents the sample rate of the
   /// associated [BaseAudioContext] the worklet belongs to.
   external double get sampleRate;
+  external int get renderQuantumSize;
+  external MessagePort get port;
 }
 
 /// The **`AudioParamMap`** interface of the
@@ -3623,4 +3666,50 @@ extension type AudioWorkletProcessor._(JSObject _) implements JSObject {
   /// > The port at the other end of the channel is
   /// > available under the [AudioWorkletNode.port] property of the node.
   external MessagePort get port;
+}
+
+/// The **`AudioParamDescriptor`** dictionary of the
+/// [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
+/// specifies properties for [AudioParam] objects.
+///
+/// It is used to create custom `AudioParam`s on an [AudioWorkletNode]. If the
+/// underlying [AudioWorkletProcessor] has a
+/// [AudioWorkletProcessor.parameterDescriptors] static getter, then the
+/// returned array of objects based on this dictionary is used internally by
+/// `AudioWorkletNode` constructor to populate its [AudioWorkletNode.parameters]
+/// property accordingly.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AudioParamDescriptor).
+extension type AudioParamDescriptor._(JSObject _) implements JSObject {
+  external factory AudioParamDescriptor({
+    required String name,
+    num defaultValue,
+    num minValue,
+    num maxValue,
+    AutomationRate automationRate,
+  });
+
+  external String get name;
+  external set name(String value);
+  external double get defaultValue;
+  external set defaultValue(num value);
+  external double get minValue;
+  external set minValue(num value);
+  external double get maxValue;
+  external set maxValue(num value);
+  external AutomationRate get automationRate;
+  external set automationRate(AutomationRate value);
+}
+extension type AudioPlaybackStats._(JSObject _) implements JSObject {
+  external void resetLatency();
+  external JSObject toJSON();
+  external double get underrunDuration;
+  external int get underrunEvents;
+  external double get totalDuration;
+  external double get averageLatency;
+  external double get minimumLatency;
+  external double get maximumLatency;
 }

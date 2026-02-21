@@ -324,6 +324,13 @@ extension type SourceBuffer._(JSObject _) implements EventTarget, JSObject {
 
   /// @AvailableInWorkers("window_and_dedicated")
   ///
+  /// The **`textTracks`** read-only property of the
+  /// [SourceBuffer] interface returns a list of the text tracks currently
+  /// contained inside the `SourceBuffer`.
+  external TextTrackList get textTracks;
+
+  /// @AvailableInWorkers("window_and_dedicated")
+  ///
   /// The **`appendWindowStart`** property of the
   /// [SourceBuffer] interface controls the timestamp for the start of the
   /// [append window](https://w3c.github.io/media-source/#append-window), a
@@ -394,4 +401,43 @@ extension type SourceBufferList._(JSObject _) implements EventTarget, JSObject {
   external set onaddsourcebuffer(EventHandler value);
   external EventHandler get onremovesourcebuffer;
   external set onremovesourcebuffer(EventHandler value);
+}
+extension type ManagedMediaSource._(JSObject _)
+    implements MediaSource, JSObject {
+  external factory ManagedMediaSource();
+
+  external bool get streaming;
+  external EventHandler get onstartstreaming;
+  external set onstartstreaming(EventHandler value);
+  external EventHandler get onendstreaming;
+  external set onendstreaming(EventHandler value);
+}
+extension type BufferedChangeEvent._(JSObject _) implements Event, JSObject {
+  external factory BufferedChangeEvent(
+    String type, [
+    BufferedChangeEventInit eventInitDict,
+  ]);
+
+  external TimeRanges get addedRanges;
+  external TimeRanges get removedRanges;
+}
+extension type BufferedChangeEventInit._(JSObject _)
+    implements EventInit, JSObject {
+  external factory BufferedChangeEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
+    TimeRanges addedRanges,
+    TimeRanges removedRanges,
+  });
+
+  external TimeRanges get addedRanges;
+  external set addedRanges(TimeRanges value);
+  external TimeRanges get removedRanges;
+  external set removedRanges(TimeRanges value);
+}
+extension type ManagedSourceBuffer._(JSObject _)
+    implements SourceBuffer, JSObject {
+  external EventHandler get onbufferedchange;
+  external set onbufferedchange(EventHandler value);
 }

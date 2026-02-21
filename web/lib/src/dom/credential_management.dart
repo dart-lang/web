@@ -42,6 +42,8 @@ typedef CredentialMediationRequirement = String;
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Credential).
 extension type Credential._(JSObject _) implements JSObject {
+  external static JSPromise<JSBoolean> isConditionalMediationAvailable();
+
   /// The **`id`** read-only property of the [Credential] interface returns a
   /// string containing the credential's identifier. This might be a GUID,
   /// username, or email address, or some other value, depending on the type of
@@ -150,6 +152,7 @@ extension type CredentialData._(JSObject _) implements JSObject {
 extension type CredentialRequestOptions._(JSObject _) implements JSObject {
   external factory CredentialRequestOptions({
     CredentialMediationRequirement mediation,
+    String uiMode,
     AbortSignal signal,
     bool password,
     FederatedCredentialRequestOptions federated,
@@ -161,6 +164,8 @@ extension type CredentialRequestOptions._(JSObject _) implements JSObject {
 
   external CredentialMediationRequirement get mediation;
   external set mediation(CredentialMediationRequirement value);
+  external String get uiMode;
+  external set uiMode(String value);
   external AbortSignal get signal;
   external set signal(AbortSignal value);
   external bool get password;
@@ -182,6 +187,7 @@ extension type CredentialCreationOptions._(JSObject _) implements JSObject {
     AbortSignal signal,
     PasswordCredentialInit password,
     FederatedCredentialInit federated,
+    DigitalCredentialCreationOptions digital,
     PublicKeyCredentialCreationOptions publicKey,
   });
 
@@ -193,8 +199,48 @@ extension type CredentialCreationOptions._(JSObject _) implements JSObject {
   external set password(PasswordCredentialInit value);
   external FederatedCredentialInit get federated;
   external set federated(FederatedCredentialInit value);
+  external DigitalCredentialCreationOptions get digital;
+  external set digital(DigitalCredentialCreationOptions value);
   external PublicKeyCredentialCreationOptions get publicKey;
   external set publicKey(PublicKeyCredentialCreationOptions value);
+}
+
+/// The **`PasswordCredential`** interface of the
+/// [Credential Management API](https://developer.mozilla.org/en-US/docs/Web/API/Credential_Management_API)
+/// provides information about a username/password pair. In supporting browsers
+/// an instance of this class may be passed in the `credential` member of the
+/// `init` object for global [Window.fetch].
+///
+/// > [!NOTE]
+/// > This interface is restricted to top-level contexts and cannot be used from
+/// > an `iframe`.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PasswordCredential).
+extension type PasswordCredential._(JSObject _)
+    implements Credential, JSObject {
+  external factory PasswordCredential(JSObject dataOrForm);
+
+  /// The **`password`** read-only property
+  /// of the [PasswordCredential] interface returns a string
+  /// containing the password of the credential.
+  external String get password;
+
+  /// The **`name`** read-only property of
+  /// the [PasswordCredential] interface returns a string
+  /// containing a human-readable public name for display in a credential
+  /// chooser.
+  external String get name;
+
+  /// The **`iconURL`** read-only property
+  /// of the [PasswordCredential] interface returns a string
+  /// containing a URL pointing to an image for an icon. This image is intended
+  /// for display
+  /// in a credential chooser. The URL must be accessible without
+  /// authentication.
+  external String get iconURL;
 }
 extension type PasswordCredentialData._(JSObject _)
     implements CredentialData, JSObject {
@@ -214,6 +260,48 @@ extension type PasswordCredentialData._(JSObject _)
   external set origin(String value);
   external String get password;
   external set password(String value);
+}
+
+/// The **`FederatedCredential`** interface of the
+/// [Credential Management API](https://developer.mozilla.org/en-US/docs/Web/API/Credential_Management_API)
+/// provides information about credentials from a federated identity provider. A
+/// federated identity provider is an entity that a website trusts to correctly
+/// authenticate a user, and that provides an API for that purpose.
+/// [OpenID Connect](https://openid.net/developers/specs/) is an example of a
+/// federated identity provider framework.
+///
+/// > [!NOTE]
+/// > The [Federated Credential Management API
+/// > (FedCM)](https://developer.mozilla.org/en-US/docs/Web/API/FedCM_API)
+/// > provides a more complete solution for handling identity federation in the
+/// > browser, and uses the [IdentityCredential] type.
+///
+/// In browsers that support it, an instance of this interface may be passed in
+/// the `credential` member of the `init` object for global [Window.fetch].
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/FederatedCredential).
+extension type FederatedCredential._(JSObject _)
+    implements Credential, JSObject {
+  external factory FederatedCredential(FederatedCredentialInit data);
+
+  /// The **`provider`** property of the
+  /// [FederatedCredential] interface returns a string
+  /// containing a credential's federated identity provider.
+  external String get provider;
+
+  /// The **`protocol`** property of the
+  /// [FederatedCredential] interface returns a read-only
+  /// string containing a credential's federated identity protocol. If this
+  /// property is
+  /// [`null`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/null),
+  /// the protocol may be inferred from the
+  /// [FederatedCredential.provider] property.
+  external String? get protocol;
+  external String get name;
+  external String get iconURL;
 }
 extension type FederatedCredentialRequestOptions._(JSObject _)
     implements JSObject {

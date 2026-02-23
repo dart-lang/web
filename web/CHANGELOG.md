@@ -11,6 +11,7 @@
 - Added `childNodesAsList` to `Node` and `childrenAsList` to `Element` via 
   extensions to support mutable operations on node lists.
 - Added `asList` to `NodeList` via extension.
+- Removed `CustomEventProviders`. Moved these events to `EventStreamProviders`.
 
 ## 1.1.1
 

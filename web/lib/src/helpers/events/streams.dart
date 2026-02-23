@@ -6,7 +6,6 @@ import 'dart:async';
 import 'dart:js_interop';
 
 import '../../dom.dart' as html;
-import '../../helpers.dart' show Device;
 
 /// Helper class used to create streams abstracting DOM events. This is a
 /// piece of the helper layer directly derived from a similar feature in
@@ -147,21 +146,11 @@ class _EventStreamSubscription<T extends html.Event>
   html.EventListener? _onData;
   final bool _useCapture;
 
-  // TODO(leafp): It would be better to write this as
-  // _onData = onData == null ? null :
-  //   onData is void Function(Event)
-  //     ? _wrapZone<Event>(onData)
-  //     : _wrapZone<Event>((e) => onData(e as T))
-  // In order to support existing tests which pass the wrong type of events but
-  // use a more general listener, without causing as much slowdown for things
-  // which are typed correctly.  But this currently runs afoul of restrictions
-  // on is checks for compatibility with the VM.
   _EventStreamSubscription(
       this._target, this._eventType, void Function(T)? onData, this._useCapture)
       : _onData = onData == null
             ? null
-            // ignore: avoid_dynamic_calls
-            : _wrapZone<html.Event>((e) => (onData as dynamic)(e))?.toJS {
+            : _wrapZone<html.Event>((e) => onData(e as T))?.toJS {
     _tryResume();
   }
 
@@ -213,8 +202,7 @@ class _EventStreamSubscription<T extends html.Event>
     _unlisten();
     _onData = handleData == null
         ? null
-        // ignore: avoid_dynamic_calls
-        : _wrapZone<html.Event>((e) => (handleData as dynamic)(e))?.toJS;
+        : _wrapZone<html.Event>((e) => handleData(e as T))?.toJS;
     _tryResume();
   }
 
@@ -265,194 +253,11 @@ class _EventStreamSubscription<T extends html.Event>
       Completer<E>().future;
 }
 
-/// Base class that supports listening for and dispatching browser events.
-///
-/// Normally events are accessed via the Stream getter:
-///
-///     element.onMouseOver.listen((e) => print('Mouse over!'));
-///
-/// To access bubbling events which are declared on one element, but may bubble
-/// up to another element type (common for MediaElement events):
-///
-///     MediaElement.pauseEvent.forTarget(document.body).listen(...);
-///
-/// To useCapture on events:
-///
-///     Element.keyDownEvent.forTarget(element, useCapture: true).listen(...);
-///
-/// Custom events can be declared as:
-///
-///     class DataGenerator {
-///       static EventStreamProvider<Event> dataEvent =
-///           new EventStreamProvider('data');
-///     }
-///
-/// Then listeners should access the event with:
-///
-///     DataGenerator.dataEvent.forTarget(element).listen(...);
-///
-/// Custom events can also be accessed as:
-///
-///     element.on['some_event'].listen(...);
-///
-/// This approach is generally discouraged as it loses the event typing and
-/// some DOM events may have multiple platform-dependent event names under the
-/// covers. By using the standard Stream getters you will get the platform
-/// specific event name automatically.
-class Events {
-  final html.EventTarget _ptr;
-
-  Events(this._ptr);
-
-  Stream<html.Event> operator [](String type) =>
-      _EventStream(_ptr, type, false);
-}
-
-class ElementEvents extends Events {
-  static final _webkitEvents = {
-    'animationend': 'webkitAnimationEnd',
-    'animationiteration': 'webkitAnimationIteration',
-    'animationstart': 'webkitAnimationStart',
-    'fullscreenchange': 'webkitfullscreenchange',
-    'fullscreenerror': 'webkitfullscreenerror',
-    'keyadded': 'webkitkeyadded',
-    'keyerror': 'webkitkeyerror',
-    'keymessage': 'webkitkeymessage',
-    'needkey': 'webkitneedkey',
-    'pointerlockchange': 'webkitpointerlockchange',
-    'pointerlockerror': 'webkitpointerlockerror',
-    'resourcetimingbufferfull': 'webkitresourcetimingbufferfull',
-    'transitionend': 'webkitTransitionEnd',
-    'speechchange': 'webkitSpeechChange'
-  };
-
-  ElementEvents(html.Element super.ptr);
-
-  @override
-  Stream<html.Event> operator [](String type) {
-    if (_webkitEvents.keys.contains(type.toLowerCase())) {
-      if (Device.isWebKit) {
-        return _ElementEventStreamImpl(
-            _ptr, _webkitEvents[type.toLowerCase()]!, false);
-      }
-    }
-    return _ElementEventStreamImpl(_ptr, type, false);
-  }
-}
-
-/// Helper class to implement custom events which wrap DOM events.
-// TODO(b/261997228): Add support for CustomEvents now that WrappedEvent is not
-// implementing the JS interop html.Event type.
-class WrappedEvent {
-  final html.Event wrapped;
-
-  /// The CSS selector involved with event delegation.
-  String? _selector;
-
-  WrappedEvent(this.wrapped);
-
-  bool get bubbles => wrapped.bubbles;
-
-  bool get cancelable => wrapped.cancelable;
-
-  bool get composed => wrapped.composed;
-
-  html.EventTarget? get currentTarget => wrapped.currentTarget;
-
-  bool get defaultPrevented => wrapped.defaultPrevented;
-
-  int get eventPhase => wrapped.eventPhase;
-
-  bool get isTrusted => wrapped.isTrusted;
-
-  html.EventTarget? get target => wrapped.target;
-
-  double get timeStamp => wrapped.timeStamp.toDouble();
-
-  String get type => wrapped.type;
-
-  void preventDefault() {
-    wrapped.preventDefault();
-  }
-
-  void stopImmediatePropagation() {
-    wrapped.stopImmediatePropagation();
-  }
-
-  void stopPropagation() {
-    wrapped.stopPropagation();
-  }
-
-  List<html.EventTarget> composedPath() =>
-      wrapped.composedPath().toDart.cast<html.EventTarget>();
-
-  html.Element get matchingTarget {
-    if (_selector == null) {
-      throw UnsupportedError('Cannot call matchingTarget if this Event did'
-          ' not arise as a result of event delegation.');
-    }
-    final currentTarget = this.currentTarget as html.Element?;
-    var target = this.target as html.Element?;
-    do {
-      if (target!.matches(_selector!)) return target;
-      target = target.parentElement;
-    } while (target != null && target != currentTarget!.parentElement);
-    throw StateError('No selector matched for populating matchedTarget.');
-  }
-}
-
 void Function(T)? _wrapZone<T>(void Function(T)? callback) {
   // For performance reasons avoid wrapping if we are in the root zone.
   if (Zone.current == Zone.root) return callback;
   if (callback == null) return null;
   return Zone.current.bindUnaryCallbackGuarded(callback);
-}
-
-void Function(T1, T2)? wrapBinaryZone<T1, T2>(void Function(T1, T2)? callback) {
-  // For performance reasons avoid wrapping if we are in the root zone.
-  if (Zone.current == Zone.root) return callback;
-  if (callback == null) return null;
-  return Zone.current.bindBinaryCallbackGuarded(callback);
-}
-
-/// A stream of custom events, which enables the user to "fire" (add) their own
-/// custom events to a stream.
-abstract class CustomStream<T extends html.Event> implements Stream<T> {
-  /// Add the following custom event to the stream for dispatching to interested
-  /// listeners.
-  void add(T event);
-}
-
-class CustomEventStreamImpl<T extends html.Event> extends Stream<T>
-    implements CustomStream<T> {
-  StreamController<T> streamController;
-
-  /// The type of event this stream is providing (e.g. "keydown").
-  String type;
-
-  CustomEventStreamImpl(this.type)
-      : streamController = StreamController.broadcast(sync: true);
-
-  // Delegate all regular Stream behavior to our wrapped Stream.
-  @override
-  StreamSubscription<T> listen(void Function(T)? onData,
-          {Function? onError, void Function()? onDone, bool? cancelOnError}) =>
-      streamController.stream.listen(onData,
-          onError: onError, onDone: onDone, cancelOnError: cancelOnError);
-
-  @override
-  Stream<T> asBroadcastStream(
-          {void Function(StreamSubscription<T>)? onListen,
-          void Function(StreamSubscription<T>)? onCancel}) =>
-      streamController.stream;
-
-  @override
-  bool get isBroadcast => true;
-
-  @override
-  void add(T event) {
-    if (event.type == type) streamController.add(event);
-  }
 }
 
 /// A factory to expose DOM events as streams, where the DOM event name has to

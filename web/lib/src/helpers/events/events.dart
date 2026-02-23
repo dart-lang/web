@@ -384,28 +384,28 @@ extension DocumentEventGetters on Document {
 
 extension ElementCustomEvents on Element {
   ElementStream<WheelEvent> get onMouseWheel =>
-      CustomEventProviders.mouseWheelEvent.forElement(this);
+      EventStreamProviders.mouseWheelEvent.forElement(this);
 
   ElementStream<TransitionEvent> get onTransitionEnd =>
-      CustomEventProviders.transitionEndEvent.forElement(this);
+      EventStreamProviders.transitionEndEvent.forElement(this);
 }
 
 extension DocumentCustomEvents on Document {
   Stream<Event> get onLoad => EventStreamProviders.loadEvent.forTarget(this);
 
   Stream<WheelEvent> get onMouseWheel =>
-      CustomEventProviders.mouseWheelEvent.forTarget(this);
+      EventStreamProviders.mouseWheelEvent.forTarget(this);
 
   Stream<Event> get onVisibilityChange =>
-      CustomEventProviders.visibilityChangeEvent.forTarget(this);
+      EventStreamProviders.visibilityChangeEvent.forTarget(this);
 }
 
 extension WindowCustomEvents on Window {
   Stream<WheelEvent> get onMouseWheel =>
-      CustomEventProviders.mouseWheelEvent.forTarget(this);
+      EventStreamProviders.mouseWheelEvent.forTarget(this);
 
   Stream<TransitionEvent> get onTransitionEnd =>
-      CustomEventProviders.transitionEndEvent.forTarget(this);
+      EventStreamProviders.transitionEndEvent.forTarget(this);
 }
 
 extension WebSocketEvents on WebSocket {

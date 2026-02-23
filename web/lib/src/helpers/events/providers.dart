@@ -589,7 +589,7 @@ abstract final class EventStreamProviders {
       EventStreamProvider<ProgressEvent>('writestart');
 }
 
-class CustomEventProviders {
+abstract final class CustomEventProviders {
   /// Expose custom EventStreamProvider for `mousewheel`.
   static const EventStreamProvider<WheelEvent> mouseWheelEvent =
       CustomEventStreamProvider<WheelEvent>(_determineMouseWheelEventType);

@@ -150,11 +150,7 @@ class _EventStreamSubscription<T extends html.Event>
       this._target, this._eventType, void Function(T)? onData, this._useCapture)
       : _onData = onData == null
             ? null
-            : _wrapZone<html.Event>(
-                onData is void Function(html.Event)
-                    ? onData
-                    : (e) => onData(e as T),
-              )?.toJS {
+            : _wrapZone<html.Event>((e) => onData(e as T))?.toJS {
     _tryResume();
   }
 
@@ -206,11 +202,7 @@ class _EventStreamSubscription<T extends html.Event>
     _unlisten();
     _onData = handleData == null
         ? null
-        : _wrapZone<html.Event>(
-            handleData is void Function(html.Event)
-                ? handleData
-                : (e) => handleData(e as T),
-          )?.toJS;
+        : _wrapZone<html.Event>((e) => handleData(e as T))?.toJS;
     _tryResume();
   }
 

@@ -678,29 +678,6 @@ class NamespaceDeclaration extends NestableDeclaration
       }
     }
 
-    // namespace refs
-    for (final NamespaceDeclaration(
-          name: namespaceName,
-          dartName: namespaceDartName,
-        )
-        in namespaceDeclarations) {
-      methods.add(
-        Method(
-          (m) => m
-            ..name = namespaceDartName ?? namespaceName
-            ..annotations.addAll([
-              generateJSAnnotation('$qualifiedName.$namespaceName'),
-            ])
-            ..type = MethodType.getter
-            ..returns = refer(
-              '${completedDartName}_${namespaceDartName ?? namespaceName}',
-            )
-            ..external = true
-            ..static = true,
-        ),
-      );
-    }
-
     // class refs
     // TODO(nikeokoronkwo): Enum support
     for (final nestable in nestableDeclarations) {

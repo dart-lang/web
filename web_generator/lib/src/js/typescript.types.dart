@@ -15,6 +15,11 @@ import 'annotations.dart';
 import 'helpers.dart';
 import 'typescript.dart';
 
+// TODO: add other flags as needed
+extension type const TSTypeFlags._(int _) implements int {
+  static const TSTypeFlags BooleanLiteral = TSTypeFlags._(512);
+}
+
 extension type const TSSyntaxKind._(num _) {
   /// To be ignored
   static const TSSyntaxKind EndOfFileToken = TSSyntaxKind._(1);
@@ -100,6 +105,7 @@ extension type const TSSyntaxKind._(num _) {
   static const TSSyntaxKind ParenthesizedType = TSSyntaxKind._(197);
   static const TSSyntaxKind ThisType = TSSyntaxKind._(198);
   static const TSSyntaxKind TypeOperator = TSSyntaxKind._(199);
+  static const TSSyntaxKind IndexedAccessType = TSSyntaxKind._(200);
   static const TSSyntaxKind LiteralType = TSSyntaxKind._(202);
   static const TSSyntaxKind NamedTupleMember = TSSyntaxKind._(203);
 
@@ -195,6 +201,15 @@ extension type TSLiteralTypeNode._(JSObject _) implements TSTypeNode {
   TSSyntaxKind get kind => TSSyntaxKind.LiteralType;
 
   external TSLiteral get literal;
+}
+
+@JS('IndexedAccessType')
+extension type TSIndexedAccessType._(JSObject _) implements TSTypeNode {
+  @redeclare
+  TSSyntaxKind get kind => TSSyntaxKind.IndexedAccessType;
+
+  external TSTypeNode get objectType;
+  external TSTypeNode get indexType;
 }
 
 @JS('ParenthesizedTypeNode')
@@ -736,4 +751,30 @@ extension type TSType._(JSObject _) implements JSObject {
   external TSSymbol get symbol;
   external TSSymbol? get aliasSymbol;
   external bool isTypeParameter();
+  external TSTypeFlags get flags;
+  external bool isLiteral();
+  external bool isStringLiteral();
+  external bool isNumberLiteral();
+  external bool isUnion();
+  external bool isIntersection();
 }
+
+@JS('LiteralType')
+extension type TSLiteralType._(JSObject _) implements TSType {
+  external JSAny? get value;
+  // value can be string too, but we might need specific types for that
+}
+
+@JS('NumberLiteralType')
+extension type TSNumberLiteralType._(JSObject _) implements TSLiteralType {
+  @redeclare
+  external num get value;
+}
+
+@JS('StringLiteralType')
+extension type TSStringLiteralType._(JSObject _) implements TSLiteralType {
+  @redeclare
+  external String get value;
+}
+
+// Boolean literal types often just have the flag and maybe an 'intrinsicName'

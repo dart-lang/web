@@ -426,16 +426,21 @@ class Transformer {
     final name = typeDecl.name.text;
 
     final modifiers = typeDecl.modifiers?.toDart;
-    var isExported = false;
-    var isAbstract = false;
 
-    for (final mod in modifiers ?? <TSNode>[]) {
-      if (mod.kind == TSSyntaxKind.ExportKeyword) {
-        isExported = true;
-      } else if (mod.kind == TSSyntaxKind.AbstractKeyword) {
-        isAbstract = true;
+    ({bool isExported, bool isAbstract}) parseModifiers(List<TSNode>? mods) {
+      var exported = false;
+      var abstract = false;
+      for (final mod in mods ?? <TSNode>[]) {
+        if (mod.kind == TSSyntaxKind.ExportKeyword) {
+          exported = true;
+        } else if (mod.kind == TSSyntaxKind.AbstractKeyword) {
+          abstract = true;
+        }
       }
+      return (isExported: exported, isAbstract: abstract);
     }
+
+    final (:isExported, :isAbstract) = parseModifiers(modifiers);
 
     final heritageClauses = typeDecl.heritageClauses?.toDart ?? [];
 
@@ -594,10 +599,9 @@ class Transformer {
     final name = nameNode.kind == TSSyntaxKind.Identifier
         ? (nameNode as TSIdentifier).text
         : (nameNode as TSLiteralExpression).text;
-    var nameForDart = name;
-    if (nameNode.kind == TSSyntaxKind.StringLiteral) {
-      nameForDart = dartRename(_toCamelCase(name));
-    }
+    final nameForDart = nameNode.kind == TSSyntaxKind.StringLiteral
+        ? dartRename(_toCamelCase(name))
+        : name;
 
     final (:id, name: dartName) = parentNamer.makeUnique(nameForDart, 'var');
 
@@ -1364,12 +1368,42 @@ class Transformer {
   // TODO(nikeokoronkwo): Add support for constructor and function types,
   //  https://github.com/dart-lang/web/issues/410
   //  https://github.com/dart-lang/web/issues/422
+
   Type _transformType(
     TSTypeNode type, {
     bool parameter = false,
     bool typeArg = false,
     bool? isNullable,
   }) {
+    LiteralType literalFromNum(num value) => LiteralType(
+      isNullable: isNullable ?? false,
+      kind: value is int ? LiteralKind.int : LiteralKind.double,
+      value: value,
+    );
+
+    LiteralType literalFromString(String value) => LiteralType(
+      isNullable: isNullable ?? false,
+      kind: LiteralKind.string,
+      value: value,
+    );
+
+    LiteralType literalFromBool(bool value) => LiteralType(
+      isNullable: isNullable ?? false,
+      kind: value ? LiteralKind.$true : LiteralKind.$false,
+      value: value,
+    );
+
+    LiteralType literalFromNull() {
+      // Null literals usually come through the syntax path.
+      // This fallback handling is for completeness
+      // and safety in resolved paths.
+      return LiteralType(
+        isNullable: isNullable ?? false,
+        kind: LiteralKind.$null,
+        value: null,
+      );
+    }
+
     switch (type.kind) {
       case TSSyntaxKind.ParenthesizedType:
         return _transformType(
@@ -1742,34 +1776,59 @@ class Transformer {
         final literalType = type as TSLiteralTypeNode;
         final literal = literalType.literal;
 
-        return LiteralType(
-          isNullable: isNullable ?? false,
-          kind: switch (literal.kind) {
-            // TODO: Will we support Regex?
-            TSSyntaxKind.NumericLiteral =>
-              num.parse(literal.text) is int
-                  ? LiteralKind.int
-                  : LiteralKind.double,
-            TSSyntaxKind.StringLiteral => LiteralKind.string,
-            TSSyntaxKind.TrueKeyword => LiteralKind.$true,
-            TSSyntaxKind.FalseKeyword => LiteralKind.$false,
-            TSSyntaxKind.NullKeyword => LiteralKind.$null,
-            _ => throw UnimplementedError(
-              'Unsupported Literal Kind ${literal.kind}',
-            ),
-          },
-          value: switch (literal.kind) {
-            // TODO: Will we support Regex?
-            TSSyntaxKind.NumericLiteral => num.parse(literal.text),
-            TSSyntaxKind.StringLiteral => literal.text,
-            TSSyntaxKind.TrueKeyword => true,
-            TSSyntaxKind.FalseKeyword => false,
-            TSSyntaxKind.NullKeyword => null,
-            _ => throw UnimplementedError(
-              'Unsupported Literal Kind ${literal.kind}',
-            ),
-          },
-        );
+        // Try to handle simple literals first
+        switch (literal.kind) {
+          case TSSyntaxKind.NumericLiteral:
+            return literalFromNum(num.parse(literal.text));
+          case TSSyntaxKind.StringLiteral:
+            return literalFromString(literal.text);
+          case TSSyntaxKind.TrueKeyword:
+            return literalFromBool(true);
+          case TSSyntaxKind.FalseKeyword:
+            return literalFromBool(false);
+          case TSSyntaxKind.NullKeyword:
+            return literalFromNull();
+          default:
+            final resolvedType = typeChecker.getTypeFromTypeNode(literalType);
+
+            if (resolvedType != null) {
+              if (resolvedType.isNumberLiteral()) {
+                return literalFromNum(
+                  (resolvedType as TSNumberLiteralType).value,
+                );
+              } else if (resolvedType.isStringLiteral()) {
+                return literalFromString(
+                  (resolvedType as TSStringLiteralType).value,
+                );
+              } else if ((resolvedType.flags & TSTypeFlags.BooleanLiteral) !=
+                  0) {
+                // BooleanLiteralType may not expose its value;
+                // fall back to the type string
+                // to infer true/false.
+                final typeStr = typeChecker.typeToString(resolvedType);
+                if (typeStr == 'true' || typeStr == 'false') {
+                  return literalFromBool(typeStr == 'true');
+                }
+              }
+
+              // Fallback to underlying type if not a literal
+              final underlyingTypeNode = typeChecker.typeToTypeNode(
+                resolvedType,
+              );
+              if (underlyingTypeNode != null) {
+                return _transformType(
+                  underlyingTypeNode,
+                  //Avoid recursion if the underlying type is the same literal.
+                  //typeToTypeNode usually returns a keyword type for primitives
+                );
+              }
+            }
+
+            return BuiltinType.primitiveType(
+              PrimitiveType.any,
+              isNullable: isNullable,
+            );
+        }
       case TSSyntaxKind.TypeQuery:
         final typeQuery = type as TSTypeQueryNode;
 
@@ -1894,6 +1953,143 @@ class Transformer {
           typeArg: typeArg,
           isNullable: isNullable,
         );
+      case TSSyntaxKind.IndexedAccessType:
+        final accessNode = type as TSIndexedAccessType;
+
+        // Analyze Object Type for Local vs Remote
+        final objectType = _transformType(accessNode.objectType);
+        final isLocalType =
+            (objectType is ReferredType && objectType.url == null) ||
+            objectType is ObjectLiteralType;
+
+        final indexType = _transformType(accessNode.indexType);
+
+        Set<String> collectKeys(Type t) {
+          final keys = <String>{};
+          if (t is LiteralType) {
+            if (t.kind == LiteralKind.string) {
+              keys.add(t.value as String);
+            } else if (t.kind == LiteralKind.int ||
+                t.kind == LiteralKind.double) {
+              keys.add(t.value.toString());
+            }
+          } else if (t is HomogenousEnumType) {
+            for (final sub in t.types) {
+              keys.addAll(collectKeys(sub));
+            }
+          } else if (t is UnionType) {
+            for (final sub in t.types) {
+              keys.addAll(collectKeys(sub));
+            }
+          }
+          return keys;
+        }
+
+        final keys = collectKeys(indexType);
+
+        // Handle symbol-based keys via typeof Symbol.*
+        if (accessNode.indexType.kind == TSSyntaxKind.TypeQuery) {
+          final query = accessNode.indexType as TSTypeQueryNode;
+          final text = query.exprName.getText();
+          if (text.startsWith('Symbol.')) {
+            keys.add(text);
+          }
+        }
+
+        List<Type> lookup(Type obj, String key) {
+          final matchingTypes = <Type>[];
+          final candidates = <PropertyDeclaration>[];
+          if (obj is ObjectLiteralType) {
+            candidates.addAll(obj.properties);
+          } else if (obj is ReferredType &&
+              obj.declaration is InterfaceDeclaration) {
+            final decl = obj.declaration as InterfaceDeclaration;
+            candidates.addAll(decl.properties);
+          }
+
+          for (final prop in candidates) {
+            if (prop.name == key) {
+              matchingTypes.add(prop.type);
+            }
+          }
+          return matchingTypes;
+        }
+
+        List<Type> filterResults(List<Type> results, String key) {
+          // Filter: For Local Types, allow only Primitives unless the key is
+          // numeric (e.g. array/tuple access) or a Symbol (well-defined unique key).
+          if (!isLocalType || results.isEmpty) {
+            return results;
+          }
+
+          final isNumeric = double.tryParse(key) != null;
+          final isSymbol = key.startsWith('Symbol.');
+
+          if (isNumeric || isSymbol) {
+            return results;
+          }
+
+          const allowed = {
+            'String',
+            'num',
+            'double',
+            'bool',
+            'void',
+            'int',
+            'JSAny',
+          };
+          return results.where((t) {
+            if (t is LiteralType && t.kind == LiteralKind.$null) {
+              return true;
+            }
+            if (t is BuiltinType) return allowed.contains(t.name);
+            return false;
+          }).toList();
+        }
+
+        final matchingTypes = keys
+            .expand((key) => filterResults(lookup(objectType, key), key))
+            .toList();
+
+        if (matchingTypes.isNotEmpty) {
+          if (matchingTypes.length == 1) {
+            return matchingTypes.first..isNullable = (isNullable ?? false);
+          }
+
+          final seenIds = <String>{};
+          final types = matchingTypes
+              .where((t) => seenIds.add(t.id.toString()))
+              .toList();
+
+          if (types.length == 1) {
+            return types.first..isNullable = (isNullable ?? false);
+          }
+
+          final idMap = types.map((t) => t.id.name).join('|');
+          final expectedId = ID(type: 'type', name: idMap);
+          if (typeMap.containsKey(expectedId.toString())) {
+            return (typeMap[expectedId.toString()] as UnionType)
+              ..isNullable = (isNullable ?? false);
+          }
+
+          final typeNames = types.map((t) => t.id.name).toList();
+          final unionHash = AnonymousHasher.hashUnion(typeNames);
+          final un = UnionType(types: types, name: 'AnonymousUnion_$unionHash');
+          final unType = typeMap.putIfAbsent(expectedId.toString(), () {
+            namer.markUsed(un.declarationName);
+            return un;
+          });
+          return unType..isNullable = (isNullable ?? false);
+        }
+
+        // Strict Unsupported Behavior
+        if (errorIfUnsupported) {
+          throw UnsupportedError(
+            'IndexedAccessType resolution failed in strict mode.',
+          );
+        }
+
+        return BuiltinType.primitiveType(PrimitiveType.any, isNullable: false);
       case TSSyntaxKind.ArrayType:
         return BuiltinType.primitiveType(
           PrimitiveType.array,

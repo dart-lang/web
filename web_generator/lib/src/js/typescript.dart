@@ -206,6 +206,16 @@ extension type TSTypeChecker._(JSObject _) implements JSObject {
   external TSType? getTypeFromTypeNode(TSTypeNode type);
   external String getFullyQualifiedName(TSSymbol symbol);
   external TSType getTypeOfSymbol(TSSymbol symbol);
+  external String typeToString(
+    TSType type, [
+    TSNode? enclosingDeclaration,
+    int? flags,
+  ]);
+  external TSTypeNode? typeToTypeNode(
+    TSType type, [
+    TSNode? enclosingDeclaration,
+    int? flags,
+  ]);
 }
 
 // TODO: Can we make use of `FileReference`s

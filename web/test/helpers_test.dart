@@ -289,4 +289,51 @@ void main() {
   test('Uri.toJS throws an ArgumentError for a relative URL', () {
     expect(() => Uri.parse('/path').toJS, throwsArgumentError);
   });
+
+  group('EventStreamProvider and stream type casting', () {
+    test('works with explicit correct types (Event and MouseEvent)', () async {
+      final div = document.createElement('div') as HTMLElement;
+      document.body!.append(div);
+
+      var eventFired = false;
+
+      // Use the generic Element.clickEvent which yields Web's Event.
+      final subscription = const EventStreamProvider<Event>('click')
+          .forElement(div)
+          .listen((Event e) {
+        eventFired = true;
+      });
+
+      div.click();
+
+      // Give the event loop a moment
+      await Future<void>.delayed(Duration.zero);
+      expect(eventFired, isTrue);
+
+      await subscription.cancel();
+      div.remove();
+    });
+
+    test('works when listener is dynamically typed as Function(dynamic)',
+        () async {
+      final div = document.createElement('div') as HTMLElement;
+      document.body!.append(div);
+
+      var eventFired = false;
+
+      // Listener takes 'dynamic'. Our fix checked `is void Function(Event)`.
+      final subscription = const EventStreamProvider<Event>('click')
+          .forElement(div)
+          .listen(((dynamic e) {
+            eventFired = true;
+          }) as void Function(Event));
+
+      div.click();
+      await Future<void>.delayed(Duration.zero);
+      expect(eventFired, isTrue);
+
+      await subscription.cancel();
+      div.remove();
+    });
+  });
 }

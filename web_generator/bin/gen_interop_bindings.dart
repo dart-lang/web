@@ -2,12 +2,17 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:args/args.dart';
+import 'package:collection/collection.dart';
 import 'package:io/ansi.dart' as ansi;
 import 'package:io/io.dart';
 import 'package:path/path.dart' as p;
+import 'package:source_map_stack_trace/source_map_stack_trace.dart';
+import 'package:source_maps/parser.dart' as sm;
+import 'package:stack_trace/stack_trace.dart';
 import 'package:web_generator/src/cli.dart';
 
 void main(List<String> arguments) async {
@@ -48,61 +53,101 @@ $_usage''');
 
   final contextFile = await createJsTypeSupertypeContext();
 
-  // Compute JS type supertypes for union calculation in translator.
-  await generateJsTypeSupertypes(contextFile.path);
+  try {
+    // Compute JS type supertypes for union calculation in translator.
+    await generateJsTypeSupertypes(contextFile.path);
 
-  if (argResult.flag('compile')) {
-    // Compile Dart to Javascript.
-    await compileDartMain();
+    if (argResult.flag('compile')) {
+      // Compile Dart to Javascript.
+      await compileDartMain();
+    }
+
+    final inputFiles = argResult.rest;
+    if (inputFiles.isEmpty) {
+      print('Pass an input file to get started');
+      print(_usage);
+      exit(1);
+    }
+    final specifiedOutput = argResult.option('output');
+    final outputFile =
+        specifiedOutput ??
+        (inputFiles.length > 1
+            ? p.join(p.current, inputFiles.first.replaceAll('.d.ts', '.dart'))
+            : p.join(
+                p.current,
+                inputFiles.single.replaceAll('.d.ts', '.dart'),
+              ));
+    final defaultWebGenConfigPath = p.join(p.current, 'webgen.yaml');
+    final configFile =
+        argResult.option('config') ??
+        (File(defaultWebGenConfigPath).existsSync()
+            ? defaultWebGenConfigPath
+            : null);
+    final relativeConfigFile = configFile != null
+        ? p.relative(configFile, from: bindingsGeneratorPath)
+        : null;
+    final relativeOutputPath = p.relative(
+      outputFile,
+      from: bindingsGeneratorPath,
+    );
+    final tsConfigPath = argResult.option('ts-config');
+    final tsConfigRelativePath = tsConfigPath != null
+        ? p.relative(tsConfigPath, from: bindingsGeneratorPath)
+        : null;
+    // Run app with `node`.
+    final process = await runProcWithResult('node', [
+      'main.mjs',
+      '--declaration',
+      if (argResult.rest.isNotEmpty) ...[
+        ...inputFiles.map(
+          (i) => '--input=${p.relative(i, from: bindingsGeneratorPath)}',
+        ),
+        '--output=$relativeOutputPath',
+      ],
+      if (tsConfigRelativePath case final tsConfig?) '--ts-config=$tsConfig',
+      if (relativeConfigFile case final config?) '--config=$config',
+      if (argResult.wasParsed('ignore-errors')) '--ignore-errors',
+      if (argResult.wasParsed('generate-all')) '--generate-all',
+      if (argResult.wasParsed('strict-unsupported')) '--strict-unsupported',
+    ], workingDirectory: bindingsGeneratorPath);
+
+    final stderrFuture = process.stderr.transform(utf8.decoder).join('\n');
+    process.stdout.transform(utf8.decoder).listen(stdout.write);
+
+    final processExitCode = await process.exitCode;
+    final processStderr = await stderrFuture;
+
+    if (processExitCode != 0) {
+      if (argResult['raw-stack-traces'] as bool ||
+          processStderr.contains('ParseError')) {
+        // only use raw stack traces
+        stderr.write(processStderr);
+        exit(processExitCode);
+      }
+
+      // split stderr along '=' line
+      final [parseStderr, transformStderr] = processStderr.split('=' * 50);
+
+      // stderr.write(parseStderr);
+      // print(transformStderr);
+
+      // read map file
+      final jsMapFile = p.join(bindingsGeneratorPath, 'dart_main.js.map');
+      final jsMap = await File(jsMapFile).readAsString();
+
+      // produce stack traces
+      final jsMapping = sm.parse(jsMap);
+      final jsTrace = Trace.parse(transformStderr);
+
+      // TODO: Is there a good way of mapping frames from node_modules or
+      //  npm packages?
+      final trace = mapStackTrace(jsMapping, jsTrace);
+      Chain.capture(() => throw Exception(trace));
+    }
+  } finally {
+    await contextFile.delete();
   }
 
-  final inputFiles = argResult.rest;
-  if (inputFiles.isEmpty) {
-    print('Pass an input file to get started');
-    print(_usage);
-    exit(1);
-  }
-  final specifiedOutput = argResult.option('output');
-  final outputFile =
-      specifiedOutput ??
-      (inputFiles.length > 1
-          ? p.join(p.current, inputFiles.first.replaceAll('.d.ts', '.dart'))
-          : p.join(p.current, inputFiles.single.replaceAll('.d.ts', '.dart')));
-  final defaultWebGenConfigPath = p.join(p.current, 'webgen.yaml');
-  final configFile =
-      argResult.option('config') ??
-      (File(defaultWebGenConfigPath).existsSync()
-          ? defaultWebGenConfigPath
-          : null);
-  final relativeConfigFile = configFile != null
-      ? p.relative(configFile, from: bindingsGeneratorPath)
-      : null;
-  final relativeOutputPath = p.relative(
-    outputFile,
-    from: bindingsGeneratorPath,
-  );
-  final tsConfigPath = argResult.option('ts-config');
-  final tsConfigRelativePath = tsConfigPath != null
-      ? p.relative(tsConfigPath, from: bindingsGeneratorPath)
-      : null;
-  // Run app with `node`.
-  await runProc('node', [
-    'main.mjs',
-    '--declaration',
-    if (argResult.rest.isNotEmpty) ...[
-      ...inputFiles.map(
-        (i) => '--input=${p.relative(i, from: bindingsGeneratorPath)}',
-      ),
-      '--output=$relativeOutputPath',
-    ],
-    if (tsConfigRelativePath case final tsConfig?) '--ts-config=$tsConfig',
-    if (relativeConfigFile case final config?) '--config=$config',
-    if (argResult.wasParsed('ignore-errors')) '--ignore-errors',
-    if (argResult.wasParsed('generate-all')) '--generate-all',
-    if (argResult.wasParsed('strict-unsupported')) '--strict-unsupported',
-  ], workingDirectory: bindingsGeneratorPath);
-
-  await contextFile.delete();
   return;
 }
 
@@ -150,5 +195,9 @@ final _parser = ArgParser()
     'config',
     hide: true,
     abbr: 'c',
-    help: 'The configuration file to use for this tool (NOTE: Unimplemented)',
+    help: 'The configuration file to use for this tool',
+  )
+  ..addFlag(
+    'raw-stack-traces',
+    help: 'Provide raw stack traces from the JS runtime',
   );

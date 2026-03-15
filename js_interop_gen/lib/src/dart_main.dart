@@ -33,6 +33,7 @@ void main(List<String> args) async {
 
   final argResult = _parser.parse(args);
 
+  // TODO: Work with Dart stack traces printed in JS
   if (argResult.wasParsed('idl')) {
     final bcdJsonPath = argResult['bcd-json'] as String?;
     if (bcdJsonPath == null) {

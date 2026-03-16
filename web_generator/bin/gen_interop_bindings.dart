@@ -125,7 +125,13 @@ $_usage''');
       }
 
       // split stderr along '=' line
-      final [parseStderr, transformStderr] = processStderr.split('=' * 50);
+      final parts = processStderr.split('=' * 50);
+      if (parts.length != 2) {
+        stderr.write('Unexpected error format from JS process. Expected separator not found or found multiple times.\n');
+        stderr.write(processStderr);
+        exit(processExitCode);
+      }
+      final [parseStderr, transformStderr] = parts;
 
       // read map file
       final jsMapFile = p.join(bindingsGeneratorPath, 'dart_main.js.map');

@@ -67,7 +67,8 @@ ParserResult parseDeclarationFiles(Config config) {
     // handle any diagnostics
     if (!ignoreErrors && diagnostics.isNotEmpty) {
       printErr(
-        'ParseError: There were some errors when parsing the given configuration file',
+        'ParseError: There were some errors when parsing the given '
+        'configuration file',
       );
       handleDiagnostics(diagnostics);
       exit(1);
@@ -91,7 +92,8 @@ ParserResult parseDeclarationFiles(Config config) {
   // handle diagnostics
   if (!ignoreErrors && diagnostics.isNotEmpty) {
     printErr(
-      'ParseError: There were some errors when parsing the given declaration file',
+      'ParseError: There were some errors when parsing the given '
+      'declaration file',
     );
     handleDiagnostics(diagnostics);
     exit(1);

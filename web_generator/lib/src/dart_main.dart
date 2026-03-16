@@ -32,6 +32,7 @@ void main(List<String> args) async {
 
   final argResult = _parser.parse(args);
 
+  // TODO: Work with Dart stack traces printed in JS
   if (argResult.wasParsed('idl')) {
     await generateIDLBindings(
       input: (argResult['input'] as List<String>).isEmpty

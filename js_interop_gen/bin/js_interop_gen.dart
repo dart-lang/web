@@ -6,7 +6,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:args/args.dart';
-import 'package:collection/collection.dart';
 import 'package:io/ansi.dart' as ansi;
 import 'package:io/io.dart';
 import 'package:js_interop_gen/src/cli.dart';
@@ -136,9 +135,6 @@ $_usage''');
 
       // split stderr along '=' line
       final [parseStderr, transformStderr] = processStderr.split('=' * 50);
-
-      // stderr.write(parseStderr);
-      // print(transformStderr);
 
       // read map file
       final jsMapFile = p.join(bindingsGeneratorPath, 'dart_main.js.map');

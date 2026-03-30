@@ -106,7 +106,10 @@ void main() {
 
   group('instance', () {
     late JSDate date;
-    setUp(() => date = JSDate.nowAsDate());
+    setUp(() {
+      date = JSDate.nowAsDate();
+      date.date = 1;
+    });
 
     test('date', () {
       date.date = 12;
@@ -196,6 +199,7 @@ void main() {
     test('toUtcString:', () => expect(date.toUtcString(), isA<String>()));
 
     test('toDart', () {
+      var date = JSDate.nowAsDate();
       var dartDate = date.toDart;
       expect(dartDate, isA<DateTime>());
       expect(dartDate.timeZoneName, equals(DateTime.now().timeZoneName));

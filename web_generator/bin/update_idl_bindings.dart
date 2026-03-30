@@ -9,7 +9,6 @@ import 'package:args/args.dart';
 import 'package:dart_style/dart_style.dart';
 import 'package:io/ansi.dart' as ansi;
 import 'package:io/io.dart';
-import 'package:package_config/package_config.dart';
 import 'package:path/path.dart' as p;
 import 'package:web_generator/src/cli.dart';
 
@@ -60,7 +59,7 @@ $_usage''');
   if (argResult['compile'] as bool) {
     final webPkgLangVersion = isSnapshot
         ? DartFormatter.latestLanguageVersion.toString()
-        : await _webPackageLanguageVersion(_webPackagePath);
+        : await getPackageLanguageVersion(_webPackagePath);
     // Compile Dart to Javascript.
     await compileDartMain(langVersion: webPkgLangVersion);
   }
@@ -153,24 +152,6 @@ $_startComment
       readmeFile.writeAsStringSync(newContent, mode: FileMode.writeOnly);
     }
   }
-}
-
-Future<String> _webPackageLanguageVersion(String pkgPath) async {
-  final packageConfig = await findPackageConfig(Directory(pkgPath));
-  if (packageConfig == null) {
-    throw StateError('No package config for "$pkgPath"');
-  }
-  final package = packageConfig.packageOf(
-    Uri.file(p.join(pkgPath, 'pubspec.yaml')),
-  );
-  if (package == null) {
-    throw StateError('No package at "$pkgPath"');
-  }
-  final languageVersion = package.languageVersion;
-  if (languageVersion == null) {
-    throw StateError('No language version "$pkgPath"');
-  }
-  return '$languageVersion.0';
 }
 
 final _webPackagePath = p.fromUri(Platform.script.resolve('../../web'));

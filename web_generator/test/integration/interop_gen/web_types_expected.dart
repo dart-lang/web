@@ -69,8 +69,7 @@ extension type AnonymousUnion_3403652<T extends _i1.JSAny?>._(_i1.JSAny _)
 extension type HTMLTransformFunc<
   T extends _i2.HTMLElement,
   R extends _i2.HTMLElement
->._(_i1.JSObject _)
-    implements _i1.JSObject {
+>._(_i1.JSObject _) implements _i1.JSObject {
   external R call(T element);
 }
 extension type EventManipulationFunc._(_i1.JSObject _) implements _i1.JSObject {

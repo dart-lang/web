@@ -215,6 +215,7 @@ class YamlConfig implements Config {
     required String filename,
     List<String>? input,
     String? output,
+    String? languageVersion,
   }) {
     List<String> inputFiles;
     final yamlInput = yaml['input'];
@@ -244,7 +245,7 @@ class YamlConfig implements Config {
       output: p.join(p.dirname(filename), (yaml['output'] ?? output) as String),
       name: yaml['name'] as String?,
       description: yaml['description'] as String?,
-      languageVersion: yaml['language_version'] as String?,
+      languageVersion: languageVersion ?? yaml['language_version'] as String?,
       preamble: yaml['preamble'] as String?,
       tsConfig: tsConfig != null
           ? jsonDecode(jsonEncode(tsConfig)) as Map<String, dynamic>

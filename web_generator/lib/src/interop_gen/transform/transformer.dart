@@ -2647,12 +2647,7 @@ class Transformer {
                 fullyQualifiedName.asName,
               );
             })
-            .reduce(
-              (prev, next) => [
-                if (prev != null) ...prev,
-                if (next != null) ...next,
-              ],
-            );
+            .reduce((prev, next) => [...?prev, ...?next]);
 
         final nodes =
             referencedDeclarations?.whereType<NamedDeclaration>().toList() ??

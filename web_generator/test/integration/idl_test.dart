@@ -11,27 +11,28 @@ import '../test_shared.dart';
 
 /// Actual test output can be found in `.dart_tool/idl`
 void main() {
-  final bindingsGenPath = p.join('lib', 'src');
   group('IDL Integration Test', () {
     final testGenFolder = p.join('test', 'integration', 'idl');
     final inputDir = Directory(testGenFolder);
     final outputDir = p.join('.dart_tool', 'idl');
 
     setUpAll(() async {
-      // set up npm
-      await runProc('npm', ['install'], workingDirectory: bindingsGenPath);
-
-      // compile file
-      await compileDartMain(dir: bindingsGenPath);
+      await compileBindingsGen();
 
       if (!(await Directory(outputDir).exists())) {
         await Directory(outputDir).create(recursive: true);
       }
     });
 
-    for (final inputFile in inputDir.listSync().whereType<File>().where(
-      (f) => p.basenameWithoutExtension(f.path).endsWith('_input'),
-    )) {
+    final inputFiles =
+        inputDir
+            .listSync()
+            .whereType<File>()
+            .where((f) => p.basenameWithoutExtension(f.path).endsWith('_input'))
+            .toList()
+          ..sort((a, b) => a.path.compareTo(b.path));
+
+    for (final inputFile in inputFiles) {
       final inputFileName = p.basenameWithoutExtension(inputFile.path);
       final inputName = inputFileName.replaceFirst('_input', '');
 

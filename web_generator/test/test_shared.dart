@@ -4,13 +4,63 @@
 
 import 'dart:io';
 
+import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
+import 'package:web_generator/src/cli.dart';
 
 const _rewriteFiles = false;
 
+/// The path to the bindings generator source code.
+final bindingsGenPath = p.join('lib', 'src');
+
+/// If the target JS file already exists and is newer than all the input Dart
+/// files, we skip the compile.
+Future<void> compileBindingsGen() async {
+  final lockFile = File(p.join(bindingsGenPath, '.compile.lock'));
+  final raf = await lockFile.open(mode: FileMode.write);
+  await raf.lock(FileLock.blockingExclusive);
+  try {
+    if (!_needsCompile()) return;
+
+    // set up npm
+    await runProc('npm', ['install'], workingDirectory: bindingsGenPath);
+
+    // compile file
+    await compileDartMain(dir: bindingsGenPath);
+  } finally {
+    await raf.unlock();
+    await raf.close();
+  }
+}
+
+/// Returns `true` if the JS file needs to be recompiled.
+///
+/// Based on the file change times of the Dart files in `bindingsGenPath`.
+bool _needsCompile() {
+  final jsFile = File(p.join(bindingsGenPath, 'dart_main.js'));
+  if (!jsFile.existsSync()) return true;
+
+  final jsStat = jsFile.statSync();
+  final srcDir = Directory(bindingsGenPath);
+  for (final file in srcDir.listSync(recursive: true)) {
+    if (file is File && file.path.endsWith('.dart')) {
+      if (file.statSync().modified.isAfter(jsStat.modified)) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
 void expectFilesEqual(String expectedPath, String actualPath) {
   final expectedFile = File(expectedPath);
-  final actual = File(actualPath).readAsStringSync();
+  final actualFile = File(actualPath);
+
+  if (!actualFile.existsSync()) {
+    fail('Generated file not found: $actualPath');
+  }
+
+  final actual = actualFile.readAsStringSync();
 
   if (_rewriteFiles) {
     expectedFile.writeAsStringSync(actual);
@@ -18,6 +68,10 @@ void expectFilesEqual(String expectedPath, String actualPath) {
       fail('Rewrote $expectedPath');
     });
   } else {
-    expect(actual, expectedFile.readAsStringSync());
+    expect(
+      actual,
+      expectedFile.readAsStringSync(),
+      reason: 'Output did not match expected file in $expectedPath',
+    );
   }
 }

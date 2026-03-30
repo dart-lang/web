@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:collection';
+import 'dart:convert';
 import 'dart:io';
 import 'dart:isolate';
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
@@ -10,6 +11,7 @@ import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:io/ansi.dart' as ansi;
+import 'package:package_config/package_config.dart';
 
 import 'package:path/path.dart' as p;
 
@@ -17,13 +19,40 @@ final bindingsGeneratorPath = p.fromUri(
   Isolate.resolvePackageUriSync(Uri.parse('package:web_generator/src')),
 );
 
+final _webGeneratorRoot = p.dirname(p.dirname(bindingsGeneratorPath));
+
+Future<String> getPackageLanguageVersion(String pkgPath) async {
+  final packageConfig = await findPackageConfig(Directory(pkgPath));
+  if (packageConfig == null) {
+    throw StateError('No package config for "$pkgPath"');
+  }
+  final package = packageConfig.packageOf(
+    Uri.file(p.join(pkgPath, 'pubspec.yaml')),
+  );
+  if (package == null) {
+    throw StateError('No package at "$pkgPath"');
+  }
+  final languageVersion = package.languageVersion;
+  if (languageVersion == null) {
+    throw StateError('No language version "$pkgPath"');
+  }
+  // Force a minimum of 3.10 for stable formatting of extension types.
+  final major = languageVersion.major;
+  final minor = languageVersion.minor;
+  if (major < 3 || (major == 3 && minor < 10)) {
+    return '3.10.0';
+  }
+  return '$languageVersion.0';
+}
+
 Future<void> compileDartMain({String? langVersion, String? dir}) async {
+  langVersion ??= await getPackageLanguageVersion(_webGeneratorRoot);
   await runProc(Platform.executable, [
     'compile',
     'js',
     '--enable-asserts',
     '--server-mode',
-    if (langVersion != null) '-DlanguageVersion=$langVersion',
+    '-DlanguageVersion=$langVersion',
     'dart_main.dart',
     '-o',
     'dart_main.js',
@@ -54,10 +83,20 @@ Future<void> runProc(
   final proc = await Process.start(
     executable,
     arguments,
-    mode: detached ? ProcessStartMode.detached : ProcessStartMode.inheritStdio,
+    mode: detached ? ProcessStartMode.detached : ProcessStartMode.normal,
     runInShell: Platform.isWindows,
     workingDirectory: workingDirectory,
   );
+  if (!detached) {
+    proc.stdout
+        .transform(utf8.decoder)
+        .transform(const LineSplitter())
+        .listen(print);
+    proc.stderr
+        .transform(utf8.decoder)
+        .transform(const LineSplitter())
+        .listen((line) => print(ansi.red.wrap(line) ?? line));
+  }
   final procExit = await proc.exitCode;
   if (procExit != 0) {
     throw ProcessException(executable, arguments, 'Process failed', procExit);

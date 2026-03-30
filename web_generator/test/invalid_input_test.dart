@@ -15,13 +15,12 @@ import 'test_shared.dart';
 
 /// Actual test output can be found in `.dart_tool/idl`
 void main() {
-  final bindingsGenPath = p.join('lib', 'src');
   group('Interop Gen Integration Test', () {
     final testFile = p.join('test', 'assets', 'invalid.d.ts');
     final outputFile = p.join('.dart_tool', 'interop_gen', 'invalid.dart');
 
     setUp(() async {
-      await compileBindingsGen(bindingsGenPath);
+      await compileBindingsGen();
     });
 
     test('Expect Parsing to Fail', () async {

@@ -15,7 +15,6 @@ import 'test_shared.dart';
 
 /// Actual test output can be found in `.dart_tool/idl`
 void main() {
-  final bindingsGenPath = p.join('lib', 'src');
   group('Interop Gen Unsupported Test', () {
     final testFile = p.join('test', 'assets', 'unsupported_test.d.ts');
     final outputFile = p.join('.dart_tool', 'unsupported_test.dart');
@@ -26,7 +25,7 @@ void main() {
     );
 
     setUpAll(() async {
-      await compileBindingsGen(bindingsGenPath);
+      await compileBindingsGen();
     });
 
     test('Strict Unsupported', () async {

@@ -10,12 +10,17 @@ import 'package:web_generator/src/cli.dart';
 
 const _rewriteFiles = false;
 
-Future<void> compileBindingsGen(String bindingsGenPath) async {
+/// The path to the bindings generator source code.
+final bindingsGenPath = p.join('lib', 'src');
+
+/// If the target JS file already exists and is newer than all the input Dart
+/// files, we skip the compile.
+Future<void> compileBindingsGen() async {
   final lockFile = File(p.join(bindingsGenPath, '.compile.lock'));
   final raf = await lockFile.open(mode: FileMode.write);
   await raf.lock(FileLock.blockingExclusive);
   try {
-    if (!_needsCompile(bindingsGenPath)) return;
+    if (!_needsCompile()) return;
 
     // set up npm
     await runProc('npm', ['install'], workingDirectory: bindingsGenPath);
@@ -28,7 +33,10 @@ Future<void> compileBindingsGen(String bindingsGenPath) async {
   }
 }
 
-bool _needsCompile(String bindingsGenPath) {
+/// Returns `true` if the JS file needs to be recompiled.
+///
+/// Based on the file change times of the Dart files in `bindingsGenPath`.
+bool _needsCompile() {
   final jsFile = File(p.join(bindingsGenPath, 'dart_main.js'));
   if (!jsFile.existsSync()) return true;
 

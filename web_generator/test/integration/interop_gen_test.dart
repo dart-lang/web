@@ -15,14 +15,13 @@ import '../test_shared.dart';
 
 /// Actual test output can be found in `.dart_tool/idl`
 void main() {
-  final bindingsGenPath = p.join('lib', 'src');
   group('Interop Gen Integration Test', () {
     final testGenFolder = p.join('test', 'integration', 'interop_gen');
     final inputDir = Directory(testGenFolder);
     final outputDir = Directory(p.join('.dart_tool', 'interop_gen'));
 
     setUpAll(() async {
-      await compileBindingsGen(bindingsGenPath);
+      await compileBindingsGen();
 
       await outputDir.create(recursive: true);
     });
@@ -77,7 +76,7 @@ void main() {
     final outputExpectedPath = p.join(testGenFolder, 'output');
 
     setUpAll(() async {
-      await compileBindingsGen(bindingsGenPath);
+      await compileBindingsGen();
 
       await outputDir.create(recursive: true);
     });

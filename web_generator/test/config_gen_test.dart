@@ -12,14 +12,12 @@ import 'package:web_generator/src/cli.dart';
 import 'test_shared.dart';
 
 void main() {
-  final bindingsGenPath = p.join('lib', 'src');
-
   group('Config Gen Test', () {
     final assetsPath = p.join('test', 'assets');
     final outputPath = p.join('.dart_tool');
 
     setUpAll(() async {
-      await compileBindingsGen(bindingsGenPath);
+      await compileBindingsGen();
     });
 
     final inputFile = p.join(assetsPath, 'test.d.ts');

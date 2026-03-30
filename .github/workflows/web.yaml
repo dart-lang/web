@@ -38,6 +38,9 @@ jobs:
       - run: dart format --output=none --set-exit-if-changed .
         if: ${{ matrix.sdk == 'dev' }}
       - run: dart analyze --fatal-infos
+        if: ${{ matrix.sdk == 'dev' }}
+      - run: dart analyze
+        if: ${{ matrix.sdk != 'dev' }}
       - run: dart test ${{ matrix.test_config }}
 
       # Validate the 'dart fix' metadata.

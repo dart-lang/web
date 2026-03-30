@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:collection';
+import 'dart:convert';
 import 'dart:io';
 import 'dart:isolate';
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
@@ -82,10 +83,20 @@ Future<void> runProc(
   final proc = await Process.start(
     executable,
     arguments,
-    mode: detached ? ProcessStartMode.detached : ProcessStartMode.inheritStdio,
+    mode: detached ? ProcessStartMode.detached : ProcessStartMode.normal,
     runInShell: Platform.isWindows,
     workingDirectory: workingDirectory,
   );
+  if (!detached) {
+    proc.stdout
+        .transform(utf8.decoder)
+        .transform(const LineSplitter())
+        .listen(print);
+    proc.stderr
+        .transform(utf8.decoder)
+        .transform(const LineSplitter())
+        .listen((line) => print(ansi.red.wrap(line) ?? line));
+  }
   final procExit = await proc.exitCode;
   if (procExit != 0) {
     throw ProcessException(executable, arguments, 'Process failed', procExit);

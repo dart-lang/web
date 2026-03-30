@@ -10,7 +10,13 @@ const _rewriteFiles = false;
 
 void expectFilesEqual(String expectedPath, String actualPath) {
   final expectedFile = File(expectedPath);
-  final actual = File(actualPath).readAsStringSync();
+  final actualFile = File(actualPath);
+
+  if (!actualFile.existsSync()) {
+    fail('Generated file not found: $actualPath');
+  }
+
+  final actual = actualFile.readAsStringSync();
 
   if (_rewriteFiles) {
     expectedFile.writeAsStringSync(actual);
@@ -18,6 +24,10 @@ void expectFilesEqual(String expectedPath, String actualPath) {
       fail('Rewrote $expectedPath');
     });
   } else {
-    expect(actual, expectedFile.readAsStringSync());
+    expect(
+      actual,
+      expectedFile.readAsStringSync(),
+      reason: 'Output did not match expected file in $expectedPath',
+    );
   }
 }

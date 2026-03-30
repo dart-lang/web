@@ -29,9 +29,15 @@ void main() {
       }
     });
 
-    for (final inputFile in inputDir.listSync().whereType<File>().where(
-      (f) => p.basenameWithoutExtension(f.path).endsWith('_input'),
-    )) {
+    final inputFiles =
+        inputDir
+            .listSync()
+            .whereType<File>()
+            .where((f) => p.basenameWithoutExtension(f.path).endsWith('_input'))
+            .toList()
+          ..sort((a, b) => a.path.compareTo(b.path));
+
+    for (final inputFile in inputFiles) {
       final inputFileName = p.basenameWithoutExtension(inputFile.path);
       final inputName = inputFileName.replaceFirst('_input', '');
 

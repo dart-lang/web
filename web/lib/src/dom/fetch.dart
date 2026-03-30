@@ -18,7 +18,8 @@ import 'dart:js_interop';
 import 'attribution_reporting_api.dart';
 import 'dom.dart';
 import 'fileapi.dart';
-import 'private_network_access.dart';
+import 'hr_time.dart';
+import 'local_network_access.dart';
 import 'referrer_policy.dart';
 import 'streams.dart';
 import 'trust_token_api.dart';
@@ -339,6 +340,7 @@ extension type Request._(JSObject _) implements JSObject {
   /// It is also available in
   /// [service workers](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API).
   external bool get keepalive;
+  external bool get isReloadNavigation;
 
   /// The **`isHistoryNavigation`** read-only property of the [Request]
   /// interface is a boolean indicating whether the request is a history
@@ -353,6 +355,8 @@ extension type Request._(JSObject _) implements JSObject {
   /// The read-only **`signal`** property of the [Request] interface returns the
   /// [AbortSignal] associated with the request.
   external AbortSignal get signal;
+  external RequestDuplex get duplex;
+  external IPAddressSpace get targetAddressSpace;
 
   /// The **`body`** read-only property of the [Request]
   /// interface contains a [ReadableStream] with the body contents
@@ -680,4 +684,36 @@ extension type ResponseInit._(JSObject _) implements JSObject {
   external set statusText(String value);
   external HeadersInit get headers;
   external set headers(HeadersInit value);
+}
+extension type DeferredRequestInit._(JSObject _)
+    implements RequestInit, JSObject {
+  external factory DeferredRequestInit({
+    String method,
+    HeadersInit headers,
+    BodyInit? body,
+    String referrer,
+    ReferrerPolicy referrerPolicy,
+    RequestMode mode,
+    RequestCredentials credentials,
+    RequestCache cache,
+    RequestRedirect redirect,
+    String integrity,
+    bool keepalive,
+    AbortSignal? signal,
+    RequestDuplex duplex,
+    RequestPriority priority,
+    JSAny? window,
+    AttributionReportingRequestOptions attributionReporting,
+    IPAddressSpace targetAddressSpace,
+    bool sharedStorageWritable,
+    PrivateToken privateToken,
+    bool adAuctionHeaders,
+    DOMHighResTimeStamp activateAfter,
+  });
+
+  external double get activateAfter;
+  external set activateAfter(DOMHighResTimeStamp value);
+}
+extension type FetchLaterResult._(JSObject _) implements JSObject {
+  external bool get activated;
 }

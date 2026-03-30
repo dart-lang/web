@@ -18,6 +18,7 @@ import 'dart:js_interop';
 typedef MediaSessionActionHandler = JSFunction;
 typedef MediaSessionPlaybackState = String;
 typedef MediaSessionAction = String;
+typedef MediaSessionEnterPictureInPictureReason = String;
 
 /// The **`MediaSession`** interface of the [Media Session API] allows a web
 /// page to provide custom behaviors for standard media playback interactions,
@@ -78,6 +79,7 @@ extension type MediaSession._(JSObject _) implements JSObject {
   /// Note that the status of the camera is not tracked in the [MediaSession]
   /// itself, but must be tracked separately.
   external JSPromise<JSAny?> setCameraActive(bool active);
+  external JSPromise<JSAny?> setScreenshareActive(bool active);
 
   /// The **`metadata`** property of the [MediaSession]
   /// interface contains a [MediaMetadata] object providing descriptive
@@ -130,6 +132,15 @@ extension type MediaMetadata._(JSObject _) implements JSObject {
   /// media.
   external JSArray<JSObject> get artwork;
   external set artwork(JSArray<JSObject> value);
+
+  /// The **`chapterInfo`** read-only property of the [MediaMetadata] interface
+  /// returns an array of chapter information metadata associated with playing
+  /// media, represented by [ChapterInformation] object instances.
+  ///
+  /// The `chapterInfo` for a given media resource is set when it is first
+  /// created, via the `chapterInfo` property of the
+  /// [MediaMetadata.MediaMetadata] constructor's initialization object.
+  external JSArray<ChapterInformation> get chapterInfo;
 }
 extension type MediaMetadataInit._(JSObject _) implements JSObject {
   external factory MediaMetadataInit({
@@ -150,6 +161,40 @@ extension type MediaMetadataInit._(JSObject _) implements JSObject {
   external set artwork(JSArray<MediaImage> value);
   external JSArray<ChapterInformationInit> get chapterInfo;
   external set chapterInfo(JSArray<ChapterInformationInit> value);
+}
+
+/// The **`ChapterInformation`** interface of the [Media Session API] represents
+/// the metadata for an individual chapter of a media resource (i.e. a video or
+/// audio file).
+///
+/// The chapter information for a given media resource is set when it is first
+/// created, via the `chapterInfo` property of the [MediaMetadata.MediaMetadata]
+/// constructor's initialization object. The property takes an array of
+/// `ChapterInformation` objects as its value.
+///
+/// You can access the chapter information for an existing [MediaMetadata]
+/// object via its [MediaMetadata.chapterInfo] property. This returns an array
+/// of `ChapterInformation` objects.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ChapterInformation).
+extension type ChapterInformation._(JSObject _) implements JSObject {
+  /// The **`title`** read-only property of the
+  /// [ChapterInformation] interface returns a string representing the title of
+  /// the chapter.
+  external String get title;
+
+  /// The **`startTime`** read-only property of the
+  /// [ChapterInformation] interface returns a number representing the start
+  /// time of the chapter in seconds.
+  external double get startTime;
+
+  /// The **`artwork`** read-only property of the
+  /// [ChapterInformation] interface returns an `Array` of objects representing
+  /// images associated with the chapter.
+  external JSArray<MediaImage> get artwork;
 }
 extension type ChapterInformationInit._(JSObject _) implements JSObject {
   external factory ChapterInformationInit({
@@ -192,4 +237,29 @@ extension type MediaPositionState._(JSObject _) implements JSObject {
   external set playbackRate(num value);
   external double get position;
   external set position(num value);
+}
+extension type MediaSessionActionDetails._(JSObject _) implements JSObject {
+  external factory MediaSessionActionDetails({
+    required MediaSessionAction action,
+    num seekOffset,
+    num seekTime,
+    bool fastSeek,
+    bool isActivating,
+    MediaSessionEnterPictureInPictureReason enterPictureInPictureReason,
+  });
+
+  external MediaSessionAction get action;
+  external set action(MediaSessionAction value);
+  external double get seekOffset;
+  external set seekOffset(num value);
+  external double get seekTime;
+  external set seekTime(num value);
+  external bool get fastSeek;
+  external set fastSeek(bool value);
+  external bool get isActivating;
+  external set isActivating(bool value);
+  external MediaSessionEnterPictureInPictureReason
+      get enterPictureInPictureReason;
+  external set enterPictureInPictureReason(
+      MediaSessionEnterPictureInPictureReason value);
 }

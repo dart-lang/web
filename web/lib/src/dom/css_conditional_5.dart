@@ -16,6 +16,7 @@ library;
 import 'dart:js_interop';
 
 import 'css_conditional.dart';
+import 'cssom.dart';
 
 /// The **`CSSContainerRule`** interface represents a single CSS  rule.
 ///
@@ -60,4 +61,8 @@ extension type CSSContainerRule._(JSObject _)
   /// }
   /// ```
   external String get containerQuery;
+}
+extension type CSSSupportsConditionRule._(JSObject _)
+    implements CSSGroupingRule, JSObject {
+  external String get name;
 }

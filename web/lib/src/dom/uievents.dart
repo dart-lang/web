@@ -17,6 +17,7 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 import 'html.dart';
+import 'input_device_capabilities.dart';
 
 /// The **`UIEvent`** interface represents simple user interface events. It is
 /// part of the
@@ -82,6 +83,35 @@ extension type UIEvent._(JSObject _) implements Event, JSObject {
   /// For all other [UIEvent] objects, `UIEvent.detail` is always zero.
   external int get detail;
 
+  /// The **`sourceCapabilities`** read-only property of the [UIEvent] interface
+  /// returns
+  /// an instance of the [InputDeviceCapabilities] interface which provides
+  /// information about the physical device responsible for generating a touch
+  /// event. If no
+  /// input device was responsible for the event, it returns `null`.
+  ///
+  /// When a single user interaction with an input device generates a series of
+  /// different
+  /// input events, the `sourceCapabilities` property for all of them will point
+  /// to
+  /// the same instance of `InputDeviceCapabilities`. For example, when a user
+  /// lifts their finger off of a touchscreen, several UIEvents may be generated
+  /// including
+  /// `touchend`, `mousedown`, `click`, and
+  /// `focus`. All of these events must have the same
+  /// `sourceCapabilities` representing the touchscreen.
+  ///
+  /// A device is considered "responsible" for an event only when that
+  /// interaction is part of
+  /// the abstraction provided by the web platform. For example, many user
+  /// agents allow a
+  /// window to be resized with a mouse or a keyboard, but this detail is not
+  /// exposed to the
+  /// web platform in any way, and so the sourceCapabilities of a resize event
+  /// will typically
+  /// be null.
+  external InputDeviceCapabilities? get sourceCapabilities;
+
   /// The **`UIEvent.which`** read-only property of the [UIEvent] interface
   /// returns a number that indicates which button was pressed on the mouse, or
   /// the numeric `keyCode` or the character code (`charCode`) of the key
@@ -95,7 +125,7 @@ extension type UIEventInit._(JSObject _) implements EventInit, JSObject {
     bool composed,
     Window? view,
     int detail,
-    JSObject? sourceCapabilities,
+    InputDeviceCapabilities? sourceCapabilities,
     int which,
   });
 
@@ -103,8 +133,8 @@ extension type UIEventInit._(JSObject _) implements EventInit, JSObject {
   external set view(Window? value);
   external int get detail;
   external set detail(int value);
-  external JSObject? get sourceCapabilities;
-  external set sourceCapabilities(JSObject? value);
+  external InputDeviceCapabilities? get sourceCapabilities;
+  external set sourceCapabilities(InputDeviceCapabilities? value);
   external int get which;
   external set which(int value);
 }
@@ -174,411 +204,13 @@ extension type FocusEventInit._(JSObject _) implements UIEventInit, JSObject {
     bool composed,
     Window? view,
     int detail,
-    JSObject? sourceCapabilities,
+    InputDeviceCapabilities? sourceCapabilities,
     int which,
     EventTarget? relatedTarget,
   });
 
   external EventTarget? get relatedTarget;
   external set relatedTarget(EventTarget? value);
-}
-
-/// The **`MouseEvent`** interface represents events that occur due to the user
-/// interacting with a pointing device (such as a mouse).
-/// Common events using this interface include [Element.click_event],
-/// [Element.dblclick_event], [Element.mouseup_event],
-/// [Element.mousedown_event].
-///
-/// `MouseEvent` derives from [UIEvent], which in turn derives from [Event].
-/// Though the [MouseEvent.initMouseEvent] method is kept for backward
-/// compatibility, creating of a `MouseEvent` object should be done using the
-/// [MouseEvent.MouseEvent] constructor.
-///
-/// Several more specific events are based on `MouseEvent`, including
-/// [WheelEvent], [DragEvent], and [PointerEvent].
-///
-/// ---
-///
-/// API documentation sourced from
-/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent).
-extension type MouseEvent._(JSObject _) implements UIEvent, JSObject {
-  external factory MouseEvent(
-    String type, [
-    MouseEventInit eventInitDict,
-  ]);
-
-  /// The **`MouseEvent.getModifierState()`** method returns the current state
-  /// of the specified modifier key: `true` if the modifier is active (i.e., the
-  /// modifier key is pressed or locked), otherwise, `false`.
-  ///
-  /// See [KeyboardEvent.getModifierState] for details.
-  external bool getModifierState(String keyArg);
-
-  /// The **`MouseEvent.initMouseEvent()`** method initializes the
-  /// value of a mouse event once it's been created (normally using the
-  /// [Document.createEvent] method).
-  ///
-  /// > [!WARNING]
-  /// > Do not use this method anymore as it is deprecated.
-  /// >
-  /// > Instead use specific event constructors, like [MouseEvent.MouseEvent].
-  /// > The page on
-  /// > [Creating and triggering events](https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_events)
-  /// > gives more information about the way to use these.
-  ///
-  /// Events initialized in this way must have been created with the
-  /// [Document.createEvent] method.
-  /// This method must be called to set the event
-  /// before it is dispatched, using [EventTarget.dispatchEvent].
-  external void initMouseEvent(
-    String typeArg, [
-    bool bubblesArg,
-    bool cancelableArg,
-    Window? viewArg,
-    int detailArg,
-    int screenXArg,
-    int screenYArg,
-    int clientXArg,
-    int clientYArg,
-    bool ctrlKeyArg,
-    bool altKeyArg,
-    bool shiftKeyArg,
-    bool metaKeyArg,
-    int buttonArg,
-    EventTarget? relatedTargetArg,
-  ]);
-
-  /// The **`screenX`** read-only property of the [MouseEvent] interface
-  /// provides the horizontal coordinate (offset) of the mouse pointer in
-  /// [screen coordinates](https://developer.mozilla.org/en-US/docs/Web/CSS/CSSOM_view/Coordinate_systems#screen).
-  ///
-  /// > [!NOTE]
-  /// > In a multiscreen environment, screens aligned horizontally will be
-  /// > treated as a single device, and so the range of the `screenX` value will
-  /// > increase to the combined width of the screens.
-  external int get screenX;
-
-  /// The **`screenY`** read-only property of the [MouseEvent] interface
-  /// provides the vertical coordinate (offset) of the mouse pointer in
-  /// [screen coordinates](https://developer.mozilla.org/en-US/docs/Web/CSS/CSSOM_view/Coordinate_systems#screen).
-  external int get screenY;
-
-  /// The **`clientX`** read-only property of the [MouseEvent] interface
-  /// provides the horizontal coordinate within the application's  at which the
-  /// event occurred (as opposed to the coordinate within the page).
-  ///
-  /// For example, clicking on the left edge of the viewport will always result
-  /// in a mouse event with a `clientX` value of `0`, regardless of whether the
-  /// page is scrolled horizontally.
-  external int get clientX;
-
-  /// The **`clientY`** read-only property of the [MouseEvent] interface
-  /// provides the vertical coordinate within the application's  at which the
-  /// event occurred (as opposed to the coordinate within the page).
-  ///
-  /// For example, clicking on the top edge of the viewport will always result
-  /// in a mouse event with a `clientY` value of `0`, regardless of whether the
-  /// page is scrolled vertically.
-  external int get clientY;
-
-  /// The **`MouseEvent.ctrlKey`** read-only property is a boolean value that
-  /// indicates whether the <kbd>ctrl</kbd> key was pressed or not when a given
-  /// mouse event occurs.
-  ///
-  /// On Macintosh keyboards, this key is labeled the <kbd>control</kbd> key.
-  /// Also, note that on a Mac, a click combined with the <kbd>control</kbd> key
-  /// is intercepted by the operating system and used to open a context menu, so
-  /// `ctrlKey` is not detectable on click events.
-  external bool get ctrlKey;
-
-  /// The **`MouseEvent.shiftKey`** read-only property is a boolean value that
-  /// indicates whether the <kbd>shift</kbd> key was pressed or not when a given
-  /// mouse event occurs.
-  external bool get shiftKey;
-
-  /// The **`MouseEvent.altKey`** read-only property is a boolean value that
-  /// indicates whether the <kbd>alt</kbd> key was pressed or not when a given
-  /// mouse event occurs.
-  ///
-  /// Be aware that the browser can't always detect the <kbd>alt</kbd> key on
-  /// some operating systems.
-  /// On some Linux variants, for example, a left mouse click combined with the
-  /// <kbd>alt</kbd> key is used to move or resize windows.
-  ///
-  /// > [!NOTE]
-  /// > On Macintosh keyboards, this key is also known as the <kbd>option</kbd>
-  /// > key.
-  external bool get altKey;
-
-  /// The **`MouseEvent.metaKey`** read-only property is a boolean value that
-  /// indicates whether the <kbd>meta</kbd> key was pressed or not when a given
-  /// mouse event occurs.
-  ///
-  /// Be aware that many operating systems bind special functionality to the
-  /// <kbd>meta</kbd> key, so this property may be `false` even when the key is
-  /// actually pressed.
-  /// On Windows, for example, this key may open the Start menu.
-  ///
-  /// > [!NOTE]
-  /// > On Macintosh keyboards, this key is the <kbd>command</kbd> key
-  /// > (<kbd>⌘</kbd>).
-  /// > On Windows keyboards, this key is the Windows key (<kbd>⊞</kbd>).
-  external bool get metaKey;
-
-  /// The **`MouseEvent.button`** read-only property indicates which button was
-  /// pressed on the mouse to trigger the event.
-  ///
-  /// This property only guarantees to indicate which buttons are pressed during
-  /// events caused by pressing or releasing one or multiple buttons.
-  /// As such, it is not reliable for events such as [Element.mouseenter_event],
-  /// [Element.mouseleave_event], [Element.mouseover_event],
-  /// [Element.mouseout_event], or [Element.mousemove_event].
-  ///
-  /// Users may change the configuration of buttons on their pointing device so
-  /// that if an event's button property is zero, it may not have been caused by
-  /// the button that is physically left–most on the pointing device; however,
-  /// it should behave as if the left button was clicked in the standard button
-  /// layout.
-  ///
-  /// > [!NOTE]
-  /// > Do not confuse this property with the [MouseEvent.buttons] property,
-  /// > which indicates which buttons are pressed for all mouse events types.
-  external int get button;
-
-  /// The **`MouseEvent.buttons`** read-only property indicates which buttons
-  /// are pressed on the mouse (or other input device) when a mouse event is
-  /// triggered.
-  ///
-  /// Each button that can be pressed is represented by a given number (see
-  /// below).
-  /// If more than one button is pressed, the button values are added together
-  /// to produce a new number.
-  /// For example, if the secondary (`2`) and auxiliary (`4`) buttons are
-  /// pressed simultaneously, the value is `6` (i.e., `2 + 4`).
-  ///
-  /// > [!NOTE]
-  /// > Do not confuse this property with the [MouseEvent.button] property.
-  /// > The `MouseEvent.buttons` property indicates the state of buttons pressed
-  /// > during any kind of mouse event,
-  /// > while the [MouseEvent.button] property only guarantees the correct value
-  /// > for mouse events caused by pressing or releasing one or multiple
-  /// > buttons.
-  external int get buttons;
-
-  /// The **`MouseEvent.relatedTarget`** read-only property is the secondary
-  /// target for the mouse event, if there is one.
-  ///
-  /// That is:
-  ///
-  /// <table class="no-markdown">
-  ///   <thead>
-  ///     <tr>
-  ///       <th>Event name</th>
-  ///       <th><code>target</code></th>
-  ///       <th><code>relatedTarget</code></th>
-  ///     </tr>
-  ///   </thead>
-  ///   <tbody>
-  ///     <tr>
-  ///       <td>[Element.mouseenter_event]</td>
-  ///       <td>
-  /// The [EventTarget] the pointing device entered to
-  ///       </td>
-  ///       <td>
-  /// The [EventTarget] the pointing device exited from
-  ///       </td>
-  ///     </tr>
-  ///     <tr>
-  ///       <td>[Element.mouseleave_event]</td>
-  ///       <td>
-  /// The [EventTarget] the pointing device exited from
-  ///       </td>
-  ///       <td>
-  /// The [EventTarget] the pointing device entered to
-  ///       </td>
-  ///     </tr>
-  ///     <tr>
-  ///       <td>[Element.mouseout_event]</td>
-  ///       <td>
-  /// The [EventTarget] the pointing device exited from
-  ///       </td>
-  ///       <td>
-  /// The [EventTarget] the pointing device entered to
-  ///       </td>
-  ///     </tr>
-  ///     <tr>
-  ///       <td>[Element.mouseover_event]</td>
-  ///       <td>
-  /// The [EventTarget] the pointing device entered to
-  ///       </td>
-  ///       <td>
-  /// The [EventTarget] the pointing device exited from
-  ///       </td>
-  ///     </tr>
-  ///     <tr>
-  ///       <td>[HTMLElement.dragenter_event]</td>
-  ///       <td>
-  /// The [EventTarget] the pointing device entered to
-  ///       </td>
-  ///       <td>
-  /// The [EventTarget] the pointing device exited from
-  ///       </td>
-  ///     </tr>
-  ///     <tr>
-  ///       <td>[HTMLElement.dragleave_event]</td>
-  ///       <td>
-  /// The [EventTarget] the pointing device exited from
-  ///       </td>
-  ///       <td>
-  /// The [EventTarget] the pointing device entered to
-  ///       </td>
-  ///     </tr>
-  ///   </tbody>
-  /// </table>
-  ///
-  /// For events with no secondary target, `relatedTarget` returns
-  /// `null`.
-  ///
-  /// [FocusEvent.relatedTarget] is a similar property for focus events.
-  external EventTarget? get relatedTarget;
-
-  /// The **`pageX`** read-only property of the [MouseEvent] interface returns
-  /// the X (horizontal) coordinate (in pixels) at which the mouse was clicked,
-  /// relative to the left edge of the entire document.
-  /// This includes any portion of the document not currently visible.
-  ///
-  /// Being based on the edge of the document as it is, this property takes into
-  /// account any horizontal scrolling of the page.
-  /// For example, if the page is scrolled such that 200 pixels of the left side
-  /// of the document are scrolled out of view, and the mouse is clicked 100
-  /// pixels inward from the left edge of the view, the value returned by
-  /// `pageX` will be 300.
-  ///
-  /// Originally, this property was defined as a `long` integer. The
-  /// [CSSOM View Module](https://developer.mozilla.org/en-US/docs/Web/CSS/CSSOM_view)
-  /// redefined it as a
-  /// `double` float. See the [Browser compatibility](#browser_compatibility)
-  /// section for
-  /// details.
-  ///
-  /// See
-  /// [Coordinate systems](https://developer.mozilla.org/en-US/docs/Web/CSS/CSSOM_view/Coordinate_systems#page)
-  /// for additional information about coordinates specified in this fashion.
-  external double get pageX;
-
-  /// The **`pageY`** read-only property of the [MouseEvent] interface returns
-  /// the Y (vertical) coordinate (in pixels) at which the mouse was clicked,
-  /// relative to the top edge of the entire document.
-  /// This includes any portion of the document not currently visible.
-  ///
-  /// See [MouseEvent.pageX] for more information.
-  external double get pageY;
-
-  /// The **`MouseEvent.x`** property is an alias for the [MouseEvent.clientX]
-  /// property.
-  external double get x;
-
-  /// The **`MouseEvent.y`** property is an alias for the [MouseEvent.clientY]
-  /// property.
-  external double get y;
-
-  /// The **`offsetX`** read-only property of the [MouseEvent] interface
-  /// provides the offset in the X coordinate of the mouse pointer between that
-  /// event and the padding edge of the target node.
-  external double get offsetX;
-
-  /// The **`offsetY`** read-only property of the [MouseEvent] interface
-  /// provides the offset in the Y coordinate of the mouse pointer between that
-  /// event and the padding edge of the target node.
-  external double get offsetY;
-
-  /// The **`movementX`** read-only property of the [MouseEvent] interface
-  /// provides the difference in the X coordinate of the mouse pointer between
-  /// the given event and the previous [Element.mousemove_event] event.
-  /// In other words, the value of the property is computed like this:
-  /// `currentEvent.movementX = currentEvent.screenX - previousEvent.screenX`.
-  ///
-  /// > [!WARNING]
-  /// > Browsers [use different units for `movementX` and
-  /// > [MouseEvent.screenX]](https://github.com/w3c/pointerlock/issues/42) than
-  /// > what the specification defines. Depending on the browser and operating
-  /// > system, the `movementX` units may be a physical pixel, a logical pixel,
-  /// > or a CSS pixel. You may want to avoid the movement properties, and
-  /// > instead calculate the delta between the current client values
-  /// > ([MouseEvent.screenX], [MouseEvent.screenY]) and the previous client
-  /// > values.
-  external double get movementX;
-
-  /// The **`movementY`** read-only property of the [MouseEvent] interface
-  /// provides the difference in the Y coordinate of the mouse pointer between
-  /// the given event and the previous [Element.mousemove_event] event.
-  /// In other words, the value of the property is computed like this:
-  /// `currentEvent.movementY = currentEvent.screenY - previousEvent.screenY`.
-  ///
-  /// > [!WARNING]
-  /// > Browsers [use different units for `movementY` and
-  /// > [MouseEvent.screenY]](https://github.com/w3c/pointerlock/issues/42) than
-  /// > what the specification defines. Depending on the browser and operating
-  /// > system, the `movementY` units may be a physical pixel, a logical pixel,
-  /// > or a CSS pixel. You may want to avoid the movement properties, and
-  /// > instead calculate the delta between the current client values
-  /// > ([MouseEvent.screenX], [MouseEvent.screenY]) and the previous client
-  /// > values.
-  external double get movementY;
-}
-extension type MouseEventInit._(JSObject _)
-    implements EventModifierInit, JSObject {
-  external factory MouseEventInit({
-    bool bubbles,
-    bool cancelable,
-    bool composed,
-    Window? view,
-    int detail,
-    JSObject? sourceCapabilities,
-    int which,
-    bool ctrlKey,
-    bool shiftKey,
-    bool altKey,
-    bool metaKey,
-    bool modifierAltGraph,
-    bool modifierCapsLock,
-    bool modifierFn,
-    bool modifierFnLock,
-    bool modifierHyper,
-    bool modifierNumLock,
-    bool modifierScrollLock,
-    bool modifierSuper,
-    bool modifierSymbol,
-    bool modifierSymbolLock,
-    int screenX,
-    int screenY,
-    int clientX,
-    int clientY,
-    int button,
-    int buttons,
-    EventTarget? relatedTarget,
-    num movementX,
-    num movementY,
-  });
-
-  external int get screenX;
-  external set screenX(int value);
-  external int get screenY;
-  external set screenY(int value);
-  external int get clientX;
-  external set clientX(int value);
-  external int get clientY;
-  external set clientY(int value);
-  external int get button;
-  external set button(int value);
-  external int get buttons;
-  external set buttons(int value);
-  external EventTarget? get relatedTarget;
-  external set relatedTarget(EventTarget? value);
-  external double get movementX;
-  external set movementX(num value);
-  external double get movementY;
-  external set movementY(num value);
 }
 extension type EventModifierInit._(JSObject _)
     implements UIEventInit, JSObject {
@@ -588,7 +220,7 @@ extension type EventModifierInit._(JSObject _)
     bool composed,
     Window? view,
     int detail,
-    JSObject? sourceCapabilities,
+    InputDeviceCapabilities? sourceCapabilities,
     int which,
     bool ctrlKey,
     bool shiftKey,
@@ -634,118 +266,6 @@ extension type EventModifierInit._(JSObject _)
   external set modifierSymbol(bool value);
   external bool get modifierSymbolLock;
   external set modifierSymbolLock(bool value);
-}
-
-/// The **`WheelEvent`** interface represents events that occur due to the user
-/// moving a mouse wheel or similar input device.
-///
-/// > [!NOTE]
-/// > This is the standard wheel event interface to use. Old versions of
-/// > browsers implemented the non-standard and non-cross-browser-compatible
-/// > `MouseWheelEvent` and [MouseScrollEvent] interfaces. Use this interface
-/// > and avoid the non-standard ones.
-///
-/// Don't confuse the `wheel` event with the [Element.scroll_event] event:
-///
-/// - A `wheel` event doesn't necessarily dispatch a `scroll` event. For
-///   example, the element may be unscrollable at all. Zooming actions using the
-///   wheel or trackpad also fire `wheel` events.
-/// - A `scroll` event isn't necessarily triggered by a `wheel` event. Elements
-///   can also be scrolled by using the keyboard, dragging a scrollbar, or using
-///   JavaScript.
-/// - Even when the `wheel` event does trigger scrolling, the `delta*` values in
-///   the `wheel` event don't necessarily reflect the content's scrolling
-///   direction.
-///
-/// ---
-///
-/// API documentation sourced from
-/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WheelEvent).
-extension type WheelEvent._(JSObject _) implements MouseEvent, JSObject {
-  external factory WheelEvent(
-    String type, [
-    WheelEventInit eventInitDict,
-  ]);
-
-  static const int DOM_DELTA_PIXEL = 0;
-
-  static const int DOM_DELTA_LINE = 1;
-
-  static const int DOM_DELTA_PAGE = 2;
-
-  /// The **`WheelEvent.deltaX`** read-only property is a
-  /// `double` representing the horizontal scroll amount in the
-  /// [WheelEvent.deltaMode] unit.
-  external double get deltaX;
-
-  /// The **`WheelEvent.deltaY`** read-only property is a
-  /// `double` representing the vertical scroll amount in the
-  /// [WheelEvent.deltaMode] unit.
-  external double get deltaY;
-
-  /// The **`WheelEvent.deltaZ`** read-only property is a
-  /// `double` representing the scroll amount along the z-axis, in the
-  /// [WheelEvent.deltaMode] unit.
-  external double get deltaZ;
-
-  /// The **`WheelEvent.deltaMode`** read-only property returns an
-  /// `unsigned long` representing the unit of the delta values scroll amount.
-  /// Permitted values are:
-  ///
-  /// | Constant          | Value  | Description                               |
-  /// | ----------------- | ------ | ----------------------------------------- |
-  /// | `DOM_DELTA_PIXEL` | `0x00` | The delta values are specified in pixels. |
-  /// | `DOM_DELTA_LINE`  | `0x01` | The delta values are specified in lines.  |
-  /// | `DOM_DELTA_PAGE`  | `0x02` | The delta values are specified in pages.  |
-  external int get deltaMode;
-}
-extension type WheelEventInit._(JSObject _)
-    implements MouseEventInit, JSObject {
-  external factory WheelEventInit({
-    bool bubbles,
-    bool cancelable,
-    bool composed,
-    Window? view,
-    int detail,
-    JSObject? sourceCapabilities,
-    int which,
-    bool ctrlKey,
-    bool shiftKey,
-    bool altKey,
-    bool metaKey,
-    bool modifierAltGraph,
-    bool modifierCapsLock,
-    bool modifierFn,
-    bool modifierFnLock,
-    bool modifierHyper,
-    bool modifierNumLock,
-    bool modifierScrollLock,
-    bool modifierSuper,
-    bool modifierSymbol,
-    bool modifierSymbolLock,
-    int screenX,
-    int screenY,
-    int clientX,
-    int clientY,
-    int button,
-    int buttons,
-    EventTarget? relatedTarget,
-    num movementX,
-    num movementY,
-    num deltaX,
-    num deltaY,
-    num deltaZ,
-    int deltaMode,
-  });
-
-  external double get deltaX;
-  external set deltaX(num value);
-  external double get deltaY;
-  external set deltaY(num value);
-  external double get deltaZ;
-  external set deltaZ(num value);
-  external int get deltaMode;
-  external set deltaMode(int value);
 }
 
 /// The **`InputEvent`** interface represents an event notifying the user of
@@ -844,7 +364,7 @@ extension type InputEventInit._(JSObject _) implements UIEventInit, JSObject {
     bool composed,
     Window? view,
     int detail,
-    JSObject? sourceCapabilities,
+    InputDeviceCapabilities? sourceCapabilities,
     int which,
     String? data,
     bool isComposing,
@@ -1149,7 +669,7 @@ extension type KeyboardEventInit._(JSObject _)
     bool composed,
     Window? view,
     int detail,
-    JSObject? sourceCapabilities,
+    InputDeviceCapabilities? sourceCapabilities,
     int which,
     bool ctrlKey,
     bool shiftKey,
@@ -1233,7 +753,7 @@ extension type CompositionEventInit._(JSObject _)
     bool composed,
     Window? view,
     int detail,
-    JSObject? sourceCapabilities,
+    InputDeviceCapabilities? sourceCapabilities,
     int which,
     String data,
   });

@@ -24,6 +24,50 @@ import 'storage.dart';
 import 'web_locks.dart';
 
 typedef SameSiteCookiesType = String;
+extension type StorageAccessTypes._(JSObject _) implements JSObject {
+  external factory StorageAccessTypes({
+    bool all,
+    bool cookies,
+    bool sessionStorage,
+    bool localStorage,
+    bool indexedDB,
+    bool locks,
+    bool caches,
+    bool getDirectory,
+    bool estimate,
+    bool createObjectURL,
+    bool revokeObjectURL,
+    bool BroadcastChannel,
+    bool SharedWorker,
+  });
+
+  external bool get all;
+  external set all(bool value);
+  external bool get cookies;
+  external set cookies(bool value);
+  external bool get sessionStorage;
+  external set sessionStorage(bool value);
+  external bool get localStorage;
+  external set localStorage(bool value);
+  external bool get indexedDB;
+  external set indexedDB(bool value);
+  external bool get locks;
+  external set locks(bool value);
+  external bool get caches;
+  external set caches(bool value);
+  external bool get getDirectory;
+  external set getDirectory(bool value);
+  external bool get estimate;
+  external set estimate(bool value);
+  external bool get createObjectURL;
+  external set createObjectURL(bool value);
+  external bool get revokeObjectURL;
+  external set revokeObjectURL(bool value);
+  external bool get BroadcastChannel;
+  external set BroadcastChannel(bool value);
+  external bool get SharedWorker;
+  external set SharedWorker(bool value);
+}
 
 /// The **`StorageAccessHandle`** interface represents access to
 /// [unpartitioned state](https://developer.mozilla.org/en-US/docs/Web/Privacy/Guides/State_Partitioning#state_partitioning)
@@ -91,9 +135,9 @@ extension type StorageAccessHandle._(JSObject _) implements JSObject {
 extension type SharedWorkerOptions._(JSObject _)
     implements WorkerOptions, JSObject {
   external factory SharedWorkerOptions({
+    String name,
     WorkerType type,
     RequestCredentials credentials,
-    String name,
     SameSiteCookiesType sameSiteCookies,
   });
 

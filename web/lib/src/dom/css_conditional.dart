@@ -49,6 +49,7 @@ extension type CSSMediaRule._(JSObject _)
   /// [CSSMediaRule] interface returns a [MediaList] representing the intended
   /// destination medium for style information.
   external MediaList get media;
+  external bool get matches;
 }
 
 /// The **`CSSSupportsRule`** interface represents a single CSS
@@ -59,4 +60,6 @@ extension type CSSMediaRule._(JSObject _)
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSSupportsRule).
 extension type CSSSupportsRule._(JSObject _)
-    implements CSSConditionRule, JSObject {}
+    implements CSSConditionRule, JSObject {
+  external bool get matches;
+}

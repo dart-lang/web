@@ -1460,6 +1460,13 @@ class Transformer {
         });
 
         return unType..isNullable = (isNullable ?? false);
+
+      case 201:
+          return BuiltinType.primitiveType(
+            PrimitiveType.any,
+            isNullable: isNullable,
+          );
+
       case TSSyntaxKind.TypeLiteral:
         // type literal
         final typeLiteralNode = type as TSTypeLiteralNode;
@@ -1525,6 +1532,11 @@ class Transformer {
               );
               methods.add(setter);
               break;
+            case 201:
+              return BuiltinType.primitiveType(
+                PrimitiveType.object,
+                isNullable: isNullable,
+              );  
             default:
               break;
           }

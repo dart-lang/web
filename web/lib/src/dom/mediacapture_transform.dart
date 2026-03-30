@@ -18,6 +18,11 @@ import 'dart:js_interop';
 import 'mediacapture_streams.dart';
 import 'streams.dart';
 
+typedef MediaStreamTrackOrHandle = JSObject;
+extension type MediaStreamTrackHandle._(JSObject _) implements JSObject {
+  external factory MediaStreamTrackHandle(MediaStreamTrack track);
+}
+
 /// The **`MediaStreamTrackProcessor`** interface of the
 /// [Insertable Streams for MediaStreamTrack API](https://developer.mozilla.org/en-US/docs/Web/API/Insertable_Streams_for_MediaStreamTrack_API)
 /// consumes a [MediaStreamTrack] object's source and generates a stream of
@@ -37,12 +42,20 @@ extension type MediaStreamTrackProcessor._(JSObject _) implements JSObject {
 }
 extension type MediaStreamTrackProcessorInit._(JSObject _) implements JSObject {
   external factory MediaStreamTrackProcessorInit({
-    required MediaStreamTrack track,
+    required MediaStreamTrackOrHandle track,
     int maxBufferSize,
   });
 
-  external MediaStreamTrack get track;
-  external set track(MediaStreamTrack value);
+  external MediaStreamTrackOrHandle get track;
+  external set track(MediaStreamTrackOrHandle value);
   external int get maxBufferSize;
   external set maxBufferSize(int value);
+}
+extension type VideoTrackGenerator._(JSObject _) implements JSObject {
+  external factory VideoTrackGenerator();
+
+  external WritableStream get writable;
+  external bool get muted;
+  external set muted(bool value);
+  external MediaStreamTrack get track;
 }

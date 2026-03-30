@@ -20,6 +20,7 @@ import 'cssom.dart';
 import 'dom.dart';
 import 'geometry.dart';
 import 'html.dart';
+import 'web_animations.dart';
 
 /// All of the SVG DOM interfaces that correspond directly to elements in the
 /// SVG language derive from the `SVGElement` interface.
@@ -61,6 +62,8 @@ extension type SVGElement._(JSObject _) implements Element, JSObject {
   external set onauxclick(EventHandler value);
   external EventHandler get onbeforeinput;
   external set onbeforeinput(EventHandler value);
+  external EventHandler get onbeforematch;
+  external set onbeforematch(EventHandler value);
   external EventHandler get onbeforetoggle;
   external set onbeforetoggle(EventHandler value);
   external EventHandler get onblur;
@@ -77,6 +80,8 @@ extension type SVGElement._(JSObject _) implements Element, JSObject {
   external set onclick(EventHandler value);
   external EventHandler get onclose;
   external set onclose(EventHandler value);
+  external EventHandler get oncommand;
+  external set oncommand(EventHandler value);
   external EventHandler get oncontextlost;
   external set oncontextlost(EventHandler value);
   external EventHandler get oncontextmenu;
@@ -193,6 +198,14 @@ extension type SVGElement._(JSObject _) implements Element, JSObject {
   external set onvolumechange(EventHandler value);
   external EventHandler get onwaiting;
   external set onwaiting(EventHandler value);
+  external EventHandler get onwebkitanimationend;
+  external set onwebkitanimationend(EventHandler value);
+  external EventHandler get onwebkitanimationiteration;
+  external set onwebkitanimationiteration(EventHandler value);
+  external EventHandler get onwebkitanimationstart;
+  external set onwebkitanimationstart(EventHandler value);
+  external EventHandler get onwebkittransitionend;
+  external set onwebkittransitionend(EventHandler value);
   external EventHandler get onwheel;
   external set onwheel(EventHandler value);
   external EventHandler get onanimationstart;
@@ -203,6 +216,10 @@ extension type SVGElement._(JSObject _) implements Element, JSObject {
   external set onanimationend(EventHandler value);
   external EventHandler get onanimationcancel;
   external set onanimationcancel(EventHandler value);
+  external EventHandler get onsnapchanged;
+  external set onsnapchanged(EventHandler value);
+  external EventHandler get onsnapchanging;
+  external set onsnapchanging(EventHandler value);
   external EventHandler get ontransitionrun;
   external set ontransitionrun(EventHandler value);
   external EventHandler get ontransitionstart;
@@ -211,6 +228,8 @@ extension type SVGElement._(JSObject _) implements Element, JSObject {
   external set ontransitionend(EventHandler value);
   external EventHandler get ontransitioncancel;
   external set ontransitioncancel(EventHandler value);
+  external EventHandler get onfencedtreeclick;
+  external set onfencedtreeclick(EventHandler value);
   external EventHandler get onpointerover;
   external set onpointerover(EventHandler value);
   external EventHandler get onpointerenter;
@@ -219,6 +238,8 @@ extension type SVGElement._(JSObject _) implements Element, JSObject {
   external set onpointerdown(EventHandler value);
   external EventHandler get onpointermove;
   external set onpointermove(EventHandler value);
+  external EventHandler get onpointerrawupdate;
+  external set onpointerrawupdate(EventHandler value);
   external EventHandler get onpointerup;
   external set onpointerup(EventHandler value);
   external EventHandler get onpointercancel;
@@ -243,6 +264,10 @@ extension type SVGElement._(JSObject _) implements Element, JSObject {
   external set ontouchmove(EventHandler value);
   external EventHandler get ontouchcancel;
   external set ontouchcancel(EventHandler value);
+  external EventHandler get onbeforexrselect;
+  external set onbeforexrselect(EventHandler value);
+  external SVGElement? get correspondingElement;
+  external SVGUseElement? get correspondingUseElement;
 
   /// The **`dataset`** read-only property of the [SVGElement] interface
   /// provides read/write access to
@@ -322,7 +347,7 @@ extension type SVGElement._(JSObject _) implements Element, JSObject {
   /// >
   /// > The `style` property has the same priority in the CSS cascade as an
   /// > inline style declaration set via the `style` attribute.
-  external CSSStyleDeclaration get style;
+  external CSSStyleProperties get style;
 
   /// The **`attributeStyleMap`** read-only property of the [SVGElement]
   /// interface returns a live [StylePropertyMap] object that contains a list of
@@ -1079,8 +1104,8 @@ extension type SVGAnimatedString._(JSObject _) implements JSObject {
   /// BaseVal gets or sets the base value of the given attribute before any
   /// animations are applied. The base value of the given attribute before
   /// applying any animations. Setter throws DOMException.
-  external String get baseVal;
-  external set baseVal(String value);
+  external JSAny get baseVal;
+  external set baseVal(JSAny value);
 
   /// The `animVal` read-only property of the [SVGAnimatedString] interface
   /// contains the same value as the [SVGAnimatedString.baseVal] property. If
@@ -1351,7 +1376,7 @@ extension type SVGSVGElement._(JSObject _)
   /// the SVG document fragment (i.e., the search is restricted to a subset of
   /// the document tree) for an [Element] whose `id` property matches the
   /// specified string.
-  external Element getElementById(String elementId);
+  external Element? getElementById(String elementId);
   external int suspendRedraw(int maxWaitMilliseconds);
   external void unsuspendRedraw(int suspendHandleID);
   external void unsuspendRedrawAll();
@@ -1532,6 +1557,8 @@ extension type SVGSVGElement._(JSObject _)
   external set ongamepadconnected(EventHandler value);
   external EventHandler get ongamepaddisconnected;
   external set ongamepaddisconnected(EventHandler value);
+  external EventHandler get onportalactivate;
+  external set onportalactivate(EventHandler value);
 }
 
 /// The **`SVGGElement`** interface corresponds to the  element.
@@ -1702,10 +1729,22 @@ extension type SVGUseElement._(JSObject _)
   /// of the [SVGAnimatedLength.baseVal] is the height of the referenced element
   /// in the user coordinate system.
   external SVGAnimatedLength get height;
+  external SVGElement? get instanceRoot;
+  external SVGElement? get animatedInstanceRoot;
 
   /// The **`href`** read-only property of the [SVGUseElement] interface
   /// reflects the `href` or   attribute of the given element.
   external SVGAnimatedString get href;
+}
+extension type SVGUseElementShadowRoot._(JSObject _)
+    implements ShadowRoot, JSObject {}
+extension type ShadowAnimation._(JSObject _) implements Animation, JSObject {
+  external factory ShadowAnimation(
+    Animation source,
+    JSObject newTarget,
+  );
+
+  external Animation get sourceAnimation;
 }
 
 /// The **`SVGSwitchElement`** interface corresponds to the  element.
@@ -1764,6 +1803,15 @@ extension type SVGStyleElement._(JSObject _) implements SVGElement, JSObject {
   /// [alternate style sheets](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel/alternate_stylesheet).
   external String get title;
   external set title(String value);
+
+  /// The **`SVGStyleElement.disabled`** property can be used to get and set
+  /// whether the stylesheet is disabled (`true`) or not (`false`).
+  ///
+  /// Note that there is no corresponding `disabled` attribute on the [SVG
+  /// `<style>`
+  /// element](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/style).
+  external bool get disabled;
+  external set disabled(bool value);
 
   /// The **`SVGStyleElement.sheet`** read-only property returns the
   /// [CSSStyleSheet] corresponding to the given SVG style element, or `null` if
@@ -2091,27 +2139,6 @@ extension type SVGAnimatedPreserveAspectRatio._(JSObject _)
   /// `preserveAspectRatio` attribute of an SVG element after any animations or
   /// transformations are applied.
   external SVGPreserveAspectRatio get animVal;
-}
-
-/// The **`SVGPathElement`** interface corresponds to the  element.
-///
-/// > [!NOTE]
-/// > In SVG 2 the `getPathSegAtLength()` and `createSVGPathSeg*` methods were
-/// > removed and the `pathLength` property and the `getTotalLength()` and
-/// > `getPointAtLength()` methods were moved to [SVGGeometryElement].
-///
-/// ---
-///
-/// API documentation sourced from
-/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SVGPathElement).
-extension type SVGPathElement._(JSObject _)
-    implements SVGGeometryElement, JSObject {
-  /// Creates an [SVGPathElement] using the tag 'path'.
-  SVGPathElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'path',
-        );
 }
 
 /// The `SVGRectElement` interface provides access to the properties of
@@ -2880,6 +2907,8 @@ extension type SVGMarkerElement._(JSObject _) implements SVGElement, JSObject {
 
   static const int SVG_MARKER_ORIENT_ANGLE = 2;
 
+  static const int SVG_MARKER_ORIENT_AUTO_START_REVERSE = 3;
+
   /// The **`setOrientToAuto()`** method of the [SVGMarkerElement] interface
   /// sets the value of the `orient` attribute to `auto`.
   external void setOrientToAuto();
@@ -3308,10 +3337,27 @@ extension type SVGAElement._(JSObject _)
   external set hreflang(String value);
   external String get type;
   external set type(String value);
-  external String get text;
-  external set text(String value);
   external String get referrerPolicy;
   external set referrerPolicy(String value);
+  external String get origin;
+  external String get protocol;
+  external set protocol(String value);
+  external String get username;
+  external set username(String value);
+  external String get password;
+  external set password(String value);
+  external String get host;
+  external set host(String value);
+  external String get hostname;
+  external set hostname(String value);
+  external String get port;
+  external set port(String value);
+  external String get pathname;
+  external set pathname(String value);
+  external String get search;
+  external set search(String value);
+  external String get hash;
+  external set hash(String value);
 
   /// The **`href`** read-only property of the [SVGAElement] returns an
   /// [SVGAnimatedString] object reflecting the value of the href attribute,

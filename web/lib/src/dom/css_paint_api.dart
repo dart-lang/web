@@ -17,6 +17,39 @@ import 'dart:js_interop';
 
 import 'geometry.dart';
 import 'html.dart';
+import 'webidl.dart';
+
+/// The **`PaintWorkletGlobalScope`** interface of the
+/// [CSS Painting API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Painting_API)
+/// represents the global object available inside a paint [Worklet].
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PaintWorkletGlobalScope).
+extension type PaintWorkletGlobalScope._(JSObject _)
+    implements WorkletGlobalScope, JSObject {
+  /// The **`registerPaint()`** method of the
+  /// [PaintWorkletGlobalScope] interface registers a class to programmatically
+  /// generate an
+  /// image where a CSS property expects a file.
+  external void registerPaint(
+    String name,
+    VoidFunction paintCtor,
+  );
+
+  /// The **`devicePixelRatio`** read-only property of the
+  /// [PaintWorkletGlobalScope] interface returns the current device's ratio of
+  /// physical pixels to logical pixels.
+  external double get devicePixelRatio;
+}
+extension type PaintRenderingContext2DSettings._(JSObject _)
+    implements JSObject {
+  external factory PaintRenderingContext2DSettings({bool alpha});
+
+  external bool get alpha;
+  external set alpha(bool value);
+}
 
 /// The **`PaintRenderingContext2D`** interface of the
 /// [CSS Painting API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Painting_API)
@@ -43,6 +76,8 @@ import 'html.dart';
 extension type PaintRenderingContext2D._(JSObject _) implements JSObject {
   external void save();
   external void restore();
+  external void reset();
+  external bool isContextLost();
   external void scale(
     num x,
     num y,
@@ -83,6 +118,11 @@ extension type PaintRenderingContext2D._(JSObject _) implements JSObject {
     num x1,
     num y1,
     num r1,
+  );
+  external CanvasGradient createConicGradient(
+    num startAngle,
+    num x,
+    num y,
   );
   external CanvasPattern? createPattern(
     CanvasImageSource image,
@@ -140,6 +180,67 @@ extension type PaintRenderingContext2D._(JSObject _) implements JSObject {
   ]);
   external void setLineDash(JSArray<JSNumber> segments);
   external JSArray<JSNumber> getLineDash();
+  external void closePath();
+  external void moveTo(
+    num x,
+    num y,
+  );
+  external void lineTo(
+    num x,
+    num y,
+  );
+  external void quadraticCurveTo(
+    num cpx,
+    num cpy,
+    num x,
+    num y,
+  );
+  external void bezierCurveTo(
+    num cp1x,
+    num cp1y,
+    num cp2x,
+    num cp2y,
+    num x,
+    num y,
+  );
+  external void arcTo(
+    num x1,
+    num y1,
+    num x2,
+    num y2,
+    num radius,
+  );
+  external void rect(
+    num x,
+    num y,
+    num w,
+    num h,
+  );
+  external void roundRect(
+    num x,
+    num y,
+    num w,
+    num h, [
+    JSAny radii,
+  ]);
+  external void arc(
+    num x,
+    num y,
+    num radius,
+    num startAngle,
+    num endAngle, [
+    bool counterclockwise,
+  ]);
+  external void ellipse(
+    num x,
+    num y,
+    num radiusX,
+    num radiusY,
+    num rotation,
+    num startAngle,
+    num endAngle, [
+    bool counterclockwise,
+  ]);
   external double get globalAlpha;
   external set globalAlpha(num value);
   external String get globalCompositeOperation;

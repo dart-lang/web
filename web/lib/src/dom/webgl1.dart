@@ -69,6 +69,24 @@ extension type WebGLContextAttributes._(JSObject _) implements JSObject {
   external set xrCompatible(bool value);
 }
 
+/// The **`WebGLObject`** is part of the
+/// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) and
+/// is the parent interface for all WebGL objects.
+///
+/// This object has no public properties or methods on its own.
+///
+/// If the WebGL context is lost, the internal _invalidated_ flag of all
+/// `WebGLObject` instances is set to `true`.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WebGLObject).
+extension type WebGLObject._(JSObject _) implements JSObject {
+  external String get label;
+  external set label(String value);
+}
+
 /// The **WebGLBuffer** interface is part of the
 /// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) and
 /// represents an opaque buffer object storing data such as vertices or colors.
@@ -77,7 +95,7 @@ extension type WebGLContextAttributes._(JSObject _) implements JSObject {
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WebGLBuffer).
-extension type WebGLBuffer._(JSObject _) implements JSObject {}
+extension type WebGLBuffer._(JSObject _) implements WebGLObject, JSObject {}
 
 /// The **WebGLFramebuffer** interface is part of the
 /// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) and
@@ -87,7 +105,8 @@ extension type WebGLBuffer._(JSObject _) implements JSObject {}
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WebGLFramebuffer).
-extension type WebGLFramebuffer._(JSObject _) implements JSObject {}
+extension type WebGLFramebuffer._(JSObject _)
+    implements WebGLObject, JSObject {}
 
 /// The **`WebGLProgram`** is part of the
 /// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) and
@@ -121,7 +140,7 @@ extension type WebGLFramebuffer._(JSObject _) implements JSObject {}
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WebGLProgram).
-extension type WebGLProgram._(JSObject _) implements JSObject {}
+extension type WebGLProgram._(JSObject _) implements WebGLObject, JSObject {}
 
 /// The **WebGLRenderbuffer** interface is part of the
 /// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) and
@@ -132,7 +151,8 @@ extension type WebGLProgram._(JSObject _) implements JSObject {}
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderbuffer).
-extension type WebGLRenderbuffer._(JSObject _) implements JSObject {}
+extension type WebGLRenderbuffer._(JSObject _)
+    implements WebGLObject, JSObject {}
 
 /// The **WebGLShader** is part of the
 /// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) and
@@ -143,7 +163,7 @@ extension type WebGLRenderbuffer._(JSObject _) implements JSObject {}
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WebGLShader).
-extension type WebGLShader._(JSObject _) implements JSObject {}
+extension type WebGLShader._(JSObject _) implements WebGLObject, JSObject {}
 
 /// The **WebGLTexture** interface is part of the
 /// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) and
@@ -154,7 +174,7 @@ extension type WebGLShader._(JSObject _) implements JSObject {}
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WebGLTexture).
-extension type WebGLTexture._(JSObject _) implements JSObject {}
+extension type WebGLTexture._(JSObject _) implements WebGLObject, JSObject {}
 
 /// The **WebGLUniformLocation** interface is part of the
 /// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) and
@@ -868,6 +888,11 @@ extension type WebGLRenderingContext._(JSObject _) implements JSObject {
   /// [WebGL](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API)
   /// extension.
   external JSObject? getExtension(String name);
+  external void drawingBufferStorage(
+    GLenum sizedFormat,
+    int width,
+    int height,
+  );
 
   /// The **`WebGLRenderingContext.activeTexture()`** method of the
   /// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API)
@@ -2087,6 +2112,7 @@ extension type WebGLRenderingContext._(JSObject _) implements JSObject {
   /// provide the
   /// requested height.
   external GLsizei get drawingBufferHeight;
+  external GLenum get drawingBufferFormat;
 
   /// The **`WebGLRenderingContext.drawingBufferColorSpace`** property specifies
   /// the color space of the WebGL drawing buffer. Along with the default

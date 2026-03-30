@@ -15,18 +15,27 @@ library;
 
 import 'dart:js_interop';
 
+import 'background_fetch.dart';
 import 'background_sync.dart';
-import 'cookie_store.dart';
+import 'content_index.dart';
+import 'cookiestore.dart';
 import 'dom.dart';
 import 'fetch.dart';
 import 'html.dart';
 import 'notifications.dart';
+import 'page_lifecycle.dart';
+import 'periodic_background_sync.dart';
 import 'push_api.dart';
+import 'urlpattern.dart';
+import 'web_based_payment_handler.dart';
 
+typedef RouterSource = JSAny;
 typedef ServiceWorkerState = String;
 typedef ServiceWorkerUpdateViaCache = String;
 typedef FrameType = String;
 typedef ClientType = String;
+typedef RunningStatus = String;
+typedef RouterSourceEnum = String;
 
 /// The **`ServiceWorker`** interface of the
 /// [Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)
@@ -130,7 +139,7 @@ extension type ServiceWorkerRegistration._(JSObject _)
   /// the worker
   /// bypasses any browser caches if the previous fetch occurred over 24 hours
   /// ago.
-  external JSPromise<JSAny?> update();
+  external JSPromise<ServiceWorkerRegistration> update();
 
   /// The **`unregister()`** method of the
   /// [ServiceWorkerRegistration] interface unregisters the service worker
@@ -217,11 +226,45 @@ extension type ServiceWorkerRegistration._(JSObject _)
   external EventHandler get onupdatefound;
   external set onupdatefound(EventHandler value);
 
+  /// The **`backgroundFetch`** read-only property of the
+  /// [ServiceWorkerRegistration] interface returns a reference to a
+  /// [BackgroundFetchManager] object, which can be used to initiate background
+  /// fetch operations.
+  external BackgroundFetchManager get backgroundFetch;
+
   /// The **`sync`** read-only property of the
   /// [ServiceWorkerRegistration] interface returns a reference to the
   /// [SyncManager] interface, which manages background synchronization
   /// processes.
   external SyncManager get sync;
+
+  /// The **`index`** read-only property of the
+  /// [ServiceWorkerRegistration] interface returns a reference to the
+  /// [ContentIndex] interface, which allows for indexing of offline content.
+  external ContentIndex get index;
+
+  /// @AvailableInWorkers("window_and_service")
+  ///
+  /// The **`cookies`** read-only property of the [ServiceWorkerRegistration]
+  /// interface returns a reference to the [CookieStoreManager] interface, which
+  /// enables a web app to subscribe to and unsubscribe from cookie change
+  /// events in a
+  /// [service worker](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API).
+  /// This is an entry point for the
+  /// [Cookie Store API](https://developer.mozilla.org/en-US/docs/Web/API/Cookie_Store_API).
+  external CookieStoreManager get cookies;
+
+  /// The **`periodicSync`** read-only property of
+  /// the [ServiceWorkerRegistration] interface returns a reference to the
+  /// [PeriodicSyncManager] interface, which allows for registering of tasks to
+  /// run at specific intervals.
+  external PeriodicSyncManager get periodicSync;
+
+  /// The **`paymentManager`** read-only property of the
+  /// [ServiceWorkerRegistration] interface returns a payment app's
+  /// [PaymentManager] instance, which is used to manage various payment app
+  /// functionality.
+  external PaymentManager get paymentManager;
 
   /// The **`pushManager`** read-only property of the
   /// [ServiceWorkerRegistration] interface returns a reference to the
@@ -489,8 +532,18 @@ extension type ServiceWorkerGlobalScope._(JSObject _)
   external set onmessage(EventHandler value);
   external EventHandler get onmessageerror;
   external set onmessageerror(EventHandler value);
+  external EventHandler get onbackgroundfetchsuccess;
+  external set onbackgroundfetchsuccess(EventHandler value);
+  external EventHandler get onbackgroundfetchfail;
+  external set onbackgroundfetchfail(EventHandler value);
+  external EventHandler get onbackgroundfetchabort;
+  external set onbackgroundfetchabort(EventHandler value);
+  external EventHandler get onbackgroundfetchclick;
+  external set onbackgroundfetchclick(EventHandler value);
   external EventHandler get onsync;
   external set onsync(EventHandler value);
+  external EventHandler get oncontentdelete;
+  external set oncontentdelete(EventHandler value);
 
   /// @AvailableInWorkers("service")
   ///
@@ -498,14 +551,22 @@ extension type ServiceWorkerGlobalScope._(JSObject _)
   /// interface returns a reference to the [CookieStore] object associated with
   /// this service worker.
   external CookieStore get cookieStore;
+  external EventHandler get oncookiechange;
+  external set oncookiechange(EventHandler value);
   external EventHandler get onnotificationclick;
   external set onnotificationclick(EventHandler value);
   external EventHandler get onnotificationclose;
   external set onnotificationclose(EventHandler value);
+  external EventHandler get onperiodicsync;
+  external set onperiodicsync(EventHandler value);
   external EventHandler get onpush;
   external set onpush(EventHandler value);
   external EventHandler get onpushsubscriptionchange;
   external set onpushsubscriptionchange(EventHandler value);
+  external EventHandler get oncanmakepayment;
+  external set oncanmakepayment(EventHandler value);
+  external EventHandler get onpaymentrequest;
+  external set onpaymentrequest(EventHandler value);
 }
 
 /// @AvailableInWorkers("service")
@@ -556,6 +617,7 @@ extension type Client._(JSObject _) implements JSObject {
   /// The **`type`** read-only property of the [Client]
   /// interface indicates the type of client the service worker is controlling.
   external ClientType get type;
+  external ClientLifecycleState get lifecycleState;
 }
 
 /// @AvailableInWorkers("service")
@@ -602,6 +664,18 @@ extension type WindowClient._(JSObject _) implements Client, JSObject {
   /// [WindowClient] interface is a boolean value that indicates whether
   /// the current client has focus.
   external bool get focused;
+
+  /// @AvailableInWorkers("service")
+  ///
+  /// The **`ancestorOrigins`** read-only property of the [WindowClient]
+  /// interface is an array of strings listing the origins of all ancestors of
+  /// the browsing context represented by this `WindowClient` in reverse order.
+  ///
+  /// The first element in the array is the origin of this window's parent, and
+  /// the last element is the origin of the top-level browsing context. If this
+  /// window is itself a top-level browsing context, then `ancestorOrigins` is
+  /// an empty array.
+  external JSArray<JSString> get ancestorOrigins;
 }
 
 /// @AvailableInWorkers("service")
@@ -779,8 +853,63 @@ extension type ExtendableEventInit._(JSObject _)
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/InstallEvent).
-extension type InstallEvent._(JSObject _)
-    implements ExtendableEvent, JSObject {}
+extension type InstallEvent._(JSObject _) implements ExtendableEvent, JSObject {
+  external factory InstallEvent(
+    String type, [
+    ExtendableEventInit eventInitDict,
+  ]);
+
+  /// The **`addRoutes()`** method of the [InstallEvent] interface specifies one
+  /// or more static routes, which define rules for fetching specified resources
+  /// that will be used even before service worker startup. This allows you to,
+  /// for example, bypass a service worker in cases where you always want to
+  /// fetch a resource from the network or a browser [Cache], and avoids the
+  /// performance overhead of unnecessary service worker cycles.
+  external JSPromise<JSAny?> addRoutes(JSObject rules);
+}
+extension type RouterRule._(JSObject _) implements JSObject {
+  external factory RouterRule({
+    required RouterCondition condition,
+    required RouterSource source,
+  });
+
+  external RouterCondition get condition;
+  external set condition(RouterCondition value);
+  external RouterSource get source;
+  external set source(RouterSource value);
+}
+extension type RouterCondition._(JSObject _) implements JSObject {
+  external factory RouterCondition({
+    URLPatternCompatible urlPattern,
+    String requestMethod,
+    RequestMode requestMode,
+    RequestDestination requestDestination,
+    RunningStatus runningStatus,
+    JSArray<RouterCondition> or,
+    RouterCondition not,
+  });
+
+  external URLPatternCompatible get urlPattern;
+  external set urlPattern(URLPatternCompatible value);
+  external String get requestMethod;
+  external set requestMethod(String value);
+  external RequestMode get requestMode;
+  external set requestMode(RequestMode value);
+  external RequestDestination get requestDestination;
+  external set requestDestination(RequestDestination value);
+  external RunningStatus get runningStatus;
+  external set runningStatus(RunningStatus value);
+  external JSArray<RouterCondition> get or;
+  external set or(JSArray<RouterCondition> value);
+  external RouterCondition get not;
+  external set not(RouterCondition value);
+}
+extension type RouterSourceDict._(JSObject _) implements JSObject {
+  external factory RouterSourceDict({String cacheName});
+
+  external String get cacheName;
+  external set cacheName(String value);
+}
 
 /// @AvailableInWorkers("service")
 ///
@@ -921,6 +1050,26 @@ extension type FetchEvent._(JSObject _) implements ExtendableEvent, JSObject {
   /// is
   /// `report`, `resultingClientId` will be an empty string.
   external String get resultingClientId;
+
+  /// @AvailableInWorkers("service")
+  ///
+  /// The **`replacesClientId`** read-only property of the
+  /// [FetchEvent] interface is the [Client.id] of the
+  /// [Client] that is being replaced during a page navigation.
+  ///
+  /// For example, when navigating from page A to page B `replacesClientId` is
+  /// the
+  /// ID of the client associated with page A. It can be an empty string when
+  /// navigating from
+  /// `about:blank` to another page, as `about:blank`'s client will be
+  /// reused, rather than be replaced.
+  ///
+  /// Additionally, if the fetch isn't a navigation, `replacesClientId` will be
+  /// an
+  /// empty string. This could be used to access/communicate with a client that
+  /// will
+  /// imminently be replaced, right before a navigation.
+  external String get replacesClientId;
 
   /// @AvailableInWorkers("service")
   ///

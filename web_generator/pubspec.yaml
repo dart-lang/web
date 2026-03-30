@@ -14,7 +14,7 @@ dependencies:
   collection: ^1.19.1
   dart_style: ^3.1.8
   io: ^1.0.4
-  meta: ^1.17.0
+  meta: ^1.18.0
   package_config: ^2.1.1
   path: ^1.9.0
   pub_semver: ^2.1.5
@@ -22,5 +22,5 @@ dependencies:
 
 dev_dependencies:
   dart_flutter_team_lints: ^3.0.0
-  test: ^1.27.0
+  test: ^1.31.0
   web: ^1.1.1

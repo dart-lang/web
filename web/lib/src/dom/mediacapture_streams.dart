@@ -25,6 +25,7 @@ typedef ConstrainULong = JSAny;
 typedef ConstrainDouble = JSAny;
 typedef ConstrainBoolean = JSAny;
 typedef ConstrainDOMString = JSAny;
+typedef ConstrainBooleanOrDOMString = JSAny;
 typedef MediaStreamTrackState = String;
 typedef MediaDeviceKind = String;
 
@@ -643,7 +644,7 @@ extension type MediaTrackCapabilities._(JSObject _) implements JSObject {
     JSArray<JSString> resizeMode,
     ULongRange sampleRate,
     ULongRange sampleSize,
-    JSArray<JSBoolean> echoCancellation,
+    JSArray<JSAny> echoCancellation,
     JSArray<JSBoolean> autoGainControl,
     JSArray<JSBoolean> noiseSuppression,
     DoubleRange latency,
@@ -688,8 +689,8 @@ extension type MediaTrackCapabilities._(JSObject _) implements JSObject {
   external set sampleRate(ULongRange value);
   external ULongRange get sampleSize;
   external set sampleSize(ULongRange value);
-  external JSArray<JSBoolean> get echoCancellation;
-  external set echoCancellation(JSArray<JSBoolean> value);
+  external JSArray<JSAny> get echoCancellation;
+  external set echoCancellation(JSArray<JSAny> value);
   external JSArray<JSBoolean> get autoGainControl;
   external set autoGainControl(JSArray<JSBoolean> value);
   external JSArray<JSBoolean> get noiseSuppression;
@@ -767,7 +768,7 @@ extension type MediaTrackConstraints._(JSObject _)
     ConstrainDOMString resizeMode,
     ConstrainULong sampleRate,
     ConstrainULong sampleSize,
-    ConstrainBoolean echoCancellation,
+    ConstrainBooleanOrDOMString echoCancellation,
     ConstrainBoolean autoGainControl,
     ConstrainBoolean noiseSuppression,
     ConstrainDouble latency,
@@ -813,7 +814,7 @@ extension type MediaTrackConstraintSet._(JSObject _) implements JSObject {
     ConstrainDOMString resizeMode,
     ConstrainULong sampleRate,
     ConstrainULong sampleSize,
-    ConstrainBoolean echoCancellation,
+    ConstrainBooleanOrDOMString echoCancellation,
     ConstrainBoolean autoGainControl,
     ConstrainBoolean noiseSuppression,
     ConstrainDouble latency,
@@ -861,8 +862,8 @@ extension type MediaTrackConstraintSet._(JSObject _) implements JSObject {
   external set sampleRate(ConstrainULong value);
   external ConstrainULong get sampleSize;
   external set sampleSize(ConstrainULong value);
-  external ConstrainBoolean get echoCancellation;
-  external set echoCancellation(ConstrainBoolean value);
+  external ConstrainBooleanOrDOMString get echoCancellation;
+  external set echoCancellation(ConstrainBooleanOrDOMString value);
   external ConstrainBoolean get autoGainControl;
   external set autoGainControl(ConstrainBoolean value);
   external ConstrainBoolean get noiseSuppression;
@@ -949,7 +950,7 @@ extension type MediaTrackSettings._(JSObject _) implements JSObject {
     String resizeMode,
     int sampleRate,
     int sampleSize,
-    bool echoCancellation,
+    JSAny echoCancellation,
     bool autoGainControl,
     bool noiseSuppression,
     num latency,
@@ -979,6 +980,7 @@ extension type MediaTrackSettings._(JSObject _) implements JSObject {
     String cursor,
     bool restrictOwnAudio,
     bool suppressLocalAudioPlayback,
+    num screenPixelRatio,
   });
 
   /// The [MediaTrackSettings] dictionary's **`width`**
@@ -1152,8 +1154,8 @@ extension type MediaTrackSettings._(JSObject _) implements JSObject {
   /// [WebRTC](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API)
   /// [RTCPeerConnection]
   /// will never include this property.
-  external bool get echoCancellation;
-  external set echoCancellation(bool value);
+  external JSAny get echoCancellation;
+  external set echoCancellation(JSAny value);
 
   /// The [MediaTrackSettings] dictionary's
   /// **`autoGainControl`** property is a Boolean value whose value
@@ -1384,6 +1386,8 @@ extension type MediaTrackSettings._(JSObject _) implements JSObject {
   /// clearer, and also in sync with the conference video.
   external bool get suppressLocalAudioPlayback;
   external set suppressLocalAudioPlayback(bool value);
+  external double get screenPixelRatio;
+  external set screenPixelRatio(num value);
 }
 
 /// The **`MediaStreamTrackEvent`** interface of the
@@ -1672,6 +1676,18 @@ extension type ConstrainBooleanParameters._(JSObject _) implements JSObject {
 }
 extension type ConstrainDOMStringParameters._(JSObject _) implements JSObject {
   external factory ConstrainDOMStringParameters({
+    JSAny exact,
+    JSAny ideal,
+  });
+
+  external JSAny get exact;
+  external set exact(JSAny value);
+  external JSAny get ideal;
+  external set ideal(JSAny value);
+}
+extension type ConstrainBooleanOrDOMStringParameters._(JSObject _)
+    implements JSObject {
+  external factory ConstrainBooleanOrDOMStringParameters({
     JSAny exact,
     JSAny ideal,
   });

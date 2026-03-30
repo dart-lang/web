@@ -210,7 +210,8 @@ Based on:
 <!-- START updated by bin/update_idl_bindings.dart. Do not modify by hand -->
 | Item | Version |
 | --- | --: |
-| `@webref/css` | [6.20.3](https://www.npmjs.com/package/@webref/css/v/6.20.3) |
-| `@webref/elements` | [2.4.0](https://www.npmjs.com/package/@webref/elements/v/2.4.0) |
-| `@webref/idl` | [3.60.1](https://www.npmjs.com/package/@webref/idl/v/3.60.1) |
+| `@mdn/browser-compat-data` | [7.2.3](https://www.npmjs.com/package/@mdn/browser-compat-data/v/7.2.3) |
+| `@webref/css` | [6.23.22](https://www.npmjs.com/package/@webref/css/v/6.23.22) |
+| `@webref/elements` | [2.5.4](https://www.npmjs.com/package/@webref/elements/v/2.5.4) |
+| `@webref/idl` | [3.70.2](https://www.npmjs.com/package/@webref/idl/v/3.70.2) |
 <!-- END updated by bin/update_idl_bindings.dart. Do not modify by hand -->

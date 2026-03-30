@@ -18,7 +18,7 @@ import 'dart:js_interop';
 import 'attribution_reporting_api.dart';
 import 'dom.dart';
 import 'fileapi.dart';
-import 'private_network_access.dart';
+import 'local_network_access.dart';
 import 'referrer_policy.dart';
 import 'streams.dart';
 import 'trust_token_api.dart';

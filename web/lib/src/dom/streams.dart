@@ -21,6 +21,7 @@ import 'webidl.dart';
 typedef ReadableStreamReader = JSObject;
 typedef QueuingStrategySize = JSFunction;
 typedef ReadableStreamReaderMode = String;
+typedef ReadableStreamType = String;
 
 /// The `ReadableStream` interface of the
 /// [Streams API](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API)

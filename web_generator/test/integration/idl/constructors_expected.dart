@@ -10,23 +10,19 @@ import 'dart:js_interop';
 extension type Shape._(JSObject _) implements JSObject {
   external factory Shape();
 }
-
 extension type Done._(JSObject _) implements JSObject {}
-
 extension type Coordinate._(JSObject _) implements JSObject {
   external int get x;
   external set x(int value);
   external int get y;
   external set y(int value);
 }
-
 extension type DoneList._(JSObject _) implements JSObject {
   external factory DoneList(int length);
 
   external Done item(int index);
   external int get length;
 }
-
 extension type Circle._(JSObject _) implements Shape, JSObject {
   external factory Circle(num radius);
 

@@ -8,18 +8,13 @@ library;
 import 'dart:js_interop';
 
 typedef LogLevel = String;
-
 extension type ConfigOptions._(JSObject _) implements JSObject {}
-
 extension type EmptyInterface._(JSObject _) implements JSObject {}
-
 extension type BaseInterface._(JSObject _) implements JSObject {
   external void f();
   external void g();
 }
-
 extension type Paint._(JSObject _) implements JSObject {}
-
 extension type SolidColor._(JSObject _) implements Paint, JSObject {
   external double get red;
   external set red(num value);
@@ -28,7 +23,6 @@ extension type SolidColor._(JSObject _) implements Paint, JSObject {
   external double get blue;
   external set blue(num value);
 }
-
 extension type MyInterface._(JSObject _) implements JSObject {
   external void doSomething();
   external bool isReady();
@@ -39,13 +33,11 @@ extension type MyInterface._(JSObject _) implements JSObject {
   external set name(String value);
   external int get id;
 }
-
 extension type MySubInterface._(JSObject _) implements JSObject {
   external void reset();
   external String get info;
   external set info(String value);
 }
-
 extension type MyException._(JSObject _) implements JSObject {
   external factory MyException([String message, String name]);
 
@@ -53,7 +45,6 @@ extension type MyException._(JSObject _) implements JSObject {
   external String get message;
   external int get code;
 }
-
 extension type ProtocolXError._(JSObject _) implements MyException, JSObject {
   external factory ProtocolXError(
     ProtocolXErrorOptions options, [
@@ -62,7 +53,6 @@ extension type ProtocolXError._(JSObject _) implements MyException, JSObject {
 
   external int get errorCode;
 }
-
 extension type ProtocolXErrorOptions._(JSObject _) implements JSObject {
   external factory ProtocolXErrorOptions({required int errorCode});
 

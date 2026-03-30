@@ -9,12 +9,9 @@ import 'dart:js_interop';
 
 typedef Comparator = JSFunction;
 typedef LogLevel = String;
-
 extension type ConfigOptions._(JSObject _) implements JSObject {}
-
 @JS()
 external $MyLibrary get MyLibrary;
-
 @JS('MyLibrary')
 extension type $MyLibrary._(JSObject _) implements JSObject {
   static const int VERSION_MAJOR = 1;

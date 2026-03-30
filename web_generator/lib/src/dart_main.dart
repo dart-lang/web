@@ -56,6 +56,7 @@ void main(List<String> args) async {
       config = YamlConfig.fromYaml(
         yaml.contents as YamlMap,
         filename: filename,
+        languageVersion: languageVersionString,
       );
     } else {
       final tsConfigFile = argResult['ts-config'] as String?;

@@ -10,6 +10,7 @@ import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:io/ansi.dart' as ansi;
+import 'package:package_config/package_config.dart';
 
 import 'package:path/path.dart' as p;
 
@@ -17,7 +18,28 @@ final bindingsGeneratorPath = p.fromUri(
   Isolate.resolvePackageUriSync(Uri.parse('package:web_generator/src')),
 );
 
+final _webGeneratorRoot = p.dirname(p.dirname(bindingsGeneratorPath));
+
+Future<String> getPackageLanguageVersion(String pkgPath) async {
+  final packageConfig = await findPackageConfig(Directory(pkgPath));
+  if (packageConfig == null) {
+    throw StateError('No package config for "$pkgPath"');
+  }
+  final package = packageConfig.packageOf(
+    Uri.file(p.join(pkgPath, 'pubspec.yaml')),
+  );
+  if (package == null) {
+    throw StateError('No package at "$pkgPath"');
+  }
+  final languageVersion = package.languageVersion;
+  if (languageVersion == null) {
+    throw StateError('No language version "$pkgPath"');
+  }
+  return '$languageVersion.0';
+}
+
 Future<void> compileDartMain({String? langVersion, String? dir}) async {
+  langVersion ??= await getPackageLanguageVersion(_webGeneratorRoot);
   await runProc(Platform.executable, [
     'compile',
     'js',

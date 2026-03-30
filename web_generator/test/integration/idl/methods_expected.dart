@@ -22,14 +22,12 @@ extension type MyMethodExamples._(JSObject _) implements JSObject {
   external JSPromise<JSString> fetchRemoteValue([String? endpoint]);
   external void init();
 }
-
 extension type Dimensions._(JSObject _) implements JSObject {
   external int get width;
   external set width(int value);
   external int get height;
   external set height(int value);
 }
-
 extension type Button._(JSObject _) implements JSObject {
   external bool isMouseOver();
   external void setDimensions(JSAny sizeOrWidth, [int height]);

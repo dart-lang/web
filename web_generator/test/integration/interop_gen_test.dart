@@ -22,11 +22,7 @@ void main() {
     final outputDir = Directory(p.join('.dart_tool', 'interop_gen'));
 
     setUpAll(() async {
-      // set up npm
-      await runProc('npm', ['install'], workingDirectory: bindingsGenPath);
-
-      // compile file
-      await compileDartMain(dir: bindingsGenPath);
+      await compileBindingsGen(bindingsGenPath);
 
       await outputDir.create(recursive: true);
     });
@@ -81,11 +77,7 @@ void main() {
     final outputExpectedPath = p.join(testGenFolder, 'output');
 
     setUpAll(() async {
-      // set up npm
-      await runProc('npm', ['install'], workingDirectory: bindingsGenPath);
-
-      // compile file
-      await compileDartMain(dir: bindingsGenPath);
+      await compileBindingsGen(bindingsGenPath);
 
       await outputDir.create(recursive: true);
     });

@@ -19,11 +19,7 @@ void main() {
     final outputPath = p.join('.dart_tool');
 
     setUpAll(() async {
-      // set up npm
-      await runProc('npm', ['install'], workingDirectory: bindingsGenPath);
-
-      // compile file
-      await compileDartMain(dir: bindingsGenPath);
+      await compileBindingsGen(bindingsGenPath);
     });
 
     final inputFile = p.join(assetsPath, 'test.d.ts');

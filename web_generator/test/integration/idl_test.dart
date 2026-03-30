@@ -18,11 +18,7 @@ void main() {
     final outputDir = p.join('.dart_tool', 'idl');
 
     setUpAll(() async {
-      // set up npm
-      await runProc('npm', ['install'], workingDirectory: bindingsGenPath);
-
-      // compile file
-      await compileDartMain(dir: bindingsGenPath);
+      await compileBindingsGen(bindingsGenPath);
 
       if (!(await Directory(outputDir).exists())) {
         await Directory(outputDir).create(recursive: true);

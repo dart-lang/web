@@ -26,11 +26,7 @@ void main() {
     );
 
     setUpAll(() async {
-      // set up npm
-      await runProc('npm', ['install'], workingDirectory: bindingsGenPath);
-
-      // compile file
-      await compileDartMain(dir: bindingsGenPath);
+      await compileBindingsGen(bindingsGenPath);
     });
 
     test('Strict Unsupported', () async {

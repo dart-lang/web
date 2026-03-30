@@ -11,6 +11,8 @@ import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:web_generator/src/cli.dart';
 
+import 'test_shared.dart';
+
 /// Actual test output can be found in `.dart_tool/idl`
 void main() {
   final bindingsGenPath = p.join('lib', 'src');
@@ -19,11 +21,7 @@ void main() {
     final outputFile = p.join('.dart_tool', 'interop_gen', 'invalid.dart');
 
     setUp(() async {
-      // set up npm
-      await runProc('npm', ['install'], workingDirectory: bindingsGenPath);
-
-      // compile file
-      await compileDartMain(dir: bindingsGenPath);
+      await compileBindingsGen(bindingsGenPath);
     });
 
     test('Expect Parsing to Fail', () async {

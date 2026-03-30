@@ -9,7 +9,6 @@ import 'package:args/args.dart';
 import 'package:dart_style/dart_style.dart';
 import 'package:io/ansi.dart' as ansi;
 import 'package:io/io.dart';
-import 'package:package_config/package_config.dart';
 import 'package:path/path.dart' as p;
 import 'package:web_generator/src/cli.dart';
 

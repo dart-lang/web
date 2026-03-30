@@ -45,7 +45,7 @@ Future<void> compileDartMain({String? langVersion, String? dir}) async {
     'js',
     '--enable-asserts',
     '--server-mode',
-    if (langVersion != null) '-DlanguageVersion=$langVersion',
+    '-DlanguageVersion=$langVersion',
     'dart_main.dart',
     '-o',
     'dart_main.js',

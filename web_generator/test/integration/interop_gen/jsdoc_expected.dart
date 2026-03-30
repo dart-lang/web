@@ -80,6 +80,7 @@ external void cleanup();
 /// Properly shuts down the system and releases all resources.
 @_i1.JS()
 external _i1.JSPromise<_i1.JSAny?> shutdownSystem();
+
 extension type Logger._(_i1.JSObject _) implements _i1.JSObject {
   external void info(String msg);
   external void warn(String msg);

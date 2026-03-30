@@ -12,9 +12,11 @@ typedef StringCallback = JSFunction;
 typedef Comparator = JSFunction;
 typedef Transformer = JSFunction;
 typedef AsyncOperationCallback = JSFunction;
+
 extension type AsyncOperations._(JSObject _) implements JSObject {
   external void performOperation(AsyncOperationCallback whenFinished);
 }
+
 extension type Processor._(JSObject _) implements JSObject {
   external void run(VoidCallback onComplete);
   external void compare(Comparator cmp);

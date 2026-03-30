@@ -12,8 +12,10 @@ extension type const Status._(int _) {
 
   static const Status Pending = Status._(2);
 }
+
 @_i1.JS()
 external void logStatus(Status status);
+
 extension type const Direction._(int _) {
   static const Direction Up = Direction._(0);
 
@@ -23,8 +25,10 @@ extension type const Direction._(int _) {
 
   static const Direction Right = Direction._(3);
 }
+
 @_i1.JS()
 external String handleDirection(Direction dir);
+
 extension type const Permissions._(int _) {
   static const Permissions Read = Permissions._(1);
 
@@ -34,8 +38,10 @@ extension type const Permissions._(int _) {
 
   static const Permissions All = Permissions._(7);
 }
+
 @_i1.JS()
 external bool hasPermission(Permissions perm, Permissions flag);
+
 extension type const ResponseCode._(int _) {
   static const ResponseCode Success = ResponseCode._(200);
 
@@ -43,6 +49,7 @@ extension type const ResponseCode._(int _) {
 
   static const ResponseCode ServerError = ResponseCode._(500);
 }
+
 extension type const Fractions._(double _) {
   static const Fractions Half = Fractions._(0.5);
 
@@ -54,6 +61,7 @@ extension type const Fractions._(double _) {
 
   static const Fractions Third = Fractions._(0.3333333333333333);
 }
+
 extension type const LogLevel._(String _) {
   static const LogLevel Info = LogLevel._('INFO');
 
@@ -63,6 +71,7 @@ extension type const LogLevel._(String _) {
 
   static const LogLevel Debug = LogLevel._('DEBUG');
 }
+
 extension type const HttpMethod._(String _) {
   static const HttpMethod GET = HttpMethod._('GET');
 
@@ -70,13 +79,16 @@ extension type const HttpMethod._(String _) {
 
   static const HttpMethod DELETE = HttpMethod._('DELETE');
 }
+
 extension type BooleanLike._(_i1.JSAny _) {
   static final BooleanLike No = BooleanLike._(0.toJS);
 
   static final BooleanLike Yes = BooleanLike._('YES'.toJS);
 }
+
 @_i1.JS()
 external Status get statusFromName;
+
 extension type const HttpStatus._(int _) {
   static const HttpStatus OK = HttpStatus._(200);
 
@@ -86,8 +98,10 @@ extension type const HttpStatus._(int _) {
 
   static const HttpStatus Forbidden = HttpStatus._(403);
 }
+
 @_i1.JS()
 external HttpStatus get statusCode;
+
 extension type MathConstants._(_i1.JSNumber _) {
   static final MathConstants PI = MathConstants._(3.14.toJS);
 
@@ -97,6 +111,7 @@ extension type MathConstants._(_i1.JSNumber _) {
 
   external static MathConstants Length;
 }
+
 extension type SomeRandomEnumValues._(_i1.JSAny _) {
   static final SomeRandomEnumValues moment = SomeRandomEnumValues._(2.toJS);
 
@@ -107,6 +122,7 @@ extension type SomeRandomEnumValues._(_i1.JSAny _) {
 
   external static SomeRandomEnumValues unknown;
 }
+
 @_i1.JS()
 external Permissions get userPermissions;
 @_i1.JS()
@@ -121,6 +137,7 @@ external AnonymousUnion_2718349? get direction;
 external AnonymousUnion_1516444 get someUnionEnum;
 @_i1.JS()
 external bool get myBooleanEnum;
+
 extension type const AnonymousUnion_2493152._(String _) {
   static const AnonymousUnion_2493152 light = AnonymousUnion_2493152._('light');
 
@@ -130,6 +147,7 @@ extension type const AnonymousUnion_2493152._(String _) {
     'system',
   );
 }
+
 extension type const AnonymousUnion_4032167._(String _) {
   static const AnonymousUnion_4032167 default$ = AnonymousUnion_4032167._(
     'default',
@@ -147,6 +165,7 @@ extension type const AnonymousUnion_4032167._(String _) {
     'disabled',
   );
 }
+
 extension type const AnonymousUnion_1773655._(num _) {
   static const AnonymousUnion_1773655 $0 = AnonymousUnion_1773655._(0);
 
@@ -156,6 +175,7 @@ extension type const AnonymousUnion_1773655._(num _) {
 
   static const AnonymousUnion_1773655 $3 = AnonymousUnion_1773655._(3);
 }
+
 extension type const AnonymousUnion_2718349._(String _) {
   static const AnonymousUnion_2718349 N = AnonymousUnion_2718349._('N');
 
@@ -165,6 +185,7 @@ extension type const AnonymousUnion_2718349._(String _) {
 
   static const AnonymousUnion_2718349 W = AnonymousUnion_2718349._('W');
 }
+
 extension type const AnonymousUnion_1516444._(num _) {
   static const AnonymousUnion_1516444 $2 = AnonymousUnion_1516444._(2);
 

@@ -35,6 +35,12 @@ Future<String> getPackageLanguageVersion(String pkgPath) async {
   if (languageVersion == null) {
     throw StateError('No language version "$pkgPath"');
   }
+  // Force a minimum of 3.10 for stable formatting of extension types.
+  final major = languageVersion.major;
+  final minor = languageVersion.minor;
+  if (major < 3 || (major == 3 && minor < 10)) {
+    return '3.10.0';
+  }
   return '$languageVersion.0';
 }
 

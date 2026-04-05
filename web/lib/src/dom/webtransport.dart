@@ -15,11 +15,20 @@ library;
 
 import 'dart:js_interop';
 
+import 'hr_time.dart';
 import 'streams.dart';
 import 'webidl.dart';
 
+typedef WebTransportReliabilityMode = String;
 typedef WebTransportCongestionControl = String;
 typedef WebTransportErrorSource = String;
+extension type WebTransportDatagramsWritable._(JSObject _)
+    implements WritableStream, JSObject {
+  external WebTransportSendGroup? get sendGroup;
+  external set sendGroup(WebTransportSendGroup? value);
+  external int get sendOrder;
+  external set sendOrder(int value);
+}
 
 /// The **`WebTransportDatagramDuplexStream`** interface of the
 /// [WebTransport API] represents a duplex stream that can be used for
@@ -42,6 +51,9 @@ typedef WebTransportErrorSource = String;
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WebTransportDatagramDuplexStream).
 extension type WebTransportDatagramDuplexStream._(JSObject _)
     implements JSObject {
+  external WebTransportDatagramsWritable createWritable(
+      [WebTransportSendOptions options]);
+
   /// The **`readable`** read-only property of the
   /// [WebTransportDatagramDuplexStream] interface returns a [ReadableStream]
   /// instance that can be used to unreliably read incoming datagrams from the
@@ -53,18 +65,6 @@ extension type WebTransportDatagramDuplexStream._(JSObject _)
   /// state updates where each message supersedes the last one that arrives, and
   /// order is not important.
   external ReadableStream get readable;
-
-  /// The **`writable`** read-only property of the
-  /// [WebTransportDatagramDuplexStream] interface returns a [WritableStream]
-  /// instance that can be used to unreliably write outgoing datagrams to the
-  /// stream.
-  ///
-  /// "Unreliably" means that transmission of data is not guaranteed, nor is
-  /// arrival in a specific order. This is fine in some situations and provides
-  /// very fast delivery. For example, you might want to transmit regular game
-  /// state updates where each message supersedes the last one that arrives, and
-  /// order is not important.
-  external WritableStream get writable;
 
   /// The **`maxDatagramSize`** read-only property of the
   /// [WebTransportDatagramDuplexStream] interface returns the maximum allowable
@@ -120,6 +120,16 @@ extension type WebTransport._(JSObject _) implements JSObject {
     WebTransportOptions options,
   ]);
 
+  external static bool get supportsReliableOnly;
+
+  /// The **`getStats()`** method of the [WebTransport] interface asynchronously
+  /// returns an object containing HTTP/3 connection statistics.
+  external JSPromise<WebTransportConnectionStats> getStats();
+  external JSPromise<JSArrayBuffer> exportKeyingMaterial(
+    BufferSource label, [
+    BufferSource context,
+  ]);
+
   /// The **`close()`** method of the [WebTransport] interface closes an ongoing
   /// WebTransport session.
   external void close([WebTransportCloseInfo closeInfo]);
@@ -168,16 +178,36 @@ extension type WebTransport._(JSObject _) implements JSObject {
   /// implementation dependent.
   /// Note however that even though bytes from higher send-order streams are
   /// sent first, they may not arrive first.
-  external JSPromise<JSObject> createUnidirectionalStream(
+  external JSPromise<WebTransportSendStream> createUnidirectionalStream(
       [WebTransportSendStreamOptions options]);
+  external WebTransportSendGroup createSendGroup();
 
   /// The **`ready`** read-only property of the [WebTransport] interface returns
   /// a promise that resolves when the transport is ready to use.
   external JSPromise<JSAny?> get ready;
 
+  /// The **`reliability`** read-only property of the [WebTransport] interface
+  /// indicates whether the connection supports reliable transports only, or
+  /// whether it also supports unreliable transports (such as UDP).
+  external WebTransportReliabilityMode get reliability;
+
+  /// The **`congestionControl`** read-only property of the [WebTransport]
+  /// interface indicates the application's preference for either high
+  /// throughput or low-latency when sending data.
+  ///
+  /// The value is set in the [`WebTransport()` constructor
+  /// options](/en-US/docs/Web/API/WebTransport/WebTransport#congestioncontrol).
+  external WebTransportCongestionControl get congestionControl;
+  external int? get anticipatedConcurrentIncomingUnidirectionalStreams;
+  external set anticipatedConcurrentIncomingUnidirectionalStreams(int? value);
+  external int? get anticipatedConcurrentIncomingBidirectionalStreams;
+  external set anticipatedConcurrentIncomingBidirectionalStreams(int? value);
+  external String get protocol;
+
   /// The **`closed`** read-only property of the [WebTransport] interface
   /// returns a promise that resolves when the transport is closed.
   external JSPromise<WebTransportCloseInfo> get closed;
+  external JSPromise<JSAny?> get draining;
 
   /// The **`datagrams`** read-only property of the [WebTransport] interface
   /// returns a [WebTransportDatagramDuplexStream] instance that can be used to
@@ -216,8 +246,8 @@ extension type WebTransport._(JSObject _) implements JSObject {
 }
 extension type WebTransportHash._(JSObject _) implements JSObject {
   external factory WebTransportHash({
-    String algorithm,
-    BufferSource value,
+    required String algorithm,
+    required BufferSource value,
   });
 
   external String get algorithm;
@@ -234,6 +264,7 @@ extension type WebTransportOptions._(JSObject _) implements JSObject {
     int? anticipatedConcurrentIncomingUnidirectionalStreams,
     int? anticipatedConcurrentIncomingBidirectionalStreams,
     JSArray<JSString> protocols,
+    ReadableStreamType datagramsReadableType,
   });
 
   external bool get allowPooling;
@@ -250,6 +281,8 @@ extension type WebTransportOptions._(JSObject _) implements JSObject {
   external set anticipatedConcurrentIncomingBidirectionalStreams(int? value);
   external JSArray<JSString> get protocols;
   external set protocols(JSArray<JSString> value);
+  external ReadableStreamType get datagramsReadableType;
+  external set datagramsReadableType(ReadableStreamType value);
 }
 extension type WebTransportCloseInfo._(JSObject _) implements JSObject {
   external factory WebTransportCloseInfo({
@@ -262,19 +295,218 @@ extension type WebTransportCloseInfo._(JSObject _) implements JSObject {
   external String get reason;
   external set reason(String value);
 }
-extension type WebTransportSendStreamOptions._(JSObject _) implements JSObject {
+extension type WebTransportSendOptions._(JSObject _) implements JSObject {
+  external factory WebTransportSendOptions({
+    WebTransportSendGroup? sendGroup,
+    int sendOrder,
+  });
+
+  external WebTransportSendGroup? get sendGroup;
+  external set sendGroup(WebTransportSendGroup? value);
+  external int get sendOrder;
+  external set sendOrder(int value);
+}
+extension type WebTransportSendStreamOptions._(JSObject _)
+    implements WebTransportSendOptions, JSObject {
   external factory WebTransportSendStreamOptions({
-    JSObject? sendGroup,
+    WebTransportSendGroup? sendGroup,
     int sendOrder,
     bool waitUntilAvailable,
   });
 
-  external JSObject? get sendGroup;
-  external set sendGroup(JSObject? value);
-  external int get sendOrder;
-  external set sendOrder(int value);
   external bool get waitUntilAvailable;
   external set waitUntilAvailable(bool value);
+}
+extension type WebTransportConnectionStats._(JSObject _) implements JSObject {
+  external factory WebTransportConnectionStats({
+    int bytesSent,
+    int bytesSentOverhead,
+    int bytesAcknowledged,
+    int packetsSent,
+    int bytesLost,
+    int packetsLost,
+    int bytesReceived,
+    int packetsReceived,
+    DOMHighResTimeStamp smoothedRtt,
+    DOMHighResTimeStamp rttVariation,
+    DOMHighResTimeStamp minRtt,
+    required WebTransportDatagramStats datagrams,
+    int? estimatedSendRate,
+    bool atSendCapacity,
+  });
+
+  external int get bytesSent;
+  external set bytesSent(int value);
+  external int get bytesSentOverhead;
+  external set bytesSentOverhead(int value);
+  external int get bytesAcknowledged;
+  external set bytesAcknowledged(int value);
+  external int get packetsSent;
+  external set packetsSent(int value);
+  external int get bytesLost;
+  external set bytesLost(int value);
+  external int get packetsLost;
+  external set packetsLost(int value);
+  external int get bytesReceived;
+  external set bytesReceived(int value);
+  external int get packetsReceived;
+  external set packetsReceived(int value);
+  external double get smoothedRtt;
+  external set smoothedRtt(DOMHighResTimeStamp value);
+  external double get rttVariation;
+  external set rttVariation(DOMHighResTimeStamp value);
+  external double get minRtt;
+  external set minRtt(DOMHighResTimeStamp value);
+  external WebTransportDatagramStats get datagrams;
+  external set datagrams(WebTransportDatagramStats value);
+  external int? get estimatedSendRate;
+  external set estimatedSendRate(int? value);
+  external bool get atSendCapacity;
+  external set atSendCapacity(bool value);
+}
+extension type WebTransportDatagramStats._(JSObject _) implements JSObject {
+  external factory WebTransportDatagramStats({
+    int droppedIncoming,
+    int expiredIncoming,
+    int expiredOutgoing,
+    int lostOutgoing,
+  });
+
+  external int get droppedIncoming;
+  external set droppedIncoming(int value);
+  external int get expiredIncoming;
+  external set expiredIncoming(int value);
+  external int get expiredOutgoing;
+  external set expiredOutgoing(int value);
+  external int get lostOutgoing;
+  external set lostOutgoing(int value);
+}
+
+/// The `WebTransportSendStream` interface of the [WebTransport API] is a
+/// specialized [WritableStream] that is used to send outbound data in both
+/// unidirectional or bidirectional [WebTransport] streams.
+///
+/// The send stream is a
+/// [writable stream](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API/Using_writable_streams)
+/// of
+/// [`Uint8Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array),
+/// that can be written to in order to send data to a server.
+/// It additionally provides streaming features such as setting the send order,
+/// and getting stream statistics.
+///
+/// Objects of this type are not constructed directly.
+/// When creating a unidirectional stream the
+/// [WebTransport.createUnidirectionalStream] returns an object of this type for
+/// sending data.
+/// When creating a bidirectional stream using
+/// [WebTransport.createBidirectionalStream], the method returns a
+/// [WebTransportBidirectionalStream], and the send stream object can be
+/// obtained from its [WebTransportBidirectionalStream.writable] property.
+/// When a bidirectional stream is initiated by the remote end, an object of
+/// this type can similarly be obtained using
+/// [WebTransport.incomingBidirectionalStreams].
+///
+/// `WebTransportSendStream` is a
+/// [transferable object](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Transferable_objects).
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WebTransportSendStream).
+extension type WebTransportSendStream._(JSObject _)
+    implements WritableStream, JSObject {
+  /// The **`getStats()`** method of the [WebTransportSendStream] interface
+  /// asynchronously returns an object containing statistics for the current
+  /// stream.
+  ///
+  /// The statistics include the total number of bytes written to the stream,
+  /// the number that have been sent (ignoring packet overhead), and the number
+  /// of bytes that have been set at least once, and the number that have been
+  /// acknowledged (up until the first sequentially-ordered non-acknowledged
+  /// byte).
+  /// It therefore provides a measure of how quickly the application is sending
+  /// bytes to the server on this particular stream.
+  external JSPromise<WebTransportSendStreamStats> getStats();
+  external WebTransportWriter getWriter();
+  external WebTransportSendGroup? get sendGroup;
+  external set sendGroup(WebTransportSendGroup? value);
+
+  /// The **`sendOrder`** property of the [WebTransportSendStream] interface
+  /// indicates the send priority of this stream relative to other streams for
+  /// which the value has been set.
+  ///
+  /// Queued bytes are sent first for streams that have a higher value.
+  /// If not set, the send order depends on the implementation.
+  external int get sendOrder;
+  external set sendOrder(int value);
+}
+extension type WebTransportSendStreamStats._(JSObject _) implements JSObject {
+  external factory WebTransportSendStreamStats({
+    int bytesWritten,
+    int bytesSent,
+    int bytesAcknowledged,
+  });
+
+  external int get bytesWritten;
+  external set bytesWritten(int value);
+  external int get bytesSent;
+  external set bytesSent(int value);
+  external int get bytesAcknowledged;
+  external set bytesAcknowledged(int value);
+}
+extension type WebTransportSendGroup._(JSObject _) implements JSObject {
+  external JSPromise<WebTransportSendStreamStats> getStats();
+}
+
+/// The `WebTransportReceiveStream` interface of the [WebTransport API] is a
+/// [ReadableStream] that can be used to read from an incoming unidirectional or
+/// bidirectional [WebTransport] stream.
+///
+/// The stream is a
+/// [readable byte stream](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API/Using_readable_byte_streams)
+/// of
+/// [`Uint8Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array),
+/// and can be consumed using either a BYOB reader
+/// ([`ReadableStreamBYOBReader`](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStreamBYOBReader))
+/// or the default reader
+/// ([`ReadableStreamDefaultReader`](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStreamDefaultReader)).
+///
+/// Objects of this type are not constructed directly.
+/// Instead they are obtained using the
+/// [`WebTransport.incomingUnidirectionalStream`](https://developer.mozilla.org/en-US/docs/Web/API/WebTransport/incomingUnidirectionalStreams)
+/// property.
+///
+/// `WebTransportReceiveStream` is a
+/// [transferable object](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Transferable_objects).
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WebTransportReceiveStream).
+extension type WebTransportReceiveStream._(JSObject _)
+    implements ReadableStream, JSObject {
+  /// The **`getStats()`** method of the [WebTransportReceiveStream] interface
+  /// asynchronously returns an object containing statistics for the current
+  /// stream.
+  ///
+  /// The statistics include the total number of ordered bytes that have arrived
+  /// on this stream (ignoring network overhead, up until the first missing
+  /// byte) and the total number that have been read by the application.
+  /// It therefore provides a measure of how quickly the application is
+  /// consuming bytes from the server on this particular stream.
+  external JSPromise<WebTransportReceiveStreamStats> getStats();
+}
+extension type WebTransportReceiveStreamStats._(JSObject _)
+    implements JSObject {
+  external factory WebTransportReceiveStreamStats({
+    int bytesReceived,
+    int bytesRead,
+  });
+
+  external int get bytesReceived;
+  external set bytesReceived(int value);
+  external int get bytesRead;
+  external set bytesRead(int value);
 }
 
 /// The **`WebTransportBidirectionalStream`** interface of the
@@ -293,12 +525,17 @@ extension type WebTransportBidirectionalStream._(JSObject _)
   /// [WebTransportBidirectionalStream] interface returns a
   /// [WebTransportReceiveStream] instance that can be used to reliably read
   /// incoming data.
-  external JSObject get readable;
+  external WebTransportReceiveStream get readable;
 
   /// The **`writable`** read-only property of the
   /// [WebTransportBidirectionalStream] interface returns a
   /// [WebTransportSendStream] instance that can be used to write outgoing data.
-  external JSObject get writable;
+  external WebTransportSendStream get writable;
+}
+extension type WebTransportWriter._(JSObject _)
+    implements WritableStreamDefaultWriter, JSObject {
+  external JSPromise<JSAny?> atomicWrite([JSAny? chunk]);
+  external void commit();
 }
 
 /// The **`WebTransportError`** interface of the [WebTransport API] represents

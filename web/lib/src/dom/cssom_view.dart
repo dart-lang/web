@@ -20,9 +20,11 @@ import 'geometry.dart';
 import 'html.dart';
 import 'screen_orientation.dart';
 
+typedef GeometryNode = JSObject;
 typedef ScrollBehavior = String;
 typedef ScrollLogicalPosition = String;
 typedef ScrollIntoViewContainer = String;
+typedef CSSBoxType = String;
 extension type ScrollOptions._(JSObject _) implements JSObject {
   external factory ScrollOptions({ScrollBehavior behavior});
 
@@ -194,6 +196,18 @@ extension type Screen._(JSObject _) implements JSObject {
   /// The **`orientation`** read-only property of the
   /// [Screen] interface returns the current orientation of the screen.
   external ScreenOrientation get orientation;
+
+  /// The **`isExtended`** read-only property of the
+  /// [Screen] interface returns `true` if the user's device has multiple
+  /// screens, and `false` if not.
+  ///
+  /// This property is typically accessed via `window.screen.isExtended`, and
+  /// can be used to test whether multiple screens are available before
+  /// attempting to create a multi-window, multi-screen layout using the
+  /// [Window Management API](https://developer.mozilla.org/en-US/docs/Web/API/Window_Management_API).
+  external bool get isExtended;
+  external EventHandler get onchange;
+  external set onchange(EventHandler value);
 }
 extension type CaretPositionFromPointOptions._(JSObject _) implements JSObject {
   external factory CaretPositionFromPointOptions(
@@ -252,6 +266,28 @@ extension type CheckVisibilityOptions._(JSObject _) implements JSObject {
   external set opacityProperty(bool value);
   external bool get visibilityProperty;
   external set visibilityProperty(bool value);
+}
+extension type BoxQuadOptions._(JSObject _) implements JSObject {
+  external factory BoxQuadOptions({
+    CSSBoxType box,
+    GeometryNode relativeTo,
+  });
+
+  external CSSBoxType get box;
+  external set box(CSSBoxType value);
+  external GeometryNode get relativeTo;
+  external set relativeTo(GeometryNode value);
+}
+extension type ConvertCoordinateOptions._(JSObject _) implements JSObject {
+  external factory ConvertCoordinateOptions({
+    CSSBoxType fromBox,
+    CSSBoxType toBox,
+  });
+
+  external CSSBoxType get fromBox;
+  external set fromBox(CSSBoxType value);
+  external CSSBoxType get toBox;
+  external set toBox(CSSBoxType value);
 }
 
 /// The **`VisualViewport`** interface of the [Visual Viewport API] represents

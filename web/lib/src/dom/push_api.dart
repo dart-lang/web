@@ -17,10 +17,22 @@ import 'dart:js_interop';
 
 import 'fileapi.dart';
 import 'hr_time.dart';
+import 'notifications.dart';
+import 'permissions.dart';
 import 'service_workers.dart';
 
 typedef PushMessageDataInit = JSAny;
 typedef PushEncryptionKeyName = String;
+extension type PushPermissionDescriptor._(JSObject _)
+    implements PermissionDescriptor, JSObject {
+  external factory PushPermissionDescriptor({
+    required String name,
+    bool userVisibleOnly,
+  });
+
+  external bool get userVisibleOnly;
+  external set userVisibleOnly(bool value);
+}
 
 /// The **`PushManager`** interface of the
 /// [Push API](https://developer.mozilla.org/en-US/docs/Web/API/Push_API)
@@ -274,6 +286,7 @@ extension type PushEvent._(JSObject _) implements ExtendableEvent, JSObject {
   /// reference to a [PushMessageData] object containing data sent to the
   /// [PushSubscription].
   external PushMessageData? get data;
+  external Notification? get notification;
 }
 extension type PushEventInit._(JSObject _)
     implements ExtendableEventInit, JSObject {
@@ -281,14 +294,37 @@ extension type PushEventInit._(JSObject _)
     bool bubbles,
     bool cancelable,
     bool composed,
-    PushMessageDataInit data,
+    PushMessageDataInit? data,
+    Notification? notification,
   });
 
-  external PushMessageDataInit get data;
-  external set data(PushMessageDataInit value);
+  external PushMessageDataInit? get data;
+  external set data(PushMessageDataInit? value);
+  external Notification? get notification;
+  external set notification(Notification? value);
 }
 extension type PushSubscriptionChangeEvent._(JSObject _)
     implements ExtendableEvent, JSObject {
+  external factory PushSubscriptionChangeEvent(
+    String type, [
+    PushSubscriptionChangeEventInit eventInitDict,
+  ]);
+
   external PushSubscription? get newSubscription;
   external PushSubscription? get oldSubscription;
+}
+extension type PushSubscriptionChangeEventInit._(JSObject _)
+    implements ExtendableEventInit, JSObject {
+  external factory PushSubscriptionChangeEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
+    PushSubscription newSubscription,
+    PushSubscription oldSubscription,
+  });
+
+  external PushSubscription get newSubscription;
+  external set newSubscription(PushSubscription value);
+  external PushSubscription get oldSubscription;
+  external set oldSubscription(PushSubscription value);
 }

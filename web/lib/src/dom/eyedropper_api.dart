@@ -1,0 +1,48 @@
+// Copyright (c) 2026, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+//
+// API docs from [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web).
+// Attributions and copyright licensing by Mozilla Contributors is licensed
+// under [CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/.
+
+// Generated from Web IDL definitions.
+
+// ignore_for_file: constant_identifier_names, non_constant_identifier_names
+
+@JS()
+library;
+
+import 'dart:js_interop';
+
+import 'dom.dart';
+
+extension type ColorSelectionResult._(JSObject _) implements JSObject {
+  external factory ColorSelectionResult({String sRGBHex});
+
+  external String get sRGBHex;
+  external set sRGBHex(String value);
+}
+extension type ColorSelectionOptions._(JSObject _) implements JSObject {
+  external factory ColorSelectionOptions({AbortSignal signal});
+
+  external AbortSignal get signal;
+  external set signal(AbortSignal value);
+}
+
+/// The **`EyeDropper`** interface represents an instance of an eyedropper tool
+/// that can be opened and used by the user to select colors from the screen.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/EyeDropper).
+extension type EyeDropper._(JSObject _) implements JSObject {
+  external factory EyeDropper();
+
+  /// The **`EyeDropper.open()`** method starts the eyedropper mode, returning a
+  /// promise which is fulfilled once the user has selected a color and exited
+  /// the eyedropper mode.
+  external JSPromise<ColorSelectionResult> open(
+      [ColorSelectionOptions options]);
+}

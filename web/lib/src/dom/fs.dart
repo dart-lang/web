@@ -15,6 +15,7 @@ library;
 
 import 'dart:js_interop';
 
+import 'file_system_access.dart';
 import 'fileapi.dart';
 import 'streams.dart';
 import 'webidl.dart';
@@ -38,6 +39,19 @@ extension type FileSystemHandle._(JSObject _) implements JSObject {
   /// [FileSystemHandle] interface compares two [FileSystemHandle] to see if the
   /// associated entries (either a file or directory) match.
   external JSPromise<JSBoolean> isSameEntry(FileSystemHandle other);
+
+  /// The **`queryPermission()`** method of the
+  /// [FileSystemHandle] interface queries the current permission state of the
+  /// current handle.
+  external JSPromise<JSString> queryPermission(
+      [FileSystemHandlePermissionDescriptor descriptor]);
+
+  /// The **`requestPermission()`** method of the
+  /// [FileSystemHandle] interface requests read or readwrite permissions for
+  /// the
+  /// file handle.
+  external JSPromise<JSString> requestPermission(
+      [FileSystemHandlePermissionDescriptor descriptor]);
 
   /// The **`kind`** read-only property of the
   /// [FileSystemHandle] interface returns the type of entry. This is

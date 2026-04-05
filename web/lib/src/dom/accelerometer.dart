@@ -18,6 +18,39 @@ import 'dart:js_interop';
 import 'generic_sensor.dart';
 
 typedef AccelerometerLocalCoordinateSystem = String;
+
+/// The **`Accelerometer`** interface of the
+/// [Sensor APIs](https://developer.mozilla.org/en-US/docs/Web/API/Sensor_APIs)
+/// provides on each reading the acceleration applied to the device along all
+/// three axes.
+///
+/// To use this sensor, the user must grant permission to the `'accelerometer'`,
+/// device sensor through the
+/// [Permissions API](https://developer.mozilla.org/en-US/docs/Web/API/Permissions_API).
+///
+/// This feature may be blocked by a
+/// [Permissions Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Permissions_Policy)
+/// set on your server.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Accelerometer).
+extension type Accelerometer._(JSObject _) implements Sensor, JSObject {
+  external factory Accelerometer([AccelerometerSensorOptions options]);
+
+  /// The **`x`** read-only property of the [Accelerometer] interface returns a
+  /// number specifying the acceleration of the device along its x-axis.
+  external double? get x;
+
+  /// The **`y`** read-only property of the [Accelerometer] interface returns a
+  /// number specifying the acceleration of the device along its y-axis.
+  external double? get y;
+
+  /// The **`z`** read-only property of the [Accelerometer] interface returns a
+  /// number specifying the acceleration of the device along its z-axis.
+  external double? get z;
+}
 extension type AccelerometerSensorOptions._(JSObject _)
     implements SensorOptions, JSObject {
   external factory AccelerometerSensorOptions({
@@ -46,7 +79,7 @@ extension type AccelerometerSensorOptions._(JSObject _)
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/LinearAccelerationSensor).
 extension type LinearAccelerationSensor._(JSObject _)
-    implements Sensor, JSObject {
+    implements Accelerometer, JSObject {
   external factory LinearAccelerationSensor(
       [AccelerometerSensorOptions options]);
 }
@@ -67,6 +100,6 @@ extension type LinearAccelerationSensor._(JSObject _)
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/GravitySensor).
-extension type GravitySensor._(JSObject _) implements Sensor, JSObject {
+extension type GravitySensor._(JSObject _) implements Accelerometer, JSObject {
   external factory GravitySensor([AccelerometerSensorOptions options]);
 }

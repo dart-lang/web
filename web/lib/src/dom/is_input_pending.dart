@@ -1,0 +1,60 @@
+// Copyright (c) 2026, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+//
+// API docs from [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web).
+// Attributions and copyright licensing by Mozilla Contributors is licensed
+// under [CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/.
+
+// Generated from Web IDL definitions.
+
+// ignore_for_file: constant_identifier_names, non_constant_identifier_names
+
+@JS()
+library;
+
+import 'dart:js_interop';
+
+extension type IsInputPendingOptions._(JSObject _) implements JSObject {
+  external factory IsInputPendingOptions({bool includeContinuous});
+
+  external bool get includeContinuous;
+  external set includeContinuous(bool value);
+}
+
+/// The **`Scheduling`** object provides methods and properties to control
+/// scheduling tasks within the current document.
+///
+/// > [!WARNING]
+/// > The `Scheduling` interface has been superseded by the [Scheduler]
+/// > interface, the features of which are better designed for addressing
+/// > scheduling tasks. See [Don't use
+/// > `isInputPending()`](https://web.dev/articles/optimize-long-tasks#isinputpending)
+/// > for more details.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Scheduling).
+extension type Scheduling._(JSObject _) implements JSObject {
+  /// The **`isInputPending()`** method of the [Scheduling] interface allows you
+  /// to check whether there are pending input events in the event queue,
+  /// indicating that the user is attempting to interact with the page.
+  ///
+  /// This feature can be useful in situations where you have a queue of tasks
+  /// to run, and you want to yield to the main thread regularly to allow user
+  /// interaction to occur so that the app is kept as responsive and performant
+  /// as possible. `isInputPending()` allows you to yield only when there is
+  /// input pending, rather than having to do it at arbitrary intervals.
+  ///
+  /// > [!WARNING]
+  /// > The `isInputPending()` method has been superseded by features available
+  /// > on the [Scheduler] interface such as [Scheduler.yield], which are better
+  /// > designed for addressing scheduling tasks. See [Don't use
+  /// > `isInputPending()`](https://web.dev/articles/optimize-long-tasks#isinputpending)
+  /// > for more details.
+  ///
+  /// `isInputPending()` is called using
+  /// `navigator.scheduling.isInputPending()`.
+  external bool isInputPending([IsInputPendingOptions isInputPendingOptions]);
+}

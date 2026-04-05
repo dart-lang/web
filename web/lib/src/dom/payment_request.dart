@@ -15,6 +15,7 @@ library;
 
 import 'dart:js_interop';
 
+import 'contact_picker.dart';
 import 'dom.dart';
 import 'html.dart';
 
@@ -37,6 +38,8 @@ extension type PaymentRequest._(JSObject _) implements EventTarget, JSObject {
     PaymentDetailsInit details, [
     PaymentOptions options,
   ]);
+
+  external static JSPromise<JSString> securePaymentConfirmationAvailability();
 
   /// The **[PaymentRequest]** interface's
   /// **`show()`** method instructs the user agent to begin the
@@ -114,6 +117,38 @@ extension type PaymentRequest._(JSObject _) implements EventTarget, JSObject {
   /// supply an custom id. If none is provided, the browser automatically sets
   /// the id value to a UUID.
   external String get id;
+
+  /// The **`shippingAddress`** read-only property of
+  /// the [PaymentRequest] interface returns the shipping address provided by
+  /// the
+  /// user. It is `null` by default.
+  external ContactAddress? get shippingAddress;
+
+  /// The **`shippingOption`** read-only attribute of
+  /// the [PaymentRequest] interface returns either the id of a selected
+  /// shipping
+  /// option, null (if no shipping option was set to be selected) or a shipping
+  /// option
+  /// selected by the user. It is initially `null` by when no "selected"
+  /// shipping
+  /// options are provided.
+  ///
+  /// This attribute is only populated if the constructor is called with the
+  /// `requestShipping` flag set to `true`. If
+  /// `requestShipping` was `false` (or missing),
+  /// `shippingOption` returns `null`, even the developer provides
+  /// a selected a shipping option.
+  external String? get shippingOption;
+
+  /// The **`shippingType`** read-only property of the
+  /// [PaymentRequest] interface returns one of `"shipping"`,
+  /// `"delivery"`, `"pickup"`, or `null` if one was not
+  /// provided by the constructor.
+  external PaymentShippingType? get shippingType;
+  external EventHandler get onshippingaddresschange;
+  external set onshippingaddresschange(EventHandler value);
+  external EventHandler get onshippingoptionchange;
+  external set onshippingoptionchange(EventHandler value);
   external EventHandler get onpaymentmethodchange;
   external set onpaymentmethodchange(EventHandler value);
 }
@@ -338,7 +373,7 @@ extension type PaymentResponse._(JSObject _) implements EventTarget, JSObject {
   /// The **`shippingAddress`** read-only property of
   /// the `PaymentRequest` interface returns a [PaymentAddress] object
   /// containing the shipping address provided by the user.
-  external JSObject? get shippingAddress;
+  external ContactAddress? get shippingAddress;
 
   /// The **`shippingOption`** read-only property of
   /// the `PaymentRequest` interface returns the ID attribute of the shipping

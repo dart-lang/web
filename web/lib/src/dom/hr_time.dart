@@ -19,6 +19,7 @@ import 'dom.dart';
 import 'event_timing.dart';
 import 'html.dart';
 import 'navigation_timing.dart';
+import 'performance_measure_memory.dart';
 import 'performance_timeline.dart';
 import 'user_timing.dart';
 
@@ -48,6 +49,10 @@ extension type Performance._(JSObject _) implements EventTarget, JSObject {
   /// The **`toJSON()`** method of the [Performance] interface is a ; it returns
   /// a JSON representation of the [Performance] object.
   external JSObject toJSON();
+
+  /// The **`measureUserAgentSpecificMemory()`** method is used to estimate the
+  /// memory usage of a web application including all its iframes and workers.
+  external JSPromise<MemoryMeasurement> measureUserAgentSpecificMemory();
 
   /// The **`getEntries()`** method returns an array of all [PerformanceEntry]
   /// objects currently present in the performance timeline.
@@ -214,6 +219,7 @@ extension type Performance._(JSObject _) implements EventTarget, JSObject {
   /// Not all event types are exposed. You can only get counts for event types
   /// supported by the [PerformanceEventTiming] interface.
   external EventCounts get eventCounts;
+  external int get interactionCount;
 
   /// The legacy
   /// **`Performance.timing`** read-only

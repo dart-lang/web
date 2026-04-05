@@ -16,6 +16,8 @@ library;
 import 'dart:js_interop';
 
 import 'dom.dart';
+import 'gamepad_extensions.dart';
+import 'geometry.dart';
 
 typedef GamepadMappingType = String;
 typedef GamepadHapticsResult = String;
@@ -135,6 +137,7 @@ extension type Gamepad._(JSObject _) implements JSObject {
   ///
   ///   - : A floating point value used to enable representing analog buttons, such as the triggers on many modern gamepads. The values are normalized to the range 0.0 – 1.0, with 0.0 representing a button that is not pressed, and 1.0 representing a button that is fully pressed.
   external JSArray<GamepadButton> get buttons;
+  external JSArray<GamepadTouch> get touches;
 
   /// The **`vibrationActuator`** read-only property of the [Gamepad] interface
   /// returns a [GamepadHapticActuator] object, which represents haptic feedback
@@ -145,6 +148,21 @@ extension type Gamepad._(JSObject _) implements JSObject {
   /// > platforms and controllers. Even if the controller supports haptic
   /// > feedback, the platform may not support it.
   external GamepadHapticActuator get vibrationActuator;
+
+  /// The **`hand`** read-only property of the [Gamepad] interface returns an
+  /// enum defining what hand the controller is being held in, or is most likely
+  /// to be held in.
+  external GamepadHand get hand;
+
+  /// The **`hapticActuators`** read-only property of the [Gamepad] interface
+  /// returns an array containing [GamepadHapticActuator] objects, each of which
+  /// represents haptic feedback hardware available on the controller.
+  external JSArray<GamepadHapticActuator> get hapticActuators;
+
+  /// The **`pose`** read-only property of the [Gamepad] interface returns a
+  /// [GamepadPose] object representing the pose information associated with a
+  /// WebVR controller (e.g. its position and orientation in 3D space).
+  external GamepadPose? get pose;
 }
 
 /// The **`GamepadButton`** interface defines an individual button of a gamepad
@@ -186,6 +204,23 @@ extension type GamepadButton._(JSObject _) implements JSObject {
   /// button that is fully pressed.
   external double get value;
 }
+extension type GamepadTouch._(JSObject _) implements JSObject {
+  external factory GamepadTouch({
+    int touchId,
+    int surfaceId,
+    DOMPointReadOnly position,
+    DOMRectReadOnly? surfaceDimensions,
+  });
+
+  external int get touchId;
+  external set touchId(int value);
+  external int get surfaceId;
+  external set surfaceId(int value);
+  external DOMPointReadOnly get position;
+  external set position(DOMPointReadOnly value);
+  external DOMRectReadOnly? get surfaceDimensions;
+  external set surfaceDimensions(DOMRectReadOnly? value);
+}
 
 /// The **`GamepadHapticActuator`** interface of the
 /// [Gamepad API](https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API)
@@ -216,6 +251,11 @@ extension type GamepadHapticActuator._(JSObject _) implements JSObject {
     num value,
     num duration,
   );
+
+  /// The **`effects`** read-only property of the [GamepadHapticActuator]
+  /// interface returns an array of enumerated values representing the different
+  /// haptic effects that the actuator supports.
+  external JSArray<JSString> get effects;
 }
 extension type GamepadEffectParameters._(JSObject _) implements JSObject {
   external factory GamepadEffectParameters({
@@ -252,9 +292,9 @@ extension type GamepadEffectParameters._(JSObject _) implements JSObject {
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/GamepadEvent).
 extension type GamepadEvent._(JSObject _) implements Event, JSObject {
   external factory GamepadEvent(
-    String type,
+    String type, [
     GamepadEventInit eventInitDict,
-  );
+  ]);
 
   /// The **`GamepadEvent.gamepad`** property of the
   /// **[GamepadEvent] interface** returns a [Gamepad]
@@ -268,9 +308,9 @@ extension type GamepadEventInit._(JSObject _) implements EventInit, JSObject {
     bool bubbles,
     bool cancelable,
     bool composed,
-    required Gamepad gamepad,
+    Gamepad? gamepad,
   });
 
-  external Gamepad get gamepad;
-  external set gamepad(Gamepad value);
+  external Gamepad? get gamepad;
+  external set gamepad(Gamepad? value);
 }

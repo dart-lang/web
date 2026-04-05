@@ -205,6 +205,10 @@ extension type MediaRecorder._(JSObject _) implements EventTarget, JSObject {
   /// This may differ from the bit rate specified in the constructor (if
   /// it was provided).
   external int get audioBitsPerSecond;
+
+  /// The **`audioBitrateMode`** read-only property of the [MediaRecorder]
+  /// interface returns the bitrate mode used to encode audio tracks.
+  external BitrateMode get audioBitrateMode;
 }
 extension type MediaRecorderOptions._(JSObject _) implements JSObject {
   external factory MediaRecorderOptions({
@@ -261,8 +265,11 @@ extension type BlobEvent._(JSObject _) implements Event, JSObject {
   /// to be zero.
   external double get timecode;
 }
-extension type BlobEventInit._(JSObject _) implements JSObject {
+extension type BlobEventInit._(JSObject _) implements EventInit, JSObject {
   external factory BlobEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
     required Blob data,
     DOMHighResTimeStamp timecode,
   });

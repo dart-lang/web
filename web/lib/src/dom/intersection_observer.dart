@@ -17,6 +17,7 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 import 'geometry.dart';
+import 'hr_time.dart';
 
 typedef IntersectionObserverCallback = JSFunction;
 
@@ -135,6 +136,7 @@ extension type IntersectionObserver._(JSObject _) implements JSObject {
   /// for a more in-depth look at the root margin and how it works with
   /// the root's bounding box.
   external String get rootMargin;
+  external String get scrollMargin;
 
   /// The [IntersectionObserver] interface's read-only
   /// **`thresholds`** property returns the list of intersection
@@ -149,6 +151,8 @@ extension type IntersectionObserver._(JSObject _) implements JSObject {
   /// page to
   /// learn how thresholds work.
   external JSArray<JSNumber> get thresholds;
+  external int get delay;
+  external bool get trackVisibility;
 }
 
 /// The **`IntersectionObserverEntry`** interface of the
@@ -165,6 +169,9 @@ extension type IntersectionObserver._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry).
 extension type IntersectionObserverEntry._(JSObject _) implements JSObject {
+  external factory IntersectionObserverEntry(
+      IntersectionObserverEntryInit intersectionObserverEntryInit);
+
   /// The [IntersectionObserverEntry] interface's
   /// read-only **`time`** property is a
   /// [DOMHighResTimeStamp] that indicates the time at which the intersection
@@ -201,6 +208,7 @@ extension type IntersectionObserverEntry._(JSObject _) implements JSObject {
   /// intersection; if it's `false`, then you know the transition is from
   /// intersecting to not-intersecting.
   external bool get isIntersecting;
+  external bool get isVisible;
 
   /// The [IntersectionObserverEntry] interface's
   /// read-only **`intersectionRatio`** property tells you how much
@@ -214,6 +222,35 @@ extension type IntersectionObserverEntry._(JSObject _) implements JSObject {
   /// [Element] has changed its amount of intersection with the intersection
   /// root.
   external Element get target;
+}
+extension type IntersectionObserverEntryInit._(JSObject _) implements JSObject {
+  external factory IntersectionObserverEntryInit({
+    required DOMHighResTimeStamp time,
+    required DOMRectInit? rootBounds,
+    required DOMRectInit boundingClientRect,
+    required DOMRectInit intersectionRect,
+    required bool isIntersecting,
+    required bool isVisible,
+    required num intersectionRatio,
+    required Element target,
+  });
+
+  external double get time;
+  external set time(DOMHighResTimeStamp value);
+  external DOMRectInit? get rootBounds;
+  external set rootBounds(DOMRectInit? value);
+  external DOMRectInit get boundingClientRect;
+  external set boundingClientRect(DOMRectInit value);
+  external DOMRectInit get intersectionRect;
+  external set intersectionRect(DOMRectInit value);
+  external bool get isIntersecting;
+  external set isIntersecting(bool value);
+  external bool get isVisible;
+  external set isVisible(bool value);
+  external double get intersectionRatio;
+  external set intersectionRatio(num value);
+  external Element get target;
+  external set target(Element value);
 }
 extension type IntersectionObserverInit._(JSObject _) implements JSObject {
   external factory IntersectionObserverInit({

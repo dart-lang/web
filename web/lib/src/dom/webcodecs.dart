@@ -281,6 +281,13 @@ extension type AudioEncoderInit._(JSObject _) implements JSObject {
   external WebCodecsErrorCallback get error;
   external set error(WebCodecsErrorCallback value);
 }
+extension type EncodedAudioChunkMetadata._(JSObject _) implements JSObject {
+  external factory EncodedAudioChunkMetadata(
+      {AudioDecoderConfig decoderConfig});
+
+  external AudioDecoderConfig get decoderConfig;
+  external set decoderConfig(AudioDecoderConfig value);
+}
 
 /// @AvailableInWorkers("window_and_dedicated")
 ///
@@ -378,6 +385,26 @@ extension type VideoEncoderInit._(JSObject _) implements JSObject {
   external WebCodecsErrorCallback get error;
   external set error(WebCodecsErrorCallback value);
 }
+extension type EncodedVideoChunkMetadata._(JSObject _) implements JSObject {
+  external factory EncodedVideoChunkMetadata({
+    VideoDecoderConfig decoderConfig,
+    SvcOutputMetadata svc,
+    BufferSource alphaSideData,
+  });
+
+  external VideoDecoderConfig get decoderConfig;
+  external set decoderConfig(VideoDecoderConfig value);
+  external SvcOutputMetadata get svc;
+  external set svc(SvcOutputMetadata value);
+  external BufferSource get alphaSideData;
+  external set alphaSideData(BufferSource value);
+}
+extension type SvcOutputMetadata._(JSObject _) implements JSObject {
+  external factory SvcOutputMetadata({int temporalLayerId});
+
+  external int get temporalLayerId;
+  external set temporalLayerId(int value);
+}
 extension type AudioDecoderSupport._(JSObject _) implements JSObject {
   external factory AudioDecoderSupport({
     bool supported,
@@ -427,7 +454,7 @@ extension type AudioDecoderConfig._(JSObject _) implements JSObject {
     required String codec,
     required int sampleRate,
     required int numberOfChannels,
-    BufferSource description,
+    AllowSharedBufferSource description,
   });
 
   external String get codec;
@@ -436,8 +463,8 @@ extension type AudioDecoderConfig._(JSObject _) implements JSObject {
   external set sampleRate(int value);
   external int get numberOfChannels;
   external set numberOfChannels(int value);
-  external BufferSource get description;
-  external set description(BufferSource value);
+  external AllowSharedBufferSource get description;
+  external set description(AllowSharedBufferSource value);
 }
 extension type VideoDecoderConfig._(JSObject _) implements JSObject {
   external factory VideoDecoderConfig({
@@ -851,6 +878,8 @@ extension type VideoFrame._(JSObject _) implements JSObject {
     JSObject init,
   ]);
 
+  external VideoFrameMetadata metadata();
+
   /// @AvailableInWorkers("window_and_dedicated")
   ///
   /// The **`allocationSize()`** method of the [VideoFrame] interface returns
@@ -912,6 +941,8 @@ extension type VideoFrame._(JSObject _) implements JSObject {
   /// [DOMRectReadOnly] describing the visible rectangle of pixels for this
   /// `VideoFrame`.
   external DOMRectReadOnly? get visibleRect;
+  external double get rotation;
+  external bool get flip;
 
   /// @AvailableInWorkers("window_and_dedicated")
   ///

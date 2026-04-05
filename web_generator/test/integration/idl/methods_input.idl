@@ -32,3 +32,6 @@ interface Button {
   undefined setDimensions(Dimensions size);
   undefined setDimensions(unsigned long width, unsigned long height);
 };
+interface VoidPromiseTest {
+  Promise<void> doSomething();
+};

@@ -26,6 +26,7 @@ typedef AnimationReplaceState = String;
 typedef FillMode = String;
 typedef PlaybackDirection = String;
 typedef CompositeOperation = String;
+typedef CompositeOperationOrAuto = String;
 
 /// The `AnimationTimeline` interface of the
 /// [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)
@@ -41,11 +42,14 @@ typedef CompositeOperation = String;
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AnimationTimeline).
 extension type AnimationTimeline._(JSObject _) implements JSObject {
+  external Animation play([AnimationEffect? effect]);
+
   /// The **`currentTime`** read-only property of the
   /// [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)'s
   /// [AnimationTimeline] interface returns the timeline's current time in
   /// milliseconds, or `null` if the timeline is inactive.
   external CSSNumberish? get currentTime;
+  external CSSNumberish? get duration;
 }
 extension type DocumentTimelineOptions._(JSObject _) implements JSObject {
   external factory DocumentTimelineOptions({DOMHighResTimeStamp originTime});
@@ -280,6 +284,17 @@ extension type Animation._(JSObject _) implements EventTarget, JSObject {
   /// played yet, `currentTime`'s return value is `null`.
   external CSSNumberish? get currentTime;
   external set currentTime(CSSNumberish? value);
+  external AnimationTrigger? get trigger;
+  external set trigger(AnimationTrigger? value);
+
+  /// The **`overallProgress`** read-only property of the [Animation] interface
+  /// returns a number between `0` and `1` indicating the animation's overall
+  /// progress towards its finished state. This is the overall progress across
+  /// all of the animation's iterations, not each individual iteration.
+  ///
+  /// `overallProgress` works consistently across all animations, regardless of
+  /// the type of [AnimationTimeline].
+  external double? get overallProgress;
 }
 
 /// The `AnimationEffect` interface of the
@@ -324,6 +339,28 @@ extension type AnimationEffect._(JSObject _) implements JSObject {
   /// The `updateTiming()` method of the [AnimationEffect] interface updates the
   /// specified timing properties for an animation effect.
   external void updateTiming([OptionalEffectTiming timing]);
+  external void before([
+    AnimationEffect effect1,
+    AnimationEffect effect2,
+    AnimationEffect effect3,
+    AnimationEffect effect4,
+  ]);
+  external void after([
+    AnimationEffect effect1,
+    AnimationEffect effect2,
+    AnimationEffect effect3,
+    AnimationEffect effect4,
+  ]);
+  external void replace([
+    AnimationEffect effect1,
+    AnimationEffect effect2,
+    AnimationEffect effect3,
+    AnimationEffect effect4,
+  ]);
+  external void remove();
+  external GroupEffect? get parent;
+  external AnimationEffect? get previousSibling;
+  external AnimationEffect? get nextSibling;
 }
 extension type EffectTiming._(JSObject _) implements JSObject {
   external factory EffectTiming({
@@ -482,6 +519,51 @@ extension type KeyframeEffect._(JSObject _)
   external IterationCompositeOperation get iterationComposite;
   external set iterationComposite(IterationCompositeOperation value);
 }
+extension type BaseComputedKeyframe._(JSObject _) implements JSObject {
+  external factory BaseComputedKeyframe({
+    num? offset,
+    num computedOffset,
+    String easing,
+    CompositeOperationOrAuto composite,
+  });
+
+  external double? get offset;
+  external set offset(num? value);
+  external double get computedOffset;
+  external set computedOffset(num value);
+  external String get easing;
+  external set easing(String value);
+  external CompositeOperationOrAuto get composite;
+  external set composite(CompositeOperationOrAuto value);
+}
+extension type BasePropertyIndexedKeyframe._(JSObject _) implements JSObject {
+  external factory BasePropertyIndexedKeyframe({
+    JSAny? offset,
+    JSAny easing,
+    JSAny composite,
+  });
+
+  external JSAny? get offset;
+  external set offset(JSAny? value);
+  external JSAny get easing;
+  external set easing(JSAny value);
+  external JSAny get composite;
+  external set composite(JSAny value);
+}
+extension type BaseKeyframe._(JSObject _) implements JSObject {
+  external factory BaseKeyframe({
+    num? offset,
+    String easing,
+    CompositeOperationOrAuto composite,
+  });
+
+  external double? get offset;
+  external set offset(num? value);
+  external String get easing;
+  external set easing(String value);
+  external CompositeOperationOrAuto get composite;
+  external set composite(CompositeOperationOrAuto value);
+}
 extension type KeyframeEffectOptions._(JSObject _)
     implements EffectTiming, JSObject {
   external factory KeyframeEffectOptions({
@@ -525,7 +607,7 @@ extension type KeyframeAnimationOptions._(JSObject _)
     AnimationTimeline? timeline,
     JSAny rangeStart,
     JSAny rangeEnd,
-    JSObject? trigger,
+    AnimationTrigger? trigger,
   });
 
   external String get id;
@@ -536,8 +618,8 @@ extension type KeyframeAnimationOptions._(JSObject _)
   external set rangeStart(JSAny value);
   external JSAny get rangeEnd;
   external set rangeEnd(JSAny value);
-  external JSObject? get trigger;
-  external set trigger(JSObject? value);
+  external AnimationTrigger? get trigger;
+  external set trigger(AnimationTrigger? value);
 }
 extension type GetAnimationsOptions._(JSObject _) implements JSObject {
   external factory GetAnimationsOptions({

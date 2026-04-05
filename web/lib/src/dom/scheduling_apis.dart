@@ -85,6 +85,26 @@ extension type Scheduler._(JSObject _) implements JSObject {
     SchedulerPostTaskCallback callback, [
     SchedulerPostTaskOptions options,
   ]);
+
+  /// The **`yield()`** method of the [Scheduler] interface is used for yielding
+  /// to the
+  /// [main thread](https://developer.mozilla.org/en-US/docs/Glossary/Main_thread)
+  /// during a task and continuing execution later, with the continuation
+  /// scheduled as a prioritized task (see the
+  /// [Prioritized Task Scheduling API](https://developer.mozilla.org/en-US/docs/Web/API/Prioritized_Task_Scheduling_API)
+  /// for more information). This allows long-running work to be broken up so
+  /// the browser stays responsive.
+  ///
+  /// The task can continue when the promise returned by the method is resolved.
+  /// The priority for when the promise is resolved defaults to
+  /// [`"user-visible"`](/en-US/docs/Web/API/Prioritized_Task_Scheduling_API#user-visible),
+  /// but can inherit a different priority if the `yield()` call occurs within a
+  /// [Scheduler.postTask] callback.
+  ///
+  /// In addition, the continuation of work after the `yield()` call can be
+  /// canceled if it occurs within a `postTask()` callback and the
+  /// [task is aborted](https://developer.mozilla.org/en-US/docs/Web/API/Scheduler/postTask#aborting_tasks).
+  external JSPromise<JSAny?> yield();
 }
 
 /// The **`TaskPriorityChangeEvent`** is the interface for the
@@ -189,6 +209,12 @@ extension type TaskController._(JSObject _)
   /// If the task is immutable, the function call is ignored.
   external void setPriority(TaskPriority priority);
 }
+extension type TaskSignalAnyInit._(JSObject _) implements JSObject {
+  external factory TaskSignalAnyInit({JSAny priority});
+
+  external JSAny get priority;
+  external set priority(JSAny value);
+}
 
 /// The **`TaskSignal`** interface of the
 /// [Prioritized Task Scheduling API](https://developer.mozilla.org/en-US/docs/Web/API/Prioritized_Task_Scheduling_API)
@@ -218,6 +244,17 @@ extension type TaskController._(JSObject _)
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/TaskSignal).
 extension type TaskSignal._(JSObject _) implements AbortSignal, JSObject {
+  /// The **`TaskSignal.any()`** static method takes an iterable of
+  /// [AbortSignal] objects and returns a [TaskSignal]. The returned task signal
+  /// is aborted when any of the abort signals is aborted.
+  ///
+  /// When the task signal is aborted, its [AbortSignal.reason] property will be
+  /// set to the reason of the first signal that is aborted.
+  external static TaskSignal any(
+    JSArray<AbortSignal> signals, [
+    TaskSignalAnyInit init,
+  ]);
+
   /// The read-only **`priority`** property of the [TaskSignal] interface
   /// indicates the signal
   /// [priority](https://developer.mozilla.org/en-US/docs/Web/API/Prioritized_Task_Scheduling_API#task_priorities).

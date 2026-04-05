@@ -53,6 +53,12 @@ extension type PerformanceEventTiming._(JSObject _)
   /// [`target`](https://developer.mozilla.org/en-US/docs/Web/API/Event/target)
   /// which is the node onto which the event was last dispatched.
   external Node? get target;
+  external String get targetSelector;
+
+  /// The read-only **`interactionId`** property returns an ID that uniquely
+  /// identifies a user interaction which triggered a series of associated
+  /// events.
+  external int get interactionId;
 }
 
 /// The **`EventCounts`** interface of the

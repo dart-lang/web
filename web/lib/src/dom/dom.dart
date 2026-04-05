@@ -16,17 +16,24 @@ library;
 import 'dart:js_interop';
 
 import 'css_font_loading.dart';
+import 'css_nav.dart';
+import 'css_pseudo.dart';
+import 'css_regions.dart';
 import 'css_typed_om.dart';
 import 'css_view_transitions.dart';
 import 'cssom.dart';
 import 'cssom_view.dart';
+import 'font_metrics_api.dart';
 import 'fullscreen.dart';
 import 'geometry.dart';
 import 'html.dart';
+import 'observable.dart';
+import 'permissions_policy.dart';
 import 'pointerlock.dart';
 import 'scroll_to_text_fragment.dart';
 import 'selection_api.dart';
 import 'svg.dart';
+import 'wai_aria.dart';
 import 'web_animations.dart';
 
 typedef MutationCallback = JSFunction;
@@ -523,6 +530,10 @@ extension type EventTarget._(JSObject _) implements JSObject {
   /// event
   /// handlers are called and return before `dispatchEvent()` returns.
   external bool dispatchEvent(Event event);
+  external Observable when(
+    String type, [
+    ObservableEventListenerOptions options,
+  ]);
 }
 extension type EventListenerOptions._(JSObject _) implements JSObject {
   external factory EventListenerOptions({bool capture});
@@ -1489,7 +1500,7 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// original document. The imported node is a clone of the original.
   external Node importNode(
     Node node, [
-    bool subtree,
+    JSAny options,
   ]);
 
   /// **`Document.adoptNode()`** transfers a  from another [Document] into the
@@ -1616,6 +1627,11 @@ extension type Document._(JSObject _) implements Node, JSObject {
     num y, [
     CaretPositionFromPointOptions options,
   ]);
+  external FontMetrics measureElement(Element element);
+  external FontMetrics measureText(
+    String text,
+    StylePropertyMapReadOnly styleMap,
+  );
 
   /// The [Document] method
   /// **`exitFullscreen()`** requests that the element on this
@@ -1746,7 +1762,19 @@ extension type Document._(JSObject _) implements Node, JSObject {
     bool showUI,
     String value,
   ]);
+
+  /// The **`Document.queryCommandEnabled()`** method reports whether
+  /// or not the specified editor command is enabled by the browser.
+  external bool queryCommandEnabled(String commandId);
   external bool queryCommandIndeterm(String commandId);
+
+  /// The **`queryCommandState()`** method will tell you if the current
+  /// selection has a certain [Document.execCommand] command applied.
+  external bool queryCommandState(String commandId);
+
+  /// The **`Document.queryCommandSupported()`** method reports
+  /// whether or not the specified editor command is supported by the browser.
+  external bool queryCommandSupported(String commandId);
   external String queryCommandValue(String commandId);
 
   /// The **`Document.clear()`** method does nothing, but doesn't raise any
@@ -1776,6 +1804,14 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// for the [Document.pointerlockchange_event] and
   /// [Document.pointerlockerror_event] events.
   external void exitPointerLock();
+
+  /// The **`requestStorageAccessFor()`** method of the [Document] interface
+  /// allows top-level sites to request third-party cookie access on behalf of
+  /// embedded content originating from another site in the same
+  /// [related website set](https://developer.mozilla.org/en-US/docs/Web/API/Storage_Access_API/Related_website_sets).
+  /// It returns a `Promise` that resolves if the access was granted, and
+  /// rejects if access was denied.
+  external JSPromise<JSAny?> requestStorageAccessFor(String requestedOrigin);
 
   /// The **`hasUnpartitionedCookieAccess()`** method of the [Document]
   /// interface returns a `Promise` that resolves with a boolean value
@@ -1836,6 +1872,24 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// > anti-[clickjacking](https://developer.mozilla.org/en-US/docs/Web/Security/Attacks/Clickjacking)
   /// > heuristics, or prompting the user for explicit permission.
   external JSPromise<JSAny?> requestStorageAccess();
+  external JSPromise<JSBoolean> hasPrivateToken(String issuer);
+  external JSPromise<JSBoolean> hasRedemptionRecord(String issuer);
+  external JSArray<DOMQuad> getBoxQuads([BoxQuadOptions options]);
+  external DOMQuad convertQuadFromNode(
+    DOMQuadInit quad,
+    GeometryNode from, [
+    ConvertCoordinateOptions options,
+  ]);
+  external DOMQuad convertRectFromNode(
+    DOMRectReadOnly rect,
+    GeometryNode from, [
+    ConvertCoordinateOptions options,
+  ]);
+  external DOMPoint convertPointFromNode(
+    DOMPointInit point,
+    GeometryNode from, [
+    ConvertCoordinateOptions options,
+  ]);
 
   /// The **`getElementById()`** method of the [Document] interface returns an
   /// [Element] object representing the element whose [Element.id] property
@@ -1896,6 +1950,10 @@ extension type Document._(JSObject _) implements Node, JSObject {
     JSAny node3,
     JSAny node4,
   ]);
+  external void moveBefore(
+    Node node,
+    Node? child,
+  );
 
   /// The [Document] method **`querySelector()`**
   /// returns the first [Element] within the document that matches the specified
@@ -1950,6 +2008,10 @@ extension type Document._(JSObject _) implements Node, JSObject {
     int type,
     XPathResult? result,
   ]);
+  external void ariaNotify(
+    String announcement, [
+    AriaNotificationOptions options,
+  ]);
 
   /// The **`Document.implementation`** property returns a
   /// [DOMImplementation] object associated with the current document.
@@ -1981,6 +2043,8 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// > Despite the
   /// > name of this property, it returns the _encoding_.
   external String get characterSet;
+  external String get charset;
+  external String get inputEncoding;
 
   /// The **`Document.contentType`** read-only property returns the
   /// MIME type that the document is being rendered as. This may come from HTTP
@@ -2011,6 +2075,8 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// [Document.documentElement], which returns the root element for all
   /// documents.
   external SVGSVGElement? get rootElement;
+  external NamedFlowMap get namedFlows;
+  external ViewTransition? get activeViewTransition;
 
   /// The **`scrollingElement`** read-only property of the
   /// [Document] interface returns a reference to the [Element] that
@@ -2292,6 +2358,12 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// const allElements = document.querySelectorAll("*");
   /// ```
   external HTMLAllCollection get all;
+  external EventHandler get onfreeze;
+  external set onfreeze(EventHandler value);
+  external EventHandler get onresume;
+  external set onresume(EventHandler value);
+  external bool get wasDiscarded;
+  external PermissionsPolicy get permissionsPolicy;
 
   /// The read-only
   /// **`pictureInPictureEnabled`** property of the
@@ -2310,6 +2382,14 @@ extension type Document._(JSObject _) implements Node, JSObject {
   external set onpointerlockchange(EventHandler value);
   external EventHandler get onpointerlockerror;
   external set onpointerlockerror(EventHandler value);
+
+  /// The **`prerendering`** read-only property of the [Document] interface
+  /// returns `true` if the document is currently in the process of
+  /// prerendering, as initiated via the
+  /// [Speculation Rules API](https://developer.mozilla.org/en-US/docs/Web/API/Speculation_Rules_API).
+  external bool get prerendering;
+  external EventHandler get onprerenderingchange;
+  external set onprerenderingchange(EventHandler value);
 
   /// The **`fragmentDirective`** read-only property of the [Document] interface
   /// returns the [FragmentDirective] for the current document.
@@ -2339,6 +2419,7 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// This feature is part of the
   /// [CSS Font Loading API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Font_Loading_API).
   external FontFaceSet get fonts;
+  external CustomElementRegistry? get customElementRegistry;
 
   /// The **`styleSheets`** read-only property of the [Document] interface
   /// returns a [StyleSheetList] of [CSSStyleSheet] objects, for stylesheets
@@ -2469,6 +2550,8 @@ extension type Document._(JSObject _) implements Node, JSObject {
   external set onauxclick(EventHandler value);
   external EventHandler get onbeforeinput;
   external set onbeforeinput(EventHandler value);
+  external EventHandler get onbeforematch;
+  external set onbeforematch(EventHandler value);
   external EventHandler get onbeforetoggle;
   external set onbeforetoggle(EventHandler value);
   external EventHandler get onblur;
@@ -2485,6 +2568,8 @@ extension type Document._(JSObject _) implements Node, JSObject {
   external set onclick(EventHandler value);
   external EventHandler get onclose;
   external set onclose(EventHandler value);
+  external EventHandler get oncommand;
+  external set oncommand(EventHandler value);
   external EventHandler get oncontextlost;
   external set oncontextlost(EventHandler value);
   external EventHandler get oncontextmenu;
@@ -2601,6 +2686,14 @@ extension type Document._(JSObject _) implements Node, JSObject {
   external set onvolumechange(EventHandler value);
   external EventHandler get onwaiting;
   external set onwaiting(EventHandler value);
+  external EventHandler get onwebkitanimationend;
+  external set onwebkitanimationend(EventHandler value);
+  external EventHandler get onwebkitanimationiteration;
+  external set onwebkitanimationiteration(EventHandler value);
+  external EventHandler get onwebkitanimationstart;
+  external set onwebkitanimationstart(EventHandler value);
+  external EventHandler get onwebkittransitionend;
+  external set onwebkittransitionend(EventHandler value);
   external EventHandler get onwheel;
   external set onwheel(EventHandler value);
   external EventHandler get onanimationstart;
@@ -2611,6 +2704,10 @@ extension type Document._(JSObject _) implements Node, JSObject {
   external set onanimationend(EventHandler value);
   external EventHandler get onanimationcancel;
   external set onanimationcancel(EventHandler value);
+  external EventHandler get onsnapchanged;
+  external set onsnapchanged(EventHandler value);
+  external EventHandler get onsnapchanging;
+  external set onsnapchanging(EventHandler value);
   external EventHandler get ontransitionrun;
   external set ontransitionrun(EventHandler value);
   external EventHandler get ontransitionstart;
@@ -2619,6 +2716,8 @@ extension type Document._(JSObject _) implements Node, JSObject {
   external set ontransitionend(EventHandler value);
   external EventHandler get ontransitioncancel;
   external set ontransitioncancel(EventHandler value);
+  external EventHandler get onfencedtreeclick;
+  external set onfencedtreeclick(EventHandler value);
   external EventHandler get onpointerover;
   external set onpointerover(EventHandler value);
   external EventHandler get onpointerenter;
@@ -2627,6 +2726,8 @@ extension type Document._(JSObject _) implements Node, JSObject {
   external set onpointerdown(EventHandler value);
   external EventHandler get onpointermove;
   external set onpointermove(EventHandler value);
+  external EventHandler get onpointerrawupdate;
+  external set onpointerrawupdate(EventHandler value);
   external EventHandler get onpointerup;
   external set onpointerup(EventHandler value);
   external EventHandler get onpointercancel;
@@ -2651,6 +2752,8 @@ extension type Document._(JSObject _) implements Node, JSObject {
   external set ontouchmove(EventHandler value);
   external EventHandler get ontouchcancel;
   external set ontouchcancel(EventHandler value);
+  external EventHandler get onbeforexrselect;
+  external set onbeforexrselect(EventHandler value);
 }
 
 /// The **XMLDocument** interface represents an XML document. It inherits from
@@ -2664,12 +2767,28 @@ extension type Document._(JSObject _) implements Node, JSObject {
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/XMLDocument).
 extension type XMLDocument._(JSObject _) implements Document, JSObject {}
 extension type ElementCreationOptions._(JSObject _) implements JSObject {
-  external factory ElementCreationOptions({String is_});
+  external factory ElementCreationOptions({
+    CustomElementRegistry? customElementRegistry,
+    String is_,
+  });
 
+  external CustomElementRegistry? get customElementRegistry;
+  external set customElementRegistry(CustomElementRegistry? value);
   @JS('is')
   external String get is_;
   @JS('is')
   external set is_(String value);
+}
+extension type ImportNodeOptions._(JSObject _) implements JSObject {
+  external factory ImportNodeOptions({
+    CustomElementRegistry customElementRegistry,
+    bool selfOnly,
+  });
+
+  external CustomElementRegistry get customElementRegistry;
+  external set customElementRegistry(CustomElementRegistry value);
+  external bool get selfOnly;
+  external set selfOnly(bool value);
 }
 
 /// The **`DOMImplementation`** interface represents an object providing methods
@@ -2687,7 +2806,7 @@ extension type DOMImplementation._(JSObject _) implements JSObject {
   /// into the document via methods like [Node.insertBefore] or
   /// [Node.replaceChild].
   external DocumentType createDocumentType(
-    String qualifiedName,
+    String name,
     String publicId,
     String systemId,
   );
@@ -2853,6 +2972,10 @@ extension type DocumentFragment._(JSObject _) implements Node, JSObject {
     JSAny node3,
     JSAny node4,
   ]);
+  external void moveBefore(
+    Node node,
+    Node? child,
+  );
 
   /// The **`DocumentFragment.querySelector()`** method returns the
   /// first element, or `null` if no matches are found, within the
@@ -3053,6 +3176,7 @@ extension type ShadowRoot._(JSObject _) implements DocumentFragment, JSObject {
   /// `ShadowRoot`.
   external JSAny get innerHTML;
   external set innerHTML(JSAny value);
+  external CustomElementRegistry? get customElementRegistry;
 
   /// The **`styleSheets`** read-only property of the [ShadowRoot] interface
   /// returns a [StyleSheetList] of [CSSStyleSheet] objects, for stylesheets
@@ -3192,7 +3316,7 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// method instead.
   external void setAttribute(
     String qualifiedName,
-    String value,
+    JSAny value,
   );
 
   /// `setAttributeNS` adds a new attribute or changes the value of an attribute
@@ -3204,7 +3328,7 @@ extension type Element._(JSObject _) implements Node, JSObject {
   external void setAttributeNS(
     String? namespace,
     String qualifiedName,
-    String value,
+    JSAny value,
   );
 
   /// The [Element] method
@@ -3315,6 +3439,7 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// element would be selected by the specified
   /// [CSS selector](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Styling_basics/Basic_selectors).
   external bool matches(String selectors);
+  external bool webkitMatchesSelector(String selectors);
 
   /// The
   /// **`Element.getElementsByTagName()`** method returns a live
@@ -3377,6 +3502,13 @@ extension type Element._(JSObject _) implements Node, JSObject {
     String where,
     String data,
   );
+  external Node getSpatialNavigationContainer();
+  external JSArray<Node> focusableAreas([FocusableAreasOption option]);
+  external Node? spatialNavigationSearch(
+    SpatialNavigationDirection dir, [
+    SpatialNavigationSearchOptions options,
+  ]);
+  external CSSPseudoElement? pseudo(String type);
 
   /// The **`computedStyleMap()`** method of
   /// the [Element] interface returns a [StylePropertyMapReadOnly]
@@ -3384,6 +3516,7 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// block that is
   /// an alternative to [CSSStyleDeclaration].
   external StylePropertyMapReadOnly computedStyleMap();
+  external ViewTransition startViewTransition([JSObject callbackOptions]);
 
   /// The **`getClientRects()`** method of the [Element]
   /// interface returns a collection of [DOMRect] objects that indicate the
@@ -3432,13 +3565,13 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// **`scrollIntoView()`** method scrolls the element's ancestor
   /// containers such that the element on which `scrollIntoView()` is called is
   /// visible to the user.
-  external void scrollIntoView([JSAny arg]);
+  external JSPromise<JSAny?> scrollIntoView([JSAny arg]);
 
   /// The **`scroll()`** method of the [Element]
   /// interface scrolls the element to a particular set of coordinates inside a
   /// given
   /// element.
-  external void scroll([
+  external JSPromise<JSAny?> scroll([
     JSAny optionsOrX,
     num y,
   ]);
@@ -3446,14 +3579,14 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// The **`scrollTo()`** method of the [Element]
   /// interface scrolls to a particular set of coordinates inside a given
   /// element.
-  external void scrollTo([
+  external JSPromise<JSAny?> scrollTo([
     JSAny optionsOrX,
     num y,
   ]);
 
   /// The **`scrollBy()`** method of the [Element]
   /// interface scrolls an element by the given amount.
-  external void scrollBy([
+  external JSPromise<JSAny?> scrollBy([
     JSAny optionsOrX,
     num y,
   ]);
@@ -3564,6 +3697,23 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// > not implemented by all browsers. See
   /// > [Browser compatibility](#browser_compatibility) for more information.
   external JSPromise<JSAny?> requestPointerLock([PointerLockOptions options]);
+  external JSArray<Range>? getRegionFlowRanges();
+  external JSArray<DOMQuad> getBoxQuads([BoxQuadOptions options]);
+  external DOMQuad convertQuadFromNode(
+    DOMQuadInit quad,
+    GeometryNode from, [
+    ConvertCoordinateOptions options,
+  ]);
+  external DOMQuad convertRectFromNode(
+    DOMRectReadOnly rect,
+    GeometryNode from, [
+    ConvertCoordinateOptions options,
+  ]);
+  external DOMPoint convertPointFromNode(
+    DOMPointInit point,
+    GeometryNode from, [
+    ConvertCoordinateOptions options,
+  ]);
 
   /// The **`Element.prepend()`** method inserts a set of
   /// [Node] objects or strings before the first child
@@ -3606,6 +3756,10 @@ extension type Element._(JSObject _) implements Node, JSObject {
     JSAny node3,
     JSAny node4,
   ]);
+  external void moveBefore(
+    Node node,
+    Node? child,
+  );
 
   /// The **`querySelector()`** method of the [Element]
   /// interface returns the first element that is a descendant of the element on
@@ -3655,6 +3809,10 @@ extension type Element._(JSObject _) implements Node, JSObject {
 
   /// The **`Element.remove()`** method removes the element from the DOM.
   external void remove();
+  external void ariaNotify(
+    String announcement, [
+    AriaNotificationOptions options,
+  ]);
 
   /// The [Element] interface's **`animate()`** method
   /// is a shortcut method which creates a new [Animation], applies it to the
@@ -3772,6 +3930,7 @@ extension type Element._(JSObject _) implements Node, JSObject {
   ///
   /// Use [Element.attachShadow] to add a shadow root to an existing element.
   external ShadowRoot? get shadowRoot;
+  external CustomElementRegistry? get customElementRegistry;
 
   /// The **`part`** property of the [Element] interface
   /// represents the part identifier(s) of the element (i.e. set using the
@@ -3779,6 +3938,7 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// attribute), returned as a [DOMTokenList]. These can be used to style parts
   /// of a shadow DOM, via the  pseudo-element.
   external DOMTokenList get part;
+  external ViewTransition? get activeViewTransition;
 
   /// The **`Element.scrollTop`** property gets or sets the number of pixels by
   /// which an element's content is scrolled from its top edge. This value is
@@ -3946,6 +4106,14 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// The `currentCSSZoom` property can be used to scale these values to adjust
   /// for the effects of zooming.
   external double get currentCSSZoom;
+
+  /// The **`elementTiming`** property of the [Element] interface identifies
+  /// elements for observation in the [PerformanceElementTiming] API. The
+  /// `elementTiming` property reflects the value of the
+  /// [`elementtiming`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/elementtiming)
+  /// attribute.
+  external String get elementTiming;
+  external set elementTiming(String value);
   external EventHandler get onfullscreenchange;
   external set onfullscreenchange(EventHandler value);
   external EventHandler get onfullscreenerror;
@@ -3991,6 +4159,7 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// instead.
   external JSAny get outerHTML;
   external set outerHTML(JSAny value);
+  external String get regionOverset;
 
   /// The read-only **`children`** property returns a live [HTMLCollection]
   /// which contains all of the child [Element] of the element upon which it was
@@ -4044,6 +4213,8 @@ extension type Element._(JSObject _) implements Node, JSObject {
   external HTMLSlotElement? get assignedSlot;
   external String? get role;
   external set role(String? value);
+  external Element? get ariaActiveDescendantElement;
+  external set ariaActiveDescendantElement(Element? value);
 
   /// The **`ariaAtomic`** property of the [Element] interface reflects the
   /// value of the
@@ -4149,6 +4320,8 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// gridcell within a table, grid, or treegrid.
   external String? get ariaColSpan;
   external set ariaColSpan(String? value);
+  external JSArray<Element>? get ariaControlsElements;
+  external set ariaControlsElements(JSArray<Element>? value);
 
   /// The **`ariaCurrent`** property of the [Element] interface reflects the
   /// value of the
@@ -4157,6 +4330,8 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// within a container or set of related elements.
   external String? get ariaCurrent;
   external set ariaCurrent(String? value);
+  external JSArray<Element>? get ariaDescribedByElements;
+  external set ariaDescribedByElements(JSArray<Element>? value);
 
   /// The **`ariaDescription`** property of the [Element] interface reflects the
   /// value of the
@@ -4165,6 +4340,8 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// current element.
   external String? get ariaDescription;
   external set ariaDescription(String? value);
+  external JSArray<Element>? get ariaDetailsElements;
+  external set ariaDetailsElements(JSArray<Element>? value);
 
   /// The **`ariaDisabled`** property of the [Element] interface reflects the
   /// value of the
@@ -4178,6 +4355,8 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// > not require ARIA attributes.
   external String? get ariaDisabled;
   external set ariaDisabled(String? value);
+  external JSArray<Element>? get ariaErrorMessageElements;
+  external set ariaErrorMessageElements(JSArray<Element>? value);
 
   /// The **`ariaExpanded`** property of the [Element] interface reflects the
   /// value of the
@@ -4186,6 +4365,8 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// by this element is expanded or collapsed.
   external String? get ariaExpanded;
   external set ariaExpanded(String? value);
+  external JSArray<Element>? get ariaFlowToElements;
+  external set ariaFlowToElements(JSArray<Element>? value);
 
   /// The **`ariaHasPopup`** property of the [Element] interface reflects the
   /// value of the
@@ -4218,6 +4399,8 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// attribute, which defines a string value that labels the current element.
   external String? get ariaLabel;
   external set ariaLabel(String? value);
+  external JSArray<Element>? get ariaLabelledByElements;
+  external set ariaLabelledByElements(JSArray<Element>? value);
 
   /// The **`ariaLevel`** property of the [Element] interface reflects the value
   /// of the `aria-level` attribute, which defines the hierarchical level of an
@@ -4280,6 +4463,8 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// horizontal, vertical, or unknown/ambiguous.
   external String? get ariaOrientation;
   external set ariaOrientation(String? value);
+  external JSArray<Element>? get ariaOwnsElements;
+  external set ariaOwnsElements(JSArray<Element>? value);
 
   /// The **`ariaPlaceholder`** property of the [Element] interface reflects the
   /// value of the `aria-placeholder` attribute, which defines a short hint
@@ -4324,6 +4509,16 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// > attributes.
   external String? get ariaReadOnly;
   external set ariaReadOnly(String? value);
+
+  /// The **`ariaRelevant`** property of the [Element] interface reflects the
+  /// value of the
+  /// [`aria-relevant`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-relevant)
+  /// attribute, which indicates what notifications the user agent will trigger
+  /// when the accessibility tree within a live region is modified. This is used
+  /// to describe what changes in an `aria-live` region are relevant and should
+  /// be announced.
+  external String? get ariaRelevant;
+  external set ariaRelevant(String? value);
 
   /// The **`ariaRequired`** property of the [Element] interface reflects the
   /// value of the `aria-required` attribute, which indicates that user input is
@@ -4436,6 +4631,7 @@ extension type ShadowRootInit._(JSObject _) implements JSObject {
     SlotAssignmentMode slotAssignment,
     bool clonable,
     bool serializable,
+    CustomElementRegistry? customElementRegistry,
   });
 
   external ShadowRootMode get mode;
@@ -4448,6 +4644,8 @@ extension type ShadowRootInit._(JSObject _) implements JSObject {
   external set clonable(bool value);
   external bool get serializable;
   external set serializable(bool value);
+  external CustomElementRegistry? get customElementRegistry;
+  external set customElementRegistry(CustomElementRegistry? value);
 }
 
 /// The **`NamedNodeMap`** interface represents a collection of [Attr] objects.
@@ -4812,6 +5010,22 @@ extension type Text._(JSObject _) implements CharacterData, JSObject {
   /// Separated text nodes can be concatenated using the [Node.normalize]
   /// method.
   external Text splitText(int offset);
+  external JSArray<DOMQuad> getBoxQuads([BoxQuadOptions options]);
+  external DOMQuad convertQuadFromNode(
+    DOMQuadInit quad,
+    GeometryNode from, [
+    ConvertCoordinateOptions options,
+  ]);
+  external DOMQuad convertRectFromNode(
+    DOMRectReadOnly rect,
+    GeometryNode from, [
+    ConvertCoordinateOptions options,
+  ]);
+  external DOMPoint convertPointFromNode(
+    DOMPointInit point,
+    GeometryNode from, [
+    ConvertCoordinateOptions options,
+  ]);
 
   /// The read-only **`wholeText`** property of the [Text] interface
   /// returns the full text of all [Text] nodes logically adjacent to the node.

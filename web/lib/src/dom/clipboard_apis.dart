@@ -18,6 +18,7 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'fileapi.dart';
 import 'html.dart';
+import 'permissions.dart';
 
 typedef ClipboardItems = JSArray<ClipboardItem>;
 typedef PresentationStyle = String;
@@ -61,6 +62,30 @@ extension type ClipboardEvent._(JSObject _) implements Event, JSObject {
   /// See the [Element.cut_event], [Element.copy_event], and
   /// [Element.paste_event] events documentation for more information.
   external DataTransfer? get clipboardData;
+}
+extension type ClipboardChangeEventInit._(JSObject _)
+    implements EventInit, JSObject {
+  external factory ClipboardChangeEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
+    JSArray<JSString> types,
+    JSBigInt changeId,
+  });
+
+  external JSArray<JSString> get types;
+  external set types(JSArray<JSString> value);
+  external JSBigInt get changeId;
+  external set changeId(JSBigInt value);
+}
+extension type ClipboardChangeEvent._(JSObject _) implements Event, JSObject {
+  external factory ClipboardChangeEvent(
+    String type, [
+    ClipboardChangeEventInit eventInitDict,
+  ]);
+
+  external JSArray<JSString> get types;
+  external JSBigInt get changeId;
 }
 
 /// The **`ClipboardItem`** interface of the
@@ -183,4 +208,14 @@ extension type ClipboardUnsanitizedFormats._(JSObject _) implements JSObject {
 
   external JSArray<JSString> get unsanitized;
   external set unsanitized(JSArray<JSString> value);
+}
+extension type ClipboardPermissionDescriptor._(JSObject _)
+    implements PermissionDescriptor, JSObject {
+  external factory ClipboardPermissionDescriptor({
+    required String name,
+    bool allowWithoutGesture,
+  });
+
+  external bool get allowWithoutGesture;
+  external set allowWithoutGesture(bool value);
 }

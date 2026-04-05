@@ -15,9 +15,21 @@ library;
 
 import 'dart:js_interop';
 
-import 'css_view_transitions_2.dart';
+import 'cssom.dart';
+import 'dom.dart';
 
 typedef ViewTransitionUpdateCallback = JSFunction;
+extension type StartViewTransitionOptions._(JSObject _) implements JSObject {
+  external factory StartViewTransitionOptions({
+    ViewTransitionUpdateCallback? update,
+    JSArray<JSString>? types,
+  });
+
+  external ViewTransitionUpdateCallback? get update;
+  external set update(ViewTransitionUpdateCallback? value);
+  external JSArray<JSString>? get types;
+  external set types(JSArray<JSString>? value);
+}
 
 /// The **`ViewTransition`** interface of the [View Transition API] represents
 /// an active view transition, and provides functionality to react to the
@@ -47,6 +59,7 @@ extension type ViewTransition._(JSObject _) implements JSObject {
   /// [ViewTransition] interface skips the animation part of the view
   /// transition, but doesn't skip running the associated view update.
   external void skipTransition();
+  external void waitUntil(JSPromise<JSAny?> promise);
 
   /// The **`updateCallbackDone`** read-only property of the
   /// [ViewTransition] interface is a `Promise` that fulfills when the promise
@@ -88,5 +101,11 @@ extension type ViewTransition._(JSObject _) implements JSObject {
   /// reached therefore `finished` will still fulfill.
   external JSPromise<JSAny?> get finished;
   external ViewTransitionTypeSet get types;
-  external set types(ViewTransitionTypeSet value);
+  external Element get transitionRoot;
+}
+extension type ViewTransitionTypeSet._(JSObject _) implements JSObject {}
+extension type CSSViewTransitionRule._(JSObject _)
+    implements CSSRule, JSObject {
+  external String get navigation;
+  external JSArray<JSString> get types;
 }

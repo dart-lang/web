@@ -16,22 +16,22 @@ library;
 import 'dart:js_interop';
 
 import 'dom.dart';
+import 'html.dart';
 
-/// The `XMLSerializer` interface provides the [XMLSerializer.serializeToString]
-/// method to construct an XML string representing a  tree.
-///
-/// > [!NOTE]
-/// > The resulting XML string is not guaranteed to be well-formed XML.
+typedef DevicePostureType = String;
+
+/// The **`DevicePosture`** interface of the [Device Posture API] represents the
+/// device's posture, that is, whether the viewport is in a flat or folded
+/// state.
 ///
 /// ---
 ///
 /// API documentation sourced from
-/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/XMLSerializer).
-extension type XMLSerializer._(JSObject _) implements JSObject {
-  external factory XMLSerializer();
-
-  /// The [XMLSerializer] method
-  /// **`serializeToString()`** constructs a string representing the
-  /// specified  tree in  form.
-  external String serializeToString(Node root);
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DevicePosture).
+extension type DevicePosture._(JSObject _) implements EventTarget, JSObject {
+  /// The **`type`** read-only property of the [DevicePosture] interface returns
+  /// the device's current posture.
+  external DevicePostureType get type;
+  external EventHandler get onchange;
+  external set onchange(EventHandler value);
 }

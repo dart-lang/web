@@ -172,8 +172,5 @@ extension type PerformanceObserverEntryList._(JSObject _) implements JSObject {
   /// specified in the call to the [PerformanceObserver.observe] method. The
   /// list is available in the observer's callback function (as the first
   /// parameter in the callback).
-  external PerformanceEntryList getEntriesByName(
-    String name, [
-    String type,
-  ]);
+  external PerformanceEntryList getEntriesByName(String name, [String type]);
 }

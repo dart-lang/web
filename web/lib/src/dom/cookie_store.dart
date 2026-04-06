@@ -56,10 +56,7 @@ extension type CookieStore._(JSObject _) implements EventTarget, JSObject {
   ///
   /// The **`set()`** method of the [CookieStore] interface sets a cookie with
   /// the given `name` and `value` or `options` object.
-  external JSPromise<JSAny?> set(
-    JSAny nameOrOptions, [
-    String value,
-  ]);
+  external JSPromise<JSAny?> set(JSAny nameOrOptions, [String value]);
 
   /// @AvailableInWorkers("window_and_service")
   ///
@@ -71,10 +68,7 @@ extension type CookieStore._(JSObject _) implements EventTarget, JSObject {
   external set onchange(EventHandler value);
 }
 extension type CookieStoreGetOptions._(JSObject _) implements JSObject {
-  external factory CookieStoreGetOptions({
-    String name,
-    String url,
-  });
+  external factory CookieStoreGetOptions({String name, String url});
 
   external String get name;
   external set name(String value);
@@ -179,7 +173,8 @@ extension type CookieStoreManager._(JSObject _) implements JSObject {
   /// The **`subscribe()`** method of the [CookieStoreManager] interface
   /// subscribes a [ServiceWorkerRegistration] to cookie change events.
   external JSPromise<JSAny?> subscribe(
-      JSArray<CookieStoreGetOptions> subscriptions);
+    JSArray<CookieStoreGetOptions> subscriptions,
+  );
 
   /// @AvailableInWorkers("window_and_service")
   ///
@@ -194,7 +189,8 @@ extension type CookieStoreManager._(JSObject _) implements JSObject {
   /// the [ServiceWorkerRegistration] from receiving previously subscribed
   /// events.
   external JSPromise<JSAny?> unsubscribe(
-      JSArray<CookieStoreGetOptions> subscriptions);
+    JSArray<CookieStoreGetOptions> subscriptions,
+  );
 }
 
 /// The **`CookieChangeEvent`** interface of the [Cookie Store API] is the event

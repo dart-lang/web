@@ -40,11 +40,7 @@ typedef ScrollSetting = String;
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/VTTCue).
 extension type VTTCue._(JSObject _) implements TextTrackCue, JSObject {
-  external factory VTTCue(
-    num startTime,
-    num endTime,
-    String text,
-  );
+  external factory VTTCue(num startTime, num endTime, String text);
 
   /// The **`getCueAsHTML()`** method of the [VTTCue] interface returns a
   /// [DocumentFragment] containing the cue content.

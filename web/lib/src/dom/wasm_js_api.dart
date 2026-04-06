@@ -86,18 +86,12 @@ extension type Module._(JSObject _) implements JSObject {
 }
 @JS('WebAssembly.Instance')
 extension type Instance._(JSObject _) implements JSObject {
-  external factory Instance(
-    Module module, [
-    JSObject importObject,
-  ]);
+  external factory Instance(Module module, [JSObject importObject]);
 
   external JSObject get exports;
 }
 extension type MemoryDescriptor._(JSObject _) implements JSObject {
-  external factory MemoryDescriptor({
-    required int initial,
-    int maximum,
-  });
+  external factory MemoryDescriptor({required int initial, int maximum});
 
   external int get initial;
   external set initial(int value);
@@ -127,27 +121,15 @@ extension type TableDescriptor._(JSObject _) implements JSObject {
 }
 @JS('WebAssembly.Table')
 extension type Table._(JSObject _) implements JSObject {
-  external factory Table(
-    TableDescriptor descriptor, [
-    JSAny? value,
-  ]);
+  external factory Table(TableDescriptor descriptor, [JSAny? value]);
 
-  external int grow(
-    int delta, [
-    JSAny? value,
-  ]);
+  external int grow(int delta, [JSAny? value]);
   external JSAny? get(int index);
-  external void set(
-    int index, [
-    JSAny? value,
-  ]);
+  external void set(int index, [JSAny? value]);
   external int get length;
 }
 extension type GlobalDescriptor._(JSObject _) implements JSObject {
-  external factory GlobalDescriptor({
-    required ValueType value,
-    bool mutable,
-  });
+  external factory GlobalDescriptor({required ValueType value, bool mutable});
 
   external ValueType get value;
   external set value(ValueType value);
@@ -156,10 +138,7 @@ extension type GlobalDescriptor._(JSObject _) implements JSObject {
 }
 @JS('WebAssembly.Global')
 extension type Global._(JSObject _) implements JSObject {
-  external factory Global(
-    GlobalDescriptor descriptor, [
-    JSAny? v,
-  ]);
+  external factory Global(GlobalDescriptor descriptor, [JSAny? v]);
 
   external JSAny? valueOf();
   external JSAny? get value;

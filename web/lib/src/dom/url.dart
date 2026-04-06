@@ -29,10 +29,7 @@ import 'dart:js_interop';
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/URL).
 extension type URL._(JSObject _) implements JSObject {
-  external factory URL(
-    String url, [
-    String base,
-  ]);
+  external factory URL(String url, [String base]);
 
   /// The **`URL.parse()`** static method of the [URL] interface returns a newly
   /// created [URL] object representing the URL defined by the parameters.
@@ -44,10 +41,7 @@ extension type URL._(JSObject _) implements JSObject {
   /// [try...catch](/en-US/docs/Web/JavaScript/Reference/Statements/try...catch)
   /// block, or using [URL.canParse_static] to check the parameters and
   /// returning `null` if the method returns `false`.
-  external static URL? parse(
-    String url, [
-    String base,
-  ]);
+  external static URL? parse(String url, [String base]);
 
   /// The **`URL.canParse()`** static method of the [URL] interface returns a
   /// boolean indicating whether or not an absolute URL, or a relative URL
@@ -60,10 +54,7 @@ extension type URL._(JSObject _) implements JSObject {
   /// constructor](https://developer.mozilla.org/en-US/docs/Web/API/URL/URL)
   /// would succeed, and `false` for the values that would cause the constructor
   /// to throw.
-  external static bool canParse(
-    String url, [
-    String base,
-  ]);
+  external static bool canParse(String url, [String base]);
 
   /// @AvailableInWorkers("window_and_worker_except_service")
   ///
@@ -304,10 +295,7 @@ extension type URLSearchParams._(JSObject _) implements JSObject {
   /// As shown in the example below, if the same key is appended multiple times
   /// it will
   /// appear in the parameter string multiple times for each value.
-  external void append(
-    String name,
-    String value,
-  );
+  external void append(String name, String value);
 
   /// The **`delete()`** method of the [URLSearchParams] interface deletes
   /// specified parameters and their associated value(s) from the list of all
@@ -318,10 +306,7 @@ extension type URLSearchParams._(JSObject _) implements JSObject {
   /// match the name are deleted, along with their associated values.
   /// If both a parameter name and value are specified, then all search
   /// parameters that match both the parameter name and value are deleted.
-  external void delete(
-    String name, [
-    String value,
-  ]);
+  external void delete(String name, [String value]);
 
   /// The **`get()`** method of the [URLSearchParams]
   /// interface returns the first value associated to the given search
@@ -343,10 +328,7 @@ extension type URLSearchParams._(JSObject _) implements JSObject {
   /// otherwise.
   /// If both a parameter name and value are specified, then the method will
   /// return `true` if a parameter matches both the name and value.
-  external bool has(
-    String name, [
-    String value,
-  ]);
+  external bool has(String name, [String value]);
 
   /// The **`set()`** method of the [URLSearchParams]
   /// interface sets the value associated with a given search parameter to the
@@ -354,10 +336,7 @@ extension type URLSearchParams._(JSObject _) implements JSObject {
   /// If there were several matching values, this method deletes the others. If
   /// the search
   /// parameter doesn't exist, this method creates it.
-  external void set(
-    String name,
-    String value,
-  );
+  external void set(String name, String value);
 
   /// The **`URLSearchParams.sort()`** method sorts all key/value
   /// pairs contained in this object in place and returns `undefined`. The sort

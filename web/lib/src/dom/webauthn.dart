@@ -67,7 +67,7 @@ extension type PublicKeyCredential._(JSObject _)
   /// > This method may only be used in top-level contexts and will not be
   /// > available in an `iframe` for example.
   external static JSPromise<JSBoolean>
-      isUserVerifyingPlatformAuthenticatorAvailable();
+  isUserVerifyingPlatformAuthenticatorAvailable();
 
   /// The **`getClientCapabilities()`** static method of the
   /// [PublicKeyCredential] interface returns a `Promise` that resolves with an
@@ -79,7 +79,7 @@ extension type PublicKeyCredential._(JSObject _)
   /// A relying party (RP) can use this information to appropriately customize
   /// its sign-in and sign-up user interfaces and workflows.
   external static JSPromise<PublicKeyCredentialClientCapabilities>
-      getClientCapabilities();
+  getClientCapabilities();
 
   /// The **`parseCreationOptionsFromJSON()`** static method of the
   /// [PublicKeyCredential] interface creates a
@@ -91,8 +91,7 @@ extension type PublicKeyCredential._(JSObject _)
   /// can use to
   /// [create a credential](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API#creating_a_key_pair_and_registering_a_user).
   external static PublicKeyCredentialCreationOptions
-      parseCreationOptionsFromJSON(
-          PublicKeyCredentialCreationOptionsJSON options);
+  parseCreationOptionsFromJSON(PublicKeyCredentialCreationOptionsJSON options);
 
   /// The **`parseRequestOptionsFromJSON()`** static method of the
   /// [PublicKeyCredential] interface converts a  into a
@@ -102,7 +101,8 @@ extension type PublicKeyCredential._(JSObject _)
   /// by a relying server to a web app in order to request an existing
   /// credential.
   external static PublicKeyCredentialRequestOptions parseRequestOptionsFromJSON(
-      PublicKeyCredentialRequestOptionsJSON options);
+    PublicKeyCredentialRequestOptionsJSON options,
+  );
 
   /// The **`getClientExtensionResults()`** method of the
   /// [PublicKeyCredential] interface returns a map between the identifiers of
@@ -228,7 +228,8 @@ extension type PublicKeyCredentialCreationOptionsJSON._(JSObject _)
   external set timeout(int value);
   external JSArray<PublicKeyCredentialDescriptorJSON> get excludeCredentials;
   external set excludeCredentials(
-      JSArray<PublicKeyCredentialDescriptorJSON> value);
+    JSArray<PublicKeyCredentialDescriptorJSON> value,
+  );
   external AuthenticatorSelectionCriteria get authenticatorSelection;
   external set authenticatorSelection(AuthenticatorSelectionCriteria value);
   external JSArray<JSString> get hints;
@@ -294,7 +295,8 @@ extension type PublicKeyCredentialRequestOptionsJSON._(JSObject _)
   external set rpId(String value);
   external JSArray<PublicKeyCredentialDescriptorJSON> get allowCredentials;
   external set allowCredentials(
-      JSArray<PublicKeyCredentialDescriptorJSON> value);
+    JSArray<PublicKeyCredentialDescriptorJSON> value,
+  );
   external String get userVerification;
   external set userVerification(String value);
   external JSArray<JSString> get hints;

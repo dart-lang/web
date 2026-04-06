@@ -150,8 +150,9 @@ extension type Clipboard._(JSObject _) implements EventTarget, JSObject {
   /// The method can in theory return arbitrary data (unlike
   /// [Clipboard.readText], which can only return text).
   /// Browsers commonly support reading text, HTML, and PNG image data.
-  external JSPromise<ClipboardItems> read(
-      [ClipboardUnsanitizedFormats formats]);
+  external JSPromise<ClipboardItems> read([
+    ClipboardUnsanitizedFormats formats,
+  ]);
 
   /// The **`readText()`** method of the [Clipboard] interface returns a
   /// `Promise` which fulfills with a copy of the textual contents of the system

@@ -6,7 +6,6 @@ import 'dart:convert';
 import 'dart:js_interop';
 
 import 'package:code_builder/code_builder.dart';
-import 'package:dart_style/dart_style.dart';
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 
@@ -39,8 +38,6 @@ class TransformResult {
   // TODO(https://github.com/dart-lang/web/issues/388): Handle union of overloads
   //  (namespaces + functions, multiple interfaces, etc)
   Map<String, String> generate(Config config) {
-    final formatter = DartFormatter(languageVersion: config.languageVersion);
-
     _setGlobalOptions(config);
 
     return {...programDeclarationMap, ...commonTypes}.map((file, declMap) {
@@ -95,11 +92,9 @@ class TransformResult {
       });
       return MapEntry(
         file.replaceAll('.d.ts', '.dart'),
-        formatter.format(
-          '${lib.accept(emitter)}'.replaceAll(
-            'static external',
-            'external static',
-          ),
+        '${lib.accept(emitter)}'.replaceAll(
+          'static external',
+          'external static',
         ),
       );
     });

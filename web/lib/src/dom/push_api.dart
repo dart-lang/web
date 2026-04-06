@@ -63,8 +63,9 @@ extension type PushManager._(JSObject _) implements JSObject {
   /// object containing details of a push subscription. A new push subscription
   /// is created if
   /// the current service worker does not have an existing subscription.
-  external JSPromise<PushSubscription> subscribe(
-      [PushSubscriptionOptionsInit options]);
+  external JSPromise<PushSubscription> subscribe([
+    PushSubscriptionOptionsInit options,
+  ]);
 
   /// The **`PushManager.getSubscription()`** method of the [PushManager]
   /// interface retrieves an existing push subscription.
@@ -85,8 +86,9 @@ extension type PushManager._(JSObject _) implements JSObject {
   /// > and [Push](https://developer.mozilla.org/en-US/docs/Web/API/Push_API)
   /// > have been merged. If permission is
   /// > granted for notifications, push will also be enabled.
-  external JSPromise<JSString> permissionState(
-      [PushSubscriptionOptionsInit options]);
+  external JSPromise<JSString> permissionState([
+    PushSubscriptionOptionsInit options,
+  ]);
 }
 
 /// The **`PushSubscriptionOptions`** interface of the [Push API] represents the
@@ -263,10 +265,7 @@ extension type PushMessageData._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PushEvent).
 extension type PushEvent._(JSObject _) implements ExtendableEvent, JSObject {
-  external factory PushEvent(
-    String type, [
-    PushEventInit eventInitDict,
-  ]);
+  external factory PushEvent(String type, [PushEventInit eventInitDict]);
 
   /// @AvailableInWorkers("service")
   ///

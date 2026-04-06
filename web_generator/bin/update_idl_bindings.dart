@@ -6,7 +6,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:args/args.dart';
-import 'package:dart_style/dart_style.dart';
 import 'package:io/ansi.dart' as ansi;
 import 'package:io/io.dart';
 import 'package:path/path.dart' as p;
@@ -58,7 +57,7 @@ $_usage''');
 
   if (argResult['compile'] as bool) {
     final webPkgLangVersion = isSnapshot
-        ? DartFormatter.latestLanguageVersion.toString()
+        ? '3.6.0'
         : await getPackageLanguageVersion(_webPackagePath);
     // Compile Dart to Javascript.
     await compileDartMain(langVersion: webPkgLangVersion);
@@ -108,6 +107,15 @@ $_usage''');
       '--output=${argResult['output'] as String? ?? p.current}',
     if (generateAll) '--generate-all',
   ], workingDirectory: bindingsGeneratorPath);
+
+  // Format generated files.
+  final outputPath = inputFiles.isEmpty
+      ? p.join(_webPackagePath, 'lib', 'src')
+      : (argResult['output'] as String? ?? p.current);
+  await runProc(Platform.executable, [
+    'format',
+    outputPath,
+  ], workingDirectory: p.current);
 
   // Delete previously generated files that have not been updated.
   for (final file in existingFiles) {

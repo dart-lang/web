@@ -6,7 +6,6 @@ import 'dart:js_interop';
 
 import 'package:args/args.dart';
 import 'package:code_builder/code_builder.dart' as code;
-import 'package:dart_style/dart_style.dart';
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:yaml/yaml.dart';
@@ -27,7 +26,7 @@ import 'util.dart';
 void main(List<String> args) async {
   var languageVersionString = const String.fromEnvironment('languageVersion');
   if (languageVersionString.isEmpty) {
-    languageVersionString = DartFormatter.latestLanguageVersion.toString();
+    languageVersionString = '3.6.0';
   }
 
   final argResult = _parser.parse(args);
@@ -203,9 +202,7 @@ String _emitLibrary(code.Library library, Version languageVersion) {
   );
 
   final source = library.accept(emitter);
-  return DartFormatter(
-    languageVersion: languageVersion,
-  ).format(source.toString());
+  return source.toString();
 }
 
 final _parser = ArgParser()

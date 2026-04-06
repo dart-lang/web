@@ -43,23 +43,10 @@ import 'html.dart';
 extension type PaintRenderingContext2D._(JSObject _) implements JSObject {
   external void save();
   external void restore();
-  external void scale(
-    num x,
-    num y,
-  );
+  external void scale(num x, num y);
   external void rotate(num angle);
-  external void translate(
-    num x,
-    num y,
-  );
-  external void transform(
-    num a,
-    num b,
-    num c,
-    num d,
-    num e,
-    num f,
-  );
+  external void translate(num x, num y);
+  external void transform(num a, num b, num c, num d, num e, num f);
   external DOMMatrix getTransform();
   external void setTransform([
     JSAny aOrTransform,
@@ -70,12 +57,7 @@ extension type PaintRenderingContext2D._(JSObject _) implements JSObject {
     num f,
   ]);
   external void resetTransform();
-  external CanvasGradient createLinearGradient(
-    num x0,
-    num y0,
-    num x1,
-    num y1,
-  );
+  external CanvasGradient createLinearGradient(num x0, num y0, num x1, num y1);
   external CanvasGradient createRadialGradient(
     num x0,
     num y0,
@@ -88,45 +70,20 @@ extension type PaintRenderingContext2D._(JSObject _) implements JSObject {
     CanvasImageSource image,
     String repetition,
   );
-  external void clearRect(
-    num x,
-    num y,
-    num w,
-    num h,
-  );
-  external void fillRect(
-    num x,
-    num y,
-    num w,
-    num h,
-  );
-  external void strokeRect(
-    num x,
-    num y,
-    num w,
-    num h,
-  );
+  external void clearRect(num x, num y, num w, num h);
+  external void fillRect(num x, num y, num w, num h);
+  external void strokeRect(num x, num y, num w, num h);
   external void beginPath();
-  external void fill([
-    JSAny fillRuleOrPath,
-    CanvasFillRule fillRule,
-  ]);
+  external void fill([JSAny fillRuleOrPath, CanvasFillRule fillRule]);
   external void stroke([Path2D path]);
-  external void clip([
-    JSAny fillRuleOrPath,
-    CanvasFillRule fillRule,
-  ]);
+  external void clip([JSAny fillRuleOrPath, CanvasFillRule fillRule]);
   external bool isPointInPath(
     JSAny pathOrX,
     num xOrY, [
     JSAny fillRuleOrY,
     CanvasFillRule fillRule,
   ]);
-  external bool isPointInStroke(
-    JSAny pathOrX,
-    num xOrY, [
-    num y,
-  ]);
+  external bool isPointInStroke(JSAny pathOrX, num xOrY, [num y]);
   external void drawImage(
     CanvasImageSource image,
     num dxOrSx,

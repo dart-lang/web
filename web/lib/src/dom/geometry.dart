@@ -46,12 +46,7 @@ import 'dart:js_interop';
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DOMPointReadOnly).
 extension type DOMPointReadOnly._(JSObject _) implements JSObject {
-  external factory DOMPointReadOnly([
-    num x,
-    num y,
-    num z,
-    num w,
-  ]);
+  external factory DOMPointReadOnly([num x, num y, num z, num w]);
 
   /// The static **[DOMPointReadOnly]**
   /// method `fromPoint()` creates and returns a new
@@ -139,12 +134,7 @@ extension type DOMPointReadOnly._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DOMPoint).
 extension type DOMPoint._(JSObject _) implements DOMPointReadOnly, JSObject {
-  external factory DOMPoint([
-    num x,
-    num y,
-    num z,
-    num w,
-  ]);
+  external factory DOMPoint([num x, num y, num z, num w]);
 
   /// The **`fromPoint()`** static method of the [DOMPoint] interface creates
   /// and returns a new mutable `DOMPoint` object given a source point.
@@ -195,12 +185,7 @@ extension type DOMPoint._(JSObject _) implements DOMPointReadOnly, JSObject {
   external set w(num value);
 }
 extension type DOMPointInit._(JSObject _) implements JSObject {
-  external factory DOMPointInit({
-    num x,
-    num y,
-    num z,
-    num w,
-  });
+  external factory DOMPointInit({num x, num y, num z, num w});
 
   external double get x;
   external set x(num value);
@@ -220,12 +205,7 @@ extension type DOMPointInit._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DOMRectReadOnly).
 extension type DOMRectReadOnly._(JSObject _) implements JSObject {
-  external factory DOMRectReadOnly([
-    num x,
-    num y,
-    num width,
-    num height,
-  ]);
+  external factory DOMRectReadOnly([num x, num y, num width, num height]);
 
   /// The **`fromRect()`** static method of the
   /// [DOMRectReadOnly] object creates a new `DOMRectReadOnly`
@@ -287,12 +267,7 @@ extension type DOMRectReadOnly._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DOMRect).
 extension type DOMRect._(JSObject _) implements DOMRectReadOnly, JSObject {
-  external factory DOMRect([
-    num x,
-    num y,
-    num width,
-    num height,
-  ]);
+  external factory DOMRect([num x, num y, num width, num height]);
 
   /// The **`fromRect()`** static method of the
   /// [DOMRect] object creates a new `DOMRect`
@@ -330,12 +305,7 @@ extension type DOMRect._(JSObject _) implements DOMRectReadOnly, JSObject {
   external set height(num value);
 }
 extension type DOMRectInit._(JSObject _) implements JSObject {
-  external factory DOMRectInit({
-    num x,
-    num y,
-    num width,
-    num height,
-  });
+  external factory DOMRectInit({num x, num y, num width, num height});
 
   external double get x;
   external set x(num value);
@@ -465,11 +435,7 @@ extension type DOMMatrixReadOnly._(JSObject _) implements JSObject {
   /// The `translate()` method of the [DOMMatrixReadOnly] interface
   /// creates a new matrix being the result of the original matrix with a
   /// translation applied.
-  external DOMMatrix translate([
-    num tx,
-    num ty,
-    num tz,
-  ]);
+  external DOMMatrix translate([num tx, num ty, num tz]);
 
   /// The **`scale()`** method of the
   /// [DOMMatrixReadOnly] interface creates a new matrix being the result of the
@@ -482,10 +448,7 @@ extension type DOMMatrixReadOnly._(JSObject _) implements JSObject {
     num originY,
     num originZ,
   ]);
-  external DOMMatrix scaleNonUniform([
-    num scaleX,
-    num scaleY,
-  ]);
+  external DOMMatrix scaleNonUniform([num scaleX, num scaleY]);
 
   /// The **`scale3d()`** method of the [DOMMatrixReadOnly] interface creates a
   /// new matrix which is the result of a 3D scale transform being applied
@@ -507,11 +470,7 @@ extension type DOMMatrixReadOnly._(JSObject _) implements JSObject {
   /// by the specified number of degrees. The original matrix is not altered.
   ///
   /// To mutate the matrix as you rotate it, see [DOMMatrix.rotateSelf].
-  external DOMMatrix rotate([
-    num rotX,
-    num rotY,
-    num rotZ,
-  ]);
+  external DOMMatrix rotate([num rotX, num rotY, num rotZ]);
 
   /// The `rotateFromVector()` method of the [DOMMatrixReadOnly] interface is
   /// returns a new [DOMMatrix] created by rotating the source matrix by the
@@ -522,10 +481,7 @@ extension type DOMMatrixReadOnly._(JSObject _) implements JSObject {
   ///
   /// To mutate the matrix as you rotate it by the angle between the specified
   /// vector and `(1, 0)`, see [DOMMatrix.rotateFromVectorSelf].
-  external DOMMatrix rotateFromVector([
-    num x,
-    num y,
-  ]);
+  external DOMMatrix rotateFromVector([num x, num y]);
 
   /// The `rotateAxisAngle()` method of the [DOMMatrixReadOnly] interface
   /// returns a new [DOMMatrix] created by rotating the source matrix by the
@@ -533,12 +489,7 @@ extension type DOMMatrixReadOnly._(JSObject _) implements JSObject {
   ///
   /// To mutate the matrix as you rotate it, see
   /// [DOMMatrix.rotateAxisAngleSelf].
-  external DOMMatrix rotateAxisAngle([
-    num x,
-    num y,
-    num z,
-    num angle,
-  ]);
+  external DOMMatrix rotateAxisAngle([num x, num y, num z, num angle]);
 
   /// The `skewX()` method of the [DOMMatrixReadOnly] interface returns a new
   /// [DOMMatrix] created by applying the specified skew transformation to the
@@ -713,11 +664,7 @@ extension type DOMMatrix._(JSObject _) implements DOMMatrixReadOnly, JSObject {
   ///
   /// To translate a matrix without mutating it, see
   /// [DOMMatrixReadOnly.translate]
-  external DOMMatrix translateSelf([
-    num tx,
-    num ty,
-    num tz,
-  ]);
+  external DOMMatrix translateSelf([num tx, num ty, num tz]);
   external DOMMatrix scaleSelf([
     num scaleX,
     num scaleY,
@@ -747,11 +694,7 @@ extension type DOMMatrix._(JSObject _) implements DOMMatrixReadOnly, JSObject {
   /// rotated matrix.
   ///
   /// To rotate a matrix without mutating it, see [DOMMatrixReadOnly.rotate]
-  external DOMMatrix rotateSelf([
-    num rotX,
-    num rotY,
-    num rotZ,
-  ]);
+  external DOMMatrix rotateSelf([num rotX, num rotY, num rotZ]);
 
   /// The `rotateFromVectorSelf()` method of the [DOMMatrix] interface is a
   /// mutable transformation method that modifies a matrix by rotating the
@@ -764,10 +707,7 @@ extension type DOMMatrix._(JSObject _) implements DOMMatrixReadOnly, JSObject {
   /// To rotate a matrix from a vector without mutating it, see
   /// [DOMMatrixReadOnly.rotateFromVector], which creates a new rotated matrix
   /// while leaving the original unchanged.
-  external DOMMatrix rotateFromVectorSelf([
-    num x,
-    num y,
-  ]);
+  external DOMMatrix rotateFromVectorSelf([num x, num y]);
 
   /// The `rotateAxisAngleSelf()` method of the [DOMMatrix] interface is a
   /// transformation method that rotates the source matrix by the given vector
@@ -776,12 +716,7 @@ extension type DOMMatrix._(JSObject _) implements DOMMatrixReadOnly, JSObject {
   /// To rotate a matrix without mutating it, see
   /// [DOMMatrixReadOnly.rotateAxisAngle], which creates a new rotated matrix
   /// while leaving the original unchanged.
-  external DOMMatrix rotateAxisAngleSelf([
-    num x,
-    num y,
-    num z,
-    num angle,
-  ]);
+  external DOMMatrix rotateAxisAngleSelf([num x, num y, num z, num angle]);
 
   /// The `skewXSelf()` method of the [DOMMatrix] interface is a mutable
   /// transformation method that modifies a matrix. It skews the source matrix

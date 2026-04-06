@@ -66,7 +66,8 @@ extension type AudioDecoder._(JSObject _) implements EventTarget, JSObject {
   /// [AudioDecoder] objects can be successfully configured with the given
   /// config).
   external static JSPromise<AudioDecoderSupport> isConfigSupported(
-      AudioDecoderConfig config);
+    AudioDecoderConfig config,
+  );
 
   /// @AvailableInWorkers("window_and_dedicated")
   ///
@@ -144,7 +145,8 @@ extension type VideoDecoder._(JSObject _) implements EventTarget, JSObject {
   /// [VideoDecoder] objects can be successfully configured with the given
   /// config).
   external static JSPromise<VideoDecoderSupport> isConfigSupported(
-      VideoDecoderConfig config);
+    VideoDecoderConfig config,
+  );
 
   /// @AvailableInWorkers("window_and_dedicated")
   ///
@@ -223,7 +225,8 @@ extension type AudioEncoder._(JSObject _) implements EventTarget, JSObject {
   /// [AudioEncoder] objects can be successfully configured with the given
   /// config).
   external static JSPromise<AudioEncoderSupport> isConfigSupported(
-      AudioEncoderConfig config);
+    AudioEncoderConfig config,
+  );
 
   /// @AvailableInWorkers("window_and_dedicated")
   ///
@@ -300,7 +303,8 @@ extension type VideoEncoder._(JSObject _) implements EventTarget, JSObject {
   /// interface checks if [VideoEncoder] can be successfully configured with the
   /// given config.
   external static JSPromise<VideoEncoderSupport> isConfigSupported(
-      VideoEncoderConfig config);
+    VideoEncoderConfig config,
+  );
 
   /// @AvailableInWorkers("window_and_dedicated")
   ///
@@ -322,10 +326,7 @@ extension type VideoEncoder._(JSObject _) implements EventTarget, JSObject {
   /// encodes a [VideoFrame].
   /// Encoded data ([EncodedVideoChunk]) or an error will eventually be returned
   /// via the callbacks provided to the [VideoEncoder] constructor.
-  external void encode(
-    VideoFrame frame, [
-    VideoEncoderEncodeOptions options,
-  ]);
+  external void encode(VideoFrame frame, [VideoEncoderEncodeOptions options]);
 
   /// @AvailableInWorkers("window_and_dedicated")
   ///
@@ -846,10 +847,7 @@ extension type AudioDataCopyToOptions._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/VideoFrame).
 extension type VideoFrame._(JSObject _) implements JSObject {
-  external factory VideoFrame(
-    JSObject dataOrImage, [
-    JSObject init,
-  ]);
+  external factory VideoFrame(JSObject dataOrImage, [JSObject init]);
 
   /// @AvailableInWorkers("window_and_dedicated")
   ///
@@ -1043,10 +1041,7 @@ extension type VideoFrameCopyToOptions._(JSObject _) implements JSObject {
   external set colorSpace(PredefinedColorSpace value);
 }
 extension type PlaneLayout._(JSObject _) implements JSObject {
-  external factory PlaneLayout({
-    required int offset,
-    required int stride,
-  });
+  external factory PlaneLayout({required int offset, required int stride});
 
   external int get offset;
   external set offset(int value);

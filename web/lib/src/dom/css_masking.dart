@@ -29,10 +29,7 @@ extension type SVGClipPathElement._(JSObject _)
     implements SVGElement, JSObject {
   /// Creates an [SVGClipPathElement] using the tag 'clipPath'.
   SVGClipPathElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'clipPath',
-        );
+    : _ = document.createElementNS('http://www.w3.org/2000/svg', 'clipPath');
 
   /// The read-only **`clipPathUnits`** property of the [SVGClipPathElement]
   /// interface reflects the `clipPathUnits` attribute of a  element which
@@ -60,10 +57,7 @@ extension type SVGClipPathElement._(JSObject _)
 extension type SVGMaskElement._(JSObject _) implements SVGElement, JSObject {
   /// Creates an [SVGMaskElement] using the tag 'mask'.
   SVGMaskElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'mask',
-        );
+    : _ = document.createElementNS('http://www.w3.org/2000/svg', 'mask');
 
   /// The read-only **`maskUnits`** property of the [SVGMaskElement] interface
   /// reflects the `maskUnits` attribute of a  element which defines the

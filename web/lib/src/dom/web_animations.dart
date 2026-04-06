@@ -540,10 +540,7 @@ extension type KeyframeAnimationOptions._(JSObject _)
   external set trigger(JSObject? value);
 }
 extension type GetAnimationsOptions._(JSObject _) implements JSObject {
-  external factory GetAnimationsOptions({
-    bool subtree,
-    String? pseudoElement,
-  });
+  external factory GetAnimationsOptions({bool subtree, String? pseudoElement});
 
   external bool get subtree;
   external set subtree(bool value);

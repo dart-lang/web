@@ -121,10 +121,7 @@ extension type PointerEventInit._(JSObject _)
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PointerEvent).
 extension type PointerEvent._(JSObject _) implements MouseEvent, JSObject {
-  external factory PointerEvent(
-    String type, [
-    PointerEventInit eventInitDict,
-  ]);
+  external factory PointerEvent(String type, [PointerEventInit eventInitDict]);
 
   /// The **`getCoalescedEvents()`** method of the [PointerEvent] interface
   /// returns a sequence of `PointerEvent` instances that were coalesced

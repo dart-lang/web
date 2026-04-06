@@ -102,6 +102,12 @@ $_usage''');
     if (argResult.wasParsed('strict-unsupported')) '--strict-unsupported',
   ], workingDirectory: bindingsGeneratorPath);
 
+  // Format generated files.
+  await runProc(Platform.executable, [
+    'format',
+    outputFile,
+  ], workingDirectory: p.current);
+
   await contextFile.delete();
   return;
 }

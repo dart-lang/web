@@ -4,7 +4,6 @@
 
 import 'dart:convert';
 
-import 'package:dart_style/dart_style.dart';
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:yaml/yaml.dart';
@@ -207,7 +206,7 @@ class YamlConfig implements Config {
     this.ignoreErrors = false,
     this.generateAll = false,
   }) : languageVersion = languageVersion == null
-           ? DartFormatter.latestLanguageVersion
+           ? Version(3, 6, 0)
            : Version.parse(languageVersion);
 
   factory YamlConfig.fromYaml(

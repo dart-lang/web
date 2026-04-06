@@ -17,8 +17,9 @@ import 'dart:js_interop';
 
 extension type DigitalCredentialRequestOptions._(JSObject _)
     implements JSObject {
-  external factory DigitalCredentialRequestOptions(
-      {JSArray<DigitalCredentialRequest> requests});
+  external factory DigitalCredentialRequestOptions({
+    JSArray<DigitalCredentialRequest> requests,
+  });
 
   external JSArray<DigitalCredentialRequest> get requests;
   external set requests(JSArray<DigitalCredentialRequest> value);

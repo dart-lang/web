@@ -77,10 +77,7 @@ extension type Headers._(JSObject _) implements JSObject {
   /// agent. These
   /// headers include the
   /// and .
-  external void append(
-    String name,
-    String value,
-  );
+  external void append(String name, String value);
 
   /// The **`delete()`** method of the [Headers]
   /// interface deletes a header from the current `Headers` object.
@@ -140,10 +137,7 @@ extension type Headers._(JSObject _) implements JSObject {
   /// agent. These
   /// headers include the
   /// and .
-  external void set(
-    String name,
-    String value,
-  );
+  external void set(String name, String value);
 }
 
 /// The **`Request`** interface of the
@@ -160,10 +154,7 @@ extension type Headers._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Request).
 extension type Request._(JSObject _) implements JSObject {
-  external factory Request(
-    RequestInfo input, [
-    RequestInit init,
-  ]);
+  external factory Request(RequestInfo input, [RequestInit init]);
 
   /// The **`clone()`** method of the [Request] interface creates a copy of the
   /// current `Request` object.
@@ -466,10 +457,7 @@ extension type RequestInit._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Response).
 extension type Response._(JSObject _) implements JSObject {
-  external factory Response([
-    BodyInit? body,
-    ResponseInit init,
-  ]);
+  external factory Response([BodyInit? body, ResponseInit init]);
 
   /// The **`error()`** static method of the [Response] interface returns a new
   /// `Response` object associated with a network error.
@@ -492,10 +480,7 @@ extension type Response._(JSObject _) implements JSObject {
   /// > redirect it as desired.
   /// > This will actually lead to a real redirect if a service worker sends it
   /// > upstream.
-  external static Response redirect(
-    String url, [
-    int status,
-  ]);
+  external static Response redirect(String url, [int status]);
 
   /// The **`json()`** static method of the [Response] interface returns a
   /// `Response` that contains the provided JSON data as body, and a  header
@@ -514,10 +499,7 @@ extension type Response._(JSObject _) implements JSObject {
   /// [single page applications](https://developer.mozilla.org/en-US/docs/Glossary/SPA),
   /// and any other applications where a JSON response is expected.
   @JS('json')
-  external static Response json_(
-    JSAny? data, [
-    ResponseInit init,
-  ]);
+  external static Response json_(JSAny? data, [ResponseInit init]);
 
   /// The **`clone()`** method of the [Response] interface creates a clone of a
   /// response object, identical in every way, but stored in a different

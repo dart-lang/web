@@ -77,8 +77,9 @@ extension type PaymentRequest._(JSObject _) implements EventTarget, JSObject {
   /// typically the best way to go. Most examples on MDN and elsewhere use
   /// [`async`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function)/[`await`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await)
   /// to wait asynchronously while results are validated and so forth.
-  external JSPromise<PaymentResponse> show(
-      [JSPromise<PaymentDetailsUpdate> detailsPromise]);
+  external JSPromise<PaymentResponse> show([
+    JSPromise<PaymentDetailsUpdate> detailsPromise,
+  ]);
 
   /// The `PaymentRequest.abort()` method of the [PaymentRequest]
   /// interface causes the user agent to end the payment request and to remove
@@ -391,11 +392,7 @@ extension type PaymentValidationErrors._(JSObject _) implements JSObject {
   external set paymentMethod(JSObject value);
 }
 extension type PayerErrors._(JSObject _) implements JSObject {
-  external factory PayerErrors({
-    String email,
-    String name,
-    String phone,
-  });
+  external factory PayerErrors({String email, String name, String phone});
 
   external String get email;
   external set email(String value);

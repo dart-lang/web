@@ -90,8 +90,5 @@ extension type ANGLE_instanced_arrays._(JSObject _) implements JSObject {
   /// > [!NOTE]
   /// > When using [WebGL2RenderingContext], this method is available as
   /// > [WebGL2RenderingContext.vertexAttribDivisor] by default.
-  external void vertexAttribDivisorANGLE(
-    GLuint index,
-    GLuint divisor,
-  );
+  external void vertexAttribDivisorANGLE(GLuint index, GLuint divisor);
 }

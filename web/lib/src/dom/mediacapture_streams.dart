@@ -43,7 +43,7 @@ typedef MediaDeviceKind = String;
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MediaStream).
 extension type MediaStream._(JSObject _) implements EventTarget, JSObject {
-  external factory MediaStream([JSAny streamOrTracks]);
+  external factory MediaStream([JSObject streamOrTracks]);
 
   /// The **`getAudioTracks()`** method of the
   /// [MediaStream] interface returns a sequence that represents all the

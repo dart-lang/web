@@ -5,7 +5,6 @@
 @JS()
 library;
 
-import 'dart:core';
 import 'dart:js_interop';
 
 extension type ValueIterable._(JSObject _)
@@ -21,5 +20,4 @@ extension type KeyValueIterable._(JSObject _)
     ),
   );
 }
-
 extension type AsyncIterable._(JSObject _) implements JSObject {}

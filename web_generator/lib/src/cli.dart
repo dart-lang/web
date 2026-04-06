@@ -132,34 +132,29 @@ Future<void> generateJsTypeSupertypes(String contextFile) async {
   final definedNames = dartJsInterop.exportNamespace.definedNames2;
   // `SplayTreeMap` to avoid moving types around in `dart:js_interop` affecting
   // the code generation.
-  final jsTypeSupertypes = SplayTreeMap<String, String?>();
+  final jsTypeSupertypes = SplayTreeMap<String, List<String>>();
   for (final name in definedNames.keys) {
     final element = definedNames[name];
     if (element is ExtensionTypeElement) {
-      // JS types are any extension type that starts with 'JS' in
-      // `dart:js_interop`.
       bool isJSType(InterfaceElement element) =>
           element is ExtensionTypeElement &&
-          element.library == dartJsInterop &&
+          element.library.uri.toString() == 'dart:js_interop' &&
           element.name!.startsWith('JS');
       if (!isJSType(element)) continue;
 
-      String? parentJsType;
+      final supertypeNames = <String>[];
       final supertype = element.supertype;
       final immediateSupertypes = <InterfaceType>[
         ?supertype,
         ...element.interfaces,
       ]..removeWhere((supertype) => supertype.isDartCoreObject);
-      // We should have at most one non-trivial supertype.
-      assert(immediateSupertypes.length <= 1);
-      for (final supertype in immediateSupertypes) {
-        if (isJSType(supertype.element)) {
-          parentJsType = "'${supertype.element.name!}'";
+
+      for (final st in immediateSupertypes) {
+        if (isJSType(st.element)) {
+          supertypeNames.add("'${st.element.name!}'");
         }
       }
-      // Ensure that the hierarchy forms a tree.
-      assert((parentJsType == null) == (name == 'JSAny'));
-      jsTypeSupertypes["'$name'"] = parentJsType;
+      jsTypeSupertypes["'$name'"] = supertypeNames;
     }
   }
 
@@ -171,8 +166,8 @@ Future<void> generateJsTypeSupertypes(String contextFile) async {
 
 // Generated code. Do not modify by hand.
 
-const Map<String, String?> jsTypeSupertypes = {
-${jsTypeSupertypes.entries.map((e) => "  ${e.key}: ${e.value},").join('\n')}
+const Map<String, List<String>> jsTypeSupertypes = {
+${jsTypeSupertypes.entries.map((e) => "  ${e.key}: [${e.value.join(', ')}],").join('\n')}
 };
 ''';
   final jsTypeSupertypesPath = p.join(

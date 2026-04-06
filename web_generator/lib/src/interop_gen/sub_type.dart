@@ -262,13 +262,14 @@ TypeHierarchy getTypeHierarchy(Type type) {
         final BuiltinType(name: jsName) =
             getJSTypeAlternative(type) as BuiltinType;
 
-        var value = jsTypeSupertypes[jsName];
-        final list = <String>[];
-        while (value != null) {
-          list.add(value);
-          value = jsTypeSupertypes[value];
+        final parents = jsTypeSupertypes[jsName] ?? [];
+        for (final parent in parents) {
+          hierarchy.nodes.add(
+            getTypeHierarchy(
+              BuiltinType(name: parent, fromDartJSInterop: true),
+            ),
+          );
         }
-        hierarchy.addChainedValues(list);
         break;
       default:
         print(

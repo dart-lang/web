@@ -12,7 +12,10 @@
   extensions to support mutable operations on node lists.
 - Added `asList` to `NodeList` via extension.
 - Removed `CustomEventProviders`. Moved these events to `EventStreamProviders`.
-- Require `sdk: ^3.10.0`.
+
+- Added `asMap` views for map-like and pair-iterable types (e.g., `URLSearchParams`, `EventCounts`, `StylePropertyMap`, `MediaKeyStatusMap`) to enable idiomatic Dart Map operations on JS objects.
+
+- Require `sdk: ^3.12.0`.
 
 ## 1.1.1
 

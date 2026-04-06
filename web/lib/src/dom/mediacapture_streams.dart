@@ -1662,10 +1662,13 @@ extension type ConstrainBooleanParameters._(JSObject _) implements JSObject {
   external set ideal(bool value);
 }
 extension type ConstrainDOMStringParameters._(JSObject _) implements JSObject {
-  external factory ConstrainDOMStringParameters({JSAny exact, JSAny ideal});
+  external factory ConstrainDOMStringParameters({
+    JSIterable exact,
+    JSIterable ideal,
+  });
 
-  external JSAny get exact;
-  external set exact(JSAny value);
-  external JSAny get ideal;
-  external set ideal(JSAny value);
+  external JSIterable get exact;
+  external set exact(JSIterable value);
+  external JSIterable get ideal;
+  external set ideal(JSIterable value);
 }

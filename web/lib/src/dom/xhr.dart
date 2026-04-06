@@ -13,6 +13,7 @@
 @JS()
 library;
 
+import 'dart:collection';
 import 'dart:js_interop';
 
 import 'dom.dart';
@@ -513,7 +514,8 @@ extension type XMLHttpRequest._(JSObject _)
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/FormData).
-extension type FormData._(JSObject _) implements JSObject {
+extension type FormData._(JSObject _)
+    implements JSObject, JSIterable<JSArray<JSAny>> {
   external factory FormData([HTMLFormElement form, HTMLElement? submitter]);
 
   /// The **`append()`** method of the [FormData] interface appends a new value
@@ -554,6 +556,52 @@ extension type FormData._(JSObject _) implements JSObject {
   /// values with the new one, whereas `append()` will append the new value onto
   /// the end of the existing set of values.
   external void set(String name, JSAny blobValueOrValue, [String filename]);
+  Iterable<({String key, FormDataEntryValue value})> get toDart =>
+      toDartIterable.map(
+        (e) => (key: (e.toDart[0] as JSString).toDart, value: e.toDart[1]),
+      );
+
+  @JS()
+  external JSIterator<JSString> keys();
+  Map<String, FormDataEntryValue> get asMap => _FormDataMapView(this);
+}
+
+class _FormDataMapView extends MapBase<String, FormDataEntryValue> {
+  _FormDataMapView(this._jsObject);
+
+  final FormData _jsObject;
+
+  @override
+  FormDataEntryValue? operator [](Object? key) {
+    final value = _jsObject.get(key as String);
+    return value;
+  }
+
+  @override
+  void operator []=(String key, FormDataEntryValue value) {
+    _jsObject.set(key, value);
+  }
+
+  @override
+  void clear() {
+    final keys = _jsObject.keys().toDartIterable.toList();
+    for (final k in keys) {
+      _jsObject.delete(k.toDart);
+    }
+  }
+
+  @override
+  Iterable<String> get keys {
+    return _jsObject.keys().toDartIterable.map((e) => e.toDart);
+  }
+
+  @override
+  FormDataEntryValue? remove(Object? key) {
+    final k = key as String;
+    final value = _jsObject.get(k);
+    _jsObject.delete(k);
+    return value;
+  }
 }
 
 /// The **`ProgressEvent`** interface represents events measuring progress of an

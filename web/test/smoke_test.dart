@@ -79,4 +79,131 @@ void main() {
         );
     }
   });
+
+  test('URLSearchParams toDart works as expected.', () {
+    final params = URLSearchParams('a=1&b=2'.toJS);
+    final list = params.toDart.toList();
+    expect(list.length, equals(2));
+    expect(list[0].key, equals('a'));
+    expect(list[0].value, equals('1'));
+    expect(list[1].key, equals('b'));
+    expect(list[1].value, equals('2'));
+  });
+
+  test('FormData toDart works as expected.', () {
+    final form = FormData();
+    form.append('a', '1'.toJS);
+    form.append('b', '2'.toJS);
+    final list = form.toDart.toList();
+    expect(list.length, equals(2));
+    expect(list[0].key, equals('a'));
+    expect((list[0].value as JSString).toDart, equals('1'));
+    expect(list[1].key, equals('b'));
+    expect((list[1].value as JSString).toDart, equals('2'));
+  });
+
+  test('NodeList toDart works as expected.', () {
+    final div = document.createElement('div') as HTMLDivElement;
+    final span1 = document.createElement('span');
+    final span2 = document.createElement('span');
+    div.appendChild(span1);
+    div.appendChild(span2);
+    final list = div.childNodes.toDart.toList();
+    expect(list.length, equals(2));
+    expect(list[0], equals(span1));
+    expect(list[1], equals(span2));
+  });
+
+  test('URLSearchParams asMap', () {
+    final params = URLSearchParams('a=1&b=2'.toJS);
+    final map = params.asMap;
+
+    // Read operations
+    expect(map['a'], '1');
+    expect(map['b'], '2');
+    expect(map['c'], null);
+    expect(map.containsKey('a'), true);
+    expect(map.containsKey('c'), false);
+    expect(map.containsValue('1'), true);
+    expect(map.containsValue('3'), false);
+    expect(map.length, 2);
+    expect(map.isEmpty, false);
+    expect(map.isNotEmpty, true);
+
+    // Keys and values
+    expect(map.keys.toList(), containsAll(['a', 'b']));
+    expect(map.values.toList(), containsAll(['1', '2']));
+
+    // Write operations
+    map['a'] = '3';
+    expect(map['a'], '3');
+    expect(params.get('a'), '3');
+
+    map['c'] = '4';
+    expect(map['c'], '4');
+    expect(params.get('c'), '4');
+    expect(map.length, 3);
+
+    // Remove
+    expect(map.remove('b'), '2');
+    expect(map.containsKey('b'), false);
+    expect(params.has('b'), false);
+    expect(map.length, 2);
+
+    // Remove non-existent
+    expect(map.remove('d'), null);
+
+    // Clear
+    map.clear();
+    expect(map.isEmpty, true);
+    expect(map.length, 0);
+    expect(params.get('a'), null);
+  });
+
+  test('StylePropertyMap asMap', () {
+    final div = document.createElement('div') as HTMLDivElement;
+    div.style.color = 'blue';
+    final map = div.attributeStyleMap.asMap;
+
+    // Read operations
+    expect(map.containsKey('color'), true);
+    final values = map['color'];
+    expect(values, isNotNull);
+    expect(values!.toDart.length, 1);
+
+    // Remove operation
+    final removed = map.remove('color');
+    expect(removed, isNotNull);
+    expect(removed!.toDart.length, 1);
+    expect(map.containsKey('color'), false);
+    expect(div.style.color, equals(''));
+
+    // Remove non-existent
+    final removedAgain = map.remove('color');
+    expect(removedAgain, isNull);
+  });
+
+  test('EventCounts', () {
+    final performance = window.performance;
+    expect(performance, isNotNull);
+
+    final eventCounts = performance.eventCounts;
+    expect(eventCounts, isNotNull);
+
+    final map = eventCounts.asMap;
+
+    // We cannot easily populate EventCounts, but we can verify it is a Map
+    // and that it behaves as a read-only map.
+    expect(map, isA<Map<String, int>>());
+
+    // Should not throw on access.
+    expect(() => map.length, returnsNormally);
+    expect(() => map.isEmpty, returnsNormally);
+    expect(() => map.keys, returnsNormally);
+
+    // Mutating operations should throw UnsupportedError.
+    expect(() => map['click'] = 1, throwsUnsupportedError);
+    expect(map.clear, throwsUnsupportedError);
+    expect(() => map.remove('click'), throwsUnsupportedError);
+  });
 }

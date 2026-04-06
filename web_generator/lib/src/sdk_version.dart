@@ -5,4 +5,4 @@
 import 'package:pub_semver/pub_semver.dart';
 
 /// The current minimum SDK version this package supports.
-final sdkVersion = Version(3, 10, 0);
+final sdkVersion = Version.parse('3.12.0-0');

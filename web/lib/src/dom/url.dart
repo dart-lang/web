@@ -13,6 +13,7 @@
 @JS()
 library;
 
+import 'dart:collection';
 import 'dart:js_interop';
 
 /// The **`URL`** interface is used to parse, construct, normalize, and encode .
@@ -286,7 +287,8 @@ extension type URL._(JSObject _) implements JSObject {
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams).
-extension type URLSearchParams._(JSObject _) implements JSObject {
+extension type URLSearchParams._(JSObject _)
+    implements JSObject, JSIterable<JSArray<JSAny>> {
   external factory URLSearchParams([JSAny init]);
 
   /// The **`append()`** method of the [URLSearchParams]
@@ -350,4 +352,52 @@ extension type URLSearchParams._(JSObject _) implements JSObject {
   /// The **`size`** read-only property of the [URLSearchParams] interface
   /// indicates the total number of search parameter entries.
   external int get size;
+  Iterable<({String key, String value})> get toDart => toDartIterable.map(
+    (e) => (
+      key: (e.toDart[0] as JSString).toDart,
+      value: (e.toDart[1] as JSString).toDart,
+    ),
+  );
+
+  @JS()
+  external JSIterator<JSString> keys();
+  Map<String, String> get asMap => _URLSearchParamsMapView(this);
+}
+
+class _URLSearchParamsMapView extends MapBase<String, String> {
+  _URLSearchParamsMapView(this._jsObject);
+
+  final URLSearchParams _jsObject;
+
+  @override
+  String? operator [](Object? key) {
+    final value = _jsObject.get(key as String);
+    return value;
+  }
+
+  @override
+  void operator []=(String key, String value) {
+    _jsObject.set(key, value);
+  }
+
+  @override
+  void clear() {
+    final keys = _jsObject.keys().toDartIterable.toList();
+    for (final k in keys) {
+      _jsObject.delete(k.toDart);
+    }
+  }
+
+  @override
+  Iterable<String> get keys {
+    return _jsObject.keys().toDartIterable.map((e) => e.toDart);
+  }
+
+  @override
+  String? remove(Object? key) {
+    final k = key as String;
+    final value = _jsObject.get(k);
+    _jsObject.delete(k);
+    return value;
+  }
 }

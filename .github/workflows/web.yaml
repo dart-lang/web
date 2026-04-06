@@ -25,7 +25,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        sdk: ['3.10', beta, dev]
+        sdk:
+          # Once Dart 3.12 is stable
+          #- '3.10'
+          - beta
+          - dev
         test_config: ['-p chrome', '-p chrome -c dart2wasm']
 
     steps:

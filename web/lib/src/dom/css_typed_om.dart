@@ -13,6 +13,7 @@
 @JS()
 library;
 
+import 'dart:collection';
 import 'dart:js_interop';
 
 import 'geometry.dart';
@@ -61,7 +62,8 @@ extension type CSSStyleValue._(JSObject _) implements JSObject {
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/StylePropertyMapReadOnly).
-extension type StylePropertyMapReadOnly._(JSObject _) implements JSObject {
+extension type StylePropertyMapReadOnly._(JSObject _)
+    implements JSObject, JSIterable<JSArray<JSAny>> {
   /// The **`get()`** method of the
   /// [StylePropertyMapReadOnly] interface returns a [CSSStyleValue]
   /// object for the first value of the specified property.
@@ -81,6 +83,37 @@ extension type StylePropertyMapReadOnly._(JSObject _) implements JSObject {
   /// [StylePropertyMapReadOnly] interface returns an unsigned long integer
   /// containing the size of the `StylePropertyMapReadOnly` object.
   external int get size;
+  Iterable<({String key, JSArray value})> get toDart => toDartIterable.map(
+    (e) => (
+      key: (e.toDart[0] as JSString).toDart,
+      value: (e.toDart[1] as JSArray),
+    ),
+  );
+
+  @JS()
+  external JSIterator<JSString> keys();
+  Map<String, JSArray<CSSStyleValue>> get asMap =>
+      _StylePropertyMapReadOnlyMapView(this);
+}
+
+class _StylePropertyMapReadOnlyMapView
+    extends UnmodifiableMapBase<String, JSArray<CSSStyleValue>> {
+  _StylePropertyMapReadOnlyMapView(this._jsObject);
+
+  final StylePropertyMapReadOnly _jsObject;
+
+  @override
+  JSArray<CSSStyleValue>? operator [](Object? key) {
+    final k = key as String;
+    final value = _jsObject.get(k);
+    if (value == null) return null;
+    return _jsObject.getAll(k);
+  }
+
+  @override
+  Iterable<String> get keys {
+    return _jsObject.keys().toDartIterable.map((e) => e.toDart);
+  }
 }
 
 /// The **`StylePropertyMap`** interface of the
@@ -123,6 +156,52 @@ extension type StylePropertyMap._(JSObject _)
   /// The **`clear()`** method of the [StylePropertyMap]
   /// interface removes all declarations in the `StylePropertyMap`.
   external void clear();
+  @JS()
+  external JSIterator<JSString> keys();
+  Map<String, JSArray<CSSStyleValue>> get asMap =>
+      _StylePropertyMapMapView(this);
+}
+
+class _StylePropertyMapMapView extends MapBase<String, JSArray<CSSStyleValue>> {
+  _StylePropertyMapMapView(this._jsObject);
+
+  final StylePropertyMap _jsObject;
+
+  @override
+  JSArray<CSSStyleValue>? operator [](Object? key) {
+    final k = key as String;
+    final value = _jsObject.get(k);
+    if (value == null) return null;
+    return _jsObject.getAll(k);
+  }
+
+  @override
+  void operator []=(String key, JSArray<CSSStyleValue> value) {
+    _jsObject.set(key, value);
+  }
+
+  @override
+  void clear() {
+    final keys = _jsObject.keys().toDartIterable.toList();
+    for (final k in keys) {
+      _jsObject.delete(k.toDart);
+    }
+  }
+
+  @override
+  Iterable<String> get keys {
+    return _jsObject.keys().toDartIterable.map((e) => e.toDart);
+  }
+
+  @override
+  JSArray<CSSStyleValue>? remove(Object? key) {
+    final k = key as String;
+    final values = _jsObject.getAll(k);
+    // ignore: prefer_is_empty
+    if (values.length == 0) return null;
+    _jsObject.delete(k);
+    return values;
+  }
 }
 
 /// The **`CSSUnparsedValue`** interface of the
@@ -139,7 +218,7 @@ extension type StylePropertyMap._(JSObject _)
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSUnparsedValue).
 extension type CSSUnparsedValue._(JSObject _)
-    implements CSSStyleValue, JSObject {
+    implements CSSStyleValue, JSObject, JSIterable<CSSUnparsedSegment> {
   external factory CSSUnparsedValue(JSArray<CSSUnparsedSegment> members);
 
   external CSSUnparsedSegment operator [](int index);
@@ -148,6 +227,7 @@ extension type CSSUnparsedValue._(JSObject _)
   /// The **`length`** read-only property of the
   /// [CSSUnparsedValue] interface returns the number of items in the object.
   external int get length;
+  Iterable<CSSUnparsedSegment> get toDart => toDartIterable;
 }
 
 /// The **`CSSVariableReferenceValue`** interface of the
@@ -510,13 +590,15 @@ extension type CSSMathClamp._(JSObject _) implements CSSMathValue, JSObject {
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSNumericArray).
-extension type CSSNumericArray._(JSObject _) implements JSObject {
+extension type CSSNumericArray._(JSObject _)
+    implements JSObject, JSIterable<CSSNumericValue> {
   external CSSNumericValue operator [](int index);
 
   /// The read-only **`length`** property of the
   /// [CSSNumericArray] interface returns the number of
   /// [CSSNumericValue] objects in the list.
   external int get length;
+  Iterable<CSSNumericValue> get toDart => toDartIterable;
 }
 
 /// The **`CSSTransformValue`** interface of the
@@ -528,7 +610,7 @@ extension type CSSNumericArray._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSTransformValue).
 extension type CSSTransformValue._(JSObject _)
-    implements CSSStyleValue, JSObject {
+    implements CSSStyleValue, JSObject, JSIterable<CSSTransformComponent> {
   external factory CSSTransformValue(JSArray<CSSTransformComponent> transforms);
 
   external CSSTransformComponent operator [](int index);
@@ -552,6 +634,7 @@ extension type CSSTransformValue._(JSObject _)
   /// which
   /// case it returns false.
   external bool get is2D;
+  Iterable<CSSTransformComponent> get toDart => toDartIterable;
 }
 
 /// The **`CSSTransformComponent`** interface of the

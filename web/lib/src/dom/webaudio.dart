@@ -13,6 +13,7 @@
 @JS()
 library;
 
+import 'dart:collection';
 import 'dart:js_interop';
 
 import 'dom.dart';
@@ -3496,7 +3497,32 @@ extension type AudioWorkletGlobalScope._(JSObject _)
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AudioParamMap).
-extension type AudioParamMap._(JSObject _) implements JSObject {}
+extension type AudioParamMap._(JSObject _) implements JSObject {
+  @JS()
+  external AudioParam get(JSString key);
+  @JS()
+  external bool has(JSString key);
+  @JS()
+  external JSIterator<JSString> keys();
+  Map<String, AudioParam> get asMap => _AudioParamMapMapView(this);
+}
+
+class _AudioParamMapMapView extends UnmodifiableMapBase<String, AudioParam> {
+  _AudioParamMapMapView(this._jsObject);
+
+  final AudioParamMap _jsObject;
+
+  @override
+  AudioParam? operator [](Object? key) {
+    final value = _jsObject.get(key as JSString);
+    return value;
+  }
+
+  @override
+  Iterable<String> get keys {
+    return _jsObject.keys().toDartIterable.map((e) => e.toDart);
+  }
+}
 
 /// > [!NOTE]
 /// > Although the interface is available outside

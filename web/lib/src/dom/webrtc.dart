@@ -13,6 +13,7 @@
 @JS()
 library;
 
+import 'dart:collection';
 import 'dart:js_interop';
 
 import 'dom.dart';
@@ -77,13 +78,13 @@ extension type RTCConfiguration._(JSObject _) implements JSObject {
 }
 extension type RTCIceServer._(JSObject _) implements JSObject {
   external factory RTCIceServer({
-    required JSAny urls,
+    required JSIterable urls,
     String username,
     String credential,
   });
 
-  external JSAny get urls;
-  external set urls(JSAny value);
+  external JSIterable get urls;
+  external set urls(JSIterable value);
   external String get username;
   external set username(String value);
   external String get credential;
@@ -2303,7 +2304,32 @@ extension type RTCDTMFToneChangeEventInit._(JSObject _)
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCStatsReport).
-extension type RTCStatsReport._(JSObject _) implements JSObject {}
+extension type RTCStatsReport._(JSObject _) implements JSObject {
+  @JS()
+  external JSObject get(JSString key);
+  @JS()
+  external bool has(JSString key);
+  @JS()
+  external JSIterator<JSString> keys();
+  Map<String, JSObject> get asMap => _RTCStatsReportMapView(this);
+}
+
+class _RTCStatsReportMapView extends UnmodifiableMapBase<String, JSObject> {
+  _RTCStatsReportMapView(this._jsObject);
+
+  final RTCStatsReport _jsObject;
+
+  @override
+  JSObject? operator [](Object? key) {
+    final value = _jsObject.get(key as JSString);
+    return value;
+  }
+
+  @override
+  Iterable<String> get keys {
+    return _jsObject.keys().toDartIterable.map((e) => e.toDart);
+  }
+}
 
 /// The **`RTCError`** interface describes an error which has occurred while
 /// handling

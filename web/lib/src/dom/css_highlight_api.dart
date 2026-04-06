@@ -13,6 +13,7 @@
 @JS()
 library;
 
+import 'dart:collection';
 import 'dart:js_interop';
 
 import 'dom.dart';
@@ -96,4 +97,53 @@ extension type Highlight._(JSObject _) implements JSObject {
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/HighlightRegistry).
-extension type HighlightRegistry._(JSObject _) implements JSObject {}
+extension type HighlightRegistry._(JSObject _) implements JSObject {
+  @JS()
+  external Highlight get(JSString key);
+  @JS()
+  external bool has(JSString key);
+  @JS()
+  external void set(JSString key, Highlight value);
+  @JS()
+  external bool delete(JSString key);
+  @JS()
+  external void clear();
+  @JS()
+  external JSIterator<JSString> keys();
+  Map<String, Highlight> get asMap => _HighlightRegistryMapView(this);
+}
+
+class _HighlightRegistryMapView extends MapBase<String, Highlight> {
+  _HighlightRegistryMapView(this._jsObject);
+
+  final HighlightRegistry _jsObject;
+
+  @override
+  Highlight? operator [](Object? key) {
+    final value = _jsObject.get(key as JSString);
+    return value;
+  }
+
+  @override
+  void operator []=(String key, Highlight value) {
+    _jsObject.set(key.toJS, value);
+  }
+
+  @override
+  void clear() {
+    _jsObject.clear();
+  }
+
+  @override
+  Iterable<String> get keys {
+    return _jsObject.keys().toDartIterable.map((e) => e.toDart);
+  }
+
+  @override
+  Highlight? remove(Object? key) {
+    final k = key as JSString;
+    final value = _jsObject.get(k);
+    _jsObject.delete(k);
+    return value;
+  }
+}

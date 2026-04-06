@@ -181,3 +181,10 @@ ${jsTypeSupertypes.entries.map((e) => "  ${e.key}: ${e.value},").join('\n')}
   );
   await File(jsTypeSupertypesPath).writeAsString(jsTypeSupertypesScript);
 }
+
+Future<void> formatFile(String path) async {
+  await runProc(Platform.executable, [
+    'format',
+    path,
+  ], workingDirectory: p.current);
+}

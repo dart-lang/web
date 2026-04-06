@@ -112,10 +112,7 @@ $_usage''');
   final outputPath = inputFiles.isEmpty
       ? p.join(_webPackagePath, 'lib', 'src')
       : (argResult['output'] as String? ?? p.current);
-  await runProc(Platform.executable, [
-    'format',
-    outputPath,
-  ], workingDirectory: p.current);
+  await formatFile(outputPath);
 
   // Delete previously generated files that have not been updated.
   for (final file in existingFiles) {

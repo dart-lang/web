@@ -59,6 +59,8 @@ void main() {
           '--declaration',
         ], workingDirectory: bindingsGenPath);
 
+        await formatFile(outputActualPath);
+
         expectFilesEqual(outputExpectedPath, outputActualPath);
       });
     }
@@ -94,6 +96,7 @@ void main() {
       ], workingDirectory: bindingsGenPath);
 
       // read files
+      await formatFile(outputDir.path);
       for (final output in outputDir.listSync().whereType<File>()) {
         expectFilesEqual(
           p.join(outputExpectedPath, p.basename(output.path)),

@@ -36,6 +36,8 @@ void main() {
         '--declaration',
       ], workingDirectory: bindingsGenPath);
 
+      await formatFile(outputFile);
+
       expectFilesEqual(expectedFile, outputFile);
     });
 
@@ -55,6 +57,8 @@ void main() {
         '--config=$configFilePath',
         '--declaration',
       ], workingDirectory: bindingsGenPath);
+
+      await formatFile(outputFile);
 
       expectFilesEqual(expectedFile, outputFile);
     });

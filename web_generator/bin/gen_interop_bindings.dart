@@ -103,10 +103,7 @@ $_usage''');
   ], workingDirectory: bindingsGeneratorPath);
 
   // Format generated files.
-  await runProc(Platform.executable, [
-    'format',
-    outputFile,
-  ], workingDirectory: p.current);
+  await formatFile(outputFile);
 
   await contextFile.delete();
   return;

@@ -57,6 +57,8 @@ void main() {
         '--declaration',
       ], workingDirectory: bindingsGenPath);
 
+      await formatFile(outputFile);
+
       expectFilesEqual(expectedFile, outputFile);
     });
   });

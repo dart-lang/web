@@ -14565,7 +14565,7 @@ extension type MessagePort._(JSObject _) implements EventTarget, JSObject {
   /// The **`postMessage()`** method of the
   /// [MessagePort] interface sends a message from the port, and optionally,
   /// transfers ownership of objects to other browsing contexts.
-  external void postMessage(JSAny? message, [JSObject optionsOrTransfer]);
+  external void postMessage(JSAny? message, [JSAny optionsOrTransfer]);
 
   /// The **`start()`** method of the [MessagePort]
   /// interface starts the sending of messages queued on the port. This method
@@ -15057,7 +15057,7 @@ extension type DedicatedWorkerGlobalScope._(JSObject _)
   ///
   /// The main scope that spawned the worker can send back information to the
   /// thread that spawned it using the [Worker.postMessage] method.
-  external void postMessage(JSAny? message, [JSObject optionsOrTransfer]);
+  external void postMessage(JSAny? message, [JSAny optionsOrTransfer]);
 
   /// @AvailableInWorkers("dedicated")
   ///
@@ -15201,7 +15201,7 @@ extension type Worker._(JSObject _) implements EventTarget, JSObject {
   ///
   /// The `Worker` can send back information to the thread that spawned it using
   /// the [DedicatedWorkerGlobalScope.postMessage] method.
-  external void postMessage(JSAny? message, [JSObject optionsOrTransfer]);
+  external void postMessage(JSAny? message, [JSAny optionsOrTransfer]);
   external EventHandler get onerror;
   external set onerror(EventHandler value);
   external EventHandler get onmessage;

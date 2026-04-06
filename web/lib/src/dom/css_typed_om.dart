@@ -61,7 +61,8 @@ extension type CSSStyleValue._(JSObject _) implements JSObject {
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/StylePropertyMapReadOnly).
-extension type StylePropertyMapReadOnly._(JSObject _) implements JSObject {
+extension type StylePropertyMapReadOnly._(JSObject _)
+    implements JSObject, JSIterable<JSArray<JSAny>> {
   /// The **`get()`** method of the
   /// [StylePropertyMapReadOnly] interface returns a [CSSStyleValue]
   /// object for the first value of the specified property.
@@ -81,6 +82,12 @@ extension type StylePropertyMapReadOnly._(JSObject _) implements JSObject {
   /// [StylePropertyMapReadOnly] interface returns an unsigned long integer
   /// containing the size of the `StylePropertyMapReadOnly` object.
   external int get size;
+  Iterable<({String key, JSArray value})> get toDart => toDartIterable.map(
+    (e) => (
+      key: (e.toDart[0] as JSString).toDart,
+      value: (e.toDart[1] as JSArray),
+    ),
+  );
 }
 
 /// The **`StylePropertyMap`** interface of the
@@ -139,7 +146,7 @@ extension type StylePropertyMap._(JSObject _)
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSUnparsedValue).
 extension type CSSUnparsedValue._(JSObject _)
-    implements CSSStyleValue, JSObject {
+    implements CSSStyleValue, JSObject, JSIterable<CSSUnparsedSegment> {
   external factory CSSUnparsedValue(JSArray<CSSUnparsedSegment> members);
 
   external CSSUnparsedSegment operator [](int index);
@@ -148,6 +155,7 @@ extension type CSSUnparsedValue._(JSObject _)
   /// The **`length`** read-only property of the
   /// [CSSUnparsedValue] interface returns the number of items in the object.
   external int get length;
+  Iterable<CSSUnparsedSegment> get toDart => toDartIterable;
 }
 
 /// The **`CSSVariableReferenceValue`** interface of the
@@ -510,13 +518,15 @@ extension type CSSMathClamp._(JSObject _) implements CSSMathValue, JSObject {
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSNumericArray).
-extension type CSSNumericArray._(JSObject _) implements JSObject {
+extension type CSSNumericArray._(JSObject _)
+    implements JSObject, JSIterable<CSSNumericValue> {
   external CSSNumericValue operator [](int index);
 
   /// The read-only **`length`** property of the
   /// [CSSNumericArray] interface returns the number of
   /// [CSSNumericValue] objects in the list.
   external int get length;
+  Iterable<CSSNumericValue> get toDart => toDartIterable;
 }
 
 /// The **`CSSTransformValue`** interface of the
@@ -528,7 +538,7 @@ extension type CSSNumericArray._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSTransformValue).
 extension type CSSTransformValue._(JSObject _)
-    implements CSSStyleValue, JSObject {
+    implements CSSStyleValue, JSObject, JSIterable<CSSTransformComponent> {
   external factory CSSTransformValue(JSArray<CSSTransformComponent> transforms);
 
   external CSSTransformComponent operator [](int index);
@@ -552,6 +562,7 @@ extension type CSSTransformValue._(JSObject _)
   /// which
   /// case it returns false.
   external bool get is2D;
+  Iterable<CSSTransformComponent> get toDart => toDartIterable;
 }
 
 /// The **`CSSTransformComponent`** interface of the

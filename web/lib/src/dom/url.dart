@@ -286,7 +286,8 @@ extension type URL._(JSObject _) implements JSObject {
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams).
-extension type URLSearchParams._(JSObject _) implements JSObject {
+extension type URLSearchParams._(JSObject _)
+    implements JSObject, JSIterable<JSArray<JSAny>> {
   external factory URLSearchParams([JSAny init]);
 
   /// The **`append()`** method of the [URLSearchParams]
@@ -350,4 +351,10 @@ extension type URLSearchParams._(JSObject _) implements JSObject {
   /// The **`size`** read-only property of the [URLSearchParams] interface
   /// indicates the total number of search parameter entries.
   external int get size;
+  Iterable<({String key, String value})> get toDart => toDartIterable.map(
+    (e) => (
+      key: (e.toDart[0] as JSString).toDart,
+      value: (e.toDart[1] as JSString).toDart,
+    ),
+  );
 }

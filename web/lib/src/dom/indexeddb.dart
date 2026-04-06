@@ -269,7 +269,7 @@ extension type IDBDatabase._(JSObject _) implements EventTarget, JSObject {
   /// [IDBTransaction.objectStore] method, which you can use to access your
   /// object store.
   external IDBTransaction transaction(
-    JSAny storeNames, [
+    JSIterable storeNames, [
     IDBTransactionMode mode,
     IDBTransactionOptions options,
   ]);
@@ -351,12 +351,12 @@ extension type IDBTransactionOptions._(JSObject _) implements JSObject {
 }
 extension type IDBObjectStoreParameters._(JSObject _) implements JSObject {
   external factory IDBObjectStoreParameters({
-    JSAny? keyPath,
+    JSIterable? keyPath,
     bool autoIncrement,
   });
 
-  external JSAny? get keyPath;
-  external set keyPath(JSAny? value);
+  external JSIterable? get keyPath;
+  external set keyPath(JSIterable? value);
   external bool get autoIncrement;
   external set autoIncrement(bool value);
 }
@@ -576,7 +576,7 @@ extension type IDBObjectStore._(JSObject _) implements JSObject {
   /// mode callback.
   external IDBIndex createIndex(
     String name,
-    JSAny keyPath, [
+    JSIterable keyPath, [
     IDBIndexParameters options,
   ]);
 

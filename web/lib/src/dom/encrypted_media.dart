@@ -234,7 +234,8 @@ extension type MediaKeySession._(JSObject _) implements EventTarget, JSObject {
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MediaKeyStatusMap).
-extension type MediaKeyStatusMap._(JSObject _) implements JSObject {
+extension type MediaKeyStatusMap._(JSObject _)
+    implements JSObject, JSIterable<JSArray<JSAny>> {
   /// The **`has()`** method of the
   /// [MediaKeyStatusMap] interface returns a `Boolean`, asserting
   /// whether a value has been associated with the given key.
@@ -252,6 +253,12 @@ extension type MediaKeyStatusMap._(JSObject _) implements JSObject {
   /// the [MediaKeyStatusMap] interface returns the number of key/value paIrs
   /// in the status map.
   external int get size;
+  Iterable<({BufferSource key, String value})> get toDart => toDartIterable.map(
+    (e) => (
+      key: (e.toDart[0] as BufferSource),
+      value: (e.toDart[1] as JSString).toDart,
+    ),
+  );
 }
 
 /// The **`MediaKeyMessageEvent`** interface of the

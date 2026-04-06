@@ -57,7 +57,10 @@ void main() {
           p.join(p.dirname(outputActualPath), '${inputName}_input.dart'),
         ).rename(outputActualPath);
 
-        await formatFile(outputActualPath);
+        await runProc(Platform.executable, [
+          'format',
+          outputActualPath,
+        ], workingDirectory: '.');
 
         expectFilesEqual(outputExpectedPath, outputActualPath);
       });

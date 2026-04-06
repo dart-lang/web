@@ -43,7 +43,7 @@ typedef BinaryType = String;
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket).
 extension type WebSocket._(JSObject _) implements EventTarget, JSObject {
-  external factory WebSocket(String url, [JSAny protocols]);
+  external factory WebSocket(String url, [JSIterable protocols]);
 
   static const int CONNECTING = 0;
 

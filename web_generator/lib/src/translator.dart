@@ -463,6 +463,8 @@ class _OverridableConstructor extends _OverridableMember {
   void update(idl.Constructor that) => _processParameters(that.arguments);
 }
 
+typedef _IterableInfo = ({_RawType? keyType, _RawType valueType, bool isAsync});
+
 class _PartialInterfacelike {
   final String name;
   final String type;
@@ -473,6 +475,7 @@ class _PartialInterfacelike {
   final List<_Property> extensionProperties = [];
   final MdnInterface? mdnInterface;
   _OverridableConstructor? constructor;
+  _IterableInfo? iterableInfo;
 
   _PartialInterfacelike._(
     this.name,
@@ -629,9 +632,31 @@ class _PartialInterfacelike {
             ),
           );
           break;
+        case 'iterable':
+          final decl = member as idl.MemberDeclaration;
+          // `idlType` is actually a list of types for `iterable` in webidl2.
+          final types =
+              ((decl.idlType as JSAny) as JSArray<idl.IDLType>).toDart;
+          _RawType? keyType;
+          _RawType valueType;
+
+          if (types.length == 1) {
+            valueType = _getRawType(types[0]);
+          } else if (types.length == 2) {
+            keyType = _getRawType(types[0]);
+            valueType = _getRawType(types[1]);
+          } else {
+            throw Exception('Unexpected number of type arguments for iterable');
+          }
+
+          iterableInfo = (
+            keyType: keyType,
+            valueType: valueType,
+            isAsync: decl.async,
+          );
+          break;
         case 'maplike':
         case 'setlike':
-        case 'iterable':
           // TODO(srujzs): Generate members for these types.
           break;
         default:
@@ -991,7 +1016,10 @@ class Translator {
 
     final typeArguments = <code.TypeReference>[];
     if (typeParameter != null &&
-        (dartType == 'JSArray' || dartType == 'JSPromise')) {
+        (dartType == 'JSArray' ||
+            dartType == 'JSPromise' ||
+            dartType == 'JSIterable' ||
+            dartType == 'JSIterator')) {
       typeArguments.add(
         _typeReference(typeParameter, onlyEmitInteropTypes: true),
       );
@@ -1312,6 +1340,106 @@ class Translator {
     for (final operation in operations) _operation(operation),
   ];
 
+  code.Method _generateToDartGetter(_IterableInfo info) {
+    final isKeyValue = info.keyType != null;
+
+    String toDartCall(String sourceExpr, String interopSymbol) {
+      return switch (interopSymbol) {
+        'JSNumber' => '$sourceExpr.toDartDouble',
+        'JSString' => '$sourceExpr.toDart',
+        'JSBoolean' => '$sourceExpr.toDart',
+        _ => sourceExpr,
+      };
+    }
+
+    String dartTypeSymbol(String interopSymbol) {
+      return switch (interopSymbol) {
+        'JSNumber' => 'double',
+        'JSString' => 'String',
+        'JSBoolean' => 'bool',
+        _ => interopSymbol,
+      };
+    }
+
+    if (isKeyValue) {
+      final keyInteropType = _typeReference(
+        info.keyType!,
+        onlyEmitInteropTypes: true,
+      );
+      final valueInteropType = _typeReference(
+        info.valueType,
+        onlyEmitInteropTypes: true,
+      );
+
+      final keyDartSymbol = dartTypeSymbol(keyInteropType.symbol);
+      final valueDartSymbol = dartTypeSymbol(valueInteropType.symbol);
+
+      final rawKeyType = _desugarTypedef(info.keyType!) ?? info.keyType!;
+      final rawValueType = _desugarTypedef(info.valueType) ?? info.valueType;
+
+      final keyConversion = toDartCall(
+        rawKeyType.type == 'JSAny'
+            ? 'e.toDart[0]'
+            : '(e.toDart[0] as ${keyInteropType.symbol})',
+        keyInteropType.symbol,
+      );
+      final valueConversion = toDartCall(
+        rawValueType.type == 'JSAny'
+            ? 'e.toDart[1]'
+            : '(e.toDart[1] as ${valueInteropType.symbol})',
+        valueInteropType.symbol,
+      );
+
+      return code.Method(
+        (b) => b
+          ..name = 'toDart'
+          ..type = code.MethodType.getter
+          ..lambda = true
+          ..returns = code.TypeReference(
+            (b) => b
+              ..symbol = 'Iterable'
+              ..types.add(
+                code.TypeReference(
+                  (b) => b
+                    ..symbol = '({$keyDartSymbol key, $valueDartSymbol value})',
+                ),
+              ),
+          )
+          ..body = code.Code('''
+toDartIterable.map((e) => (
+      key: $keyConversion,
+      value: $valueConversion,
+    ))'''),
+      );
+    } else {
+      final valueInteropType = _typeReference(
+        info.valueType,
+        onlyEmitInteropTypes: true,
+      );
+      final valueDartSymbol = dartTypeSymbol(valueInteropType.symbol);
+
+      final body = valueInteropType.symbol != valueDartSymbol
+          ? 'toDartIterable'
+                '.map((e) => ${toDartCall('e', valueInteropType.symbol)})'
+          : 'toDartIterable';
+
+      return code.Method(
+        (b) => b
+          ..name = 'toDart'
+          ..type = code.MethodType.getter
+          ..lambda = true
+          ..returns = code.TypeReference(
+            (b) => b
+              ..symbol = 'Iterable'
+              ..types.add(
+                code.TypeReference((b) => b..symbol = valueDartSymbol),
+              ),
+          )
+          ..body = code.Code(body),
+      );
+    }
+  }
+
   List<code.Method> _cssStyleDeclarationProperties() {
     return [
       for (final style in _cssStyleDeclarations)
@@ -1410,6 +1538,7 @@ class Translator {
     required List<_OverridableOperation> staticOperations,
     required List<_Property> properties,
     required bool isObjectLiteral,
+    _IterableInfo? iterableInfo,
   }) {
     final docs = mdnInterface == null ? <String>[] : mdnInterface.formattedDocs;
 
@@ -1450,7 +1579,34 @@ class Translator {
         ..implements.addAll(
           implements
               .map((interface) => _typeReference(_RawType(interface, false)))
-              .followedBy([jsObject]),
+              .followedBy([jsObject])
+              .followedBy([
+                if (iterableInfo != null && !iterableInfo.isAsync)
+                  code.TypeReference(
+                    (b) => b
+                      ..symbol = 'JSIterable'
+                      ..url = 'dart:js_interop'
+                      ..types.add(
+                        iterableInfo.keyType != null
+                            ? code.TypeReference(
+                                (b) => b
+                                  ..symbol = 'JSArray'
+                                  ..url = 'dart:js_interop'
+                                  ..types.add(
+                                    code.TypeReference(
+                                      (b) => b
+                                        ..symbol = 'JSAny'
+                                        ..url = 'dart:js_interop',
+                                    ),
+                                  ),
+                              )
+                            : _typeReference(
+                                iterableInfo.valueType,
+                                onlyEmitInteropTypes: true,
+                              ),
+                      ),
+                  ),
+              ]),
         )
         ..constructors.addAll(
           (isObjectLiteral
@@ -1476,7 +1632,11 @@ class Translator {
                 dartClassName == 'CSSStyleDeclaration'
                     ? _cssStyleDeclarationProperties()
                     : [],
-              ),
+              )
+              .followedBy([
+                if (iterableInfo != null && !iterableInfo.isAsync)
+                  _generateToDartGetter(iterableInfo),
+              ]),
         ),
     );
   }
@@ -1529,6 +1689,7 @@ class Translator {
         staticOperations: staticOperations,
         properties: properties,
         isObjectLiteral: isDictionary,
+        iterableInfo: interfacelike.iterableInfo,
       ),
       if (extensionProperties.isNotEmpty)
         _extension(type: rawType, extensionProperties: extensionProperties),

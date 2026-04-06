@@ -24,7 +24,7 @@ import 'streams.dart';
 import 'trust_token_api.dart';
 import 'xhr.dart';
 
-typedef HeadersInit = JSObject;
+typedef HeadersInit = JSAny;
 typedef XMLHttpRequestBodyInit = JSAny;
 typedef BodyInit = JSAny;
 typedef RequestInfo = JSAny;
@@ -61,7 +61,8 @@ typedef ResponseType = String;
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Headers).
-extension type Headers._(JSObject _) implements JSObject {
+extension type Headers._(JSObject _)
+    implements JSObject, JSIterable<JSArray<JSAny>> {
   external factory Headers([HeadersInit init]);
 
   /// The **`append()`** method of the [Headers]
@@ -138,6 +139,12 @@ extension type Headers._(JSObject _) implements JSObject {
   /// headers include the
   /// and .
   external void set(String name, String value);
+  Iterable<({String key, String value})> get toDart => toDartIterable.map(
+    (e) => (
+      key: (e.toDart[0] as JSString).toDart,
+      value: (e.toDart[1] as JSString).toDart,
+    ),
+  );
 }
 
 /// The **`Request`** interface of the

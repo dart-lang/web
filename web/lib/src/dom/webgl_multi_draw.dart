@@ -20,39 +20,39 @@ import 'webgl1.dart';
 extension type WEBGL_multi_draw._(JSObject _) implements JSObject {
   external void multiDrawArraysWEBGL(
     GLenum mode,
-    JSObject firstsList,
+    JSAny firstsList,
     int firstsOffset,
-    JSObject countsList,
+    JSAny countsList,
     int countsOffset,
     GLsizei drawcount,
   );
   external void multiDrawElementsWEBGL(
     GLenum mode,
-    JSObject countsList,
+    JSAny countsList,
     int countsOffset,
     GLenum type,
-    JSObject offsetsList,
+    JSAny offsetsList,
     int offsetsOffset,
     GLsizei drawcount,
   );
   external void multiDrawArraysInstancedWEBGL(
     GLenum mode,
-    JSObject firstsList,
+    JSAny firstsList,
     int firstsOffset,
-    JSObject countsList,
+    JSAny countsList,
     int countsOffset,
-    JSObject instanceCountsList,
+    JSAny instanceCountsList,
     int instanceCountsOffset,
     GLsizei drawcount,
   );
   external void multiDrawElementsInstancedWEBGL(
     GLenum mode,
-    JSObject countsList,
+    JSAny countsList,
     int countsOffset,
     GLenum type,
-    JSObject offsetsList,
+    JSAny offsetsList,
     int offsetsOffset,
-    JSObject instanceCountsList,
+    JSAny instanceCountsList,
     int instanceCountsOffset,
     GLsizei drawcount,
   );

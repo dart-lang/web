@@ -77,13 +77,13 @@ extension type RTCConfiguration._(JSObject _) implements JSObject {
 }
 extension type RTCIceServer._(JSObject _) implements JSObject {
   external factory RTCIceServer({
-    required JSAny urls,
+    required JSIterable urls,
     String username,
     String credential,
   });
 
-  external JSAny get urls;
-  external set urls(JSAny value);
+  external JSIterable get urls;
+  external set urls(JSIterable value);
   external String get username;
   external set username(String value);
   external String get credential;

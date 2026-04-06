@@ -513,7 +513,8 @@ extension type XMLHttpRequest._(JSObject _)
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/FormData).
-extension type FormData._(JSObject _) implements JSObject {
+extension type FormData._(JSObject _)
+    implements JSObject, JSIterable<JSArray<JSAny>> {
   external factory FormData([HTMLFormElement form, HTMLElement? submitter]);
 
   /// The **`append()`** method of the [FormData] interface appends a new value
@@ -554,6 +555,10 @@ extension type FormData._(JSObject _) implements JSObject {
   /// values with the new one, whereas `append()` will append the new value onto
   /// the end of the existing set of values.
   external void set(String name, JSAny blobValueOrValue, [String filename]);
+  Iterable<({String key, FormDataEntryValue value})> get toDart =>
+      toDartIterable.map(
+        (e) => (key: (e.toDart[0] as JSString).toDart, value: e.toDart[1]),
+      );
 }
 
 /// The **`ProgressEvent`** interface represents events measuring progress of an

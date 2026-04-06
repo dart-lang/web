@@ -426,7 +426,7 @@ extension type DOMQuadInit._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DOMMatrixReadOnly).
 extension type DOMMatrixReadOnly._(JSObject _) implements JSObject {
-  external factory DOMMatrixReadOnly([JSAny init]);
+  external factory DOMMatrixReadOnly([JSIterable init]);
 
   external static DOMMatrixReadOnly fromMatrix([DOMMatrixInit other]);
   external static DOMMatrixReadOnly fromFloat32Array(JSFloat32Array array32);
@@ -630,7 +630,7 @@ extension type DOMMatrixReadOnly._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DOMMatrix).
 extension type DOMMatrix._(JSObject _) implements DOMMatrixReadOnly, JSObject {
-  external factory DOMMatrix([JSAny init]);
+  external factory DOMMatrix([JSIterable init]);
 
   external static DOMMatrix fromMatrix([DOMMatrixInit other]);
   external static DOMMatrix fromFloat32Array(JSFloat32Array array32);

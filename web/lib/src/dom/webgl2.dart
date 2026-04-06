@@ -21,7 +21,7 @@ import 'webidl.dart';
 
 typedef GLint64 = int;
 typedef GLuint64 = int;
-typedef Uint32List = JSObject;
+typedef Uint32List = JSAny;
 
 /// The **`WebGLQuery`** interface is part of the
 /// [WebGL 2](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) API

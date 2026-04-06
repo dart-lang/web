@@ -82,7 +82,7 @@ extension type ServiceWorker._(JSObject _) implements EventTarget, JSObject {
   /// [Client.postMessage] method. The message will not be sent back to this
   /// `ServiceWorker` object but to the associated [ServiceWorkerContainer]
   /// available via [navigator.serviceWorker].
-  external void postMessage(JSAny? message, [JSObject optionsOrTransfer]);
+  external void postMessage(JSAny? message, [JSAny optionsOrTransfer]);
 
   /// Returns the `ServiceWorker` serialized script URL defined as part of
   /// [`ServiceWorkerRegistration`](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration).
@@ -523,7 +523,7 @@ extension type Client._(JSObject _) implements JSObject {
   /// (a [Window], [Worker], or [SharedWorker]). The
   /// message is received in the `message` event on
   /// [ServiceWorkerContainer].
-  external void postMessage(JSAny? message, [JSObject optionsOrTransfer]);
+  external void postMessage(JSAny? message, [JSAny optionsOrTransfer]);
 
   /// @AvailableInWorkers("service")
   ///

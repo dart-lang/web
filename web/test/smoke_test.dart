@@ -79,4 +79,38 @@ void main() {
         );
     }
   });
+
+  test('URLSearchParams toDart works as expected.', () {
+    final params = URLSearchParams('a=1&b=2'.toJS);
+    final list = params.toDart.toList();
+    expect(list.length, equals(2));
+    expect(list[0].key, equals('a'));
+    expect(list[0].value, equals('1'));
+    expect(list[1].key, equals('b'));
+    expect(list[1].value, equals('2'));
+  });
+
+  test('FormData toDart works as expected.', () {
+    final form = FormData();
+    form.append('a', '1'.toJS);
+    form.append('b', '2'.toJS);
+    final list = form.toDart.toList();
+    expect(list.length, equals(2));
+    expect(list[0].key, equals('a'));
+    expect((list[0].value as JSString).toDart, equals('1'));
+    expect(list[1].key, equals('b'));
+    expect((list[1].value as JSString).toDart, equals('2'));
+  });
+
+  test('NodeList toDart works as expected.', () {
+    final div = document.createElement('div') as HTMLDivElement;
+    final span1 = document.createElement('span');
+    final span2 = document.createElement('span');
+    div.appendChild(span1);
+    div.appendChild(span2);
+    final list = div.childNodes.toDart.toList();
+    expect(list.length, equals(2));
+    expect(list[0], equals(span1));
+    expect(list[1], equals(span2));
+  });
 }

@@ -43,7 +43,7 @@ typedef MediaDeviceKind = String;
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MediaStream).
 extension type MediaStream._(JSObject _) implements EventTarget, JSObject {
-  external factory MediaStream([JSObject streamOrTracks]);
+  external factory MediaStream([JSAny streamOrTracks]);
 
   /// The **`getAudioTracks()`** method of the
   /// [MediaStream] interface returns a sequence that represents all the
@@ -1662,10 +1662,13 @@ extension type ConstrainBooleanParameters._(JSObject _) implements JSObject {
   external set ideal(bool value);
 }
 extension type ConstrainDOMStringParameters._(JSObject _) implements JSObject {
-  external factory ConstrainDOMStringParameters({JSAny exact, JSAny ideal});
+  external factory ConstrainDOMStringParameters({
+    JSIterable exact,
+    JSIterable ideal,
+  });
 
-  external JSAny get exact;
-  external set exact(JSAny value);
-  external JSAny get ideal;
-  external set ideal(JSAny value);
+  external JSIterable get exact;
+  external set exact(JSIterable value);
+  external JSIterable get ideal;
+  external set ideal(JSIterable value);
 }

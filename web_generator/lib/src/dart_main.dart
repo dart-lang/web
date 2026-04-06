@@ -16,6 +16,7 @@ import 'interop_gen/parser.dart';
 import 'interop_gen/transform.dart';
 import 'js/filesystem_api.dart';
 import 'js/node.dart';
+import 'sdk_version.dart';
 import 'util.dart';
 
 // Generates DOM and JS interop bindings for Dart.
@@ -26,7 +27,7 @@ import 'util.dart';
 void main(List<String> args) async {
   var languageVersionString = const String.fromEnvironment('languageVersion');
   if (languageVersionString.isEmpty) {
-    languageVersionString = '3.6.0';
+    languageVersionString = sdkVersion.toString();
   }
 
   final argResult = _parser.parse(args);

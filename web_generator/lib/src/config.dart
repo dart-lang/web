@@ -8,6 +8,7 @@ import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:yaml/yaml.dart';
 
+import 'sdk_version.dart';
 import 'util.dart';
 
 class FunctionConfig {
@@ -206,7 +207,7 @@ class YamlConfig implements Config {
     this.ignoreErrors = false,
     this.generateAll = false,
   }) : languageVersion = languageVersion == null
-           ? Version(3, 6, 0)
+           ? sdkVersion
            : Version.parse(languageVersion);
 
   factory YamlConfig.fromYaml(

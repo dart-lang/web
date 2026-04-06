@@ -112,10 +112,10 @@ class _EventStream<T extends html.Event> extends Stream<T> {
 
   // DOM events are inherently multi-subscribers.
   @override
-  Stream<T> asBroadcastStream(
-          {void Function(StreamSubscription<T>)? onListen,
-          void Function(StreamSubscription<T>)? onCancel}) =>
-      this;
+  Stream<T> asBroadcastStream({
+    void Function(StreamSubscription<T>)? onListen,
+    void Function(StreamSubscription<T>)? onCancel,
+  }) => this;
 
   @override
   bool get isBroadcast => true;
@@ -124,9 +124,12 @@ class _EventStream<T extends html.Event> extends Stream<T> {
   // enable scalar replacement of an immediately allocated receiver.
   @pragma('dart2js:tryInline')
   @override
-  StreamSubscription<T> listen(void Function(T)? onData,
-          {Function? onError, void Function()? onDone, bool? cancelOnError}) =>
-      _EventStreamSubscription<T>(_target, _eventType, onData, _useCapture);
+  StreamSubscription<T> listen(
+    void Function(T)? onData, {
+    Function? onError,
+    void Function()? onDone,
+    bool? cancelOnError,
+  }) => _EventStreamSubscription<T>(_target, _eventType, onData, _useCapture);
 }
 
 /// Adapter for exposing DOM Element events as streams
@@ -147,10 +150,13 @@ class _EventStreamSubscription<T extends html.Event>
   final bool _useCapture;
 
   _EventStreamSubscription(
-      this._target, this._eventType, void Function(T)? onData, this._useCapture)
-      : _onData = onData == null
-            ? null
-            : _wrapZone<html.Event>((e) => onData(e as T))?.toJS {
+    this._target,
+    this._eventType,
+    void Function(T)? onData,
+    this._useCapture,
+  ) : _onData = onData == null
+          ? null
+          : _wrapZone<html.Event>((e) => onData(e as T))?.toJS {
     _tryResume();
   }
 

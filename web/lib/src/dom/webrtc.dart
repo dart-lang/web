@@ -130,7 +130,8 @@ extension type RTCPeerConnection._(JSObject _)
   /// returning a promise that resolves with the new [RTCCertificate] once it's
   /// generated.
   external static JSPromise<RTCCertificate> generateCertificate(
-      AlgorithmIdentifier keygenAlgorithm);
+    AlgorithmIdentifier keygenAlgorithm,
+  );
 
   /// The **`createOffer()`** method of the [RTCPeerConnection] interface
   /// initiates the creation of an  offer for the purpose of starting a new
@@ -667,7 +668,8 @@ extension type RTCPeerConnection._(JSObject _)
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCSessionDescription).
 extension type RTCSessionDescription._(JSObject _) implements JSObject {
   external factory RTCSessionDescription(
-      RTCSessionDescriptionInit descriptionInitDict);
+    RTCSessionDescriptionInit descriptionInitDict,
+  );
 
   /// The **`RTCSessionDescription.toJSON()`** method generates a
   /// description of the object. Both properties,
@@ -1280,10 +1282,7 @@ extension type RTCRtpEncodingParameters._(JSObject _)
   external set scalabilityMode(String value);
 }
 extension type RTCRtcpParameters._(JSObject _) implements JSObject {
-  external factory RTCRtcpParameters({
-    String cname,
-    bool reducedSize,
-  });
+  external factory RTCRtcpParameters({String cname, bool reducedSize});
 
   external String get cname;
   external set cname(String value);
@@ -1622,10 +1621,7 @@ extension type RTCDtlsTransport._(JSObject _) implements EventTarget, JSObject {
   external set onerror(EventHandler value);
 }
 extension type RTCDtlsFingerprint._(JSObject _) implements JSObject {
-  external factory RTCDtlsFingerprint({
-    String algorithm,
-    String value,
-  });
+  external factory RTCDtlsFingerprint({String algorithm, String value});
 
   external String get algorithm;
   external set algorithm(String value);
@@ -1788,10 +1784,7 @@ extension type RTCIceParameters._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCTrackEvent).
 extension type RTCTrackEvent._(JSObject _) implements Event, JSObject {
-  external factory RTCTrackEvent(
-    String type,
-    RTCTrackEventInit eventInitDict,
-  );
+  external factory RTCTrackEvent(String type, RTCTrackEventInit eventInitDict);
 
   /// The read-only **`receiver`** property
   /// of the [RTCTrackEvent] interface indicates the
@@ -2239,11 +2232,7 @@ extension type RTCDTMFSender._(JSObject _) implements EventTarget, JSObject {
   /// tones being played, it is necessary to call `insertDTMF()` with a string
   /// containing both the remaining tones (stored in the `toneBuffer`) and the
   /// new tones appended together.
-  external void insertDTMF(
-    String tones, [
-    int duration,
-    int interToneGap,
-  ]);
+  external void insertDTMF(String tones, [int duration, int interToneGap]);
   external EventHandler get ontonechange;
   external set ontonechange(EventHandler value);
 
@@ -2327,10 +2316,7 @@ extension type RTCStatsReport._(JSObject _) implements JSObject {}
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCError).
 extension type RTCError._(JSObject _) implements DOMException, JSObject {
-  external factory RTCError(
-    RTCErrorInit init, [
-    String message,
-  ]);
+  external factory RTCError(RTCErrorInit init, [String message]);
 
   /// The [RTCError] interface's read-only
   /// **`errorDetail`** property is a string indicating the
@@ -2394,10 +2380,7 @@ extension type RTCErrorInit._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCErrorEvent).
 extension type RTCErrorEvent._(JSObject _) implements Event, JSObject {
-  external factory RTCErrorEvent(
-    String type,
-    RTCErrorEventInit eventInitDict,
-  );
+  external factory RTCErrorEvent(String type, RTCErrorEventInit eventInitDict);
 
   /// The read-only [RTCErrorEvent] property **`error`**
   /// contains an [RTCError] object describing the details of the error which

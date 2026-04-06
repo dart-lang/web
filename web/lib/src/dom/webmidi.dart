@@ -23,10 +23,7 @@ typedef MIDIPortType = String;
 typedef MIDIPortDeviceState = String;
 typedef MIDIPortConnectionState = String;
 extension type MIDIOptions._(JSObject _) implements JSObject {
-  external factory MIDIOptions({
-    bool sysex,
-    bool software,
-  });
+  external factory MIDIOptions({bool sysex, bool software});
 
   external bool get sysex;
   external set sysex(bool value);
@@ -181,10 +178,7 @@ extension type MIDIOutput._(JSObject _) implements MIDIPort, JSObject {
   /// The **`send()`** method of the [MIDIOutput] interface queues messages for
   /// the corresponding MIDI port. The message can be sent immediately, or with
   /// an optional timestamp to delay sending.
-  external void send(
-    JSArray<JSNumber> data, [
-    DOMHighResTimeStamp timestamp,
-  ]);
+  external void send(JSArray<JSNumber> data, [DOMHighResTimeStamp timestamp]);
 
   /// The **`clear()`** method of the [MIDIOutput] interface clears the queue of
   /// messages being sent to the output device.

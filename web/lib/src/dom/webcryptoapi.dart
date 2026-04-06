@@ -317,10 +317,7 @@ extension type SubtleCrypto._(JSObject _) implements JSObject {
   /// the
   /// [`SubtleCrypto.wrapKey()`](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/wrapKey)
   /// API instead.
-  external JSPromise<JSObject> exportKey(
-    KeyFormat format,
-    CryptoKey key,
-  );
+  external JSPromise<JSObject> exportKey(KeyFormat format, CryptoKey key);
 
   /// The **`wrapKey()`** method of the [SubtleCrypto] interface "wraps" a key.
   /// This means that it exports the key in an external, portable format, then
@@ -380,11 +377,7 @@ extension type SubtleCrypto._(JSObject _) implements JSObject {
   );
 }
 extension type RsaOtherPrimesInfo._(JSObject _) implements JSObject {
-  external factory RsaOtherPrimesInfo({
-    String r,
-    String d,
-    String t,
-  });
+  external factory RsaOtherPrimesInfo({String r, String d, String t});
 
   external String get r;
   external set r(String value);
@@ -472,10 +465,7 @@ extension type JsonWebKey._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CryptoKeyPair).
 extension type CryptoKeyPair._(JSObject _) implements JSObject {
-  external factory CryptoKeyPair({
-    CryptoKey publicKey,
-    CryptoKey privateKey,
-  });
+  external factory CryptoKeyPair({CryptoKey publicKey, CryptoKey privateKey});
 
   external CryptoKey get publicKey;
   external set publicKey(CryptoKey value);

@@ -37,10 +37,7 @@ import 'html.dart';
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/UIEvent).
 extension type UIEvent._(JSObject _) implements Event, JSObject {
-  external factory UIEvent(
-    String type, [
-    UIEventInit eventInitDict,
-  ]);
+  external factory UIEvent(String type, [UIEventInit eventInitDict]);
 
   /// The **`UIEvent.initUIEvent()`** method initializes a UI event
   /// once it's been created.
@@ -118,10 +115,7 @@ extension type UIEventInit._(JSObject _) implements EventInit, JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/FocusEvent).
 extension type FocusEvent._(JSObject _) implements UIEvent, JSObject {
-  external factory FocusEvent(
-    String type, [
-    FocusEventInit eventInitDict,
-  ]);
+  external factory FocusEvent(String type, [FocusEventInit eventInitDict]);
 
   /// The **`relatedTarget`** read-only property of the [FocusEvent] interface
   /// is the secondary target, depending on the type of event:
@@ -202,10 +196,7 @@ extension type FocusEventInit._(JSObject _) implements UIEventInit, JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent).
 extension type MouseEvent._(JSObject _) implements UIEvent, JSObject {
-  external factory MouseEvent(
-    String type, [
-    MouseEventInit eventInitDict,
-  ]);
+  external factory MouseEvent(String type, [MouseEventInit eventInitDict]);
 
   /// The **`MouseEvent.getModifierState()`** method returns the current state
   /// of the specified modifier key: `true` if the modifier is active (i.e., the
@@ -662,10 +653,7 @@ extension type EventModifierInit._(JSObject _)
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WheelEvent).
 extension type WheelEvent._(JSObject _) implements MouseEvent, JSObject {
-  external factory WheelEvent(
-    String type, [
-    WheelEventInit eventInitDict,
-  ]);
+  external factory WheelEvent(String type, [WheelEventInit eventInitDict]);
 
   static const int DOM_DELTA_PIXEL = 0;
 
@@ -756,10 +744,7 @@ extension type WheelEventInit._(JSObject _)
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/InputEvent).
 extension type InputEvent._(JSObject _) implements UIEvent, JSObject {
-  external factory InputEvent(
-    String type, [
-    InputEventInit eventInitDict,
-  ]);
+  external factory InputEvent(String type, [InputEventInit eventInitDict]);
 
   /// The **`getTargetRanges()`** method of the [InputEvent] interface returns
   /// an array of [StaticRange] objects that will be affected by a change to the

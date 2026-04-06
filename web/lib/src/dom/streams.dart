@@ -58,8 +58,9 @@ extension type ReadableStream._(JSObject _) implements JSObject {
   /// reader and locks the stream to it.
   /// While the stream is locked, no other reader can be acquired until this one
   /// is released.
-  external ReadableStreamReader getReader(
-      [ReadableStreamGetReaderOptions options]);
+  external ReadableStreamReader getReader([
+    ReadableStreamGetReaderOptions options,
+  ]);
 
   /// The **`pipeThrough()`** method of the [ReadableStream] interface provides
   /// a chainable way of piping the current stream through a transform stream or
@@ -142,8 +143,9 @@ extension type ReadableStream._(JSObject _) implements JSObject {
 }
 extension type ReadableStreamGetReaderOptions._(JSObject _)
     implements JSObject {
-  external factory ReadableStreamGetReaderOptions(
-      {ReadableStreamReaderMode mode});
+  external factory ReadableStreamGetReaderOptions({
+    ReadableStreamReaderMode mode,
+  });
 
   external ReadableStreamReaderMode get mode;
   external set mode(ReadableStreamReaderMode value);
@@ -253,10 +255,7 @@ extension type ReadableStreamDefaultReader._(JSObject _) implements JSObject {
   external JSPromise<JSAny?> get closed;
 }
 extension type ReadableStreamReadResult._(JSObject _) implements JSObject {
-  external factory ReadableStreamReadResult({
-    JSAny? value,
-    bool done,
-  });
+  external factory ReadableStreamReadResult({JSAny? value, bool done});
 
   external JSAny? get value;
   external set value(JSAny? value);

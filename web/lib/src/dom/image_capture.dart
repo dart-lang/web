@@ -94,11 +94,7 @@ extension type PhotoSettings._(JSObject _) implements JSObject {
   external set redEyeReduction(bool value);
 }
 extension type MediaSettingsRange._(JSObject _) implements JSObject {
-  external factory MediaSettingsRange({
-    num max,
-    num min,
-    num step,
-  });
+  external factory MediaSettingsRange({num max, num min, num step});
 
   external double get max;
   external set max(num value);
@@ -119,10 +115,7 @@ extension type ConstrainPoint2DParameters._(JSObject _) implements JSObject {
   external set ideal(JSArray<Point2D> value);
 }
 extension type Point2D._(JSObject _) implements JSObject {
-  external factory Point2D({
-    num x,
-    num y,
-  });
+  external factory Point2D({num x, num y});
 
   external double get x;
   external set x(num value);

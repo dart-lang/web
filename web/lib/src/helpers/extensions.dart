@@ -37,13 +37,14 @@ extension HTMLCanvasElementGlue on HTMLCanvasElement {
   String toDataUrl(String type, [num? quality]) =>
       (quality == null) ? toDataURL(type) : toDataURL(type, quality.toJS);
 
-  RenderingContext? getContext3d(
-      {bool alpha = true,
-      bool depth = true,
-      bool stencil = false,
-      bool antialias = true,
-      bool premultipliedAlpha = true,
-      bool preserveDrawingBuffer = false}) {
+  RenderingContext? getContext3d({
+    bool alpha = true,
+    bool depth = true,
+    bool stencil = false,
+    bool antialias = true,
+    bool premultipliedAlpha = true,
+    bool preserveDrawingBuffer = false,
+  }) {
     final options = {
       'alpha': alpha,
       'depth': depth,
@@ -68,8 +69,9 @@ extension XMLHttpRequestGlue on XMLHttpRequest {
     // from Closure's goog.net.Xhrio.getResponseHeaders.
     final headers = <String, String>{};
     final headersString = getAllResponseHeaders();
-    for (final header in LineSplitter.split(headersString)
-        .where((header) => header.isNotEmpty)) {
+    for (final header in LineSplitter.split(
+      headersString,
+    ).where((header) => header.isNotEmpty)) {
       final split = header.split(': ');
       if (split.length <= 1) {
         continue;

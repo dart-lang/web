@@ -184,10 +184,7 @@ extension type IDBFactory._(JSObject _) implements JSObject {
   /// to the new [IDBDatabase] object for the connection.
   ///
   /// May trigger `upgradeneeded`, `blocked` or `versionchange` events.
-  external IDBOpenDBRequest open(
-    String name, [
-    int version,
-  ]);
+  external IDBOpenDBRequest open(String name, [int version]);
 
   /// The **`deleteDatabase()`** method of the
   /// [IDBFactory] interface requests the deletion of a database. The method
@@ -235,16 +232,10 @@ extension type IDBFactory._(JSObject _) implements JSObject {
   /// > arrays, so any non-numeric arrays are treated as equivalent). This
   /// > throws an exception
   /// > if either of the values is not a valid key.
-  external int cmp(
-    JSAny? first,
-    JSAny? second,
-  );
+  external int cmp(JSAny? first, JSAny? second);
 }
 extension type IDBDatabaseInfo._(JSObject _) implements JSObject {
-  external factory IDBDatabaseInfo({
-    String name,
-    int version,
-  });
+  external factory IDBDatabaseInfo({String name, int version});
 
   external String get name;
   external set name(String value);
@@ -401,10 +392,7 @@ extension type IDBObjectStore._(JSObject _) implements JSObject {
   /// want to update, updating it with [IDBCursor.update] is preferable to
   /// using `IDBObjectStore.put()`. Doing so makes it clear that an existing
   /// record will be updated, instead of a new record being inserted.
-  external IDBRequest put(
-    JSAny? value, [
-    JSAny? key,
-  ]);
+  external IDBRequest put(JSAny? value, [JSAny? key]);
 
   /// The **`add()`** method of the [IDBObjectStore] interface returns an
   /// [IDBRequest] object, and, in a separate thread, creates a
@@ -426,10 +414,7 @@ extension type IDBObjectStore._(JSObject _) implements JSObject {
   /// request
   /// object. For updating existing records, you should use the
   /// [IDBObjectStore.put] method instead.
-  external IDBRequest add(
-    JSAny? value, [
-    JSAny? key,
-  ]);
+  external IDBRequest add(JSAny? value, [JSAny? key]);
 
   /// The **`delete()`** method of the
   /// [IDBObjectStore] interface returns an [IDBRequest] object,
@@ -511,10 +496,7 @@ extension type IDBObjectStore._(JSObject _) implements JSObject {
   /// it does not.
   /// 2. the [IDBObjectStore.count] method with the same key, which
   /// will return 1 if the row exists and 0 if it doesn't.
-  external IDBRequest getAll([
-    JSAny? query,
-    int count,
-  ]);
+  external IDBRequest getAll([JSAny? query, int count]);
 
   /// The `getAllKeys()` method of the [IDBObjectStore]
   /// interface returns an [IDBRequest] object retrieves record keys for all
@@ -535,10 +517,7 @@ extension type IDBObjectStore._(JSObject _) implements JSObject {
   /// [IDBObjectStore.openCursor] method with the same key. That
   /// method provides a cursor if the record exists, and no cursor if it does
   /// not.
-  external IDBRequest getAllKeys([
-    JSAny? query,
-    int count,
-  ]);
+  external IDBRequest getAllKeys([JSAny? query, int count]);
 
   /// The **`count()`** method of the [IDBObjectStore]
   /// interface returns an [IDBRequest] object, and, in a separate thread,
@@ -555,10 +534,7 @@ extension type IDBObjectStore._(JSObject _) implements JSObject {
   /// To determine if the add operation has completed successfully, listen for
   /// the results's
   /// `success` event.
-  external IDBRequest openCursor([
-    JSAny? query,
-    IDBCursorDirection direction,
-  ]);
+  external IDBRequest openCursor([JSAny? query, IDBCursorDirection direction]);
 
   /// The **`openKeyCursor()`** method of the
   /// [IDBObjectStore] interface returns an [IDBRequest] object
@@ -649,10 +625,7 @@ extension type IDBObjectStore._(JSObject _) implements JSObject {
   external bool get autoIncrement;
 }
 extension type IDBIndexParameters._(JSObject _) implements JSObject {
-  external factory IDBIndexParameters({
-    bool unique,
-    bool multiEntry,
-  });
+  external factory IDBIndexParameters({bool unique, bool multiEntry});
 
   external bool get unique;
   external set unique(bool value);
@@ -729,19 +702,13 @@ extension type IDBIndex._(JSObject _) implements JSObject {
   /// you are trying to get an
   /// array of all the objects in an object store, though, you should
   /// use `getAll()`.
-  external IDBRequest getAll([
-    JSAny? query,
-    int count,
-  ]);
+  external IDBRequest getAll([JSAny? query, int count]);
 
   /// The **`getAllKeys()`** method of the [IDBIndex]
   /// interface asynchronously retrieves the primary keys of all objects inside
   /// the index,
   /// setting them as the `result` of the request object.
-  external IDBRequest getAllKeys([
-    JSAny? query,
-    int count,
-  ]);
+  external IDBRequest getAllKeys([JSAny? query, int count]);
 
   /// The **`count()`** method of the [IDBIndex]
   /// interface returns an [IDBRequest] object, and in a separate thread,
@@ -761,10 +728,7 @@ extension type IDBIndex._(JSObject _) implements JSObject {
   ///
   /// If the key range is not specified or is null, then the range includes all
   /// the records.
-  external IDBRequest openCursor([
-    JSAny? query,
-    IDBCursorDirection direction,
-  ]);
+  external IDBRequest openCursor([JSAny? query, IDBCursorDirection direction]);
 
   /// The **`openKeyCursor()`** method of the
   /// [IDBIndex] interface returns an [IDBRequest] object, and, in
@@ -878,18 +842,12 @@ extension type IDBKeyRange._(JSObject _) implements JSObject {
   /// The **`lowerBound()`** static method of the
   /// [IDBKeyRange] interface creates a new key range with only a lower bound.
   /// By default, it includes the lower endpoint value and is closed.
-  external static IDBKeyRange lowerBound(
-    JSAny? lower, [
-    bool open,
-  ]);
+  external static IDBKeyRange lowerBound(JSAny? lower, [bool open]);
 
   /// The **`upperBound()`** static method of the
   /// [IDBKeyRange] interface creates a new upper-bound key range. By default,
   /// it includes the upper endpoint value and is closed.
-  external static IDBKeyRange upperBound(
-    JSAny? upper, [
-    bool open,
-  ]);
+  external static IDBKeyRange upperBound(JSAny? upper, [bool open]);
 
   /// The **`bound()`** static method of the [IDBKeyRange]
   /// interface creates a new key range with the specified upper and lower
@@ -990,10 +948,7 @@ extension type IDBCursor._(JSObject _) implements JSObject {
   /// This method is only valid for cursors coming from an index. Using it for
   /// cursors coming
   /// from an object store will throw an error.
-  external void continuePrimaryKey(
-    JSAny? key,
-    JSAny? primaryKey,
-  );
+  external void continuePrimaryKey(JSAny? key, JSAny? primaryKey);
 
   /// The **`update()`** method of the [IDBCursor]
   /// interface returns an [IDBRequest] object, and, in a separate thread,

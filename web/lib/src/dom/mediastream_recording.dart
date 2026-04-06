@@ -243,10 +243,7 @@ extension type MediaRecorderOptions._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/BlobEvent).
 extension type BlobEvent._(JSObject _) implements Event, JSObject {
-  external factory BlobEvent(
-    String type,
-    BlobEventInit eventInitDict,
-  );
+  external factory BlobEvent(String type, BlobEventInit eventInitDict);
 
   /// The **`data`** read-only property of the [BlobEvent] interface represents
   /// a [Blob] associated with the event.

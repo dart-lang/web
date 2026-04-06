@@ -202,8 +202,9 @@ extension type MediaStreamTrack._(JSObject _) implements EventTarget, JSObject {
   /// in [Capabilities, constraints, and
   /// settings](https://developer.mozilla.org/en-US/docs/Web/API/Media_Capture_and_Streams_API/Constraints)
   /// for more information on how to apply your preferred constraints.
-  external JSPromise<JSAny?> applyConstraints(
-      [MediaTrackConstraints constraints]);
+  external JSPromise<JSAny?> applyConstraints([
+    MediaTrackConstraints constraints,
+  ]);
 
   /// The **`kind`** read-only property of the [MediaStreamTrack] interface
   /// returns a string set to `"audio"` if the track is an audio track and to
@@ -1436,10 +1437,7 @@ extension type MediaStreamTrackEventInit._(JSObject _)
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/OverconstrainedError).
 extension type OverconstrainedError._(JSObject _)
     implements DOMException, JSObject {
-  external factory OverconstrainedError(
-    String constraint, [
-    String message,
-  ]);
+  external factory OverconstrainedError(String constraint, [String message]);
 
   /// The **`constraint`** read-only property of the
   /// [OverconstrainedError] interface returns the constraint that was supplied
@@ -1500,8 +1498,9 @@ extension type MediaDevices._(JSObject _) implements EventTarget, JSObject {
   /// > It's possible for the returned promise to _neither_ resolve nor reject,
   /// > as the user is not required to make a choice at all and may ignore the
   /// > request.
-  external JSPromise<MediaStream> getUserMedia(
-      [MediaStreamConstraints constraints]);
+  external JSPromise<MediaStream> getUserMedia([
+    MediaStreamConstraints constraints,
+  ]);
 
   /// The **`getDisplayMedia()`** method of the [MediaDevices] interface prompts
   /// the user to select and
@@ -1518,8 +1517,9 @@ extension type MediaDevices._(JSObject _) implements EventTarget, JSObject {
   /// See
   /// [Using the Screen Capture API](https://developer.mozilla.org/en-US/docs/Web/API/Screen_Capture_API/Using_Screen_Capture)
   /// for more details and an example.
-  external JSPromise<MediaStream> getDisplayMedia(
-      [DisplayMediaStreamOptions options]);
+  external JSPromise<MediaStream> getDisplayMedia([
+    DisplayMediaStreamOptions options,
+  ]);
   external EventHandler get ondevicechange;
   external set ondevicechange(EventHandler value);
 }
@@ -1610,10 +1610,7 @@ extension type MediaStreamConstraints._(JSObject _) implements JSObject {
   external set peerIdentity(String value);
 }
 extension type DoubleRange._(JSObject _) implements JSObject {
-  external factory DoubleRange({
-    num max,
-    num min,
-  });
+  external factory DoubleRange({num max, num min});
 
   external double get max;
   external set max(num value);
@@ -1635,10 +1632,7 @@ extension type ConstrainDoubleRange._(JSObject _)
   external set ideal(num value);
 }
 extension type ULongRange._(JSObject _) implements JSObject {
-  external factory ULongRange({
-    int max,
-    int min,
-  });
+  external factory ULongRange({int max, int min});
 
   external int get max;
   external set max(int value);
@@ -1660,10 +1654,7 @@ extension type ConstrainULongRange._(JSObject _)
   external set ideal(int value);
 }
 extension type ConstrainBooleanParameters._(JSObject _) implements JSObject {
-  external factory ConstrainBooleanParameters({
-    bool exact,
-    bool ideal,
-  });
+  external factory ConstrainBooleanParameters({bool exact, bool ideal});
 
   external bool get exact;
   external set exact(bool value);
@@ -1671,10 +1662,7 @@ extension type ConstrainBooleanParameters._(JSObject _) implements JSObject {
   external set ideal(bool value);
 }
 extension type ConstrainDOMStringParameters._(JSObject _) implements JSObject {
-  external factory ConstrainDOMStringParameters({
-    JSAny exact,
-    JSAny ideal,
-  });
+  external factory ConstrainDOMStringParameters({JSAny exact, JSAny ideal});
 
   external JSAny get exact;
   external set exact(JSAny value);

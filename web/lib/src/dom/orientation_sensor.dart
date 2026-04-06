@@ -91,8 +91,9 @@ extension type OrientationSensorOptions._(JSObject _)
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AbsoluteOrientationSensor).
 extension type AbsoluteOrientationSensor._(JSObject _)
     implements OrientationSensor, JSObject {
-  external factory AbsoluteOrientationSensor(
-      [OrientationSensorOptions sensorOptions]);
+  external factory AbsoluteOrientationSensor([
+    OrientationSensorOptions sensorOptions,
+  ]);
 }
 
 /// The **`RelativeOrientationSensor`** interface of the
@@ -113,6 +114,7 @@ extension type AbsoluteOrientationSensor._(JSObject _)
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RelativeOrientationSensor).
 extension type RelativeOrientationSensor._(JSObject _)
     implements OrientationSensor, JSObject {
-  external factory RelativeOrientationSensor(
-      [OrientationSensorOptions sensorOptions]);
+  external factory RelativeOrientationSensor([
+    OrientationSensorOptions sensorOptions,
+  ]);
 }

@@ -28,10 +28,7 @@ import 'svg.dart';
 extension type SVGFilterElement._(JSObject _) implements SVGElement, JSObject {
   /// Creates an [SVGFilterElement] using the tag 'filter'.
   SVGFilterElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'filter',
-        );
+    : _ = document.createElementNS('http://www.w3.org/2000/svg', 'filter');
 
   /// The **`filterUnits`** read-only property of the [SVGFilterElement]
   /// interface reflects the `filterUnits` attribute of the given  element. It
@@ -107,10 +104,7 @@ extension type SVGFilterElement._(JSObject _) implements SVGElement, JSObject {
 extension type SVGFEBlendElement._(JSObject _) implements SVGElement, JSObject {
   /// Creates an [SVGFEBlendElement] using the tag 'feBlend'.
   SVGFEBlendElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feBlend',
-        );
+    : _ = document.createElementNS('http://www.w3.org/2000/svg', 'feBlend');
 
   static const int SVG_FEBLEND_MODE_UNKNOWN = 0;
 
@@ -251,10 +245,10 @@ extension type SVGFEColorMatrixElement._(JSObject _)
     implements SVGElement, JSObject {
   /// Creates an [SVGFEColorMatrixElement] using the tag 'feColorMatrix'.
   SVGFEColorMatrixElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feColorMatrix',
-        );
+    : _ = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'feColorMatrix',
+      );
 
   static const int SVG_FECOLORMATRIX_TYPE_UNKNOWN = 0;
 
@@ -368,10 +362,10 @@ extension type SVGFEComponentTransferElement._(JSObject _)
   /// Creates an [SVGFEComponentTransferElement] using the tag
   /// 'feComponentTransfer'.
   SVGFEComponentTransferElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feComponentTransfer',
-        );
+    : _ = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'feComponentTransfer',
+      );
 
   /// The **`in1`** read-only property of the [SVGFEComponentTransferElement]
   /// interface reflects the `in` attribute of the given  element.
@@ -517,10 +511,7 @@ extension type SVGFEFuncRElement._(JSObject _)
     implements SVGComponentTransferFunctionElement, JSObject {
   /// Creates an [SVGFEFuncRElement] using the tag 'feFuncR'.
   SVGFEFuncRElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feFuncR',
-        );
+    : _ = document.createElementNS('http://www.w3.org/2000/svg', 'feFuncR');
 }
 
 /// The **`SVGFEFuncGElement`** interface corresponds to the  element.
@@ -533,10 +524,7 @@ extension type SVGFEFuncGElement._(JSObject _)
     implements SVGComponentTransferFunctionElement, JSObject {
   /// Creates an [SVGFEFuncGElement] using the tag 'feFuncG'.
   SVGFEFuncGElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feFuncG',
-        );
+    : _ = document.createElementNS('http://www.w3.org/2000/svg', 'feFuncG');
 }
 
 /// The **`SVGFEFuncBElement`** interface corresponds to the  element.
@@ -549,10 +537,7 @@ extension type SVGFEFuncBElement._(JSObject _)
     implements SVGComponentTransferFunctionElement, JSObject {
   /// Creates an [SVGFEFuncBElement] using the tag 'feFuncB'.
   SVGFEFuncBElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feFuncB',
-        );
+    : _ = document.createElementNS('http://www.w3.org/2000/svg', 'feFuncB');
 }
 
 /// The **`SVGFEFuncAElement`** interface corresponds to the  element.
@@ -565,10 +550,7 @@ extension type SVGFEFuncAElement._(JSObject _)
     implements SVGComponentTransferFunctionElement, JSObject {
   /// Creates an [SVGFEFuncAElement] using the tag 'feFuncA'.
   SVGFEFuncAElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feFuncA',
-        );
+    : _ = document.createElementNS('http://www.w3.org/2000/svg', 'feFuncA');
 }
 
 /// The **`SVGFECompositeElement`** interface corresponds to the  element.
@@ -581,10 +563,7 @@ extension type SVGFECompositeElement._(JSObject _)
     implements SVGElement, JSObject {
   /// Creates an [SVGFECompositeElement] using the tag 'feComposite'.
   SVGFECompositeElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feComposite',
-        );
+    : _ = document.createElementNS('http://www.w3.org/2000/svg', 'feComposite');
 
   static const int SVG_FECOMPOSITE_OPERATOR_UNKNOWN = 0;
 
@@ -714,10 +693,10 @@ extension type SVGFEConvolveMatrixElement._(JSObject _)
     implements SVGElement, JSObject {
   /// Creates an [SVGFEConvolveMatrixElement] using the tag 'feConvolveMatrix'.
   SVGFEConvolveMatrixElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feConvolveMatrix',
-        );
+    : _ = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'feConvolveMatrix',
+      );
 
   static const int SVG_EDGEMODE_UNKNOWN = 0;
 
@@ -893,10 +872,10 @@ extension type SVGFEDiffuseLightingElement._(JSObject _)
   /// Creates an [SVGFEDiffuseLightingElement] using the tag
   /// 'feDiffuseLighting'.
   SVGFEDiffuseLightingElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feDiffuseLighting',
-        );
+    : _ = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'feDiffuseLighting',
+      );
 
   /// The **`in1`** read-only property of the [SVGFEDiffuseLightingElement]
   /// interface reflects the `in` attribute of the given  element.
@@ -1004,10 +983,10 @@ extension type SVGFEDistantLightElement._(JSObject _)
     implements SVGElement, JSObject {
   /// Creates an [SVGFEDistantLightElement] using the tag 'feDistantLight'.
   SVGFEDistantLightElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feDistantLight',
-        );
+    : _ = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'feDistantLight',
+      );
 
   /// The **`azimuth`** read-only property of the [SVGFEDistantLightElement]
   /// interface reflects the `azimuth` attribute of the given  element.
@@ -1028,10 +1007,10 @@ extension type SVGFEPointLightElement._(JSObject _)
     implements SVGElement, JSObject {
   /// Creates an [SVGFEPointLightElement] using the tag 'fePointLight'.
   SVGFEPointLightElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'fePointLight',
-        );
+    : _ = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'fePointLight',
+      );
 
   /// The **`x`** read-only property of the [SVGFEPointLightElement] interface
   /// describes the horizontal coordinate of the position of an SVG filter
@@ -1075,10 +1054,7 @@ extension type SVGFESpotLightElement._(JSObject _)
     implements SVGElement, JSObject {
   /// Creates an [SVGFESpotLightElement] using the tag 'feSpotLight'.
   SVGFESpotLightElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feSpotLight',
-        );
+    : _ = document.createElementNS('http://www.w3.org/2000/svg', 'feSpotLight');
 
   /// The **`x`** read-only property of the [SVGFESpotLightElement] interface
   /// describes the horizontal coordinate of the position of an SVG filter
@@ -1145,10 +1121,10 @@ extension type SVGFEDisplacementMapElement._(JSObject _)
   /// Creates an [SVGFEDisplacementMapElement] using the tag
   /// 'feDisplacementMap'.
   SVGFEDisplacementMapElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feDisplacementMap',
-        );
+    : _ = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'feDisplacementMap',
+      );
 
   static const int SVG_CHANNEL_UNKNOWN = 0;
 
@@ -1261,17 +1237,14 @@ extension type SVGFEDropShadowElement._(JSObject _)
     implements SVGElement, JSObject {
   /// Creates an [SVGFEDropShadowElement] using the tag 'feDropShadow'.
   SVGFEDropShadowElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feDropShadow',
-        );
+    : _ = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'feDropShadow',
+      );
 
   /// The `setStdDeviation()` method of the [SVGFEDropShadowElement] interface
   /// sets the values for the `stdDeviation` attribute.
-  external void setStdDeviation(
-    num stdDeviationX,
-    num stdDeviationY,
-  );
+  external void setStdDeviation(num stdDeviationX, num stdDeviationY);
 
   /// The **`in1`** read-only property of the [SVGFEDropShadowElement] interface
   /// reflects the `in` attribute of the given  element.
@@ -1372,10 +1345,7 @@ extension type SVGFEDropShadowElement._(JSObject _)
 extension type SVGFEFloodElement._(JSObject _) implements SVGElement, JSObject {
   /// Creates an [SVGFEFloodElement] using the tag 'feFlood'.
   SVGFEFloodElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feFlood',
-        );
+    : _ = document.createElementNS('http://www.w3.org/2000/svg', 'feFlood');
 
   /// The **`x`** read-only property of the [SVGFEFloodElement] interface
   /// describes the horizontal coordinate of the position of an SVG filter
@@ -1459,10 +1429,10 @@ extension type SVGFEGaussianBlurElement._(JSObject _)
     implements SVGElement, JSObject {
   /// Creates an [SVGFEGaussianBlurElement] using the tag 'feGaussianBlur'.
   SVGFEGaussianBlurElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feGaussianBlur',
-        );
+    : _ = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'feGaussianBlur',
+      );
 
   static const int SVG_EDGEMODE_UNKNOWN = 0;
 
@@ -1474,10 +1444,7 @@ extension type SVGFEGaussianBlurElement._(JSObject _)
 
   /// The `setStdDeviation()` method of the [SVGFEGaussianBlurElement] interface
   /// sets the values for the `stdDeviation` attribute.
-  external void setStdDeviation(
-    num stdDeviationX,
-    num stdDeviationY,
-  );
+  external void setStdDeviation(num stdDeviationX, num stdDeviationY);
 
   /// The **`in1`** read-only property of the [SVGFEGaussianBlurElement]
   /// interface reflects the `in` attribute of the given  element.
@@ -1574,10 +1541,7 @@ extension type SVGFEGaussianBlurElement._(JSObject _)
 extension type SVGFEImageElement._(JSObject _) implements SVGElement, JSObject {
   /// Creates an [SVGFEImageElement] using the tag 'feImage'.
   SVGFEImageElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feImage',
-        );
+    : _ = document.createElementNS('http://www.w3.org/2000/svg', 'feImage');
 
   /// The **`preserveAspectRatio`** read-only property of the
   /// [SVGFEImageElement] interface reflects the `preserveAspectRatio` attribute
@@ -1670,10 +1634,7 @@ extension type SVGFEImageElement._(JSObject _) implements SVGElement, JSObject {
 extension type SVGFEMergeElement._(JSObject _) implements SVGElement, JSObject {
   /// Creates an [SVGFEMergeElement] using the tag 'feMerge'.
   SVGFEMergeElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feMerge',
-        );
+    : _ = document.createElementNS('http://www.w3.org/2000/svg', 'feMerge');
 
   /// The **`x`** read-only property of the [SVGFEMergeElement] interface
   /// describes the horizontal coordinate of the position of an SVG filter
@@ -1752,10 +1713,7 @@ extension type SVGFEMergeNodeElement._(JSObject _)
     implements SVGElement, JSObject {
   /// Creates an [SVGFEMergeNodeElement] using the tag 'feMergeNode'.
   SVGFEMergeNodeElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feMergeNode',
-        );
+    : _ = document.createElementNS('http://www.w3.org/2000/svg', 'feMergeNode');
 
   /// The **`in1`** read-only property of the [SVGFEMergeNodeElement] interface
   /// reflects the `in` attribute of the given  element.
@@ -1772,10 +1730,10 @@ extension type SVGFEMorphologyElement._(JSObject _)
     implements SVGElement, JSObject {
   /// Creates an [SVGFEMorphologyElement] using the tag 'feMorphology'.
   SVGFEMorphologyElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feMorphology',
-        );
+    : _ = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'feMorphology',
+      );
 
   static const int SVG_MORPHOLOGY_OPERATOR_UNKNOWN = 0;
 
@@ -1880,10 +1838,7 @@ extension type SVGFEOffsetElement._(JSObject _)
     implements SVGElement, JSObject {
   /// Creates an [SVGFEOffsetElement] using the tag 'feOffset'.
   SVGFEOffsetElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feOffset',
-        );
+    : _ = document.createElementNS('http://www.w3.org/2000/svg', 'feOffset');
 
   /// The **`in1`** read-only property of the [SVGFEOffsetElement] interface
   /// reflects the `in` attribute of the given  element.
@@ -1981,10 +1936,10 @@ extension type SVGFESpecularLightingElement._(JSObject _)
   /// Creates an [SVGFESpecularLightingElement] using the tag
   /// 'feSpecularLighting'.
   SVGFESpecularLightingElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feSpecularLighting',
-        );
+    : _ = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'feSpecularLighting',
+      );
 
   /// The **`in1`** read-only property of the [SVGFESpecularLightingElement]
   /// interface reflects the `in` attribute of the given  element.
@@ -2088,10 +2043,7 @@ extension type SVGFESpecularLightingElement._(JSObject _)
 extension type SVGFETileElement._(JSObject _) implements SVGElement, JSObject {
   /// Creates an [SVGFETileElement] using the tag 'feTile'.
   SVGFETileElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feTile',
-        );
+    : _ = document.createElementNS('http://www.w3.org/2000/svg', 'feTile');
 
   /// The **`in1`** read-only property of the [SVGFETileElement] interface
   /// reflects the `in` attribute of the given  element.
@@ -2179,10 +2131,10 @@ extension type SVGFETurbulenceElement._(JSObject _)
     implements SVGElement, JSObject {
   /// Creates an [SVGFETurbulenceElement] using the tag 'feTurbulence'.
   SVGFETurbulenceElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feTurbulence',
-        );
+    : _ = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'feTurbulence',
+      );
 
   static const int SVG_TURBULENCE_TYPE_UNKNOWN = 0;
 

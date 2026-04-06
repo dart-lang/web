@@ -81,11 +81,10 @@ void dartAnalyze(Directory dir) {
 void exec(String command, List<String> args, {required Directory cwd}) {
   printOnFailure('dart $command ${args.join(', ')}');
 
-  final result = Process.runSync(
-    Platform.resolvedExecutable,
-    [command, ...args],
-    workingDirectory: cwd.path,
-  );
+  final result = Process.runSync(Platform.resolvedExecutable, [
+    command,
+    ...args,
+  ], workingDirectory: cwd.path);
 
   var out = result.stdout as String;
   if (out.isNotEmpty) printOnFailure(out);

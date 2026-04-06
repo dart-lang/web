@@ -129,10 +129,7 @@ extension type Performance._(JSObject _) implements EventTarget, JSObject {
   ///
   /// To access entries of these types, you must use a [PerformanceObserver]
   /// instead.
-  external PerformanceEntryList getEntriesByName(
-    String name, [
-    String type,
-  ]);
+  external PerformanceEntryList getEntriesByName(String name, [String type]);
 
   /// The **`clearResourceTimings()`** method removes all performance entries
   /// with an [PerformanceEntry.entryType] of `"resource"` from the browser's

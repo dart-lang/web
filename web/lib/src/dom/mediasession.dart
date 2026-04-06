@@ -166,11 +166,7 @@ extension type ChapterInformationInit._(JSObject _) implements JSObject {
   external set artwork(JSArray<MediaImage> value);
 }
 extension type MediaImage._(JSObject _) implements JSObject {
-  external factory MediaImage({
-    required String src,
-    String sizes,
-    String type,
-  });
+  external factory MediaImage({required String src, String sizes, String type});
 
   external String get src;
   external set src(String value);

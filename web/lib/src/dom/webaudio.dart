@@ -436,7 +436,8 @@ extension type AudioContext._(JSObject _)
   /// For more details about media element audio source nodes, check out the
   /// [MediaElementAudioSourceNode] reference page.
   external MediaElementAudioSourceNode createMediaElementSource(
-      HTMLMediaElement mediaElement);
+    HTMLMediaElement mediaElement,
+  );
 
   /// The `createMediaStreamSource()` method of the [AudioContext]
   /// Interface is used to create a new [MediaStreamAudioSourceNode]
@@ -446,7 +447,8 @@ extension type AudioContext._(JSObject _)
   /// For more details about media stream audio source nodes, check out the
   /// [MediaStreamAudioSourceNode] reference page.
   external MediaStreamAudioSourceNode createMediaStreamSource(
-      MediaStream mediaStream);
+    MediaStream mediaStream,
+  );
 
   /// The **`createMediaStreamTrackSource()`** method of the [AudioContext]
   /// interface creates and returns a [MediaStreamTrackAudioSourceNode] which
@@ -458,7 +460,8 @@ extension type AudioContext._(JSObject _)
   /// specified [MediaStream] whose [MediaStreamTrack.id] is first,
   /// lexicographically (alphabetically).
   external MediaStreamTrackAudioSourceNode createMediaStreamTrackSource(
-      MediaStreamTrack mediaStreamTrack);
+    MediaStreamTrack mediaStreamTrack,
+  );
 
   /// The `createMediaStreamDestination()` method of the [AudioContext]
   /// Interface is used to create a new [MediaStreamAudioDestinationNode] object
@@ -882,10 +885,7 @@ extension type AudioParam._(JSObject _) implements JSObject {
   /// `AudioParam` value at a precise time, as measured against
   /// [BaseAudioContext.currentTime]. The new value is given in the value
   /// parameter.
-  external AudioParam setValueAtTime(
-    num value,
-    num startTime,
-  );
+  external AudioParam setValueAtTime(num value, num startTime);
 
   /// The `linearRampToValueAtTime()` method of the [AudioParam]
   /// Interface schedules a gradual linear change in the value of the
@@ -893,10 +893,7 @@ extension type AudioParam._(JSObject _) implements JSObject {
   /// _previous_ event, follows a linear ramp to the new value given in the
   /// `value` parameter, and reaches the new value at the time given in the
   /// `endTime` parameter.
-  external AudioParam linearRampToValueAtTime(
-    num value,
-    num endTime,
-  );
+  external AudioParam linearRampToValueAtTime(num value, num endTime);
 
   /// The **`exponentialRampToValueAtTime()`** method of the [AudioParam]
   /// Interface schedules a gradual exponential change in the value of the
@@ -911,10 +908,7 @@ extension type AudioParam._(JSObject _) implements JSObject {
   /// > frequencies or playback rates than linear ramps because of the way the
   /// > human ear
   /// > works.
-  external AudioParam exponentialRampToValueAtTime(
-    num value,
-    num endTime,
-  );
+  external AudioParam exponentialRampToValueAtTime(num value, num endTime);
 
   /// The `setTargetAtTime()` method of the
   /// [AudioParam] interface schedules the start of a gradual change to the
@@ -1245,11 +1239,7 @@ extension type AudioBufferSourceNode._(JSObject _)
   /// Interface is used to schedule playback of the audio data contained in the
   /// buffer, or
   /// to begin playback immediately.
-  external void start([
-    num when,
-    num offset,
-    num duration,
-  ]);
+  external void start([num when, num offset, num duration]);
 
   /// The **`buffer`** property of the [AudioBufferSourceNode] interface
   /// provides the ability to play back audio using an [AudioBuffer] as the
@@ -1425,11 +1415,7 @@ extension type AudioListener._(JSObject _) implements JSObject {
   /// > As this method is deprecated, use the three [AudioListener.positionX],
   /// > [AudioListener.positionY], and [AudioListener.positionZ] properties
   /// > instead.
-  external void setPosition(
-    num x,
-    num y,
-    num z,
-  );
+  external void setPosition(num x, num y, num z);
 
   /// The `setOrientation()` method of the [AudioListener] interface defines the
   /// orientation of the listener.
@@ -1446,14 +1432,7 @@ extension type AudioListener._(JSObject _) implements JSObject {
   ///
   /// The two vectors must be separated by an angle of 90° — in linear analysis
   /// terms, they must be perpendicular to each other.
-  external void setOrientation(
-    num x,
-    num y,
-    num z,
-    num xUp,
-    num yUp,
-    num zUp,
-  );
+  external void setOrientation(num x, num y, num z, num xUp, num yUp, num zUp);
 
   /// The `positionX` read-only property of the [AudioListener] interface is an
   /// [AudioParam] representing the x position of the listener in 3D cartesian
@@ -2077,10 +2056,7 @@ extension type ConvolverOptions._(JSObject _)
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DelayNode).
 extension type DelayNode._(JSObject _) implements AudioNode, JSObject {
-  external factory DelayNode(
-    BaseAudioContext context, [
-    DelayOptions options,
-  ]);
+  external factory DelayNode(BaseAudioContext context, [DelayOptions options]);
 
   /// The `delayTime` property of the [DelayNode] interface is an
   /// [a-rate](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam#a-rate)
@@ -2287,10 +2263,7 @@ extension type DynamicsCompressorOptions._(JSObject _)
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/GainNode).
 extension type GainNode._(JSObject _) implements AudioNode, JSObject {
-  external factory GainNode(
-    BaseAudioContext context, [
-    GainOptions options,
-  ]);
+  external factory GainNode(BaseAudioContext context, [GainOptions options]);
 
   /// The `gain` property of the [GainNode] interface is an
   /// [a-rate](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam#a-rate)
@@ -2458,8 +2431,9 @@ extension type MediaElementAudioSourceNode._(JSObject _)
 }
 extension type MediaElementAudioSourceOptions._(JSObject _)
     implements JSObject {
-  external factory MediaElementAudioSourceOptions(
-      {required HTMLMediaElement mediaElement});
+  external factory MediaElementAudioSourceOptions({
+    required HTMLMediaElement mediaElement,
+  });
 
   external HTMLMediaElement get mediaElement;
   external set mediaElement(HTMLMediaElement value);
@@ -2582,8 +2556,9 @@ extension type MediaStreamAudioSourceNode._(JSObject _)
   external MediaStream get mediaStream;
 }
 extension type MediaStreamAudioSourceOptions._(JSObject _) implements JSObject {
-  external factory MediaStreamAudioSourceOptions(
-      {required MediaStream mediaStream});
+  external factory MediaStreamAudioSourceOptions({
+    required MediaStream mediaStream,
+  });
 
   external MediaStream get mediaStream;
   external set mediaStream(MediaStream value);
@@ -2641,8 +2616,9 @@ extension type MediaStreamTrackAudioSourceNode._(JSObject _)
 }
 extension type MediaStreamTrackAudioSourceOptions._(JSObject _)
     implements JSObject {
-  external factory MediaStreamTrackAudioSourceOptions(
-      {required MediaStreamTrack mediaStreamTrack});
+  external factory MediaStreamTrackAudioSourceOptions({
+    required MediaStreamTrack mediaStreamTrack,
+  });
 
   external MediaStreamTrack get mediaStreamTrack;
   external set mediaStreamTrack(MediaStreamTrack value);
@@ -2812,11 +2788,7 @@ extension type PannerNode._(JSObject _) implements AudioNode, JSObject {
   /// coordinate system.
   ///
   /// The `setPosition()` method's default value of the position is `(0, 0, 0)`.
-  external void setPosition(
-    num x,
-    num y,
-    num z,
-  );
+  external void setPosition(num x, num y, num z);
 
   /// > [!NOTE]
   /// > The suggested replacement for this deprecated method is to instead set
@@ -2839,11 +2811,7 @@ extension type PannerNode._(JSObject _) implements AudioNode, JSObject {
   /// The three parameters `x`, `y` and `z` are unitless and describe a
   /// direction vector in 3D space using the right-hand Cartesian coordinate
   /// system. The default value of the direction vector is `(1, 0, 0)`.
-  external void setOrientation(
-    num x,
-    num y,
-    num z,
-  );
+  external void setOrientation(num x, num y, num z);
 
   /// The `panningModel` property of the [PannerNode] interface is an enumerated
   /// value determining which spatialization algorithm to use to position the

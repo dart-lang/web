@@ -46,7 +46,8 @@ extension type MediaDecodingConfiguration._(JSObject _)
   external set type(MediaDecodingType value);
   external MediaCapabilitiesKeySystemConfiguration get keySystemConfiguration;
   external set keySystemConfiguration(
-      MediaCapabilitiesKeySystemConfiguration value);
+    MediaCapabilitiesKeySystemConfiguration value,
+  );
 }
 extension type MediaEncodingConfiguration._(JSObject _)
     implements MediaConfiguration, JSObject {
@@ -238,7 +239,8 @@ extension type MediaCapabilities._(JSObject _) implements JSObject {
   /// > ready to create and use a `MediaKeys` object with the provided
   /// > configuration.
   external JSPromise<MediaCapabilitiesDecodingInfo> decodingInfo(
-      MediaDecodingConfiguration configuration);
+    MediaDecodingConfiguration configuration,
+  );
 
   /// The **`encodingInfo()`** method of the [MediaCapabilities] interface
   /// returns a promise that fulfills with the tested media configuration's
@@ -247,5 +249,6 @@ extension type MediaCapabilities._(JSObject _) implements JSObject {
   /// `powerefficient`, which describe how compatible the device is with the
   /// type of media.
   external JSPromise<MediaCapabilitiesEncodingInfo> encodingInfo(
-      MediaEncodingConfiguration configuration);
+    MediaEncodingConfiguration configuration,
+  );
 }

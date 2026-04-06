@@ -49,50 +49,14 @@ extension type $Console._(JSObject _) implements JSObject {
     JSAny? data4,
   ]);
   external void clear();
-  external void debug([
-    JSAny? data1,
-    JSAny? data2,
-    JSAny? data3,
-    JSAny? data4,
-  ]);
-  external void error([
-    JSAny? data1,
-    JSAny? data2,
-    JSAny? data3,
-    JSAny? data4,
-  ]);
-  external void info([
-    JSAny? data1,
-    JSAny? data2,
-    JSAny? data3,
-    JSAny? data4,
-  ]);
-  external void log([
-    JSAny? data1,
-    JSAny? data2,
-    JSAny? data3,
-    JSAny? data4,
-  ]);
-  external void table([
-    JSAny? tabularData,
-    JSArray<JSString> properties,
-  ]);
-  external void trace([
-    JSAny? data1,
-    JSAny? data2,
-    JSAny? data3,
-    JSAny? data4,
-  ]);
-  external void warn([
-    JSAny? data1,
-    JSAny? data2,
-    JSAny? data3,
-    JSAny? data4,
-  ]);
-  external void dir([
-    JSAny? item,
-    JSObject? options,
-  ]);
+  external void debug([JSAny? data1, JSAny? data2, JSAny? data3, JSAny? data4]);
+  external void error([JSAny? data1, JSAny? data2, JSAny? data3, JSAny? data4]);
+  external void info([JSAny? data1, JSAny? data2, JSAny? data3, JSAny? data4]);
+  external void log([JSAny? data1, JSAny? data2, JSAny? data3, JSAny? data4]);
+  external void table([JSAny? tabularData, JSArray<JSString> properties]);
+  external void trace([JSAny? data1, JSAny? data2, JSAny? data3, JSAny? data4]);
+  external void warn([JSAny? data1, JSAny? data2, JSAny? data3, JSAny? data4]);
+  external void dir([JSAny? item, JSObject? options]);
   external void dirxml([
     JSAny? data1,
     JSAny? data2,
@@ -101,12 +65,7 @@ extension type $Console._(JSObject _) implements JSObject {
   ]);
   external void count([String label]);
   external void countReset([String label]);
-  external void group([
-    JSAny? data1,
-    JSAny? data2,
-    JSAny? data3,
-    JSAny? data4,
-  ]);
+  external void group([JSAny? data1, JSAny? data2, JSAny? data3, JSAny? data4]);
   external void groupCollapsed([
     JSAny? data1,
     JSAny? data2,

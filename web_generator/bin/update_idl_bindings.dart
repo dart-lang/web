@@ -6,11 +6,11 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:args/args.dart';
-import 'package:dart_style/dart_style.dart';
 import 'package:io/ansi.dart' as ansi;
 import 'package:io/io.dart';
 import 'package:path/path.dart' as p;
 import 'package:web_generator/src/cli.dart';
+import 'package:web_generator/src/sdk_version.dart';
 
 void main(List<String> arguments) async {
   final ArgResults argResult;
@@ -58,7 +58,7 @@ $_usage''');
 
   if (argResult['compile'] as bool) {
     final webPkgLangVersion = isSnapshot
-        ? DartFormatter.latestLanguageVersion.toString()
+        ? sdkVersion.toString()
         : await getPackageLanguageVersion(_webPackagePath);
     // Compile Dart to Javascript.
     await compileDartMain(langVersion: webPkgLangVersion);

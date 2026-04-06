@@ -37,10 +37,7 @@ typedef NotificationDirection = String;
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Notification).
 extension type Notification._(JSObject _) implements EventTarget, JSObject {
-  external factory Notification(
-    String title, [
-    NotificationOptions options,
-  ]);
+  external factory Notification(String title, [NotificationOptions options]);
 
   /// The **`requestPermission()`** static method of the [Notification]
   /// interface requests permission from the user for the current origin to
@@ -48,8 +45,9 @@ extension type Notification._(JSObject _) implements EventTarget, JSObject {
   ///
   /// The method returns a `Promise` that fulfills with a string indicating
   /// whether permission was granted or denied.
-  external static JSPromise<JSString> requestPermission(
-      [NotificationPermissionCallback deprecatedCallback]);
+  external static JSPromise<JSString> requestPermission([
+    NotificationPermissionCallback deprecatedCallback,
+  ]);
 
   /// The **`permission`** read-only static property of the [Notification]
   /// interface indicates the current permission granted by the user for the

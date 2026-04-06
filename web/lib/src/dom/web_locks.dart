@@ -102,11 +102,7 @@ extension type LockManagerSnapshot._(JSObject _) implements JSObject {
   external set pending(JSArray<LockInfo> value);
 }
 extension type LockInfo._(JSObject _) implements JSObject {
-  external factory LockInfo({
-    String name,
-    LockMode mode,
-    String clientId,
-  });
+  external factory LockInfo({String name, LockMode mode, String clientId});
 
   external String get name;
   external set name(String value);

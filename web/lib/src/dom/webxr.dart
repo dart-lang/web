@@ -103,7 +103,8 @@ extension type XRReferenceSpace._(JSObject _) implements XRSpace, JSObject {
   /// use this method to let the user use their mouse to pitch and yaw their
   /// viewing angle.
   external XRReferenceSpace getOffsetReferenceSpace(
-      XRRigidTransform originOffset);
+    XRRigidTransform originOffset,
+  );
   external EventHandler get onreset;
   external set onreset(EventHandler value);
 }

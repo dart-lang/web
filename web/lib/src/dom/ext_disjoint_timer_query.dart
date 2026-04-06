@@ -36,21 +36,9 @@ extension type EXT_disjoint_timer_query._(JSObject _) implements JSObject {
   external WebGLTimerQueryEXT createQueryEXT();
   external void deleteQueryEXT(WebGLTimerQueryEXT? query);
   external bool isQueryEXT(WebGLTimerQueryEXT? query);
-  external void beginQueryEXT(
-    GLenum target,
-    WebGLTimerQueryEXT query,
-  );
+  external void beginQueryEXT(GLenum target, WebGLTimerQueryEXT query);
   external void endQueryEXT(GLenum target);
-  external void queryCounterEXT(
-    WebGLTimerQueryEXT query,
-    GLenum target,
-  );
-  external JSAny? getQueryEXT(
-    GLenum target,
-    GLenum pname,
-  );
-  external JSAny? getQueryObjectEXT(
-    WebGLTimerQueryEXT query,
-    GLenum pname,
-  );
+  external void queryCounterEXT(WebGLTimerQueryEXT query, GLenum target);
+  external JSAny? getQueryEXT(GLenum target, GLenum pname);
+  external JSAny? getQueryObjectEXT(WebGLTimerQueryEXT query, GLenum pname);
 }

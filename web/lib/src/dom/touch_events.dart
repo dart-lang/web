@@ -269,10 +269,7 @@ extension type TouchEventInit._(JSObject _)
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/TouchEvent).
 extension type TouchEvent._(JSObject _) implements UIEvent, JSObject {
-  external factory TouchEvent(
-    String type, [
-    TouchEventInit eventInitDict,
-  ]);
+  external factory TouchEvent(String type, [TouchEventInit eventInitDict]);
 
   /// **`touches`** is a read-only [TouchList] listing
   /// all the [Touch] objects for touch points that are currently in contact

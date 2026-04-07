@@ -20,29 +20,23 @@ Future<void> compileBindingsGen() async {
   final raf = await lockFile.open(mode: FileMode.write);
   await raf.lock(FileLock.blockingExclusive);
   try {
-    final markerFile = File(p.join(bindingsGenPath, '.last_compile_run'));
-
-    var alreadyRanThisSession = false;
-    if (markerFile.existsSync()) {
-      final lastRun = markerFile.statSync().modified;
-      // If it was run in the last 60 seconds, assume it's the same test run
-      if (DateTime.now().difference(lastRun).inSeconds < 60) {
-        alreadyRanThisSession = true;
-      }
-    }
-
-    if (!alreadyRanThisSession && _needsCompile()) {
+    if (_needsCompile()) {
       // set up npm
-      final nodeModules = Directory(p.join(bindingsGenPath, 'node_modules'));
-      if (!nodeModules.existsSync()) {
+      final packageJson = File(p.join(bindingsGenPath, 'package.json'));
+      final npmMarker = File(p.join(bindingsGenPath, '.last_npm_install'));
+
+      if (!Directory(p.join(bindingsGenPath, 'node_modules')).existsSync() ||
+          (packageJson.existsSync() &&
+              (!npmMarker.existsSync() ||
+                  packageJson.statSync().modified.isAfter(
+                    npmMarker.statSync().modified,
+                  )))) {
         await runProc('npm', ['install'], workingDirectory: bindingsGenPath);
+        npmMarker.writeAsStringSync(DateTime.now().toIso8601String());
       }
 
       // compile file
       await compileDartMain(dir: bindingsGenPath);
-
-      // Update marker file timestamp (touch it)
-      markerFile.writeAsStringSync(DateTime.now().toIso8601String());
     }
   } finally {
     await raf.unlock();

@@ -6,20 +6,26 @@
 library;
 
 import 'dart:io';
+import 'dart:isolate';
+import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:test/test.dart';
 import 'package:web_generator/src/sdk_version.dart';
 import 'package:yaml/yaml.dart';
 
 void main() {
-  test('sdkVersion aligns with pubspec.yaml', () {
-    final pubspecFile = File('pubspec.yaml');
+  test('sdkVersion aligns with pubspec.yaml', () async {
+    final uri = await Isolate.resolvePackageUri(
+      Uri.parse('package:web_generator/src/sdk_version.dart'),
+    );
+    expect(uri, isNotNull);
+    final packageRoot = p.dirname(p.dirname(p.dirname(p.fromUri(uri!))));
+    final pubspecFile = File(p.join(packageRoot, 'pubspec.yaml'));
+
     expect(
       pubspecFile.existsSync(),
       isTrue,
-      reason:
-          'pubspec.yaml not found in current directory: '
-          '${Directory.current.path}',
+      reason: 'pubspec.yaml not found at ${pubspecFile.path}',
     );
 
     final pubspecContent = pubspecFile.readAsStringSync();

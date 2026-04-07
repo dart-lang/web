@@ -20,13 +20,30 @@ Future<void> compileBindingsGen() async {
   final raf = await lockFile.open(mode: FileMode.write);
   await raf.lock(FileLock.blockingExclusive);
   try {
-    if (!_needsCompile()) return;
+    final markerFile = File(p.join(bindingsGenPath, '.last_compile_run'));
 
-    // set up npm
-    await runProc('npm', ['install'], workingDirectory: bindingsGenPath);
+    var alreadyRanThisSession = false;
+    if (markerFile.existsSync()) {
+      final lastRun = markerFile.statSync().modified;
+      // If it was run in the last 60 seconds, assume it's the same test run
+      if (DateTime.now().difference(lastRun).inSeconds < 60) {
+        alreadyRanThisSession = true;
+      }
+    }
 
-    // compile file
-    await compileDartMain(dir: bindingsGenPath);
+    if (!alreadyRanThisSession && _needsCompile()) {
+      // set up npm
+      final nodeModules = Directory(p.join(bindingsGenPath, 'node_modules'));
+      if (!nodeModules.existsSync()) {
+        await runProc('npm', ['install'], workingDirectory: bindingsGenPath);
+      }
+
+      // compile file
+      await compileDartMain(dir: bindingsGenPath);
+
+      // Update marker file timestamp (touch it)
+      markerFile.writeAsStringSync(DateTime.now().toIso8601String());
+    }
   } finally {
     await raf.unlock();
     await raf.close();
@@ -41,6 +58,21 @@ bool _needsCompile() {
   if (!jsFile.existsSync()) return true;
 
   final jsStat = jsFile.statSync();
+
+  // Check package.json
+  final packageJson = File(p.join(bindingsGenPath, 'package.json'));
+  if (packageJson.existsSync() &&
+      packageJson.statSync().modified.isAfter(jsStat.modified)) {
+    return true;
+  }
+
+  // Check tsconfig.json
+  final tsConfig = File(p.join(bindingsGenPath, 'tsconfig.json'));
+  if (tsConfig.existsSync() &&
+      tsConfig.statSync().modified.isAfter(jsStat.modified)) {
+    return true;
+  }
+
   final srcDir = Directory(bindingsGenPath);
   for (final file in srcDir.listSync(recursive: true)) {
     if (file is File && file.path.endsWith('.dart')) {

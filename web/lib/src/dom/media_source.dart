@@ -87,10 +87,7 @@ extension type MediaSource._(JSObject _) implements EventTarget, JSObject {
   /// The **`setLiveSeekableRange()`** method of the
   /// [MediaSource] interface sets the range that the user can seek to in the
   /// media element.
-  external void setLiveSeekableRange(
-    num start,
-    num end,
-  );
+  external void setLiveSeekableRange(num start, num end);
 
   /// @AvailableInWorkers("window_and_dedicated")
   ///
@@ -240,10 +237,7 @@ extension type SourceBuffer._(JSObject _) implements EventTarget, JSObject {
   /// [SourceBuffer.updating] equals `false`. If
   /// `SourceBuffer.updating` is not equal to `false`, call
   /// [SourceBuffer.abort].
-  external void remove(
-    num start,
-    num end,
-  );
+  external void remove(num start, num end);
 
   /// @AvailableInWorkers("window_and_dedicated")
   ///

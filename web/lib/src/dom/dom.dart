@@ -83,10 +83,7 @@ typedef SlotAssignmentMode = String;
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Event).
 extension type Event._(JSObject _) implements JSObject {
-  external factory Event(
-    String type, [
-    EventInit eventInitDict,
-  ]);
+  external factory Event(String type, [EventInit eventInitDict]);
 
   static const int NONE = 0;
 
@@ -160,11 +157,7 @@ extension type Event._(JSObject _) implements JSObject {
   /// > The page on
   /// > [Creating and triggering events](https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_events)
   /// > gives more information about the way to use these.
-  external void initEvent(
-    String type, [
-    bool bubbles,
-    bool cancelable,
-  ]);
+  external void initEvent(String type, [bool bubbles, bool cancelable]);
 
   /// The **`type`** read-only property of the [Event]
   /// interface returns a string containing the event's type. It is set when the
@@ -310,11 +303,7 @@ extension type Event._(JSObject _) implements JSObject {
   external double get timeStamp;
 }
 extension type EventInit._(JSObject _) implements JSObject {
-  external factory EventInit({
-    bool bubbles,
-    bool cancelable,
-    bool composed,
-  });
+  external factory EventInit({bool bubbles, bool cancelable, bool composed});
 
   external bool get bubbles;
   external set bubbles(bool value);
@@ -340,10 +329,7 @@ extension type EventInit._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent).
 extension type CustomEvent._(JSObject _) implements Event, JSObject {
-  external factory CustomEvent(
-    String type, [
-    CustomEventInit eventInitDict,
-  ]);
+  external factory CustomEvent(String type, [CustomEventInit eventInitDict]);
 
   /// The **`CustomEvent.initCustomEvent()`** method initializes a [CustomEvent]
   /// object.
@@ -792,10 +778,7 @@ extension type MutationObserver._(JSObject _) implements JSObject {
   ///
   /// To stop the `MutationObserver` (so that none of its callbacks will be
   /// triggered any longer), call [MutationObserver.disconnect].
-  external void observe(
-    Node target, [
-    MutationObserverInit options,
-  ]);
+  external void observe(Node target, [MutationObserverInit options]);
 
   /// The [MutationObserver] method
   /// **`disconnect()`** tells the observer to stop watching for
@@ -1097,10 +1080,7 @@ extension type Node._(JSObject _) implements EventTarget, JSObject {
   /// If the given child is a [DocumentFragment], the entire contents of the
   /// `DocumentFragment` are moved into the child list of the specified parent
   /// node.
-  external Node insertBefore(
-    Node node,
-    Node? child,
-  );
+  external Node insertBefore(Node node, Node? child);
 
   /// The **`appendChild()`** method of the [Node] interface adds a node to the
   /// end of the list of children of a specified parent node.
@@ -1124,10 +1104,7 @@ extension type Node._(JSObject _) implements EventTarget, JSObject {
 
   /// The **`replaceChild()`** method of the [Node] interface replaces a child
   /// node within the given (parent) node.
-  external Node replaceChild(
-    Node node,
-    Node child,
-  );
+  external Node replaceChild(Node node, Node child);
 
   /// The **`removeChild()`** method of the [Node] interface
   /// removes a child node from the DOM and returns the removed node.
@@ -1433,10 +1410,7 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// the **`document.createElement()`** method creates the HTML element
   /// specified by `localName`, or an [HTMLUnknownElement] if `localName` isn't
   /// recognized.
-  external Element createElement(
-    String localName, [
-    JSAny options,
-  ]);
+  external Element createElement(String localName, [JSAny options]);
 
   /// Creates an element with the specified namespace URI and qualified name.
   ///
@@ -1487,10 +1461,7 @@ extension type Document._(JSObject _) implements Node, JSObject {
   ///
   /// Unlike [document.adoptNode], the original node is not removed from its
   /// original document. The imported node is a clone of the original.
-  external Node importNode(
-    Node node, [
-    bool subtree,
-  ]);
+  external Node importNode(Node node, [bool subtree]);
 
   /// **`Document.adoptNode()`** transfers a  from another [Document] into the
   /// method's document.
@@ -1515,10 +1486,7 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// The object created is a node implementing the
   /// [Attr] interface. The DOM does not enforce what sort of attributes can be
   /// added to a particular element in this manner.
-  external Attr createAttributeNS(
-    String? namespace,
-    String qualifiedName,
-  );
+  external Attr createAttributeNS(String? namespace, String qualifiedName);
 
   /// > [!WARNING]
   /// > Many methods used with `createEvent`, such as `initCustomEvent`, are
@@ -1591,10 +1559,7 @@ extension type Document._(JSObject _) implements Node, JSObject {
   ///
   /// If you need to find the specific position inside the element, use
   /// [Document.caretPositionFromPoint].
-  external Element? elementFromPoint(
-    num x,
-    num y,
-  );
+  external Element? elementFromPoint(num x, num y);
 
   /// The **`elementsFromPoint()`** method
   /// of the [Document] interface returns an array of all elements
@@ -1603,10 +1568,7 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// viewport.
   ///
   /// It operates in a similar way to the [Document.elementFromPoint] method.
-  external JSArray<Element> elementsFromPoint(
-    num x,
-    num y,
-  );
+  external JSArray<Element> elementsFromPoint(num x, num y);
 
   /// The **`caretPositionFromPoint()`** method of the [Document] interface
   /// returns a [CaretPosition] object, containing the DOM node, along with the
@@ -1682,20 +1644,10 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// > `document.write()` on a closed (loaded) document automatically calls
   /// > `document.open()`,
   /// > [which will clear the document](https://developer.mozilla.org/en-US/docs/Web/API/Document/open#notes).
-  external void write([
-    JSAny text1,
-    JSAny text2,
-    JSAny text3,
-    JSAny text4,
-  ]);
+  external void write([JSAny text1, JSAny text2, JSAny text3, JSAny text4]);
 
   /// Writes a string of text followed by a newline character to a document.
-  external void writeln([
-    JSAny text1,
-    JSAny text2,
-    JSAny text3,
-    JSAny text4,
-  ]);
+  external void writeln([JSAny text1, JSAny text2, JSAny text3, JSAny text4]);
 
   /// The **`hasFocus()`** method of the [Document] interface returns a boolean
   /// value indicating whether the document or any element inside the document
@@ -1741,11 +1693,7 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// > `execCommand()` in response to these events. From Firefox 82, nested
   /// > `execCommand()` calls will always fail, see
   /// > [bug 1634262](https://bugzil.la/1634262).
-  external bool execCommand(
-    String commandId, [
-    bool showUI,
-    String value,
-  ]);
+  external bool execCommand(String commandId, [bool showUI, String value]);
   external bool queryCommandIndeterm(String commandId);
   external String queryCommandValue(String commandId);
 
@@ -1867,12 +1815,7 @@ extension type Document._(JSObject _) implements Node, JSObject {
   ///
   /// This method prepends a child to a `Document`. To prepend to an arbitrary
   /// element in the tree, see [Element.prepend].
-  external void prepend([
-    JSAny node1,
-    JSAny node2,
-    JSAny node3,
-    JSAny node4,
-  ]);
+  external void prepend([JSAny node1, JSAny node2, JSAny node3, JSAny node4]);
 
   /// The **`Document.append()`** method
   /// inserts a set of [Node] objects or strings after
@@ -1881,12 +1824,7 @@ extension type Document._(JSObject _) implements Node, JSObject {
   ///
   /// This method appends a child to a `Document`. To append to an arbitrary
   /// element in the tree, see [Element.append].
-  external void append([
-    JSAny node1,
-    JSAny node2,
-    JSAny node3,
-    JSAny node4,
-  ]);
+  external void append([JSAny node1, JSAny node2, JSAny node3, JSAny node4]);
 
   /// The **`Document.replaceChildren()`** method replaces the
   /// existing children of a `Document` with a specified new set of children.
@@ -2729,23 +2667,13 @@ extension type DocumentType._(JSObject _) implements Node, JSObject {
   /// [Node] objects or strings in the children list of the
   /// `DocumentType`'s parent, just before the `DocumentType`.
   /// Strings are inserted as equivalent [Text] nodes.
-  external void before([
-    JSAny node1,
-    JSAny node2,
-    JSAny node3,
-    JSAny node4,
-  ]);
+  external void before([JSAny node1, JSAny node2, JSAny node3, JSAny node4]);
 
   /// The **`DocumentType.after()`** method inserts a set of
   /// [Node] objects or strings in the children list of the
   /// `DocumentType`'s parent, just after the `DocumentType`.
   /// Strings are inserted as equivalent [Text] nodes.
-  external void after([
-    JSAny node1,
-    JSAny node2,
-    JSAny node3,
-    JSAny node4,
-  ]);
+  external void after([JSAny node1, JSAny node2, JSAny node3, JSAny node4]);
 
   /// The **`DocumentType.replaceWith()`** method replaces the document type
   /// with a set of given nodes.
@@ -2822,12 +2750,7 @@ extension type DocumentFragment._(JSObject _) implements Node, JSObject {
   ///
   /// This method prepends a child to a `DocumentFragment`. To prepend to an
   /// arbitrary element in the tree, see [Element.prepend].
-  external void prepend([
-    JSAny node1,
-    JSAny node2,
-    JSAny node3,
-    JSAny node4,
-  ]);
+  external void prepend([JSAny node1, JSAny node2, JSAny node3, JSAny node4]);
 
   /// The **`DocumentFragment.append()`** method
   /// inserts a set of [Node] objects or strings after
@@ -2836,12 +2759,7 @@ extension type DocumentFragment._(JSObject _) implements Node, JSObject {
   ///
   /// This method appends a child to a `DocumentFragment`. To append to an
   /// arbitrary element in the tree, see [Element.append].
-  external void append([
-    JSAny node1,
-    JSAny node2,
-    JSAny node3,
-    JSAny node4,
-  ]);
+  external void append([JSAny node1, JSAny node2, JSAny node3, JSAny node4]);
 
   /// The **`DocumentFragment.replaceChildren()`** method replaces the
   /// existing children of a `DocumentFragment` with a specified new set of
@@ -3174,10 +3092,7 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// If you are working with HTML documents and you don't need to specify the
   /// requested attribute as being part of a specific namespace, use the
   /// [Element.getAttribute] method instead.
-  external String? getAttributeNS(
-    String? namespace,
-    String localName,
-  );
+  external String? getAttributeNS(String? namespace, String localName);
 
   /// The **`setAttribute()`** method of the [Element] interface sets the value
   /// of an attribute on the specified element. If the attribute already exists,
@@ -3190,10 +3105,7 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// If you need to work with the [Attr] node (such as cloning from another
   /// element) before adding it, you can use the [Element.setAttributeNode]
   /// method instead.
-  external void setAttribute(
-    String qualifiedName,
-    String value,
-  );
+  external void setAttribute(String qualifiedName, String value);
 
   /// `setAttributeNS` adds a new attribute or changes the value of an attribute
   /// with the given namespace and name.
@@ -3219,18 +3131,12 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// If you are working with HTML and you don't need to specify the requested
   /// attribute as being part of a specific namespace, use the
   /// [Element.removeAttribute] method instead.
-  external void removeAttributeNS(
-    String? namespace,
-    String localName,
-  );
+  external void removeAttributeNS(String? namespace, String localName);
 
   /// The **`toggleAttribute()`** method of the
   /// [Element] interface toggles a Boolean attribute (removing it if it is
   /// present and adding it if it is not present) on the given element.
-  external bool toggleAttribute(
-    String qualifiedName, [
-    bool force,
-  ]);
+  external bool toggleAttribute(String qualifiedName, [bool force]);
 
   /// The **`Element.hasAttribute()`** method returns a
   /// **Boolean** value indicating whether the specified element has the
@@ -3244,10 +3150,7 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// If you are working with HTML documents and you don't need to specify the
   /// requested attribute as being part of a specific namespace, use the
   /// [Element.hasAttribute] method instead.
-  external bool hasAttributeNS(
-    String? namespace,
-    String localName,
-  );
+  external bool hasAttributeNS(String? namespace, String localName);
 
   /// Returns the specified attribute of the specified element, as an [Attr]
   /// node.
@@ -3269,10 +3172,7 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// If you need the [Attr] node of an element in HTML documents and the
   /// attribute is not namespaced, use the [Element.getAttributeNode] method
   /// instead.
-  external Attr? getAttributeNodeNS(
-    String? namespace,
-    String localName,
-  );
+  external Attr? getAttributeNodeNS(String? namespace, String localName);
 
   /// The **`setAttributeNode()`** method of the [Element] interface adds a new
   /// [Attr] node to the specified element.
@@ -3365,18 +3265,12 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// The **`insertAdjacentElement()`** method of the
   /// [Element] interface inserts a given element node at a given position
   /// relative to the element it is invoked upon.
-  external Element? insertAdjacentElement(
-    String where,
-    Element element,
-  );
+  external Element? insertAdjacentElement(String where, Element element);
 
   /// The **`insertAdjacentText()`** method of the [Element] interface, given a
   /// relative position and a string, inserts a new text node at the given
   /// position relative to the element it is called from.
-  external void insertAdjacentText(
-    String where,
-    String data,
-  );
+  external void insertAdjacentText(String where, String data);
 
   /// The **`computedStyleMap()`** method of
   /// the [Element] interface returns a [StylePropertyMapReadOnly]
@@ -3438,25 +3332,16 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// interface scrolls the element to a particular set of coordinates inside a
   /// given
   /// element.
-  external void scroll([
-    JSAny optionsOrX,
-    num y,
-  ]);
+  external void scroll([JSAny optionsOrX, num y]);
 
   /// The **`scrollTo()`** method of the [Element]
   /// interface scrolls to a particular set of coordinates inside a given
   /// element.
-  external void scrollTo([
-    JSAny optionsOrX,
-    num y,
-  ]);
+  external void scrollTo([JSAny optionsOrX, num y]);
 
   /// The **`scrollBy()`** method of the [Element]
   /// interface scrolls an element by the given amount.
-  external void scrollBy([
-    JSAny optionsOrX,
-    num y,
-  ]);
+  external void scrollBy([JSAny optionsOrX, num y]);
 
   /// The **`Element.requestFullscreen()`**
   /// method issues an asynchronous request to make the element be displayed in
@@ -3514,10 +3399,7 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// The **`insertAdjacentHTML()`** method of the
   /// [Element] interface parses the specified text as HTML or XML and inserts
   /// the resulting nodes into the DOM tree at a specified position.
-  external void insertAdjacentHTML(
-    String position,
-    JSAny string,
-  );
+  external void insertAdjacentHTML(String position, JSAny string);
 
   /// The **`setPointerCapture()`** method of the
   /// [Element] interface is used to designate a specific element as the
@@ -3569,12 +3451,7 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// [Node] objects or strings before the first child
   /// of the [Element]. Strings are inserted as
   /// equivalent [Text] nodes.
-  external void prepend([
-    JSAny node1,
-    JSAny node2,
-    JSAny node3,
-    JSAny node4,
-  ]);
+  external void prepend([JSAny node1, JSAny node2, JSAny node3, JSAny node4]);
 
   /// The **`Element.append()`** method
   /// inserts a set of [Node] objects or strings after
@@ -3590,12 +3467,7 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// `Node.appendChild()` returns the appended [Node] object.
   /// - `Element.append()` can append several nodes and strings, whereas
   /// `Node.appendChild()` can only append one node.
-  external void append([
-    JSAny node1,
-    JSAny node2,
-    JSAny node3,
-    JSAny node4,
-  ]);
+  external void append([JSAny node1, JSAny node2, JSAny node3, JSAny node4]);
 
   /// The **`Element.replaceChildren()`** method replaces the
   /// existing children of a [Node] with a specified new set of children. These
@@ -3624,23 +3496,13 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// [Node] objects or strings in the children list of this
   /// `Element`'s parent, just before this `Element`.
   /// Strings are inserted as equivalent [Text] nodes.
-  external void before([
-    JSAny node1,
-    JSAny node2,
-    JSAny node3,
-    JSAny node4,
-  ]);
+  external void before([JSAny node1, JSAny node2, JSAny node3, JSAny node4]);
 
   /// The **`Element.after()`** method inserts a set of
   /// [Node] objects or strings in the children list of the
   /// `Element`'s parent, just after the `Element`.
   /// Strings are inserted as equivalent [Text] nodes.
-  external void after([
-    JSAny node1,
-    JSAny node2,
-    JSAny node3,
-    JSAny node4,
-  ]);
+  external void after([JSAny node1, JSAny node2, JSAny node3, JSAny node4]);
 
   /// The **`Element.replaceWith()`** method replaces this
   /// `Element` in the children list of its parent with a set of
@@ -3665,10 +3527,7 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// > Elements can have multiple animations applied to them. You can get a
   /// > list of the
   /// > animations that affect an element by calling [Element.getAnimations].
-  external Animation animate(
-    JSObject? keyframes, [
-    JSAny options,
-  ]);
+  external Animation animate(JSObject? keyframes, [JSAny options]);
 
   /// The `getAnimations()` method of the [Element] interface
   /// (specified on the `Animatable` mixin) returns an array of all
@@ -4488,10 +4347,7 @@ extension type NamedNodeMap._(JSObject _) implements JSObject {
   /// The **`getNamedItemNS()`** method of the [NamedNodeMap] interface returns
   /// the [Attr] corresponding to the given local name in the given namespace,
   /// or `null` if there is no corresponding attribute.
-  external Attr? getNamedItemNS(
-    String? namespace,
-    String localName,
-  );
+  external Attr? getNamedItemNS(String? namespace, String localName);
 
   /// The **`setNamedItem()`** method of the [NamedNodeMap] interface
   /// puts the [Attr] identified by its name in the map.
@@ -4516,10 +4372,7 @@ extension type NamedNodeMap._(JSObject _) implements JSObject {
   /// The **`removeNamedItemNS()`** method of the [NamedNodeMap] interface
   /// removes the [Attr] corresponding to the given namespace and local name
   /// from the map.
-  external Attr removeNamedItemNS(
-    String? namespace,
-    String localName,
-  );
+  external Attr removeNamedItemNS(String? namespace, String localName);
 
   /// The read-only **`length`** property of the [NamedNodeMap] interface
   /// is the number of objects stored in the map.
@@ -4658,10 +4511,7 @@ extension type CharacterData._(JSObject _) implements Node, JSObject {
   /// returns a portion of the existing data,
   /// starting at the specified index
   /// and extending for a given number of characters afterwards.
-  external String substringData(
-    int offset,
-    int count,
-  );
+  external String substringData(int offset, int count);
 
   /// The **`appendData()`** method of the [CharacterData] interface
   /// adds the provided data to the end of the node's current data.
@@ -4671,26 +4521,16 @@ extension type CharacterData._(JSObject _) implements Node, JSObject {
   /// inserts the provided data into this `CharacterData` node's current data,
   /// at the provided offset from the start of the existing data.
   /// The provided data is spliced into the existing data.
-  external void insertData(
-    int offset,
-    String data,
-  );
+  external void insertData(int offset, String data);
 
   /// The **`deleteData()`** method of the [CharacterData] interface
   /// removes all or part of the data from this `CharacterData` node.
-  external void deleteData(
-    int offset,
-    int count,
-  );
+  external void deleteData(int offset, int count);
 
   /// The **`replaceData()`** method of the [CharacterData] interface removes a
   /// certain number of characters of the existing text in a given
   /// `CharacterData` node and replaces those characters with the text provided.
-  external void replaceData(
-    int offset,
-    int count,
-    String data,
-  );
+  external void replaceData(int offset, int count, String data);
 
   /// The **`before()`** method of the [CharacterData] interface
   /// inserts a set of [Node] objects and strings
@@ -4699,12 +4539,7 @@ extension type CharacterData._(JSObject _) implements Node, JSObject {
   ///
   /// Strings are inserted as [Text] nodes; the string is being passed as
   /// argument to the [Text.Text] constructor.
-  external void before([
-    JSAny node1,
-    JSAny node2,
-    JSAny node3,
-    JSAny node4,
-  ]);
+  external void before([JSAny node1, JSAny node2, JSAny node3, JSAny node4]);
 
   /// The **`after()`** method of the [CharacterData] interface
   /// inserts a set of [Node] objects or strings in the children list of the
@@ -4712,12 +4547,7 @@ extension type CharacterData._(JSObject _) implements Node, JSObject {
   ///
   /// Strings are inserted as [Text] nodes; the string is being passed as
   /// argument to the [Text.Text] constructor.
-  external void after([
-    JSAny node1,
-    JSAny node2,
-    JSAny node3,
-    JSAny node4,
-  ]);
+  external void after([JSAny node1, JSAny node2, JSAny node3, JSAny node4]);
 
   /// The **`replaceWith()`** method of the [CharacterData] interface
   /// replaces this node in the children list of its parent
@@ -5049,10 +4879,7 @@ extension type Range._(JSObject _) implements AbstractRange, JSObject {
   /// result in a
   /// collapsed range with the start and end points both set to the specified
   /// start position.
-  external void setStart(
-    Node node,
-    int offset,
-  );
+  external void setStart(Node node, int offset);
 
   /// The **`Range.setEnd()`** method sets the end position of a [Range] to be
   /// located at the given offset into the specified node x.Setting
@@ -5060,10 +4887,7 @@ extension type Range._(JSObject _) implements AbstractRange, JSObject {
   /// result in a
   /// collapsed range with the start and end points both set to the specified
   /// end position.
-  external void setEnd(
-    Node node,
-    int offset,
-  );
+  external void setEnd(Node node, int offset);
 
   /// The **`Range.setStartBefore()`** method sets the start position
   /// of a [Range] relative to another [Node]. The parent
@@ -5116,10 +4940,7 @@ extension type Range._(JSObject _) implements AbstractRange, JSObject {
   /// The
   /// **`Range.compareBoundaryPoints()`** method compares the
   /// boundary points of the [Range] with those of another range.
-  external int compareBoundaryPoints(
-    int how,
-    Range sourceRange,
-  );
+  external int compareBoundaryPoints(int how, Range sourceRange);
 
   /// The **`Range.deleteContents()`** method removes the contents of
   /// the [Range] from the [Document].
@@ -5212,10 +5033,7 @@ extension type Range._(JSObject _) implements AbstractRange, JSObject {
   /// indicating whether the given point is in the [Range]. It returns
   /// `true` if the point (cursor position) at `offset` within
   /// `ReferenceNode` is within this range.
-  external bool isPointInRange(
-    Node node,
-    int offset,
-  );
+  external bool isPointInRange(Node node, int offset);
 
   /// The **`Range.comparePoint()`** method returns `-1`,
   /// `0`, or `1` depending on whether the `referenceNode` is
@@ -5227,10 +5045,7 @@ extension type Range._(JSObject _) implements AbstractRange, JSObject {
   /// types, offset is the number of child nodes between the start of the
   /// _reference
   /// node_.
-  external int comparePoint(
-    Node node,
-    int offset,
-  );
+  external int comparePoint(Node node, int offset);
 
   /// The **`Range.intersectsNode()`** method returns a boolean
   /// indicating whether the given [Node] intersects the [Range].
@@ -5602,19 +5417,13 @@ extension type DOMTokenList._(JSObject _) implements JSObject {
   /// The **`toggle()`** method of the [DOMTokenList] interface
   /// removes an existing token from the list and returns `false`.
   /// If the token doesn't exist it's added and the function returns `true`.
-  external bool toggle(
-    String token, [
-    bool force,
-  ]);
+  external bool toggle(String token, [bool force]);
 
   /// The **`replace()`** method of the [DOMTokenList] interface
   /// replaces an existing token with a new token.
   /// If the first token doesn't exist, `replace()` returns `false` immediately,
   /// without adding the new token to the token list.
-  external bool replace(
-    String token,
-    String newToken,
-  );
+  external bool replace(String token, String newToken);
 
   /// The **`supports()`** method of the [DOMTokenList] interface
   /// returns `true` if a given `token` is in the associated attribute's
@@ -5801,10 +5610,7 @@ extension type XSLTProcessor._(JSObject _) implements JSObject {
   /// The `transformToFragment()` method of the [XSLTProcessor] interface
   /// transforms a provided [Node] source to a [DocumentFragment] using the XSLT
   /// stylesheet associated with the `XSLTProcessor`.
-  external DocumentFragment transformToFragment(
-    Node source,
-    Document output,
-  );
+  external DocumentFragment transformToFragment(Node source, Document output);
 
   /// The `transformToDocument()` method of the [XSLTProcessor] interface
   /// transforms the provided [Node] source to a [Document] using the XSLT
@@ -5823,18 +5629,12 @@ extension type XSLTProcessor._(JSObject _) implements JSObject {
   /// The `getParameter()` method of the [XSLTProcessor] interface returns the
   /// value of a parameter (`<xsl:param>`) from the stylesheet imported in the
   /// processor.
-  external JSAny? getParameter(
-    String namespaceURI,
-    String localName,
-  );
+  external JSAny? getParameter(String namespaceURI, String localName);
 
   /// The `removeParameter()` method of the [XSLTProcessor] interface removes
   /// the parameter (`<xsl:param>`) and its value from the stylesheet imported
   /// in the processor.
-  external void removeParameter(
-    String namespaceURI,
-    String localName,
-  );
+  external void removeParameter(String namespaceURI, String localName);
 
   /// The `clearParameters()` method of the [XSLTProcessor] interface removes
   /// all parameters (`<xsl:param>`) and their values from the stylesheet

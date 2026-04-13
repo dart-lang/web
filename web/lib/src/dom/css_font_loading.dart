@@ -265,10 +265,7 @@ extension type FontFaceSet._(JSObject _) implements EventTarget, JSObject {
 
   /// The `load()` method of the [FontFaceSet] forces all the fonts given in
   /// parameters to be loaded.
-  external JSPromise<JSArray<FontFace>> load(
-    String font, [
-    String text,
-  ]);
+  external JSPromise<JSArray<FontFace>> load(String font, [String text]);
 
   /// The `check()` method of the [FontFaceSet] returns `true` if you can render
   /// some text using the given font specification without attempting to use any
@@ -285,10 +282,7 @@ extension type FontFaceSet._(JSObject _) implements EventTarget, JSObject {
   /// > return `true`. This behavior helps avoid the visual issues associated
   /// > with font swapping but may be counterintuitive if you're trying to
   /// > confirm the availability of a specific font.
-  external bool check(
-    String font, [
-    String text,
-  ]);
+  external bool check(String font, [String text]);
   external EventHandler get onloading;
   external set onloading(EventHandler value);
   external EventHandler get onloadingdone;

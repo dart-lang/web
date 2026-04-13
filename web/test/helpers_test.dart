@@ -27,8 +27,9 @@ void main() {
       ..append(document.createElement('div')..textContent = '2')
       ..append(document.createElement('div')..textContent = '3');
 
-    final List<Node> dartList =
-        JSImmutableListWrapper<NodeList, Node>(div.querySelectorAll('div'));
+    final List<Node> dartList = JSImmutableListWrapper<NodeList, Node>(
+      div.querySelectorAll('div'),
+    );
 
     // Ensure accessing length does not throw.
     expect(() => dartList.length, returnsNormally);
@@ -67,8 +68,10 @@ void main() {
     expectNodeListEquals(childrenList, ['e1', 'e3']);
 
     // add only text nodes
-    childNodesList
-        .addAll([document.createTextNode('t1'), document.createTextNode('t2')]);
+    childNodesList.addAll([
+      document.createTextNode('t1'),
+      document.createTextNode('t2'),
+    ]);
 
     // Ensure only childNodes list changed
     expectNodeListEquals(childNodesList, ['e1', 'e3', 't1', 't2']);
@@ -82,8 +85,15 @@ void main() {
     div.appendChild(document.createElement('div')..textContent = 'e6');
 
     // Ensure 3 elements were added to both lists
-    expectNodeListEquals(
-        childNodesList, ['e1', 'e3', 't1', 't2', 'e4', 'e5', 'e6']);
+    expectNodeListEquals(childNodesList, [
+      'e1',
+      'e3',
+      't1',
+      't2',
+      'e4',
+      'e5',
+      'e6',
+    ]);
     expectNodeListEquals(childrenList, ['e1', 'e3', 'e4', 'e5', 'e6']);
 
     // replace element with text node
@@ -104,8 +114,10 @@ void main() {
     expectNodeListEquals(childrenList, ['e1', 'e6']);
 
     // test []= range exception
-    expect(() => childNodesList[10] = document.createTextNode('nope'),
-        throwsRangeError);
+    expect(
+      () => childNodesList[10] = document.createTextNode('nope'),
+      throwsRangeError,
+    );
 
     // test remove
     final removeMe = childNodesList[0];
@@ -127,7 +139,7 @@ void main() {
 
     final newTextNodes = [
       document.createTextNode('t3'),
-      document.createTextNode('t4')
+      document.createTextNode('t4'),
     ];
     final newDiv = (document.createElement('div'))
       ..append(document.createElement('div')..textContent = 'e7')
@@ -146,13 +158,24 @@ void main() {
     // adding from self should throw exception
     expect(() => childrenList.addAll(div.childrenAsList), throwsArgumentError);
     expect(
-        () => childNodesList.addAll(div.childNodesAsList), throwsArgumentError);
+      () => childNodesList.addAll(div.childNodesAsList),
+      throwsArgumentError,
+    );
 
     // insertAll test
-    childNodesList.insertAll(
-        1, [document.createTextNode('t5'), document.createTextNode('t6')]);
-    expectNodeListEquals(
-        childNodesList, ['e6', 't5', 't6', 't3', 't4', 'e7', 'e8']);
+    childNodesList.insertAll(1, [
+      document.createTextNode('t5'),
+      document.createTextNode('t6'),
+    ]);
+    expectNodeListEquals(childNodesList, [
+      'e6',
+      't5',
+      't6',
+      't3',
+      't4',
+      'e7',
+      'e8',
+    ]);
     expectNodeListEquals(childrenList, ['e6', 'e7', 'e8']);
 
     // empty elements list
@@ -214,21 +237,35 @@ void main() {
     // Use `Object.is` to test that values can be passed to interop.
     expect(_is(openedWindow.opener!.unsafeWindow, window), true);
     expect(
-        _is(openedWindow.top!.unsafeWindow, openedWindow.unsafeWindow), true);
-    expect(_is(openedWindow.parent!.unsafeWindow, openedWindow.unsafeWindow),
-        true);
-    expect(_is(openedWindow.opener!.location!.unsafeLocation, window.location),
-        true);
+      _is(openedWindow.top!.unsafeWindow, openedWindow.unsafeWindow),
+      true,
+    );
     expect(
-        _is(openedWindow.opener!.parent?.unsafeWindow,
-            window.parentCrossOrigin?.unsafeWindow),
-        true);
+      _is(openedWindow.parent!.unsafeWindow, openedWindow.unsafeWindow),
+      true,
+    );
     expect(
-        _is(openedWindow.opener!.top?.unsafeWindow,
-            window.topCrossOrigin?.unsafeWindow),
-        true);
-    expect(openedWindow.opener!.opener?.unsafeWindow,
-        window.openerCrossOrigin?.unsafeWindow);
+      _is(openedWindow.opener!.location!.unsafeLocation, window.location),
+      true,
+    );
+    expect(
+      _is(
+        openedWindow.opener!.parent?.unsafeWindow,
+        window.parentCrossOrigin?.unsafeWindow,
+      ),
+      true,
+    );
+    expect(
+      _is(
+        openedWindow.opener!.top?.unsafeWindow,
+        window.topCrossOrigin?.unsafeWindow,
+      ),
+      true,
+    );
+    expect(
+      openedWindow.opener!.opener?.unsafeWindow,
+      window.openerCrossOrigin?.unsafeWindow,
+    );
     testCommon(openedWindow);
     expect(openedWindow.closed, true);
 
@@ -238,32 +275,44 @@ void main() {
     final contentWindow = iframe.contentWindowCrossOrigin!;
     expect(contentWindow.opener, null);
     expect(
-        _is(contentWindow.top?.unsafeWindow,
-            window.topCrossOrigin?.unsafeWindow),
-        true);
+      _is(contentWindow.top?.unsafeWindow, window.topCrossOrigin?.unsafeWindow),
+      true,
+    );
     expect(_is(contentWindow.parent!.unsafeWindow, window), true);
-    expect(_is(contentWindow.parent!.location!.unsafeLocation, window.location),
-        true);
     expect(
-        _is(contentWindow.parent!.parent?.unsafeWindow,
-            window.parentCrossOrigin?.unsafeWindow),
-        true);
+      _is(contentWindow.parent!.location!.unsafeLocation, window.location),
+      true,
+    );
     expect(
-        _is(contentWindow.parent!.top?.unsafeWindow,
-            window.topCrossOrigin?.unsafeWindow),
-        true);
+      _is(
+        contentWindow.parent!.parent?.unsafeWindow,
+        window.parentCrossOrigin?.unsafeWindow,
+      ),
+      true,
+    );
     expect(
-        _is(contentWindow.parent!.opener?.unsafeWindow,
-            window.openerCrossOrigin?.unsafeWindow),
-        true);
+      _is(
+        contentWindow.parent!.top?.unsafeWindow,
+        window.topCrossOrigin?.unsafeWindow,
+      ),
+      true,
+    );
+    expect(
+      _is(
+        contentWindow.parent!.opener?.unsafeWindow,
+        window.openerCrossOrigin?.unsafeWindow,
+      ),
+      true,
+    );
     testCommon(contentWindow);
     // `close` on a `contentWindow` does nothing.
     expect(contentWindow.closed, false);
   });
 
   test('converts from a JS to a Dart URL', () {
-    final url =
-        URL('https://foo:bar@example.org:1234/path?query#fragment').toDart;
+    final url = URL(
+      'https://foo:bar@example.org:1234/path?query#fragment',
+    ).toDart;
     expect(url.scheme, equals('https'));
     expect(url.userInfo, equals('foo:bar'));
     expect(url.host, equals('example.org'));
@@ -274,8 +323,9 @@ void main() {
   });
 
   test('converts from a Dart to a JS URL', () {
-    final url =
-        Uri.parse('https://foo:bar@example.org:1234/path?query#fragment').toJS;
+    final url = Uri.parse(
+      'https://foo:bar@example.org:1234/path?query#fragment',
+    ).toJS;
     expect(url.protocol, equals('https:'));
     expect(url.username, equals('foo'));
     expect(url.password, equals('bar'));
@@ -301,8 +351,8 @@ void main() {
       final subscription = const EventStreamProvider<Event>('click')
           .forElement(div)
           .listen((Event e) {
-        eventFired = true;
-      });
+            eventFired = true;
+          });
 
       div.click();
 
@@ -314,26 +364,31 @@ void main() {
       div.remove();
     });
 
-    test('works when listener is dynamically typed as Function(dynamic)',
-        () async {
-      final div = document.createElement('div') as HTMLElement;
-      document.body!.append(div);
+    test(
+      'works when listener is dynamically typed as Function(dynamic)',
+      () async {
+        final div = document.createElement('div') as HTMLElement;
+        document.body!.append(div);
 
-      var eventFired = false;
+        var eventFired = false;
 
-      // Listener takes 'dynamic'. Our fix checked `is void Function(Event)`.
-      final subscription = const EventStreamProvider<Event>('click')
-          .forElement(div)
-          .listen(((dynamic e) {
-            eventFired = true;
-          }) as void Function(Event));
+        // Listener takes 'dynamic'. Our fix checked `is void Function(Event)`.
+        final subscription = const EventStreamProvider<Event>('click')
+            .forElement(div)
+            .listen(
+              ((dynamic e) {
+                    eventFired = true;
+                  })
+                  as void Function(Event),
+            );
 
-      div.click();
-      await Future<void>.delayed(Duration.zero);
-      expect(eventFired, isTrue);
+        div.click();
+        await Future<void>.delayed(Duration.zero);
+        expect(eventFired, isTrue);
 
-      await subscription.cancel();
-      div.remove();
-    });
+        await subscription.cancel();
+        div.remove();
+      },
+    );
   });
 }

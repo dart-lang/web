@@ -167,10 +167,7 @@ extension type CSSStyleSheet._(JSObject _) implements StyleSheet, JSObject {
   /// > [CSSStyleSheet], it actually inserts the rule into
   /// > `[CSSStyleSheet].cssRules` — its internal
   /// > [CSSRuleList].
-  external int insertRule(
-    String rule, [
-    int index,
-  ]);
+  external int insertRule(String rule, [int index]);
 
   /// The [CSSStyleSheet] method
   /// **`deleteRule()`** removes a rule from the stylesheet
@@ -201,11 +198,7 @@ extension type CSSStyleSheet._(JSObject _) implements StyleSheet, JSObject {
   /// stylesheet. You should avoid using this method, and should instead use the
   /// more standard
   /// [CSSStyleSheet.insertRule] method.
-  external int addRule([
-    String selector,
-    String style,
-    int index,
-  ]);
+  external int addRule([String selector, String style, int index]);
 
   /// The obsolete [CSSStyleSheet] method
   /// **`removeRule()`** removes a rule from the stylesheet
@@ -522,10 +515,7 @@ extension type CSSImportRule._(JSObject _) implements CSSRule, JSObject {
 extension type CSSGroupingRule._(JSObject _) implements CSSRule, JSObject {
   /// The **`insertRule()`** method of the
   /// [CSSGroupingRule] interface adds a new CSS rule to a list of CSS rules.
-  external int insertRule(
-    String rule, [
-    int index,
-  ]);
+  external int insertRule(String rule, [int index]);
 
   /// The **`deleteRule()`** method of the
   /// [CSSGroupingRule] interface removes a CSS rule from a list of child CSS
@@ -621,11 +611,7 @@ extension type CSSStyleDeclaration._(JSObject _) implements JSObject {
   /// The
   /// **`CSSStyleDeclaration.setProperty()`** method interface sets
   /// a new value for a property on a CSS style declaration object.
-  external void setProperty(
-    String property,
-    String value, [
-    String priority,
-  ]);
+  external void setProperty(String property, String value, [String priority]);
 
   /// The **`CSSStyleDeclaration.removeProperty()`** method interface
   /// removes a property from a CSS style declaration object.
@@ -2037,10 +2023,7 @@ external $CSS get CSS;
 @JS('CSS')
 extension type $CSS._(JSObject _) implements JSObject {
   external String escape(String ident);
-  external bool supports(
-    String conditionTextOrProperty, [
-    String value,
-  ]);
+  external bool supports(String conditionTextOrProperty, [String value]);
   external void registerProperty(PropertyDefinition definition);
   external CSSUnitValue number(num value);
   external CSSUnitValue percent(num value);

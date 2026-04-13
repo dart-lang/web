@@ -43,10 +43,7 @@ typedef BinaryType = String;
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket).
 extension type WebSocket._(JSObject _) implements EventTarget, JSObject {
-  external factory WebSocket(
-    String url, [
-    JSAny protocols,
-  ]);
+  external factory WebSocket(String url, [JSAny protocols]);
 
   static const int CONNECTING = 0;
 
@@ -67,10 +64,7 @@ extension type WebSocket._(JSObject _) implements EventTarget, JSObject {
   /// > before starting that closing handshake; even if the user agent is still
   /// > busy sending those messages, the handshake will only start after the
   /// > messages are sent.
-  external void close([
-    int code,
-    String reason,
-  ]);
+  external void close([int code, String reason]);
 
   /// The **`WebSocket.send()`** method enqueues the specified data
   /// to be transmitted to the server over the WebSocket connection, increasing
@@ -143,10 +137,7 @@ extension type WebSocket._(JSObject _) implements EventTarget, JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CloseEvent).
 extension type CloseEvent._(JSObject _) implements Event, JSObject {
-  external factory CloseEvent(
-    String type, [
-    CloseEventInit eventInitDict,
-  ]);
+  external factory CloseEvent(String type, [CloseEventInit eventInitDict]);
 
   /// The **`wasClean`** read-only property of the [CloseEvent] interface
   /// returns `true` if the connection closed cleanly.

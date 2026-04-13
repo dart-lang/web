@@ -73,8 +73,10 @@ void main() {
       case XMLHttpRequest.LOADING:
       case XMLHttpRequest.DONE:
       default:
-        throw Exception('Expected `readyState`: ${XMLHttpRequest.UNSENT}, but '
-            'got: ${request.readyState}.');
+        throw Exception(
+          'Expected `readyState`: ${XMLHttpRequest.UNSENT}, but '
+          'got: ${request.readyState}.',
+        );
     }
   });
 }

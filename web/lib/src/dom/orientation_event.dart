@@ -231,11 +231,7 @@ extension type DeviceMotionEvent._(JSObject _) implements Event, JSObject {
 }
 extension type DeviceMotionEventAccelerationInit._(JSObject _)
     implements JSObject {
-  external factory DeviceMotionEventAccelerationInit({
-    num? x,
-    num? y,
-    num? z,
-  });
+  external factory DeviceMotionEventAccelerationInit({num? x, num? y, num? z});
 
   external double? get x;
   external set x(num? value);
@@ -275,7 +271,8 @@ extension type DeviceMotionEventInit._(JSObject _)
   external set acceleration(DeviceMotionEventAccelerationInit value);
   external DeviceMotionEventAccelerationInit get accelerationIncludingGravity;
   external set accelerationIncludingGravity(
-      DeviceMotionEventAccelerationInit value);
+    DeviceMotionEventAccelerationInit value,
+  );
   external DeviceMotionEventRotationRateInit get rotationRate;
   external set rotationRate(DeviceMotionEventRotationRateInit value);
   external double get interval;

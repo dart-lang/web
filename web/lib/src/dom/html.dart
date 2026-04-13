@@ -202,18 +202,12 @@ extension type RadioNodeList._(JSObject _) implements NodeList, JSObject {
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/HTMLOptionsCollection).
 extension type HTMLOptionsCollection._(JSObject _)
     implements HTMLCollection, JSObject {
-  external void operator []=(
-    int index,
-    HTMLOptionElement? option,
-  );
+  external void operator []=(int index, HTMLOptionElement? option);
 
   /// The **`add()`** method of the [HTMLOptionsCollection] interface adds an
   /// [HTMLOptionElement] or [HTMLOptGroupElement] to this
   /// `HTMLOptionsCollection`.
-  external void add(
-    JSObject element, [
-    JSAny? before,
-  ]);
+  external void add(JSObject element, [JSAny? before]);
 
   /// The **`remove()`** method of the [HTMLOptionsCollection] interface removes
   /// the `option` element specified by the index from this collection.
@@ -1285,10 +1279,7 @@ extension type ShowPopoverOptions._(JSObject _) implements JSObject {
 }
 extension type TogglePopoverOptions._(JSObject _)
     implements ShowPopoverOptions, JSObject {
-  external factory TogglePopoverOptions({
-    HTMLElement source,
-    bool force,
-  });
+  external factory TogglePopoverOptions({HTMLElement source, bool force});
 
   external bool get force;
   external set force(bool value);
@@ -1338,10 +1329,7 @@ extension type HTMLUnknownElement._(JSObject _)
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DOMStringMap).
 extension type DOMStringMap._(JSObject _) implements JSObject {
   external String operator [](String name);
-  external void operator []=(
-    String name,
-    String value,
-  );
+  external void operator []=(String name, String value);
 }
 
 /// The **`HTMLHtmlElement`** interface serves as the root node for a given HTML
@@ -4495,10 +4483,7 @@ extension type TimeRanges._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/TrackEvent).
 extension type TrackEvent._(JSObject _) implements Event, JSObject {
-  external factory TrackEvent(
-    String type, [
-    TrackEventInit eventInitDict,
-  ]);
+  external factory TrackEvent(String type, [TrackEventInit eventInitDict]);
 
   /// The read-only **`track`** property of
   /// the [TrackEvent] interface specifies the media track object to which the
@@ -6054,11 +6039,7 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
   /// If you wish to select **all** text of an input element, you can use the
   /// [HTMLInputElement.select()](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/select)
   /// method instead.
-  external void setSelectionRange(
-    int start,
-    int end, [
-    String direction,
-  ]);
+  external void setSelectionRange(int start, int end, [String direction]);
 
   /// The **`HTMLInputElement.showPicker()`** method displays the browser picker
   /// for an `input` element.
@@ -6994,19 +6975,13 @@ extension type HTMLSelectElement._(JSObject _)
 
   /// The **`HTMLSelectElement.add()`** method adds an element to the
   /// collection of `option` elements for this `select` element.
-  external void add(
-    JSObject element, [
-    JSAny? before,
-  ]);
+  external void add(JSObject element, [JSAny? before]);
 
   /// The **`HTMLSelectElement.remove()`** method removes the element
   /// at the specified index from the options collection for this select
   /// element.
   external void remove([int index]);
-  external void operator []=(
-    int index,
-    HTMLOptionElement? option,
-  );
+  external void operator []=(int index, HTMLOptionElement? option);
 
   /// The **`checkValidity()`** method of the [HTMLSelectElement] interface
   /// returns a boolean value which indicates if the element meets any
@@ -7425,11 +7400,7 @@ extension type HTMLTextAreaElement._(JSObject _)
   ///
   /// To select **all** of the text of an `<textarea>` element, use the
   /// [HTMLTextAreaElement.select] method.
-  external void setSelectionRange(
-    int start,
-    int end, [
-    String direction,
-  ]);
+  external void setSelectionRange(int start, int end, [String direction]);
 
   /// The **`autocomplete`** property of the [HTMLTextAreaElement] interface
   /// indicates whether the value of the control can be automatically completed
@@ -8218,10 +8189,7 @@ extension type ValidityState._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SubmitEvent).
 extension type SubmitEvent._(JSObject _) implements Event, JSObject {
-  external factory SubmitEvent(
-    String type, [
-    SubmitEventInit eventInitDict,
-  ]);
+  external factory SubmitEvent(String type, [SubmitEventInit eventInitDict]);
 
   /// The read-only **`submitter`** property found on
   /// the [SubmitEvent] interface specifies the submit button or other element
@@ -8257,10 +8225,7 @@ extension type SubmitEventInit._(JSObject _) implements EventInit, JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/FormDataEvent).
 extension type FormDataEvent._(JSObject _) implements Event, JSObject {
-  external factory FormDataEvent(
-    String type,
-    FormDataEventInit eventInitDict,
-  );
+  external factory FormDataEvent(String type, FormDataEventInit eventInitDict);
 
   /// The `formData` read-only property of the [FormDataEvent]
   /// interface contains the [FormData] object representing the data contained
@@ -8710,10 +8675,7 @@ extension type HTMLCanvasElement._(JSObject _)
   /// instance as was returned the first time the method was invoked. It is not
   /// possible to get a different drawing context object on a given canvas
   /// element.
-  external RenderingContext? getContext(
-    String contextId, [
-    JSAny? options,
-  ]);
+  external RenderingContext? getContext(String contextId, [JSAny? options]);
 
   /// The **`HTMLCanvasElement.toDataURL()`** method returns a
   /// [data URL](https://developer.mozilla.org/en-US/docs/Web/URI/Reference/Schemes/data)
@@ -8738,10 +8700,7 @@ extension type HTMLCanvasElement._(JSObject _)
   /// > [HTMLImageElement.src]. You should generally prefer
   /// > [`toBlob()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toBlob)
   /// > instead, in combination with [URL.createObjectURL_static].
-  external String toDataURL([
-    String type,
-    JSAny? quality,
-  ]);
+  external String toDataURL([String type, JSAny? quality]);
 
   /// The **`HTMLCanvasElement.toBlob()`** method creates a [Blob] object
   /// representing the image contained in the canvas.
@@ -8756,11 +8715,7 @@ extension type HTMLCanvasElement._(JSObject _)
   ///
   /// The created image will have a resolution of 96dpi for file formats that
   /// support encoding resolution metadata.
-  external void toBlob(
-    BlobCallback callback, [
-    String type,
-    JSAny? quality,
-  ]);
+  external void toBlob(BlobCallback callback, [String type, JSAny? quality]);
 
   /// The **`HTMLCanvasElement.transferControlToOffscreen()`** method transfers
   /// control to an [OffscreenCanvas] object, either on the main thread or on a
@@ -8976,10 +8931,7 @@ extension type CanvasRenderingContext2D._(JSObject _) implements JSObject {
   /// of 2.0 increases the unit size so that one unit becomes two pixels; shapes
   /// are thus
   /// drawn at twice the normal size.
-  external void scale(
-    num x,
-    num y,
-  );
+  external void scale(num x, num y);
 
   /// The
   /// **`CanvasRenderingContext2D.rotate()`**
@@ -8990,10 +8942,7 @@ extension type CanvasRenderingContext2D._(JSObject _) implements JSObject {
   /// **`CanvasRenderingContext2D.translate()`**
   /// method of the Canvas 2D API adds a translation transformation to the
   /// current matrix.
-  external void translate(
-    num x,
-    num y,
-  );
+  external void translate(num x, num y);
 
   /// The
   /// **`CanvasRenderingContext2D.transform()`**
@@ -9008,14 +8957,7 @@ extension type CanvasRenderingContext2D._(JSObject _) implements JSObject {
   /// > [CanvasRenderingContext2D.setTransform] method, which
   /// > resets the current transform to the identity matrix and then invokes
   /// > `transform()`.
-  external void transform(
-    num a,
-    num b,
-    num c,
-    num d,
-    num e,
-    num f,
-  );
+  external void transform(num a, num b, num c, num d, num e, num f);
 
   /// The **`CanvasRenderingContext2D.getTransform()`** method of the Canvas 2D
   /// API retrieves the current transformation matrix being applied to the
@@ -9068,12 +9010,7 @@ extension type CanvasRenderingContext2D._(JSObject _) implements JSObject {
   /// > coordinate space. When applied to a shape, the coordinates are NOT
   /// > relative to the
   /// > shape's coordinates.
-  external CanvasGradient createLinearGradient(
-    num x0,
-    num y0,
-    num x1,
-    num y1,
-  );
+  external CanvasGradient createLinearGradient(num x0, num y0, num x1, num y1);
 
   /// The
   /// **`CanvasRenderingContext2D.createRadialGradient()`**
@@ -9112,11 +9049,7 @@ extension type CanvasRenderingContext2D._(JSObject _) implements JSObject {
   /// > Gradient coordinates are global, i.e., relative to the current
   /// > coordinate space. When applied to a shape, the coordinates are NOT
   /// > relative to the shape's coordinates.
-  external CanvasGradient createConicGradient(
-    num startAngle,
-    num x,
-    num y,
-  );
+  external CanvasGradient createConicGradient(num startAngle, num x, num y);
 
   /// The **`CanvasRenderingContext2D.createPattern()`** method of the Canvas 2D
   /// API creates a pattern using the specified image and repetition.
@@ -9145,12 +9078,7 @@ extension type CanvasRenderingContext2D._(JSObject _) implements JSObject {
   /// > Make sure to call
   /// > [CanvasRenderingContext2D.beginPath] before starting to
   /// > draw new items after calling `clearRect()`.
-  external void clearRect(
-    num x,
-    num y,
-    num w,
-    num h,
-  );
+  external void clearRect(num x, num y, num w, num h);
 
   /// The
   /// **`CanvasRenderingContext2D.fillRect()`**
@@ -9163,12 +9091,7 @@ extension type CanvasRenderingContext2D._(JSObject _) implements JSObject {
   /// subsequent [CanvasRenderingContext2D.fill] or
   /// [CanvasRenderingContext2D.stroke] calls will have no effect
   /// on it.
-  external void fillRect(
-    num x,
-    num y,
-    num w,
-    num h,
-  );
+  external void fillRect(num x, num y, num w, num h);
 
   /// The
   /// **`CanvasRenderingContext2D.strokeRect()`**
@@ -9182,12 +9105,7 @@ extension type CanvasRenderingContext2D._(JSObject _) implements JSObject {
   /// subsequent [CanvasRenderingContext2D.fill] or
   /// [CanvasRenderingContext2D.stroke] calls will have no effect
   /// on it.
-  external void strokeRect(
-    num x,
-    num y,
-    num w,
-    num h,
-  );
+  external void strokeRect(num x, num y, num w, num h);
 
   /// The
   /// **`CanvasRenderingContext2D.beginPath()`**
@@ -9205,10 +9123,7 @@ extension type CanvasRenderingContext2D._(JSObject _) implements JSObject {
   /// method of the Canvas 2D API fills the current or given path with the
   /// current
   /// [CanvasRenderingContext2D.fillStyle].
-  external void fill([
-    JSAny fillRuleOrPath,
-    CanvasFillRule fillRule,
-  ]);
+  external void fill([JSAny fillRuleOrPath, CanvasFillRule fillRule]);
 
   /// The
   /// **`CanvasRenderingContext2D.stroke()`**
@@ -9254,10 +9169,7 @@ extension type CanvasRenderingContext2D._(JSObject _) implements JSObject {
   /// > using [CanvasRenderingContext2D.save] before calling `clip()`, and
   /// > restore it once you have finished drawing in the clipped area using
   /// > [CanvasRenderingContext2D.restore].
-  external void clip([
-    JSAny fillRuleOrPath,
-    CanvasFillRule fillRule,
-  ]);
+  external void clip([JSAny fillRuleOrPath, CanvasFillRule fillRule]);
 
   /// The
   /// **`CanvasRenderingContext2D.isPointInPath()`**
@@ -9276,21 +9188,14 @@ extension type CanvasRenderingContext2D._(JSObject _) implements JSObject {
   /// method of the Canvas 2D API reports whether or not the specified point is
   /// inside the
   /// area contained by the stroking of a path.
-  external bool isPointInStroke(
-    JSAny pathOrX,
-    num xOrY, [
-    num y,
-  ]);
+  external bool isPointInStroke(JSAny pathOrX, num xOrY, [num y]);
 
   /// The
   /// **`CanvasRenderingContext2D.drawFocusIfNeeded()`**
   /// method of the Canvas 2D API draws a focus ring around the current or given
   /// path, if the
   /// specified element is focused.
-  external void drawFocusIfNeeded(
-    JSObject elementOrPath, [
-    Element element,
-  ]);
+  external void drawFocusIfNeeded(JSObject elementOrPath, [Element element]);
 
   /// The [CanvasRenderingContext2D] method
   /// **`fillText()`**, part of the Canvas 2D API, draws a text string
@@ -9316,12 +9221,7 @@ extension type CanvasRenderingContext2D._(JSObject _) implements JSObject {
   /// > [!NOTE]
   /// > To draw the outlines of the characters in a string, call the context's
   /// > [CanvasRenderingContext2D.strokeText] method.
-  external void fillText(
-    String text,
-    num x,
-    num y, [
-    num maxWidth,
-  ]);
+  external void fillText(String text, num x, num y, [num maxWidth]);
 
   /// The [CanvasRenderingContext2D] method
   /// **`strokeText()`**, part of the Canvas 2D API, strokes — that
@@ -9341,12 +9241,7 @@ extension type CanvasRenderingContext2D._(JSObject _) implements JSObject {
   /// > [!NOTE]
   /// > Use the [CanvasRenderingContext2D.fillText] method to
   /// > fill the text characters rather than having just their outlines drawn.
-  external void strokeText(
-    String text,
-    num x,
-    num y, [
-    num maxWidth,
-  ]);
+  external void strokeText(String text, num x, num y, [num maxWidth]);
 
   /// The
   /// `CanvasRenderingContext2D.measureText()`
@@ -9462,10 +9357,7 @@ extension type CanvasRenderingContext2D._(JSObject _) implements JSObject {
   /// method of the Canvas 2D API begins a new sub-path at the point specified
   /// by the given
   /// `(x, y)` coordinates.
-  external void moveTo(
-    num x,
-    num y,
-  );
+  external void moveTo(num x, num y);
 
   /// The [CanvasRenderingContext2D] method
   /// **`lineTo()`**, part of the Canvas 2D API, adds a straight line
@@ -9478,10 +9370,7 @@ extension type CanvasRenderingContext2D._(JSObject _) implements JSObject {
   /// anything. To draw the path onto a canvas, you can use the
   /// [CanvasRenderingContext2D.fill] or
   /// [CanvasRenderingContext2D.stroke] methods.
-  external void lineTo(
-    num x,
-    num y,
-  );
+  external void lineTo(num x, num y);
 
   /// The
   /// **`CanvasRenderingContext2D.quadraticCurveTo()`**
@@ -9494,12 +9383,7 @@ extension type CanvasRenderingContext2D._(JSObject _) implements JSObject {
   /// which can be
   /// changed using [CanvasRenderingContext2D.moveTo] before creating
   /// the quadratic Bézier curve.
-  external void quadraticCurveTo(
-    num cpx,
-    num cpy,
-    num x,
-    num y,
-  );
+  external void quadraticCurveTo(num cpx, num cpy, num x, num y);
 
   /// The
   /// **`CanvasRenderingContext2D.bezierCurveTo()`**
@@ -9535,13 +9419,7 @@ extension type CanvasRenderingContext2D._(JSObject _) implements JSObject {
   /// > relatively large radius: the arc's connecting line will go in whatever
   /// > direction it
   /// > must to meet the specified radius.
-  external void arcTo(
-    num x1,
-    num y1,
-    num x2,
-    num y2,
-    num radius,
-  );
+  external void arcTo(num x1, num y1, num x2, num y2, num radius);
 
   /// The
   /// **`CanvasRenderingContext2D.rect()`**
@@ -9557,12 +9435,7 @@ extension type CanvasRenderingContext2D._(JSObject _) implements JSObject {
   /// > To both create and render a rectangle in one step, use the
   /// > [CanvasRenderingContext2D.fillRect] or
   /// > [CanvasRenderingContext2D.strokeRect] methods.
-  external void rect(
-    num x,
-    num y,
-    num w,
-    num h,
-  );
+  external void rect(num x, num y, num w, num h);
 
   /// The **`CanvasRenderingContext2D.roundRect()`** method of the Canvas 2D API
   /// adds a rounded rectangle to the current path.
@@ -9576,13 +9449,7 @@ extension type CanvasRenderingContext2D._(JSObject _) implements JSObject {
   /// To draw the rounded rectangle onto a canvas, you can use the
   /// [CanvasRenderingContext2D.fill] or [CanvasRenderingContext2D.stroke]
   /// methods.
-  external void roundRect(
-    num x,
-    num y,
-    num w,
-    num h, [
-    JSAny radii,
-  ]);
+  external void roundRect(num x, num y, num w, num h, [JSAny radii]);
 
   /// The
   /// **`CanvasRenderingContext2D.arc()`**
@@ -9983,10 +9850,7 @@ extension type CanvasRenderingContext2D._(JSObject _) implements JSObject {
 extension type CanvasGradient._(JSObject _) implements JSObject {
   /// The **`CanvasGradient.addColorStop()`** method adds a new color stop,
   /// defined by an `offset` and a `color`, to a given canvas gradient.
-  external void addColorStop(
-    num offset,
-    String color,
-  );
+  external void addColorStop(num offset, String color);
 }
 
 /// The **`CanvasPattern`** interface represents an
@@ -10163,25 +10027,11 @@ extension type Path2D._(JSObject _) implements JSObject {
   /// The **`Path2D.addPath()`** method
   /// of the Canvas 2D API adds one [Path2D] object to another
   /// `Path2D` object.
-  external void addPath(
-    Path2D path, [
-    DOMMatrix2DInit transform,
-  ]);
+  external void addPath(Path2D path, [DOMMatrix2DInit transform]);
   external void closePath();
-  external void moveTo(
-    num x,
-    num y,
-  );
-  external void lineTo(
-    num x,
-    num y,
-  );
-  external void quadraticCurveTo(
-    num cpx,
-    num cpy,
-    num x,
-    num y,
-  );
+  external void moveTo(num x, num y);
+  external void lineTo(num x, num y);
+  external void quadraticCurveTo(num cpx, num cpy, num x, num y);
   external void bezierCurveTo(
     num cp1x,
     num cp1y,
@@ -10190,26 +10040,9 @@ extension type Path2D._(JSObject _) implements JSObject {
     num x,
     num y,
   );
-  external void arcTo(
-    num x1,
-    num y1,
-    num x2,
-    num y2,
-    num radius,
-  );
-  external void rect(
-    num x,
-    num y,
-    num w,
-    num h,
-  );
-  external void roundRect(
-    num x,
-    num y,
-    num w,
-    num h, [
-    JSAny radii,
-  ]);
+  external void arcTo(num x1, num y1, num x2, num y2, num radius);
+  external void rect(num x, num y, num w, num h);
+  external void roundRect(num x, num y, num w, num h, [JSAny radii]);
   external void arc(
     num x,
     num y,
@@ -10265,10 +10098,7 @@ extension type ImageBitmapRenderingContext._(JSObject _) implements JSObject {
   external JSObject get canvas;
 }
 extension type ImageEncodeOptions._(JSObject _) implements JSObject {
-  external factory ImageEncodeOptions({
-    String type,
-    num quality,
-  });
+  external factory ImageEncodeOptions({String type, num quality});
 
   external String get type;
   external set type(String value);
@@ -10299,10 +10129,7 @@ extension type ImageEncodeOptions._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/OffscreenCanvas).
 extension type OffscreenCanvas._(JSObject _) implements EventTarget, JSObject {
-  external factory OffscreenCanvas(
-    int width,
-    int height,
-  );
+  external factory OffscreenCanvas(int width, int height);
 
   /// The **`OffscreenCanvas.getContext()`** method returns a drawing context
   /// for an offscreen canvas, or
@@ -10371,23 +10198,10 @@ extension type OffscreenCanvasRenderingContext2D._(JSObject _)
   external void restore();
   external void reset();
   external bool isContextLost();
-  external void scale(
-    num x,
-    num y,
-  );
+  external void scale(num x, num y);
   external void rotate(num angle);
-  external void translate(
-    num x,
-    num y,
-  );
-  external void transform(
-    num a,
-    num b,
-    num c,
-    num d,
-    num e,
-    num f,
-  );
+  external void translate(num x, num y);
+  external void transform(num a, num b, num c, num d, num e, num f);
   external DOMMatrix getTransform();
   external void setTransform([
     JSAny aOrTransform,
@@ -10398,12 +10212,7 @@ extension type OffscreenCanvasRenderingContext2D._(JSObject _)
     num f,
   ]);
   external void resetTransform();
-  external CanvasGradient createLinearGradient(
-    num x0,
-    num y0,
-    num x1,
-    num y1,
-  );
+  external CanvasGradient createLinearGradient(num x0, num y0, num x1, num y1);
   external CanvasGradient createRadialGradient(
     num x0,
     num y0,
@@ -10412,66 +10221,27 @@ extension type OffscreenCanvasRenderingContext2D._(JSObject _)
     num y1,
     num r1,
   );
-  external CanvasGradient createConicGradient(
-    num startAngle,
-    num x,
-    num y,
-  );
+  external CanvasGradient createConicGradient(num startAngle, num x, num y);
   external CanvasPattern? createPattern(
     CanvasImageSource image,
     String repetition,
   );
-  external void clearRect(
-    num x,
-    num y,
-    num w,
-    num h,
-  );
-  external void fillRect(
-    num x,
-    num y,
-    num w,
-    num h,
-  );
-  external void strokeRect(
-    num x,
-    num y,
-    num w,
-    num h,
-  );
+  external void clearRect(num x, num y, num w, num h);
+  external void fillRect(num x, num y, num w, num h);
+  external void strokeRect(num x, num y, num w, num h);
   external void beginPath();
-  external void fill([
-    JSAny fillRuleOrPath,
-    CanvasFillRule fillRule,
-  ]);
+  external void fill([JSAny fillRuleOrPath, CanvasFillRule fillRule]);
   external void stroke([Path2D path]);
-  external void clip([
-    JSAny fillRuleOrPath,
-    CanvasFillRule fillRule,
-  ]);
+  external void clip([JSAny fillRuleOrPath, CanvasFillRule fillRule]);
   external bool isPointInPath(
     JSAny pathOrX,
     num xOrY, [
     JSAny fillRuleOrY,
     CanvasFillRule fillRule,
   ]);
-  external bool isPointInStroke(
-    JSAny pathOrX,
-    num xOrY, [
-    num y,
-  ]);
-  external void fillText(
-    String text,
-    num x,
-    num y, [
-    num maxWidth,
-  ]);
-  external void strokeText(
-    String text,
-    num x,
-    num y, [
-    num maxWidth,
-  ]);
+  external bool isPointInStroke(JSAny pathOrX, num xOrY, [num y]);
+  external void fillText(String text, num x, num y, [num maxWidth]);
+  external void strokeText(String text, num x, num y, [num maxWidth]);
   external TextMetrics measureText(String text);
   external void drawImage(
     CanvasImageSource image,
@@ -10508,20 +10278,9 @@ extension type OffscreenCanvasRenderingContext2D._(JSObject _)
   external void setLineDash(JSArray<JSNumber> segments);
   external JSArray<JSNumber> getLineDash();
   external void closePath();
-  external void moveTo(
-    num x,
-    num y,
-  );
-  external void lineTo(
-    num x,
-    num y,
-  );
-  external void quadraticCurveTo(
-    num cpx,
-    num cpy,
-    num x,
-    num y,
-  );
+  external void moveTo(num x, num y);
+  external void lineTo(num x, num y);
+  external void quadraticCurveTo(num cpx, num cpy, num x, num y);
   external void bezierCurveTo(
     num cp1x,
     num cp1y,
@@ -10530,26 +10289,9 @@ extension type OffscreenCanvasRenderingContext2D._(JSObject _)
     num x,
     num y,
   );
-  external void arcTo(
-    num x1,
-    num y1,
-    num x2,
-    num y2,
-    num radius,
-  );
-  external void rect(
-    num x,
-    num y,
-    num w,
-    num h,
-  );
-  external void roundRect(
-    num x,
-    num y,
-    num w,
-    num h, [
-    JSAny radii,
-  ]);
+  external void arcTo(num x1, num y1, num x2, num y2, num radius);
+  external void rect(num x, num y, num w, num h);
+  external void roundRect(num x, num y, num w, num h, [JSAny radii]);
   external void arc(
     num x,
     num y,
@@ -10688,10 +10430,7 @@ extension type ElementInternals._(JSObject _) implements JSObject {
   /// The **`setFormValue()`** method of the [ElementInternals] interface sets
   /// the element's submission value and state, communicating these to the user
   /// agent.
-  external void setFormValue(
-    JSAny? value, [
-    JSAny? state,
-  ]);
+  external void setFormValue(JSAny? value, [JSAny? state]);
 
   /// The **`setValidity()`** method of the [ElementInternals] interface sets
   /// the validity of the element.
@@ -11493,10 +11232,7 @@ extension type UserActivation._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ToggleEvent).
 extension type ToggleEvent._(JSObject _) implements Event, JSObject {
-  external factory ToggleEvent(
-    String type, [
-    ToggleEventInit eventInitDict,
-  ]);
+  external factory ToggleEvent(String type, [ToggleEventInit eventInitDict]);
 
   /// The **`oldState`** read-only property of the [ToggleEvent] interface is a
   /// string representing the state the element is transitioning from.
@@ -11521,10 +11257,7 @@ extension type ToggleEventInit._(JSObject _) implements EventInit, JSObject {
   external set newState(String value);
 }
 extension type FocusOptions._(JSObject _) implements JSObject {
-  external factory FocusOptions({
-    bool preventScroll,
-    bool focusVisible,
-  });
+  external factory FocusOptions({bool preventScroll, bool focusVisible});
 
   external bool get preventScroll;
   external set preventScroll(bool value);
@@ -11574,11 +11307,7 @@ extension type DataTransfer._(JSObject _) implements JSObject {
   ///
   /// This method must be called in the [HTMLElement.dragstart_event] event
   /// handler.
-  external void setDragImage(
-    Element image,
-    int x,
-    int y,
-  );
+  external void setDragImage(Element image, int x, int y);
 
   /// The **`DataTransfer.getData()`**
   /// method retrieves drag data (as a string) for the specified type.
@@ -11602,10 +11331,7 @@ extension type DataTransfer._(JSObject _) implements JSObject {
   /// same type.
   ///
   /// Example data types are `text/plain` and `text/uri-list`.
-  external void setData(
-    String format,
-    String data,
-  );
+  external void setData(String format, String data);
 
   /// The **`DataTransfer.clearData()`** method removes the drag
   /// operation's
@@ -11762,10 +11488,7 @@ extension type DataTransferItemList._(JSObject _) implements JSObject {
   /// given type. If the item is successfully added to the list, the
   /// newly-created
   /// [DataTransferItem] object is returned.
-  external DataTransferItem? add(
-    JSAny data, [
-    String type,
-  ]);
+  external DataTransferItem? add(JSAny data, [String type]);
 
   /// The **`DataTransferItemList.remove()`** method removes the
   /// [DataTransferItem] at the specified index from the list. If the index is
@@ -11865,10 +11588,7 @@ extension type DataTransferItem._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DragEvent).
 extension type DragEvent._(JSObject _) implements MouseEvent, JSObject {
-  external factory DragEvent(
-    String type, [
-    DragEventInit eventInitDict,
-  ]);
+  external factory DragEvent(String type, [DragEventInit eventInitDict]);
 
   /// The **`DragEvent.dataTransfer`** read-only property holds the drag
   /// operation's data (as a [DataTransfer] object).
@@ -11995,11 +11715,7 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// context (that is, a tab, a window, or an
   /// [iframe](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe))
   /// under a specified name.
-  external Window? open([
-    String url,
-    String target,
-    String features,
-  ]);
+  external Window? open([String url, String target, String features]);
   external JSObject operator [](String name);
 
   /// `window.alert()` instructs the browser to display a dialog with an
@@ -12026,10 +11742,7 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// Under some conditions (when the user switches tabs, for example) the
   /// browser may not display a dialog, or may not wait for the user to submit
   /// text or to cancel the dialog.
-  external String? prompt([
-    String message,
-    String default_,
-  ]);
+  external String? prompt([String message, String default_]);
 
   /// Opens the print dialog to print the current document.
   ///
@@ -12090,10 +11803,7 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// > This function moves the window to an absolute location. In
   /// > contrast, [window.moveBy] moves the window relative to its current
   /// > location.
-  external void moveTo(
-    int x,
-    int y,
-  );
+  external void moveTo(int x, int y);
 
   /// The **`moveBy()`** method of the [Window]
   /// interface moves the current window by a specified amount.
@@ -12102,45 +11812,27 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// > This function moves the window relative to its current
   /// > location. In contrast, [window.moveTo] moves the window to an absolute
   /// > location.
-  external void moveBy(
-    int x,
-    int y,
-  );
+  external void moveBy(int x, int y);
 
   /// The **`Window.resizeTo()`** method dynamically resizes the
   /// window.
-  external void resizeTo(
-    int width,
-    int height,
-  );
+  external void resizeTo(int width, int height);
 
   /// The **`Window.resizeBy()`** method resizes the current window
   /// by a specified amount.
-  external void resizeBy(
-    int x,
-    int y,
-  );
+  external void resizeBy(int x, int y);
 
   /// The **`Window.scroll()`** method scrolls the window to a
   /// particular place in the document.
-  external void scroll([
-    JSAny optionsOrX,
-    num y,
-  ]);
+  external void scroll([JSAny optionsOrX, num y]);
 
   /// **`Window.scrollTo()`** scrolls to a particular set of
   /// coordinates in the document.
-  external void scrollTo([
-    JSAny optionsOrX,
-    num y,
-  ]);
+  external void scrollTo([JSAny optionsOrX, num y]);
 
   /// The **`Window.scrollBy()`** method scrolls the document in the
   /// window by the given amount.
-  external void scrollBy([
-    JSAny optionsOrX,
-    num y,
-  ]);
+  external void scrollBy([JSAny optionsOrX, num y]);
 
   /// The
   /// **`Window.getComputedStyle()`** method returns an object
@@ -12367,10 +12059,7 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// > [!NOTE]
   /// > The `fetch()` method's parameters are identical to those of the
   /// > [Request.Request] constructor.
-  external JSPromise<Response> fetch(
-    RequestInfo input, [
-    RequestInit init,
-  ]);
+  external JSPromise<Response> fetch(RequestInfo input, [RequestInit init]);
 
   /// The **`window.requestAnimationFrame()`** method tells the
   /// browser you wish to perform an animation. It requests the browser to call
@@ -13440,11 +13129,7 @@ extension type History._(JSObject _) implements JSObject {
   /// The **`pushState()`** method of the [History] interface adds an entry to
   /// the browser's
   /// session history stack.
-  external void pushState(
-    JSAny? data,
-    String unused, [
-    String? url,
-  ]);
+  external void pushState(JSAny? data, String unused, [String? url]);
 
   /// The **`replaceState()`** method of the [History] interface modifies the
   /// current
@@ -13453,11 +13138,7 @@ extension type History._(JSObject _) implements JSObject {
   /// when you want to update the state object or URL of the current history
   /// entry in response
   /// to some user action.
-  external void replaceState(
-    JSAny? data,
-    String unused, [
-    String? url,
-  ]);
+  external void replaceState(JSAny? data, String unused, [String? url]);
 
   /// The **`length`** read-only property of the [History] interface
   /// returns an integer representing the number of entries in the session
@@ -13748,10 +13429,7 @@ extension type BeforeUnloadEvent._(JSObject _) implements Event, JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ErrorEvent).
 extension type ErrorEvent._(JSObject _) implements Event, JSObject {
-  external factory ErrorEvent(
-    String type, [
-    ErrorEventInit eventInitDict,
-  ]);
+  external factory ErrorEvent(String type, [ErrorEventInit eventInitDict]);
 
   /// The **`message`** read-only property of the [ErrorEvent] interface returns
   /// a string containing a human-readable error message describing the problem.
@@ -13899,10 +13577,7 @@ extension type DOMParser._(JSObject _) implements JSObject {
   /// > [`Document.parseHTMLUnsafe()`](https://developer.mozilla.org/en-US/docs/Web/API/Document/parseHTMLUnsafe_static)
   /// > static method provides an ergonomic alternative for parsing HTML strings
   /// > into a [Document].
-  external Document parseFromString(
-    JSAny string,
-    DOMParserSupportedType type,
-  );
+  external Document parseFromString(JSAny string, DOMParserSupportedType type);
 }
 
 /// The **`Navigator`** interface represents the state and the identity of the
@@ -13951,10 +13626,7 @@ extension type Navigator._(JSObject _) implements JSObject {
   /// > method with
   /// > [`keepalive`](https://developer.mozilla.org/en-US/docs/Web/API/RequestInit#keepalive)
   /// > set to true.
-  external bool sendBeacon(
-    String url, [
-    BodyInit? data,
-  ]);
+  external bool sendBeacon(String url, [BodyInit? data]);
 
   /// The **`requestMediaKeySystemAccess()`** method of the [Navigator]
   /// interface returns a `Promise` which delivers a [MediaKeySystemAccess]
@@ -14102,19 +13774,13 @@ extension type Navigator._(JSObject _) implements JSObject {
   /// The browser may ask the user to confirm that they want the page to be
   /// allowed to handle the protocol, either when the protocol is registered or
   /// when the user activates the link.
-  external void registerProtocolHandler(
-    String scheme,
-    String url,
-  );
+  external void registerProtocolHandler(String scheme, String url);
 
   /// The **[Navigator]** method **`unregisterProtocolHandler()`** removes a
   /// protocol handler for a given URL [scheme](#permitted_schemes).
   ///
   /// This method is the inverse of **`registerProtocolHandler()`**.
-  external void unregisterProtocolHandler(
-    String scheme,
-    String url,
-  );
+  external void unregisterProtocolHandler(String scheme, String url);
 
   /// This method always returns false.
   external bool javaEnabled();
@@ -14699,10 +14365,7 @@ extension type ImageBitmapOptions._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MessageEvent).
 extension type MessageEvent._(JSObject _) implements Event, JSObject {
-  external factory MessageEvent(
-    String type, [
-    MessageEventInit eventInitDict,
-  ]);
+  external factory MessageEvent(String type, [MessageEventInit eventInitDict]);
 
   external void initMessageEvent(
     String type, [
@@ -14902,10 +14565,7 @@ extension type MessagePort._(JSObject _) implements EventTarget, JSObject {
   /// The **`postMessage()`** method of the
   /// [MessagePort] interface sends a message from the port, and optionally,
   /// transfers ownership of objects to other browsing contexts.
-  external void postMessage(
-    JSAny? message, [
-    JSObject optionsOrTransfer,
-  ]);
+  external void postMessage(JSAny? message, [JSObject optionsOrTransfer]);
 
   /// The **`start()`** method of the [MessagePort]
   /// interface starts the sending of messages queued on the port. This method
@@ -15001,12 +14661,7 @@ extension type WorkerGlobalScope._(JSObject _)
   ///
   /// The **`importScripts()`** method of the [WorkerGlobalScope] interface
   /// synchronously imports one or more scripts into the worker's scope.
-  external void importScripts([
-    JSAny url1,
-    JSAny url2,
-    JSAny url3,
-    JSAny url4,
-  ]);
+  external void importScripts([JSAny url1, JSAny url2, JSAny url3, JSAny url4]);
 
   /// @AvailableInWorkers("worker")
   ///
@@ -15189,10 +14844,7 @@ extension type WorkerGlobalScope._(JSObject _)
   /// > [!NOTE]
   /// > The `fetch()` method's parameters are identical to those of the
   /// > [Request.Request] constructor.
-  external JSPromise<Response> fetch(
-    RequestInfo input, [
-    RequestInit init,
-  ]);
+  external JSPromise<Response> fetch(RequestInfo input, [RequestInit init]);
 
   /// @AvailableInWorkers("worker")
   ///
@@ -15405,10 +15057,7 @@ extension type DedicatedWorkerGlobalScope._(JSObject _)
   ///
   /// The main scope that spawned the worker can send back information to the
   /// thread that spawned it using the [Worker.postMessage] method.
-  external void postMessage(
-    JSAny? message, [
-    JSObject optionsOrTransfer,
-  ]);
+  external void postMessage(JSAny? message, [JSObject optionsOrTransfer]);
 
   /// @AvailableInWorkers("dedicated")
   ///
@@ -15530,10 +15179,7 @@ extension type SharedWorkerGlobalScope._(JSObject _)
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Worker).
 extension type Worker._(JSObject _) implements EventTarget, JSObject {
-  external factory Worker(
-    JSAny scriptURL, [
-    WorkerOptions options,
-  ]);
+  external factory Worker(JSAny scriptURL, [WorkerOptions options]);
 
   /// @AvailableInWorkers("window_and_worker_except_service")
   ///
@@ -15555,10 +15201,7 @@ extension type Worker._(JSObject _) implements EventTarget, JSObject {
   ///
   /// The `Worker` can send back information to the thread that spawned it using
   /// the [DedicatedWorkerGlobalScope.postMessage] method.
-  external void postMessage(
-    JSAny? message, [
-    JSObject optionsOrTransfer,
-  ]);
+  external void postMessage(JSAny? message, [JSObject optionsOrTransfer]);
   external EventHandler get onerror;
   external set onerror(EventHandler value);
   external EventHandler get onmessage;
@@ -15597,10 +15240,7 @@ extension type WorkerOptions._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SharedWorker).
 extension type SharedWorker._(JSObject _) implements EventTarget, JSObject {
-  external factory SharedWorker(
-    JSAny scriptURL, [
-    JSAny options,
-  ]);
+  external factory SharedWorker(JSAny scriptURL, [JSAny options]);
 
   /// The **`port`** property of the [SharedWorker]
   /// interface returns a [MessagePort] object used to communicate and control
@@ -16017,10 +15657,7 @@ extension type Storage._(JSObject _) implements JSObject {
   /// interface, when passed a key name and value, will add that key to the
   /// given
   /// `Storage` object, or update that key's value if it already exists.
-  external void setItem(
-    String key,
-    String value,
-  );
+  external void setItem(String key, String value);
 
   /// The **`removeItem()`** method of the [Storage]
   /// interface, when passed a key name, will remove that key from the given
@@ -16055,10 +15692,7 @@ extension type Storage._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/StorageEvent).
 extension type StorageEvent._(JSObject _) implements Event, JSObject {
-  external factory StorageEvent(
-    String type, [
-    StorageEventInit eventInitDict,
-  ]);
+  external factory StorageEvent(String type, [StorageEventInit eventInitDict]);
 
   /// The **`StorageEvent.initStorageEvent()`** method is used to initialize the
   /// value of a [StorageEvent].

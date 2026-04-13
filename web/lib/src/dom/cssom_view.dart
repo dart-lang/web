@@ -196,8 +196,9 @@ extension type Screen._(JSObject _) implements JSObject {
   external ScreenOrientation get orientation;
 }
 extension type CaretPositionFromPointOptions._(JSObject _) implements JSObject {
-  external factory CaretPositionFromPointOptions(
-      {JSArray<ShadowRoot> shadowRoots});
+  external factory CaretPositionFromPointOptions({
+    JSArray<ShadowRoot> shadowRoots,
+  });
 
   external JSArray<ShadowRoot> get shadowRoots;
   external set shadowRoots(JSArray<ShadowRoot> value);

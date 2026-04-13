@@ -20,13 +20,24 @@ Future<void> compileBindingsGen() async {
   final raf = await lockFile.open(mode: FileMode.write);
   await raf.lock(FileLock.blockingExclusive);
   try {
-    if (!_needsCompile()) return;
+    if (_needsCompile()) {
+      // set up npm
+      final packageJson = File(p.join(bindingsGenPath, 'package.json'));
+      final npmMarker = File(p.join(bindingsGenPath, '.last_npm_install'));
 
-    // set up npm
-    await runProc('npm', ['install'], workingDirectory: bindingsGenPath);
+      if (!Directory(p.join(bindingsGenPath, 'node_modules')).existsSync() ||
+          (packageJson.existsSync() &&
+              (!npmMarker.existsSync() ||
+                  packageJson.statSync().modified.isAfter(
+                    npmMarker.statSync().modified,
+                  )))) {
+        await runProc('npm', ['install'], workingDirectory: bindingsGenPath);
+        npmMarker.writeAsStringSync(DateTime.now().toIso8601String());
+      }
 
-    // compile file
-    await compileDartMain(dir: bindingsGenPath);
+      // compile file
+      await compileDartMain(dir: bindingsGenPath);
+    }
   } finally {
     await raf.unlock();
     await raf.close();
@@ -41,6 +52,21 @@ bool _needsCompile() {
   if (!jsFile.existsSync()) return true;
 
   final jsStat = jsFile.statSync();
+
+  // Check package.json
+  final packageJson = File(p.join(bindingsGenPath, 'package.json'));
+  if (packageJson.existsSync() &&
+      packageJson.statSync().modified.isAfter(jsStat.modified)) {
+    return true;
+  }
+
+  // Check tsconfig.json
+  final tsConfig = File(p.join(bindingsGenPath, 'tsconfig.json'));
+  if (tsConfig.existsSync() &&
+      tsConfig.statSync().modified.isAfter(jsStat.modified)) {
+    return true;
+  }
+
   final srcDir = Directory(bindingsGenPath);
   for (final file in srcDir.listSync(recursive: true)) {
     if (file is File && file.path.endsWith('.dart')) {

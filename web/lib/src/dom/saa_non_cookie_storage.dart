@@ -58,10 +58,7 @@ extension type StorageAccessHandle._(JSObject _) implements JSObject {
   /// > [!NOTE]
   /// > See [SharedWorker.SharedWorker] to understand usage.
   @JS('SharedWorker')
-  external SharedWorker SharedWorker_(
-    String scriptURL, [
-    JSAny options,
-  ]);
+  external SharedWorker SharedWorker_(String scriptURL, [JSAny options]);
 
   /// The **`sessionStorage`** property of the [StorageAccessHandle] interface
   /// returns an unpartitioned session [Storage] object if access was granted,

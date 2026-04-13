@@ -86,10 +86,7 @@ extension type Selection._(JSObject _) implements JSObject {
   ///
   /// > [!NOTE]
   /// > This method is an alias for the [Selection.setPosition] method.
-  external void collapse(
-    Node? node, [
-    int offset,
-  ]);
+  external void collapse(Node? node, [int offset]);
 
   /// The **`Selection.setPosition()`** method collapses the current selection
   /// to a single point. The document is not modified. If the content is focused
@@ -97,10 +94,7 @@ extension type Selection._(JSObject _) implements JSObject {
   ///
   /// > [!NOTE]
   /// > This method is an alias for the [Selection.collapse] method.
-  external void setPosition(
-    Node? node, [
-    int offset,
-  ]);
+  external void setPosition(Node? node, [int offset]);
 
   /// The **`Selection.collapseToStart()`** method collapses the
   /// selection to the start of the first range in the selection. If the content
@@ -118,10 +112,7 @@ extension type Selection._(JSObject _) implements JSObject {
   /// selection to a specified point. The anchor of the selection does not move.
   /// The selection
   /// will be from the anchor to the new focus, regardless of direction.
-  external void extend(
-    Node node, [
-    int offset,
-  ]);
+  external void extend(Node node, [int offset]);
 
   /// The **`setBaseAndExtent()`** method of the [Selection] interface sets the
   /// selection to be a range including all or parts of two specified DOM nodes,
@@ -143,11 +134,7 @@ extension type Selection._(JSObject _) implements JSObject {
 
   /// The **`Selection.modify()`** method applies a change to the
   /// current selection or cursor position, using simple textual commands.
-  external void modify([
-    String alter,
-    String direction,
-    String granularity,
-  ]);
+  external void modify([String alter, String direction, String granularity]);
 
   /// The **`deleteFromDocument()`** method of the
   /// [Selection] interface invokes the [Range.deleteContents] method on the
@@ -156,10 +143,7 @@ extension type Selection._(JSObject _) implements JSObject {
 
   /// The **`Selection.containsNode()`** method indicates whether a
   /// specified node is part of the selection.
-  external bool containsNode(
-    Node node, [
-    bool allowPartialContainment,
-  ]);
+  external bool containsNode(Node node, [bool allowPartialContainment]);
 
   /// The **`Selection.anchorNode`** read-only property returns the
   /// [Node] in which the selection begins.

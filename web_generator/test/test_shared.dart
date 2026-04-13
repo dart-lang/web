@@ -33,11 +33,14 @@ Future<void> compileBindingsGen() async {
                   )))) {
         final nodeModules = Directory(p.join(bindingsGenPath, 'node_modules'));
         try {
-          if (nodeModules.existsSync()) {
-            nodeModules.deleteSync(recursive: true);
+          if (await nodeModules.exists()) {
+            await nodeModules.delete(recursive: true);
           }
-        } on PathNotFoundException {
-          // Ignore if already deleted by another isolate.
+        } on FileSystemException catch (e) {
+          // Ignore if already deleted or if we hit file locks.
+          if (await nodeModules.exists()) {
+            print('Warning: Failed to delete node_modules: $e');
+          }
         }
         await runProc('npm', ['install'], workingDirectory: bindingsGenPath);
         npmMarker.writeAsStringSync(DateTime.now().toIso8601String());

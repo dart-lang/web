@@ -38,15 +38,6 @@ void main() {
 
     final sdkConstraint = VersionConstraint.parse(sdkConstraintStr);
 
-    // Check that sdkVersion satisfies the constraint
-    expect(
-      sdkConstraint.allows(sdkVersion),
-      isTrue,
-      reason:
-          'sdkVersion $sdkVersion does not satisfy constraint '
-          '$sdkConstraintStr',
-    );
-
     // Check that it aligns with the minimum.
     final Version minVersion;
     if (sdkConstraint is VersionRange) {

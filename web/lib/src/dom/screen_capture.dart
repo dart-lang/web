@@ -17,6 +17,7 @@ import 'dart:js_interop';
 
 typedef SelfCapturePreferenceEnum = String;
 typedef SystemAudioPreferenceEnum = String;
+typedef WindowAudioPreferenceEnum = String;
 typedef SurfaceSwitchingPreferenceEnum = String;
 typedef MonitorTypeSurfacesEnum = String;
 extension type DisplayMediaStreamOptions._(JSObject _) implements JSObject {
@@ -26,6 +27,7 @@ extension type DisplayMediaStreamOptions._(JSObject _) implements JSObject {
     JSObject controller,
     SelfCapturePreferenceEnum selfBrowserSurface,
     SystemAudioPreferenceEnum systemAudio,
+    WindowAudioPreferenceEnum windowAudio,
     SurfaceSwitchingPreferenceEnum surfaceSwitching,
     MonitorTypeSurfacesEnum monitorTypeSurfaces,
   });
@@ -40,6 +42,8 @@ extension type DisplayMediaStreamOptions._(JSObject _) implements JSObject {
   external set selfBrowserSurface(SelfCapturePreferenceEnum value);
   external SystemAudioPreferenceEnum get systemAudio;
   external set systemAudio(SystemAudioPreferenceEnum value);
+  external WindowAudioPreferenceEnum get windowAudio;
+  external set windowAudio(WindowAudioPreferenceEnum value);
   external SurfaceSwitchingPreferenceEnum get surfaceSwitching;
   external set surfaceSwitching(SurfaceSwitchingPreferenceEnum value);
   external MonitorTypeSurfacesEnum get monitorTypeSurfaces;

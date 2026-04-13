@@ -38,5 +38,5 @@ extension type CSSNestedDeclarations._(JSObject _)
     implements CSSRule, JSObject {
   /// The read-only **`style`** property of the [CSSNestedDeclarations]
   /// interface represents the styles associated with the nested rules.
-  external JSObject get style;
+  external CSSStyleProperties get style;
 }

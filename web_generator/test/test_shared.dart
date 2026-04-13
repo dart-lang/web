@@ -17,7 +17,7 @@ final bindingsGenPath = p.join('lib', 'src');
 /// files, we skip the compile.
 Future<void> compileBindingsGen() async {
   final lockFile = File(p.join(bindingsGenPath, '.compile.lock'));
-  final raf = await lockFile.open(mode: FileMode.write);
+  final raf = await lockFile.open(mode: FileMode.append);
   await raf.lock(FileLock.blockingExclusive);
   try {
     if (_needsCompile()) {
@@ -31,6 +31,14 @@ Future<void> compileBindingsGen() async {
                   packageJson.statSync().modified.isAfter(
                     npmMarker.statSync().modified,
                   )))) {
+        final nodeModules = Directory(p.join(bindingsGenPath, 'node_modules'));
+        try {
+          if (nodeModules.existsSync()) {
+            nodeModules.deleteSync(recursive: true);
+          }
+        } on PathNotFoundException {
+          // Ignore if already deleted by another isolate.
+        }
         await runProc('npm', ['install'], workingDirectory: bindingsGenPath);
         npmMarker.writeAsStringSync(DateTime.now().toIso8601String());
       }

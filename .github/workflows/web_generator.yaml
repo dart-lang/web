@@ -38,6 +38,12 @@ jobs:
           sdk: ${{ matrix.sdk }}
 
       - run: dart pub get
+      - name: Install npm dependencies
+        run: npm install
+        working-directory: web_generator/lib/src
+      - name: Mark npm install as done
+        run: touch .last_npm_install
+        working-directory: web_generator/lib/src
       - run: dart format --output=none --set-exit-if-changed .
         if: matrix.sdk == 'dev' && matrix.test_config == ''
       - run: dart analyze --fatal-infos

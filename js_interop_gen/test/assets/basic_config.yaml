@@ -1,0 +1,5 @@
+name: IDL Demo Gen
+preamble: |
+  // GENERATED FILE: DO NOT EDIT
+input: intro.d.ts
+output: output.dart

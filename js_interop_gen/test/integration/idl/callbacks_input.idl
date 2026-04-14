@@ -1,0 +1,17 @@
+callback VoidCallback = void ();
+callback StringCallback = void (DOMString result);
+callback Comparator = long (DOMString a, DOMString b);
+callback Transformer = any (any input);
+callback AsyncOperationCallback = undefined (DOMString status);
+
+[Exposed=Window]
+interface AsyncOperations {
+  undefined performOperation(AsyncOperationCallback whenFinished);
+};
+
+interface Processor {
+  void run(VoidCallback onComplete);
+  void compare(Comparator cmp);
+  void stringManipulate(DOMString string, StringCallback callback);
+  void transform(any data, Transformer transformer);
+};

@@ -1,0 +1,25 @@
+interface PropertyTest {
+  const boolean DEBUG = false;
+
+  attribute DOMString title;
+
+  static readonly attribute long testCount;
+
+  readonly attribute unsigned long createdAt;
+
+  attribute DOMString? optionalName;
+
+  attribute sequence<DOMString> tags;
+  attribute Uint8Array binaryData;
+
+  attribute (DOMString or long)? flexibleValue;
+
+  getter DOMString (unsigned long index);
+  setter void (unsigned long index, DOMString value);
+
+  getter DOMString (DOMString name);
+
+  deleter boolean (DOMString name);
+
+  stringifier attribute DOMString testInfo;
+};

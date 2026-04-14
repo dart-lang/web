@@ -1,0 +1,32 @@
+interface Shape {
+  constructor();
+};
+
+/// Wordplay around "Node"
+interface Done {
+  
+};
+
+interface Coordinate {
+  attribute long x;
+  attribute long y;
+};
+
+[Exposed=Window]
+interface DoneList {
+  constructor(unsigned long length);
+  Done item(unsigned long index);
+  readonly attribute unsigned long length;
+};
+
+[Exposed=Window]
+interface Circle : Shape {
+  constructor(double radius);
+  attribute double r;
+  attribute double cx;
+  attribute double cy;
+  readonly attribute double circumference;
+
+  static readonly attribute long triangulationCount;
+  static Coordinate triangulate(Circle c1, Circle c2, Circle c3);
+};

@@ -26,31 +26,21 @@ jobs:
       fail-fast: false
       matrix:
         sdk: ['3.10', dev]
-        test_config: ['', '-p chrome', '-p chrome -c dart2wasm']
 
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
-      - uses: actions/setup-node@v6
-        with:
-          node-version: 22
       - uses: dart-lang/setup-dart@65eb853c7ba17dde3be364c3d2858773e7144260
         with:
           sdk: ${{ matrix.sdk }}
 
       - run: dart pub get
-      - name: Install npm dependencies
-        run: npm install
-        working-directory: web_generator/lib/src
-      - name: Mark npm install as done
-        run: touch .last_npm_install
-        working-directory: web_generator/lib/src
       - run: dart format --output=none --set-exit-if-changed .
-        if: matrix.sdk == 'dev' && matrix.test_config == ''
+        if: matrix.sdk == 'dev'
       - run: dart analyze --fatal-infos
-        if: matrix.sdk == 'dev' && matrix.test_config == ''
+        if: matrix.sdk == 'dev'
       - run: dart analyze
-        if: matrix.sdk != 'dev' && matrix.test_config == ''
-      - run: dart test ${{ matrix.test_config }}
+        if: matrix.sdk != 'dev'
+      - run: dart test
 
   # test bin/update_idl_bindings.dart
   test_generate:

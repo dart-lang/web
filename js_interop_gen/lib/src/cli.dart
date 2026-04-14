@@ -1,0 +1,221 @@
+// Copyright (c) 2025, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+
+import 'dart:collection';
+import 'dart:convert';
+import 'dart:io';
+import 'dart:isolate';
+import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
+import 'package:analyzer/dart/analysis/results.dart';
+import 'package:analyzer/dart/element/element.dart';
+import 'package:analyzer/dart/element/type.dart';
+import 'package:io/ansi.dart' as ansi;
+import 'package:package_config/package_config.dart';
+
+import 'package:path/path.dart' as p;
+
+final bindingsGeneratorPath = p.fromUri(
+  Isolate.resolvePackageUriSync(Uri.parse('package:js_interop_gen/src')),
+);
+
+final _webGeneratorRoot = p.dirname(p.dirname(bindingsGeneratorPath));
+
+Future<String> getPackageLanguageVersion(String pkgPath) async {
+  final packageConfig = await findPackageConfig(Directory(pkgPath));
+  if (packageConfig == null) {
+    throw StateError('No package config for "$pkgPath"');
+  }
+  final package = packageConfig.packageOf(
+    Uri.file(p.join(pkgPath, 'pubspec.yaml')),
+  );
+  if (package == null) {
+    throw StateError('No package at "$pkgPath"');
+  }
+  final languageVersion = package.languageVersion;
+  if (languageVersion == null) {
+    throw StateError('No language version "$pkgPath"');
+  }
+  // Force a minimum of 3.10 for stable formatting of extension types.
+  final major = languageVersion.major;
+  final minor = languageVersion.minor;
+  if (major < 3 || (major == 3 && minor < 10)) {
+    return '3.10.0';
+  }
+  return '$languageVersion.0';
+}
+
+Future<void> compileDartMain({String? langVersion, String? dir}) async {
+  langVersion ??= await getPackageLanguageVersion(_webGeneratorRoot);
+  await runProc(Platform.executable, [
+    'compile',
+    'js',
+    '--enable-asserts',
+    '--server-mode',
+    '-DlanguageVersion=$langVersion',
+    'dart_main.dart',
+    '-o',
+    'dart_main.js',
+  ], workingDirectory: dir ?? bindingsGeneratorPath);
+}
+
+Future<Process> runProcWithResult(
+  String executable,
+  List<String> arguments, {
+  required String workingDirectory,
+}) async {
+  print(ansi.styleBold.wrap(['*', executable, ...arguments].join(' ')));
+  return Process.start(
+    executable,
+    arguments,
+    runInShell: Platform.isWindows,
+    workingDirectory: workingDirectory,
+  );
+}
+
+Future<void> runProc(
+  String executable,
+  List<String> arguments, {
+  required String workingDirectory,
+  bool detached = false,
+}) async {
+  print(ansi.styleBold.wrap(['*', executable, ...arguments].join(' ')));
+  final proc = await Process.start(
+    executable,
+    arguments,
+    mode: detached ? ProcessStartMode.detached : ProcessStartMode.normal,
+    runInShell: Platform.isWindows,
+    workingDirectory: workingDirectory,
+  );
+  if (!detached) {
+    proc.stdout
+        .transform(utf8.decoder)
+        .transform(const LineSplitter())
+        .listen(print);
+    proc.stderr
+        .transform(utf8.decoder)
+        .transform(const LineSplitter())
+        .listen((line) => print(ansi.red.wrap(line) ?? line));
+  }
+  final procExit = await proc.exitCode;
+  if (procExit != 0) {
+    throw ProcessException(executable, arguments, 'Process failed', procExit);
+  }
+}
+
+Future<File> createJsTypeSupertypeContext() async {
+  final contextFile = await File(
+    p.join(bindingsGeneratorPath, '_js_supertypes_src.dart'),
+  ).create();
+  await contextFile.writeAsString('''
+import 'dart:js_interop';
+
+@JS()
+external JSPromise get promise;
+''');
+  return contextFile;
+}
+
+/// Generates a map of the JS type hierarchy defined in `dart:js_interop` that's
+/// used by both translators.
+/// Computes the JS type hierarchy defined in `dart:js_interop` as a Dart
+/// script.
+Future<String> computeJsTypeSupertypes() async {
+  final contextFile = await createJsTypeSupertypeContext();
+  try {
+    // Use a file that uses `dart:js_interop` for analysis.
+    final contextCollection = AnalysisContextCollection(
+      includedPaths: [contextFile.path],
+    );
+    final session = contextCollection.contexts.single.currentSession;
+    final result = await session.getLibraryByUri('dart:js_interop');
+    final dartJsInterop = (result as LibraryElementResult).element;
+    final definedNames = dartJsInterop.exportNamespace.definedNames2;
+    // `SplayTreeMap` to avoid moving types around in `dart:js_interop`
+    // affecting the code generation.
+    final jsTypeSupertypes = SplayTreeMap<String, String?>();
+    for (final name in definedNames.keys) {
+      final element = definedNames[name];
+      if (element is ExtensionTypeElement) {
+        // JS types are any extension type that starts with 'JS' in
+        // `dart:js_interop`.
+        bool isJSType(InterfaceElement element) =>
+            element is ExtensionTypeElement &&
+            element.library == dartJsInterop &&
+            element.name!.startsWith('JS');
+        if (!isJSType(element)) continue;
+
+        String? parentJsType;
+        final supertype = element.supertype;
+        final immediateSupertypes = <InterfaceType>[
+          ?supertype,
+          ...element.interfaces,
+        ]..removeWhere((supertype) => supertype.isDartCoreObject);
+        // We should have at most one non-trivial supertype.
+        assert(immediateSupertypes.length <= 1);
+        for (final supertype in immediateSupertypes) {
+          if (isJSType(supertype.element)) {
+            parentJsType = "'${supertype.element.name!}'";
+          }
+        }
+        // Ensure that the hierarchy forms a tree.
+        assert((parentJsType == null) == (name == 'JSAny'));
+        jsTypeSupertypes["'$name'"] = parentJsType;
+      }
+    }
+
+    return '''
+// Copyright (c) 2023, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+
+// Generated code. Do not modify by hand.
+// Generated from Dart SDK ${Platform.version.split(' ').first}
+// To update run: dart run tool/update_supertypes.dart
+
+const Map<String, String?> jsTypeSupertypes = {
+${jsTypeSupertypes.entries.map((e) => "  ${e.key}: ${e.value},").join('\n')}
+};
+''';
+  } finally {
+    await contextFile.delete();
+  }
+}
+
+/// Checks if `js_type_supertypes.dart` needs to be updated and warns if so.
+Future<void> checkJsTypeSupertypes() async {
+  final jsTypeSupertypesScript = await computeJsTypeSupertypes();
+  final jsTypeSupertypesPath = p.join(
+    bindingsGeneratorPath,
+    'js_type_supertypes.dart',
+  );
+
+  final file = File(jsTypeSupertypesPath);
+  if (file.existsSync()) {
+    final currentContent = file.readAsStringSync();
+    final sdkLineRegex = RegExp(
+      r'^// Generated from Dart SDK.*$',
+      multiLine: true,
+    );
+    if (currentContent.replaceAll(sdkLineRegex, '').trim() !=
+        jsTypeSupertypesScript.replaceAll(sdkLineRegex, '').trim()) {
+      print(
+        ansi.yellow.wrap(
+          'WARNING: js_type_supertypes.dart needs to be updated!',
+        ),
+      );
+      print(
+        ansi.yellow.wrap(
+          'Run: dart js_interop_gen/tool/update_supertypes.dart',
+        ),
+      );
+    }
+  } else {
+    print(ansi.yellow.wrap('WARNING: js_type_supertypes.dart does not exist!'));
+    print(
+      ansi.yellow.wrap(
+        'Run: dart js_interop_gen/tool/update_supertypes.dart',
+      ),
+    );
+  }
+}

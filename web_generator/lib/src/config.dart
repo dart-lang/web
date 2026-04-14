@@ -207,7 +207,7 @@ class YamlConfig implements Config {
     this.ignoreErrors = false,
     this.generateAll = false,
   }) : languageVersion = languageVersion == null
-           ? dartLangugeVersion
+           ? dartLanguageVersion
            : Version.parse(languageVersion);
 
   factory YamlConfig.fromYaml(

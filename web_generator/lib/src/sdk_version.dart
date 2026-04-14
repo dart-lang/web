@@ -11,7 +11,7 @@ import 'package:yaml/yaml.dart';
 ///
 /// For the purposes of code generation and tooling, we treat this as the
 /// language version of the SDK.
-final dartLangugeVersion = Version(3, 10, 0);
+final dartLanguageVersion = Version(3, 10, 0);
 
 /// Derives the language version from an SDK constraint.
 Version deriveLanguageVersion(VersionConstraint constraint) {
@@ -26,7 +26,7 @@ Version deriveLanguageVersion(VersionConstraint constraint) {
 }
 
 /// Checks that the target package at [targetPackagePath] has a valid SDK
-/// constraint that aligns with [dartLangugeVersion].
+/// constraint that aligns with [dartLanguageVersion].
 void checkSdkVersion(String targetPackagePath) {
   final pubspecFile = File(p.join(targetPackagePath, 'pubspec.yaml'));
   if (!pubspecFile.existsSync()) return;
@@ -40,18 +40,18 @@ void checkSdkVersion(String targetPackagePath) {
   if (sdkConstraintStr == null) {
     throw SdkVersionException(
       'The target package must have an SDK constraint in pubspec.yaml. '
-      'Expected at least ^$dartLangugeVersion.',
+      'Expected at least ^$dartLanguageVersion.',
     );
   }
 
   final sdkConstraint = VersionConstraint.parse(sdkConstraintStr);
   final targetLanguageVersion = deriveLanguageVersion(sdkConstraint);
-  if (targetLanguageVersion < dartLangugeVersion) {
+  if (targetLanguageVersion < dartLanguageVersion) {
     throw SdkVersionException(
       'The target package requires a language version of '
       '$targetLanguageVersion derived from SDK constraint '
       '"$sdkConstraintStr", but the generator requires at least '
-      '$dartLangugeVersion.',
+      '$dartLanguageVersion.',
     );
   }
 }

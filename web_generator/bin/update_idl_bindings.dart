@@ -66,7 +66,7 @@ $_usage''');
 
   if (argResult['compile'] as bool) {
     final webPkgLangVersion = isSnapshot
-        ? dartLangugeVersion.toString()
+        ? dartLanguageVersion.toString()
         : await getPackageLanguageVersion(_webPackagePath);
     // Compile Dart to Javascript.
     await compileDartMain(langVersion: webPkgLangVersion);

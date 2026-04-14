@@ -40,10 +40,10 @@ void main() {
     final expectedVersion = deriveLanguageVersion(sdkConstraint);
 
     expect(
-      dartLangugeVersion,
+      dartLanguageVersion,
       equals(expectedVersion),
       reason:
-          'dartLangugeVersion $dartLangugeVersion does not match expected '
+          'dartLangugeVersion $dartLanguageVersion does not match expected '
           'version $expectedVersion derived from minimum of constraint '
           '$sdkConstraint',
     );

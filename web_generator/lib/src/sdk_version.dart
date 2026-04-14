@@ -29,30 +29,40 @@ Version deriveLanguageVersion(VersionConstraint constraint) {
 /// constraint that aligns with [dartLanguageVersion].
 void checkSdkVersion(String targetPackagePath) {
   final pubspecFile = File(p.join(targetPackagePath, 'pubspec.yaml'));
-  if (!pubspecFile.existsSync()) return;
-
-  final pubspecContent = pubspecFile.readAsStringSync();
-  final sdkConstraintStr = switch (loadYaml(pubspecContent)) {
-    {'environment': {'sdk': final String s}} => s,
-    _ => null,
-  };
-
-  if (sdkConstraintStr == null) {
+  if (!pubspecFile.existsSync()) {
     throw SdkVersionException(
-      'The target package must have an SDK constraint in pubspec.yaml. '
-      'Expected at least ^$dartLanguageVersion.',
+      'Could not find pubspec.yaml in "$targetPackagePath".',
     );
   }
 
-  final sdkConstraint = VersionConstraint.parse(sdkConstraintStr);
-  final targetLanguageVersion = deriveLanguageVersion(sdkConstraint);
-  if (targetLanguageVersion < dartLanguageVersion) {
-    throw SdkVersionException(
-      'The target package requires a language version of '
-      '$targetLanguageVersion derived from SDK constraint '
-      '"$sdkConstraintStr", but the generator requires at least '
-      '$dartLanguageVersion.',
-    );
+  try {
+    final pubspecContent = pubspecFile.readAsStringSync();
+    final sdkConstraintStr = switch (loadYaml(pubspecContent)) {
+      {'environment': {'sdk': final String s}} => s,
+      _ => null,
+    };
+
+    if (sdkConstraintStr == null) {
+      throw SdkVersionException(
+        'The target package must have an SDK constraint in pubspec.yaml. '
+        'Expected at least ^$dartLanguageVersion.',
+      );
+    }
+
+    final sdkConstraint = VersionConstraint.parse(sdkConstraintStr);
+    final targetLanguageVersion = deriveLanguageVersion(sdkConstraint);
+    if (targetLanguageVersion < dartLanguageVersion) {
+      throw SdkVersionException(
+        'The target package requires a language version of '
+        '$targetLanguageVersion derived from SDK constraint '
+        '"$sdkConstraintStr", but the generator requires at least '
+        '$dartLanguageVersion.',
+      );
+    }
+  } on SdkVersionException {
+    rethrow;
+  } catch (e) {
+    throw SdkVersionException('Failed to read or parse pubspec.yaml: $e');
   }
 }
 

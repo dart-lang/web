@@ -43,7 +43,7 @@ void main() {
       dartLanguageVersion,
       equals(expectedVersion),
       reason:
-          'dartLangugeVersion $dartLanguageVersion does not match expected '
+          'dartLanguageVersion $dartLanguageVersion does not match expected '
           'version $expectedVersion derived from minimum of constraint '
           '$sdkConstraint',
     );

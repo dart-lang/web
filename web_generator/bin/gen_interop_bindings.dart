@@ -9,6 +9,7 @@ import 'package:io/ansi.dart' as ansi;
 import 'package:io/io.dart';
 import 'package:path/path.dart' as p;
 import 'package:web_generator/src/cli.dart';
+import 'package:web_generator/src/sdk_version.dart';
 
 void main(List<String> arguments) async {
   final ArgResults argResult;
@@ -35,6 +36,14 @@ ${ansi.lightRed.wrap('At least one argument is needed')}
 
 $_usage''');
     exitCode = ExitCode.usage.code;
+    return;
+  }
+
+  try {
+    checkSdkVersion(p.current);
+  } on SdkVersionException catch (e) {
+    print(ansi.lightRed.wrap(e.message));
+    exitCode = ExitCode.config.code;
     return;
   }
 

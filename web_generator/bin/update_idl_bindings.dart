@@ -45,6 +45,14 @@ $_usage''');
     return;
   }
 
+  try {
+    checkSdkVersion(_webPackagePath);
+  } on SdkVersionException catch (e) {
+    print(ansi.lightRed.wrap(e.message));
+    exitCode = ExitCode.config.code;
+    return;
+  }
+
   // Run `npm install` or `npm update` as needed.
   final update = argResult['update'] as bool;
   await runProc('npm', [
@@ -58,7 +66,7 @@ $_usage''');
 
   if (argResult['compile'] as bool) {
     final webPkgLangVersion = isSnapshot
-        ? sdkVersion.toString()
+        ? dartLangugeVersion.toString()
         : await getPackageLanguageVersion(_webPackagePath);
     // Compile Dart to Javascript.
     await compileDartMain(langVersion: webPkgLangVersion);

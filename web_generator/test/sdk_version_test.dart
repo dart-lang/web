@@ -37,26 +37,28 @@ void main() {
     };
 
     final sdkConstraint = VersionConstraint.parse(sdkConstraintStr);
-
-    // Check that it aligns with the minimum.
-    final Version minVersion;
-    if (sdkConstraint is VersionRange) {
-      minVersion = sdkConstraint.min ?? Version(0, 0, 0);
-    } else if (sdkConstraint is Version) {
-      minVersion = sdkConstraint;
-    } else {
-      fail('Unsupported constraint type: ${sdkConstraint.runtimeType}');
-    }
-
-    final expectedVersion = Version(minVersion.major, minVersion.minor, 0);
+    final expectedVersion = deriveLanguageVersion(sdkConstraint);
 
     expect(
-      sdkVersion,
+      dartLangugeVersion,
       equals(expectedVersion),
       reason:
-          'sdkVersion $sdkVersion does not match expected version '
-          '$expectedVersion derived from minimum of constraint '
+          'dartLangugeVersion $dartLangugeVersion does not match expected '
+          'version $expectedVersion derived from minimum of constraint '
           '$sdkConstraint',
     );
+  });
+
+  test('language version derived from SDK constraint', () {
+    void check(String constraintStr, Version expected) {
+      final constraint = VersionConstraint.parse(constraintStr);
+      final languageVersion = deriveLanguageVersion(constraint);
+      expect(languageVersion, equals(expected));
+    }
+
+    check('^3.12.2-0', Version(3, 12, 0));
+    check('^3.10.0', Version(3, 10, 0));
+    check('3.12.0', Version(3, 12, 0));
+    check('<4.0.0', Version(0, 0, 0));
   });
 }

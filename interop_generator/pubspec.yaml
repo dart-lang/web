@@ -1,4 +1,4 @@
-name: web_generator
+name: interop_generator
 publish_to: none # internal only for now
 version: 1.0.0-wip
 description: Generator scripts for package:web.

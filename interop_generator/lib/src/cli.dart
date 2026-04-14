@@ -16,7 +16,7 @@ import 'package:package_config/package_config.dart';
 import 'package:path/path.dart' as p;
 
 final bindingsGeneratorPath = p.fromUri(
-  Isolate.resolvePackageUriSync(Uri.parse('package:web_generator/src')),
+  Isolate.resolvePackageUriSync(Uri.parse('package:interop_generator/src')),
 );
 
 final _webGeneratorRoot = p.dirname(p.dirname(bindingsGeneratorPath));

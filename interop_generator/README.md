@@ -16,7 +16,7 @@ There are two entrypoints present in this package:
 
 ### Requirements
 #### Node.js
-The web_generator requires **Node.js v22 or newer**.
+The interop_generator requires **Node.js v22 or newer**.
 Older Node versions are not supported and may result in runtime failures.
 
 ## TS Declarations

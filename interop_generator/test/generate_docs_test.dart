@@ -2,9 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'package:interop_generator/src/formatting.dart';
 import 'package:test/test.dart';
-
-import 'package:web_generator/src/formatting.dart';
 
 void main() {
   group('formatDocs', () {

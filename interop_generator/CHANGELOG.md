@@ -1,6 +1,6 @@
 ## 1.0.0-wip
 
-- Initial separation of `web_generator` from `web`.
+- Initial separation of `interop_generator` from `web`.
 - New IDL interface `RHL` added. `ExtendedAttribute` idl interface updated to
   expose its `rhs` property and `Interfacelike` idl interface updated to expose
   `extAttrs` property. The generator now adds a

@@ -5,9 +5,9 @@
 @TestOn('vm')
 library;
 
+import 'package:interop_generator/src/cli.dart';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
-import 'package:web_generator/src/cli.dart';
 
 import 'test_shared.dart';
 

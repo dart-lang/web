@@ -7,16 +7,17 @@ library;
 
 import 'dart:io';
 import 'dart:isolate';
+
+import 'package:interop_generator/src/sdk_version.dart';
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:test/test.dart';
-import 'package:web_generator/src/sdk_version.dart';
 import 'package:yaml/yaml.dart';
 
 void main() {
   test('sdkVersion aligns with pubspec.yaml', () async {
     final uri = await Isolate.resolvePackageUri(
-      Uri.parse('package:web_generator/src/sdk_version.dart'),
+      Uri.parse('package:interop_generator/src/sdk_version.dart'),
     );
     expect(uri, isNotNull);
     final packageRoot = p.dirname(p.dirname(p.dirname(p.fromUri(uri!))));

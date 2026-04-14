@@ -1,5 +1,5 @@
+import 'package:interop_generator/src/interop_gen/namer.dart';
 import 'package:test/test.dart';
-import 'package:web_generator/src/interop_gen/namer.dart';
 
 void main() {
   group('Namer Test', () {

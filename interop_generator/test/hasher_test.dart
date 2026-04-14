@@ -1,7 +1,7 @@
 import 'dart:math';
 
+import 'package:interop_generator/src/interop_gen/hasher.dart';
 import 'package:test/test.dart';
-import 'package:web_generator/src/interop_gen/hasher.dart';
 
 void main() {
   test('mul32 fuzz', () {

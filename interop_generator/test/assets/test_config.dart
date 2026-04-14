@@ -1,7 +1,7 @@
 // This preamble is for testing only.
 // GENERATED FILE: DO NOT EDIT
 //
-// Created by `web_generator`
+// Created by `interop_generator`
 
 // ignore_for_file: constant_identifier_names, non_constant_identifier_names
 

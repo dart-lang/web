@@ -7,23 +7,28 @@ library;
 
 import 'dart:convert';
 
+import 'package:interop_generator/src/cli.dart';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
-import 'package:web_generator/src/cli.dart';
 
 import 'test_shared.dart';
 
 /// Actual test output can be found in `.dart_tool/idl`
 void main() {
-  group('Interop Gen Integration Test', () {
-    final testFile = p.join('test', 'assets', 'invalid.d.ts');
-    final outputFile = p.join('.dart_tool', 'interop_gen', 'invalid.dart');
+  group('Interop Gen Unsupported Test', () {
+    final testFile = p.join('test', 'assets', 'unsupported_test.d.ts');
+    final outputFile = p.join('.dart_tool', 'unsupported_test.dart');
+    final expectedFile = p.join(
+      'test',
+      'assets',
+      'unsupported_test_expected.dart',
+    );
 
-    setUp(() async {
+    setUpAll(() async {
       await compileBindingsGen();
     });
 
-    test('Expect Parsing to Fail', () async {
+    test('Strict Unsupported', () async {
       final inputFilePath = p.relative(testFile, from: bindingsGenPath);
       final outputFilePath = p.relative(outputFile, from: bindingsGenPath);
 
@@ -31,6 +36,7 @@ void main() {
         'main.mjs',
         '--input=$inputFilePath',
         '--output=$outputFilePath',
+        '--strict-unsupported',
         '--declaration',
       ], workingDirectory: bindingsGenPath);
 
@@ -38,6 +44,20 @@ void main() {
 
       expect(stderr, isNotEmpty);
       expect(await process.exitCode, isNot(0));
+    });
+
+    test('Not Strict Unsupported', () async {
+      final inputFilePath = p.relative(testFile, from: bindingsGenPath);
+      final outputFilePath = p.relative(outputFile, from: bindingsGenPath);
+
+      await runProc('node', [
+        'main.mjs',
+        '--input=$inputFilePath',
+        '--output=$outputFilePath',
+        '--declaration',
+      ], workingDirectory: bindingsGenPath);
+
+      expectFilesEqual(expectedFile, outputFile);
     });
   });
 }

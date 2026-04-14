@@ -1,4 +1,4 @@
-name: package:web_generator
+name: package:interop_generator
 permissions: read-all
 
 on:
@@ -6,18 +6,18 @@ on:
   push:
     branches: [ main ]
     paths:
-      - '.github/workflows/web_generator.yaml'
-      - 'web_generator/**'
+      - '.github/workflows/interop_generator.yaml'
+      - 'interop_generator/**'
   pull_request:
     paths:
-      - '.github/workflows/web_generator.yaml'
-      - 'web_generator/**'
+      - '.github/workflows/interop_generator.yaml'
+      - 'interop_generator/**'
   schedule:
     - cron: "0 0 * * 0"
 
 defaults:
   run:
-    working-directory: web_generator/
+    working-directory: interop_generator/
 
 jobs:
   build:
@@ -40,10 +40,10 @@ jobs:
       - run: dart pub get
       - name: Install npm dependencies
         run: npm install
-        working-directory: web_generator/lib/src
+        working-directory: interop_generator/lib/src
       - name: Mark npm install as done
         run: touch .last_npm_install
-        working-directory: web_generator/lib/src
+        working-directory: interop_generator/lib/src
       - run: dart format --output=none --set-exit-if-changed .
         if: matrix.sdk == 'dev' && matrix.test_config == ''
       - run: dart analyze --fatal-infos

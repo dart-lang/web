@@ -5,13 +5,13 @@
 @TestOn('node')
 library;
 
+import 'package:interop_generator/src/ast/base.dart';
+import 'package:interop_generator/src/ast/builtin.dart';
+import 'package:interop_generator/src/ast/declarations.dart';
+import 'package:interop_generator/src/ast/types.dart';
+import 'package:interop_generator/src/interop_gen/namer.dart';
+import 'package:interop_generator/src/interop_gen/sub_type.dart';
 import 'package:test/test.dart';
-import 'package:web_generator/src/ast/base.dart';
-import 'package:web_generator/src/ast/builtin.dart';
-import 'package:web_generator/src/ast/declarations.dart';
-import 'package:web_generator/src/ast/types.dart';
-import 'package:web_generator/src/interop_gen/namer.dart';
-import 'package:web_generator/src/interop_gen/sub_type.dart';
 
 void main() {
   group('Type Map Test', () {

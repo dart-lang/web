@@ -45,7 +45,7 @@ void main() {
       test(inputName, () async {
         final inputFilePath = p.relative(inputFile.path, from: bindingsGenPath);
         final outFilePath = p.relative(outputActualPath, from: bindingsGenPath);
-        
+
         // TODO(kevmoo): Do a more complete cleanup to remove dependency on BCD
         // and webref bits entirely from js_interop_gen tests.
         // run the entrypoint

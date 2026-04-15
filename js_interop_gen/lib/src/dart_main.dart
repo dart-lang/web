@@ -167,16 +167,20 @@ Future<void> generateIDLBindings({
     // parse individual files
     ensureDirectoryExists(output);
 
-    final bindings = await generateBindingsForFiles({
-      for (final file in allInputFiles)
-        file:
-            (fs.readFileSync(
-                      file.toJS,
-                      JSReadFileOptions(encoding: 'utf-8'.toJS),
-                    )
-                    as JSString)
-                .toDart,
-    }, output, bcdJsonPath: bcdJsonPath);
+    final bindings = await generateBindingsForFiles(
+      {
+        for (final file in allInputFiles)
+          file:
+              (fs.readFileSync(
+                        file.toJS,
+                        JSReadFileOptions(encoding: 'utf-8'.toJS),
+                      )
+                      as JSString)
+                  .toDart,
+      },
+      output,
+      bcdJsonPath: bcdJsonPath,
+    );
 
     for (var entry in bindings.entries) {
       final libraryPath = entry.key;

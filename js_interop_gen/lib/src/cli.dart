@@ -213,9 +213,7 @@ Future<void> checkJsTypeSupertypes() async {
   } else {
     print(ansi.yellow.wrap('WARNING: js_type_supertypes.dart does not exist!'));
     print(
-      ansi.yellow.wrap(
-        'Run: dart js_interop_gen/tool/update_supertypes.dart',
-      ),
+      ansi.yellow.wrap('Run: dart js_interop_gen/tool/update_supertypes.dart'),
     );
   }
 }

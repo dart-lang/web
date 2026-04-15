@@ -160,8 +160,9 @@ Future<TranslationResult> generateBindingsForFiles(
   // generate CSS style declarations and element tag map incase they are
   // needed for the input files.
   final emptyJsObject = <String, dynamic>{}.jsify() as JSObject;
-  final cssStyleDeclarations =
-      await _generateCSSStyleDeclarations(emptyJsObject);
+  final cssStyleDeclarations = await _generateCSSStyleDeclarations(
+    emptyJsObject,
+  );
   final elementHTMLMap = await _generateElementTagMap(emptyJsObject);
   final translator = Translator(
     output,

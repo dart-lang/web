@@ -50,6 +50,7 @@ jobs:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
       - uses: dart-lang/setup-dart@65eb853c7ba17dde3be364c3d2858773e7144260
 
+      - run: npm install
       - run: dart pub get
       - run: dart pub -C ../web get
       - run: dart pub -C ../js_interop_gen get
@@ -64,6 +65,7 @@ jobs:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
       - uses: dart-lang/setup-dart@65eb853c7ba17dde3be364c3d2858773e7144260
 
+      - run: npm install
       - run: dart pub get
       - run: dart pub -C ../web get
       - run: dart pub -C ../js_interop_gen get

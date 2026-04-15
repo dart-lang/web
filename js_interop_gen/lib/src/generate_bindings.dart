@@ -110,9 +110,9 @@ Future<(TranslationResult, Map<String, String>)> generateBindings(
             .toDart;
     final json = jsonDecode(jsonStr) as Map<String, dynamic>;
 
-    idlData = (json['idl'] as Map).jsify() as JSObject;
-    cssData = (json['css'] as Map).jsify() as JSObject;
-    elementsData = (json['elements'] as Map).jsify() as JSObject;
+    idlData = (json['idl'] as Map?)?.jsify() as JSObject?;
+    cssData = (json['css'] as Map?)?.jsify() as JSObject?;
+    elementsData = (json['elements'] as Map?)?.jsify() as JSObject?;
   }
 
   final cssStyleDeclarations = await _generateCSSStyleDeclarations(cssData);

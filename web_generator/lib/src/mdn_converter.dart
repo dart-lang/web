@@ -115,7 +115,7 @@ String _stripQuotes(String value) {
 
 extension ListExtension on List<String> {
   void removeUntil(bool Function(String) fn) {
-    while (true) {
+    while (isNotEmpty) {
       if (fn(first)) {
         removeAt(0);
         return;

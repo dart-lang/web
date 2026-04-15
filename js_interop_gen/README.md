@@ -1,5 +1,3 @@
-## What's this?
-
 Tools to generate Dart interfaces from TypeScript declaration files and Web IDL definitions.
 
 This package is used to generate

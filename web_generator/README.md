@@ -1,6 +1,4 @@
-# Web Generator
-
-This package contains generator scripts specific to `package:web`.
+This package contains generator scripts specific to [`package:web`](https://pub.dev/packages/web).
 
 ## Web IDL Definitions
 To generate Dart interfaces for a given `.idl` file, run the following at the root of this package:

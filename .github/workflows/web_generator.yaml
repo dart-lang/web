@@ -8,10 +8,12 @@ on:
     paths:
       - '.github/workflows/web_generator.yaml'
       - 'web_generator/**'
+      - 'js_interop_gen/**'
   pull_request:
     paths:
       - '.github/workflows/web_generator.yaml'
       - 'web_generator/**'
+      - 'js_interop_gen/**'
   schedule:
     - cron: "0 0 * * 0"
 

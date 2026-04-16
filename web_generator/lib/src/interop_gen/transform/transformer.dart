@@ -59,6 +59,10 @@ class Transformer {
   /// A map of declarations
   final NodeMap<Declaration> nodeMap = NodeMap();
 
+  /// Declarations currently being transformed, used to prevent infinite
+  /// recursion when a member's type references the class being built.
+  final Map<TSNode, TypeDeclaration> _pendingTypes = {};
+
   /// A map of types
   final TypeMap typeMap = TypeMap();
 
@@ -499,84 +503,90 @@ class Transformer {
             documentation: _parseAndTransformDocumentation(typeDecl),
           );
 
-    final typeNamer = ScopedUniqueNamer({'get', 'set'});
+    _pendingTypes[typeDecl] = outputType;
+    try {
+      final typeNamer = ScopedUniqueNamer({'get', 'set'});
 
-    for (final member in typeDecl.members.toDart) {
-      switch (member.kind) {
-        case TSSyntaxKind.PropertySignature || TSSyntaxKind.PropertyDeclaration:
-          final prop = _transformProperty(
-            member as TSPropertyEntity,
-            parentNamer: typeNamer,
-            parent: outputType,
-          );
-          if (prop != null) outputType.properties.add(prop);
-          break;
-        // TODO: Support methods with computed and string property names
-        //  (e.g) [Symbol.iterator], "foo-bar"
-        case TSSyntaxKind.MethodSignature || TSSyntaxKind.MethodDeclaration
-            when (member as TSMethodEntity).name.kind ==
-                TSSyntaxKind.Identifier:
-          final method = _transformMethod(
-            member,
-            parentNamer: typeNamer,
-            parent: outputType,
-          );
-          outputType.methods.add(method);
-          break;
-        case TSSyntaxKind.IndexSignature:
-          final (opGet, opSetOrNull) = _transformIndexer(
-            member as TSIndexSignatureDeclaration,
-            parent: outputType,
-          );
-          outputType.operators.add(opGet);
-          if (opSetOrNull case final opSet?) {
-            outputType.operators.add(opSet);
-          }
-          break;
-        case TSSyntaxKind.CallSignature:
-          final callSignature = _transformCallSignature(
-            member as TSCallSignatureDeclaration,
-            parentNamer: typeNamer,
-            parent: outputType,
-          );
-          outputType.methods.add(callSignature);
-          break;
-        case TSSyntaxKind.ConstructSignature:
-          final constructor = _transformConstructor(
-            member as TSConstructSignatureDeclaration,
-            parentNamer: typeNamer,
-          );
-          constructor.parent = outputType;
-          outputType.constructors.add(constructor);
-          break;
-        case TSSyntaxKind.Constructor:
-          final constructor = _transformConstructor(
-            member as TSConstructorDeclaration,
-            parentNamer: typeNamer,
-          );
-          constructor.parent = outputType;
-          outputType.constructors.add(constructor);
-          break;
-        case TSSyntaxKind.GetAccessor:
-          final getter = _transformGetter(
-            member as TSGetAccessorDeclaration,
-            parentNamer: typeNamer,
-            parent: outputType,
-          );
-          outputType.methods.add(getter);
-          break;
-        case TSSyntaxKind.SetAccessor:
-          final setter = _transformSetter(
-            member as TSSetAccessorDeclaration,
-            parentNamer: typeNamer,
-            parent: outputType,
-          );
-          outputType.methods.add(setter);
-          break;
-        default:
-          // skipping
-          break;
+      for (final member in typeDecl.members.toDart) {
+        switch (member.kind) {
+          case TSSyntaxKind.PropertySignature ||
+              TSSyntaxKind.PropertyDeclaration:
+            final prop = _transformProperty(
+              member as TSPropertyEntity,
+              parentNamer: typeNamer,
+              parent: outputType,
+            );
+            if (prop != null) outputType.properties.add(prop);
+            break;
+          // TODO: Support methods with computed and string property names
+          //  (e.g) [Symbol.iterator], "foo-bar"
+          case TSSyntaxKind.MethodSignature || TSSyntaxKind.MethodDeclaration
+              when (member as TSMethodEntity).name.kind ==
+                  TSSyntaxKind.Identifier:
+            final method = _transformMethod(
+              member,
+              parentNamer: typeNamer,
+              parent: outputType,
+            );
+            outputType.methods.add(method);
+            break;
+          case TSSyntaxKind.IndexSignature:
+            final (opGet, opSetOrNull) = _transformIndexer(
+              member as TSIndexSignatureDeclaration,
+              parent: outputType,
+            );
+            outputType.operators.add(opGet);
+            if (opSetOrNull case final opSet?) {
+              outputType.operators.add(opSet);
+            }
+            break;
+          case TSSyntaxKind.CallSignature:
+            final callSignature = _transformCallSignature(
+              member as TSCallSignatureDeclaration,
+              parentNamer: typeNamer,
+              parent: outputType,
+            );
+            outputType.methods.add(callSignature);
+            break;
+          case TSSyntaxKind.ConstructSignature:
+            final constructor = _transformConstructor(
+              member as TSConstructSignatureDeclaration,
+              parentNamer: typeNamer,
+            );
+            constructor.parent = outputType;
+            outputType.constructors.add(constructor);
+            break;
+          case TSSyntaxKind.Constructor:
+            final constructor = _transformConstructor(
+              member as TSConstructorDeclaration,
+              parentNamer: typeNamer,
+            );
+            constructor.parent = outputType;
+            outputType.constructors.add(constructor);
+            break;
+          case TSSyntaxKind.GetAccessor:
+            final getter = _transformGetter(
+              member as TSGetAccessorDeclaration,
+              parentNamer: typeNamer,
+              parent: outputType,
+            );
+            outputType.methods.add(getter);
+            break;
+          case TSSyntaxKind.SetAccessor:
+            final setter = _transformSetter(
+              member as TSSetAccessorDeclaration,
+              parentNamer: typeNamer,
+              parent: outputType,
+            );
+            outputType.methods.add(setter);
+            break;
+          default:
+            // skipping
+            break;
+        }
       }
+    } finally {
+      _pendingTypes.remove(typeDecl);
     }
 
     return outputType;
@@ -2241,6 +2251,13 @@ class Transformer {
           );
         }
 
+        // If this declaration is currently being transformed, use the
+        // in-progress instance to break the recursion cycle.
+        if (_pendingTypes[declaration] case final pending?) {
+          declarationsMatching = [pending];
+          break;
+        }
+
         var d = declaration as TSNamedDeclaration;
 
         while (d.name?.text != firstName &&
@@ -2278,16 +2295,18 @@ class Transformer {
         }
       }
 
-      map = parent != null
-          ? NodeMap(
-              [
-                ...parent.nestableDeclarations,
-                ...parent.namespaceDeclarations,
-              ].asMap().map((_, v) => MapEntry(v.id.toString(), v)),
-            )
-          : nodeMap;
+      if (declarationsMatching.isEmpty) {
+        map = parent != null
+            ? NodeMap(
+                [
+                  ...parent.nestableDeclarations,
+                  ...parent.namespaceDeclarations,
+                ].asMap().map((_, v) => MapEntry(v.id.toString(), v)),
+              )
+            : nodeMap;
 
-      declarationsMatching = map.findByName(firstName);
+        declarationsMatching = map.findByName(firstName);
+      }
     }
 
     // get node finally

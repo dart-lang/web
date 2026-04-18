@@ -1,0 +1,13 @@
+{
+  "name": "web_generator_data",
+  "version": "0.0.1",
+  "description": "Data fetching for web_generator",
+  "private": true,
+  "dependencies": {
+    "@mdn/browser-compat-data": "^5.5.2",
+    "@webref/css": "^6.11.0",
+    "@webref/elements": "^2.2.2",
+    "@webref/idl": "^3.43.1",
+    "webidl2": "^24.4.1"
+  }
+}

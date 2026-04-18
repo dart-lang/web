@@ -1,9 +1,6 @@
-<!-- TODO(srujzs): Add links to CI once we have a badge that doesn't say "package:web" and is more generic. -->
-
-## Packages
-
-| Package                         | Description                                                                                                                                                              | Version                                                                                            |
-| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------- |
-| [web](web/)                     | Lightweight browser API bindings built around [JS interop](https://dart.dev/interop/js-interop).                                                                         | [![pub package](https://img.shields.io/pub/v/web.svg)](https://pub.dev/packages/web)               |
-| [js_interop](js_interop/)       | Utility functions and types for [`dart:js_interop`](https://api.dart.dev/dart-js_interop/) and [`dart:js_interop_unsafe`](https://api.dart.dev/dart-js_interop_unsafe/). | [![pub package](https://img.shields.io/pub/v/js_interop.svg)](https://pub.dev/packages/js_interop) |
-| [web_generator](web_generator/) | Tools to generate Dart interfaces from TypeScript declaration files and Web IDL definitions.                                                                             | N/A                                                                                                |
+| Package | Description | Version | CI |
+| --- | --- | --- | --- |
+| [web](web/) | Lightweight browser API bindings built around [JS interop](https://dart.dev/interop/js-interop). | [![pub package](https://img.shields.io/pub/v/web.svg)](https://pub.dev/packages/web) | [![package:web](https://github.com/dart-lang/web/actions/workflows/web.yaml/badge.svg)](https://github.com/dart-lang/web/actions/workflows/web.yaml) |
+| [js_interop](js_interop/) | Utility functions and types for [`dart:js_interop`](https://api.dart.dev/dart-js_interop/) and [`dart:js_interop_unsafe`](https://api.dart.dev/dart-js_interop_unsafe/). | [![pub package](https://img.shields.io/pub/v/js_interop.svg)](https://pub.dev/packages/js_interop) | [![package:js_interop](https://github.com/dart-lang/web/actions/workflows/js_interop.yaml/badge.svg)](https://github.com/dart-lang/web/actions/workflows/js_interop.yaml) |
+| [js_interop_gen](js_interop_gen/) | Tools to generate Dart interfaces from TypeScript declaration files and Web IDL definitions. | N/A | [![package:js_interop_gen](https://github.com/dart-lang/web/actions/workflows/js_interop_gen.yaml/badge.svg)](https://github.com/dart-lang/web/actions/workflows/js_interop_gen.yaml) |
+| [web_generator](web_generator/) | Internal tooling to generate the `web` package bindings. | N/A | [![package:web_generator](https://github.com/dart-lang/web/actions/workflows/web_generator.yaml/badge.svg)](https://github.com/dart-lang/web/actions/workflows/web_generator.yaml) |

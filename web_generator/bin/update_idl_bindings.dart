@@ -6,11 +6,11 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:args/args.dart';
+import 'package:js_interop_gen/src/cli.dart';
+import 'package:js_interop_gen/src/sdk_version.dart';
 import 'package:io/ansi.dart' as ansi;
 import 'package:io/io.dart';
 import 'package:path/path.dart' as p;
-import 'package:web_generator/src/cli.dart';
-import 'package:web_generator/src/sdk_version.dart';
 
 void main(List<String> arguments) async {
   final ArgResults argResult;
@@ -59,10 +59,15 @@ $_usage''');
     update ? 'update' : 'install',
   ], workingDirectory: bindingsGeneratorPath);
 
-  final contextFile = await createJsTypeSupertypeContext();
-
   // Compute JS type supertypes for union calculation in translator.
-  await generateJsTypeSupertypes(contextFile.path);
+  await checkJsTypeSupertypes();
+
+  if (inputFiles.isEmpty) {
+    // Preparse IDLs to generate web_apis.json.
+    await runProc('node', [
+      'preparse_idls.mjs',
+    ], workingDirectory: p.fromUri(Platform.script.resolve('.')));
+  }
 
   if (argResult['compile'] as bool) {
     final webPkgLangVersion = isSnapshot
@@ -80,6 +85,10 @@ $_usage''');
     await runProc('node', [
       'main.mjs',
       '--idl',
+      if (inputFiles.isEmpty)
+        '--idl-json=${p.fromUri(Platform.script.resolve('../.dart_tool/web_generator/web_apis.json'))}',
+      if (inputFiles.isEmpty)
+        '--bcd-json=${p.fromUri(Platform.script.resolve('../node_modules/@mdn/browser-compat-data/data.json'))}',
       for (String inputFile in inputFiles) '--input=$inputFile',
       '--output=${argResult['output'] as String? ?? p.current}',
       if (generateAll) '--generate-all',
@@ -109,6 +118,10 @@ $_usage''');
   await runProc('node', [
     'main.mjs',
     '--idl',
+    if (inputFiles.isEmpty)
+      '--idl-json=${p.fromUri(Platform.script.resolve('../.dart_tool/web_generator/web_apis.json'))}',
+    if (inputFiles.isEmpty)
+      '--bcd-json=${p.fromUri(Platform.script.resolve('../node_modules/@mdn/browser-compat-data/data.json'))}',
     for (String inputFile in inputFiles) '--input=$inputFile',
     if (inputFiles.isEmpty)
       '--output=${p.join(_webPackagePath, 'lib', 'src')}'
@@ -124,9 +137,6 @@ $_usage''');
       file.deleteSync();
     }
   }
-
-  // delete context file
-  await contextFile.delete();
 
   if (inputFiles.isEmpty) {
     // Update readme.
@@ -168,7 +178,7 @@ String _packageLockVersion(String package) {
   final packageLockData =
       jsonDecode(
             File(
-              p.join(bindingsGeneratorPath, 'package-lock.json'),
+              p.fromUri(Platform.script.resolve('../package-lock.json')),
             ).readAsStringSync(),
           )
           as Map<String, dynamic>;

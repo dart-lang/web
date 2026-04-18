@@ -1,0 +1,53 @@
+name: package:js_interop_gen
+permissions: read-all
+
+on:
+  # Run CI on pushes to the main branch and on PRs.
+  push:
+    branches: [ main ]
+    paths:
+      - '.github/workflows/js_interop_gen.yaml'
+      - 'js_interop_gen/**'
+  pull_request:
+    paths:
+      - '.github/workflows/js_interop_gen.yaml'
+      - 'js_interop_gen/**'
+  schedule:
+    - cron: "0 0 * * 0"
+
+defaults:
+  run:
+    working-directory: js_interop_gen/
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        sdk: ['3.10', dev]
+        test_config: ['', '-p chrome', '-p chrome -c dart2wasm']
+
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+      - uses: dart-lang/setup-dart@65eb853c7ba17dde3be364c3d2858773e7144260
+        with:
+          sdk: ${{ matrix.sdk }}
+
+      - run: dart pub get
+      - name: Install npm dependencies in js_interop_gen
+        run: npm install
+        working-directory: js_interop_gen/lib/src
+      - name: Mark npm install as done
+        run: touch .last_npm_install
+        working-directory: js_interop_gen/lib/src
+      - run: dart format --output=none --set-exit-if-changed .
+        if: matrix.sdk == 'dev' && matrix.test_config == ''
+      - run: dart analyze --fatal-infos
+        if: matrix.sdk == 'dev' && matrix.test_config == ''
+      - run: dart analyze
+        if: matrix.sdk != 'dev' && matrix.test_config == ''
+      - run: dart test ${{ matrix.test_config }}

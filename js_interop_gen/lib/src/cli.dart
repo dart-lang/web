@@ -171,7 +171,7 @@ Future<String> computeJsTypeSupertypes() async {
 
 // Generated code. Do not modify by hand.
 // Generated from Dart SDK ${Platform.version.split(' ').first}
-// To update run: dart run tool/update_supertypes.dart
+// To update run: dart run js_interop_gen/tool/update_supertypes.dart
 
 const Map<String, String?> jsTypeSupertypes = {
 ${jsTypeSupertypes.entries.map((e) => "  ${e.key}: ${e.value},").join('\n')}
@@ -197,8 +197,14 @@ Future<void> checkJsTypeSupertypes() async {
       r'^// Generated from Dart SDK.*$',
       multiLine: true,
     );
-    if (currentContent.replaceAll(sdkLineRegex, '').trim() !=
-        jsTypeSupertypesScript.replaceAll(sdkLineRegex, '').trim()) {
+    if (currentContent
+            .replaceAll('\r\n', '\n')
+            .replaceAll(sdkLineRegex, '')
+            .trim() !=
+        jsTypeSupertypesScript
+            .replaceAll('\r\n', '\n')
+            .replaceAll(sdkLineRegex, '')
+            .trim()) {
       print(
         ansi.yellow.wrap(
           'WARNING: js_type_supertypes.dart needs to be updated!',
@@ -206,14 +212,16 @@ Future<void> checkJsTypeSupertypes() async {
       );
       print(
         ansi.yellow.wrap(
-          'Run: dart js_interop_gen/tool/update_supertypes.dart',
+          'Run: dart run js_interop_gen/tool/update_supertypes.dart',
         ),
       );
     }
   } else {
     print(ansi.yellow.wrap('WARNING: js_type_supertypes.dart does not exist!'));
     print(
-      ansi.yellow.wrap('Run: dart js_interop_gen/tool/update_supertypes.dart'),
+      ansi.yellow.wrap(
+        'Run: dart run js_interop_gen/tool/update_supertypes.dart',
+      ),
     );
   }
 }

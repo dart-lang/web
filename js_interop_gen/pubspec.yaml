@@ -1,7 +1,8 @@
 name: js_interop_gen
-publish_to: none # internal only for now
 version: 1.0.0-wip
-description: Generator scripts for package:web.
+description: >-
+  A tool for generating Dart JS interop bindings from Web IDL and TypeScript
+  definitions.
 repository: https://github.com/dart-lang/web
 
 environment:

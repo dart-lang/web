@@ -1,9 +1,5 @@
 Tools to generate Dart interfaces from TypeScript declaration files and Web IDL definitions.
 
-This package is used to generate
-[`web`](https://github.com/dart-lang/web/tree/main/web) from Web IDL definitions
-and MDN API documentation.
-
 ## Using this
 The tools to generate bindings are written in Dart, compiled to JavaScript, and
 run on Node.
@@ -19,7 +15,7 @@ Older Node versions are not supported and may result in runtime failures.
 ## TS Declarations
 To generate Dart interfaces for a given `.d.ts` file, run the following at the root of this package:
 ```shell
-dart run js_interop_gen <input.d.ts> 
+dart run js_interop_gen <input.d.ts>
 dart run js_interop_gen -o <output> <input>
 ```
 
@@ -86,7 +82,7 @@ definitions:
 - Classes have default constructors if none are provided
 - Interface and Classes support members such as: properties, functions, operators, `call` declarations, construct signatures, getters and setters.
 - Readonly properties are represented as getters.
-- Overriding signatures are annotated with [`@redeclare`](https://pub.dev/documentation/meta/latest/meta/redeclare-constant.html). 
+- Overriding signatures are annotated with [`@redeclare`](https://pub.dev/documentation/meta/latest/meta/redeclare-constant.html).
 - Multiple instances of interfaces in a given scope are merged together into a single interface. Also supports merging with `var` declarations.
 
 #### Namespaces
@@ -98,7 +94,7 @@ definitions:
 
 #### Types
 - Supports mapping basic JS types to Dart `js_interop` types.
-- `never` type returned from a const declaration, function, readonly property or method has the declaration annotated with [`@doNotStore`](https://pub.dev/documentation/meta/latest/meta/doNotStore-constant.html). 
+- `never` type returned from a const declaration, function, readonly property or method has the declaration annotated with [`@doNotStore`](https://pub.dev/documentation/meta/latest/meta/doNotStore-constant.html).
 - Supports automatically mapping web types to `package:web` types
 - Anonymous Unions/Intersections: Anonymous unions and intersections are represented as extension types with cast members to cast the value as a type in the union/intersection. If the union is homogenous and contains strings/numbers, then it is generated more like an enum, with specific static values. An intersection with `null` or `undefined` equals `never`
 - Anonymous Objects: Anonymous objects are represented similar to interface declarations, with an object literal constructor.
@@ -106,7 +102,7 @@ definitions:
 - Generic types are represented as normal Dart generics, and they are constrained by `JSAny` by default.
 - `typeof` declarations are references to the type of the declaration, which are:
   - Variable: The variable's type
-  - Enum: An object representation of the enum (in order to support `keyof` correctly). 
+  - Enum: An object representation of the enum (in order to support `keyof` correctly).
   - Function: `JSFunction`
   - Otherwise, the extension type representation of the type that it refers to is used.
 - `keyof` declarations are represented as unions of the keys for the operand type.

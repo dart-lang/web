@@ -14,7 +14,7 @@ void main() {
   group('IDL Integration Test', () {
     final testGenFolder = p.join('test', 'integration', 'idl');
     final inputDir = Directory(testGenFolder);
-    final outputDir = p.join('.dart_tool', 'idl');
+    final outputDir = p.join('.dart_tool', 'js_interop_gen');
 
     setUpAll(() async {
       await compileBindingsGen();
@@ -22,6 +22,9 @@ void main() {
       if (!(await Directory(outputDir).exists())) {
         await Directory(outputDir).create(recursive: true);
       }
+
+      final dummyBcd = File(p.join(outputDir, 'dummy_bcd.json'));
+      await dummyBcd.writeAsString('{"api": {}, "webassembly": {"api": {}}}');
     });
 
     final inputFiles =
@@ -49,12 +52,17 @@ void main() {
         // TODO(kevmoo): Do a more complete cleanup to remove dependency on BCD
         // and webref bits entirely from js_interop_gen tests.
         // run the entrypoint
+        final dummyBcdPath = p.relative(
+          p.join(outputDir, 'dummy_bcd.json'),
+          from: bindingsGenPath,
+        );
+
         await runProc('node', [
           'main.mjs',
           '--input=$inputFilePath',
           '--output=${p.dirname(outFilePath)}',
           '--idl',
-          '--bcd-json=../../../web_generator/node_modules/@mdn/browser-compat-data/data.json',
+          '--bcd-json=$dummyBcdPath',
         ], workingDirectory: bindingsGenPath);
 
         await File(

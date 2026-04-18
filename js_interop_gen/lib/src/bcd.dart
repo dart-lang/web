@@ -28,12 +28,11 @@ class BrowserCompatData {
             .toDart;
 
     final contentMap = jsonDecode(content) as Map;
-    final api = contentMap['api'] as Map<String, dynamic>;
+    final api = (contentMap['api'] as Map).cast<String, dynamic>();
     // MDN files WebAssembly compat data in a separate folder, so we need to
     // unify.
-    final webassembly =
-        (contentMap['webassembly'] as Map<String, dynamic>)['api']
-            as Map<String, dynamic>;
+    final webassembly = ((contentMap['webassembly'] as Map)['api'] as Map)
+        .cast<String, dynamic>();
     api.addAll(webassembly);
     // Add info for the namespace as well.
     api['WebAssembly'] = webassembly;
@@ -150,11 +149,13 @@ abstract class BCDItem {
 
   BCDItem(this.name, this.json);
 
-  Map<String, dynamic> get _compat => json['__compat'] as Map<String, dynamic>;
-  String get _sourceFile => _compat['source_file'] as String;
-  Map<String, dynamic> get _status => _compat['status'] as Map<String, dynamic>;
+  Map<String, dynamic> get _compat =>
+      (json['__compat'] as Map? ?? {}).cast<String, dynamic>();
+  String get _sourceFile => _compat['source_file'] as String? ?? '';
+  Map<String, dynamic> get _status =>
+      (_compat['status'] as Map? ?? {}).cast<String, dynamic>();
   Map<String, dynamic> get _support =>
-      _compat['support'] as Map<String, dynamic>;
+      (_compat['support'] as Map? ?? {}).cast<String, dynamic>();
 
   bool get deprecated => _status['deprecated'] as bool? ?? false;
   bool get experimental => _status['experimental'] as bool? ?? false;

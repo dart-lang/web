@@ -23,7 +23,9 @@ async function main() {
     elements: elementsData
   };
 
-  const outputPath = p.join(__dirname, '../web_apis.json');
+  const outputDir = p.join(__dirname, '../.dart_tool/web_generator');
+  fs.mkdirSync(outputDir, { recursive: true });
+  const outputPath = p.join(outputDir, 'web_apis.json');
   fs.writeFileSync(outputPath, JSON.stringify(fullData, null, 2));
   console.log(`Saved parsed data to ${outputPath}`);
 }

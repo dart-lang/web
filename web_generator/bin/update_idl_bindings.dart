@@ -62,6 +62,13 @@ $_usage''');
   // Compute JS type supertypes for union calculation in translator.
   await checkJsTypeSupertypes();
 
+  if (inputFiles.isEmpty) {
+    // Preparse IDLs to generate web_apis.json.
+    await runProc('node', [
+      'preparse_idls.mjs',
+    ], workingDirectory: p.fromUri(Platform.script.resolve('.')));
+  }
+
   if (argResult['compile'] as bool) {
     final webPkgLangVersion = isSnapshot
         ? dartLanguageVersion.toString()
@@ -79,7 +86,7 @@ $_usage''');
       'main.mjs',
       '--idl',
       if (inputFiles.isEmpty)
-        '--idl-json=${p.fromUri(Platform.script.resolve('../web_apis.json'))}',
+        '--idl-json=${p.fromUri(Platform.script.resolve('../.dart_tool/web_generator/web_apis.json'))}',
       if (inputFiles.isEmpty)
         '--bcd-json=${p.fromUri(Platform.script.resolve('../node_modules/@mdn/browser-compat-data/data.json'))}',
       for (String inputFile in inputFiles) '--input=$inputFile',
@@ -112,7 +119,7 @@ $_usage''');
     'main.mjs',
     '--idl',
     if (inputFiles.isEmpty)
-      '--idl-json=${p.fromUri(Platform.script.resolve('../web_apis.json'))}',
+      '--idl-json=${p.fromUri(Platform.script.resolve('../.dart_tool/web_generator/web_apis.json'))}',
     if (inputFiles.isEmpty)
       '--bcd-json=${p.fromUri(Platform.script.resolve('../node_modules/@mdn/browser-compat-data/data.json'))}',
     for (String inputFile in inputFiles) '--input=$inputFile',

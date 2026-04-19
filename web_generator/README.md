@@ -92,6 +92,7 @@ Based on:
 <!-- START updated by bin/update_idl_bindings.dart. Do not modify by hand -->
 | Item | Version |
 | --- | --: |
+| `@mdn/browser-compat-data` | [5.6.42](https://www.npmjs.com/package/@mdn/browser-compat-data/v/5.6.42) |
 | `@webref/css` | [6.20.3](https://www.npmjs.com/package/@webref/css/v/6.20.3) |
 | `@webref/elements` | [2.4.0](https://www.npmjs.com/package/@webref/elements/v/2.4.0) |
 | `@webref/idl` | [3.60.1](https://www.npmjs.com/package/@webref/idl/v/3.60.1) |

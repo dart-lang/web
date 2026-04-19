@@ -29,7 +29,7 @@ import 'streams.dart';
 import 'trust_token_api.dart';
 import 'xhr.dart';
 
-/// Union of: `JSArray<JSArray<JSString>>`, `record`
+/// Union of: `JSArray<JSArray<JSString>>`, `JSObject<JSString, JSString>`
 typedef HeadersInit = JSObject;
 
 /// Union of 5 types

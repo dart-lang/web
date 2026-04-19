@@ -13,6 +13,7 @@ import 'doc_provider.dart';
 import 'formatting.dart';
 import 'js/webidl_api.dart' as idl;
 import 'js/webref_elements_api.dart';
+import 'js_type_supertypes.dart';
 import 'singletons.dart';
 import 'type_aliases.dart';
 import 'type_union.dart';
@@ -922,14 +923,34 @@ class Translator {
   List<String> _generateUnionDocs(idl.IDLType idlType) {
     if (!idlType.union) return [];
     final types = (idlType.idlType as JSArray<idl.IDLType>).toDart;
-    final typeNames = types.map(_getTypeName).toList();
 
     for (final t in types) {
       _collectDocImports(t);
     }
 
+    final typeNames = types.map(_getTypeNameRaw).toList();
+    final collapsedNames = _collapseTypes(typeNames);
+
+    final formattedNames = collapsedNames.map((name) {
+      final decl = _typeToDeclaration[name];
+      if (decl != null && _usedTypes.contains(decl)) {
+        return '[$name]';
+      }
+      // If it's a generic type (contains <), wrap in ticks to avoid HTML.
+      if (name.contains('<')) {
+        return '`$name`';
+      }
+      // Link if it's a mapped primitive or a valid JS interop type from
+      // supertypes map.
+      if (_mapIdlPrimitiveToDart(name) != null ||
+          jsTypeSupertypes.containsKey(name)) {
+        return '[$name]';
+      }
+      return '`$name`';
+    }).toList();
+
     // Sort: alphabetical, but ticked ones last!
-    typeNames.sort((a, b) {
+    formattedNames.sort((a, b) {
       final aIsTicked = a.startsWith('`');
       final bIsTicked = b.startsWith('`');
       if (aIsTicked && !bIsTicked) return 1;
@@ -937,15 +958,41 @@ class Translator {
       return a.compareTo(b);
     });
 
-    if (typeNames.length >= 4) {
+    if (formattedNames.length >= 4) {
       return [
-        '/// Union of ${typeNames.length} types',
+        '/// Union of ${formattedNames.length} types',
         '///',
-        for (final name in typeNames) '/// - $name',
+        for (final name in formattedNames) '/// - $name',
       ];
     }
 
-    return ['/// Union of: ${typeNames.join(', ')}'];
+    return ['/// Union of: ${formattedNames.join(', ')}'];
+  }
+
+  List<String> _collapseTypes(List<String> types) {
+    final superToSubtypes = <String, Set<String>>{};
+    jsTypeSupertypes.forEach((subtype, supertype) {
+      if (supertype != null) {
+        superToSubtypes.putIfAbsent(supertype, () => {}).add(subtype);
+      }
+    });
+
+    final currentTypes = types.toSet();
+    var changed = true;
+    while (changed) {
+      changed = false;
+      for (final entry in superToSubtypes.entries) {
+        final supertype = entry.key;
+        final subtypes = entry.value;
+
+        if (subtypes.isNotEmpty && subtypes.every(currentTypes.contains)) {
+          currentTypes.removeAll(subtypes);
+          currentTypes.add(supertype);
+          changed = true;
+        }
+      }
+    }
+    return currentTypes.toList();
   }
 
   void _collectDocImports(idl.IDLType idlType) {
@@ -961,39 +1008,6 @@ class Translator {
     if (library != null && library.url != _currentlyTranslatingUrl) {
       _currentDocImports.add(library.url);
     }
-  }
-
-  String _getTypeName(idl.IDLType idlType) {
-    if (idlType.union) {
-      final types = (idlType.idlType as JSArray<idl.IDLType>).toDart;
-      return types.map(_getTypeName).join(' | ');
-    }
-    if (idlType.generic.isNotEmpty) {
-      final types = (idlType.idlType as JSArray<idl.IDLType>).toDart;
-      final genericName = idlType.generic == 'sequence'
-          ? 'JSArray'
-          : idlType.generic;
-      if (types.length == 1) {
-        final rawInner = _getTypeNameRaw(types[0]);
-        final mappedInner = _mapIdlPrimitiveToDart(rawInner) ?? rawInner;
-        return '`$genericName<$mappedInner>`';
-      }
-      return '`$genericName`';
-    }
-    final name = (idlType.idlType as JSString).toDart;
-
-    final mappedName = _mapIdlPrimitiveToDart(name);
-    if (mappedName != null) {
-      return '[$mappedName]';
-    }
-
-    // If the type is not generated, wrap in ticks instead of brackets.
-    final decl = _typeToDeclaration[name];
-    if (decl == null || !_usedTypes.contains(decl)) {
-      return '`$name`';
-    }
-
-    return '[$name]';
   }
 
   String? _mapIdlPrimitiveToDart(String idlType) {
@@ -1054,7 +1068,12 @@ class Translator {
       return mapped;
     }
 
-    return idlOrBuiltinToJsTypeAliases[name] ?? name;
+    final alias = idlOrBuiltinToJsTypeAliases[name];
+    if (alias == 'JSObject' && name != 'object') {
+      return name;
+    }
+
+    return alias ?? name;
   }
 
   code.TypeDef _typedef(

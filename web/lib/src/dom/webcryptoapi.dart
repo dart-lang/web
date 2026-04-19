@@ -17,6 +17,7 @@ import 'dart:js_interop';
 
 import 'webidl.dart';
 
+/// Union of: [JSObject], [JSString]
 typedef AlgorithmIdentifier = JSAny;
 typedef KeyType = String;
 typedef KeyUsage = String;

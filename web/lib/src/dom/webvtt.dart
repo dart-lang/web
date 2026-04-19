@@ -18,6 +18,7 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'html.dart';
 
+/// Union of: [AutoKeyword], [JSNumber]
 typedef LineAndPositionSetting = JSAny;
 typedef AutoKeyword = String;
 typedef DirectionSetting = String;

@@ -10,6 +10,8 @@
 
 // ignore_for_file: constant_identifier_names, non_constant_identifier_names
 
+/// @docImport 'fileapi.dart';
+/// @docImport 'webidl.dart';
 @JS()
 library;
 
@@ -19,6 +21,12 @@ import 'fileapi.dart';
 import 'streams.dart';
 import 'webidl.dart';
 
+/// Union of 4 types
+///
+/// - [Blob]
+/// - [BufferSource]
+/// - [JSString]
+/// - [WriteParams]
 typedef FileSystemWriteChunkType = JSAny;
 typedef FileSystemHandleKind = String;
 typedef WriteCommandType = String;

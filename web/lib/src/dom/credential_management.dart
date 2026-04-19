@@ -10,6 +10,7 @@
 
 // ignore_for_file: constant_identifier_names, non_constant_identifier_names
 
+/// @docImport 'html.dart';
 @JS()
 library;
 
@@ -21,6 +22,7 @@ import 'fedcm.dart';
 import 'web_otp.dart';
 import 'webauthn.dart';
 
+/// Union of: [HTMLFormElement], [PasswordCredentialData]
 typedef PasswordCredentialInit = JSObject;
 typedef CredentialMediationRequirement = String;
 

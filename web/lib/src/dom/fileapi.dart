@@ -10,6 +10,7 @@
 
 // ignore_for_file: constant_identifier_names, non_constant_identifier_names
 
+/// @docImport 'webidl.dart';
 @JS()
 library;
 
@@ -20,6 +21,7 @@ import 'html.dart';
 import 'streams.dart';
 import 'webidl.dart';
 
+/// Union of: [Blob], [BufferSource], [JSString]
 typedef BlobPart = JSAny;
 typedef EndingType = String;
 

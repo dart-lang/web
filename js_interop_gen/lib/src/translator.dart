@@ -737,6 +737,7 @@ class Translator {
   final _includes = <String, List<String>>{};
   final _usedTypes = <idl.Node>{};
   final _renamedClasses = <String, String>{};
+  final _currentDocImports = <String>{};
 
   Map<String, String> get renamedClasses => _renamedClasses;
 
@@ -918,12 +919,161 @@ class Translator {
     _libraries[libraryPath] = library;
   }
 
-  code.TypeDef _typedef(String name, _RawType rawType) => code.TypeDef(
+  List<String> _generateUnionDocs(idl.IDLType idlType) {
+    if (!idlType.union) return [];
+    final types = (idlType.idlType as JSArray<idl.IDLType>).toDart;
+    final typeNames = types.map(_getTypeName).toList();
+
+    for (final t in types) {
+      _collectDocImports(t);
+    }
+
+    // Sort: alphabetical, but ticked ones last!
+    typeNames.sort((a, b) {
+      final aIsTicked = a.startsWith('`');
+      final bIsTicked = b.startsWith('`');
+      if (aIsTicked && !bIsTicked) return 1;
+      if (!aIsTicked && bIsTicked) return -1;
+      return a.compareTo(b);
+    });
+
+    if (typeNames.length >= 4) {
+      return [
+        '/// Union of ${typeNames.length} types',
+        '///',
+        for (final name in typeNames) '/// - $name',
+      ];
+    }
+
+    return ['/// Union of: ${typeNames.join(', ')}'];
+  }
+
+  void _collectDocImports(idl.IDLType idlType) {
+    if (idlType.union) {
+      final types = (idlType.idlType as JSArray<idl.IDLType>).toDart;
+      for (final t in types) {
+        _collectDocImports(t);
+      }
+      return;
+    }
+    if (idlType.generic.isNotEmpty) {
+      final types = (idlType.idlType as JSArray<idl.IDLType>).toDart;
+      for (final t in types) {
+        _collectDocImports(t);
+      }
+      return;
+    }
+    final name = (idlType.idlType as JSString).toDart;
+    final library = _typeToLibrary[name];
+    if (library != null && library.url != _currentlyTranslatingUrl) {
+      _currentDocImports.add(library.url);
+    }
+  }
+
+  String _getTypeName(idl.IDLType idlType) {
+    if (idlType.union) {
+      final types = (idlType.idlType as JSArray<idl.IDLType>).toDart;
+      return types.map(_getTypeName).join(' | ');
+    }
+    if (idlType.generic.isNotEmpty) {
+      final types = (idlType.idlType as JSArray<idl.IDLType>).toDart;
+      final genericName =
+          idlType.generic == 'sequence' ? 'JSArray' : idlType.generic;
+      if (types.length == 1) {
+        final rawInner = _getTypeNameRaw(types[0]);
+        final mappedInner = _mapIdlPrimitiveToDart(rawInner) ?? rawInner;
+        return '`$genericName<$mappedInner>`';
+      }
+      return '`$genericName`';
+    }
+    final name = (idlType.idlType as JSString).toDart;
+
+    final mappedName = _mapIdlPrimitiveToDart(name);
+    if (mappedName != null) {
+      return '[$mappedName]';
+    }
+
+    // If the type is not generated, wrap in ticks instead of brackets.
+    final decl = _typeToDeclaration[name];
+    if (decl == null || !_usedTypes.contains(decl)) {
+      return '`$name`';
+    }
+    
+    return '[$name]';
+  }
+
+  String? _mapIdlPrimitiveToDart(String idlType) {
+    return switch (idlType) {
+      'DOMString' || 'USVString' || 'ByteString' => 'JSString',
+      'boolean' => 'JSBoolean',
+      'byte' ||
+      'octet' ||
+      'short' ||
+      'long' ||
+      'long long' ||
+      'unsigned short' ||
+      'unsigned long' ||
+      'unsigned long long' ||
+      'double' ||
+      'float' ||
+      'unrestricted double' ||
+      'unrestricted float' => 'JSNumber',
+      'object' => 'JSObject',
+      'Function' => 'JSFunction',
+      'WindowProxy' => 'Window',
+      'Int8Array' => 'JSInt8Array',
+      'Int16Array' => 'JSInt16Array',
+      'Int32Array' => 'JSInt32Array',
+      'Uint8Array' => 'JSUint8Array',
+      'Uint16Array' => 'JSUint16Array',
+      'Uint32Array' => 'JSUint32Array',
+      'Uint8ClampedArray' => 'JSUint8ClampedArray',
+      'Float32Array' => 'JSFloat32Array',
+      'Float64Array' => 'JSFloat64Array',
+      'ArrayBuffer' => 'JSArrayBuffer',
+      'DataView' => 'JSDataView',
+      _ => null,
+    };
+  }
+
+  String _getTypeNameRaw(idl.IDLType idlType) {
+    if (idlType.union) {
+      final types = (idlType.idlType as JSArray<idl.IDLType>).toDart;
+      return types.map(_getTypeNameRaw).join(' | ');
+    }
+    if (idlType.generic.isNotEmpty) {
+      final types = (idlType.idlType as JSArray<idl.IDLType>).toDart;
+      final genericName =
+          idlOrBuiltinToJsTypeAliases[idlType.generic] ?? idlType.generic;
+      if (types.length == 1) {
+        return '$genericName<${_getTypeNameRaw(types[0])}>';
+      }
+      if (types.length > 1) {
+        return '$genericName<${types.map(_getTypeNameRaw).join(', ')}>';
+      }
+      return genericName;
+    }
+    final name = (idlType.idlType as JSString).toDart;
+    
+    final mapped = _mapIdlPrimitiveToDart(name);
+    if (mapped != null) {
+      return mapped;
+    }
+    
+    return idlOrBuiltinToJsTypeAliases[name] ?? name;
+  }
+
+  code.TypeDef _typedef(
+    String name,
+    _RawType rawType, [
+    idl.Typedef? idlTypedef,
+  ]) => code.TypeDef(
     (b) => b
       ..name = name
-      // Any typedefs that need to be handled differently when used in a return
-      // type context will be handled in `_typeReference` separately.
-      ..definition = _typeReference(rawType),
+      ..definition = _typeReference(rawType)
+      ..docs.addAll([
+        if (idlTypedef != null) ..._generateUnionDocs(idlTypedef.idlType),
+      ]),
   );
 
   code.Method _topLevelGetter(_RawType type, String getterName) => code.Method(
@@ -1544,9 +1694,50 @@ class Translator {
   }
 
   code.Library _library(_Library library) => code.Library((b) {
+    _currentDocImports.clear();
+
+    final body = [
+      for (final typedef in library.typedefs.where(_usedTypes.contains))
+        _typedef(
+          typedef.name,
+          _desugarTypedef(_RawType(typedef.name, false))!,
+          typedef,
+        ),
+      for (final callback in library.callbacks.where(_usedTypes.contains))
+        _typedef(
+          callback.name,
+          _desugarTypedef(_RawType(callback.name, false))!,
+        ),
+      for (final callbackInterface in library.callbackInterfaces.where(
+        _usedTypes.contains,
+      ))
+        _typedef(
+          callbackInterface.name,
+          _desugarTypedef(_RawType(callbackInterface.name, false))!,
+        ),
+      for (final enum_ in library.enums.where(_usedTypes.contains))
+        _typedef(enum_.name, _desugarTypedef(_RawType(enum_.name, false))!),
+      for (final interfacelike in library.interfacelikes.where(
+        _usedTypes.contains,
+      ))
+        ..._interfacelike(interfacelike),
+    ];
+
+    final docImports = <String>[];
+    if (_currentDocImports.isNotEmpty) {
+      docImports.addAll(_currentDocImports.toList()..sort());
+    }
+
     if (_generateForWeb) {
       b.comments.addAll([...licenseHeader, '', ...mozLicenseHeader]);
     }
+
+    if (docImports.isNotEmpty) {
+      b.docs.addAll([
+        for (final url in docImports) '/// @docImport \'${p.basename(url)}\';',
+      ]);
+    }
+
     b
       ..ignoreForFile.addAll([
         // JS constants are allowed to be all uppercased.
@@ -1561,31 +1752,7 @@ class Translator {
       // Once this package moves to an SDK version that contains a fix
       // for that, this can be removed.
       ..annotations.addAll(_jsOverride('', alwaysEmit: true))
-      ..body.addAll([
-        for (final typedef in library.typedefs.where(_usedTypes.contains))
-          _typedef(
-            typedef.name,
-            _desugarTypedef(_RawType(typedef.name, false))!,
-          ),
-        for (final callback in library.callbacks.where(_usedTypes.contains))
-          _typedef(
-            callback.name,
-            _desugarTypedef(_RawType(callback.name, false))!,
-          ),
-        for (final callbackInterface in library.callbackInterfaces.where(
-          _usedTypes.contains,
-        ))
-          _typedef(
-            callbackInterface.name,
-            _desugarTypedef(_RawType(callbackInterface.name, false))!,
-          ),
-        for (final enum_ in library.enums.where(_usedTypes.contains))
-          _typedef(enum_.name, _desugarTypedef(_RawType(enum_.name, false))!),
-        for (final interfacelike in library.interfacelikes.where(
-          _usedTypes.contains,
-        ))
-          ..._interfacelike(interfacelike),
-      ]);
+      ..body.addAll(body);
   });
 
   code.Library generateRootImport(Iterable<String> files) => code.Library(

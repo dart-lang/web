@@ -10,6 +10,8 @@
 
 // ignore_for_file: constant_identifier_names, non_constant_identifier_names
 
+/// @docImport 'html.dart';
+/// @docImport 'webcodecs.dart';
 @JS()
 library;
 
@@ -29,8 +31,22 @@ typedef GLsizeiptr = int;
 typedef GLuint = int;
 typedef GLfloat = num;
 typedef GLclampf = num;
+
+/// Union of 7 types
+///
+/// - [HTMLCanvasElement]
+/// - [HTMLImageElement]
+/// - [HTMLVideoElement]
+/// - [ImageBitmap]
+/// - [ImageData]
+/// - [OffscreenCanvas]
+/// - [VideoFrame]
 typedef TexImageSource = JSObject;
+
+/// Union of: [JSFloat32Array], `JSArray<GLfloat>`
 typedef Float32List = JSObject;
+
+/// Union of: [JSInt32Array], `JSArray<GLint>`
 typedef Int32List = JSObject;
 typedef WebGLPowerPreference = String;
 extension type WebGLContextAttributes._(JSObject _) implements JSObject {

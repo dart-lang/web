@@ -21,9 +21,16 @@ import 'image_capture.dart';
 import 'screen_capture.dart';
 import 'webidl.dart';
 
+/// Union of: [ConstrainULongRange], [JSNumber]
 typedef ConstrainULong = JSAny;
+
+/// Union of: [ConstrainDoubleRange], [JSNumber]
 typedef ConstrainDouble = JSAny;
+
+/// Union of: [ConstrainBooleanParameters], [JSBoolean]
 typedef ConstrainBoolean = JSAny;
+
+/// Union of: [ConstrainDOMStringParameters], [JSString], `JSArray<JSString>`
 typedef ConstrainDOMString = JSAny;
 typedef MediaStreamTrackState = String;
 typedef MediaDeviceKind = String;

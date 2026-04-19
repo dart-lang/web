@@ -977,8 +977,9 @@ class Translator {
     }
     if (idlType.generic.isNotEmpty) {
       final types = (idlType.idlType as JSArray<idl.IDLType>).toDart;
-      final genericName =
-          idlType.generic == 'sequence' ? 'JSArray' : idlType.generic;
+      final genericName = idlType.generic == 'sequence'
+          ? 'JSArray'
+          : idlType.generic;
       if (types.length == 1) {
         final rawInner = _getTypeNameRaw(types[0]);
         final mappedInner = _mapIdlPrimitiveToDart(rawInner) ?? rawInner;
@@ -998,7 +999,7 @@ class Translator {
     if (decl == null || !_usedTypes.contains(decl)) {
       return '`$name`';
     }
-    
+
     return '[$name]';
   }
 
@@ -1054,12 +1055,12 @@ class Translator {
       return genericName;
     }
     final name = (idlType.idlType as JSString).toDart;
-    
+
     final mapped = _mapIdlPrimitiveToDart(name);
     if (mapped != null) {
       return mapped;
     }
-    
+
     return idlOrBuiltinToJsTypeAliases[name] ?? name;
   }
 

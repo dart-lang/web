@@ -32,7 +32,7 @@ void main() {
       final inputFilePath = p.relative(testFile, from: bindingsGenPath);
       final outputFilePath = p.relative(outputFile, from: bindingsGenPath);
 
-      final process = await runProcWithResult('node', [
+      final process = await runNodeWithResult([
         'main.mjs',
         '--input=$inputFilePath',
         '--output=$outputFilePath',
@@ -50,7 +50,7 @@ void main() {
       final inputFilePath = p.relative(testFile, from: bindingsGenPath);
       final outputFilePath = p.relative(outputFile, from: bindingsGenPath);
 
-      await runProc('node', [
+      await runNode([
         'main.mjs',
         '--input=$inputFilePath',
         '--output=$outputFilePath',

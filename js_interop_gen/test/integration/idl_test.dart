@@ -57,7 +57,7 @@ void main() {
           from: bindingsGenPath,
         );
 
-        await runProc('node', [
+        await runNode([
           'main.mjs',
           '--input=$inputFilePath',
           '--output=${p.dirname(outFilePath)}',

@@ -82,7 +82,7 @@ $_usage''');
   if (isSnapshot) {
     // Do not run webdev setup script stuff for published snapshots
     final generateAll = argResult['generate-all'] as bool;
-    await runProc('node', [
+    await runNode([
       'main.mjs',
       '--idl',
       if (inputFiles.isEmpty)
@@ -115,7 +115,7 @@ $_usage''');
 
   // Run app with `node`.
   final generateAll = argResult['generate-all'] as bool;
-  await runProc('node', [
+  await runNode([
     'main.mjs',
     '--idl',
     if (inputFiles.isEmpty)

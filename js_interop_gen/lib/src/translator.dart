@@ -949,14 +949,7 @@ class Translator {
   }
 
   void _collectDocImports(idl.IDLType idlType) {
-    if (idlType.union) {
-      final types = (idlType.idlType as JSArray<idl.IDLType>).toDart;
-      for (final t in types) {
-        _collectDocImports(t);
-      }
-      return;
-    }
-    if (idlType.generic.isNotEmpty) {
+    if (idlType.union || idlType.generic.isNotEmpty) {
       final types = (idlType.idlType as JSArray<idl.IDLType>).toDart;
       for (final t in types) {
         _collectDocImports(t);

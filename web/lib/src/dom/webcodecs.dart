@@ -10,6 +10,8 @@
 
 // ignore_for_file: constant_identifier_names, non_constant_identifier_names
 
+/// @docImport 'streams.dart';
+/// @docImport 'webidl.dart';
 @JS()
 library;
 
@@ -28,6 +30,7 @@ import 'webcodecs_opus_codec_registration.dart';
 import 'webcodecs_vp9_codec_registration.dart';
 import 'webidl.dart';
 
+/// Union of: [AllowSharedBufferSource], [ReadableStream]
 typedef ImageBufferSource = JSObject;
 typedef AudioDataOutputCallback = JSFunction;
 typedef VideoFrameOutputCallback = JSFunction;

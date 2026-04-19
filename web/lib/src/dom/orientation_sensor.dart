@@ -10,6 +10,7 @@
 
 // ignore_for_file: constant_identifier_names, non_constant_identifier_names
 
+/// @docImport 'geometry.dart';
 @JS()
 library;
 
@@ -17,6 +18,7 @@ import 'dart:js_interop';
 
 import 'generic_sensor.dart';
 
+/// Union of: [DOMMatrix], [JSFloat32Array], [JSFloat64Array]
 typedef RotationMatrixType = JSObject;
 typedef OrientationSensorLocalCoordinateSystem = String;
 

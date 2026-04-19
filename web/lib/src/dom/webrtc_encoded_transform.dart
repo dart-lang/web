@@ -19,6 +19,7 @@ import 'dom.dart';
 import 'html.dart';
 import 'streams.dart';
 
+/// Union of: [RTCRtpScriptTransform], `SFrameTransform`
 typedef RTCRtpTransform = JSObject;
 typedef RTCEncodedVideoFrameType = String;
 extension type RTCEncodedVideoFrameMetadata._(JSObject _) implements JSObject {

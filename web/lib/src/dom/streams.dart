@@ -18,6 +18,7 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'webidl.dart';
 
+/// Union of: [ReadableStreamBYOBReader], [ReadableStreamDefaultReader]
 typedef ReadableStreamReader = JSObject;
 typedef QueuingStrategySize = JSFunction;
 typedef ReadableStreamReaderMode = String;

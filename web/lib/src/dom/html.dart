@@ -10,6 +10,16 @@
 
 // ignore_for_file: constant_identifier_names, non_constant_identifier_names
 
+/// @docImport 'fileapi.dart';
+/// @docImport 'media_source.dart';
+/// @docImport 'mediacapture_streams.dart';
+/// @docImport 'service_workers.dart';
+/// @docImport 'svg.dart';
+/// @docImport 'trusted_types.dart';
+/// @docImport 'webcodecs.dart';
+/// @docImport 'webgl1.dart';
+/// @docImport 'webgl2.dart';
+/// @docImport 'webgpu.dart';
 @JS()
 library;
 
@@ -61,17 +71,53 @@ import 'webidl.dart';
 import 'webmidi.dart';
 import 'xhr.dart';
 
+/// Union of: [HTMLScriptElement], [SVGScriptElement]
 typedef HTMLOrSVGScriptElement = JSObject;
+
+/// Union of: [Blob], [MediaSource], [MediaStream]
 typedef MediaProvider = JSObject;
+
+/// Union of 5 types
+///
+/// - [CanvasRenderingContext2D]
+/// - [ImageBitmapRenderingContext]
+/// - [WebGL2RenderingContext]
+/// - [WebGLRenderingContext]
+/// - `GPUCanvasContext`
 typedef RenderingContext = JSObject;
+
+/// Union of: [HTMLImageElement], [SVGImageElement]
 typedef HTMLOrSVGImageElement = JSObject;
+
+/// Union of 6 types
+///
+/// - [HTMLCanvasElement]
+/// - [HTMLOrSVGImageElement]
+/// - [HTMLVideoElement]
+/// - [ImageBitmap]
+/// - [OffscreenCanvas]
+/// - [VideoFrame]
 typedef CanvasImageSource = JSObject;
+
+/// Union of 5 types
+///
+/// - [ImageBitmapRenderingContext]
+/// - [OffscreenCanvasRenderingContext2D]
+/// - [WebGL2RenderingContext]
+/// - [WebGLRenderingContext]
+/// - `GPUCanvasContext`
 typedef OffscreenRenderingContext = JSObject;
 typedef EventHandler = EventHandlerNonNull?;
 typedef OnErrorEventHandler = OnErrorEventHandlerNonNull?;
 typedef OnBeforeUnloadEventHandler = OnBeforeUnloadEventHandlerNonNull?;
+
+/// Union of: [JSFunction], [JSString], [TrustedScript]
 typedef TimerHandler = JSAny;
+
+/// Union of: [Blob], [CanvasImageSource], [ImageData]
 typedef ImageBitmapSource = JSObject;
+
+/// Union of: [MessagePort], [ServiceWorker], [Window]
 typedef MessageEventSource = JSObject;
 typedef BlobCallback = JSFunction;
 typedef CustomElementConstructor = JSFunction;

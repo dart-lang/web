@@ -10,6 +10,7 @@
 
 // ignore_for_file: constant_identifier_names, non_constant_identifier_names
 
+/// @docImport 'fileapi.dart';
 @JS()
 library;
 
@@ -18,6 +19,7 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'html.dart';
 
+/// Union of: [File], [JSString]
 typedef FormDataEntryValue = JSAny;
 typedef XMLHttpRequestResponseType = String;
 

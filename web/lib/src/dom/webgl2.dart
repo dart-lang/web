@@ -10,6 +10,7 @@
 
 // ignore_for_file: constant_identifier_names, non_constant_identifier_names
 
+/// @docImport 'webgl1.dart';
 @JS()
 library;
 
@@ -21,6 +22,8 @@ import 'webidl.dart';
 
 typedef GLint64 = int;
 typedef GLuint64 = int;
+
+/// Union of: [JSUint32Array], `JSArray<GLuint>`
 typedef Uint32List = JSObject;
 
 /// The **`WebGLQuery`** interface is part of the

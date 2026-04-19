@@ -15,8 +15,13 @@ library;
 
 import 'dart:js_interop';
 
+/// Union of: [JSDataView], [JSTypedArray]
 typedef ArrayBufferView = JSObject;
+
+/// Union of: [ArrayBufferView], [JSArrayBuffer]
 typedef BufferSource = JSObject;
+
+/// Union of: [ArrayBufferView], [JSArrayBuffer], `SharedArrayBuffer`
 typedef AllowSharedBufferSource = JSObject;
 typedef VoidFunction = JSFunction;
 

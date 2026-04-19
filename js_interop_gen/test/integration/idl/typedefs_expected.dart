@@ -7,7 +7,10 @@ library;
 
 import 'dart:js_interop';
 
+/// Union of: [JSDataView], [JSTypedArray]
 typedef ArrayBufferView = JSObject;
+
+/// Union of: [ArrayBufferView], [JSArrayBuffer]
 typedef BufferSource = JSObject;
 typedef Timestamp = int;
 extension type DataHandler._(JSObject _) implements JSObject {

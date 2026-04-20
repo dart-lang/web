@@ -19,6 +19,16 @@ import 'type_aliases.dart';
 import 'type_union.dart';
 import 'util.dart';
 
+final Map<String, Set<String>> _superToSubtypes = () {
+  final map = <String, Set<String>>{};
+  jsTypeSupertypes.forEach((subtype, supertype) {
+    if (supertype != null) {
+      map.putIfAbsent(supertype, () => {}).add(subtype);
+    }
+  });
+  return map;
+}();
+
 typedef TranslationResult = Map<String, code.Library>;
 
 class _Library {
@@ -751,6 +761,8 @@ class Translator {
   /// Singleton so that various helper methods can access info about the AST.
   static Translator? instance;
 
+  static const _unionDocListThreshold = 4;
+
   Translator(
     this._librarySubDir,
     this._cssStyleDeclarations,
@@ -958,7 +970,7 @@ class Translator {
       return a.compareTo(b);
     });
 
-    if (formattedNames.length >= 4) {
+    if (formattedNames.length >= _unionDocListThreshold) {
       return [
         '/// Union of ${formattedNames.length} types',
         '///',
@@ -970,18 +982,11 @@ class Translator {
   }
 
   List<String> _collapseTypes(List<String> types) {
-    final superToSubtypes = <String, Set<String>>{};
-    jsTypeSupertypes.forEach((subtype, supertype) {
-      if (supertype != null) {
-        superToSubtypes.putIfAbsent(supertype, () => {}).add(subtype);
-      }
-    });
-
     final currentTypes = types.toSet();
     var changed = true;
     while (changed) {
       changed = false;
-      for (final entry in superToSubtypes.entries) {
+      for (final entry in _superToSubtypes.entries) {
         final supertype = entry.key;
         final subtypes = entry.value;
 
@@ -1192,8 +1197,8 @@ class Translator {
       // Else is a core type, so no import required.
     } else if (url == _currentlyTranslatingUrl) {
       url = null;
-    } else if (p.dirname(url) == p.dirname(_currentlyTranslatingUrl)) {
-      url = p.basename(url);
+    } else {
+      url = p.url.relative(url, from: p.url.dirname(_currentlyTranslatingUrl));
     }
     return url;
   }
@@ -1746,8 +1751,10 @@ class Translator {
     }
 
     if (docImports.isNotEmpty) {
+      final currentDir = p.url.dirname(_currentlyTranslatingUrl);
       b.docs.addAll([
-        for (final url in docImports) '/// @docImport \'${p.basename(url)}\';',
+        for (final url in docImports)
+          '/// @docImport \'${p.url.relative(url, from: currentDir)}\';',
       ]);
     }
 

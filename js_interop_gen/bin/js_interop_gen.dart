@@ -94,7 +94,7 @@ $_usage''');
       ? p.relative(tsConfigPath, from: bindingsGeneratorPath)
       : null;
   // Run app with `node`.
-  await runProc('node', [
+  await runNode([
     'main.mjs',
     '--declaration',
     if (argResult.rest.isNotEmpty) ...[

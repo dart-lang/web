@@ -59,6 +59,29 @@ Future<void> compileDartMain({String? langVersion, String? dir}) async {
   ], workingDirectory: dir ?? bindingsGeneratorPath);
 }
 
+Future<void> runNode(
+  List<String> arguments, {
+  required String workingDirectory,
+  bool detached = false,
+}) async {
+  await runProc(
+    'node',
+    ['--enable-source-maps', ...arguments],
+    workingDirectory: workingDirectory,
+    detached: detached,
+  );
+}
+
+Future<Process> runNodeWithResult(
+  List<String> arguments, {
+  required String workingDirectory,
+}) async {
+  return runProcWithResult('node', [
+    '--enable-source-maps',
+    ...arguments,
+  ], workingDirectory: workingDirectory);
+}
+
 Future<Process> runProcWithResult(
   String executable,
   List<String> arguments, {

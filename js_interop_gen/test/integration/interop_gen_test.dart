@@ -52,7 +52,7 @@ void main() {
         final inputFilePath = p.relative(inputFile.path, from: bindingsGenPath);
         final outFilePath = p.relative(outputActualPath, from: bindingsGenPath);
         // run the entrypoint
-        await runProc('node', [
+        await runNode([
           'main.mjs',
           '--input=$inputFilePath',
           '--output=$outFilePath',
@@ -87,7 +87,7 @@ void main() {
         from: bindingsGenPath,
       );
       // run the entrypoint
-      await runProc('node', [
+      await runNode([
         'main.mjs',
         '--config=$inputConfigPath',
         '--declaration',

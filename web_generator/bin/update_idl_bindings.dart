@@ -146,6 +146,7 @@ $_usage''');
 
     final sourceContent = readmeFile.readAsStringSync();
 
+    final bcdVersion = _packageLockVersion(_browserCompatData);
     final cssVersion = _packageLockVersion(_webRefCss);
     final elementsVersion = _packageLockVersion(_webRefElements);
     final idlVersion = _packageLockVersion(_webRefIdl);
@@ -154,6 +155,7 @@ $_usage''');
 $_startComment
 | Item | Version |
 | --- | --: |
+| `$_browserCompatData` | [$bcdVersion](https://www.npmjs.com/package/$_browserCompatData/v/$bcdVersion) |
 | `$_webRefCss` | [$cssVersion](https://www.npmjs.com/package/$_webRefCss/v/$cssVersion) |
 | `$_webRefElements` | [$elementsVersion](https://www.npmjs.com/package/$_webRefElements/v/$elementsVersion) |
 | `$_webRefIdl` | [$idlVersion](https://www.npmjs.com/package/$_webRefIdl/v/$idlVersion) |
@@ -166,7 +168,9 @@ $_startComment
     if (newContent == sourceContent) {
       print(ansi.styleBold.wrap('No update for readme.'));
     } else {
-      print(ansi.styleBold.wrap('Updating readme for IDL version $idlVersion'));
+      print(
+        ansi.styleBold.wrap('Updating readme with latest package versions'),
+      );
       readmeFile.writeAsStringSync(newContent, mode: FileMode.writeOnly);
     }
   }
@@ -174,8 +178,10 @@ $_startComment
 
 final _webPackagePath = p.fromUri(Platform.script.resolve('../../web'));
 
+Map<String, dynamic>? _cachedPackageLockData;
+
 String _packageLockVersion(String package) {
-  final packageLockData =
+  final packageLockData = _cachedPackageLockData ??=
       jsonDecode(
             File(
               p.fromUri(Platform.script.resolve('../package-lock.json')),
@@ -188,6 +194,7 @@ String _packageLockVersion(String package) {
   return webRefIdl['version'] as String;
 }
 
+const _browserCompatData = '@mdn/browser-compat-data';
 const _webRefCss = '@webref/css';
 const _webRefElements = '@webref/elements';
 const _webRefIdl = '@webref/idl';

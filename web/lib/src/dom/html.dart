@@ -10,12 +10,7 @@
 
 // ignore_for_file: constant_identifier_names, non_constant_identifier_names
 
-/// @docImport 'fileapi.dart';
-/// @docImport 'media_source.dart';
-/// @docImport 'mediacapture_streams.dart';
-/// @docImport 'service_workers.dart';
 /// @docImport 'svg.dart';
-/// @docImport 'trusted_types.dart';
 /// @docImport 'webcodecs.dart';
 /// @docImport 'webgl1.dart';
 /// @docImport 'webgl2.dart';

@@ -739,6 +739,7 @@ class Translator {
   final _usedTypes = <idl.Node>{};
   final _renamedClasses = <String, String>{};
   final _currentDocImports = <String>{};
+  final _regularImports = <String>{};
 
   Map<String, String> get renamedClasses => _renamedClasses;
 
@@ -1119,6 +1120,10 @@ class Translator {
       );
     }
     final url = _urlForType(dartType);
+    final originalUrl = _typeToLibrary[dartType]?.url;
+    if (originalUrl != null) {
+      _regularImports.add(originalUrl);
+    }
     return code.TypeReference(
       (b) => b
         ..symbol = dartType
@@ -1659,6 +1664,7 @@ class Translator {
 
   code.Library _library(_Library library) => code.Library((b) {
     _currentDocImports.clear();
+    _regularImports.clear();
 
     final body = [
       for (final typedef in library.typedefs.where(_usedTypes.contains))
@@ -1687,10 +1693,11 @@ class Translator {
         ..._interfacelike(interfacelike),
     ];
 
-    final docImports = <String>[];
-    if (_currentDocImports.isNotEmpty) {
-      docImports.addAll(_currentDocImports.toList()..sort());
-    }
+    final docImports =
+        _currentDocImports
+            .where((url) => !_regularImports.contains(url))
+            .toList()
+          ..sort();
 
     if (_generateForWeb) {
       b.comments.addAll([...licenseHeader, '', ...mozLicenseHeader]);

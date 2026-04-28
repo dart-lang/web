@@ -990,6 +990,7 @@ class Translator {
   String? _mapIdlPrimitiveToDart(String idlType) {
     if (idlType == 'WindowProxy') return 'Window';
     final alias = idlOrBuiltinToJsTypeAliases[idlType];
+    if (alias == 'JSObject' && idlType != 'object') return null;
     if (alias == 'JSInteger' || alias == 'JSDouble') return 'JSNumber';
     return alias;
   }

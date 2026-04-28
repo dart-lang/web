@@ -20,7 +20,7 @@ import 'dart:js_interop';
 /// - [JSUint8ClampedArray]
 typedef AllTypedArrays = JSTypedArray;
 
-/// Union of: [JSArrayBuffer], [JSObject]
+/// Union of: [JSArrayBuffer], `SharedArrayBuffer`
 typedef BufferUnion = JSObject;
 
 /// Union of: [JSBoolean], [JSString]

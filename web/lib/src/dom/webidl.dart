@@ -33,7 +33,7 @@ typedef ArrayBufferView = JSObject;
 /// Union of: [ArrayBufferView], [JSArrayBuffer]
 typedef BufferSource = JSObject;
 
-/// Union of: [ArrayBufferView], [JSArrayBuffer], [JSObject]
+/// Union of: [ArrayBufferView], [JSArrayBuffer], `SharedArrayBuffer`
 typedef AllowSharedBufferSource = JSObject;
 typedef VoidFunction = JSFunction;
 

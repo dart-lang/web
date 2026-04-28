@@ -229,9 +229,6 @@ _RawType _getRawType(idl.IDLType idlType) {
   // Handles types that don't exist in the set of IDL type declarations. They
   // are either some special values or JS builtin types.
 
-  // `WindowProxy` doesn't exist as an interface in the IDL. For our purposes,
-  // `Window` is the appropriate interface.
-  if (type == 'WindowProxy') type = 'Window';
   // `any` is marked non-nullable in the IDL, but since it is a union of
   // `undefined`, it can be nullable for our purposes.
   if (type == 'any') nullable = true;

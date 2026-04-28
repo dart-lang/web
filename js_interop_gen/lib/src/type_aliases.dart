@@ -16,6 +16,10 @@ const idlOrBuiltinToJsTypeAliases = <String, String>{
   'Function': 'JSFunction',
   'SharedArrayBuffer': 'JSObject',
 
+  // As far as developers are concerned, `WindowProxy` is just an alias for
+  // `Window`.
+  'WindowProxy': 'Window',
+
   'ArrayBuffer': 'JSArrayBuffer',
   'DataView': 'JSDataView',
   'Int8Array': 'JSInt8Array',

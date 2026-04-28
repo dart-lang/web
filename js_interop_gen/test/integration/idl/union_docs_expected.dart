@@ -7,24 +7,32 @@ library;
 
 import 'dart:js_interop';
 
-/// Union of: [JSTypedArray]
+/// Union of 9 types
+///
+/// - [JSFloat32Array]
+/// - [JSFloat64Array]
+/// - [JSInt16Array]
+/// - [JSInt32Array]
+/// - [JSInt8Array]
+/// - [JSUint16Array]
+/// - [JSUint32Array]
+/// - [JSUint8Array]
+/// - [JSUint8ClampedArray]
 typedef AllTypedArrays = JSTypedArray;
 
-/// Union of: [JSArrayBuffer], `SharedArrayBuffer`
+/// Union of: [JSArrayBuffer], [JSObject]
 typedef BufferUnion = JSObject;
 
 /// Union of: [JSBoolean], [JSString]
 typedef PrimitiveUnion = JSAny;
 
-/// Union of: `JSArray<JSString>`, `JSObject<JSString, JSString>`
+/// Union of 2 types
+///
+/// - <code>[JSArray]\<[JSString]\></code>
+/// - <code>[JSObject]\<[JSString], [JSString]\></code>
 typedef GenericUnion = JSObject;
 
-/// Union of 4 types
-///
-/// - [JSInt16Array]
-/// - [JSInt32Array]
-/// - [JSInt8Array]
-/// - [JSString]
+/// Union of: [JSInt16Array], [JSInt32Array], [JSInt8Array], [JSString]
 typedef NonCollapsingLongUnion = JSAny;
 extension type DummyInterface._(JSObject _) implements JSObject {
   external void testAllTypedArrays(AllTypedArrays a);

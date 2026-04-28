@@ -43,10 +43,10 @@ typedef GLclampf = num;
 /// - [VideoFrame]
 typedef TexImageSource = JSObject;
 
-/// Union of: [JSFloat32Array], `JSArray<GLfloat>`
+/// Union of: <code>[JSArray]\<[GLfloat]\></code>, [JSFloat32Array]
 typedef Float32List = JSObject;
 
-/// Union of: [JSInt32Array], `JSArray<GLint>`
+/// Union of: <code>[JSArray]\<[GLint]\></code>, [JSInt32Array]
 typedef Int32List = JSObject;
 typedef WebGLPowerPreference = String;
 extension type WebGLContextAttributes._(JSObject _) implements JSObject {

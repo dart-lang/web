@@ -29,16 +29,13 @@ import 'streams.dart';
 import 'trust_token_api.dart';
 import 'xhr.dart';
 
-/// Union of: `JSArray<JSArray<JSString>>`, `JSObject<JSString, JSString>`
+/// Union of 2 types
+///
+/// - <code>[JSArray]\<[JSArray]\></code>
+/// - <code>[JSObject]\<[JSString], [JSString]\></code>
 typedef HeadersInit = JSObject;
 
-/// Union of 5 types
-///
-/// - [Blob]
-/// - [BufferSource]
-/// - [FormData]
-/// - [JSString]
-/// - [URLSearchParams]
+/// Union of: [Blob], [BufferSource], [FormData], [JSString], [URLSearchParams]
 typedef XMLHttpRequestBodyInit = JSAny;
 
 /// Union of: [ReadableStream], [XMLHttpRequestBodyInit]

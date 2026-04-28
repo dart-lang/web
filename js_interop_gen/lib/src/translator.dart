@@ -19,16 +19,6 @@ import 'type_aliases.dart';
 import 'type_union.dart';
 import 'util.dart';
 
-final Map<String, Set<String>> _superToSubtypes = () {
-  final map = <String, Set<String>>{};
-  jsTypeSupertypes.forEach((subtype, supertype) {
-    if (supertype != null) {
-      map.putIfAbsent(supertype, () => {}).add(subtype);
-    }
-  });
-  return map;
-}();
-
 typedef TranslationResult = Map<String, code.Library>;
 
 class _Library {
@@ -761,8 +751,6 @@ class Translator {
   /// Singleton so that various helper methods can access info about the AST.
   static Translator? instance;
 
-  static const _unionDocListThreshold = 4;
-
   Translator(
     this._librarySubDir,
     this._cssStyleDeclarations,
@@ -941,16 +929,25 @@ class Translator {
     }
 
     final typeNames = types.map(_getTypeNameRaw).toList();
-    final collapsedNames = _collapseTypes(typeNames);
+    final uniqueNames = typeNames.toSet().toList();
 
-    final formattedNames = collapsedNames.map((name) {
+    if (uniqueNames.length <= 1) return [];
+
+    final formattedNames = uniqueNames.map((name) {
       final decl = _typeToDeclaration[name];
       if (decl != null && _usedTypes.contains(decl)) {
         return '[$name]';
       }
-      // If it's a generic type (contains <), wrap in ticks to avoid HTML.
+      // If it's a generic type (contains <), use fancy formatting.
       if (name.contains('<')) {
-        return '`$name`';
+        final parts = name.split('<');
+        final base = parts[0];
+        final generic = parts[1].replaceAll('>', '');
+        final genericParts = generic.split(',').map((s) => s.trim());
+        final linkedGenericParts = genericParts
+            .map((part) => '[$part]')
+            .join(', ');
+        return '<code>[$base]\\<$linkedGenericParts\\></code>';
       }
       // Link if it's a mapped primitive or a valid JS interop type from
       // supertypes map.
@@ -961,16 +958,10 @@ class Translator {
       return '`$name`';
     }).toList();
 
-    // Sort: alphabetical, but ticked ones last!
-    formattedNames.sort((a, b) {
-      final aIsTicked = a.startsWith('`');
-      final bIsTicked = b.startsWith('`');
-      if (aIsTicked && !bIsTicked) return 1;
-      if (!aIsTicked && bIsTicked) return -1;
-      return a.compareTo(b);
-    });
+    formattedNames.sort();
 
-    if (formattedNames.length >= _unionDocListThreshold) {
+    final singleLine = '/// Union of: ${formattedNames.join(', ')}';
+    if (singleLine.length > 80) {
       return [
         '/// Union of ${formattedNames.length} types',
         '///',
@@ -978,26 +969,7 @@ class Translator {
       ];
     }
 
-    return ['/// Union of: ${formattedNames.join(', ')}'];
-  }
-
-  List<String> _collapseTypes(List<String> types) {
-    final currentTypes = types.toSet();
-    var changed = true;
-    while (changed) {
-      changed = false;
-      for (final entry in _superToSubtypes.entries) {
-        final supertype = entry.key;
-        final subtypes = entry.value;
-
-        if (subtypes.isNotEmpty && subtypes.every(currentTypes.contains)) {
-          currentTypes.removeAll(subtypes);
-          currentTypes.add(supertype);
-          changed = true;
-        }
-      }
-    }
-    return currentTypes.toList();
+    return [singleLine];
   }
 
   void _collectDocImports(idl.IDLType idlType) {
@@ -1016,37 +988,10 @@ class Translator {
   }
 
   String? _mapIdlPrimitiveToDart(String idlType) {
-    return switch (idlType) {
-      'DOMString' || 'USVString' || 'ByteString' => 'JSString',
-      'boolean' => 'JSBoolean',
-      'byte' ||
-      'octet' ||
-      'short' ||
-      'long' ||
-      'long long' ||
-      'unsigned short' ||
-      'unsigned long' ||
-      'unsigned long long' ||
-      'double' ||
-      'float' ||
-      'unrestricted double' ||
-      'unrestricted float' => 'JSNumber',
-      'object' => 'JSObject',
-      'Function' => 'JSFunction',
-      'WindowProxy' => 'Window',
-      'Int8Array' => 'JSInt8Array',
-      'Int16Array' => 'JSInt16Array',
-      'Int32Array' => 'JSInt32Array',
-      'Uint8Array' => 'JSUint8Array',
-      'Uint16Array' => 'JSUint16Array',
-      'Uint32Array' => 'JSUint32Array',
-      'Uint8ClampedArray' => 'JSUint8ClampedArray',
-      'Float32Array' => 'JSFloat32Array',
-      'Float64Array' => 'JSFloat64Array',
-      'ArrayBuffer' => 'JSArrayBuffer',
-      'DataView' => 'JSDataView',
-      _ => null,
-    };
+    if (idlType == 'WindowProxy') return 'Window';
+    final alias = idlOrBuiltinToJsTypeAliases[idlType];
+    if (alias == 'JSInteger' || alias == 'JSDouble') return 'JSNumber';
+    return alias;
   }
 
   String _getTypeNameRaw(idl.IDLType idlType) {

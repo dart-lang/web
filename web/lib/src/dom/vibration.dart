@@ -15,5 +15,5 @@ library;
 
 import 'dart:js_interop';
 
-/// Union of: [JSNumber], `JSArray<JSNumber>`
+/// Union of: <code>[JSArray]\<[JSNumber]\></code>, [JSNumber]
 typedef VibratePattern = JSAny;

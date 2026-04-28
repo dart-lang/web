@@ -30,7 +30,11 @@ typedef ConstrainDouble = JSAny;
 /// Union of: [ConstrainBooleanParameters], [JSBoolean]
 typedef ConstrainBoolean = JSAny;
 
-/// Union of: [ConstrainDOMStringParameters], [JSString], `JSArray<JSString>`
+/// Union of 3 types
+///
+/// - <code>[JSArray]\<[JSString]\></code>
+/// - [ConstrainDOMStringParameters]
+/// - [JSString]
 typedef ConstrainDOMString = JSAny;
 typedef MediaStreamTrackState = String;
 typedef MediaDeviceKind = String;

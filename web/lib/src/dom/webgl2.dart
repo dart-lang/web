@@ -23,7 +23,7 @@ import 'webidl.dart';
 typedef GLint64 = int;
 typedef GLuint64 = int;
 
-/// Union of: [JSUint32Array], `JSArray<GLuint>`
+/// Union of: <code>[JSArray]\<[GLuint]\></code>, [JSUint32Array]
 typedef Uint32List = JSObject;
 
 /// The **`WebGLQuery`** interface is part of the

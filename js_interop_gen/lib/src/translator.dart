@@ -1120,7 +1120,6 @@ class Translator {
       );
     }
     final url = _urlForType(dartType);
-
     return code.TypeReference(
       (b) => b
         ..symbol = dartType

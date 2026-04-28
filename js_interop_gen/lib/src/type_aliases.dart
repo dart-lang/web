@@ -58,18 +58,16 @@ const idlOrBuiltinToJsTypeAliases = <String, String>{
   'USVString': 'JSString',
   'ByteString': 'JSString',
   'CSSOMString': 'JSString',
+
+  // `WindowProxy` doesn't exist as an interface in the IDL. For our purposes,
+  // `Window` is the appropriate interface.
+  'WindowProxy': 'Window',
 };
 
-const jsTypeToDartPrimitiveAliases = <String, String>{
-  'JSBoolean': 'bool',
-  'JSString': 'String',
-  'JSInteger': 'int',
-  // Since we want users to be able to be pass integer values for where doubles
-  // are expected, we keep this as `num`. We handle cases where doubles are
-  // returned from a browser API differently however. See
-  // `Translator._typeReference` for more details.
-  'JSDouble': 'num',
-  'JSNumber': 'num',
-  'JSVoid': 'void',
-  'JSUndefined': 'void',
-};
+String? mapIdlPrimitiveToDart(String idlType, String? alias) {
+  return switch (alias) {
+    'JSObject' when idlType != 'object' => null,
+    'JSInteger' || 'JSDouble' => 'JSNumber',
+    _ => alias,
+  };
+}

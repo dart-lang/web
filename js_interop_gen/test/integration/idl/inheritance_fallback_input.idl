@@ -1,0 +1,3 @@
+interface SubInterface : NonExistentSuper {
+  attribute double value;
+};

@@ -1,0 +1,17 @@
+typedef (Int8Array or Int16Array or Int32Array or Uint8Array or Uint16Array or Uint32Array or Uint8ClampedArray or Float32Array or Float64Array) AllTypedArrays;
+
+typedef (SharedArrayBuffer or ArrayBuffer) BufferUnion;
+
+typedef (DOMString or boolean) PrimitiveUnion;
+
+typedef (sequence<DOMString> or record<DOMString, DOMString>) GenericUnion;
+
+typedef (Int8Array or Int16Array or Int32Array or DOMString) NonCollapsingLongUnion;
+
+interface DummyInterface {
+  void testAllTypedArrays(AllTypedArrays a);
+  void testBufferUnion(BufferUnion b);
+  void testPrimitiveUnion(PrimitiveUnion p);
+  void testGenericUnion(GenericUnion g);
+  void testNonCollapsingLongUnion(NonCollapsingLongUnion n);
+};

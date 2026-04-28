@@ -18,6 +18,7 @@ import 'dart:js_interop';
 import 'fileapi.dart';
 import 'mediacapture_streams.dart';
 
+/// Union of: <code>[JSArray]\<[Point2D]\></code>, [ConstrainPoint2DParameters]
 typedef ConstrainPoint2D = JSObject;
 typedef RedEyeReduction = String;
 typedef FillLightMode = String;

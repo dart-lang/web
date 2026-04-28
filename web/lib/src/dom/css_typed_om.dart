@@ -17,9 +17,16 @@ import 'dart:js_interop';
 
 import 'geometry.dart';
 
+/// Union of: [CSSVariableReferenceValue], [JSString]
 typedef CSSUnparsedSegment = JSAny;
+
+/// Union of: [CSSKeywordValue], [JSString]
 typedef CSSKeywordish = JSAny;
+
+/// Union of: [CSSNumericValue], [JSNumber]
 typedef CSSNumberish = JSAny;
+
+/// Union of: [CSSKeywordish], [CSSNumericValue]
 typedef CSSPerspectiveValue = JSAny;
 typedef CSSNumericBaseType = String;
 typedef CSSMathOperator = String;

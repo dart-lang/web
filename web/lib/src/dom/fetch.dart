@@ -10,6 +10,11 @@
 
 // ignore_for_file: constant_identifier_names, non_constant_identifier_names
 
+/// @docImport 'fileapi.dart';
+/// @docImport 'streams.dart';
+/// @docImport 'url.dart';
+/// @docImport 'webidl.dart';
+/// @docImport 'xhr.dart';
 @JS()
 library;
 
@@ -24,9 +29,19 @@ import 'streams.dart';
 import 'trust_token_api.dart';
 import 'xhr.dart';
 
+/// Union of 2 types
+///
+/// - <code>[JSArray]\<[JSArray]\></code>
+/// - <code>[JSObject]\<[JSString], [JSString]\></code>
 typedef HeadersInit = JSObject;
+
+/// Union of: [Blob], [BufferSource], [FormData], [JSString], [URLSearchParams]
 typedef XMLHttpRequestBodyInit = JSAny;
+
+/// Union of: [ReadableStream], [XMLHttpRequestBodyInit]
 typedef BodyInit = JSAny;
+
+/// Union of: [JSString], [Request]
 typedef RequestInfo = JSAny;
 typedef RequestDestination = String;
 typedef RequestMode = String;

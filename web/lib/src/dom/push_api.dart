@@ -10,6 +10,7 @@
 
 // ignore_for_file: constant_identifier_names, non_constant_identifier_names
 
+/// @docImport 'webidl.dart';
 @JS()
 library;
 
@@ -19,6 +20,7 @@ import 'fileapi.dart';
 import 'hr_time.dart';
 import 'service_workers.dart';
 
+/// Union of: [BufferSource], [JSString]
 typedef PushMessageDataInit = JSAny;
 typedef PushEncryptionKeyName = String;
 

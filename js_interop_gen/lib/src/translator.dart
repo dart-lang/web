@@ -652,10 +652,12 @@ class _PartialInterfacelike {
         inheritance = declaredInheritance;
         break;
       } else {
-        declaredInheritance =
-            (translator._typeToDeclaration[declaredInheritance]
-                    as idl.Interfacelike)
-                .inheritance;
+        final decl = translator._typeToDeclaration[declaredInheritance];
+        if (decl is idl.Interfacelike) {
+          declaredInheritance = decl.inheritance;
+        } else {
+          declaredInheritance = null;
+        }
       }
     }
   }

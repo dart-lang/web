@@ -1,0 +1,7 @@
+interface Window {
+  attribute double value;
+};
+
+interface TestInterface {
+  attribute WindowProxy window;
+};

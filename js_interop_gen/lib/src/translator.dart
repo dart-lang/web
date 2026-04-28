@@ -233,6 +233,14 @@ _RawType _getRawType(idl.IDLType idlType) {
   // `undefined`, it can be nullable for our purposes.
   if (type == 'any') nullable = true;
   final translator = Translator.instance!;
+
+  // Resolve aliases that point to other IDL types so they can be marked as used
+  final aliasCheck = idlOrBuiltinToJsTypeAliases[type];
+  if (aliasCheck != null &&
+      translator._typeToDeclaration.containsKey(aliasCheck)) {
+    type = aliasCheck;
+  }
+
   final decl = translator._typeToDeclaration[type];
   final alias = idlOrBuiltinToJsTypeAliases[type];
   assert(decl != null || alias != null);

@@ -24,7 +24,7 @@ import 'util.dart';
 
 typedef TranslationResult = Map<String, code.Library>;
 
-extension LibraryInfoOps on LibraryInfo {
+extension on LibraryInfo {
   void _addNamed<T extends idl.Named>(idl.Node node, List<T> list) {
     final named = node as T;
     final name = named.name;
@@ -215,7 +215,7 @@ RawType _getRawType(idl.IDLType idlType) {
 ///
 /// This should not include IDL types for which there isn't a declaration e.g.
 /// `any` or a JS built-in type e.g. `ArrayBuffer`.
-extension RawTypeOps on RawType {
+extension on RawType {
   void update(idl.IDLType idlType) {
     final union = _computeRawTypeUnion(this, _getRawType(idlType));
     type = union.type;
@@ -234,7 +234,7 @@ Parameter _createParameter(idl.Argument argument) {
   );
 }
 
-extension PartialInterfacelikeOps on PartialInterfacelike {
+extension on PartialInterfacelike {
   void _processMembers(JSArray<idl.Member> idlMembers) {
     final isNamespace = type == 'namespace';
     final isDictionary = type == 'dictionary';
@@ -435,7 +435,7 @@ extension PartialInterfacelikeOps on PartialInterfacelike {
   }
 }
 
-extension OverridableOperationOps on OverridableOperation {
+extension on OverridableOperation {
   void update(idl.Operation operation) {
     assert(!finalized);
     final newParameters = operation.arguments.toDart
@@ -468,7 +468,7 @@ extension OverridableOperationOps on OverridableOperation {
   }
 }
 
-extension OverridableConstructorOps on OverridableConstructor {
+extension on OverridableConstructor {
   void update(idl.Constructor constructor) {
     final newParameters = constructor.arguments.toDart
         .map(_createParameter)

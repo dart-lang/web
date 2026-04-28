@@ -75,7 +75,7 @@ final class OverridableConstructor extends OverridableMember {
   OverridableConstructor({required super.parameters});
 }
 
-abstract class OverridableMember {
+sealed class OverridableMember {
   final List<Parameter> parameters;
 
   OverridableMember({required this.parameters});

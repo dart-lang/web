@@ -10,7 +10,7 @@ import 'translation_context.dart';
 import 'type_aliases.dart';
 import 'type_mapper.dart';
 
-class DocGenerator {
+final class DocGenerator {
   final TranslationContext _context;
 
   DocGenerator(this._context);

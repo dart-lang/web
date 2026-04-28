@@ -653,8 +653,8 @@ class _PartialInterfacelike {
         break;
       } else {
         final decl = translator._typeToDeclaration[declaredInheritance];
-        if (decl is idl.Interfacelike) {
-          declaredInheritance = decl.inheritance;
+        if (decl.isA<idl.Interfacelike>()) {
+          declaredInheritance = (decl as idl.Interfacelike).inheritance;
         } else {
           declaredInheritance = null;
         }

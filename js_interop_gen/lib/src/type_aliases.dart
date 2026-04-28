@@ -63,11 +63,3 @@ const idlOrBuiltinToJsTypeAliases = <String, String>{
   // `Window` is the appropriate interface.
   'WindowProxy': 'Window',
 };
-
-String? mapIdlPrimitiveToDart(String idlType, String? alias) {
-  return switch (alias) {
-    'JSObject' when idlType != 'object' => null,
-    'JSInteger' || 'JSDouble' => 'JSNumber',
-    _ => alias,
-  };
-}

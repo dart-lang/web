@@ -9,6 +9,48 @@ import 'js_type_supertypes.dart';
 import 'translation_context.dart';
 import 'type_aliases.dart';
 
+String _getTypeNameRaw(idl.IDLType idlType) {
+  if (idlType.union) {
+    final types = (idlType.idlType as JSArray<idl.IDLType>).toDart;
+    return types.map(_getTypeNameRaw).join(' | ');
+  }
+  if (idlType.generic.isNotEmpty) {
+    final types = (idlType.idlType as JSArray<idl.IDLType>).toDart;
+    final genericName =
+        idlOrBuiltinToJsTypeAliases[idlType.generic] ?? idlType.generic;
+    if (types.length == 1) {
+      return '$genericName<${_getTypeNameRaw(types[0])}>';
+    }
+    if (types.length > 1) {
+      return '$genericName<${types.map(_getTypeNameRaw).join(', ')}>';
+    }
+    return genericName;
+  }
+  final name = (idlType.idlType as JSString).toDart;
+  final alias = idlOrBuiltinToJsTypeAliases[name];
+
+  final mapped = _mapIdlPrimitiveToDart(name, alias);
+  if (mapped != null) {
+    return mapped;
+  }
+
+  // If it wasn't mapped but maps to JSObject, it must be 'record' etc.
+  if (alias == 'JSObject') {
+    return name;
+  }
+
+  // 3. Fallback to alias or the name itself.
+  return alias ?? name;
+}
+
+String? _mapIdlPrimitiveToDart(String idlType, String? alias) {
+  return switch (alias) {
+    'JSObject' when idlType != 'object' => null,
+    'JSInteger' || 'JSDouble' => 'JSNumber',
+    _ => alias,
+  };
+}
+
 final class DocGenerator {
   final TranslationContext _context;
 
@@ -47,7 +89,7 @@ final class DocGenerator {
       // Link if it's a mapped primitive or a valid JS interop type from
       // supertypes map.
       final alias = idlOrBuiltinToJsTypeAliases[name];
-      if (mapIdlPrimitiveToDart(name, alias) != null ||
+      if (_mapIdlPrimitiveToDart(name, alias) != null ||
           jsTypeSupertypes.containsKey(name)) {
         return '[$name]';
       }
@@ -83,38 +125,4 @@ final class DocGenerator {
       _context.addDocImport(library.url);
     }
   }
-}
-
-String _getTypeNameRaw(idl.IDLType idlType) {
-  if (idlType.union) {
-    final types = (idlType.idlType as JSArray<idl.IDLType>).toDart;
-    return types.map(_getTypeNameRaw).join(' | ');
-  }
-  if (idlType.generic.isNotEmpty) {
-    final types = (idlType.idlType as JSArray<idl.IDLType>).toDart;
-    final genericName =
-        idlOrBuiltinToJsTypeAliases[idlType.generic] ?? idlType.generic;
-    if (types.length == 1) {
-      return '$genericName<${_getTypeNameRaw(types[0])}>';
-    }
-    if (types.length > 1) {
-      return '$genericName<${types.map(_getTypeNameRaw).join(', ')}>';
-    }
-    return genericName;
-  }
-  final name = (idlType.idlType as JSString).toDart;
-  final alias = idlOrBuiltinToJsTypeAliases[name];
-
-  final mapped = mapIdlPrimitiveToDart(name, alias);
-  if (mapped != null) {
-    return mapped;
-  }
-
-  // If it wasn't mapped but maps to JSObject, it must be 'record' etc.
-  if (alias == 'JSObject') {
-    return name;
-  }
-
-  // 3. Fallback to alias or the name itself.
-  return alias ?? name;
 }

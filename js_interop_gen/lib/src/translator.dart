@@ -1120,10 +1120,7 @@ class Translator {
       );
     }
     final url = _urlForType(dartType);
-    final originalUrl = _typeToLibrary[dartType]?.url;
-    if (originalUrl != null) {
-      _regularImports.add(originalUrl);
-    }
+
     return code.TypeReference(
       (b) => b
         ..symbol = dartType
@@ -1139,6 +1136,9 @@ class Translator {
     // Unfortunately, `code_builder` doesn't know the url of the library we are
     // emitting, so we have to remove it here to avoid importing ourselves.
     var url = _typeToLibrary[dartType]?.url;
+    if (url != null) {
+      _regularImports.add(url);
+    }
 
     // JS types and core types don't have urls.
     if (url == null) {

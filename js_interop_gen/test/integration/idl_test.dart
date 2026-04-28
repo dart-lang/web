@@ -63,9 +63,8 @@ void main() {
             from: bindingsGenPath,
           );
 
-          // TODO(kevmoo): Do a more complete cleanup to remove dependency on BCD
-          // and webref bits entirely from js_interop_gen tests.
-          // run the entrypoint
+          // TODO(kevmoo): Do a more complete cleanup to remove dependency on
+          // BCD and webref bits entirely from js_interop_gen tests.
           final dummyBcdPath = p.relative(
             p.join(outputDir, 'dummy_bcd.json'),
             from: bindingsGenPath,

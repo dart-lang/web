@@ -739,7 +739,7 @@ class Translator {
   final _usedTypes = <idl.Node>{};
   final _renamedClasses = <String, String>{};
   final _currentDocImports = <String>{};
-  final _regularImports = <String>{};
+  final _currentLibraryImports = <String>{};
 
   Map<String, String> get renamedClasses => _renamedClasses;
 
@@ -1135,9 +1135,6 @@ class Translator {
     // Unfortunately, `code_builder` doesn't know the url of the library we are
     // emitting, so we have to remove it here to avoid importing ourselves.
     var url = _typeToLibrary[dartType]?.url;
-    if (url != null) {
-      _regularImports.add(url);
-    }
 
     // JS types and core types don't have urls.
     if (url == null) {
@@ -1148,6 +1145,7 @@ class Translator {
     } else if (url == _currentlyTranslatingUrl) {
       url = null;
     } else {
+      _currentLibraryImports.add(url);
       url = p.url.relative(url, from: p.url.dirname(_currentlyTranslatingUrl));
     }
     return url;
@@ -1663,7 +1661,7 @@ class Translator {
 
   code.Library _library(_Library library) => code.Library((b) {
     _currentDocImports.clear();
-    _regularImports.clear();
+    _currentLibraryImports.clear();
 
     final body = [
       for (final typedef in library.typedefs.where(_usedTypes.contains))
@@ -1694,7 +1692,7 @@ class Translator {
 
     final docImports =
         _currentDocImports
-            .where((url) => !_regularImports.contains(url))
+            .where((url) => !_currentLibraryImports.contains(url))
             .toList()
           ..sort();
 

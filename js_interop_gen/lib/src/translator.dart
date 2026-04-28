@@ -55,9 +55,6 @@ final class Translator implements TranslationContext {
   @override
   late BrowserCompatData browserCompatData;
 
-  /// Singleton so that various helper methods can access info about the AST.
-  static Translator? instance;
-
   Translator(
     this._librarySubDir,
     this._cssStyleDeclarations,
@@ -69,7 +66,6 @@ final class Translator implements TranslationContext {
     required String bcdJsonPath,
   }) : _generateForWeb = generateForWeb,
        _packageRoot = packageRoot {
-    instance = this;
     docProvider = DocProvider.create();
     _interfaceGenerator = InterfaceGenerator(this, _cssStyleDeclarations);
     browserCompatData = BrowserCompatData.read(
@@ -81,15 +77,15 @@ final class Translator implements TranslationContext {
   void _addOrUpdateInterfaceLike(idl.Interfacelike interfacelike) {
     final name = interfacelike.name;
     if (_interfacelikes.containsKey(name)) {
-      _interfacelikes[name]!.update(interfacelike);
+      _interfacelikes[name]!.update(this, interfacelike);
     } else {
       _interfacelikes[name] = PartialInterfacelike(
         name: interfacelike.name,
         type: interfacelike.type,
         mdnInterface: docProvider.interfaceFor(name),
       );
-      _interfacelikes[name]!.setInheritance(interfacelike.inheritance);
-      _interfacelikes[name]!.processMembers(interfacelike.members);
+      _interfacelikes[name]!.setInheritance(this, interfacelike.inheritance);
+      _interfacelikes[name]!.processMembers(this, interfacelike.members);
     }
   }
 
@@ -115,7 +111,7 @@ final class Translator implements TranslationContext {
             markTypeAsUsed(name);
             break;
           case 'dictionary':
-            if (Translator.instance!.browserCompatData.generateAll) {
+            if (browserCompatData.generateAll) {
               markTypeAsUsed(name);
             }
             break;
@@ -148,7 +144,7 @@ final class Translator implements TranslationContext {
         _typeToDeclaration[mixin] as idl.Interfacelike,
         ...?_typeToPartials[mixin],
       ]) {
-        _interfacelikes[interfacelikeName]!.update(interfacelike);
+        _interfacelikes[interfacelikeName]!.update(this, interfacelike);
       }
     }
   }
@@ -178,7 +174,7 @@ final class Translator implements TranslationContext {
         return true;
       case 'typedef':
         _usedTypes.add(decl);
-        final desugaredType = desugarTypedef(RawType(type, false))!.type;
+        final desugaredType = desugarTypedef(this, RawType(type, false))!.type;
         markTypeAsUsed(desugaredType);
         return true;
       case 'enum':
@@ -230,7 +226,7 @@ final class Translator implements TranslationContext {
     );
 
     for (var i = 0; i < ast.length; i++) {
-      library.add(ast[i]);
+      library.add(this, ast[i]);
     }
 
     _libraries[libraryPath] = library;
@@ -282,7 +278,7 @@ final class Translator implements TranslationContext {
       // unused as they were ever only used in a generic. Should we delete them
       // or do they provide value to users? If we do delete them, a good way of
       // detecting if they're unused is making `_usedTypes` a ref counter.
-      final rawType = desugarTypedef(type);
+      final rawType = desugarTypedef(this, type);
       if (rawType != null &&
           _jsTypeToDartPrimitiveAliases.containsKey(rawType.type)) {
         dartType = rawType.type;
@@ -307,7 +303,7 @@ final class Translator implements TranslationContext {
         // them or do they provide value to users? If we do delete them, a good
         // way of detecting if they're unused is making `_usedTypes` a ref
         // counter.
-        final rawType = desugarTypedef(type);
+        final rawType = desugarTypedef(this, type);
         final underlyingType = rawType?.type ?? dartType;
         if (underlyingType == 'JSDouble') dartType = 'double';
       }
@@ -438,20 +434,23 @@ final class Translator implements TranslationContext {
       for (final typedef in library.typedefs.where(_usedTypes.contains))
         _typedef(
           typedef.name,
-          desugarTypedef(RawType(typedef.name, false))!,
+          desugarTypedef(this, RawType(typedef.name, false))!,
           typedef,
         ),
       for (final callback in library.callbacks.where(_usedTypes.contains))
-        _typedef(callback.name, desugarTypedef(RawType(callback.name, false))!),
+        _typedef(
+          callback.name,
+          desugarTypedef(this, RawType(callback.name, false))!,
+        ),
       for (final callbackInterface in library.callbackInterfaces.where(
         _usedTypes.contains,
       ))
         _typedef(
           callbackInterface.name,
-          desugarTypedef(RawType(callbackInterface.name, false))!,
+          desugarTypedef(this, RawType(callbackInterface.name, false))!,
         ),
       for (final enum_ in library.enums.where(_usedTypes.contains))
-        _typedef(enum_.name, desugarTypedef(RawType(enum_.name, false))!),
+        _typedef(enum_.name, desugarTypedef(this, RawType(enum_.name, false))!),
       for (final interfacelike in library.interfacelikes.where(
         _usedTypes.contains,
       ))

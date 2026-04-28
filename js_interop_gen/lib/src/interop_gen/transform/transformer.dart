@@ -21,7 +21,6 @@ import '../../js/filesystem_api.dart';
 import '../../js/helpers.dart';
 import '../../js/typescript.dart' as ts;
 import '../../js/typescript.types.dart';
-import '../../translator.dart';
 import '../hasher.dart';
 import '../namer.dart';
 import '../qualified_name.dart';
@@ -2510,14 +2509,13 @@ class Transformer {
                 declSource.contains('dom')) &&
             !isNotTypableDeclaration) {
           // dom declaration: supported by package:web
-          return PackageWebType.parse(
-            firstName,
+          return PackageWebType(
+            name: firstName,
             typeParams: (typeArguments ?? [])
                 .map(_transformType)
                 .map(getJSTypeAlternative)
                 .toList(),
             isNullable: isNullable,
-            renameMap: Translator.instance?.loadedRenameMap ?? const {},
           );
         }
 

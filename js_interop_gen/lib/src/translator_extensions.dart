@@ -11,7 +11,58 @@ import 'translator.dart';
 import 'type_aliases.dart';
 import 'type_union.dart';
 
-RawType computeRawTypeUnion(RawType rawType1, RawType rawType2) {
+bool _hasHTMLConstructorAttribute(idl.Constructor constructor) => constructor
+    .extAttrs
+    .toDart
+    .any((extAttr) => extAttr.name == 'HTMLConstructor');
+
+/// desugars the typedef, accounting for nullability along the way.
+///
+/// Otherwise, returns null.
+RawType? desugarTypedef(Translator translator, RawType rawType) {
+  final decl = translator.getDeclaration(rawType.type);
+  return switch (decl?.type) {
+    'typedef' => getRawType(
+      translator,
+      (decl as idl.Typedef).idlType,
+    )..nullable |= rawType.nullable,
+    'callback' ||
+    'callback interface' => RawType('JSFunction', rawType.nullable),
+    'enum' => RawType('JSString', rawType.nullable),
+    _ => null,
+  };
+}
+
+/// Returns the JS type equivalent for the given [rawType] if it was something
+/// declared in the IDL.
+///
+/// Otherwise, return null.
+RawType? getJSTypeEquivalent(Translator translator, RawType rawType) {
+  final type = rawType.type;
+  final nullable = rawType.nullable;
+  final decl = translator.getDeclaration(type);
+  if (decl != null) {
+    final nodeType = decl.type;
+    switch (nodeType) {
+      case 'interface':
+      case 'dictionary':
+        return RawType('JSObject', nullable);
+      default:
+        final desugaredType = desugarTypedef(translator, rawType);
+        if (desugaredType != null) {
+          return getJSTypeEquivalent(translator, desugaredType) ??
+              desugaredType;
+        }
+    }
+  }
+  return null;
+}
+
+RawType computeRawTypeUnion(
+  Translator translator,
+  RawType rawType1,
+  RawType rawType2,
+) {
   final type1 = rawType1.type;
   final type2 = rawType2.type;
   final nullable1 = rawType1.nullable;
@@ -21,7 +72,7 @@ RawType computeRawTypeUnion(RawType rawType1, RawType rawType2) {
 
   RawType? computeTypeParamUnion(RawType? typeParam1, RawType? typeParam2) =>
       typeParam1 != null && typeParam2 != null
-      ? computeRawTypeUnion(typeParam1, typeParam2)
+      ? computeRawTypeUnion(translator, typeParam1, typeParam2)
       : null;
 
   if (type1 == type2) {
@@ -36,8 +87,8 @@ RawType computeRawTypeUnion(RawType rawType1, RawType rawType2) {
   if (type1 == 'JSInteger' || type1 == 'JSDouble') rawType1.type = 'JSNumber';
   if (type2 == 'JSInteger' || type2 == 'JSDouble') rawType2.type = 'JSNumber';
 
-  final unionableType1 = getJSTypeEquivalent(rawType1) ?? rawType1;
-  final unionableType2 = getJSTypeEquivalent(rawType2) ?? rawType2;
+  final unionableType1 = getJSTypeEquivalent(translator, rawType1) ?? rawType1;
+  final unionableType2 = getJSTypeEquivalent(translator, rawType2) ?? rawType2;
 
   return RawType(
     computeJsTypeUnion(unionableType1.type, unionableType2.type) ?? 'JSAny',
@@ -49,62 +100,16 @@ RawType computeRawTypeUnion(RawType rawType1, RawType rawType2) {
   );
 }
 
-Parameter createParameter(idl.Argument argument) {
-  final names = {argument.name};
-  return Parameter(
-    names: names,
-    type: getRawType(argument.idlType),
-    isOptional: argument.optional,
-    isVariadic: argument.variadic,
-  );
-}
-
-/// desugars the typedef, accounting for nullability along the way.
-///
-/// Otherwise, returns null.
-RawType? desugarTypedef(RawType rawType) {
-  final decl = Translator.instance!.getDeclaration(rawType.type);
-  return switch (decl?.type) {
-    'typedef' => getRawType(
-      (decl as idl.Typedef).idlType,
-    )..nullable |= rawType.nullable,
-    'callback' ||
-    'callback interface' => RawType('JSFunction', rawType.nullable),
-    'enum' => RawType('JSString', rawType.nullable),
-    _ => null,
-  };
-}
-
-/// Returns the JS type equivalent for the given [rawType] if it was something
-/// declared in the IDL.
-///
-/// Otherwise, return null.
-RawType? getJSTypeEquivalent(RawType rawType) {
-  final type = rawType.type;
-  final nullable = rawType.nullable;
-  final decl = Translator.instance!.getDeclaration(type);
-  if (decl != null) {
-    final nodeType = decl.type;
-    switch (nodeType) {
-      case 'interface':
-      case 'dictionary':
-        return RawType('JSObject', nullable);
-      default:
-        final desugaredType = desugarTypedef(rawType);
-        if (desugaredType != null) {
-          return getJSTypeEquivalent(desugaredType) ?? desugaredType;
-        }
-    }
-  }
-  return null;
-}
-
-RawType getRawType(idl.IDLType idlType) {
+RawType getRawType(Translator translator, idl.IDLType idlType) {
   if (idlType.union) {
     final types = (idlType.idlType as JSArray<idl.IDLType>).toDart;
-    var union = getRawType(types[0]);
+    var union = getRawType(translator, types[0]);
     for (var i = 1; i < types.length; i++) {
-      union = computeRawTypeUnion(union, getRawType(types[i]));
+      union = computeRawTypeUnion(
+        translator,
+        union,
+        getRawType(translator, types[i]),
+      );
     }
     union.nullable |= idlType.nullable;
     return union;
@@ -115,136 +120,45 @@ RawType getRawType(idl.IDLType idlType) {
   if (idlType.generic.isNotEmpty) {
     final types = (idlType.idlType as JSArray<idl.IDLType>).toDart;
     if (types.length == 1) {
-      typeParameter = getRawType(types[0]);
+      typeParameter = getRawType(translator, types[0]);
     }
     type = idlType.generic;
   } else {
     type = (idlType.idlType as JSString).toDart;
   }
 
-  final translator = Translator.instance!;
   final alias = idlOrBuiltinToJsTypeAliases[type];
   if (alias == null && !translator.markTypeAsUsed(type)) {
-    type = getJSTypeEquivalent(RawType(type, false))?.type ?? 'JSAny';
+    type =
+        getJSTypeEquivalent(translator, RawType(type, false))?.type ?? 'JSAny';
   }
   final raw = RawType(alias ?? type, nullable, typeParameter);
   if (raw.type == 'JSAny') raw.nullable = true;
   return raw;
 }
 
+Parameter createParameter(Translator translator, idl.Argument argument) {
+  final names = {argument.name};
+  return Parameter(
+    names: names,
+    type: getRawType(translator, argument.idlType),
+    isOptional: argument.optional,
+    isVariadic: argument.variadic,
+  );
+}
+
 MemberName resolvePropertyName(String name, String special, RawType type) {
   return MemberName(name);
 }
 
-bool _hasHTMLConstructorAttribute(idl.Constructor constructor) => constructor
-    .extAttrs
-    .toDart
-    .any((extAttr) => extAttr.name == 'HTMLConstructor');
-
-extension on RawType {
-  void _update(idl.IDLType idlType) {
-    final union = computeRawTypeUnion(this, getRawType(idlType));
-    type = union.type;
-    nullable = union.nullable;
-    typeParameter = union.typeParameter;
-  }
-}
-
-extension on OverridableOperation {
-  void _underscoreName() {
-    name = MemberName(
-      '${name.name}_',
-      name.jsOverride.isNotEmpty ? name.jsOverride : name.name,
-    );
-  }
-
-  void _update(idl.Operation operation) {
-    assert(!finalized);
-    final newParameters = operation.arguments.toDart
-        .map(createParameter)
-        .toList();
-    final maxLength = newParameters.length > parameters.length
-        ? newParameters.length
-        : parameters.length;
-    for (var i = 0; i < maxLength; i++) {
-      if (i < parameters.length && i < newParameters.length) {
-        parameters[i].names.addAll(newParameters[i].names);
-        parameters[i].type._update(operation.arguments.toDart[i].idlType);
-        parameters[i].isOptional |= newParameters[i].isOptional;
-        parameters[i].isVariadic |= newParameters[i].isVariadic;
-      } else if (i >= parameters.length) {
-        newParameters[i].isOptional = true;
-        parameters.add(newParameters[i]);
-      } else if (i >= newParameters.length) {
-        parameters[i].isOptional = true;
-      }
-    }
-    returnType._update(operation.idlType);
-  }
-}
-
-extension on OverridableConstructor {
-  void _update(idl.Constructor constructor) {
-    final newParameters = constructor.arguments.toDart
-        .map(createParameter)
-        .toList();
-    final maxLength = newParameters.length > parameters.length
-        ? newParameters.length
-        : parameters.length;
-    for (var i = 0; i < maxLength; i++) {
-      if (i < parameters.length && i < newParameters.length) {
-        parameters[i].names.addAll(newParameters[i].names);
-        parameters[i].type._update(constructor.arguments.toDart[i].idlType);
-        parameters[i].isOptional |= newParameters[i].isOptional;
-        parameters[i].isVariadic |= newParameters[i].isVariadic;
-      } else if (i >= parameters.length) {
-        newParameters[i].isOptional = true;
-        parameters.add(newParameters[i]);
-      } else if (i >= newParameters.length) {
-        parameters[i].isOptional = true;
-      }
-    }
-  }
-}
-
 extension LibraryInfoOps on LibraryInfo {
-  void add(idl.Node node) {
-    final type = node.type;
-    switch (type) {
-      case 'interface':
-      case 'namespace':
-      case 'dictionary':
-        _addNamed<idl.Interfacelike>(node, interfacelikes);
-        break;
-      case 'interface mixin':
-        _addNamed<idl.Interfacelike>(node, interfaceMixins);
-        break;
-      case 'typedef':
-        _addNamed<idl.Typedef>(node, typedefs);
-        break;
-      case 'enum':
-        _addNamed<idl.Enum>(node, enums);
-        break;
-      case 'callback':
-        _addNamed<idl.Callback>(node, callbacks);
-        break;
-      case 'callback interface':
-        _addNamed<idl.Interfacelike>(node, callbackInterfaces);
-        break;
-      case 'includes':
-        final includes = node as idl.Includes;
-        final translator = Translator.instance!;
-        translator.addIncludes(includes.target, includes.includes);
-        break;
-      default:
-        throw Exception('Unexpected node type $type');
-    }
-  }
-
-  void _addNamed<T extends idl.Named>(idl.Node node, List<T> list) {
+  void _addNamed<T extends idl.Named>(
+    Translator translator,
+    idl.Node node,
+    List<T> list,
+  ) {
     final named = node as T;
     final name = named.name;
-    final translator = Translator.instance!;
     final isPartial =
         (node.type == 'interface' ||
             node.type == 'interface mixin' ||
@@ -259,10 +173,55 @@ extension LibraryInfoOps on LibraryInfo {
       list.add(named);
     }
   }
+
+  void add(Translator translator, idl.Node node) {
+    final type = node.type;
+    switch (type) {
+      case 'interface':
+      case 'namespace':
+      case 'dictionary':
+        _addNamed<idl.Interfacelike>(translator, node, interfacelikes);
+        break;
+      case 'interface mixin':
+        _addNamed<idl.Interfacelike>(translator, node, interfaceMixins);
+        break;
+      case 'typedef':
+        _addNamed<idl.Typedef>(translator, node, typedefs);
+        break;
+      case 'enum':
+        _addNamed<idl.Enum>(translator, node, enums);
+        break;
+      case 'callback':
+        _addNamed<idl.Callback>(translator, node, callbacks);
+        break;
+      case 'callback interface':
+        _addNamed<idl.Interfacelike>(translator, node, callbackInterfaces);
+        break;
+      case 'includes':
+        final includes = node as idl.Includes;
+        translator.addIncludes(includes.target, includes.includes);
+        break;
+      default:
+        throw Exception('Unexpected node type $type');
+    }
+  }
+}
+
+extension RawTypeOps on RawType {
+  void _update(Translator translator, idl.IDLType idlType) {
+    final union = computeRawTypeUnion(
+      translator,
+      this,
+      getRawType(translator, idlType),
+    );
+    type = union.type;
+    nullable = union.nullable;
+    typeParameter = union.typeParameter;
+  }
 }
 
 extension PartialInterfacelikeOps on PartialInterfacelike {
-  void processMembers(JSArray<idl.Member> idlMembers) {
+  void processMembers(Translator translator, JSArray<idl.Member> idlMembers) {
     final isNamespace = type == 'namespace';
     final isDictionary = type == 'dictionary';
     final mdnInterface = this.mdnInterface;
@@ -296,7 +255,7 @@ extension PartialInterfacelikeOps on PartialInterfacelike {
           }
           final isStatic = operation.special == 'static';
           if (shouldQueryMDN &&
-              !_markMemberUsed(operationName, isStatic: isStatic)) {
+              !_markMemberUsed(translator, operationName, isStatic: isStatic)) {
             break;
           }
           final docs = shouldQueryMDN
@@ -305,11 +264,11 @@ extension PartialInterfacelikeOps on PartialInterfacelike {
           final operationsMap = isStatic ? staticOperations : operations;
 
           if (operationsMap.containsKey(operationName)) {
-            operationsMap[operationName]!._update(operation);
+            operationsMap[operationName]!._update(translator, operation);
           } else {
-            final returnType = getRawType(operation.idlType);
+            final returnType = getRawType(translator, operation.idlType);
             final parameters = operation.arguments.toDart
-                .map(createParameter)
+                .map((arg) => createParameter(translator, arg))
                 .toList();
             operationsMap[operationName] = OverridableOperation(
               parameters: parameters,
@@ -331,14 +290,16 @@ extension PartialInterfacelikeOps on PartialInterfacelike {
           final attribute = member as idl.Attribute;
           final isStatic = attribute.special == 'static';
           final attributeName = attribute.name;
-          if (!_markMemberUsed(attributeName, isStatic: isStatic)) break;
+          if (!_markMemberUsed(translator, attributeName, isStatic: isStatic)) {
+            break;
+          }
 
           final isExtensionMember =
               name == 'SVGElement' && attributeName == 'className';
           final memberList = isExtensionMember
               ? extensionProperties
               : properties;
-          final type = getRawType(attribute.idlType);
+          final type = getRawType(translator, attribute.idlType);
           memberList.add(
             Attribute(
               name: resolvePropertyName(attributeName, '', type),
@@ -358,7 +319,7 @@ extension PartialInterfacelikeOps on PartialInterfacelike {
           properties.add(
             Constant(
               name: MemberName(jsName),
-              type: getRawType(constant.idlType),
+              type: getRawType(translator, constant.idlType),
               valueType: constant.value.type,
               value: constant.value.value,
             ),
@@ -367,8 +328,8 @@ extension PartialInterfacelikeOps on PartialInterfacelike {
         case 'field':
           final field = member as idl.Field;
           final fieldName = field.name;
-          if (!_markMemberUsed(fieldName)) break;
-          final type = getRawType(field.idlType);
+          if (!_markMemberUsed(translator, fieldName)) break;
+          final type = getRawType(translator, field.idlType);
           properties.add(
             Field(
               name: resolvePropertyName(fieldName, '', type),
@@ -387,15 +348,15 @@ extension PartialInterfacelikeOps on PartialInterfacelike {
           }
           final idlConstructor = member as idl.Constructor;
           if (_hasHTMLConstructorAttribute(idlConstructor)) break;
-          if (!_markMemberUsed(name)) break;
+          if (!_markMemberUsed(translator, name)) break;
           if (constructor == null) {
             constructor = OverridableConstructor(
               parameters: idlConstructor.arguments.toDart
-                  .map(createParameter)
+                  .map((arg) => createParameter(translator, arg))
                   .toList(),
             );
           } else {
-            constructor!._update(idlConstructor);
+            constructor!._update(translator, idlConstructor);
           }
           break;
         case 'iterable':
@@ -410,40 +371,11 @@ extension PartialInterfacelikeOps on PartialInterfacelike {
     }
   }
 
-  void setInheritance(String? declaredInheritance) {
-    if (declaredInheritance == null) return;
-    inheritance = null;
-    final translator = Translator.instance!;
-    while (declaredInheritance != null) {
-      if (translator.markTypeAsUsed(declaredInheritance)) {
-        inheritance = declaredInheritance;
-        break;
-      } else {
-        final decl = translator.getDeclaration(declaredInheritance);
-        if (decl == null) {
-          declaredInheritance = null;
-        } else {
-          declaredInheritance = (decl as idl.Interfacelike).inheritance;
-        }
-      }
-    }
-  }
-
-  void update(idl.Interfacelike interfacelike) {
-    assert(
-      (name == interfacelike.name && type == interfacelike.type) ||
-          interfacelike.type == 'interface mixin',
-    );
-    assert(
-      interfacelike.inheritance == null || inheritance == null,
-      'An interface should only be defined once.',
-    );
-    setInheritance(interfacelike.inheritance);
-    processMembers(interfacelike.members);
-  }
-
-  bool _markMemberUsed(String memberName, {bool isStatic = false}) {
-    final translator = Translator.instance!;
+  bool _markMemberUsed(
+    Translator translator,
+    String memberName, {
+    bool isStatic = false,
+  }) {
     if (translator.browserCompatData.generateAll) return true;
     if (type != 'interface' && type != 'namespace') return true;
     final interfaceBcd = translator.browserCompatData.retrieveInterfaceFor(
@@ -459,5 +391,99 @@ extension PartialInterfacelikeOps on PartialInterfacelike {
       return true;
     }
     return false;
+  }
+
+  void update(Translator translator, idl.Interfacelike interfacelike) {
+    assert(
+      (name == interfacelike.name && type == interfacelike.type) ||
+          interfacelike.type == 'interface mixin',
+    );
+    assert(
+      interfacelike.inheritance == null || inheritance == null,
+      'An interface should only be defined once.',
+    );
+    setInheritance(translator, interfacelike.inheritance);
+    processMembers(translator, interfacelike.members);
+  }
+
+  void setInheritance(Translator translator, String? declaredInheritance) {
+    if (declaredInheritance == null) return;
+    inheritance = null;
+    while (declaredInheritance != null) {
+      if (translator.markTypeAsUsed(declaredInheritance)) {
+        inheritance = declaredInheritance;
+        break;
+      } else {
+        final decl = translator.getDeclaration(declaredInheritance);
+        if (decl == null) {
+          declaredInheritance = null;
+        } else {
+          declaredInheritance = (decl as idl.Interfacelike).inheritance;
+        }
+      }
+    }
+  }
+}
+
+extension OverridableOperationOps on OverridableOperation {
+  void _update(Translator translator, idl.Operation operation) {
+    assert(!finalized);
+    final newParameters = operation.arguments.toDart
+        .map((arg) => createParameter(translator, arg))
+        .toList();
+    final maxLength = newParameters.length > parameters.length
+        ? newParameters.length
+        : parameters.length;
+    for (var i = 0; i < maxLength; i++) {
+      if (i < parameters.length && i < newParameters.length) {
+        parameters[i].names.addAll(newParameters[i].names);
+        parameters[i].type._update(
+          translator,
+          operation.arguments.toDart[i].idlType,
+        );
+        parameters[i].isOptional |= newParameters[i].isOptional;
+        parameters[i].isVariadic |= newParameters[i].isVariadic;
+      } else if (i >= parameters.length) {
+        newParameters[i].isOptional = true;
+        parameters.add(newParameters[i]);
+      } else if (i >= newParameters.length) {
+        parameters[i].isOptional = true;
+      }
+    }
+    returnType._update(translator, operation.idlType);
+  }
+
+  void _underscoreName() {
+    name = MemberName(
+      '${name.name}_',
+      name.jsOverride.isNotEmpty ? name.jsOverride : name.name,
+    );
+  }
+}
+
+extension OverridableConstructorOps on OverridableConstructor {
+  void _update(Translator translator, idl.Constructor constructor) {
+    final newParameters = constructor.arguments.toDart
+        .map((arg) => createParameter(translator, arg))
+        .toList();
+    final maxLength = newParameters.length > parameters.length
+        ? newParameters.length
+        : parameters.length;
+    for (var i = 0; i < maxLength; i++) {
+      if (i < parameters.length && i < newParameters.length) {
+        parameters[i].names.addAll(newParameters[i].names);
+        parameters[i].type._update(
+          translator,
+          constructor.arguments.toDart[i].idlType,
+        );
+        parameters[i].isOptional |= newParameters[i].isOptional;
+        parameters[i].isVariadic |= newParameters[i].isVariadic;
+      } else if (i >= parameters.length) {
+        newParameters[i].isOptional = true;
+        parameters.add(newParameters[i]);
+      } else if (i >= newParameters.length) {
+        parameters[i].isOptional = true;
+      }
+    }
   }
 }

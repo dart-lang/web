@@ -192,7 +192,7 @@ class PackageWebType extends NamedType {
   @override
   String? get dartName => null;
 
-  PackageWebType._({
+  PackageWebType({
     required this.name,
     this.typeParams = const [],
     this.isNullable = false,
@@ -215,19 +215,6 @@ class PackageWebType extends NamedType {
         )
         ..url = 'package:web/web.dart'
         ..isNullable = isNullable || (options?.nullable ?? false),
-    );
-  }
-
-  static PackageWebType parse(
-    String name, {
-    bool? isNullable,
-    List<Type> typeParams = const [],
-    Map<String, String> renameMap = const {},
-  }) {
-    return PackageWebType._(
-      name: renameMap.containsKey(name) ? renameMap[name]! : name,
-      isNullable: isNullable ?? false,
-      typeParams: typeParams,
     );
   }
 }

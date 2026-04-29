@@ -234,22 +234,19 @@ _RawType _getRawType(idl.IDLType idlType) {
   if (type == 'any') nullable = true;
   final translator = Translator.instance!;
 
-  // Resolve aliases that point to other IDL types so they can be marked as used
-  final aliasCheck = idlOrBuiltinToJsTypeAliases[type];
-  if (aliasCheck != null &&
-      translator._typeToDeclaration.containsKey(aliasCheck)) {
-    type = aliasCheck;
-  }
-
-  final decl = translator._typeToDeclaration[type];
   final alias = idlOrBuiltinToJsTypeAliases[type];
-  assert(decl != null || alias != null);
-  if (alias == null && !translator.markTypeAsUsed(type)) {
-    // If the type is an IDL type that is never generated, use its JS type
-    // equivalent.
-    type = _getJSTypeEquivalent(_RawType(type, false))!.type;
+  if (alias == null) {
+    // The declaration should exist if there is no alias.
+    assert(translator._typeToDeclaration[type] != null);
+    if (!translator.markTypeAsUsed(type)) {
+      // If the type is an IDL type that is never generated, use its JS type
+      // equivalent.
+      type = _getJSTypeEquivalent(_RawType(type, false))!.type;
+    }
+  } else {
+    type = alias;
   }
-  return _RawType(alias ?? type, nullable, typeParameter);
+  return _RawType(type, nullable, typeParameter);
 }
 
 /// A class representing either a type that corresponds to an IDL declaration or

@@ -10,13 +10,13 @@ import 'package:path/path.dart' as p;
 import 'banned_names.dart';
 import 'bcd.dart';
 import 'doc_provider.dart';
+import 'elements.dart';
 import 'formatting.dart';
 import 'js/webidl_api.dart' as idl;
 import 'js/webref_elements_api.dart';
 import 'js_type_supertypes.dart';
 import 'singletons.dart';
 import 'type_aliases.dart';
-import 'type_union.dart';
 import 'util.dart';
 
 typedef TranslationResult = Map<String, code.Library>;
@@ -102,627 +102,6 @@ class _Library {
   }
 }
 
-/// If [rawType] corresponds to an IDL type that we declare as a typedef,
-/// desugars the typedef, accounting for nullability along the way.
-///
-/// Otherwise, returns null.
-_RawType? _desugarTypedef(_RawType rawType) {
-  final decl = Translator.instance!._typeToDeclaration[rawType.type];
-  return switch (decl?.type) {
-    'typedef' => _getRawType(
-      (decl as idl.Typedef).idlType,
-    )..nullable |= rawType.nullable,
-    // TODO(srujzs): If we ever add a generic JS function type, we should
-    // maybe leverage that here so we have stronger type-checking of
-    // callbacks.
-    'callback' ||
-    'callback interface' => _RawType('JSFunction', rawType.nullable),
-    // TODO(srujzs): Enums in the WebIDL are just strings, but we could make
-    // them easier to work with on the Dart side.
-    'enum' => _RawType('JSString', rawType.nullable),
-    _ => null,
-  };
-}
-
-/// Given a [rawType], return its JS type-equivalent type if it's a type that is
-/// declared in the IDL.
-///
-/// Otherwise, return null.
-_RawType? _getJSTypeEquivalent(_RawType rawType) {
-  final type = rawType.type;
-  final nullable = rawType.nullable;
-  final decl = Translator.instance!._typeToDeclaration[type];
-  if (decl != null) {
-    final nodeType = decl.type;
-    switch (nodeType) {
-      case 'interface':
-      case 'dictionary':
-        return _RawType('JSObject', nullable);
-      default:
-        final desugaredType = _desugarTypedef(rawType);
-        if (desugaredType != null) {
-          // The output of `_desugarTypedef` is always an IDL decl type or a JS
-          // type, so either get the equivalent in the former case or return the
-          // JS type directly.
-          return _getJSTypeEquivalent(desugaredType) ?? desugaredType;
-        }
-        throw Exception('Unhandled type $type with node type: $nodeType');
-    }
-  }
-  return null;
-}
-
-_RawType _computeRawTypeUnion(_RawType rawType1, _RawType rawType2) {
-  final type1 = rawType1.type;
-  final type2 = rawType2.type;
-  final nullable1 = rawType1.nullable;
-  final nullable2 = rawType2.nullable;
-  final typeParam1 = rawType1.typeParameter;
-  final typeParam2 = rawType2.typeParameter;
-
-  // If either type parameter is null, then the resulting union can never be a
-  // generic type, so return null.
-  _RawType? computeTypeParamUnion(_RawType? typeParam1, _RawType? typeParam2) =>
-      typeParam1 != null && typeParam2 != null
-      ? _computeRawTypeUnion(typeParam1, typeParam2)
-      : null;
-
-  // Equality.
-  if (type1 == type2) {
-    return _RawType(
-      type1,
-      nullable1 || nullable2,
-      computeTypeParamUnion(typeParam1, typeParam2),
-    );
-  }
-  // This sentinel is only for nullability.
-  if (type1 == 'JSUndefined') return _RawType(type2, true, typeParam2);
-  if (type2 == 'JSUndefined') return _RawType(type1, true, typeParam1);
-  // If the two types are not equal, we can just use `JSNumber` as the union can
-  // never be `JSInteger` or `JSDouble` anyways.
-  if (type1 == 'JSInteger' || type1 == 'JSDouble') rawType1.type = 'JSNumber';
-  if (type2 == 'JSInteger' || type2 == 'JSDouble') rawType2.type = 'JSNumber';
-
-  // In the case of unions, we should try and get a JS type-able type to get a
-  // better LUB.
-  final unionableType1 = _getJSTypeEquivalent(rawType1) ?? rawType1;
-  final unionableType2 = _getJSTypeEquivalent(rawType2) ?? rawType2;
-
-  // We choose `JSAny` if they're not both JS types.
-  return _RawType(
-    computeJsTypeUnion(unionableType1.type, unionableType2.type) ?? 'JSAny',
-    unionableType1.nullable || unionableType2.nullable,
-    computeTypeParamUnion(
-      unionableType1.typeParameter,
-      unionableType2.typeParameter,
-    ),
-  );
-}
-
-/// Returns a [_RawType] for the given [idl.IDLType].
-_RawType _getRawType(idl.IDLType idlType) {
-  // For union types, we take the possible union of all the types using a LUB.
-  if (idlType.union) {
-    final types = (idlType.idlType as JSArray<idl.IDLType>).toDart;
-    final unionType = _getRawType(types[0]);
-    for (var i = 1; i < types.length; i++) {
-      unionType.update(types[i]);
-    }
-    return unionType..nullable |= idlType.nullable;
-  }
-  String type;
-  var nullable = idlType.nullable;
-  _RawType? typeParameter;
-  if (idlType.generic.isNotEmpty) {
-    final types = (idlType.idlType as JSArray<idl.IDLType>).toDart;
-    if (types.length == 1) {
-      typeParameter = _getRawType(types[0]);
-    } else if (types.length > 1) {
-      assert(types.length == 2);
-      assert(idlType.generic == 'record');
-    }
-    type = idlType.generic;
-  } else {
-    type = (idlType.idlType as JSString).toDart;
-  }
-
-  // Handles types that don't exist in the set of IDL type declarations. They
-  // are either some special values or JS builtin types.
-
-  // `WindowProxy` doesn't exist as an interface in the IDL. For our purposes,
-  // `Window` is the appropriate interface.
-  if (type == 'WindowProxy') type = 'Window';
-  // `any` is marked non-nullable in the IDL, but since it is a union of
-  // `undefined`, it can be nullable for our purposes.
-  if (type == 'any') nullable = true;
-  final translator = Translator.instance!;
-  final decl = translator._typeToDeclaration[type];
-  final alias = idlOrBuiltinToJsTypeAliases[type];
-  assert(decl != null || alias != null);
-  if (alias == null && !translator.markTypeAsUsed(type)) {
-    // If the type is an IDL type that is never generated, use its JS type
-    // equivalent.
-    type = _getJSTypeEquivalent(_RawType(type, false))!.type;
-  }
-  return _RawType(alias ?? type, nullable, typeParameter);
-}
-
-/// A class representing either a type that corresponds to an IDL declaration or
-/// a `dart:js_interop` JS types (including sentinels).
-///
-/// This should not include IDL types for which there isn't a declaration e.g.
-/// `any` or a JS built-in type e.g. `ArrayBuffer`.
-class _RawType {
-  String type;
-  bool nullable;
-  _RawType? typeParameter;
-
-  _RawType(this.type, this.nullable, [this.typeParameter]) {
-    // While the IDL does not define `undefined` as nullable, it is treated as
-    // null in interop.
-    if (type == 'JSUndefined') nullable = true;
-  }
-
-  void update(idl.IDLType idlType) {
-    final union = _computeRawTypeUnion(this, _getRawType(idlType));
-    type = union.type;
-    nullable = union.nullable;
-    typeParameter = union.typeParameter;
-  }
-
-  @override
-  String toString() =>
-      '_RawType(type: $type, nullable: $nullable, '
-      'typeParameter: $typeParameter)';
-}
-
-class _Parameter {
-  final Set<String> _names;
-  final _RawType type;
-  bool isOptional;
-  bool isVariadic;
-  late final String name = _generateName();
-
-  _Parameter._(this._names, this.type, this.isOptional, this.isVariadic);
-
-  factory _Parameter(idl.Argument argument) => _Parameter._(
-    {argument.name},
-    _getRawType(argument.idlType),
-    argument.optional,
-    argument.variadic,
-  );
-
-  String _generateName() {
-    final namesList = _names.toList();
-    namesList.sort();
-    return namesList
-        .sublist(0, 1)
-        .followedBy(namesList.sublist(1).map(capitalize))
-        .join('Or');
-  }
-
-  void update(idl.Argument argument) {
-    final thatName = argument.name;
-    _names.add(thatName);
-    type.update(argument.idlType);
-    if (argument.optional) {
-      isOptional = true;
-    }
-    if (argument.variadic) {
-      isVariadic = true;
-    }
-  }
-}
-
-sealed class _Property {
-  late final _MemberName name;
-  final _RawType type;
-  final MdnProperty? mdnProperty;
-
-  // TODO(srujzs): Remove ignore after
-  // https://github.com/dart-lang/sdk/issues/55720 is resolved.
-  // ignore: unused_element_parameter
-  _Property(_MemberName name, idl.IDLType idlType, [this.mdnProperty])
-    : type = _getRawType(idlType) {
-    // Rename the property if there's a collision with the type name.
-    final dartName = name.name;
-    final jsName = name.jsOverride.isEmpty ? dartName : name.jsOverride;
-    this.name = dartName == type.type
-        ? _MemberName('${dartName}_', jsName)
-        : name;
-  }
-}
-
-class _Attribute extends _Property {
-  final bool isStatic;
-  final bool isReadOnly;
-
-  _Attribute(
-    super.name,
-    super.idlType,
-    super.mdnProperty, {
-    required this.isStatic,
-    required this.isReadOnly,
-  });
-}
-
-class _Field extends _Property {
-  final bool isRequired;
-
-  _Field(
-    super.name,
-    super.idlType,
-    super.mdnProperty, {
-    required this.isRequired,
-  });
-}
-
-class _Constant extends _Property {
-  final String valueType;
-  final JSAny value;
-  _Constant(super.name, super.idlType, this.valueType, this.value);
-}
-
-abstract class _OverridableMember {
-  final List<_Parameter> parameters = [];
-
-  _OverridableMember(JSArray<idl.Argument> rawParameters) {
-    for (var i = 0; i < rawParameters.length; i++) {
-      parameters.add(_Parameter(rawParameters[i]));
-    }
-  }
-
-  void _processParameters(JSArray<idl.Argument> thoseParameters) {
-    // Assume if we have extra arguments beyond what was provided in some other
-    // method, that these are all optional.
-    final thatLength = thoseParameters.length;
-    for (var i = thatLength; i < parameters.length; i++) {
-      parameters[i].isOptional = true;
-    }
-    for (var i = 0; i < thatLength; i++) {
-      final argument = thoseParameters[i];
-      if (i >= parameters.length) {
-        // We assume these parameters must be optional, regardless of what the
-        // IDL says.
-        parameters.add(_Parameter(argument)..isOptional = true);
-      } else {
-        parameters[i].update(argument);
-      }
-    }
-  }
-}
-
-class _OverridableOperation extends _OverridableMember {
-  bool _finalized = false;
-  _MemberName _name;
-
-  final String special;
-  final _RawType returnType;
-  final MdnProperty? mdnProperty;
-  late final _MemberName name = _generateName();
-
-  _OverridableOperation._(
-    this._name,
-    this.special,
-    this.returnType,
-    this.mdnProperty,
-    super.parameters,
-  );
-
-  factory _OverridableOperation(
-    idl.Operation operation,
-    _MemberName memberName,
-    MdnProperty? mdnProperty,
-  ) => _OverridableOperation._(
-    memberName,
-    operation.special,
-    _getRawType(operation.idlType),
-    mdnProperty,
-    operation.arguments,
-  );
-
-  bool get isStatic => special == 'static';
-
-  _MemberName _generateName() {
-    // The name is determined after all updates are done, so finalize the
-    // operation.
-    _finalized = true;
-    // Rename the member if the name collides with a return or parameter type.
-    final dartName = _name.name;
-    if (dartName == returnType.type ||
-        parameters.any((parameter) => dartName == parameter.type.type)) {
-      underscoreName();
-    }
-    return _name;
-  }
-
-  void underscoreName() {
-    final jsName = _name.jsOverride.isEmpty ? _name.name : _name.jsOverride;
-    _name = _MemberName('${_name.name}_', jsName);
-  }
-
-  void update(idl.Operation that) {
-    assert(
-      !_finalized,
-      'Call to _OverridableOperation.update was made after the operation was '
-      'finalized.',
-    );
-    final jsOverride = _name.jsOverride;
-    final thisName = jsOverride.isNotEmpty ? jsOverride : _name.name;
-    assert(
-      (that.name.isEmpty || thisName == that.name) && special == that.special,
-    );
-    returnType.update(that.idlType);
-    _processParameters(that.arguments);
-  }
-}
-
-class _OverridableConstructor extends _OverridableMember {
-  _OverridableConstructor(idl.Constructor constructor)
-    : super(constructor.arguments);
-
-  void update(idl.Constructor that) => _processParameters(that.arguments);
-}
-
-class _PartialInterfacelike {
-  final String name;
-  final String type;
-  String? inheritance;
-  final Map<String, _OverridableOperation> operations = {};
-  final Map<String, _OverridableOperation> staticOperations = {};
-  final List<_Property> properties = [];
-  final List<_Property> extensionProperties = [];
-  final MdnInterface? mdnInterface;
-  _OverridableConstructor? constructor;
-
-  _PartialInterfacelike._(
-    this.name,
-    this.type,
-    String? inheritance,
-    this.mdnInterface,
-  ) {
-    _setInheritance(inheritance);
-  }
-
-  factory _PartialInterfacelike(
-    idl.Interfacelike interfacelike,
-    MdnInterface? mdnInterface,
-  ) {
-    final partialInterfacelike = _PartialInterfacelike._(
-      interfacelike.name,
-      interfacelike.type,
-      interfacelike.inheritance,
-      mdnInterface,
-    );
-    partialInterfacelike._processMembers(interfacelike.members);
-    return partialInterfacelike;
-  }
-
-  void _processMembers(JSArray<idl.Member> nodeMembers) {
-    for (var i = 0; i < nodeMembers.length; i++) {
-      final member = nodeMembers[i];
-      final type = member.type;
-      switch (type) {
-        case 'constructor':
-          if (!_shouldGenerateMember(name)) break;
-          final idlConstructor = member as idl.Constructor;
-          if (_hasHTMLConstructorAttribute(idlConstructor)) break;
-          if (constructor == null) {
-            constructor = _OverridableConstructor(idlConstructor);
-          } else {
-            constructor!.update(idlConstructor);
-          }
-          break;
-        case 'const':
-          final constant = member as idl.Constant;
-          // Note that constants do not have browser compatibility data, so we
-          // always emit.
-          properties.add(
-            _Constant(
-              _MemberName(constant.name),
-              constant.idlType,
-              constant.value.type,
-              constant.value.value,
-            ),
-          );
-          break;
-        case 'attribute':
-          final attribute = member as idl.Attribute;
-          final isStatic = attribute.special == 'static';
-          final attributeName = attribute.name;
-          if (!_shouldGenerateMember(attributeName, isStatic: isStatic)) break;
-          // `SVGElement.className` returns an `SVGAnimatedString`, but its
-          // corresponding setter `Element.className` takes a `String`. As these
-          // two types are incompatible, we need to move this member to an
-          // extension instead. As it shares the same name as the getter
-          // `Element.className`, users will need to apply the extension
-          // explicitly.
-          final isExtensionMember =
-              name == 'SVGElement' && attributeName == 'className';
-          final memberList = isExtensionMember
-              ? extensionProperties
-              : properties;
-          memberList.add(
-            _Attribute(
-              _MemberName(attributeName),
-              attribute.idlType,
-              mdnInterface?.propertyFor(attributeName, isStatic: isStatic),
-              isStatic: isStatic,
-              isReadOnly: attribute.readonly,
-            ),
-          );
-          break;
-        case 'operation':
-          final operation = member as idl.Operation;
-          final special = operation.special;
-          var operationName = operation.name;
-          // Some special operations may not have any MDN data and may be given
-          // a name that is irrelevant to the IDL, so avoid querying in that
-          // case and always emit.
-          var shouldQueryMDN = true;
-          switch (special) {
-            case 'getter':
-              if (operationName.isEmpty) {
-                operationName = 'operator []';
-                shouldQueryMDN = false;
-              }
-              break;
-            case 'setter':
-              if (operationName.isEmpty) {
-                operationName = 'operator []=';
-                shouldQueryMDN = false;
-              }
-              break;
-            case 'static':
-              break;
-            default:
-              // TODO(srujzs): Should we handle other special operations,
-              // unnamed or otherwise? For now, don't emit the unnamed ones and
-              // do nothing special for the named ones.
-              if (operationName.isEmpty) continue;
-          }
-          final isStatic = operation.special == 'static';
-          if (shouldQueryMDN &&
-              !_shouldGenerateMember(operationName, isStatic: isStatic)) {
-            break;
-          }
-          final docs = shouldQueryMDN
-              ? mdnInterface?.propertyFor(operationName, isStatic: isStatic)
-              : null;
-          // Static member may have the same name as instance members in the
-          // IDL, but not in Dart. Rename the static member if so.
-          if (isStatic) {
-            if (staticOperations.containsKey(operationName)) {
-              staticOperations[operationName]!.update(operation);
-            } else {
-              staticOperations[operationName] = _OverridableOperation(
-                operation,
-                _MemberName(operationName),
-                docs,
-              );
-              if (operations.containsKey(operationName)) {
-                staticOperations[operationName]!.underscoreName();
-              }
-            }
-          } else {
-            if (operations.containsKey(operationName)) {
-              operations[operationName]!.update(operation);
-            } else {
-              staticOperations[operationName]?.underscoreName();
-              operations[operationName] = _OverridableOperation(
-                operation,
-                _MemberName(operationName),
-                docs,
-              );
-            }
-          }
-          break;
-        case 'field':
-          final field = member as idl.Field;
-          final fieldName = field.name;
-          if (!_shouldGenerateMember(fieldName)) break;
-          properties.add(
-            _Field(
-              _MemberName(fieldName),
-              field.idlType,
-              mdnInterface?.propertyFor(fieldName, isStatic: false),
-              isRequired: field.required,
-            ),
-          );
-          break;
-        case 'maplike':
-        case 'setlike':
-        case 'iterable':
-        case 'async_iterable':
-          // TODO(srujzs): Generate members for these types.
-          break;
-        default:
-          throw Exception('Unrecognized member type $type');
-      }
-    }
-  }
-
-  /// Given the [declaredInheritance] by the IDL, find the closest supertype
-  /// that is actually generated, and set the inheritance equal to that type.
-  void _setInheritance(String? declaredInheritance) {
-    if (declaredInheritance == null) return;
-    final translator = Translator.instance!;
-    while (declaredInheritance != null) {
-      if (translator.markTypeAsUsed(declaredInheritance)) {
-        inheritance = declaredInheritance;
-        break;
-      } else {
-        declaredInheritance =
-            (translator._typeToDeclaration[declaredInheritance]
-                    as idl.Interfacelike)
-                .inheritance;
-      }
-    }
-  }
-
-  /// Given a [memberName] and whether it [isStatic], return whether it is a
-  /// member that should be emitted according to the compat data.
-  bool _shouldGenerateMember(String memberName, {bool isStatic = false}) {
-    if (Translator.instance!.browserCompatData.generateAll) return true;
-    // Compat data only exists for interfaces and namespaces. Mixins and
-    // dictionaries should always generate their members.
-    if (type != 'interface' && type != 'namespace') return true;
-    final interfaceBcd = Translator.instance!.browserCompatData
-        .retrieveInterfaceFor(name)!;
-    final bcd = interfaceBcd.retrievePropertyFor(
-      memberName,
-      // Compat data treats namespace members as static, but the IDL does not.
-      isStatic: isStatic || type == 'namespace',
-    );
-    final shouldGenerate = bcd?.shouldGenerate;
-    if (shouldGenerate != null) return shouldGenerate;
-    // Events can bubble up to the window, document, or other elements. In the
-    // case where we have no compatibility data, we assume that an event can
-    // bubble up to this interface and support the event handler.
-    if (!isStatic && BrowserCompatData.isEventHandlerSupported(memberName)) {
-      return true;
-    }
-    // TODO(srujzs): Sometimes compatibility data can be up or down the type
-    // hierarchy, so it may be worth checking supertypes and subtypes. In
-    // practice, it doesn't seem to make a difference in the output.
-    return false;
-  }
-
-  void update(idl.Interfacelike interfacelike) {
-    assert(
-      (name == interfacelike.name && type == interfacelike.type) ||
-          interfacelike.type == 'interface mixin',
-    );
-    assert(
-      interfacelike.inheritance == null || inheritance == null,
-      'An interface should only be defined once.',
-    );
-    _setInheritance(interfacelike.inheritance);
-    _processMembers(interfacelike.members);
-  }
-
-  // Constructors with the attribute `HTMLConstructor` are intended for custom
-  // element behavior, and are not useful otherwise, so avoid emitting them.
-  // https://html.spec.whatwg.org/#html-element-constructors
-  bool _hasHTMLConstructorAttribute(idl.Constructor constructor) => constructor
-      .extAttrs
-      .toDart
-      .any((extAttr) => extAttr.name == 'HTMLConstructor');
-}
-
-class _MemberName {
-  final String name;
-  final String jsOverride;
-
-  _MemberName._(this.name, this.jsOverride);
-
-  factory _MemberName(String name, [String jsOverride = '']) {
-    final rename = dartRename(name);
-    if (rename != name && jsOverride.isEmpty) jsOverride = name;
-    return _MemberName._(rename, jsOverride);
-  }
-}
-
 class Translator {
   final String? packageRoot;
   final String _librarySubDir;
@@ -734,9 +113,10 @@ class Translator {
   final _typeToDeclaration = <String, idl.Node>{};
   final _typeToPartials = <String, List<idl.Interfacelike>>{};
   final _typeToLibrary = <String, _Library>{};
-  final _interfacelikes = <String, _PartialInterfacelike>{};
+  final _interfacelikes = <String, PartialInterfacelike>{};
   final _includes = <String, List<String>>{};
   final _usedTypes = <idl.Node>{};
+  Map<String, idl.Node> get typeToDeclaration => _typeToDeclaration;
   final _renamedClasses = <String, String>{};
   final _currentDocImports = <String>{};
   final _currentLibraryImports = <String>{};
@@ -775,7 +155,7 @@ class Translator {
     if (_interfacelikes.containsKey(name)) {
       _interfacelikes[name]!.update(interfacelike);
     } else {
-      _interfacelikes[name] = _PartialInterfacelike(
+      _interfacelikes[name] = PartialInterfacelike(
         interfacelike,
         docProvider.interfaceFor(name),
       );
@@ -866,7 +246,7 @@ class Translator {
         return true;
       case 'typedef':
         _usedTypes.add(decl);
-        final desugaredType = _desugarTypedef(_RawType(type, false))!.type;
+        final desugaredType = desugarTypedef(RawType(type, false))!.type;
         markTypeAsUsed(desugaredType);
         return true;
       case 'enum':
@@ -1030,7 +410,7 @@ class Translator {
 
   code.TypeDef _typedef(
     String name,
-    _RawType rawType, [
+    RawType rawType, [
     idl.Typedef? idlTypedef,
   ]) => code.TypeDef(
     (b) => b
@@ -1041,7 +421,7 @@ class Translator {
       ]),
   );
 
-  code.Method _topLevelGetter(_RawType type, String getterName) => code.Method(
+  code.Method _topLevelGetter(RawType type, String getterName) => code.Method(
     (b) => b
       ..annotations.addAll(_jsOverride('', alwaysEmit: true))
       ..external = true
@@ -1060,7 +440,7 @@ class Translator {
   /// rather only emit a valid interop type. This is used for type arguments as
   /// they are bound to `JSAny?`.
   code.TypeReference _typeReference(
-    _RawType type, {
+    RawType type, {
     bool returnType = false,
     bool onlyEmitInteropTypes = false,
   }) {
@@ -1079,7 +459,7 @@ class Translator {
       // unused as they were ever only used in a generic. Should we delete them
       // or do they provide value to users? If we do delete them, a good way of
       // detecting if they're unused is making `_usedTypes` a ref counter.
-      final rawType = _desugarTypedef(type);
+      final rawType = desugarTypedef(type);
       if (rawType != null &&
           jsTypeToDartPrimitiveAliases.containsKey(rawType.type)) {
         dartType = rawType.type;
@@ -1090,7 +470,7 @@ class Translator {
         'JSInteger' => 'JSNumber',
         'JSDouble' => 'JSNumber',
         // When the result is `undefined`, we use `JSAny?`. We explicitly
-        // declare `JSUndefined` `_RawType`s to be nullable, so no need to set
+        // declare `JSUndefined` `RawType`s to be nullable, so no need to set
         // nullable.
         'JSUndefined' => 'JSAny',
         _ => dartType,
@@ -1104,7 +484,7 @@ class Translator {
         // them or do they provide value to users? If we do delete them, a good
         // way of detecting if they're unused is making `_usedTypes` a ref
         // counter.
-        final rawType = _desugarTypedef(type);
+        final rawType = desugarTypedef(type);
         final underlyingType = rawType?.type ?? dartType;
         if (underlyingType == 'JSDouble') dartType = 'double';
       }
@@ -1153,7 +533,7 @@ class Translator {
   }
 
   T _overridableMember<T>(
-    _OverridableMember member,
+    OverridableMember member,
     T Function(
       List<code.Parameter> requiredParameters,
       List<code.Parameter> optionalParameters,
@@ -1190,7 +570,7 @@ class Translator {
     return generator(requiredParameters, optionalParameters);
   }
 
-  code.Constructor _constructor(_OverridableConstructor constructor) =>
+  code.Constructor _constructor(OverridableConstructor constructor) =>
       _overridableMember<code.Constructor>(
         constructor,
         (requiredParameters, optionalParameters) => code.Constructor(
@@ -1225,7 +605,7 @@ class Translator {
       for (final property in interfacelike.properties) {
         // We currently only lower dictionaries to object literals, and
         // dictionaries can only have 'field' members.
-        final field = property as _Field;
+        final field = property as Field;
         final isRequired = field.isRequired;
         final parameter = code.Parameter(
           (b) => b
@@ -1280,7 +660,7 @@ class Translator {
       ]),
   ];
 
-  code.Method _operation(_OverridableOperation operation) {
+  code.Method _operation(OverridableOperation operation) {
     final memberName = operation.name;
     // The IDL may return the value that is set. Dart doesn't let us use any
     // type besides `void` for `[]=`, so we ignore the return value.
@@ -1304,7 +684,7 @@ class Translator {
   }
 
   List<code.Method> _getterSetter({
-    required _MemberName memberName,
+    required MemberName memberName,
     required code.Reference Function() getGetterType,
     required code.Reference Function() getSetterType,
     required bool isStatic,
@@ -1347,7 +727,7 @@ class Translator {
   }
 
   List<code.Method> _attribute(
-    _Attribute attribute,
+    Attribute attribute,
     MdnInterface? mdnInterface,
   ) {
     return _getterSetter(
@@ -1360,7 +740,7 @@ class Translator {
     );
   }
 
-  (List<code.Field>, List<code.Method>) _constant(_Constant constant) {
+  (List<code.Field>, List<code.Method>) _constant(Constant constant) {
     // If it's a value type that we can emit directly in Dart as a constant,
     // emit this as a field so users can `switch` over it. Value types taken
     // from: https://github.com/w3c/webidl2.js/blob/main/README.md#default-and-const-values
@@ -1405,7 +785,7 @@ class Translator {
     );
   }
 
-  List<code.Method> _field(_Field field, MdnInterface? mdnInterface) {
+  List<code.Method> _field(Field field, MdnInterface? mdnInterface) {
     return _getterSetter(
       memberName: field.name,
       getGetterType: () => _typeReference(field.type, returnType: true),
@@ -1417,23 +797,23 @@ class Translator {
   }
 
   (List<code.Field>, List<code.Method>) _property(
-    _Property member,
+    Property member,
     MdnInterface? mdnInterface,
   ) => switch (member) {
-    _Attribute() => ([], _attribute(member, mdnInterface)),
-    _Field() => ([], _field(member, mdnInterface)),
-    _Constant() => _constant(member),
+    Attribute() => ([], _attribute(member, mdnInterface)),
+    Field() => ([], _field(member, mdnInterface)),
+    Constant() => _constant(member),
   };
 
   (List<code.Field>, List<code.Method>) _properties(
-    List<_Property> properties,
+    List<Property> properties,
     MdnInterface? mdnInterface,
   ) => properties.fold(([], []), (specs, property) {
     final (fields, methods) = _property(property, mdnInterface);
     return (specs.$1..addAll(fields), specs.$2..addAll(methods));
   });
 
-  List<code.Method> _operations(List<_OverridableOperation> operations) => [
+  List<code.Method> _operations(List<OverridableOperation> operations) => [
     for (final operation in operations) _operation(operation),
   ];
 
@@ -1441,10 +821,10 @@ class Translator {
     return [
       for (final style in _cssStyleDeclarations)
         ..._getterSetter(
-          memberName: _MemberName(style),
+          memberName: MemberName(style),
           getGetterType: () =>
-              _typeReference(_RawType('JSString', false), returnType: true),
-          getSetterType: () => _typeReference(_RawType('JSString', false)),
+              _typeReference(RawType('JSString', false), returnType: true),
+          getSetterType: () => _typeReference(RawType('JSString', false)),
           isStatic: false,
           readOnly: false,
           mdnInterface: null,
@@ -1510,8 +890,8 @@ class Translator {
   }
 
   code.Extension _extension({
-    required _RawType type,
-    required List<_Property> extensionProperties,
+    required RawType type,
+    required List<Property> extensionProperties,
   }) {
     final properties = _properties(extensionProperties, null);
     return code.Extension(
@@ -1530,15 +910,15 @@ class Translator {
     required MdnInterface? mdnInterface,
     required BCDInterfaceStatus? interfaceStatus,
     required List<String> implements,
-    required _OverridableConstructor? constructor,
-    required List<_OverridableOperation> operations,
-    required List<_OverridableOperation> staticOperations,
-    required List<_Property> properties,
+    required OverridableConstructor? constructor,
+    required List<OverridableOperation> operations,
+    required List<OverridableOperation> staticOperations,
+    required List<Property> properties,
     required bool isObjectLiteral,
   }) {
     final docs = mdnInterface == null ? <String>[] : mdnInterface.formattedDocs;
 
-    final jsObject = _typeReference(_RawType('JSObject', false));
+    final jsObject = _typeReference(RawType('JSObject', false));
     const representationFieldName = '_';
     final legacyNameSpace = extendedAttributes
         .where(
@@ -1574,7 +954,7 @@ class Translator {
         )
         ..implements.addAll(
           implements
-              .map((interface) => _typeReference(_RawType(interface, false)))
+              .map((interface) => _typeReference(RawType(interface, false)))
               .followedBy([jsObject]),
         )
         ..constructors.addAll(
@@ -1634,7 +1014,7 @@ class Translator {
       if (interfacelike.inheritance != null) interfacelike.inheritance!,
     ];
 
-    final rawType = _RawType(dartClassName, false);
+    final rawType = RawType(dartClassName, false);
 
     if (!isNamespace && jsName != dartClassName) {
       _renamedClasses[jsName] = dartClassName;
@@ -1668,23 +1048,20 @@ class Translator {
       for (final typedef in library.typedefs.where(_usedTypes.contains))
         _typedef(
           typedef.name,
-          _desugarTypedef(_RawType(typedef.name, false))!,
+          desugarTypedef(RawType(typedef.name, false))!,
           typedef,
         ),
       for (final callback in library.callbacks.where(_usedTypes.contains))
-        _typedef(
-          callback.name,
-          _desugarTypedef(_RawType(callback.name, false))!,
-        ),
+        _typedef(callback.name, desugarTypedef(RawType(callback.name, false))!),
       for (final callbackInterface in library.callbackInterfaces.where(
         _usedTypes.contains,
       ))
         _typedef(
           callbackInterface.name,
-          _desugarTypedef(_RawType(callbackInterface.name, false))!,
+          desugarTypedef(RawType(callbackInterface.name, false))!,
         ),
       for (final enum_ in library.enums.where(_usedTypes.contains))
-        _typedef(enum_.name, _desugarTypedef(_RawType(enum_.name, false))!),
+        _typedef(enum_.name, desugarTypedef(RawType(enum_.name, false))!),
       for (final interfacelike in library.interfacelikes.where(
         _usedTypes.contains,
       ))

@@ -19,7 +19,7 @@ void main() {
     final testFile = p.join('test', 'assets', 'invalid.d.ts');
     final outputFile = p.join('.dart_tool', 'interop_gen', 'invalid.dart');
 
-    setUp(() async {
+    setUpAll(() async {
       await compileBindingsGen();
     });
 

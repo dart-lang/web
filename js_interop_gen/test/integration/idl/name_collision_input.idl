@@ -1,0 +1,6 @@
+interface CollisionType {
+};
+
+interface TestCollision {
+  CollisionType CollisionType();
+};

@@ -2,7 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:collection';
 import 'dart:js_interop';
 
 import 'package:collection/collection.dart';
@@ -26,28 +25,8 @@ import '../hasher.dart';
 import '../namer.dart';
 import '../qualified_name.dart';
 import '../transform.dart';
-
-class ExportReference {
-  final String name;
-  final String as;
-  final bool defaultExport;
-
-  const ExportReference(
-    this.name, {
-    required this.as,
-    this.defaultExport = false,
-  });
-
-  @override
-  bool operator ==(Object other) =>
-      other is ExportReference &&
-      name == other.name &&
-      as == other.as &&
-      defaultExport == other.defaultExport;
-
-  @override
-  int get hashCode => Object.hash(name, as, defaultExport);
-}
+import 'export_reference.dart';
+import 'utils.dart';
 
 /// A class for transforming nodes in a given [file]
 ///
@@ -603,14 +582,12 @@ class Transformer {
         ? (nameNode as TSIdentifier).text
         : (nameNode as TSLiteralExpression).text;
     final nameForDart = nameNode.kind == TSSyntaxKind.StringLiteral
-        ? dartRename(_toCamelCase(name))
+        ? dartRename(toCamelCase(name))
         : name;
 
     final (:id, name: dartName) = parentNamer.makeUnique(nameForDart, 'var');
 
-    final (:isStatic, :isReadonly, :scope) = _parseModifiers(
-      property.modifiers,
-    );
+    final (:isStatic, :isReadonly, :scope) = parseModifiers(property.modifiers);
 
     ReferredType? propType;
     if (property.type case final type? when ts.isTypeReferenceNode(type)) {
@@ -664,9 +641,7 @@ class Transformer {
 
     final typeParams = method.typeParameters?.toDart;
 
-    final (:isStatic, isReadonly: _, :scope) = _parseModifiers(
-      method.modifiers,
-    );
+    final (:isStatic, isReadonly: _, :scope) = parseModifiers(method.modifiers);
 
     ReferredType? methodType;
     if (method.type case final type? when ts.isTypeReferenceNode(type)) {
@@ -749,7 +724,7 @@ class Transformer {
     final (isStatic: _, isReadonly: _, :scope) =
         (constructor.isA<TSConstructorDeclaration>() ||
             constructor.kind == TSSyntaxKind.Constructor)
-        ? _parseModifiers((constructor as TSConstructorDeclaration).modifiers)
+        ? parseModifiers((constructor as TSConstructorDeclaration).modifiers)
         : (isStatic: false, isReadonly: false, scope: DeclScope.public);
 
     return ConstructorDeclaration(
@@ -824,7 +799,7 @@ class Transformer {
 
     final typeParams = indexSignature.typeParameters?.toDart;
 
-    final (:isStatic, :isReadonly, :scope) = _parseModifiers(
+    final (:isStatic, :isReadonly, :scope) = parseModifiers(
       indexSignature.modifiers,
     );
 
@@ -898,7 +873,7 @@ class Transformer {
 
     final typeParams = getter.typeParameters?.toDart;
 
-    final (isStatic: _, isReadonly: _, :scope) = _parseModifiers(
+    final (isStatic: _, isReadonly: _, :scope) = parseModifiers(
       getter.modifiers,
     );
 
@@ -955,7 +930,7 @@ class Transformer {
 
     final typeParams = setter.typeParameters?.toDart;
 
-    final (isStatic: _, isReadonly: _, :scope) = _parseModifiers(
+    final (isStatic: _, isReadonly: _, :scope) = parseModifiers(
       setter.modifiers,
     );
 
@@ -1119,9 +1094,7 @@ class Transformer {
         switch (memInitializer.kind) {
           case TSSyntaxKind.NumericLiteral:
             // parse numeric literal
-            final value = _parseNumericLiteral(
-              memInitializer as TSNumericLiteral,
-            );
+            final value = num.parse((memInitializer as TSNumericLiteral).text);
             final primitiveType = value is int
                 ? PrimitiveType.int
                 : PrimitiveType.double;
@@ -1145,9 +1118,7 @@ class Transformer {
             break;
           case TSSyntaxKind.StringLiteral:
             // parse string literal
-            final value = _parseStringLiteral(
-              memInitializer as TSStringLiteral,
-            );
+            final value = (memInitializer as TSStringLiteral).text;
             const primitiveType = PrimitiveType.string;
             members.add(
               EnumMember(
@@ -1192,14 +1163,6 @@ class Transformer {
       exported: isExported,
       documentation: _parseAndTransformDocumentation(enumeration),
     );
-  }
-
-  num _parseNumericLiteral(TSNumericLiteral numericLiteral) {
-    return num.parse(numericLiteral.text);
-  }
-
-  String _parseStringLiteral(TSStringLiteral stringLiteral) {
-    return stringLiteral.text;
   }
 
   TypeAliasDeclaration _transformTypeAlias(
@@ -3108,80 +3071,4 @@ class Transformer {
 
     return filteredDeclarations;
   }
-}
-
-({bool isReadonly, bool isStatic, DeclScope scope}) _parseModifiers([
-  TSNodeArray<TSNode>? modifiers,
-]) {
-  var isReadonly = false;
-  var isStatic = false;
-  var scope = DeclScope.public;
-
-  for (final modifier in modifiers?.toDart ?? <TSNode>[]) {
-    switch (modifier.kind) {
-      case TSSyntaxKind.StaticKeyword:
-        isStatic = true;
-        break;
-      case TSSyntaxKind.ReadonlyKeyword:
-        isReadonly = true;
-        break;
-      case TSSyntaxKind.PrivateKeyword:
-        scope = DeclScope.private;
-        break;
-      case TSSyntaxKind.ProtectedKeyword:
-        scope = DeclScope.protected;
-        break;
-      case TSSyntaxKind.PublicKeyword:
-        scope = DeclScope.public;
-        break;
-      default:
-        break;
-    }
-  }
-
-  return (isStatic: isStatic, isReadonly: isReadonly, scope: scope);
-}
-
-Iterable<QualifiedNamePart> _parseQualifiedName(TSQualifiedName name) {
-  final list = <QualifiedNamePart>[];
-  if (name.left.kind == TSSyntaxKind.Identifier) {
-    list.add(QualifiedNamePart((name.left as TSIdentifier).text));
-  } else {
-    list.addAll(_parseQualifiedName(name.left as TSQualifiedName));
-  }
-
-  list.add(QualifiedNamePart(name.right.text));
-
-  return list;
-}
-
-QualifiedName parseQualifiedNameFromTSQualifiedName(TSQualifiedName name) {
-  final list = LinkedList<QualifiedNamePart>();
-  list.addAll(_parseQualifiedName(name));
-  return QualifiedName(list);
-}
-
-QualifiedName parseQualifiedName(
-  @UnionOf([TSQualifiedName, TSIdentifier]) TSNode name,
-) {
-  if (name.kind == TSSyntaxKind.Identifier) {
-    return QualifiedName.raw((name as TSIdentifier).text);
-  } else {
-    return parseQualifiedNameFromTSQualifiedName(name as TSQualifiedName);
-  }
-}
-
-String _toCamelCase(String text) {
-  final parts = text.split(RegExp(r'[-=]'));
-  final sb = StringBuffer();
-  for (var i = 0; i < parts.length; i++) {
-    final part = parts[i];
-    if (part.isEmpty) continue;
-    if (i == 0) {
-      sb.write(part.substring(0, 1).toLowerCase() + part.substring(1));
-    } else {
-      sb.write(part.substring(0, 1).toUpperCase() + part.substring(1));
-    }
-  }
-  return sb.toString();
 }

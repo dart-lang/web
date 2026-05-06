@@ -74,13 +74,16 @@ QualifiedName parseQualifiedName(
 String toCamelCase(String text) {
   final parts = text.split(RegExp(r'[-=]'));
   final sb = StringBuffer();
-  for (var i = 0; i < parts.length; i++) {
-    final part = parts[i];
+  var first = true;
+  for (final part in parts) {
     if (part.isEmpty) continue;
-    if (i == 0) {
-      sb.write(part.substring(0, 1).toLowerCase() + part.substring(1));
+    if (first) {
+      sb.write(part[0].toLowerCase());
+      sb.write(part.substring(1));
+      first = false;
     } else {
-      sb.write(part.substring(0, 1).toUpperCase() + part.substring(1));
+      sb.write(part[0].toUpperCase());
+      sb.write(part.substring(1));
     }
   }
   return sb.toString();

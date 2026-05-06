@@ -76,8 +76,8 @@ sealed class TypeDeclaration extends NestableDeclaration
     this.constructors = const [],
     this.parent,
     this.documentation,
-    required ID id,
-  }) : _id = id;
+    required this._id,
+  });
 
   /// [useFirstExtendeeAsRepType] is used to assert that the extension type
   /// generated has a representation type of the first member of [extendees]
@@ -644,13 +644,13 @@ class NamespaceDeclaration extends NestableDeclaration
   NamespaceDeclaration({
     required this.name,
     this.exported = true,
-    required ID id,
+    required this._id,
     this.dartName,
     this.topLevelDeclarations = const {},
     this.namespaceDeclarations = const {},
     this.nestableDeclarations = const {},
     this.documentation,
-  }) : _id = id;
+  });
 
   @override
   ExtensionType emit([covariant DeclarationOptions? options]) {

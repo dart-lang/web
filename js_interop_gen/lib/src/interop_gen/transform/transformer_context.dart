@@ -33,7 +33,7 @@ class TransformerContext {
   List<String> get filterDeclSet => programMap.filterDeclSet;
 
   /// The declarations as globs
-  List<RegExp> get filterDeclSetPatterns => filterDeclSet.map((decl) {
+  late final List<RegExp> filterDeclSetPatterns = filterDeclSet.map((decl) {
     final escapedDecl = RegExp.escape(decl);
     if (escapedDecl == decl) return RegExp('^$decl\$');
     return RegExp(decl);

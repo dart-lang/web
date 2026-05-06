@@ -11,7 +11,7 @@ import 'package:yaml/yaml.dart';
 ///
 /// For the purposes of code generation and tooling, we treat this as the
 /// language version of the SDK.
-final dartLanguageVersion = Version(3, 10, 0);
+final dartLanguageVersion = Version(3, 12, 0);
 
 /// Derives the language version from an SDK constraint.
 Version deriveLanguageVersion(VersionConstraint constraint) {

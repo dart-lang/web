@@ -1,0 +1,9 @@
+[Exposed=Window]
+interface MyMaplike {
+  readonly maplike<DOMString, DOMString>;
+};
+
+[Exposed=Window]
+interface MyReadWriteMaplike {
+  maplike<DOMString, DOMString>;
+};

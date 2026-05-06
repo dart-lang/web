@@ -4,7 +4,7 @@ description: Utility APIs for dart:js_interop and dart:js_interop_unsafe.
 repository: https://github.com/dart-lang/web
 
 environment:
-  sdk: ^3.10.0
+  sdk: ^3.12.0-0
 
 dev_dependencies:
   test: ^1.26.0

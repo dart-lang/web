@@ -26,6 +26,7 @@ import '../namer.dart';
 import '../qualified_name.dart';
 import '../transform.dart';
 import 'export_reference.dart';
+import 'transformer_context.dart';
 import 'utils.dart';
 
 /// A class for transforming nodes in a given [file]
@@ -35,56 +36,54 @@ import 'utils.dart';
 // TODO(nikeokoronkwo): Add support for dynamic imports.
 // TODO: Add support for import = require() and export =
 class Transformer {
+  /// The shared context/state of this transformation.
+  final TransformerContext context;
+
   /// A set of already resolved TS Nodes
-  final Set<TSNode> nodes = {};
+  Set<TSNode> get nodes => context.nodes;
 
   /// A map of declarations
-  final NodeMap<Declaration> nodeMap = NodeMap();
+  NodeMap<Declaration> get nodeMap => context.nodeMap;
 
   /// A map of types
-  final TypeMap typeMap = TypeMap();
+  TypeMap get typeMap => context.typeMap;
 
   /// The program map
-  final ProgramMap programMap;
+  ProgramMap get programMap => context.programMap;
 
   /// The type checker for the given program
-  ts.TSTypeChecker get typeChecker => programMap.typeChecker;
+  ts.TSTypeChecker get typeChecker => context.typeChecker;
 
   /// A set of declarations to export updated during transformation
-  final Set<ExportReference> exportSet;
+  Set<ExportReference> get exportSet => context.exportSet;
 
   /// A set of declarations to filter for
-  List<String> get filterDeclSet => programMap.filterDeclSet;
+  List<String> get filterDeclSet => context.filterDeclSet;
 
   /// The declarations as globs
-  List<RegExp> get filterDeclSetPatterns => filterDeclSet.map((decl) {
-    final escapedDecl = RegExp.escape(decl);
-    if (escapedDecl == decl) return RegExp('^$decl\$');
-    return RegExp(decl);
-  }).toList();
+  List<RegExp> get filterDeclSetPatterns => context.filterDeclSetPatterns;
 
   /// namer, for giving elements unique names
-  final UniqueNamer namer;
-
-  final ts.TSSourceFile? _sourceFile;
-  final String? _fileName;
+  UniqueNamer get namer => context.namer;
 
   /// Get the current file handled by this transformer
-  String get file => (_sourceFile?.fileName ?? _fileName)!;
+  String get file => context.file;
 
-  bool get generateAll => programMap.generateAll;
+  bool get generateAll => context.generateAll;
 
-  bool get errorIfUnsupported => programMap.strictUnsupported;
+  bool get errorIfUnsupported => context.errorIfUnsupported;
 
   Transformer(
-    this.programMap,
-    this._sourceFile, {
+    ProgramMap programMap,
+    ts.TSSourceFile? sourceFile, {
     Set<String> exportSet = const {},
     String? file,
-  }) : exportSet = exportSet.map((e) => ExportReference(e, as: e)).toSet(),
-       namer = UniqueNamer(),
-       _fileName = file,
-       assert(_sourceFile != null || file != null, 'Source file must be known');
+  }) : context = TransformerContext(
+         programMap,
+         sourceFile,
+         exportSet: exportSet,
+         file: file,
+       );
 
   // TODO(nikeokoronkwo): Handle default exports
   /// Transforms a TypeScript AST Node [TSNode] into a Dart representable [Node]

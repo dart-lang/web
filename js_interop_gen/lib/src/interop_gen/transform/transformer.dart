@@ -156,6 +156,12 @@ class Transformer {
                   TSSyntaxKind.Identifier &&
               (node.name as TSIdentifier).text != 'global':
         return [_transformNamespace(node, namer: namer, parent: parent)];
+      case TSSyntaxKind.ModuleDeclaration:
+        return _transformModuleDeclarationStatements(
+          node as TSModuleDeclaration,
+          namer: namer,
+          parent: parent,
+        );
       default:
         if (errorIfUnsupported) {
           throw Exception('Unsupported Declaration Kind: ${node.kind}');
@@ -250,6 +256,23 @@ class Transformer {
     return NamespaceFlattener(
       this,
     ).transformNamespace(namespace, namer: namer, parent: parent);
+  }
+
+  List<Declaration> _transformModuleDeclarationStatements(
+    TSModuleDeclaration namespace, {
+    UniqueNamer? namer,
+    NamespaceDeclaration? parent,
+  }) {
+    final decls = <Declaration>[];
+    final body = namespace.body;
+    if (body != null && body.kind == TSSyntaxKind.ModuleBlock) {
+      for (final statement in (body as TSModuleBlock).statements.toDart) {
+        decls.addAll(
+          transformAndReturn(statement, namer: namer, parent: parent),
+        );
+      }
+    }
+    return decls;
   }
 
   /// Transforms a TS Class or Interface declaration into a node representing

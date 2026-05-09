@@ -688,13 +688,14 @@ sealed class _UnionOrIntersectionDeclaration extends NamedDeclaration
     List<GenericType>? typeParams,
   }) : typeParameters = typeParams ?? [] {
     if (typeParams == null) {
+      final seen = <String>{};
       for (final type in types) {
-        typeParameters.addAll(
-          getGenericTypes(type).map((t) {
+        for (final t in getGenericTypes(type)) {
+          if (seen.add(t.name)) {
             t.constraint ??= BuiltinType.anyType;
-            return t;
-          }),
-        );
+            typeParameters.add(t);
+          }
+        }
       }
     }
   }

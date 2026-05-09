@@ -56,7 +56,14 @@ class ReferredType<T extends Declaration> extends NamedType {
             ((declaration is NestableDeclaration)
                 ? (declaration as NestableDeclaration).completedDartName
                 : declaration.dartName ?? declaration.name)
-        ..types.addAll(typeParams.map((t) => t.emit(options)))
+        ..types.addAll(
+          typeParams.map((t) {
+            if (t == BuiltinType.$voidType) {
+              return BuiltinType.anyType.emit(options);
+            }
+            return t.emit(options);
+          }),
+        )
         ..isNullable = (options?.nullable ?? false) || isNullable
         ..url = options?.url ?? url,
     );

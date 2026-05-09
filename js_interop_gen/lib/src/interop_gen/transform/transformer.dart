@@ -2458,7 +2458,8 @@ class Transformer {
                     .toDart
             ? '$nameImport.d.ts'
             : nameImport;
-        final relativePath = programMap.files.contains(importUrl)
+        final relativePath =
+            programMap.files.contains(importUrl) && !p.equals(importUrl, file)
             ? p.relative(importUrl, from: p.dirname(file))
             : null;
         final referencedDeclarations = declarations

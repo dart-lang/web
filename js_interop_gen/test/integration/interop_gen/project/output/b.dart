@@ -50,13 +50,6 @@ extension type Point3D._(_i1.JSObject _) implements Point {
 }
 @_i1.JS()
 external Point3D get origin3D;
-extension type DirectionAngles._(_i1.JSObject _) implements _i1.JSObject {
-  external double alpha;
-
-  external double beta;
-
-  external double gamma;
-}
 extension type Vector3D._(_i1.JSObject _) implements Vector {
   external Vector3D(num x, num y, num z);
 
@@ -75,6 +68,13 @@ extension type Vector3D._(_i1.JSObject _) implements Vector {
   external Point3D moveFrom(Point3D point);
   external static Vector3D from(num magnitude, DirectionAngles at);
   external static Vector3D fromPoints(Point3D start, Point3D end);
+}
+extension type DirectionAngles._(_i1.JSObject _) implements _i1.JSObject {
+  external double alpha;
+
+  external double beta;
+
+  external double gamma;
 }
 extension type Shape._(_i1.JSObject _) implements _i1.JSObject {}
 extension type Shape2D._(_i1.JSObject _) implements Shape {

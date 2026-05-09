@@ -108,6 +108,7 @@ class NamespaceFlattener {
           namer: scopedNamer,
           parent: outputNamespace,
         );
+        transformer.nodes.add(decl);
         switch (decl.kind) {
           case TSSyntaxKind.ClassDeclaration ||
               TSSyntaxKind.InterfaceDeclaration:

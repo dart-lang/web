@@ -55,7 +55,7 @@ extension type EnterpriseApp._(_i1.JSObject _) implements _i1.JSObject {
 external Data_Models_User get user1;
 typedef UserService = EnterpriseApp_DataServices_UserService;
 @_i1.JS()
-external UserService get userService;
+external EnterpriseApp_DataServices_UserService get userService;
 typedef ProductService = EnterpriseApp_DataServices_ProductService;
 @_i1.JS()
 external _i1.JSArray<Data_Models_User> get allUsers;

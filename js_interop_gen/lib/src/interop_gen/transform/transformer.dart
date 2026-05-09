@@ -358,6 +358,7 @@ class Transformer {
             operators: [],
             documentation: _parseAndTransformDocumentation(typeDecl),
           );
+    nodeMap.add(outputType);
 
     final typeNamer = ScopedUniqueNamer({'get', 'set'});
 

@@ -4,7 +4,7 @@ This document details the exact compiler gaps in `js_interop_gen` that prevent i
 
 ---
 
-## 1. Namespace Flattening Type Reference Resolution
+## 1. [DONE] Namespace Flattening Type Reference Resolution
 ### The Issue
 When classes or interfaces are declared inside a TypeScript module or namespace (e.g. `declare module 'vscode'`), `js_interop_gen` correctly flattens the namespace structure for the emitted extension types (generating `Position$1` instead of `vscode_Position`). However, properties or method parameters that reference these types are resolved to the original nested symbol name (e.g. `Position`), causing `Undefined class 'Position'` static errors because the local output type is named `Position$1` (renamed due to a name clash with DOM's standard `Position` interface).
 
@@ -27,13 +27,13 @@ declare module 'vscode' {
 ```dart
 extension type TextLine._(_i1.JSObject _) implements _i1.JSObject {
   // RANGE IS UNDEFINED! Should reference the local `Range$1` extension type.
-  external Range get range; 
+  external Range get range;
 }
 
 @_i1.JS('Range')
 extension type Range$1._(_i1.JSObject _) implements _i1.JSObject {
   // POSITION IS UNDEFINED! Should reference `Position$1`.
-  external Range$1(Position start, Position end); 
+  external Range$1(Position start, Position end);
 }
 
 @_i1.JS('Position')
@@ -48,19 +48,19 @@ extension type Position$1._(_i1.JSObject _) implements _i1.JSObject {
 
 ---
 
-## 2. Self-Import & Type Resolution Mismatch
+## 2. [DONE] Self-Import & Type Resolution Mismatch
 ### The Issue
 When compiling a single `.d.ts` file, the TS compiler associates declarations with the input filename (e.g. `vscode_stripped_input.d.ts`), which maps to a virtual Dart library URL (`vscode_stripped_input.dart`). When generating the single output file `vscode_stripped_actual.dart`, type references resolve their import path relative to the input file. This results in:
 1. The output file attempting to import its virtual self: `import 'vscode_stripped_input.dart' as _i2;`.
 2. Prefixing local references with `_i2.` (e.g. `_i2.Range`), which fails to compile because `vscode_stripped_input.dart` does not exist.
 
 ### 🛠️ How to Fix (Targeted Engine Plan)
-* **Our Completed Fix**: 
+* **Our Completed Fix**:
   Updated `transformer.dart:_searchForDeclRecursive` to check if the `importUrl` is equal to the currently translating `file`. If they are equal, `relativePath` is kept `null`, preventing self-imports and eliminating the prefixing.
 
 ---
 
-## 3. Missing Anonymous Generic Union Declarations
+## 3. [DONE] Missing Anonymous Generic Union Declarations
 ### The Issue
 TypeScript APIs frequently return or accept generic unions (e.g. `TResult1 | Thenable<TResult1>`). The generator converts this to an `AnonymousUnion_XXXX<TResult1>` reference. However, because type parameters/arguments of `ReferredType`s were not traversed during dependency extraction, the actual declaration of `AnonymousUnion_XXXX` was never added to the output, leading to `Undefined class 'AnonymousUnion_XXXX'` errors.
 
@@ -90,7 +90,7 @@ extension type Thenable<T extends _i1.JSAny?>._(_i1.JSObject _)
 
 ---
 
-## 4. Duplicate Generic Type Parameter Definitions in Union Declarations
+## 4. [DONE] Duplicate Generic Type Parameter Definitions in Union Declarations
 ### The Issue
 When generic types containing the same type parameter name (e.g., `TResult1` and `Thenable<TResult1>`) are combined into a `UnionType`, the union constructor collected generic parameters from all members and added them to `typeParameters` without deduplication. This led to generated extension types declaring duplicate generic parameters (e.g., `AnonymousUnion_XXXX<TResult1, TResult1>`), causing `The name 'TResult1' is already defined` static errors.
 
@@ -100,7 +100,7 @@ When generic types containing the same type parameter name (e.g., `TResult1` and
 
 ---
 
-## 5. Duplicate Cast Getters on Homogeneous Union Arrays
+## 5. [DONE] Duplicate Cast Getters on Homogeneous Union Arrays
 ### The Issue
 A union type containing multiple array variations (e.g. `JSArray<String> | JSArray<num>`) originally generated duplicate `asJSArray` cast getter methods because the generator name-formatting logic only looked at the base type symbol (`JSArray`) rather than the type parameters. This caused duplicate getter definition compile errors.
 
@@ -110,7 +110,7 @@ A union type containing multiple array variations (e.g. `JSArray<String> | JSArr
 
 ---
 
-## 6. Incompatible Generic Type Bounds on `Event<void>`
+## 6. [DONE] Incompatible Generic Type Bounds on `Event<void>`
 ### The Issue
 TypeScript generic types are often instantiated with `void` (e.g., `Event<void>`). In Dart JS Interop, interop type parameters are bounded by `JSAny?` (e.g. `Event<T extends JSAny?>`). Instantiating them with `void` throws a compile error because `void` does not conform to `JSAny?`.
 

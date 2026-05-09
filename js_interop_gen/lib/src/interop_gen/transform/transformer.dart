@@ -2306,7 +2306,19 @@ class Transformer {
     }
 
     // begin
-    final declarations = symbol!.getDeclarations()?.toDart ?? [];
+    var declarations = symbol!.getDeclarations()?.toDart ?? [];
+    if (declarations.firstOrNull?.kind == TSSyntaxKind.EnumMember) {
+      final enumDecl = (declarations.first as TSEnumMember).parent;
+      final enumSymbol = typeChecker.getSymbolAtLocation(enumDecl.name)!;
+      return _getTypeFromSymbol(
+        enumSymbol,
+        typeChecker.getTypeOfSymbol(enumSymbol),
+        typeArguments,
+        isNotTypableDeclaration,
+        typeArg,
+        isNullable,
+      );
+    }
 
     // get decl qualified name
     final tsFullyQualifiedName = typeChecker.getFullyQualifiedName(symbol);

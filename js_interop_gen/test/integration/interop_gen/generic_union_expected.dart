@@ -29,7 +29,7 @@ extension type AnonymousUnion_2683278._(_i1.JSAny _) implements _i1.JSAny {
 }
 extension type AnonymousUnion_2146921<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
-  GenericContainer<T> get asGenericContainer => (_ as GenericContainer<T>);
+  GenericContainer<T> get asGenericContainerOfT => (_ as GenericContainer<T>);
 
-  OtherContainer<T> get asOtherContainer => (_ as OtherContainer<T>);
+  OtherContainer<T> get asOtherContainerOfT => (_ as OtherContainer<T>);
 }

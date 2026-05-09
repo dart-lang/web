@@ -754,12 +754,7 @@ sealed class _UnionOrIntersectionDeclaration extends NamedDeclaration
             final type = t.emit(options?.toTypeOptions());
             final jsTypeAlt = getJSTypeAlternative(t);
             return Method((m) {
-              final word = switch (t) {
-                DeclarationType(declarationName: final declName) => declName,
-                NamedType(name: final typeName, dartName: final dartTypeName) =>
-                  dartTypeName ?? typeName,
-                _ => t.dartName ?? t.id.name,
-              };
+              final word = _typeNameForGetter(t);
               final Expression body;
               if (desugarTypeAliases(t) == repType) {
                 body = refer('_');
@@ -922,4 +917,41 @@ class _UnionDeclaration extends _UnionOrIntersectionDeclaration {
   Spec emit([covariant DeclarationOptions? options]) {
     return super._emit(options: options, isNullable: isNullable);
   }
+}
+
+String _typeNameForGetter(Type t) {
+  final List<Type> typeParams;
+  final String baseName;
+  if (t is BuiltinType) {
+    baseName = t.dartName ?? t.name;
+    typeParams = t.typeParams;
+  } else if (t is PackageWebType) {
+    baseName = t.dartName ?? t.name;
+    typeParams = t.typeParams;
+  } else if (t is ReferredType) {
+    final mappedSymbol = ReferredType.declarationToEmittedName[t.declaration];
+    baseName =
+        mappedSymbol ??
+        ((t.declaration is NestableDeclaration)
+            ? (t.declaration as NestableDeclaration).completedDartName
+            : t.declaration.dartName ?? t.declaration.name);
+    typeParams = t.typeParams;
+  } else if (t is DeclarationType) {
+    baseName = t.declarationName;
+    typeParams = const [];
+  } else if (t is NamedType) {
+    baseName = t.dartName ?? t.name;
+    typeParams = const [];
+  } else {
+    baseName = t.dartName ?? t.id.name;
+    typeParams = const [];
+  }
+
+  if (typeParams.isNotEmpty) {
+    final paramsName = typeParams
+        .map((p) => uppercaseFirstLetter(_typeNameForGetter(p)))
+        .join('And');
+    return '${baseName}Of$paramsName';
+  }
+  return baseName;
 }

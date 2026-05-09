@@ -3057,6 +3057,10 @@ class Transformer {
           break;
         case final ReferredType r:
           if (r.url == null) filteredDeclarations.add(r.declaration);
+          filteredDeclarations.addAll({
+            for (final t in r.typeParams.where((t) => t is! BuiltinType))
+              t.id.toString(): t,
+          });
           break;
         case BuiltinType() || GenericType():
           break;

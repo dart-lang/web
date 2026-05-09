@@ -9,40 +9,62 @@ import 'documentation.dart';
 import 'helpers.dart';
 import 'types.dart';
 
-class GlobalOptions {
-  static int variadicArgsCount = 4;
-  static bool shouldEmitJsTypes = false;
-  static bool redeclareOverrides = true;
-}
+class Options {
+  final int variadicArgsCount;
+  final bool shouldEmitJsTypes;
+  final bool redeclareOverrides;
 
-class Options {}
+  Options({
+    this.variadicArgsCount = 4,
+    this.shouldEmitJsTypes = false,
+    this.redeclareOverrides = true,
+  });
+}
 
 class DeclarationOptions extends Options {
   bool override;
   bool static;
 
-  DeclarationOptions({this.override = false, this.static = false});
+  DeclarationOptions({
+    this.override = false,
+    this.static = false,
+    super.variadicArgsCount,
+    super.shouldEmitJsTypes,
+    super.redeclareOverrides,
+  });
 
-  TypeOptions toTypeOptions({bool nullable = false}) =>
-      TypeOptions(nullable: nullable);
+  TypeOptions toTypeOptions({bool nullable = false}) => TypeOptions(
+    nullable: nullable,
+    variadicArgsCount: variadicArgsCount,
+    shouldEmitJsTypes: shouldEmitJsTypes,
+    redeclareOverrides: redeclareOverrides,
+  );
 }
 
 class TypeOptions extends Options {
   bool nullable;
   String? url;
 
-  TypeOptions({this.nullable = false, this.url});
+  TypeOptions({
+    this.nullable = false,
+    this.url,
+    super.variadicArgsCount,
+    super.shouldEmitJsTypes,
+    super.redeclareOverrides,
+  });
 }
 
 class ASTOptions {
   bool parameter;
   bool emitJSTypes;
   int variadicArgsCount;
+  bool redeclareOverrides;
 
   ASTOptions({
     this.parameter = false,
     this.variadicArgsCount = 4,
     this.emitJSTypes = false,
+    this.redeclareOverrides = true,
   });
 }
 

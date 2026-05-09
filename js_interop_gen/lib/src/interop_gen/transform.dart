@@ -23,10 +23,6 @@ import 'parser.dart';
 import 'qualified_name.dart';
 import 'transform/transformer.dart';
 
-void _setGlobalOptions(Config config) {
-  GlobalOptions.variadicArgsCount = config.functions?.varArgs ?? 4;
-}
-
 typedef ProgramDeclarationMap = Map<String, NodeMap>;
 
 class TransformResult {
@@ -40,9 +36,10 @@ class TransformResult {
   // TODO(https://github.com/dart-lang/web/issues/388): Handle union of overloads
   //  (namespaces + functions, multiple interfaces, etc)
   Map<String, String> generate(Config config) {
-    _setGlobalOptions(config);
-
     final formatter = DartFormatter(languageVersion: config.languageVersion);
+    final options = DeclarationOptions(
+      variadicArgsCount: config.functions?.varArgs ?? 4,
+    );
 
     return {...programDeclarationMap, ...commonTypes}.map((file, declMap) {
       final emitter = DartEmitter.scoped(
@@ -52,7 +49,7 @@ class TransformResult {
       final specs = declMap.values
           .map((d) {
             return switch (d) {
-              final Declaration n => n.emit(),
+              final Declaration n => n.emit(options),
               final Type _ => null,
             };
           })

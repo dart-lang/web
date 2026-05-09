@@ -48,11 +48,15 @@ Expression generateJSAnnotation([String? name]) {
   ).call([if (name != null) literalString(name)]);
 }
 
-List<Parameter> spreadParam(ParameterDeclaration p, int count) {
+List<Parameter> spreadParam(
+  ParameterDeclaration p,
+  int count, [
+  DeclarationOptions? options,
+]) {
   return List.generate(count - 1, (i) {
     final paramNumber = i + 2;
     final paramName = '${p.name}$paramNumber';
-    return ParameterDeclaration(name: paramName, type: p.type).emit();
+    return ParameterDeclaration(name: paramName, type: p.type).emit(options);
   });
 }
 
@@ -154,7 +158,9 @@ Type getRepresentationType(TypeDeclaration td) {
   final optionalParams = <Parameter>[];
   for (final p in parameters) {
     if (p.variadic) {
-      optionalParams.addAll(spreadParam(p, GlobalOptions.variadicArgsCount));
+      optionalParams.addAll(
+        spreadParam(p, options?.variadicArgsCount ?? 4, options),
+      );
       requiredParams.add(p.emit(options));
     } else {
       if (p.optional) {

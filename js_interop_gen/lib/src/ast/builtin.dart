@@ -71,7 +71,7 @@ class BuiltinType extends NamedType {
     bool? isNullable,
     List<Type> typeParams = const [],
   }) {
-    shouldEmitJsType ??= GlobalOptions.shouldEmitJsTypes;
+    shouldEmitJsType ??= false;
     return switch (typeIdentifier) {
       PrimitiveType.int ||
       PrimitiveType.num ||

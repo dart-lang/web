@@ -2316,16 +2316,16 @@ class Transformer {
       tsFullyQualifiedName,
     );
 
+    if (type?.isTypeParameter() ?? false) {
+      // generic type
+      return GenericType(
+        name: fullyQualifiedName.last.part,
+        isNullable: isNullable,
+      );
+    }
+
     if (nameImport == null) {
       // if import not there, most likely from an import
-
-      if (type?.isTypeParameter() ?? false) {
-        // generic type
-        return GenericType(
-          name: fullyQualifiedName.last.part,
-          isNullable: isNullable,
-        );
-      }
 
       // meaning others are imported
       final firstName = fullyQualifiedName.last.part;

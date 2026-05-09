@@ -396,18 +396,48 @@ InterfaceDeclaration mergeInterfaces(
     id: ID(type: referenceInterface.id.type, name: referenceInterface.id.name),
     typeParameters: interfaces.map((i) => i.typeParameters).flattenedToSet,
     extendedTypes: interfaces.map((i) => i.extendedTypes).flattenedToList,
-    properties: interfaces
-        .map((i) => _rescopeDecls(i.properties, namer: namer))
-        .flattenedToList,
-    methods: interfaces
-        .map((i) => _rescopeDecls(i.methods, namer: namer))
-        .flattenedToList,
-    operators: interfaces
-        .map((i) => _rescopeDecls(i.operators, namer: namer))
-        .flattenedToList,
-    constructors: interfaces.map((i) {
+    properties: _rescopeDecls(
+      _deduplicateBySignature<PropertyDeclaration>(
+        interfaces
+            .map((i) => i.properties)
+            .flattenedToList
+            .cast<PropertyDeclaration>(),
+      ),
+      namer: namer,
+    ).toList(),
+    methods: _rescopeDecls(
+      _deduplicateBySignature<MethodDeclaration>(
+        interfaces
+            .map((i) => i.methods)
+            .flattenedToList
+            .cast<MethodDeclaration>(),
+      ),
+      namer: namer,
+    ).toList(),
+    operators: _rescopeDecls(
+      _deduplicateBySignature<OperatorDeclaration>(
+        interfaces
+            .map((i) => i.operators)
+            .flattenedToList
+            .cast<OperatorDeclaration>(),
+      ),
+      namer: namer,
+    ).toList(),
+    constructors: () {
+      final uniqueConstructors =
+          _deduplicateBySignature<ConstructorDeclaration>(
+            interfaces
+                .map((i) => i.constructors)
+                .flattenedToList
+                .cast<ConstructorDeclaration>(),
+          );
       final newDecls = <ConstructorDeclaration>[];
-      for (final d in i.constructors) {
+      for (final d in uniqueConstructors) {
+        if (d.dartName case final existingName?) {
+          newDecls.add(d);
+          namer.markUsed(existingName, d.id.type);
+          continue;
+        }
         final (name: dartName, :id) = namer.makeUnique(d.name ?? '', d.id.type);
 
         newDecls.add(
@@ -416,9 +446,8 @@ InterfaceDeclaration mergeInterfaces(
             ..dartName = dartName,
         );
       }
-
       return newDecls;
-    }).flattenedToList,
+    }(),
     useFirstExtendeeAsRepType: interfaces.any(
       (i) => i.useFirstExtendeeAsRepType,
     ),
@@ -506,6 +535,11 @@ Iterable<T> _rescopeDecls<T extends Declaration>(
 }) {
   final newDecls = <T>[];
   for (final d in decls) {
+    if (d.dartName case final existingName?) {
+      newDecls.add(d..id.name = existingName);
+      namer.markUsed(existingName, d.id.type);
+      continue;
+    }
     final (name: dartName, :id) = namer.makeUnique(d.name, d.id.type);
 
     newDecls.add(
@@ -595,4 +629,32 @@ class _ExtensionOfTypeDeclaration extends NamedDeclaration
     type: 'extension@(${baseType.id.type}-${baseType.id.name})',
     name: name,
   );
+}
+
+String _memberSignature(dynamic d) {
+  if (d case final PropertyDeclaration p) {
+    return 'prop:${p.name}:${p.static}:${p.type.id}';
+  } else if (d case final MethodDeclaration m) {
+    final paramsSig = m.parameters.map((p) => p.type.id).join(',');
+    return 'method:${m.name}:${m.static}:${m.returnType.id}:$paramsSig';
+  } else if (d case final OperatorDeclaration o) {
+    final paramsSig = o.parameters.map((p) => p.type.id).join(',');
+    return 'op:${o.name}:${o.returnType.id}:$paramsSig';
+  } else if (d case final ConstructorDeclaration c) {
+    final paramsSig = c.parameters.map((p) => p.type.id).join(',');
+    return 'constructor:${c.name}:${paramsSig}';
+  }
+  return d.id.toString();
+}
+
+List<T> _deduplicateBySignature<T>(Iterable<T> declarations) {
+  final seen = <String>{};
+  final result = <T>[];
+  for (final decl in declarations) {
+    final sig = _memberSignature(decl);
+    if (seen.add(sig)) {
+      result.add(decl);
+    }
+  }
+  return result;
 }

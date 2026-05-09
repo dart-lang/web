@@ -122,14 +122,6 @@ external SphericalCoordinate toSphericalCoordinate$1(
 @_i1.JS()
 external CylindricalCoordinate toCylindricalCoordinate(_i2.Point3D point);
 
-/// Unit vector in 2D x-direction.
-@_i1.JS()
-external _i2.Vector2D get unitI2D;
-
-/// Unit vector in 2D y-direction.
-@_i1.JS()
-external _i2.Vector2D get unitJ2D;
-
 /// A 2D coordinate system with vector and point operations.
 extension type CoordinateSystem2D._(_i1.JSObject _)
     implements _i2.CoordinateSystem<_i2.Point2D> {
@@ -159,17 +151,13 @@ extension type CoordinateSystem2D._(_i1.JSObject _)
   external _i2.Vector2D get yAxis;
 }
 
-/// Unit vector in 3D x-direction.
+/// Unit vector in 2D x-direction.
 @_i1.JS()
-external _i2.Vector3D get unitI3D;
+external _i2.Vector2D get unitI2D;
 
-/// Unit vector in 3D y-direction.
+/// Unit vector in 2D y-direction.
 @_i1.JS()
-external _i2.Vector3D get unitJ3D;
-
-/// Unit vector in 3D z-direction.
-@_i1.JS()
-external _i2.Vector3D get unitK3D;
+external _i2.Vector2D get unitJ2D;
 
 /// A 3D coordinate system with vector and point operations.
 extension type CoordinateSystem3D._(_i1.JSObject _)
@@ -202,6 +190,18 @@ extension type CoordinateSystem3D._(_i1.JSObject _)
   /// The unit vector along the z-axis.
   external _i2.Vector3D get zAxis;
 }
+
+/// Unit vector in 3D x-direction.
+@_i1.JS()
+external _i2.Vector3D get unitI3D;
+
+/// Unit vector in 3D y-direction.
+@_i1.JS()
+external _i2.Vector3D get unitJ3D;
+
+/// Unit vector in 3D z-direction.
+@_i1.JS()
+external _i2.Vector3D get unitK3D;
 
 /// Represents a mathematical matrix.
 /// - `rows`: number of rows.

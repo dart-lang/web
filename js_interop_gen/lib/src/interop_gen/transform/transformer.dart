@@ -2718,7 +2718,6 @@ class Transformer {
   /// Returns a [NodeMap] containing a map of the declared nodes and IDs.
   NodeMap processAndReturn() {
     final filteredDeclarations = NodeMap<Declaration>();
-
     for (final ExportReference(name: exportName, as: exportDartName)
         in exportSet) {
       if (filterDeclSet.isEmpty ||
@@ -2771,7 +2770,12 @@ class Transformer {
 
     final completedDecls = NodeMap({...filteredDeclarations, ...otherDecls});
 
-    final declGroups = groupBy(completedDecls.values, (decl) => decl.id.name);
+    final declGroups = groupBy(completedDecls.values, (decl) {
+      if (decl is TypeAliasDeclaration) {
+        return 'typealias:${decl.id.name}';
+      }
+      return decl.id.name;
+    });
 
     final outputDeclSet = NodeMap();
 

@@ -55,7 +55,7 @@ extension type EnterpriseApp._(_i1.JSObject _) implements _i1.JSObject {
 external Data_Models_User get user1;
 typedef UserService = EnterpriseApp_DataServices_UserService;
 @_i1.JS()
-external UserService get userService;
+external UserService$1 get userService;
 typedef ProductService = EnterpriseApp_DataServices_ProductService;
 @_i1.JS()
 external _i1.JSArray<Data_Models_User> get allUsers;
@@ -298,4 +298,17 @@ extension type AnonymousUnion_2683278._(_i1.JSAny _) implements _i1.JSAny {
   String get asString => (_ as _i1.JSString).toDart;
 
   double get asDouble => (_ as _i1.JSNumber).toDartDouble;
+}
+@_i1.JS('UserService')
+extension type UserService$1._(_i1.JSObject _)
+    implements
+        EnterpriseApp_DataServices_IDataService<EnterpriseApp_Models_User> {
+  external UserService$1();
+
+  @_i2.redeclare
+  external _i1.JSArray<EnterpriseApp_Models_User> getAll();
+  @_i2.redeclare
+  external EnterpriseApp_Models_User getById(String id);
+  @_i2.redeclare
+  external void save(EnterpriseApp_Models_User user);
 }

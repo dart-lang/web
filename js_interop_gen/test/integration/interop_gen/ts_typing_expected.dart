@@ -160,13 +160,13 @@ extension type AnonymousType_3626348._(_i1.JSObject _) implements _i1.JSObject {
 
   external double price;
 }
-typedef Product = AnonymousType_3626348;
 extension type ProductOrrandomNonTypedProduct._(AnonymousType_3626348 _)
     implements AnonymousType_3626348 {
   Product get asProduct => _;
 
   AnonymousType_3626348 get asRandomNonTypedProduct => _;
 }
+typedef Product = AnonymousType_3626348;
 extension type AnonymousType_7963419<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
   external AnonymousType_7963419({double id, T value});

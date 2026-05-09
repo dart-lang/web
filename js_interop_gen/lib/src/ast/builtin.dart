@@ -37,7 +37,11 @@ class BuiltinType extends NamedType {
   }) : isNullable = isNullable ?? false;
 
   @override
-  ID get id => ID(type: 'type', name: name);
+  ID get id {
+    if (typeParams.isEmpty) return ID(type: 'type', name: name);
+    final params = typeParams.map((p) => p.id.name).join(', ');
+    return ID(type: 'type', name: '$name<$params>');
+  }
 
   @override
   String? get dartName => null;
@@ -187,7 +191,11 @@ class PackageWebType extends NamedType {
   bool isNullable;
 
   @override
-  ID get id => ID(type: 'type', name: name);
+  ID get id {
+    if (typeParams.isEmpty) return ID(type: 'type', name: name);
+    final params = typeParams.map((p) => p.id.name).join(', ');
+    return ID(type: 'type', name: '$name<$params>');
+  }
 
   @override
   String? get dartName => null;

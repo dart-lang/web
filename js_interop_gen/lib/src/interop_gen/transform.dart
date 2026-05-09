@@ -91,14 +91,20 @@ class TransformResult {
           })
           ..body.addAll(specs);
       });
+      final source = '${lib.accept(emitter)}'.replaceAll(
+        'static external',
+        'external static',
+      );
+      String formattedSource;
+      try {
+        formattedSource = formatter.format(source);
+      } catch (e) {
+        print('WARNING: Formatter failed, returning unformatted source: \$e');
+        formattedSource = source;
+      }
       return MapEntry(
         file.replaceAll('.d.ts', '.dart'),
-        formatter.format(
-          '${lib.accept(emitter)}'.replaceAll(
-            'static external',
-            'external static',
-          ),
-        ),
+        formattedSource,
       );
     });
   }

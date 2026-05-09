@@ -199,10 +199,15 @@ String _emitLibrary(code.Library library, Version languageVersion) {
     useNullSafetySyntax: true,
   );
 
-  final source = library.accept(emitter);
-  return DartFormatter(
-    languageVersion: languageVersion,
-  ).format(source.toString());
+  final source = library.accept(emitter).toString();
+  try {
+    return DartFormatter(
+      languageVersion: languageVersion,
+    ).format(source);
+  } catch (e) {
+    print('WARNING: Formatter failed, returning unformatted source: \$e');
+    return source;
+  }
 }
 
 final _parser = ArgParser()

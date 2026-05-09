@@ -6,7 +6,7 @@ analyzer:
     strict-casts: true
     strict-inference: true
     strict-raw-types: true
-  errors: 
+  errors:
     comment_references: ignore
     # TODO(srujzs): Remove once redeclare is no longer experimental.
     experimental_member_use: ignore

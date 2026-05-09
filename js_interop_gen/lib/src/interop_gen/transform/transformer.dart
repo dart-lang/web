@@ -2908,6 +2908,27 @@ class Transformer {
       }
 
       final (mergedDeclSet, :additionals) = mergeDeclarations(declarations);
+      final emitted = [...mergedDeclSet, ...additionals];
+
+      Declaration? findMatchingEmitted(Declaration original) {
+        var match = emitted.firstWhereOrNull(
+          (e) => e.runtimeType == original.runtimeType,
+        );
+        if (match != null) return match;
+        match = emitted.firstWhereOrNull((e) => e is CompositeDeclaration);
+        if (match != null) return match;
+        return emitted.firstOrNull;
+      }
+
+      for (final original in declarations) {
+        final match = findMatchingEmitted(original);
+        if (match != null) {
+          ReferredType.declarationToEmittedName[original] =
+              match is NestableDeclaration
+              ? match.completedDartName
+              : (match.dartName ?? match.name);
+        }
+      }
 
       outputDeclSet.addAll({
         for (final d in [...mergedDeclSet, ...additionals, ...nodes])

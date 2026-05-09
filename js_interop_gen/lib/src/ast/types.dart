@@ -13,6 +13,8 @@ import 'helpers.dart';
 
 /// A type referring to a type in the TypeScript AST
 class ReferredType<T extends Declaration> extends NamedType {
+  static final Map<Declaration, String> declarationToEmittedName = {};
+
   @override
   String name;
 
@@ -46,11 +48,14 @@ class ReferredType<T extends Declaration> extends NamedType {
 
   @override
   Reference emit([TypeOptions? options]) {
+    final mappedSymbol = declarationToEmittedName[declaration];
     return TypeReference(
       (t) => t
-        ..symbol = (declaration is NestableDeclaration)
-            ? (declaration as NestableDeclaration).completedDartName
-            : declaration.dartName ?? declaration.name
+        ..symbol =
+            mappedSymbol ??
+            ((declaration is NestableDeclaration)
+                ? (declaration as NestableDeclaration).completedDartName
+                : declaration.dartName ?? declaration.name)
         ..types.addAll(typeParams.map((t) => t.emit(options)))
         ..isNullable = (options?.nullable ?? false) || isNullable
         ..url = options?.url ?? url,

@@ -47,14 +47,9 @@ class TransformResult {
         orderDirectives: true,
       );
       final specs = declMap.values
-          .map((d) {
-            return switch (d) {
-              final Declaration n => n.emit(options),
-              final Type _ => null,
-            };
-          })
-          .nonNulls
-          .whereType<Spec>();
+          .whereType<Declaration>()
+          .map((d) => d.emit(options))
+          .toList();
       final lib = Library((l) {
         if (config.preamble case final preamble?) {
           l.comments.addAll(

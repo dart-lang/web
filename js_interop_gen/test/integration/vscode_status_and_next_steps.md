@@ -28,9 +28,9 @@ Every single compile warning, diagnostic issue, and type boundary error in the g
 
 To get the generated output to be 100% green under the strict Dart analyzer, we will systematically address the remaining **6 distinct compiler error patterns**:
 
-### 1. Non-Type as Type Argument (`non_type_as_type_argument`)
+### 1. Non-Type as Type Argument (`non_type_as_type_argument`) - ✅ (Fixed)
 * **The Issue**: Inside `PromiseLike` and several other classes, union types are referenced inside generic arguments (e.g. `PromiseLike<AnonymousUnion_3555654>`), but the compiler fails to emit the concrete `AnonymousUnion_3555654` class definition.
-* **Roadmap**: Trace how `DependencyWalker` collects generic type arguments from `ReferredType` and ensure that they are registered and emitted in the output.
+* **Roadmap**: Trace how `DependencyWalker` collects generic type arguments from `ReferredType` and ensure that they are registered and emitted in the output. (Fixed by introducing unique generic arguments in `ReferredType.id` walk context!)
 
 ### 2. Type Argument Not Matching Bounds (`type_argument_not_matching_bounds`)
 * **The Issue**: A type argument (like `JSString?`) is passed to a parameter with a non-nullable bound (`K extends JSString`).

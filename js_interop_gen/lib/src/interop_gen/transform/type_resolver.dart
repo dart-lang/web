@@ -114,11 +114,17 @@ class TypeResolver {
         }
 
         // TODO: multi-decls
-        final transformedDecls = transformer.transformAndReturn(
-          declaration,
-          namer: namer,
-          parent: parent,
-        );
+        final List<Declaration> transformedDecls;
+        final cached = transformer.transformedCache[declaration];
+        if (cached != null) {
+          transformedDecls = cached;
+        } else {
+          transformedDecls = transformer.transformAndReturn(
+            declaration,
+            namer: namer,
+            parent: parent,
+          );
+        }
 
         if (parent != null) {
           switch (declaration.kind) {
@@ -436,8 +442,16 @@ class TypeResolver {
         } else {
           var declarationsMatching = transformer.nodeMap.findByName(firstName);
           if (declarationsMatching.isEmpty) {
-            transformer.transform(decl);
-            declarationsMatching = transformer.nodeMap.findByName(firstName);
+            final cached = transformer.transformedCache[decl];
+            if (cached != null) {
+              declarationsMatching = cached;
+            } else {
+              transformer.transform(decl);
+              declarationsMatching = transformer.nodeMap.findByName(firstName);
+              if (declarationsMatching.isEmpty) {
+                declarationsMatching = transformer.transformedCache[decl] ?? [];
+              }
+            }
           }
 
           mappedDecls = declarationsMatching

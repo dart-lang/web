@@ -54,7 +54,7 @@ class ReferredType<T extends Declaration> extends NamedType {
   @override
   Reference emit([TypeOptions? options]) {
     final mappedSymbol = declarationToEmittedName[declaration];
-    final List<GenericType> declTypeParams = [];
+    final declTypeParams = <GenericType>[];
     final decl = declaration;
     if (decl is TypeDeclaration) {
       declTypeParams.addAll(decl.typeParameters);
@@ -79,9 +79,8 @@ class ReferredType<T extends Declaration> extends NamedType {
         ..types.addAll(
           paddedTypeParams.map((t) {
             final typeArgsOptions = options == null
-                ? TypeOptions(nullable: false)
+                ? TypeOptions()
                 : TypeOptions(
-                    nullable: false,
                     url: options.url,
                     variadicArgsCount: options.variadicArgsCount,
                     shouldEmitJsTypes: options.shouldEmitJsTypes,

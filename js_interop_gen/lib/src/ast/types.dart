@@ -877,7 +877,18 @@ sealed class _UnionOrIntersectionDeclaration extends NamedDeclaration
                   (desugared is NamedType && desugared.name == 'void')) {
                 body = refer('_');
               } else if (jsTypeAlt.id == t.id) {
-                body = refer('_').asA(type);
+                final repDesugared = desugarTypeAliases(repType);
+                final tDesugared = desugarTypeAliases(t);
+                if (repDesugared is ReferredType &&
+                    tDesugared is ReferredType &&
+                    (repDesugared.typeParams.isNotEmpty ||
+                        tDesugared.typeParams.isNotEmpty)) {
+                  body = refer('_')
+                      .asA(refer('JSAny', 'dart:js_interop'))
+                      .asA(type);
+                } else {
+                  body = refer('_').asA(type);
+                }
               } else {
                 body = switch (desugarTypeAliases(t)) {
                   BuiltinType(name: final n) when n == 'int' =>

@@ -9,6 +9,7 @@
   "author": "Dart project authors",
   "license": "BSD 3",
   "dependencies": {
+    "@types/webidl2": "^24.4.4",
     "typescript": "^5.9.3",
     "webidl2": "^24.4.1"
   }

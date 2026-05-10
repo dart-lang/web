@@ -34,7 +34,7 @@ class _Library {
 
   _Library(this.name, this.url);
 
-  void _addNamed<T extends idl.Named>(idl.Node node, List<T> list) {
+  void _addNamed<T extends idl.Node>(idl.Node node, List<T> list) {
     final named = node as T;
     final name = named.name;
     final translator = Translator.instance!;
@@ -926,7 +926,7 @@ class Translator {
         )
         .firstOrNull
         ?.rhs
-        .value;
+        ?.value;
     final instancePropertyMethods = <code.Method>[];
     final staticPropertyMethods = <code.Method>[];
     final propertySpecs = _properties(properties, mdnInterface);

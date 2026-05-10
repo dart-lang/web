@@ -881,6 +881,15 @@ sealed class _UnionOrIntersectionDeclaration extends NamedDeclaration
       }
     }
 
+    final uniqueExtendees = <Reference>[];
+    final seenExtendees = <String>{};
+    for (final ext in extendees) {
+      final emitted = ext.emit(options.toTypeOptions());
+      if (seenExtendees.add(emitted.symbol!)) {
+        uniqueExtendees.add(emitted);
+      }
+    }
+
     return ExtensionType(
       (e) => e
         ..methods.addAll(conflictingMethods)
@@ -893,9 +902,7 @@ sealed class _UnionOrIntersectionDeclaration extends NamedDeclaration
               options?.toTypeOptions(),
             ),
         )
-        ..implements.addAll(
-          extendees.map((e) => e.emit(options?.toTypeOptions())),
-        )
+        ..implements.addAll(uniqueExtendees)
         ..types.addAll(
           typeParameters.map((t) => t.emit(options?.toTypeOptions())),
         )

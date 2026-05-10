@@ -94,7 +94,8 @@ RawType? _getJSTypeEquivalent(RawType rawType) {
 }
 
 /// Returns a [RawType] for the given [idl.IDLType].
-RawType _getRawType(idl.IDLType idlType) {
+RawType _getRawType(idl.IDLType? idlType) {
+  if (idlType == null) return RawType('void', false);
   if (idlType.union) {
     final types = (idlType.idlType as JSArray<idl.IDLType>).toDart;
     final unionType = _getRawType(types[0]);
@@ -221,7 +222,7 @@ class OverridableOperation extends OverridableMember {
     MdnProperty? mdnProperty,
   ) => OverridableOperation._(
     memberName,
-    operation.special,
+    operation.special as String? ?? '',
     _getRawType(operation.idlType),
     mdnProperty,
     operation.arguments,
@@ -251,7 +252,8 @@ class OverridableOperation extends OverridableMember {
     final jsOverride = _name.jsOverride;
     final thisName = jsOverride.isNotEmpty ? jsOverride : _name.name;
     assert(
-      (that.name.isEmpty || thisName == that.name) && special == that.special,
+      ((that.name?.isEmpty ?? true) || thisName == that.name) &&
+          special == (that.special as String? ?? ''),
     );
     returnType.update(that.idlType);
     _processParameters(that.arguments);
@@ -323,8 +325,8 @@ class PartialInterfacelike {
   ) {
     final partialInterfacelike = PartialInterfacelike._(
       interfacelike.name,
-      interfacelike.type,
-      interfacelike.inheritance,
+      interfacelike.type!,
+      interfacelike.inheritanceString,
       mdnInterface,
     );
     partialInterfacelike._processMembers(interfacelike.members);
@@ -346,10 +348,10 @@ class PartialInterfacelike {
           interfacelike.type == 'interface mixin',
     );
     assert(
-      interfacelike.inheritance == null || inheritance == null,
+      interfacelike.inheritanceString == null || inheritance == null,
       'An interface should only be defined once.',
     );
-    _setInheritance(interfacelike.inheritance);
+    _setInheritance(interfacelike.inheritanceString);
     _processMembers(interfacelike.members);
   }
 
@@ -379,14 +381,14 @@ class PartialInterfacelike {
             Constant(
               MemberName(constant.name),
               constant.idlType,
-              constant.value.type,
+              constant.value.type!,
               constant.value.value,
             ),
           );
           break;
         case 'attribute':
           final attribute = member as idl.Attribute;
-          final isStatic = attribute.special == 'static';
+          final isStatic = (attribute.special as String?) == 'static';
           final attributeName = attribute.name;
           if (!_shouldGenerateMember(attributeName, isStatic: isStatic)) break;
           final isExtensionMember =
@@ -406,8 +408,8 @@ class PartialInterfacelike {
           break;
         case 'operation':
           final operation = member as idl.Operation;
-          final special = operation.special;
-          var operationName = operation.name;
+          final special = operation.special as String? ?? '';
+          var operationName = operation.name ?? '';
           var shouldQueryMDN = true;
           switch (special) {
             case 'getter':
@@ -427,7 +429,7 @@ class PartialInterfacelike {
             default:
               if (operationName.isEmpty) continue;
           }
-          final isStatic = operation.special == 'static';
+          final isStatic = special == 'static';
           if (shouldQueryMDN &&
               !_shouldGenerateMember(operationName, isStatic: isStatic)) {
             break;
@@ -470,7 +472,7 @@ class PartialInterfacelike {
               MemberName(fieldName),
               field.idlType,
               mdnInterface?.propertyFor(fieldName, isStatic: false),
-              isRequired: field.required,
+              isRequired: field.required$,
             ),
           );
           break;
@@ -498,7 +500,7 @@ class PartialInterfacelike {
         declaredInheritance =
             (translator.typeToDeclaration[declaredInheritance]
                     as idl.Interfacelike)
-                .inheritance;
+                .inheritanceString;
       }
     }
   }
@@ -560,7 +562,8 @@ class RawType {
       'RawType(type: $type, nullable: $nullable, '
       'typeParameter: $typeParameter)';
 
-  void update(idl.IDLType idlType) {
+  void update(idl.IDLType? idlType) {
+    if (idlType == null) return;
     final union = _computeRawTypeUnion(this, _getRawType(idlType));
     type = union.type;
     nullable = union.nullable;

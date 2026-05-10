@@ -158,14 +158,24 @@ sealed class TypeDeclaration extends NestableDeclaration
             )
             ..name = '_',
         )
-        ..implements.addAll([
-          if (extendees.isEmpty && implementees.isEmpty)
-            refer('JSObject', 'dart:js_interop')
-          else ...[
-            ...extendees.map((e) => e.emit(options?.toTypeOptions())),
-            ...implementees.map((i) => i.emit(options?.toTypeOptions())),
-          ],
-        ])
+        ..implements.addAll(() {
+          final unique = <Reference>[];
+          final seen = <String>{};
+          final rawList = [
+            if (extendees.isEmpty && implementees.isEmpty)
+              refer('JSObject', 'dart:js_interop')
+            else ...[
+              ...extendees.map((e) => e.emit(options?.toTypeOptions())),
+              ...implementees.map((i) => i.emit(options?.toTypeOptions())),
+            ],
+          ];
+          for (final ref in rawList) {
+            if (seen.add(ref.symbol!)) {
+              unique.add(ref);
+            }
+          }
+          return unique;
+        }())
         ..types.addAll(
           typeParameters.map((t) => t.emit(options?.toTypeOptions())),
         )

@@ -26,31 +26,18 @@ Every single compile warning, diagnostic issue, and type boundary error in the g
 
 ## 🎯 Remaining Hurdles: Strict Compliance Roadmap
 
-To get the generated output to be 100% green under the strict Dart analyzer, we will systematically address the remaining **6 distinct compiler error patterns**:
+To get the generated output to be 100% green under the strict Dart analyzer, we will systematically address the remaining **3 distinct compiler error patterns**:
 
-### 1. Non-Type as Type Argument (`non_type_as_type_argument`) - ✅ (Fixed)
-* **The Issue**: Inside `PromiseLike` and several other classes, union types are referenced inside generic arguments (e.g. `PromiseLike<AnonymousUnion_3555654>`), but the compiler fails to emit the concrete `AnonymousUnion_3555654` class definition.
-* **Roadmap**: Trace how `DependencyWalker` collects generic type arguments from `ReferredType` and ensure that they are registered and emitted in the output. (Fixed by introducing unique generic arguments in `ReferredType.id` walk context!)
+### 1. Generic Parameter Blindspot (`non_type_as_type_argument`)
+* **The Issue**: Inside standard generic collections like `JSArray` and `JSPromise`, custom types are passed as generic arguments (e.g. `JSArray<AnonymousUnion_3231260>`), but the compiler fails to emit the concrete `AnonymousUnion_3231260` class definition.
+* **Roadmap**: Update the `DependencyWalker` in [type_resolver.dart](file:///Users/kevmoo/github/web/js_interop_gen/lib/src/interop_gen/transform/type_resolver.dart) to recursively unwrap and walk inside type parameters of `BuiltinType`s, bringing hidden generic type parameters into the generation scope!
 
-### 2. Type Argument Not Matching Bounds (`type_argument_not_matching_bounds`) - ✅ (Fixed)
-* **The Issue**: A type argument (like `JSString?`) is passed to a parameter with a non-nullable bound (`K extends JSString`).
-* **Roadmap**: Update type mapping to strips nullability markers (`?`) when generating arguments bound to non-nullable bounds, or propagate nullability correctly to the parameter bounds. (Fixed by overriding and stripping parent nullability leaks inside ReferredType.emit type argument mapping!)
+### 2. Dart Primitive Type Arguments Bounds Mismatch (`type_argument_not_matching_bounds`)
+* **The Issue**: A type argument (like `String?`) is passed to a type parameter with a non-nullable bound like `T extends JSAny?` (e.g. `TelemetrySender<string>` yielding `TelemetrySender<String?>`). Since Dart's primitive `String` does not extend `JSAny`, the compiler throws type bounds conformance errors.
+* **Roadmap**: Update the generic type argument mapping in the generator to automatically emit the JS interop type alternative (like `JSString?` / `JSString`) instead of the Dart primitive type (like `String?` / `String`) when mapped against a `JSAny` bound.
 
-### 3. Extended Type Representation Not Supertype (`extension_type_implements_representation_not_supertype`) - ✅ (Fixed)
-* **The Issue**: `JSArrayType` is not a supertype of the representation type `JSObject` for `RegExpExecArray`.
-* **Roadmap**: Align class/interface hierarchy representation in the generator. (Fixed by dynamically resolving non-JSObject representation types from parent extendees recursively inside getRepresentationType, and always enforcing them for interface definitions!)
-
-### 4. Deprecated Annotation Empty Arguments (`no_annotation_constructor_arguments`) - ✅ (Fixed)
-* **The Issue**: `@Deprecated` annotations are emitted without constructor arguments (requires `@Deprecated('...')`).
-* **Roadmap**: Update deprecation documentation mapping to always supply a default descriptive message. (Fixed by supplying a default `'Deprecated'` message string inside Annotation.emit for deprecated kinds!)
-
-### 5. Inherited Member Conflict (`extension_type_inherited_member_conflict`) - ✅ (Fixed)
-* **The Issue**: Extension types inheriting from multiple interfaces get colliding member definitions.
-* **Roadmap**: Detect and redeclare colliding getters/setters. (Fixed by automatically scanning inherited member hierarchy in intersection types and redeclaring colliding getters, setters, and methods!)
-
-### 6. Return of Invalid Type (`return_of_invalid_type`) - ✅ (Fixed)
-* **The Issue**: Return types in nested events fail to match parameter type bounds correctly.
-* **Roadmap**: Ensure covariant or generic type conversions align safely. (Fixed by using intermediate JSAny casts for generic ReferredType conversions in union getters!)
+### 3. Double-Check & Verified Clean Audit
+* **Roadmap**: Rebuild the massive, full-scale `vscode_expected.dart` golden file and run `dart analyze` on it. Verify that all warnings and errors are completely gone, leaving us with **exactly 0 issues found**!
 
 ---
 
@@ -85,5 +72,4 @@ To ensure 100% code safety and a perfectly clean repository, we follow a discipl
    - Run the full-scale VS Code integration test with `_rewriteFiles = true` set in [test_shared.dart](file:///Users/kevmoo/github/web/js_interop_gen/test/test_shared.dart) to rebuild `vscode_expected.dart`.
    - Revert `_rewriteFiles = false` and run `dart analyze test/integration/vscode_expected.dart | grep "error -"` to evaluate the new error count and verify overall progress. Keep `vscode_expected.dart` untracked in your local workspace.
 7. **Repeat**:
-   - Do NOT commit the massive `vscode_expected.dart` golden file until all 6 hurdles are fully resolved, leaving us with a 100% statically analyze-clean VS Code output.
-
+   - Do NOT commit the massive `vscode_expected.dart` golden file until all 3 hurdles are fully resolved, leaving us with a 100% statically analyze-clean VS Code output.

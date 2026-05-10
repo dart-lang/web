@@ -12,7 +12,6 @@ extension type Event<T extends _i1.JSAny?>._(_i1.JSObject _)
 }
 extension type _AnonymousFunction_6204725<T extends _i1.JSAny?>._(
   _i1.JSFunction _
-)
-    implements _i1.JSFunction {
+) implements _i1.JSFunction {
   external _i1.JSAny? call(T e);
 }

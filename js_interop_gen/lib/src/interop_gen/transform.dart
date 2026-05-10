@@ -80,6 +80,7 @@ class TransformResult {
         }
         l
           ..ignoreForFile.addAll({
+            'lines_longer_than_80_chars',
             'constant_identifier_names',
             'non_constant_identifier_names',
             if (parentCaseIgnore) 'camel_case_types',

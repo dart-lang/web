@@ -40,9 +40,9 @@ To get the generated output to be 100% green under the strict Dart analyzer, we 
 * **The Issue**: `JSArrayType` is not a supertype of the representation type `JSObject` for `RegExpExecArray`.
 * **Roadmap**: Align class/interface hierarchy representation in the generator.
 
-### 4. Deprecated Annotation Empty Arguments (`no_annotation_constructor_arguments`)
+### 4. Deprecated Annotation Empty Arguments (`no_annotation_constructor_arguments`) - ✅ (Fixed)
 * **The Issue**: `@Deprecated` annotations are emitted without constructor arguments (requires `@Deprecated('...')`).
-* **Roadmap**: Update deprecation documentation mapping to always supply a default descriptive message.
+* **Roadmap**: Update deprecation documentation mapping to always supply a default descriptive message. (Fixed by supplying a default `'Deprecated'` message string inside Annotation.emit for deprecated kinds!)
 
 ### 5. Inherited Member Conflict (`extension_type_inherited_member_conflict`)
 * **The Issue**: Extension types inheriting from multiple interfaces get colliding member definitions.

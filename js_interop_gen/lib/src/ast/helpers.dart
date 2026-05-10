@@ -113,28 +113,31 @@ Set<String> getMemberHierarchy(
 }
 
 Type getRepresentationType(TypeDeclaration td) {
+  final extendees = <Type>[];
   if (td case ClassDeclaration(extendedType: final extendee?)) {
-    return switch (extendee) {
-      ReferredType(declaration: final d) when d is TypeDeclaration =>
-        getRepresentationType(d),
-      final BuiltinType b => b,
-      _ => BuiltinType.primitiveType(PrimitiveType.object, isNullable: false),
-    };
-  } else if (td case InterfaceDeclaration(extendedTypes: [final extendee])) {
-    return switch (extendee) {
-      ReferredType(declaration: final d) when d is TypeDeclaration =>
-        getRepresentationType(d),
-      final BuiltinType b => b,
-      _ => BuiltinType.primitiveType(PrimitiveType.object, isNullable: false),
-    };
-  } else {
-    final primitiveType = switch (td.name) {
-      'Array' => PrimitiveType.array,
-      _ => PrimitiveType.object,
-    };
-
-    return BuiltinType.primitiveType(primitiveType, isNullable: false);
+    extendees.add(extendee);
+  } else if (td case InterfaceDeclaration(extendedTypes: final extended)) {
+    extendees.addAll(extended);
   }
+
+  for (final extendee in extendees) {
+    final rep = switch (extendee) {
+      ReferredType(declaration: final d) when d is TypeDeclaration =>
+        getRepresentationType(d),
+      final BuiltinType b => b,
+      _ => null,
+    };
+    if (rep != null && rep is BuiltinType && rep.name != 'JSObject') {
+      return rep;
+    }
+  }
+
+  final primitiveType = switch (td.name) {
+    'Array' => PrimitiveType.array,
+    _ => PrimitiveType.object,
+  };
+
+  return BuiltinType.primitiveType(primitiveType, isNullable: false);
 }
 
 (List<String>, List<Expression>) generateFromDocumentation(

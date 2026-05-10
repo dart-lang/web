@@ -131,8 +131,13 @@ sealed class TypeDeclaration extends NestableDeclaration
           ),
     );
 
-    final repType = useFirstExtendeeAsRepType || this is ClassDeclaration
-        ? getRepresentationType(this)
+    final resolvedRepType = getRepresentationType(this);
+    final repType =
+        useFirstExtendeeAsRepType ||
+            this is ClassDeclaration ||
+            (resolvedRepType is BuiltinType &&
+                resolvedRepType.name != 'JSObject')
+        ? resolvedRepType
         : BuiltinType.primitiveType(PrimitiveType.object, isNullable: false);
 
     return ExtensionType(

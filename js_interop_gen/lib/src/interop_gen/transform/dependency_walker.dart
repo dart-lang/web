@@ -14,6 +14,13 @@ class DependencyWalker {
   /// Recursively gets all declarations that are referred to or needed by
   /// the given [decl] node.
   static NodeMap getDependenciesOfDecl(Node? decl, [NodeMap? context]) {
+    Iterable<Type> getNonBuiltinTypes(Type t) {
+      if (t is BuiltinType) {
+        return t.typeParams.expand(getNonBuiltinTypes);
+      }
+      return [t];
+    }
+
     NodeMap getCallableDependencies(CallableDeclaration callable) {
       return NodeMap({
         for (final node in callable.parameters.map((p) => p.type))
@@ -55,9 +62,7 @@ class DependencyWalker {
           }
           filteredDeclarations.addAll({
             for (final prop
-                in t.properties
-                    .map((p) => p.type)
-                    .where((p) => p is! BuiltinType))
+                in t.properties.map((p) => p.type).expand(getNonBuiltinTypes))
               prop.id.toString(): prop,
           });
           switch (t) {
@@ -106,13 +111,13 @@ class DependencyWalker {
           break;
         case final TupleType t:
           filteredDeclarations.addAll({
-            for (final t in t.types.where((t) => t is! BuiltinType))
+            for (final t in t.types.expand(getNonBuiltinTypes))
               t.id.toString(): t,
           });
         case UnionType(types: final uTypes, declaration: final uDecl) ||
             IntersectionType(types: final uTypes, declaration: final uDecl):
           filteredDeclarations.addAll({
-            for (final t in uTypes.where((t) => t is! BuiltinType))
+            for (final t in uTypes.expand(getNonBuiltinTypes))
               t.id.toString(): t,
           });
           filteredDeclarations.add(uDecl);
@@ -122,14 +127,14 @@ class DependencyWalker {
         case BuiltinType(typeParams: final typeParams)
             when typeParams.isNotEmpty:
           filteredDeclarations.addAll({
-            for (final t in typeParams.where((t) => t is! BuiltinType))
+            for (final t in typeParams.expand(getNonBuiltinTypes))
               t.id.toString(): t,
           });
           break;
         case final ReferredType r:
           if (r.url == null) filteredDeclarations.add(r.declaration);
           filteredDeclarations.addAll({
-            for (final t in r.typeParams.where((t) => t is! BuiltinType))
+            for (final t in r.typeParams.expand(getNonBuiltinTypes))
               t.id.toString(): t,
           });
           break;

@@ -792,6 +792,20 @@ sealed class _UnionOrIntersectionDeclaration extends NamedDeclaration
             if (method != null) memberDecls[m] = method;
           }
         }
+      } else if (e case ObjectLiteralType(
+        properties: final props,
+        methods: final methods
+      )) {
+        for (final prop in props) {
+          final m = prop.name;
+          memberDeclCount[m] = (memberDeclCount[m] ?? 0) + 1;
+          if (memberDecls[m] == null) memberDecls[m] = prop;
+        }
+        for (final method in methods) {
+          final m = method.name;
+          memberDeclCount[m] = (memberDeclCount[m] ?? 0) + 1;
+          if (memberDecls[m] == null) memberDecls[m] = method;
+        }
       }
     }
 

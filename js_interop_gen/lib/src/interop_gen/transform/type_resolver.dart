@@ -376,7 +376,11 @@ class TypeResolver {
       final supportedType = BuiltinType.referred(
         firstName,
         typeParams: (typeArguments ?? [])
-            .map((t) => getJSTypeAlternative(transformer.transformType(t)))
+            .map(
+              (t) => getJSTypeAlternative(
+                transformer.transformType(t, typeArg: true),
+              ),
+            )
             .toList(),
         isNullable: isNullable,
       );
@@ -397,7 +401,7 @@ class TypeResolver {
           return PackageWebType.parse(
             firstName,
             typeParams: (typeArguments ?? [])
-                .map(transformer.transformType)
+                .map((t) => transformer.transformType(t, typeArg: true))
                 .map(getJSTypeAlternative)
                 .toList(),
             isNullable: isNullable,

@@ -44,9 +44,9 @@ To get the generated output to be 100% green under the strict Dart analyzer, we 
 * **The Issue**: `@Deprecated` annotations are emitted without constructor arguments (requires `@Deprecated('...')`).
 * **Roadmap**: Update deprecation documentation mapping to always supply a default descriptive message. (Fixed by supplying a default `'Deprecated'` message string inside Annotation.emit for deprecated kinds!)
 
-### 5. Inherited Member Conflict (`extension_type_inherited_member_conflict`)
+### 5. Inherited Member Conflict (`extension_type_inherited_member_conflict`) - ✅ (Fixed)
 * **The Issue**: Extension types inheriting from multiple interfaces get colliding member definitions.
-* **Roadmap**: Detect and redeclare colliding getters/setters.
+* **Roadmap**: Detect and redeclare colliding getters/setters. (Fixed by automatically scanning inherited member hierarchy in intersection types and redeclaring colliding getters, setters, and methods!)
 
 ### 6. Return of Invalid Type (`return_of_invalid_type`)
 * **The Issue**: Return types in nested events fail to match parameter type bounds correctly.

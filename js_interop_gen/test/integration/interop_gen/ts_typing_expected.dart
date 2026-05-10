@@ -88,7 +88,7 @@ external _i1.JSFunction myFunctionAlias2;
 @_i1.JS()
 external _i1.JSFunction get myEnclosingFunctionAlias;
 @_i1.JS()
-external ComposedType get myComposedType;
+external ComposedType<_i1.JSAny?> get myComposedType;
 @_i1.JS()
 external ComposedType<_i1.JSString> get myComposedMyString;
 @_i1.JS()
@@ -249,7 +249,8 @@ extension type AnonymousUnion_2942628._(_i1.JSAny _) implements _i1.JSAny {
 
   MyEnum get asMyEnum => MyEnum._((_ as _i1.JSNumber).toDartInt);
 
-  ComposedType get asComposedType => (_ as ComposedType);
+  ComposedType<_i1.JSAny?> get asComposedType =>
+      (_ as ComposedType<_i1.JSAny?>);
 }
 extension type AnonymousUnion_2814515._(_i1.JSAny _) implements _i1.JSAny {
   String get asString => (_ as _i1.JSString).toDart;

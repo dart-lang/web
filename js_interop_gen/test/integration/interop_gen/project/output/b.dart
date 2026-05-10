@@ -221,7 +221,7 @@ extension type EpahsImpl<TMeta extends _i1.JSAny?>._(_i1.JSObject _)
   external double area();
   @_i1.JS('area')
   external String area$1(AnonymousUnion_4033716 unit);
-  external static EpahsImpl getById(String id);
+  external static EpahsImpl<_i1.JSAny?> getById(String id);
 
   /// Returns a string representation of an object.
   @_i1.JS('toString')

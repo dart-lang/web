@@ -54,6 +54,21 @@ class ReferredType<T extends Declaration> extends NamedType {
   @override
   Reference emit([TypeOptions? options]) {
     final mappedSymbol = declarationToEmittedName[declaration];
+    final List<GenericType> declTypeParams = [];
+    final decl = declaration;
+    if (decl is TypeDeclaration) {
+      declTypeParams.addAll(decl.typeParameters);
+    } else if (decl is TypeAliasDeclaration) {
+      declTypeParams.addAll(decl.typeParameters);
+    }
+
+    final paddedTypeParams = [
+      ...typeParams,
+      if (typeParams.length < declTypeParams.length)
+        for (var i = typeParams.length; i < declTypeParams.length; ++i)
+          declTypeParams[i].constraint ?? BuiltinType.anyType,
+    ];
+
     return TypeReference(
       (t) => t
         ..symbol =
@@ -62,7 +77,7 @@ class ReferredType<T extends Declaration> extends NamedType {
                 ? (declaration as NestableDeclaration).completedDartName
                 : declaration.dartName ?? declaration.name)
         ..types.addAll(
-          typeParams.map((t) {
+          paddedTypeParams.map((t) {
             if (t == BuiltinType.$voidType) {
               return BuiltinType.anyType.emit(options);
             }

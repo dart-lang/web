@@ -1,45 +1,53 @@
-# 🚀 VS Code Interop Generation: Status & Next Steps
+# 🚀 VS Code Interop Generation: Status & Master Plan
 
-We have successfully upgraded the `js_interop_gen` compiler engine to a point where the massive, full-scale VS Code API definition (`vscode_input.d.ts`) compiles and serializes to disk completely without crashing. All initial engine crashes are resolved.
+We are systematically upgrading the `js_interop_gen` compiler engine to produce a **100% valid, standard, and statically analyze-clean Dart library** from the massive, full-scale VS Code API definition (`vscode_input.d.ts`). 
+
+Every single compile warning, diagnostic issue, and type boundary error in the generated output must be resolved at the compiler level—**no cheating, no exclusions in `analysis_options.yaml`**.
 
 ---
 
-## 🛠️ What Has Been Completed
+## 🛠️ What Has Been Completed Successfully
 
-1. **Cyclic Type Stack Overflow Fix**: Added early class shell registration to break mutual recursion loops.
+1. **Cyclic Type Stack Overflow**: Added early class shell registration to break mutual recursion loops.
 2. **Module Generic Parameter Resolution**: Relocated generic type parameter checks to support generic resolution inside module namespaces.
-3. **String-Literal Module Declaration Support**: Added parser support for `declare module 'vscode'`.
-4. **Idempotent Rescoping & Signature Deduplication**: Restored unique name preservation across rescoping passes to prevent name drift (e.g. `Uri$15` vs `Uri$189`).
-5. **Type Alias Grouping Isolation**: Isolated `TypeAliasDeclaration`s in the grouping phase to prevent them from colliding with and being dropped by class declarations of the same name.
-6. **EnumMember Type Resolution**: Added recursive symbol resolution to map enum member type references (like `TaskScope.Global`) back to their parent enum types.
-7. **Escape Dart Keywords & Correct Union Casts (Fixed)**: 
-   - Resolved invalid runtime casting and dot-notation getter syntax errors (like `asTrue.true`) by explicitly handling `LiteralType` in `_typeNameForGetter` to return clean getter names (like `asTrue`).
-   - Updated `getJSTypeAlternative` in [helpers.dart](file:///Users/kevmoo/github/web/js_interop_gen/lib/src/ast/helpers.dart) to correctly resolve literal types to their proper JS alternatives (`JSBoolean`, `JSString`, `JSNumber`), generating clean and safe `.toDart` casts (`(_ as _i1.JSBoolean).toDart`).
-   - Resolved a bug in `_getSharedPrimitiveTypeIfAny` in [sub_type.dart](file:///Users/kevmoo/github/web/js_interop_gen/lib/src/interop_gen/sub_type.dart) where mixed unions of literal and non-literal types (like `true | object`) bypassed full LCA resolution. They now correctly widen to `JSAny`.
-8. **Type-Safe AST Node Parameterization (Fixed)**:
-   - Refactored the abstract **`Node`** class to be parameterized as **`Node<T extends Object>`** in [base.dart](file:///Users/kevmoo/github/web/js_interop_gen/lib/src/ast/base.dart) to enforce compile-time type safety for AST `emit()` return values.
-   - Parameterized **`Declaration`** as `Node<Spec>`, **`Type`** as `Node<Reference>`, and updated **`ConstructorDeclaration`** in [declarations.dart](file:///Users/kevmoo/github/web/js_interop_gen/lib/src/ast/declarations.dart) to implement `Node<Constructor>`.
-9. **Encapsulation & File Splitting (Fixed)**:
-   - Extracted all recursive type resolution and search logic out of the bloated `transformer.dart` file into a fully encapsulated standalone library class **`TypeResolver`** in [type_resolver.dart](file:///Users/kevmoo/github/web/js_interop_gen/lib/src/interop_gen/transform/type_resolver.dart), reducing transformer file size by 560+ lines.
-   - Exposed only a clean, package-private `@internal Type transformType(...)` delegation method on `Transformer`.
+3. **String-Literal Module Declaration**: Added parser support for `declare module 'vscode'`.
+4. **Idempotent Rescoping & Signature Deduplication**: Restored unique name preservation across rescoping passes to prevent name drift.
+5. **Type Alias Grouping Isolation**: Isolated `TypeAliasDeclaration`s in the grouping phase to prevent they from colliding with classes.
+6. **EnumMember Type Resolution**: Added recursive symbol resolution to map enum member type references back to parent enum types.
+7. **Mismatched Unique-Suffix References (Fixed)**:
+   - Implemented a compiler-wide `transformedCache` in [Transformer](file:///Users/kevmoo/github/web/js_interop_gen/lib/src/interop_gen/transform/transformer.dart) mapping `TSNode` AST nodes to their transformed declarations.
+   - Intercepted recursive resolution in `getTypeFromSymbol` and `searchForDeclRecursive` inside [type_resolver.dart](file:///Users/kevmoo/github/web/js_interop_gen/lib/src/interop_gen/transform/type_resolver.dart) to map type references back to their single, clean original declaration, eliminating temporary suffixed types (like `Uri$176`).
+8. **Duplicate Union Method Definitions (Fixed)**:
+   - Implemented getter-name-based deduplication in `_UnionOrIntersectionDeclaration` inside [types.dart](file:///Users/kevmoo/github/web/js_interop_gen/lib/src/ast/types.dart) using `_typeNameForGetter` to avoid generating duplicate getters (like `asTaskScope`) in union extension types.
+9. **Nullable JSAny & Void casts (Fixed)**:
+   - Modified union getter generation in [types.dart](file:///Users/kevmoo/github/web/js_interop_gen/lib/src/ast/types.dart) to return the representation parameter `_` directly when the type is `void` or `JSAny` (as `.toDart` is invalid and unavailable for these types), eliminating the `unchecked_use_of_nullable_value` errors.
 
 ---
 
-## 🎯 Remaining Hurdles & Next Steps
+## 🎯 Remaining Hurdles: Strict Compliance Roadmap
 
-To make the full `vscode_actual.dart` completely warning- and error-free, there is exactly **one** focused task left:
+To get the generated output to be 100% green under the strict Dart analyzer, we will systematically address the remaining **6 distinct compiler error patterns**:
 
-### 1. Address Mismatched Unique-Suffix References
-* **The Issue**: A few classes (such as `Uri`, `TestItem`, and `AuthenticationGetSessionOptions`) are referenced using unique suffixed names (such as `Uri$176` or `TestItem$2`) inside generated properties, but the corresponding classes themselves are not present or generated under those exact suffixes in the output.
-* **Diagnostic Details**: Running the analyzer on the full VS Code generation output produces the following specific compiler errors:
-  - `Undefined class 'Uri$176'`
-  - `Undefined class 'TestItem$4'`
-  - `Undefined class 'AuthenticationGetSessionOptions$1'`
-  - `Undefined class 'ChatResponseMarkdownPart'`
-  - `Undefined class 'LanguageModelTextPart'`
-  
-  This is caused by the transformer/type resolver transforming new/duplicate instances of a declaration during the initial recursive `transform` pass. Because these duplicates are assigned unique names via `namer.makeUnique(...)` and are not cleanly deduplicated or cached, the `ReferredType.declarationToEmittedName` map lookup fails to map them back to their clean unsuffixed emitted declarations (e.g., `Uri` or `TestItem`), resulting in the compiler emitting the temporary suffixed name.
+### 1. Non-Type as Type Argument (`non_type_as_type_argument`)
+* **The Issue**: Inside `PromiseLike` and several other classes, union types are referenced inside generic arguments (e.g. `PromiseLike<AnonymousUnion_3555654>`), but the compiler fails to emit the concrete `AnonymousUnion_3555654` class definition.
+* **Roadmap**: Trace how `DependencyWalker` collects generic type arguments from `ReferredType` and ensure that they are registered and emitted in the output.
 
-* **Advice for the Next Agent**:
-  - Focus your modifications in [type_resolver.dart](file:///Users/kevmoo/github/web/js_interop_gen/lib/src/interop_gen/transform/type_resolver.dart), specifically inside `getTypeFromSymbol` and `searchForDeclRecursive`.
-  - Trace how type dependencies are resolved and mapped to their `nodeMap` declaration. Ensure that when a class/interface is resolved as a dependency, the resolver cleanly registers and reuses the existing rescope name or maps its identity to the single original declaration instance, rather than allocating new unique names with suffixes.
+### 2. Type Argument Not Matching Bounds (`type_argument_not_matching_bounds`)
+* **The Issue**: A type argument (like `JSString?`) is passed to a parameter with a non-nullable bound (`K extends JSString`).
+* **Roadmap**: Update type mapping to strips nullability markers (`?`) when generating arguments bound to non-nullable bounds, or propagate nullability correctly to the parameter bounds.
+
+### 3. Extended Type Representation Not Supertype (`extension_type_implements_representation_not_supertype`)
+* **The Issue**: `JSArrayType` is not a supertype of the representation type `JSObject` for `RegExpExecArray`.
+* **Roadmap**: Align class/interface hierarchy representation in the generator.
+
+### 4. Deprecated Annotation Empty Arguments (`no_annotation_constructor_arguments`)
+* **The Issue**: `@Deprecated` annotations are emitted without constructor arguments (requires `@Deprecated('...')`).
+* **Roadmap**: Update deprecation documentation mapping to always supply a default descriptive message.
+
+### 5. Inherited Member Conflict (`extension_type_inherited_member_conflict`)
+* **The Issue**: Extension types inheriting from multiple interfaces get colliding member definitions.
+* **Roadmap**: Detect and redeclare colliding getters/setters.
+
+### 6. Return of Invalid Type (`return_of_invalid_type`)
+* **The Issue**: Return types in nested events fail to match parameter type bounds correctly.
+* **Roadmap**: Ensure covariant or generic type conversions align safely.

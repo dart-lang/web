@@ -773,7 +773,13 @@ sealed class _UnionOrIntersectionDeclaration extends NamedDeclaration
             return Method((m) {
               final word = _typeNameForGetter(t);
               final Expression body;
-              if (desugarTypeAliases(t) == repType) {
+              final jsAlt = jsTypeAlt;
+              final desugared = desugarTypeAliases(t);
+              if (desugarTypeAliases(t) == repType ||
+                  (jsAlt is BuiltinType && jsAlt.name == 'JSAny') ||
+                  (jsAlt is NamedType && jsAlt.name == 'JSAny') ||
+                  (desugared is BuiltinType && desugared.name == 'void') ||
+                  (desugared is NamedType && desugared.name == 'void')) {
                 body = refer('_');
               } else if (jsTypeAlt.id == t.id) {
                 body = refer('_').asA(type);

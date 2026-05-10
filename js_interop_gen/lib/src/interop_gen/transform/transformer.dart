@@ -37,6 +37,9 @@ class Transformer {
   /// A set of already resolved TS Nodes
   final Set<TSNode> nodes = {};
 
+  /// A cache of already transformed TS Nodes to their declarations
+  final Map<TSNode, List<Declaration>> transformedCache = {};
+
   /// A map of declarations
   final NodeMap<Declaration> nodeMap = NodeMap();
 
@@ -106,6 +109,25 @@ class Transformer {
   }
 
   List<Declaration> transformAndReturn(
+    TSNode node, {
+    Set<ExportReference>? exportSet,
+    UniqueNamer? namer,
+    NamespaceDeclaration? parent,
+  }) {
+    if (transformedCache.containsKey(node)) {
+      return transformedCache[node]!;
+    }
+    final result = _transformAndReturnInternal(
+      node,
+      exportSet: exportSet,
+      namer: namer,
+      parent: parent,
+    );
+    transformedCache[node] = result;
+    return result;
+  }
+
+  List<Declaration> _transformAndReturnInternal(
     TSNode node, {
     Set<ExportReference>? exportSet,
     UniqueNamer? namer,

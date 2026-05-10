@@ -36,9 +36,9 @@ To get the generated output to be 100% green under the strict Dart analyzer, we 
 * **The Issue**: A type argument (like `JSString?`) is passed to a parameter with a non-nullable bound (`K extends JSString`).
 * **Roadmap**: Update type mapping to strips nullability markers (`?`) when generating arguments bound to non-nullable bounds, or propagate nullability correctly to the parameter bounds. (Fixed by overriding and stripping parent nullability leaks inside ReferredType.emit type argument mapping!)
 
-### 3. Extended Type Representation Not Supertype (`extension_type_implements_representation_not_supertype`)
+### 3. Extended Type Representation Not Supertype (`extension_type_implements_representation_not_supertype`) - ✅ (Fixed)
 * **The Issue**: `JSArrayType` is not a supertype of the representation type `JSObject` for `RegExpExecArray`.
-* **Roadmap**: Align class/interface hierarchy representation in the generator.
+* **Roadmap**: Align class/interface hierarchy representation in the generator. (Fixed by dynamically resolving non-JSObject representation types from parent extendees recursively inside getRepresentationType, and always enforcing them for interface definitions!)
 
 ### 4. Deprecated Annotation Empty Arguments (`no_annotation_constructor_arguments`) - ✅ (Fixed)
 * **The Issue**: `@Deprecated` annotations are emitted without constructor arguments (requires `@Deprecated('...')`).

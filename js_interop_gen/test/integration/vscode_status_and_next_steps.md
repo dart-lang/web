@@ -48,9 +48,9 @@ To get the generated output to be 100% green under the strict Dart analyzer, we 
 * **The Issue**: Extension types inheriting from multiple interfaces get colliding member definitions.
 * **Roadmap**: Detect and redeclare colliding getters/setters. (Fixed by automatically scanning inherited member hierarchy in intersection types and redeclaring colliding getters, setters, and methods!)
 
-### 6. Return of Invalid Type (`return_of_invalid_type`)
+### 6. Return of Invalid Type (`return_of_invalid_type`) - ✅ (Fixed)
 * **The Issue**: Return types in nested events fail to match parameter type bounds correctly.
-* **Roadmap**: Ensure covariant or generic type conversions align safely.
+* **Roadmap**: Ensure covariant or generic type conversions align safely. (Fixed by using intermediate JSAny casts for generic ReferredType conversions in union getters!)
 
 ---
 

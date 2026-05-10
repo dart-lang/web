@@ -24,6 +24,9 @@ class Annotation {
 
   Expression emit() {
     if (arguments.isEmpty) {
+      if (kind == AnnotationKind.deprecated) {
+        return refer(kind.name, kind.source).call([literalString('Deprecated')]);
+      }
       return refer(kind.name, kind.source);
     }
     final positionalArgs = <Expression>[];

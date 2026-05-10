@@ -7,8 +7,6 @@ import 'dart:js_interop' as _i1;
 import 'package:meta/meta.dart' as _i2;
 
 @_i1.JS()
-external Point2D get origin;
-@_i1.JS()
 external Point3D get origin3D;
 @_i1.JS('scalarProduct')
 external V dotProduct<V extends Vector>(V v1, V v2);
@@ -66,11 +64,8 @@ external Vector3D get unitI3D;
 external Vector3D get unitJ3D;
 @_i1.JS()
 external Vector3D get unitK3D;
-extension type Point2D._(_i1.JSObject _) implements _i1.JSObject {
-  external double x;
-
-  external double y;
-}
+@_i1.JS()
+external Point2D get origin2D;
 extension type Point3D._(_i1.JSObject _) implements _i1.JSObject {
   external double x;
 
@@ -123,6 +118,11 @@ extension type Vector2D._(_i1.JSObject _) implements Vector {
   external Point2D moveFrom(Point2D point);
   external static Vector2D from(num magnitude, num at);
   external static Vector2D fromPoints(Point2D start, Point2D end);
+}
+extension type Point2D._(_i1.JSObject _) implements _i1.JSObject {
+  external double x;
+
+  external double y;
 }
 extension type Matrix._(_i1.JSObject _) implements _i1.JSObject {
   external double rows;

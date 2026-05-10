@@ -67,7 +67,8 @@ class TypeHierarchy {
             ]);
             return lookupVal;
           })
-          .firstWhereOrNull((v) => v != null);
+          .where((v) => v != null)
+          .firstOrNull;
     }
   }
 

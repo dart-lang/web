@@ -10,8 +10,6 @@ import 'b.dart' as _i2;
 import 'c.dart' as _i3;
 
 @_i1.JS()
-external _i2.Point2D get origin;
-@_i1.JS()
 external _i2.Point3D get origin3D;
 
 /// Computes the dot product between two vectors.
@@ -203,6 +201,8 @@ external _i2.Vector3D get unitJ3D;
 /// Unit vector in 3D z-direction.
 @_i1.JS()
 external _i2.Vector3D get unitK3D;
+@_i1.JS()
+external _i2.Point2D get origin2D;
 
 /// Represents a mathematical matrix.
 /// - `rows`: number of rows.

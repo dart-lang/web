@@ -8,17 +8,17 @@ import 'dart:js_interop' as _i1;
 
 import 'package:meta/meta.dart' as _i2;
 
-extension type Point2D._(_i1.JSObject _) implements Point {
-  external double x;
-
-  external double y;
-}
 extension type CoordinateSystem<P extends Point>._(_i1.JSObject _)
     implements _i1.JSObject {
   external _i1.JSArray<P> points;
 
   external P get origin;
   external void addPoint(P point);
+}
+extension type Point2D._(_i1.JSObject _) implements Point {
+  external double x;
+
+  external double y;
 }
 @_i1.JS()
 external Point2D get origin2D;

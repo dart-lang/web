@@ -25,6 +25,12 @@ void main() {
     });
 
     test('Generate and verify VS Code library', () async {
+      addTearDown(() {
+        final file = File(outputActualPath);
+        if (file.existsSync()) {
+          file.deleteSync();
+        }
+      });
       final inputConfigPath = p.relative(
         inputConfig.path,
         from: bindingsGenPath,

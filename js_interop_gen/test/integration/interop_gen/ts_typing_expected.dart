@@ -75,7 +75,6 @@ external KeyOf_User userKeys;
 external KeyOf_TypeOf_MyEnum alphabeticLetter;
 @_i1.JS()
 external MyEnum_EnumType get myEnumType;
-typedef Transformer<T extends _i1.JSAny?> = _AnonymousFunction_3794666<T>;
 @_i1.JS()
 external _i1.JSFunction copyOfmyEnclosingFunction;
 @_i1.JS()
@@ -161,13 +160,22 @@ extension type AnonymousType_3626348._(_i1.JSObject _) implements _i1.JSObject {
 
   external double price;
 }
-extension type ProductOrrandomNonTypedProduct._(AnonymousType_3626348 _)
-    implements AnonymousType_3626348 {
-  Product get asProduct => _;
+extension type Product._(_i1.JSObject _) implements _i1.JSObject {
+  external Product({double id, String name, double price});
 
-  AnonymousType_3626348 get asRandomNonTypedProduct => _;
+  external double id;
+
+  external String name;
+
+  external double price;
 }
-typedef Product = AnonymousType_3626348;
+extension type ProductOrrandomNonTypedProduct._(_i1.JSObject _)
+    implements _i1.JSObject {
+  Product get asProduct => (_ as Product);
+
+  AnonymousType_3626348 get asRandomNonTypedProduct =>
+      (_ as AnonymousType_3626348);
+}
 extension type AnonymousType_7963419<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
   external AnonymousType_7963419({double id, T value});
@@ -229,9 +237,8 @@ extension type const KeyOf_TypeOf_MyEnum._(String _) {
 
   static const KeyOf_TypeOf_MyEnum D = KeyOf_TypeOf_MyEnum._('D');
 }
-extension type _AnonymousFunction_3794666<T extends _i1.JSAny?>._(
-  _i1.JSFunction _
-) implements _i1.JSFunction {
+extension type Transformer<T extends _i1.JSAny?>._(_i1.JSFunction _)
+    implements _i1.JSFunction {
   external ComposedType<T> call(T object);
 }
 extension type ComposedType<T extends _i1.JSAny?>._(_i1.JSObject _)

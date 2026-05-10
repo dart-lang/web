@@ -6,8 +6,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:js_interop' as _i1;
 
-import '../../test/integration/vscode_input.dart' as _i2;
-import '_tuples.dart' as _i3;
+import '_tuples.dart' as _i2;
 
 /// Represents a reference to a command. Provides a title which
 /// will be used to represent a command in the UI and, optionally,
@@ -57,169 +56,95 @@ extension type TextLine._(_i1.JSObject _) implements _i1.JSObject {
   external bool get isEmptyOrWhitespace;
 }
 
-/// Represents a text document, such as a source file. Text documents have
-/// TextLinelines and knowledge about an underlying resource like a file.
-extension type TextDocument._(_i1.JSObject _) implements _i1.JSObject {
-  /// The associated uri for this document.
-  ///
-  /// *Note* that most documents use the `file`-scheme, which means they are
-  /// files on disk. However, **not** all documents are
-  /// saved on disk and therefore the `scheme` must be checked before trying to
-  /// access the underlying file or siblings on disk.
-  external Uri get uri;
+/// A range represents an ordered pair of two positions.
+/// It is guaranteed that Range.startstart.isBeforeOrEqual(Range.endend)
+///
+/// Range objects are __immutable__. Use the Range.withwith,
+/// Range.intersectionintersection, or Range.unionunion methods
+/// to derive new ranges from an existing range.
+extension type Range._(_i1.JSObject _) implements _i1.JSObject {
+  external Range(Position start, Position end);
 
-  /// The file system path of the associated resource. Shorthand
-  /// notation for TextDocument.uriTextDocument.uri.fsPath. Independent of the
-  /// uri scheme.
-  external String get fileName;
+  external factory Range.$1(
+    num startLine,
+    num startCharacter,
+    num endLine,
+    num endCharacter,
+  );
 
-  /// Is this document representing an untitled file which has never been saved
-  /// yet. *Note* that
-  /// this does not mean the document will be saved to disk, use Uri.scheme
-  /// to figure out where a document will be FileSystemProvidersaved, e.g.
-  /// `file`, `ftp` etc.
-  external bool get isUntitled;
+  /// `true` if `start` and `end` are equal.
+  external bool isEmpty;
 
-  /// The identifier of the language associated with this document.
-  external String get languageId;
+  /// `true` if `start.line` and `end.line` are equal.
+  external bool isSingleLine;
 
-  /// The file encoding of this document that will be used when the document is
-  /// saved.
-  ///
-  /// Use the workspace.onDidChangeTextDocumentonDidChangeTextDocument-event to
-  /// get notified when the document encoding changes.
-  ///
-  /// Note that the possible encoding values are currently defined as any of the
-  /// following:
-  /// 'utf8', 'utf8bom', 'utf16le', 'utf16be', 'windows1252', 'iso88591',
-  /// 'iso88593',
-  /// 'iso885915', 'macroman', 'cp437', 'windows1256', 'iso88596',
-  /// 'windows1257',
-  /// 'iso88594', 'iso885914', 'windows1250', 'iso88592', 'cp852',
-  /// 'windows1251',
-  /// 'cp866', 'cp1125', 'iso88595', 'koi8r', 'koi8u', 'iso885913',
-  /// 'windows1253',
-  /// 'iso88597', 'windows1255', 'iso88598', 'iso885910', 'iso885916',
-  /// 'windows1254',
-  /// 'iso88599', 'windows1258', 'gbk', 'gb18030', 'cp950', 'big5hkscs',
-  /// 'shiftjis',
-  /// 'eucjp', 'euckr', 'windows874', 'iso885911', 'koi8ru', 'koi8t', 'gb2312',
-  /// 'cp865', 'cp850', 'cp857'.
-  external String get encoding;
+  /// The start position. It is before or equal to Range.endend.
+  external Position get start;
 
-  /// The version number of this document (it will strictly increase after each
-  /// change, including undo/redo).
-  external double get version;
+  /// The end position. It is after or equal to Range.startstart.
+  external Position get end;
 
-  /// `true` if there are unpersisted changes.
-  external bool get isDirty;
+  /// Check if a position or a range is contained in this range.
+  /// - [positionOrRange]:  A position or a range.
+  ///
+  /// Returns `true` if the position or range is inside or equal
+  /// to this range.
+  external bool contains(AnonymousUnion_9838905 positionOrRange);
 
-  /// `true` if the document has been closed. A closed document isn't
-  /// synchronized anymore
-  /// and won't be re-used when the same resource is opened again.
-  external bool get isClosed;
+  /// Check if `other` equals this range.
+  /// - [other]:  A range.
+  ///
+  /// Returns `true` when start and end are Position.isEqual equal to
+  /// start and end of this range.
+  external bool isEqual(Range other);
 
-  /// The EndOfLineend of line sequence that is predominately
-  /// used in this document.
-  external EndOfLine get eol;
-
-  /// The number of lines in this document.
-  external double get lineCount;
-
-  /// Save the underlying file.
-  ///
-  /// Returns A promise that will resolve to `true` when the file
-  /// has been saved. If the save failed, will return `false`.
-  external _i2.Thenable<_i1.JSBoolean> save();
-
-  /// Returns a text line denoted by the line number. Note
-  /// that the returned object is *not* live and changes to the
-  /// document are not reflected.
-  /// Returns a text line denoted by the position. Note
-  /// that the returned object is *not* live and changes to the
-  /// document are not reflected.
-  ///
-  /// The position will be TextDocument.validatePositionadjusted.
-  /// - [line]:  A line number in `[0, lineCount)`.
-  ///
-  /// Returns A TextLine line.
-  /// - [position]:  A position.
-  ///
-  /// Returns A TextLine line.
-  external TextLine lineAt(num line);
-
-  /// Returns a text line denoted by the line number. Note
-  /// that the returned object is *not* live and changes to the
-  /// document are not reflected.
-  /// Returns a text line denoted by the position. Note
-  /// that the returned object is *not* live and changes to the
-  /// document are not reflected.
-  ///
-  /// The position will be TextDocument.validatePositionadjusted.
-  /// - [line]:  A line number in `[0, lineCount)`.
-  ///
-  /// Returns A TextLine line.
-  /// - [position]:  A position.
-  ///
-  /// Returns A TextLine line.
-  @_i1.JS('lineAt')
-  external TextLine lineAt$1(Position position);
-
-  /// Converts the position to a zero-based offset.
-  ///
-  /// The position will be TextDocument.validatePositionadjusted.
-  /// - [position]:  A position.
-  ///
-  /// Returns A valid zero-based offset in UTF-16
-  /// [code units](https://developer.mozilla.org/en-US/docs/Glossary/Code_unit).
-  external double offsetAt(Position position);
-
-  /// Converts a zero-based offset to a position.
-  /// - [offset]:  A zero-based offset into the document. This offset is in
-  ///   UTF-16
-  ///   [code units](https://developer.mozilla.org/en-US/docs/Glossary/Code_unit).
-  ///
-  /// Returns A valid Position .
-  external Position positionAt(num offset);
-
-  /// Get the text of this document. A substring can be retrieved by providing
-  /// a range. The range will be TextDocument.validateRangeadjusted.
-  /// - [range]:  Include only the text included by the range.
-  ///
-  /// Returns The text inside the provided range or the entire text.
-  external String getText([Range? range]);
-
-  /// Get a word-range at the given position. By default words are defined by
-  /// common separators, like space, -, _, etc. In addition, per language custom
-  /// [word definitions] can be defined. It
-  /// is also possible to provide a custom regular expression.
-  ///
-  /// * *Note 1:* A custom regular expression must not match the empty string
-  /// and
-  /// if it does, it will be ignored.
-  /// * *Note 2:* A custom regular expression will fail to match multiline
-  /// strings
-  /// and in the name of speed regular expressions should not match words with
-  /// spaces. Use TextLine.text for more complex, non-wordy, scenarios.
-  ///
-  /// The position will be TextDocument.validatePositionadjusted.
-  /// - [position]:  A position.
-  /// - [regex]:  Optional regular expression that describes what a word is.
-  ///
-  /// Returns A range spanning a word, or `undefined`.
-  external Range? getWordRangeAtPosition(Position position, [RegExp? regex]);
-
-  /// Ensure a range is completely contained in this document.
+  /// Intersect `range` with this range and returns a new range or `undefined`
+  /// if the ranges have no overlap.
   /// - [range]:  A range.
   ///
-  /// Returns The given range or a new, adjusted range.
-  external Range validateRange(Range range);
+  /// Returns A range of the greater start and smaller end positions. Will
+  /// return undefined when there is no overlap.
+  external Range? intersection(Range range);
 
-  /// Ensure a position is contained in the range of this document.
-  /// - [position]:  A position.
+  /// Compute the union of `other` with this range.
+  /// - [other]:  A range.
   ///
-  /// Returns The given position or a new, adjusted position.
-  external Position validatePosition(Position position);
+  /// Returns A range of smaller start position and the greater end position.
+  external Range union(Range other);
+
+  /// Derived a new range from this range.
+  /// - [start]:  A position that should be used as start. The default value is
+  ///   the  .
+  /// - [end]:  A position that should be used as end. The default value is the
+  ///   .
+  ///
+  /// Returns A range derived from this range with the given start and end
+  /// position.
+  /// If start and end are not different `this` range will be returned.
+  /// - [change]:  An object that describes a change to this range.
+  ///
+  /// Returns A range that reflects the given change. Will return `this` range
+  /// if the change
+  /// is not changing anything.
+  @_i1.JS('with')
+  external Range with$([Position? start, Position? end]);
+
+  /// Derived a new range from this range.
+  /// - [start]:  A position that should be used as start. The default value is
+  ///   the  .
+  /// - [end]:  A position that should be used as end. The default value is the
+  ///   .
+  ///
+  /// Returns A range derived from this range with the given start and end
+  /// position.
+  /// If start and end are not different `this` range will be returned.
+  /// - [change]:  An object that describes a change to this range.
+  ///
+  /// Returns A range that reflects the given change. Will return `this` range
+  /// if the change
+  /// is not changing anything.
+  @_i1.JS('with')
+  external Range with$1(AnonymousType_2071367 change);
 }
 
 /// Represents a line and character position, such as
@@ -350,708 +275,169 @@ extension type Position._(_i1.JSObject _) implements _i1.JSObject {
   external Position with$1(AnonymousType_3433545 change);
 }
 
-/// A range represents an ordered pair of two positions.
-/// It is guaranteed that Range.startstart.isBeforeOrEqual(Range.endend)
-///
-/// Range objects are __immutable__. Use the Range.withwith,
-/// Range.intersectionintersection, or Range.unionunion methods
-/// to derive new ranges from an existing range.
-extension type Range._(_i1.JSObject _) implements _i1.JSObject {
-  external Range(Position start, Position end);
-
-  external factory Range.$1(
-    num startLine,
-    num startCharacter,
-    num endLine,
-    num endCharacter,
-  );
-
-  /// `true` if `start` and `end` are equal.
-  external bool isEmpty;
-
-  /// `true` if `start.line` and `end.line` are equal.
-  external bool isSingleLine;
-
-  /// The start position. It is before or equal to Range.endend.
-  external Position get start;
-
-  /// The end position. It is after or equal to Range.startstart.
-  external Position get end;
-
-  /// Check if a position or a range is contained in this range.
-  /// - [positionOrRange]:  A position or a range.
+/// Represents a text document, such as a source file. Text documents have
+/// TextLinelines and knowledge about an underlying resource like a file.
+extension type TextDocument._(_i1.JSObject _) implements _i1.JSObject {
+  /// The associated uri for this document.
   ///
-  /// Returns `true` if the position or range is inside or equal
-  /// to this range.
-  external bool contains(AnonymousUnion_9838905 positionOrRange);
+  /// *Note* that most documents use the `file`-scheme, which means they are
+  /// files on disk. However, **not** all documents are
+  /// saved on disk and therefore the `scheme` must be checked before trying to
+  /// access the underlying file or siblings on disk.
+  external Uri get uri;
 
-  /// Check if `other` equals this range.
-  /// - [other]:  A range.
+  /// The file system path of the associated resource. Shorthand
+  /// notation for TextDocument.uriTextDocument.uri.fsPath. Independent of the
+  /// uri scheme.
+  external String get fileName;
+
+  /// Is this document representing an untitled file which has never been saved
+  /// yet. *Note* that
+  /// this does not mean the document will be saved to disk, use Uri.scheme
+  /// to figure out where a document will be FileSystemProvidersaved, e.g.
+  /// `file`, `ftp` etc.
+  external bool get isUntitled;
+
+  /// The identifier of the language associated with this document.
+  external String get languageId;
+
+  /// The file encoding of this document that will be used when the document is
+  /// saved.
   ///
-  /// Returns `true` when start and end are Position.isEqual equal to
-  /// start and end of this range.
-  external bool isEqual(Range other);
+  /// Use the workspace.onDidChangeTextDocumentonDidChangeTextDocument-event to
+  /// get notified when the document encoding changes.
+  ///
+  /// Note that the possible encoding values are currently defined as any of the
+  /// following:
+  /// 'utf8', 'utf8bom', 'utf16le', 'utf16be', 'windows1252', 'iso88591',
+  /// 'iso88593',
+  /// 'iso885915', 'macroman', 'cp437', 'windows1256', 'iso88596',
+  /// 'windows1257',
+  /// 'iso88594', 'iso885914', 'windows1250', 'iso88592', 'cp852',
+  /// 'windows1251',
+  /// 'cp866', 'cp1125', 'iso88595', 'koi8r', 'koi8u', 'iso885913',
+  /// 'windows1253',
+  /// 'iso88597', 'windows1255', 'iso88598', 'iso885910', 'iso885916',
+  /// 'windows1254',
+  /// 'iso88599', 'windows1258', 'gbk', 'gb18030', 'cp950', 'big5hkscs',
+  /// 'shiftjis',
+  /// 'eucjp', 'euckr', 'windows874', 'iso885911', 'koi8ru', 'koi8t', 'gb2312',
+  /// 'cp865', 'cp850', 'cp857'.
+  external String get encoding;
 
-  /// Intersect `range` with this range and returns a new range or `undefined`
-  /// if the ranges have no overlap.
+  /// The version number of this document (it will strictly increase after each
+  /// change, including undo/redo).
+  external double get version;
+
+  /// `true` if there are unpersisted changes.
+  external bool get isDirty;
+
+  /// `true` if the document has been closed. A closed document isn't
+  /// synchronized anymore
+  /// and won't be re-used when the same resource is opened again.
+  external bool get isClosed;
+
+  /// The EndOfLineend of line sequence that is predominately
+  /// used in this document.
+  external EndOfLine get eol;
+
+  /// The number of lines in this document.
+  external double get lineCount;
+
+  /// Save the underlying file.
+  ///
+  /// Returns A promise that will resolve to `true` when the file
+  /// has been saved. If the save failed, will return `false`.
+  external Thenable<_i1.JSBoolean> save();
+
+  /// Returns a text line denoted by the line number. Note
+  /// that the returned object is *not* live and changes to the
+  /// document are not reflected.
+  /// Returns a text line denoted by the position. Note
+  /// that the returned object is *not* live and changes to the
+  /// document are not reflected.
+  ///
+  /// The position will be TextDocument.validatePositionadjusted.
+  /// - [line]:  A line number in `[0, lineCount)`.
+  ///
+  /// Returns A TextLine line.
+  /// - [position]:  A position.
+  ///
+  /// Returns A TextLine line.
+  external TextLine lineAt(num line);
+
+  /// Returns a text line denoted by the line number. Note
+  /// that the returned object is *not* live and changes to the
+  /// document are not reflected.
+  /// Returns a text line denoted by the position. Note
+  /// that the returned object is *not* live and changes to the
+  /// document are not reflected.
+  ///
+  /// The position will be TextDocument.validatePositionadjusted.
+  /// - [line]:  A line number in `[0, lineCount)`.
+  ///
+  /// Returns A TextLine line.
+  /// - [position]:  A position.
+  ///
+  /// Returns A TextLine line.
+  @_i1.JS('lineAt')
+  external TextLine lineAt$1(Position position);
+
+  /// Converts the position to a zero-based offset.
+  ///
+  /// The position will be TextDocument.validatePositionadjusted.
+  /// - [position]:  A position.
+  ///
+  /// Returns A valid zero-based offset in UTF-16
+  /// [code units](https://developer.mozilla.org/en-US/docs/Glossary/Code_unit).
+  external double offsetAt(Position position);
+
+  /// Converts a zero-based offset to a position.
+  /// - [offset]:  A zero-based offset into the document. This offset is in
+  ///   UTF-16
+  ///   [code units](https://developer.mozilla.org/en-US/docs/Glossary/Code_unit).
+  ///
+  /// Returns A valid Position .
+  external Position positionAt(num offset);
+
+  /// Get the text of this document. A substring can be retrieved by providing
+  /// a range. The range will be TextDocument.validateRangeadjusted.
+  /// - [range]:  Include only the text included by the range.
+  ///
+  /// Returns The text inside the provided range or the entire text.
+  external String getText([Range? range]);
+
+  /// Get a word-range at the given position. By default words are defined by
+  /// common separators, like space, -, _, etc. In addition, per language custom
+  /// [word definitions] can be defined. It
+  /// is also possible to provide a custom regular expression.
+  ///
+  /// * *Note 1:* A custom regular expression must not match the empty string
+  /// and
+  /// if it does, it will be ignored.
+  /// * *Note 2:* A custom regular expression will fail to match multiline
+  /// strings
+  /// and in the name of speed regular expressions should not match words with
+  /// spaces. Use TextLine.text for more complex, non-wordy, scenarios.
+  ///
+  /// The position will be TextDocument.validatePositionadjusted.
+  /// - [position]:  A position.
+  /// - [regex]:  Optional regular expression that describes what a word is.
+  ///
+  /// Returns A range spanning a word, or `undefined`.
+  external Range? getWordRangeAtPosition(Position position, [RegExp? regex]);
+
+  /// Ensure a range is completely contained in this document.
   /// - [range]:  A range.
   ///
-  /// Returns A range of the greater start and smaller end positions. Will
-  /// return undefined when there is no overlap.
-  external Range? intersection(Range range);
+  /// Returns The given range or a new, adjusted range.
+  external Range validateRange(Range range);
 
-  /// Compute the union of `other` with this range.
-  /// - [other]:  A range.
+  /// Ensure a position is contained in the range of this document.
+  /// - [position]:  A position.
   ///
-  /// Returns A range of smaller start position and the greater end position.
-  external Range union(Range other);
-
-  /// Derived a new range from this range.
-  /// - [start]:  A position that should be used as start. The default value is
-  ///   the  .
-  /// - [end]:  A position that should be used as end. The default value is the
-  ///   .
-  ///
-  /// Returns A range derived from this range with the given start and end
-  /// position.
-  /// If start and end are not different `this` range will be returned.
-  /// - [change]:  An object that describes a change to this range.
-  ///
-  /// Returns A range that reflects the given change. Will return `this` range
-  /// if the change
-  /// is not changing anything.
-  @_i1.JS('with')
-  external Range with$([Position? start, Position? end]);
-
-  /// Derived a new range from this range.
-  /// - [start]:  A position that should be used as start. The default value is
-  ///   the  .
-  /// - [end]:  A position that should be used as end. The default value is the
-  ///   .
-  ///
-  /// Returns A range derived from this range with the given start and end
-  /// position.
-  /// If start and end are not different `this` range will be returned.
-  /// - [change]:  An object that describes a change to this range.
-  ///
-  /// Returns A range that reflects the given change. Will return `this` range
-  /// if the change
-  /// is not changing anything.
-  @_i1.JS('with')
-  external Range with$1(AnonymousType_2071367 change);
-}
-
-/// Represents a text selection in an editor.
-extension type Selection._(_i1.JSObject _) implements Range {
-  external Selection(Position anchor, Position active);
-
-  external factory Selection.$1(
-    num anchorLine,
-    num anchorCharacter,
-    num activeLine,
-    num activeCharacter,
-  );
-
-  /// The position at which the selection starts.
-  /// This position might be before or after Selection.activeactive.
-  external Position get anchor;
-
-  /// The position of the cursor.
-  /// This position might be before or after Selection.anchoranchor.
-  external Position get active;
-
-  /// A selection is reversed if its Selection.anchoranchor is the
-  /// Selection.endend position.
-  external bool get isReversed;
-}
-
-/// Represents an event describing the change in a TextEditor.selectionstext
-/// editor's selections.
-extension type TextEditorSelectionChangeEvent._(_i1.JSObject _)
-    implements _i1.JSObject {
-  /// The TextEditortext editor for which the selections have changed.
-  external TextEditor get textEditor;
-
-  /// The new value for the TextEditor.selectionstext editor's selections.
-  external _i1.JSArray<Selection> get selections;
-
-  /// The TextEditorSelectionChangeKindchange kind which has triggered this
-  /// event. Can be `undefined`.
-  external TextEditorSelectionChangeKind? get kind;
-}
-
-/// Represents an event describing the change in a
-/// TextEditor.visibleRangestext editor's visible ranges.
-extension type TextEditorVisibleRangesChangeEvent._(_i1.JSObject _)
-    implements _i1.JSObject {
-  /// The TextEditortext editor for which the visible ranges have changed.
-  external TextEditor get textEditor;
-
-  /// The new value for the TextEditor.visibleRangestext editor's visible
-  /// ranges.
-  external _i1.JSArray<Range> get visibleRanges;
-}
-
-/// Represents an event describing the change in a TextEditor.optionstext
-/// editor's options.
-extension type TextEditorOptionsChangeEvent._(_i1.JSObject _)
-    implements _i1.JSObject {
-  /// The TextEditortext editor for which the options have changed.
-  external TextEditor get textEditor;
-
-  /// The new value for the TextEditor.optionstext editor's options.
-  external TextEditorOptions get options;
-}
-
-/// Represents an event describing the change of a TextEditor.viewColumntext
-/// editor's view column.
-extension type TextEditorViewColumnChangeEvent._(_i1.JSObject _)
-    implements _i1.JSObject {
-  /// The TextEditortext editor for which the view column has changed.
-  external TextEditor get textEditor;
-
-  /// The new value for the TextEditor.viewColumntext editor's view column.
-  external ViewColumn get viewColumn;
-}
-
-/// Represents a TextEditortext editor's TextEditor.optionsoptions.
-extension type TextEditorOptions._(_i1.JSObject _) implements _i1.JSObject {
-  /// The size in spaces a tab takes. This is used for two purposes:
-  ///  - the rendering width of a tab character;
-  ///  - the number of spaces to insert when TextEditorOptions.insertSpacesinsertSpaces is true
-  /// and `indentSize` is set to `"tabSize"`.
-  ///
-  /// When getting a text editor's options, this property will always be a
-  /// number (resolved).
-  /// When setting a text editor's options, this property is optional and it can
-  /// be a number or `"auto"`.
-  external AnonymousUnion_2683278? tabSize;
-
-  /// The number of spaces to insert when
-  /// TextEditorOptions.insertSpacesinsertSpaces is true.
-  ///
-  /// When getting a text editor's options, this property will always be a
-  /// number (resolved).
-  /// When setting a text editor's options, this property is optional and it can
-  /// be a number or `"tabSize"`.
-  external AnonymousUnion_2683278? indentSize;
-
-  /// When pressing Tab insert TextEditorOptions.tabSizen spaces.
-  /// When getting a text editor's options, this property will always be a
-  /// boolean (resolved).
-  /// When setting a text editor's options, this property is optional and it can
-  /// be a boolean or `"auto"`.
-  external AnonymousUnion_8168791? insertSpaces;
-
-  /// The rendering style of the cursor in this editor.
-  /// When getting a text editor's options, this property will always be
-  /// present.
-  /// When setting a text editor's options, this property is optional.
-  external TextEditorCursorStyle? cursorStyle;
-
-  /// Render relative line numbers w.r.t. the current line number.
-  /// When getting a text editor's options, this property will always be
-  /// present.
-  /// When setting a text editor's options, this property is optional.
-  external TextEditorLineNumbersStyle? lineNumbers;
-}
-
-/// Represents a handle to a set of decorations
-/// sharing the same DecorationRenderOptionsstyling options in a
-/// TextEditortext editor.
-///
-/// To get an instance of a `TextEditorDecorationType` use
-/// window.createTextEditorDecorationTypecreateTextEditorDecorationType.
-extension type TextEditorDecorationType._(_i1.JSObject _)
-    implements _i1.JSObject {
-  /// Internal representation of the handle.
-  external String get key;
-
-  /// Remove this decoration type and all decorations on all text editors using
-  /// it.
-  external void dispose();
-}
-
-/// Represents options to configure the behavior of showing a
-/// TextDocumentdocument in an TextEditoreditor.
-extension type TextDocumentShowOptions._(_i1.JSObject _)
-    implements _i1.JSObject {
-  /// An optional view column in which the TextEditoreditor should be shown.
-  /// The default is the ViewColumn.Activeactive. Columns that do not exist
-  /// will be created as needed up to the maximum of ViewColumn.Nine.
-  /// Use ViewColumn.Beside to open the editor to the side of the currently
-  /// active one.
-  external ViewColumn? viewColumn;
-
-  /// An optional flag that when `true` will stop the TextEditoreditor from
-  /// taking focus.
-  external bool? preserveFocus;
-
-  /// An optional flag that controls if an TextEditoreditor-tab shows as
-  /// preview. Preview tabs will
-  /// be replaced and reused until set to stay - either explicitly or through
-  /// editing.
-  ///
-  /// *Note* that the flag is ignored if a user has disabled preview editors in
-  /// settings.
-  external bool? preview;
-
-  /// An optional selection to apply for the document in the TextEditoreditor.
-  external Range? selection;
-}
-
-/// Represents an event describing the change in a
-/// NotebookEditor.selectionsnotebook editor's selections.
-extension type NotebookEditorSelectionChangeEvent._(_i1.JSObject _)
-    implements _i1.JSObject {
-  /// The NotebookEditornotebook editor for which the selections have changed.
-  external NotebookEditor get notebookEditor;
-
-  /// The new value for the NotebookEditor.selectionsnotebook editor's
-  /// selections.
-  external _i1.JSArray<NotebookRange> get selections;
-}
-
-/// Represents an event describing the change in a
-/// NotebookEditor.visibleRangesnotebook editor's visibleRanges.
-extension type NotebookEditorVisibleRangesChangeEvent._(_i1.JSObject _)
-    implements _i1.JSObject {
-  /// The NotebookEditornotebook editor for which the visible ranges have
-  /// changed.
-  external NotebookEditor get notebookEditor;
-
-  /// The new value for the NotebookEditor.visibleRangesnotebook editor's
-  /// visibleRanges.
-  external _i1.JSArray<NotebookRange> get visibleRanges;
-}
-
-/// Represents options to configure the behavior of showing a
-/// NotebookDocumentnotebook document in an NotebookEditornotebook editor.
-extension type NotebookDocumentShowOptions._(_i1.JSObject _)
-    implements _i1.JSObject {
-  /// An optional view column in which the NotebookEditornotebook editor should
-  /// be shown.
-  /// The default is the ViewColumn.Activeactive. Columns that do not exist
-  /// will be created as needed up to the maximum of ViewColumn.Nine.
-  /// Use ViewColumn.Beside to open the editor to the side of the currently
-  /// active one.
-  external ViewColumn? get viewColumn;
-
-  /// An optional flag that when `true` will stop the NotebookEditornotebook
-  /// editor from taking focus.
-  external bool? get preserveFocus;
-
-  /// An optional flag that controls if an NotebookEditornotebook editor-tab
-  /// shows as preview. Preview tabs will
-  /// be replaced and reused until set to stay - either explicitly or through
-  /// editing. The default behaviour depends
-  /// on the `workbench.editor.enablePreview`-setting.
-  external bool? get preview;
-
-  /// An optional selection to apply for the document in the
-  /// NotebookEditornotebook editor.
-  external _i1.JSArray<NotebookRange?>? get selections;
-}
-
-/// A reference to one of the workbench colors as defined in
-/// https://code.visualstudio.com/api/references/theme-color.
-/// Using a theme color is preferred over a custom color as it gives theme
-/// authors and users the possibility to change the color.
-extension type ThemeColor._(_i1.JSObject _) implements _i1.JSObject {
-  external ThemeColor(String id);
-
-  /// The id of this color.
-  external String get id;
-}
-
-/// A reference to a named icon. Currently, ThemeIcon.FileFile,
-/// ThemeIcon.FolderFolder,
-/// and
-/// [ThemeIcon ids](https://code.visualstudio.com/api/references/icons-in-labels#icon-listing)
-/// are supported.
-/// Using a theme icon is preferred over a custom icon as it gives product
-/// theme authors the possibility to change the icons.
-///
-/// *Note* that theme icons can also be rendered inside labels and
-/// descriptions. Places that support theme icons spell this out
-/// and they use the `$(<name>)`-syntax, for instance `quickPick.label =
-/// "Hello World $(globe)"`.
-extension type ThemeIcon._(_i1.JSObject _) implements _i1.JSObject {
-  external ThemeIcon(String id, [ThemeColor? color]);
-
-  /// Reference to an icon representing a file. The icon is taken from the
-  /// current file icon theme or a placeholder icon is used.
-  external static ThemeIcon get File;
-
-  /// Reference to an icon representing a folder. The icon is taken from the
-  /// current file icon theme or a placeholder icon is used.
-  external static ThemeIcon get Folder;
-
-  /// The id of the icon. The available icons are listed in
-  /// https://code.visualstudio.com/api/references/icons-in-labels#icon-listing.
-  external String get id;
-
-  /// The optional ThemeColor of the icon. The color is currently only used in
-  /// TreeItem.
-  external ThemeColor? get color;
-}
-
-/// Represents theme specific rendering styles for a
-/// TextEditorDecorationTypetext editor decoration.
-extension type ThemableDecorationRenderOptions._(_i1.JSObject _)
-    implements _i1.JSObject {
-  /// Background color of the decoration. Use rgba() and define transparent
-  /// background colors to play well with other decorations.
-  /// Alternatively a color from the color registry can be ThemeColorreferenced.
-  external AnonymousUnion_3048258? backgroundColor;
-
-  /// CSS styling property that will be applied to text enclosed by a
-  /// decoration.
-  external String? outline;
-
-  /// CSS styling property that will be applied to text enclosed by a
-  /// decoration.
-  /// Better use 'outline' for setting one or more of the individual outline
-  /// properties.
-  external AnonymousUnion_3048258? outlineColor;
-
-  /// CSS styling property that will be applied to text enclosed by a
-  /// decoration.
-  /// Better use 'outline' for setting one or more of the individual outline
-  /// properties.
-  external String? outlineStyle;
-
-  /// CSS styling property that will be applied to text enclosed by a
-  /// decoration.
-  /// Better use 'outline' for setting one or more of the individual outline
-  /// properties.
-  external String? outlineWidth;
-
-  /// CSS styling property that will be applied to text enclosed by a
-  /// decoration.
-  external String? border;
-
-  /// CSS styling property that will be applied to text enclosed by a
-  /// decoration.
-  /// Better use 'border' for setting one or more of the individual border
-  /// properties.
-  external AnonymousUnion_3048258? borderColor;
-
-  /// CSS styling property that will be applied to text enclosed by a
-  /// decoration.
-  /// Better use 'border' for setting one or more of the individual border
-  /// properties.
-  external String? borderRadius;
-
-  /// CSS styling property that will be applied to text enclosed by a
-  /// decoration.
-  /// Better use 'border' for setting one or more of the individual border
-  /// properties.
-  external String? borderSpacing;
-
-  /// CSS styling property that will be applied to text enclosed by a
-  /// decoration.
-  /// Better use 'border' for setting one or more of the individual border
-  /// properties.
-  external String? borderStyle;
-
-  /// CSS styling property that will be applied to text enclosed by a
-  /// decoration.
-  /// Better use 'border' for setting one or more of the individual border
-  /// properties.
-  external String? borderWidth;
-
-  /// CSS styling property that will be applied to text enclosed by a
-  /// decoration.
-  external String? fontStyle;
-
-  /// CSS styling property that will be applied to text enclosed by a
-  /// decoration.
-  external String? fontWeight;
-
-  /// CSS styling property that will be applied to text enclosed by a
-  /// decoration.
-  external String? textDecoration;
-
-  /// CSS styling property that will be applied to text enclosed by a
-  /// decoration.
-  external String? cursor;
-
-  /// CSS styling property that will be applied to text enclosed by a
-  /// decoration.
-  external AnonymousUnion_3048258? color;
-
-  /// CSS styling property that will be applied to text enclosed by a
-  /// decoration.
-  external String? opacity;
-
-  /// CSS styling property that will be applied to text enclosed by a
-  /// decoration.
-  external String? letterSpacing;
-
-  /// An **absolute path** or an URI to an image to be rendered in the gutter.
-  external AnonymousUnion_4269776? gutterIconPath;
-
-  /// Specifies the size of the gutter icon.
-  /// Available values are 'auto', 'contain', 'cover' and any percentage value.
-  /// For further information:
-  /// https://msdn.microsoft.com/en-us/library/jj127316(v=vs.85).aspx
-  external String? gutterIconSize;
-
-  /// The color of the decoration in the overview ruler. Use rgba() and define
-  /// transparent colors to play well with other decorations.
-  external AnonymousUnion_3048258? overviewRulerColor;
-
-  /// Defines the rendering options of the attachment that is inserted before
-  /// the decorated text.
-  external ThemableDecorationAttachmentRenderOptions? before;
-
-  /// Defines the rendering options of the attachment that is inserted after the
-  /// decorated text.
-  external ThemableDecorationAttachmentRenderOptions? after;
-}
-
-/// Represents theme specific rendering styles for
-/// ThemableDecorationRenderOptions.beforebefore and
-/// ThemableDecorationRenderOptions.afterafter the content of text
-/// decorations.
-extension type ThemableDecorationAttachmentRenderOptions._(_i1.JSObject _)
-    implements _i1.JSObject {
-  /// Defines a text content that is shown in the attachment. Either an icon or
-  /// a text can be shown, but not both.
-  external String? contentText;
-
-  /// An **absolute path** or an URI to an image to be rendered in the
-  /// attachment. Either an icon
-  /// or a text can be shown, but not both.
-  external AnonymousUnion_4269776? contentIconPath;
-
-  /// CSS styling property that will be applied to the decoration attachment.
-  external String? border;
-
-  /// CSS styling property that will be applied to text enclosed by a
-  /// decoration.
-  external AnonymousUnion_3048258? borderColor;
-
-  /// CSS styling property that will be applied to the decoration attachment.
-  external String? fontStyle;
-
-  /// CSS styling property that will be applied to the decoration attachment.
-  external String? fontWeight;
-
-  /// CSS styling property that will be applied to the decoration attachment.
-  external String? textDecoration;
-
-  /// CSS styling property that will be applied to the decoration attachment.
-  external AnonymousUnion_3048258? color;
-
-  /// CSS styling property that will be applied to the decoration attachment.
-  external AnonymousUnion_3048258? backgroundColor;
-
-  /// CSS styling property that will be applied to the decoration attachment.
-  external String? margin;
-
-  /// CSS styling property that will be applied to the decoration attachment.
-  external String? width;
-
-  /// CSS styling property that will be applied to the decoration attachment.
-  external String? height;
-}
-
-/// Represents rendering styles for a TextEditorDecorationTypetext editor
-/// decoration.
-extension type DecorationRenderOptions._(_i1.JSObject _)
-    implements ThemableDecorationRenderOptions {
-  /// Should the decoration be rendered also on the whitespace after the line
-  /// text.
-  /// Defaults to `false`.
-  external bool? isWholeLine;
-
-  /// Customize the growing behavior of the decoration when edits occur at the
-  /// edges of the decoration's range.
-  /// Defaults to `DecorationRangeBehavior.OpenOpen`.
-  external DecorationRangeBehavior? rangeBehavior;
-
-  /// The position in the overview ruler where the decoration should be
-  /// rendered.
-  external OverviewRulerLane? overviewRulerLane;
-
-  /// Overwrite options for light themes.
-  external ThemableDecorationRenderOptions? light;
-
-  /// Overwrite options for dark themes.
-  external ThemableDecorationRenderOptions? dark;
-}
-
-/// Represents options for a specific decoration in a
-/// TextEditorDecorationTypedecoration set.
-extension type DecorationOptions._(_i1.JSObject _) implements _i1.JSObject {
-  /// Range to which this decoration is applied. The range must not be empty.
-  external Range range;
-
-  /// A message that should be rendered when hovering over the decoration.
-  external AnonymousUnion_2203367? hoverMessage;
-
-  /// Render options applied to the current decoration. For performance reasons,
-  /// keep the
-  /// number of decoration specific options small, and use decoration types
-  /// wherever possible.
-  external DecorationInstanceRenderOptions? renderOptions;
-}
-
-/// Represents themable render options for decoration instances.
-extension type ThemableDecorationInstanceRenderOptions._(_i1.JSObject _)
-    implements _i1.JSObject {
-  /// Defines the rendering options of the attachment that is inserted before
-  /// the decorated text.
-  external ThemableDecorationAttachmentRenderOptions? before;
-
-  /// Defines the rendering options of the attachment that is inserted after the
-  /// decorated text.
-  external ThemableDecorationAttachmentRenderOptions? after;
-}
-
-/// Represents render options for decoration instances. See
-/// DecorationOptions.renderOptions.
-extension type DecorationInstanceRenderOptions._(_i1.JSObject _)
-    implements ThemableDecorationInstanceRenderOptions {
-  /// Overwrite options for light themes.
-  external ThemableDecorationInstanceRenderOptions? light;
-
-  /// Overwrite options for dark themes.
-  external ThemableDecorationInstanceRenderOptions? dark;
-}
-
-/// Represents an editor that is attached to a TextDocumentdocument.
-extension type TextEditor._(_i1.JSObject _) implements _i1.JSObject {
-  /// The primary selection on this text editor. Shorthand for
-  /// `TextEditor.selections[0]`.
-  external Selection selection;
-
-  /// The selections in this text editor. The primary selection is always at
-  /// index 0.
-  external _i1.JSArray<Selection> selections;
-
-  /// Text editor options.
-  external TextEditorOptions options;
-
-  /// The document associated with this text editor. The document will be the
-  /// same for the entire lifetime of this text editor.
-  external TextDocument get document;
-
-  /// The current visible ranges in the editor (vertically).
-  /// This accounts only for vertical scrolling, and not for horizontal
-  /// scrolling.
-  external _i1.JSArray<Range> get visibleRanges;
-
-  /// The column in which this editor shows. Will be `undefined` in case this
-  /// isn't one of the main editors, e.g. an embedded editor, or when the editor
-  /// column is larger than three.
-  external ViewColumn? get viewColumn;
-
-  /// Perform an edit on the document associated with this text editor.
-  ///
-  /// The given callback-function is invoked with an TextEditorEditedit-builder
-  /// which must
-  /// be used to make edits. Note that the edit-builder is only valid while the
-  /// callback executes.
-  /// - [callback]:  A function which can create edits using an  .
-  /// - [options]:  The undo/redo behavior around this edit. By default, undo
-  ///   stops will be created before and after this edit.
-  ///
-  /// Returns A promise that resolves with a value indicating if the edits could
-  /// be applied.
-  external _i2.Thenable<_i1.JSBoolean> edit(
-    _AnonymousFunction_4216748 callback, [
-    AnonymousType_5135408? options,
-  ]);
-
-  /// Insert a SnippetStringsnippet and put the editor into snippet mode.
-  /// "Snippet mode"
-  /// means the editor adds placeholders and additional cursors so that the user
-  /// can complete
-  /// or accept the snippet.
-  /// - [snippet]:  The snippet to insert in this edit.
-  /// - [location]:  Position or range at which to insert the snippet, defaults
-  ///   to the current editor selection or selections.
-  /// - [options]:  The undo/redo behavior around this edit. By default, undo
-  ///   stops will be created before and after this edit.
-  ///
-  /// Returns A promise that resolves with a value indicating if the snippet
-  /// could be inserted. Note that the promise does not signal
-  /// that the snippet is completely filled-in or accepted.
-  external _i2.Thenable<_i1.JSBoolean> insertSnippet(
-    SnippetString snippet, [
-    AnonymousUnion_3982693? location,
-    AnonymousType_2368447? options,
-  ]);
-
-  /// Adds a set of decorations to the text editor. If a set of decorations
-  /// already exists with
-  /// the given TextEditorDecorationTypedecoration type, they will be replaced.
-  /// If
-  /// `rangesOrOptions` is empty, the existing decorations with the given
-  /// TextEditorDecorationTypedecoration type
-  /// will be removed.
-  /// - [decorationType]:  A decoration type.
-  /// - [rangesOrOptions]:  Either   or more detailed  .
-  external void setDecorations(
-    TextEditorDecorationType decorationType,
-    AnonymousUnion_1033307 rangesOrOptions,
-  );
-
-  /// Scroll as indicated by `revealType` in order to reveal the given range.
-  /// - [range]:  A range.
-  /// - [revealType]:  The scrolling strategy for revealing `range`.
-  external void revealRange(Range range, [TextEditorRevealType? revealType]);
-
-  /// Show the text editor.
-  /// - [column]:  The   in which to show this editor.
-  /// This method shows unexpected behavior and will be removed in the next
-  /// major update.
-  @Deprecated('Use window.showTextDocument  instead.')
-  @_i1.JS('show')
-  external void show$([ViewColumn? column]);
-
-  /// Hide the text editor.
-  @Deprecated(
-    'Use the command `workbench.action.closeActiveEditor` instead.\nThis method shows unexpected behavior and will be removed in the next major update.',
-  )
-  @_i1.JS('hide')
-  external void hide$();
-}
-
-/// A complex edit that will be applied in one transaction on a TextEditor.
-/// This holds a description of the edits and if the edits are valid (i.e. no
-/// overlapping regions, document was not changed in the meantime, etc.)
-/// they can be applied on a TextDocumentdocument associated with a
-/// TextEditortext editor.
-extension type TextEditorEdit._(_i1.JSObject _) implements _i1.JSObject {
-  /// Replace a certain text region with a new value.
-  /// You can use `\r\n` or `\n` in `value` and they will be normalized to the
-  /// current TextDocumentdocument.
-  /// - [location]:  The range this operation should remove.
-  /// - [value]:  The new text this operation should insert after removing
-  ///   `location`.
-  external void replace(AnonymousUnion_3845392 location, String value);
-
-  /// Insert text at a location.
-  /// You can use `\r\n` or `\n` in `value` and they will be normalized to the
-  /// current TextDocumentdocument.
-  /// Although the equivalent text edit can be made with
-  /// TextEditorEdit.replacereplace, `insert` will produce a different resulting
-  /// selection (it will get moved).
-  /// - [location]:  The position where the new text should be inserted.
-  /// - [value]:  The new text this operation should insert.
-  external void insert(Position location, String value);
-
-  /// Delete a certain text region.
-  /// - [location]:  The range this operation should remove.
-  external void delete(AnonymousUnion_3945215 location);
-
-  /// Set the end of line sequence.
-  /// - [endOfLine]:  The new end of line for the  .
-  external void setEndOfLine(EndOfLine endOfLine);
+  /// Returns The given position or a new, adjusted position.
+  external Position validatePosition(Position position);
 }
 
 /// A universal resource identifier representing either a file on disk
@@ -1236,6 +622,1213 @@ extension type Uri._(_i1.JSObject _) implements _i1.JSObject {
   external _i1.JSAny? toJSON();
 }
 
+/// Represents an end of line character sequence in a TextDocumentdocument.
+extension type const EndOfLine._(int _) {
+  /// The line feed `\n` character.
+  static const EndOfLine LF = EndOfLine._(1);
+
+  /// The carriage return line feed `\r\n` sequence.
+  static const EndOfLine CRLF = EndOfLine._(2);
+}
+
+/// Represents a text selection in an editor.
+extension type Selection._(_i1.JSObject _) implements Range {
+  external Selection(Position anchor, Position active);
+
+  external factory Selection.$1(
+    num anchorLine,
+    num anchorCharacter,
+    num activeLine,
+    num activeCharacter,
+  );
+
+  /// The position at which the selection starts.
+  /// This position might be before or after Selection.activeactive.
+  external Position get anchor;
+
+  /// The position of the cursor.
+  /// This position might be before or after Selection.anchoranchor.
+  external Position get active;
+
+  /// A selection is reversed if its Selection.anchoranchor is the
+  /// Selection.endend position.
+  external bool get isReversed;
+}
+
+/// Represents an event describing the change in a TextEditor.selectionstext
+/// editor's selections.
+extension type TextEditorSelectionChangeEvent._(_i1.JSObject _)
+    implements _i1.JSObject {
+  /// The TextEditortext editor for which the selections have changed.
+  external TextEditor get textEditor;
+
+  /// The new value for the TextEditor.selectionstext editor's selections.
+  external _i1.JSArray<Selection> get selections;
+
+  /// The TextEditorSelectionChangeKindchange kind which has triggered this
+  /// event. Can be `undefined`.
+  external TextEditorSelectionChangeKind? get kind;
+}
+
+/// Represents an editor that is attached to a TextDocumentdocument.
+extension type TextEditor._(_i1.JSObject _) implements _i1.JSObject {
+  /// The primary selection on this text editor. Shorthand for
+  /// `TextEditor.selections[0]`.
+  external Selection selection;
+
+  /// The selections in this text editor. The primary selection is always at
+  /// index 0.
+  external _i1.JSArray<Selection> selections;
+
+  /// Text editor options.
+  external TextEditorOptions options;
+
+  /// The document associated with this text editor. The document will be the
+  /// same for the entire lifetime of this text editor.
+  external TextDocument get document;
+
+  /// The current visible ranges in the editor (vertically).
+  /// This accounts only for vertical scrolling, and not for horizontal
+  /// scrolling.
+  external _i1.JSArray<Range> get visibleRanges;
+
+  /// The column in which this editor shows. Will be `undefined` in case this
+  /// isn't one of the main editors, e.g. an embedded editor, or when the editor
+  /// column is larger than three.
+  external ViewColumn? get viewColumn;
+
+  /// Perform an edit on the document associated with this text editor.
+  ///
+  /// The given callback-function is invoked with an TextEditorEditedit-builder
+  /// which must
+  /// be used to make edits. Note that the edit-builder is only valid while the
+  /// callback executes.
+  /// - [callback]:  A function which can create edits using an  .
+  /// - [options]:  The undo/redo behavior around this edit. By default, undo
+  ///   stops will be created before and after this edit.
+  ///
+  /// Returns A promise that resolves with a value indicating if the edits could
+  /// be applied.
+  external Thenable<_i1.JSBoolean> edit(
+    _AnonymousFunction_4216748 callback, [
+    AnonymousType_5135408? options,
+  ]);
+
+  /// Insert a SnippetStringsnippet and put the editor into snippet mode.
+  /// "Snippet mode"
+  /// means the editor adds placeholders and additional cursors so that the user
+  /// can complete
+  /// or accept the snippet.
+  /// - [snippet]:  The snippet to insert in this edit.
+  /// - [location]:  Position or range at which to insert the snippet, defaults
+  ///   to the current editor selection or selections.
+  /// - [options]:  The undo/redo behavior around this edit. By default, undo
+  ///   stops will be created before and after this edit.
+  ///
+  /// Returns A promise that resolves with a value indicating if the snippet
+  /// could be inserted. Note that the promise does not signal
+  /// that the snippet is completely filled-in or accepted.
+  external Thenable<_i1.JSBoolean> insertSnippet(
+    SnippetString snippet, [
+    AnonymousUnion_3982693? location,
+    AnonymousType_2368447? options,
+  ]);
+
+  /// Adds a set of decorations to the text editor. If a set of decorations
+  /// already exists with
+  /// the given TextEditorDecorationTypedecoration type, they will be replaced.
+  /// If
+  /// `rangesOrOptions` is empty, the existing decorations with the given
+  /// TextEditorDecorationTypedecoration type
+  /// will be removed.
+  /// - [decorationType]:  A decoration type.
+  /// - [rangesOrOptions]:  Either   or more detailed  .
+  external void setDecorations(
+    TextEditorDecorationType decorationType,
+    AnonymousUnion_1033307 rangesOrOptions,
+  );
+
+  /// Scroll as indicated by `revealType` in order to reveal the given range.
+  /// - [range]:  A range.
+  /// - [revealType]:  The scrolling strategy for revealing `range`.
+  external void revealRange(Range range, [TextEditorRevealType? revealType]);
+
+  /// Show the text editor.
+  /// - [column]:  The   in which to show this editor.
+  /// This method shows unexpected behavior and will be removed in the next
+  /// major update.
+  @Deprecated('Use window.showTextDocument  instead.')
+  @_i1.JS('show')
+  external void show$([ViewColumn? column]);
+
+  /// Hide the text editor.
+  @Deprecated(
+    'Use the command `workbench.action.closeActiveEditor` instead.\nThis method shows unexpected behavior and will be removed in the next major update.',
+  )
+  @_i1.JS('hide')
+  external void hide$();
+}
+
+/// Represents a TextEditortext editor's TextEditor.optionsoptions.
+extension type TextEditorOptions._(_i1.JSObject _) implements _i1.JSObject {
+  /// The size in spaces a tab takes. This is used for two purposes:
+  ///  - the rendering width of a tab character;
+  ///  - the number of spaces to insert when TextEditorOptions.insertSpacesinsertSpaces is true
+  /// and `indentSize` is set to `"tabSize"`.
+  ///
+  /// When getting a text editor's options, this property will always be a
+  /// number (resolved).
+  /// When setting a text editor's options, this property is optional and it can
+  /// be a number or `"auto"`.
+  external AnonymousUnion_2683278? tabSize;
+
+  /// The number of spaces to insert when
+  /// TextEditorOptions.insertSpacesinsertSpaces is true.
+  ///
+  /// When getting a text editor's options, this property will always be a
+  /// number (resolved).
+  /// When setting a text editor's options, this property is optional and it can
+  /// be a number or `"tabSize"`.
+  external AnonymousUnion_2683278? indentSize;
+
+  /// When pressing Tab insert TextEditorOptions.tabSizen spaces.
+  /// When getting a text editor's options, this property will always be a
+  /// boolean (resolved).
+  /// When setting a text editor's options, this property is optional and it can
+  /// be a boolean or `"auto"`.
+  external AnonymousUnion_8168791? insertSpaces;
+
+  /// The rendering style of the cursor in this editor.
+  /// When getting a text editor's options, this property will always be
+  /// present.
+  /// When setting a text editor's options, this property is optional.
+  external TextEditorCursorStyle? cursorStyle;
+
+  /// Render relative line numbers w.r.t. the current line number.
+  /// When getting a text editor's options, this property will always be
+  /// present.
+  /// When setting a text editor's options, this property is optional.
+  external TextEditorLineNumbersStyle? lineNumbers;
+}
+
+/// Rendering style of the cursor.
+extension type const TextEditorCursorStyle._(int _) {
+  /// Render the cursor as a vertical thick line.
+  static const TextEditorCursorStyle Line = TextEditorCursorStyle._(1);
+
+  /// Render the cursor as a block filled.
+  static const TextEditorCursorStyle Block = TextEditorCursorStyle._(2);
+
+  /// Render the cursor as a thick horizontal line.
+  static const TextEditorCursorStyle Underline = TextEditorCursorStyle._(3);
+
+  /// Render the cursor as a vertical thin line.
+  static const TextEditorCursorStyle LineThin = TextEditorCursorStyle._(4);
+
+  /// Render the cursor as a block outlined.
+  static const TextEditorCursorStyle BlockOutline = TextEditorCursorStyle._(5);
+
+  /// Render the cursor as a thin horizontal line.
+  static const TextEditorCursorStyle UnderlineThin = TextEditorCursorStyle._(6);
+}
+
+/// Rendering style of the line numbers.
+extension type const TextEditorLineNumbersStyle._(int _) {
+  /// Do not render the line numbers.
+  static const TextEditorLineNumbersStyle Off = TextEditorLineNumbersStyle._(0);
+
+  /// Render the line numbers.
+  static const TextEditorLineNumbersStyle On = TextEditorLineNumbersStyle._(1);
+
+  /// Render the line numbers with values relative to the primary cursor
+  /// location.
+  static const TextEditorLineNumbersStyle Relative =
+      TextEditorLineNumbersStyle._(2);
+
+  /// Render the line numbers on every 10th line number.
+  static const TextEditorLineNumbersStyle Interval =
+      TextEditorLineNumbersStyle._(3);
+}
+
+/// Denotes a location of an editor in the window. Editors can be arranged in
+/// a grid
+/// and each column represents one editor location in that grid by counting
+/// the editors
+/// in order of their appearance.
+extension type const ViewColumn._(int _) {
+  /// The first editor column.
+  static const ViewColumn One = ViewColumn._(1);
+
+  /// The second editor column.
+  static const ViewColumn Two = ViewColumn._(2);
+
+  /// The third editor column.
+  static const ViewColumn Three = ViewColumn._(3);
+
+  /// The fourth editor column.
+  static const ViewColumn Four = ViewColumn._(4);
+
+  /// The fifth editor column.
+  static const ViewColumn Five = ViewColumn._(5);
+
+  /// The sixth editor column.
+  static const ViewColumn Six = ViewColumn._(6);
+
+  /// The seventh editor column.
+  static const ViewColumn Seven = ViewColumn._(7);
+
+  /// The eighth editor column.
+  static const ViewColumn Eight = ViewColumn._(8);
+
+  /// The ninth editor column.
+  static const ViewColumn Nine = ViewColumn._(9);
+}
+
+/// A complex edit that will be applied in one transaction on a TextEditor.
+/// This holds a description of the edits and if the edits are valid (i.e. no
+/// overlapping regions, document was not changed in the meantime, etc.)
+/// they can be applied on a TextDocumentdocument associated with a
+/// TextEditortext editor.
+extension type TextEditorEdit._(_i1.JSObject _) implements _i1.JSObject {
+  /// Replace a certain text region with a new value.
+  /// You can use `\r\n` or `\n` in `value` and they will be normalized to the
+  /// current TextDocumentdocument.
+  /// - [location]:  The range this operation should remove.
+  /// - [value]:  The new text this operation should insert after removing
+  ///   `location`.
+  external void replace(AnonymousUnion_3845392 location, String value);
+
+  /// Insert text at a location.
+  /// You can use `\r\n` or `\n` in `value` and they will be normalized to the
+  /// current TextDocumentdocument.
+  /// Although the equivalent text edit can be made with
+  /// TextEditorEdit.replacereplace, `insert` will produce a different resulting
+  /// selection (it will get moved).
+  /// - [location]:  The position where the new text should be inserted.
+  /// - [value]:  The new text this operation should insert.
+  external void insert(Position location, String value);
+
+  /// Delete a certain text region.
+  /// - [location]:  The range this operation should remove.
+  external void delete(AnonymousUnion_3945215 location);
+
+  /// Set the end of line sequence.
+  /// - [endOfLine]:  The new end of line for the  .
+  external void setEndOfLine(EndOfLine endOfLine);
+}
+
+/// A snippet string is a template which allows to insert text
+/// and to control the editor cursor when insertion happens.
+///
+/// A snippet can define tab stops and placeholders with `$1`, `$2`
+/// and `${3:foo}`. `$0` defines the final tab stop, it defaults to
+/// the end of the snippet. Variables are defined with `$name` and
+/// `${name:default value}`. Also see
+/// [the full snippet syntax](https://code.visualstudio.com/docs/editor/userdefinedsnippets#_create-your-own-snippets).
+extension type SnippetString._(_i1.JSObject _) implements _i1.JSObject {
+  external SnippetString([String? value]);
+
+  /// The snippet string.
+  external String value;
+
+  /// Builder-function that appends the given string to
+  /// the SnippetString.valuevalue of this snippet string.
+  /// - [string]:  A value to append 'as given'. The string will be escaped.
+  ///
+  /// Returns This snippet string.
+  external SnippetString appendText(String string);
+
+  /// Builder-function that appends a tabstop (`$1`, `$2` etc) to
+  /// the SnippetString.valuevalue of this snippet string.
+  /// - [number]:  The number of this tabstop, defaults to an auto-increment
+  /// value starting at 1.
+  ///
+  /// Returns This snippet string.
+  external SnippetString appendTabstop([num? number]);
+
+  /// Builder-function that appends a placeholder (`${1:value}`) to
+  /// the SnippetString.valuevalue of this snippet string.
+  /// - [value]:  The value of this placeholder - either a string or a function
+  /// with which a nested snippet can be created.
+  /// - [number]:  The number of this tabstop, defaults to an auto-increment
+  /// value starting at 1.
+  ///
+  /// Returns This snippet string.
+  external SnippetString appendPlaceholder(
+    AnonymousUnion_3824004 value, [
+    num? number,
+  ]);
+
+  /// Builder-function that appends a choice (`${1|a,b,c|}`) to
+  /// the SnippetString.valuevalue of this snippet string.
+  /// - [values]:  The values for choices - the array of strings
+  /// - [number]:  The number of this tabstop, defaults to an auto-increment
+  /// value starting at 1.
+  ///
+  /// Returns This snippet string.
+  external SnippetString appendChoice(
+    _i1.JSArray<_i1.JSString> values, [
+    num? number,
+  ]);
+
+  /// Builder-function that appends a variable (`${VAR}`) to
+  /// the SnippetString.valuevalue of this snippet string.
+  /// - [name]:  The name of the variable - excluding the `$`.
+  /// - [defaultValue]:  The default value which is used when the variable name
+  ///   cannot
+  /// be resolved - either a string or a function with which a nested snippet
+  /// can be created.
+  ///
+  /// Returns This snippet string.
+  external SnippetString appendVariable(
+    String name,
+    AnonymousUnion_3824004 defaultValue,
+  );
+}
+
+/// Represents a handle to a set of decorations
+/// sharing the same DecorationRenderOptionsstyling options in a
+/// TextEditortext editor.
+///
+/// To get an instance of a `TextEditorDecorationType` use
+/// window.createTextEditorDecorationTypecreateTextEditorDecorationType.
+extension type TextEditorDecorationType._(_i1.JSObject _)
+    implements _i1.JSObject {
+  /// Internal representation of the handle.
+  external String get key;
+
+  /// Remove this decoration type and all decorations on all text editors using
+  /// it.
+  external void dispose();
+}
+
+/// Represents options for a specific decoration in a
+/// TextEditorDecorationTypedecoration set.
+extension type DecorationOptions._(_i1.JSObject _) implements _i1.JSObject {
+  /// Range to which this decoration is applied. The range must not be empty.
+  external Range range;
+
+  /// A message that should be rendered when hovering over the decoration.
+  external AnonymousUnion_2203367? hoverMessage;
+
+  /// Render options applied to the current decoration. For performance reasons,
+  /// keep the
+  /// number of decoration specific options small, and use decoration types
+  /// wherever possible.
+  external DecorationInstanceRenderOptions? renderOptions;
+}
+
+/// Human-readable text that supports formatting via the
+/// [markdown syntax](https://commonmark.org).
+///
+/// Rendering of ThemeIcontheme icons via the `$(<name>)`-syntax is supported
+/// when the supportThemeIcons is set to `true`.
+///
+/// Rendering of embedded html is supported when supportHtml is set to `true`.
+extension type MarkdownString._(_i1.JSObject _) implements _i1.JSObject {
+  external MarkdownString([String? value, bool? supportThemeIcons]);
+
+  /// The markdown string.
+  external String value;
+
+  /// Indicates that this markdown string is from a trusted source. Only
+  /// *trusted*
+  /// markdown supports links that execute commands, e.g.
+  /// `[Run it](command:myCommandId)`.
+  ///
+  /// Defaults to `false` (commands are disabled).
+  external AnonymousUnion_5916908? isTrusted;
+
+  /// Indicates that this markdown string can contain ThemeIconThemeIcons, e.g.
+  /// `$(zap)`.
+  external bool? supportThemeIcons;
+
+  /// Indicates that this markdown string can contain raw html tags. Defaults to
+  /// `false`.
+  ///
+  /// When `supportHtml` is false, the markdown renderer will strip out any raw
+  /// html tags
+  /// that appear in the markdown text. This means you can only use markdown
+  /// syntax for rendering.
+  ///
+  /// When `supportHtml` is true, the markdown render will also allow a safe
+  /// subset of html tags
+  /// and attributes to be rendered. See
+  /// https://github.com/microsoft/vscode/blob/6d2920473c6f13759c978dd89104c4270a83422d/src/vs/base/browser/markdownRenderer.ts#L296
+  /// for a list of all supported tags and attributes.
+  external bool? supportHtml;
+
+  /// Uri that relative paths are resolved relative to.
+  ///
+  /// If the `baseUri` ends with `/`, it is considered a directory and relative
+  /// paths in the markdown are resolved relative to that directory:
+  ///
+  /// ```ts
+  /// const md = new vscode.MarkdownString(`[link](./file.js)`);
+  /// md.baseUri = vscode.Uri.file('/path/to/dir/');
+  /// // Here 'link' in the rendered markdown resolves to '/path/to/dir/file.js'
+  /// ```
+  ///
+  /// If the `baseUri` is a file, relative paths in the markdown are resolved
+  /// relative to the parent dir of that file:
+  ///
+  /// ```ts
+  /// const md = new vscode.MarkdownString(`[link](./file.js)`);
+  /// md.baseUri = vscode.Uri.file('/path/to/otherFile.js');
+  /// // Here 'link' in the rendered markdown resolves to '/path/to/file.js'
+  /// ```
+  external Uri? baseUri;
+
+  /// Appends and escapes the given string to this markdown string.
+  /// - [value]:  Plain text.
+  external MarkdownString appendText(String value);
+
+  /// Appends the given string 'as is' to this markdown string. When
+  /// MarkdownString.supportThemeIconssupportThemeIcons is `true`,
+  /// ThemeIconThemeIcons in the `value` will be iconified.
+  /// - [value]:  Markdown string.
+  external MarkdownString appendMarkdown(String value);
+
+  /// Appends the given string as codeblock using the provided language.
+  /// - [value]:  A code snippet.
+  /// - [language]:  An optional  .
+  external MarkdownString appendCodeblock(String value, [String? language]);
+}
+
+/// Represents themable render options for decoration instances.
+extension type ThemableDecorationInstanceRenderOptions._(_i1.JSObject _)
+    implements _i1.JSObject {
+  /// Defines the rendering options of the attachment that is inserted before
+  /// the decorated text.
+  external ThemableDecorationAttachmentRenderOptions? before;
+
+  /// Defines the rendering options of the attachment that is inserted after the
+  /// decorated text.
+  external ThemableDecorationAttachmentRenderOptions? after;
+}
+
+/// Represents theme specific rendering styles for
+/// ThemableDecorationRenderOptions.beforebefore and
+/// ThemableDecorationRenderOptions.afterafter the content of text
+/// decorations.
+extension type ThemableDecorationAttachmentRenderOptions._(_i1.JSObject _)
+    implements _i1.JSObject {
+  /// Defines a text content that is shown in the attachment. Either an icon or
+  /// a text can be shown, but not both.
+  external String? contentText;
+
+  /// An **absolute path** or an URI to an image to be rendered in the
+  /// attachment. Either an icon
+  /// or a text can be shown, but not both.
+  external AnonymousUnion_4269776? contentIconPath;
+
+  /// CSS styling property that will be applied to the decoration attachment.
+  external String? border;
+
+  /// CSS styling property that will be applied to text enclosed by a
+  /// decoration.
+  external AnonymousUnion_3048258? borderColor;
+
+  /// CSS styling property that will be applied to the decoration attachment.
+  external String? fontStyle;
+
+  /// CSS styling property that will be applied to the decoration attachment.
+  external String? fontWeight;
+
+  /// CSS styling property that will be applied to the decoration attachment.
+  external String? textDecoration;
+
+  /// CSS styling property that will be applied to the decoration attachment.
+  external AnonymousUnion_3048258? color;
+
+  /// CSS styling property that will be applied to the decoration attachment.
+  external AnonymousUnion_3048258? backgroundColor;
+
+  /// CSS styling property that will be applied to the decoration attachment.
+  external String? margin;
+
+  /// CSS styling property that will be applied to the decoration attachment.
+  external String? width;
+
+  /// CSS styling property that will be applied to the decoration attachment.
+  external String? height;
+}
+
+/// A reference to one of the workbench colors as defined in
+/// https://code.visualstudio.com/api/references/theme-color.
+/// Using a theme color is preferred over a custom color as it gives theme
+/// authors and users the possibility to change the color.
+extension type ThemeColor._(_i1.JSObject _) implements _i1.JSObject {
+  external ThemeColor(String id);
+
+  /// The id of this color.
+  external String get id;
+}
+
+/// Represents render options for decoration instances. See
+/// DecorationOptions.renderOptions.
+extension type DecorationInstanceRenderOptions._(_i1.JSObject _)
+    implements ThemableDecorationInstanceRenderOptions {
+  /// Overwrite options for light themes.
+  external ThemableDecorationInstanceRenderOptions? light;
+
+  /// Overwrite options for dark themes.
+  external ThemableDecorationInstanceRenderOptions? dark;
+}
+
+/// Represents different TextEditor.revealRangereveal strategies in a text
+/// editor.
+extension type const TextEditorRevealType._(int _) {
+  /// The range will be revealed with as little scrolling as possible.
+  static const TextEditorRevealType Default = TextEditorRevealType._(0);
+
+  /// The range will always be revealed in the center of the viewport.
+  static const TextEditorRevealType InCenter = TextEditorRevealType._(1);
+
+  /// If the range is outside the viewport, it will be revealed in the center of
+  /// the viewport.
+  /// Otherwise, it will be revealed with as little scrolling as possible.
+  static const TextEditorRevealType InCenterIfOutsideViewport =
+      TextEditorRevealType._(2);
+
+  /// The range will always be revealed at the top of the viewport.
+  static const TextEditorRevealType AtTop = TextEditorRevealType._(3);
+}
+
+/// Represents sources that can cause
+/// window.onDidChangeTextEditorSelectionselection change events.
+extension type const TextEditorSelectionChangeKind._(int _) {
+  /// Selection changed due to typing in the editor.
+  static const TextEditorSelectionChangeKind Keyboard =
+      TextEditorSelectionChangeKind._(1);
+
+  /// Selection change due to clicking in the editor.
+  static const TextEditorSelectionChangeKind Mouse =
+      TextEditorSelectionChangeKind._(2);
+
+  /// Selection changed because a command ran.
+  static const TextEditorSelectionChangeKind Command =
+      TextEditorSelectionChangeKind._(3);
+}
+
+/// Represents an event describing the change in a
+/// TextEditor.visibleRangestext editor's visible ranges.
+extension type TextEditorVisibleRangesChangeEvent._(_i1.JSObject _)
+    implements _i1.JSObject {
+  /// The TextEditortext editor for which the visible ranges have changed.
+  external TextEditor get textEditor;
+
+  /// The new value for the TextEditor.visibleRangestext editor's visible
+  /// ranges.
+  external _i1.JSArray<Range> get visibleRanges;
+}
+
+/// Represents an event describing the change in a TextEditor.optionstext
+/// editor's options.
+extension type TextEditorOptionsChangeEvent._(_i1.JSObject _)
+    implements _i1.JSObject {
+  /// The TextEditortext editor for which the options have changed.
+  external TextEditor get textEditor;
+
+  /// The new value for the TextEditor.optionstext editor's options.
+  external TextEditorOptions get options;
+}
+
+/// Represents an event describing the change of a TextEditor.viewColumntext
+/// editor's view column.
+extension type TextEditorViewColumnChangeEvent._(_i1.JSObject _)
+    implements _i1.JSObject {
+  /// The TextEditortext editor for which the view column has changed.
+  external TextEditor get textEditor;
+
+  /// The new value for the TextEditor.viewColumntext editor's view column.
+  external ViewColumn get viewColumn;
+}
+
+/// Represents options to configure the behavior of showing a
+/// TextDocumentdocument in an TextEditoreditor.
+extension type TextDocumentShowOptions._(_i1.JSObject _)
+    implements _i1.JSObject {
+  /// An optional view column in which the TextEditoreditor should be shown.
+  /// The default is the ViewColumn.Activeactive. Columns that do not exist
+  /// will be created as needed up to the maximum of ViewColumn.Nine.
+  /// Use ViewColumn.Beside to open the editor to the side of the currently
+  /// active one.
+  external ViewColumn? viewColumn;
+
+  /// An optional flag that when `true` will stop the TextEditoreditor from
+  /// taking focus.
+  external bool? preserveFocus;
+
+  /// An optional flag that controls if an TextEditoreditor-tab shows as
+  /// preview. Preview tabs will
+  /// be replaced and reused until set to stay - either explicitly or through
+  /// editing.
+  ///
+  /// *Note* that the flag is ignored if a user has disabled preview editors in
+  /// settings.
+  external bool? preview;
+
+  /// An optional selection to apply for the document in the TextEditoreditor.
+  external Range? selection;
+}
+
+/// Represents an event describing the change in a
+/// NotebookEditor.selectionsnotebook editor's selections.
+extension type NotebookEditorSelectionChangeEvent._(_i1.JSObject _)
+    implements _i1.JSObject {
+  /// The NotebookEditornotebook editor for which the selections have changed.
+  external NotebookEditor get notebookEditor;
+
+  /// The new value for the NotebookEditor.selectionsnotebook editor's
+  /// selections.
+  external _i1.JSArray<NotebookRange> get selections;
+}
+
+/// Represents a notebook editor that is attached to a
+/// NotebookDocumentnotebook.
+/// Additional properties of the NotebookEditor are available in the proposed
+/// API, which will be finalized later.
+extension type NotebookEditor._(_i1.JSObject _) implements _i1.JSObject {
+  /// The primary selection in this notebook editor.
+  external NotebookRange selection;
+
+  /// All selections in this notebook editor.
+  ///
+  /// The primary selection (or focused range) is `selections[0]`. When the
+  /// document has no cells, the primary selection is empty `{ start: 0, end: 0
+  /// }`;
+  external _i1.JSArray<NotebookRange> selections;
+
+  /// The NotebookDocumentnotebook document associated with this notebook
+  /// editor.
+  external NotebookDocument get notebook;
+
+  /// The current visible ranges in the editor (vertically).
+  external _i1.JSArray<NotebookRange> get visibleRanges;
+
+  /// The column in which this editor shows.
+  external ViewColumn? get viewColumn;
+
+  /// Scroll as indicated by `revealType` in order to reveal the given range.
+  /// - [range]:  A range.
+  /// - [revealType]:  The scrolling strategy for revealing `range`.
+  external void revealRange(
+    NotebookRange range, [
+    NotebookEditorRevealType? revealType,
+  ]);
+}
+
+/// Represents a notebook which itself is a sequence of NotebookCellcode or
+/// markup cells. Notebook documents are
+/// created from NotebookDatanotebook data.
+extension type NotebookDocument._(_i1.JSObject _) implements _i1.JSObject {
+  /// The associated uri for this notebook.
+  ///
+  /// *Note* that most notebooks use the `file`-scheme, which means they are
+  /// files on disk. However, **not** all notebooks are
+  /// saved on disk and therefore the `scheme` must be checked before trying to
+  /// access the underlying file or siblings on disk.
+  external Uri get uri;
+
+  /// The type of notebook.
+  external String get notebookType;
+
+  /// The version number of this notebook (it will strictly increase after each
+  /// change, including undo/redo).
+  external double get version;
+
+  /// `true` if there are unpersisted changes.
+  external bool get isDirty;
+
+  /// Is this notebook representing an untitled file which has not been saved
+  /// yet.
+  external bool get isUntitled;
+
+  /// `true` if the notebook has been closed. A closed notebook isn't
+  /// synchronized anymore
+  /// and won't be re-used when the same resource is opened again.
+  external bool get isClosed;
+
+  /// Arbitrary metadata for this notebook. Can be anything but must be
+  /// JSON-stringifyable.
+  external AnonymousType_1282391 get metadata;
+
+  /// The number of cells in the notebook.
+  external double get cellCount;
+
+  /// Return the cell at the specified index. The index will be adjusted to the
+  /// notebook.
+  /// - [index]:  - The index of the cell to retrieve.
+  ///
+  /// Returns A NotebookCell cell.
+  external NotebookCell cellAt(num index);
+
+  /// Get the cells of this notebook. A subset can be retrieved by providing
+  /// a range. The range will be adjusted to the notebook.
+  /// - [range]:  A notebook range.
+  ///
+  /// Returns The cells contained by the range or all cells.
+  external _i1.JSArray<NotebookCell> getCells([NotebookRange? range]);
+
+  /// Save the document. The saving will be handled by the corresponding
+  /// NotebookSerializerserializer.
+  ///
+  /// Returns A promise that will resolve to true when the document
+  /// has been saved. Will return false if the file was not dirty or when save
+  /// failed.
+  external Thenable<_i1.JSBoolean> save();
+}
+
+/// Represents a cell of a NotebookDocumentnotebook, either a
+/// NotebookCellKind.Codecode-cell
+/// or NotebookCellKind.Markupmarkup-cell.
+///
+/// NotebookCell instances are immutable and are kept in sync for as long as
+/// they are part of their notebook.
+extension type NotebookCell._(_i1.JSObject _) implements _i1.JSObject {
+  /// The index of this cell in its NotebookDocument.cellAtcontaining notebook.
+  /// The
+  /// index is updated when a cell is moved within its notebook. The index is
+  /// `-1`
+  /// when the cell has been removed from its notebook.
+  external double get index;
+
+  /// The NotebookDocumentnotebook that contains this cell.
+  external NotebookDocument get notebook;
+
+  /// The kind of this cell.
+  external NotebookCellKind get kind;
+
+  /// The TextDocumenttext of this cell, represented as text document.
+  external TextDocument get document;
+
+  /// The metadata of this cell. Can be anything but must be JSON-stringifyable.
+  external AnonymousType_1143055 get metadata;
+
+  /// The outputs of this cell.
+  external _i1.JSArray<NotebookCellOutput> get outputs;
+
+  /// The most recent NotebookCellExecutionSummaryexecution summary for this
+  /// cell.
+  external NotebookCellExecutionSummary? get executionSummary;
+}
+
+/// A notebook cell kind.
+extension type const NotebookCellKind._(int _) {
+  /// A markup-cell is formatted source that is used for display.
+  static const NotebookCellKind Markup = NotebookCellKind._(1);
+
+  /// A code-cell is source that can be NotebookControllerexecuted and that
+  /// produces NotebookCellOutputoutput.
+  static const NotebookCellKind Code = NotebookCellKind._(2);
+}
+
+/// Notebook cell output represents a result of executing a cell. It is a
+/// container type for multiple
+/// NotebookCellOutputItemoutput items where contained items represent the
+/// same result but
+/// use different MIME types.
+extension type NotebookCellOutput._(_i1.JSObject _) implements _i1.JSObject {
+  external NotebookCellOutput(
+    _i1.JSArray<NotebookCellOutputItem> items, [
+    AnonymousType_1282391? metadata,
+  ]);
+
+  /// The output items of this output. Each item must represent the same result.
+  /// _Note_ that repeated
+  /// MIME types per output is invalid and that the editor will just pick one of
+  /// them.
+  ///
+  /// ```ts
+  /// new vscode.NotebookCellOutput([
+  /// 	vscode.NotebookCellOutputItem.text('Hello', 'text/plain'),
+  /// 	vscode.NotebookCellOutputItem.text('<i>Hello</i>', 'text/html'),
+  /// 	vscode.NotebookCellOutputItem.text('_Hello_', 'text/markdown'),
+  /// 	vscode.NotebookCellOutputItem.text('Hey', 'text/plain'), // INVALID: repeated type, editor will pick just one
+  /// ])
+  /// ```
+  external _i1.JSArray<NotebookCellOutputItem> items;
+
+  /// Arbitrary metadata for this cell output. Can be anything but must be
+  /// JSON-stringifyable.
+  external AnonymousType_1282391? metadata;
+}
+
+/// One representation of a NotebookCellOutputnotebook output, defined by MIME
+/// type and data.
+extension type NotebookCellOutputItem._(_i1.JSObject _)
+    implements _i1.JSObject {
+  external NotebookCellOutputItem(_i1.JSUint8Array data, String mime);
+
+  /// The mime type which determines how the
+  /// NotebookCellOutputItem.datadata-property
+  /// is interpreted.
+  ///
+  /// Notebooks have built-in support for certain mime-types, extensions can add
+  /// support for new
+  /// types and override existing types.
+  external String mime;
+
+  /// The data of this output item. Must always be an array of unsigned 8-bit
+  /// integers.
+  external _i1.JSUint8Array data;
+
+  /// Factory function to create a `NotebookCellOutputItem` from a string.
+  ///
+  /// *Note* that an UTF-8 encoder is used to create bytes for the string.
+  /// - [value]:  A string.
+  /// - [mime]:  Optional MIME type, defaults to `text/plain`.
+  ///
+  /// Returns A new output item object.
+  external static NotebookCellOutputItem text(String value, [String? mime]);
+
+  /// Factory function to create a `NotebookCellOutputItem` from
+  /// a JSON object.
+  ///
+  /// *Note* that this function is not expecting "stringified JSON" but
+  /// an object that can be stringified. This function will throw an error
+  /// when the passed value cannot be JSON-stringified.
+  /// - [value]:  A JSON-stringifyable value.
+  /// - [mime]:  Optional MIME type, defaults to `application/json`
+  ///
+  /// Returns A new output item object.
+  external static NotebookCellOutputItem json(_i1.JSAny? value, [String? mime]);
+
+  /// Factory function to create a `NotebookCellOutputItem` that uses
+  /// uses the `application/vnd.code.notebook.stdout` mime type.
+  /// - [value]:  A string.
+  ///
+  /// Returns A new output item object.
+  external static NotebookCellOutputItem stdout(String value);
+
+  /// Factory function to create a `NotebookCellOutputItem` that uses
+  /// uses the `application/vnd.code.notebook.stderr` mime type.
+  /// - [value]:  A string.
+  ///
+  /// Returns A new output item object.
+  external static NotebookCellOutputItem stderr(String value);
+
+  /// Factory function to create a `NotebookCellOutputItem` that uses
+  /// uses the `application/vnd.code.notebook.error` mime type.
+  /// - [value]:  An error object.
+  ///
+  /// Returns A new output item object.
+  external static NotebookCellOutputItem error(Error value);
+}
+
+/// The summary of a notebook cell execution.
+extension type NotebookCellExecutionSummary._(_i1.JSObject _)
+    implements _i1.JSObject {
+  /// The order in which the execution happened.
+  external double? get executionOrder;
+
+  /// If the execution finished successfully.
+  external bool? get success;
+
+  /// The times at which execution started and ended, as unix timestamps
+  external AnonymousType_1254832? get timing;
+}
+
+/// A notebook range represents an ordered pair of two cell indices.
+/// It is guaranteed that start is less than or equal to end.
+extension type NotebookRange._(_i1.JSObject _) implements _i1.JSObject {
+  external NotebookRange(num start, num end);
+
+  /// The zero-based start index of this range.
+  external double get start;
+
+  /// The exclusive end index of this range (zero-based).
+  external double get end;
+
+  /// `true` if `start` and `end` are equal.
+  external bool get isEmpty;
+
+  /// Derive a new range for this range.
+  /// - [change]:  An object that describes a change to this range.
+  ///
+  /// Returns A range that reflects the given change. Will return `this` range
+  /// if the change
+  /// is not changing anything.
+  @_i1.JS('with')
+  external NotebookRange with$(AnonymousType_2863805 change);
+}
+
+/// Represents a notebook editor that is attached to a
+/// NotebookDocumentnotebook.
+extension type const NotebookEditorRevealType._(int _) {
+  /// The range will be revealed with as little scrolling as possible.
+  static const NotebookEditorRevealType Default = NotebookEditorRevealType._(0);
+
+  /// The range will always be revealed in the center of the viewport.
+  static const NotebookEditorRevealType InCenter = NotebookEditorRevealType._(
+    1,
+  );
+
+  /// If the range is outside the viewport, it will be revealed in the center of
+  /// the viewport.
+  /// Otherwise, it will be revealed with as little scrolling as possible.
+  static const NotebookEditorRevealType InCenterIfOutsideViewport =
+      NotebookEditorRevealType._(2);
+
+  /// The range will always be revealed at the top of the viewport.
+  static const NotebookEditorRevealType AtTop = NotebookEditorRevealType._(3);
+}
+
+/// Represents an event describing the change in a
+/// NotebookEditor.visibleRangesnotebook editor's visibleRanges.
+extension type NotebookEditorVisibleRangesChangeEvent._(_i1.JSObject _)
+    implements _i1.JSObject {
+  /// The NotebookEditornotebook editor for which the visible ranges have
+  /// changed.
+  external NotebookEditor get notebookEditor;
+
+  /// The new value for the NotebookEditor.visibleRangesnotebook editor's
+  /// visibleRanges.
+  external _i1.JSArray<NotebookRange> get visibleRanges;
+}
+
+/// Represents options to configure the behavior of showing a
+/// NotebookDocumentnotebook document in an NotebookEditornotebook editor.
+extension type NotebookDocumentShowOptions._(_i1.JSObject _)
+    implements _i1.JSObject {
+  /// An optional view column in which the NotebookEditornotebook editor should
+  /// be shown.
+  /// The default is the ViewColumn.Activeactive. Columns that do not exist
+  /// will be created as needed up to the maximum of ViewColumn.Nine.
+  /// Use ViewColumn.Beside to open the editor to the side of the currently
+  /// active one.
+  external ViewColumn? get viewColumn;
+
+  /// An optional flag that when `true` will stop the NotebookEditornotebook
+  /// editor from taking focus.
+  external bool? get preserveFocus;
+
+  /// An optional flag that controls if an NotebookEditornotebook editor-tab
+  /// shows as preview. Preview tabs will
+  /// be replaced and reused until set to stay - either explicitly or through
+  /// editing. The default behaviour depends
+  /// on the `workbench.editor.enablePreview`-setting.
+  external bool? get preview;
+
+  /// An optional selection to apply for the document in the
+  /// NotebookEditornotebook editor.
+  external _i1.JSArray<NotebookRange?>? get selections;
+}
+
+/// A reference to a named icon. Currently, ThemeIcon.FileFile,
+/// ThemeIcon.FolderFolder,
+/// and
+/// [ThemeIcon ids](https://code.visualstudio.com/api/references/icons-in-labels#icon-listing)
+/// are supported.
+/// Using a theme icon is preferred over a custom icon as it gives product
+/// theme authors the possibility to change the icons.
+///
+/// *Note* that theme icons can also be rendered inside labels and
+/// descriptions. Places that support theme icons spell this out
+/// and they use the `$(<name>)`-syntax, for instance `quickPick.label =
+/// "Hello World $(globe)"`.
+extension type ThemeIcon._(_i1.JSObject _) implements _i1.JSObject {
+  external ThemeIcon(String id, [ThemeColor? color]);
+
+  /// Reference to an icon representing a file. The icon is taken from the
+  /// current file icon theme or a placeholder icon is used.
+  external static ThemeIcon get File;
+
+  /// Reference to an icon representing a folder. The icon is taken from the
+  /// current file icon theme or a placeholder icon is used.
+  external static ThemeIcon get Folder;
+
+  /// The id of the icon. The available icons are listed in
+  /// https://code.visualstudio.com/api/references/icons-in-labels#icon-listing.
+  external String get id;
+
+  /// The optional ThemeColor of the icon. The color is currently only used in
+  /// TreeItem.
+  external ThemeColor? get color;
+}
+
+/// Represents theme specific rendering styles for a
+/// TextEditorDecorationTypetext editor decoration.
+extension type ThemableDecorationRenderOptions._(_i1.JSObject _)
+    implements _i1.JSObject {
+  /// Background color of the decoration. Use rgba() and define transparent
+  /// background colors to play well with other decorations.
+  /// Alternatively a color from the color registry can be ThemeColorreferenced.
+  external AnonymousUnion_3048258? backgroundColor;
+
+  /// CSS styling property that will be applied to text enclosed by a
+  /// decoration.
+  external String? outline;
+
+  /// CSS styling property that will be applied to text enclosed by a
+  /// decoration.
+  /// Better use 'outline' for setting one or more of the individual outline
+  /// properties.
+  external AnonymousUnion_3048258? outlineColor;
+
+  /// CSS styling property that will be applied to text enclosed by a
+  /// decoration.
+  /// Better use 'outline' for setting one or more of the individual outline
+  /// properties.
+  external String? outlineStyle;
+
+  /// CSS styling property that will be applied to text enclosed by a
+  /// decoration.
+  /// Better use 'outline' for setting one or more of the individual outline
+  /// properties.
+  external String? outlineWidth;
+
+  /// CSS styling property that will be applied to text enclosed by a
+  /// decoration.
+  external String? border;
+
+  /// CSS styling property that will be applied to text enclosed by a
+  /// decoration.
+  /// Better use 'border' for setting one or more of the individual border
+  /// properties.
+  external AnonymousUnion_3048258? borderColor;
+
+  /// CSS styling property that will be applied to text enclosed by a
+  /// decoration.
+  /// Better use 'border' for setting one or more of the individual border
+  /// properties.
+  external String? borderRadius;
+
+  /// CSS styling property that will be applied to text enclosed by a
+  /// decoration.
+  /// Better use 'border' for setting one or more of the individual border
+  /// properties.
+  external String? borderSpacing;
+
+  /// CSS styling property that will be applied to text enclosed by a
+  /// decoration.
+  /// Better use 'border' for setting one or more of the individual border
+  /// properties.
+  external String? borderStyle;
+
+  /// CSS styling property that will be applied to text enclosed by a
+  /// decoration.
+  /// Better use 'border' for setting one or more of the individual border
+  /// properties.
+  external String? borderWidth;
+
+  /// CSS styling property that will be applied to text enclosed by a
+  /// decoration.
+  external String? fontStyle;
+
+  /// CSS styling property that will be applied to text enclosed by a
+  /// decoration.
+  external String? fontWeight;
+
+  /// CSS styling property that will be applied to text enclosed by a
+  /// decoration.
+  external String? textDecoration;
+
+  /// CSS styling property that will be applied to text enclosed by a
+  /// decoration.
+  external String? cursor;
+
+  /// CSS styling property that will be applied to text enclosed by a
+  /// decoration.
+  external AnonymousUnion_3048258? color;
+
+  /// CSS styling property that will be applied to text enclosed by a
+  /// decoration.
+  external String? opacity;
+
+  /// CSS styling property that will be applied to text enclosed by a
+  /// decoration.
+  external String? letterSpacing;
+
+  /// An **absolute path** or an URI to an image to be rendered in the gutter.
+  external AnonymousUnion_4269776? gutterIconPath;
+
+  /// Specifies the size of the gutter icon.
+  /// Available values are 'auto', 'contain', 'cover' and any percentage value.
+  /// For further information:
+  /// https://msdn.microsoft.com/en-us/library/jj127316(v=vs.85).aspx
+  external String? gutterIconSize;
+
+  /// The color of the decoration in the overview ruler. Use rgba() and define
+  /// transparent colors to play well with other decorations.
+  external AnonymousUnion_3048258? overviewRulerColor;
+
+  /// Defines the rendering options of the attachment that is inserted before
+  /// the decorated text.
+  external ThemableDecorationAttachmentRenderOptions? before;
+
+  /// Defines the rendering options of the attachment that is inserted after the
+  /// decorated text.
+  external ThemableDecorationAttachmentRenderOptions? after;
+}
+
+/// Represents rendering styles for a TextEditorDecorationTypetext editor
+/// decoration.
+extension type DecorationRenderOptions._(_i1.JSObject _)
+    implements ThemableDecorationRenderOptions {
+  /// Should the decoration be rendered also on the whitespace after the line
+  /// text.
+  /// Defaults to `false`.
+  external bool? isWholeLine;
+
+  /// Customize the growing behavior of the decoration when edits occur at the
+  /// edges of the decoration's range.
+  /// Defaults to `DecorationRangeBehavior.OpenOpen`.
+  external DecorationRangeBehavior? rangeBehavior;
+
+  /// The position in the overview ruler where the decoration should be
+  /// rendered.
+  external OverviewRulerLane? overviewRulerLane;
+
+  /// Overwrite options for light themes.
+  external ThemableDecorationRenderOptions? light;
+
+  /// Overwrite options for dark themes.
+  external ThemableDecorationRenderOptions? dark;
+}
+
+/// Describes the behavior of decorations when typing/editing at their edges.
+extension type const DecorationRangeBehavior._(int _) {
+  /// The decoration's range will widen when edits occur at the start or end.
+  static const DecorationRangeBehavior OpenOpen = DecorationRangeBehavior._(0);
+
+  /// The decoration's range will not widen when edits occur at the start or
+  /// end.
+  static const DecorationRangeBehavior ClosedClosed = DecorationRangeBehavior._(
+    1,
+  );
+
+  /// The decoration's range will widen when edits occur at the start, but not
+  /// at the end.
+  static const DecorationRangeBehavior OpenClosed = DecorationRangeBehavior._(
+    2,
+  );
+
+  /// The decoration's range will widen when edits occur at the end, but not at
+  /// the start.
+  static const DecorationRangeBehavior ClosedOpen = DecorationRangeBehavior._(
+    3,
+  );
+}
+
+/// Represents different positions for rendering a decoration in an
+/// DecorationRenderOptions.overviewRulerLaneoverview ruler.
+/// The overview ruler supports three lanes.
+extension type const OverviewRulerLane._(int _) {
+  /// The left lane of the overview ruler.
+  static const OverviewRulerLane Left = OverviewRulerLane._(1);
+
+  /// The center lane of the overview ruler.
+  static const OverviewRulerLane Center = OverviewRulerLane._(2);
+
+  /// The right lane of the overview ruler.
+  static const OverviewRulerLane Right = OverviewRulerLane._(4);
+
+  /// All lanes of the overview ruler.
+  static const OverviewRulerLane Full = OverviewRulerLane._(7);
+}
+
 /// A cancellation token is passed to an asynchronous or long running
 /// operation to request cancellation, like cancelling a request
 /// for completion items because the user continued to type.
@@ -1250,29 +1843,23 @@ extension type CancellationToken._(_i1.JSObject _) implements _i1.JSObject {
   external Event<_i1.JSAny?> get onCancellationRequested;
 }
 
-/// A cancellation source creates and controls a CancellationTokencancellation
-/// token.
-extension type CancellationTokenSource._(_i1.JSObject _)
-    implements _i1.JSObject {
-  external CancellationTokenSource();
-
-  /// The cancellation token of this source.
-  external CancellationToken token;
-
-  /// Signal cancellation on the token.
-  external void cancel();
-
-  /// Dispose object and free resources.
-  external void dispose();
-}
-
-/// An error type that should be used to signal cancellation of an operation.
+/// Represents a typed event.
 ///
-/// This type can be used in response to a CancellationTokencancellation token
-/// being cancelled or when an operation is being cancelled by the
-/// executor of that operation.
-extension type CancellationError._(_i1.JSObject _) implements Error {
-  external CancellationError();
+/// A function that represents an event to which you subscribe by calling it
+/// with
+/// a listener function as argument.
+///
+/// Example:
+/// ```ts
+/// item.onDidChange(function(event) { console.log("Event happened: " + event); });
+/// ```
+extension type Event<T extends _i1.JSAny?>._(_i1.JSObject _)
+    implements _i1.JSObject {
+  external Disposable call(
+    _AnonymousFunction_6204725<T> listener, [
+    _i1.JSAny? thisArgs,
+    _i1.JSArray<Disposable?>? disposables,
+  ]);
 }
 
 /// Represents a type which can release resources, such
@@ -1300,23 +1887,29 @@ extension type Disposable._(_i1.JSObject _) implements _i1.JSObject {
   external _i1.JSAny? dispose();
 }
 
-/// Represents a typed event.
-///
-/// A function that represents an event to which you subscribe by calling it
-/// with
-/// a listener function as argument.
-///
-/// Example:
-/// ```ts
-/// item.onDidChange(function(event) { console.log("Event happened: " + event); });
-/// ```
-extension type Event<T extends _i1.JSAny?>._(_i1.JSObject _)
+/// A cancellation source creates and controls a CancellationTokencancellation
+/// token.
+extension type CancellationTokenSource._(_i1.JSObject _)
     implements _i1.JSObject {
-  external Disposable call(
-    _AnonymousFunction_6204725<T> listener, [
-    _i1.JSAny? thisArgs,
-    _i1.JSArray<Disposable?>? disposables,
-  ]);
+  external CancellationTokenSource();
+
+  /// The cancellation token of this source.
+  external CancellationToken token;
+
+  /// Signal cancellation on the token.
+  external void cancel();
+
+  /// Dispose object and free resources.
+  external void dispose();
+}
+
+/// An error type that should be used to signal cancellation of an operation.
+///
+/// This type can be used in response to a CancellationTokencancellation token
+/// being cancelled or when an operation is being cancelled by the
+/// executor of that operation.
+extension type CancellationError._(_i1.JSObject _) implements Error {
+  external CancellationError();
 }
 
 /// An event emitter can be used to create and manage an Event for others
@@ -1486,6 +2079,45 @@ extension type QuickPickItem._(_i1.JSObject _) implements _i1.JSObject {
   external _i1.JSArray<QuickInputButton?>? buttons;
 }
 
+/// Defines the kind of QuickPickItemquick pick item.
+extension type const QuickPickItemKind._(int _) {
+  /// The default kind for an item that can be selected in the quick pick.
+  static const QuickPickItemKind Default = QuickPickItemKind._(0);
+}
+
+/// A button for an action in a QuickPick or InputBox.
+extension type QuickInputButton._(_i1.JSObject _) implements _i1.JSObject {
+  /// The location where the button should be rendered.
+  ///
+  /// Defaults to QuickInputButtonLocation.Title.
+  ///
+  /// **Note:** This property is ignored if the button was added to a
+  /// QuickPickItem.
+  external QuickInputButtonLocation? location;
+
+  /// The icon for the button.
+  external IconPath get iconPath;
+
+  /// An optional tooltip displayed when hovering over the button.
+  external String? get tooltip;
+
+  /// When present, indicates that the button is a toggle button that can be
+  /// checked or unchecked.
+  external AnonymousType_5100545? get toggle;
+}
+
+/// Specifies the location where a QuickInputButton should be rendered.
+extension type const QuickInputButtonLocation._(int _) {
+  /// The button is rendered in the title bar.
+  static const QuickInputButtonLocation Title = QuickInputButtonLocation._(1);
+
+  /// The button is rendered inline to the right of the input box.
+  static const QuickInputButtonLocation Inline = QuickInputButtonLocation._(2);
+
+  /// The button is rendered at the far end inside the input box.
+  static const QuickInputButtonLocation Input = QuickInputButtonLocation._(3);
+}
+
 /// Options to configure the behavior of the quick pick UI.
 extension type QuickPickOptions._(_i1.JSObject _) implements _i1.JSObject {
   /// An optional title for the quick pick.
@@ -1648,6 +2280,24 @@ extension type InputBoxValidationMessage._(_i1.JSObject _)
   external InputBoxValidationSeverity get severity;
 }
 
+/// Severity levels for input box validation messages.
+extension type const InputBoxValidationSeverity._(int _) {
+  /// Indicates an informational message that does not prevent input acceptance.
+  static const InputBoxValidationSeverity Info = InputBoxValidationSeverity._(
+    1,
+  );
+
+  /// Indicates a warning message that does not prevent input acceptance.
+  static const InputBoxValidationSeverity Warning =
+      InputBoxValidationSeverity._(2);
+
+  /// Indicates an error message that prevents the user from accepting the
+  /// input.
+  static const InputBoxValidationSeverity Error = InputBoxValidationSeverity._(
+    3,
+  );
+}
+
 /// Options to configure the behavior of the input box UI.
 extension type InputBoxOptions._(_i1.JSObject _) implements _i1.JSObject {
   /// An optional string that represents the title of the input box.
@@ -1663,7 +2313,7 @@ extension type InputBoxOptions._(_i1.JSObject _) implements _i1.JSObject {
   /// pre-filled value will be selected, when empty (start equals end) only the
   /// cursor will be set,
   /// otherwise the defined range will be selected.
-  external _i3.JSTuple2<_i1.JSNumber, _i1.JSNumber>? valueSelection;
+  external _i2.JSTuple2<_i1.JSNumber, _i1.JSNumber>? valueSelection;
 
   /// The text to display underneath the input box.
   external String? prompt;
@@ -1726,6 +2376,27 @@ extension type RelativePattern._(_i1.JSObject _) implements _i1.JSObject {
   /// `/home/work/folder/index.js`,
   /// the file glob pattern will match on `index.js`.
   external String pattern;
+}
+
+/// A workspace folder is one of potentially many roots opened by the editor.
+/// All workspace folders
+/// are equal which means there is no notion of an active or primary workspace
+/// folder.
+extension type WorkspaceFolder._(_i1.JSObject _) implements _i1.JSObject {
+  /// The associated uri for this workspace folder.
+  ///
+  /// *Note:* The Uri-type was intentionally chosen such that future releases of
+  /// the editor can support
+  /// workspace folders that are not stored on the local disk, e.g.
+  /// `ftp://server/workspaces/foo`.
+  external Uri get uri;
+
+  /// The name of this workspace folder. Defaults to
+  /// the basename of its Uri.pathuri-path
+  external String get name;
+
+  /// The ordinal number of this workspace folder.
+  external double get index;
 }
 
 /// A document filter denotes a document by different properties like
@@ -1929,6 +2600,116 @@ extension type CodeActionContext._(_i1.JSObject _) implements _i1.JSObject {
   external CodeActionKind? get only;
 }
 
+/// The reason why code actions were requested.
+extension type const CodeActionTriggerKind._(int _) {
+  /// Code actions were explicitly requested by the user or by an extension.
+  static const CodeActionTriggerKind Invoke = CodeActionTriggerKind._(1);
+
+  /// Code actions were requested automatically.
+  ///
+  /// This typically happens when current selection in a file changes, but can
+  /// also be triggered when file content changes.
+  static const CodeActionTriggerKind Automatic = CodeActionTriggerKind._(2);
+}
+
+/// Represents a diagnostic, such as a compiler error or warning. Diagnostic
+/// objects
+/// are only valid in the scope of a file.
+extension type Diagnostic._(_i1.JSObject _) implements _i1.JSObject {
+  external Diagnostic(
+    Range range,
+    String message, [
+    DiagnosticSeverity? severity,
+  ]);
+
+  /// The range to which this diagnostic applies.
+  external Range range;
+
+  /// The human-readable message.
+  external String message;
+
+  /// The severity, default is DiagnosticSeverity.Errorerror.
+  external DiagnosticSeverity severity;
+
+  /// A human-readable string describing the source of this
+  /// diagnostic, e.g. 'typescript' or 'super lint'.
+  external String? source;
+
+  /// A code or identifier for this diagnostic.
+  /// Should be used for later processing, e.g. when providing
+  /// CodeActionContextcode actions.
+  external AnonymousUnion_2217746? code;
+
+  /// An array of related diagnostic information, e.g. when symbol-names within
+  /// a scope collide all definitions can be marked via this property.
+  external _i1.JSArray<DiagnosticRelatedInformation?>? relatedInformation;
+
+  /// Additional metadata about the diagnostic.
+  external _i1.JSArray<_i1.JSNumber?>? tags;
+}
+
+/// Represents the severity of diagnostics.
+extension type const DiagnosticSeverity._(int _) {
+  /// Something not allowed by the rules of a language or other means.
+  static const DiagnosticSeverity Error = DiagnosticSeverity._(0);
+
+  /// Something suspicious but allowed.
+  static const DiagnosticSeverity Warning = DiagnosticSeverity._(1);
+
+  /// Something to inform about but not a problem.
+  static const DiagnosticSeverity Information = DiagnosticSeverity._(2);
+
+  /// Something to hint to a better way of doing it, like proposing
+  /// a refactoring.
+  static const DiagnosticSeverity Hint = DiagnosticSeverity._(3);
+}
+
+/// Represents a related message and source code location for a diagnostic.
+/// This should be
+/// used to point to code locations that cause or related to a diagnostics,
+/// e.g. when duplicating
+/// a symbol in a scope.
+extension type DiagnosticRelatedInformation._(_i1.JSObject _)
+    implements _i1.JSObject {
+  external DiagnosticRelatedInformation(Location location, String message);
+
+  /// The location of this related diagnostic information.
+  external Location location;
+
+  /// The message of this related diagnostic information.
+  external String message;
+}
+
+/// Represents a location inside a resource, such as a line
+/// inside a text file.
+extension type Location._(_i1.JSObject _) implements _i1.JSObject {
+  external Location(Uri uri, AnonymousUnion_9838905 rangeOrPosition);
+
+  /// The resource identifier of this location.
+  external Uri uri;
+
+  /// The document range of this location.
+  external Range range;
+}
+
+/// Additional metadata about the type of a diagnostic.
+extension type const DiagnosticTag._(int _) {
+  /// Unused or unnecessary code.
+  ///
+  /// Diagnostics with this tag are rendered faded out. The amount of fading
+  /// is controlled by the `"editorUnnecessaryCode.opacity"` theme color. For
+  /// example, `"editorUnnecessaryCode.opacity": "#000000c0"` will render the
+  /// code with 75% opacity. For high contrast themes, use the
+  /// `"editorUnnecessaryCode.border"` theme color to underline unnecessary code
+  /// instead of fading it out.
+  static const DiagnosticTag Unnecessary = DiagnosticTag._(1);
+
+  /// Deprecated or obsolete code.
+  ///
+  /// Diagnostics with this tag are rendered with a strike through.
+  static const DiagnosticTag Deprecated = DiagnosticTag._(2);
+}
+
 /// A code action represents a change that can be performed in code, e.g. to
 /// fix a problem or
 /// to refactor code.
@@ -1986,6 +2767,390 @@ extension type CodeAction._(_i1.JSObject _) implements _i1.JSObject {
   /// returned, the editor will show the user an
   /// error message with `reason` in the editor.
   external AnonymousType_2631572? disabled;
+}
+
+/// A workspace edit is a collection of textual and files changes for
+/// multiple resources and documents.
+///
+/// Use the workspace.applyEditapplyEdit-function to apply a workspace edit.
+extension type WorkspaceEdit._(_i1.JSObject _) implements _i1.JSObject {
+  external WorkspaceEdit();
+
+  /// The number of affected resources of textual or resource changes.
+  external double get size;
+
+  /// Replace the given range with given text for the given resource.
+  /// - [uri]:  A resource identifier.
+  /// - [range]:  A range.
+  /// - [newText]:  A string.
+  /// - [metadata]:  Optional metadata for the entry.
+  external void replace(
+    Uri uri,
+    Range range,
+    String newText, [
+    WorkspaceEditEntryMetadata? metadata,
+  ]);
+
+  /// Insert the given text at the given position.
+  /// - [uri]:  A resource identifier.
+  /// - [position]:  A position.
+  /// - [newText]:  A string.
+  /// - [metadata]:  Optional metadata for the entry.
+  external void insert(
+    Uri uri,
+    Position position,
+    String newText, [
+    WorkspaceEditEntryMetadata? metadata,
+  ]);
+
+  /// Delete the text at the given range.
+  /// - [uri]:  A resource identifier.
+  /// - [range]:  A range.
+  /// - [metadata]:  Optional metadata for the entry.
+  external void delete(
+    Uri uri,
+    Range range, [
+    WorkspaceEditEntryMetadata? metadata,
+  ]);
+
+  /// Check if a text edit for a resource exists.
+  /// - [uri]:  A resource identifier.
+  ///
+  /// Returns `true` if the given resource will be touched by this edit.
+  external bool has(Uri uri);
+
+  /// Set (and replace) text edits or snippet edits for a resource.
+  /// Set (and replace) text edits or snippet edits with metadata for a
+  /// resource.
+  /// Set (and replace) notebook edits for a resource.
+  /// Set (and replace) notebook edits with metadata for a resource.
+  /// - [uri]:  A resource identifier.
+  /// - [edits]:  An array of edits.
+  /// - [uri]:  A resource identifier.
+  /// - [edits]:  An array of edits.
+  /// - [uri]:  A resource identifier.
+  /// - [edits]:  An array of edits.
+  /// - [uri]:  A resource identifier.
+  /// - [edits]:  An array of edits.
+  @_i1.JS('set')
+  external void set$(Uri uri, ReadonlyArray<AnonymousUnion_5570172> edits);
+
+  /// Set (and replace) text edits or snippet edits for a resource.
+  /// Set (and replace) text edits or snippet edits with metadata for a
+  /// resource.
+  /// Set (and replace) notebook edits for a resource.
+  /// Set (and replace) notebook edits with metadata for a resource.
+  /// - [uri]:  A resource identifier.
+  /// - [edits]:  An array of edits.
+  /// - [uri]:  A resource identifier.
+  /// - [edits]:  An array of edits.
+  /// - [uri]:  A resource identifier.
+  /// - [edits]:  An array of edits.
+  /// - [uri]:  A resource identifier.
+  /// - [edits]:  An array of edits.
+  @_i1.JS('set')
+  external void set$1(
+    Uri uri,
+    ReadonlyArray<
+      _i2.JSTuple2<AnonymousUnion_5570172, WorkspaceEditEntryMetadata?>
+    >
+    edits,
+  );
+
+  /// Set (and replace) text edits or snippet edits for a resource.
+  /// Set (and replace) text edits or snippet edits with metadata for a
+  /// resource.
+  /// Set (and replace) notebook edits for a resource.
+  /// Set (and replace) notebook edits with metadata for a resource.
+  /// - [uri]:  A resource identifier.
+  /// - [edits]:  An array of edits.
+  /// - [uri]:  A resource identifier.
+  /// - [edits]:  An array of edits.
+  /// - [uri]:  A resource identifier.
+  /// - [edits]:  An array of edits.
+  /// - [uri]:  A resource identifier.
+  /// - [edits]:  An array of edits.
+  @_i1.JS('set')
+  external void set$2(Uri uri, _i1.JSArray<NotebookEdit> edits);
+
+  /// Set (and replace) text edits or snippet edits for a resource.
+  /// Set (and replace) text edits or snippet edits with metadata for a
+  /// resource.
+  /// Set (and replace) notebook edits for a resource.
+  /// Set (and replace) notebook edits with metadata for a resource.
+  /// - [uri]:  A resource identifier.
+  /// - [edits]:  An array of edits.
+  /// - [uri]:  A resource identifier.
+  /// - [edits]:  An array of edits.
+  /// - [uri]:  A resource identifier.
+  /// - [edits]:  An array of edits.
+  /// - [uri]:  A resource identifier.
+  /// - [edits]:  An array of edits.
+  @_i1.JS('set')
+  external void set$3(
+    Uri uri,
+    ReadonlyArray<_i2.JSTuple2<NotebookEdit, WorkspaceEditEntryMetadata?>>
+    edits,
+  );
+
+  /// Get the text edits for a resource.
+  /// - [uri]:  A resource identifier.
+  ///
+  /// Returns An array of text edits.
+  @_i1.JS('get')
+  external _i1.JSArray<TextEdit> get$(Uri uri);
+
+  /// Create a regular file.
+  /// - [uri]:  Uri of the new file.
+  /// - [options]:  Defines if an existing file should be overwritten or be
+  /// ignored. When `overwrite` and `ignoreIfExists` are both set `overwrite`
+  /// wins.
+  /// When both are unset and when the file already exists then the edit cannot
+  /// be applied successfully. The `content`-property allows to set the initial
+  /// contents
+  /// the file is being created with.
+  /// - [metadata]:  Optional metadata for the entry.
+  external void createFile(
+    Uri uri, [
+    AnonymousType_2378597? options,
+    WorkspaceEditEntryMetadata? metadata,
+  ]);
+
+  /// Delete a file or folder.
+  /// - [uri]:  The uri of the file that is to be deleted.
+  /// - [metadata]:  Optional metadata for the entry.
+  external void deleteFile(
+    Uri uri, [
+    AnonymousType_5483807? options,
+    WorkspaceEditEntryMetadata? metadata,
+  ]);
+
+  /// Rename a file or folder.
+  /// - [oldUri]:  The existing file.
+  /// - [newUri]:  The new location.
+  /// - [options]:  Defines if existing files should be overwritten or be
+  /// ignored. When overwrite and ignoreIfExists are both set overwrite wins.
+  /// - [metadata]:  Optional metadata for the entry.
+  external void renameFile(
+    Uri oldUri,
+    Uri newUri, [
+    AnonymousType_3280175? options,
+    WorkspaceEditEntryMetadata? metadata,
+  ]);
+
+  /// Get all text edits grouped by resource.
+  ///
+  /// Returns A shallow copy of `[Uri, TextEdit[]]`-tuples.
+  external _i1.JSArray<_i2.JSTuple2<Uri, _i1.JSArray<TextEdit>>> entries();
+}
+
+/// Additional data for entries of a workspace edit. Supports to label entries
+/// and marks entries
+/// as needing confirmation by the user. The editor groups edits with equal
+/// labels into tree nodes,
+/// for instance all edits labelled with "Changes in Strings" would be a tree
+/// node.
+extension type WorkspaceEditEntryMetadata._(_i1.JSObject _)
+    implements _i1.JSObject {
+  /// A flag which indicates that user confirmation is needed.
+  external bool needsConfirmation;
+
+  /// A human-readable string which is rendered prominent.
+  external String label;
+
+  /// A human-readable string which is rendered less prominent on the same line.
+  external String? description;
+
+  /// The icon path or ThemeIcon for the edit.
+  external IconPath? iconPath;
+}
+
+/// A text edit represents edits that should be applied
+/// to a document.
+extension type TextEdit._(_i1.JSObject _) implements _i1.JSObject {
+  external TextEdit(Range range, String newText);
+
+  /// The range this edit applies to.
+  external Range range;
+
+  /// The string this edit will insert.
+  external String newText;
+
+  /// The eol-sequence used in the document.
+  ///
+  /// *Note* that the eol-sequence will be applied to the
+  /// whole document.
+  external EndOfLine? newEol;
+
+  /// Utility to create a replace edit.
+  /// - [range]:  A range.
+  /// - [newText]:  A string.
+  ///
+  /// Returns A new text edit object.
+  external static TextEdit replace(Range range, String newText);
+
+  /// Utility to create an insert edit.
+  /// - [position]:  A position, will become an empty range.
+  /// - [newText]:  A string.
+  ///
+  /// Returns A new text edit object.
+  external static TextEdit insert(Position position, String newText);
+
+  /// Utility to create a delete edit.
+  /// - [range]:  A range.
+  ///
+  /// Returns A new text edit object.
+  external static TextEdit delete(Range range);
+
+  /// Utility to create an eol-edit.
+  /// - [eol]:  An eol-sequence
+  ///
+  /// Returns A new text edit object.
+  external static TextEdit setEndOfLine(EndOfLine eol);
+}
+
+/// A snippet edit represents an interactive edit that is performed by
+/// the editor.
+///
+/// *Note* that a snippet edit can always be performed as a normal
+/// TextEdittext edit.
+/// This will happen when no matching editor is open or when a
+/// WorkspaceEditworkspace edit
+/// contains snippet edits for multiple files. In that case only those that
+/// match the active editor
+/// will be performed as snippet edits and the others as normal text edits.
+extension type SnippetTextEdit._(_i1.JSObject _) implements _i1.JSObject {
+  external SnippetTextEdit(Range range, SnippetString snippet);
+
+  /// The range this edit applies to.
+  external Range range;
+
+  /// The SnippetStringsnippet this edit will perform.
+  external SnippetString snippet;
+
+  /// Whether the snippet edit should be applied with existing whitespace
+  /// preserved.
+  external bool? keepWhitespace;
+
+  /// Utility to create a replace snippet edit.
+  /// - [range]:  A range.
+  /// - [snippet]:  A snippet string.
+  ///
+  /// Returns A new snippet edit object.
+  external static SnippetTextEdit replace(Range range, SnippetString snippet);
+
+  /// Utility to create an insert snippet edit.
+  /// - [position]:  A position, will become an empty range.
+  /// - [snippet]:  A snippet string.
+  ///
+  /// Returns A new snippet edit object.
+  external static SnippetTextEdit insert(
+    Position position,
+    SnippetString snippet,
+  );
+}
+
+/// A notebook edit represents edits that should be applied to the contents of
+/// a notebook.
+extension type NotebookEdit._(_i1.JSObject _) implements _i1.JSObject {
+  external NotebookEdit(
+    NotebookRange range,
+    _i1.JSArray<NotebookCellData> newCells,
+  );
+
+  /// Range of the cells being edited. May be empty.
+  external NotebookRange range;
+
+  /// New cells being inserted. May be empty.
+  external _i1.JSArray<NotebookCellData> newCells;
+
+  /// Optional new metadata for the cells.
+  external AnonymousType_1282391? newCellMetadata;
+
+  /// Optional new metadata for the notebook.
+  external AnonymousType_1282391? newNotebookMetadata;
+
+  /// Utility to create a edit that replaces cells in a notebook.
+  /// - [range]:  The range of cells to replace
+  /// - [newCells]:  The new notebook cells.
+  external static NotebookEdit replaceCells(
+    NotebookRange range,
+    _i1.JSArray<NotebookCellData> newCells,
+  );
+
+  /// Utility to create an edit that replaces cells in a notebook.
+  /// - [index]:  The index to insert cells at.
+  /// - [newCells]:  The new notebook cells.
+  external static NotebookEdit insertCells(
+    num index,
+    _i1.JSArray<NotebookCellData> newCells,
+  );
+
+  /// Utility to create an edit that deletes cells in a notebook.
+  /// - [range]:  The range of cells to delete.
+  external static NotebookEdit deleteCells(NotebookRange range);
+
+  /// Utility to create an edit that update a cell's metadata.
+  /// - [index]:  The index of the cell to update.
+  /// - [newCellMetadata]:  The new metadata for the cell.
+  external static NotebookEdit updateCellMetadata(
+    num index,
+    AnonymousType_1282391 newCellMetadata,
+  );
+
+  /// Utility to create an edit that updates the notebook's metadata.
+  /// - [newNotebookMetadata]:  The new metadata for the notebook.
+  external static NotebookEdit updateNotebookMetadata(
+    AnonymousType_1282391 newNotebookMetadata,
+  );
+}
+
+/// NotebookCellData is the raw representation of notebook cells. Its is part
+/// of NotebookData.
+extension type NotebookCellData._(_i1.JSObject _) implements _i1.JSObject {
+  external NotebookCellData(
+    NotebookCellKind kind,
+    String value,
+    String languageId,
+  );
+
+  /// The NotebookCellKindkind of this cell data.
+  external NotebookCellKind kind;
+
+  /// The source value of this cell data - either source code or formatted text.
+  external String value;
+
+  /// The language identifier of the source value of this cell data. Any value
+  /// from
+  /// languages.getLanguagesgetLanguages is possible.
+  external String languageId;
+
+  /// The outputs of this cell data.
+  external _i1.JSArray<NotebookCellOutput?>? outputs;
+
+  /// Arbitrary metadata of this cell data. Can be anything but must be
+  /// JSON-stringifyable.
+  external AnonymousType_1282391? metadata;
+
+  /// The execution summary of this cell data.
+  external NotebookCellExecutionSummary? executionSummary;
+}
+
+/// A file associated with a DataTransferItem.
+///
+/// Instances of this type can only be created by the editor and not by
+/// extensions.
+extension type DataTransferFile._(_i1.JSObject _) implements _i1.JSObject {
+  /// The name of the file.
+  external String get name;
+
+  /// The full file path of the file.
+  ///
+  /// May be `undefined` on web.
+  external Uri? get uri;
+
+  /// The full file contents of the file.
+  external Thenable<_i1.JSUint8Array> data();
 }
 
 /// Provides contextual actions for code. Code actions typically either fix
@@ -2153,6 +3318,27 @@ extension type CodeLensProvider<T extends CodeLens>._(_i1.JSObject _)
   external _i1.JSFunction? get resolveCodeLens;
 }
 
+/// Represents the connection of two locations. Provides additional metadata
+/// over normal Locationlocations,
+/// including an origin range.
+extension type LocationLink._(_i1.JSObject _) implements _i1.JSObject {
+  /// Span of the origin of this link.
+  ///
+  /// Used as the underlined span for mouse definition hover. Defaults to the
+  /// word range at
+  /// the definition position.
+  external Range? originSelectionRange;
+
+  /// The target resource identifier of this link.
+  external Uri targetUri;
+
+  /// The full target range of this link.
+  external Range targetRange;
+
+  /// The span of this link.
+  external Range? targetSelectionRange;
+}
+
 /// The definition provider interface defines the contract between extensions
 /// and
 /// the
@@ -2173,6 +3359,13 @@ extension type DefinitionProvider._(_i1.JSObject _) implements _i1.JSObject {
     CancellationToken token,
   );
 }
+
+/// Information about where a symbol is defined.
+///
+/// Provides additional metadata over normal Location definitions, including
+/// the range of
+/// the defining symbol
+typedef DefinitionLink = LocationLink;
 
 /// The implementation provider interface defines the contract between
 /// extensions and
@@ -2227,88 +3420,11 @@ extension type DeclarationProvider._(_i1.JSObject _) implements _i1.JSObject {
   /// Returns A declaration or a thenable that resolves to such. The lack of a
   /// result can be
   /// signaled by returning `undefined` or `null`.
-  external ProviderResult<AnonymousUnion_1308422> provideDeclaration(
+  external ProviderResult<Declaration> provideDeclaration(
     TextDocument document,
     Position position,
     CancellationToken token,
   );
-}
-
-/// Human-readable text that supports formatting via the
-/// [markdown syntax](https://commonmark.org).
-///
-/// Rendering of ThemeIcontheme icons via the `$(<name>)`-syntax is supported
-/// when the supportThemeIcons is set to `true`.
-///
-/// Rendering of embedded html is supported when supportHtml is set to `true`.
-extension type MarkdownString._(_i1.JSObject _) implements _i1.JSObject {
-  external MarkdownString([String? value, bool? supportThemeIcons]);
-
-  /// The markdown string.
-  external String value;
-
-  /// Indicates that this markdown string is from a trusted source. Only
-  /// *trusted*
-  /// markdown supports links that execute commands, e.g.
-  /// `[Run it](command:myCommandId)`.
-  ///
-  /// Defaults to `false` (commands are disabled).
-  external AnonymousUnion_5916908? isTrusted;
-
-  /// Indicates that this markdown string can contain ThemeIconThemeIcons, e.g.
-  /// `$(zap)`.
-  external bool? supportThemeIcons;
-
-  /// Indicates that this markdown string can contain raw html tags. Defaults to
-  /// `false`.
-  ///
-  /// When `supportHtml` is false, the markdown renderer will strip out any raw
-  /// html tags
-  /// that appear in the markdown text. This means you can only use markdown
-  /// syntax for rendering.
-  ///
-  /// When `supportHtml` is true, the markdown render will also allow a safe
-  /// subset of html tags
-  /// and attributes to be rendered. See
-  /// https://github.com/microsoft/vscode/blob/6d2920473c6f13759c978dd89104c4270a83422d/src/vs/base/browser/markdownRenderer.ts#L296
-  /// for a list of all supported tags and attributes.
-  external bool? supportHtml;
-
-  /// Uri that relative paths are resolved relative to.
-  ///
-  /// If the `baseUri` ends with `/`, it is considered a directory and relative
-  /// paths in the markdown are resolved relative to that directory:
-  ///
-  /// ```ts
-  /// const md = new vscode.MarkdownString(`[link](./file.js)`);
-  /// md.baseUri = vscode.Uri.file('/path/to/dir/');
-  /// // Here 'link' in the rendered markdown resolves to '/path/to/dir/file.js'
-  /// ```
-  ///
-  /// If the `baseUri` is a file, relative paths in the markdown are resolved
-  /// relative to the parent dir of that file:
-  ///
-  /// ```ts
-  /// const md = new vscode.MarkdownString(`[link](./file.js)`);
-  /// md.baseUri = vscode.Uri.file('/path/to/otherFile.js');
-  /// // Here 'link' in the rendered markdown resolves to '/path/to/file.js'
-  /// ```
-  external Uri? baseUri;
-
-  /// Appends and escapes the given string to this markdown string.
-  /// - [value]:  Plain text.
-  external MarkdownString appendText(String value);
-
-  /// Appends the given string 'as is' to this markdown string. When
-  /// MarkdownString.supportThemeIconssupportThemeIcons is `true`,
-  /// ThemeIconThemeIcons in the `value` will be iconified.
-  /// - [value]:  Markdown string.
-  external MarkdownString appendMarkdown(String value);
-
-  /// Appends the given string as codeblock using the provided language.
-  /// - [value]:  A code snippet.
-  /// - [language]:  An optional  .
-  external MarkdownString appendCodeblock(String value, [String? language]);
 }
 
 /// A hover represents additional information for a symbol or word. Hovers are
@@ -2484,8 +3600,7 @@ extension type InlineValuesProvider._(_i1.JSObject _) implements _i1.JSObject {
   /// Returns An array of InlineValueDescriptors or a thenable that resolves to
   /// such. The lack of a result can be
   /// signaled by returning `undefined` or `null`.
-  external ProviderResult<_i1.JSArray<AnonymousUnion_1436380>>
-  provideInlineValues(
+  external ProviderResult<_i1.JSArray<InlineValue>> provideInlineValues(
     TextDocument document,
     Range viewPort,
     InlineValueContext context,
@@ -2504,6 +3619,18 @@ extension type DocumentHighlight._(_i1.JSObject _) implements _i1.JSObject {
 
   /// The highlight kind, default is DocumentHighlightKind.Texttext.
   external DocumentHighlightKind? kind;
+}
+
+/// A document highlight kind.
+extension type const DocumentHighlightKind._(int _) {
+  /// A textual occurrence.
+  static const DocumentHighlightKind Text = DocumentHighlightKind._(0);
+
+  /// Read-access of a symbol, like reading a variable.
+  static const DocumentHighlightKind Read = DocumentHighlightKind._(1);
+
+  /// Write-access of a symbol, like writing to a variable.
+  static const DocumentHighlightKind Write = DocumentHighlightKind._(2);
 }
 
 /// The document highlight provider interface defines the contract between
@@ -2562,6 +3689,93 @@ extension type SymbolInformation._(_i1.JSObject _) implements _i1.JSObject {
 
   /// The location of this symbol.
   external Location location;
+}
+
+/// A symbol kind.
+extension type const SymbolKind._(int _) {
+  /// The `File` symbol kind.
+  static const SymbolKind File = SymbolKind._(0);
+
+  /// The `Module` symbol kind.
+  static const SymbolKind Module = SymbolKind._(1);
+
+  /// The `Namespace` symbol kind.
+  static const SymbolKind Namespace = SymbolKind._(2);
+
+  /// The `Package` symbol kind.
+  static const SymbolKind Package = SymbolKind._(3);
+
+  /// The `Class` symbol kind.
+  static const SymbolKind Class = SymbolKind._(4);
+
+  /// The `Method` symbol kind.
+  static const SymbolKind Method = SymbolKind._(5);
+
+  /// The `Property` symbol kind.
+  static const SymbolKind Property = SymbolKind._(6);
+
+  /// The `Field` symbol kind.
+  static const SymbolKind Field = SymbolKind._(7);
+
+  /// The `Constructor` symbol kind.
+  static const SymbolKind Constructor = SymbolKind._(8);
+
+  /// The `Enum` symbol kind.
+  static const SymbolKind Enum = SymbolKind._(9);
+
+  /// The `Interface` symbol kind.
+  static const SymbolKind Interface = SymbolKind._(10);
+
+  /// The `Function` symbol kind.
+  static const SymbolKind Function$ = SymbolKind._(11);
+
+  /// The `Variable` symbol kind.
+  static const SymbolKind Variable = SymbolKind._(12);
+
+  /// The `Constant` symbol kind.
+  static const SymbolKind Constant = SymbolKind._(13);
+
+  /// The `String` symbol kind.
+  static const SymbolKind String = SymbolKind._(14);
+
+  /// The `Number` symbol kind.
+  static const SymbolKind Number = SymbolKind._(15);
+
+  /// The `Boolean` symbol kind.
+  static const SymbolKind Boolean = SymbolKind._(16);
+
+  /// The `Array` symbol kind.
+  static const SymbolKind Array = SymbolKind._(17);
+
+  /// The `Object` symbol kind.
+  static const SymbolKind Object = SymbolKind._(18);
+
+  /// The `Key` symbol kind.
+  static const SymbolKind Key = SymbolKind._(19);
+
+  /// The `Null` symbol kind.
+  static const SymbolKind Null = SymbolKind._(20);
+
+  /// The `EnumMember` symbol kind.
+  static const SymbolKind EnumMember = SymbolKind._(21);
+
+  /// The `Struct` symbol kind.
+  static const SymbolKind Struct = SymbolKind._(22);
+
+  /// The `Event` symbol kind.
+  static const SymbolKind Event = SymbolKind._(23);
+
+  /// The `Operator` symbol kind.
+  static const SymbolKind Operator = SymbolKind._(24);
+
+  /// The `TypeParameter` symbol kind.
+  static const SymbolKind TypeParameter = SymbolKind._(25);
+}
+
+/// Symbol tags are extra annotations that tweak the rendering of a symbol.
+extension type const SymbolTag._(int _) {
+  /// Render a symbol as obsolete, usually using a strike-out.
+  static const SymbolTag Deprecated = SymbolTag._(1);
 }
 
 /// Represents programming constructs like variables, classes, interfaces etc.
@@ -2636,7 +3850,8 @@ extension type DocumentSymbolProviderMetadata._(_i1.JSObject _)
 /// [symbol search](https://code.visualstudio.com/docs/editor/editingevolved#_open-symbol-by-name)-feature.
 extension type WorkspaceSymbolProvider<T extends SymbolInformation>._(
   _i1.JSObject _
-) implements _i1.JSObject {
+)
+    implements _i1.JSObject {
   /// Project-wide search for a symbol matching the given query string.
   ///
   /// The `query`-parameter should be interpreted in a *relaxed way* as the
@@ -2713,415 +3928,10 @@ extension type ReferenceProvider._(_i1.JSObject _) implements _i1.JSObject {
   );
 }
 
-/// A text edit represents edits that should be applied
-/// to a document.
-extension type TextEdit._(_i1.JSObject _) implements _i1.JSObject {
-  external TextEdit(Range range, String newText);
-
-  /// The range this edit applies to.
-  external Range range;
-
-  /// The string this edit will insert.
-  external String newText;
-
-  /// The eol-sequence used in the document.
-  ///
-  /// *Note* that the eol-sequence will be applied to the
-  /// whole document.
-  external EndOfLine? newEol;
-
-  /// Utility to create a replace edit.
-  /// - [range]:  A range.
-  /// - [newText]:  A string.
-  ///
-  /// Returns A new text edit object.
-  external static TextEdit replace(Range range, String newText);
-
-  /// Utility to create an insert edit.
-  /// - [position]:  A position, will become an empty range.
-  /// - [newText]:  A string.
-  ///
-  /// Returns A new text edit object.
-  external static TextEdit insert(Position position, String newText);
-
-  /// Utility to create a delete edit.
-  /// - [range]:  A range.
-  ///
-  /// Returns A new text edit object.
-  external static TextEdit delete(Range range);
-
-  /// Utility to create an eol-edit.
-  /// - [eol]:  An eol-sequence
-  ///
-  /// Returns A new text edit object.
-  external static TextEdit setEndOfLine(EndOfLine eol);
-}
-
-/// A snippet edit represents an interactive edit that is performed by
-/// the editor.
-///
-/// *Note* that a snippet edit can always be performed as a normal
-/// TextEdittext edit.
-/// This will happen when no matching editor is open or when a
-/// WorkspaceEditworkspace edit
-/// contains snippet edits for multiple files. In that case only those that
-/// match the active editor
-/// will be performed as snippet edits and the others as normal text edits.
-extension type SnippetTextEdit._(_i1.JSObject _) implements _i1.JSObject {
-  external SnippetTextEdit(Range range, SnippetString snippet);
-
-  /// The range this edit applies to.
-  external Range range;
-
-  /// The SnippetStringsnippet this edit will perform.
-  external SnippetString snippet;
-
-  /// Whether the snippet edit should be applied with existing whitespace
-  /// preserved.
-  external bool? keepWhitespace;
-
-  /// Utility to create a replace snippet edit.
-  /// - [range]:  A range.
-  /// - [snippet]:  A snippet string.
-  ///
-  /// Returns A new snippet edit object.
-  external static SnippetTextEdit replace(Range range, SnippetString snippet);
-
-  /// Utility to create an insert snippet edit.
-  /// - [position]:  A position, will become an empty range.
-  /// - [snippet]:  A snippet string.
-  ///
-  /// Returns A new snippet edit object.
-  external static SnippetTextEdit insert(
-    Position position,
-    SnippetString snippet,
-  );
-}
-
-/// A notebook edit represents edits that should be applied to the contents of
-/// a notebook.
-extension type NotebookEdit._(_i1.JSObject _) implements _i1.JSObject {
-  external NotebookEdit(
-    NotebookRange range,
-    _i1.JSArray<NotebookCellData> newCells,
-  );
-
-  /// Range of the cells being edited. May be empty.
-  external NotebookRange range;
-
-  /// New cells being inserted. May be empty.
-  external _i1.JSArray<NotebookCellData> newCells;
-
-  /// Optional new metadata for the cells.
-  external AnonymousType_1282391? newCellMetadata;
-
-  /// Optional new metadata for the notebook.
-  external AnonymousType_1282391? newNotebookMetadata;
-
-  /// Utility to create a edit that replaces cells in a notebook.
-  /// - [range]:  The range of cells to replace
-  /// - [newCells]:  The new notebook cells.
-  external static NotebookEdit replaceCells(
-    NotebookRange range,
-    _i1.JSArray<NotebookCellData> newCells,
-  );
-
-  /// Utility to create an edit that replaces cells in a notebook.
-  /// - [index]:  The index to insert cells at.
-  /// - [newCells]:  The new notebook cells.
-  external static NotebookEdit insertCells(
-    num index,
-    _i1.JSArray<NotebookCellData> newCells,
-  );
-
-  /// Utility to create an edit that deletes cells in a notebook.
-  /// - [range]:  The range of cells to delete.
-  external static NotebookEdit deleteCells(NotebookRange range);
-
-  /// Utility to create an edit that update a cell's metadata.
-  /// - [index]:  The index of the cell to update.
-  /// - [newCellMetadata]:  The new metadata for the cell.
-  external static NotebookEdit updateCellMetadata(
-    num index,
-    AnonymousType_1282391 newCellMetadata,
-  );
-
-  /// Utility to create an edit that updates the notebook's metadata.
-  /// - [newNotebookMetadata]:  The new metadata for the notebook.
-  external static NotebookEdit updateNotebookMetadata(
-    AnonymousType_1282391 newNotebookMetadata,
-  );
-}
-
-/// Additional data for entries of a workspace edit. Supports to label entries
-/// and marks entries
-/// as needing confirmation by the user. The editor groups edits with equal
-/// labels into tree nodes,
-/// for instance all edits labelled with "Changes in Strings" would be a tree
-/// node.
-extension type WorkspaceEditEntryMetadata._(_i1.JSObject _)
-    implements _i1.JSObject {
-  /// A flag which indicates that user confirmation is needed.
-  external bool needsConfirmation;
-
-  /// A human-readable string which is rendered prominent.
-  external String label;
-
-  /// A human-readable string which is rendered less prominent on the same line.
-  external String? description;
-
-  /// The icon path or ThemeIcon for the edit.
-  external IconPath? iconPath;
-}
-
 /// Additional data about a workspace edit.
 extension type WorkspaceEditMetadata._(_i1.JSObject _) implements _i1.JSObject {
   /// Signal to the editor that this edit is a refactoring.
   external bool? isRefactoring;
-}
-
-/// A workspace edit is a collection of textual and files changes for
-/// multiple resources and documents.
-///
-/// Use the workspace.applyEditapplyEdit-function to apply a workspace edit.
-extension type WorkspaceEdit._(_i1.JSObject _) implements _i1.JSObject {
-  external WorkspaceEdit();
-
-  /// The number of affected resources of textual or resource changes.
-  external double get size;
-
-  /// Replace the given range with given text for the given resource.
-  /// - [uri]:  A resource identifier.
-  /// - [range]:  A range.
-  /// - [newText]:  A string.
-  /// - [metadata]:  Optional metadata for the entry.
-  external void replace(
-    Uri uri,
-    Range range,
-    String newText, [
-    WorkspaceEditEntryMetadata? metadata,
-  ]);
-
-  /// Insert the given text at the given position.
-  /// - [uri]:  A resource identifier.
-  /// - [position]:  A position.
-  /// - [newText]:  A string.
-  /// - [metadata]:  Optional metadata for the entry.
-  external void insert(
-    Uri uri,
-    Position position,
-    String newText, [
-    WorkspaceEditEntryMetadata? metadata,
-  ]);
-
-  /// Delete the text at the given range.
-  /// - [uri]:  A resource identifier.
-  /// - [range]:  A range.
-  /// - [metadata]:  Optional metadata for the entry.
-  external void delete(
-    Uri uri,
-    Range range, [
-    WorkspaceEditEntryMetadata? metadata,
-  ]);
-
-  /// Check if a text edit for a resource exists.
-  /// - [uri]:  A resource identifier.
-  ///
-  /// Returns `true` if the given resource will be touched by this edit.
-  external bool has(Uri uri);
-
-  /// Set (and replace) text edits or snippet edits for a resource.
-  /// Set (and replace) text edits or snippet edits with metadata for a
-  /// resource.
-  /// Set (and replace) notebook edits for a resource.
-  /// Set (and replace) notebook edits with metadata for a resource.
-  /// - [uri]:  A resource identifier.
-  /// - [edits]:  An array of edits.
-  /// - [uri]:  A resource identifier.
-  /// - [edits]:  An array of edits.
-  /// - [uri]:  A resource identifier.
-  /// - [edits]:  An array of edits.
-  /// - [uri]:  A resource identifier.
-  /// - [edits]:  An array of edits.
-  @_i1.JS('set')
-  external void set$(Uri uri, ReadonlyArray<AnonymousUnion_5570172> edits);
-
-  /// Set (and replace) text edits or snippet edits for a resource.
-  /// Set (and replace) text edits or snippet edits with metadata for a
-  /// resource.
-  /// Set (and replace) notebook edits for a resource.
-  /// Set (and replace) notebook edits with metadata for a resource.
-  /// - [uri]:  A resource identifier.
-  /// - [edits]:  An array of edits.
-  /// - [uri]:  A resource identifier.
-  /// - [edits]:  An array of edits.
-  /// - [uri]:  A resource identifier.
-  /// - [edits]:  An array of edits.
-  /// - [uri]:  A resource identifier.
-  /// - [edits]:  An array of edits.
-  @_i1.JS('set')
-  external void set$1(
-    Uri uri,
-    ReadonlyArray<
-      _i3.JSTuple2<AnonymousUnion_5570172, WorkspaceEditEntryMetadata?>
-    >
-    edits,
-  );
-
-  /// Set (and replace) text edits or snippet edits for a resource.
-  /// Set (and replace) text edits or snippet edits with metadata for a
-  /// resource.
-  /// Set (and replace) notebook edits for a resource.
-  /// Set (and replace) notebook edits with metadata for a resource.
-  /// - [uri]:  A resource identifier.
-  /// - [edits]:  An array of edits.
-  /// - [uri]:  A resource identifier.
-  /// - [edits]:  An array of edits.
-  /// - [uri]:  A resource identifier.
-  /// - [edits]:  An array of edits.
-  /// - [uri]:  A resource identifier.
-  /// - [edits]:  An array of edits.
-  @_i1.JS('set')
-  external void set$2(Uri uri, _i1.JSArray<NotebookEdit> edits);
-
-  /// Set (and replace) text edits or snippet edits for a resource.
-  /// Set (and replace) text edits or snippet edits with metadata for a
-  /// resource.
-  /// Set (and replace) notebook edits for a resource.
-  /// Set (and replace) notebook edits with metadata for a resource.
-  /// - [uri]:  A resource identifier.
-  /// - [edits]:  An array of edits.
-  /// - [uri]:  A resource identifier.
-  /// - [edits]:  An array of edits.
-  /// - [uri]:  A resource identifier.
-  /// - [edits]:  An array of edits.
-  /// - [uri]:  A resource identifier.
-  /// - [edits]:  An array of edits.
-  @_i1.JS('set')
-  external void set$3(
-    Uri uri,
-    ReadonlyArray<_i3.JSTuple2<NotebookEdit, WorkspaceEditEntryMetadata?>>
-    edits,
-  );
-
-  /// Get the text edits for a resource.
-  /// - [uri]:  A resource identifier.
-  ///
-  /// Returns An array of text edits.
-  @_i1.JS('get')
-  external _i1.JSArray<TextEdit> get$(Uri uri);
-
-  /// Create a regular file.
-  /// - [uri]:  Uri of the new file.
-  /// - [options]:  Defines if an existing file should be overwritten or be
-  /// ignored. When `overwrite` and `ignoreIfExists` are both set `overwrite`
-  /// wins.
-  /// When both are unset and when the file already exists then the edit cannot
-  /// be applied successfully. The `content`-property allows to set the initial
-  /// contents
-  /// the file is being created with.
-  /// - [metadata]:  Optional metadata for the entry.
-  external void createFile(
-    Uri uri, [
-    AnonymousType_2378597? options,
-    WorkspaceEditEntryMetadata? metadata,
-  ]);
-
-  /// Delete a file or folder.
-  /// - [uri]:  The uri of the file that is to be deleted.
-  /// - [metadata]:  Optional metadata for the entry.
-  external void deleteFile(
-    Uri uri, [
-    AnonymousType_5483807? options,
-    WorkspaceEditEntryMetadata? metadata,
-  ]);
-
-  /// Rename a file or folder.
-  /// - [oldUri]:  The existing file.
-  /// - [newUri]:  The new location.
-  /// - [options]:  Defines if existing files should be overwritten or be
-  /// ignored. When overwrite and ignoreIfExists are both set overwrite wins.
-  /// - [metadata]:  Optional metadata for the entry.
-  external void renameFile(
-    Uri oldUri,
-    Uri newUri, [
-    AnonymousType_3280175? options,
-    WorkspaceEditEntryMetadata? metadata,
-  ]);
-
-  /// Get all text edits grouped by resource.
-  ///
-  /// Returns A shallow copy of `[Uri, TextEdit[]]`-tuples.
-  external _i1.JSArray<_i3.JSTuple2<Uri, _i1.JSArray<TextEdit>>> entries();
-}
-
-/// A snippet string is a template which allows to insert text
-/// and to control the editor cursor when insertion happens.
-///
-/// A snippet can define tab stops and placeholders with `$1`, `$2`
-/// and `${3:foo}`. `$0` defines the final tab stop, it defaults to
-/// the end of the snippet. Variables are defined with `$name` and
-/// `${name:default value}`. Also see
-/// [the full snippet syntax](https://code.visualstudio.com/docs/editor/userdefinedsnippets#_create-your-own-snippets).
-extension type SnippetString._(_i1.JSObject _) implements _i1.JSObject {
-  external SnippetString([String? value]);
-
-  /// The snippet string.
-  external String value;
-
-  /// Builder-function that appends the given string to
-  /// the SnippetString.valuevalue of this snippet string.
-  /// - [string]:  A value to append 'as given'. The string will be escaped.
-  ///
-  /// Returns This snippet string.
-  external SnippetString appendText(String string);
-
-  /// Builder-function that appends a tabstop (`$1`, `$2` etc) to
-  /// the SnippetString.valuevalue of this snippet string.
-  /// - [number]:  The number of this tabstop, defaults to an auto-increment
-  /// value starting at 1.
-  ///
-  /// Returns This snippet string.
-  external SnippetString appendTabstop([num? number]);
-
-  /// Builder-function that appends a placeholder (`${1:value}`) to
-  /// the SnippetString.valuevalue of this snippet string.
-  /// - [value]:  The value of this placeholder - either a string or a function
-  /// with which a nested snippet can be created.
-  /// - [number]:  The number of this tabstop, defaults to an auto-increment
-  /// value starting at 1.
-  ///
-  /// Returns This snippet string.
-  external SnippetString appendPlaceholder(
-    AnonymousUnion_3824004 value, [
-    num? number,
-  ]);
-
-  /// Builder-function that appends a choice (`${1|a,b,c|}`) to
-  /// the SnippetString.valuevalue of this snippet string.
-  /// - [values]:  The values for choices - the array of strings
-  /// - [number]:  The number of this tabstop, defaults to an auto-increment
-  /// value starting at 1.
-  ///
-  /// Returns This snippet string.
-  external SnippetString appendChoice(
-    _i1.JSArray<_i1.JSString> values, [
-    num? number,
-  ]);
-
-  /// Builder-function that appends a variable (`${VAR}`) to
-  /// the SnippetString.valuevalue of this snippet string.
-  /// - [name]:  The name of the variable - excluding the `$`.
-  /// - [defaultValue]:  The default value which is used when the variable name
-  ///   cannot
-  /// be resolved - either a string or a function with which a nested snippet
-  /// can be created.
-  ///
-  /// Returns This snippet string.
-  external SnippetString appendVariable(
-    String name,
-    AnonymousUnion_3824004 defaultValue,
-  );
 }
 
 /// The rename provider interface defines the contract between extensions and
@@ -3608,6 +4418,21 @@ extension type SignatureHelpContext._(_i1.JSObject _) implements _i1.JSObject {
   external SignatureHelp? get activeSignatureHelp;
 }
 
+/// How a SignatureHelpProvider was triggered.
+extension type const SignatureHelpTriggerKind._(int _) {
+  /// Signature help was invoked manually by the user or by a command.
+  static const SignatureHelpTriggerKind Invoke = SignatureHelpTriggerKind._(1);
+
+  /// Signature help was triggered by a trigger character.
+  static const SignatureHelpTriggerKind TriggerCharacter =
+      SignatureHelpTriggerKind._(2);
+
+  /// Signature help was triggered by the cursor moving or by the document
+  /// content changing.
+  static const SignatureHelpTriggerKind ContentChange =
+      SignatureHelpTriggerKind._(3);
+}
+
 /// The signature help provider interface defines the contract between
 /// extensions and
 /// the
@@ -3787,6 +4612,98 @@ extension type CompletionItem._(_i1.JSObject _) implements _i1.JSObject {
   external Command? command;
 }
 
+/// Completion item kinds.
+extension type const CompletionItemKind._(int _) {
+  /// The `Text` completion item kind.
+  static const CompletionItemKind Text = CompletionItemKind._(0);
+
+  /// The `Method` completion item kind.
+  static const CompletionItemKind Method = CompletionItemKind._(1);
+
+  /// The `Function` completion item kind.
+  static const CompletionItemKind Function$ = CompletionItemKind._(2);
+
+  /// The `Constructor` completion item kind.
+  static const CompletionItemKind Constructor = CompletionItemKind._(3);
+
+  /// The `Field` completion item kind.
+  static const CompletionItemKind Field = CompletionItemKind._(4);
+
+  /// The `Variable` completion item kind.
+  static const CompletionItemKind Variable = CompletionItemKind._(5);
+
+  /// The `Class` completion item kind.
+  static const CompletionItemKind Class = CompletionItemKind._(6);
+
+  /// The `Interface` completion item kind.
+  static const CompletionItemKind Interface = CompletionItemKind._(7);
+
+  /// The `Module` completion item kind.
+  static const CompletionItemKind Module = CompletionItemKind._(8);
+
+  /// The `Property` completion item kind.
+  static const CompletionItemKind Property = CompletionItemKind._(9);
+
+  /// The `Unit` completion item kind.
+  static const CompletionItemKind Unit = CompletionItemKind._(10);
+
+  /// The `Value` completion item kind.
+  static const CompletionItemKind Value = CompletionItemKind._(11);
+
+  /// The `Enum` completion item kind.
+  static const CompletionItemKind Enum = CompletionItemKind._(12);
+
+  /// The `Keyword` completion item kind.
+  static const CompletionItemKind Keyword = CompletionItemKind._(13);
+
+  /// The `Snippet` completion item kind.
+  static const CompletionItemKind Snippet = CompletionItemKind._(14);
+
+  /// The `Color` completion item kind.
+  static const CompletionItemKind Color = CompletionItemKind._(15);
+
+  /// The `Reference` completion item kind.
+  static const CompletionItemKind Reference = CompletionItemKind._(17);
+
+  /// The `File` completion item kind.
+  static const CompletionItemKind File = CompletionItemKind._(16);
+
+  /// The `Folder` completion item kind.
+  static const CompletionItemKind Folder = CompletionItemKind._(18);
+
+  /// The `EnumMember` completion item kind.
+  static const CompletionItemKind EnumMember = CompletionItemKind._(19);
+
+  /// The `Constant` completion item kind.
+  static const CompletionItemKind Constant = CompletionItemKind._(20);
+
+  /// The `Struct` completion item kind.
+  static const CompletionItemKind Struct = CompletionItemKind._(21);
+
+  /// The `Event` completion item kind.
+  static const CompletionItemKind Event = CompletionItemKind._(22);
+
+  /// The `Operator` completion item kind.
+  static const CompletionItemKind Operator = CompletionItemKind._(23);
+
+  /// The `TypeParameter` completion item kind.
+  static const CompletionItemKind TypeParameter = CompletionItemKind._(24);
+
+  /// The `User` completion item kind.
+  static const CompletionItemKind User = CompletionItemKind._(25);
+
+  /// The `Issue` completion item kind.
+  static const CompletionItemKind Issue = CompletionItemKind._(26);
+}
+
+/// Completion item tags are extra annotations that tweak the rendering of a
+/// completion
+/// item.
+extension type const CompletionItemTag._(int _) {
+  /// Render a completion as obsolete, usually using a strike-out.
+  static const CompletionItemTag Deprecated = CompletionItemTag._(1);
+}
+
 /// Represents a collection of CompletionItemcompletion items to be presented
 /// in the editor.
 extension type CompletionList<T extends CompletionItem>._(_i1.JSObject _)
@@ -3817,6 +4734,21 @@ extension type CompletionContext._(_i1.JSObject _) implements _i1.JSObject {
   external String? get triggerCharacter;
 }
 
+/// How a CompletionItemProvidercompletion provider was triggered
+extension type const CompletionTriggerKind._(int _) {
+  /// Completion was triggered normally.
+  static const CompletionTriggerKind Invoke = CompletionTriggerKind._(0);
+
+  /// Completion was triggered by a trigger character.
+  static const CompletionTriggerKind TriggerCharacter = CompletionTriggerKind._(
+    1,
+  );
+
+  /// Completion was re-triggered as current completion list is incomplete
+  static const CompletionTriggerKind TriggerForIncompleteCompletions =
+      CompletionTriggerKind._(2);
+}
+
 /// The completion item provider interface defines the contract between
 /// extensions and
 /// [IntelliSense](https://code.visualstudio.com/docs/editor/intellisense).
@@ -3835,7 +4767,8 @@ extension type CompletionContext._(_i1.JSObject _) implements _i1.JSObject {
 /// implicitly when typing words or trigger characters.
 extension type CompletionItemProvider<T extends CompletionItem>._(
   _i1.JSObject _
-) implements _i1.JSObject {
+)
+    implements _i1.JSObject {
   /// Provide completion items for the given position and document.
   /// - [document]:  The document in which the command was invoked.
   /// - [position]:  The position at which the command was invoked.
@@ -3911,16 +4844,6 @@ extension type InlineCompletionItemProvider._(_i1.JSObject _)
   );
 }
 
-/// Represents a collection of InlineCompletionIteminline completion items to
-/// be presented
-/// in the editor.
-extension type InlineCompletionList._(_i1.JSObject _) implements _i1.JSObject {
-  external InlineCompletionList(_i1.JSArray<InlineCompletionItem> items);
-
-  /// The inline completion items.
-  external _i1.JSArray<InlineCompletionItem> items;
-}
-
 /// Provides information about the context in which an inline completion was
 /// requested.
 extension type InlineCompletionContext._(_i1.JSObject _)
@@ -3942,6 +4865,20 @@ extension type InlineCompletionContext._(_i1.JSObject _)
   /// Inline completion providers are requested again whenever the selected item
   /// changes.
   external SelectedCompletionInfo? get selectedCompletionInfo;
+}
+
+/// Describes how an InlineCompletionItemProviderinline completion provider
+/// was triggered.
+extension type const InlineCompletionTriggerKind._(int _) {
+  /// Completion was triggered explicitly by a user gesture.
+  /// Return multiple completion items to enable cycling through them.
+  static const InlineCompletionTriggerKind Invoke =
+      InlineCompletionTriggerKind._(0);
+
+  /// Completion was triggered automatically while editing.
+  /// It is sufficient to return a single completion item in this case.
+  static const InlineCompletionTriggerKind Automatic =
+      InlineCompletionTriggerKind._(1);
 }
 
 /// Describes the currently selected completion item.
@@ -3984,6 +4921,16 @@ extension type InlineCompletionItem._(_i1.JSObject _) implements _i1.JSObject {
 
   /// An optional Command that is executed *after* inserting this completion.
   external Command? command;
+}
+
+/// Represents a collection of InlineCompletionIteminline completion items to
+/// be presented
+/// in the editor.
+extension type InlineCompletionList._(_i1.JSObject _) implements _i1.JSObject {
+  external InlineCompletionList(_i1.JSArray<InlineCompletionItem> items);
+
+  /// The inline completion items.
+  external _i1.JSArray<InlineCompletionItem> items;
 }
 
 /// A document link is a range in a text document that links to an internal or
@@ -4225,6 +5172,19 @@ extension type InlayHint._(_i1.JSObject _) implements _i1.JSObject {
   external bool? paddingRight;
 }
 
+/// Inlay hint kinds.
+///
+/// The kind of an inline hint defines its appearance, e.g the corresponding
+/// foreground and background colors are being
+/// used.
+extension type const InlayHintKind._(int _) {
+  /// An inlay hint that is for a type annotation.
+  static const InlayHintKind Type = InlayHintKind._(1);
+
+  /// An inlay hint that is for a parameter.
+  static const InlayHintKind Parameter = InlayHintKind._(2);
+}
+
 /// The inlay hints provider interface defines the contract between extensions
 /// and
 /// the inlay hints feature.
@@ -4289,6 +5249,25 @@ extension type FoldingRange._(_i1.JSObject _) implements _i1.JSObject {
   /// FoldingRangeKind for an enumeration of all kinds.
   /// If not set, the range is originated from a syntax element.
   external FoldingRangeKind? kind;
+}
+
+/// An enumeration of specific folding range kinds. The kind is an optional
+/// field of a FoldingRange
+/// and is used to distinguish specific folding ranges such as ranges
+/// originated from comments. The kind is used by commands like
+/// `Fold all comments` or `Fold all regions`.
+/// If the kind is not set on the range, the range originated from a syntax
+/// element other than comments, imports or region markers.
+extension type const FoldingRangeKind._(int _) {
+  /// Kind for folding range representing a comment.
+  static const FoldingRangeKind Comment = FoldingRangeKind._(1);
+
+  /// Kind for folding range representing a import.
+  static const FoldingRangeKind Imports = FoldingRangeKind._(2);
+
+  /// Kind for folding range representing regions originating from folding
+  /// markers like `#region` and `#endregion`.
+  static const FoldingRangeKind Region = FoldingRangeKind._(3);
 }
 
 /// Folding context (for future use)
@@ -4714,7 +5693,8 @@ extension type DocumentDropEdit._(_i1.JSObject _) implements _i1.JSObject {
 /// Requires `editor.dropIntoEditor.enabled` to be on.
 extension type DocumentDropEditProvider<T extends DocumentDropEdit>._(
   _i1.JSObject _
-) implements _i1.JSObject {
+)
+    implements _i1.JSObject {
   /// Provide edits which inserts the content being dragged and dropped into the
   /// document.
   /// - [document]:  The document in which the drop occurred.
@@ -4746,6 +5726,78 @@ extension type DocumentDropEditProvider<T extends DocumentDropEdit>._(
   /// return the given
   /// `edit`. If no result is returned, the given `edit` is used.
   external _i1.JSFunction? get resolveDocumentDropEdit;
+}
+
+/// A map containing a mapping of the mime type of the corresponding
+/// transferred data.
+///
+/// Drag and drop controllers that implement
+/// TreeDragAndDropController.handleDrag`handleDrag` can add additional mime
+/// types to the
+/// data transfer. These additional mime types will only be included in the
+/// `handleDrop` when the drag was initiated from
+/// an element in the same drag and drop controller.
+extension type DataTransfer._(_i1.JSObject _)
+    implements
+        Iterable<_i2.JSTuple2<_i1.JSAny, _i1.JSAny>, _i1.JSAny?, _i1.JSAny?> {
+  external DataTransfer();
+
+  /// Retrieves the data transfer item for a given mime type.
+  /// - [mimeType]:  The mime type to get the data transfer item for, such as
+  ///   `text/plain` or `image/png`.
+  /// Mimes type look ups are case-insensitive.
+  ///
+  /// Special mime types:
+  /// - `text/uri-list` — A string with `toString()`ed Uris separated by `\r\n`.
+  ///   To specify a cursor position in the file,
+  /// set the Uri's fragment to `L3,5`, where 3 is the line number and 5 is the
+  /// column number.
+  @_i1.JS('get')
+  external DataTransferItem? get$(String mimeType);
+
+  /// Sets a mime type to data transfer item mapping.
+  /// - [mimeType]:  The mime type to set the data for. Mimes types stored in
+  ///   lower case, with case-insensitive looks up.
+  /// - [value]:  The data transfer item for the given mime type.
+  @_i1.JS('set')
+  external void set$(String mimeType, DataTransferItem value);
+
+  /// Allows iteration through the data transfer items.
+  /// - [callbackfn]:  Callback for iteration through the data transfer items.
+  /// - [thisArg]:  The `this` context used when invoking the handler function.
+  external void forEach(
+    _AnonymousFunction_2840943 callbackfn, [
+    _i1.JSAny? thisArg,
+  ]);
+}
+
+/// Encapsulates data transferred during drag and drop operations.
+extension type DataTransferItem._(_i1.JSObject _) implements _i1.JSObject {
+  external DataTransferItem(_i1.JSAny? value);
+
+  /// Custom data stored on this item.
+  ///
+  /// You can use `value` to share data across operations. The original object
+  /// can be retrieved so long as the extension that
+  /// created the `DataTransferItem` runs in the same extension host.
+  external _i1.JSAny? get value;
+
+  /// Get a string representation of this item.
+  ///
+  /// If DataTransferItem.value is an object, this returns the result of json
+  /// stringifying DataTransferItem.value value.
+  external Thenable<_i1.JSString> asString();
+
+  /// Try getting the DataTransferFilefile associated with this data transfer
+  /// item.
+  ///
+  /// Note that the file object is only valid for the scope of the drag and drop
+  /// operation.
+  ///
+  /// Returns The file for the data transfer or `undefined` if the item is
+  /// either not a file or the
+  /// file data cannot be accessed.
+  external DataTransferFile? asFile();
 }
 
 /// Provides additional metadata about how a DocumentDropEditProvider works.
@@ -4789,10 +5841,53 @@ extension type DocumentPasteEditContext._(_i1.JSObject _)
   external DocumentPasteTriggerKind get triggerKind;
 }
 
+/// The reason why paste edits were requested.
+extension type const DocumentPasteTriggerKind._(int _) {
+  /// Pasting was requested as part of a normal paste operation.
+  static const DocumentPasteTriggerKind Automatic = DocumentPasteTriggerKind._(
+    0,
+  );
+
+  /// Pasting was requested by the user with the `paste as` command.
+  static const DocumentPasteTriggerKind PasteAs = DocumentPasteTriggerKind._(1);
+}
+
+/// An edit the applies a paste operation.
+extension type DocumentPasteEdit._(_i1.JSObject _) implements _i1.JSObject {
+  external DocumentPasteEdit(
+    AnonymousUnion_4139004 insertText,
+    String title,
+    DocumentDropOrPasteEditKind kind,
+  );
+
+  /// Human readable label that describes the edit.
+  external String title;
+
+  /// DocumentDropOrPasteEditKindKind of the edit.
+  external DocumentDropOrPasteEditKind kind;
+
+  /// The text or snippet to insert at the pasted locations.
+  ///
+  /// If your edit requires more advanced insertion logic, set this to an empty
+  /// string and provide an DocumentPasteEdit.additionalEditadditional edit
+  /// instead.
+  external AnonymousUnion_4139004 insertText;
+
+  /// An optional additional edit to apply on paste.
+  external WorkspaceEdit? additionalEdit;
+
+  /// Controls ordering when multiple paste edits can potentially be applied.
+  ///
+  /// If this edit yields to another, it will be shown lower in the list of
+  /// possible paste edits shown to the user.
+  external _i1.JSArray<DocumentDropOrPasteEditKind?>? yieldTo;
+}
+
 /// Provider invoked when the user copies or pastes in a TextDocument.
 extension type DocumentPasteEditProvider<T extends DocumentPasteEdit>._(
   _i1.JSObject _
-) implements _i1.JSObject {
+)
+    implements _i1.JSObject {
   /// Optional method invoked after the user copies from a TextEditortext
   /// editor.
   ///
@@ -4837,37 +5932,6 @@ extension type DocumentPasteEditProvider<T extends DocumentPasteEdit>._(
   /// OK to return the given
   /// `pasteEdit`. If no result is returned, the given `pasteEdit` is used.
   external _i1.JSFunction? get resolveDocumentPasteEdit;
-}
-
-/// An edit the applies a paste operation.
-extension type DocumentPasteEdit._(_i1.JSObject _) implements _i1.JSObject {
-  external DocumentPasteEdit(
-    AnonymousUnion_4139004 insertText,
-    String title,
-    DocumentDropOrPasteEditKind kind,
-  );
-
-  /// Human readable label that describes the edit.
-  external String title;
-
-  /// DocumentDropOrPasteEditKindKind of the edit.
-  external DocumentDropOrPasteEditKind kind;
-
-  /// The text or snippet to insert at the pasted locations.
-  ///
-  /// If your edit requires more advanced insertion logic, set this to an empty
-  /// string and provide an DocumentPasteEdit.additionalEditadditional edit
-  /// instead.
-  external AnonymousUnion_4139004 insertText;
-
-  /// An optional additional edit to apply on paste.
-  external WorkspaceEdit? additionalEdit;
-
-  /// Controls ordering when multiple paste edits can potentially be applied.
-  ///
-  /// If this edit yields to another, it will be shown lower in the list of
-  /// possible paste edits shown to the user.
-  external _i1.JSArray<DocumentDropOrPasteEditKind?>? yieldTo;
 }
 
 /// Provides additional metadata about how a DocumentPasteEditProvider works.
@@ -4923,6 +5987,10 @@ extension type CommentRule._(_i1.JSObject _) implements _i1.JSObject {
   external CharacterPair? blockComment;
 }
 
+/// A tuple of two characters, like a pair of
+/// opening and closing brackets.
+typedef CharacterPair = _i2.JSTuple2<_i1.JSString, _i1.JSString>;
+
 /// Describes indentation rules for a language.
 extension type IndentationRule._(_i1.JSObject _) implements _i1.JSObject {
   /// If a line matches this pattern, then all the lines after it should be
@@ -4956,6 +6024,25 @@ extension type EnterAction._(_i1.JSObject _) implements _i1.JSObject {
   external double? removeText;
 }
 
+/// Describes what to do with the indentation when pressing Enter.
+extension type const IndentAction._(int _) {
+  /// Insert new line and copy the previous line's indentation.
+  static const IndentAction None = IndentAction._(0);
+
+  /// Insert new line and indent once (relative to the previous line's
+  /// indentation).
+  static const IndentAction Indent = IndentAction._(1);
+
+  /// Insert two new lines:
+  ///  - the first one indented which will hold the cursor
+  ///  - the second one at the same indentation level
+  static const IndentAction IndentOutdent = IndentAction._(2);
+
+  /// Insert new line and outdent once (relative to the previous line's
+  /// indentation).
+  static const IndentAction Outdent = IndentAction._(3);
+}
+
 /// Describes a rule to be evaluated when pressing Enter.
 extension type OnEnterRule._(_i1.JSObject _) implements _i1.JSObject {
   /// This rule will only execute if the text before the cursor matches this
@@ -4987,6 +6074,22 @@ extension type AutoClosingPair._(_i1.JSObject _) implements _i1.JSObject {
 
   /// A set of tokens where the pair should not be auto closed.
   external _i1.JSArray<_i1.JSNumber?>? notIn;
+}
+
+/// Enumeration of commonly encountered syntax token types.
+extension type const SyntaxTokenType._(int _) {
+  /// Everything except tokens that are part of comments, string literals and
+  /// regular expressions.
+  static const SyntaxTokenType Other = SyntaxTokenType._(0);
+
+  /// A comment.
+  static const SyntaxTokenType Comment = SyntaxTokenType._(1);
+
+  /// A string literal.
+  static const SyntaxTokenType String = SyntaxTokenType._(2);
+
+  /// A regular expression.
+  static const SyntaxTokenType RegEx = SyntaxTokenType._(3);
 }
 
 /// The language configuration interfaces defines the contract between
@@ -5187,7 +6290,7 @@ extension type WorkspaceConfiguration._(_i1.JSObject _)
   /// - If `true` updates the value under the requested languageId.
   /// - If `undefined` updates the value under the requested languageId only if
   ///   the configuration is defined for the language.
-  external _i2.Thenable<_i1.JSAny?> update(
+  external Thenable<_i1.JSAny?> update(
     String section,
     _i1.JSAny? value, [
     AnonymousUnion_3678949? configurationTarget,
@@ -5197,95 +6300,22 @@ extension type WorkspaceConfiguration._(_i1.JSObject _)
   external void operator []=(String key, _i1.JSAny? newValue);
 }
 
-/// Represents a location inside a resource, such as a line
-/// inside a text file.
-extension type Location._(_i1.JSObject _) implements _i1.JSObject {
-  external Location(Uri uri, AnonymousUnion_9838905 rangeOrPosition);
+/// The configuration target
+extension type const ConfigurationTarget._(int _) {
+  /// Global configuration
+  static const ConfigurationTarget Global = ConfigurationTarget._(1);
 
-  /// The resource identifier of this location.
-  external Uri uri;
+  /// Workspace configuration
+  static const ConfigurationTarget Workspace = ConfigurationTarget._(2);
 
-  /// The document range of this location.
-  external Range range;
-}
-
-/// Represents the connection of two locations. Provides additional metadata
-/// over normal Locationlocations,
-/// including an origin range.
-extension type LocationLink._(_i1.JSObject _) implements _i1.JSObject {
-  /// Span of the origin of this link.
-  ///
-  /// Used as the underlined span for mouse definition hover. Defaults to the
-  /// word range at
-  /// the definition position.
-  external Range? originSelectionRange;
-
-  /// The target resource identifier of this link.
-  external Uri targetUri;
-
-  /// The full target range of this link.
-  external Range targetRange;
-
-  /// The span of this link.
-  external Range? targetSelectionRange;
+  /// Workspace folder configuration
+  static const ConfigurationTarget WorkspaceFolder = ConfigurationTarget._(3);
 }
 
 /// The event that is fired when diagnostics change.
 extension type DiagnosticChangeEvent._(_i1.JSObject _) implements _i1.JSObject {
   /// An array of resources for which diagnostics have changed.
   external _i1.JSArray<Uri> get uris;
-}
-
-/// Represents a related message and source code location for a diagnostic.
-/// This should be
-/// used to point to code locations that cause or related to a diagnostics,
-/// e.g. when duplicating
-/// a symbol in a scope.
-extension type DiagnosticRelatedInformation._(_i1.JSObject _)
-    implements _i1.JSObject {
-  external DiagnosticRelatedInformation(Location location, String message);
-
-  /// The location of this related diagnostic information.
-  external Location location;
-
-  /// The message of this related diagnostic information.
-  external String message;
-}
-
-/// Represents a diagnostic, such as a compiler error or warning. Diagnostic
-/// objects
-/// are only valid in the scope of a file.
-extension type Diagnostic._(_i1.JSObject _) implements _i1.JSObject {
-  external Diagnostic(
-    Range range,
-    String message, [
-    DiagnosticSeverity? severity,
-  ]);
-
-  /// The range to which this diagnostic applies.
-  external Range range;
-
-  /// The human-readable message.
-  external String message;
-
-  /// The severity, default is DiagnosticSeverity.Errorerror.
-  external DiagnosticSeverity severity;
-
-  /// A human-readable string describing the source of this
-  /// diagnostic, e.g. 'typescript' or 'super lint'.
-  external String? source;
-
-  /// A code or identifier for this diagnostic.
-  /// Should be used for later processing, e.g. when providing
-  /// CodeActionContextcode actions.
-  external AnonymousUnion_2217746? code;
-
-  /// An array of related diagnostic information, e.g. when symbol-names within
-  /// a scope collide all definitions can be marked via this property.
-  external _i1.JSArray<DiagnosticRelatedInformation?>? relatedInformation;
-
-  /// Additional metadata about the diagnostic.
-  external _i1.JSArray<_i1.JSNumber?>? tags;
 }
 
 /// A diagnostics collection is a container that manages a set of
@@ -5296,7 +6326,7 @@ extension type Diagnostic._(_i1.JSObject _) implements _i1.JSObject {
 /// languages.createDiagnosticCollectioncreateDiagnosticCollection.
 extension type DiagnosticCollection._(_i1.JSObject _)
     implements
-        Iterable<_i3.JSTuple2<_i1.JSAny, _i1.JSAny>, _i1.JSAny?, _i1.JSAny?> {
+        Iterable<_i2.JSTuple2<_i1.JSAny, _i1.JSAny>, _i1.JSAny?, _i1.JSAny?> {
   /// The name of this diagnostic collection, for instance `typescript`. Every
   /// diagnostic
   /// from this collection will be associated with this name. Also, the task
@@ -5334,7 +6364,7 @@ extension type DiagnosticCollection._(_i1.JSObject _)
   ///   d4, d5]]]`, or `undefined`.
   @_i1.JS('set')
   external void set$1(
-    ReadonlyArray<_i3.JSTuple2<Uri, _i1.JSArray<Diagnostic>?>> entries,
+    ReadonlyArray<_i2.JSTuple2<Uri, _i1.JSArray<Diagnostic>?>> entries,
   );
 
   /// Remove all diagnostics from this collection that belong
@@ -5423,6 +6453,34 @@ extension type LanguageStatusItem._(_i1.JSObject _) implements _i1.JSObject {
 
   /// Dispose and free associated resources.
   external void dispose();
+}
+
+/// Represents the severity level of a language status.
+extension type const LanguageStatusSeverity._(int _) {
+  /// Informational severity level.
+  static const LanguageStatusSeverity Information = LanguageStatusSeverity._(0);
+
+  /// Warning severity level.
+  static const LanguageStatusSeverity Warning = LanguageStatusSeverity._(1);
+
+  /// Error severity level.
+  static const LanguageStatusSeverity Error = LanguageStatusSeverity._(2);
+}
+
+/// Accessibility information which controls screen reader behavior.
+extension type AccessibilityInformation._(_i1.JSObject _)
+    implements _i1.JSObject {
+  /// Label to be read out by a screen reader once the item has focus.
+  external String get label;
+
+  /// Role of the widget which defines how a screen reader interacts with it.
+  /// The role should be set in special cases when for example a tree-like
+  /// element behaves like a checkbox.
+  /// If role is not specified the editor will pick the appropriate role
+  /// automatically.
+  /// More about aria roles can be found here
+  /// https://w3c.github.io/aria/#widget_roles
+  external String? get role;
 }
 
 /// An output channel is a container for readonly textual information.
@@ -5556,20 +6614,25 @@ extension type LogOutputChannel._(_i1.JSObject _) implements OutputChannel {
   ]);
 }
 
-/// Accessibility information which controls screen reader behavior.
-extension type AccessibilityInformation._(_i1.JSObject _)
-    implements _i1.JSObject {
-  /// Label to be read out by a screen reader once the item has focus.
-  external String get label;
+/// Log levels
+extension type const LogLevel._(int _) {
+  /// No messages are logged with this level.
+  static const LogLevel Off = LogLevel._(0);
 
-  /// Role of the widget which defines how a screen reader interacts with it.
-  /// The role should be set in special cases when for example a tree-like
-  /// element behaves like a checkbox.
-  /// If role is not specified the editor will pick the appropriate role
-  /// automatically.
-  /// More about aria roles can be found here
-  /// https://w3c.github.io/aria/#widget_roles
-  external String? get role;
+  /// All messages are logged with this level.
+  static const LogLevel Trace = LogLevel._(1);
+
+  /// Messages with debug and higher log level are logged with this level.
+  static const LogLevel Debug = LogLevel._(2);
+
+  /// Messages with info and higher log level are logged with this level.
+  static const LogLevel Info = LogLevel._(3);
+
+  /// Messages with warning and higher log level are logged with this level.
+  static const LogLevel Warning = LogLevel._(4);
+
+  /// Only error messages are logged with this level.
+  static const LogLevel Error = LogLevel._(5);
 }
 
 /// A status bar item is a status bar contribution that can
@@ -5648,6 +6711,15 @@ extension type StatusBarItem._(_i1.JSObject _) implements _i1.JSObject {
   external void dispose();
 }
 
+/// Represents the alignment of status bar items.
+extension type const StatusBarAlignment._(int _) {
+  /// Aligned to the left side.
+  static const StatusBarAlignment Left = StatusBarAlignment._(1);
+
+  /// Aligned to the right side.
+  static const StatusBarAlignment Right = StatusBarAlignment._(2);
+}
+
 /// Defines a generalized way of reporting progress updates.
 extension type Progress<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
@@ -5663,7 +6735,7 @@ extension type Terminal._(_i1.JSObject _) implements _i1.JSObject {
   external String get name;
 
   /// The process ID of the shell process.
-  external _i2.Thenable<_i1.JSNumber?> get processId;
+  external Thenable<_i1.JSNumber?> get processId;
 
   /// The object used to initialize the terminal, this is useful for example to
   /// detecting the
@@ -5728,6 +6800,105 @@ extension type Terminal._(_i1.JSObject _) implements _i1.JSObject {
   external void dispose();
 }
 
+/// Value-object describing what options a terminal should use.
+extension type TerminalOptions._(_i1.JSObject _) implements _i1.JSObject {
+  /// A human-readable string which will be used to represent the terminal in
+  /// the UI.
+  external String? name;
+
+  /// A path to a custom shell executable to be used in the terminal.
+  external String? shellPath;
+
+  /// Args for the custom shell executable. A string can be used on Windows only
+  /// which allows
+  /// specifying shell args in
+  /// [command-line format](https://msdn.microsoft.com/en-au/08dfcab2-eb6e-49a4-80eb-87d4076c98c6).
+  external AnonymousUnion_3826264? shellArgs;
+
+  /// A path or Uri for the current working directory to be used for the
+  /// terminal.
+  external AnonymousUnion_4269776? cwd;
+
+  /// Object with environment variables that will be added to the editor
+  /// process.
+  external AnonymousType_1525911? env;
+
+  /// Whether the terminal process environment should be exactly as provided in
+  /// `TerminalOptions.env`. When this is false (default), the environment will
+  /// be based on the
+  /// window's environment and also apply configured platform settings like
+  /// `terminal.integrated.env.windows` on top. When this is true, the complete
+  /// environment
+  /// must be provided as nothing will be inherited from the process or any
+  /// configuration.
+  external bool? strictEnv;
+
+  /// When enabled the terminal will run the process as normal but not be
+  /// surfaced to the user
+  /// until `Terminal.show` is called. The typical usage for this is when you
+  /// need to run
+  /// something that may need interactivity but only want to tell the user about
+  /// it when
+  /// interaction is needed. Note that the terminals will still be exposed to
+  /// all extensions
+  /// as normal. The hidden terminals will not be restored when the workspace is
+  /// next opened.
+  external bool? hideFromUser;
+
+  /// A message to write to the terminal on first launch, note that this is not
+  /// sent to the
+  /// process but, rather written directly to the terminal. This supports escape
+  /// sequences such
+  /// a setting text style.
+  external String? message;
+
+  /// The icon path or ThemeIcon for the terminal.
+  external IconPath? iconPath;
+
+  /// The icon ThemeColor for the terminal.
+  /// The `terminal.ansi*` theme keys are
+  /// recommended for the best contrast and consistency across themes.
+  external ThemeColor? color;
+
+  /// The TerminalLocation or TerminalEditorLocationOptions or
+  /// TerminalSplitLocationOptions for the terminal.
+  external AnonymousUnion_1299646? location;
+
+  /// Opt-out of the default terminal persistence on restart and reload.
+  /// This will only take effect when
+  /// `terminal.integrated.enablePersistentSessions` is enabled.
+  external bool? isTransient;
+
+  /// The nonce to use to verify shell integration sequences are coming from a
+  /// trusted source.
+  /// An example impact of UX of this is if the command line is reported with a
+  /// nonce, it will
+  /// not need to verify with the user that the command line is correct before
+  /// rerunning it
+  /// via the
+  /// [shell integration command decoration](https://code.visualstudio.com/docs/terminal/shell-integration#_command-decorations-and-the-overview-ruler).
+  ///
+  /// This should be used if the terminal includes
+  /// [custom shell integration support](https://code.visualstudio.com/docs/terminal/shell-integration#_supported-escape-sequences).
+  /// It should be set to a random GUID which will then set the `VSCODE_NONCE`
+  /// environment
+  /// variable. Inside the shell, this should then be removed from the
+  /// environment so as to
+  /// protect it from general access. Once that is done it can be passed through
+  /// in the
+  /// relevant sequences to make them trusted.
+  external String? shellIntegrationNonce;
+}
+
+/// The location of the terminal.
+extension type const TerminalLocation._(int _) {
+  /// In the terminal view
+  static const TerminalLocation Panel = TerminalLocation._(1);
+
+  /// In the editor area
+  static const TerminalLocation Editor = TerminalLocation._(2);
+}
+
 /// Assumes a TerminalLocation of editor and allows specifying a ViewColumn
 /// and
 /// TerminalEditorLocationOptions.preserveFocuspreserveFocus  property
@@ -5753,6 +6924,259 @@ extension type TerminalSplitLocationOptions._(_i1.JSObject _)
   /// parent terminal
   /// is in the panel or the editor area.
   external Terminal parentTerminal;
+}
+
+/// Value-object describing what options a virtual process terminal should
+/// use.
+extension type ExtensionTerminalOptions._(_i1.JSObject _)
+    implements _i1.JSObject {
+  /// A human-readable string which will be used to represent the terminal in
+  /// the UI.
+  external String name;
+
+  /// An implementation of Pseudoterminal that allows an extension to
+  /// control a terminal.
+  external Pseudoterminal pty;
+
+  /// The icon path or ThemeIcon for the terminal.
+  external IconPath? iconPath;
+
+  /// The icon ThemeColor for the terminal.
+  /// The standard `terminal.ansi*` theme keys are
+  /// recommended for the best contrast and consistency across themes.
+  external ThemeColor? color;
+
+  /// The TerminalLocation or TerminalEditorLocationOptions or
+  /// TerminalSplitLocationOptions for the terminal.
+  external AnonymousUnion_1299646? location;
+
+  /// Opt-out of the default terminal persistence on restart and reload.
+  /// This will only take effect when
+  /// `terminal.integrated.enablePersistentSessions` is enabled.
+  external bool? isTransient;
+
+  /// The nonce to use to verify shell integration sequences are coming from a
+  /// trusted source.
+  /// An example impact of UX of this is if the command line is reported with a
+  /// nonce, it will
+  /// not need to verify with the user that the command line is correct before
+  /// rerunning it
+  /// via the
+  /// [shell integration command decoration](https://code.visualstudio.com/docs/terminal/shell-integration#_command-decorations-and-the-overview-ruler).
+  ///
+  /// This should be used if the terminal includes
+  /// [custom shell integration support](https://code.visualstudio.com/docs/terminal/shell-integration#_supported-escape-sequences).
+  /// It should be set to a random GUID. Inside the Pseudoterminal
+  /// implementation, this value
+  /// can be passed through in the relevant sequences to make them trusted.
+  external String? shellIntegrationNonce;
+}
+
+/// Defines the interface of a terminal pty, enabling extensions to control a
+/// terminal.
+extension type Pseudoterminal._(_i1.JSObject _) implements _i1.JSObject {
+  /// An event that when fired will write data to the terminal. Unlike
+  /// Terminal.sendText which sends text to the underlying child
+  /// pseudo-device (the child), this will write the text to parent
+  /// pseudo-device (the
+  /// _terminal_ itself).
+  ///
+  /// Note writing `\n` will just move the cursor down 1 row, you need to write
+  /// `\r` as well
+  /// to move the cursor to the left-most cell.
+  ///
+  /// Events fired before Pseudoterminal.open is called will be be ignored.
+  ///
+  /// **Example:** Write red text to the terminal
+  /// ```typescript
+  /// const writeEmitter = new vscode.EventEmitter<string>();
+  /// const pty: vscode.Pseudoterminal = {
+  ///   onDidWrite: writeEmitter.event,
+  ///   open: () => writeEmitter.fire('\x1b[31mHello world\x1b[0m'),
+  ///   close: () => {}
+  /// };
+  /// vscode.window.createTerminal({ name: 'My terminal', pty });
+  /// ```
+  ///
+  /// **Example:** Move the cursor to the 10th row and 20th column and write an
+  /// asterisk
+  /// ```typescript
+  /// writeEmitter.fire('\x1b[10;20H*');
+  /// ```
+  external Event<_i1.JSString> onDidWrite;
+
+  /// An event that when fired allows overriding the
+  /// Pseudoterminal.setDimensionsdimensions of the
+  /// terminal. Note that when set, the overridden dimensions will only take
+  /// effect when they
+  /// are lower than the actual dimensions of the terminal (ie. there will never
+  /// be a scroll
+  /// bar). Set to `undefined` for the terminal to go back to the regular
+  /// dimensions (fit to
+  /// the size of the panel).
+  ///
+  /// Events fired before Pseudoterminal.open is called will be be ignored.
+  ///
+  /// **Example:** Override the dimensions of a terminal to 20 columns and 10
+  /// rows
+  /// ```typescript
+  /// const dimensionsEmitter = new vscode.EventEmitter<vscode.TerminalDimensions>();
+  /// const pty: vscode.Pseudoterminal = {
+  ///   onDidWrite: writeEmitter.event,
+  ///   onDidOverrideDimensions: dimensionsEmitter.event,
+  ///   open: () => {
+  ///     dimensionsEmitter.fire({
+  ///       columns: 20,
+  ///       rows: 10
+  ///     });
+  ///   },
+  ///   close: () => {}
+  /// };
+  /// vscode.window.createTerminal({ name: 'My terminal', pty });
+  /// ```
+  external Event<TerminalDimensions?>? onDidOverrideDimensions;
+
+  /// An event that when fired will signal that the pty is closed and dispose of
+  /// the terminal.
+  ///
+  /// Events fired before Pseudoterminal.open is called will be be ignored.
+  ///
+  /// A number can be used to provide an exit code for the terminal. Exit codes
+  /// must be
+  /// positive and a non-zero exit codes signals failure which shows a
+  /// notification for a
+  /// regular terminal and allows dependent tasks to proceed when used with the
+  /// `CustomExecution` API.
+  ///
+  /// **Example:** Exit the terminal when "y" is pressed, otherwise show a
+  /// notification.
+  /// ```typescript
+  /// const writeEmitter = new vscode.EventEmitter<string>();
+  /// const closeEmitter = new vscode.EventEmitter<void>();
+  /// const pty: vscode.Pseudoterminal = {
+  ///   onDidWrite: writeEmitter.event,
+  ///   onDidClose: closeEmitter.event,
+  ///   open: () => writeEmitter.fire('Press y to exit successfully'),
+  ///   close: () => {},
+  ///   handleInput: data => {
+  ///     if (data !== 'y') {
+  ///       vscode.window.showInformationMessage('Something went wrong');
+  ///     }
+  ///     closeEmitter.fire();
+  ///   }
+  /// };
+  /// const terminal = vscode.window.createTerminal({ name: 'Exit example', pty });
+  /// terminal.show(true);
+  /// ```
+  external Event<AnonymousUnion_1194375>? onDidClose;
+
+  /// An event that when fired allows changing the name of the terminal.
+  ///
+  /// Events fired before Pseudoterminal.open is called will be be ignored.
+  ///
+  /// **Example:** Change the terminal name to "My new terminal".
+  /// ```typescript
+  /// const writeEmitter = new vscode.EventEmitter<string>();
+  /// const changeNameEmitter = new vscode.EventEmitter<string>();
+  /// const pty: vscode.Pseudoterminal = {
+  ///   onDidWrite: writeEmitter.event,
+  ///   onDidChangeName: changeNameEmitter.event,
+  ///   open: () => changeNameEmitter.fire('My new terminal'),
+  ///   close: () => {}
+  /// };
+  /// vscode.window.createTerminal({ name: 'My terminal', pty });
+  /// ```
+  external Event<_i1.JSString>? onDidChangeName;
+
+  /// Implement to handle when the pty is open and ready to start firing events.
+  /// - [initialDimensions]:  The dimensions of the terminal, this will be
+  ///   undefined if the
+  /// terminal panel has not been opened before this is called.
+  external void open(TerminalDimensions? initialDimensions);
+
+  /// Implement to handle when the terminal is closed by an act of the user.
+  external void close();
+
+  /// Implement to handle incoming keystrokes in the terminal or when an
+  /// extension calls
+  /// Terminal.sendText. `data` contains the keystrokes/text serialized into
+  /// their corresponding VT sequence representation.
+  /// - [data]:  The incoming data.
+  ///
+  /// **Example:** Echo input in the terminal. The sequence for enter (`\r`) is
+  /// translated to
+  /// CRLF to go to a new line and move the cursor to the start of the line.
+  /// ```typescript
+  /// const writeEmitter = new vscode.EventEmitter<string>();
+  /// const pty: vscode.Pseudoterminal = {
+  /// onDidWrite: writeEmitter.event,
+  /// open: () => {},
+  /// close: () => {},
+  /// handleInput: data => writeEmitter.fire(data === '\r' ? '\r\n' : data)
+  /// };
+  /// vscode.window.createTerminal({ name: 'Local echo', pty });
+  /// ```
+  external _i1.JSFunction? get handleInput;
+
+  /// Implement to handle when the number of rows and columns that fit into the
+  /// terminal panel
+  /// changes, for example when font size changes or when the panel is resized.
+  /// The initial
+  /// state of a terminal's dimensions should be treated as `undefined` until
+  /// this is triggered
+  /// as the size of a terminal isn't known until it shows up in the user
+  /// interface.
+  ///
+  /// When dimensions are overridden by
+  /// Pseudoterminal.onDidOverrideDimensionsonDidOverrideDimensions,
+  /// `setDimensions` will
+  /// continue to be called with the regular panel dimensions, allowing the
+  /// extension continue
+  /// to react dimension changes.
+  /// - [dimensions]:  The new dimensions.
+  external _i1.JSFunction? get setDimensions;
+}
+
+/// Represents the dimensions of a terminal.
+extension type TerminalDimensions._(_i1.JSObject _) implements _i1.JSObject {
+  /// The number of columns in the terminal.
+  external double get columns;
+
+  /// The number of rows in the terminal.
+  external double get rows;
+}
+
+/// Represents how a terminal exited.
+extension type TerminalExitStatus._(_i1.JSObject _) implements _i1.JSObject {
+  /// The exit code that a terminal exited with, it can have the following
+  /// values:
+  /// - Zero: the terminal process or custom execution succeeded.
+  /// - Non-zero: the terminal process or custom execution failed.
+  /// - `undefined`: the user forcibly closed the terminal or a custom execution
+  ///   exited
+  /// without providing an exit code.
+  external double? get code;
+
+  /// The reason that triggered the exit of a terminal.
+  external TerminalExitReason get reason;
+}
+
+/// Terminal exit reason kind.
+extension type const TerminalExitReason._(int _) {
+  /// Unknown reason.
+  static const TerminalExitReason Unknown = TerminalExitReason._(0);
+
+  /// The window closed/reloaded.
+  static const TerminalExitReason Shutdown = TerminalExitReason._(1);
+
+  /// The shell process exited.
+  static const TerminalExitReason Process = TerminalExitReason._(2);
+
+  /// The user closed the terminal.
+  static const TerminalExitReason User = TerminalExitReason._(3);
+
+  /// An extension disposed the terminal.
+  static const TerminalExitReason Extension = TerminalExitReason._(4);
 }
 
 /// Represents the state of a Terminal.
@@ -6113,6 +7537,39 @@ extension type TerminalShellExecutionCommandLine._(_i1.JSObject _)
   external TerminalShellExecutionCommandLineConfidence get confidence;
 }
 
+/// The confidence of a TerminalShellExecutionCommandLine value.
+extension type const TerminalShellExecutionCommandLineConfidence._(int _) {
+  /// The command line value confidence is low. This means that the value was
+  /// read from the
+  /// terminal buffer using markers reported by the shell integration script.
+  /// Additionally one
+  /// of the following conditions will be met:
+  ///
+  /// - The command started on the very left-most column which is unusual, or
+  /// - The command is multi-line which is more difficult to accurately detect
+  ///   due to line
+  /// continuation characters and right prompts.
+  /// - Command line markers were not reported by the shell integration script.
+  static const TerminalShellExecutionCommandLineConfidence Low =
+      TerminalShellExecutionCommandLineConfidence._(0);
+
+  /// The command line value confidence is medium. This means that the value was
+  /// read from the
+  /// terminal buffer using markers reported by the shell integration script.
+  /// The command is
+  /// single-line and does not start on the very left-most column (which is
+  /// unusual).
+  static const TerminalShellExecutionCommandLineConfidence Medium =
+      TerminalShellExecutionCommandLineConfidence._(1);
+
+  /// The command line value confidence is high. This means that the value was
+  /// explicitly sent
+  /// from the shell integration script or the command was executed via the
+  /// TerminalShellIntegration.executeCommand API.
+  static const TerminalShellExecutionCommandLineConfidence High =
+      TerminalShellExecutionCommandLineConfidence._(2);
+}
+
 /// An event signalling that a terminal's shell integration has changed.
 extension type TerminalShellIntegrationChangeEvent._(_i1.JSObject _)
     implements _i1.JSObject {
@@ -6196,6 +7653,26 @@ extension type TerminalLinkContext._(_i1.JSObject _) implements _i1.JSObject {
   external Terminal terminal;
 }
 
+/// A link on a terminal line.
+extension type TerminalLink._(_i1.JSObject _) implements _i1.JSObject {
+  external TerminalLink(num startIndex, num length, [String? tooltip]);
+
+  /// The start index of the link on TerminalLinkContext.line.
+  external double startIndex;
+
+  /// The length of the link on TerminalLinkContext.line.
+  external double length;
+
+  /// The tooltip text when you hover over this link.
+  ///
+  /// If a tooltip is provided, is will be displayed in a string that includes
+  /// instructions on
+  /// how to trigger the link, such as `{0} (ctrl + click)`. The specific
+  /// instructions vary
+  /// depending on OS, user settings, and localization.
+  external String? tooltip;
+}
+
 /// A provider that enables detection and handling of links within terminals.
 extension type TerminalLinkProvider<T extends TerminalLink>._(_i1.JSObject _)
     implements _i1.JSObject {
@@ -6216,26 +7693,6 @@ extension type TerminalLinkProvider<T extends TerminalLink>._(_i1.JSObject _)
   /// Handle an activated terminal link.
   /// - [link]:  The link to handle.
   external ProviderResult<_i1.JSAny?> handleTerminalLink(T link);
-}
-
-/// A link on a terminal line.
-extension type TerminalLink._(_i1.JSObject _) implements _i1.JSObject {
-  external TerminalLink(num startIndex, num length, [String? tooltip]);
-
-  /// The start index of the link on TerminalLinkContext.line.
-  external double startIndex;
-
-  /// The length of the link on TerminalLinkContext.line.
-  external double length;
-
-  /// The tooltip text when you hover over this link.
-  ///
-  /// If a tooltip is provided, is will be displayed in a string that includes
-  /// instructions on
-  /// how to trigger the link, such as `{0} (ctrl + click)`. The specific
-  /// instructions vary
-  /// depending on OS, user settings, and localization.
-  external String? tooltip;
 }
 
 /// Provides a terminal profile for the contributed terminal profile when
@@ -6352,7 +7809,17 @@ extension type Extension<T extends _i1.JSAny?>._(_i1.JSObject _)
   ///
   /// Returns A promise that will resolve when this extension has been
   /// activated.
-  external _i2.Thenable<T> activate();
+  external Thenable<T> activate();
+}
+
+/// In a remote window the extension kind describes if an extension
+/// runs where the UI (window) runs or if an extension runs remotely.
+extension type const ExtensionKind._(int _) {
+  /// Extension runs where the UI runs.
+  static const ExtensionKind UI = ExtensionKind._(1);
+
+  /// Extension runs where the remote extension host runs.
+  static const ExtensionKind Workspace = ExtensionKind._(2);
 }
 
 /// An extension context is a collection of utilities private to an
@@ -6509,14 +7976,7 @@ extension type Memento._(_i1.JSObject _) implements _i1.JSObject {
   /// storage.
   /// - [key]:  A string.
   /// - [value]:  A value. MUST not contain cyclic references.
-  external _i2.Thenable<_i1.JSAny?> update(String key, _i1.JSAny? value);
-}
-
-/// The event data that is fired when a secret is added or removed.
-extension type SecretStorageChangeEvent._(_i1.JSObject _)
-    implements _i1.JSObject {
-  /// The key of the secret that has changed.
-  external String get key;
+  external Thenable<_i1.JSAny?> update(String key, _i1.JSAny? value);
 }
 
 /// Represents a storage utility for secrets (or any information that is
@@ -6530,7 +7990,7 @@ extension type SecretStorage._(_i1.JSObject _) implements _i1.JSObject {
   external Event<SecretStorageChangeEvent> get onDidChange;
 
   /// Retrieve the keys of all the secrets stored by this extension.
-  external _i2.Thenable<_i1.JSArray<_i1.JSString>> keys();
+  external Thenable<_i1.JSArray<_i1.JSString>> keys();
 
   /// Retrieve a secret that was stored with key. Returns undefined if there
   /// is no password matching that key.
@@ -6538,16 +7998,565 @@ extension type SecretStorage._(_i1.JSObject _) implements _i1.JSObject {
   ///
   /// Returns The stored value or `undefined`.
   @_i1.JS('get')
-  external _i2.Thenable<_i1.JSString?> get$(String key);
+  external Thenable<_i1.JSString?> get$(String key);
 
   /// Store a secret under a given key.
   /// - [key]:  The key to store the secret under.
   /// - [value]:  The secret.
-  external _i2.Thenable<_i1.JSAny?> store(String key, String value);
+  external Thenable<_i1.JSAny?> store(String key, String value);
 
   /// Remove a secret from storage.
   /// - [key]:  The key the secret was stored under.
-  external _i2.Thenable<_i1.JSAny?> delete(String key);
+  external Thenable<_i1.JSAny?> delete(String key);
+}
+
+/// The event data that is fired when a secret is added or removed.
+extension type SecretStorageChangeEvent._(_i1.JSObject _)
+    implements _i1.JSObject {
+  /// The key of the secret that has changed.
+  external String get key;
+}
+
+/// A collection of mutations that an extension can apply to a process
+/// environment.
+extension type EnvironmentVariableCollection._(_i1.JSObject _)
+    implements
+        Iterable<_i2.JSTuple2<_i1.JSAny, _i1.JSAny>, _i1.JSAny?, _i1.JSAny?> {
+  /// Whether the collection should be cached for the workspace and applied to
+  /// the terminal
+  /// across window reloads. When true the collection will be active immediately
+  /// such when the
+  /// window reloads. Additionally, this API will return the cached version if
+  /// it exists. The
+  /// collection will be invalidated when the extension is uninstalled or when
+  /// the collection
+  /// is cleared. Defaults to true.
+  external bool persistent;
+
+  /// A description for the environment variable collection, this will be used
+  /// to describe the
+  /// changes in the UI.
+  external AnonymousUnion_3150571 description;
+
+  /// Replace an environment variable with a value.
+  ///
+  /// Note that an extension can only make a single change to any one variable,
+  /// so this will
+  /// overwrite any previous calls to replace, append or prepend.
+  /// - [variable]:  The variable to replace.
+  /// - [value]:  The value to replace the variable with.
+  /// - [options]:  Options applied to the mutator, when no options are provided
+  ///   this will
+  /// default to `{ applyAtProcessCreation: true }`.
+  external void replace(
+    String variable,
+    String value, [
+    EnvironmentVariableMutatorOptions? options,
+  ]);
+
+  /// Append a value to an environment variable.
+  ///
+  /// Note that an extension can only make a single change to any one variable,
+  /// so this will
+  /// overwrite any previous calls to replace, append or prepend.
+  /// - [variable]:  The variable to append to.
+  /// - [value]:  The value to append to the variable.
+  /// - [options]:  Options applied to the mutator, when no options are provided
+  ///   this will
+  /// default to `{ applyAtProcessCreation: true }`.
+  external void append(
+    String variable,
+    String value, [
+    EnvironmentVariableMutatorOptions? options,
+  ]);
+
+  /// Prepend a value to an environment variable.
+  ///
+  /// Note that an extension can only make a single change to any one variable,
+  /// so this will
+  /// overwrite any previous calls to replace, append or prepend.
+  /// - [variable]:  The variable to prepend.
+  /// - [value]:  The value to prepend to the variable.
+  /// - [options]:  Options applied to the mutator, when no options are provided
+  ///   this will
+  /// default to `{ applyAtProcessCreation: true }`.
+  external void prepend(
+    String variable,
+    String value, [
+    EnvironmentVariableMutatorOptions? options,
+  ]);
+
+  /// Gets the mutator that this collection applies to a variable, if any.
+  /// - [variable]:  The variable to get the mutator for.
+  @_i1.JS('get')
+  external EnvironmentVariableMutator? get$(String variable);
+
+  /// Iterate over each mutator in this collection.
+  /// - [callback]:  Function to execute for each entry.
+  /// - [thisArg]:  The `this` context used when invoking the handler function.
+  external void forEach(
+    _AnonymousFunction_1777378 callback, [
+    _i1.JSAny? thisArg,
+  ]);
+
+  /// Deletes this collection's mutator for a variable.
+  /// - [variable]:  The variable to delete the mutator for.
+  external void delete(String variable);
+
+  /// Clears all mutators from this collection.
+  external void clear();
+}
+
+/// Options applied to the mutator.
+extension type EnvironmentVariableMutatorOptions._(_i1.JSObject _)
+    implements _i1.JSObject {
+  /// Apply to the environment just before the process is created. Defaults to
+  /// false.
+  external bool? applyAtProcessCreation;
+
+  /// Apply to the environment in the shell integration script. Note that this
+  /// _will not_ apply
+  /// the mutator if shell integration is disabled or not working for some
+  /// reason. Defaults to
+  /// false.
+  external bool? applyAtShellIntegration;
+}
+
+/// A type of mutation and its value to be applied to an environment variable.
+extension type EnvironmentVariableMutator._(_i1.JSObject _)
+    implements _i1.JSObject {
+  /// The type of mutation that will occur to the variable.
+  external EnvironmentVariableMutatorType get type;
+
+  /// The value to use for the variable.
+  external String get value;
+
+  /// Options applied to the mutator.
+  external EnvironmentVariableMutatorOptions get options;
+}
+
+/// A type of mutation that can be applied to an environment variable.
+extension type const EnvironmentVariableMutatorType._(int _) {
+  /// Replace the variable's existing value.
+  static const EnvironmentVariableMutatorType Replace =
+      EnvironmentVariableMutatorType._(1);
+
+  /// Append to the end of the variable's existing value.
+  static const EnvironmentVariableMutatorType Append =
+      EnvironmentVariableMutatorType._(2);
+
+  /// Prepend to the start of the variable's existing value.
+  static const EnvironmentVariableMutatorType Prepend =
+      EnvironmentVariableMutatorType._(3);
+}
+
+/// A collection of mutations that an extension can apply to a process
+/// environment. Applies to all scopes.
+extension type GlobalEnvironmentVariableCollection._(_i1.JSObject _)
+    implements EnvironmentVariableCollection {
+  /// Gets scope-specific environment variable collection for the extension.
+  /// This enables alterations to
+  /// terminal environment variables solely within the designated scope, and is
+  /// applied in addition to (and
+  /// after) the global collection.
+  ///
+  /// Each object obtained through this method is isolated and does not impact
+  /// objects for other scopes,
+  /// including the global collection.
+  /// - [scope]:  The scope to which the environment variable collection applies
+  ///   to.
+  ///
+  /// If a scope parameter is omitted, collection applicable to all relevant
+  /// scopes for that parameter is
+  /// returned. For instance, if the 'workspaceFolder' parameter is not
+  /// specified, the collection that applies
+  /// across all workspace folders will be returned.
+  ///
+  /// Returns Environment variable collection for the passed in scope.
+  external EnvironmentVariableCollection getScoped(
+    EnvironmentVariableScope scope,
+  );
+}
+
+/// The scope object to which the environment variable collection applies.
+extension type EnvironmentVariableScope._(_i1.JSObject _)
+    implements _i1.JSObject {
+  /// Any specific workspace folder to get collection for.
+  external WorkspaceFolder? workspaceFolder;
+}
+
+/// The ExtensionMode is provided on the `ExtensionContext` and indicates the
+/// mode the specific extension is running in.
+extension type const ExtensionMode._(int _) {
+  /// The extension is installed normally (for example, from the marketplace
+  /// or VSIX) in the editor.
+  static const ExtensionMode Production = ExtensionMode._(1);
+
+  /// The extension is running from an `--extensionDevelopmentPath` provided
+  /// when launching the editor.
+  static const ExtensionMode Development = ExtensionMode._(2);
+
+  /// The extension is running from an `--extensionTestsPath` and
+  /// the extension host is running unit tests.
+  static const ExtensionMode Test = ExtensionMode._(3);
+}
+
+/// Represents extension specific information about the access to language
+/// models.
+extension type LanguageModelAccessInformation._(_i1.JSObject _)
+    implements _i1.JSObject {
+  /// An event that fires when access information changes.
+  external Event<_i1.JSAny?> get onDidChange;
+
+  /// Checks if a request can be made to a language model.
+  ///
+  /// *Note* that calling this function will not trigger a consent UI but just
+  /// checks for a persisted state.
+  /// - [chat]:  A language model chat object.
+  external bool? canSendRequest(LanguageModelChat chat);
+}
+
+/// Represents a language model for making chat requests.
+extension type LanguageModelChat._(_i1.JSObject _) implements _i1.JSObject {
+  /// Human-readable name of the language model.
+  external String get name;
+
+  /// Opaque identifier of the language model.
+  external String get id;
+
+  /// A well-known identifier of the vendor of the language model. An example is
+  /// `copilot`, but
+  /// values are defined by extensions contributing chat models and need to be
+  /// looked up with them.
+  external String get vendor;
+
+  /// Opaque family-name of the language model. Values might be `gpt-3.5-turbo`,
+  /// `gpt4`, `phi2`, or `llama`
+  /// but they are defined by extensions contributing languages and subject to
+  /// change.
+  external String get family;
+
+  /// Opaque version string of the model. This is defined by the extension
+  /// contributing the language model
+  /// and subject to change.
+  external String get version;
+
+  /// The maximum number of tokens that can be sent to the model in a single
+  /// request.
+  external double get maxInputTokens;
+
+  /// Make a chat request using a language model.
+  ///
+  /// *Note* that language model use may be subject to access restrictions and
+  /// user consent. Calling this function
+  /// for the first time (for an extension) will show a consent dialog to the
+  /// user and because of that this function
+  /// must _only be called in response to a user action!_ Extensions can use
+  /// LanguageModelAccessInformation.canSendRequest
+  /// to check if they have the necessary permissions to make a request.
+  ///
+  /// This function will return a rejected promise if making a request to the
+  /// language model is not
+  /// possible. Reasons for this can be:
+  ///
+  /// - user consent not given, see
+  ///   LanguageModelError.NoPermissions`NoPermissions`
+  /// - model does not exist anymore, see LanguageModelError.NotFound`NotFound`
+  /// - quota limits exceeded, see LanguageModelError.Blocked`Blocked`
+  /// - other issues in which case extension must check LanguageModelError.cause
+  ///   `LanguageModelError.cause`
+  ///
+  /// An extension can make use of language model tool calling by passing a set
+  /// of tools to
+  /// LanguageModelChatRequestOptions.tools. The language model will return a
+  /// LanguageModelToolCallPart and
+  /// the extension can invoke the tool and make another request with the
+  /// result.
+  /// - [messages]:  An array of message instances.
+  /// - [options]:  Options that control the request.
+  /// - [token]:  A cancellation token which controls the request. See   for how
+  ///   to create one.
+  ///
+  /// Returns A thenable that resolves to a LanguageModelChatResponse . The
+  /// promise will reject when the request couldn't be made.
+  external Thenable<LanguageModelChatResponse> sendRequest(
+    _i1.JSArray<LanguageModelChatMessage> messages, [
+    LanguageModelChatRequestOptions? options,
+    CancellationToken? token,
+  ]);
+
+  /// Count the number of tokens in a message using the model specific
+  /// tokenizer-logic.
+  /// - [text]:  A string or a message instance.
+  /// - [token]:  Optional cancellation token.  See   for how to create one.
+  ///
+  /// Returns A thenable that resolves to the number of tokens.
+  external Thenable<_i1.JSNumber> countTokens(
+    AnonymousUnion_2107947 text, [
+    CancellationToken? token,
+  ]);
+}
+
+/// Represents a message in a chat. Can assume different roles, like user or
+/// assistant.
+extension type LanguageModelChatMessage._(_i1.JSObject _)
+    implements _i1.JSObject {
+  external LanguageModelChatMessage(
+    LanguageModelChatMessageRole role,
+    AnonymousUnion_3772893 content, [
+    String? name,
+  ]);
+
+  /// The role of this message.
+  external LanguageModelChatMessageRole role;
+
+  /// A string or heterogeneous array of things that a message can contain as
+  /// content. Some parts may be message-type
+  /// specific for some models.
+  external _i1.JSArray<LanguageModelInputPart> content;
+
+  /// The optional name of a user for this message.
+  external String? name;
+
+  /// Utility to create a new user message.
+  /// - [content]:  The content of the message.
+  /// - [name]:  The optional name of a user for the message.
+  external static LanguageModelChatMessage User(
+    AnonymousUnion_9343714 content, [
+    String? name,
+  ]);
+
+  /// Utility to create a new assistant message.
+  /// - [content]:  The content of the message.
+  /// - [name]:  The optional name of a user for the message.
+  external static LanguageModelChatMessage Assistant(
+    AnonymousUnion_2766184 content, [
+    String? name,
+  ]);
+}
+
+/// A language model response part containing a piece of text, returned from a
+/// LanguageModelChatResponse.
+extension type LanguageModelTextPart._(_i1.JSObject _) implements _i1.JSObject {
+  external LanguageModelTextPart(String value);
+
+  /// The text content of the part.
+  external String value;
+}
+
+/// The result of a tool call. This is the counterpart of a
+/// LanguageModelToolCallParttool call and
+/// it can only be included in the content of a User message
+extension type LanguageModelToolResultPart._(_i1.JSObject _)
+    implements _i1.JSObject {
+  external LanguageModelToolResultPart(
+    String callId,
+    _i1.JSArray<AnonymousUnion_1932602> content,
+  );
+
+  /// The ID of the tool call.
+  ///
+  /// *Note* that this should match the LanguageModelToolCallPart.callIdcallId
+  /// of a tool call part.
+  external String callId;
+
+  /// The value of the tool result.
+  external _i1.JSArray<AnonymousUnion_1932602> content;
+}
+
+/// A language model response part containing a PromptElementJSON from
+/// `@vscode/prompt-tsx`.
+extension type LanguageModelPromptTsxPart._(_i1.JSObject _)
+    implements _i1.JSObject {
+  external LanguageModelPromptTsxPart(_i1.JSAny? value);
+
+  /// The value of the part.
+  external _i1.JSAny? value;
+}
+
+/// A language model response part containing arbitrary data. Can be used in
+/// LanguageModelChatResponseresponses,
+/// LanguageModelChatMessagechat messages, LanguageModelToolResulttool
+/// results, and other language model interactions.
+extension type LanguageModelDataPart._(_i1.JSObject _) implements _i1.JSObject {
+  external LanguageModelDataPart(_i1.JSUint8Array data, String mimeType);
+
+  /// The mime type which determines how the data property is interpreted.
+  external String mimeType;
+
+  /// The byte data for this part.
+  external _i1.JSUint8Array data;
+
+  /// Create a new LanguageModelDataPart for an image.
+  /// - [data]:  Binary image data
+  /// - [mime]:  The MIME type of the image. Common values are `image/png` and
+  ///   `image/jpeg`.
+  external static LanguageModelDataPart image(
+    _i1.JSUint8Array data,
+    String mime,
+  );
+
+  /// Create a new LanguageModelDataPart for a json.
+  ///
+  /// *Note* that this function is not expecting "stringified JSON" but
+  /// an object that can be stringified. This function will throw an error
+  /// when the passed value cannot be JSON-stringified.
+  /// - [value]:  A JSON-stringifyable value.
+  /// - [mime]:  Optional MIME type, defaults to `application/json`
+  external static LanguageModelDataPart json(_i1.JSAny? value, [String? mime]);
+
+  /// Create a new LanguageModelDataPart for text.
+  ///
+  /// *Note* that an UTF-8 encoder is used to create bytes for the string.
+  /// - [value]:  Text data
+  /// - [mime]:  The MIME type if any. Common values are `text/plain` and
+  ///   `text/markdown`.
+  external static LanguageModelDataPart text(String value, [String? mime]);
+}
+
+/// A language model response part indicating a tool call, returned from a
+/// LanguageModelChatResponse, and also can be
+/// included as a content part on a LanguageModelChatMessage, to represent a
+/// previous tool call in a chat request.
+extension type LanguageModelToolCallPart._(_i1.JSObject _)
+    implements _i1.JSObject {
+  external LanguageModelToolCallPart(
+    String callId,
+    String name,
+    _i1.JSObject input,
+  );
+
+  /// The ID of the tool call. This is a unique identifier for the tool call
+  /// within the chat request.
+  external String callId;
+
+  /// The name of the tool to call.
+  external String name;
+
+  /// The input with which to call the tool.
+  external _i1.JSObject input;
+}
+
+/// Represents the role of a chat message. This is either the user or the
+/// assistant.
+extension type const LanguageModelChatMessageRole._(int _) {
+  /// The user role, e.g the human interacting with a language model.
+  static const LanguageModelChatMessageRole User =
+      LanguageModelChatMessageRole._(1);
+
+  /// The assistant role, e.g. the language model generating responses.
+  static const LanguageModelChatMessageRole Assistant =
+      LanguageModelChatMessageRole._(2);
+}
+
+/// Options for making a chat request using a language model.
+extension type LanguageModelChatRequestOptions._(_i1.JSObject _)
+    implements _i1.JSObject {
+  /// A human-readable message that explains why access to a language model is
+  /// needed and what feature is enabled by it.
+  external String? justification;
+
+  /// A set of options that control the behavior of the language model. These
+  /// options are specific to the language model
+  /// and need to be looked up in the respective documentation.
+  external AnonymousType_1282391? modelOptions;
+
+  /// An optional list of tools that are available to the language model. These
+  /// could be registered tools available via
+  /// lm.tools, or private tools that are just implemented within the calling
+  /// extension.
+  ///
+  /// If the LLM requests to call one of these tools, it will return a
+  /// LanguageModelToolCallPart in
+  /// LanguageModelChatResponse.stream. It's the caller's responsibility to
+  /// invoke the tool. If it's a tool
+  /// registered in lm.tools, that means calling lm.invokeTool.
+  ///
+  /// Then, the tool result can be provided to the LLM by creating an
+  /// Assistant-type LanguageModelChatMessage with a
+  /// LanguageModelToolCallPart, followed by a User-type message with a
+  /// LanguageModelToolResultPart.
+  external _i1.JSArray<LanguageModelChatTool?>? tools;
+
+  /// The tool-selecting mode to use. LanguageModelChatToolMode.Auto by default.
+  external LanguageModelChatToolMode? toolMode;
+}
+
+/// A tool that is available to the language model via
+/// LanguageModelChatRequestOptions. A language model uses all the
+/// properties of this interface to decide which tool to call, and how to call
+/// it.
+extension type LanguageModelChatTool._(_i1.JSObject _) implements _i1.JSObject {
+  /// The name of the tool.
+  external String name;
+
+  /// The description of the tool.
+  external String description;
+
+  /// A JSON schema for the input this tool accepts.
+  external _i1.JSObject? inputSchema;
+}
+
+/// A tool-calling mode for the language model to use.
+extension type const LanguageModelChatToolMode._(int _) {
+  /// The language model can choose to call a tool or generate a message. Is the
+  /// default.
+  static const LanguageModelChatToolMode Auto = LanguageModelChatToolMode._(1);
+
+  /// The language model must call one of the provided tools. Note- some models
+  /// only support a single tool when using this
+  /// mode.
+  static const LanguageModelChatToolMode Required = LanguageModelChatToolMode._(
+    2,
+  );
+}
+
+/// Represents a language model response.
+extension type LanguageModelChatResponse._(_i1.JSObject _)
+    implements _i1.JSObject {
+  /// An async iterable that is a stream of text and tool-call parts forming the
+  /// overall response. A
+  /// LanguageModelTextPart is part of the assistant's response to be shown to
+  /// the user. A
+  /// LanguageModelToolCallPart is a request from the language model to call a
+  /// tool. The latter will
+  /// only be returned if tools were passed in the request via
+  /// LanguageModelChatRequestOptions.tools. The
+  /// `unknown`-type is used as a placeholder for future parts, like image data
+  /// parts.
+  ///
+  /// *Note* that this stream will error when during data receiving an error
+  /// occurs. Consumers of the stream should handle
+  /// the errors accordingly.
+  ///
+  /// To cancel the stream, the consumer can
+  /// CancellationTokenSource.cancelcancel the token that was used to make
+  /// the request or break from the for-loop.
+  ///
+  /// Example:
+  /// ```ts
+  /// ```ts
+  /// try {
+  /// // consume stream
+  /// for await (const chunk of response.stream) {
+  /// if (chunk instanceof LanguageModelTextPart) {
+  /// console.log("TEXT", chunk);
+  /// } else if (chunk instanceof LanguageModelToolCallPart) {
+  /// console.log("TOOL CALL", chunk);
+  /// }
+  /// }
+  ///
+  /// } catch(e) {
+  /// // stream ended with an error
+  /// console.error(e);
+  /// }
+  /// ```
+  /// ```
+  external AsyncIterable<AnonymousUnion_3326072, _i1.JSAny?, _i1.JSAny?> stream;
+
+  /// This is equivalent to filtering everything except for text parts from a
+  /// LanguageModelChatResponse.stream.
+  external AsyncIterable<_i1.JSString, _i1.JSAny?, _i1.JSAny?> text;
 }
 
 /// Represents a color theme.
@@ -6555,6 +8564,21 @@ extension type ColorTheme._(_i1.JSObject _) implements _i1.JSObject {
   /// The kind of this color theme: light, dark, high contrast dark and high
   /// contrast light.
   external ColorThemeKind get kind;
+}
+
+/// Represents a color theme kind.
+extension type const ColorThemeKind._(int _) {
+  /// A light color theme.
+  static const ColorThemeKind Light = ColorThemeKind._(1);
+
+  /// A dark color theme.
+  static const ColorThemeKind Dark = ColorThemeKind._(2);
+
+  /// A dark high contrast color theme.
+  static const ColorThemeKind HighContrast = ColorThemeKind._(3);
+
+  /// A light high contrast color theme.
+  static const ColorThemeKind HighContrastLight = ColorThemeKind._(4);
 }
 
 /// Controls how the task is presented in the UI.
@@ -6585,6 +8609,33 @@ extension type TaskPresentationOptions._(_i1.JSObject _)
 
   /// Controls whether the terminal is closed after executing the task.
   external bool? close;
+}
+
+/// Controls the behaviour of the terminal's visibility.
+extension type const TaskRevealKind._(int _) {
+  /// Always brings the terminal to front if the task is executed.
+  static const TaskRevealKind Always = TaskRevealKind._(1);
+
+  /// Only brings the terminal to front if a problem is detected executing the
+  /// task
+  /// (e.g. the task couldn't be started because).
+  static const TaskRevealKind Silent = TaskRevealKind._(2);
+
+  /// The terminal never comes to front when the task is executed.
+  static const TaskRevealKind Never = TaskRevealKind._(3);
+}
+
+/// Controls how the task channel is used between tasks
+extension type const TaskPanelKind._(int _) {
+  /// Shares a panel with other tasks. This is the default.
+  static const TaskPanelKind Shared = TaskPanelKind._(1);
+
+  /// Uses a dedicated panel for this tasks. The panel is not
+  /// shared with other tasks.
+  static const TaskPanelKind Dedicated = TaskPanelKind._(2);
+
+  /// Creates a new panel whenever this task is executed.
+  static const TaskPanelKind New = TaskPanelKind._(3);
 }
 
 /// A grouping for tasks. The editor by default supports the
@@ -6721,6 +8772,28 @@ extension type ShellQuotedString._(_i1.JSObject _) implements _i1.JSObject {
   external ShellQuoting quoting;
 }
 
+/// Defines how an argument should be quoted if it contains
+/// spaces or unsupported characters.
+extension type const ShellQuoting._(int _) {
+  /// Character escaping should be used. This for example
+  /// uses \ on bash and ` on PowerShell.
+  static const ShellQuoting Escape = ShellQuoting._(1);
+
+  /// Strong string quoting should be used. This for example
+  /// uses " for Windows cmd and ' for bash and PowerShell.
+  /// Strong quoting treats arguments as literal strings.
+  /// Under PowerShell echo 'The value is $(2 * 3)' will
+  /// print `The value is $(2 * 3)`
+  static const ShellQuoting Strong = ShellQuoting._(2);
+
+  /// Weak string quoting should be used. This for example
+  /// uses " for Windows cmd, bash and PowerShell. Weak quoting
+  /// still performs some kind of evaluation inside the quoted
+  /// string.  Under PowerShell echo "The value is $(2 * 3)"
+  /// will print `The value is 6`
+  static const ShellQuoting Weak = ShellQuoting._(3);
+}
+
 /// Represents a task execution that happens inside a shell.
 extension type ShellExecution._(_i1.JSObject _) implements _i1.JSObject {
   external ShellExecution(String commandLine, [ShellExecutionOptions? options]);
@@ -6819,6 +8892,15 @@ extension type Task._(_i1.JSObject _) implements _i1.JSObject {
 
   /// The task's scope.
   external AnonymousUnion_3634054? get scope;
+}
+
+/// The scope of a task.
+extension type const TaskScope._(int _) {
+  /// The task is a global task. Global tasks are currently not supported.
+  static const TaskScope Global = TaskScope._(1);
+
+  /// The task is a workspace task
+  static const TaskScope Workspace = TaskScope._(2);
 }
 
 /// A task provider allows to add tasks to the task service.
@@ -7005,6 +9087,37 @@ extension type FileStat._(_i1.JSObject _) implements _i1.JSObject {
   external FilePermission? permissions;
 }
 
+/// Enumeration of file types. The types `File` and `Directory` can also be
+/// a symbolic links, in that case use `FileType.File | FileType.SymbolicLink`
+/// and
+/// `FileType.Directory | FileType.SymbolicLink`.
+extension type const FileType._(int _) {
+  /// The file type is unknown.
+  static const FileType Unknown = FileType._(0);
+
+  /// A regular file.
+  static const FileType File = FileType._(1);
+
+  /// A directory.
+  static const FileType Directory = FileType._(2);
+
+  /// A symbolic link to a file.
+  static const FileType SymbolicLink = FileType._(64);
+}
+
+/// Permissions of a file.
+extension type const FilePermission._(int _) {
+  /// The file is readonly.
+  ///
+  /// *Note:* All `FileStat` from a `FileSystemProvider` that is registered with
+  /// the option `isReadonly: true` will be implicitly handled as if
+  /// `FilePermission.Readonly`
+  /// is set. As a consequence, it is not possible to have a readonly file
+  /// system provider
+  /// registered where some `FileStat` are not readonly.
+  static const FilePermission Readonly = FilePermission._(1);
+}
+
 /// A type that filesystem providers should use to signal errors.
 ///
 /// This class has factory methods for common error-cases, like `FileNotFound`
@@ -7068,6 +9181,18 @@ extension type FileChangeEvent._(_i1.JSObject _) implements _i1.JSObject {
 
   /// The uri of the file that has changed.
   external Uri get uri;
+}
+
+/// Enumeration of file change types.
+extension type const FileChangeType._(int _) {
+  /// The contents or metadata of a file have changed.
+  static const FileChangeType Changed = FileChangeType._(1);
+
+  /// A file has been created.
+  static const FileChangeType Created = FileChangeType._(2);
+
+  /// A file has been deleted.
+  static const FileChangeType Deleted = FileChangeType._(3);
 }
 
 /// The filesystem provider defines what the editor needs to read, write,
@@ -7214,13 +9339,13 @@ extension type FileSystem._(_i1.JSObject _) implements _i1.JSObject {
   /// - [uri]:  The uri of the file to retrieve metadata about.
   ///
   /// Returns The file metadata about the file.
-  external _i2.Thenable<FileStat> stat(Uri uri);
+  external Thenable<FileStat> stat(Uri uri);
 
   /// Retrieve all entries of a FileType.Directorydirectory.
   /// - [uri]:  The uri of the folder.
   ///
   /// Returns An array of name/type-tuples or a thenable that resolves to such.
-  external _i2.Thenable<_i1.JSArray<_i3.JSTuple2<_i1.JSString, _i1.JSNumber>>>
+  external Thenable<_i1.JSArray<_i2.JSTuple2<_i1.JSString, _i1.JSNumber>>>
   readDirectory(Uri uri);
 
   /// Create a new directory (Note, that new files are created via
@@ -7230,27 +9355,24 @@ extension type FileSystem._(_i1.JSObject _) implements _i1.JSObject {
   /// has
   /// `mkdirp` semantics.
   /// - [uri]:  The uri of the new folder.
-  external _i2.Thenable<_i1.JSAny?> createDirectory(Uri uri);
+  external Thenable<_i1.JSAny?> createDirectory(Uri uri);
 
   /// Read the entire contents of a file.
   /// - [uri]:  The uri of the file.
   ///
   /// Returns An array of bytes or a thenable that resolves to such.
-  external _i2.Thenable<_i1.JSUint8Array> readFile(Uri uri);
+  external Thenable<_i1.JSUint8Array> readFile(Uri uri);
 
   /// Write data to a file, replacing its entire contents.
   /// - [uri]:  The uri of the file.
   /// - [content]:  The new content of the file.
-  external _i2.Thenable<_i1.JSAny?> writeFile(
-    Uri uri,
-    _i1.JSUint8Array content,
-  );
+  external Thenable<_i1.JSAny?> writeFile(Uri uri, _i1.JSUint8Array content);
 
   /// Delete a file.
   /// - [uri]:  The resource that is to be deleted.
   /// - [options]:  Defines if trash can should be used and if deletion of
   ///   folders is recursive
-  external _i2.Thenable<_i1.JSAny?> delete(
+  external Thenable<_i1.JSAny?> delete(
     Uri uri, [
     AnonymousType_6601287? options,
   ]);
@@ -7259,7 +9381,7 @@ extension type FileSystem._(_i1.JSObject _) implements _i1.JSObject {
   /// - [source]:  The existing file.
   /// - [target]:  The new location.
   /// - [options]:  Defines if existing files should be overwritten.
-  external _i2.Thenable<_i1.JSAny?> rename(
+  external Thenable<_i1.JSAny?> rename(
     Uri source,
     Uri target, [
     AnonymousType_2666583? options,
@@ -7269,7 +9391,7 @@ extension type FileSystem._(_i1.JSObject _) implements _i1.JSObject {
   /// - [source]:  The existing file.
   /// - [target]:  The destination location.
   /// - [options]:  Defines if existing files should be overwritten.
-  external _i2.Thenable<_i1.JSAny?> copy(
+  external Thenable<_i1.JSAny?> copy(
     Uri source,
     Uri target, [
     AnonymousType_2666583? options,
@@ -7449,7 +9571,7 @@ extension type Webview._(_i1.JSObject _) implements _i1.JSObject {
   /// If you want confirm that a message as actually received, you can try
   /// having your webview posting a
   /// confirmation message back to your extension.
-  external _i2.Thenable<_i1.JSBoolean> postMessage(_i1.JSAny? message);
+  external Thenable<_i1.JSBoolean> postMessage(_i1.JSAny? message);
 
   /// Convert a uri for the local file system to one that can be used inside
   /// webviews.
@@ -7616,7 +9738,7 @@ extension type WebviewPanelSerializer<T extends _i1.JSAny?>._(_i1.JSObject _)
   /// - [state]:  Persisted state from the webview content.
   ///
   /// Returns Thenable indicating that the webview has been fully restored.
-  external _i2.Thenable<_i1.JSAny?> deserializeWebviewPanel(
+  external Thenable<_i1.JSAny?> deserializeWebviewPanel(
     WebviewPanel webviewPanel,
     T state,
   );
@@ -7674,6 +9796,15 @@ extension type WebviewView._(_i1.JSObject _) implements _i1.JSObject {
   /// - [preserveFocus]:  When `true` the view will not take focus.
   @_i1.JS('show')
   external void show$([bool? preserveFocus]);
+}
+
+/// A badge presenting a value for a view
+extension type ViewBadge._(_i1.JSObject _) implements _i1.JSObject {
+  /// A label to present in tooltip for the badge.
+  external String get tooltip;
+
+  /// The value to present in the badge.
+  external double get value;
 }
 
 /// Additional information the webview view being resolved.
@@ -7801,7 +9932,8 @@ extension type CustomDocument._(_i1.JSObject _) implements _i1.JSObject {
 /// occurred on an CustomDocument.
 extension type CustomDocumentEditEvent<T extends CustomDocument>._(
   _i1.JSObject _
-) implements _i1.JSObject {
+)
+    implements _i1.JSObject {
   /// The document that the edit is for.
   external T get document;
 
@@ -7836,7 +9968,8 @@ extension type CustomDocumentEditEvent<T extends CustomDocument>._(
 /// has changed.
 extension type CustomDocumentContentChangeEvent<T extends CustomDocument>._(
   _i1.JSObject _
-) implements _i1.JSObject {
+)
+    implements _i1.JSObject {
   /// The document that the change is for.
   external T get document;
 }
@@ -7904,7 +10037,8 @@ extension type CustomDocumentOpenContext._(_i1.JSObject _)
 /// - [T]:  Type of the custom document returned by this provider.
 extension type CustomReadonlyEditorProvider<T extends CustomDocument>._(
   _i1.JSObject _
-) implements _i1.JSObject {
+)
+    implements _i1.JSObject {
   /// Create a new document for a given resource.
   ///
   /// `openCustomDocument` is called when the first time an editor for a given
@@ -8016,7 +10150,7 @@ extension type CustomEditorProvider<T extends CustomDocument>._(_i1.JSObject _)
   ///   example, if another save was triggered).
   ///
   /// Returns A Thenable  that saving has completed.
-  external _i2.Thenable<_i1.JSAny?> saveCustomDocument(
+  external Thenable<_i1.JSAny?> saveCustomDocument(
     T document,
     CancellationToken cancellation,
   );
@@ -8034,7 +10168,7 @@ extension type CustomEditorProvider<T extends CustomDocument>._(_i1.JSObject _)
   /// - [cancellation]:  Token that signals the save is no longer required.
   ///
   /// Returns A Thenable  signaling that saving has completed.
-  external _i2.Thenable<_i1.JSAny?> saveCustomDocumentAs(
+  external Thenable<_i1.JSAny?> saveCustomDocumentAs(
     T document,
     Uri destination,
     CancellationToken cancellation,
@@ -8056,7 +10190,7 @@ extension type CustomEditorProvider<T extends CustomDocument>._(_i1.JSObject _)
   /// - [cancellation]:  Token that signals the revert is no longer required.
   ///
   /// Returns A Thenable  signaling that the revert has completed.
-  external _i2.Thenable<_i1.JSAny?> revertCustomDocument(
+  external Thenable<_i1.JSAny?> revertCustomDocument(
     T document,
     CancellationToken cancellation,
   );
@@ -8092,7 +10226,7 @@ extension type CustomEditorProvider<T extends CustomDocument>._(_i1.JSObject _)
   /// than cancelling it to ensure that the editor has some valid backup.
   ///
   /// Returns A Thenable  signaling that the backup has completed.
-  external _i2.Thenable<CustomDocumentBackup> backupCustomDocument(
+  external Thenable<CustomDocumentBackup> backupCustomDocument(
     T document,
     CustomDocumentBackupContext context,
     CancellationToken cancellation,
@@ -8104,12 +10238,12 @@ extension type Clipboard._(_i1.JSObject _) implements _i1.JSObject {
   /// Read the current clipboard contents as text.
   ///
   /// Returns A thenable that resolves to a string.
-  external _i2.Thenable<_i1.JSString> readText();
+  external Thenable<_i1.JSString> readText();
 
   /// Writes text into the clipboard.
   ///
   /// Returns A thenable that resolves when writing happened.
-  external _i2.Thenable<_i1.JSAny?> writeText(String value);
+  external Thenable<_i1.JSAny?> writeText(String value);
 }
 
 /// Namespace describing the environment the editor runs in.
@@ -8312,6 +10446,168 @@ extension type env._(_i1.JSObject _) implements _i1.JSObject {
   /// An Event which fires when the log level of the editor changes.
   @_i1.JS()
   external static Event<_i1.JSNumber> get onDidChangeLogLevel;
+}
+
+/// The telemetry sender is the contract between a telemetry logger and some
+/// telemetry service. **Note** that extensions must NOT
+/// call the methods of their sender directly as the logger provides extra
+/// guards and cleaning.
+///
+/// ```js
+/// const sender: vscode.TelemetrySender = {...};
+/// const logger = vscode.env.createTelemetryLogger(sender);
+///
+/// // GOOD - uses the logger
+/// logger.logUsage('myEvent', { myData: 'myValue' });
+///
+/// // BAD - uses the sender directly: no data cleansing, ignores user settings, no echoing to the telemetry output channel etc
+/// sender.logEvent('myEvent', { myData: 'myValue' });
+/// ```
+extension type TelemetrySender._(_i1.JSObject _) implements _i1.JSObject {
+  /// Function to send event data without a stacktrace. Used within a
+  /// TelemetryLogger
+  /// - [eventName]:  The name of the event which you are logging
+  /// - [data]:  A serializable key value pair that is being logged
+  external void sendEventData(
+    String eventName, [
+    Record<_i1.JSString, _i1.JSAny?>? data,
+  ]);
+
+  /// Function to send an error. Used within a TelemetryLogger
+  /// - [error]:  The error being logged
+  /// - [data]:  Any additional data to be collected with the exception
+  external void sendErrorData(
+    Error error, [
+    Record<_i1.JSString, _i1.JSAny?>? data,
+  ]);
+
+  /// Optional flush function which will give this sender a chance to send any
+  /// remaining events
+  /// as its TelemetryLogger is being disposed
+  external _i1.JSFunction? get flush;
+}
+
+/// Options for creating a TelemetryLogger
+extension type TelemetryLoggerOptions._(_i1.JSObject _)
+    implements _i1.JSObject {
+  /// Whether or not you want to avoid having the built-in common properties
+  /// such as os, extension name, etc injected into the data object.
+  /// Defaults to `false` if not defined.
+  external bool? get ignoreBuiltInCommonProperties;
+
+  /// Whether or not unhandled errors on the extension host caused by your
+  /// extension should be logged to your sender.
+  /// Defaults to `false` if not defined.
+  external bool? get ignoreUnhandledErrors;
+
+  /// Any additional common properties which should be injected into the data
+  /// object.
+  external Record<_i1.JSString, _i1.JSAny?>? get additionalCommonProperties;
+}
+
+/// A telemetry logger which can be used by extensions to log usage and error
+/// telemetry.
+///
+/// A logger wraps around an TelemetrySendersender but it guarantees that
+/// - user settings to disable or tweak telemetry are respected, and that
+/// - potential sensitive data is removed
+///
+/// It also enables an "echo UI" that prints whatever data is send and it
+/// allows the editor
+/// to forward unhandled errors to the respective extensions.
+///
+/// To get an instance of a `TelemetryLogger`, use
+/// env.createTelemetryLogger`createTelemetryLogger`.
+extension type TelemetryLogger._(_i1.JSObject _) implements _i1.JSObject {
+  /// An Event which fires when the enablement state of usage or error telemetry
+  /// changes.
+  external Event<TelemetryLogger> get onDidChangeEnableStates;
+
+  /// Whether or not usage telemetry is enabled for this logger.
+  external bool get isUsageEnabled;
+
+  /// Whether or not error telemetry is enabled for this logger.
+  external bool get isErrorsEnabled;
+
+  /// Log a usage event.
+  ///
+  /// After completing cleaning, telemetry setting checks, and data mix-in calls
+  /// `TelemetrySender.sendEventData` to log the event.
+  /// Automatically supports echoing to extension telemetry output channel.
+  /// - [eventName]:  The event name to log
+  /// - [data]:  The data to log
+  external void logUsage(
+    String eventName, [
+    Record<_i1.JSString, AnonymousUnion_1463601>? data,
+  ]);
+
+  /// Log an error event.
+  ///
+  /// After completing cleaning, telemetry setting checks, and data mix-in calls
+  /// `TelemetrySender.sendEventData` to log the event. Differs from `logUsage`
+  /// in that it will log the event if the telemetry setting is Error+.
+  /// Automatically supports echoing to extension telemetry output channel.
+  /// Log an error event.
+  ///
+  /// Calls `TelemetrySender.sendErrorData`. Does cleaning, telemetry checks,
+  /// and data mix-in.
+  /// Automatically supports echoing to extension telemetry output channel.
+  /// Will also automatically log any exceptions thrown within the extension
+  /// host process.
+  /// - [eventName]:  The event name to log
+  /// - [data]:  The data to log
+  /// - [error]:  The error object which contains the stack trace cleaned of PII
+  /// - [data]:  Additional data to log alongside the stack trace
+  external void logError(
+    String eventName, [
+    Record<_i1.JSString, AnonymousUnion_1463601>? data,
+  ]);
+
+  /// Log an error event.
+  ///
+  /// After completing cleaning, telemetry setting checks, and data mix-in calls
+  /// `TelemetrySender.sendEventData` to log the event. Differs from `logUsage`
+  /// in that it will log the event if the telemetry setting is Error+.
+  /// Automatically supports echoing to extension telemetry output channel.
+  /// Log an error event.
+  ///
+  /// Calls `TelemetrySender.sendErrorData`. Does cleaning, telemetry checks,
+  /// and data mix-in.
+  /// Automatically supports echoing to extension telemetry output channel.
+  /// Will also automatically log any exceptions thrown within the extension
+  /// host process.
+  /// - [eventName]:  The event name to log
+  /// - [data]:  The data to log
+  /// - [error]:  The error object which contains the stack trace cleaned of PII
+  /// - [data]:  Additional data to log alongside the stack trace
+  @_i1.JS('logError')
+  external void logError$1(
+    Error error, [
+    Record<_i1.JSString, AnonymousUnion_1463601>? data,
+  ]);
+
+  /// Dispose this object and free resources.
+  external void dispose();
+}
+
+/// A special value wrapper denoting a value that is safe to not clean.
+/// This is to be used when you can guarantee no identifiable information is
+/// contained in the value and the cleaning is improperly redacting it.
+extension type TelemetryTrustedValue<T extends _i1.JSAny?>._(_i1.JSObject _)
+    implements _i1.JSObject {
+  external TelemetryTrustedValue(T value);
+
+  /// The value that is trusted to not contain PII.
+  external T get value;
+}
+
+/// Possible kinds of UI that can use extensions.
+extension type const UIKind._(int _) {
+  /// Extensions are accessed from a desktop application.
+  static const UIKind Desktop = UIKind._(1);
+
+  /// Extensions are accessed from a web browser.
+  static const UIKind Web = UIKind._(2);
 }
 
 /// Namespace for dealing with commands. In short, a command is a function
@@ -9869,341 +12165,281 @@ extension type window._(_i1.JSObject _) implements _i1.JSObject {
   external static Event<ColorTheme> get onDidChangeActiveColorTheme;
 }
 
-/// Options for creating a TreeView
-extension type TreeViewOptions<T extends _i1.JSAny?>._(_i1.JSObject _)
-    implements _i1.JSObject {
-  /// A data provider that provides tree data.
-  external TreeDataProvider<T> treeDataProvider;
-
-  /// Whether to show collapse all action or not.
-  external bool? showCollapseAll;
-
-  /// Whether the tree supports multi-select. When the tree supports
-  /// multi-select and a command is executed from the tree,
-  /// the first argument to the command is the tree item that the command was
-  /// executed on and the second argument is an
-  /// array containing all selected tree items.
-  external bool? canSelectMany;
-
-  /// An optional interface to implement drag and drop in the tree view.
-  external TreeDragAndDropController<T>? dragAndDropController;
-
-  /// By default, when the children of a tree item have already been fetched,
-  /// child checkboxes are automatically managed based on the checked state of
-  /// the parent tree item.
-  /// If the tree item is collapsed by default (meaning that the children
-  /// haven't yet been fetched) then child checkboxes will not be updated.
-  /// To override this behavior and manage child and parent checkbox state in
-  /// the extension, set this to `true`.
-  ///
-  /// Examples where TreeViewOptions.manageCheckboxStateManually is false, the
-  /// default behavior:
-  ///
-  /// 1. A tree item is checked, then its children are fetched. The children
-  /// will be checked.
-  ///
-  /// 2. A tree item's parent is checked. The tree item and all of it's siblings
-  /// will be checked.
-  ///   - [ ] Parent
-  ///     - [ ] Child 1
-  ///     - [ ] Child 2
-  /// When the user checks Parent, the tree will look like this:
-  ///   - [x] Parent
-  ///     - [x] Child 1
-  ///     - [x] Child 2
-  ///
-  /// 3. A tree item and all of it's siblings are checked. The parent will be
-  /// checked.
-  ///   - [ ] Parent
-  ///     - [ ] Child 1
-  ///     - [ ] Child 2
-  /// When the user checks Child 1 and Child 2, the tree will look like this:
-  ///   - [x] Parent
-  ///     - [x] Child 1
-  ///     - [x] Child 2
-  ///
-  /// 4. A tree item is unchecked. The parent will be unchecked.
-  ///   - [x] Parent
-  ///     - [x] Child 1
-  ///     - [x] Child 2
-  /// When the user unchecks Child 1, the tree will look like this:
-  ///   - [ ] Parent
-  ///     - [ ] Child 1
-  ///     - [x] Child 2
-  external bool? manageCheckboxStateManually;
-}
-
-/// The event that is fired when an element in the TreeView is expanded or
-/// collapsed
-extension type TreeViewExpansionEvent<T extends _i1.JSAny?>._(_i1.JSObject _)
-    implements _i1.JSObject {
-  /// Element that is expanded or collapsed.
-  external T get element;
-}
-
-/// The event that is fired when there is a change in TreeView.selectiontree
-/// view's selection
-extension type TreeViewSelectionChangeEvent<T extends _i1.JSAny?>._(
-  _i1.JSObject _
-) implements _i1.JSObject {
-  /// Selected elements.
-  external _i1.JSArray<T> get selection;
-}
-
-/// The event that is fired when there is a change in TreeView.visibletree
-/// view's visibility
-extension type TreeViewVisibilityChangeEvent._(_i1.JSObject _)
-    implements _i1.JSObject {
-  /// `true` if the TreeViewtree view is visible otherwise `false`.
-  external bool get visible;
-}
-
-/// A file associated with a DataTransferItem.
+/// The base interface for all quick input types.
 ///
-/// Instances of this type can only be created by the editor and not by
-/// extensions.
-extension type DataTransferFile._(_i1.JSObject _) implements _i1.JSObject {
-  /// The name of the file.
-  external String get name;
-
-  /// The full file path of the file.
-  ///
-  /// May be `undefined` on web.
-  external Uri? get uri;
-
-  /// The full file contents of the file.
-  external _i2.Thenable<_i1.JSUint8Array> data();
-}
-
-/// Encapsulates data transferred during drag and drop operations.
-extension type DataTransferItem._(_i1.JSObject _) implements _i1.JSObject {
-  external DataTransferItem(_i1.JSAny? value);
-
-  /// Custom data stored on this item.
-  ///
-  /// You can use `value` to share data across operations. The original object
-  /// can be retrieved so long as the extension that
-  /// created the `DataTransferItem` runs in the same extension host.
-  external _i1.JSAny? get value;
-
-  /// Get a string representation of this item.
-  ///
-  /// If DataTransferItem.value is an object, this returns the result of json
-  /// stringifying DataTransferItem.value value.
-  external _i2.Thenable<_i1.JSString> asString();
-
-  /// Try getting the DataTransferFilefile associated with this data transfer
-  /// item.
-  ///
-  /// Note that the file object is only valid for the scope of the drag and drop
-  /// operation.
-  ///
-  /// Returns The file for the data transfer or `undefined` if the item is
-  /// either not a file or the
-  /// file data cannot be accessed.
-  external DataTransferFile? asFile();
-}
-
-/// A map containing a mapping of the mime type of the corresponding
-/// transferred data.
+/// Quick input provides a unified way for extensions to interact with users
+/// through simple UI elements.
+/// A quick input UI is initially not visible. After configuring it through
+/// its properties the extension
+/// can make it visible by calling QuickInput.showshow.
 ///
-/// Drag and drop controllers that implement
-/// TreeDragAndDropController.handleDrag`handleDrag` can add additional mime
-/// types to the
-/// data transfer. These additional mime types will only be included in the
-/// `handleDrop` when the drag was initiated from
-/// an element in the same drag and drop controller.
-extension type DataTransfer._(_i1.JSObject _)
-    implements
-        Iterable<_i3.JSTuple2<_i1.JSAny, _i1.JSAny>, _i1.JSAny?, _i1.JSAny?> {
-  external DataTransfer();
-
-  /// Retrieves the data transfer item for a given mime type.
-  /// - [mimeType]:  The mime type to get the data transfer item for, such as
-  ///   `text/plain` or `image/png`.
-  /// Mimes type look ups are case-insensitive.
-  ///
-  /// Special mime types:
-  /// - `text/uri-list` — A string with `toString()`ed Uris separated by `\r\n`.
-  ///   To specify a cursor position in the file,
-  /// set the Uri's fragment to `L3,5`, where 3 is the line number and 5 is the
-  /// column number.
-  @_i1.JS('get')
-  external DataTransferItem? get$(String mimeType);
-
-  /// Sets a mime type to data transfer item mapping.
-  /// - [mimeType]:  The mime type to set the data for. Mimes types stored in
-  ///   lower case, with case-insensitive looks up.
-  /// - [value]:  The data transfer item for the given mime type.
-  @_i1.JS('set')
-  external void set$(String mimeType, DataTransferItem value);
-
-  /// Allows iteration through the data transfer items.
-  /// - [callbackfn]:  Callback for iteration through the data transfer items.
-  /// - [thisArg]:  The `this` context used when invoking the handler function.
-  external void forEach(
-    _AnonymousFunction_2840943 callbackfn, [
-    _i1.JSAny? thisArg,
-  ]);
-}
-
-/// Provides support for drag and drop in `TreeView`.
-extension type TreeDragAndDropController<T extends _i1.JSAny?>._(_i1.JSObject _)
-    implements _i1.JSObject {
-  /// The mime types that the TreeDragAndDropController.handleDrop`handleDrop`
-  /// method of this `DragAndDropController` supports.
-  /// This could be well-defined, existing, mime types, and also mime types
-  /// defined by the extension.
-  ///
-  /// To support drops from trees, you will need to add the mime type of that
-  /// tree.
-  /// This includes drops from within the same tree.
-  /// The mime type of a tree is recommended to be of the format
-  /// `application/vnd.code.tree.<treeidlowercase>`.
-  ///
-  /// Use the special `files` mime type to support all types of dropped files
-  /// DataTransferFilefiles, regardless of the file's actual mime type.
-  ///
-  /// To learn the mime type of a dragged item:
-  /// 1. Set up your `DragAndDropController`
-  /// 2. Use the Developer: Set Log Level... command to set the level to "Debug"
-  /// 3. Open the developer tools and drag the item with unknown mime type over
-  /// your tree. The mime types will be logged to the developer console
-  ///
-  /// Note that mime types that cannot be sent to the extension will be omitted.
-  external _i1.JSArray<_i1.JSString> get dropMimeTypes;
-
-  /// The mime types that the TreeDragAndDropController.handleDrag`handleDrag`
-  /// method of this `TreeDragAndDropController` may add to the tree data
-  /// transfer.
-  /// This could be well-defined, existing, mime types, and also mime types
-  /// defined by the extension.
-  ///
-  /// The recommended mime type of the tree
-  /// (`application/vnd.code.tree.<treeidlowercase>`) will be automatically
-  /// added.
-  external _i1.JSArray<_i1.JSString> get dragMimeTypes;
-
-  /// When the user starts dragging items from this `DragAndDropController`,
-  /// `handleDrag` will be called.
-  /// Extensions can use `handleDrag` to add their
-  /// DataTransferItem`DataTransferItem` items to the drag and drop.
-  ///
-  /// Mime types added in `handleDrag` won't be available outside the
-  /// application.
-  ///
-  /// When the items are dropped on **another tree item** in **the same tree**,
-  /// your `DataTransferItem` objects
-  /// will be preserved. Use the recommended mime type for the tree
-  /// (`application/vnd.code.tree.<treeidlowercase>`) to add
-  /// tree objects in a data transfer. See the documentation for
-  /// `DataTransferItem` for how best to take advantage of this.
-  ///
-  /// To add a data transfer item that can be dragged into the editor, use the
-  /// application specific mime type "text/uri-list".
-  /// The data for "text/uri-list" should be a string with `toString()`ed Uris
-  /// separated by `\r\n`. To specify a cursor position in the file,
-  /// set the Uri's fragment to `L3,5`, where 3 is the line number and 5 is the
-  /// column number.
-  /// - [source]:  The source items for the drag and drop operation.
-  /// - [dataTransfer]:  The data transfer associated with this drag.
-  /// - [token]:  A cancellation token indicating that drag has been cancelled.
-  external _i1.JSFunction? get handleDrag;
-
-  /// Called when a drag and drop action results in a drop on the tree that this
-  /// `DragAndDropController` belongs to.
-  ///
-  /// Extensions should fire
-  /// TreeDataProvider.onDidChangeTreeDataonDidChangeTreeData for any elements
-  /// that need to be refreshed.
-  /// - [target]:  The target tree element that the drop is occurring on. When
-  ///   undefined, the target is the root.
-  /// - [dataTransfer]:  The data transfer items of the source of the drag.
-  /// - [token]:  A cancellation token indicating that the drop has been
-  ///   cancelled.
-  external _i1.JSFunction? get handleDrop;
-}
-
-/// A badge presenting a value for a view
-extension type ViewBadge._(_i1.JSObject _) implements _i1.JSObject {
-  /// A label to present in tooltip for the badge.
-  external String get tooltip;
-
-  /// The value to present in the badge.
-  external double get value;
-}
-
-/// An event describing the change in a tree item's checkbox state.
-extension type TreeCheckboxChangeEvent<T extends _i1.JSAny?>._(_i1.JSObject _)
-    implements _i1.JSObject {
-  /// The items that were checked or unchecked.
-  external ReadonlyArray<_i3.JSTuple2<T, _i1.JSNumber>> get items;
-}
-
-/// Represents a Tree view
-extension type TreeView<T extends _i1.JSAny?>._(_i1.JSObject _)
-    implements Disposable {
-  /// An optional human-readable message that will be rendered in the view.
-  /// Setting the message to null, undefined, or empty string will remove the
-  /// message from the view.
-  external String? message;
-
-  /// The tree view title is initially taken from the extension package.json
-  /// Changes to the title property will be properly reflected in the UI in the
-  /// title of the view.
+/// There are several reasons why this UI might have to be hidden and the
+/// extension will be notified
+/// through QuickInput.onDidHideonDidHide. Examples include: an explicit call
+/// to
+/// QuickInput.hidehide, the user pressing Esc, some other input UI opening,
+/// etc.
+///
+/// A user pressing Enter or some other gesture implying acceptance of the
+/// current state does not
+/// automatically hide this UI component. It is up to the extension to decide
+/// whether to accept the
+/// user's input and if the UI should indeed be hidden through a call to
+/// QuickInput.hidehide.
+///
+/// When the extension no longer needs this input UI, it should
+/// QuickInput.disposedispose it
+/// to allow for freeing up any resources associated with it.
+///
+/// See QuickPick and InputBox for concrete UIs.
+extension type QuickInput._(_i1.JSObject _) implements _i1.JSObject {
+  /// An optional title for the input UI.
   external String? title;
 
-  /// An optional human-readable description which is rendered less prominently
-  /// in the title of the view.
-  /// Setting the title description to null, undefined, or empty string will
-  /// remove the description from the view.
-  external String? description;
+  /// An optional current step count for multi-step input flows.
+  external double? step;
 
-  /// The badge to display for this TreeView.
-  /// To remove the badge, set to undefined.
-  external ViewBadge? badge;
+  /// An optional total step count for multi-step input flows.
+  external double? totalSteps;
 
-  /// Event that is fired when an element is expanded
-  external Event<TreeViewExpansionEvent<T>> get onDidExpandElement;
-
-  /// Event that is fired when an element is collapsed
-  external Event<TreeViewExpansionEvent<T>> get onDidCollapseElement;
-
-  /// Currently selected elements.
-  external _i1.JSArray<T> get selection;
-
-  /// Event that is fired when the TreeView.selectionselection has changed
-  external Event<TreeViewSelectionChangeEvent<T>> get onDidChangeSelection;
-
-  /// `true` if the TreeViewtree view is visible otherwise `false`.
-  external bool get visible;
-
-  /// Event that is fired when TreeView.visiblevisibility has changed
-  external Event<TreeViewVisibilityChangeEvent> get onDidChangeVisibility;
-
-  /// An event to signal that an element or root has either been checked or
-  /// unchecked.
-  external Event<TreeCheckboxChangeEvent<T>> get onDidChangeCheckboxState;
-
-  /// Reveals the given element in the tree view.
-  /// If the tree view is not visible then the tree view is shown and element is
-  /// revealed.
+  /// Determines if the UI should allow for user input. Defaults to `true`.
   ///
-  /// By default revealed element is selected.
-  /// In order to not to select, set the option `select` to `false`.
-  /// In order to focus, set the option `focus` to `true`.
-  /// In order to expand the revealed element, set the option `expand` to
-  /// `true`. To expand recursively set `expand` to the number of levels to
-  /// expand.
+  /// Change this to `false`, for example, while validating user input or
+  /// loading data for the next
+  /// step in user input.
+  external bool enabled;
+
+  /// Determines if the UI should show a progress indicator. Defaults to
+  /// `false`.
   ///
-  /// * *NOTE:* You can expand only to 3 levels maximum.
-  /// * *NOTE:* The TreeDataProvider that the `TreeView` window.createTreeViewis
-  /// registered with with must implement TreeDataProvider.getParentgetParent
-  /// method to access this API.
-  external _i2.Thenable<_i1.JSAny?> reveal(
-    T element, [
-    AnonymousType_3917097? options,
-  ]);
+  /// Change this to `true`, for example, while loading more data or validating
+  /// user input.
+  external bool busy;
+
+  /// Determines if the UI should stay open even when losing UI focus. Defaults
+  /// to `false`.
+  /// This setting is ignored on iPad and is always `false`.
+  external bool ignoreFocusOut;
+
+  /// An event signaling when this input UI is hidden.
+  ///
+  /// There are several reasons why this UI might have to be hidden and the
+  /// extension will be notified
+  /// through QuickInput.onDidHideonDidHide. Examples include: an explicit call
+  /// to
+  /// QuickInput.hidehide, the user pressing Esc, some other input UI opening,
+  /// etc.
+  external Event<_i1.JSAny?> get onDidHide;
+
+  /// Makes the input UI visible in its current configuration.
+  ///
+  /// Any other input UI will first fire an QuickInput.onDidHideonDidHide event.
+  @_i1.JS('show')
+  external void show$();
+
+  /// Hides this input UI.
+  ///
+  /// This will also fire an QuickInput.onDidHideonDidHide event.
+  @_i1.JS('hide')
+  external void hide$();
+
+  /// Dispose of this input UI and any associated resources.
+  ///
+  /// If it is still visible, it is first hidden. After this call the input UI
+  /// is no longer functional
+  /// and no additional methods or properties on it should be accessed. Instead
+  /// a new input UI should
+  /// be created.
+  external void dispose();
+}
+
+/// A concrete QuickInput to let the user pick an item from a list of items of
+/// type `T`.
+///
+/// The items can be filtered through a filter text field and there is an
+/// option
+/// QuickPick.canSelectManycanSelectMany to allow for selecting multiple
+/// items.
+///
+/// Note that in many cases the more convenient window.showQuickPick is easier
+/// to use.
+/// window.createQuickPick should be used when window.showQuickPick does not
+/// offer
+/// the required flexibility.
+extension type QuickPick<T extends QuickPickItem>._(_i1.JSObject _)
+    implements QuickInput {
+  /// The current value of the filter text.
+  external String value;
+
+  /// Optional placeholder text displayed in the filter text box when no value
+  /// has been entered.
+  external String? placeholder;
+
+  /// Optional text that provides instructions or context to the user.
+  ///
+  /// The prompt is displayed below the input box and above the list of items.
+  external String? prompt;
+
+  /// Buttons for actions in the UI.
+  external _i1.JSArray<QuickInputButton> buttons;
+
+  /// Items to pick from. This can be read and updated by the extension.
+  external _i1.JSArray<T> items;
+
+  /// Determines if multiple items can be selected at the same time. Defaults to
+  /// `false`.
+  external bool canSelectMany;
+
+  /// Determines if the filter text should also be matched against the
+  /// QuickPickItem.descriptiondescription of the items. Defaults to `false`.
+  external bool matchOnDescription;
+
+  /// Determines if the filter text should also be matched against the
+  /// QuickPickItem.detaildetail of the items. Defaults to `false`.
+  external bool matchOnDetail;
+
+  /// Determines if the scroll position is maintained when the quick pick items
+  /// are updated. Defaults to `false`.
+  external bool? keepScrollPosition;
+
+  /// Active items. This can be read and updated by the extension.
+  external _i1.JSArray<T> activeItems;
+
+  /// Selected items. This can be read and updated by the extension.
+  external _i1.JSArray<T> selectedItems;
+
+  /// An event signaling when the value of the filter text has changed.
+  external Event<_i1.JSString> get onDidChangeValue;
+
+  /// An event signaling when the user indicated acceptance of the selected
+  /// item(s).
+  external Event<_i1.JSAny?> get onDidAccept;
+
+  /// An event signaling when a button was triggered.
+  ///
+  /// This event fires for buttons stored in the QuickPick.buttonsbuttons array.
+  /// This event does
+  /// not fire for buttons on a QuickPickItem.
+  external Event<QuickInputButton> get onDidTriggerButton;
+
+  /// An event signaling when a button in a particular QuickPickItem was
+  /// triggered.
+  ///
+  /// This event does not fire for buttons in the title bar which are part of
+  /// QuickPick.buttonsbuttons.
+  external Event<QuickPickItemButtonEvent<T>> get onDidTriggerItemButton;
+
+  /// An event signaling when the active items have changed.
+  external Event<_i1.JSArray<T>> get onDidChangeActive;
+
+  /// An event signaling when the selected items have changed.
+  external Event<_i1.JSArray<T>> get onDidChangeSelection;
+}
+
+/// An event describing a button that was pressed on a QuickPickItem.
+extension type QuickPickItemButtonEvent<T extends QuickPickItem>._(
+  _i1.JSObject _
+)
+    implements _i1.JSObject {
+  /// The button that was pressed.
+  external QuickInputButton get button;
+
+  /// The item that the button belongs to.
+  external T get item;
+}
+
+/// A concrete QuickInput to let the user input a text value.
+///
+/// Note that in many cases the more convenient window.showInputBox is easier
+/// to use.
+/// window.createInputBox should be used when window.showInputBox does not
+/// offer
+/// the required flexibility.
+extension type InputBox._(_i1.JSObject _) implements QuickInput {
+  /// The current input value.
+  external String value;
+
+  /// Selection range in the input value.
+  ///
+  /// Defined as tuple of two numbers where the first is the inclusive start
+  /// index and the second the
+  /// exclusive end index. When `undefined` the whole pre-filled value will be
+  /// selected, when empty
+  /// (start equals end) only the cursor will be set, otherwise the defined
+  /// range will be selected.
+  ///
+  /// This property does not get updated when the user types or makes a
+  /// selection, but it can be updated
+  /// by the extension.
+  external _i2.JSReadonlyTuple2<_i1.JSNumber, _i1.JSNumber> valueSelection;
+
+  /// Optional placeholder text shown when no value has been input.
+  external String? placeholder;
+
+  /// Determines if the input value should be hidden. Defaults to `false`.
+  external bool password;
+
+  /// Buttons for actions in the UI.
+  external _i1.JSArray<QuickInputButton> buttons;
+
+  /// An optional prompt text providing some ask or explanation to the user.
+  external String? prompt;
+
+  /// An optional validation message indicating a problem with the current input
+  /// value.
+  ///
+  /// By setting a string, the InputBox will use a default
+  /// InputBoxValidationSeverity of Error.
+  /// Returning `undefined` clears the validation message.
+  external AnonymousUnion_2058417? validationMessage;
+
+  /// An event signaling when the value has changed.
+  external Event<_i1.JSString> get onDidChangeValue;
+
+  /// An event signaling when the user indicated acceptance of the input value.
+  external Event<_i1.JSAny?> get onDidAccept;
+
+  /// An event signaling when a button was triggered.
+  external Event<QuickInputButton> get onDidTriggerButton;
+}
+
+/// Value-object describing where and how progress should show.
+extension type ProgressOptions._(_i1.JSObject _) implements _i1.JSObject {
+  /// The location at which progress should show.
+  external AnonymousUnion_3002308 location;
+
+  /// A human-readable string which will be used to describe the
+  /// operation.
+  external String? title;
+
+  /// Controls if a cancel button should show to allow the user to
+  /// cancel the long running operation.  Note that currently only
+  /// `ProgressLocation.Notification` is supporting to show a cancel
+  /// button.
+  external bool? cancellable;
+}
+
+/// A location in the editor at which progress information can be shown. It
+/// depends on the
+/// location how progress is visually represented.
+extension type const ProgressLocation._(int _) {
+  /// Show progress for the source control viewlet, as overlay for the icon and
+  /// as progress bar
+  /// inside the viewlet (when visible). Neither supports cancellation nor
+  /// discrete progress nor
+  /// a label to describe the operation.
+  static const ProgressLocation SourceControl = ProgressLocation._(1);
+
+  /// Show progress in the status bar of the editor. Neither supports
+  /// cancellation nor discrete progress.
+  /// Supports rendering of ThemeIcontheme icons via the `$(<name>)`-syntax in
+  /// the progress label.
+  static const ProgressLocation Window = ProgressLocation._(10);
+
+  /// Show progress as notification with an optional cancel button. Supports to
+  /// show infinite and discrete
+  /// progress but does not support rendering of icons.
+  static const ProgressLocation Notification = ProgressLocation._(15);
 }
 
 /// A data provider that provides tree data
@@ -10381,748 +12617,487 @@ extension type TreeItemLabel._(_i1.JSObject _) implements _i1.JSObject {
   /// Ranges in the label to highlight. A range is defined as a tuple of two
   /// number where the
   /// first is the inclusive start index and the second the exclusive end index
-  external _i1.JSArray<_i3.JSTuple2<_i1.JSNumber, _i1.JSNumber>?>? highlights;
+  external _i1.JSArray<_i2.JSTuple2<_i1.JSNumber, _i1.JSNumber>?>? highlights;
 }
 
-/// Value-object describing what options a terminal should use.
-extension type TerminalOptions._(_i1.JSObject _) implements _i1.JSObject {
-  /// A human-readable string which will be used to represent the terminal in
-  /// the UI.
-  external String? name;
+/// Collapsible state of the tree item
+extension type const TreeItemCollapsibleState._(int _) {
+  /// Determines an item can be neither collapsed nor expanded. Implies it has
+  /// no children.
+  static const TreeItemCollapsibleState None = TreeItemCollapsibleState._(0);
 
-  /// A path to a custom shell executable to be used in the terminal.
-  external String? shellPath;
+  /// Determines an item is collapsed
+  static const TreeItemCollapsibleState Collapsed = TreeItemCollapsibleState._(
+    1,
+  );
 
-  /// Args for the custom shell executable. A string can be used on Windows only
-  /// which allows
-  /// specifying shell args in
-  /// [command-line format](https://msdn.microsoft.com/en-au/08dfcab2-eb6e-49a4-80eb-87d4076c98c6).
-  external AnonymousUnion_3826264? shellArgs;
-
-  /// A path or Uri for the current working directory to be used for the
-  /// terminal.
-  external AnonymousUnion_4269776? cwd;
-
-  /// Object with environment variables that will be added to the editor
-  /// process.
-  external AnonymousType_1525911? env;
-
-  /// Whether the terminal process environment should be exactly as provided in
-  /// `TerminalOptions.env`. When this is false (default), the environment will
-  /// be based on the
-  /// window's environment and also apply configured platform settings like
-  /// `terminal.integrated.env.windows` on top. When this is true, the complete
-  /// environment
-  /// must be provided as nothing will be inherited from the process or any
-  /// configuration.
-  external bool? strictEnv;
-
-  /// When enabled the terminal will run the process as normal but not be
-  /// surfaced to the user
-  /// until `Terminal.show` is called. The typical usage for this is when you
-  /// need to run
-  /// something that may need interactivity but only want to tell the user about
-  /// it when
-  /// interaction is needed. Note that the terminals will still be exposed to
-  /// all extensions
-  /// as normal. The hidden terminals will not be restored when the workspace is
-  /// next opened.
-  external bool? hideFromUser;
-
-  /// A message to write to the terminal on first launch, note that this is not
-  /// sent to the
-  /// process but, rather written directly to the terminal. This supports escape
-  /// sequences such
-  /// a setting text style.
-  external String? message;
-
-  /// The icon path or ThemeIcon for the terminal.
-  external IconPath? iconPath;
-
-  /// The icon ThemeColor for the terminal.
-  /// The `terminal.ansi*` theme keys are
-  /// recommended for the best contrast and consistency across themes.
-  external ThemeColor? color;
-
-  /// The TerminalLocation or TerminalEditorLocationOptions or
-  /// TerminalSplitLocationOptions for the terminal.
-  external AnonymousUnion_1299646? location;
-
-  /// Opt-out of the default terminal persistence on restart and reload.
-  /// This will only take effect when
-  /// `terminal.integrated.enablePersistentSessions` is enabled.
-  external bool? isTransient;
-
-  /// The nonce to use to verify shell integration sequences are coming from a
-  /// trusted source.
-  /// An example impact of UX of this is if the command line is reported with a
-  /// nonce, it will
-  /// not need to verify with the user that the command line is correct before
-  /// rerunning it
-  /// via the
-  /// [shell integration command decoration](https://code.visualstudio.com/docs/terminal/shell-integration#_command-decorations-and-the-overview-ruler).
-  ///
-  /// This should be used if the terminal includes
-  /// [custom shell integration support](https://code.visualstudio.com/docs/terminal/shell-integration#_supported-escape-sequences).
-  /// It should be set to a random GUID which will then set the `VSCODE_NONCE`
-  /// environment
-  /// variable. Inside the shell, this should then be removed from the
-  /// environment so as to
-  /// protect it from general access. Once that is done it can be passed through
-  /// in the
-  /// relevant sequences to make them trusted.
-  external String? shellIntegrationNonce;
-}
-
-/// Value-object describing what options a virtual process terminal should
-/// use.
-extension type ExtensionTerminalOptions._(_i1.JSObject _)
-    implements _i1.JSObject {
-  /// A human-readable string which will be used to represent the terminal in
-  /// the UI.
-  external String name;
-
-  /// An implementation of Pseudoterminal that allows an extension to
-  /// control a terminal.
-  external Pseudoterminal pty;
-
-  /// The icon path or ThemeIcon for the terminal.
-  external IconPath? iconPath;
-
-  /// The icon ThemeColor for the terminal.
-  /// The standard `terminal.ansi*` theme keys are
-  /// recommended for the best contrast and consistency across themes.
-  external ThemeColor? color;
-
-  /// The TerminalLocation or TerminalEditorLocationOptions or
-  /// TerminalSplitLocationOptions for the terminal.
-  external AnonymousUnion_1299646? location;
-
-  /// Opt-out of the default terminal persistence on restart and reload.
-  /// This will only take effect when
-  /// `terminal.integrated.enablePersistentSessions` is enabled.
-  external bool? isTransient;
-
-  /// The nonce to use to verify shell integration sequences are coming from a
-  /// trusted source.
-  /// An example impact of UX of this is if the command line is reported with a
-  /// nonce, it will
-  /// not need to verify with the user that the command line is correct before
-  /// rerunning it
-  /// via the
-  /// [shell integration command decoration](https://code.visualstudio.com/docs/terminal/shell-integration#_command-decorations-and-the-overview-ruler).
-  ///
-  /// This should be used if the terminal includes
-  /// [custom shell integration support](https://code.visualstudio.com/docs/terminal/shell-integration#_supported-escape-sequences).
-  /// It should be set to a random GUID. Inside the Pseudoterminal
-  /// implementation, this value
-  /// can be passed through in the relevant sequences to make them trusted.
-  external String? shellIntegrationNonce;
-}
-
-/// Defines the interface of a terminal pty, enabling extensions to control a
-/// terminal.
-extension type Pseudoterminal._(_i1.JSObject _) implements _i1.JSObject {
-  /// An event that when fired will write data to the terminal. Unlike
-  /// Terminal.sendText which sends text to the underlying child
-  /// pseudo-device (the child), this will write the text to parent
-  /// pseudo-device (the
-  /// _terminal_ itself).
-  ///
-  /// Note writing `\n` will just move the cursor down 1 row, you need to write
-  /// `\r` as well
-  /// to move the cursor to the left-most cell.
-  ///
-  /// Events fired before Pseudoterminal.open is called will be be ignored.
-  ///
-  /// **Example:** Write red text to the terminal
-  /// ```typescript
-  /// const writeEmitter = new vscode.EventEmitter<string>();
-  /// const pty: vscode.Pseudoterminal = {
-  ///   onDidWrite: writeEmitter.event,
-  ///   open: () => writeEmitter.fire('\x1b[31mHello world\x1b[0m'),
-  ///   close: () => {}
-  /// };
-  /// vscode.window.createTerminal({ name: 'My terminal', pty });
-  /// ```
-  ///
-  /// **Example:** Move the cursor to the 10th row and 20th column and write an
-  /// asterisk
-  /// ```typescript
-  /// writeEmitter.fire('\x1b[10;20H*');
-  /// ```
-  external Event<_i1.JSString> onDidWrite;
-
-  /// An event that when fired allows overriding the
-  /// Pseudoterminal.setDimensionsdimensions of the
-  /// terminal. Note that when set, the overridden dimensions will only take
-  /// effect when they
-  /// are lower than the actual dimensions of the terminal (ie. there will never
-  /// be a scroll
-  /// bar). Set to `undefined` for the terminal to go back to the regular
-  /// dimensions (fit to
-  /// the size of the panel).
-  ///
-  /// Events fired before Pseudoterminal.open is called will be be ignored.
-  ///
-  /// **Example:** Override the dimensions of a terminal to 20 columns and 10
-  /// rows
-  /// ```typescript
-  /// const dimensionsEmitter = new vscode.EventEmitter<vscode.TerminalDimensions>();
-  /// const pty: vscode.Pseudoterminal = {
-  ///   onDidWrite: writeEmitter.event,
-  ///   onDidOverrideDimensions: dimensionsEmitter.event,
-  ///   open: () => {
-  ///     dimensionsEmitter.fire({
-  ///       columns: 20,
-  ///       rows: 10
-  ///     });
-  ///   },
-  ///   close: () => {}
-  /// };
-  /// vscode.window.createTerminal({ name: 'My terminal', pty });
-  /// ```
-  external Event<TerminalDimensions?>? onDidOverrideDimensions;
-
-  /// An event that when fired will signal that the pty is closed and dispose of
-  /// the terminal.
-  ///
-  /// Events fired before Pseudoterminal.open is called will be be ignored.
-  ///
-  /// A number can be used to provide an exit code for the terminal. Exit codes
-  /// must be
-  /// positive and a non-zero exit codes signals failure which shows a
-  /// notification for a
-  /// regular terminal and allows dependent tasks to proceed when used with the
-  /// `CustomExecution` API.
-  ///
-  /// **Example:** Exit the terminal when "y" is pressed, otherwise show a
-  /// notification.
-  /// ```typescript
-  /// const writeEmitter = new vscode.EventEmitter<string>();
-  /// const closeEmitter = new vscode.EventEmitter<void>();
-  /// const pty: vscode.Pseudoterminal = {
-  ///   onDidWrite: writeEmitter.event,
-  ///   onDidClose: closeEmitter.event,
-  ///   open: () => writeEmitter.fire('Press y to exit successfully'),
-  ///   close: () => {},
-  ///   handleInput: data => {
-  ///     if (data !== 'y') {
-  ///       vscode.window.showInformationMessage('Something went wrong');
-  ///     }
-  ///     closeEmitter.fire();
-  ///   }
-  /// };
-  /// const terminal = vscode.window.createTerminal({ name: 'Exit example', pty });
-  /// terminal.show(true);
-  /// ```
-  external Event<AnonymousUnion_1194375>? onDidClose;
-
-  /// An event that when fired allows changing the name of the terminal.
-  ///
-  /// Events fired before Pseudoterminal.open is called will be be ignored.
-  ///
-  /// **Example:** Change the terminal name to "My new terminal".
-  /// ```typescript
-  /// const writeEmitter = new vscode.EventEmitter<string>();
-  /// const changeNameEmitter = new vscode.EventEmitter<string>();
-  /// const pty: vscode.Pseudoterminal = {
-  ///   onDidWrite: writeEmitter.event,
-  ///   onDidChangeName: changeNameEmitter.event,
-  ///   open: () => changeNameEmitter.fire('My new terminal'),
-  ///   close: () => {}
-  /// };
-  /// vscode.window.createTerminal({ name: 'My terminal', pty });
-  /// ```
-  external Event<_i1.JSString>? onDidChangeName;
-
-  /// Implement to handle when the pty is open and ready to start firing events.
-  /// - [initialDimensions]:  The dimensions of the terminal, this will be
-  ///   undefined if the
-  /// terminal panel has not been opened before this is called.
-  external void open(TerminalDimensions? initialDimensions);
-
-  /// Implement to handle when the terminal is closed by an act of the user.
-  external void close();
-
-  /// Implement to handle incoming keystrokes in the terminal or when an
-  /// extension calls
-  /// Terminal.sendText. `data` contains the keystrokes/text serialized into
-  /// their corresponding VT sequence representation.
-  /// - [data]:  The incoming data.
-  ///
-  /// **Example:** Echo input in the terminal. The sequence for enter (`\r`) is
-  /// translated to
-  /// CRLF to go to a new line and move the cursor to the start of the line.
-  /// ```typescript
-  /// const writeEmitter = new vscode.EventEmitter<string>();
-  /// const pty: vscode.Pseudoterminal = {
-  /// onDidWrite: writeEmitter.event,
-  /// open: () => {},
-  /// close: () => {},
-  /// handleInput: data => writeEmitter.fire(data === '\r' ? '\r\n' : data)
-  /// };
-  /// vscode.window.createTerminal({ name: 'Local echo', pty });
-  /// ```
-  external _i1.JSFunction? get handleInput;
-
-  /// Implement to handle when the number of rows and columns that fit into the
-  /// terminal panel
-  /// changes, for example when font size changes or when the panel is resized.
-  /// The initial
-  /// state of a terminal's dimensions should be treated as `undefined` until
-  /// this is triggered
-  /// as the size of a terminal isn't known until it shows up in the user
-  /// interface.
-  ///
-  /// When dimensions are overridden by
-  /// Pseudoterminal.onDidOverrideDimensionsonDidOverrideDimensions,
-  /// `setDimensions` will
-  /// continue to be called with the regular panel dimensions, allowing the
-  /// extension continue
-  /// to react dimension changes.
-  /// - [dimensions]:  The new dimensions.
-  external _i1.JSFunction? get setDimensions;
-}
-
-/// Represents the dimensions of a terminal.
-extension type TerminalDimensions._(_i1.JSObject _) implements _i1.JSObject {
-  /// The number of columns in the terminal.
-  external double get columns;
-
-  /// The number of rows in the terminal.
-  external double get rows;
-}
-
-/// Represents how a terminal exited.
-extension type TerminalExitStatus._(_i1.JSObject _) implements _i1.JSObject {
-  /// The exit code that a terminal exited with, it can have the following
-  /// values:
-  /// - Zero: the terminal process or custom execution succeeded.
-  /// - Non-zero: the terminal process or custom execution failed.
-  /// - `undefined`: the user forcibly closed the terminal or a custom execution
-  ///   exited
-  /// without providing an exit code.
-  external double? get code;
-
-  /// The reason that triggered the exit of a terminal.
-  external TerminalExitReason get reason;
-}
-
-/// Options applied to the mutator.
-extension type EnvironmentVariableMutatorOptions._(_i1.JSObject _)
-    implements _i1.JSObject {
-  /// Apply to the environment just before the process is created. Defaults to
-  /// false.
-  external bool? applyAtProcessCreation;
-
-  /// Apply to the environment in the shell integration script. Note that this
-  /// _will not_ apply
-  /// the mutator if shell integration is disabled or not working for some
-  /// reason. Defaults to
-  /// false.
-  external bool? applyAtShellIntegration;
-}
-
-/// A type of mutation and its value to be applied to an environment variable.
-extension type EnvironmentVariableMutator._(_i1.JSObject _)
-    implements _i1.JSObject {
-  /// The type of mutation that will occur to the variable.
-  external EnvironmentVariableMutatorType get type;
-
-  /// The value to use for the variable.
-  external String get value;
-
-  /// Options applied to the mutator.
-  external EnvironmentVariableMutatorOptions get options;
-}
-
-/// A collection of mutations that an extension can apply to a process
-/// environment.
-extension type EnvironmentVariableCollection._(_i1.JSObject _)
-    implements
-        Iterable<_i3.JSTuple2<_i1.JSAny, _i1.JSAny>, _i1.JSAny?, _i1.JSAny?> {
-  /// Whether the collection should be cached for the workspace and applied to
-  /// the terminal
-  /// across window reloads. When true the collection will be active immediately
-  /// such when the
-  /// window reloads. Additionally, this API will return the cached version if
-  /// it exists. The
-  /// collection will be invalidated when the extension is uninstalled or when
-  /// the collection
-  /// is cleared. Defaults to true.
-  external bool persistent;
-
-  /// A description for the environment variable collection, this will be used
-  /// to describe the
-  /// changes in the UI.
-  external AnonymousUnion_3150571 description;
-
-  /// Replace an environment variable with a value.
-  ///
-  /// Note that an extension can only make a single change to any one variable,
-  /// so this will
-  /// overwrite any previous calls to replace, append or prepend.
-  /// - [variable]:  The variable to replace.
-  /// - [value]:  The value to replace the variable with.
-  /// - [options]:  Options applied to the mutator, when no options are provided
-  ///   this will
-  /// default to `{ applyAtProcessCreation: true }`.
-  external void replace(
-    String variable,
-    String value, [
-    EnvironmentVariableMutatorOptions? options,
-  ]);
-
-  /// Append a value to an environment variable.
-  ///
-  /// Note that an extension can only make a single change to any one variable,
-  /// so this will
-  /// overwrite any previous calls to replace, append or prepend.
-  /// - [variable]:  The variable to append to.
-  /// - [value]:  The value to append to the variable.
-  /// - [options]:  Options applied to the mutator, when no options are provided
-  ///   this will
-  /// default to `{ applyAtProcessCreation: true }`.
-  external void append(
-    String variable,
-    String value, [
-    EnvironmentVariableMutatorOptions? options,
-  ]);
-
-  /// Prepend a value to an environment variable.
-  ///
-  /// Note that an extension can only make a single change to any one variable,
-  /// so this will
-  /// overwrite any previous calls to replace, append or prepend.
-  /// - [variable]:  The variable to prepend.
-  /// - [value]:  The value to prepend to the variable.
-  /// - [options]:  Options applied to the mutator, when no options are provided
-  ///   this will
-  /// default to `{ applyAtProcessCreation: true }`.
-  external void prepend(
-    String variable,
-    String value, [
-    EnvironmentVariableMutatorOptions? options,
-  ]);
-
-  /// Gets the mutator that this collection applies to a variable, if any.
-  /// - [variable]:  The variable to get the mutator for.
-  @_i1.JS('get')
-  external EnvironmentVariableMutator? get$(String variable);
-
-  /// Iterate over each mutator in this collection.
-  /// - [callback]:  Function to execute for each entry.
-  /// - [thisArg]:  The `this` context used when invoking the handler function.
-  external void forEach(
-    _AnonymousFunction_1777378 callback, [
-    _i1.JSAny? thisArg,
-  ]);
-
-  /// Deletes this collection's mutator for a variable.
-  /// - [variable]:  The variable to delete the mutator for.
-  external void delete(String variable);
-
-  /// Clears all mutators from this collection.
-  external void clear();
-}
-
-/// A collection of mutations that an extension can apply to a process
-/// environment. Applies to all scopes.
-extension type GlobalEnvironmentVariableCollection._(_i1.JSObject _)
-    implements EnvironmentVariableCollection {
-  /// Gets scope-specific environment variable collection for the extension.
-  /// This enables alterations to
-  /// terminal environment variables solely within the designated scope, and is
-  /// applied in addition to (and
-  /// after) the global collection.
-  ///
-  /// Each object obtained through this method is isolated and does not impact
-  /// objects for other scopes,
-  /// including the global collection.
-  /// - [scope]:  The scope to which the environment variable collection applies
-  ///   to.
-  ///
-  /// If a scope parameter is omitted, collection applicable to all relevant
-  /// scopes for that parameter is
-  /// returned. For instance, if the 'workspaceFolder' parameter is not
-  /// specified, the collection that applies
-  /// across all workspace folders will be returned.
-  ///
-  /// Returns Environment variable collection for the passed in scope.
-  external EnvironmentVariableCollection getScoped(
-    EnvironmentVariableScope scope,
+  /// Determines an item is expanded
+  static const TreeItemCollapsibleState Expanded = TreeItemCollapsibleState._(
+    2,
   );
 }
 
-/// The scope object to which the environment variable collection applies.
-extension type EnvironmentVariableScope._(_i1.JSObject _)
+/// Checkbox state of the tree item
+extension type const TreeItemCheckboxState._(int _) {
+  /// Determines an item is unchecked
+  static const TreeItemCheckboxState Unchecked = TreeItemCheckboxState._(0);
+
+  /// Determines an item is checked
+  static const TreeItemCheckboxState Checked = TreeItemCheckboxState._(1);
+}
+
+/// Options for creating a TreeView
+extension type TreeViewOptions<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
-  /// Any specific workspace folder to get collection for.
-  external WorkspaceFolder? workspaceFolder;
+  /// A data provider that provides tree data.
+  external TreeDataProvider<T> treeDataProvider;
+
+  /// Whether to show collapse all action or not.
+  external bool? showCollapseAll;
+
+  /// Whether the tree supports multi-select. When the tree supports
+  /// multi-select and a command is executed from the tree,
+  /// the first argument to the command is the tree item that the command was
+  /// executed on and the second argument is an
+  /// array containing all selected tree items.
+  external bool? canSelectMany;
+
+  /// An optional interface to implement drag and drop in the tree view.
+  external TreeDragAndDropController<T>? dragAndDropController;
+
+  /// By default, when the children of a tree item have already been fetched,
+  /// child checkboxes are automatically managed based on the checked state of
+  /// the parent tree item.
+  /// If the tree item is collapsed by default (meaning that the children
+  /// haven't yet been fetched) then child checkboxes will not be updated.
+  /// To override this behavior and manage child and parent checkbox state in
+  /// the extension, set this to `true`.
+  ///
+  /// Examples where TreeViewOptions.manageCheckboxStateManually is false, the
+  /// default behavior:
+  ///
+  /// 1. A tree item is checked, then its children are fetched. The children
+  /// will be checked.
+  ///
+  /// 2. A tree item's parent is checked. The tree item and all of it's siblings
+  /// will be checked.
+  ///   - [ ] Parent
+  ///     - [ ] Child 1
+  ///     - [ ] Child 2
+  /// When the user checks Parent, the tree will look like this:
+  ///   - [x] Parent
+  ///     - [x] Child 1
+  ///     - [x] Child 2
+  ///
+  /// 3. A tree item and all of it's siblings are checked. The parent will be
+  /// checked.
+  ///   - [ ] Parent
+  ///     - [ ] Child 1
+  ///     - [ ] Child 2
+  /// When the user checks Child 1 and Child 2, the tree will look like this:
+  ///   - [x] Parent
+  ///     - [x] Child 1
+  ///     - [x] Child 2
+  ///
+  /// 4. A tree item is unchecked. The parent will be unchecked.
+  ///   - [x] Parent
+  ///     - [x] Child 1
+  ///     - [x] Child 2
+  /// When the user unchecks Child 1, the tree will look like this:
+  ///   - [ ] Parent
+  ///     - [ ] Child 1
+  ///     - [x] Child 2
+  external bool? manageCheckboxStateManually;
 }
 
-/// Value-object describing where and how progress should show.
-extension type ProgressOptions._(_i1.JSObject _) implements _i1.JSObject {
-  /// The location at which progress should show.
-  external AnonymousUnion_3002308 location;
+/// Provides support for drag and drop in `TreeView`.
+extension type TreeDragAndDropController<T extends _i1.JSAny?>._(_i1.JSObject _)
+    implements _i1.JSObject {
+  /// The mime types that the TreeDragAndDropController.handleDrop`handleDrop`
+  /// method of this `DragAndDropController` supports.
+  /// This could be well-defined, existing, mime types, and also mime types
+  /// defined by the extension.
+  ///
+  /// To support drops from trees, you will need to add the mime type of that
+  /// tree.
+  /// This includes drops from within the same tree.
+  /// The mime type of a tree is recommended to be of the format
+  /// `application/vnd.code.tree.<treeidlowercase>`.
+  ///
+  /// Use the special `files` mime type to support all types of dropped files
+  /// DataTransferFilefiles, regardless of the file's actual mime type.
+  ///
+  /// To learn the mime type of a dragged item:
+  /// 1. Set up your `DragAndDropController`
+  /// 2. Use the Developer: Set Log Level... command to set the level to "Debug"
+  /// 3. Open the developer tools and drag the item with unknown mime type over
+  /// your tree. The mime types will be logged to the developer console
+  ///
+  /// Note that mime types that cannot be sent to the extension will be omitted.
+  external _i1.JSArray<_i1.JSString> get dropMimeTypes;
 
-  /// A human-readable string which will be used to describe the
-  /// operation.
+  /// The mime types that the TreeDragAndDropController.handleDrag`handleDrag`
+  /// method of this `TreeDragAndDropController` may add to the tree data
+  /// transfer.
+  /// This could be well-defined, existing, mime types, and also mime types
+  /// defined by the extension.
+  ///
+  /// The recommended mime type of the tree
+  /// (`application/vnd.code.tree.<treeidlowercase>`) will be automatically
+  /// added.
+  external _i1.JSArray<_i1.JSString> get dragMimeTypes;
+
+  /// When the user starts dragging items from this `DragAndDropController`,
+  /// `handleDrag` will be called.
+  /// Extensions can use `handleDrag` to add their
+  /// DataTransferItem`DataTransferItem` items to the drag and drop.
+  ///
+  /// Mime types added in `handleDrag` won't be available outside the
+  /// application.
+  ///
+  /// When the items are dropped on **another tree item** in **the same tree**,
+  /// your `DataTransferItem` objects
+  /// will be preserved. Use the recommended mime type for the tree
+  /// (`application/vnd.code.tree.<treeidlowercase>`) to add
+  /// tree objects in a data transfer. See the documentation for
+  /// `DataTransferItem` for how best to take advantage of this.
+  ///
+  /// To add a data transfer item that can be dragged into the editor, use the
+  /// application specific mime type "text/uri-list".
+  /// The data for "text/uri-list" should be a string with `toString()`ed Uris
+  /// separated by `\r\n`. To specify a cursor position in the file,
+  /// set the Uri's fragment to `L3,5`, where 3 is the line number and 5 is the
+  /// column number.
+  /// - [source]:  The source items for the drag and drop operation.
+  /// - [dataTransfer]:  The data transfer associated with this drag.
+  /// - [token]:  A cancellation token indicating that drag has been cancelled.
+  external _i1.JSFunction? get handleDrag;
+
+  /// Called when a drag and drop action results in a drop on the tree that this
+  /// `DragAndDropController` belongs to.
+  ///
+  /// Extensions should fire
+  /// TreeDataProvider.onDidChangeTreeDataonDidChangeTreeData for any elements
+  /// that need to be refreshed.
+  /// - [target]:  The target tree element that the drop is occurring on. When
+  ///   undefined, the target is the root.
+  /// - [dataTransfer]:  The data transfer items of the source of the drag.
+  /// - [token]:  A cancellation token indicating that the drop has been
+  ///   cancelled.
+  external _i1.JSFunction? get handleDrop;
+}
+
+/// Represents a Tree view
+extension type TreeView<T extends _i1.JSAny?>._(_i1.JSObject _)
+    implements Disposable {
+  /// An optional human-readable message that will be rendered in the view.
+  /// Setting the message to null, undefined, or empty string will remove the
+  /// message from the view.
+  external String? message;
+
+  /// The tree view title is initially taken from the extension package.json
+  /// Changes to the title property will be properly reflected in the UI in the
+  /// title of the view.
   external String? title;
 
-  /// Controls if a cancel button should show to allow the user to
-  /// cancel the long running operation.  Note that currently only
-  /// `ProgressLocation.Notification` is supporting to show a cancel
-  /// button.
-  external bool? cancellable;
+  /// An optional human-readable description which is rendered less prominently
+  /// in the title of the view.
+  /// Setting the title description to null, undefined, or empty string will
+  /// remove the description from the view.
+  external String? description;
+
+  /// The badge to display for this TreeView.
+  /// To remove the badge, set to undefined.
+  external ViewBadge? badge;
+
+  /// Event that is fired when an element is expanded
+  external Event<TreeViewExpansionEvent<T>> get onDidExpandElement;
+
+  /// Event that is fired when an element is collapsed
+  external Event<TreeViewExpansionEvent<T>> get onDidCollapseElement;
+
+  /// Currently selected elements.
+  external _i1.JSArray<T> get selection;
+
+  /// Event that is fired when the TreeView.selectionselection has changed
+  external Event<TreeViewSelectionChangeEvent<T>> get onDidChangeSelection;
+
+  /// `true` if the TreeViewtree view is visible otherwise `false`.
+  external bool get visible;
+
+  /// Event that is fired when TreeView.visiblevisibility has changed
+  external Event<TreeViewVisibilityChangeEvent> get onDidChangeVisibility;
+
+  /// An event to signal that an element or root has either been checked or
+  /// unchecked.
+  external Event<TreeCheckboxChangeEvent<T>> get onDidChangeCheckboxState;
+
+  /// Reveals the given element in the tree view.
+  /// If the tree view is not visible then the tree view is shown and element is
+  /// revealed.
+  ///
+  /// By default revealed element is selected.
+  /// In order to not to select, set the option `select` to `false`.
+  /// In order to focus, set the option `focus` to `true`.
+  /// In order to expand the revealed element, set the option `expand` to
+  /// `true`. To expand recursively set `expand` to the number of levels to
+  /// expand.
+  ///
+  /// * *NOTE:* You can expand only to 3 levels maximum.
+  /// * *NOTE:* The TreeDataProvider that the `TreeView` window.createTreeViewis
+  /// registered with with must implement TreeDataProvider.getParentgetParent
+  /// method to access this API.
+  external Thenable<_i1.JSAny?> reveal(
+    T element, [
+    AnonymousType_3917097? options,
+  ]);
 }
 
-/// The base interface for all quick input types.
-///
-/// Quick input provides a unified way for extensions to interact with users
-/// through simple UI elements.
-/// A quick input UI is initially not visible. After configuring it through
-/// its properties the extension
-/// can make it visible by calling QuickInput.showshow.
-///
-/// There are several reasons why this UI might have to be hidden and the
-/// extension will be notified
-/// through QuickInput.onDidHideonDidHide. Examples include: an explicit call
-/// to
-/// QuickInput.hidehide, the user pressing Esc, some other input UI opening,
-/// etc.
-///
-/// A user pressing Enter or some other gesture implying acceptance of the
-/// current state does not
-/// automatically hide this UI component. It is up to the extension to decide
-/// whether to accept the
-/// user's input and if the UI should indeed be hidden through a call to
-/// QuickInput.hidehide.
-///
-/// When the extension no longer needs this input UI, it should
-/// QuickInput.disposedispose it
-/// to allow for freeing up any resources associated with it.
-///
-/// See QuickPick and InputBox for concrete UIs.
-extension type QuickInput._(_i1.JSObject _) implements _i1.JSObject {
-  /// An optional title for the input UI.
-  external String? title;
-
-  /// An optional current step count for multi-step input flows.
-  external double? step;
-
-  /// An optional total step count for multi-step input flows.
-  external double? totalSteps;
-
-  /// Determines if the UI should allow for user input. Defaults to `true`.
-  ///
-  /// Change this to `false`, for example, while validating user input or
-  /// loading data for the next
-  /// step in user input.
-  external bool enabled;
-
-  /// Determines if the UI should show a progress indicator. Defaults to
-  /// `false`.
-  ///
-  /// Change this to `true`, for example, while loading more data or validating
-  /// user input.
-  external bool busy;
-
-  /// Determines if the UI should stay open even when losing UI focus. Defaults
-  /// to `false`.
-  /// This setting is ignored on iPad and is always `false`.
-  external bool ignoreFocusOut;
-
-  /// An event signaling when this input UI is hidden.
-  ///
-  /// There are several reasons why this UI might have to be hidden and the
-  /// extension will be notified
-  /// through QuickInput.onDidHideonDidHide. Examples include: an explicit call
-  /// to
-  /// QuickInput.hidehide, the user pressing Esc, some other input UI opening,
-  /// etc.
-  external Event<_i1.JSAny?> get onDidHide;
-
-  /// Makes the input UI visible in its current configuration.
-  ///
-  /// Any other input UI will first fire an QuickInput.onDidHideonDidHide event.
-  @_i1.JS('show')
-  external void show$();
-
-  /// Hides this input UI.
-  ///
-  /// This will also fire an QuickInput.onDidHideonDidHide event.
-  @_i1.JS('hide')
-  external void hide$();
-
-  /// Dispose of this input UI and any associated resources.
-  ///
-  /// If it is still visible, it is first hidden. After this call the input UI
-  /// is no longer functional
-  /// and no additional methods or properties on it should be accessed. Instead
-  /// a new input UI should
-  /// be created.
-  external void dispose();
+/// The event that is fired when an element in the TreeView is expanded or
+/// collapsed
+extension type TreeViewExpansionEvent<T extends _i1.JSAny?>._(_i1.JSObject _)
+    implements _i1.JSObject {
+  /// Element that is expanded or collapsed.
+  external T get element;
 }
 
-/// A concrete QuickInput to let the user pick an item from a list of items of
-/// type `T`.
-///
-/// The items can be filtered through a filter text field and there is an
-/// option
-/// QuickPick.canSelectManycanSelectMany to allow for selecting multiple
-/// items.
-///
-/// Note that in many cases the more convenient window.showQuickPick is easier
-/// to use.
-/// window.createQuickPick should be used when window.showQuickPick does not
-/// offer
-/// the required flexibility.
-extension type QuickPick<T extends QuickPickItem>._(_i1.JSObject _)
-    implements QuickInput {
-  /// The current value of the filter text.
-  external String value;
-
-  /// Optional placeholder text displayed in the filter text box when no value
-  /// has been entered.
-  external String? placeholder;
-
-  /// Optional text that provides instructions or context to the user.
-  ///
-  /// The prompt is displayed below the input box and above the list of items.
-  external String? prompt;
-
-  /// Buttons for actions in the UI.
-  external _i1.JSArray<QuickInputButton> buttons;
-
-  /// Items to pick from. This can be read and updated by the extension.
-  external _i1.JSArray<T> items;
-
-  /// Determines if multiple items can be selected at the same time. Defaults to
-  /// `false`.
-  external bool canSelectMany;
-
-  /// Determines if the filter text should also be matched against the
-  /// QuickPickItem.descriptiondescription of the items. Defaults to `false`.
-  external bool matchOnDescription;
-
-  /// Determines if the filter text should also be matched against the
-  /// QuickPickItem.detaildetail of the items. Defaults to `false`.
-  external bool matchOnDetail;
-
-  /// Determines if the scroll position is maintained when the quick pick items
-  /// are updated. Defaults to `false`.
-  external bool? keepScrollPosition;
-
-  /// Active items. This can be read and updated by the extension.
-  external _i1.JSArray<T> activeItems;
-
-  /// Selected items. This can be read and updated by the extension.
-  external _i1.JSArray<T> selectedItems;
-
-  /// An event signaling when the value of the filter text has changed.
-  external Event<_i1.JSString> get onDidChangeValue;
-
-  /// An event signaling when the user indicated acceptance of the selected
-  /// item(s).
-  external Event<_i1.JSAny?> get onDidAccept;
-
-  /// An event signaling when a button was triggered.
-  ///
-  /// This event fires for buttons stored in the QuickPick.buttonsbuttons array.
-  /// This event does
-  /// not fire for buttons on a QuickPickItem.
-  external Event<QuickInputButton> get onDidTriggerButton;
-
-  /// An event signaling when a button in a particular QuickPickItem was
-  /// triggered.
-  ///
-  /// This event does not fire for buttons in the title bar which are part of
-  /// QuickPick.buttonsbuttons.
-  external Event<QuickPickItemButtonEvent<T>> get onDidTriggerItemButton;
-
-  /// An event signaling when the active items have changed.
-  external Event<_i1.JSArray<T>> get onDidChangeActive;
-
-  /// An event signaling when the selected items have changed.
-  external Event<_i1.JSArray<T>> get onDidChangeSelection;
+/// The event that is fired when there is a change in TreeView.selectiontree
+/// view's selection
+extension type TreeViewSelectionChangeEvent<T extends _i1.JSAny?>._(
+  _i1.JSObject _
+)
+    implements _i1.JSObject {
+  /// Selected elements.
+  external _i1.JSArray<T> get selection;
 }
 
-/// A concrete QuickInput to let the user input a text value.
-///
-/// Note that in many cases the more convenient window.showInputBox is easier
-/// to use.
-/// window.createInputBox should be used when window.showInputBox does not
-/// offer
-/// the required flexibility.
-extension type InputBox._(_i1.JSObject _) implements QuickInput {
-  /// The current input value.
-  external String value;
-
-  /// Selection range in the input value.
-  ///
-  /// Defined as tuple of two numbers where the first is the inclusive start
-  /// index and the second the
-  /// exclusive end index. When `undefined` the whole pre-filled value will be
-  /// selected, when empty
-  /// (start equals end) only the cursor will be set, otherwise the defined
-  /// range will be selected.
-  ///
-  /// This property does not get updated when the user types or makes a
-  /// selection, but it can be updated
-  /// by the extension.
-  external _i3.JSReadonlyTuple2<_i1.JSNumber, _i1.JSNumber> valueSelection;
-
-  /// Optional placeholder text shown when no value has been input.
-  external String? placeholder;
-
-  /// Determines if the input value should be hidden. Defaults to `false`.
-  external bool password;
-
-  /// Buttons for actions in the UI.
-  external _i1.JSArray<QuickInputButton> buttons;
-
-  /// An optional prompt text providing some ask or explanation to the user.
-  external String? prompt;
-
-  /// An optional validation message indicating a problem with the current input
-  /// value.
-  ///
-  /// By setting a string, the InputBox will use a default
-  /// InputBoxValidationSeverity of Error.
-  /// Returning `undefined` clears the validation message.
-  external AnonymousUnion_2058417? validationMessage;
-
-  /// An event signaling when the value has changed.
-  external Event<_i1.JSString> get onDidChangeValue;
-
-  /// An event signaling when the user indicated acceptance of the input value.
-  external Event<_i1.JSAny?> get onDidAccept;
-
-  /// An event signaling when a button was triggered.
-  external Event<QuickInputButton> get onDidTriggerButton;
+/// The event that is fired when there is a change in TreeView.visibletree
+/// view's visibility
+extension type TreeViewVisibilityChangeEvent._(_i1.JSObject _)
+    implements _i1.JSObject {
+  /// `true` if the TreeViewtree view is visible otherwise `false`.
+  external bool get visible;
 }
 
-/// A button for an action in a QuickPick or InputBox.
-extension type QuickInputButton._(_i1.JSObject _) implements _i1.JSObject {
-  /// The location where the button should be rendered.
+/// An event describing the change in a tree item's checkbox state.
+extension type TreeCheckboxChangeEvent<T extends _i1.JSAny?>._(_i1.JSObject _)
+    implements _i1.JSObject {
+  /// The items that were checked or unchecked.
+  external ReadonlyArray<_i2.JSTuple2<T, _i1.JSNumber>> get items;
+}
+
+/// Represents the main editor area which consists of multiple groups which
+/// contain tabs.
+extension type TabGroups._(_i1.JSObject _) implements _i1.JSObject {
+  /// All the groups within the group container.
+  external _i1.JSArray<TabGroup> get all;
+
+  /// The currently active group.
+  external TabGroup get activeTabGroup;
+
+  /// An Eventevent which fires when TabGrouptab groups have changed.
+  external Event<TabGroupChangeEvent> get onDidChangeTabGroups;
+
+  /// An Eventevent which fires when Tabtabs have changed.
+  external Event<TabChangeEvent> get onDidChangeTabs;
+
+  /// Closes the tab. This makes the tab object invalid and the tab
+  /// should no longer be used for further actions.
+  /// Note: In the case of a dirty tab, a confirmation dialog will be shown
+  /// which may be cancelled. If cancelled the tab is still valid
+  /// Closes the tab group. This makes the tab group object invalid and the tab
+  /// group
+  /// should no longer be used for further actions.
+  /// - [tab]:  The tab to close.
+  /// - [preserveFocus]:  When `true` focus will remain in its current position.
+  ///   If `false` it will jump to the next tab.
   ///
-  /// Defaults to QuickInputButtonLocation.Title.
+  /// Returns A promise that resolves to `true` when all tabs have been closed.
+  /// - [tabGroup]:  The tab group to close.
+  /// - [preserveFocus]:  When `true` focus will remain in its current position.
   ///
-  /// **Note:** This property is ignored if the button was added to a
-  /// QuickPickItem.
-  external QuickInputButtonLocation? location;
+  /// Returns A promise that resolves to `true` when all tab groups have been
+  /// closed.
+  external Thenable<_i1.JSBoolean> close(
+    AnonymousUnion_8376058 tab, [
+    bool? preserveFocus,
+  ]);
 
-  /// The icon for the button.
-  external IconPath get iconPath;
+  /// Closes the tab. This makes the tab object invalid and the tab
+  /// should no longer be used for further actions.
+  /// Note: In the case of a dirty tab, a confirmation dialog will be shown
+  /// which may be cancelled. If cancelled the tab is still valid
+  /// Closes the tab group. This makes the tab group object invalid and the tab
+  /// group
+  /// should no longer be used for further actions.
+  /// - [tab]:  The tab to close.
+  /// - [preserveFocus]:  When `true` focus will remain in its current position.
+  ///   If `false` it will jump to the next tab.
+  ///
+  /// Returns A promise that resolves to `true` when all tabs have been closed.
+  /// - [tabGroup]:  The tab group to close.
+  /// - [preserveFocus]:  When `true` focus will remain in its current position.
+  ///
+  /// Returns A promise that resolves to `true` when all tab groups have been
+  /// closed.
+  @_i1.JS('close')
+  external Thenable<_i1.JSBoolean> close$1(
+    AnonymousUnion_1617951 tabGroup, [
+    bool? preserveFocus,
+  ]);
+}
 
-  /// An optional tooltip displayed when hovering over the button.
-  external String? get tooltip;
+/// Represents a group of tabs. A tab group itself consists of multiple tabs.
+extension type TabGroup._(_i1.JSObject _) implements _i1.JSObject {
+  /// Whether or not the group is currently active.
+  ///
+  /// *Note* that only one tab group is active at a time, but that multiple tab
+  /// groups can have an activeTabactive tab.
+  external bool get isActive;
 
-  /// When present, indicates that the button is a toggle button that can be
-  /// checked or unchecked.
-  external AnonymousType_5100545? get toggle;
+  /// The view column of the group.
+  external ViewColumn get viewColumn;
+
+  /// The active Tabtab in the group. This is the tab whose contents are
+  /// currently
+  /// being rendered.
+  ///
+  /// *Note* that there can be one active tab per group but there can only be
+  /// one TabGroups.activeTabGroupactive group.
+  external Tab? get activeTab;
+
+  /// The list of tabs contained within the group.
+  /// This can be empty if the group has no tabs open.
+  external _i1.JSArray<Tab> get tabs;
+}
+
+/// Represents a tab within a TabGroupgroup of tabs.
+/// Tabs are merely the graphical representation within the editor area.
+/// A backing editor is not a guarantee.
+extension type Tab._(_i1.JSObject _) implements _i1.JSObject {
+  /// The text displayed on the tab.
+  external String get label;
+
+  /// The group which the tab belongs to.
+  external TabGroup get group;
+
+  /// Defines the structure of the tab i.e. text, notebook, custom, etc.
+  /// Resource and other useful properties are defined on the tab kind.
+  external AnonymousUnion_1848399 get input;
+
+  /// Whether or not the tab is currently active.
+  /// This is dictated by being the selected tab in the group.
+  external bool get isActive;
+
+  /// Whether or not the dirty indicator is present on the tab.
+  external bool get isDirty;
+
+  /// Whether or not the tab is pinned (pin icon is present).
+  external bool get isPinned;
+
+  /// Whether or not the tab is in preview mode.
+  external bool get isPreview;
+}
+
+/// The tab represents a single text based resource.
+extension type TabInputText._(_i1.JSObject _) implements _i1.JSObject {
+  external TabInputText(Uri uri);
+
+  /// The uri represented by the tab.
+  external Uri get uri;
+}
+
+/// The tab represents two text based resources
+/// being rendered as a diff.
+extension type TabInputTextDiff._(_i1.JSObject _) implements _i1.JSObject {
+  external TabInputTextDiff(Uri original, Uri modified);
+
+  /// The uri of the original text resource.
+  external Uri get original;
+
+  /// The uri of the modified text resource.
+  external Uri get modified;
+}
+
+/// The tab represents a custom editor.
+extension type TabInputCustom._(_i1.JSObject _) implements _i1.JSObject {
+  external TabInputCustom(Uri uri, String viewType);
+
+  /// The uri that the tab is representing.
+  external Uri get uri;
+
+  /// The type of custom editor.
+  external String get viewType;
+}
+
+/// The tab represents a webview.
+extension type TabInputWebview._(_i1.JSObject _) implements _i1.JSObject {
+  external TabInputWebview(String viewType);
+
+  /// The type of webview. Maps to WebviewPanel.viewTypeWebviewPanel's viewType
+  external String get viewType;
+}
+
+/// The tab represents a notebook.
+extension type TabInputNotebook._(_i1.JSObject _) implements _i1.JSObject {
+  external TabInputNotebook(Uri uri, String notebookType);
+
+  /// The uri that the tab is representing.
+  external Uri get uri;
+
+  /// The type of notebook. Maps to
+  /// NotebookDocument.notebookTypeNotebookDocuments's notebookType
+  external String get notebookType;
+}
+
+/// The tabs represents two notebooks in a diff configuration.
+extension type TabInputNotebookDiff._(_i1.JSObject _) implements _i1.JSObject {
+  external TabInputNotebookDiff(
+    Uri original,
+    Uri modified,
+    String notebookType,
+  );
+
+  /// The uri of the original notebook.
+  external Uri get original;
+
+  /// The uri of the modified notebook.
+  external Uri get modified;
+
+  /// The type of notebook. Maps to
+  /// NotebookDocument.notebookTypeNotebookDocuments's notebookType
+  external String get notebookType;
+}
+
+/// The tab represents a terminal in the editor area.
+extension type TabInputTerminal._(_i1.JSObject _) implements _i1.JSObject {
+  external TabInputTerminal();
+}
+
+/// An event describing changes to tab groups.
+extension type TabGroupChangeEvent._(_i1.JSObject _) implements _i1.JSObject {
+  /// Tab groups that have been opened.
+  external _i1.JSArray<TabGroup> get opened;
+
+  /// Tab groups that have been closed.
+  external _i1.JSArray<TabGroup> get closed;
+
+  /// Tab groups that have changed, e.g have changed
+  /// their TabGroup.isActiveactive state.
+  external _i1.JSArray<TabGroup> get changed;
+}
+
+/// An event describing change to tabs.
+extension type TabChangeEvent._(_i1.JSObject _) implements _i1.JSObject {
+  /// The tabs that have been opened.
+  external _i1.JSArray<Tab> get opened;
+
+  /// The tabs that have been closed.
+  external _i1.JSArray<Tab> get closed;
+
+  /// Tabs that have changed, e.g have changed
+  /// their Tab.isActiveactive state.
+  external _i1.JSArray<Tab> get changed;
 }
 
 /// Predefined buttons for QuickPick and InputBox.
@@ -11135,17 +13110,6 @@ extension type QuickInputButtons._(_i1.JSObject _) implements _i1.JSObject {
   /// is needed. It comes
   /// with a predefined icon, tooltip, and location.
   external static QuickInputButton get Back;
-}
-
-/// An event describing a button that was pressed on a QuickPickItem.
-extension type QuickPickItemButtonEvent<T extends QuickPickItem>._(
-  _i1.JSObject _
-) implements _i1.JSObject {
-  /// The button that was pressed.
-  external QuickInputButton get button;
-
-  /// The item that the button belongs to.
-  external T get item;
 }
 
 /// An event describing an individual change in the text of a
@@ -11177,6 +13141,15 @@ extension type TextDocumentChangeEvent._(_i1.JSObject _)
   /// The reason why the document was changed.
   /// Is `undefined` if the reason is not known.
   external TextDocumentChangeReason? get reason;
+}
+
+/// Reasons for why a text document has changed.
+extension type const TextDocumentChangeReason._(int _) {
+  /// The text change is caused by an undo operation.
+  static const TextDocumentChangeReason Undo = TextDocumentChangeReason._(1);
+
+  /// The text change is caused by an redo operation.
+  static const TextDocumentChangeReason Redo = TextDocumentChangeReason._(2);
 }
 
 /// An event that is fired when a TextDocumentdocument will be saved.
@@ -11214,7 +13187,7 @@ extension type TextDocumentWillSaveEvent._(_i1.JSObject _)
   /// *Note:* This function can only be called during event dispatch.
   /// - [thenable]:  A thenable that resolves to  .
   /// - [thenable]:  A thenable that delays saving.
-  external void waitUntil(_i2.Thenable<_i1.JSArray<TextEdit>> thenable);
+  external void waitUntil(Thenable<_i1.JSArray<TextEdit>> thenable);
 
   /// Allows to pause the event loop and to apply TextEditpre-save-edits.
   /// Edits of subsequent calls to this function will be applied in order. The
@@ -11239,7 +13212,20 @@ extension type TextDocumentWillSaveEvent._(_i1.JSObject _)
   /// - [thenable]:  A thenable that resolves to  .
   /// - [thenable]:  A thenable that delays saving.
   @_i1.JS('waitUntil')
-  external void waitUntil$1(_i2.Thenable<_i1.JSAny?> thenable);
+  external void waitUntil$1(Thenable<_i1.JSAny?> thenable);
+}
+
+/// Represents reasons why a text document is saved.
+extension type const TextDocumentSaveReason._(int _) {
+  /// Manually triggered, e.g. by the user pressing save, by starting debugging,
+  /// or by an API call.
+  static const TextDocumentSaveReason Manual = TextDocumentSaveReason._(1);
+
+  /// Automatic after a delay.
+  static const TextDocumentSaveReason AfterDelay = TextDocumentSaveReason._(2);
+
+  /// When the editor lost focus.
+  static const TextDocumentSaveReason FocusOut = TextDocumentSaveReason._(3);
 }
 
 /// An event that is fired when files are going to be created.
@@ -11273,7 +13259,7 @@ extension type FileWillCreateEvent._(_i1.JSObject _) implements _i1.JSObject {
   /// *Note:* This function can only be called during event dispatch.
   /// - [thenable]:  A thenable that delays saving.
   /// - [thenable]:  A thenable that delays saving.
-  external void waitUntil(_i2.Thenable<WorkspaceEdit> thenable);
+  external void waitUntil(Thenable<WorkspaceEdit> thenable);
 
   /// Allows to pause the event and to apply a WorkspaceEditworkspace edit.
   ///
@@ -11295,7 +13281,7 @@ extension type FileWillCreateEvent._(_i1.JSObject _) implements _i1.JSObject {
   /// - [thenable]:  A thenable that delays saving.
   /// - [thenable]:  A thenable that delays saving.
   @_i1.JS('waitUntil')
-  external void waitUntil$1(_i2.Thenable<_i1.JSAny?> thenable);
+  external void waitUntil$1(Thenable<_i1.JSAny?> thenable);
 }
 
 /// An event that is fired after files are created.
@@ -11335,7 +13321,7 @@ extension type FileWillDeleteEvent._(_i1.JSObject _) implements _i1.JSObject {
   /// *Note:* This function can only be called during event dispatch.
   /// - [thenable]:  A thenable that delays saving.
   /// - [thenable]:  A thenable that delays saving.
-  external void waitUntil(_i2.Thenable<WorkspaceEdit> thenable);
+  external void waitUntil(Thenable<WorkspaceEdit> thenable);
 
   /// Allows to pause the event and to apply a WorkspaceEditworkspace edit.
   ///
@@ -11357,7 +13343,7 @@ extension type FileWillDeleteEvent._(_i1.JSObject _) implements _i1.JSObject {
   /// - [thenable]:  A thenable that delays saving.
   /// - [thenable]:  A thenable that delays saving.
   @_i1.JS('waitUntil')
-  external void waitUntil$1(_i2.Thenable<_i1.JSAny?> thenable);
+  external void waitUntil$1(Thenable<_i1.JSAny?> thenable);
 }
 
 /// An event that is fired after files are deleted.
@@ -11397,7 +13383,7 @@ extension type FileWillRenameEvent._(_i1.JSObject _) implements _i1.JSObject {
   /// *Note:* This function can only be called during event dispatch.
   /// - [thenable]:  A thenable that delays saving.
   /// - [thenable]:  A thenable that delays saving.
-  external void waitUntil(_i2.Thenable<WorkspaceEdit> thenable);
+  external void waitUntil(Thenable<WorkspaceEdit> thenable);
 
   /// Allows to pause the event and to apply a WorkspaceEditworkspace edit.
   ///
@@ -11419,7 +13405,7 @@ extension type FileWillRenameEvent._(_i1.JSObject _) implements _i1.JSObject {
   /// - [thenable]:  A thenable that delays saving.
   /// - [thenable]:  A thenable that delays saving.
   @_i1.JS('waitUntil')
-  external void waitUntil$1(_i2.Thenable<_i1.JSAny?> thenable);
+  external void waitUntil$1(Thenable<_i1.JSAny?> thenable);
 }
 
 /// An event that is fired after files are renamed.
@@ -11437,27 +13423,6 @@ extension type WorkspaceFoldersChangeEvent._(_i1.JSObject _)
 
   /// Removed workspace folders.
   external _i1.JSArray<WorkspaceFolder> get removed;
-}
-
-/// A workspace folder is one of potentially many roots opened by the editor.
-/// All workspace folders
-/// are equal which means there is no notion of an active or primary workspace
-/// folder.
-extension type WorkspaceFolder._(_i1.JSObject _) implements _i1.JSObject {
-  /// The associated uri for this workspace folder.
-  ///
-  /// *Note:* The Uri-type was intentionally chosen such that future releases of
-  /// the editor can support
-  /// workspace folders that are not stored on the local disk, e.g.
-  /// `ftp://server/workspaces/foo`.
-  external Uri get uri;
-
-  /// The name of this workspace folder. Defaults to
-  /// the basename of its Uri.pathuri-path
-  external String get name;
-
-  /// The ordinal number of this workspace folder.
-  external double get index;
 }
 
 /// Namespace for dealing with the current workspace. A workspace is the
@@ -12604,6 +14569,210 @@ extension type workspace._(_i1.JSObject _) implements _i1.JSObject {
   external static Event<_i1.JSAny?> get onDidGrantWorkspaceTrust;
 }
 
+/// Raw representation of a notebook.
+///
+/// Extensions are responsible for creating NotebookData so that the editor
+/// can create a NotebookDocument.
+extension type NotebookData._(_i1.JSObject _) implements _i1.JSObject {
+  external NotebookData(_i1.JSArray<NotebookCellData> cells);
+
+  /// The cell data of this notebook data.
+  external _i1.JSArray<NotebookCellData> cells;
+
+  /// Arbitrary metadata of notebook data.
+  external AnonymousType_1282391? metadata;
+}
+
+/// The notebook serializer enables the editor to open notebook files.
+///
+/// At its core the editor only knows a NotebookDatanotebook data structure
+/// but not
+/// how that data structure is written to a file, nor how it is read from a
+/// file. The
+/// notebook serializer bridges this gap by deserializing bytes into notebook
+/// data and
+/// vice versa.
+extension type NotebookSerializer._(_i1.JSObject _) implements _i1.JSObject {
+  /// Deserialize contents of a notebook file into the notebook data structure.
+  /// - [content]:  Contents of a notebook file.
+  /// - [token]:  A cancellation token.
+  ///
+  /// Returns Notebook data or a thenable that resolves to such.
+  external AnonymousUnion_2259064 deserializeNotebook(
+    _i1.JSUint8Array content,
+    CancellationToken token,
+  );
+
+  /// Serialize notebook data into file contents.
+  /// - [data]:  A notebook data structure.
+  /// - [token]:  A cancellation token.
+  ///
+  /// Returns An array of bytes or a thenable that resolves to such.
+  external AnonymousUnion_2777859 serializeNotebook(
+    NotebookData data,
+    CancellationToken token,
+  );
+}
+
+/// Notebook content options define what parts of a notebook are persisted.
+/// Note
+///
+/// For instance, a notebook serializer can opt-out of saving outputs and in
+/// that case the editor doesn't mark a
+/// notebooks as NotebookDocument.isDirtydirty when its output has changed.
+extension type NotebookDocumentContentOptions._(_i1.JSObject _)
+    implements _i1.JSObject {
+  /// Controls if output change events will trigger notebook document content
+  /// change events and
+  /// if it will be used in the diff editor, defaults to false. If the content
+  /// provider doesn't
+  /// persist the outputs in the file document, this should be set to true.
+  external bool? transientOutputs;
+
+  /// Controls if a cell metadata property change event will trigger notebook
+  /// document content
+  /// change events and if it will be used in the diff editor, defaults to
+  /// false. If the
+  /// content provider doesn't persist a metadata property in the file document,
+  /// it should be
+  /// set to true.
+  external AnonymousType_1267954? transientCellMetadata;
+
+  /// Controls if a document metadata property change event will trigger
+  /// notebook document
+  /// content change event and if it will be used in the diff editor, defaults
+  /// to false. If the
+  /// content provider doesn't persist a metadata property in the file document,
+  /// it should be
+  /// set to true.
+  external AnonymousType_1267954? transientDocumentMetadata;
+}
+
+/// An event describing a transactional NotebookDocumentnotebook change.
+extension type NotebookDocumentChangeEvent._(_i1.JSObject _)
+    implements _i1.JSObject {
+  /// The affected notebook.
+  external NotebookDocument get notebook;
+
+  /// The new metadata of the notebook or `undefined` when it did not change.
+  external AnonymousType_1282391 get metadata;
+
+  /// An array of content changes describing added or removed NotebookCellcells.
+  external _i1.JSArray<NotebookDocumentContentChange> get contentChanges;
+
+  /// An array of NotebookDocumentCellChangecell changes.
+  external _i1.JSArray<NotebookDocumentCellChange> get cellChanges;
+}
+
+/// Describes a structural change to a notebook document, e.g newly added and
+/// removed cells.
+extension type NotebookDocumentContentChange._(_i1.JSObject _)
+    implements _i1.JSObject {
+  /// The range at which cells have been either added or removed.
+  ///
+  /// Note that no cells have been
+  /// NotebookDocumentContentChange.removedCellsremoved
+  /// when this range is NotebookRange.isEmptyempty.
+  external NotebookRange get range;
+
+  /// Cells that have been added to the document.
+  external _i1.JSArray<NotebookCell> get addedCells;
+
+  /// Cells that have been removed from the document.
+  external _i1.JSArray<NotebookCell> get removedCells;
+}
+
+/// Describes a change to a notebook cell.
+extension type NotebookDocumentCellChange._(_i1.JSObject _)
+    implements _i1.JSObject {
+  /// The affected cell.
+  external NotebookCell get cell;
+
+  /// The document of the cell or `undefined` when it did not change.
+  ///
+  /// *Note* that you should use the
+  /// workspace.onDidChangeTextDocumentonDidChangeTextDocument-event
+  /// for detailed change information, like what edits have been performed.
+  external TextDocument? get document;
+
+  /// The new metadata of the cell or `undefined` when it did not change.
+  external AnonymousType_1282391 get metadata;
+
+  /// The new outputs of the cell or `undefined` when they did not change.
+  external _i1.JSArray<NotebookCellOutput>? get outputs;
+
+  /// The new execution summary of the cell or `undefined` when it did not
+  /// change.
+  external NotebookCellExecutionSummary? get executionSummary;
+}
+
+/// An event that is fired when a NotebookDocumentnotebook document will be
+/// saved.
+///
+/// To make modifications to the document before it is being saved, call the
+/// NotebookDocumentWillSaveEvent.waitUntilwaitUntil-function with a thenable
+/// that resolves to a WorkspaceEditworkspace edit.
+extension type NotebookDocumentWillSaveEvent._(_i1.JSObject _)
+    implements _i1.JSObject {
+  /// A cancellation token.
+  external CancellationToken get token;
+
+  /// The NotebookDocumentnotebook document that will be saved.
+  external NotebookDocument get notebook;
+
+  /// The reason why save was triggered.
+  external TextDocumentSaveReason get reason;
+
+  /// Allows to pause the event loop and to apply WorkspaceEditworkspace edit.
+  /// Edits of subsequent calls to this function will be applied in order. The
+  /// edits will be *ignored* if concurrent modifications of the notebook
+  /// document happened.
+  ///
+  /// *Note:* This function can only be called during event dispatch and not
+  /// in an asynchronous manner:
+  ///
+  /// ```ts
+  /// workspace.onWillSaveNotebookDocument(event => {
+  /// 	// async, will *throw* an error
+  /// 	setTimeout(() => event.waitUntil(promise));
+  ///
+  /// 	// sync, OK
+  /// 	event.waitUntil(promise);
+  /// })
+  /// ```
+  /// Allows to pause the event loop until the provided thenable resolved.
+  ///
+  /// *Note:* This function can only be called during event dispatch.
+  /// - [thenable]:  A thenable that resolves to  .
+  /// - [thenable]:  A thenable that delays saving.
+  external void waitUntil(Thenable<WorkspaceEdit> thenable);
+
+  /// Allows to pause the event loop and to apply WorkspaceEditworkspace edit.
+  /// Edits of subsequent calls to this function will be applied in order. The
+  /// edits will be *ignored* if concurrent modifications of the notebook
+  /// document happened.
+  ///
+  /// *Note:* This function can only be called during event dispatch and not
+  /// in an asynchronous manner:
+  ///
+  /// ```ts
+  /// workspace.onWillSaveNotebookDocument(event => {
+  /// 	// async, will *throw* an error
+  /// 	setTimeout(() => event.waitUntil(promise));
+  ///
+  /// 	// sync, OK
+  /// 	event.waitUntil(promise);
+  /// })
+  /// ```
+  /// Allows to pause the event loop until the provided thenable resolved.
+  ///
+  /// *Note:* This function can only be called during event dispatch.
+  /// - [thenable]:  A thenable that resolves to  .
+  /// - [thenable]:  A thenable that delays saving.
+  @_i1.JS('waitUntil')
+  external void waitUntil$1(Thenable<_i1.JSAny?> thenable);
+}
+
 /// An event describing the change in Configuration
 extension type ConfigurationChangeEvent._(_i1.JSObject _)
     implements _i1.JSObject {
@@ -12757,7 +14926,7 @@ extension type languages._(_i1.JSObject _) implements _i1.JSObject {
   ///
   /// Returns An array of uri-diagnostics tuples or an empty array.
   @_i1.JS('getDiagnostics')
-  external static _i1.JSArray<_i3.JSTuple2<Uri, _i1.JSArray<Diagnostic>>>
+  external static _i1.JSArray<_i2.JSTuple2<Uri, _i1.JSArray<Diagnostic>>>
   getDiagnostics$1();
 
   /// Create a diagnostics collection.
@@ -13483,40 +15652,6 @@ extension type languages._(_i1.JSObject _) implements _i1.JSObject {
   external static Event<DiagnosticChangeEvent> get onDidChangeDiagnostics;
 }
 
-/// Represents a notebook editor that is attached to a
-/// NotebookDocumentnotebook.
-/// Additional properties of the NotebookEditor are available in the proposed
-/// API, which will be finalized later.
-extension type NotebookEditor._(_i1.JSObject _) implements _i1.JSObject {
-  /// The primary selection in this notebook editor.
-  external NotebookRange selection;
-
-  /// All selections in this notebook editor.
-  ///
-  /// The primary selection (or focused range) is `selections[0]`. When the
-  /// document has no cells, the primary selection is empty `{ start: 0, end: 0
-  /// }`;
-  external _i1.JSArray<NotebookRange> selections;
-
-  /// The NotebookDocumentnotebook document associated with this notebook
-  /// editor.
-  external NotebookDocument get notebook;
-
-  /// The current visible ranges in the editor (vertically).
-  external _i1.JSArray<NotebookRange> get visibleRanges;
-
-  /// The column in which this editor shows.
-  external ViewColumn? get viewColumn;
-
-  /// Scroll as indicated by `revealType` in order to reveal the given range.
-  /// - [range]:  A range.
-  /// - [revealType]:  The scrolling strategy for revealing `range`.
-  external void revealRange(
-    NotebookRange range, [
-    NotebookEditorRevealType? revealType,
-  ]);
-}
-
 /// Renderer messaging is used to communicate with a single renderer. It's
 /// returned from notebooks.createRendererMessaging.
 extension type NotebookRendererMessaging._(_i1.JSObject _)
@@ -13531,470 +15666,10 @@ extension type NotebookRendererMessaging._(_i1.JSObject _)
   ///
   /// Returns a boolean indicating whether the message was successfully
   /// delivered to any renderer.
-  external _i2.Thenable<_i1.JSBoolean> postMessage(
+  external Thenable<_i1.JSBoolean> postMessage(
     _i1.JSAny? message, [
     NotebookEditor? editor,
   ]);
-}
-
-/// Represents a cell of a NotebookDocumentnotebook, either a
-/// NotebookCellKind.Codecode-cell
-/// or NotebookCellKind.Markupmarkup-cell.
-///
-/// NotebookCell instances are immutable and are kept in sync for as long as
-/// they are part of their notebook.
-extension type NotebookCell._(_i1.JSObject _) implements _i1.JSObject {
-  /// The index of this cell in its NotebookDocument.cellAtcontaining notebook.
-  /// The
-  /// index is updated when a cell is moved within its notebook. The index is
-  /// `-1`
-  /// when the cell has been removed from its notebook.
-  external double get index;
-
-  /// The NotebookDocumentnotebook that contains this cell.
-  external NotebookDocument get notebook;
-
-  /// The kind of this cell.
-  external NotebookCellKind get kind;
-
-  /// The TextDocumenttext of this cell, represented as text document.
-  external TextDocument get document;
-
-  /// The metadata of this cell. Can be anything but must be JSON-stringifyable.
-  external AnonymousType_1143055 get metadata;
-
-  /// The outputs of this cell.
-  external _i1.JSArray<NotebookCellOutput> get outputs;
-
-  /// The most recent NotebookCellExecutionSummaryexecution summary for this
-  /// cell.
-  external NotebookCellExecutionSummary? get executionSummary;
-}
-
-/// Represents a notebook which itself is a sequence of NotebookCellcode or
-/// markup cells. Notebook documents are
-/// created from NotebookDatanotebook data.
-extension type NotebookDocument._(_i1.JSObject _) implements _i1.JSObject {
-  /// The associated uri for this notebook.
-  ///
-  /// *Note* that most notebooks use the `file`-scheme, which means they are
-  /// files on disk. However, **not** all notebooks are
-  /// saved on disk and therefore the `scheme` must be checked before trying to
-  /// access the underlying file or siblings on disk.
-  external Uri get uri;
-
-  /// The type of notebook.
-  external String get notebookType;
-
-  /// The version number of this notebook (it will strictly increase after each
-  /// change, including undo/redo).
-  external double get version;
-
-  /// `true` if there are unpersisted changes.
-  external bool get isDirty;
-
-  /// Is this notebook representing an untitled file which has not been saved
-  /// yet.
-  external bool get isUntitled;
-
-  /// `true` if the notebook has been closed. A closed notebook isn't
-  /// synchronized anymore
-  /// and won't be re-used when the same resource is opened again.
-  external bool get isClosed;
-
-  /// Arbitrary metadata for this notebook. Can be anything but must be
-  /// JSON-stringifyable.
-  external AnonymousType_1282391 get metadata;
-
-  /// The number of cells in the notebook.
-  external double get cellCount;
-
-  /// Return the cell at the specified index. The index will be adjusted to the
-  /// notebook.
-  /// - [index]:  - The index of the cell to retrieve.
-  ///
-  /// Returns A NotebookCell cell.
-  external NotebookCell cellAt(num index);
-
-  /// Get the cells of this notebook. A subset can be retrieved by providing
-  /// a range. The range will be adjusted to the notebook.
-  /// - [range]:  A notebook range.
-  ///
-  /// Returns The cells contained by the range or all cells.
-  external _i1.JSArray<NotebookCell> getCells([NotebookRange? range]);
-
-  /// Save the document. The saving will be handled by the corresponding
-  /// NotebookSerializerserializer.
-  ///
-  /// Returns A promise that will resolve to true when the document
-  /// has been saved. Will return false if the file was not dirty or when save
-  /// failed.
-  external _i2.Thenable<_i1.JSBoolean> save();
-}
-
-/// Describes a change to a notebook cell.
-extension type NotebookDocumentCellChange._(_i1.JSObject _)
-    implements _i1.JSObject {
-  /// The affected cell.
-  external NotebookCell get cell;
-
-  /// The document of the cell or `undefined` when it did not change.
-  ///
-  /// *Note* that you should use the
-  /// workspace.onDidChangeTextDocumentonDidChangeTextDocument-event
-  /// for detailed change information, like what edits have been performed.
-  external TextDocument? get document;
-
-  /// The new metadata of the cell or `undefined` when it did not change.
-  external AnonymousType_1282391 get metadata;
-
-  /// The new outputs of the cell or `undefined` when they did not change.
-  external _i1.JSArray<NotebookCellOutput>? get outputs;
-
-  /// The new execution summary of the cell or `undefined` when it did not
-  /// change.
-  external NotebookCellExecutionSummary? get executionSummary;
-}
-
-/// Describes a structural change to a notebook document, e.g newly added and
-/// removed cells.
-extension type NotebookDocumentContentChange._(_i1.JSObject _)
-    implements _i1.JSObject {
-  /// The range at which cells have been either added or removed.
-  ///
-  /// Note that no cells have been
-  /// NotebookDocumentContentChange.removedCellsremoved
-  /// when this range is NotebookRange.isEmptyempty.
-  external NotebookRange get range;
-
-  /// Cells that have been added to the document.
-  external _i1.JSArray<NotebookCell> get addedCells;
-
-  /// Cells that have been removed from the document.
-  external _i1.JSArray<NotebookCell> get removedCells;
-}
-
-/// An event describing a transactional NotebookDocumentnotebook change.
-extension type NotebookDocumentChangeEvent._(_i1.JSObject _)
-    implements _i1.JSObject {
-  /// The affected notebook.
-  external NotebookDocument get notebook;
-
-  /// The new metadata of the notebook or `undefined` when it did not change.
-  external AnonymousType_1282391 get metadata;
-
-  /// An array of content changes describing added or removed NotebookCellcells.
-  external _i1.JSArray<NotebookDocumentContentChange> get contentChanges;
-
-  /// An array of NotebookDocumentCellChangecell changes.
-  external _i1.JSArray<NotebookDocumentCellChange> get cellChanges;
-}
-
-/// An event that is fired when a NotebookDocumentnotebook document will be
-/// saved.
-///
-/// To make modifications to the document before it is being saved, call the
-/// NotebookDocumentWillSaveEvent.waitUntilwaitUntil-function with a thenable
-/// that resolves to a WorkspaceEditworkspace edit.
-extension type NotebookDocumentWillSaveEvent._(_i1.JSObject _)
-    implements _i1.JSObject {
-  /// A cancellation token.
-  external CancellationToken get token;
-
-  /// The NotebookDocumentnotebook document that will be saved.
-  external NotebookDocument get notebook;
-
-  /// The reason why save was triggered.
-  external TextDocumentSaveReason get reason;
-
-  /// Allows to pause the event loop and to apply WorkspaceEditworkspace edit.
-  /// Edits of subsequent calls to this function will be applied in order. The
-  /// edits will be *ignored* if concurrent modifications of the notebook
-  /// document happened.
-  ///
-  /// *Note:* This function can only be called during event dispatch and not
-  /// in an asynchronous manner:
-  ///
-  /// ```ts
-  /// workspace.onWillSaveNotebookDocument(event => {
-  /// 	// async, will *throw* an error
-  /// 	setTimeout(() => event.waitUntil(promise));
-  ///
-  /// 	// sync, OK
-  /// 	event.waitUntil(promise);
-  /// })
-  /// ```
-  /// Allows to pause the event loop until the provided thenable resolved.
-  ///
-  /// *Note:* This function can only be called during event dispatch.
-  /// - [thenable]:  A thenable that resolves to  .
-  /// - [thenable]:  A thenable that delays saving.
-  external void waitUntil(_i2.Thenable<WorkspaceEdit> thenable);
-
-  /// Allows to pause the event loop and to apply WorkspaceEditworkspace edit.
-  /// Edits of subsequent calls to this function will be applied in order. The
-  /// edits will be *ignored* if concurrent modifications of the notebook
-  /// document happened.
-  ///
-  /// *Note:* This function can only be called during event dispatch and not
-  /// in an asynchronous manner:
-  ///
-  /// ```ts
-  /// workspace.onWillSaveNotebookDocument(event => {
-  /// 	// async, will *throw* an error
-  /// 	setTimeout(() => event.waitUntil(promise));
-  ///
-  /// 	// sync, OK
-  /// 	event.waitUntil(promise);
-  /// })
-  /// ```
-  /// Allows to pause the event loop until the provided thenable resolved.
-  ///
-  /// *Note:* This function can only be called during event dispatch.
-  /// - [thenable]:  A thenable that resolves to  .
-  /// - [thenable]:  A thenable that delays saving.
-  @_i1.JS('waitUntil')
-  external void waitUntil$1(_i2.Thenable<_i1.JSAny?> thenable);
-}
-
-/// The summary of a notebook cell execution.
-extension type NotebookCellExecutionSummary._(_i1.JSObject _)
-    implements _i1.JSObject {
-  /// The order in which the execution happened.
-  external double? get executionOrder;
-
-  /// If the execution finished successfully.
-  external bool? get success;
-
-  /// The times at which execution started and ended, as unix timestamps
-  external AnonymousType_1254832? get timing;
-}
-
-/// A notebook range represents an ordered pair of two cell indices.
-/// It is guaranteed that start is less than or equal to end.
-extension type NotebookRange._(_i1.JSObject _) implements _i1.JSObject {
-  external NotebookRange(num start, num end);
-
-  /// The zero-based start index of this range.
-  external double get start;
-
-  /// The exclusive end index of this range (zero-based).
-  external double get end;
-
-  /// `true` if `start` and `end` are equal.
-  external bool get isEmpty;
-
-  /// Derive a new range for this range.
-  /// - [change]:  An object that describes a change to this range.
-  ///
-  /// Returns A range that reflects the given change. Will return `this` range
-  /// if the change
-  /// is not changing anything.
-  @_i1.JS('with')
-  external NotebookRange with$(AnonymousType_2863805 change);
-}
-
-/// One representation of a NotebookCellOutputnotebook output, defined by MIME
-/// type and data.
-extension type NotebookCellOutputItem._(_i1.JSObject _)
-    implements _i1.JSObject {
-  external NotebookCellOutputItem(_i1.JSUint8Array data, String mime);
-
-  /// The mime type which determines how the
-  /// NotebookCellOutputItem.datadata-property
-  /// is interpreted.
-  ///
-  /// Notebooks have built-in support for certain mime-types, extensions can add
-  /// support for new
-  /// types and override existing types.
-  external String mime;
-
-  /// The data of this output item. Must always be an array of unsigned 8-bit
-  /// integers.
-  external _i1.JSUint8Array data;
-
-  /// Factory function to create a `NotebookCellOutputItem` from a string.
-  ///
-  /// *Note* that an UTF-8 encoder is used to create bytes for the string.
-  /// - [value]:  A string.
-  /// - [mime]:  Optional MIME type, defaults to `text/plain`.
-  ///
-  /// Returns A new output item object.
-  external static NotebookCellOutputItem text(String value, [String? mime]);
-
-  /// Factory function to create a `NotebookCellOutputItem` from
-  /// a JSON object.
-  ///
-  /// *Note* that this function is not expecting "stringified JSON" but
-  /// an object that can be stringified. This function will throw an error
-  /// when the passed value cannot be JSON-stringified.
-  /// - [value]:  A JSON-stringifyable value.
-  /// - [mime]:  Optional MIME type, defaults to `application/json`
-  ///
-  /// Returns A new output item object.
-  external static NotebookCellOutputItem json(_i1.JSAny? value, [String? mime]);
-
-  /// Factory function to create a `NotebookCellOutputItem` that uses
-  /// uses the `application/vnd.code.notebook.stdout` mime type.
-  /// - [value]:  A string.
-  ///
-  /// Returns A new output item object.
-  external static NotebookCellOutputItem stdout(String value);
-
-  /// Factory function to create a `NotebookCellOutputItem` that uses
-  /// uses the `application/vnd.code.notebook.stderr` mime type.
-  /// - [value]:  A string.
-  ///
-  /// Returns A new output item object.
-  external static NotebookCellOutputItem stderr(String value);
-
-  /// Factory function to create a `NotebookCellOutputItem` that uses
-  /// uses the `application/vnd.code.notebook.error` mime type.
-  /// - [value]:  An error object.
-  ///
-  /// Returns A new output item object.
-  external static NotebookCellOutputItem error(Error value);
-}
-
-/// Notebook cell output represents a result of executing a cell. It is a
-/// container type for multiple
-/// NotebookCellOutputItemoutput items where contained items represent the
-/// same result but
-/// use different MIME types.
-extension type NotebookCellOutput._(_i1.JSObject _) implements _i1.JSObject {
-  external NotebookCellOutput(
-    _i1.JSArray<NotebookCellOutputItem> items, [
-    AnonymousType_1282391? metadata,
-  ]);
-
-  /// The output items of this output. Each item must represent the same result.
-  /// _Note_ that repeated
-  /// MIME types per output is invalid and that the editor will just pick one of
-  /// them.
-  ///
-  /// ```ts
-  /// new vscode.NotebookCellOutput([
-  /// 	vscode.NotebookCellOutputItem.text('Hello', 'text/plain'),
-  /// 	vscode.NotebookCellOutputItem.text('<i>Hello</i>', 'text/html'),
-  /// 	vscode.NotebookCellOutputItem.text('_Hello_', 'text/markdown'),
-  /// 	vscode.NotebookCellOutputItem.text('Hey', 'text/plain'), // INVALID: repeated type, editor will pick just one
-  /// ])
-  /// ```
-  external _i1.JSArray<NotebookCellOutputItem> items;
-
-  /// Arbitrary metadata for this cell output. Can be anything but must be
-  /// JSON-stringifyable.
-  external AnonymousType_1282391? metadata;
-}
-
-/// NotebookCellData is the raw representation of notebook cells. Its is part
-/// of NotebookData.
-extension type NotebookCellData._(_i1.JSObject _) implements _i1.JSObject {
-  external NotebookCellData(
-    NotebookCellKind kind,
-    String value,
-    String languageId,
-  );
-
-  /// The NotebookCellKindkind of this cell data.
-  external NotebookCellKind kind;
-
-  /// The source value of this cell data - either source code or formatted text.
-  external String value;
-
-  /// The language identifier of the source value of this cell data. Any value
-  /// from
-  /// languages.getLanguagesgetLanguages is possible.
-  external String languageId;
-
-  /// The outputs of this cell data.
-  external _i1.JSArray<NotebookCellOutput?>? outputs;
-
-  /// Arbitrary metadata of this cell data. Can be anything but must be
-  /// JSON-stringifyable.
-  external AnonymousType_1282391? metadata;
-
-  /// The execution summary of this cell data.
-  external NotebookCellExecutionSummary? executionSummary;
-}
-
-/// Raw representation of a notebook.
-///
-/// Extensions are responsible for creating NotebookData so that the editor
-/// can create a NotebookDocument.
-extension type NotebookData._(_i1.JSObject _) implements _i1.JSObject {
-  external NotebookData(_i1.JSArray<NotebookCellData> cells);
-
-  /// The cell data of this notebook data.
-  external _i1.JSArray<NotebookCellData> cells;
-
-  /// Arbitrary metadata of notebook data.
-  external AnonymousType_1282391? metadata;
-}
-
-/// The notebook serializer enables the editor to open notebook files.
-///
-/// At its core the editor only knows a NotebookDatanotebook data structure
-/// but not
-/// how that data structure is written to a file, nor how it is read from a
-/// file. The
-/// notebook serializer bridges this gap by deserializing bytes into notebook
-/// data and
-/// vice versa.
-extension type NotebookSerializer._(_i1.JSObject _) implements _i1.JSObject {
-  /// Deserialize contents of a notebook file into the notebook data structure.
-  /// - [content]:  Contents of a notebook file.
-  /// - [token]:  A cancellation token.
-  ///
-  /// Returns Notebook data or a thenable that resolves to such.
-  external AnonymousUnion_2259064 deserializeNotebook(
-    _i1.JSUint8Array content,
-    CancellationToken token,
-  );
-
-  /// Serialize notebook data into file contents.
-  /// - [data]:  A notebook data structure.
-  /// - [token]:  A cancellation token.
-  ///
-  /// Returns An array of bytes or a thenable that resolves to such.
-  external AnonymousUnion_2777859 serializeNotebook(
-    NotebookData data,
-    CancellationToken token,
-  );
-}
-
-/// Notebook content options define what parts of a notebook are persisted.
-/// Note
-///
-/// For instance, a notebook serializer can opt-out of saving outputs and in
-/// that case the editor doesn't mark a
-/// notebooks as NotebookDocument.isDirtydirty when its output has changed.
-extension type NotebookDocumentContentOptions._(_i1.JSObject _)
-    implements _i1.JSObject {
-  /// Controls if output change events will trigger notebook document content
-  /// change events and
-  /// if it will be used in the diff editor, defaults to false. If the content
-  /// provider doesn't
-  /// persist the outputs in the file document, this should be set to true.
-  external bool? transientOutputs;
-
-  /// Controls if a cell metadata property change event will trigger notebook
-  /// document content
-  /// change events and if it will be used in the diff editor, defaults to
-  /// false. If the
-  /// content provider doesn't persist a metadata property in the file document,
-  /// it should be
-  /// set to true.
-  external AnonymousType_1267954? transientCellMetadata;
-
-  /// Controls if a document metadata property change event will trigger
-  /// notebook document
-  /// content change event and if it will be used in the diff editor, defaults
-  /// to false. If the
-  /// content provider doesn't persist a metadata property in the file document,
-  /// it should be
-  /// set to true.
-  external AnonymousType_1267954? transientDocumentMetadata;
 }
 
 /// A notebook controller represents an entity that can execute notebook
@@ -14173,7 +15848,7 @@ extension type NotebookCellExecution._(_i1.JSObject _) implements _i1.JSObject {
   /// this execution.
   ///
   /// Returns A thenable that resolves when the operation finished.
-  external _i2.Thenable<_i1.JSAny?> clearOutput([NotebookCell? cell]);
+  external Thenable<_i1.JSAny?> clearOutput([NotebookCell? cell]);
 
   /// Replace the output of the cell that is executing or of another cell that
   /// is affected by this execution.
@@ -14182,7 +15857,7 @@ extension type NotebookCellExecution._(_i1.JSObject _) implements _i1.JSObject {
   /// this execution.
   ///
   /// Returns A thenable that resolves when the operation finished.
-  external _i2.Thenable<_i1.JSAny?> replaceOutput(
+  external Thenable<_i1.JSAny?> replaceOutput(
     AnonymousUnion_3956672 out, [
     NotebookCell? cell,
   ]);
@@ -14194,7 +15869,7 @@ extension type NotebookCellExecution._(_i1.JSObject _) implements _i1.JSObject {
   /// this execution.
   ///
   /// Returns A thenable that resolves when the operation finished.
-  external _i2.Thenable<_i1.JSAny?> appendOutput(
+  external Thenable<_i1.JSAny?> appendOutput(
     AnonymousUnion_3956672 out, [
     NotebookCell? cell,
   ]);
@@ -14204,7 +15879,7 @@ extension type NotebookCellExecution._(_i1.JSObject _) implements _i1.JSObject {
   /// - [output]:  Output object that already exists.
   ///
   /// Returns A thenable that resolves when the operation finished.
-  external _i2.Thenable<_i1.JSAny?> replaceOutputItems(
+  external Thenable<_i1.JSAny?> replaceOutputItems(
     AnonymousUnion_3512756 items,
     NotebookCellOutput output,
   );
@@ -14214,10 +15889,21 @@ extension type NotebookCellExecution._(_i1.JSObject _) implements _i1.JSObject {
   /// - [output]:  Output object that already exists.
   ///
   /// Returns A thenable that resolves when the operation finished.
-  external _i2.Thenable<_i1.JSAny?> appendOutputItems(
+  external Thenable<_i1.JSAny?> appendOutputItems(
     AnonymousUnion_3512756 items,
     NotebookCellOutput output,
   );
+}
+
+/// Notebook controller affinity for notebook documents.
+extension type const NotebookControllerAffinity._(int _) {
+  /// Default affinity.
+  static const NotebookControllerAffinity Default =
+      NotebookControllerAffinity._(1);
+
+  /// A controller is preferred for a notebook.
+  static const NotebookControllerAffinity Preferred =
+      NotebookControllerAffinity._(2);
 }
 
 /// A contribution to a cell's status bar
@@ -14253,6 +15939,17 @@ extension type NotebookCellStatusBarItem._(_i1.JSObject _)
   /// Accessibility information used when a screen reader interacts with this
   /// item.
   external AccessibilityInformation? accessibilityInformation;
+}
+
+/// Represents the alignment of status bar items.
+extension type const NotebookCellStatusBarAlignment._(int _) {
+  /// Aligned to the left side.
+  static const NotebookCellStatusBarAlignment Left =
+      NotebookCellStatusBarAlignment._(1);
+
+  /// Aligned to the right side.
+  static const NotebookCellStatusBarAlignment Right =
+      NotebookCellStatusBarAlignment._(2);
 }
 
 /// A provider that can contribute items to the status bar that appears below
@@ -14614,7 +16311,7 @@ extension type DebugSession._(_i1.JSObject _) implements _i1.JSObject {
   external DebugConfiguration get configuration;
 
   /// Send a custom request to the debug adapter.
-  external _i2.Thenable<_i1.JSAny?> customRequest(
+  external Thenable<_i1.JSAny?> customRequest(
     String command, [
     _i1.JSAny? args,
   ]);
@@ -14629,9 +16326,36 @@ extension type DebugSession._(_i1.JSObject _) implements _i1.JSObject {
   ///
   /// Returns A promise that resolves to the Debug Adapter Protocol breakpoint
   /// or `undefined`.
-  external _i2.Thenable<DebugProtocolBreakpoint?> getDebugProtocolBreakpoint(
+  external Thenable<DebugProtocolBreakpoint?> getDebugProtocolBreakpoint(
     Breakpoint breakpoint,
   );
+}
+
+/// The base class of all breakpoint types.
+extension type Breakpoint._(_i1.JSObject _) implements _i1.JSObject {
+  external Breakpoint([
+    bool? enabled,
+    String? condition,
+    String? hitCondition,
+    String? logMessage,
+  ]);
+
+  /// The unique ID of the breakpoint.
+  external String get id;
+
+  /// Is breakpoint enabled.
+  external bool get enabled;
+
+  /// An optional expression for conditional breakpoints.
+  external String? get condition;
+
+  /// An optional expression that controls how many hits of the breakpoint are
+  /// ignored.
+  external String? get hitCondition;
+
+  /// An optional message that gets logged when this breakpoint is hit. Embedded
+  /// expressions within {} are interpolated by the debug adapter.
+  external String? get logMessage;
 }
 
 /// A custom Debug Adapter Protocol event received from a DebugSessiondebug
@@ -14812,7 +16536,7 @@ extension type DebugAdapterDescriptorFactory._(_i1.JSObject _)
   ///   in the package.json (or undefined if no such information exists).
   ///
   /// Returns a DebugAdapterDescriptor debug adapter descriptor or undefined.
-  external ProviderResult<AnonymousUnion_3478237> createDebugAdapterDescriptor(
+  external ProviderResult<DebugAdapterDescriptor> createDebugAdapterDescriptor(
     DebugSession session,
     DebugAdapterExecutable? executable,
   );
@@ -14880,33 +16604,6 @@ extension type BreakpointsChangeEvent._(_i1.JSObject _)
 
   /// Changed breakpoints.
   external _i1.JSArray<Breakpoint> get changed;
-}
-
-/// The base class of all breakpoint types.
-extension type Breakpoint._(_i1.JSObject _) implements _i1.JSObject {
-  external Breakpoint([
-    bool? enabled,
-    String? condition,
-    String? hitCondition,
-    String? logMessage,
-  ]);
-
-  /// The unique ID of the breakpoint.
-  external String get id;
-
-  /// Is breakpoint enabled.
-  external bool get enabled;
-
-  /// An optional expression for conditional breakpoints.
-  external String? get condition;
-
-  /// An optional expression that controls how many hits of the breakpoint are
-  /// ignored.
-  external String? get hitCondition;
-
-  /// An optional message that gets logged when this breakpoint is hit. Embedded
-  /// expressions within {} are interpolated by the debug adapter.
-  external String? get logMessage;
 }
 
 /// A breakpoint specified by a source location.
@@ -14991,6 +16688,407 @@ extension type DebugSessionOptions._(_i1.JSObject _) implements _i1.JSObject {
   /// request. This is used to link the lifecycle of the debug session and
   /// test run in UI actions.
   external TestRun? testRun;
+}
+
+/// Debug console mode used by debug session, see DebugSessionOptionsoptions.
+extension type const DebugConsoleMode._(int _) {
+  /// Debug session should have a separate debug console.
+  static const DebugConsoleMode Separate = DebugConsoleMode._(0);
+
+  /// Debug session should share debug console with its parent session.
+  /// This value has no effect for sessions which do not have a parent session.
+  static const DebugConsoleMode MergeWithParent = DebugConsoleMode._(1);
+}
+
+/// A TestRun represents an in-progress or completed test run and
+/// provides methods to report the state of individual tests in the run.
+extension type TestRun._(_i1.JSObject _) implements _i1.JSObject {
+  /// The human-readable name of the run. This can be used to
+  /// disambiguate multiple sets of results in a test run. It is useful if
+  /// tests are run across multiple platforms, for example.
+  external String? get name;
+
+  /// A cancellation token which will be triggered when the test run is
+  /// canceled from the UI.
+  external CancellationToken get token;
+
+  /// Whether the test run will be persisted across reloads by the editor.
+  external bool get isPersisted;
+
+  /// An event fired when the editor is no longer interested in data
+  /// associated with the test run.
+  external Event<_i1.JSAny?> get onDidDispose;
+
+  /// Indicates a test is queued for later execution.
+  /// - [test]:  Test item to update.
+  external void enqueued(TestItem test);
+
+  /// Indicates a test has started running.
+  /// - [test]:  Test item to update.
+  external void started(TestItem test);
+
+  /// Indicates a test has been skipped.
+  /// - [test]:  Test item to update.
+  external void skipped(TestItem test);
+
+  /// Indicates a test has failed. You should pass one or more
+  /// TestMessageTestMessages to describe the failure.
+  /// - [test]:  Test item to update.
+  /// - [message]:  Messages associated with the test failure.
+  /// - [duration]:  How long the test took to execute, in milliseconds.
+  external void failed(
+    TestItem test,
+    AnonymousUnion_8210877 message, [
+    num? duration,
+  ]);
+
+  /// Indicates a test has errored. You should pass one or more
+  /// TestMessageTestMessages to describe the failure. This differs
+  /// from the "failed" state in that it indicates a test that couldn't be
+  /// executed at all, from a compilation error for example.
+  /// - [test]:  Test item to update.
+  /// - [message]:  Messages associated with the test failure.
+  /// - [duration]:  How long the test took to execute, in milliseconds.
+  external void errored(
+    TestItem test,
+    AnonymousUnion_8210877 message, [
+    num? duration,
+  ]);
+
+  /// Indicates a test has passed.
+  /// - [test]:  Test item to update.
+  /// - [duration]:  How long the test took to execute, in milliseconds.
+  external void passed(TestItem test, [num? duration]);
+
+  /// Appends raw output from the test runner. On the user's request, the
+  /// output will be displayed in a terminal. ANSI escape sequences,
+  /// such as colors and text styles, are supported. New lines must be given
+  /// as CRLF (`\r\n`) rather than LF (`\n`).
+  /// - [output]:  Output text to append.
+  /// - [location]:  Indicate that the output was logged at the given
+  /// location.
+  /// - [test]:  Test item to associate the output with.
+  external void appendOutput(
+    String output, [
+    Location? location,
+    TestItem? test,
+  ]);
+
+  /// Adds coverage for a file in the run.
+  external void addCoverage(FileCoverage fileCoverage);
+
+  /// Signals the end of the test run. Any tests included in the run whose
+  /// states have not been updated will have their state reset.
+  external void end();
+}
+
+/// An item shown in the "test explorer" view.
+///
+/// A `TestItem` can represent either a test suite or a test itself, since
+/// they both have similar capabilities.
+extension type TestItem._(_i1.JSObject _) implements _i1.JSObject {
+  /// Tags associated with this test item. May be used in combination with
+  /// TestRunProfile.tagtags, or simply as an organizational feature.
+  external _i1.JSArray<TestTag> tags;
+
+  /// Indicates whether this test item may have children discovered by
+  /// resolving.
+  ///
+  /// If true, this item is shown as expandable in the Test Explorer view and
+  /// expanding the item will cause TestController.resolveHandler
+  /// to be invoked with the item.
+  ///
+  /// Default to `false`.
+  external bool canResolveChildren;
+
+  /// Controls whether the item is shown as "busy" in the Test Explorer view.
+  /// This is useful for showing status while discovering children.
+  ///
+  /// Defaults to `false`.
+  external bool busy;
+
+  /// Display name describing the test case.
+  external String label;
+
+  /// Optional description that appears next to the label.
+  external String? description;
+
+  /// A string that should be used when comparing this item
+  /// with other items. When `falsy` the TestItem.labellabel
+  /// is used.
+  external String? sortText;
+
+  /// Location of the test item in its TestItem.uriuri.
+  ///
+  /// This is only meaningful if the `uri` points to a file.
+  external Range? range;
+
+  /// Optional error encountered while loading the test.
+  ///
+  /// Note that this is not a test result and should only be used to represent
+  /// errors in
+  /// test discovery, such as syntax errors.
+  external AnonymousUnion_3150571 error;
+
+  /// Identifier for the `TestItem`. This is used to correlate
+  /// test results and tests in the document with those in the workspace
+  /// (test explorer). This cannot change for the lifetime of the `TestItem`,
+  /// and must be unique among its parent's direct children.
+  external String get id;
+
+  /// URI this `TestItem` is associated with. May be a file or directory.
+  external Uri? get uri;
+
+  /// The children of this test item. For a test suite, this may contain the
+  /// individual test cases or nested suites.
+  external TestItemCollection get children;
+
+  /// The parent of this item. It's set automatically, and is undefined
+  /// top-level items in the TestController.items and for items that
+  /// aren't yet included in another item's TestItem.childrenchildren.
+  external TestItem? get parent;
+}
+
+/// Collection of test items, found in TestItem.children and
+/// TestController.items.
+extension type TestItemCollection._(_i1.JSObject _)
+    implements
+        Iterable<_i2.JSTuple2<_i1.JSAny, _i1.JSAny>, _i1.JSAny?, _i1.JSAny?> {
+  /// Gets the number of items in the collection.
+  external double get size;
+
+  /// Replaces the items stored by the collection.
+  /// - [items]:  Items to store.
+  external void replace(_i1.JSArray<TestItem> items);
+
+  /// Iterate over each entry in this collection.
+  /// - [callback]:  Function to execute for each entry.
+  /// - [thisArg]:  The `this` context used when invoking the handler function.
+  external void forEach(
+    _AnonymousFunction_2636610 callback, [
+    _i1.JSAny? thisArg,
+  ]);
+
+  /// Adds the test item to the children. If an item with the same ID already
+  /// exists, it'll be replaced.
+  /// - [item]:  Item to add.
+  external void add(TestItem item);
+
+  /// Removes a single test item from the collection.
+  /// - [itemId]:  Item ID to delete.
+  external void delete(String itemId);
+
+  /// Efficiently gets a test item by ID, if it exists, in the children.
+  /// - [itemId]:  Item ID to get.
+  ///
+  /// Returns The found item or undefined if it does not exist.
+  @_i1.JS('get')
+  external TestItem? get$(String itemId);
+}
+
+/// Tags can be associated with TestItemTestItems and
+/// TestRunProfileTestRunProfiles. A profile with a tag can only
+/// execute tests that include that tag in their TestItem.tags array.
+extension type TestTag._(_i1.JSObject _) implements _i1.JSObject {
+  external TestTag(String id);
+
+  /// ID of the test tag. `TestTag` instances with the same ID are considered
+  /// to be identical.
+  external String get id;
+}
+
+/// Message associated with the test state. Can be linked to a specific
+/// source range -- useful for assertion failures, for example.
+extension type TestMessage._(_i1.JSObject _) implements _i1.JSObject {
+  external TestMessage(AnonymousUnion_3150571 message);
+
+  /// Human-readable message text to display.
+  external AnonymousUnion_3150571 message;
+
+  /// Expected test output. If given with TestMessage.actualOutputactualOutput ,
+  /// a diff view will be shown.
+  external String? expectedOutput;
+
+  /// Actual test output. If given with TestMessage.expectedOutputexpectedOutput
+  /// , a diff view will be shown.
+  external String? actualOutput;
+
+  /// Associated file location.
+  external Location? location;
+
+  /// Context value of the test item. This can be used to contribute message-
+  /// specific actions to the test peek view. The value set here can be found
+  /// in the `testMessage` property of the following `menus` contribution
+  /// points:
+  ///
+  /// - `testing/message/context` - context menu for the message in the results
+  ///   tree
+  /// - `testing/message/content` - a prominent button overlaying editor content
+  ///   where
+  /// the message is displayed.
+  ///
+  /// For example:
+  ///
+  /// ```json
+  /// "contributes": {
+  ///   "menus": {
+  ///     "testing/message/content": [
+  ///       {
+  ///         "command": "extension.deleteCommentThread",
+  ///         "when": "testMessage == canApplyRichDiff"
+  ///       }
+  ///     ]
+  ///   }
+  /// }
+  /// ```
+  ///
+  /// The command will be called with an object containing:
+  /// - `test`: the TestItem the message is associated with, *if* it
+  /// is still present in the TestController.items collection.
+  /// - `message`: the TestMessage instance.
+  external String? contextValue;
+
+  /// The stack trace associated with the message or failure.
+  external _i1.JSArray<TestMessageStackFrame?>? stackTrace;
+
+  /// Creates a new TestMessage that will present as a diff in the editor.
+  /// - [message]:  Message to display to the user.
+  /// - [expected]:  Expected output.
+  /// - [actual]:  Actual output.
+  external static TestMessage diff(
+    AnonymousUnion_3150571 message,
+    String expected,
+    String actual,
+  );
+}
+
+/// A stack frame found in the TestMessage.stackTrace.
+extension type TestMessageStackFrame._(_i1.JSObject _) implements _i1.JSObject {
+  external TestMessageStackFrame(String label, [Uri? uri, Position? position]);
+
+  /// The location of this stack frame. This should be provided as a URI if the
+  /// location of the call frame can be accessed by the editor.
+  external Uri? uri;
+
+  /// Position of the stack frame within the file.
+  external Position? position;
+
+  /// The name of the stack frame, typically a method or function name.
+  external String label;
+}
+
+/// Contains coverage metadata for a file.
+extension type FileCoverage._(_i1.JSObject _) implements _i1.JSObject {
+  external FileCoverage(
+    Uri uri,
+    TestCoverageCount statementCoverage, [
+    TestCoverageCount? branchCoverage,
+    TestCoverageCount? declarationCoverage,
+    _i1.JSArray<TestItem?>? includesTests,
+  ]);
+
+  /// Statement coverage information. If the reporter does not provide statement
+  /// coverage information, this can instead be used to represent line coverage.
+  external TestCoverageCount statementCoverage;
+
+  /// Branch coverage information.
+  external TestCoverageCount? branchCoverage;
+
+  /// Declaration coverage information. Depending on the reporter and
+  /// language, this may be types such as functions, methods, or namespaces.
+  external TestCoverageCount? declarationCoverage;
+
+  /// A list of TestItemtest cases that generated coverage in this
+  /// file. If set, then TestRunProfile.loadDetailedCoverageForTest
+  /// should also be defined in order to retrieve detailed coverage information.
+  external _i1.JSArray<TestItem?>? includesTests;
+
+  /// File URI.
+  external Uri get uri;
+
+  /// Creates a FileCoverage instance with counts filled in from
+  /// the coverage details.
+  /// - [uri]:  Covered file URI
+  /// - [details]:  Detailed coverage information
+  external static FileCoverage fromDetails(
+    Uri uri,
+    _i1.JSArray<FileCoverageDetail> details,
+  );
+}
+
+/// A class that contains information about a covered resource. A count can
+/// be give for lines, branches, and declarations in a file.
+extension type TestCoverageCount._(_i1.JSObject _) implements _i1.JSObject {
+  external TestCoverageCount(num covered, num total);
+
+  /// Number of items covered in the file.
+  external double covered;
+
+  /// Total number of covered items in the file.
+  external double total;
+}
+
+/// Contains coverage information for a single statement or line.
+extension type StatementCoverage._(_i1.JSObject _) implements _i1.JSObject {
+  external StatementCoverage(
+    AnonymousUnion_1434196 executed,
+    AnonymousUnion_9838905 location, [
+    _i1.JSArray<BranchCoverage?>? branches,
+  ]);
+
+  /// The number of times this statement was executed, or a boolean indicating
+  /// whether it was executed if the exact count is unknown. If zero or false,
+  /// the statement will be marked as un-covered.
+  external AnonymousUnion_2869845 executed;
+
+  /// Statement location.
+  external AnonymousUnion_9838905 location;
+
+  /// Coverage from branches of this line or statement. If it's not a
+  /// conditional, this will be empty.
+  external _i1.JSArray<BranchCoverage> branches;
+}
+
+/// Contains coverage information for a branch of a StatementCoverage.
+extension type BranchCoverage._(_i1.JSObject _) implements _i1.JSObject {
+  external BranchCoverage(
+    AnonymousUnion_1434196 executed, [
+    AnonymousUnion_9838905? location,
+    String? label,
+  ]);
+
+  /// The number of times this branch was executed, or a boolean indicating
+  /// whether it was executed if the exact count is unknown. If zero or false,
+  /// the branch will be marked as un-covered.
+  external AnonymousUnion_2869845 executed;
+
+  /// Branch location.
+  external AnonymousUnion_9838905? location;
+
+  /// Label for the branch, used in the context of "the ${label} branch was
+  /// not taken," for example.
+  external String? label;
+}
+
+/// Contains coverage information for a declaration. Depending on the reporter
+/// and language, this may be types such as functions, methods, or namespaces.
+extension type DeclarationCoverage._(_i1.JSObject _) implements _i1.JSObject {
+  external DeclarationCoverage(
+    String name,
+    AnonymousUnion_1434196 executed,
+    AnonymousUnion_9838905 location,
+  );
+
+  /// Name of the declaration.
+  external String name;
+
+  /// The number of times this declaration was executed, or a boolean
+  /// indicating whether it was executed if the exact count is unknown. If
+  /// zero or false, the declaration will be marked as un-covered.
+  external AnonymousUnion_2869845 executed;
+
+  /// Declaration location.
+  external AnonymousUnion_9838905 location;
 }
 
 /// Represents a thread in a debug session.
@@ -15204,6 +17302,29 @@ extension type debug._(_i1.JSObject _) implements _i1.JSObject {
   external static Event<AnonymousUnion_2907319> get onDidChangeActiveStackItem;
 }
 
+/// A DebugConfigurationProviderTriggerKind specifies when the
+/// `provideDebugConfigurations` method of a `DebugConfigurationProvider` is
+/// triggered.
+/// Currently there are two situations: to provide the initial debug
+/// configurations for a newly created launch.json or
+/// to provide dynamically generated debug configurations when the user asks
+/// for them through the UI (e.g. via the "Select and Start Debugging"
+/// command).
+/// A trigger kind is used when registering a `DebugConfigurationProvider`
+/// with debug.registerDebugConfigurationProvider.
+extension type const DebugConfigurationProviderTriggerKind._(int _) {
+  /// `DebugConfigurationProvider.provideDebugConfigurations` is called to
+  /// provide the initial debug configurations for a newly created launch.json.
+  static const DebugConfigurationProviderTriggerKind Initial =
+      DebugConfigurationProviderTriggerKind._(1);
+
+  /// `DebugConfigurationProvider.provideDebugConfigurations` is called to
+  /// provide dynamically generated debug configurations when the user asks for
+  /// them through the UI (e.g. via the "Select and Start Debugging" command).
+  static const DebugConfigurationProviderTriggerKind Dynamic =
+      DebugConfigurationProviderTriggerKind._(2);
+}
+
 /// Namespace for dealing with installed extensions. Extensions are
 /// represented
 /// by an Extension-interface which enables reflection on them.
@@ -15321,32 +17442,6 @@ extension type CommentThread._(_i1.JSObject _) implements _i1.JSObject {
   external void dispose();
 }
 
-/// Author information of a Comment
-extension type CommentAuthorInformation._(_i1.JSObject _)
-    implements _i1.JSObject {
-  /// The display name of the author of the comment
-  external String name;
-
-  /// The optional icon path for the author
-  external Uri? iconPath;
-}
-
-/// Reactions of a Comment
-extension type CommentReaction._(_i1.JSObject _) implements _i1.JSObject {
-  /// The human-readable label for the reaction
-  external String get label;
-
-  /// Icon for the reaction shown in UI.
-  external AnonymousUnion_4269776 get iconPath;
-
-  /// The number of users who have reacted to this reaction
-  external double get count;
-
-  /// Whether the CommentAuthorInformationauthor of the comment has reacted to
-  /// this reaction
-  external bool get authorHasReacted;
-}
-
 /// A comment is displayed within the editor or the Comments Panel, depending
 /// on how it is provided.
 extension type Comment._(_i1.JSObject _) implements _i1.JSObject {
@@ -15391,6 +17486,61 @@ extension type Comment._(_i1.JSObject _) implements _i1.JSObject {
   /// Optional timestamp that will be displayed in comments.
   /// The date will be formatted according to the user's locale and settings.
   external Date? timestamp;
+}
+
+/// Comment mode of a Comment
+extension type const CommentMode._(int _) {
+  /// Displays the comment editor
+  static const CommentMode Editing = CommentMode._(0);
+
+  /// Displays the preview of the comment
+  static const CommentMode Preview = CommentMode._(1);
+}
+
+/// Author information of a Comment
+extension type CommentAuthorInformation._(_i1.JSObject _)
+    implements _i1.JSObject {
+  /// The display name of the author of the comment
+  external String name;
+
+  /// The optional icon path for the author
+  external Uri? iconPath;
+}
+
+/// Reactions of a Comment
+extension type CommentReaction._(_i1.JSObject _) implements _i1.JSObject {
+  /// The human-readable label for the reaction
+  external String get label;
+
+  /// Icon for the reaction shown in UI.
+  external AnonymousUnion_4269776 get iconPath;
+
+  /// The number of users who have reacted to this reaction
+  external double get count;
+
+  /// Whether the CommentAuthorInformationauthor of the comment has reacted to
+  /// this reaction
+  external bool get authorHasReacted;
+}
+
+/// Collapsible state of a CommentThreadcomment thread
+extension type const CommentThreadCollapsibleState._(int _) {
+  /// Determines an item is collapsed
+  static const CommentThreadCollapsibleState Collapsed =
+      CommentThreadCollapsibleState._(0);
+
+  /// Determines an item is expanded
+  static const CommentThreadCollapsibleState Expanded =
+      CommentThreadCollapsibleState._(1);
+}
+
+/// The state of a comment thread.
+extension type const CommentThreadState._(int _) {
+  /// Unresolved thread state
+  static const CommentThreadState Unresolved = CommentThreadState._(0);
+
+  /// Resolved thread state
+  static const CommentThreadState Resolved = CommentThreadState._(1);
 }
 
 /// Command argument for actions registered in
@@ -15605,6 +17755,12 @@ extension type AuthenticationGetSessionOptions._(_i1.JSObject _)
   external AuthenticationSessionAccountInformation? account;
 }
 
+/// Optional options to be used when calling authentication.getSession with
+/// the flag `forceNewSession`.
+@Deprecated('Use AuthenticationGetSessionPresentationOptions  instead.')
+typedef AuthenticationForceNewSessionOptions =
+    AuthenticationGetSessionPresentationOptions;
+
 /// Represents parameters for creating a session based on a WWW-Authenticate
 /// header value.
 /// This is used when an API returns a 401 with a WWW-Authenticate header
@@ -15656,7 +17812,8 @@ extension type AuthenticationProviderOptions._(_i1.JSObject _)
 /// changed.
 extension type AuthenticationProviderAuthenticationSessionsChangeEvent._(
   _i1.JSObject _
-) implements _i1.JSObject {
+)
+    implements _i1.JSObject {
   /// The AuthenticationSessionAuthenticationSessions of the
   /// AuthenticationProvider that have been added.
   external _i1.JSArray<AuthenticationSession>? get added;
@@ -15698,7 +17855,7 @@ extension type AuthenticationProvider._(_i1.JSObject _)
   /// - [options]:  Additional options for getting sessions.
   ///
   /// Returns A promise that resolves to an array of authentication sessions.
-  external _i2.Thenable<_i1.JSArray<AuthenticationSession>> getSessions(
+  external Thenable<_i1.JSArray<AuthenticationSession>> getSessions(
     _i1.JSArray<_i1.JSString>? scopes,
     AuthenticationProviderSessionOptions options,
   );
@@ -15718,7 +17875,7 @@ extension type AuthenticationProvider._(_i1.JSObject _)
   /// - [options]:  Additional options for creating a session.
   ///
   /// Returns A promise that resolves to an authentication session.
-  external _i2.Thenable<AuthenticationSession> createSession(
+  external Thenable<AuthenticationSession> createSession(
     _i1.JSArray<_i1.JSString> scopes,
     AuthenticationProviderSessionOptions options,
   );
@@ -15731,7 +17888,7 @@ extension type AuthenticationProvider._(_i1.JSObject _)
   /// If a session cannot be removed, the provider should reject with an error
   /// message.
   /// - [sessionId]:  The id of the session to remove.
-  external _i2.Thenable<_i1.JSAny?> removeSession(String sessionId);
+  external Thenable<_i1.JSAny?> removeSession(String sessionId);
 }
 
 /// Namespace for authentication.
@@ -16135,113 +18292,6 @@ extension type tests._(_i1.JSObject _) implements _i1.JSObject {
   external static TestController createTestController(String id, String label);
 }
 
-/// Tags can be associated with TestItemTestItems and
-/// TestRunProfileTestRunProfiles. A profile with a tag can only
-/// execute tests that include that tag in their TestItem.tags array.
-extension type TestTag._(_i1.JSObject _) implements _i1.JSObject {
-  external TestTag(String id);
-
-  /// ID of the test tag. `TestTag` instances with the same ID are considered
-  /// to be identical.
-  external String get id;
-}
-
-/// A TestRunProfile describes one way to execute tests in a TestController.
-extension type TestRunProfile._(_i1.JSObject _) implements _i1.JSObject {
-  /// Label shown to the user in the UI.
-  ///
-  /// Note that the label has some significance if the user requests that
-  /// tests be re-run in a certain way. For example, if tests were run
-  /// normally and the user requests to re-run them in debug mode, the editor
-  /// will attempt use a configuration with the same label of the `Debug`
-  /// kind. If there is no such configuration, the default will be used.
-  external String label;
-
-  /// Controls whether this profile is the default action that will
-  /// be taken when its kind is actioned. For example, if the user clicks
-  /// the generic "run all" button, then the default profile for
-  /// TestRunProfileKind.Run will be executed, although the
-  /// user can configure this.
-  ///
-  /// Changes the user makes in their default profiles will be reflected
-  /// in this property after a onDidChangeDefault event.
-  external bool isDefault;
-
-  /// Whether this profile supports continuous running of requests. If so,
-  /// then TestRunRequest.continuous may be set to `true`. Defaults
-  /// to false.
-  external bool supportsContinuousRun;
-
-  /// Associated tag for the profile. If this is set, only TestItem
-  /// instances with the same tag will be eligible to execute in this profile.
-  external TestTag? tag;
-
-  /// If this method is present, a configuration gear will be present in the
-  /// UI, and this method will be invoked when it's clicked. When called,
-  /// you can take other editor actions, such as showing a quick pick or
-  /// opening a configuration file.
-  external _AnonymousFunction_2811692 configureHandler;
-
-  /// Handler called to start a test run. When invoked, the function should call
-  /// TestController.createTestRun at least once, and all test runs
-  /// associated with the request should be created before the function returns
-  /// or the returned promise is resolved.
-  ///
-  /// If supportsContinuousRun is set, then TestRunRequest.continuous
-  /// may be `true`. In this case, the profile should observe changes to
-  /// source code and create new test runs by calling
-  /// TestController.createTestRun,
-  /// until the cancellation is requested on the `token`.
-  /// - [request]:  Request information for the test run.
-  /// - [cancellationToken]:  Token that signals the used asked to abort the
-  /// test run. If cancellation is requested on this token, all  instances
-  /// associated with the request will be
-  /// automatically cancelled as well.
-  external _AnonymousFunction_2552521 runHandler;
-
-  /// An extension-provided function that provides detailed statement and
-  /// function-level coverage for a file. The editor will call this when more
-  /// detail is needed for a file, such as when it's opened in an editor or
-  /// expanded in the **Test Coverage** view.
-  ///
-  /// The FileCoverage object passed to this function is the same instance
-  /// emitted on TestRun.addCoverage calls associated with this profile.
-  external _AnonymousFunction_8032364? loadDetailedCoverage;
-
-  /// An extension-provided function that provides detailed statement and
-  /// function-level coverage for a single test in a file. This is the per-test
-  /// sibling of TestRunProfile.loadDetailedCoverage, called only if
-  /// a test item is provided in FileCoverage.includesTests and only
-  /// for files where such data is reported.
-  ///
-  /// Often TestRunProfile.loadDetailedCoverage will be called first
-  /// when a user opens a file, and then this method will be called if they
-  /// drill down into specific per-test coverage information. This method
-  /// should then return coverage data only for statements and declarations
-  /// executed by the specific test during the run.
-  ///
-  /// The FileCoverage object passed to this function is the same
-  /// instance emitted on TestRun.addCoverage calls associated with this
-  /// profile.
-  /// - [testRun]:  The test run that generated the coverage data.
-  /// - [fileCoverage]:  The file coverage object to load detailed coverage for.
-  /// - [fromTestItem]:  The test item to request coverage information for.
-  /// - [token]:  A cancellation token that indicates the operation should be
-  ///   cancelled.
-  external _AnonymousFunction_7035210? loadDetailedCoverageForTest;
-
-  /// Configures what kind of execution this profile controls. If there
-  /// are no profiles for a kind, it will not be available in the UI.
-  external TestRunProfileKind get kind;
-
-  /// Fired when a user has changed whether this is a default profile. The
-  /// event contains the new value of isDefault
-  external Event<_i1.JSBoolean> get onDidChangeDefault;
-
-  /// Deletes the run profile.
-  external void dispose();
-}
-
 /// Entry point to discover and execute tests. It contains
 /// TestController.items which
 /// are used to populate the editor UI, and is associated with
@@ -16373,6 +18423,18 @@ extension type TestController._(_i1.JSObject _) implements _i1.JSObject {
   external void dispose();
 }
 
+/// The kind of executions that TestRunProfileTestRunProfiles control.
+extension type const TestRunProfileKind._(int _) {
+  /// The `Run` test profile kind.
+  static const TestRunProfileKind Run = TestRunProfileKind._(1);
+
+  /// The `Debug` test profile kind.
+  static const TestRunProfileKind Debug = TestRunProfileKind._(2);
+
+  /// The `Coverage` test profile kind.
+  static const TestRunProfileKind Coverage = TestRunProfileKind._(3);
+}
+
 /// A TestRunRequest is a precursor to a TestRun, which in turn is
 /// created by passing a request to TestController.createTestRun. The
 /// TestRunRequest contains information about which tests should be run, which
@@ -16423,751 +18485,100 @@ extension type TestRunRequest._(_i1.JSObject _) implements _i1.JSObject {
   external bool get preserveFocus;
 }
 
-/// A TestRun represents an in-progress or completed test run and
-/// provides methods to report the state of individual tests in the run.
-extension type TestRun._(_i1.JSObject _) implements _i1.JSObject {
-  /// The human-readable name of the run. This can be used to
-  /// disambiguate multiple sets of results in a test run. It is useful if
-  /// tests are run across multiple platforms, for example.
-  external String? get name;
-
-  /// A cancellation token which will be triggered when the test run is
-  /// canceled from the UI.
-  external CancellationToken get token;
-
-  /// Whether the test run will be persisted across reloads by the editor.
-  external bool get isPersisted;
-
-  /// An event fired when the editor is no longer interested in data
-  /// associated with the test run.
-  external Event<_i1.JSAny?> get onDidDispose;
-
-  /// Indicates a test is queued for later execution.
-  /// - [test]:  Test item to update.
-  external void enqueued(TestItem test);
-
-  /// Indicates a test has started running.
-  /// - [test]:  Test item to update.
-  external void started(TestItem test);
-
-  /// Indicates a test has been skipped.
-  /// - [test]:  Test item to update.
-  external void skipped(TestItem test);
-
-  /// Indicates a test has failed. You should pass one or more
-  /// TestMessageTestMessages to describe the failure.
-  /// - [test]:  Test item to update.
-  /// - [message]:  Messages associated with the test failure.
-  /// - [duration]:  How long the test took to execute, in milliseconds.
-  external void failed(
-    TestItem test,
-    AnonymousUnion_8210877 message, [
-    num? duration,
-  ]);
-
-  /// Indicates a test has errored. You should pass one or more
-  /// TestMessageTestMessages to describe the failure. This differs
-  /// from the "failed" state in that it indicates a test that couldn't be
-  /// executed at all, from a compilation error for example.
-  /// - [test]:  Test item to update.
-  /// - [message]:  Messages associated with the test failure.
-  /// - [duration]:  How long the test took to execute, in milliseconds.
-  external void errored(
-    TestItem test,
-    AnonymousUnion_8210877 message, [
-    num? duration,
-  ]);
-
-  /// Indicates a test has passed.
-  /// - [test]:  Test item to update.
-  /// - [duration]:  How long the test took to execute, in milliseconds.
-  external void passed(TestItem test, [num? duration]);
-
-  /// Appends raw output from the test runner. On the user's request, the
-  /// output will be displayed in a terminal. ANSI escape sequences,
-  /// such as colors and text styles, are supported. New lines must be given
-  /// as CRLF (`\r\n`) rather than LF (`\n`).
-  /// - [output]:  Output text to append.
-  /// - [location]:  Indicate that the output was logged at the given
-  /// location.
-  /// - [test]:  Test item to associate the output with.
-  external void appendOutput(
-    String output, [
-    Location? location,
-    TestItem? test,
-  ]);
-
-  /// Adds coverage for a file in the run.
-  external void addCoverage(FileCoverage fileCoverage);
-
-  /// Signals the end of the test run. Any tests included in the run whose
-  /// states have not been updated will have their state reset.
-  external void end();
-}
-
-/// Collection of test items, found in TestItem.children and
-/// TestController.items.
-extension type TestItemCollection._(_i1.JSObject _)
-    implements
-        Iterable<_i3.JSTuple2<_i1.JSAny, _i1.JSAny>, _i1.JSAny?, _i1.JSAny?> {
-  /// Gets the number of items in the collection.
-  external double get size;
-
-  /// Replaces the items stored by the collection.
-  /// - [items]:  Items to store.
-  external void replace(_i1.JSArray<TestItem> items);
-
-  /// Iterate over each entry in this collection.
-  /// - [callback]:  Function to execute for each entry.
-  /// - [thisArg]:  The `this` context used when invoking the handler function.
-  external void forEach(
-    _AnonymousFunction_2636610 callback, [
-    _i1.JSAny? thisArg,
-  ]);
-
-  /// Adds the test item to the children. If an item with the same ID already
-  /// exists, it'll be replaced.
-  /// - [item]:  Item to add.
-  external void add(TestItem item);
-
-  /// Removes a single test item from the collection.
-  /// - [itemId]:  Item ID to delete.
-  external void delete(String itemId);
-
-  /// Efficiently gets a test item by ID, if it exists, in the children.
-  /// - [itemId]:  Item ID to get.
+/// A TestRunProfile describes one way to execute tests in a TestController.
+extension type TestRunProfile._(_i1.JSObject _) implements _i1.JSObject {
+  /// Label shown to the user in the UI.
   ///
-  /// Returns The found item or undefined if it does not exist.
-  @_i1.JS('get')
-  external TestItem? get$(String itemId);
-}
-
-/// An item shown in the "test explorer" view.
-///
-/// A `TestItem` can represent either a test suite or a test itself, since
-/// they both have similar capabilities.
-extension type TestItem._(_i1.JSObject _) implements _i1.JSObject {
-  /// Tags associated with this test item. May be used in combination with
-  /// TestRunProfile.tagtags, or simply as an organizational feature.
-  external _i1.JSArray<TestTag> tags;
-
-  /// Indicates whether this test item may have children discovered by
-  /// resolving.
-  ///
-  /// If true, this item is shown as expandable in the Test Explorer view and
-  /// expanding the item will cause TestController.resolveHandler
-  /// to be invoked with the item.
-  ///
-  /// Default to `false`.
-  external bool canResolveChildren;
-
-  /// Controls whether the item is shown as "busy" in the Test Explorer view.
-  /// This is useful for showing status while discovering children.
-  ///
-  /// Defaults to `false`.
-  external bool busy;
-
-  /// Display name describing the test case.
+  /// Note that the label has some significance if the user requests that
+  /// tests be re-run in a certain way. For example, if tests were run
+  /// normally and the user requests to re-run them in debug mode, the editor
+  /// will attempt use a configuration with the same label of the `Debug`
+  /// kind. If there is no such configuration, the default will be used.
   external String label;
 
-  /// Optional description that appears next to the label.
-  external String? description;
-
-  /// A string that should be used when comparing this item
-  /// with other items. When `falsy` the TestItem.labellabel
-  /// is used.
-  external String? sortText;
-
-  /// Location of the test item in its TestItem.uriuri.
+  /// Controls whether this profile is the default action that will
+  /// be taken when its kind is actioned. For example, if the user clicks
+  /// the generic "run all" button, then the default profile for
+  /// TestRunProfileKind.Run will be executed, although the
+  /// user can configure this.
   ///
-  /// This is only meaningful if the `uri` points to a file.
-  external Range? range;
+  /// Changes the user makes in their default profiles will be reflected
+  /// in this property after a onDidChangeDefault event.
+  external bool isDefault;
 
-  /// Optional error encountered while loading the test.
+  /// Whether this profile supports continuous running of requests. If so,
+  /// then TestRunRequest.continuous may be set to `true`. Defaults
+  /// to false.
+  external bool supportsContinuousRun;
+
+  /// Associated tag for the profile. If this is set, only TestItem
+  /// instances with the same tag will be eligible to execute in this profile.
+  external TestTag? tag;
+
+  /// If this method is present, a configuration gear will be present in the
+  /// UI, and this method will be invoked when it's clicked. When called,
+  /// you can take other editor actions, such as showing a quick pick or
+  /// opening a configuration file.
+  external _AnonymousFunction_2811692 configureHandler;
+
+  /// Handler called to start a test run. When invoked, the function should call
+  /// TestController.createTestRun at least once, and all test runs
+  /// associated with the request should be created before the function returns
+  /// or the returned promise is resolved.
   ///
-  /// Note that this is not a test result and should only be used to represent
-  /// errors in
-  /// test discovery, such as syntax errors.
-  external AnonymousUnion_3150571 error;
+  /// If supportsContinuousRun is set, then TestRunRequest.continuous
+  /// may be `true`. In this case, the profile should observe changes to
+  /// source code and create new test runs by calling
+  /// TestController.createTestRun,
+  /// until the cancellation is requested on the `token`.
+  /// - [request]:  Request information for the test run.
+  /// - [cancellationToken]:  Token that signals the used asked to abort the
+  /// test run. If cancellation is requested on this token, all  instances
+  /// associated with the request will be
+  /// automatically cancelled as well.
+  external _AnonymousFunction_2552521 runHandler;
 
-  /// Identifier for the `TestItem`. This is used to correlate
-  /// test results and tests in the document with those in the workspace
-  /// (test explorer). This cannot change for the lifetime of the `TestItem`,
-  /// and must be unique among its parent's direct children.
-  external String get id;
-
-  /// URI this `TestItem` is associated with. May be a file or directory.
-  external Uri? get uri;
-
-  /// The children of this test item. For a test suite, this may contain the
-  /// individual test cases or nested suites.
-  external TestItemCollection get children;
-
-  /// The parent of this item. It's set automatically, and is undefined
-  /// top-level items in the TestController.items and for items that
-  /// aren't yet included in another item's TestItem.childrenchildren.
-  external TestItem? get parent;
-}
-
-/// A stack frame found in the TestMessage.stackTrace.
-extension type TestMessageStackFrame._(_i1.JSObject _) implements _i1.JSObject {
-  external TestMessageStackFrame(String label, [Uri? uri, Position? position]);
-
-  /// The location of this stack frame. This should be provided as a URI if the
-  /// location of the call frame can be accessed by the editor.
-  external Uri? uri;
-
-  /// Position of the stack frame within the file.
-  external Position? position;
-
-  /// The name of the stack frame, typically a method or function name.
-  external String label;
-}
-
-/// Message associated with the test state. Can be linked to a specific
-/// source range -- useful for assertion failures, for example.
-extension type TestMessage._(_i1.JSObject _) implements _i1.JSObject {
-  external TestMessage(AnonymousUnion_3150571 message);
-
-  /// Human-readable message text to display.
-  external AnonymousUnion_3150571 message;
-
-  /// Expected test output. If given with TestMessage.actualOutputactualOutput ,
-  /// a diff view will be shown.
-  external String? expectedOutput;
-
-  /// Actual test output. If given with TestMessage.expectedOutputexpectedOutput
-  /// , a diff view will be shown.
-  external String? actualOutput;
-
-  /// Associated file location.
-  external Location? location;
-
-  /// Context value of the test item. This can be used to contribute message-
-  /// specific actions to the test peek view. The value set here can be found
-  /// in the `testMessage` property of the following `menus` contribution
-  /// points:
+  /// An extension-provided function that provides detailed statement and
+  /// function-level coverage for a file. The editor will call this when more
+  /// detail is needed for a file, such as when it's opened in an editor or
+  /// expanded in the **Test Coverage** view.
   ///
-  /// - `testing/message/context` - context menu for the message in the results
-  ///   tree
-  /// - `testing/message/content` - a prominent button overlaying editor content
-  ///   where
-  /// the message is displayed.
+  /// The FileCoverage object passed to this function is the same instance
+  /// emitted on TestRun.addCoverage calls associated with this profile.
+  external _AnonymousFunction_8032364? loadDetailedCoverage;
+
+  /// An extension-provided function that provides detailed statement and
+  /// function-level coverage for a single test in a file. This is the per-test
+  /// sibling of TestRunProfile.loadDetailedCoverage, called only if
+  /// a test item is provided in FileCoverage.includesTests and only
+  /// for files where such data is reported.
   ///
-  /// For example:
+  /// Often TestRunProfile.loadDetailedCoverage will be called first
+  /// when a user opens a file, and then this method will be called if they
+  /// drill down into specific per-test coverage information. This method
+  /// should then return coverage data only for statements and declarations
+  /// executed by the specific test during the run.
   ///
-  /// ```json
-  /// "contributes": {
-  ///   "menus": {
-  ///     "testing/message/content": [
-  ///       {
-  ///         "command": "extension.deleteCommentThread",
-  ///         "when": "testMessage == canApplyRichDiff"
-  ///       }
-  ///     ]
-  ///   }
-  /// }
-  /// ```
-  ///
-  /// The command will be called with an object containing:
-  /// - `test`: the TestItem the message is associated with, *if* it
-  /// is still present in the TestController.items collection.
-  /// - `message`: the TestMessage instance.
-  external String? contextValue;
-
-  /// The stack trace associated with the message or failure.
-  external _i1.JSArray<TestMessageStackFrame?>? stackTrace;
-
-  /// Creates a new TestMessage that will present as a diff in the editor.
-  /// - [message]:  Message to display to the user.
-  /// - [expected]:  Expected output.
-  /// - [actual]:  Actual output.
-  external static TestMessage diff(
-    AnonymousUnion_3150571 message,
-    String expected,
-    String actual,
-  );
-}
-
-/// A class that contains information about a covered resource. A count can
-/// be give for lines, branches, and declarations in a file.
-extension type TestCoverageCount._(_i1.JSObject _) implements _i1.JSObject {
-  external TestCoverageCount(num covered, num total);
-
-  /// Number of items covered in the file.
-  external double covered;
-
-  /// Total number of covered items in the file.
-  external double total;
-}
-
-/// Contains coverage metadata for a file.
-extension type FileCoverage._(_i1.JSObject _) implements _i1.JSObject {
-  external FileCoverage(
-    Uri uri,
-    TestCoverageCount statementCoverage, [
-    TestCoverageCount? branchCoverage,
-    TestCoverageCount? declarationCoverage,
-    _i1.JSArray<TestItem?>? includesTests,
-  ]);
-
-  /// Statement coverage information. If the reporter does not provide statement
-  /// coverage information, this can instead be used to represent line coverage.
-  external TestCoverageCount statementCoverage;
-
-  /// Branch coverage information.
-  external TestCoverageCount? branchCoverage;
-
-  /// Declaration coverage information. Depending on the reporter and
-  /// language, this may be types such as functions, methods, or namespaces.
-  external TestCoverageCount? declarationCoverage;
-
-  /// A list of TestItemtest cases that generated coverage in this
-  /// file. If set, then TestRunProfile.loadDetailedCoverageForTest
-  /// should also be defined in order to retrieve detailed coverage information.
-  external _i1.JSArray<TestItem?>? includesTests;
-
-  /// File URI.
-  external Uri get uri;
-
-  /// Creates a FileCoverage instance with counts filled in from
-  /// the coverage details.
-  /// - [uri]:  Covered file URI
-  /// - [details]:  Detailed coverage information
-  external static FileCoverage fromDetails(
-    Uri uri,
-    _i1.JSArray<AnonymousUnion_1756552> details,
-  );
-}
-
-/// Contains coverage information for a single statement or line.
-extension type StatementCoverage._(_i1.JSObject _) implements _i1.JSObject {
-  external StatementCoverage(
-    AnonymousUnion_1434196 executed,
-    AnonymousUnion_9838905 location, [
-    _i1.JSArray<BranchCoverage?>? branches,
-  ]);
-
-  /// The number of times this statement was executed, or a boolean indicating
-  /// whether it was executed if the exact count is unknown. If zero or false,
-  /// the statement will be marked as un-covered.
-  external AnonymousUnion_2869845 executed;
-
-  /// Statement location.
-  external AnonymousUnion_9838905 location;
-
-  /// Coverage from branches of this line or statement. If it's not a
-  /// conditional, this will be empty.
-  external _i1.JSArray<BranchCoverage> branches;
-}
-
-/// Contains coverage information for a branch of a StatementCoverage.
-extension type BranchCoverage._(_i1.JSObject _) implements _i1.JSObject {
-  external BranchCoverage(
-    AnonymousUnion_1434196 executed, [
-    AnonymousUnion_9838905? location,
-    String? label,
-  ]);
-
-  /// The number of times this branch was executed, or a boolean indicating
-  /// whether it was executed if the exact count is unknown. If zero or false,
-  /// the branch will be marked as un-covered.
-  external AnonymousUnion_2869845 executed;
-
-  /// Branch location.
-  external AnonymousUnion_9838905? location;
-
-  /// Label for the branch, used in the context of "the ${label} branch was
-  /// not taken," for example.
-  external String? label;
-}
-
-/// Contains coverage information for a declaration. Depending on the reporter
-/// and language, this may be types such as functions, methods, or namespaces.
-extension type DeclarationCoverage._(_i1.JSObject _) implements _i1.JSObject {
-  external DeclarationCoverage(
-    String name,
-    AnonymousUnion_1434196 executed,
-    AnonymousUnion_9838905 location,
-  );
-
-  /// Name of the declaration.
-  external String name;
-
-  /// The number of times this declaration was executed, or a boolean
-  /// indicating whether it was executed if the exact count is unknown. If
-  /// zero or false, the declaration will be marked as un-covered.
-  external AnonymousUnion_2869845 executed;
-
-  /// Declaration location.
-  external AnonymousUnion_9838905 location;
-}
-
-/// The tab represents a single text based resource.
-extension type TabInputText._(_i1.JSObject _) implements _i1.JSObject {
-  external TabInputText(Uri uri);
-
-  /// The uri represented by the tab.
-  external Uri get uri;
-}
-
-/// The tab represents two text based resources
-/// being rendered as a diff.
-extension type TabInputTextDiff._(_i1.JSObject _) implements _i1.JSObject {
-  external TabInputTextDiff(Uri original, Uri modified);
-
-  /// The uri of the original text resource.
-  external Uri get original;
-
-  /// The uri of the modified text resource.
-  external Uri get modified;
-}
-
-/// The tab represents a custom editor.
-extension type TabInputCustom._(_i1.JSObject _) implements _i1.JSObject {
-  external TabInputCustom(Uri uri, String viewType);
-
-  /// The uri that the tab is representing.
-  external Uri get uri;
-
-  /// The type of custom editor.
-  external String get viewType;
-}
-
-/// The tab represents a webview.
-extension type TabInputWebview._(_i1.JSObject _) implements _i1.JSObject {
-  external TabInputWebview(String viewType);
-
-  /// The type of webview. Maps to WebviewPanel.viewTypeWebviewPanel's viewType
-  external String get viewType;
-}
-
-/// The tab represents a notebook.
-extension type TabInputNotebook._(_i1.JSObject _) implements _i1.JSObject {
-  external TabInputNotebook(Uri uri, String notebookType);
-
-  /// The uri that the tab is representing.
-  external Uri get uri;
-
-  /// The type of notebook. Maps to
-  /// NotebookDocument.notebookTypeNotebookDocuments's notebookType
-  external String get notebookType;
-}
-
-/// The tabs represents two notebooks in a diff configuration.
-extension type TabInputNotebookDiff._(_i1.JSObject _) implements _i1.JSObject {
-  external TabInputNotebookDiff(
-    Uri original,
-    Uri modified,
-    String notebookType,
-  );
-
-  /// The uri of the original notebook.
-  external Uri get original;
-
-  /// The uri of the modified notebook.
-  external Uri get modified;
-
-  /// The type of notebook. Maps to
-  /// NotebookDocument.notebookTypeNotebookDocuments's notebookType
-  external String get notebookType;
-}
-
-/// The tab represents a terminal in the editor area.
-extension type TabInputTerminal._(_i1.JSObject _) implements _i1.JSObject {
-  external TabInputTerminal();
-}
-
-/// Represents a tab within a TabGroupgroup of tabs.
-/// Tabs are merely the graphical representation within the editor area.
-/// A backing editor is not a guarantee.
-extension type Tab._(_i1.JSObject _) implements _i1.JSObject {
-  /// The text displayed on the tab.
-  external String get label;
-
-  /// The group which the tab belongs to.
-  external TabGroup get group;
-
-  /// Defines the structure of the tab i.e. text, notebook, custom, etc.
-  /// Resource and other useful properties are defined on the tab kind.
-  external AnonymousUnion_1848399 get input;
-
-  /// Whether or not the tab is currently active.
-  /// This is dictated by being the selected tab in the group.
-  external bool get isActive;
-
-  /// Whether or not the dirty indicator is present on the tab.
-  external bool get isDirty;
-
-  /// Whether or not the tab is pinned (pin icon is present).
-  external bool get isPinned;
-
-  /// Whether or not the tab is in preview mode.
-  external bool get isPreview;
-}
-
-/// An event describing change to tabs.
-extension type TabChangeEvent._(_i1.JSObject _) implements _i1.JSObject {
-  /// The tabs that have been opened.
-  external _i1.JSArray<Tab> get opened;
-
-  /// The tabs that have been closed.
-  external _i1.JSArray<Tab> get closed;
-
-  /// Tabs that have changed, e.g have changed
-  /// their Tab.isActiveactive state.
-  external _i1.JSArray<Tab> get changed;
-}
-
-/// An event describing changes to tab groups.
-extension type TabGroupChangeEvent._(_i1.JSObject _) implements _i1.JSObject {
-  /// Tab groups that have been opened.
-  external _i1.JSArray<TabGroup> get opened;
-
-  /// Tab groups that have been closed.
-  external _i1.JSArray<TabGroup> get closed;
-
-  /// Tab groups that have changed, e.g have changed
-  /// their TabGroup.isActiveactive state.
-  external _i1.JSArray<TabGroup> get changed;
-}
-
-/// Represents a group of tabs. A tab group itself consists of multiple tabs.
-extension type TabGroup._(_i1.JSObject _) implements _i1.JSObject {
-  /// Whether or not the group is currently active.
-  ///
-  /// *Note* that only one tab group is active at a time, but that multiple tab
-  /// groups can have an activeTabactive tab.
-  external bool get isActive;
-
-  /// The view column of the group.
-  external ViewColumn get viewColumn;
-
-  /// The active Tabtab in the group. This is the tab whose contents are
-  /// currently
-  /// being rendered.
-  ///
-  /// *Note* that there can be one active tab per group but there can only be
-  /// one TabGroups.activeTabGroupactive group.
-  external Tab? get activeTab;
-
-  /// The list of tabs contained within the group.
-  /// This can be empty if the group has no tabs open.
-  external _i1.JSArray<Tab> get tabs;
-}
-
-/// Represents the main editor area which consists of multiple groups which
-/// contain tabs.
-extension type TabGroups._(_i1.JSObject _) implements _i1.JSObject {
-  /// All the groups within the group container.
-  external _i1.JSArray<TabGroup> get all;
-
-  /// The currently active group.
-  external TabGroup get activeTabGroup;
-
-  /// An Eventevent which fires when TabGrouptab groups have changed.
-  external Event<TabGroupChangeEvent> get onDidChangeTabGroups;
-
-  /// An Eventevent which fires when Tabtabs have changed.
-  external Event<TabChangeEvent> get onDidChangeTabs;
-
-  /// Closes the tab. This makes the tab object invalid and the tab
-  /// should no longer be used for further actions.
-  /// Note: In the case of a dirty tab, a confirmation dialog will be shown
-  /// which may be cancelled. If cancelled the tab is still valid
-  /// Closes the tab group. This makes the tab group object invalid and the tab
-  /// group
-  /// should no longer be used for further actions.
-  /// - [tab]:  The tab to close.
-  /// - [preserveFocus]:  When `true` focus will remain in its current position.
-  ///   If `false` it will jump to the next tab.
-  ///
-  /// Returns A promise that resolves to `true` when all tabs have been closed.
-  /// - [tabGroup]:  The tab group to close.
-  /// - [preserveFocus]:  When `true` focus will remain in its current position.
-  ///
-  /// Returns A promise that resolves to `true` when all tab groups have been
-  /// closed.
-  external _i2.Thenable<_i1.JSBoolean> close(
-    AnonymousUnion_8376058 tab, [
-    bool? preserveFocus,
-  ]);
-
-  /// Closes the tab. This makes the tab object invalid and the tab
-  /// should no longer be used for further actions.
-  /// Note: In the case of a dirty tab, a confirmation dialog will be shown
-  /// which may be cancelled. If cancelled the tab is still valid
-  /// Closes the tab group. This makes the tab group object invalid and the tab
-  /// group
-  /// should no longer be used for further actions.
-  /// - [tab]:  The tab to close.
-  /// - [preserveFocus]:  When `true` focus will remain in its current position.
-  ///   If `false` it will jump to the next tab.
-  ///
-  /// Returns A promise that resolves to `true` when all tabs have been closed.
-  /// - [tabGroup]:  The tab group to close.
-  /// - [preserveFocus]:  When `true` focus will remain in its current position.
-  ///
-  /// Returns A promise that resolves to `true` when all tab groups have been
-  /// closed.
-  @_i1.JS('close')
-  external _i2.Thenable<_i1.JSBoolean> close$1(
-    AnonymousUnion_1617951 tabGroup, [
-    bool? preserveFocus,
-  ]);
-}
-
-/// A special value wrapper denoting a value that is safe to not clean.
-/// This is to be used when you can guarantee no identifiable information is
-/// contained in the value and the cleaning is improperly redacting it.
-extension type TelemetryTrustedValue<T extends _i1.JSAny?>._(_i1.JSObject _)
-    implements _i1.JSObject {
-  external TelemetryTrustedValue(T value);
-
-  /// The value that is trusted to not contain PII.
-  external T get value;
-}
-
-/// A telemetry logger which can be used by extensions to log usage and error
-/// telemetry.
-///
-/// A logger wraps around an TelemetrySendersender but it guarantees that
-/// - user settings to disable or tweak telemetry are respected, and that
-/// - potential sensitive data is removed
-///
-/// It also enables an "echo UI" that prints whatever data is send and it
-/// allows the editor
-/// to forward unhandled errors to the respective extensions.
-///
-/// To get an instance of a `TelemetryLogger`, use
-/// env.createTelemetryLogger`createTelemetryLogger`.
-extension type TelemetryLogger._(_i1.JSObject _) implements _i1.JSObject {
-  /// An Event which fires when the enablement state of usage or error telemetry
-  /// changes.
-  external Event<TelemetryLogger> get onDidChangeEnableStates;
-
-  /// Whether or not usage telemetry is enabled for this logger.
-  external bool get isUsageEnabled;
-
-  /// Whether or not error telemetry is enabled for this logger.
-  external bool get isErrorsEnabled;
-
-  /// Log a usage event.
-  ///
-  /// After completing cleaning, telemetry setting checks, and data mix-in calls
-  /// `TelemetrySender.sendEventData` to log the event.
-  /// Automatically supports echoing to extension telemetry output channel.
-  /// - [eventName]:  The event name to log
-  /// - [data]:  The data to log
-  external void logUsage(
-    String eventName, [
-    Record<_i1.JSString, AnonymousUnion_1463601>? data,
-  ]);
-
-  /// Log an error event.
-  ///
-  /// After completing cleaning, telemetry setting checks, and data mix-in calls
-  /// `TelemetrySender.sendEventData` to log the event. Differs from `logUsage`
-  /// in that it will log the event if the telemetry setting is Error+.
-  /// Automatically supports echoing to extension telemetry output channel.
-  /// Log an error event.
-  ///
-  /// Calls `TelemetrySender.sendErrorData`. Does cleaning, telemetry checks,
-  /// and data mix-in.
-  /// Automatically supports echoing to extension telemetry output channel.
-  /// Will also automatically log any exceptions thrown within the extension
-  /// host process.
-  /// - [eventName]:  The event name to log
-  /// - [data]:  The data to log
-  /// - [error]:  The error object which contains the stack trace cleaned of PII
-  /// - [data]:  Additional data to log alongside the stack trace
-  external void logError(
-    String eventName, [
-    Record<_i1.JSString, AnonymousUnion_1463601>? data,
-  ]);
-
-  /// Log an error event.
-  ///
-  /// After completing cleaning, telemetry setting checks, and data mix-in calls
-  /// `TelemetrySender.sendEventData` to log the event. Differs from `logUsage`
-  /// in that it will log the event if the telemetry setting is Error+.
-  /// Automatically supports echoing to extension telemetry output channel.
-  /// Log an error event.
-  ///
-  /// Calls `TelemetrySender.sendErrorData`. Does cleaning, telemetry checks,
-  /// and data mix-in.
-  /// Automatically supports echoing to extension telemetry output channel.
-  /// Will also automatically log any exceptions thrown within the extension
-  /// host process.
-  /// - [eventName]:  The event name to log
-  /// - [data]:  The data to log
-  /// - [error]:  The error object which contains the stack trace cleaned of PII
-  /// - [data]:  Additional data to log alongside the stack trace
-  @_i1.JS('logError')
-  external void logError$1(
-    Error error, [
-    Record<_i1.JSString, AnonymousUnion_1463601>? data,
-  ]);
-
-  /// Dispose this object and free resources.
+  /// The FileCoverage object passed to this function is the same
+  /// instance emitted on TestRun.addCoverage calls associated with this
+  /// profile.
+  /// - [testRun]:  The test run that generated the coverage data.
+  /// - [fileCoverage]:  The file coverage object to load detailed coverage for.
+  /// - [fromTestItem]:  The test item to request coverage information for.
+  /// - [token]:  A cancellation token that indicates the operation should be
+  ///   cancelled.
+  external _AnonymousFunction_7035210? loadDetailedCoverageForTest;
+
+  /// Configures what kind of execution this profile controls. If there
+  /// are no profiles for a kind, it will not be available in the UI.
+  external TestRunProfileKind get kind;
+
+  /// Fired when a user has changed whether this is a default profile. The
+  /// event contains the new value of isDefault
+  external Event<_i1.JSBoolean> get onDidChangeDefault;
+
+  /// Deletes the run profile.
   external void dispose();
-}
-
-/// The telemetry sender is the contract between a telemetry logger and some
-/// telemetry service. **Note** that extensions must NOT
-/// call the methods of their sender directly as the logger provides extra
-/// guards and cleaning.
-///
-/// ```js
-/// const sender: vscode.TelemetrySender = {...};
-/// const logger = vscode.env.createTelemetryLogger(sender);
-///
-/// // GOOD - uses the logger
-/// logger.logUsage('myEvent', { myData: 'myValue' });
-///
-/// // BAD - uses the sender directly: no data cleansing, ignores user settings, no echoing to the telemetry output channel etc
-/// sender.logEvent('myEvent', { myData: 'myValue' });
-/// ```
-extension type TelemetrySender._(_i1.JSObject _) implements _i1.JSObject {
-  /// Function to send event data without a stacktrace. Used within a
-  /// TelemetryLogger
-  /// - [eventName]:  The name of the event which you are logging
-  /// - [data]:  A serializable key value pair that is being logged
-  external void sendEventData(
-    String eventName, [
-    Record<_i1.JSString, _i1.JSAny?>? data,
-  ]);
-
-  /// Function to send an error. Used within a TelemetryLogger
-  /// - [error]:  The error being logged
-  /// - [data]:  Any additional data to be collected with the exception
-  external void sendErrorData(
-    Error error, [
-    Record<_i1.JSString, _i1.JSAny?>? data,
-  ]);
-
-  /// Optional flush function which will give this sender a chance to send any
-  /// remaining events
-  /// as its TelemetryLogger is being disposed
-  external _i1.JSFunction? get flush;
-}
-
-/// Options for creating a TelemetryLogger
-extension type TelemetryLoggerOptions._(_i1.JSObject _)
-    implements _i1.JSObject {
-  /// Whether or not you want to avoid having the built-in common properties
-  /// such as os, extension name, etc injected into the data object.
-  /// Defaults to `false` if not defined.
-  external bool? get ignoreBuiltInCommonProperties;
-
-  /// Whether or not unhandled errors on the extension host caused by your
-  /// extension should be logged to your sender.
-  /// Defaults to `false` if not defined.
-  external bool? get ignoreUnhandledErrors;
-
-  /// Any additional common properties which should be injected into the data
-  /// object.
-  external Record<_i1.JSString, _i1.JSAny?>? get additionalCommonProperties;
 }
 
 /// Represents a user request in chat history.
@@ -17203,6 +18614,45 @@ extension type ChatRequestTurn._(_i1.JSObject _) implements _i1.JSObject {
   external _i1.JSArray<ChatLanguageModelToolReference> get toolReferences;
 }
 
+/// A reference to a value that the user added to their chat request.
+extension type ChatPromptReference._(_i1.JSObject _) implements _i1.JSObject {
+  /// A unique identifier for this kind of reference.
+  external String get id;
+
+  /// The start and end index of the reference in the ChatRequest.promptprompt.
+  /// When undefined, the reference was not part of the prompt text.
+  ///
+  /// *Note* that the indices take the leading `#`-character into account which
+  /// means they can
+  /// used to modify the prompt as-is.
+  external _i2.JSTuple2<_i1.JSAny, _i1.JSAny>? get range;
+
+  /// A description of this value that could be used in an LLM prompt.
+  external String? get modelDescription;
+
+  /// The value of this reference. The `string | Uri | Location` types are used
+  /// today, but this could expand in the future.
+  external AnonymousUnion_1926296 get value;
+}
+
+/// A reference to a tool that the user manually attached to their request,
+/// either using the `#`-syntax inline, or as an
+/// attachment via the paperclip button.
+extension type ChatLanguageModelToolReference._(_i1.JSObject _)
+    implements _i1.JSObject {
+  /// The tool name. Refers to a tool listed in lm.tools.
+  external String get name;
+
+  /// The start and end index of the reference in the ChatRequest.promptprompt.
+  /// When undefined, the reference was
+  /// not part of the prompt text.
+  ///
+  /// *Note* that the indices take the leading `#`-character into account which
+  /// means they can be used to modify the prompt
+  /// as-is.
+  external _i2.JSTuple2<_i1.JSAny, _i1.JSAny>? get range;
+}
+
 /// Represents a chat participant's response in chat history.
 extension type ChatResponseTurn._(_i1.JSObject _) implements _i1.JSObject {
   external ChatResponseTurn(
@@ -17225,20 +18675,63 @@ extension type ChatResponseTurn._(_i1.JSObject _) implements _i1.JSObject {
   external String? get command;
 }
 
-/// Extra context passed to a participant.
-extension type ChatContext._(_i1.JSObject _) implements _i1.JSObject {
-  /// All of the chat messages so far in the current chat session. Currently,
-  /// only chat messages for the current participant are included.
-  external ReadonlyArray<AnonymousUnion_3949594> get history;
+/// Represents a part of a chat response that is formatted as Markdown.
+extension type ChatResponseMarkdownPart._(_i1.JSObject _)
+    implements _i1.JSObject {
+  external ChatResponseMarkdownPart(AnonymousUnion_3150571 value);
+
+  /// A markdown string or a string that should be interpreted as markdown.
+  external MarkdownString value;
 }
 
-/// Represents an error result from a chat request.
-extension type ChatErrorDetails._(_i1.JSObject _) implements _i1.JSObject {
-  /// An error message that is shown to the user.
-  external String message;
+/// Represents a part of a chat response that is a file tree.
+extension type ChatResponseFileTreePart._(_i1.JSObject _)
+    implements _i1.JSObject {
+  external ChatResponseFileTreePart(
+    _i1.JSArray<ChatResponseFileTree> value,
+    Uri baseUri,
+  );
 
-  /// If set to true, the response will be partly blurred out.
-  external bool? responseIsFiltered;
+  /// File tree data.
+  external _i1.JSArray<ChatResponseFileTree> value;
+
+  /// The base uri to which this file tree is relative
+  external Uri baseUri;
+}
+
+/// Represents a file tree structure in a chat response.
+extension type ChatResponseFileTree._(_i1.JSObject _) implements _i1.JSObject {
+  /// The name of the file or directory.
+  external String name;
+
+  /// An array of child file trees, if the current file tree is a directory.
+  external _i1.JSArray<ChatResponseFileTree?>? children;
+}
+
+/// Represents a part of a chat response that is an anchor, that is rendered
+/// as a link to a target.
+extension type ChatResponseAnchorPart._(_i1.JSObject _)
+    implements _i1.JSObject {
+  external ChatResponseAnchorPart(
+    AnonymousUnion_2525195 value, [
+    String? title,
+  ]);
+
+  /// The target of this anchor.
+  external AnonymousUnion_2525195 value;
+
+  /// An optional title that is rendered with value.
+  external String? title;
+}
+
+/// Represents a part of a chat response that is a button that executes a
+/// command.
+extension type ChatResponseCommandButtonPart._(_i1.JSObject _)
+    implements _i1.JSObject {
+  external ChatResponseCommandButtonPart(Command value);
+
+  /// The command that will be executed when the button is clicked.
+  external Command value;
 }
 
 /// The result of a chat request.
@@ -17252,6 +18745,22 @@ extension type ChatResult._(_i1.JSObject _) implements _i1.JSObject {
   external AnonymousType_1143055? get metadata;
 }
 
+/// Represents an error result from a chat request.
+extension type ChatErrorDetails._(_i1.JSObject _) implements _i1.JSObject {
+  /// An error message that is shown to the user.
+  external String message;
+
+  /// If set to true, the response will be partly blurred out.
+  external bool? responseIsFiltered;
+}
+
+/// Extra context passed to a participant.
+extension type ChatContext._(_i1.JSObject _) implements _i1.JSObject {
+  /// All of the chat messages so far in the current chat session. Currently,
+  /// only chat messages for the current participant are included.
+  external ReadonlyArray<AnonymousUnion_3949594> get history;
+}
+
 /// Represents user feedback for a result.
 extension type ChatResultFeedback._(_i1.JSObject _) implements _i1.JSObject {
   /// The ChatResult for which the user is providing feedback.
@@ -17261,6 +18770,15 @@ extension type ChatResultFeedback._(_i1.JSObject _) implements _i1.JSObject {
 
   /// The kind of feedback that was received.
   external ChatResultFeedbackKind get kind;
+}
+
+/// Represents the type of user feedback received.
+extension type const ChatResultFeedbackKind._(int _) {
+  /// The user marked the result as unhelpful.
+  static const ChatResultFeedbackKind Unhelpful = ChatResultFeedbackKind._(0);
+
+  /// The user marked the result as helpful.
+  static const ChatResultFeedbackKind Helpful = ChatResultFeedbackKind._(1);
 }
 
 /// A followup question suggested by the participant.
@@ -17298,58 +18816,6 @@ extension type ChatFollowupProvider._(_i1.JSObject _) implements _i1.JSObject {
     ChatContext context,
     CancellationToken token,
   );
-}
-
-/// A chat participant can be invoked by the user in a chat session, using the
-/// `@` prefix. When it is invoked, it handles the chat request and is solely
-/// responsible for providing a response to the user. A ChatParticipant is
-/// created using chat.createChatParticipant.
-extension type ChatParticipant._(_i1.JSObject _) implements _i1.JSObject {
-  /// An icon for the participant shown in UI.
-  external IconPath? iconPath;
-
-  /// The handler for requests to this participant.
-  external ChatRequestHandler requestHandler;
-
-  /// This provider will be called once after each request to retrieve suggested
-  /// followup questions.
-  external ChatFollowupProvider? followupProvider;
-
-  /// A unique ID for this participant.
-  external String get id;
-
-  /// An event that fires whenever feedback for a result is received, e.g. when
-  /// a user up- or down-votes
-  /// a result.
-  ///
-  /// The passed ChatResultFeedback.resultresult is guaranteed to have the same
-  /// properties as the result that was
-  /// previously returned from this chat participant's handler.
-  external Event<ChatResultFeedback> get onDidReceiveFeedback;
-
-  /// Dispose this participant and free resources.
-  external void dispose();
-}
-
-/// A reference to a value that the user added to their chat request.
-extension type ChatPromptReference._(_i1.JSObject _) implements _i1.JSObject {
-  /// A unique identifier for this kind of reference.
-  external String get id;
-
-  /// The start and end index of the reference in the ChatRequest.promptprompt.
-  /// When undefined, the reference was not part of the prompt text.
-  ///
-  /// *Note* that the indices take the leading `#`-character into account which
-  /// means they can
-  /// used to modify the prompt as-is.
-  external _i3.JSTuple2<_i1.JSAny, _i1.JSAny>? get range;
-
-  /// A description of this value that could be used in an LLM prompt.
-  external String? get modelDescription;
-
-  /// The value of this reference. The `string | Uri | Location` types are used
-  /// today, but this could expand in the future.
-  external AnonymousUnion_1926296 get value;
 }
 
 /// A request to a chat participant.
@@ -17402,6 +18868,10 @@ extension type ChatRequest._(_i1.JSObject _) implements _i1.JSObject {
   external LanguageModelChat get model;
 }
 
+/// A token that can be passed to lm.invokeTool when invoking a tool inside
+/// the context of handling a chat request.
+typedef ChatParticipantToolToken = _i1.JSAny?;
+
 /// The ChatResponseStream is how a participant is able to return content to
 /// the chat view. It provides several methods for streaming different types
 /// of content
@@ -17453,55 +18923,6 @@ extension type ChatResponseStream._(_i1.JSObject _) implements _i1.JSObject {
   external void push(ChatResponsePart part);
 }
 
-/// Represents a part of a chat response that is formatted as Markdown.
-extension type ChatResponseMarkdownPart._(_i1.JSObject _)
-    implements _i1.JSObject {
-  external ChatResponseMarkdownPart(AnonymousUnion_3150571 value);
-
-  /// A markdown string or a string that should be interpreted as markdown.
-  external MarkdownString value;
-}
-
-/// Represents a file tree structure in a chat response.
-extension type ChatResponseFileTree._(_i1.JSObject _) implements _i1.JSObject {
-  /// The name of the file or directory.
-  external String name;
-
-  /// An array of child file trees, if the current file tree is a directory.
-  external _i1.JSArray<ChatResponseFileTree?>? children;
-}
-
-/// Represents a part of a chat response that is a file tree.
-extension type ChatResponseFileTreePart._(_i1.JSObject _)
-    implements _i1.JSObject {
-  external ChatResponseFileTreePart(
-    _i1.JSArray<ChatResponseFileTree> value,
-    Uri baseUri,
-  );
-
-  /// File tree data.
-  external _i1.JSArray<ChatResponseFileTree> value;
-
-  /// The base uri to which this file tree is relative
-  external Uri baseUri;
-}
-
-/// Represents a part of a chat response that is an anchor, that is rendered
-/// as a link to a target.
-extension type ChatResponseAnchorPart._(_i1.JSObject _)
-    implements _i1.JSObject {
-  external ChatResponseAnchorPart(
-    AnonymousUnion_2525195 value, [
-    String? title,
-  ]);
-
-  /// The target of this anchor.
-  external AnonymousUnion_2525195 value;
-
-  /// An optional title that is rendered with value.
-  external String? title;
-}
-
 /// Represents a part of a chat response that is a progress message.
 extension type ChatResponseProgressPart._(_i1.JSObject _)
     implements _i1.JSObject {
@@ -17527,14 +18948,35 @@ extension type ChatResponseReferencePart._(_i1.JSObject _)
   external IconPath? iconPath;
 }
 
-/// Represents a part of a chat response that is a button that executes a
-/// command.
-extension type ChatResponseCommandButtonPart._(_i1.JSObject _)
-    implements _i1.JSObject {
-  external ChatResponseCommandButtonPart(Command value);
+/// A chat participant can be invoked by the user in a chat session, using the
+/// `@` prefix. When it is invoked, it handles the chat request and is solely
+/// responsible for providing a response to the user. A ChatParticipant is
+/// created using chat.createChatParticipant.
+extension type ChatParticipant._(_i1.JSObject _) implements _i1.JSObject {
+  /// An icon for the participant shown in UI.
+  external IconPath? iconPath;
 
-  /// The command that will be executed when the button is clicked.
-  external Command value;
+  /// The handler for requests to this participant.
+  external ChatRequestHandler requestHandler;
+
+  /// This provider will be called once after each request to retrieve suggested
+  /// followup questions.
+  external ChatFollowupProvider? followupProvider;
+
+  /// A unique ID for this participant.
+  external String get id;
+
+  /// An event that fires whenever feedback for a result is received, e.g. when
+  /// a user up- or down-votes
+  /// a result.
+  ///
+  /// The passed ChatResultFeedback.resultresult is guaranteed to have the same
+  /// properties as the result that was
+  /// previously returned from this chat participant's handler.
+  external Event<ChatResultFeedback> get onDidReceiveFeedback;
+
+  /// Dispose this participant and free resources.
+  external void dispose();
 }
 
 /// Namespace for chat functionality. Users interact with chat participants by
@@ -17553,173 +18995,6 @@ extension type chat._(_i1.JSObject _) implements _i1.JSObject {
     String id,
     ChatRequestHandler handler,
   );
-}
-
-/// Represents a message in a chat. Can assume different roles, like user or
-/// assistant.
-extension type LanguageModelChatMessage._(_i1.JSObject _)
-    implements _i1.JSObject {
-  external LanguageModelChatMessage(
-    LanguageModelChatMessageRole role,
-    AnonymousUnion_3772893 content, [
-    String? name,
-  ]);
-
-  /// The role of this message.
-  external LanguageModelChatMessageRole role;
-
-  /// A string or heterogeneous array of things that a message can contain as
-  /// content. Some parts may be message-type
-  /// specific for some models.
-  external _i1.JSArray<AnonymousUnion_3606623> content;
-
-  /// The optional name of a user for this message.
-  external String? name;
-
-  /// Utility to create a new user message.
-  /// - [content]:  The content of the message.
-  /// - [name]:  The optional name of a user for the message.
-  external static LanguageModelChatMessage User(
-    AnonymousUnion_9343714 content, [
-    String? name,
-  ]);
-
-  /// Utility to create a new assistant message.
-  /// - [content]:  The content of the message.
-  /// - [name]:  The optional name of a user for the message.
-  external static LanguageModelChatMessage Assistant(
-    AnonymousUnion_2766184 content, [
-    String? name,
-  ]);
-}
-
-/// Represents a language model response.
-extension type LanguageModelChatResponse._(_i1.JSObject _)
-    implements _i1.JSObject {
-  /// An async iterable that is a stream of text and tool-call parts forming the
-  /// overall response. A
-  /// LanguageModelTextPart is part of the assistant's response to be shown to
-  /// the user. A
-  /// LanguageModelToolCallPart is a request from the language model to call a
-  /// tool. The latter will
-  /// only be returned if tools were passed in the request via
-  /// LanguageModelChatRequestOptions.tools. The
-  /// `unknown`-type is used as a placeholder for future parts, like image data
-  /// parts.
-  ///
-  /// *Note* that this stream will error when during data receiving an error
-  /// occurs. Consumers of the stream should handle
-  /// the errors accordingly.
-  ///
-  /// To cancel the stream, the consumer can
-  /// CancellationTokenSource.cancelcancel the token that was used to make
-  /// the request or break from the for-loop.
-  ///
-  /// Example:
-  /// ```ts
-  /// ```ts
-  /// try {
-  /// // consume stream
-  /// for await (const chunk of response.stream) {
-  /// if (chunk instanceof LanguageModelTextPart) {
-  /// console.log("TEXT", chunk);
-  /// } else if (chunk instanceof LanguageModelToolCallPart) {
-  /// console.log("TOOL CALL", chunk);
-  /// }
-  /// }
-  ///
-  /// } catch(e) {
-  /// // stream ended with an error
-  /// console.error(e);
-  /// }
-  /// ```
-  /// ```
-  external AsyncIterable<AnonymousUnion_3326072, _i1.JSAny?, _i1.JSAny?> stream;
-
-  /// This is equivalent to filtering everything except for text parts from a
-  /// LanguageModelChatResponse.stream.
-  external AsyncIterable<_i1.JSString, _i1.JSAny?, _i1.JSAny?> text;
-}
-
-/// Represents a language model for making chat requests.
-extension type LanguageModelChat._(_i1.JSObject _) implements _i1.JSObject {
-  /// Human-readable name of the language model.
-  external String get name;
-
-  /// Opaque identifier of the language model.
-  external String get id;
-
-  /// A well-known identifier of the vendor of the language model. An example is
-  /// `copilot`, but
-  /// values are defined by extensions contributing chat models and need to be
-  /// looked up with them.
-  external String get vendor;
-
-  /// Opaque family-name of the language model. Values might be `gpt-3.5-turbo`,
-  /// `gpt4`, `phi2`, or `llama`
-  /// but they are defined by extensions contributing languages and subject to
-  /// change.
-  external String get family;
-
-  /// Opaque version string of the model. This is defined by the extension
-  /// contributing the language model
-  /// and subject to change.
-  external String get version;
-
-  /// The maximum number of tokens that can be sent to the model in a single
-  /// request.
-  external double get maxInputTokens;
-
-  /// Make a chat request using a language model.
-  ///
-  /// *Note* that language model use may be subject to access restrictions and
-  /// user consent. Calling this function
-  /// for the first time (for an extension) will show a consent dialog to the
-  /// user and because of that this function
-  /// must _only be called in response to a user action!_ Extensions can use
-  /// LanguageModelAccessInformation.canSendRequest
-  /// to check if they have the necessary permissions to make a request.
-  ///
-  /// This function will return a rejected promise if making a request to the
-  /// language model is not
-  /// possible. Reasons for this can be:
-  ///
-  /// - user consent not given, see
-  ///   LanguageModelError.NoPermissions`NoPermissions`
-  /// - model does not exist anymore, see LanguageModelError.NotFound`NotFound`
-  /// - quota limits exceeded, see LanguageModelError.Blocked`Blocked`
-  /// - other issues in which case extension must check LanguageModelError.cause
-  ///   `LanguageModelError.cause`
-  ///
-  /// An extension can make use of language model tool calling by passing a set
-  /// of tools to
-  /// LanguageModelChatRequestOptions.tools. The language model will return a
-  /// LanguageModelToolCallPart and
-  /// the extension can invoke the tool and make another request with the
-  /// result.
-  /// - [messages]:  An array of message instances.
-  /// - [options]:  Options that control the request.
-  /// - [token]:  A cancellation token which controls the request. See   for how
-  ///   to create one.
-  ///
-  /// Returns A thenable that resolves to a LanguageModelChatResponse . The
-  /// promise will reject when the request couldn't be made.
-  external _i2.Thenable<LanguageModelChatResponse> sendRequest(
-    _i1.JSArray<LanguageModelChatMessage> messages, [
-    LanguageModelChatRequestOptions? options,
-    CancellationToken? token,
-  ]);
-
-  /// Count the number of tokens in a message using the model specific
-  /// tokenizer-logic.
-  /// - [text]:  A string or a message instance.
-  /// - [token]:  Optional cancellation token.  See   for how to create one.
-  ///
-  /// Returns A thenable that resolves to the number of tokens.
-  external _i2.Thenable<_i1.JSNumber> countTokens(
-    AnonymousUnion_2107947 text, [
-    CancellationToken? token,
-  ]);
 }
 
 /// Describes how to select language models for chat requests.
@@ -17768,39 +19043,6 @@ extension type LanguageModelError._(_i1.JSObject _) implements Error {
 
   /// The language model does not exist.
   external static LanguageModelError NotFound([String? message]);
-}
-
-/// Options for making a chat request using a language model.
-extension type LanguageModelChatRequestOptions._(_i1.JSObject _)
-    implements _i1.JSObject {
-  /// A human-readable message that explains why access to a language model is
-  /// needed and what feature is enabled by it.
-  external String? justification;
-
-  /// A set of options that control the behavior of the language model. These
-  /// options are specific to the language model
-  /// and need to be looked up in the respective documentation.
-  external AnonymousType_1282391? modelOptions;
-
-  /// An optional list of tools that are available to the language model. These
-  /// could be registered tools available via
-  /// lm.tools, or private tools that are just implemented within the calling
-  /// extension.
-  ///
-  /// If the LLM requests to call one of these tools, it will return a
-  /// LanguageModelToolCallPart in
-  /// LanguageModelChatResponse.stream. It's the caller's responsibility to
-  /// invoke the tool. If it's a tool
-  /// registered in lm.tools, that means calling lm.invokeTool.
-  ///
-  /// Then, the tool result can be provided to the LLM by creating an
-  /// Assistant-type LanguageModelChatMessage with a
-  /// LanguageModelToolCallPart, followed by a User-type message with a
-  /// LanguageModelToolResultPart.
-  external _i1.JSArray<LanguageModelChatTool?>? tools;
-
-  /// The tool-selecting mode to use. LanguageModelChatToolMode.Auto by default.
-  external LanguageModelChatToolMode? toolMode;
 }
 
 /// McpStdioServerDefinition represents an MCP server available by running
@@ -17870,9 +19112,10 @@ extension type McpHttpServerDefinition._(_i1.JSObject _)
 /// A type that can provide Model Context Protocol server definitions. This
 /// should be registered using lm.registerMcpServerDefinitionProvider
 /// during extension activation.
-extension type McpServerDefinitionProvider<T extends AnonymousUnion_3309136>._(
+extension type McpServerDefinitionProvider<T extends McpServerDefinition>._(
   _i1.JSObject _
-) implements _i1.JSObject {
+)
+    implements _i1.JSObject {
   /// Optional event fired to signal that the set of available servers has
   /// changed.
   external Event<_i1.JSAny?>? get onDidChangeMcpServerDefinitions;
@@ -18038,11 +19281,11 @@ extension type LanguageModelChatProvider<
   ///
   /// Returns A promise that resolves when the response is complete. Results are
   /// actually passed to the progress callback.
-  external _i2.Thenable<_i1.JSAny?> provideLanguageModelChatResponse(
+  external Thenable<_i1.JSAny?> provideLanguageModelChatResponse(
     T model,
     _i1.JSArray<LanguageModelChatRequestMessage> messages,
     ProvideLanguageModelChatResponseOptions options,
-    Progress<AnonymousUnion_3606623> progress,
+    Progress<LanguageModelInputPart> progress,
     CancellationToken token,
   );
 
@@ -18053,7 +19296,7 @@ extension type LanguageModelChatProvider<
   /// - [token]:  A cancellation token
   ///
   /// Returns The number of tokens
-  external _i2.Thenable<_i1.JSNumber> provideTokenCount(
+  external Thenable<_i1.JSNumber> provideTokenCount(
     T model,
     AnonymousUnion_1133354 text,
     CancellationToken token,
@@ -18070,6 +19313,10 @@ extension type PrepareLanguageModelChatModelOptions._(_i1.JSObject _)
   /// as API keys.
   external bool get silent;
 }
+
+/// The various message types which a LanguageModelChatProvider can emit in
+/// the chat response stream
+typedef LanguageModelResponsePart = LanguageModelInputPart;
 
 /// Namespace for language model related functionality.
 extension type lm._(_i1.JSObject _) implements _i1.JSObject {
@@ -18196,7 +19443,7 @@ extension type lm._(_i1.JSObject _) implements _i1.JSObject {
   @_i1.JS()
   external static Disposable registerMcpServerDefinitionProvider(
     String id,
-    McpServerDefinitionProvider<AnonymousUnion_3309136> provider,
+    McpServerDefinitionProvider<McpServerDefinition> provider,
   );
 
   /// Registers a LanguageModelChatProvider
@@ -18224,154 +19471,35 @@ extension type lm._(_i1.JSObject _) implements _i1.JSObject {
   external static _i1.JSArray<LanguageModelToolInformation> get tools;
 }
 
-/// Represents extension specific information about the access to language
-/// models.
-extension type LanguageModelAccessInformation._(_i1.JSObject _)
+/// A tool that can be invoked by a call to a LanguageModelChat.
+extension type LanguageModelTool<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
-  /// An event that fires when access information changes.
-  external Event<_i1.JSAny?> get onDidChange;
-
-  /// Checks if a request can be made to a language model.
+  /// Invoke the tool with the given input and return a result.
   ///
-  /// *Note* that calling this function will not trigger a consent UI but just
-  /// checks for a persisted state.
-  /// - [chat]:  A language model chat object.
-  external bool? canSendRequest(LanguageModelChat chat);
-}
-
-/// A tool that is available to the language model via
-/// LanguageModelChatRequestOptions. A language model uses all the
-/// properties of this interface to decide which tool to call, and how to call
-/// it.
-extension type LanguageModelChatTool._(_i1.JSObject _) implements _i1.JSObject {
-  /// The name of the tool.
-  external String name;
-
-  /// The description of the tool.
-  external String description;
-
-  /// A JSON schema for the input this tool accepts.
-  external _i1.JSObject? inputSchema;
-}
-
-/// A language model response part indicating a tool call, returned from a
-/// LanguageModelChatResponse, and also can be
-/// included as a content part on a LanguageModelChatMessage, to represent a
-/// previous tool call in a chat request.
-extension type LanguageModelToolCallPart._(_i1.JSObject _)
-    implements _i1.JSObject {
-  external LanguageModelToolCallPart(
-    String callId,
-    String name,
-    _i1.JSObject input,
+  /// The provided LanguageModelToolInvocationOptions.input has been validated
+  /// against the declared schema.
+  external ProviderResult<LanguageModelToolResult> invoke(
+    LanguageModelToolInvocationOptions<T> options,
+    CancellationToken token,
   );
 
-  /// The ID of the tool call. This is a unique identifier for the tool call
-  /// within the chat request.
-  external String callId;
-
-  /// The name of the tool to call.
-  external String name;
-
-  /// The input with which to call the tool.
-  external _i1.JSObject input;
-}
-
-/// The result of a tool call. This is the counterpart of a
-/// LanguageModelToolCallParttool call and
-/// it can only be included in the content of a User message
-extension type LanguageModelToolResultPart._(_i1.JSObject _)
-    implements _i1.JSObject {
-  external LanguageModelToolResultPart(
-    String callId,
-    _i1.JSArray<AnonymousUnion_1932602> content,
-  );
-
-  /// The ID of the tool call.
+  /// Called once before a tool is invoked. It's recommended to implement this
+  /// to customize the progress message that appears
+  /// while the tool is running, and to provide a more useful message with
+  /// context from the invocation input. Can also
+  /// signal that a tool needs user confirmation before running, if appropriate.
   ///
-  /// *Note* that this should match the LanguageModelToolCallPart.callIdcallId
-  /// of a tool call part.
-  external String callId;
-
-  /// The value of the tool result.
-  external _i1.JSArray<AnonymousUnion_1932602> content;
-}
-
-/// A language model response part containing a piece of text, returned from a
-/// LanguageModelChatResponse.
-extension type LanguageModelTextPart._(_i1.JSObject _) implements _i1.JSObject {
-  external LanguageModelTextPart(String value);
-
-  /// The text content of the part.
-  external String value;
-}
-
-/// A language model response part containing a PromptElementJSON from
-/// `@vscode/prompt-tsx`.
-extension type LanguageModelPromptTsxPart._(_i1.JSObject _)
-    implements _i1.JSObject {
-  external LanguageModelPromptTsxPart(_i1.JSAny? value);
-
-  /// The value of the part.
-  external _i1.JSAny? value;
-}
-
-/// A result returned from a tool invocation. If using `@vscode/prompt-tsx`,
-/// this result may be rendered using a `ToolResult`.
-extension type LanguageModelToolResult._(_i1.JSObject _)
-    implements _i1.JSObject {
-  external LanguageModelToolResult(_i1.JSArray<AnonymousUnion_1932602> content);
-
-  /// A list of tool result content parts. Includes `unknown` because this list
-  /// may be extended with new content types in
-  /// the future.
-  external _i1.JSArray<AnonymousUnion_1932602> content;
-}
-
-/// A language model response part containing arbitrary data. Can be used in
-/// LanguageModelChatResponseresponses,
-/// LanguageModelChatMessagechat messages, LanguageModelToolResulttool
-/// results, and other language model interactions.
-extension type LanguageModelDataPart._(_i1.JSObject _) implements _i1.JSObject {
-  external LanguageModelDataPart(_i1.JSUint8Array data, String mimeType);
-
-  /// The mime type which determines how the data property is interpreted.
-  external String mimeType;
-
-  /// The byte data for this part.
-  external _i1.JSUint8Array data;
-
-  /// Create a new LanguageModelDataPart for an image.
-  /// - [data]:  Binary image data
-  /// - [mime]:  The MIME type of the image. Common values are `image/png` and
-  ///   `image/jpeg`.
-  external static LanguageModelDataPart image(
-    _i1.JSUint8Array data,
-    String mime,
-  );
-
-  /// Create a new LanguageModelDataPart for a json.
-  ///
-  /// *Note* that this function is not expecting "stringified JSON" but
-  /// an object that can be stringified. This function will throw an error
-  /// when the passed value cannot be JSON-stringified.
-  /// - [value]:  A JSON-stringifyable value.
-  /// - [mime]:  Optional MIME type, defaults to `application/json`
-  external static LanguageModelDataPart json(_i1.JSAny? value, [String? mime]);
-
-  /// Create a new LanguageModelDataPart for text.
-  ///
-  /// *Note* that an UTF-8 encoder is used to create bytes for the string.
-  /// - [value]:  Text data
-  /// - [mime]:  The MIME type if any. Common values are `text/plain` and
-  ///   `text/markdown`.
-  external static LanguageModelDataPart text(String value, [String? mime]);
+  /// * *Note 1:* Must be free of side-effects.
+  /// * *Note 2:* A call to `prepareInvocation` is not necessarily followed by a
+  /// call to `invoke`.
+  external _i1.JSFunction? get prepareInvocation;
 }
 
 /// Options provided for tool invocation.
 extension type LanguageModelToolInvocationOptions<T extends _i1.JSAny?>._(
   _i1.JSObject _
-) implements _i1.JSObject {
+)
+    implements _i1.JSObject {
   /// An opaque object that ties a tool invocation to a chat request from a
   /// ChatParticipantchat participant.
   ///
@@ -18413,10 +19541,55 @@ extension type LanguageModelToolTokenizationOptions._(_i1.JSObject _)
   /// - [token]:  Optional cancellation token.  See   for how to create one.
   ///
   /// Returns A thenable that resolves to the number of tokens.
-  external _i2.Thenable<_i1.JSNumber> countTokens(
+  external Thenable<_i1.JSNumber> countTokens(
     String text, [
     CancellationToken? token,
   ]);
+}
+
+/// A result returned from a tool invocation. If using `@vscode/prompt-tsx`,
+/// this result may be rendered using a `ToolResult`.
+extension type LanguageModelToolResult._(_i1.JSObject _)
+    implements _i1.JSObject {
+  external LanguageModelToolResult(_i1.JSArray<AnonymousUnion_1932602> content);
+
+  /// A list of tool result content parts. Includes `unknown` because this list
+  /// may be extended with new content types in
+  /// the future.
+  external _i1.JSArray<AnonymousUnion_1932602> content;
+}
+
+/// Options for LanguageModelTool.prepareInvocation.
+extension type LanguageModelToolInvocationPrepareOptions<
+  T extends _i1.JSAny?
+>._(_i1.JSObject _) implements _i1.JSObject {
+  /// The input that the tool is being invoked with.
+  external T input;
+}
+
+/// The result of a call to LanguageModelTool.prepareInvocation.
+extension type PreparedToolInvocation._(_i1.JSObject _)
+    implements _i1.JSObject {
+  /// A customized progress message to show while the tool runs.
+  external AnonymousUnion_3150571? invocationMessage;
+
+  /// The presence of this property indicates that the user should be asked to
+  /// confirm before running the tool. The user
+  /// should be asked for confirmation for any tool that has a side-effect or
+  /// may potentially be dangerous.
+  external LanguageModelToolConfirmationMessages? confirmationMessages;
+}
+
+/// When this is returned in PreparedToolInvocation, the user will be asked to
+/// confirm before running the tool. These
+/// messages will be shown with buttons that say "Continue" and "Cancel".
+extension type LanguageModelToolConfirmationMessages._(_i1.JSObject _)
+    implements _i1.JSObject {
+  /// The title of the confirmation message.
+  external String title;
+
+  /// The body of the confirmation message.
+  external AnonymousUnion_3150571 message;
 }
 
 /// Information about a registered tool available in lm.tools.
@@ -18437,1312 +19610,9 @@ extension type LanguageModelToolInformation._(_i1.JSObject _)
   external _i1.JSArray<_i1.JSString> get tags;
 }
 
-/// Options for LanguageModelTool.prepareInvocation.
-extension type LanguageModelToolInvocationPrepareOptions<
-  T extends _i1.JSAny?
->._(_i1.JSObject _) implements _i1.JSObject {
-  /// The input that the tool is being invoked with.
-  external T input;
-}
-
-/// A tool that can be invoked by a call to a LanguageModelChat.
-extension type LanguageModelTool<T extends _i1.JSAny?>._(_i1.JSObject _)
-    implements _i1.JSObject {
-  /// Invoke the tool with the given input and return a result.
-  ///
-  /// The provided LanguageModelToolInvocationOptions.input has been validated
-  /// against the declared schema.
-  external ProviderResult<LanguageModelToolResult> invoke(
-    LanguageModelToolInvocationOptions<T> options,
-    CancellationToken token,
-  );
-
-  /// Called once before a tool is invoked. It's recommended to implement this
-  /// to customize the progress message that appears
-  /// while the tool is running, and to provide a more useful message with
-  /// context from the invocation input. Can also
-  /// signal that a tool needs user confirmation before running, if appropriate.
-  ///
-  /// * *Note 1:* Must be free of side-effects.
-  /// * *Note 2:* A call to `prepareInvocation` is not necessarily followed by a
-  /// call to `invoke`.
-  external _i1.JSFunction? get prepareInvocation;
-}
-
-/// When this is returned in PreparedToolInvocation, the user will be asked to
-/// confirm before running the tool. These
-/// messages will be shown with buttons that say "Continue" and "Cancel".
-extension type LanguageModelToolConfirmationMessages._(_i1.JSObject _)
-    implements _i1.JSObject {
-  /// The title of the confirmation message.
-  external String title;
-
-  /// The body of the confirmation message.
-  external AnonymousUnion_3150571 message;
-}
-
-/// The result of a call to LanguageModelTool.prepareInvocation.
-extension type PreparedToolInvocation._(_i1.JSObject _)
-    implements _i1.JSObject {
-  /// A customized progress message to show while the tool runs.
-  external AnonymousUnion_3150571? invocationMessage;
-
-  /// The presence of this property indicates that the user should be asked to
-  /// confirm before running the tool. The user
-  /// should be asked for confirmation for any tool that has a side-effect or
-  /// may potentially be dangerous.
-  external LanguageModelToolConfirmationMessages? confirmationMessages;
-}
-
-/// A reference to a tool that the user manually attached to their request,
-/// either using the `#`-syntax inline, or as an
-/// attachment via the paperclip button.
-extension type ChatLanguageModelToolReference._(_i1.JSObject _)
-    implements _i1.JSObject {
-  /// The tool name. Refers to a tool listed in lm.tools.
-  external String get name;
-
-  /// The start and end index of the reference in the ChatRequest.promptprompt.
-  /// When undefined, the reference was
-  /// not part of the prompt text.
-  ///
-  /// *Note* that the indices take the leading `#`-character into account which
-  /// means they can be used to modify the prompt
-  /// as-is.
-  external _i3.JSTuple2<_i1.JSAny, _i1.JSAny>? get range;
-}
-
 /// The version of the editor.
 @_i1.JS()
 external String get version;
-
-/// Represents sources that can cause
-/// window.onDidChangeTextEditorSelectionselection change events.
-extension type const TextEditorSelectionChangeKind._(int _) {
-  /// Selection changed due to typing in the editor.
-  static const TextEditorSelectionChangeKind Keyboard =
-      TextEditorSelectionChangeKind._(1);
-
-  /// Selection change due to clicking in the editor.
-  static const TextEditorSelectionChangeKind Mouse =
-      TextEditorSelectionChangeKind._(2);
-
-  /// Selection changed because a command ran.
-  static const TextEditorSelectionChangeKind Command =
-      TextEditorSelectionChangeKind._(3);
-}
-
-/// Rendering style of the cursor.
-extension type const TextEditorCursorStyle._(int _) {
-  /// Render the cursor as a vertical thick line.
-  static const TextEditorCursorStyle Line = TextEditorCursorStyle._(1);
-
-  /// Render the cursor as a block filled.
-  static const TextEditorCursorStyle Block = TextEditorCursorStyle._(2);
-
-  /// Render the cursor as a thick horizontal line.
-  static const TextEditorCursorStyle Underline = TextEditorCursorStyle._(3);
-
-  /// Render the cursor as a vertical thin line.
-  static const TextEditorCursorStyle LineThin = TextEditorCursorStyle._(4);
-
-  /// Render the cursor as a block outlined.
-  static const TextEditorCursorStyle BlockOutline = TextEditorCursorStyle._(5);
-
-  /// Render the cursor as a thin horizontal line.
-  static const TextEditorCursorStyle UnderlineThin = TextEditorCursorStyle._(6);
-}
-
-/// Rendering style of the line numbers.
-extension type const TextEditorLineNumbersStyle._(int _) {
-  /// Do not render the line numbers.
-  static const TextEditorLineNumbersStyle Off = TextEditorLineNumbersStyle._(0);
-
-  /// Render the line numbers.
-  static const TextEditorLineNumbersStyle On = TextEditorLineNumbersStyle._(1);
-
-  /// Render the line numbers with values relative to the primary cursor
-  /// location.
-  static const TextEditorLineNumbersStyle Relative =
-      TextEditorLineNumbersStyle._(2);
-
-  /// Render the line numbers on every 10th line number.
-  static const TextEditorLineNumbersStyle Interval =
-      TextEditorLineNumbersStyle._(3);
-}
-
-/// Represents different TextEditor.revealRangereveal strategies in a text
-/// editor.
-extension type const TextEditorRevealType._(int _) {
-  /// The range will be revealed with as little scrolling as possible.
-  static const TextEditorRevealType Default = TextEditorRevealType._(0);
-
-  /// The range will always be revealed in the center of the viewport.
-  static const TextEditorRevealType InCenter = TextEditorRevealType._(1);
-
-  /// If the range is outside the viewport, it will be revealed in the center of
-  /// the viewport.
-  /// Otherwise, it will be revealed with as little scrolling as possible.
-  static const TextEditorRevealType InCenterIfOutsideViewport =
-      TextEditorRevealType._(2);
-
-  /// The range will always be revealed at the top of the viewport.
-  static const TextEditorRevealType AtTop = TextEditorRevealType._(3);
-}
-
-/// Represents different positions for rendering a decoration in an
-/// DecorationRenderOptions.overviewRulerLaneoverview ruler.
-/// The overview ruler supports three lanes.
-extension type const OverviewRulerLane._(int _) {
-  /// The left lane of the overview ruler.
-  static const OverviewRulerLane Left = OverviewRulerLane._(1);
-
-  /// The center lane of the overview ruler.
-  static const OverviewRulerLane Center = OverviewRulerLane._(2);
-
-  /// The right lane of the overview ruler.
-  static const OverviewRulerLane Right = OverviewRulerLane._(4);
-
-  /// All lanes of the overview ruler.
-  static const OverviewRulerLane Full = OverviewRulerLane._(7);
-}
-
-/// Describes the behavior of decorations when typing/editing at their edges.
-extension type const DecorationRangeBehavior._(int _) {
-  /// The decoration's range will widen when edits occur at the start or end.
-  static const DecorationRangeBehavior OpenOpen = DecorationRangeBehavior._(0);
-
-  /// The decoration's range will not widen when edits occur at the start or
-  /// end.
-  static const DecorationRangeBehavior ClosedClosed = DecorationRangeBehavior._(
-    1,
-  );
-
-  /// The decoration's range will widen when edits occur at the start, but not
-  /// at the end.
-  static const DecorationRangeBehavior OpenClosed = DecorationRangeBehavior._(
-    2,
-  );
-
-  /// The decoration's range will widen when edits occur at the end, but not at
-  /// the start.
-  static const DecorationRangeBehavior ClosedOpen = DecorationRangeBehavior._(
-    3,
-  );
-}
-
-/// Represents an icon in the UI. This is either an uri, separate uris for the
-/// light- and dark-themes,
-/// or a ThemeIcontheme icon.
-typedef IconPath = AnonymousUnion_2048546;
-
-/// Represents an end of line character sequence in a TextDocumentdocument.
-extension type const EndOfLine._(int _) {
-  /// The line feed `\n` character.
-  static const EndOfLine LF = EndOfLine._(1);
-
-  /// The carriage return line feed `\r\n` sequence.
-  static const EndOfLine CRLF = EndOfLine._(2);
-}
-
-/// Defines the kind of QuickPickItemquick pick item.
-extension type const QuickPickItemKind._(int _) {
-  /// The default kind for an item that can be selected in the quick pick.
-  static const QuickPickItemKind Default = QuickPickItemKind._(0);
-}
-
-/// Severity levels for input box validation messages.
-extension type const InputBoxValidationSeverity._(int _) {
-  /// Indicates an informational message that does not prevent input acceptance.
-  static const InputBoxValidationSeverity Info = InputBoxValidationSeverity._(
-    1,
-  );
-
-  /// Indicates a warning message that does not prevent input acceptance.
-  static const InputBoxValidationSeverity Warning =
-      InputBoxValidationSeverity._(2);
-
-  /// Indicates an error message that prevents the user from accepting the
-  /// input.
-  static const InputBoxValidationSeverity Error = InputBoxValidationSeverity._(
-    3,
-  );
-}
-
-/// A file glob pattern to match file paths against. This can either be a glob
-/// pattern string
-/// (like `**​/*.{ts,js}` or `*.{ts,js}`) or a RelativePatternrelative
-/// pattern.
-///
-/// Glob patterns can have the following syntax:
-/// * `*` to match zero or more characters in a path segment
-/// * `?` to match on one character in a path segment
-/// * `**` to match any number of path segments, including none
-/// * `{}` to group conditions (e.g. `**​/*.{ts,js}` matches all TypeScript
-/// and JavaScript files)
-/// * `[]` to declare a range of characters to match in a path segment (e.g.,
-/// `example.[0-9]` to match on `example.0`, `example.1`, …)
-/// * `[!...]` to negate a range of characters to match in a path segment
-/// (e.g., `example.[!0-9]` to match on `example.a`, `example.b`, but not
-/// `example.0`)
-///
-/// Note: a backslash (`\`) is not valid within a glob pattern. If you have an
-/// existing file
-/// path to match against, consider to use the RelativePatternrelative pattern
-/// support
-/// that takes care of converting any backslash into slash. Otherwise, make
-/// sure to convert
-/// any backslash to slash when creating the glob pattern.
-typedef GlobPattern = AnonymousUnion_2605952;
-
-/// A language selector is the combination of one or many language identifiers
-/// and DocumentFilterlanguage filters.
-///
-/// *Note* that a document selector that is just a language identifier selects
-/// *all*
-/// documents, even those that are not saved on disk. Only use such selectors
-/// when
-/// a feature works without further context, e.g. without the need to resolve
-/// related
-/// 'files'.
-///
-/// Example:
-/// ```ts
-/// let sel:DocumentSelector = { scheme: 'file', language: 'typescript' };
-/// ```
-typedef DocumentSelector = AnonymousUnion_1099094;
-
-/// A provider result represents the values a provider, like the
-/// HoverProvider,
-/// may return. For once this is the actual result type `T`, like `Hover`, or
-/// a thenable that resolves
-/// to that type `T`. In addition, `null` and `undefined` can be returned -
-/// either directly or from a
-/// thenable.
-///
-/// The snippets below are all valid implementations of the HoverProvider:
-///
-/// ```ts
-/// let a: HoverProvider = {
-/// 	provideHover(doc, pos, token): ProviderResult<Hover> {
-/// 		return new Hover('Hello World');
-/// 	}
-/// }
-///
-/// let b: HoverProvider = {
-/// 	provideHover(doc, pos, token): ProviderResult<Hover> {
-/// 		return new Promise(resolve => {
-/// 			resolve(new Hover('Hello World'));
-/// 	 	});
-/// 	}
-/// }
-///
-/// let c: HoverProvider = {
-/// 	provideHover(doc, pos, token): ProviderResult<Hover> {
-/// 		return; // undefined
-/// 	}
-/// }
-/// ```
-typedef ProviderResult<T extends _i1.JSAny?> = AnonymousUnion_1821384?;
-
-/// The reason why code actions were requested.
-extension type const CodeActionTriggerKind._(int _) {
-  /// Code actions were explicitly requested by the user or by an extension.
-  static const CodeActionTriggerKind Invoke = CodeActionTriggerKind._(1);
-
-  /// Code actions were requested automatically.
-  ///
-  /// This typically happens when current selection in a file changes, but can
-  /// also be triggered when file content changes.
-  static const CodeActionTriggerKind Automatic = CodeActionTriggerKind._(2);
-}
-
-/// Information about where a symbol is defined.
-///
-/// Provides additional metadata over normal Location definitions, including
-/// the range of
-/// the defining symbol
-typedef DefinitionLink = LocationLink;
-
-/// The definition of a symbol represented as one or many Locationlocations.
-/// For most programming languages there is only one location at which a
-/// symbol is
-/// defined.
-typedef Definition = AnonymousUnion_1632395;
-
-/// The declaration of a symbol representation as one or many
-/// Locationlocations
-/// or LocationLinklocation links.
-typedef Declaration = AnonymousUnion_1308422;
-
-/// MarkedString can be used to render human-readable text. It is either a
-/// markdown string
-/// or a code-block that provides a language and a code snippet. Note that
-/// markdown strings will be sanitized - that means html will be escaped.
-@Deprecated('This type is deprecated, please use MarkdownString  instead.')
-typedef MarkedString = AnonymousUnion_3501952;
-
-/// Inline value information can be provided by different means:
-/// - directly as a text value (class InlineValueText).
-/// - as a name to use for a variable lookup (class InlineValueVariableLookup)
-/// - as an evaluatable expression (class InlineValueEvaluatableExpression)
-/// The InlineValue types combines all inline value types into one type.
-typedef InlineValue = AnonymousUnion_1436380;
-
-/// A document highlight kind.
-extension type const DocumentHighlightKind._(int _) {
-  /// A textual occurrence.
-  static const DocumentHighlightKind Text = DocumentHighlightKind._(0);
-
-  /// Read-access of a symbol, like reading a variable.
-  static const DocumentHighlightKind Read = DocumentHighlightKind._(1);
-
-  /// Write-access of a symbol, like writing to a variable.
-  static const DocumentHighlightKind Write = DocumentHighlightKind._(2);
-}
-
-/// A symbol kind.
-extension type const SymbolKind._(int _) {
-  /// The `File` symbol kind.
-  static const SymbolKind File = SymbolKind._(0);
-
-  /// The `Module` symbol kind.
-  static const SymbolKind Module = SymbolKind._(1);
-
-  /// The `Namespace` symbol kind.
-  static const SymbolKind Namespace = SymbolKind._(2);
-
-  /// The `Package` symbol kind.
-  static const SymbolKind Package = SymbolKind._(3);
-
-  /// The `Class` symbol kind.
-  static const SymbolKind Class = SymbolKind._(4);
-
-  /// The `Method` symbol kind.
-  static const SymbolKind Method = SymbolKind._(5);
-
-  /// The `Property` symbol kind.
-  static const SymbolKind Property = SymbolKind._(6);
-
-  /// The `Field` symbol kind.
-  static const SymbolKind Field = SymbolKind._(7);
-
-  /// The `Constructor` symbol kind.
-  static const SymbolKind Constructor = SymbolKind._(8);
-
-  /// The `Enum` symbol kind.
-  static const SymbolKind Enum = SymbolKind._(9);
-
-  /// The `Interface` symbol kind.
-  static const SymbolKind Interface = SymbolKind._(10);
-
-  /// The `Function` symbol kind.
-  static const SymbolKind Function$ = SymbolKind._(11);
-
-  /// The `Variable` symbol kind.
-  static const SymbolKind Variable = SymbolKind._(12);
-
-  /// The `Constant` symbol kind.
-  static const SymbolKind Constant = SymbolKind._(13);
-
-  /// The `String` symbol kind.
-  static const SymbolKind String = SymbolKind._(14);
-
-  /// The `Number` symbol kind.
-  static const SymbolKind Number = SymbolKind._(15);
-
-  /// The `Boolean` symbol kind.
-  static const SymbolKind Boolean = SymbolKind._(16);
-
-  /// The `Array` symbol kind.
-  static const SymbolKind Array = SymbolKind._(17);
-
-  /// The `Object` symbol kind.
-  static const SymbolKind Object = SymbolKind._(18);
-
-  /// The `Key` symbol kind.
-  static const SymbolKind Key = SymbolKind._(19);
-
-  /// The `Null` symbol kind.
-  static const SymbolKind Null = SymbolKind._(20);
-
-  /// The `EnumMember` symbol kind.
-  static const SymbolKind EnumMember = SymbolKind._(21);
-
-  /// The `Struct` symbol kind.
-  static const SymbolKind Struct = SymbolKind._(22);
-
-  /// The `Event` symbol kind.
-  static const SymbolKind Event = SymbolKind._(23);
-
-  /// The `Operator` symbol kind.
-  static const SymbolKind Operator = SymbolKind._(24);
-
-  /// The `TypeParameter` symbol kind.
-  static const SymbolKind TypeParameter = SymbolKind._(25);
-}
-
-/// Symbol tags are extra annotations that tweak the rendering of a symbol.
-extension type const SymbolTag._(int _) {
-  /// Render a symbol as obsolete, usually using a strike-out.
-  static const SymbolTag Deprecated = SymbolTag._(1);
-}
-
-/// How a SignatureHelpProvider was triggered.
-extension type const SignatureHelpTriggerKind._(int _) {
-  /// Signature help was invoked manually by the user or by a command.
-  static const SignatureHelpTriggerKind Invoke = SignatureHelpTriggerKind._(1);
-
-  /// Signature help was triggered by a trigger character.
-  static const SignatureHelpTriggerKind TriggerCharacter =
-      SignatureHelpTriggerKind._(2);
-
-  /// Signature help was triggered by the cursor moving or by the document
-  /// content changing.
-  static const SignatureHelpTriggerKind ContentChange =
-      SignatureHelpTriggerKind._(3);
-}
-
-/// Completion item kinds.
-extension type const CompletionItemKind._(int _) {
-  /// The `Text` completion item kind.
-  static const CompletionItemKind Text = CompletionItemKind._(0);
-
-  /// The `Method` completion item kind.
-  static const CompletionItemKind Method = CompletionItemKind._(1);
-
-  /// The `Function` completion item kind.
-  static const CompletionItemKind Function$ = CompletionItemKind._(2);
-
-  /// The `Constructor` completion item kind.
-  static const CompletionItemKind Constructor = CompletionItemKind._(3);
-
-  /// The `Field` completion item kind.
-  static const CompletionItemKind Field = CompletionItemKind._(4);
-
-  /// The `Variable` completion item kind.
-  static const CompletionItemKind Variable = CompletionItemKind._(5);
-
-  /// The `Class` completion item kind.
-  static const CompletionItemKind Class = CompletionItemKind._(6);
-
-  /// The `Interface` completion item kind.
-  static const CompletionItemKind Interface = CompletionItemKind._(7);
-
-  /// The `Module` completion item kind.
-  static const CompletionItemKind Module = CompletionItemKind._(8);
-
-  /// The `Property` completion item kind.
-  static const CompletionItemKind Property = CompletionItemKind._(9);
-
-  /// The `Unit` completion item kind.
-  static const CompletionItemKind Unit = CompletionItemKind._(10);
-
-  /// The `Value` completion item kind.
-  static const CompletionItemKind Value = CompletionItemKind._(11);
-
-  /// The `Enum` completion item kind.
-  static const CompletionItemKind Enum = CompletionItemKind._(12);
-
-  /// The `Keyword` completion item kind.
-  static const CompletionItemKind Keyword = CompletionItemKind._(13);
-
-  /// The `Snippet` completion item kind.
-  static const CompletionItemKind Snippet = CompletionItemKind._(14);
-
-  /// The `Color` completion item kind.
-  static const CompletionItemKind Color = CompletionItemKind._(15);
-
-  /// The `Reference` completion item kind.
-  static const CompletionItemKind Reference = CompletionItemKind._(17);
-
-  /// The `File` completion item kind.
-  static const CompletionItemKind File = CompletionItemKind._(16);
-
-  /// The `Folder` completion item kind.
-  static const CompletionItemKind Folder = CompletionItemKind._(18);
-
-  /// The `EnumMember` completion item kind.
-  static const CompletionItemKind EnumMember = CompletionItemKind._(19);
-
-  /// The `Constant` completion item kind.
-  static const CompletionItemKind Constant = CompletionItemKind._(20);
-
-  /// The `Struct` completion item kind.
-  static const CompletionItemKind Struct = CompletionItemKind._(21);
-
-  /// The `Event` completion item kind.
-  static const CompletionItemKind Event = CompletionItemKind._(22);
-
-  /// The `Operator` completion item kind.
-  static const CompletionItemKind Operator = CompletionItemKind._(23);
-
-  /// The `TypeParameter` completion item kind.
-  static const CompletionItemKind TypeParameter = CompletionItemKind._(24);
-
-  /// The `User` completion item kind.
-  static const CompletionItemKind User = CompletionItemKind._(25);
-
-  /// The `Issue` completion item kind.
-  static const CompletionItemKind Issue = CompletionItemKind._(26);
-}
-
-/// Completion item tags are extra annotations that tweak the rendering of a
-/// completion
-/// item.
-extension type const CompletionItemTag._(int _) {
-  /// Render a completion as obsolete, usually using a strike-out.
-  static const CompletionItemTag Deprecated = CompletionItemTag._(1);
-}
-
-/// How a CompletionItemProvidercompletion provider was triggered
-extension type const CompletionTriggerKind._(int _) {
-  /// Completion was triggered normally.
-  static const CompletionTriggerKind Invoke = CompletionTriggerKind._(0);
-
-  /// Completion was triggered by a trigger character.
-  static const CompletionTriggerKind TriggerCharacter = CompletionTriggerKind._(
-    1,
-  );
-
-  /// Completion was re-triggered as current completion list is incomplete
-  static const CompletionTriggerKind TriggerForIncompleteCompletions =
-      CompletionTriggerKind._(2);
-}
-
-/// Describes how an InlineCompletionItemProviderinline completion provider
-/// was triggered.
-extension type const InlineCompletionTriggerKind._(int _) {
-  /// Completion was triggered explicitly by a user gesture.
-  /// Return multiple completion items to enable cycling through them.
-  static const InlineCompletionTriggerKind Invoke =
-      InlineCompletionTriggerKind._(0);
-
-  /// Completion was triggered automatically while editing.
-  /// It is sufficient to return a single completion item in this case.
-  static const InlineCompletionTriggerKind Automatic =
-      InlineCompletionTriggerKind._(1);
-}
-
-/// Inlay hint kinds.
-///
-/// The kind of an inline hint defines its appearance, e.g the corresponding
-/// foreground and background colors are being
-/// used.
-extension type const InlayHintKind._(int _) {
-  /// An inlay hint that is for a type annotation.
-  static const InlayHintKind Type = InlayHintKind._(1);
-
-  /// An inlay hint that is for a parameter.
-  static const InlayHintKind Parameter = InlayHintKind._(2);
-}
-
-/// An enumeration of specific folding range kinds. The kind is an optional
-/// field of a FoldingRange
-/// and is used to distinguish specific folding ranges such as ranges
-/// originated from comments. The kind is used by commands like
-/// `Fold all comments` or `Fold all regions`.
-/// If the kind is not set on the range, the range originated from a syntax
-/// element other than comments, imports or region markers.
-extension type const FoldingRangeKind._(int _) {
-  /// Kind for folding range representing a comment.
-  static const FoldingRangeKind Comment = FoldingRangeKind._(1);
-
-  /// Kind for folding range representing a import.
-  static const FoldingRangeKind Imports = FoldingRangeKind._(2);
-
-  /// Kind for folding range representing regions originating from folding
-  /// markers like `#region` and `#endregion`.
-  static const FoldingRangeKind Region = FoldingRangeKind._(3);
-}
-
-/// The reason why paste edits were requested.
-extension type const DocumentPasteTriggerKind._(int _) {
-  /// Pasting was requested as part of a normal paste operation.
-  static const DocumentPasteTriggerKind Automatic = DocumentPasteTriggerKind._(
-    0,
-  );
-
-  /// Pasting was requested by the user with the `paste as` command.
-  static const DocumentPasteTriggerKind PasteAs = DocumentPasteTriggerKind._(1);
-}
-
-/// A tuple of two characters, like a pair of
-/// opening and closing brackets.
-typedef CharacterPair = _i3.JSTuple2<_i1.JSString, _i1.JSString>;
-
-/// Describes what to do with the indentation when pressing Enter.
-extension type const IndentAction._(int _) {
-  /// Insert new line and copy the previous line's indentation.
-  static const IndentAction None = IndentAction._(0);
-
-  /// Insert new line and indent once (relative to the previous line's
-  /// indentation).
-  static const IndentAction Indent = IndentAction._(1);
-
-  /// Insert two new lines:
-  ///  - the first one indented which will hold the cursor
-  ///  - the second one at the same indentation level
-  static const IndentAction IndentOutdent = IndentAction._(2);
-
-  /// Insert new line and outdent once (relative to the previous line's
-  /// indentation).
-  static const IndentAction Outdent = IndentAction._(3);
-}
-
-/// Enumeration of commonly encountered syntax token types.
-extension type const SyntaxTokenType._(int _) {
-  /// Everything except tokens that are part of comments, string literals and
-  /// regular expressions.
-  static const SyntaxTokenType Other = SyntaxTokenType._(0);
-
-  /// A comment.
-  static const SyntaxTokenType Comment = SyntaxTokenType._(1);
-
-  /// A string literal.
-  static const SyntaxTokenType String = SyntaxTokenType._(2);
-
-  /// A regular expression.
-  static const SyntaxTokenType RegEx = SyntaxTokenType._(3);
-}
-
-/// The configuration target
-extension type const ConfigurationTarget._(int _) {
-  /// Global configuration
-  static const ConfigurationTarget Global = ConfigurationTarget._(1);
-
-  /// Workspace configuration
-  static const ConfigurationTarget Workspace = ConfigurationTarget._(2);
-
-  /// Workspace folder configuration
-  static const ConfigurationTarget WorkspaceFolder = ConfigurationTarget._(3);
-}
-
-/// Represents the severity of diagnostics.
-extension type const DiagnosticSeverity._(int _) {
-  /// Something not allowed by the rules of a language or other means.
-  static const DiagnosticSeverity Error = DiagnosticSeverity._(0);
-
-  /// Something suspicious but allowed.
-  static const DiagnosticSeverity Warning = DiagnosticSeverity._(1);
-
-  /// Something to inform about but not a problem.
-  static const DiagnosticSeverity Information = DiagnosticSeverity._(2);
-
-  /// Something to hint to a better way of doing it, like proposing
-  /// a refactoring.
-  static const DiagnosticSeverity Hint = DiagnosticSeverity._(3);
-}
-
-/// Additional metadata about the type of a diagnostic.
-extension type const DiagnosticTag._(int _) {
-  /// Unused or unnecessary code.
-  ///
-  /// Diagnostics with this tag are rendered faded out. The amount of fading
-  /// is controlled by the `"editorUnnecessaryCode.opacity"` theme color. For
-  /// example, `"editorUnnecessaryCode.opacity": "#000000c0"` will render the
-  /// code with 75% opacity. For high contrast themes, use the
-  /// `"editorUnnecessaryCode.border"` theme color to underline unnecessary code
-  /// instead of fading it out.
-  static const DiagnosticTag Unnecessary = DiagnosticTag._(1);
-
-  /// Deprecated or obsolete code.
-  ///
-  /// Diagnostics with this tag are rendered with a strike through.
-  static const DiagnosticTag Deprecated = DiagnosticTag._(2);
-}
-
-/// Represents the severity level of a language status.
-extension type const LanguageStatusSeverity._(int _) {
-  /// Informational severity level.
-  static const LanguageStatusSeverity Information = LanguageStatusSeverity._(0);
-
-  /// Warning severity level.
-  static const LanguageStatusSeverity Warning = LanguageStatusSeverity._(1);
-
-  /// Error severity level.
-  static const LanguageStatusSeverity Error = LanguageStatusSeverity._(2);
-}
-
-/// Denotes a location of an editor in the window. Editors can be arranged in
-/// a grid
-/// and each column represents one editor location in that grid by counting
-/// the editors
-/// in order of their appearance.
-extension type const ViewColumn._(int _) {
-  /// The first editor column.
-  static const ViewColumn One = ViewColumn._(1);
-
-  /// The second editor column.
-  static const ViewColumn Two = ViewColumn._(2);
-
-  /// The third editor column.
-  static const ViewColumn Three = ViewColumn._(3);
-
-  /// The fourth editor column.
-  static const ViewColumn Four = ViewColumn._(4);
-
-  /// The fifth editor column.
-  static const ViewColumn Five = ViewColumn._(5);
-
-  /// The sixth editor column.
-  static const ViewColumn Six = ViewColumn._(6);
-
-  /// The seventh editor column.
-  static const ViewColumn Seven = ViewColumn._(7);
-
-  /// The eighth editor column.
-  static const ViewColumn Eight = ViewColumn._(8);
-
-  /// The ninth editor column.
-  static const ViewColumn Nine = ViewColumn._(9);
-}
-
-/// Represents the alignment of status bar items.
-extension type const StatusBarAlignment._(int _) {
-  /// Aligned to the left side.
-  static const StatusBarAlignment Left = StatusBarAlignment._(1);
-
-  /// Aligned to the right side.
-  static const StatusBarAlignment Right = StatusBarAlignment._(2);
-}
-
-/// The location of the terminal.
-extension type const TerminalLocation._(int _) {
-  /// In the terminal view
-  static const TerminalLocation Panel = TerminalLocation._(1);
-
-  /// In the editor area
-  static const TerminalLocation Editor = TerminalLocation._(2);
-}
-
-/// The confidence of a TerminalShellExecutionCommandLine value.
-extension type const TerminalShellExecutionCommandLineConfidence._(int _) {
-  /// The command line value confidence is low. This means that the value was
-  /// read from the
-  /// terminal buffer using markers reported by the shell integration script.
-  /// Additionally one
-  /// of the following conditions will be met:
-  ///
-  /// - The command started on the very left-most column which is unusual, or
-  /// - The command is multi-line which is more difficult to accurately detect
-  ///   due to line
-  /// continuation characters and right prompts.
-  /// - Command line markers were not reported by the shell integration script.
-  static const TerminalShellExecutionCommandLineConfidence Low =
-      TerminalShellExecutionCommandLineConfidence._(0);
-
-  /// The command line value confidence is medium. This means that the value was
-  /// read from the
-  /// terminal buffer using markers reported by the shell integration script.
-  /// The command is
-  /// single-line and does not start on the very left-most column (which is
-  /// unusual).
-  static const TerminalShellExecutionCommandLineConfidence Medium =
-      TerminalShellExecutionCommandLineConfidence._(1);
-
-  /// The command line value confidence is high. This means that the value was
-  /// explicitly sent
-  /// from the shell integration script or the command was executed via the
-  /// TerminalShellIntegration.executeCommand API.
-  static const TerminalShellExecutionCommandLineConfidence High =
-      TerminalShellExecutionCommandLineConfidence._(2);
-}
-
-/// In a remote window the extension kind describes if an extension
-/// runs where the UI (window) runs or if an extension runs remotely.
-extension type const ExtensionKind._(int _) {
-  /// Extension runs where the UI runs.
-  static const ExtensionKind UI = ExtensionKind._(1);
-
-  /// Extension runs where the remote extension host runs.
-  static const ExtensionKind Workspace = ExtensionKind._(2);
-}
-
-/// The ExtensionMode is provided on the `ExtensionContext` and indicates the
-/// mode the specific extension is running in.
-extension type const ExtensionMode._(int _) {
-  /// The extension is installed normally (for example, from the marketplace
-  /// or VSIX) in the editor.
-  static const ExtensionMode Production = ExtensionMode._(1);
-
-  /// The extension is running from an `--extensionDevelopmentPath` provided
-  /// when launching the editor.
-  static const ExtensionMode Development = ExtensionMode._(2);
-
-  /// The extension is running from an `--extensionTestsPath` and
-  /// the extension host is running unit tests.
-  static const ExtensionMode Test = ExtensionMode._(3);
-}
-
-/// Represents a color theme kind.
-extension type const ColorThemeKind._(int _) {
-  /// A light color theme.
-  static const ColorThemeKind Light = ColorThemeKind._(1);
-
-  /// A dark color theme.
-  static const ColorThemeKind Dark = ColorThemeKind._(2);
-
-  /// A dark high contrast color theme.
-  static const ColorThemeKind HighContrast = ColorThemeKind._(3);
-
-  /// A light high contrast color theme.
-  static const ColorThemeKind HighContrastLight = ColorThemeKind._(4);
-}
-
-/// Controls the behaviour of the terminal's visibility.
-extension type const TaskRevealKind._(int _) {
-  /// Always brings the terminal to front if the task is executed.
-  static const TaskRevealKind Always = TaskRevealKind._(1);
-
-  /// Only brings the terminal to front if a problem is detected executing the
-  /// task
-  /// (e.g. the task couldn't be started because).
-  static const TaskRevealKind Silent = TaskRevealKind._(2);
-
-  /// The terminal never comes to front when the task is executed.
-  static const TaskRevealKind Never = TaskRevealKind._(3);
-}
-
-/// Controls how the task channel is used between tasks
-extension type const TaskPanelKind._(int _) {
-  /// Shares a panel with other tasks. This is the default.
-  static const TaskPanelKind Shared = TaskPanelKind._(1);
-
-  /// Uses a dedicated panel for this tasks. The panel is not
-  /// shared with other tasks.
-  static const TaskPanelKind Dedicated = TaskPanelKind._(2);
-
-  /// Creates a new panel whenever this task is executed.
-  static const TaskPanelKind New = TaskPanelKind._(3);
-}
-
-/// Defines how an argument should be quoted if it contains
-/// spaces or unsupported characters.
-extension type const ShellQuoting._(int _) {
-  /// Character escaping should be used. This for example
-  /// uses \ on bash and ` on PowerShell.
-  static const ShellQuoting Escape = ShellQuoting._(1);
-
-  /// Strong string quoting should be used. This for example
-  /// uses " for Windows cmd and ' for bash and PowerShell.
-  /// Strong quoting treats arguments as literal strings.
-  /// Under PowerShell echo 'The value is $(2 * 3)' will
-  /// print `The value is $(2 * 3)`
-  static const ShellQuoting Strong = ShellQuoting._(2);
-
-  /// Weak string quoting should be used. This for example
-  /// uses " for Windows cmd, bash and PowerShell. Weak quoting
-  /// still performs some kind of evaluation inside the quoted
-  /// string.  Under PowerShell echo "The value is $(2 * 3)"
-  /// will print `The value is 6`
-  static const ShellQuoting Weak = ShellQuoting._(3);
-}
-
-/// The scope of a task.
-extension type const TaskScope._(int _) {
-  /// The task is a global task. Global tasks are currently not supported.
-  static const TaskScope Global = TaskScope._(1);
-
-  /// The task is a workspace task
-  static const TaskScope Workspace = TaskScope._(2);
-}
-
-/// Enumeration of file types. The types `File` and `Directory` can also be
-/// a symbolic links, in that case use `FileType.File | FileType.SymbolicLink`
-/// and
-/// `FileType.Directory | FileType.SymbolicLink`.
-extension type const FileType._(int _) {
-  /// The file type is unknown.
-  static const FileType Unknown = FileType._(0);
-
-  /// A regular file.
-  static const FileType File = FileType._(1);
-
-  /// A directory.
-  static const FileType Directory = FileType._(2);
-
-  /// A symbolic link to a file.
-  static const FileType SymbolicLink = FileType._(64);
-}
-
-/// Permissions of a file.
-extension type const FilePermission._(int _) {
-  /// The file is readonly.
-  ///
-  /// *Note:* All `FileStat` from a `FileSystemProvider` that is registered with
-  /// the option `isReadonly: true` will be implicitly handled as if
-  /// `FilePermission.Readonly`
-  /// is set. As a consequence, it is not possible to have a readonly file
-  /// system provider
-  /// registered where some `FileStat` are not readonly.
-  static const FilePermission Readonly = FilePermission._(1);
-}
-
-/// Enumeration of file change types.
-extension type const FileChangeType._(int _) {
-  /// The contents or metadata of a file have changed.
-  static const FileChangeType Changed = FileChangeType._(1);
-
-  /// A file has been created.
-  static const FileChangeType Created = FileChangeType._(2);
-
-  /// A file has been deleted.
-  static const FileChangeType Deleted = FileChangeType._(3);
-}
-
-/// Possible kinds of UI that can use extensions.
-extension type const UIKind._(int _) {
-  /// Extensions are accessed from a desktop application.
-  static const UIKind Desktop = UIKind._(1);
-
-  /// Extensions are accessed from a web browser.
-  static const UIKind Web = UIKind._(2);
-}
-
-/// Log levels
-extension type const LogLevel._(int _) {
-  /// No messages are logged with this level.
-  static const LogLevel Off = LogLevel._(0);
-
-  /// All messages are logged with this level.
-  static const LogLevel Trace = LogLevel._(1);
-
-  /// Messages with debug and higher log level are logged with this level.
-  static const LogLevel Debug = LogLevel._(2);
-
-  /// Messages with info and higher log level are logged with this level.
-  static const LogLevel Info = LogLevel._(3);
-
-  /// Messages with warning and higher log level are logged with this level.
-  static const LogLevel Warning = LogLevel._(4);
-
-  /// Only error messages are logged with this level.
-  static const LogLevel Error = LogLevel._(5);
-}
-
-/// Collapsible state of the tree item
-extension type const TreeItemCollapsibleState._(int _) {
-  /// Determines an item can be neither collapsed nor expanded. Implies it has
-  /// no children.
-  static const TreeItemCollapsibleState None = TreeItemCollapsibleState._(0);
-
-  /// Determines an item is collapsed
-  static const TreeItemCollapsibleState Collapsed = TreeItemCollapsibleState._(
-    1,
-  );
-
-  /// Determines an item is expanded
-  static const TreeItemCollapsibleState Expanded = TreeItemCollapsibleState._(
-    2,
-  );
-}
-
-/// Checkbox state of the tree item
-extension type const TreeItemCheckboxState._(int _) {
-  /// Determines an item is unchecked
-  static const TreeItemCheckboxState Unchecked = TreeItemCheckboxState._(0);
-
-  /// Determines an item is checked
-  static const TreeItemCheckboxState Checked = TreeItemCheckboxState._(1);
-}
-
-/// Terminal exit reason kind.
-extension type const TerminalExitReason._(int _) {
-  /// Unknown reason.
-  static const TerminalExitReason Unknown = TerminalExitReason._(0);
-
-  /// The window closed/reloaded.
-  static const TerminalExitReason Shutdown = TerminalExitReason._(1);
-
-  /// The shell process exited.
-  static const TerminalExitReason Process = TerminalExitReason._(2);
-
-  /// The user closed the terminal.
-  static const TerminalExitReason User = TerminalExitReason._(3);
-
-  /// An extension disposed the terminal.
-  static const TerminalExitReason Extension = TerminalExitReason._(4);
-}
-
-/// A type of mutation that can be applied to an environment variable.
-extension type const EnvironmentVariableMutatorType._(int _) {
-  /// Replace the variable's existing value.
-  static const EnvironmentVariableMutatorType Replace =
-      EnvironmentVariableMutatorType._(1);
-
-  /// Append to the end of the variable's existing value.
-  static const EnvironmentVariableMutatorType Append =
-      EnvironmentVariableMutatorType._(2);
-
-  /// Prepend to the start of the variable's existing value.
-  static const EnvironmentVariableMutatorType Prepend =
-      EnvironmentVariableMutatorType._(3);
-}
-
-/// A location in the editor at which progress information can be shown. It
-/// depends on the
-/// location how progress is visually represented.
-extension type const ProgressLocation._(int _) {
-  /// Show progress for the source control viewlet, as overlay for the icon and
-  /// as progress bar
-  /// inside the viewlet (when visible). Neither supports cancellation nor
-  /// discrete progress nor
-  /// a label to describe the operation.
-  static const ProgressLocation SourceControl = ProgressLocation._(1);
-
-  /// Show progress in the status bar of the editor. Neither supports
-  /// cancellation nor discrete progress.
-  /// Supports rendering of ThemeIcontheme icons via the `$(<name>)`-syntax in
-  /// the progress label.
-  static const ProgressLocation Window = ProgressLocation._(10);
-
-  /// Show progress as notification with an optional cancel button. Supports to
-  /// show infinite and discrete
-  /// progress but does not support rendering of icons.
-  static const ProgressLocation Notification = ProgressLocation._(15);
-}
-
-/// Specifies the location where a QuickInputButton should be rendered.
-extension type const QuickInputButtonLocation._(int _) {
-  /// The button is rendered in the title bar.
-  static const QuickInputButtonLocation Title = QuickInputButtonLocation._(1);
-
-  /// The button is rendered inline to the right of the input box.
-  static const QuickInputButtonLocation Inline = QuickInputButtonLocation._(2);
-
-  /// The button is rendered at the far end inside the input box.
-  static const QuickInputButtonLocation Input = QuickInputButtonLocation._(3);
-}
-
-/// Reasons for why a text document has changed.
-extension type const TextDocumentChangeReason._(int _) {
-  /// The text change is caused by an undo operation.
-  static const TextDocumentChangeReason Undo = TextDocumentChangeReason._(1);
-
-  /// The text change is caused by an redo operation.
-  static const TextDocumentChangeReason Redo = TextDocumentChangeReason._(2);
-}
-
-/// Represents reasons why a text document is saved.
-extension type const TextDocumentSaveReason._(int _) {
-  /// Manually triggered, e.g. by the user pressing save, by starting debugging,
-  /// or by an API call.
-  static const TextDocumentSaveReason Manual = TextDocumentSaveReason._(1);
-
-  /// Automatic after a delay.
-  static const TextDocumentSaveReason AfterDelay = TextDocumentSaveReason._(2);
-
-  /// When the editor lost focus.
-  static const TextDocumentSaveReason FocusOut = TextDocumentSaveReason._(3);
-}
-
-/// The configuration scope which can be:
-/// - a Uri representing a resource
-/// - a TextDocument representing an open text document
-/// - a WorkspaceFolder representing a workspace folder
-/// - an object containing:
-///   - `uri`: an optional Uri of a text document
-///   - `languageId`: the language identifier of a text document
-typedef ConfigurationScope = AnonymousUnion_3138707;
-
-/// Represents a notebook editor that is attached to a
-/// NotebookDocumentnotebook.
-extension type const NotebookEditorRevealType._(int _) {
-  /// The range will be revealed with as little scrolling as possible.
-  static const NotebookEditorRevealType Default = NotebookEditorRevealType._(0);
-
-  /// The range will always be revealed in the center of the viewport.
-  static const NotebookEditorRevealType InCenter = NotebookEditorRevealType._(
-    1,
-  );
-
-  /// If the range is outside the viewport, it will be revealed in the center of
-  /// the viewport.
-  /// Otherwise, it will be revealed with as little scrolling as possible.
-  static const NotebookEditorRevealType InCenterIfOutsideViewport =
-      NotebookEditorRevealType._(2);
-
-  /// The range will always be revealed at the top of the viewport.
-  static const NotebookEditorRevealType AtTop = NotebookEditorRevealType._(3);
-}
-
-/// A notebook cell kind.
-extension type const NotebookCellKind._(int _) {
-  /// A markup-cell is formatted source that is used for display.
-  static const NotebookCellKind Markup = NotebookCellKind._(1);
-
-  /// A code-cell is source that can be NotebookControllerexecuted and that
-  /// produces NotebookCellOutputoutput.
-  static const NotebookCellKind Code = NotebookCellKind._(2);
-}
-
-/// Notebook controller affinity for notebook documents.
-extension type const NotebookControllerAffinity._(int _) {
-  /// Default affinity.
-  static const NotebookControllerAffinity Default =
-      NotebookControllerAffinity._(1);
-
-  /// A controller is preferred for a notebook.
-  static const NotebookControllerAffinity Preferred =
-      NotebookControllerAffinity._(2);
-}
-
-/// Represents the alignment of status bar items.
-extension type const NotebookCellStatusBarAlignment._(int _) {
-  /// Aligned to the left side.
-  static const NotebookCellStatusBarAlignment Left =
-      NotebookCellStatusBarAlignment._(1);
-
-  /// Aligned to the right side.
-  static const NotebookCellStatusBarAlignment Right =
-      NotebookCellStatusBarAlignment._(2);
-}
-
-/// Represents the different types of debug adapters
-typedef DebugAdapterDescriptor = AnonymousUnion_3478237;
-
-/// Debug console mode used by debug session, see DebugSessionOptionsoptions.
-extension type const DebugConsoleMode._(int _) {
-  /// Debug session should have a separate debug console.
-  static const DebugConsoleMode Separate = DebugConsoleMode._(0);
-
-  /// Debug session should share debug console with its parent session.
-  /// This value has no effect for sessions which do not have a parent session.
-  static const DebugConsoleMode MergeWithParent = DebugConsoleMode._(1);
-}
-
-/// A DebugConfigurationProviderTriggerKind specifies when the
-/// `provideDebugConfigurations` method of a `DebugConfigurationProvider` is
-/// triggered.
-/// Currently there are two situations: to provide the initial debug
-/// configurations for a newly created launch.json or
-/// to provide dynamically generated debug configurations when the user asks
-/// for them through the UI (e.g. via the "Select and Start Debugging"
-/// command).
-/// A trigger kind is used when registering a `DebugConfigurationProvider`
-/// with debug.registerDebugConfigurationProvider.
-extension type const DebugConfigurationProviderTriggerKind._(int _) {
-  /// `DebugConfigurationProvider.provideDebugConfigurations` is called to
-  /// provide the initial debug configurations for a newly created launch.json.
-  static const DebugConfigurationProviderTriggerKind Initial =
-      DebugConfigurationProviderTriggerKind._(1);
-
-  /// `DebugConfigurationProvider.provideDebugConfigurations` is called to
-  /// provide dynamically generated debug configurations when the user asks for
-  /// them through the UI (e.g. via the "Select and Start Debugging" command).
-  static const DebugConfigurationProviderTriggerKind Dynamic =
-      DebugConfigurationProviderTriggerKind._(2);
-}
-
-/// Collapsible state of a CommentThreadcomment thread
-extension type const CommentThreadCollapsibleState._(int _) {
-  /// Determines an item is collapsed
-  static const CommentThreadCollapsibleState Collapsed =
-      CommentThreadCollapsibleState._(0);
-
-  /// Determines an item is expanded
-  static const CommentThreadCollapsibleState Expanded =
-      CommentThreadCollapsibleState._(1);
-}
-
-/// Comment mode of a Comment
-extension type const CommentMode._(int _) {
-  /// Displays the comment editor
-  static const CommentMode Editing = CommentMode._(0);
-
-  /// Displays the preview of the comment
-  static const CommentMode Preview = CommentMode._(1);
-}
-
-/// The state of a comment thread.
-extension type const CommentThreadState._(int _) {
-  /// Unresolved thread state
-  static const CommentThreadState Unresolved = CommentThreadState._(0);
-
-  /// Resolved thread state
-  static const CommentThreadState Resolved = CommentThreadState._(1);
-}
-
-/// Optional options to be used when calling authentication.getSession with
-/// the flag `forceNewSession`.
-@Deprecated('Use AuthenticationGetSessionPresentationOptions  instead.')
-typedef AuthenticationForceNewSessionOptions =
-    AuthenticationGetSessionPresentationOptions;
-
-/// The kind of executions that TestRunProfileTestRunProfiles control.
-extension type const TestRunProfileKind._(int _) {
-  /// The `Run` test profile kind.
-  static const TestRunProfileKind Run = TestRunProfileKind._(1);
-
-  /// The `Debug` test profile kind.
-  static const TestRunProfileKind Debug = TestRunProfileKind._(2);
-
-  /// The `Coverage` test profile kind.
-  static const TestRunProfileKind Coverage = TestRunProfileKind._(3);
-}
-
-/// Coverage details returned from TestRunProfile.loadDetailedCoverage.
-typedef FileCoverageDetail = AnonymousUnion_1756552;
-
-/// Represents the type of user feedback received.
-extension type const ChatResultFeedbackKind._(int _) {
-  /// The user marked the result as unhelpful.
-  static const ChatResultFeedbackKind Unhelpful = ChatResultFeedbackKind._(0);
-
-  /// The user marked the result as helpful.
-  static const ChatResultFeedbackKind Helpful = ChatResultFeedbackKind._(1);
-}
-
-/// A chat request handler is a callback that will be invoked when a request
-/// is made to a chat participant.
-typedef ChatRequestHandler = _AnonymousFunction_3836931;
-
-/// Represents the different chat response types.
-typedef ChatResponsePart = AnonymousUnion_2502793;
-
-/// Represents the role of a chat message. This is either the user or the
-/// assistant.
-extension type const LanguageModelChatMessageRole._(int _) {
-  /// The user role, e.g the human interacting with a language model.
-  static const LanguageModelChatMessageRole User =
-      LanguageModelChatMessageRole._(1);
-
-  /// The assistant role, e.g. the language model generating responses.
-  static const LanguageModelChatMessageRole Assistant =
-      LanguageModelChatMessageRole._(2);
-}
-
-/// Definitions that describe different types of Model Context Protocol
-/// servers,
-/// which can be returned from the McpServerDefinitionProvider.
-typedef McpServerDefinition = AnonymousUnion_3309136;
-
-/// The various message types which a LanguageModelChatProvider can emit in
-/// the chat response stream
-typedef LanguageModelResponsePart = AnonymousUnion_3606623;
-
-/// The various message types which can be sent via
-/// LanguageModelChat.sendRequest and processed by a LanguageModelChatProvider
-typedef LanguageModelInputPart = AnonymousUnion_3606623;
-
-/// A tool-calling mode for the language model to use.
-extension type const LanguageModelChatToolMode._(int _) {
-  /// The language model can choose to call a tool or generate a message. Is the
-  /// default.
-  static const LanguageModelChatToolMode Auto = LanguageModelChatToolMode._(1);
-
-  /// The language model must call one of the provided tools. Note- some models
-  /// only support a single tool when using this
-  /// mode.
-  static const LanguageModelChatToolMode Required = LanguageModelChatToolMode._(
-    2,
-  );
-}
-
-/// A token that can be passed to lm.invokeTool when invoking a tool inside
-/// the context of handling a chat request.
-typedef ChatParticipantToolToken = _i1.JSAny?;
 extension type AnonymousType_2071367._(_i1.JSObject _) implements _i1.JSObject {
   external AnonymousType_2071367({Position start, Position end});
 
@@ -19841,12 +19711,14 @@ extension type _AnonymousFunction_2841987<
 }
 extension type _AnonymousFunction_3169589<TResult2 extends _i1.JSAny?>._(
   _i1.JSFunction _
-) implements _i1.JSFunction {
+)
+    implements _i1.JSFunction {
   external AnonymousUnion_4138817 call(_i1.JSAny? reason);
 }
 extension type AnonymousUnion_1194196<TResult1 extends _i1.JSAny?>._(
   _i1.JSAny _
-) implements _i1.JSAny {
+)
+    implements _i1.JSAny {
   TResult1 get asTResult1 => (_ as TResult1);
 
   PromiseLike<TResult1> get asPromiseLikeOfTResult1 =>
@@ -19854,7 +19726,8 @@ extension type AnonymousUnion_1194196<TResult1 extends _i1.JSAny?>._(
 }
 extension type AnonymousUnion_4138817<TResult2 extends _i1.JSAny?>._(
   _i1.JSAny _
-) implements _i1.JSAny {
+)
+    implements _i1.JSAny {
   TResult2 get asTResult2 => (_ as TResult2);
 
   PromiseLike<TResult2> get asPromiseLikeOfTResult2 =>
@@ -19968,10 +19841,16 @@ extension type AnonymousUnion_1033307._(_i1.JSArray _) implements _i1.JSArray {
   _i1.JSArray<DecorationOptions> get asJSArrayOfDecorationOptions =>
       (_ as _i1.JSArray<DecorationOptions>);
 }
+extension type MarkedString._(_i1.JSAny _) implements _i1.JSAny {
+  String get asString => (_ as _i1.JSString).toDart;
+
+  AnonymousType_2122161 get asAnonymousType_2122161 =>
+      (_ as AnonymousType_2122161);
+}
 extension type AnonymousUnion_2203367._(_i1.JSAny _) implements _i1.JSAny {
   MarkdownString get asMarkdownString => (_ as MarkdownString);
 
-  MarkedString get asMarkedString => (_ as AnonymousUnion_3501952);
+  MarkedString get asMarkedString => (_ as MarkedString);
 
   _i1.JSArray<AnonymousUnion_1094810> get asJSArrayOfAnonymousUnion_1094810 =>
       (_ as _i1.JSArray<AnonymousUnion_1094810>);
@@ -20000,17 +19879,10 @@ extension type AnonymousType_2122161._(_i1.JSObject _) implements _i1.JSObject {
   @Deprecated('please use MarkdownString  instead')
   external String value;
 }
-extension type AnonymousUnion_3501952._(_i1.JSAny _) implements _i1.JSAny {
-  String get asString => (_ as _i1.JSString).toDart;
-
-  AnonymousType_2122161 get asAnonymousType_2122161 =>
-      (_ as AnonymousType_2122161);
-}
 extension type AnonymousUnion_1094810._(_i1.JSAny _) implements _i1.JSAny {
   MarkdownString get asMarkdownString => (_ as MarkdownString);
 
-  AnonymousUnion_3501952 get asAnonymousUnion_3501952 =>
-      (_ as AnonymousUnion_3501952);
+  MarkedString get asMarkedString => (_ as MarkedString);
 }
 extension type AnonymousUnion_4269776._(_i1.JSAny _) implements _i1.JSAny {
   String get asString => (_ as _i1.JSString).toDart;
@@ -20070,7 +19942,8 @@ extension type AnonymousType_2863805._(_i1.JSObject _) implements _i1.JSObject {
 }
 extension type _AnonymousFunction_6204725<T extends _i1.JSAny?>._(
   _i1.JSFunction _
-) implements _i1.JSFunction {
+)
+    implements _i1.JSFunction {
   external _i1.JSAny? call(T e);
 }
 extension type _AnonymousFunction_2025576._(_i1.JSFunction _)
@@ -20083,11 +19956,19 @@ extension type AnonymousType_1517541._(_i1.JSObject _) implements _i1.JSObject {
   /// Function to clean up resources.
   external _AnonymousFunction_2025576 dispose;
 }
-extension type AnonymousUnion_1821384<T extends _i1.JSAny?>._(_i1.JSAny _)
+extension type ProviderResult<T extends _i1.JSAny?>._(_i1.JSAny _)
     implements _i1.JSAny {
   T get asT => (_ as T);
 
-  _i2.Thenable<T?> get asThenableOfT => (_ as _i2.Thenable<T?>);
+  Thenable<T?> get asThenableOfT => (_ as Thenable<T?>);
+}
+extension type IconPath._(_i1.JSObject _) implements _i1.JSObject {
+  Uri get asUri => (_ as Uri);
+
+  AnonymousType_3517536 get asAnonymousType_3517536 =>
+      (_ as AnonymousType_3517536);
+
+  ThemeIcon get asThemeIcon => (_ as ThemeIcon);
 }
 extension type AnonymousType_3517536._(_i1.JSObject _) implements _i1.JSObject {
   external AnonymousType_3517536({Uri light, Uri dark});
@@ -20097,15 +19978,6 @@ extension type AnonymousType_3517536._(_i1.JSObject _) implements _i1.JSObject {
 
   /// The icon path for the dark theme.
   external Uri dark;
-}
-extension type AnonymousUnion_2048546._(_i1.JSObject _)
-    implements _i1.JSObject {
-  Uri get asUri => (_ as Uri);
-
-  AnonymousType_3517536 get asAnonymousType_3517536 =>
-      (_ as AnonymousType_3517536);
-
-  ThemeIcon get asThemeIcon => (_ as ThemeIcon);
 }
 extension type AnonymousType_5100545._(_i1.JSObject _) implements _i1.JSObject {
   external AnonymousType_5100545({bool checked});
@@ -20130,8 +20002,8 @@ extension type AnonymousUnion_9238054._(_i1.JSAny _) implements _i1.JSAny {
   InputBoxValidationMessage get asInputBoxValidationMessage =>
       (_ as InputBoxValidationMessage);
 
-  _i2.Thenable<AnonymousUnion_2260248> get asThenableOfAnonymousUnion_2260248 =>
-      (_ as _i2.Thenable<AnonymousUnion_2260248>);
+  Thenable<AnonymousUnion_2260248> get asThenableOfAnonymousUnion_2260248 =>
+      (_ as Thenable<AnonymousUnion_2260248>);
 }
 extension type AnonymousUnion_2260248._(_i1.JSAny _) implements _i1.JSAny {
   _i1.JSString get asJSString => (_ as _i1.JSString);
@@ -20146,7 +20018,7 @@ extension type AnonymousUnion_7850844._(_i1.JSAny _) implements _i1.JSAny {
 
   String get asString => (_ as _i1.JSString).toDart;
 }
-extension type AnonymousUnion_2605952._(_i1.JSAny _) implements _i1.JSAny {
+extension type GlobPattern._(_i1.JSAny _) implements _i1.JSAny {
   String get asString => (_ as _i1.JSString).toDart;
 
   RelativePattern get asRelativePattern => (_ as RelativePattern);
@@ -20526,17 +20398,20 @@ extension type ReadonlyArray<T extends _i1.JSAny?>._(_i1.JSObject _)
 }
 extension type _AnonymousFunction_2988645<T extends _i1.JSAny?>._(
   _i1.JSFunction _
-) implements _i1.JSFunction {
+)
+    implements _i1.JSFunction {
   external bool call(T value, num index, _i1.JSArray<T> array);
 }
 extension type _AnonymousFunction_2657783<T extends _i1.JSAny?>._(
   _i1.JSFunction _
-) implements _i1.JSFunction {
+)
+    implements _i1.JSFunction {
   external _i1.JSAny? call(T value, num index, _i1.JSArray<T> array);
 }
 extension type _AnonymousFunction_4160480<T extends _i1.JSAny?>._(
   _i1.JSFunction _
-) implements _i1.JSFunction {
+)
+    implements _i1.JSFunction {
   external void call(T value, num index, _i1.JSArray<T> array);
 }
 extension type _AnonymousFunction_2665603<
@@ -20547,7 +20422,8 @@ extension type _AnonymousFunction_2665603<
 }
 extension type _AnonymousFunction_3930812<T extends _i1.JSAny?>._(
   _i1.JSFunction _
-) implements _i1.JSFunction {
+)
+    implements _i1.JSFunction {
   external T call(
     T previousValue,
     T currentValue,
@@ -20621,20 +20497,17 @@ extension type AnonymousType_2405770._(_i1.JSObject _) implements _i1.JSObject {
 }
 extension type AnonymousUnion_3582610._(_i1.JSObject _)
     implements _i1.JSObject {
-  AnonymousUnion_1632395 get asAnonymousUnion_1632395 =>
-      (_ as AnonymousUnion_1632395);
+  Definition get asDefinition => (_ as Definition);
 
   _i1.JSArray<DefinitionLink> get asJSArrayOfDefinitionLink =>
       (_ as _i1.JSArray<DefinitionLink>);
 }
-extension type AnonymousUnion_1632395._(_i1.JSObject _)
-    implements _i1.JSObject {
+extension type Definition._(_i1.JSObject _) implements _i1.JSObject {
   Location get asLocation => (_ as Location);
 
   _i1.JSArray<Location> get asJSArrayOfLocation => (_ as _i1.JSArray<Location>);
 }
-extension type AnonymousUnion_1308422._(_i1.JSObject _)
-    implements _i1.JSObject {
+extension type Declaration._(_i1.JSObject _) implements _i1.JSObject {
   Location get asLocation => (_ as Location);
 
   _i1.JSArray<Location> get asJSArrayOfLocation => (_ as _i1.JSArray<Location>);
@@ -20642,8 +20515,7 @@ extension type AnonymousUnion_1308422._(_i1.JSObject _)
   _i1.JSArray<LocationLink> get asJSArrayOfLocationLink =>
       (_ as _i1.JSArray<LocationLink>);
 }
-extension type AnonymousUnion_1436380._(_i1.JSObject _)
-    implements _i1.JSObject {
+extension type InlineValue._(_i1.JSObject _) implements _i1.JSObject {
   InlineValueText get asInlineValueText => (_ as InlineValueText);
 
   InlineValueVariableLookup get asInlineValueVariableLookup =>
@@ -20691,9 +20563,9 @@ extension type AnonymousUnion_2052962._(_i1.JSAny _) implements _i1.JSAny {
 extension type AnonymousUnion_2138202._(_i1.JSAny _) implements _i1.JSAny {
   String get asString => (_ as _i1.JSString).toDart;
 
-  _i3.JSTuple2<_i1.JSNumber, _i1.JSNumber>
+  _i2.JSTuple2<_i1.JSNumber, _i1.JSNumber>
   get asJSTuple2OfJSNumberAndJSNumber =>
-      (_ as _i3.JSTuple2<_i1.JSNumber, _i1.JSNumber>);
+      (_ as _i2.JSTuple2<_i1.JSNumber, _i1.JSNumber>);
 }
 extension type AnonymousUnion_3150571._(_i1.JSAny _) implements _i1.JSAny {
   String get asString => (_ as _i1.JSString).toDart;
@@ -20729,7 +20601,8 @@ extension type AnonymousUnion_1040052._(_i1.JSObject _)
 }
 extension type AnonymousUnion_9712918<T extends CompletionItem>._(
   _i1.JSObject _
-) implements _i1.JSObject {
+)
+    implements _i1.JSObject {
   _i1.JSArray<T> get asJSArrayOfT => (_ as _i1.JSArray<T>);
 
   CompletionList<T> get asCompletionListOfT => (_ as CompletionList<T>);
@@ -20791,9 +20664,9 @@ extension type AnonymousUnion_2701247<T extends _i1.JSAny?>._(_i1.JSAny _)
   _i1.JSArray<T> get asJSArrayOfT => (_ as _i1.JSArray<T>);
 }
 extension type AnonymousUnion_3138628._(_i1.JSAny _) implements _i1.JSAny {
-  void get asVoid => _;
-
   Thenable<_i1.JSAny?> get asThenableOfVoid => (_ as Thenable<_i1.JSAny?>);
+
+  void get asVoid => _;
 }
 extension type AnonymousUnion_3685677._(_i1.JSAny _) implements _i1.JSAny {
   String get asString => (_ as _i1.JSString).toDart;
@@ -20925,7 +20798,7 @@ extension type _AnonymousFunction_3459533._(_i1.JSFunction _)
     DiagnosticCollection collection,
   );
 }
-extension type AnonymousUnion_1099094._(_i1.JSAny _) implements _i1.JSAny {
+extension type DocumentSelector._(_i1.JSAny _) implements _i1.JSAny {
   DocumentFilter get asDocumentFilter => (_ as DocumentFilter);
 
   String get asString => (_ as _i1.JSString).toDart;
@@ -21038,8 +20911,8 @@ extension type _AnonymousFunction_1777378._(_i1.JSFunction _)
 extension type AnonymousUnion_3772893._(_i1.JSAny _) implements _i1.JSAny {
   String get asString => (_ as _i1.JSString).toDart;
 
-  _i1.JSArray<AnonymousUnion_3606623> get asJSArrayOfAnonymousUnion_3606623 =>
-      (_ as _i1.JSArray<AnonymousUnion_3606623>);
+  _i1.JSArray<LanguageModelInputPart> get asJSArrayOfLanguageModelInputPart =>
+      (_ as _i1.JSArray<LanguageModelInputPart>);
 }
 extension type AnonymousUnion_9343714._(_i1.JSAny _) implements _i1.JSAny {
   String get asString => (_ as _i1.JSString).toDart;
@@ -21087,7 +20960,7 @@ extension type AnonymousUnion_3012678._(_i1.JSObject _)
   LanguageModelDataPart get asLanguageModelDataPart =>
       (_ as LanguageModelDataPart);
 }
-extension type AnonymousUnion_3606623._(_i1.JSObject _)
+extension type LanguageModelInputPart._(_i1.JSObject _)
     implements _i1.JSObject {
   LanguageModelTextPart get asLanguageModelTextPart =>
       (_ as LanguageModelTextPart);
@@ -21146,7 +21019,7 @@ extension type AnonymousUnion_2292513._(_i1.JSAny _) implements _i1.JSAny {
 }
 extension type _AnonymousFunction_3963978._(_i1.JSFunction _)
     implements _i1.JSFunction {
-  external _i2.Thenable<Pseudoterminal> call(TaskDefinition resolvedDefinition);
+  external Thenable<Pseudoterminal> call(TaskDefinition resolvedDefinition);
 }
 extension type AnonymousUnion_3634054._(_i1.JSAny _) implements _i1.JSAny {
   TaskScope get asTaskScope => TaskScope._((_ as _i1.JSNumber).toDartInt);
@@ -21204,21 +21077,17 @@ extension type AnonymousUnion_1366393._(_i1.JSObject _)
     implements _i1.JSObject {
   FileStat get asFileStat => (_ as FileStat);
 
-  _i2.Thenable<FileStat> get asThenableOfFileStat =>
-      (_ as _i2.Thenable<FileStat>);
+  Thenable<FileStat> get asThenableOfFileStat => (_ as Thenable<FileStat>);
 }
 extension type AnonymousUnion_1785413._(_i1.JSObject _)
     implements _i1.JSObject {
-  _i1.JSArray<_i3.JSTuple2<_i1.JSString, _i1.JSNumber>>
+  _i1.JSArray<_i2.JSTuple2<_i1.JSString, _i1.JSNumber>>
   get asJSArrayOfJSTuple2OfJSStringAndJSNumber =>
-      (_ as _i1.JSArray<_i3.JSTuple2<_i1.JSString, _i1.JSNumber>>);
+      (_ as _i1.JSArray<_i2.JSTuple2<_i1.JSString, _i1.JSNumber>>);
 
-  _i2.Thenable<_i1.JSArray<_i3.JSTuple2<_i1.JSString, _i1.JSNumber>>>
+  Thenable<_i1.JSArray<_i2.JSTuple2<_i1.JSString, _i1.JSNumber>>>
   get asThenableOfJSArrayOfJSTuple2OfJSStringAndJSNumber =>
-      (_
-          as _i2.Thenable<
-            _i1.JSArray<_i3.JSTuple2<_i1.JSString, _i1.JSNumber>>
-          >);
+      (_ as Thenable<_i1.JSArray<_i2.JSTuple2<_i1.JSString, _i1.JSNumber>>>);
 }
 extension type AnonymousUnion_2777859._(_i1.JSObject _)
     implements _i1.JSObject {
@@ -21243,9 +21112,16 @@ extension type AnonymousUnion_3235304._(_i1.JSAny _) implements _i1.JSAny {
   _i1.JSArray<_i1.JSString> get asJSArrayOfJSString =>
       (_ as _i1.JSArray<_i1.JSString>);
 }
+extension type AnonymousUnion_1821384<T extends _i1.JSAny?>._(_i1.JSAny _)
+    implements _i1.JSAny {
+  Thenable<T> get asThenableOfT => (_ as Thenable<T>);
+
+  T get asT => (_ as T);
+}
 extension type AnonymousUnion_2897667<T extends CustomDocument>._(
   Event<CustomDocumentEditEvent<T>> _
-) implements Event<CustomDocumentEditEvent<T>> {
+)
+    implements Event<CustomDocumentEditEvent<T>> {
   Event<CustomDocumentEditEvent<T>> get asEventOfCustomDocumentEditEventOfT =>
       _;
 
@@ -21289,12 +21165,14 @@ extension type AnonymousType_7785031._(_i1.JSObject _) implements _i1.JSObject {
 }
 extension type _AnonymousFunction_2856681<R extends _i1.JSAny?>._(
   _i1.JSFunction _
-) implements _i1.JSFunction {
+)
+    implements _i1.JSFunction {
   external Thenable<R> call(Progress<_i1.JSNumber> progress);
 }
 extension type _AnonymousFunction_3665396<R extends _i1.JSAny?>._(
   _i1.JSFunction _
-) implements _i1.JSFunction {
+)
+    implements _i1.JSFunction {
   external Thenable<R> call(
     Progress<AnonymousType_2219026> progress,
     CancellationToken token,
@@ -21427,7 +21305,7 @@ extension type AnonymousUnion_3213738._(_i1.JSAny _) implements _i1.JSAny {
 extension type AnonymousUnion_2235805._(_i1.JSAny _) implements _i1.JSAny {
   String get asString => (_ as _i1.JSString).toDart;
 
-  IconPath get asIconPath => (_ as AnonymousUnion_2048546);
+  IconPath get asIconPath => (_ as IconPath);
 }
 extension type AnonymousType_4141065._(_i1.JSObject _) implements _i1.JSObject {
   external AnonymousType_4141065({
@@ -21479,9 +21357,9 @@ extension type AnonymousType_3917097._(_i1.JSObject _) implements _i1.JSObject {
   external AnonymousUnion_2869845? get expand;
 }
 extension type AnonymousUnion_2869845._(_i1.JSAny _) implements _i1.JSAny {
-  double get asDouble => (_ as _i1.JSNumber).toDartDouble;
-
   bool get asBool => (_ as _i1.JSBoolean).toDart;
+
+  double get asDouble => (_ as _i1.JSNumber).toDartDouble;
 }
 extension type AnonymousType_1779338._(_i1.JSObject _) implements _i1.JSObject {
   external AnonymousType_1779338({bool retainContextWhenHidden});
@@ -21605,6 +21483,16 @@ extension type AnonymousType_2772803._(_i1.JSObject _) implements _i1.JSObject {
   /// default encoding for the document.
   external String? get encoding;
 }
+extension type ConfigurationScope._(_i1.JSObject _) implements _i1.JSObject {
+  Uri get asUri => (_ as Uri);
+
+  TextDocument get asTextDocument => (_ as TextDocument);
+
+  WorkspaceFolder get asWorkspaceFolder => (_ as WorkspaceFolder);
+
+  AnonymousType_2313521 get asAnonymousType_2313521 =>
+      (_ as AnonymousType_2313521);
+}
 extension type AnonymousType_4218453._(_i1.JSObject _) implements _i1.JSObject {
   external AnonymousType_4218453({
     bool isCaseSensitive,
@@ -21658,17 +21546,6 @@ extension type AnonymousType_2313521._(_i1.JSObject _) implements _i1.JSObject {
 
   /// The language of a text document
   external String languageId;
-}
-extension type AnonymousUnion_3138707._(_i1.JSObject _)
-    implements _i1.JSObject {
-  Uri get asUri => (_ as Uri);
-
-  TextDocument get asTextDocument => (_ as TextDocument);
-
-  WorkspaceFolder get asWorkspaceFolder => (_ as WorkspaceFolder);
-
-  AnonymousType_2313521 get asAnonymousType_2313521 =>
-      (_ as AnonymousType_2313521);
 }
 extension type AnonymousUnion_1372487._(_i1.JSAny _) implements _i1.JSAny {
   bool get asBool => (_ as _i1.JSBoolean).toDart;
@@ -21736,7 +21613,7 @@ extension type AnonymousUnion_3178494._(_i1.JSAny _) implements _i1.JSAny {
 
   ThemeIcon get asThemeIcon => (_ as ThemeIcon);
 }
-extension type AnonymousUnion_3478237._(_i1.JSObject _)
+extension type DebugAdapterDescriptor._(_i1.JSObject _)
     implements _i1.JSObject {
   DebugAdapterExecutable get asDebugAdapterExecutable =>
       (_ as DebugAdapterExecutable);
@@ -21760,8 +21637,7 @@ extension type AnonymousUnion_8210877._(_i1.JSObject _)
   _i1.JSArray<TestMessage> get asJSArrayOfTestMessage =>
       (_ as _i1.JSArray<TestMessage>);
 }
-extension type AnonymousUnion_1756552._(_i1.JSObject _)
-    implements _i1.JSObject {
+extension type FileCoverageDetail._(_i1.JSObject _) implements _i1.JSObject {
   StatementCoverage get asStatementCoverage => (_ as StatementCoverage);
 
   DeclarationCoverage get asDeclarationCoverage => (_ as DeclarationCoverage);
@@ -22183,7 +22059,7 @@ extension type _AnonymousFunction_2811692._(_i1.JSFunction _)
 }
 extension type _AnonymousFunction_8032364._(_i1.JSFunction _)
     implements _i1.JSFunction {
-  external _i2.Thenable<_i1.JSArray<AnonymousUnion_1756552>> call(
+  external Thenable<_i1.JSArray<FileCoverageDetail>> call(
     TestRun testRun,
     FileCoverage fileCoverage,
     CancellationToken token,
@@ -22191,7 +22067,7 @@ extension type _AnonymousFunction_8032364._(_i1.JSFunction _)
 }
 extension type _AnonymousFunction_7035210._(_i1.JSFunction _)
     implements _i1.JSFunction {
-  external _i2.Thenable<_i1.JSArray<AnonymousUnion_1756552>> call(
+  external Thenable<_i1.JSArray<FileCoverageDetail>> call(
     TestRun testRun,
     FileCoverage fileCoverage,
     TestItem fromTestItem,
@@ -22239,17 +22115,7 @@ extension type AnonymousUnion_3949594._(_i1.JSObject _)
 
   ChatResponseTurn get asChatResponseTurn => (_ as ChatResponseTurn);
 }
-extension type _AnonymousFunction_3836931._(_i1.JSFunction _)
-    implements _i1.JSFunction {
-  external ProviderResult<AnonymousUnion_1604998> call(
-    ChatRequest request,
-    ChatContext context,
-    ChatResponseStream response,
-    CancellationToken token,
-  );
-}
-extension type AnonymousUnion_2502793._(_i1.JSObject _)
-    implements _i1.JSObject {
+extension type ChatResponsePart._(_i1.JSObject _) implements _i1.JSObject {
   ChatResponseMarkdownPart get asChatResponseMarkdownPart =>
       (_ as ChatResponseMarkdownPart);
 
@@ -22268,6 +22134,15 @@ extension type AnonymousUnion_2502793._(_i1.JSObject _)
   ChatResponseCommandButtonPart get asChatResponseCommandButtonPart =>
       (_ as ChatResponseCommandButtonPart);
 }
+extension type ChatRequestHandler._(_i1.JSFunction _)
+    implements _i1.JSFunction {
+  external ProviderResult<AnonymousUnion_1604998> call(
+    ChatRequest request,
+    ChatContext context,
+    ChatResponseStream response,
+    CancellationToken token,
+  );
+}
 extension type AnonymousUnion_1604998._(_i1.JSAny _) implements _i1.JSAny {
   ChatResult get asChatResult => (_ as ChatResult);
 
@@ -22278,9 +22153,16 @@ extension type AnonymousUnion_3063943._(_i1.JSAny _) implements _i1.JSAny {
 
   _i1.JSNumber get asJSNumber => (_ as _i1.JSNumber);
 }
+extension type McpServerDefinition._(_i1.JSObject _) implements _i1.JSObject {
+  McpStdioServerDefinition get asMcpStdioServerDefinition =>
+      (_ as McpStdioServerDefinition);
+
+  McpHttpServerDefinition get asMcpHttpServerDefinition =>
+      (_ as McpHttpServerDefinition);
+}
 extension type AnonymousUnion_9507163._(_i1.JSAny _) implements _i1.JSAny {
-  AnonymousUnion_3606623 get asAnonymousUnion_3606623 =>
-      (_ as AnonymousUnion_3606623);
+  LanguageModelInputPart get asLanguageModelInputPart =>
+      (_ as LanguageModelInputPart);
 
   _i1.JSAny? get asJSAny => _;
 }
@@ -22289,12 +22171,4 @@ extension type AnonymousUnion_1133354._(_i1.JSAny _) implements _i1.JSAny {
 
   LanguageModelChatRequestMessage get asLanguageModelChatRequestMessage =>
       (_ as LanguageModelChatRequestMessage);
-}
-extension type AnonymousUnion_3309136._(_i1.JSObject _)
-    implements _i1.JSObject {
-  McpStdioServerDefinition get asMcpStdioServerDefinition =>
-      (_ as McpStdioServerDefinition);
-
-  McpHttpServerDefinition get asMcpHttpServerDefinition =>
-      (_ as McpHttpServerDefinition);
 }

@@ -215,12 +215,17 @@ class ProgramMap {
   /// Find the node definition for a given declaration named [declName]
   /// or associated with a TypeScript node [node] from the map of files
   List<Node>? getDeclarationRef(String file, TSNode node, [String? declName]) {
+    file = p.normalize(p.absolute(file));
     // check
     NodeMap nodeMap;
     if (_pathMap.containsKey(file)) {
       nodeMap = _pathMap[file]!;
     } else {
-      final src = program.getSourceFile(file);
+      final src = program
+          .getSourceFiles()
+          .toDart
+          .where((s) => p.equals(p.normalize(p.absolute(s.fileName)), file))
+          .firstOrNull;
 
       if (src == null && !strictUnsupported) {
         // print warning
@@ -248,12 +253,16 @@ class ProgramMap {
             final symbol = typeChecker.getSymbolAtLocation(src)!;
             final exports = symbol.exports?.toDart ?? {};
 
-            final targetSymbol = exports[d.toJS]!;
+            final targetSymbol = exports[d.toJS];
 
-            for (final decl
-                in targetSymbol.getDeclarations()?.toDart ??
-                    <TSDeclaration>[]) {
-              transformer.transform(decl);
+            if (targetSymbol != null) {
+              for (final decl
+                  in targetSymbol.getDeclarations()?.toDart ??
+                      <TSDeclaration>[]) {
+                transformer.transform(decl);
+              }
+            } else {
+              transformer.transform(node);
             }
           } else {
             transformer.transform(node);

@@ -1086,7 +1086,7 @@ class Transformer {
 
     return TypeAliasDeclaration(
       name: name,
-      type: _transformType(type),
+      type: _transformType(type, nameHint: name),
       typeParameters:
           typeParams?.map(_transformTypeParamDeclaration).toList() ?? [],
       exported: isExported,
@@ -1239,6 +1239,7 @@ class Transformer {
     bool parameter = false,
     bool typeArg = false,
     bool? isNullable,
+    String? nameHint,
   }) {
     LiteralType literalFromNum(num value) => LiteralType(
       isNullable: isNullable ?? false,
@@ -1302,7 +1303,7 @@ class Transformer {
           falseType,
         ].sorted((a, b) => a.id.toString().compareTo(b.id.toString()));
 
-        final expectedID = ID(type: 'type', name: types.join('|'));
+        final expectedID = ID(type: 'type-def', name: types.join('|'));
 
         if (typeMap.containsKey(expectedID.toString())) {
           return (typeMap[expectedID.toString()] as UnionType)
@@ -1407,10 +1408,12 @@ class Transformer {
           ...operators.map((p) => (p.name, p.returnType.id.name)),
         ];
         // get a name
-        final name = 'AnonymousType_${AnonymousHasher.hashObject(hashObject)}';
+        final name =
+            nameHint ??
+            'AnonymousType_${AnonymousHasher.hashObject(hashObject)}';
 
         // get an expected id
-        final expectedId = ID(type: 'type', name: name);
+        final expectedId = ID(type: 'type-def', name: name);
         if (typeMap.containsKey(expectedId.toString())) {
           return typeMap[expectedId.toString()] as ObjectLiteralType;
         }
@@ -1455,9 +1458,10 @@ class Transformer {
           isConstructor,
         );
         final name =
+            nameHint ??
             '_Anonymous${isConstructor ? 'Constructor' : 'Function'}_$suffix';
 
-        final expectedId = ID(type: 'type', name: name);
+        final expectedId = ID(type: 'type-def', name: name);
         if (typeMap.containsKey(expectedId.toString())) {
           return typeMap[expectedId.toString()] as ClosureType;
         }
@@ -1511,11 +1515,9 @@ class Transformer {
         }
 
         final types = nonNullableUnionTypes
-            .map<Type>((t) => _transformType(
-                  t,
-                  typeArg: typeArg,
-                  parameter: parameter,
-                ))
+            .map<Type>(
+              (t) => _transformType(t, typeArg: typeArg, parameter: parameter),
+            )
             .toList();
 
         var isHomogenous = true;
@@ -1552,7 +1554,7 @@ class Transformer {
             ? nonNullLiteralTypes.map((t) => t.value.toString())
             : types.map((t) => t.id.name);
 
-        final expectedId = ID(type: 'type', name: idMap.join('|'));
+        final expectedId = ID(type: 'type-def', name: idMap.join('|'));
 
         if (typeMap.containsKey(expectedId.toString())) {
           return (typeMap[expectedId.toString()] as UnionType)
@@ -1560,6 +1562,7 @@ class Transformer {
         }
 
         final name =
+            nameHint ??
             'AnonymousUnion_${AnonymousHasher.hashUnion(idMap.toList())}';
 
         final un = isHomogenous
@@ -1605,22 +1608,20 @@ class Transformer {
         }
 
         final types = nonNullableIntersectionTypes
-            .map<Type>((t) => _transformType(
-                  t,
-                  typeArg: typeArg,
-                  parameter: parameter,
-                ))
+            .map<Type>(
+              (t) => _transformType(t, typeArg: typeArg, parameter: parameter),
+            )
             .toList();
 
         final idMap = types.map((t) => t.id.name);
-        final expectedId = ID(type: 'type', name: idMap.join('&'));
+        final expectedId = ID(type: 'type-def', name: idMap.join('&'));
         if (typeMap.containsKey(expectedId.toString())) {
           return (typeMap[expectedId.toString()] as IntersectionType)
             ..isNullable = (isNullable ?? false);
         }
 
         final intersectionHash = AnonymousHasher.hashUnion(idMap.toList());
-        final name = 'AnonymousIntersection_$intersectionHash';
+        final name = nameHint ?? 'AnonymousIntersection_$intersectionHash';
 
         final un = IntersectionType(types: types, name: name);
 
@@ -1730,7 +1731,7 @@ class Transformer {
               when referredDecl is EnumDeclaration:
             // check for type in type map
             final enumName = 'TypeOf_${referredDecl.name}';
-            final enumID = ID(type: 'type', name: enumName);
+            final enumID = ID(type: 'type-def', name: enumName);
 
             // enum is actually an object
             return typeMap.putIfAbsent(enumID.toString(), () {
@@ -1948,7 +1949,7 @@ class Transformer {
           }
 
           final idMap = types.map((t) => t.id.name).join('|');
-          final expectedId = ID(type: 'type', name: idMap);
+          final expectedId = ID(type: 'type-def', name: idMap);
           if (typeMap.containsKey(expectedId.toString())) {
             return (typeMap[expectedId.toString()] as UnionType)
               ..isNullable = (isNullable ?? false);
@@ -2325,11 +2326,11 @@ class Transformer {
       final emitted = [...mergedDeclSet, ...additionals];
 
       Declaration? findMatchingEmitted(Declaration original) {
-        var match = emitted.firstWhereOrNull(
-          (e) => e.runtimeType == original.runtimeType,
-        );
+        var match = emitted
+            .where((e) => e.runtimeType == original.runtimeType)
+            .firstOrNull;
         if (match != null) return match;
-        match = emitted.firstWhereOrNull((e) => e is CompositeDeclaration);
+        match = emitted.whereType<CompositeDeclaration>().firstOrNull;
         if (match != null) return match;
         return emitted.firstOrNull;
       }
@@ -2350,6 +2351,14 @@ class Transformer {
       });
     }
 
+    if (file.contains('vscode')) {
+      print('--- outputDeclSet keys containing LanguageModelInputPart: ---');
+      for (final k in outputDeclSet.keys) {
+        if (k.contains('LanguageModelInputPart')) {
+          print('  - key: $k');
+        }
+      }
+    }
     return NodeMap(outputDeclSet);
   }
 

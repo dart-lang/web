@@ -84,17 +84,12 @@ extension type Core_Internal._(_i1.JSObject _) implements _i1.JSObject {
   @_i1.JS()
   external static bool get devMode;
 }
-typedef Core_Internal_Mode = AnonymousUnion_3129258;
-extension type const AnonymousUnion_3129258._(String _) {
-  static const AnonymousUnion_3129258 debug = AnonymousUnion_3129258._('debug');
+extension type const Mode._(String _) {
+  static const Mode debug = Mode._('debug');
 
-  static const AnonymousUnion_3129258 profile = AnonymousUnion_3129258._(
-    'profile',
-  );
+  static const Mode profile = Mode._('profile');
 
-  static const AnonymousUnion_3129258 release = AnonymousUnion_3129258._(
-    'release',
-  );
+  static const Mode release = Mode._('release');
 }
 @_i1.JS('Security.IAuthToken')
 extension type Security_IAuthToken._(_i1.JSObject _) implements _i1.JSObject {
@@ -248,7 +243,8 @@ extension type EnterpriseApp_DataServices._(_i1.JSObject _)
 @_i1.JS('EnterpriseApp.DataServices.IDataService')
 extension type EnterpriseApp_DataServices_IDataService<T extends _i1.JSAny?>._(
   _i1.JSObject _
-) implements _i1.JSObject {
+)
+    implements _i1.JSObject {
   external _i1.JSArray<T> getAll();
   external T getById(String id);
   external void save(T item);

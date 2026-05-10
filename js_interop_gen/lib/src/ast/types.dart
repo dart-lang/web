@@ -20,11 +20,11 @@ class ReferredType<T extends Declaration> extends NamedType {
 
   @override
   ID get id => ID(
-        type: 'type',
-        name: typeParams.isEmpty
-            ? name
-            : '$name<${typeParams.map((t) => t.id.name).join(',')}>',
-      );
+    type: 'type',
+    name: typeParams.isEmpty
+        ? name
+        : '$name<${typeParams.map((t) => t.id.name).join(',')}>',
+  );
 
   @override
   bool isNullable;
@@ -179,7 +179,8 @@ class UnionType extends DeclarationType {
   }) : declarationName = name;
 
   @override
-  ID get id => ID(type: 'type', name: types.map((t) => t.id.name).join('|'));
+  ID get id =>
+      ID(type: 'type-def', name: types.map((t) => t.id.name).join('|'));
 
   @override
   Declaration get declaration => _UnionDeclaration(
@@ -219,7 +220,8 @@ class IntersectionType extends DeclarationType {
     : declarationName = name;
 
   @override
-  ID get id => ID(type: 'type', name: types.map((t) => t.id.name).join('&'));
+  ID get id =>
+      ID(type: 'type-def', name: types.map((t) => t.id.name).join('&'));
 
   @override
   Declaration get declaration =>
@@ -478,7 +480,7 @@ class EnumObjectType extends DeclarationType {
     : _dartName = dartName ?? enumeration.dartName;
 
   @override
-  ID get id => ID(type: 'type', name: 'TypeOf_${enumeration.name}');
+  ID get id => ID(type: 'type-def', name: 'TypeOf_${enumeration.name}');
 
   @override
   Declaration get declaration => _EnumObjDeclaration(
@@ -722,7 +724,7 @@ sealed class _UnionOrIntersectionDeclaration extends NamedDeclaration
     required this.name,
     List<Type> types = const [],
     List<GenericType>? typeParams,
-  })  : typeParameters = typeParams ?? [] {
+  }) : typeParameters = typeParams ?? [] {
     final uniqueTypes = <Type>[];
     final seenNames = <String>{};
     for (final type in types) {
@@ -806,7 +808,7 @@ sealed class _UnionOrIntersectionDeclaration extends NamedDeclaration
         }
       } else if (e case ObjectLiteralType(
         properties: final props,
-        methods: final methods
+        methods: final methods,
       )) {
         for (final prop in props) {
           final m = prop.name;
@@ -834,35 +836,45 @@ sealed class _UnionOrIntersectionDeclaration extends NamedDeclaration
         final spec = (decl as Declaration).emit(options);
         if (spec is Method) {
           conflictingMethods.add(
-            Method((builder) => builder
-              ..name = spec.name
-              ..type = spec.type
-              ..external = true
-              ..static = spec.static
-              ..returns = spec.returns
-              ..requiredParameters.addAll(spec.requiredParameters)
-              ..optionalParameters.addAll(spec.optionalParameters)
-              ..annotations.addAll(spec.annotations)),
+            Method(
+              (builder) => builder
+                ..name = spec.name
+                ..type = spec.type
+                ..external = true
+                ..static = spec.static
+                ..returns = spec.returns
+                ..requiredParameters.addAll(spec.requiredParameters)
+                ..optionalParameters.addAll(spec.optionalParameters)
+                ..annotations.addAll(spec.annotations),
+            ),
           );
         } else if (spec is Field) {
           conflictingMethods.add(
-            Method((builder) => builder
-              ..name = spec.name
-              ..type = MethodType.getter
-              ..external = true
-              ..static = spec.static
-              ..returns = spec.type),
+            Method(
+              (builder) => builder
+                ..name = spec.name
+                ..type = MethodType.getter
+                ..external = true
+                ..static = spec.static
+                ..returns = spec.type,
+            ),
           );
           if (decl case PropertyDeclaration(readonly: false)) {
             conflictingMethods.add(
-              Method((builder) => builder
-                ..name = spec.name
-                ..type = MethodType.setter
-                ..external = true
-                ..static = spec.static
-                ..requiredParameters.add(Parameter((p) => p
-                  ..name = 'value'
-                  ..type = spec.type))),
+              Method(
+                (builder) => builder
+                  ..name = spec.name
+                  ..type = MethodType.setter
+                  ..external = true
+                  ..static = spec.static
+                  ..requiredParameters.add(
+                    Parameter(
+                      (p) => p
+                        ..name = 'value'
+                        ..type = spec.type,
+                    ),
+                  ),
+              ),
             );
           }
         }
@@ -909,9 +921,9 @@ sealed class _UnionOrIntersectionDeclaration extends NamedDeclaration
                     tDesugared is ReferredType &&
                     (repDesugared.typeParams.isNotEmpty ||
                         tDesugared.typeParams.isNotEmpty)) {
-                  body = refer('_')
-                      .asA(refer('JSAny', 'dart:js_interop'))
-                      .asA(type);
+                  body = refer(
+                    '_',
+                  ).asA(refer('JSAny', 'dart:js_interop')).asA(type);
                 } else {
                   body = refer('_').asA(type);
                 }

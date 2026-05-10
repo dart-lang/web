@@ -151,6 +151,7 @@ extension type TSCompilerOptions._(JSObject _) implements JSObject {
 @JS('Program')
 extension type TSProgram._(JSObject _) implements JSObject {
   external TSSourceFile? getSourceFile(String file);
+  external JSArray<TSSourceFile> getSourceFiles();
   external TSTypeChecker getTypeChecker();
 
   /// Diagnostics related to syntax errors

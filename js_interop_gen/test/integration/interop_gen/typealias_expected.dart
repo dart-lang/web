@@ -1,7 +1,5 @@
 // ignore_for_file: camel_case_types, constant_identifier_names
-// ignore_for_file: library_private_types_in_public_api
 // ignore_for_file: lines_longer_than_80_chars, non_constant_identifier_names
-// ignore_for_file: unnecessary_parenthesis
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:js_interop' as _i1;
@@ -28,8 +26,6 @@ typedef Tags = _i1.JSArray<_i1.JSString>;
 typedef List<T extends _i1.JSAny?> = _i1.JSArray<T>;
 typedef Box<T extends _i1.JSAny?> = _i1.JSArray<_i1.JSArray<T>>;
 typedef Logger = LoggerType;
-typedef Direction = AnonymousUnion_2718349;
-typedef Method = AnonymousUnion_2375200;
 typedef Planet = Space_Planet;
 @_i1.JS()
 external LoggerContainer<_i1.JSNumber> get loggerContainers;
@@ -58,31 +54,27 @@ extension type const LoggerType._(int _) {
 
   static const LoggerType Other = LoggerType._(4);
 }
-extension type const AnonymousUnion_2718349._(String _) {
-  static const AnonymousUnion_2718349 N = AnonymousUnion_2718349._('N');
+extension type const Direction._(String _) {
+  static const Direction N = Direction._('N');
 
-  static const AnonymousUnion_2718349 S = AnonymousUnion_2718349._('S');
+  static const Direction S = Direction._('S');
 
-  static const AnonymousUnion_2718349 E = AnonymousUnion_2718349._('E');
+  static const Direction E = Direction._('E');
 
-  static const AnonymousUnion_2718349 W = AnonymousUnion_2718349._('W');
+  static const Direction W = Direction._('W');
 }
-extension type const AnonymousUnion_2375200._(String _) {
-  static const AnonymousUnion_2375200 GET = AnonymousUnion_2375200._('GET');
+extension type const Method._(String _) {
+  static const Method GET = Method._('GET');
 
-  static const AnonymousUnion_2375200 POST = AnonymousUnion_2375200._('POST');
+  static const Method POST = Method._('POST');
 
-  static const AnonymousUnion_2375200 PUT = AnonymousUnion_2375200._('PUT');
+  static const Method PUT = Method._('PUT');
 
-  static const AnonymousUnion_2375200 DELETE = AnonymousUnion_2375200._(
-    'DELETE',
-  );
+  static const Method DELETE = Method._('DELETE');
 
-  static const AnonymousUnion_2375200 PATCH = AnonymousUnion_2375200._('PATCH');
+  static const Method PATCH = Method._('PATCH');
 
-  static const AnonymousUnion_2375200 OPTIONS = AnonymousUnion_2375200._(
-    'OPTIONS',
-  );
+  static const Method OPTIONS = Method._('OPTIONS');
 }
 @_i1.JS('Space.Planet')
 extension type Space_Planet._(_i1.JSObject _) implements _i1.JSObject {

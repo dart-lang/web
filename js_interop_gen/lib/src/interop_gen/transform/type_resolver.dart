@@ -83,6 +83,19 @@ class TypeResolver {
             )
           : null;
       for (var declaration in declarations) {
+        if (declaration.kind == TSSyntaxKind.ImportSpecifier) {
+          final aliasedSymbol = transformer.typeChecker.getAliasedSymbol(
+            symbol,
+          );
+          return getTypeFromSymbol(
+            aliasedSymbol,
+            transformer.typeChecker.getTypeOfSymbol(aliasedSymbol),
+            typeArguments,
+            isNotTypableDeclaration,
+            typeArg,
+            isNullable,
+          );
+        }
         if (declaration.kind == TSSyntaxKind.ExportSpecifier) {
           // in order to prevent recursion, we need to find the source of the
           // export specifier
@@ -332,7 +345,13 @@ class TypeResolver {
     }
 
     // begin
-    final declarations = symbol!.getDeclarations()?.toDart ?? [];
+    final declarations = (symbol!.getDeclarations()?.toDart ?? [])
+        .where(
+          (decl) =>
+              decl.kind != TSSyntaxKind.ImportSpecifier &&
+              decl.kind != TSSyntaxKind.ExportSpecifier,
+        )
+        .toList();
     if (declarations.firstOrNull?.kind == TSSyntaxKind.EnumMember) {
       final enumDecl = (declarations.first as TSEnumMember).parent;
       final enumSymbol = transformer.typeChecker.getSymbolAtLocation(
@@ -376,8 +395,11 @@ class TypeResolver {
       final supportedType = BuiltinType.referred(
         firstName,
         typeParams: (typeArguments ?? [])
-            .map((t) => getJSTypeAlternative(
-                transformer.transformType(t, typeArg: true)))
+            .map(
+              (t) => getJSTypeAlternative(
+                transformer.transformType(t, typeArg: true),
+              ),
+            )
             .toList(),
         isNullable: isNullable,
       );
@@ -435,7 +457,11 @@ class TypeResolver {
             );
           }
           final referencedDeclarations = transformer.programMap
-              .getDeclarationRef(declSource, decl, fullyQualifiedName.asName);
+              .getDeclarationRef(
+                decl.getSourceFile().fileName,
+                decl,
+                fullyQualifiedName.asName,
+              );
 
           mappedDecls =
               referencedDeclarations?.whereType<NamedDeclaration>().toList() ??
@@ -484,9 +510,8 @@ class TypeResolver {
         firstNode = firstDecl as NamedDeclaration;
       } else if (decls.length > 1) {
         firstNode =
-            (decls.firstWhereOrNull((d) => d is NamedDeclaration) ??
-                    decls.first)
-                as NamedDeclaration;
+            decls.whereType<NamedDeclaration>().firstOrNull ??
+            decls.first as NamedDeclaration;
       }
 
       if (firstNode case final node?) {
@@ -525,6 +550,23 @@ class TypeResolver {
           isNullable: isNullable,
         );
       } else {
+        final declFile = declarations.isEmpty
+            ? null
+            : p.normalize(
+                p.absolute(declarations.first.getSourceFile().fileName),
+              );
+        final currentFile = p.normalize(p.absolute(transformer.file));
+
+        if (declFile != null && p.equals(declFile, currentFile)) {
+          return searchForDeclRecursive(
+            fullyQualifiedName,
+            symbol,
+            typeArguments: typeArguments,
+            typeArg: typeArg,
+            isNotTypableDeclaration: isNotTypableDeclaration,
+            isNullable: isNullable,
+          );
+        }
         // if import there and not this file, imported from specified file
         final importUrl =
             !nameImport.endsWith('.d.ts') &&
@@ -549,7 +591,7 @@ class TypeResolver {
         final referencedDeclarations = declarations
             .map((TSNode decl) {
               return transformer.programMap.getDeclarationRef(
-                importUrl,
+                decl.getSourceFile().fileName,
                 decl,
                 fullyQualifiedName.asName,
               );
@@ -615,7 +657,17 @@ class TypeResolver {
           typeName.kind == TSSyntaxKind.QualifiedName,
     );
 
-    final symbol = transformer.typeChecker.getSymbolAtLocation(typeName);
+    var symbol = transformer.typeChecker.getSymbolAtLocation(typeName);
+    if (symbol != null) {
+      final declarations = symbol.getDeclarations()?.toDart ?? [];
+      for (final decl in declarations) {
+        if (decl.kind == TSSyntaxKind.ImportSpecifier ||
+            decl.kind == TSSyntaxKind.ExportSpecifier) {
+          symbol = transformer.typeChecker.getAliasedSymbol(symbol!);
+          break;
+        }
+      }
+    }
 
     return getTypeFromSymbol(
       symbol,

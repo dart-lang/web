@@ -1504,11 +1504,19 @@ class Transformer {
         if (nonNullableUnionTypes.singleOrNull case final singleTypeNode?) {
           return _transformType(
             singleTypeNode,
+            typeArg: typeArg,
+            parameter: parameter,
             isNullable: shouldBeNullable || (isNullable ?? false),
           );
         }
 
-        final types = nonNullableUnionTypes.map<Type>(_transformType).toList();
+        final types = nonNullableUnionTypes
+            .map<Type>((t) => _transformType(
+                  t,
+                  typeArg: typeArg,
+                  parameter: parameter,
+                ))
+            .toList();
 
         var isHomogenous = true;
         final nonNullLiteralTypes = <LiteralType>[];
@@ -1588,11 +1596,20 @@ class Transformer {
 
         if (nonNullableIntersectionTypes.singleOrNull
             case final singleTypeNode?) {
-          return _transformType(singleTypeNode, isNullable: isNullable);
+          return _transformType(
+            singleTypeNode,
+            typeArg: typeArg,
+            parameter: parameter,
+            isNullable: isNullable,
+          );
         }
 
         final types = nonNullableIntersectionTypes
-            .map<Type>(_transformType)
+            .map<Type>((t) => _transformType(
+                  t,
+                  typeArg: typeArg,
+                  parameter: parameter,
+                ))
             .toList();
 
         final idMap = types.map((t) => t.id.name);

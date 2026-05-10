@@ -79,6 +79,9 @@ To ensure 100% code safety and a perfectly clean repository, we follow a discipl
      ```bash
      git commit -n -m "fix: <isolated description of your targeted fix>"
      ```
-6. **Repeat**:
+6. **Verify VS Code Progress (Periodic Rebuild)**:
+   - Run the full-scale VS Code integration test with `_rewriteFiles = true` set in [test_shared.dart](file:///Users/kevmoo/github/web/js_interop_gen/test/test_shared.dart) to rebuild `vscode_expected.dart`.
+   - Revert `_rewriteFiles = false` and run `dart analyze test/integration/vscode_expected.dart | grep "error -"` to evaluate the new error count and verify overall progress. Keep `vscode_expected.dart` untracked in your local workspace.
+7. **Repeat**:
    - Do NOT commit the massive `vscode_expected.dart` golden file until all 6 hurdles are fully resolved, leaving us with a 100% statically analyze-clean VS Code output.
 

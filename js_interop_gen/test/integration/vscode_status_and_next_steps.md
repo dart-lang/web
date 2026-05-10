@@ -68,11 +68,12 @@ To ensure 100% code safety and a perfectly clean repository, we follow a discipl
      ```bash
      node --enable-source-maps main.mjs --input=../../test/integration/interop_gen/<test_name>_input.d.ts --output=../../test/integration/interop_gen/<test_name>_expected.dart --declaration
      ```
-4. **Verify the Test Passes**:
+4. **Verify the Test Passes & is Analyzer Clean**:
    - Run the unit test suite to guarantee the new golden matches the compiler's optimized output:
      ```bash
      dart test test/integration/interop_gen_test.dart
      ```
+   - Run `dart analyze test/integration/interop_gen/<test_name>_expected.dart` to guarantee the generated unit test golden is 100% statically analyze clean.
 5. **Stage & Commit with `-n`**:
    - Stage ONLY your core engine changes and the targeted unit test files (`*_input.d.ts` and `*_expected.dart`).
    - Commit the standalone milestone using the `-n` (no-verify) flag to bypass environment-specific pre-commit hooks:

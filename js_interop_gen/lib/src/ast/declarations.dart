@@ -1212,7 +1212,7 @@ enum MethodKind { getter, setter, none }
 /// }
 /// ```
 // TODO: Suggesting a config option for adding custom constructors (factories)
-class ConstructorDeclaration implements MemberDeclaration {
+class ConstructorDeclaration implements MemberDeclaration, Node<Constructor> {
   @override
   late final TypeDeclaration parent;
 
@@ -1224,8 +1224,10 @@ class ConstructorDeclaration implements MemberDeclaration {
   @override
   final String? name;
 
+  @override
   final ID id;
 
+  @override
   String? dartName;
 
   @override
@@ -1246,13 +1248,15 @@ class ConstructorDeclaration implements MemberDeclaration {
     )..parent = decl;
   }
 
-  Constructor emit([covariant DeclarationOptions? options]) {
-    options ??= DeclarationOptions();
+  @override
+  Constructor emit([covariant Options? options]) {
+    final declarationOptions =
+        (options ?? DeclarationOptions()) as DeclarationOptions;
     final (doc, annotations) = generateFromDocumentation(documentation);
 
     final (requiredParams, optionalParams) = emitParameters(
       parameters,
-      options,
+      declarationOptions,
     );
 
     final isFactory = dartName != null && dartName != name;

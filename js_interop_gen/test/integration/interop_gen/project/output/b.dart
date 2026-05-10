@@ -12,6 +12,7 @@ extension type Point2D._(_i1.JSObject _) implements Point {
 
   external double y;
 }
+
 extension type CoordinateSystem<P extends Point>._(_i1.JSObject _)
     implements _i1.JSObject {
   external _i1.JSArray<P> points;
@@ -19,12 +20,15 @@ extension type CoordinateSystem<P extends Point>._(_i1.JSObject _)
   external P get origin;
   external void addPoint(P point);
 }
+
 @_i1.JS()
 external Point2D get origin2D;
+
 extension type Vector._(_i1.JSObject _) implements _i1.JSObject {
   external double get magnitude;
   external double get directionAngle;
 }
+
 extension type Vector2D._(_i1.JSObject _) implements Vector {
   external Vector2D(num x, num y);
 
@@ -41,6 +45,7 @@ extension type Vector2D._(_i1.JSObject _) implements Vector {
   external static Vector2D from(num magnitude, num at);
   external static Vector2D fromPoints(Point2D start, Point2D end);
 }
+
 extension type Point3D._(_i1.JSObject _) implements Point {
   external double x;
 
@@ -48,8 +53,10 @@ extension type Point3D._(_i1.JSObject _) implements Point {
 
   external double z;
 }
+
 @_i1.JS()
 external Point3D get origin3D;
+
 extension type Vector3D._(_i1.JSObject _) implements Vector {
   external Vector3D(num x, num y, num z);
 
@@ -69,6 +76,7 @@ extension type Vector3D._(_i1.JSObject _) implements Vector {
   external static Vector3D from(num magnitude, DirectionAngles at);
   external static Vector3D fromPoints(Point3D start, Point3D end);
 }
+
 extension type DirectionAngles._(_i1.JSObject _) implements _i1.JSObject {
   external double alpha;
 
@@ -76,12 +84,15 @@ extension type DirectionAngles._(_i1.JSObject _) implements _i1.JSObject {
 
   external double gamma;
 }
+
 extension type Shape._(_i1.JSObject _) implements _i1.JSObject {}
+
 extension type Shape2D._(_i1.JSObject _) implements Shape {
   external double? get sides;
   external double get perimeter;
   external double get area;
 }
+
 extension type Circle._(_i1.JSObject _) implements Shape2D {
   external Circle(num radius);
 
@@ -92,8 +103,10 @@ extension type Circle._(_i1.JSObject _) implements Shape2D {
   @_i2.redeclare
   external double get perimeter;
 }
+
 @_i1.JS()
 external Circle drawCircle(Point2D center, num radius);
+
 extension type Rectangle._(_i1.JSObject _) implements Shape2D {
   external Rectangle(num length, num width);
 
@@ -108,17 +121,21 @@ extension type Rectangle._(_i1.JSObject _) implements Shape2D {
   @_i2.redeclare
   external double get perimeter;
 }
+
 extension type Square._(_i1.JSObject _) implements Rectangle {
   external Square(num length);
 
   external double length;
 }
+
 @_i1.JS()
 external Square drawSquare(Point2D start, num length, [num? angle]);
+
 extension type Shape3D._(_i1.JSObject _) implements Shape {
   external double get volume;
   external double surfaceArea();
 }
+
 extension type Sphere._(_i1.JSObject _) implements Shape3D {
   external Sphere(num radius);
 
@@ -129,8 +146,10 @@ extension type Sphere._(_i1.JSObject _) implements Shape3D {
   @_i2.redeclare
   external double surfaceArea();
 }
+
 @_i1.JS()
 external Sphere drawSphere(Point3D center);
+
 extension type Prism<S extends Shape2D>._(_i1.JSObject _) implements Shape3D {
   external Prism(S surface, num height);
 
@@ -142,6 +161,7 @@ extension type Prism<S extends Shape2D>._(_i1.JSObject _) implements Shape3D {
   @_i2.redeclare
   external double surfaceArea();
 }
+
 extension type Pyramid<S extends Shape2D>._(_i1.JSObject _) implements Shape3D {
   external Pyramid(S surface, num height);
 
@@ -153,6 +173,7 @@ extension type Pyramid<S extends Shape2D>._(_i1.JSObject _) implements Shape3D {
   @_i2.redeclare
   external double surfaceArea();
 }
+
 extension type Cylinder._(_i1.JSObject _) implements Prism<Circle> {
   external Cylinder(num radius, num height);
 
@@ -161,6 +182,7 @@ extension type Cylinder._(_i1.JSObject _) implements Prism<Circle> {
   @_i2.redeclare
   external double surfaceArea();
 }
+
 extension type Cuboid._(_i1.JSObject _) implements Prism<Rectangle> {
   external Cuboid(num length, num width, num height);
 
@@ -170,6 +192,7 @@ extension type Cuboid._(_i1.JSObject _) implements Prism<Rectangle> {
 
   external double height;
 }
+
 extension type Cube._(_i1.JSObject _) implements Prism<Square> {
   external Cube(num length);
 
@@ -180,6 +203,7 @@ extension type Cube._(_i1.JSObject _) implements Prism<Square> {
   @_i2.redeclare
   external double surfaceArea();
 }
+
 extension type Cone._(_i1.JSObject _) implements Pyramid<Circle> {
   external Cone(num radius, num height);
 
@@ -190,6 +214,7 @@ extension type Cone._(_i1.JSObject _) implements Pyramid<Circle> {
   @_i2.redeclare
   external double surfaceArea();
 }
+
 extension type Hemi<S extends Shape3D>._(_i1.JSObject _) implements Shape3D {
   external Hemi(S shape);
 
@@ -200,7 +225,9 @@ extension type Hemi<S extends Shape3D>._(_i1.JSObject _) implements Shape3D {
   @_i2.redeclare
   external double surfaceArea();
 }
+
 typedef HemiSphere = Hemi<Sphere>;
+
 extension type EpahsImpl<TMeta extends _i1.JSAny?>._(_i1.JSObject _)
     implements Epahs<TMeta> {
   external EpahsImpl(String name, [AnonymousUnion_7177595? type]);
@@ -227,7 +254,9 @@ extension type EpahsImpl<TMeta extends _i1.JSAny?>._(_i1.JSObject _)
   @_i1.JS('toString')
   external String toString$();
 }
+
 extension type Point._(_i1.JSObject _) implements _i1.JSObject {}
+
 extension type Epahs<TMetadata extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
   external String name;
@@ -238,6 +267,7 @@ extension type Epahs<TMetadata extends _i1.JSAny?>._(_i1.JSObject _)
   external String area$1(AnonymousUnion_4033716 unit);
   external _i1.JSFunction? get onUpdate;
 }
+
 extension type const AnonymousUnion_7177595._(String _) {
   static const AnonymousUnion_7177595 circle = AnonymousUnion_7177595._(
     'circle',
@@ -251,6 +281,7 @@ extension type const AnonymousUnion_7177595._(String _) {
     'polygon',
   );
 }
+
 extension type const AnonymousUnion_4033716._(String _) {
   static const AnonymousUnion_4033716 cm2 = AnonymousUnion_4033716._('cm2');
 

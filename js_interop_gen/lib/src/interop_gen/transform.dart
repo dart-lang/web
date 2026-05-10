@@ -51,6 +51,7 @@ class TransformResult {
             return switch (d) {
               final Declaration n => n.emit(options),
               final Type _ => null,
+              _ => null,
             };
           })
           .nonNulls
@@ -102,10 +103,7 @@ class TransformResult {
         print('WARNING: Formatter failed, returning unformatted source: \$e');
         formattedSource = source;
       }
-      return MapEntry(
-        file.replaceAll('.d.ts', '.dart'),
-        formattedSource,
-      );
+      return MapEntry(file.replaceAll('.d.ts', '.dart'), formattedSource);
     });
   }
 }

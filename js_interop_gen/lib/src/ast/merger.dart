@@ -631,7 +631,7 @@ class _ExtensionOfTypeDeclaration extends NamedDeclaration
   );
 }
 
-String _memberSignature(dynamic d) {
+String _memberSignature<T extends Node>(T d) {
   if (d case final PropertyDeclaration p) {
     return 'prop:${p.name}:${p.static}:${p.type.id}';
   } else if (d case final MethodDeclaration m) {
@@ -642,12 +642,12 @@ String _memberSignature(dynamic d) {
     return 'op:${o.name}:${o.returnType.id}:$paramsSig';
   } else if (d case final ConstructorDeclaration c) {
     final paramsSig = c.parameters.map((p) => p.type.id).join(',');
-    return 'constructor:${c.name}:${paramsSig}';
+    return 'constructor:${c.name}:$paramsSig';
   }
   return d.id.toString();
 }
 
-List<T> _deduplicateBySignature<T>(Iterable<T> declarations) {
+List<T> _deduplicateBySignature<T extends Node>(Iterable<T> declarations) {
   final seen = <String>{};
   final result = <T>[];
   for (final decl in declarations) {

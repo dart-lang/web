@@ -32,6 +32,7 @@ external _i1.JSAny? handleEvents(
   _i2.Event event,
   _i1.JSArray<EventManipulationFunc> onCallbacks,
 );
+
 extension type ElementStamp<T extends _i2.HTMLElement>._(_i1.JSObject _)
     implements _i1.JSObject {
   external String id;
@@ -41,6 +42,7 @@ extension type ElementStamp<T extends _i2.HTMLElement>._(_i1.JSObject _)
   external T get target;
   external Date get stampedAt;
 }
+
 @_i1.JS()
 external _i2.CustomEvent get myCustomEvent;
 @_i1.JS()
@@ -49,6 +51,7 @@ external _i2.ShadowRoot myShadowRoot;
 external _i2.HTMLButtonElement get button;
 @_i1.JS()
 external _i2.HTMLDivElement get output;
+
 extension type AnonymousType_5408739<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
   external AnonymousType_5408739({
@@ -60,18 +63,21 @@ extension type AnonymousType_5408739<T extends _i1.JSAny?>._(_i1.JSObject _)
 
   external _i2.HTMLElement parent;
 }
+
 extension type AnonymousUnion_3403652<T extends _i1.JSAny?>._(_i1.JSAny _)
     implements _i1.JSAny {
   T get asT => (_ as T);
 
   String get asString => (_ as _i1.JSString).toDart;
 }
+
 extension type HTMLTransformFunc<
   T extends _i2.HTMLElement,
   R extends _i2.HTMLElement
 >._(_i1.JSObject _) implements _i1.JSObject {
   external R call(T element);
 }
+
 extension type EventManipulationFunc._(_i1.JSObject _) implements _i1.JSObject {
   external _i1.JSAny? call(_i2.Event event);
 }
@@ -294,6 +300,7 @@ extension type Date._(_i1.JSObject _) implements _i1.JSObject {
   /// object's data for JavaScript Object Notation (JSON) serialization.
   external String toJSON([_i1.JSAny? key]);
 }
+
 extension type const AnonymousUnion_2036258._(String _) {
   static const AnonymousUnion_2036258 emit = AnonymousUnion_2036258._('emit');
 

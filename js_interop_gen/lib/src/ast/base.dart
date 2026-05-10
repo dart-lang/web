@@ -68,16 +68,16 @@ class ASTOptions {
   });
 }
 
-sealed class Node {
+abstract class Node<T extends Object> {
   abstract final ID id;
   abstract String? dartName;
 
-  Spec emit([Options? options]);
+  T emit([covariant Options? options]);
 
   Node();
 }
 
-abstract class Declaration extends Node {
+abstract class Declaration extends Node<Spec> {
   String get name;
 
   @override
@@ -117,7 +117,7 @@ abstract interface class ExportableDeclaration extends Declaration {
   abstract String name;
 }
 
-abstract class Type extends Node {
+abstract class Type extends Node<Reference> {
   @override
   String? dartName;
 

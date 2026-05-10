@@ -768,7 +768,7 @@ sealed class _UnionOrIntersectionDeclaration extends NamedDeclaration
               } else if (jsTypeAlt.id == t.id) {
                 body = refer('_').asA(type);
               } else {
-                body = switch (t) {
+                body = switch (desugarTypeAliases(t)) {
                   BuiltinType(name: final n) when n == 'int' =>
                     refer('_')
                         .asA(jsTypeAlt.emit(options?.toTypeOptions()))
@@ -781,6 +781,23 @@ sealed class _UnionOrIntersectionDeclaration extends NamedDeclaration
                     refer('_')
                         .asA(jsTypeAlt.emit(options?.toTypeOptions()))
                         .property('toDart'),
+                  LiteralType(kind: LiteralKind.$true) ||
+                  LiteralType(kind: LiteralKind.$false) =>
+                    refer('_')
+                        .asA(refer('JSBoolean', 'dart:js_interop'))
+                        .property('toDart'),
+                  LiteralType(kind: LiteralKind.string) =>
+                    refer('_')
+                        .asA(refer('JSString', 'dart:js_interop'))
+                        .property('toDart'),
+                  LiteralType(kind: LiteralKind.int) =>
+                    refer('_')
+                        .asA(refer('JSNumber', 'dart:js_interop'))
+                        .property('toDartInt'),
+                  LiteralType(kind: LiteralKind.double) =>
+                    refer('_')
+                        .asA(refer('JSNumber', 'dart:js_interop'))
+                        .property('toDartDouble'),
                   ReferredType(
                     declaration: final decl,
                     name: final n,
@@ -945,6 +962,9 @@ String _typeNameForGetter(Type t) {
     typeParams = t.typeParams;
   } else if (t is DeclarationType) {
     baseName = t.declarationName;
+    typeParams = const [];
+  } else if (t is LiteralType) {
+    baseName = t.name;
     typeParams = const [];
   } else if (t is NamedType) {
     baseName = t.dartName ?? t.name;

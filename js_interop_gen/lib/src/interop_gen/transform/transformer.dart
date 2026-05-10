@@ -2306,7 +2306,7 @@ class Transformer {
     }
 
     // begin
-    var declarations = symbol!.getDeclarations()?.toDart ?? [];
+    final declarations = symbol!.getDeclarations()?.toDart ?? [];
     if (declarations.firstOrNull?.kind == TSSyntaxKind.EnumMember) {
       final enumDecl = (declarations.first as TSEnumMember).parent;
       final enumSymbol = typeChecker.getSymbolAtLocation(enumDecl.name)!;

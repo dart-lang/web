@@ -1249,13 +1249,14 @@ class ConstructorDeclaration implements MemberDeclaration, Node<Constructor> {
   }
 
   @override
-  Constructor emit([covariant DeclarationOptions? options]) {
-    options ??= DeclarationOptions();
+  Constructor emit([covariant Options? options]) {
+    final declarationOptions =
+        (options ?? DeclarationOptions()) as DeclarationOptions;
     final (doc, annotations) = generateFromDocumentation(documentation);
 
     final (requiredParams, optionalParams) = emitParameters(
       parameters,
-      options,
+      declarationOptions,
     );
 
     final isFactory = dartName != null && dartName != name;

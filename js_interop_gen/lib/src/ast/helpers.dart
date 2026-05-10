@@ -37,6 +37,8 @@ Type getJSTypeAlternative(Type type) {
       default:
         return type;
     }
+  } else if (type is LiteralType) {
+    return getJSTypeAlternative(type.baseType);
   }
   return type;
 }

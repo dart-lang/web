@@ -181,17 +181,29 @@ Type getRepresentationType(TypeDeclaration td) {
 
 /// Recursively get the generic types specified in a given type [t]
 Set<GenericType> getGenericTypes(Type t) {
-  final types = <(String, Type?)>{};
+  final typesMap = <String, Type?>{};
+
+  void addType(String name, Type? constraint) {
+    final existing = typesMap[name];
+    if (existing == null) {
+      typesMap[name] = constraint;
+    } else if (constraint != null &&
+        (existing is BuiltinType && existing.name == 'JSAny')) {
+      typesMap[name] = constraint;
+    }
+  }
+
   switch (t) {
     case GenericType():
-      types.add((t.name, t.constraint));
+      addType(t.name, t.constraint);
       break;
     case ReferredType(typeParams: final referredTypeParams):
     case UnionType(types: final referredTypeParams):
+    case BuiltinType(typeParams: final referredTypeParams):
       for (final referredTypeParam in referredTypeParams) {
-        types.addAll(
-          getGenericTypes(referredTypeParam).map((t) => (t.name, t.constraint)),
-        );
+        for (final t in getGenericTypes(referredTypeParam)) {
+          addType(t.name, t.constraint);
+        }
       }
       break;
     case ObjectLiteralType(
@@ -201,9 +213,9 @@ Set<GenericType> getGenericTypes(Type t) {
       operators: final objectOperators,
     ):
       for (final PropertyDeclaration(type: propType) in objectProps) {
-        types.addAll(
-          getGenericTypes(propType).map((t) => (t.name, t.constraint)),
-        );
+        for (final t in getGenericTypes(propType)) {
+          addType(t.name, t.constraint);
+        }
       }
 
       for (final MethodDeclaration(
@@ -220,7 +232,7 @@ Set<GenericType> getGenericTypes(Type t) {
             if (!alreadyEstablishedTypeParams.any(
               (al) => al.name == genericType.name,
             )) {
-              types.add((genericType.name, genericType.constraint));
+              addType(genericType.name, genericType.constraint);
             }
           }
         }
@@ -230,9 +242,9 @@ Set<GenericType> getGenericTypes(Type t) {
           in objectConstructors) {
         for (final ParameterDeclaration(type: methodParamType)
             in methodParams) {
-          types.addAll(
-            getGenericTypes(methodParamType).map((t) => (t.name, t.constraint)),
-          );
+          for (final t in getGenericTypes(methodParamType)) {
+            addType(t.name, t.constraint);
+          }
         }
       }
 
@@ -250,7 +262,7 @@ Set<GenericType> getGenericTypes(Type t) {
             if (!alreadyEstablishedTypeParams.any(
               (al) => al.name == genericType.name,
             )) {
-              types.add((genericType.name, genericType.constraint));
+              addType(genericType.name, genericType.constraint);
             }
           }
         }
@@ -267,7 +279,7 @@ Set<GenericType> getGenericTypes(Type t) {
           if (!alreadyEstablishedTypeParams.any(
             (al) => al.name == genericType.name,
           )) {
-            types.add((genericType.name, genericType.constraint));
+            addType(genericType.name, genericType.constraint);
           }
         }
       }
@@ -278,7 +290,9 @@ Set<GenericType> getGenericTypes(Type t) {
 
   // Types are cloned so that modifications to constraints can happen without
   // affecting initial references
-  return types.map((t) => GenericType(name: t.$1, constraint: t.$2)).toSet();
+  return typesMap.entries
+      .map((e) => GenericType(name: e.key, constraint: e.value))
+      .toSet();
 }
 
 Type desugarTypeAliases(Type t) {

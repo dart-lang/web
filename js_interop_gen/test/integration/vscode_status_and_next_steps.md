@@ -73,7 +73,8 @@ To ensure 100% code safety and a perfectly clean repository, we follow a discipl
      ```bash
      dart test test/integration/interop_gen_test.dart
      ```
-   - Run `dart analyze test/integration/interop_gen/<test_name>_expected.dart` to guarantee the generated unit test golden is 100% statically analyze clean.
+   - Run `dart analyze` on the entire `js_interop_gen` project to guarantee that the compiler source files under `lib/` and all test files are 100% statically analyze clean.
+   - Run `dart analyze test/integration/interop_gen/<test_name>_expected.dart` to guarantee the generated unit test golden itself is 100% statically analyze clean.
 5. **Stage & Commit with `-n`**:
    - Stage ONLY your core engine changes and the targeted unit test files (`*_input.d.ts` and `*_expected.dart`).
    - Commit the standalone milestone using the `-n` (no-verify) flag to bypass environment-specific pre-commit hooks:

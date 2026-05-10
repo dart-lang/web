@@ -14,25 +14,21 @@ extension type PresentationOptions._(_i1.JSObject _) implements _i1.JSObject {
 
   external AnonymousUnion_8514031 doubleUnion;
 }
-
 extension type AnonymousUnion_3982518._(_i1.JSAny _) implements _i1.JSAny {
   bool get asTrue => (_ as _i1.JSBoolean).toDart;
 
   _i1.JSObject get asJSObject => (_ as _i1.JSObject);
 }
-
 extension type AnonymousUnion_3062264._(_i1.JSAny _) implements _i1.JSAny {
   String get asString => (_ as _i1.JSString).toDart;
 
   _i1.JSObject get asJSObject => (_ as _i1.JSObject);
 }
-
 extension type AnonymousUnion_2379119._(_i1.JSAny _) implements _i1.JSAny {
   num get asNumber => (_ as _i1.JSNumber).toDartInt;
 
   _i1.JSObject get asJSObject => (_ as _i1.JSObject);
 }
-
 extension type AnonymousUnion_8514031._(_i1.JSAny _) implements _i1.JSAny {
   double get asNumber => (_ as _i1.JSNumber).toDartDouble;
 

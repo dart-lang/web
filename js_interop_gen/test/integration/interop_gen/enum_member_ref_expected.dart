@@ -8,7 +8,6 @@ extension type const TaskScope._(int _) {
 
   static const TaskScope Workspace = TaskScope._(2);
 }
-
 extension type Task._(_i1.JSObject _) implements _i1.JSObject {
   external Task();
 

@@ -128,7 +128,6 @@ external LinkedList get rootList;
 /// A numeric comparator for sorting numbers.
 @_i1.JS()
 external Comparator<_i1.JSNumber> get compareNumbers;
-
 extension type const AnonymousUnion_1885558._(String _) {
   static const AnonymousUnion_1885558 debug = AnonymousUnion_1885558._('debug');
 

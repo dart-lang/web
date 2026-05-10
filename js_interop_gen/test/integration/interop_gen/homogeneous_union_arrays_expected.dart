@@ -12,7 +12,6 @@ extension type Container._(_i1.JSObject _) implements _i1.JSObject {
 
   external AnonymousUnion_1757671 deepArrayUnion;
 }
-
 extension type AnonymousUnion_3057876._(_i1.JSArray _) implements _i1.JSArray {
   _i1.JSArray<_i1.JSString> get asJSArrayOfJSString =>
       (_ as _i1.JSArray<_i1.JSString>);
@@ -20,7 +19,6 @@ extension type AnonymousUnion_3057876._(_i1.JSArray _) implements _i1.JSArray {
   _i1.JSArray<_i1.JSNumber> get asJSArrayOfJSNumber =>
       (_ as _i1.JSArray<_i1.JSNumber>);
 }
-
 extension type AnonymousUnion_9545617._(_i1.JSPromise _)
     implements _i1.JSPromise {
   _i1.JSPromise<_i1.JSString> get asJSPromiseOfJSString =>
@@ -29,7 +27,6 @@ extension type AnonymousUnion_9545617._(_i1.JSPromise _)
   _i1.JSPromise<_i1.JSNumber> get asJSPromiseOfJSNumber =>
       (_ as _i1.JSPromise<_i1.JSNumber>);
 }
-
 extension type AnonymousUnion_1757671._(_i1.JSArray _) implements _i1.JSArray {
   _i1.JSArray<_i1.JSArray<_i1.JSString>> get asJSArrayOfJSArrayOfJSString =>
       (_ as _i1.JSArray<_i1.JSArray<_i1.JSString>>);

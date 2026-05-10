@@ -8,7 +8,6 @@ extension type Folder._(_i1.JSObject _) implements _i1.JSObject {
 
   external _i1.JSArray<File> files;
 }
-
 extension type File._(_i1.JSObject _) implements _i1.JSObject {
   external File();
 

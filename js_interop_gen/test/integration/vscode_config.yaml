@@ -1,0 +1,10 @@
+name: VSCode
+input: vscode_input.d.ts
+output: vscode_actual.dart
+ts_config:
+  compilerOptions:
+    lib:
+      - es2020
+      - dom
+  files:
+    - vscode_input.d.ts

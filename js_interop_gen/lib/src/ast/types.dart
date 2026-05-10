@@ -19,7 +19,12 @@ class ReferredType<T extends Declaration> extends NamedType {
   String name;
 
   @override
-  ID get id => ID(type: 'type', name: name);
+  ID get id => ID(
+    type: 'type',
+    name: typeParams.isEmpty
+        ? name
+        : '$name<${typeParams.map((t) => t.id.name).join(',')}>',
+  );
 
   @override
   bool isNullable;

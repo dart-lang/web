@@ -10,7 +10,7 @@ extension type GenericContainer<T extends _i1.JSAny?>._(_i1.JSObject _)
   external T value;
 }
 extension type TargetClass._(_i1.JSObject _) implements _i1.JSObject {
-  external GenericContainer<AnonymousUnion_2683278> field;
+  external GenericContainer<AnonymousUnion_3063943> field;
 }
 extension type OtherContainer<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
@@ -21,10 +21,10 @@ extension type TargetClassWithGenericUnion<T extends _i1.JSAny?>._(
 ) implements _i1.JSObject {
   external AnonymousUnion_3899151 field;
 }
-extension type AnonymousUnion_2683278._(_i1.JSAny _) implements _i1.JSAny {
-  String get asString => (_ as _i1.JSString).toDart;
+extension type AnonymousUnion_3063943._(_i1.JSAny _) implements _i1.JSAny {
+  _i1.JSString get asJSString => (_ as _i1.JSString);
 
-  double get asDouble => (_ as _i1.JSNumber).toDartDouble;
+  _i1.JSNumber get asJSNumber => (_ as _i1.JSNumber);
 }
 extension type AnonymousUnion_3899151<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {

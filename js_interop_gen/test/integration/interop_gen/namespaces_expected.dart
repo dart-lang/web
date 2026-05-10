@@ -277,7 +277,7 @@ extension type EnterpriseApp_DataServices_ProductService._(_i1.JSObject _)
   external void save(EnterpriseApp_Models_Product item);
   external void add(EnterpriseApp_Models_Product product);
   @_i1.JS('get')
-  external EnterpriseApp_Models_Product get$(AnonymousUnion_2683278 id);
+  external EnterpriseApp_Models_Product get$(AnonymousUnion_5376531 id);
   @_i2.redeclare
   external _i1.JSArray<EnterpriseApp_Models_Product> getAll();
 }
@@ -294,8 +294,8 @@ extension type EnterpriseApp_UI_Components._(_i1.JSObject _)
     _i1.JSArray<EnterpriseApp_Models_User> users,
   );
 }
-extension type AnonymousUnion_2683278._(_i1.JSAny _) implements _i1.JSAny {
+extension type AnonymousUnion_5376531._(_i1.JSAny _) implements _i1.JSAny {
   String get asString => (_ as _i1.JSString).toDart;
 
-  double get asDouble => (_ as _i1.JSNumber).toDartDouble;
+  num get asNum => (_ as _i1.JSNumber).toDartDouble;
 }

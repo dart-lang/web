@@ -12,7 +12,6 @@ import 'package:path/path.dart' as p;
 
 import '../ast/base.dart';
 import '../ast/declarations.dart';
-import '../ast/helpers.dart';
 import '../ast/types.dart';
 import '../config.dart';
 import '../js/helpers.dart';
@@ -69,10 +68,8 @@ class TransformResult {
         }
         var parentCaseIgnore = false;
         var anonymousIgnore = false;
-        var tupleDecl = false;
 
         for (final value in declMap.values) {
-          if (value is TupleDeclaration) tupleDecl = true;
           if (value.id.name.contains('Anonymous')) anonymousIgnore = true;
           if (value case NestableDeclaration(parent: final _?)) {
             parentCaseIgnore = true;
@@ -83,13 +80,12 @@ class TransformResult {
             'lines_longer_than_80_chars',
             'constant_identifier_names',
             'non_constant_identifier_names',
+            'unnecessary_parenthesis',
             if (parentCaseIgnore) 'camel_case_types',
             if (anonymousIgnore) ...[
               'camel_case_types',
               'library_private_types_in_public_api',
-              'unnecessary_parenthesis',
             ],
-            if (tupleDecl) 'unnecessary_parenthesis',
           })
           ..body.addAll(specs);
       });

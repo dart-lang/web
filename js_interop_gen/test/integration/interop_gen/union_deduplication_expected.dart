@@ -1,5 +1,5 @@
 // ignore_for_file: constant_identifier_names, lines_longer_than_80_chars
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, unnecessary_parenthesis
 
 extension type const TaskScope._(int _) {
   static const TaskScope Global = TaskScope._(1);

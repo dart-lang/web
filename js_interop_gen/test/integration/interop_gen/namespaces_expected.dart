@@ -243,8 +243,7 @@ extension type EnterpriseApp_DataServices._(_i1.JSObject _)
 @_i1.JS('EnterpriseApp.DataServices.IDataService')
 extension type EnterpriseApp_DataServices_IDataService<T extends _i1.JSAny?>._(
   _i1.JSObject _
-)
-    implements _i1.JSObject {
+) implements _i1.JSObject {
   external _i1.JSArray<T> getAll();
   external T getById(String id);
   external void save(T item);

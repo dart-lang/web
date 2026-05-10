@@ -1,5 +1,6 @@
 // ignore_for_file: camel_case_types, constant_identifier_names
 // ignore_for_file: lines_longer_than_80_chars, non_constant_identifier_names
+// ignore_for_file: unnecessary_parenthesis
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:js_interop' as _i1;

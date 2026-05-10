@@ -74,7 +74,7 @@ external KeyOf_User userKeys;
 external KeyOf_TypeOf_MyEnum alphabeticLetter;
 @_i1.JS()
 external MyEnum_EnumType get myEnumType;
-typedef Transformer<T extends _i1.JSAny?> = _AnonymousFunction_3217419<T>;
+typedef Transformer<T extends _i1.JSAny?> = _AnonymousFunction_3794666<T>;
 @_i1.JS()
 external _i1.JSFunction copyOfmyEnclosingFunction;
 @_i1.JS()
@@ -228,7 +228,7 @@ extension type const KeyOf_TypeOf_MyEnum._(String _) {
 
   static const KeyOf_TypeOf_MyEnum D = KeyOf_TypeOf_MyEnum._('D');
 }
-extension type _AnonymousFunction_3217419<T extends _i1.JSAny?>._(
+extension type _AnonymousFunction_3794666<T extends _i1.JSAny?>._(
   _i1.JSFunction _
 ) implements _i1.JSFunction {
   external ComposedType<T> call(T object);

@@ -32,9 +32,9 @@ To get the generated output to be 100% green under the strict Dart analyzer, we 
 * **The Issue**: Inside standard generic collections like `JSArray` and `JSPromise`, custom types are passed as generic arguments (e.g. `JSArray<AnonymousUnion_3231260>`), but the compiler fails to emit the concrete `AnonymousUnion_3231260` class definition.
 * **Roadmap**: Update the `DependencyWalker` in [type_resolver.dart](file:///Users/kevmoo/github/web/js_interop_gen/lib/src/interop_gen/transform/type_resolver.dart) to recursively unwrap and walk inside type parameters of `BuiltinType`s, bringing hidden generic type parameters into the generation scope! (Fixed by adding a recursive getNonBuiltinTypes unwrapper inside DependencyWalker to fully inspect BuiltinType nested arguments!)
 
-### 2. Dart Primitive Type Arguments Bounds Mismatch (`type_argument_not_matching_bounds`)
+### 2. Dart Primitive Type Arguments Bounds Mismatch (`type_argument_not_matching_bounds`) - ✅ (Fixed)
 * **The Issue**: A type argument (like `String?`) is passed to a type parameter with a non-nullable bound like `T extends JSAny?` (e.g. `TelemetrySender<string>` yielding `TelemetrySender<String?>`). Since Dart's primitive `String` does not extend `JSAny`, the compiler throws type bounds conformance errors.
-* **Roadmap**: Update the generic type argument mapping in the generator to automatically emit the JS interop type alternative (like `JSString?` / `JSString`) instead of the Dart primitive type (like `String?` / `String`) when mapped against a `JSAny` bound.
+* **Roadmap**: Update the generic type argument mapping in the generator to automatically emit the JS interop type alternative (like `JSString?` / `JSString`) instead of the Dart primitive type (like `String?` / `String`) when mapped against a `JSAny` bound. (Fixed by passing typeArg: true when resolving generic type arguments for referred BuiltinTypes and PackageWebTypes inside type_resolver.dart!)
 
 ### 3. Double-Check & Verified Clean Audit
 * **Roadmap**: Rebuild the massive, full-scale `vscode_expected.dart` golden file and run `dart analyze` on it. Verify that all warnings and errors are completely gone, leaving us with **exactly 0 issues found**!

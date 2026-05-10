@@ -100,12 +100,43 @@ We have resolved key architectural questions to establish a robust, standard E2E
 6. Write `user_test.dart` importing `api_kitchen_sink.dart`, loading the JS bundle dynamically, and asserting parity.
 7. Run `dart test -p node test/integration/e2e/user_test.dart`.
 
-### Phase 2: Kitchen Sink Expansion
+### Phase 2: Kitchen Sink Expansion & Verification Checklist
 
-Once Phase 1's infrastructure and runner are confirmed green, incrementally implement and verify the comprehensive suite:
-- Union types (`string | number`)
-- Overloads (constructors, methods)
-- Promises and async operations (`JSPromise`, `Thenable`)
-- Callbacks and Events (disposable handlers)
-- Generics and custom bounds
-- String/numeric enums
+Below is the complete matrix of VS Code interop patterns we are implementing and E2E validating:
+
+- [x] **Task 1: Namespace / Sub-module Nesting**
+  - *TS Pattern*: `export namespace commands { export function register(id: string, cb: () => void): void; }` (mirrors `vscode.commands.registerCommand`).
+  - *TS Validation*: Register and execute callbacks.
+  - *Dart Validation*: Invoke static namespaced methods and verify correct runtime namespace resolution.
+
+- [x] **Task 2: Comprehensive Union Types**
+  - *TS Pattern*: `export type Size = number | 'auto' | 'full';`
+  - *TS Validation*: Logger methods consuming `Size` and asserting correct outputs.
+  - *Dart Validation*: Use generated extension getters (`asDouble`, `asJSString`) and verify runtime type-casting.
+
+- [x] **Task 3: String and Numeric Enums**
+  - *TS Pattern*: String Enum `Severity { Info = 'INFO', Error = 'ERROR' }` and Numeric Enum `Alignment { Left = 1, Right = 2 }`.
+  - *TS Validation*: Pass severity/alignment values to diagnostic reporters.
+  - *Dart Validation*: Call the interop methods passing representation enum values.
+
+- [x] **Task 4: Method & Constructor Overloads**
+  - *TS Pattern*: Overloaded class methods: `scale(factor: num): Vector; scale(x: num, y: num): Vector;` and overloaded constructors.
+  - *TS Validation*: Vector scale by factor vs scale by distinct X/Y deltas.
+  - *Dart Validation*: Call the generated `$1`, `$2` variants of methods/constructors.
+
+- [x] **Task 5: Complex Generics & Bounds**
+  - *TS Pattern*: Bounded generic container `Response<T extends Vector> { data: T }`.
+  - *TS Validation*: Instantiate and access generic properties.
+  - *Dart Validation*: Ensure generic constraints compile cleanly and return typed interop elements.
+
+- [x] **Task 6: Events & Disposables**
+  - *TS Pattern*: `Event<T>` subscription returning a `Disposable` object.
+  - *TS Validation*: Subscribe, fire events, dispose, verify subsequent events are ignored.
+  - *Dart Validation*: Test complete interop callback subscription lifecycle and memory cleanup.
+
+- [x] **Task 7: Optional Parameters**
+  - *TS Pattern*: `greet(name: string, prefix?: string): string`.
+  - *TS Validation*: Assert omitting the argument evaluates to `undefined` in JS.
+  - *Dart Validation*: Omit the parameter in Dart, verify that no boundary exception is thrown.
+
+

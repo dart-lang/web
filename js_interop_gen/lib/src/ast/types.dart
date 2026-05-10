@@ -777,8 +777,75 @@ sealed class _UnionOrIntersectionDeclaration extends NamedDeclaration
       extendees.add(repType);
     }
 
+    final memberDeclCount = <String, int>{};
+    final memberDecls = <String, MemberDeclaration>{};
+
+    for (final e in extendees) {
+      if (e case ReferredType(declaration: final d) when d is TypeDeclaration) {
+        final members = getMemberHierarchy(d, true);
+        for (final m in members) {
+          memberDeclCount[m] = (memberDeclCount[m] ?? 0) + 1;
+          if (memberDecls[m] == null) {
+            final prop = d.properties.where((p) => p.name == m).firstOrNull;
+            if (prop != null) memberDecls[m] = prop;
+            final method = d.methods.where((p) => p.name == m).firstOrNull;
+            if (method != null) memberDecls[m] = method;
+          }
+        }
+      }
+    }
+
+    final conflictingMembers = memberDeclCount.entries
+        .where((e) => e.value > 1)
+        .map((e) => e.key)
+        .toSet();
+
+    final conflictingMethods = <Method>[];
+
+    for (final m in conflictingMembers) {
+      final decl = memberDecls[m];
+      if (decl != null) {
+        final spec = (decl as Declaration).emit(options);
+        if (spec is Method) {
+          conflictingMethods.add(
+            Method((builder) => builder
+              ..name = spec.name
+              ..type = spec.type
+              ..external = true
+              ..static = spec.static
+              ..returns = spec.returns
+              ..requiredParameters.addAll(spec.requiredParameters)
+              ..optionalParameters.addAll(spec.optionalParameters)
+              ..annotations.addAll(spec.annotations)),
+          );
+        } else if (spec is Field) {
+          conflictingMethods.add(
+            Method((builder) => builder
+              ..name = spec.name
+              ..type = MethodType.getter
+              ..external = true
+              ..static = spec.static
+              ..returns = spec.type),
+          );
+          if (decl case PropertyDeclaration(readonly: false)) {
+            conflictingMethods.add(
+              Method((builder) => builder
+                ..name = spec.name
+                ..type = MethodType.setter
+                ..external = true
+                ..static = spec.static
+                ..requiredParameters.add(Parameter((p) => p
+                  ..name = 'value'
+                  ..type = spec.type))),
+            );
+          }
+        }
+      }
+    }
+
     return ExtensionType(
       (e) => e
+        ..methods.addAll(conflictingMethods)
         ..name = name
         ..primaryConstructorName = '_'
         ..representationDeclaration = RepresentationDeclaration(

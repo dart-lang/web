@@ -1,0 +1,9 @@
+name: E2EKitchenSink
+input: api_kitchen_sink.d.ts
+output: api_kitchen_sink.dart
+ts_config:
+  compilerOptions:
+    lib:
+      - es2020
+  files:
+    - api_kitchen_sink.d.ts

@@ -679,7 +679,7 @@ sealed class _UnionOrIntersectionDeclaration extends NamedDeclaration
   @override
   ID get id;
 
-  List<Type> types;
+  late List<Type> types;
 
   List<GenericType> typeParameters;
 
@@ -691,12 +691,22 @@ sealed class _UnionOrIntersectionDeclaration extends NamedDeclaration
 
   _UnionOrIntersectionDeclaration({
     required this.name,
-    this.types = const [],
+    List<Type> types = const [],
     List<GenericType>? typeParams,
-  }) : typeParameters = typeParams ?? [] {
+  })  : typeParameters = typeParams ?? [] {
+    final uniqueTypes = <Type>[];
+    final seenNames = <String>{};
+    for (final type in types) {
+      final getterName = _typeNameForGetter(type);
+      if (seenNames.add(getterName)) {
+        uniqueTypes.add(type);
+      }
+    }
+    this.types = uniqueTypes;
+
     if (typeParams == null) {
       final seen = <String>{};
-      for (final type in types) {
+      for (final type in this.types) {
         for (final t in getGenericTypes(type)) {
           if (seen.add(t.name)) {
             t.constraint ??= BuiltinType.anyType;

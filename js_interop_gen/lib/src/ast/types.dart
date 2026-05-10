@@ -78,10 +78,18 @@ class ReferredType<T extends Declaration> extends NamedType {
                 : declaration.dartName ?? declaration.name)
         ..types.addAll(
           paddedTypeParams.map((t) {
+            final typeArgsOptions = options == null
+                ? TypeOptions()
+                : TypeOptions(
+                    url: options.url,
+                    variadicArgsCount: options.variadicArgsCount,
+                    shouldEmitJsTypes: options.shouldEmitJsTypes,
+                    redeclareOverrides: options.redeclareOverrides,
+                  );
             if (t == BuiltinType.$voidType) {
-              return BuiltinType.anyType.emit(options);
+              return BuiltinType.anyType.emit(typeArgsOptions);
             }
-            return t.emit(options);
+            return t.emit(typeArgsOptions);
           }),
         )
         ..isNullable = (options?.nullable ?? false) || isNullable

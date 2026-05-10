@@ -79,8 +79,9 @@ class ReferredType<T extends Declaration> extends NamedType {
         ..types.addAll(
           paddedTypeParams.map((t) {
             final typeArgsOptions = options == null
-                ? TypeOptions()
+                ? TypeOptions(isTypeArgument: true)
                 : TypeOptions(
+                    isTypeArgument: true,
                     url: options.url,
                     variadicArgsCount: options.variadicArgsCount,
                     shouldEmitJsTypes: options.shouldEmitJsTypes,
@@ -304,7 +305,7 @@ class GenericType extends NamedType {
   Reference emit([TypeOptions? options]) => TypeReference(
     (t) => t
       ..symbol = name
-      ..bound = constraint?.emit()
+      ..bound = (options?.isTypeArgument ?? false) ? null : constraint?.emit()
       ..isNullable = (options?.nullable ?? false) || isNullable,
   );
 
@@ -733,12 +734,23 @@ sealed class _UnionOrIntersectionDeclaration extends NamedDeclaration
     this.types = uniqueTypes;
 
     if (typeParams == null) {
-      final seen = <String>{};
+      final seen = <String, GenericType>{};
       for (final type in this.types) {
         for (final t in getGenericTypes(type)) {
-          if (seen.add(t.name)) {
+          final existing = seen[t.name];
+          if (existing == null) {
+            seen[t.name] = t;
             t.constraint ??= BuiltinType.anyType;
             typeParameters.add(t);
+          } else {
+            final existingConstraint = existing.constraint;
+            final newConstraint = t.constraint;
+            if (newConstraint != null &&
+                (existingConstraint == null ||
+                    (existingConstraint is BuiltinType &&
+                        existingConstraint.name == 'JSAny'))) {
+              existing.constraint = newConstraint;
+            }
           }
         }
       }

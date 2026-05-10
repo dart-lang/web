@@ -44,10 +44,12 @@ class DeclarationOptions extends Options {
 class TypeOptions extends Options {
   bool nullable;
   String? url;
+  bool isTypeArgument;
 
   TypeOptions({
     this.nullable = false,
     this.url,
+    this.isTypeArgument = false,
     super.variadicArgsCount,
     super.shouldEmitJsTypes,
     super.redeclareOverrides,
@@ -92,13 +94,33 @@ abstract class NamedDeclaration extends Declaration {
     Iterable<Type>? typeArgs,
     bool isNullable = false,
     String? url,
-  ]) => ReferredType(
-    name: name,
-    declaration: this,
-    typeParams: typeArgs?.toList() ?? [],
-    url: url,
-    isNullable: isNullable,
-  );
+  ]) {
+    final typeParamsList = typeArgs?.toList() ?? [];
+    final decl = this;
+    List<GenericType> declParams;
+    try {
+      final dynamic rawParams = (decl as dynamic).typeParameters;
+      declParams = rawParams is Set<GenericType>
+          ? rawParams.toList()
+          : (rawParams as List<GenericType>);
+    } catch (_) {
+      declParams = const [];
+    }
+    for (var i = 0; i < typeParamsList.length && i < declParams.length; ++i) {
+      final param = typeParamsList[i];
+      final declParam = declParams[i];
+      if (param is GenericType && param.constraint == null) {
+        param.constraint = declParam.constraint;
+      }
+    }
+    return ReferredType(
+      name: name,
+      declaration: this,
+      typeParams: typeParamsList,
+      url: url,
+      isNullable: isNullable,
+    );
+  }
 }
 
 abstract interface class DocumentedDeclaration {

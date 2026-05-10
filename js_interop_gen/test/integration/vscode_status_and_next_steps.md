@@ -32,9 +32,9 @@ To get the generated output to be 100% green under the strict Dart analyzer, we 
 * **The Issue**: Inside `PromiseLike` and several other classes, union types are referenced inside generic arguments (e.g. `PromiseLike<AnonymousUnion_3555654>`), but the compiler fails to emit the concrete `AnonymousUnion_3555654` class definition.
 * **Roadmap**: Trace how `DependencyWalker` collects generic type arguments from `ReferredType` and ensure that they are registered and emitted in the output. (Fixed by introducing unique generic arguments in `ReferredType.id` walk context!)
 
-### 2. Type Argument Not Matching Bounds (`type_argument_not_matching_bounds`)
+### 2. Type Argument Not Matching Bounds (`type_argument_not_matching_bounds`) - ✅ (Fixed)
 * **The Issue**: A type argument (like `JSString?`) is passed to a parameter with a non-nullable bound (`K extends JSString`).
-* **Roadmap**: Update type mapping to strips nullability markers (`?`) when generating arguments bound to non-nullable bounds, or propagate nullability correctly to the parameter bounds.
+* **Roadmap**: Update type mapping to strips nullability markers (`?`) when generating arguments bound to non-nullable bounds, or propagate nullability correctly to the parameter bounds. (Fixed by overriding and stripping parent nullability leaks inside ReferredType.emit type argument mapping!)
 
 ### 3. Extended Type Representation Not Supertype (`extension_type_implements_representation_not_supertype`)
 * **The Issue**: `JSArrayType` is not a supertype of the representation type `JSObject` for `RegExpExecArray`.

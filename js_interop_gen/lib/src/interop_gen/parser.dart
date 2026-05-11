@@ -65,9 +65,15 @@ ParserResult parseDeclarationFiles(Config config) {
     final diagnostics = parsedCommandLine.errors.toDart;
 
     // handle any diagnostics
-    handleDiagnostics(diagnostics);
     if (!ignoreErrors && diagnostics.isNotEmpty) {
+      printErr(
+        'ParseError: There were some errors when parsing the given '
+        'configuration file',
+      );
+      handleDiagnostics(diagnostics);
       exit(1);
+    } else {
+      handleDiagnostics(diagnostics);
     }
   }
 
@@ -84,11 +90,16 @@ ParserResult parseDeclarationFiles(Config config) {
   ];
 
   // handle diagnostics
-  handleDiagnostics(diagnostics);
-
-  if (diagnostics.isNotEmpty && !ignoreErrors) {
-    // exit
+  if (!ignoreErrors && diagnostics.isNotEmpty) {
+    printErr(
+      'ParseError: There were some errors when parsing the given '
+      'declaration file',
+    );
+    handleDiagnostics(diagnostics);
     exit(1);
+  } else {
+    handleDiagnostics(diagnostics);
+    printErr('=' * 50);
   }
 
   return ParserResult(program: program, files: files);

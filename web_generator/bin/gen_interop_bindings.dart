@@ -8,12 +8,11 @@ import 'dart:io';
 import 'package:args/args.dart';
 import 'package:io/ansi.dart' as ansi;
 import 'package:io/io.dart';
-import 'package:js_interop_gen/src/cli.dart';
-import 'package:js_interop_gen/src/sdk_version.dart';
 import 'package:path/path.dart' as p;
 import 'package:source_map_stack_trace/source_map_stack_trace.dart';
 import 'package:source_maps/parser.dart' as sm;
 import 'package:stack_trace/stack_trace.dart';
+import 'package:web_generator/src/cli.dart';
 
 void main(List<String> arguments) async {
   final ArgResults argResult;
@@ -43,14 +42,6 @@ $_usage''');
     return;
   }
 
-  try {
-    checkSdkVersion(p.current);
-  } on SdkVersionException catch (e) {
-    print(ansi.lightRed.wrap(e.message));
-    exitCode = ExitCode.config.code;
-    return;
-  }
-
   assert(p.fromUri(Platform.script).endsWith(_thisScript.toFilePath()));
 
   // Run `npm install` or `npm update` as needed.
@@ -63,7 +54,7 @@ $_usage''');
 
   try {
     // Compute JS type supertypes for union calculation in translator.
-    await computeJsTypeSupertypes();
+    await generateJsTypeSupertypes(contextFile.path);
 
     if (argResult.flag('compile')) {
       // Compile Dart to Javascript.
@@ -159,57 +150,10 @@ $_usage''');
     await contextFile.delete();
   }
 
-  final inputFiles = argResult.rest;
-  if (inputFiles.isEmpty) {
-    print('Pass an input file to get started');
-    print(_usage);
-    exitCode = ExitCode.usage.code;
-    return;
-  }
-  final specifiedOutput = argResult.option('output');
-  final outputFile =
-      specifiedOutput ??
-      (inputFiles.length > 1
-          ? p.join(p.current, inputFiles.first.replaceAll('.d.ts', '.dart'))
-          : p.join(p.current, inputFiles.single.replaceAll('.d.ts', '.dart')));
-  final defaultWebGenConfigPath = p.join(p.current, 'webgen.yaml');
-  final configFile =
-      argResult.option('config') ??
-      (File(defaultWebGenConfigPath).existsSync()
-          ? defaultWebGenConfigPath
-          : null);
-  final relativeConfigFile = configFile != null
-      ? p.relative(configFile, from: bindingsGeneratorPath)
-      : null;
-  final relativeOutputPath = p.relative(
-    outputFile,
-    from: bindingsGeneratorPath,
-  );
-  final tsConfigPath = argResult.option('ts-config');
-  final tsConfigRelativePath = tsConfigPath != null
-      ? p.relative(tsConfigPath, from: bindingsGeneratorPath)
-      : null;
-  // Run app with `node`.
-  await runNode([
-    'main.mjs',
-    '--declaration',
-    if (argResult.rest.isNotEmpty) ...[
-      ...inputFiles.map(
-        (i) => '--input=${p.relative(i, from: bindingsGeneratorPath)}',
-      ),
-      '--output=$relativeOutputPath',
-    ],
-    if (tsConfigRelativePath case final tsConfig?) '--ts-config=$tsConfig',
-    if (relativeConfigFile case final config?) '--config=$config',
-    if (argResult.wasParsed('ignore-errors')) '--ignore-errors',
-    if (argResult.wasParsed('generate-all')) '--generate-all',
-    if (argResult.wasParsed('strict-unsupported')) '--strict-unsupported',
-  ], workingDirectory: bindingsGeneratorPath);
-
   return;
 }
 
-final _thisScript = Uri.parse('bin/js_interop_gen.dart');
+final _thisScript = Uri.parse('bin/gen_interop_bindings.dart');
 
 final _usage =
     '''

@@ -1,11 +1,12 @@
 // ignore_for_file: constant_identifier_names, lines_longer_than_80_chars
-// ignore_for_file: non_constant_identifier_names, unnecessary_parenthesis
+// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: unintended_html_in_doc_comment, unnecessary_parenthesis
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:js_interop' as _i1;
 
 /// Documentation for EscapedComment.
-/// To use this properly, you must have &lt;language&gt; configuration files.
+/// To use this properly, you must have <language> configuration files.
 /// Check `List<T>` and `<T>` value.
 ///
 /// ```ts

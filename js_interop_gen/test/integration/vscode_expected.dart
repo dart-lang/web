@@ -1,7 +1,7 @@
 // ignore_for_file: camel_case_types, constant_identifier_names
 // ignore_for_file: library_private_types_in_public_api
 // ignore_for_file: lines_longer_than_80_chars, non_constant_identifier_names
-// ignore_for_file: unnecessary_parenthesis
+// ignore_for_file: unintended_html_in_doc_comment, unnecessary_parenthesis
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:js_interop' as _i1;
@@ -3850,8 +3850,7 @@ extension type DocumentSymbolProviderMetadata._(_i1.JSObject _)
 /// [symbol search](https://code.visualstudio.com/docs/editor/editingevolved#_open-symbol-by-name)-feature.
 extension type WorkspaceSymbolProvider<T extends SymbolInformation>._(
   _i1.JSObject _
-)
-    implements _i1.JSObject {
+) implements _i1.JSObject {
   /// Project-wide search for a symbol matching the given query string.
   ///
   /// The `query`-parameter should be interpreted in a *relaxed way* as the
@@ -4108,7 +4107,7 @@ extension type DocumentSemanticTokensProvider._(_i1.JSObject _)
   ///  - at index `5*i`   - `deltaLine`: token line number, relative to the previous token
   ///  - at index `5*i+1` - `deltaStart`: token start character, relative to the previous token (relative to 0 or the previous token's start if they are on the same line)
   ///  - at index `5*i+2` - `length`: the length of the token. A token cannot be multiline.
-  ///  - at index `5*i+3` - `tokenType`: will be looked up in `SemanticTokensLegend.tokenTypes`. We currently ask that `tokenType` &lt; 65536.
+  ///  - at index `5*i+3` - `tokenType`: will be looked up in `SemanticTokensLegend.tokenTypes`. We currently ask that `tokenType` < 65536.
   ///  - at index `5*i+4` - `tokenModifiers`: each set bit will be looked up in `SemanticTokensLegend.tokenModifiers`
   ///
   /// ---
@@ -4767,8 +4766,7 @@ extension type const CompletionTriggerKind._(int _) {
 /// implicitly when typing words or trigger characters.
 extension type CompletionItemProvider<T extends CompletionItem>._(
   _i1.JSObject _
-)
-    implements _i1.JSObject {
+) implements _i1.JSObject {
   /// Provide completion items for the given position and document.
   /// - [document]:  The document in which the command was invoked.
   /// - [position]:  The position at which the command was invoked.
@@ -5693,8 +5691,7 @@ extension type DocumentDropEdit._(_i1.JSObject _) implements _i1.JSObject {
 /// Requires `editor.dropIntoEditor.enabled` to be on.
 extension type DocumentDropEditProvider<T extends DocumentDropEdit>._(
   _i1.JSObject _
-)
-    implements _i1.JSObject {
+) implements _i1.JSObject {
   /// Provide edits which inserts the content being dragged and dropped into the
   /// document.
   /// - [document]:  The document in which the drop occurred.
@@ -5886,8 +5883,7 @@ extension type DocumentPasteEdit._(_i1.JSObject _) implements _i1.JSObject {
 /// Provider invoked when the user copies or pastes in a TextDocument.
 extension type DocumentPasteEditProvider<T extends DocumentPasteEdit>._(
   _i1.JSObject _
-)
-    implements _i1.JSObject {
+) implements _i1.JSObject {
   /// Optional method invoked after the user copies from a TextEditortext
   /// editor.
   ///
@@ -9932,8 +9928,7 @@ extension type CustomDocument._(_i1.JSObject _) implements _i1.JSObject {
 /// occurred on an CustomDocument.
 extension type CustomDocumentEditEvent<T extends CustomDocument>._(
   _i1.JSObject _
-)
-    implements _i1.JSObject {
+) implements _i1.JSObject {
   /// The document that the edit is for.
   external T get document;
 
@@ -9968,8 +9963,7 @@ extension type CustomDocumentEditEvent<T extends CustomDocument>._(
 /// has changed.
 extension type CustomDocumentContentChangeEvent<T extends CustomDocument>._(
   _i1.JSObject _
-)
-    implements _i1.JSObject {
+) implements _i1.JSObject {
   /// The document that the change is for.
   external T get document;
 }
@@ -10037,8 +10031,7 @@ extension type CustomDocumentOpenContext._(_i1.JSObject _)
 /// - [T]:  Type of the custom document returned by this provider.
 extension type CustomReadonlyEditorProvider<T extends CustomDocument>._(
   _i1.JSObject _
-)
-    implements _i1.JSObject {
+) implements _i1.JSObject {
   /// Create a new document for a given resource.
   ///
   /// `openCustomDocument` is called when the first time an editor for a given
@@ -12339,8 +12332,7 @@ extension type QuickPick<T extends QuickPickItem>._(_i1.JSObject _)
 /// An event describing a button that was pressed on a QuickPickItem.
 extension type QuickPickItemButtonEvent<T extends QuickPickItem>._(
   _i1.JSObject _
-)
-    implements _i1.JSObject {
+) implements _i1.JSObject {
   /// The button that was pressed.
   external QuickInputButton get button;
 
@@ -12865,8 +12857,7 @@ extension type TreeViewExpansionEvent<T extends _i1.JSAny?>._(_i1.JSObject _)
 /// view's selection
 extension type TreeViewSelectionChangeEvent<T extends _i1.JSAny?>._(
   _i1.JSObject _
-)
-    implements _i1.JSObject {
+) implements _i1.JSObject {
   /// Selected elements.
   external _i1.JSArray<T> get selection;
 }
@@ -13779,7 +13770,7 @@ extension type workspace._(_i1.JSObject _) implements _i1.JSObject {
   /// appear in the resulting text
   /// in the order the 'inserts' were made, unless that are interleaved with
   /// resource edits. Invalid sequences
-  /// like 'delete file a' -&gt; 'insert text in file a' cause failure of the
+  /// like 'delete file a' -> 'insert text in file a' cause failure of the
   /// operation.
   ///
   /// When applying a workspace edit that consists only of text edits an
@@ -17812,8 +17803,7 @@ extension type AuthenticationProviderOptions._(_i1.JSObject _)
 /// changed.
 extension type AuthenticationProviderAuthenticationSessionsChangeEvent._(
   _i1.JSObject _
-)
-    implements _i1.JSObject {
+) implements _i1.JSObject {
   /// The AuthenticationSessionAuthenticationSessions of the
   /// AuthenticationProvider that have been added.
   external _i1.JSArray<AuthenticationSession>? get added;
@@ -18117,9 +18107,9 @@ extension type authentication._(_i1.JSObject _) implements _i1.JSObject {
 /// Namespace for localization-related functionality in the extension API. To
 /// use this properly,
 /// you must have `l10n` defined in your extension manifest and have
-/// bundle.l10n.&lt;language&gt;.json files.
-/// For more information on how to generate bundle.l10n.&lt;language&gt;.json
-/// files, check out the
+/// bundle.l10n.<language>.json files.
+/// For more information on how to generate bundle.l10n.<language>.json files,
+/// check out the
 /// [vscode-l10n repo](https://github.com/microsoft/vscode-l10n).
 ///
 /// Note: Built-in extensions (for example, Git, TypeScript Language Features,
@@ -19114,8 +19104,7 @@ extension type McpHttpServerDefinition._(_i1.JSObject _)
 /// during extension activation.
 extension type McpServerDefinitionProvider<T extends McpServerDefinition>._(
   _i1.JSObject _
-)
-    implements _i1.JSObject {
+) implements _i1.JSObject {
   /// Optional event fired to signal that the set of available servers has
   /// changed.
   external Event<_i1.JSAny?>? get onDidChangeMcpServerDefinitions;
@@ -19498,8 +19487,7 @@ extension type LanguageModelTool<T extends _i1.JSAny?>._(_i1.JSObject _)
 /// Options provided for tool invocation.
 extension type LanguageModelToolInvocationOptions<T extends _i1.JSAny?>._(
   _i1.JSObject _
-)
-    implements _i1.JSObject {
+) implements _i1.JSObject {
   /// An opaque object that ties a tool invocation to a chat request from a
   /// ChatParticipantchat participant.
   ///
@@ -19711,14 +19699,12 @@ extension type _AnonymousFunction_2841987<
 }
 extension type _AnonymousFunction_3169589<TResult2 extends _i1.JSAny?>._(
   _i1.JSFunction _
-)
-    implements _i1.JSFunction {
+) implements _i1.JSFunction {
   external AnonymousUnion_4138817 call(_i1.JSAny? reason);
 }
 extension type AnonymousUnion_1194196<TResult1 extends _i1.JSAny?>._(
   _i1.JSAny _
-)
-    implements _i1.JSAny {
+) implements _i1.JSAny {
   TResult1 get asTResult1 => (_ as TResult1);
 
   PromiseLike<TResult1> get asPromiseLikeOfTResult1 =>
@@ -19726,8 +19712,7 @@ extension type AnonymousUnion_1194196<TResult1 extends _i1.JSAny?>._(
 }
 extension type AnonymousUnion_4138817<TResult2 extends _i1.JSAny?>._(
   _i1.JSAny _
-)
-    implements _i1.JSAny {
+) implements _i1.JSAny {
   TResult2 get asTResult2 => (_ as TResult2);
 
   PromiseLike<TResult2> get asPromiseLikeOfTResult2 =>
@@ -19942,8 +19927,7 @@ extension type AnonymousType_2863805._(_i1.JSObject _) implements _i1.JSObject {
 }
 extension type _AnonymousFunction_6204725<T extends _i1.JSAny?>._(
   _i1.JSFunction _
-)
-    implements _i1.JSFunction {
+) implements _i1.JSFunction {
   external _i1.JSAny? call(T e);
 }
 extension type _AnonymousFunction_2025576._(_i1.JSFunction _)
@@ -20398,20 +20382,17 @@ extension type ReadonlyArray<T extends _i1.JSAny?>._(_i1.JSObject _)
 }
 extension type _AnonymousFunction_2988645<T extends _i1.JSAny?>._(
   _i1.JSFunction _
-)
-    implements _i1.JSFunction {
+) implements _i1.JSFunction {
   external bool call(T value, num index, _i1.JSArray<T> array);
 }
 extension type _AnonymousFunction_2657783<T extends _i1.JSAny?>._(
   _i1.JSFunction _
-)
-    implements _i1.JSFunction {
+) implements _i1.JSFunction {
   external _i1.JSAny? call(T value, num index, _i1.JSArray<T> array);
 }
 extension type _AnonymousFunction_4160480<T extends _i1.JSAny?>._(
   _i1.JSFunction _
-)
-    implements _i1.JSFunction {
+) implements _i1.JSFunction {
   external void call(T value, num index, _i1.JSArray<T> array);
 }
 extension type _AnonymousFunction_2665603<
@@ -20422,8 +20403,7 @@ extension type _AnonymousFunction_2665603<
 }
 extension type _AnonymousFunction_3930812<T extends _i1.JSAny?>._(
   _i1.JSFunction _
-)
-    implements _i1.JSFunction {
+) implements _i1.JSFunction {
   external T call(
     T previousValue,
     T currentValue,
@@ -20601,8 +20581,7 @@ extension type AnonymousUnion_1040052._(_i1.JSObject _)
 }
 extension type AnonymousUnion_9712918<T extends CompletionItem>._(
   _i1.JSObject _
-)
-    implements _i1.JSObject {
+) implements _i1.JSObject {
   _i1.JSArray<T> get asJSArrayOfT => (_ as _i1.JSArray<T>);
 
   CompletionList<T> get asCompletionListOfT => (_ as CompletionList<T>);
@@ -21120,8 +21099,7 @@ extension type AnonymousUnion_1821384<T extends _i1.JSAny?>._(_i1.JSAny _)
 }
 extension type AnonymousUnion_2897667<T extends CustomDocument>._(
   Event<CustomDocumentEditEvent<T>> _
-)
-    implements Event<CustomDocumentEditEvent<T>> {
+) implements Event<CustomDocumentEditEvent<T>> {
   Event<CustomDocumentEditEvent<T>> get asEventOfCustomDocumentEditEventOfT =>
       _;
 
@@ -21165,14 +21143,12 @@ extension type AnonymousType_7785031._(_i1.JSObject _) implements _i1.JSObject {
 }
 extension type _AnonymousFunction_2856681<R extends _i1.JSAny?>._(
   _i1.JSFunction _
-)
-    implements _i1.JSFunction {
+) implements _i1.JSFunction {
   external Thenable<R> call(Progress<_i1.JSNumber> progress);
 }
 extension type _AnonymousFunction_3665396<R extends _i1.JSAny?>._(
   _i1.JSFunction _
-)
-    implements _i1.JSFunction {
+) implements _i1.JSFunction {
   external Thenable<R> call(
     Progress<AnonymousType_2219026> progress,
     CancellationToken token,

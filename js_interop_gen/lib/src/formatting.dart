@@ -25,18 +25,6 @@ List<String> formatDocs(String data, int width, [int leadingWhitespace = 0]) {
         inCodeFence = false;
       }
     } else {
-      var prefix = '';
-      var remainingLine = line;
-      if (line.startsWith('> ')) {
-        prefix = '> ';
-        remainingLine = line.substring(2);
-      }
-      final parts = remainingLine.split('`');
-      for (var i = 0; i < parts.length; i += 2) {
-        parts[i] = parts[i].replaceAll('<', '&lt;').replaceAll('>', '&gt;');
-      }
-      line = prefix + parts.join('`');
-
       final ltrim = line.trimLeft();
 
       if (line.startsWith('> ')) {

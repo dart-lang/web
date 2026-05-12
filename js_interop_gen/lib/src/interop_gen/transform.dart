@@ -81,6 +81,7 @@ class TransformResult {
             'constant_identifier_names',
             'non_constant_identifier_names',
             'unnecessary_parenthesis',
+            'unintended_html_in_doc_comment',
             if (parentCaseIgnore) 'camel_case_types',
             if (anonymousIgnore) ...[
               'camel_case_types',

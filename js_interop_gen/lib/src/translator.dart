@@ -1092,6 +1092,8 @@ class Translator {
         'constant_identifier_names',
         // JS properties are allowed to not be camelcased.
         'non_constant_identifier_names',
+        // HTML tags inside comments should not be parsed as actual HTML.
+        'unintended_html_in_doc_comment',
       ])
       ..generatedByComment = generatedFileDisclaimer
       // TODO(srujzs): This is to address the issue around extension type

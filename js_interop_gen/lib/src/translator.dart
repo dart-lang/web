@@ -306,7 +306,7 @@ class Translator {
 
   List<String> _generateUnionDocs(idl.IDLTypeDescription idlType) {
     if (!idlType.union) return [];
-    final types = (idlType.idlType as JSArray<idl.IDLTypeDescription>).toDart;
+    final types = idlType.asUnionTypeDescription.idlType.toDart;
 
     for (final t in types) {
       _collectDocImports(t);
@@ -357,14 +357,20 @@ class Translator {
   }
 
   void _collectDocImports(idl.IDLTypeDescription idlType) {
-    if (idlType.union || idlType.generic.isNotEmpty) {
-      final types = (idlType.idlType as JSArray<idl.IDLTypeDescription>).toDart;
+    if (idlType.union) {
+      final types = idlType.asUnionTypeDescription.idlType.toDart;
+      for (final t in types) {
+        _collectDocImports(t);
+      }
+      return;
+    } else if (idlType.generic.isNotEmpty) {
+      final types = idlType.asGenericTypeDescription.idlType.toDart;
       for (final t in types) {
         _collectDocImports(t);
       }
       return;
     }
-    final name = (idlType.idlType as JSString).toDart;
+    final name = idlType.asSingleTypeDescription.idlType;
     final library = _typeToLibrary[name];
     if (library != null && library.url != _currentlyTranslatingUrl) {
       _currentDocImports.add(library.url);
@@ -381,11 +387,11 @@ class Translator {
 
   String _getTypeNameRaw(idl.IDLTypeDescription idlType) {
     if (idlType.union) {
-      final types = (idlType.idlType as JSArray<idl.IDLTypeDescription>).toDart;
+      final types = idlType.asUnionTypeDescription.idlType.toDart;
       return types.map(_getTypeNameRaw).join(' | ');
     }
     if (idlType.generic.isNotEmpty) {
-      final types = (idlType.idlType as JSArray<idl.IDLTypeDescription>).toDart;
+      final types = idlType.asGenericTypeDescription.idlType.toDart;
       final genericName =
           idlOrBuiltinToJsTypeAliases[idlType.generic] ?? idlType.generic;
       if (types.length == 1) {
@@ -396,7 +402,7 @@ class Translator {
       }
       return genericName;
     }
-    final name = (idlType.idlType as JSString).toDart;
+    final name = idlType.asSingleTypeDescription.idlType;
 
     final mapped = _mapIdlPrimitiveToDart(name);
     if (mapped != null) {

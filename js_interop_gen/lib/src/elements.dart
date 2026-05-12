@@ -97,7 +97,7 @@ RawType? _getJSTypeEquivalent(RawType rawType) {
 RawType _getRawType(idl.IDLTypeDescription? idlType) {
   if (idlType == null) return RawType('void', false);
   if (idlType.union) {
-    final types = (idlType.idlType as JSArray<idl.IDLTypeDescription>).toDart;
+    final types = idlType.asUnionTypeDescription.idlType.toDart;
     final unionType = _getRawType(types[0]);
     for (var i = 1; i < types.length; i++) {
       unionType.update(types[i]);
@@ -108,7 +108,7 @@ RawType _getRawType(idl.IDLTypeDescription? idlType) {
   var nullable = idlType.nullable;
   RawType? typeParameter;
   if (idlType.generic.isNotEmpty) {
-    final types = (idlType.idlType as JSArray<idl.IDLTypeDescription>).toDart;
+    final types = idlType.asGenericTypeDescription.idlType.toDart;
     if (types.length == 1) {
       typeParameter = _getRawType(types[0]);
     } else if (types.length > 1) {
@@ -117,7 +117,7 @@ RawType _getRawType(idl.IDLTypeDescription? idlType) {
     }
     type = idlType.generic;
   } else {
-    type = (idlType.idlType as JSString).toDart;
+    type = idlType.asSingleTypeDescription.idlType;
   }
 
   if (type == 'WindowProxy') type = 'Window';

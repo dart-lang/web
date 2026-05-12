@@ -25,11 +25,6 @@ extension IDLTypeDescriptionExtension on IDLTypeDescription {
     }
     return '';
   }
-
-  JSAny get idlType {
-    final jsObj = this as JSObject;
-    return jsObj.getProperty('idlType'.toJS);
-  }
 }
 
 extension NamedExtension on AbstractBase {
@@ -42,13 +37,8 @@ extension NamedExtension on AbstractBase {
 extension InterfacelikeExtension on AbstractContainer {
   String? get inheritanceString {
     final jsObj = this as JSObject;
-    if (jsObj.hasProperty('inheritance'.toJS).toDart) {
-      final val = jsObj.getProperty('inheritance'.toJS);
-      if (val.isA<JSString>()) {
-        return (val as JSString).toDart;
-      }
-    }
-    return null;
+    final val = jsObj.getProperty('inheritance'.toJS);
+    return val.isA<JSString>() ? (val as JSString).toDart : null;
   }
 }
 
@@ -63,12 +53,7 @@ extension ExtendedAttributeRightHandSideExtension
     on ExtendedAttributeRightHandSide {
   String? get value {
     final jsObj = this as JSObject;
-    if (jsObj.hasProperty('value'.toJS).toDart) {
-      final val = jsObj.getProperty('value'.toJS);
-      if (val.isA<JSString>()) {
-        return (val as JSString).toDart;
-      }
-    }
-    return null;
+    final val = jsObj.getProperty('value'.toJS);
+    return val.isA<JSString>() ? (val as JSString).toDart : null;
   }
 }

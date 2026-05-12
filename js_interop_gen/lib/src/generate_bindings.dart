@@ -132,7 +132,7 @@ Future<(TranslationResult, Map<String, String>)> generateBindings(
     for (var i = 0; i < array.length; i++) {
       final entry = array[i] as JSArray<JSAny?>;
       final shortname = (entry[0] as JSString).toDart;
-      final ast = entry[1] as JSArray<webidl.Node>;
+      final ast = entry[1] as JSArray<webidl.AbstractBase>;
       translator.collect(shortname, ast);
     }
   } else {
@@ -140,7 +140,7 @@ Future<(TranslationResult, Map<String, String>)> generateBindings(
     for (var i = 0; i < array.length; i++) {
       final entry = array[i] as JSArray<JSAny?>;
       final shortname = (entry[0] as JSString).toDart;
-      final ast = entry[1] as JSArray<webidl.Node>;
+      final ast = entry[1] as JSArray<webidl.AbstractBase>;
       translator.collect(shortname, ast);
     }
   }

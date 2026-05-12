@@ -9,22 +9,6 @@ import 'generated/webidl_api.dart';
 
 export 'generated/webidl_api.dart';
 
-// --- Backward compatibility helpers for js_interop_gen ---
-
-typedef IDLType = IDLTypeDescription;
-typedef Interfacelike = AbstractContainer;
-typedef Node = AbstractBase;
-typedef Member = AbstractBase;
-typedef Typedef = TypedefType;
-typedef Constructor = ConstructorMemberType;
-typedef Operation = OperationMemberType;
-typedef Attribute = AttributeMemberType;
-typedef Field = FieldType;
-typedef Constant = ConstantMemberType;
-typedef Enum = EnumType;
-typedef Callback = CallbackType;
-typedef Includes = IncludesType;
-
 extension IDLTypeDescriptionExtension on IDLTypeDescription {
   bool get union {
     final jsObj = this as JSObject;

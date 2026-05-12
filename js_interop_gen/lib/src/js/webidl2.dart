@@ -9,4 +9,4 @@ import 'dart:js_interop';
 import 'webidl_api.dart' as idl;
 
 @JS()
-external JSArray<idl.Node> parse(String contents);
+external JSArray<idl.AbstractBase> parse(String contents);

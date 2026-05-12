@@ -24,17 +24,19 @@ typedef TranslationResult = Map<String, code.Library>;
 class _Library {
   final String name;
   final String url;
-  // Contains both IDL `interface`s and `namespace`s.
-  final List<idl.Interfacelike> interfacelikes = [];
-  final List<idl.Interfacelike> interfaceMixins = [];
-  final List<idl.Typedef> typedefs = [];
-  final List<idl.Enum> enums = [];
-  final List<idl.Callback> callbacks = [];
-  final List<idl.Interfacelike> callbackInterfaces = [];
+  final List<idl.AbstractContainer> interfacelikes = [];
+  final List<idl.AbstractContainer> interfaceMixins = [];
+  final List<idl.TypedefType> typedefs = [];
+  final List<idl.EnumType> enums = [];
+  final List<idl.CallbackType> callbacks = [];
+  final List<idl.AbstractContainer> callbackInterfaces = [];
 
   _Library(this.name, this.url);
 
-  void _addNamed<T extends idl.Node>(idl.Node node, List<T> list) {
+  void _addNamed<T extends idl.AbstractBase>(
+    idl.AbstractBase node,
+    List<T> list,
+  ) {
     final named = node as T;
     final name = named.name;
     final translator = Translator.instance!;
@@ -45,7 +47,7 @@ class _Library {
     list.add(named);
   }
 
-  void add(idl.Node node) {
+  void add(idl.AbstractBase node) {
     final type = node.type;
     final translator = Translator.instance!;
     // TODO(srujzs): We may want an enum here, but that would be slower due to
@@ -61,9 +63,9 @@ class _Library {
         // well.
         final isMixin = type == 'interface mixin';
         final interfaceList = isMixin ? interfaceMixins : interfacelikes;
-        final interfacelike = node as idl.Interfacelike;
+        final interfacelike = node as idl.AbstractContainer;
         if (!node.partial) {
-          _addNamed<idl.Interfacelike>(node, interfaceList);
+          _addNamed<idl.AbstractContainer>(node, interfaceList);
         } else {
           translator._typeToPartials
               .putIfAbsent(interfacelike.name, () => [])
@@ -71,28 +73,28 @@ class _Library {
         }
         break;
       case 'typedef':
-        _addNamed<idl.Typedef>(node, typedefs);
+        _addNamed<idl.TypedefType>(node, typedefs);
         break;
       case 'includes':
-        final includes = node as idl.Includes;
+        final includes = node as idl.IncludesType;
         translator._includes
             .putIfAbsent(includes.target, () => [])
             .add(includes.includes);
         break;
       case 'enum':
-        _addNamed<idl.Enum>(node, enums);
+        _addNamed<idl.EnumType>(node, enums);
         break;
       case 'callback interface':
-        _addNamed<idl.Interfacelike>(node, callbackInterfaces);
+        _addNamed<idl.AbstractContainer>(node, callbackInterfaces);
         break;
       case 'callback':
-        final callback = node as idl.Callback;
+        final callback = node as idl.CallbackType;
 
         /// TODO(joshualitt): Maybe handle this case a bit more elegantly?
         if (callback.name == 'Function') {
           return;
         }
-        _addNamed<idl.Callback>(callback, callbacks);
+        _addNamed<idl.CallbackType>(callback, callbacks);
         break;
       case 'eof':
         break;
@@ -110,13 +112,13 @@ class Translator {
   final bool _generateForWeb;
 
   final _libraries = <String, _Library>{};
-  final _typeToDeclaration = <String, idl.Node>{};
-  final _typeToPartials = <String, List<idl.Interfacelike>>{};
+  final _typeToDeclaration = <String, idl.AbstractBase>{};
+  final _typeToPartials = <String, List<idl.AbstractContainer>>{};
   final _typeToLibrary = <String, _Library>{};
   final _interfacelikes = <String, PartialInterfacelike>{};
   final _includes = <String, List<String>>{};
-  final _usedTypes = <idl.Node>{};
-  Map<String, idl.Node> get typeToDeclaration => _typeToDeclaration;
+  final _usedTypes = <idl.AbstractBase>{};
+  Map<String, idl.AbstractBase> get typeToDeclaration => _typeToDeclaration;
   final _renamedClasses = <String, String>{};
   final _currentDocImports = <String>{};
   final _currentLibraryImports = <String>{};
@@ -150,7 +152,7 @@ class Translator {
     );
   }
 
-  void _addOrUpdateInterfaceLike(idl.Interfacelike interfacelike) {
+  void _addOrUpdateInterfaceLike(idl.AbstractContainer interfacelike) {
     final name = interfacelike.name;
     if (_interfacelikes.containsKey(name)) {
       _interfacelikes[name]!.update(interfacelike);
@@ -203,7 +205,8 @@ class Translator {
   /// Mixins are applied by applying the mixin interface first and then its
   /// partial interfaces.
   void _combineInterfacelikes(String interfacelikeName) {
-    final decl = _typeToDeclaration[interfacelikeName]! as idl.Interfacelike;
+    final decl =
+        _typeToDeclaration[interfacelikeName]! as idl.AbstractContainer;
     for (final interfacelike in [
       decl,
       ...?_typeToPartials[interfacelikeName],
@@ -214,7 +217,7 @@ class Translator {
     if (mixins == null) return;
     for (final mixin in mixins) {
       for (final interfacelike in [
-        _typeToDeclaration[mixin] as idl.Interfacelike,
+        _typeToDeclaration[mixin] as idl.AbstractContainer,
         ...?_typeToPartials[mixin],
       ]) {
         _interfacelikes[interfacelikeName]!.update(interfacelike);
@@ -240,7 +243,7 @@ class Translator {
     if (_usedTypes.contains(decl)) return true;
     switch (decl.type) {
       case 'dictionary':
-        final name = (decl as idl.Interfacelike).name;
+        final name = (decl as idl.AbstractContainer).name;
         _usedTypes.add(decl);
         _combineInterfacelikes(name);
         return true;
@@ -257,7 +260,7 @@ class Translator {
       case 'interface':
         // Interfaces and namespaces can only be marked as used depending on
         // their compat data.
-        final name = (decl as idl.Interfacelike).name;
+        final name = (decl as idl.AbstractContainer).name;
         if (browserCompatData.shouldGenerateInterface(name)) {
           _usedTypes.add(decl);
           _combineInterfacelikes(name);
@@ -268,7 +271,7 @@ class Translator {
         // Browser compat data doesn't document namespaces that only contain
         // constants.
         // https://github.com/mdn/browser-compat-data/blob/main/docs/data-guidelines/api.md#namespaces
-        final namespace = decl as idl.Interfacelike;
+        final namespace = decl as idl.AbstractContainer;
         final name = namespace.name;
         if (browserCompatData.shouldGenerateInterface(name) ||
             namespace.members.toDart.every(
@@ -288,7 +291,7 @@ class Translator {
     }
   }
 
-  void collect(String shortName, JSArray<idl.Node> ast) {
+  void collect(String shortName, JSArray<idl.AbstractBase> ast) {
     final libraryPath = '$_librarySubDir/${shortName.kebabToSnake}.dart';
     assert(!_libraries.containsKey(libraryPath));
 
@@ -301,9 +304,9 @@ class Translator {
     _libraries[libraryPath] = library;
   }
 
-  List<String> _generateUnionDocs(idl.IDLType idlType) {
+  List<String> _generateUnionDocs(idl.IDLTypeDescription idlType) {
     if (!idlType.union) return [];
-    final types = (idlType.idlType as JSArray<idl.IDLType>).toDart;
+    final types = (idlType.idlType as JSArray<idl.IDLTypeDescription>).toDart;
 
     for (final t in types) {
       _collectDocImports(t);
@@ -353,9 +356,9 @@ class Translator {
     return [singleLine];
   }
 
-  void _collectDocImports(idl.IDLType idlType) {
+  void _collectDocImports(idl.IDLTypeDescription idlType) {
     if (idlType.union || idlType.generic.isNotEmpty) {
-      final types = (idlType.idlType as JSArray<idl.IDLType>).toDart;
+      final types = (idlType.idlType as JSArray<idl.IDLTypeDescription>).toDart;
       for (final t in types) {
         _collectDocImports(t);
       }
@@ -376,13 +379,13 @@ class Translator {
     return alias;
   }
 
-  String _getTypeNameRaw(idl.IDLType idlType) {
+  String _getTypeNameRaw(idl.IDLTypeDescription idlType) {
     if (idlType.union) {
-      final types = (idlType.idlType as JSArray<idl.IDLType>).toDart;
+      final types = (idlType.idlType as JSArray<idl.IDLTypeDescription>).toDart;
       return types.map(_getTypeNameRaw).join(' | ');
     }
     if (idlType.generic.isNotEmpty) {
-      final types = (idlType.idlType as JSArray<idl.IDLType>).toDart;
+      final types = (idlType.idlType as JSArray<idl.IDLTypeDescription>).toDart;
       final genericName =
           idlOrBuiltinToJsTypeAliases[idlType.generic] ?? idlType.generic;
       if (types.length == 1) {
@@ -411,7 +414,7 @@ class Translator {
   code.TypeDef _typedef(
     String name,
     RawType rawType, [
-    idl.Typedef? idlTypedef,
+    idl.TypedefType? idlTypedef,
   ]) => code.TypeDef(
     (b) => b
       ..name = name
@@ -986,7 +989,7 @@ class Translator {
     );
   }
 
-  List<code.Spec> _interfacelike(idl.Interfacelike idlInterfacelike) {
+  List<code.Spec> _interfacelike(idl.AbstractContainer idlInterfacelike) {
     final name = idlInterfacelike.name;
     final interfacelike = _interfacelikes[name]!;
     final jsName = interfacelike.name;

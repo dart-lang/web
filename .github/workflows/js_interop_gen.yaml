@@ -45,7 +45,10 @@ jobs:
         run: touch .last_npm_install
         working-directory: js_interop_gen/lib/src
       - run: dart format --output=none --set-exit-if-changed .
-        if: matrix.sdk == 'dev' && matrix.test_config == ''
+        # NOTE: validating formatting on 3.10 (NOT dev)
+        # because pkg:dart_style does not support formatting code
+        # that aligns with changes in the latest Dart dev SDK
+        if: matrix.sdk == '3.10' && matrix.test_config == ''
       - run: dart analyze --fatal-infos
         if: matrix.sdk == 'dev' && matrix.test_config == ''
       - run: dart analyze

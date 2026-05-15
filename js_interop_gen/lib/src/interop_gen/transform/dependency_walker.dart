@@ -13,7 +13,7 @@ import '../transform.dart';
 class DependencyWalker {
   /// Recursively gets all declarations that are referred to or needed by
   /// the given [decl] node.
-  static NodeMap getDependenciesOfDecl(Node? decl, [NodeMap? context]) {
+  static NodeMap extractDependencies(Node? decl, [NodeMap? context]) {
     Iterable<Type> getNonBuiltinTypes(Type t) {
       if (t is BuiltinType) {
         return t.typeParams.expand(getNonBuiltinTypes);
@@ -160,7 +160,7 @@ class DependencyWalker {
     if (filteredDeclarations.isNotEmpty) {
       final otherDecls = filteredDeclarations.entries
           .map(
-            (e) => getDependenciesOfDecl(
+            (e) => extractDependencies(
               e.value,
               NodeMap({...(context ?? {}), ...filteredDeclarations}),
             ),

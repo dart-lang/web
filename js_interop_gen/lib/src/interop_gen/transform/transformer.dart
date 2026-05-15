@@ -2291,7 +2291,7 @@ class Transformer {
     if (filteredDeclarations.isEmpty) return filteredDeclarations;
 
     final otherDecls = filteredDeclarations.entries
-        .map((e) => _getDependenciesOfDecl(e.value))
+        .map((e) => _extractDependencies(e.value))
         .reduce((value, element) => value..addAll(element));
 
     final completedDecls = NodeMap({...filteredDeclarations, ...otherDecls});
@@ -2352,6 +2352,6 @@ class Transformer {
   /// Given an already filtered declaration [decl],
   /// filter out dependencies of [decl] recursively
   /// and return them as a declaration map
-  NodeMap _getDependenciesOfDecl(Node? decl, [NodeMap? context]) =>
-      DependencyWalker.getDependenciesOfDecl(decl, context);
+  NodeMap _extractDependencies(Node? decl, [NodeMap? context]) =>
+      DependencyWalker.extractDependencies(decl, context);
 }

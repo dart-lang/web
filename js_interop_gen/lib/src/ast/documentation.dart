@@ -25,10 +25,11 @@ class Annotation {
   Expression emit() {
     if (arguments.isEmpty) {
       if (kind == AnnotationKind.deprecated) {
-        return refer(
-          kind.name,
-          kind.source,
-        ).call([literalString('Deprecated')]);
+        return refer(kind.name, kind.source).call([
+          literalString(
+            'This declaration has been marked as deprecated in the original JS/TS code',
+          ),
+        ]);
       }
       return refer(kind.name, kind.source);
     }

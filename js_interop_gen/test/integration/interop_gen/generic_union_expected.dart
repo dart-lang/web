@@ -19,8 +19,9 @@ extension type OtherContainer<T extends _i1.JSAny?>._(_i1.JSObject _)
 }
 extension type TargetClassWithGenericUnion<T extends _i1.JSAny?>._(
   _i1.JSObject _
-) implements _i1.JSObject {
-  external AnonymousUnion_3899151 field;
+)
+    implements _i1.JSObject {
+  external AnonymousUnion_3899151<T> field;
 }
 extension type AnonymousUnion_3063943._(_i1.JSAny _) implements _i1.JSAny {
   _i1.JSString get asJSString => (_ as _i1.JSString);

@@ -55,12 +55,7 @@ class BuiltinType extends NamedType {
           typeParams
               // if there is only one type param, and it is void, ignore
               .where((p) => typeParams.length != 1 || p != $voidType)
-              .map((p) {
-                if (p == $voidType) {
-                  return anyType.emit(options);
-                }
-                return p.emit(options);
-              }),
+              .map((p) => (p == $voidType ? anyType : p).emit(options)),
         )
         ..url = fromDartJSInterop ? 'dart:js_interop' : null
         ..isNullable = isNullable || (options?.nullable ?? false),
@@ -224,12 +219,10 @@ class PackageWebType extends NamedType {
               .where(
                 (p) => typeParams.length != 1 || p != BuiltinType.$voidType,
               )
-              .map((p) {
-                if (p == BuiltinType.$voidType) {
-                  return BuiltinType.anyType.emit(options);
-                }
-                return p.emit(options);
-              }),
+              .map(
+                (p) => (p == BuiltinType.$voidType ? BuiltinType.anyType : p)
+                    .emit(options),
+              ),
         )
         ..url = 'package:web/web.dart'
         ..isNullable = isNullable || (options?.nullable ?? false),

@@ -53,6 +53,7 @@ class ReferredType<T extends Declaration> extends NamedType {
 
   @override
   Reference emit([TypeOptions? options]) {
+    final opts = options ?? TypeOptions();
     final mappedSymbol = declarationToEmittedName[declaration];
     final declTypeParams = <GenericType>[];
     final decl = declaration;
@@ -78,23 +79,20 @@ class ReferredType<T extends Declaration> extends NamedType {
                 : declaration.dartName ?? declaration.name)
         ..types.addAll(
           paddedTypeParams.map((t) {
-            final typeArgsOptions = options == null
-                ? TypeOptions(isTypeArgument: true)
-                : TypeOptions(
-                    isTypeArgument: true,
-                    url: options.url,
-                    variadicArgsCount: options.variadicArgsCount,
-                    shouldEmitJsTypes: options.shouldEmitJsTypes,
-                    redeclareOverrides: options.redeclareOverrides,
-                  );
-            if (t == BuiltinType.$voidType) {
-              return BuiltinType.anyType.emit(typeArgsOptions);
-            }
-            return t.emit(typeArgsOptions);
+            final typeArgsOptions = TypeOptions(
+              isTypeArgument: true,
+              url: opts.url,
+              variadicArgsCount: opts.variadicArgsCount,
+              shouldEmitJsTypes: opts.shouldEmitJsTypes,
+              redeclareOverrides: opts.redeclareOverrides,
+            );
+            return (t == BuiltinType.$voidType ? BuiltinType.anyType : t).emit(
+              typeArgsOptions,
+            );
           }),
         )
-        ..isNullable = (options?.nullable ?? false) || isNullable
-        ..url = options?.url ?? url,
+        ..isNullable = opts.nullable || isNullable
+        ..url = opts.url ?? url,
     );
   }
 }
@@ -190,10 +188,24 @@ class UnionType extends DeclarationType {
 
   @override
   Reference emit([TypeOptions? options]) {
+    final opts = options ?? TypeOptions();
     return TypeReference(
       (t) => t
         ..symbol = declarationName
-        ..isNullable = (options?.nullable ?? false) || isNullable,
+        ..isNullable = opts.nullable || isNullable
+        ..types.addAll(
+          getGenericTypes(this).map(
+            (t) => t.emit(
+              TypeOptions(
+                isTypeArgument: true,
+                url: opts.url,
+                variadicArgsCount: opts.variadicArgsCount,
+                shouldEmitJsTypes: opts.shouldEmitJsTypes,
+                redeclareOverrides: opts.redeclareOverrides,
+              ),
+            ),
+          ),
+        ),
     );
   }
 
@@ -227,10 +239,24 @@ class IntersectionType extends DeclarationType {
 
   @override
   Reference emit([TypeOptions? options]) {
+    final opts = options ?? TypeOptions();
     return TypeReference(
       (t) => t
         ..symbol = declarationName
-        ..isNullable = (options?.nullable ?? false) || isNullable,
+        ..isNullable = opts.nullable || isNullable
+        ..types.addAll(
+          getGenericTypes(this).map(
+            (t) => t.emit(
+              TypeOptions(
+                isTypeArgument: true,
+                url: opts.url,
+                variadicArgsCount: opts.variadicArgsCount,
+                shouldEmitJsTypes: opts.shouldEmitJsTypes,
+                redeclareOverrides: opts.redeclareOverrides,
+              ),
+            ),
+          ),
+        ),
     );
   }
 
@@ -710,6 +736,7 @@ sealed class _UnionOrIntersectionDeclaration extends NamedDeclaration
 
   late List<Type> types;
 
+  @override
   List<GenericType> typeParameters;
 
   @override
@@ -907,9 +934,7 @@ sealed class _UnionOrIntersectionDeclaration extends NamedDeclaration
               final jsAlt = jsTypeAlt;
               final desugared = desugarTypeAliases(t);
               if (desugarTypeAliases(t) == repType ||
-                  (jsAlt is BuiltinType && jsAlt.name == 'JSAny') ||
                   (jsAlt is NamedType && jsAlt.name == 'JSAny') ||
-                  (desugared is BuiltinType && desugared.name == 'void') ||
                   (desugared is NamedType && desugared.name == 'void')) {
                 body = refer('_');
               } else if (jsTypeAlt.id == t.id) {

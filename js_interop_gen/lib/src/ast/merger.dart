@@ -562,6 +562,7 @@ class _ExtensionOfTypeDeclaration extends NamedDeclaration
   @override
   String? dartName;
 
+  @override
   final List<GenericType> typeParameters;
 
   final List<MethodDeclaration> methods;

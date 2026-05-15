@@ -8,7 +8,7 @@ import 'dart:js_interop' as _i1;
 
 extension type Thenable<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
-  external Thenable<AnonymousUnion_3555654>
+  external Thenable<AnonymousUnion_3555654<TResult1, TResult2>>
   then<TResult1 extends _i1.JSAny?, TResult2 extends _i1.JSAny?>([
     _AnonymousFunction_2123872<TResult1?, T?>? onfulfilled,
     _AnonymousFunction_1873223<TResult2?>? onrejected,
@@ -33,23 +33,26 @@ extension type _AnonymousFunction_2123872<
   TResult1 extends _i1.JSAny?,
   T extends _i1.JSAny?
 >._(_i1.JSFunction _) implements _i1.JSFunction {
-  external AnonymousUnion_2658987 call(T value);
+  external AnonymousUnion_2658987<TResult1> call(T value);
 }
 extension type _AnonymousFunction_1873223<TResult2 extends _i1.JSAny?>._(
   _i1.JSFunction _
-) implements _i1.JSFunction {
-  external AnonymousUnion_3247291 call(_i1.JSAny? reason);
+)
+    implements _i1.JSFunction {
+  external AnonymousUnion_3247291<TResult2> call(_i1.JSAny? reason);
 }
 extension type AnonymousUnion_2658987<TResult1 extends _i1.JSAny?>._(
   _i1.JSAny _
-) implements _i1.JSAny {
+)
+    implements _i1.JSAny {
   TResult1 get asTResult1 => (_ as TResult1);
 
   Thenable<TResult1> get asThenableOfTResult1 => (_ as Thenable<TResult1>);
 }
 extension type AnonymousUnion_3247291<TResult2 extends _i1.JSAny?>._(
   _i1.JSAny _
-) implements _i1.JSAny {
+)
+    implements _i1.JSAny {
   TResult2 get asTResult2 => (_ as TResult2);
 
   Thenable<TResult2> get asThenableOfTResult2 => (_ as Thenable<TResult2>);

@@ -199,6 +199,7 @@ Set<GenericType> getGenericTypes(Type t) {
       break;
     case ReferredType(typeParams: final referredTypeParams):
     case UnionType(types: final referredTypeParams):
+    case IntersectionType(types: final referredTypeParams):
     case BuiltinType(typeParams: final referredTypeParams):
       for (final referredTypeParam in referredTypeParams) {
         for (final t in getGenericTypes(referredTypeParam)) {

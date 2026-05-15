@@ -18,10 +18,11 @@ extension type CustomEventB<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
   external T data;
 }
-typedef MixedEventUnion<T extends _i1.JSAny?> = AnonymousUnion_3597781;
+typedef MixedEventUnion<T extends _i1.JSAny?> = AnonymousUnion_3597781<T>;
 extension type AnonymousUnion_3597781<T extends _i1.JSAny?>._(
   Event<CustomEventA<T>> _
-) implements Event<CustomEventA<T>> {
+)
+    implements Event<CustomEventA<T>> {
   Event<CustomEventA<T>> get asEventOfCustomEventAOfT => _;
 
   Event<CustomEventB<T>> get asEventOfCustomEventBOfT =>

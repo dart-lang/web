@@ -56,20 +56,6 @@ class TypeOptions extends Options {
   });
 }
 
-class ASTOptions {
-  bool parameter;
-  bool emitJSTypes;
-  int variadicArgsCount;
-  bool redeclareOverrides;
-
-  ASTOptions({
-    this.parameter = false,
-    this.variadicArgsCount = 4,
-    this.emitJSTypes = false,
-    this.redeclareOverrides = true,
-  });
-}
-
 abstract class Node<T extends Object> {
   abstract final ID id;
   abstract String? dartName;
@@ -90,22 +76,15 @@ abstract class NamedDeclaration extends Declaration {
   @override
   abstract String name;
 
+  Iterable<GenericType> get typeParameters => const [];
+
   ReferredType asReferredType([
     Iterable<Type>? typeArgs,
     bool isNullable = false,
     String? url,
   ]) {
     final typeParamsList = typeArgs?.toList() ?? [];
-    final decl = this;
-    List<GenericType> declParams;
-    try {
-      final dynamic rawParams = (decl as dynamic).typeParameters;
-      declParams = rawParams is Set<GenericType>
-          ? rawParams.toList()
-          : (rawParams as List<GenericType>);
-    } catch (_) {
-      declParams = const [];
-    }
+    final declParams = typeParameters.toList();
     for (var i = 0; i < typeParamsList.length && i < declParams.length; ++i) {
       final param = typeParamsList[i];
       final declParam = declParams[i];
@@ -166,6 +145,7 @@ abstract class FieldDeclaration extends NamedDeclaration {
 abstract class CallableDeclaration extends NamedDeclaration {
   abstract final List<ParameterDeclaration> parameters;
 
+  @override
   abstract final List<GenericType> typeParameters;
 
   abstract final Type returnType;

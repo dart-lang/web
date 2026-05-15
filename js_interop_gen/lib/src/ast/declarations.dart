@@ -52,6 +52,7 @@ sealed class TypeDeclaration extends NestableDeclaration
   @override
   NestableDeclaration? parent;
 
+  @override
   final Set<GenericType> typeParameters;
 
   final List<MethodDeclaration> methods;
@@ -567,6 +568,7 @@ class TypeAliasDeclaration extends NestableDeclaration
   @override
   String name;
 
+  @override
   final List<GenericType> typeParameters;
 
   final Type type;
@@ -594,7 +596,7 @@ class TypeAliasDeclaration extends NestableDeclaration
 
   @override
   TypeDef emit([DeclarationOptions? options]) {
-    options ??= DeclarationOptions();
+    final opts = options ?? DeclarationOptions();
     final (doc, annotations) = generateFromDocumentation(documentation);
 
     return TypeDef(
@@ -602,10 +604,8 @@ class TypeAliasDeclaration extends NestableDeclaration
         ..docs.addAll([...doc])
         ..annotations.addAll([...annotations])
         ..name = completedDartName
-        ..types.addAll(
-          typeParameters.map((t) => t.emit(options?.toTypeOptions())),
-        )
-        ..definition = type.emit(options?.toTypeOptions()),
+        ..types.addAll(typeParameters.map((t) => t.emit(opts.toTypeOptions())))
+        ..definition = type.emit(opts.toTypeOptions()..isTypeArgument = true),
     );
   }
 
@@ -1254,9 +1254,8 @@ class ConstructorDeclaration implements MemberDeclaration, Node<Constructor> {
   }
 
   @override
-  Constructor emit([covariant Options? options]) {
-    final declarationOptions =
-        (options ?? DeclarationOptions()) as DeclarationOptions;
+  Constructor emit([covariant DeclarationOptions? options]) {
+    final declarationOptions = options ?? DeclarationOptions();
     final (doc, annotations) = generateFromDocumentation(documentation);
 
     final (requiredParams, optionalParams) = emitParameters(

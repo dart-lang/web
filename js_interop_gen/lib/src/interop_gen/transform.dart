@@ -106,16 +106,14 @@ class TransformResult {
         file.replaceAll('.d.ts', '.dart'),
         formatter.format(
           '${lib.accept(emitter)}'
-              // https://github.com/dart-lang/tools/issues/2405
-              .replaceAll('static external', 'external static')
-              // https://github.com/dart-lang/tools/issues/2404
-              .replaceFirstMapped(
-                RegExp(
-                  r'(@_i1\.JS\(.*?\)\s*library;)\s*// ignore_for_file: no_leading_underscores_for_library_prefixes',
-                ),
-                (match) =>
-                    '// ignore_for_file: no_leading_underscores_for_library_prefixes\n\n${match[1]}',
-              ),
+          // https://github.com/dart-lang/tools/issues/2404
+          .replaceFirstMapped(
+            RegExp(
+              r'(@_i1\.JS\(.*?\)\s*library;)\s*// ignore_for_file: no_leading_underscores_for_library_prefixes',
+            ),
+            (match) =>
+                '// ignore_for_file: no_leading_underscores_for_library_prefixes\n\n${match[1]}',
+          ),
         ),
       );
     });

@@ -5,7 +5,7 @@
 import 'dart:js_interop';
 
 import 'package:collection/collection.dart';
-import 'package:path/path.dart' as p;
+import 'package:meta/meta.dart';
 
 import '../../ast/base.dart';
 import '../../ast/builtin.dart';
@@ -16,16 +16,15 @@ import '../../ast/merger.dart';
 import '../../ast/types.dart';
 import '../../banned_names.dart';
 import '../../js/annotations.dart';
-import '../../js/filesystem_api.dart';
-import '../../js/helpers.dart';
 import '../../js/typescript.dart' as ts;
 import '../../js/typescript.types.dart';
-import '../../translator.dart';
 import '../hasher.dart';
 import '../namer.dart';
-import '../qualified_name.dart';
 import '../transform.dart';
+import 'dependency_walker.dart';
 import 'export_reference.dart';
+import 'namespace_flattener.dart';
+import 'type_resolver.dart';
 import 'utils.dart';
 
 /// A class for transforming nodes in a given [file]
@@ -37,6 +36,9 @@ import 'utils.dart';
 class Transformer {
   /// A set of already resolved TS Nodes
   final Set<TSNode> nodes = {};
+
+  /// A cache of already transformed TS Nodes to their declarations
+  final Map<TSNode, List<Declaration>> transformedCache = {};
 
   /// A map of declarations
   final NodeMap<Declaration> nodeMap = NodeMap();
@@ -86,6 +88,14 @@ class Transformer {
        _fileName = file,
        assert(_sourceFile != null || file != null, 'Source file must be known');
 
+  Documentation? parseAndTransformDocumentation(TSNamedDeclaration node) =>
+      _parseAndTransformDocumentation(node);
+
+  EnumDeclaration transformEnum(
+    TSEnumDeclaration enumeration, {
+    UniqueNamer? namer,
+  }) => _transformEnum(enumeration, namer: namer);
+
   // TODO(nikeokoronkwo): Handle default exports
   /// Transforms a TypeScript AST Node [TSNode] into a Dart representable [Node]
   void transform(TSNode node) {
@@ -99,6 +109,25 @@ class Transformer {
   }
 
   List<Declaration> transformAndReturn(
+    TSNode node, {
+    Set<ExportReference>? exportSet,
+    UniqueNamer? namer,
+    NamespaceDeclaration? parent,
+  }) {
+    if (transformedCache.containsKey(node)) {
+      return transformedCache[node]!;
+    }
+    final result = _transformAndReturnInternal(
+      node,
+      exportSet: exportSet,
+      namer: namer,
+      parent: parent,
+    );
+    transformedCache[node] = result;
+    return result;
+  }
+
+  List<Declaration> _transformAndReturnInternal(
     TSNode node, {
     Set<ExportReference>? exportSet,
     UniqueNamer? namer,
@@ -147,6 +176,12 @@ class Transformer {
                   TSSyntaxKind.Identifier &&
               (node.name as TSIdentifier).text != 'global':
         return [_transformNamespace(node, namer: namer, parent: parent)];
+      case TSSyntaxKind.ModuleDeclaration:
+        return _transformModuleDeclarationStatements(
+          node as TSModuleDeclaration,
+          namer: namer,
+          parent: parent,
+        );
       default:
         if (errorIfUnsupported) {
           throw Exception('Unsupported Declaration Kind: ${node.kind}');
@@ -238,163 +273,30 @@ class Transformer {
     UniqueNamer? namer,
     NamespaceDeclaration? parent,
   }) {
-    namer ??= this.namer;
+    return NamespaceFlattener(
+      this,
+    ).transformNamespace(namespace, namer: namer, parent: parent);
+  }
 
-    final namespaceName = (namespace.name as TSIdentifier).text;
-
-    // get modifiers
-    final modifiers = namespace.modifiers?.toDart ?? [];
-    final isExported = modifiers.any((m) {
-      return m.kind == TSSyntaxKind.ExportKeyword;
-    });
-
-    final currentNamespaces = parent != null
-        ? parent.namespaceDeclarations.where((n) => n.name == namespaceName)
-        : nodeMap.findByName(namespaceName).whereType<NamespaceDeclaration>();
-
-    final (name: dartName, :id) = currentNamespaces.isEmpty
-        ? namer.makeUnique(namespaceName, 'namespace')
-        : (name: null, id: null);
-
-    final scopedNamer = ScopedUniqueNamer();
-
-    final outputNamespace = currentNamespaces.isNotEmpty
-        ? currentNamespaces.first
-        : NamespaceDeclaration(
-            name: namespaceName,
-            dartName: dartName,
-            id: id!,
-            exported: isExported,
-            topLevelDeclarations: {},
-            namespaceDeclarations: {},
-            nestableDeclarations: {},
-            documentation: _parseAndTransformDocumentation(namespace),
-          );
-
-    // TODO: We can implement this in classes and interfaces.
-    //  however, since namespaces and modules are a thing,
-    //  let's keep that in mind
-    /// Updates the state of the given declaration,
-    /// allowing cross-references between types and declarations in the
-    /// namespace, including the namespace itself
-    void updateNSInParent() {
-      if (parent != null) {
-        if (currentNamespaces.isNotEmpty ||
-            parent.namespaceDeclarations.any((n) => n.name == namespaceName)) {
-          parent.namespaceDeclarations.remove(currentNamespaces.first);
-          parent.namespaceDeclarations.add(outputNamespace);
-        } else {
-          outputNamespace.parent = parent;
-          parent.namespaceDeclarations.add(outputNamespace);
-        }
-      } else {
-        nodeMap.update(
-          outputNamespace.id.toString(),
-          (v) => outputNamespace,
-          ifAbsent: () => outputNamespace,
+  List<Declaration> _transformModuleDeclarationStatements(
+    TSModuleDeclaration namespace, {
+    UniqueNamer? namer,
+    NamespaceDeclaration? parent,
+  }) {
+    if (namespace.name.kind == TSSyntaxKind.StringLiteral) {
+      programMap.fileToModuleAnnotation[file] =
+          (namespace.name as TSStringLiteral).text;
+    }
+    final decls = <Declaration>[];
+    final body = namespace.body;
+    if (body != null && body.kind == TSSyntaxKind.ModuleBlock) {
+      for (final statement in (body as TSModuleBlock).statements.toDart) {
+        decls.addAll(
+          transformAndReturn(statement, namer: namer, parent: parent),
         );
       }
     }
-
-    void transformDeclAndAppendParent(
-      NamespaceDeclaration outputNamespace,
-      TSNode decl,
-    ) {
-      if (outputNamespace.nodes.contains(decl)) return;
-      if (decl.kind == TSSyntaxKind.EnumMember) {
-        final tsEnum = (decl as TSEnumMember).parent;
-        // parse whole enum
-        final transformedEnum = _transformEnum(tsEnum, namer: namer);
-
-        // add enum
-        if (parent != null) {
-          parent.nestableDeclarations.add(transformedEnum);
-          parent.nodes.add(tsEnum);
-        } else {
-          nodes.add(tsEnum);
-          nodeMap.add(transformedEnum);
-        }
-
-        // add all members to namespace
-        outputNamespace.nodes.addAll(tsEnum.members.toDart);
-      } else {
-        final outputDecls = transformAndReturn(
-          decl,
-          namer: scopedNamer,
-          parent: outputNamespace,
-        );
-        switch (decl.kind) {
-          case TSSyntaxKind.ClassDeclaration ||
-              TSSyntaxKind.InterfaceDeclaration:
-            final outputDecl = outputDecls.single as TypeDeclaration;
-            outputDecl.parent = outputNamespace;
-            outputNamespace.nestableDeclarations.add(outputDecl);
-          case TSSyntaxKind.EnumDeclaration:
-            final outputDecl = outputDecls.single as EnumDeclaration;
-            outputDecl.parent = outputNamespace;
-            outputNamespace.nestableDeclarations.add(outputDecl);
-          case TSSyntaxKind.TypeAliasDeclaration:
-            final outputDecl = outputDecls.single as TypeAliasDeclaration;
-            outputDecl.parent = outputNamespace;
-            outputNamespace.nestableDeclarations.add(outputDecl);
-          default:
-            outputNamespace.topLevelDeclarations.addAll(outputDecls);
-        }
-        outputNamespace.nodes.add(decl);
-      }
-
-      // update namespace state
-      updateNSInParent();
-    }
-
-    // preload nodemap
-    updateNSInParent();
-
-    // to reduce probing, we can use exported decls instead
-    final symbol = typeChecker.getSymbolAtLocation(namespace.name);
-    final exports = symbol?.exports?.toDart;
-
-    if (exports case final exportedMap?) {
-      for (final symbol in exportedMap.values) {
-        final decls = symbol.getDeclarations()?.toDart ?? [];
-        try {
-          final aliasedSymbol = typeChecker.getAliasedSymbol(symbol);
-          decls.addAll(aliasedSymbol.getDeclarations()?.toDart ?? []);
-        } catch (_) {
-          // throws error if no aliased symbol, so ignore
-        }
-        for (final decl in decls) {
-          // TODO: We could also ignore namespace decls with the same name, as
-          //  a single instance should consider such non-necessary
-          transformDeclAndAppendParent(outputNamespace, decl);
-        }
-      }
-      // fallback
-    } else {
-      if (namespace.body case final namespaceBody?
-          when namespaceBody.kind == TSSyntaxKind.ModuleBlock) {
-        for (final statement
-            in (namespaceBody as TSModuleBlock).statements.toDart) {
-          transformDeclAndAppendParent(outputNamespace, statement);
-        }
-      } else if (namespace.body case final namespaceBody?) {
-        // namespace import
-        _transformNamespace(
-          namespaceBody as TSNamespaceDeclaration,
-          namer: scopedNamer,
-          parent: outputNamespace,
-        );
-      }
-    }
-
-    // final update on namespace state
-    updateNSInParent();
-
-    // index names
-    namer.markUsedSet(scopedNamer);
-
-    // get the exported symbols from the namespace
-    return outputNamespace;
+    return decls;
   }
 
   /// Transforms a TS Class or Interface declaration into a node representing
@@ -480,6 +382,7 @@ class Transformer {
             operators: [],
             documentation: _parseAndTransformDocumentation(typeDecl),
           );
+    nodeMap.add(outputType);
 
     final typeNamer = ScopedUniqueNamer({'get', 'set'});
 
@@ -1605,11 +1508,17 @@ class Transformer {
         if (nonNullableUnionTypes.singleOrNull case final singleTypeNode?) {
           return _transformType(
             singleTypeNode,
+            typeArg: typeArg,
+            parameter: parameter,
             isNullable: shouldBeNullable || (isNullable ?? false),
           );
         }
 
-        final types = nonNullableUnionTypes.map<Type>(_transformType).toList();
+        final types = nonNullableUnionTypes
+            .map<Type>(
+              (t) => _transformType(t, typeArg: typeArg, parameter: parameter),
+            )
+            .toList();
 
         var isHomogenous = true;
         final nonNullLiteralTypes = <LiteralType>[];
@@ -1689,11 +1598,18 @@ class Transformer {
 
         if (nonNullableIntersectionTypes.singleOrNull
             case final singleTypeNode?) {
-          return _transformType(singleTypeNode, isNullable: isNullable);
+          return _transformType(
+            singleTypeNode,
+            typeArg: typeArg,
+            parameter: parameter,
+            isNullable: isNullable,
+          );
         }
 
         final types = nonNullableIntersectionTypes
-            .map<Type>(_transformType)
+            .map<Type>(
+              (t) => _transformType(t, typeArg: typeArg, parameter: parameter),
+            )
             .toList();
 
         final idMap = types.map((t) => t.id.name);
@@ -2134,554 +2050,48 @@ class Transformer {
     }
   }
 
-  /// Given a [symbol] with declarations defined in the given file, this method
-  /// searches for the declaration recursively (either as a top level on the
-  /// [ts.TSSourceFile], or recursively inside a module or namespace).
-  ///
-  /// The method uses an iterable of [QualifiedNamePart], usually gotten from a
-  /// [QualifiedName] parsed from the identifier/qualified name used to associate
-  /// the given reference to recursively step through each part of the [name]
-  /// until all parts have been handled/parsed, and a single declaration is gotten
-  /// for the given [symbol]. If a declaration is not found at a given point,
-  /// the associated declaration with that part (usually as a parent of the
-  /// declaration gotten from the [symbol]) is transformed, and either added
-  /// to [nodeMap], or, if in recursion, added to its [parent] declaration.
-  ///
-  /// The referred type may accept [typeArguments], which are passed as well.
-  Type _searchForDeclRecursive(
-    Iterable<QualifiedNamePart> name,
-    TSSymbol symbol, {
-    NamespaceDeclaration? parent,
-    List<TSTypeNode>? typeArguments,
-    bool isNotTypableDeclaration = false,
-    bool typeArg = false,
-    bool isNullable = false,
-  }) {
-    // get name and map
-    final firstName = name.first.part;
+  late final TypeResolver typeResolver = TypeResolver(this);
 
-    var map = parent != null
-        ? NodeMap(
-            [
-              ...parent.nestableDeclarations,
-              ...parent.namespaceDeclarations,
-            ].asMap().map((_, v) => MapEntry(v.id.toString(), v)),
-          )
-        : nodeMap;
-
-    // search map
-    var declarationsMatching = map.findByName(firstName);
-
-    if (declarationsMatching.isEmpty) {
-      // if not referred type, then check here
-      // transform
-      final declarations = symbol.getDeclarations()?.toDart ?? [];
-
-      final namer = parent != null
-          ? ScopedUniqueNamer(
-              {},
-              [
-                ...parent.namespaceDeclarations,
-                ...parent.nestableDeclarations,
-                ...parent.topLevelDeclarations,
-              ].map((d) => d.id.toString()),
-            )
-          : null;
-      for (var declaration in declarations) {
-        if (declaration.kind == TSSyntaxKind.ExportSpecifier) {
-          // in order to prevent recursion, we need to find the source of the
-          // export specifier
-          final aliasedSymbol = typeChecker.getAliasedSymbol(symbol);
-          final aliasedSymbolName = aliasedSymbol.name;
-
-          exportSet.removeWhere((e) => e.name == aliasedSymbolName);
-          exportSet.add(ExportReference(aliasedSymbolName, as: firstName));
-          // TODO: Is nullable
-          return _getTypeFromSymbol(
-            aliasedSymbol,
-            typeChecker.getTypeOfSymbol(aliasedSymbol),
-            typeArguments,
-            typeArg,
-            isNotTypableDeclaration,
-            isNullable,
-          );
-        }
-
-        var d = declaration as TSNamedDeclaration;
-
-        while (d.name?.text != firstName &&
-            d.parent.kind == TSSyntaxKind.ModuleBlock) {
-          d = (declaration.parent as TSModuleBlock).parent;
-        }
-
-        // TODO: multi-decls
-        final transformedDecls = transformAndReturn(
-          declaration,
-          namer: namer,
-          parent: parent,
-        );
-
-        if (parent != null) {
-          switch (declaration.kind) {
-            case TSSyntaxKind.ClassDeclaration ||
-                TSSyntaxKind.InterfaceDeclaration:
-              final outputDecl = transformedDecls.first as TypeDeclaration;
-              outputDecl.parent = parent;
-              parent.nestableDeclarations.add(outputDecl);
-            case TSSyntaxKind.EnumDeclaration:
-              final outputDecl = transformedDecls.first as EnumDeclaration;
-              outputDecl.parent = parent;
-              parent.nestableDeclarations.add(outputDecl);
-            default:
-              parent.topLevelDeclarations.addAll(transformedDecls);
-          }
-          parent.nodes.add(declaration);
-        } else {
-          nodeMap.addAll({
-            for (final decl in transformedDecls) decl.id.toString(): decl,
-          });
-          nodes.add(declaration);
-        }
-      }
-
-      map = parent != null
-          ? NodeMap(
-              [
-                ...parent.nestableDeclarations,
-                ...parent.namespaceDeclarations,
-              ].asMap().map((_, v) => MapEntry(v.id.toString(), v)),
-            )
-          : nodeMap;
-
-      declarationsMatching = map.findByName(firstName);
-    }
-
-    // get node finally
-
-    // are we done?
-    final rest = name.skip(1);
-    if (rest.isEmpty) {
-      // TODO: Merge
-      final decl = declarationsMatching.whereType<NamedDeclaration>().first;
-      // return decl
-      switch (decl) {
-        case TypeAliasDeclaration(type: final t):
-        case EnumDeclaration(baseType: final t):
-          final jsType = getJSTypeAlternative(t);
-          if (jsType != t && typeArg) {
-            return jsType..isNullable = isNullable;
-          }
-      }
-
-      final asReferredType = decl.asReferredType(
-        (typeArguments ?? [])
-            .map((type) => _transformType(type, typeArg: true))
-            .toList(),
-        isNullable,
-      );
-
-      if (asReferredType case ReferredDeclarationType(
-        type: final type,
-      ) when type is BuiltinType) {
-        final jsType = getJSTypeAlternative(type);
-        if (jsType != type && typeArg) {
-          asReferredType.type = jsType..isNullable = isNullable;
-        }
-      }
-
-      return asReferredType;
-    } else {
-      // we go one more time
-
-      // TODO: Typealias resolving?
-      for (final d in declarationsMatching) {
-        switch (d) {
-          // if decl is class/interface, check if we're referring to generic
-          case TypeDeclaration(typeParameters: final typeParams):
-            if (rest.singleOrNull?.part case final generic?
-                when typeParams.any((t) => t.name == generic)) {
-              final typeParam = typeParams.firstWhere((t) => t.name == generic);
-              return GenericType(
-                name: typeParam.name,
-                parent: d,
-                isNullable: isNullable,
-              );
-            }
-            break;
-          case final NamespaceDeclaration n:
-            final searchForDeclRecursive = _searchForDeclRecursive(
-              rest,
-              symbol,
-              typeArguments: typeArguments,
-              typeArg: typeArg,
-              parent: n,
-              isNullable: isNullable,
-            );
-            if (parent == null) {
-              nodeMap.update(d.id.toString(), (v) => n);
-            }
-            return searchForDeclRecursive;
-          // recursive
-        }
-      }
-    }
-
-    throw Exception(
-      'Could not find type for given declaration ${name.join('.')}',
-    );
-  }
-
-  /// Get the type of a type node [node] by gettings its type from
-  /// the node itself via the [ts.TSTypeChecker]
-  ///
-  /// This has similar options as [_getTypeFromDeclaration]
   Type _getTypeFromTypeNode(
     TSTypeReferenceNode node, {
     List<TSTypeNode>? typeArguments,
     bool typeArg = false,
     bool isNotTypableDeclaration = false,
     bool isNullable = false,
-  }) {
-    typeArguments ??= node.typeArguments?.toDart;
-    final typeName = node.typeName;
+  }) => typeResolver.getTypeFromTypeNode(
+    node,
+    typeArguments: typeArguments,
+    typeArg: typeArg,
+    isNotTypableDeclaration: isNotTypableDeclaration,
+    isNullable: isNullable,
+  );
 
-    // get symbol
-    final type = typeChecker.getTypeFromTypeNode(node);
-    // from type: if symbol is null, or references an import
-    var symbol = typeChecker.getSymbolAtLocation(typeName);
-    if (symbol == null) {
-      symbol = type?.aliasSymbol ?? type?.symbol;
-    } else if (symbol.getDeclarations()?.toDart ?? [] case [final d]
-        when d.kind == TSSyntaxKind.ImportSpecifier ||
-            d.kind == TSSyntaxKind.ImportEqualsDeclaration) {
-      // prefer using type node ref for such cases
-      // reduces import declaration handling
-      symbol = type?.aliasSymbol ?? type?.symbol;
-    }
-
-    return _getTypeFromSymbol(
-      symbol,
-      type,
-      typeArguments,
-      isNotTypableDeclaration,
-      typeArg,
-      isNullable,
-    );
-  }
-
-  /// Given a [TSSymbol] for a given TS node or declaration, and its associated
-  /// [TSType], this method gets the necessary AST [Type] defined by the given
-  /// [symbol].
-  ///
-  /// It uses the symbol's associated declarations, and its qualified name to
-  /// deduce the associated type being referred to by the symbol.
-  /// If the qualified name has no import file associated with it, it is either
-  /// a built-in type or an imported type. If it has an import file associated
-  /// with it and the file is this file, then the declaration is searched for
-  /// and transformed recursively via [_searchForDeclRecursive], else the
-  /// associated file is used to find and transform the associated declaration
-  /// through the [programMap].
-  ///
-  /// The referred type may accept [typeArguments] which are passed to it once
-  /// the referred declaration is deduced.
-  Type _getTypeFromSymbol(
-    TSSymbol? symbol,
-    TSType? type,
-    List<TSTypeNode>? typeArguments,
-    bool isNotTypableDeclaration,
-    bool typeArg,
-    bool isNullable,
-  ) {
-    Type? returnNodeAsType(Declaration firstNode, [String? relativePath]) {
-      if (!isNotTypableDeclaration && typeArg) {
-        // For Typealiases, we can either return the type itself
-        // or the JS Alternative (if its underlying type isn't a JS type)
-        switch (firstNode) {
-          case TypeAliasDeclaration(type: final t):
-          case EnumDeclaration(baseType: final t):
-            final jsType = getJSTypeAlternative(t);
-            if (jsType != t) {
-              return jsType..isNullable = isNullable;
-            }
-        }
-      }
-
-      final outputType = (firstNode as NamedDeclaration).asReferredType(
-        (typeArguments ?? [])
-            .map((type) => _transformType(type, typeArg: true))
-            .toList(),
-        isNullable,
-        relativePath?.replaceFirst('.d.ts', '.dart'),
-      );
-
-      if (outputType case ReferredDeclarationType(
-        type: final type,
-      ) when type is BuiltinType && typeArg) {
-        final jsType = getJSTypeAlternative(type);
-        if (jsType != type) {
-          outputType.type = jsType..isNullable = isNullable;
-        }
-      }
-
-      return outputType;
-    }
-
-    // begin
-    final declarations = symbol!.getDeclarations()?.toDart ?? [];
-
-    // get decl qualified name
-    final tsFullyQualifiedName = typeChecker.getFullyQualifiedName(symbol);
-
-    // parse qualified name and import
-    final (fullyQualifiedName, nameImport) = parseTSFullyQualifiedName(
-      tsFullyQualifiedName,
-    );
-
-    if (nameImport == null) {
-      // if import not there, most likely from an import
-
-      if (type?.isTypeParameter() ?? false) {
-        // generic type
-        return GenericType(
-          name: fullyQualifiedName.last.part,
-          isNullable: isNullable,
-        );
-      }
-
-      // meaning others are imported
-      final firstName = fullyQualifiedName.last.part;
-
-      // check if primitive source
-      final supportedType = BuiltinType.referred(
-        firstName,
-        typeParams: (typeArguments ?? [])
-            .map((t) => getJSTypeAlternative(_transformType(t)))
-            .toList(),
-        isNullable: isNullable,
-      );
-      if (supportedType case final resultType?) {
-        return resultType;
-      }
-
-      // now check if web type
-      var mappedDecls = <Declaration>[];
-      String? relativePath;
-      for (final decl in declarations) {
-        var declSource = decl.getSourceFile().fileName;
-
-        if ((p.basename(declSource) == 'lib.dom.d.ts' ||
-                declSource.contains('dom')) &&
-            !isNotTypableDeclaration) {
-          // dom declaration: supported by package:web
-          return PackageWebType.parse(
-            firstName,
-            typeParams: (typeArguments ?? [])
-                .map(_transformType)
-                .map(getJSTypeAlternative)
-                .toList(),
-            isNullable: isNullable,
-            renameMap: Translator.instance?.loadedRenameMap ?? const {},
-          );
-        }
-
-        // TODO(nikeokoronkwo): Update the version of typescript we are using
-        //  to 5.9
-        var mustImport = false;
-        if (decl.kind == TSSyntaxKind.ImportSpecifier) {
-          // resolve import
-          final namedImport = decl as TSImportSpecifer;
-          final importDecl = namedImport.parent.parent.parent;
-          var importUrl = importDecl.moduleSpecifier.text;
-          if (!importUrl.endsWith('ts')) importUrl = '$importUrl.d.ts';
-
-          declSource = p.normalize(
-            p.absolute(p.join(p.dirname(file), importUrl)),
-          );
-          mustImport = true;
-        }
-
-        // check if in sources for program
-
-        if ((programMap.files.contains(declSource) &&
-                !p.equals(declSource, file)) ||
-            mustImport) {
-          if (programMap.files.contains(declSource) &&
-              !p.equals(declSource, file)) {
-            relativePath = p.relative(declSource, from: p.dirname(file));
-          }
-          final referencedDeclarations = programMap.getDeclarationRef(
-            declSource,
-            decl,
-            fullyQualifiedName.asName,
-          );
-
-          mappedDecls =
-              referencedDeclarations?.whereType<NamedDeclaration>().toList() ??
-              [];
-        } else {
-          var declarationsMatching = nodeMap.findByName(firstName);
-          if (declarationsMatching.isEmpty) {
-            transform(decl);
-            declarationsMatching = nodeMap.findByName(firstName);
-          }
-
-          mappedDecls = declarationsMatching
-              .whereType<NamedDeclaration>()
-              .toList();
-        }
-      }
-
-      final (decls, :additionals) = mergeDeclarations(mappedDecls);
-      nodeMap.addAll({for (final add in additionals) add.id.toString(): add});
-      NamedDeclaration? firstNode;
-
-      if (decls.singleOrNull case final firstDecl?) {
-        if (!isNotTypableDeclaration && typeArg) {
-          // For Typealiases, we can either return the type itself
-          // or the JS Alternative (if its underlying type isn't a JS type)
-          switch (firstDecl) {
-            case TypeAliasDeclaration(type: final t):
-            case EnumDeclaration(baseType: final t):
-              final jsType = getJSTypeAlternative(t);
-              if (jsType != t) {
-                return jsType..isNullable = isNullable;
-              }
-          }
-        }
-
-        firstNode = firstDecl as NamedDeclaration;
-      } else if (decls.length > 1) {
-        firstNode =
-            (decls.firstWhereOrNull((d) => d is NamedDeclaration) ??
-                    decls.first)
-                as NamedDeclaration;
-      }
-
-      if (firstNode case final node?) {
-        final type = returnNodeAsType(
-          node,
-          mappedDecls.length > 1 ? null : relativePath,
-        );
-        if (type != null) return type;
-      }
-    } else {
-      final filePathWithoutExtension = file.replaceFirst('.d.ts', '');
-      if (p.equals(nameImport, filePathWithoutExtension)) {
-        // declared in this file
-        // if import there and this file, handle this file
-
-        // generics are tricky when they are for the same decl, so
-        // let's just handle them before-hand
-        if (type?.isTypeParameter() ?? false) {
-          // generic type
-          return GenericType(
-            name: fullyQualifiedName.last.part,
-            isNullable: isNullable,
-          );
-        }
-
-        // recursiveness
-        return _searchForDeclRecursive(
-          fullyQualifiedName,
-          symbol,
-          typeArguments: typeArguments,
-          typeArg: typeArg,
-          isNotTypableDeclaration: isNotTypableDeclaration,
-          isNullable: isNullable,
-        );
-      } else {
-        // if import there and not this file, imported from specified file
-        final importUrl =
-            !nameImport.endsWith('.d.ts') &&
-                fs
-                    .existsSync(
-                      (p.isAbsolute('$nameImport.d.ts')
-                              ? '$nameImport.d.ts'
-                              : p.join(p.dirname(file), '$nameImport.d.ts'))
-                          .toJS,
-                    )
-                    .toDart
-            ? '$nameImport.d.ts'
-            : nameImport;
-        final relativePath = programMap.files.contains(importUrl)
-            ? p.relative(importUrl, from: p.dirname(file))
-            : null;
-        final referencedDeclarations = declarations
-            .map((decl) {
-              return programMap.getDeclarationRef(
-                importUrl,
-                decl,
-                fullyQualifiedName.asName,
-              );
-            })
-            .reduce((prev, next) => [...?prev, ...?next]);
-
-        final nodes =
-            referencedDeclarations?.whereType<NamedDeclaration>().toList() ??
-            [];
-
-        final (mergedNodes, :additionals) = mergeDeclarations(nodes);
-        nodeMap.addAll({for (final add in additionals) add.id.toString(): add});
-
-        if (mergedNodes case [final firstNode]) {
-          final type = returnNodeAsType(firstNode, relativePath);
-          if (type != null) return type;
-        }
-      }
-    }
-
-    throw Exception(
-      'Could not resolve type for node ${fullyQualifiedName.asName}'
-      '${nameImport == null ? '' : ' from $nameImport'}',
-    );
-  }
-
-  /// Get the type of a type node named [typeName] by referencing its
-  /// declaration.
-  ///
-  /// **NOTE**: If you have a [TSTypeReferenceNode], it is preferred to use
-  /// [_getTypeFromTypeNode] as it is more performant at getting the correct
-  /// type declarations from a given node.
-  ///
-  /// This method uses the TypeScript type checker [ts.TSTypeChecker] to get the
-  /// declaration associated with the [TSTypeNode] using its [typeName], and
-  /// refer to that type either as a [ReferredType] if defined in the file, or
-  /// not directly supported by `dart:js_interop`, or as a [BuiltinType] if
-  /// supported by `dart:js_interop`
-  ///
-  /// [typeArg] represents whether the [TSTypeNode] is being passed in the
-  /// context of a type argument, as Dart core types are not allowed in
-  /// type arguments
-  ///
-  /// [isNotTypableDeclaration] represents whether the declaration to search for
-  /// or refer to is not a typable declaration (i.e a declaration suitable for
-  /// use in a `typeof` type node, such as a variable). This reduces checks on
-  /// supported `dart:js_interop` types and related [EnumDeclaration]-like and
-  /// [TypeDeclaration]-like checks
   Type _getTypeFromDeclaration(
-    @UnionOf([TSIdentifier, TSQualifiedName]) TSNode typeName,
+    TSNode typeName,
     List<TSTypeNode>? typeArguments, {
     bool typeArg = false,
     bool isNotTypableDeclaration = false,
     bool isNullable = false,
-  }) {
-    // union assertion
-    assert(
-      typeName.kind == TSSyntaxKind.Identifier ||
-          typeName.kind == TSSyntaxKind.QualifiedName,
-    );
+  }) => typeResolver.getTypeFromDeclaration(
+    typeName,
+    typeArguments,
+    typeArg: typeArg,
+    isNotTypableDeclaration: isNotTypableDeclaration,
+    isNullable: isNullable,
+  );
 
-    final symbol = typeChecker.getSymbolAtLocation(typeName);
-
-    return _getTypeFromSymbol(
-      symbol,
-      typeChecker.getTypeOfSymbol(symbol!),
-      typeArguments,
-      isNotTypableDeclaration,
-      typeArg,
-      isNullable,
-    );
-  }
+  @internal
+  Type transformType(
+    TSTypeNode type, {
+    bool typeArg = false,
+    bool parameter = false,
+    bool? isNullable,
+  }) => _transformType(
+    type,
+    typeArg: typeArg,
+    parameter: parameter,
+    isNullable: isNullable,
+  );
 
   /// Extracts associated documentation (JSDoc) from a [TSNode] and transforms
   /// the JSDoc into associated Dart documentation for the given [node]
@@ -2838,7 +2248,6 @@ class Transformer {
   /// Returns a [NodeMap] containing a map of the declared nodes and IDs.
   NodeMap processAndReturn() {
     final filteredDeclarations = NodeMap<Declaration>();
-
     for (final ExportReference(name: exportName, as: exportDartName)
         in exportSet) {
       if (filterDeclSet.isEmpty ||
@@ -2886,12 +2295,17 @@ class Transformer {
     if (filteredDeclarations.isEmpty) return filteredDeclarations;
 
     final otherDecls = filteredDeclarations.entries
-        .map((e) => _getDependenciesOfDecl(e.value))
+        .map((e) => _extractDependencies(e.value))
         .reduce((value, element) => value..addAll(element));
 
     final completedDecls = NodeMap({...filteredDeclarations, ...otherDecls});
 
-    final declGroups = groupBy(completedDecls.values, (decl) => decl.id.name);
+    final declGroups = groupBy(completedDecls.values, (decl) {
+      if (decl is TypeAliasDeclaration) {
+        return 'typealias:${decl.id.name}';
+      }
+      return decl.id.name;
+    });
 
     final outputDeclSet = NodeMap();
 
@@ -2908,6 +2322,27 @@ class Transformer {
       }
 
       final (mergedDeclSet, :additionals) = mergeDeclarations(declarations);
+      final emitted = [...mergedDeclSet, ...additionals];
+
+      Declaration? findMatchingEmitted(Declaration original) {
+        var match = emitted.firstWhereOrNull(
+          (e) => e.runtimeType == original.runtimeType,
+        );
+        if (match != null) return match;
+        match = emitted.firstWhereOrNull((e) => e is CompositeDeclaration);
+        if (match != null) return match;
+        return emitted.firstOrNull;
+      }
+
+      for (final original in declarations) {
+        final match = findMatchingEmitted(original);
+        if (match != null) {
+          programMap.declarationToEmittedName[original] =
+              match is NestableDeclaration
+              ? match.completedDartName
+              : (match.dartName ?? match.name);
+        }
+      }
 
       outputDeclSet.addAll({
         for (final d in [...mergedDeclSet, ...additionals, ...nodes])
@@ -2921,154 +2356,6 @@ class Transformer {
   /// Given an already filtered declaration [decl],
   /// filter out dependencies of [decl] recursively
   /// and return them as a declaration map
-  NodeMap _getDependenciesOfDecl(Node? decl, [NodeMap? context]) {
-    NodeMap getCallableDependencies(CallableDeclaration callable) {
-      return NodeMap({
-        for (final node in callable.parameters.map((p) => p.type))
-          node.id.toString(): node,
-        for (final node
-            in callable.typeParameters
-                .map((p) => p.constraint)
-                .whereType<Type>())
-          node.id.toString(): node,
-        callable.returnType.id.toString(): callable.returnType,
-      });
-    }
-
-    void updateFilteredDeclsForDecl(Node? decl, NodeMap filteredDeclarations) {
-      switch (decl) {
-        case final VariableDeclaration v:
-          filteredDeclarations.add(v.type);
-          break;
-        case final CallableDeclaration f:
-          filteredDeclarations.addAll(getCallableDependencies(f));
-          break;
-        case final EnumDeclaration _:
-          break;
-        case final TypeAliasDeclaration t:
-          filteredDeclarations.add(t.type);
-          break;
-        case final TypeDeclaration t:
-          for (final con in t.constructors) {
-            filteredDeclarations.addAll({
-              for (final param in con.parameters.map((p) => p.type))
-                param.id.toString(): param,
-            });
-          }
-          for (final methods in t.methods) {
-            filteredDeclarations.addAll(getCallableDependencies(methods));
-          }
-          for (final operators in t.operators) {
-            filteredDeclarations.addAll(getCallableDependencies(operators));
-          }
-          filteredDeclarations.addAll({
-            for (final prop
-                in t.properties
-                    .map((p) => p.type)
-                    .where((p) => p is! BuiltinType))
-              prop.id.toString(): prop,
-          });
-          switch (t) {
-            case ClassDeclaration(
-              extendedType: final extendedType,
-              implementedTypes: final implementedTypes,
-            ):
-              if (extendedType case final ext? when ext is! BuiltinType) {
-                filteredDeclarations.add(ext);
-              }
-              filteredDeclarations.addAll({
-                for (final impl in implementedTypes.where(
-                  (i) => i is! BuiltinType,
-                ))
-                  impl.id.toString(): impl,
-              });
-              break;
-            case InterfaceDeclaration(extendedTypes: final extendedTypes):
-              filteredDeclarations.addAll({
-                for (final impl in extendedTypes.where(
-                  (i) => i is! BuiltinType,
-                ))
-                  impl.id.toString(): impl,
-              });
-              break;
-            default:
-              break;
-          }
-        case NamespaceDeclaration(
-          topLevelDeclarations: final topLevelDecls,
-          nestableDeclarations: final typeDecls,
-          namespaceDeclarations: final namespaceDecls,
-        ):
-          for (final tlDecl in [...typeDecls, ...namespaceDecls]) {
-            filteredDeclarations.add(tlDecl);
-            updateFilteredDeclsForDecl(tlDecl, filteredDeclarations);
-          }
-          for (final topLevelDecl in topLevelDecls) {
-            updateFilteredDeclsForDecl(topLevelDecl, filteredDeclarations);
-          }
-          break;
-        // TODO: We can make (DeclarationAssociatedType) and use that
-        //  rather than individual type names
-        case final HomogenousEnumType hu:
-          filteredDeclarations.add(hu.declaration);
-          break;
-        case final TupleType t:
-          filteredDeclarations.addAll({
-            for (final t in t.types.where((t) => t is! BuiltinType))
-              t.id.toString(): t,
-          });
-        case UnionType(types: final uTypes, declaration: final uDecl) ||
-            IntersectionType(types: final uTypes, declaration: final uDecl):
-          filteredDeclarations.addAll({
-            for (final t in uTypes.where((t) => t is! BuiltinType))
-              t.id.toString(): t,
-          });
-          filteredDeclarations.add(uDecl);
-        case final DeclarationType d:
-          filteredDeclarations.add(d.declaration);
-          break;
-        case BuiltinType(typeParams: final typeParams)
-            when typeParams.isNotEmpty:
-          filteredDeclarations.addAll({
-            for (final t in typeParams.where((t) => t is! BuiltinType))
-              t.id.toString(): t,
-          });
-          break;
-        case final ReferredType r:
-          if (r.url == null) filteredDeclarations.add(r.declaration);
-          break;
-        case BuiltinType() || GenericType():
-          break;
-        default:
-          print(
-            'WARN: The given node type ${decl.runtimeType.toString()} '
-            'is not supported for filtering. Skipping...',
-          );
-          break;
-      }
-    }
-
-    final filteredDeclarations = NodeMap();
-
-    updateFilteredDeclsForDecl(decl, filteredDeclarations);
-
-    filteredDeclarations.removeWhere(
-      (k, v) => context?.containsKey(k) ?? false,
-    );
-
-    if (filteredDeclarations.isNotEmpty) {
-      final otherDecls = filteredDeclarations.entries
-          .map(
-            (e) => _getDependenciesOfDecl(
-              e.value,
-              NodeMap({...(context ?? {}), ...filteredDeclarations}),
-            ),
-          )
-          .reduce((value, element) => value..addAll(element));
-
-      filteredDeclarations.addAll(otherDecls);
-    }
-
-    return filteredDeclarations;
-  }
+  NodeMap _extractDependencies(Node? decl, [NodeMap? context]) =>
+      DependencyWalker.extractDependencies(decl, context);
 }

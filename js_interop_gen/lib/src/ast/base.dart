@@ -9,53 +9,68 @@ import 'documentation.dart';
 import 'helpers.dart';
 import 'types.dart';
 
-class GlobalOptions {
-  static int variadicArgsCount = 4;
-  static bool shouldEmitJsTypes = false;
-  static bool redeclareOverrides = true;
-}
+class Options {
+  final int variadicArgsCount;
+  final bool shouldEmitJsTypes;
+  final bool redeclareOverrides;
+  final Map<Declaration, String> declarationToEmittedName;
 
-class Options {}
+  Options({
+    this.variadicArgsCount = 4,
+    this.shouldEmitJsTypes = false,
+    this.redeclareOverrides = true,
+    this.declarationToEmittedName = const {},
+  });
+}
 
 class DeclarationOptions extends Options {
   bool override;
   bool static;
 
-  DeclarationOptions({this.override = false, this.static = false});
+  DeclarationOptions({
+    this.override = false,
+    this.static = false,
+    super.variadicArgsCount,
+    super.shouldEmitJsTypes,
+    super.redeclareOverrides,
+    super.declarationToEmittedName,
+  });
 
-  TypeOptions toTypeOptions({bool nullable = false}) =>
-      TypeOptions(nullable: nullable);
+  TypeOptions toTypeOptions({bool nullable = false}) => TypeOptions(
+    nullable: nullable,
+    variadicArgsCount: variadicArgsCount,
+    shouldEmitJsTypes: shouldEmitJsTypes,
+    redeclareOverrides: redeclareOverrides,
+    declarationToEmittedName: declarationToEmittedName,
+  );
 }
 
 class TypeOptions extends Options {
   bool nullable;
   String? url;
+  bool isTypeArgument;
 
-  TypeOptions({this.nullable = false, this.url});
-}
-
-class ASTOptions {
-  bool parameter;
-  bool emitJSTypes;
-  int variadicArgsCount;
-
-  ASTOptions({
-    this.parameter = false,
-    this.variadicArgsCount = 4,
-    this.emitJSTypes = false,
+  TypeOptions({
+    this.nullable = false,
+    this.url,
+    this.isTypeArgument = false,
+    super.variadicArgsCount,
+    super.shouldEmitJsTypes,
+    super.redeclareOverrides,
+    super.declarationToEmittedName,
   });
 }
 
-sealed class Node {
+abstract class Node<T extends Object> {
   abstract final ID id;
   abstract String? dartName;
 
-  Spec emit([Options? options]);
+  T emit([Options? options]);
 
   Node();
 }
 
-abstract class Declaration extends Node {
+abstract class Declaration extends Node<Spec> {
   String get name;
 
   @override
@@ -66,17 +81,30 @@ abstract class NamedDeclaration extends Declaration {
   @override
   abstract String name;
 
+  Iterable<GenericType> get typeParameters => const [];
+
   ReferredType asReferredType([
     Iterable<Type>? typeArgs,
     bool isNullable = false,
     String? url,
-  ]) => ReferredType(
-    name: name,
-    declaration: this,
-    typeParams: typeArgs?.toList() ?? [],
-    url: url,
-    isNullable: isNullable,
-  );
+  ]) {
+    final typeParamsList = typeArgs?.toList() ?? [];
+    final declParams = typeParameters.toList();
+    for (var i = 0; i < typeParamsList.length && i < declParams.length; ++i) {
+      final param = typeParamsList[i];
+      final declParam = declParams[i];
+      if (param is GenericType && param.constraint == null) {
+        param.constraint = declParam.constraint;
+      }
+    }
+    return ReferredType(
+      name: name,
+      declaration: this,
+      typeParams: typeParamsList,
+      url: url,
+      isNullable: isNullable,
+    );
+  }
 }
 
 abstract interface class DocumentedDeclaration {
@@ -95,7 +123,7 @@ abstract interface class ExportableDeclaration extends Declaration {
   abstract String name;
 }
 
-abstract class Type extends Node {
+abstract class Type extends Node<Reference> {
   @override
   String? dartName;
 
@@ -122,6 +150,7 @@ abstract class FieldDeclaration extends NamedDeclaration {
 abstract class CallableDeclaration extends NamedDeclaration {
   abstract final List<ParameterDeclaration> parameters;
 
+  @override
   abstract final List<GenericType> typeParameters;
 
   abstract final Type returnType;

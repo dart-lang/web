@@ -52,6 +52,7 @@ sealed class TypeDeclaration extends NestableDeclaration
   @override
   NestableDeclaration? parent;
 
+  @override
   final Set<GenericType> typeParameters;
 
   final List<MethodDeclaration> methods;
@@ -101,7 +102,7 @@ sealed class TypeDeclaration extends NestableDeclaration
     final methodDecs = <Method>[];
 
     bool isOverride(String name) =>
-        hierarchy.contains(name) && GlobalOptions.redeclareOverrides;
+        hierarchy.contains(name) && (options?.redeclareOverrides ?? true);
 
     for (final prop in properties.where((p) => p.scope == DeclScope.public)) {
       final spec = prop.emit(
@@ -131,8 +132,18 @@ sealed class TypeDeclaration extends NestableDeclaration
           ),
     );
 
-    final repType = useFirstExtendeeAsRepType || this is ClassDeclaration
-        ? getRepresentationType(this)
+    final resolvedRepType = getRepresentationType(this);
+    final isNonObjectBuiltin =
+        resolvedRepType is BuiltinType &&
+        nonObjectRepTypes.contains(resolvedRepType.name);
+
+    final repType =
+        useFirstExtendeeAsRepType ||
+            (this is ClassDeclaration && !isNonObjectBuiltin) ||
+            (this is! ClassDeclaration &&
+                resolvedRepType is BuiltinType &&
+                resolvedRepType.name != 'JSObject')
+        ? resolvedRepType
         : BuiltinType.primitiveType(PrimitiveType.object, isNullable: false);
 
     return ExtensionType(
@@ -562,6 +573,7 @@ class TypeAliasDeclaration extends NestableDeclaration
   @override
   String name;
 
+  @override
   final List<GenericType> typeParameters;
 
   final Type type;
@@ -589,7 +601,7 @@ class TypeAliasDeclaration extends NestableDeclaration
 
   @override
   TypeDef emit([DeclarationOptions? options]) {
-    options ??= DeclarationOptions();
+    final opts = options ?? DeclarationOptions();
     final (doc, annotations) = generateFromDocumentation(documentation);
 
     return TypeDef(
@@ -597,10 +609,8 @@ class TypeAliasDeclaration extends NestableDeclaration
         ..docs.addAll([...doc])
         ..annotations.addAll([...annotations])
         ..name = completedDartName
-        ..types.addAll(
-          typeParameters.map((t) => t.emit(options?.toTypeOptions())),
-        )
-        ..definition = type.emit(options?.toTypeOptions()),
+        ..types.addAll(typeParameters.map((t) => t.emit(opts.toTypeOptions())))
+        ..definition = type.emit(opts.toTypeOptions()..isTypeArgument = true),
     );
   }
 
@@ -654,7 +664,13 @@ class NamespaceDeclaration extends NestableDeclaration
 
   @override
   ExtensionType emit([covariant DeclarationOptions? options]) {
-    options?.static = true;
+    final namespaceOptions = DeclarationOptions(
+      override: options?.override ?? false,
+      static: true,
+      variadicArgsCount: options?.variadicArgsCount ?? 4,
+      shouldEmitJsTypes: options?.shouldEmitJsTypes ?? false,
+      redeclareOverrides: options?.redeclareOverrides ?? true,
+    );
 
     final (doc, annotations) = generateFromDocumentation(documentation);
     // static props and vars
@@ -664,17 +680,12 @@ class NamespaceDeclaration extends NestableDeclaration
     for (final decl in topLevelDeclarations) {
       if (decl case final VariableDeclaration variable) {
         if (variable.modifier == VariableModifier.$const) {
-          methods.add(
-            variable.emit(options ?? DeclarationOptions(static: true))
-                as Method,
-          );
+          methods.add(variable.emit(namespaceOptions) as Method);
         } else {
-          fields.add(
-            variable.emit(options ?? DeclarationOptions(static: true)) as Field,
-          );
+          fields.add(variable.emit(namespaceOptions) as Field);
         }
       } else if (decl case final FunctionDeclaration fn) {
-        methods.add(fn.emit(options ?? DeclarationOptions(static: true)));
+        methods.add(fn.emit(namespaceOptions));
       }
     }
 
@@ -1211,7 +1222,7 @@ enum MethodKind { getter, setter, none }
 /// }
 /// ```
 // TODO: Suggesting a config option for adding custom constructors (factories)
-class ConstructorDeclaration implements MemberDeclaration {
+class ConstructorDeclaration implements MemberDeclaration, Node<Constructor> {
   @override
   late final TypeDeclaration parent;
 
@@ -1223,8 +1234,10 @@ class ConstructorDeclaration implements MemberDeclaration {
   @override
   final String? name;
 
+  @override
   final ID id;
 
+  @override
   String? dartName;
 
   @override
@@ -1245,13 +1258,14 @@ class ConstructorDeclaration implements MemberDeclaration {
     )..parent = decl;
   }
 
+  @override
   Constructor emit([covariant DeclarationOptions? options]) {
-    options ??= DeclarationOptions();
+    final declarationOptions = options ?? DeclarationOptions();
     final (doc, annotations) = generateFromDocumentation(documentation);
 
     final (requiredParams, optionalParams) = emitParameters(
       parameters,
-      options,
+      declarationOptions,
     );
 
     final isFactory = dartName != null && dartName != name;

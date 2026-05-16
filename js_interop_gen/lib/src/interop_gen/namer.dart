@@ -50,6 +50,9 @@ class UniqueNamer {
 
   /// Makes a name that does not conflict with dart keywords
   static String makeNonConflicting(String name) {
+    if (name.startsWith('_')) {
+      name = '\$$name';
+    }
     if (int.tryParse(name) != null) {
       return '\$$name';
     } else if (double.tryParse(name) != null) {

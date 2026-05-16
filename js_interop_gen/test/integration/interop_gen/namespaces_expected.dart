@@ -1,6 +1,7 @@
 // ignore_for_file: camel_case_types, constant_identifier_names
 // ignore_for_file: library_private_types_in_public_api
-// ignore_for_file: non_constant_identifier_names, unnecessary_parenthesis
+// ignore_for_file: lines_longer_than_80_chars, non_constant_identifier_names
+// ignore_for_file: unnecessary_parenthesis
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:js_interop' as _i1;
@@ -55,7 +56,7 @@ extension type EnterpriseApp._(_i1.JSObject _) implements _i1.JSObject {
 external Data_Models_User get user1;
 typedef UserService = EnterpriseApp_DataServices_UserService;
 @_i1.JS()
-external UserService get userService;
+external EnterpriseApp_DataServices_UserService get userService;
 typedef ProductService = EnterpriseApp_DataServices_ProductService;
 @_i1.JS()
 external _i1.JSArray<Data_Models_User> get allUsers;
@@ -277,7 +278,7 @@ extension type EnterpriseApp_DataServices_ProductService._(_i1.JSObject _)
   external void save(EnterpriseApp_Models_Product item);
   external void add(EnterpriseApp_Models_Product product);
   @_i1.JS('get')
-  external EnterpriseApp_Models_Product get$(AnonymousUnion_2683278 id);
+  external EnterpriseApp_Models_Product get$(AnonymousUnion_5376531 id);
   @_i2.redeclare
   external _i1.JSArray<EnterpriseApp_Models_Product> getAll();
 }
@@ -294,8 +295,8 @@ extension type EnterpriseApp_UI_Components._(_i1.JSObject _)
     _i1.JSArray<EnterpriseApp_Models_User> users,
   );
 }
-extension type AnonymousUnion_2683278._(_i1.JSAny _) implements _i1.JSAny {
+extension type AnonymousUnion_5376531._(_i1.JSAny _) implements _i1.JSAny {
   String get asString => (_ as _i1.JSString).toDart;
 
-  double get asDouble => (_ as _i1.JSNumber).toDartDouble;
+  num get asNum => (_ as _i1.JSNumber).toDartDouble;
 }

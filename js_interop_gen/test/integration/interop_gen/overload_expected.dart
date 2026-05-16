@@ -1,5 +1,5 @@
 // ignore_for_file: camel_case_types, constant_identifier_names
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: lines_longer_than_80_chars, non_constant_identifier_names
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:js_interop' as _i1;
@@ -101,6 +101,11 @@ extension type SomeNamespace._(_i1.JSObject _) implements _i1.JSObject {
     _i1.JSArrayBuffer bytes,
   );
 }
+@_i1.JS('SomeNamespace.BytesView')
+extension type SomeNamespace_BytesView._(_i1.JSObject _)
+    implements _i1.JSObject {
+  external _i1.JSArrayBuffer get buffer;
+}
 @_i1.JS('fooHelper.Options')
 extension type fooHelper_Options._(_i1.JSObject _) implements _i1.JSObject {
   external bool? round;
@@ -119,11 +124,6 @@ extension type foo_fum._(_i1.JSObject _) implements _i1.JSObject {
 }
 extension type baz._(_i1.JSObject _) implements _i1.JSObject {
   external String get debugString;
-}
-@_i1.JS('SomeNamespace.BytesView')
-extension type SomeNamespace_BytesView._(_i1.JSObject _)
-    implements _i1.JSObject {
-  external _i1.JSArrayBuffer get buffer;
 }
 @_i1.JS('SomeNamespace.NestedNamespace')
 extension type SomeNamespace_NestedNamespace._(_i1.JSObject _)

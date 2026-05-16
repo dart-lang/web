@@ -1,6 +1,7 @@
 // ignore_for_file: camel_case_types, constant_identifier_names
 // ignore_for_file: library_private_types_in_public_api
-// ignore_for_file: non_constant_identifier_names, unnecessary_parenthesis
+// ignore_for_file: lines_longer_than_80_chars, non_constant_identifier_names
+// ignore_for_file: unnecessary_parenthesis
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:js_interop' as _i1;
@@ -74,7 +75,7 @@ external KeyOf_User userKeys;
 external KeyOf_TypeOf_MyEnum alphabeticLetter;
 @_i1.JS()
 external MyEnum_EnumType get myEnumType;
-typedef Transformer<T extends _i1.JSAny?> = _AnonymousFunction_3217419<T>;
+typedef Transformer<T extends _i1.JSAny?> = _AnonymousFunction_3794666<T>;
 @_i1.JS()
 external _i1.JSFunction copyOfmyEnclosingFunction;
 @_i1.JS()
@@ -88,7 +89,7 @@ external _i1.JSFunction myFunctionAlias2;
 @_i1.JS()
 external _i1.JSFunction get myEnclosingFunctionAlias;
 @_i1.JS()
-external ComposedType get myComposedType;
+external ComposedType<_i1.JSAny?> get myComposedType;
 @_i1.JS()
 external ComposedType<_i1.JSString> get myComposedMyString;
 @_i1.JS()
@@ -160,13 +161,13 @@ extension type AnonymousType_3626348._(_i1.JSObject _) implements _i1.JSObject {
 
   external double price;
 }
-typedef Product = AnonymousType_3626348;
 extension type ProductOrrandomNonTypedProduct._(AnonymousType_3626348 _)
     implements AnonymousType_3626348 {
   Product get asProduct => _;
 
   AnonymousType_3626348 get asRandomNonTypedProduct => _;
 }
+typedef Product = AnonymousType_3626348;
 extension type AnonymousType_7963419<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
   external AnonymousType_7963419({double id, T value});
@@ -228,7 +229,7 @@ extension type const KeyOf_TypeOf_MyEnum._(String _) {
 
   static const KeyOf_TypeOf_MyEnum D = KeyOf_TypeOf_MyEnum._('D');
 }
-extension type _AnonymousFunction_3217419<T extends _i1.JSAny?>._(
+extension type _AnonymousFunction_3794666<T extends _i1.JSAny?>._(
   _i1.JSFunction _
 ) implements _i1.JSFunction {
   external ComposedType<T> call(T object);
@@ -249,7 +250,8 @@ extension type AnonymousUnion_2942628._(_i1.JSAny _) implements _i1.JSAny {
 
   MyEnum get asMyEnum => MyEnum._((_ as _i1.JSNumber).toDartInt);
 
-  ComposedType get asComposedType => (_ as ComposedType);
+  ComposedType<_i1.JSAny?> get asComposedType =>
+      (_ as ComposedType<_i1.JSAny?>);
 }
 extension type AnonymousUnion_2814515._(_i1.JSAny _) implements _i1.JSAny {
   String get asString => (_ as _i1.JSString).toDart;

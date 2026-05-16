@@ -12,6 +12,15 @@ import 'declarations.dart';
 import 'documentation.dart';
 import 'types.dart';
 
+const nonObjectRepTypes = {
+  'JSAny',
+  'JSString',
+  'JSBoolean',
+  'JSNumber',
+  'JSSymbol',
+  'JSBigInt',
+};
+
 Type getJSTypeAlternative(Type type) {
   if (type is BuiltinType) {
     if (type.fromDartJSInterop) return type;

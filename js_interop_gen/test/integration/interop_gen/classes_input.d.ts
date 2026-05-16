@@ -174,3 +174,10 @@ export declare class EpahsImpl<TMeta = any> implements Epahs<TMeta> {
     static getById(id: string): EpahsImpl;
     toString(): string;
 }
+
+interface Container<T = string> {
+    value: T;
+}
+export declare class StringContainer implements Container {
+    value: string;
+}

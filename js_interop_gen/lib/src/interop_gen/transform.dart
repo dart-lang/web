@@ -29,11 +29,13 @@ class TransformResult {
   ProgramDeclarationMap commonTypes;
   bool multiFileOutput;
   Map<Declaration, String> declarationToEmittedName;
+  Map<String, String> fileToModuleAnnotation;
 
   TransformResult._(
     this.programDeclarationMap, {
     this.commonTypes = const {},
     this.declarationToEmittedName = const {},
+    this.fileToModuleAnnotation = const {},
   }) : multiFileOutput = programDeclarationMap.length > 1;
 
   // TODO(https://github.com/dart-lang/web/issues/388): Handle union of overloads
@@ -46,6 +48,7 @@ class TransformResult {
     );
 
     return {...programDeclarationMap, ...commonTypes}.map((file, declMap) {
+      final moduleAnnotation = fileToModuleAnnotation[file];
       final emitter = DartEmitter.scoped(
         useNullSafetySyntax: true,
         orderDirectives: true,
@@ -55,6 +58,14 @@ class TransformResult {
           .map((d) => d.emit(options))
           .toList();
       final lib = Library((l) {
+        if (moduleAnnotation != null) {
+          l.annotations.add(
+            refer(
+              'JS',
+              'dart:js_interop',
+            ).call([literalString(moduleAnnotation)]),
+          );
+        }
         if (config.preamble case final preamble?) {
           l.comments.addAll(
             const LineSplitter().convert(preamble).map((l) {
@@ -94,10 +105,17 @@ class TransformResult {
       return MapEntry(
         file.replaceAll('.d.ts', '.dart'),
         formatter.format(
-          '${lib.accept(emitter)}'.replaceAll(
-            'static external',
-            'external static',
-          ),
+          '${lib.accept(emitter)}'
+              // https://github.com/dart-lang/tools/issues/2405
+              .replaceAll('static external', 'external static')
+              // https://github.com/dart-lang/tools/issues/2404
+              .replaceFirstMapped(
+                RegExp(
+                  r'(@_i1\.JS\(.*?\)\s*library;)\s*// ignore_for_file: no_leading_underscores_for_library_prefixes',
+                ),
+                (match) =>
+                    '// ignore_for_file: no_leading_underscores_for_library_prefixes\n\n${match[1]}',
+              ),
         ),
       );
     });
@@ -198,6 +216,8 @@ class ProgramMap {
   final bool strictUnsupported;
 
   final Map<Declaration, String> declarationToEmittedName = {};
+
+  final Map<String, String> fileToModuleAnnotation = {};
 
   ProgramMap(
     this.program,
@@ -400,6 +420,7 @@ class TransformerManager {
       outputNodeMap,
       commonTypes: programMap._commonTypes.cast(),
       declarationToEmittedName: programMap.declarationToEmittedName,
+      fileToModuleAnnotation: programMap.fileToModuleAnnotation,
     );
   }
 }

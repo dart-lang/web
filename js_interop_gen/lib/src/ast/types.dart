@@ -801,7 +801,7 @@ sealed class _UnionOrIntersectionDeclaration extends NamedDeclaration
       if (types.any((t) {
             final jsAltType = getJSTypeAlternative(t);
             return jsAltType is BuiltinType &&
-                _nonObjectRepTypeTypes.contains(jsAltType.name);
+                nonObjectRepTypes.contains(jsAltType.name);
           }) ||
           (repType is BuiltinType && repType.name == 'JSAny')) {
         extendees.add(
@@ -1081,15 +1081,6 @@ class _EnumObjDeclaration extends NamedDeclaration
   @override
   ID get id => ID(type: 'enum-rep', name: name);
 }
-
-const _nonObjectRepTypeTypes = {
-  'JSAny',
-  'JSString',
-  'JSBoolean',
-  'JSNumber',
-  'JSSymbol',
-  'JSBigInt',
-};
 
 class _IntersectionDeclaration extends _UnionOrIntersectionDeclaration {
   @override

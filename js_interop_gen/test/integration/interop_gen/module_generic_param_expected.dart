@@ -4,6 +4,10 @@
 // ignore_for_file: unnecessary_parenthesis
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+
+@_i1.JS('vscode')
+library;
+
 import 'dart:js_interop' as _i1;
 
 extension type Event<T extends _i1.JSAny?>._(_i1.JSObject _)
@@ -12,6 +16,7 @@ extension type Event<T extends _i1.JSAny?>._(_i1.JSObject _)
 }
 extension type _AnonymousFunction_6204725<T extends _i1.JSAny?>._(
   _i1.JSFunction _
-) implements _i1.JSFunction {
+)
+    implements _i1.JSFunction {
   external _i1.JSAny? call(T e);
 }

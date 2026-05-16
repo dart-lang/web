@@ -245,6 +245,12 @@ extension type EpahsImpl<TMeta extends _i1.JSAny?>._(_i1.JSObject _)
   @_i1.JS('toString')
   external String toString$();
 }
+extension type StringContainer._(_i1.JSObject _)
+    implements Container<_i1.JSAny?> {
+  external StringContainer();
+
+  external String value;
+}
 extension type const AnonymousUnion_7177595._(String _) {
   static const AnonymousUnion_7177595 circle = AnonymousUnion_7177595._(
     'circle',
@@ -272,4 +278,8 @@ extension type const AnonymousUnion_4033716._(String _) {
   static const AnonymousUnion_4033716 cm2 = AnonymousUnion_4033716._('cm2');
 
   static const AnonymousUnion_4033716 in2 = AnonymousUnion_4033716._('in2');
+}
+extension type Container<T extends _i1.JSAny?>._(_i1.JSObject _)
+    implements _i1.JSObject {
+  external T value;
 }

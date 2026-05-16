@@ -283,6 +283,10 @@ class Transformer {
     UniqueNamer? namer,
     NamespaceDeclaration? parent,
   }) {
+    if (namespace.name.kind == TSSyntaxKind.StringLiteral) {
+      programMap.fileToModuleAnnotation[file] =
+          (namespace.name as TSStringLiteral).text;
+    }
     final decls = <Declaration>[];
     final body = namespace.body;
     if (body != null && body.kind == TSSyntaxKind.ModuleBlock) {

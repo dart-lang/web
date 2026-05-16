@@ -133,10 +133,15 @@ sealed class TypeDeclaration extends NestableDeclaration
     );
 
     final resolvedRepType = getRepresentationType(this);
+    final isNonObjectBuiltin =
+        resolvedRepType is BuiltinType &&
+        nonObjectRepTypes.contains(resolvedRepType.name);
+
     final repType =
         useFirstExtendeeAsRepType ||
-            this is ClassDeclaration ||
-            (resolvedRepType is BuiltinType &&
+            (this is ClassDeclaration && !isNonObjectBuiltin) ||
+            (this is! ClassDeclaration &&
+                resolvedRepType is BuiltinType &&
                 resolvedRepType.name != 'JSObject')
         ? resolvedRepType
         : BuiltinType.primitiveType(PrimitiveType.object, isNullable: false);

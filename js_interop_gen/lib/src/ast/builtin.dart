@@ -147,6 +147,16 @@ class BuiltinType extends NamedType {
     bool? isNullable,
     List<Type> typeParams = const [],
   }) {
+    if (name == 'JSAny') {
+      return BuiltinType(
+        name: 'JSAny',
+        fromDartJSInterop: true,
+        isNullable: isNullable,
+      );
+    }
+    if (name == 'void') {
+      return $voidType;
+    }
     final jsName = switch (name) {
       'Array' => 'JSArray',
       'Promise' => 'JSPromise',

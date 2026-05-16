@@ -13,11 +13,13 @@ class Options {
   final int variadicArgsCount;
   final bool shouldEmitJsTypes;
   final bool redeclareOverrides;
+  final Map<Declaration, String> declarationToEmittedName;
 
   Options({
     this.variadicArgsCount = 4,
     this.shouldEmitJsTypes = false,
     this.redeclareOverrides = true,
+    this.declarationToEmittedName = const {},
   });
 }
 
@@ -31,6 +33,7 @@ class DeclarationOptions extends Options {
     super.variadicArgsCount,
     super.shouldEmitJsTypes,
     super.redeclareOverrides,
+    super.declarationToEmittedName,
   });
 
   TypeOptions toTypeOptions({bool nullable = false}) => TypeOptions(
@@ -38,6 +41,7 @@ class DeclarationOptions extends Options {
     variadicArgsCount: variadicArgsCount,
     shouldEmitJsTypes: shouldEmitJsTypes,
     redeclareOverrides: redeclareOverrides,
+    declarationToEmittedName: declarationToEmittedName,
   );
 }
 
@@ -53,6 +57,7 @@ class TypeOptions extends Options {
     super.variadicArgsCount,
     super.shouldEmitJsTypes,
     super.redeclareOverrides,
+    super.declarationToEmittedName,
   });
 }
 

@@ -13,8 +13,6 @@ import 'helpers.dart';
 
 /// A type referring to a type in the TypeScript AST
 class ReferredType<T extends Declaration> extends NamedType {
-  static final Map<Declaration, String> declarationToEmittedName = {};
-
   @override
   String name;
 
@@ -54,7 +52,7 @@ class ReferredType<T extends Declaration> extends NamedType {
   @override
   Reference emit([TypeOptions? options]) {
     final opts = options ?? TypeOptions();
-    final mappedSymbol = declarationToEmittedName[declaration];
+    final mappedSymbol = opts.declarationToEmittedName[declaration];
     final declTypeParams = <GenericType>[];
     final decl = declaration;
     if (decl is TypeDeclaration) {
@@ -929,7 +927,7 @@ sealed class _UnionOrIntersectionDeclaration extends NamedDeclaration
             final type = t.emit(options?.toTypeOptions());
             final jsTypeAlt = getJSTypeAlternative(t);
             return Method((m) {
-              final word = _typeNameForGetter(t);
+              final word = _typeNameForGetter(t, options);
               final Expression body;
               final jsAlt = jsTypeAlt;
               final desugared = desugarTypeAliases(t);
@@ -1126,7 +1124,7 @@ class _UnionDeclaration extends _UnionOrIntersectionDeclaration {
   }
 }
 
-String _typeNameForGetter(Type t) {
+String _typeNameForGetter(Type t, [Options? options]) {
   final List<Type> typeParams;
   final String baseName;
   if (t is BuiltinType) {
@@ -1136,7 +1134,7 @@ String _typeNameForGetter(Type t) {
     baseName = t.dartName ?? t.name;
     typeParams = t.typeParams;
   } else if (t is ReferredType) {
-    final mappedSymbol = ReferredType.declarationToEmittedName[t.declaration];
+    final mappedSymbol = options?.declarationToEmittedName[t.declaration];
     baseName =
         mappedSymbol ??
         ((t.declaration is NestableDeclaration)
@@ -1159,7 +1157,7 @@ String _typeNameForGetter(Type t) {
 
   if (typeParams.isNotEmpty) {
     final paramsName = typeParams
-        .map((p) => uppercaseFirstLetter(_typeNameForGetter(p)))
+        .map((p) => uppercaseFirstLetter(_typeNameForGetter(p, options)))
         .join('And');
     return '${baseName}Of$paramsName';
   }

@@ -13,7 +13,6 @@ import 'package:path/path.dart' as p;
 import '../ast/base.dart';
 import '../ast/declarations.dart';
 import '../ast/helpers.dart';
-import '../ast/types.dart';
 import '../config.dart';
 import '../js/helpers.dart';
 import '../js/typescript.dart' as ts;
@@ -29,9 +28,13 @@ class TransformResult {
   ProgramDeclarationMap programDeclarationMap;
   ProgramDeclarationMap commonTypes;
   bool multiFileOutput;
+  Map<Declaration, String> declarationToEmittedName;
 
-  TransformResult._(this.programDeclarationMap, {this.commonTypes = const {}})
-    : multiFileOutput = programDeclarationMap.length > 1;
+  TransformResult._(
+    this.programDeclarationMap, {
+    this.commonTypes = const {},
+    this.declarationToEmittedName = const {},
+  }) : multiFileOutput = programDeclarationMap.length > 1;
 
   // TODO(https://github.com/dart-lang/web/issues/388): Handle union of overloads
   //  (namespaces + functions, multiple interfaces, etc)
@@ -39,6 +42,7 @@ class TransformResult {
     final formatter = DartFormatter(languageVersion: config.languageVersion);
     final options = DeclarationOptions(
       variadicArgsCount: config.functions?.varArgs ?? 4,
+      declarationToEmittedName: declarationToEmittedName,
     );
 
     return {...programDeclarationMap, ...commonTypes}.map((file, declMap) {
@@ -192,6 +196,8 @@ class ProgramMap {
   final bool generateAll;
 
   final bool strictUnsupported;
+
+  final Map<Declaration, String> declarationToEmittedName = {};
 
   ProgramMap(
     this.program,
@@ -383,7 +389,6 @@ class TransformerManager {
       );
 
   TransformResult transform() {
-    ReferredType.declarationToEmittedName.clear();
     final outputNodeMap = <String, NodeMap>{};
     // run through each file
     for (final file in inputFiles) {
@@ -394,6 +399,7 @@ class TransformerManager {
     return TransformResult._(
       outputNodeMap,
       commonTypes: programMap._commonTypes.cast(),
+      declarationToEmittedName: programMap.declarationToEmittedName,
     );
   }
 }

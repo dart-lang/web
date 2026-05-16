@@ -2333,7 +2333,7 @@ class Transformer {
       for (final original in declarations) {
         final match = findMatchingEmitted(original);
         if (match != null) {
-          ReferredType.declarationToEmittedName[original] =
+          programMap.declarationToEmittedName[original] =
               match is NestableDeclaration
               ? match.completedDartName
               : (match.dartName ?? match.name);

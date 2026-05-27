@@ -126,6 +126,7 @@ void main() {
 
     // test remove with objects that are not in list
     expect(childNodesList.remove(removeMe), false);
+    // ignore: collection_methods_unrelated_type
     expect(childNodesList.remove(null), false);
     // ignore: collection_methods_unrelated_type
     expect(childNodesList.remove('test'), false);

@@ -17,8 +17,8 @@ extension type AnonymousType_5510480._(_i1.JSObject _) implements _i1.JSObject {
 }
 extension type AnonymousIntersection_3818894._(_i1.JSObject _)
     implements OptionHolder, AnonymousType_5510480 {
-  external bool? get canPickMany;
-  external set canPickMany(bool? value);
+  external bool get canPickMany;
+  external set canPickMany(bool value);
   OptionHolder get asOptionHolder => (_ as OptionHolder);
 
   AnonymousType_5510480 get asAnonymousType_5510480 =>

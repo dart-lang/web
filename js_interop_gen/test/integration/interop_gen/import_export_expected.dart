@@ -24,13 +24,13 @@ extension type ComparatorMatrix<V extends Vector2D>._(_i1.JSObject _)
     implements Matrix, Comparator<V> {}
 @_i1.JS()
 external _i1.JSArray<Vector3D> get unitVectors;
-@_i1.JS('PolarPoint')
+typedef PolarPoint = PolarCoordinate;
 extension type PolarCoordinate._(_i1.JSObject _) implements _i1.JSObject {
   external double magnitude;
 
   external double angle;
 }
-@_i1.JS('CylindricalPoint')
+typedef CylindricalPoint = CylindricalCoordinate;
 extension type CylindricalCoordinate._(_i1.JSObject _) implements _i1.JSObject {
   external double radius;
 
@@ -38,7 +38,7 @@ extension type CylindricalCoordinate._(_i1.JSObject _) implements _i1.JSObject {
 
   external double z;
 }
-@_i1.JS('SphericalPoint')
+typedef SphericalPoint = SphericalCoordinate;
 extension type SphericalCoordinate._(_i1.JSObject _) implements _i1.JSObject {
   external double magnitude;
 

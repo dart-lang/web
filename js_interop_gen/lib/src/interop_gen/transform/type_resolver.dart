@@ -91,7 +91,6 @@ class TypeResolver {
           );
           final aliasedSymbolName = aliasedSymbol.name;
 
-          transformer.exportSet.removeWhere((e) => e.name == aliasedSymbolName);
           transformer.exportSet.add(
             ExportReference(aliasedSymbolName, as: firstName),
           );

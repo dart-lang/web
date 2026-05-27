@@ -206,7 +206,6 @@ class Transformer {
     // export reference
     if (decl.isEmpty) _getTypeFromDeclaration(actualName, []);
 
-    (exportSet ?? this.exportSet).removeWhere((e) => e.name == actualName.text);
     (exportSet ?? this.exportSet).add(
       ExportReference(actualName.text, as: dartName.text),
     );
@@ -230,7 +229,6 @@ class Transformer {
         // The exported name to use
         final dartName = exp.name.text;
 
-        (exportSet ?? this.exportSet).removeWhere((e) => e.name == actualName);
         (exportSet ?? this.exportSet).add(
           ExportReference(actualName, as: dartName),
         );
@@ -1215,9 +1213,15 @@ class Transformer {
     final constraint = typeParam.constraint == null
         ? BuiltinType.anyType
         : _transformType(typeParam.constraint!, typeArg: true);
+    final defaultType = typeParam.default$ == null
+        ? null
+        : _transformType(typeParam.default$!, typeArg: true);
     return GenericType(
       name: typeParam.name.text,
       constraint: getJSTypeAlternative(constraint),
+      defaultType: defaultType == null
+          ? null
+          : getJSTypeAlternative(defaultType),
     );
   }
 
@@ -2256,17 +2260,63 @@ class Transformer {
           )) {
         final nodes = nodeMap.findByName(exportName);
         for (final exportedNode in nodes) {
-          // TODO: Is there a better way of handling name changes than having
-          //  to make the properties non-final and override get/set?
-          // the actual decl name is `exportName` (dartName)
-          // while the name we want to use for @JS is `exportDartName` (name)
           if (exportedNode case final ExportableDeclaration decl) {
-            filteredDeclarations.add(
-              decl
-                ..name = exportDartName
-                ..dartName =
-                    decl.dartName ?? UniqueNamer.makeNonConflicting(exportName),
-            );
+            if (exportName == exportDartName) {
+              filteredDeclarations.add(
+                decl
+                  ..name = exportDartName
+                  ..dartName =
+                      decl.dartName ??
+                      UniqueNamer.makeNonConflicting(exportName),
+              );
+            } else if (decl is TypeDeclaration ||
+                decl is TypeAliasDeclaration ||
+                decl is EnumDeclaration) {
+              final namedDecl = decl as NamedDeclaration;
+              // Re-export as a type alias!
+              final aliasTypeParams = namedDecl.typeParameters
+                  .map(
+                    (t) => GenericType(
+                      name: t.name,
+                      constraint: t.constraint,
+                      defaultType: t.defaultType,
+                    ),
+                  )
+                  .toList();
+              final targetType = namedDecl.asReferredType(
+                namedDecl.typeParameters
+                    .map((t) => GenericType(name: t.name))
+                    .toList(),
+              );
+              final alias = TypeAliasDeclaration(
+                name: exportDartName,
+                exported: true,
+                type: targetType,
+                typeParameters: aliasTypeParams,
+                documentation: decl is DocumentedDeclaration
+                    ? (decl as DocumentedDeclaration).documentation
+                    : null,
+              );
+              filteredDeclarations.add(alias);
+
+              // Also preserve the original declaration under its original name!
+              filteredDeclarations.add(
+                decl
+                  ..name = exportName
+                  ..dartName =
+                      decl.dartName ??
+                      UniqueNamer.makeNonConflicting(exportName),
+              );
+            } else {
+              // Value declaration (variable, function, etc.): mutate in-place!
+              filteredDeclarations.add(
+                decl
+                  ..name = exportDartName
+                  ..dartName =
+                      decl.dartName ??
+                      UniqueNamer.makeNonConflicting(exportName),
+              );
+            }
           } else {
             continue;
           }

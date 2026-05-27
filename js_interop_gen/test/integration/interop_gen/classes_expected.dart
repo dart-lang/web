@@ -246,7 +246,7 @@ extension type EpahsImpl<TMeta extends _i1.JSAny?>._(_i1.JSObject _)
   external String toString$();
 }
 extension type StringContainer._(_i1.JSObject _)
-    implements Container<_i1.JSAny?> {
+    implements Container<_i1.JSString> {
   external StringContainer();
 
   external String value;

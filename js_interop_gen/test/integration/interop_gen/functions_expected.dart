@@ -54,3 +54,7 @@ external T logTuple<T extends _i1.JSArray<_i1.JSAny?>>(
   T args3,
   T args4,
 ]);
+extension type ErrorReporter._(_i1.JSObject _) implements _i1.JSObject {
+  @_i2.doNotStore
+  external _i1.JSAny? reportError(String msg);
+}

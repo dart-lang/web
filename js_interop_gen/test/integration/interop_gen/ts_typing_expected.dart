@@ -161,13 +161,13 @@ extension type AnonymousType_3626348._(_i1.JSObject _) implements _i1.JSObject {
 
   external double price;
 }
+typedef Product = AnonymousType_3626348;
 extension type ProductOrrandomNonTypedProduct._(AnonymousType_3626348 _)
     implements AnonymousType_3626348 {
   Product get asProduct => _;
 
   AnonymousType_3626348 get asRandomNonTypedProduct => _;
 }
-typedef Product = AnonymousType_3626348;
 extension type AnonymousType_7963419<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
   external AnonymousType_7963419({double id, T value});
@@ -231,7 +231,8 @@ extension type const KeyOf_TypeOf_MyEnum._(String _) {
 }
 extension type _AnonymousFunction_3794666<T extends _i1.JSAny?>._(
   _i1.JSFunction _
-) implements _i1.JSFunction {
+)
+    implements _i1.JSFunction {
   external ComposedType<T> call(T object);
 }
 extension type ComposedType<T extends _i1.JSAny?>._(_i1.JSObject _)
@@ -374,14 +375,6 @@ extension type AnonymousIntersection_1876272._(_i1.JSAny _)
   AnonymousType_1908241 get asAnonymousType_1908241 =>
       (_ as AnonymousType_1908241);
 }
-extension type AnonymousIntersection_3682355._(_i1.JSAny _)
-    implements _i1.JSAny {
-  AnonymousUnion_3673646 get asAnonymousUnion_3673646 =>
-      (_ as AnonymousUnion_3673646);
-
-  AnonymousUnion_1033063 get asAnonymousUnion_1033063 =>
-      (_ as AnonymousUnion_1033063);
-}
 extension type AnonymousType_3217782._(_i1.JSObject _) implements _i1.JSObject {
   external AnonymousType_3217782({String b});
 
@@ -400,13 +393,6 @@ extension type AnonymousType_5274231._(_i1.JSObject _) implements _i1.JSObject {
 
   external bool c;
 }
-extension type AnonymousUnion_1033063._(_i1.JSAny _) implements _i1.JSAny {
-  AnonymousType_5274231 get asAnonymousType_5274231 =>
-      (_ as AnonymousType_5274231);
-
-  AnonymousIntersection_1694066 get asAnonymousIntersection_1694066 =>
-      (_ as AnonymousIntersection_1694066);
-}
 extension type AnonymousType_3426321._(_i1.JSObject _) implements _i1.JSObject {
   external AnonymousType_3426321({_i1.JSBigInt d});
 
@@ -424,4 +410,19 @@ extension type AnonymousIntersection_1694066._(_i1.JSObject _)
 
   AnonymousType_8440086 get asAnonymousType_8440086 =>
       (_ as AnonymousType_8440086);
+}
+extension type AnonymousUnion_1033063._(_i1.JSAny _) implements _i1.JSAny {
+  AnonymousType_5274231 get asAnonymousType_5274231 =>
+      (_ as AnonymousType_5274231);
+
+  AnonymousIntersection_1694066 get asAnonymousIntersection_1694066 =>
+      (_ as AnonymousIntersection_1694066);
+}
+extension type AnonymousIntersection_3682355._(_i1.JSAny _)
+    implements _i1.JSAny {
+  AnonymousUnion_3673646 get asAnonymousUnion_3673646 =>
+      (_ as AnonymousUnion_3673646);
+
+  AnonymousUnion_1033063 get asAnonymousUnion_1033063 =>
+      (_ as AnonymousUnion_1033063);
 }

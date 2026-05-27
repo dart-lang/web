@@ -15,3 +15,7 @@ export declare function identity<T = string>(value: T): T;
 export declare function someFunction<A>(arr: A[]): undefined;
 export declare function someFunction<A, B>(arr: A[]): B;
 export declare function logTuple<T extends any[]>(...args: T): T;
+
+export interface ErrorReporter {
+    reportError(msg: string): never;
+}

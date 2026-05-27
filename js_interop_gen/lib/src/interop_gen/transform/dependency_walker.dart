@@ -11,165 +11,169 @@ import '../transform.dart';
 /// A helper class that resolves the dependent declarations of a given AST
 /// [Node].
 class DependencyWalker {
-  /// Recursively gets all declarations that are referred to or needed by
+  /// Gets all declarations that are referred to or needed by
   /// the given [decl] node.
   static NodeMap extractDependencies(Node? decl, [NodeMap? context]) {
-    Iterable<Type> getNonBuiltinTypes(Type t) {
-      if (t is BuiltinType) {
-        return t.typeParams.expand(getNonBuiltinTypes);
-      }
-      return [t];
+    final accumulated = NodeMap();
+    if (context != null) {
+      accumulated.addAll(context);
     }
 
-    NodeMap getCallableDependencies(CallableDeclaration callable) {
-      return NodeMap({
-        for (final node in callable.parameters.map((p) => p.type))
-          node.id.toString(): node,
-        for (final node
-            in callable.typeParameters
-                .map((p) => p.constraint)
-                .whereType<Type>())
-          node.id.toString(): node,
-        callable.returnType.id.toString(): callable.returnType,
-      });
+    // Walk the direct dependencies first to collect transitive dependencies.
+    final directDeps = NodeMap();
+    _collectDirectDependencies(decl, directDeps);
+
+    for (final dep in directDeps.values) {
+      _walk(dep, accumulated);
     }
 
-    void updateFilteredDeclsForDecl(Node? decl, NodeMap filteredDeclarations) {
-      switch (decl) {
-        case final VariableDeclaration v:
-          filteredDeclarations.add(v.type);
-          break;
-        case final CallableDeclaration f:
-          filteredDeclarations.addAll(getCallableDependencies(f));
-          break;
-        case final EnumDeclaration _:
-          break;
-        case final TypeAliasDeclaration t:
-          filteredDeclarations.add(t.type);
-          break;
-        case final TypeDeclaration t:
-          for (final con in t.constructors) {
-            filteredDeclarations.addAll({
-              for (final param in con.parameters.map((p) => p.type))
-                param.id.toString(): param,
+    if (context != null) {
+      accumulated.removeWhere((k, v) => context.containsKey(k));
+    }
+
+    return accumulated;
+  }
+
+  static void _walk(Node? decl, NodeMap accumulated) {
+    if (decl == null) return;
+    final idStr = decl.id.toString();
+    if (accumulated.containsKey(idStr)) return;
+
+    accumulated[idStr] = decl;
+
+    final directDeps = NodeMap();
+    _collectDirectDependencies(decl, directDeps);
+
+    for (final dep in directDeps.values) {
+      _walk(dep, accumulated);
+    }
+  }
+
+  static Iterable<Type> _getNonBuiltinTypes(Type t) {
+    if (t is BuiltinType) {
+      return t.typeParams.expand(_getNonBuiltinTypes);
+    }
+    return [t];
+  }
+
+  static NodeMap _getCallableDependencies(CallableDeclaration callable) {
+    return NodeMap({
+      for (final node in callable.parameters.map((p) => p.type))
+        node.id.toString(): node,
+      for (final node
+          in callable.typeParameters.map((p) => p.constraint).whereType<Type>())
+        node.id.toString(): node,
+      callable.returnType.id.toString(): callable.returnType,
+    });
+  }
+
+  static void _collectDirectDependencies(Node? decl, NodeMap directDeps) {
+    switch (decl) {
+      case final VariableDeclaration v:
+        directDeps.add(v.type);
+        break;
+      case final CallableDeclaration f:
+        directDeps.addAll(_getCallableDependencies(f));
+        break;
+      case final EnumDeclaration _:
+        break;
+      case final TypeAliasDeclaration t:
+        directDeps.add(t.type);
+        break;
+      case final TypeDeclaration t:
+        for (final con in t.constructors) {
+          directDeps.addAll({
+            for (final param in con.parameters.map((p) => p.type))
+              param.id.toString(): param,
+          });
+        }
+        for (final methods in t.methods) {
+          directDeps.addAll(_getCallableDependencies(methods));
+        }
+        for (final operators in t.operators) {
+          directDeps.addAll(_getCallableDependencies(operators));
+        }
+        directDeps.addAll({
+          for (final prop
+              in t.properties.map((p) => p.type).expand(_getNonBuiltinTypes))
+            prop.id.toString(): prop,
+        });
+        switch (t) {
+          case ClassDeclaration(
+            extendedType: final extendedType,
+            implementedTypes: final implementedTypes,
+          ):
+            if (extendedType case final ext? when ext is! BuiltinType) {
+              directDeps.add(ext);
+            }
+            directDeps.addAll({
+              for (final impl in implementedTypes.where(
+                (i) => i is! BuiltinType,
+              ))
+                impl.id.toString(): impl,
             });
-          }
-          for (final methods in t.methods) {
-            filteredDeclarations.addAll(getCallableDependencies(methods));
-          }
-          for (final operators in t.operators) {
-            filteredDeclarations.addAll(getCallableDependencies(operators));
-          }
-          filteredDeclarations.addAll({
-            for (final prop
-                in t.properties.map((p) => p.type).expand(getNonBuiltinTypes))
-              prop.id.toString(): prop,
-          });
-          switch (t) {
-            case ClassDeclaration(
-              extendedType: final extendedType,
-              implementedTypes: final implementedTypes,
-            ):
-              if (extendedType case final ext? when ext is! BuiltinType) {
-                filteredDeclarations.add(ext);
-              }
-              filteredDeclarations.addAll({
-                for (final impl in implementedTypes.where(
-                  (i) => i is! BuiltinType,
-                ))
-                  impl.id.toString(): impl,
-              });
-              break;
-            case InterfaceDeclaration(extendedTypes: final extendedTypes):
-              filteredDeclarations.addAll({
-                for (final impl in extendedTypes.where(
-                  (i) => i is! BuiltinType,
-                ))
-                  impl.id.toString(): impl,
-              });
-              break;
-            default:
-              break;
-          }
-        case NamespaceDeclaration(
-          topLevelDeclarations: final topLevelDecls,
-          nestableDeclarations: final typeDecls,
-          namespaceDeclarations: final namespaceDecls,
-        ):
-          for (final tlDecl in [...typeDecls, ...namespaceDecls]) {
-            filteredDeclarations.add(tlDecl);
-            updateFilteredDeclsForDecl(tlDecl, filteredDeclarations);
-          }
-          for (final topLevelDecl in topLevelDecls) {
-            updateFilteredDeclsForDecl(topLevelDecl, filteredDeclarations);
-          }
-          break;
-        // TODO: We can make (DeclarationAssociatedType) and use that
-        //  rather than individual type names
-        case final HomogenousEnumType hu:
-          filteredDeclarations.add(hu.declaration);
-          break;
-        case final TupleType t:
-          filteredDeclarations.addAll({
-            for (final t in t.types.expand(getNonBuiltinTypes))
-              t.id.toString(): t,
-          });
-        case UnionType(types: final uTypes, declaration: final uDecl) ||
-            IntersectionType(types: final uTypes, declaration: final uDecl):
-          filteredDeclarations.addAll({
-            for (final t in uTypes.expand(getNonBuiltinTypes))
-              t.id.toString(): t,
-          });
-          filteredDeclarations.add(uDecl);
-        case final DeclarationType d:
-          filteredDeclarations.add(d.declaration);
-          break;
-        case BuiltinType(typeParams: final typeParams)
-            when typeParams.isNotEmpty:
-          filteredDeclarations.addAll({
-            for (final t in typeParams.expand(getNonBuiltinTypes))
-              t.id.toString(): t,
-          });
-          break;
-        case final ReferredType r:
-          if (r.url == null) filteredDeclarations.add(r.declaration);
-          filteredDeclarations.addAll({
-            for (final t in r.typeParams.expand(getNonBuiltinTypes))
-              t.id.toString(): t,
-          });
-          break;
-        case BuiltinType() || GenericType():
-          break;
-        default:
-          print(
-            'WARN: The given node type ${decl.runtimeType.toString()} '
-            'is not supported for filtering. Skipping...',
-          );
-          break;
-      }
+            break;
+          case InterfaceDeclaration(extendedTypes: final extendedTypes):
+            directDeps.addAll({
+              for (final impl in extendedTypes.where((i) => i is! BuiltinType))
+                impl.id.toString(): impl,
+            });
+            break;
+          default:
+            break;
+        }
+      case NamespaceDeclaration(
+        topLevelDeclarations: final topLevelDecls,
+        nestableDeclarations: final typeDecls,
+        namespaceDeclarations: final namespaceDecls,
+      ):
+        for (final tlDecl in [...typeDecls, ...namespaceDecls]) {
+          directDeps.add(tlDecl);
+          _collectDirectDependencies(tlDecl, directDeps);
+        }
+        for (final topLevelDecl in topLevelDecls) {
+          _collectDirectDependencies(topLevelDecl, directDeps);
+        }
+        break;
+      case final HomogenousEnumType hu:
+        directDeps.add(hu.declaration);
+        break;
+      case final TupleType t:
+        directDeps.addAll({
+          for (final t in t.types.expand(_getNonBuiltinTypes))
+            t.id.toString(): t,
+        });
+      case UnionType(types: final uTypes, declaration: final uDecl) ||
+          IntersectionType(types: final uTypes, declaration: final uDecl):
+        directDeps.addAll({
+          for (final t in uTypes.expand(_getNonBuiltinTypes))
+            t.id.toString(): t,
+        });
+        directDeps.add(uDecl);
+      case final DeclarationType d:
+        directDeps.add(d.declaration);
+        break;
+      case BuiltinType(typeParams: final typeParams) when typeParams.isNotEmpty:
+        directDeps.addAll({
+          for (final t in typeParams.expand(_getNonBuiltinTypes))
+            t.id.toString(): t,
+        });
+        break;
+      case final ReferredType r:
+        if (r.url == null) directDeps.add(r.declaration);
+        directDeps.addAll({
+          for (final t in r.typeParams.expand(_getNonBuiltinTypes))
+            t.id.toString(): t,
+        });
+        break;
+      case BuiltinType() || GenericType():
+        break;
+      default:
+        print(
+          'WARN: The given node type ${decl.runtimeType.toString()} '
+          'is not supported for filtering. Skipping...',
+        );
+        break;
     }
-
-    final filteredDeclarations = NodeMap();
-
-    updateFilteredDeclsForDecl(decl, filteredDeclarations);
-
-    filteredDeclarations.removeWhere(
-      (k, v) => context?.containsKey(k) ?? false,
-    );
-
-    if (filteredDeclarations.isNotEmpty) {
-      final otherDecls = filteredDeclarations.entries
-          .map(
-            (e) => extractDependencies(
-              e.value,
-              NodeMap({...(context ?? {}), ...filteredDeclarations}),
-            ),
-          )
-          .reduce((value, element) => value..addAll(element));
-
-      filteredDeclarations.addAll(otherDecls);
-    }
-
-    return filteredDeclarations;
   }
 }

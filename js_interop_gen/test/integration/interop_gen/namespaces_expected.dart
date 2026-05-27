@@ -135,20 +135,6 @@ extension type Data_UserRepository._(_i1.JSObject _)
   @_i2.redeclare
   external void save(Data_Models_User user);
 }
-@_i1.JS('Data.Models')
-extension type Data_Models._(_i1.JSObject _) implements _i1.JSObject {
-  @_i1.JS('Data.Models.User')
-  static Data_Models_User User(num id, String name, String email) =>
-      Data_Models_User(id, name, email);
-}
-@_i1.JS('Data.Models.IUser')
-extension type Data_Models_IUser._(_i1.JSObject _) implements _i1.JSObject {
-  external double id;
-
-  external String name;
-
-  external String email;
-}
 @_i1.JS('Data.Models.User')
 extension type Data_Models_User._(_i1.JSObject _) implements Data_Models_IUser {
   external Data_Models_User(num id, String name, String email);
@@ -158,6 +144,20 @@ extension type Data_Models_User._(_i1.JSObject _) implements Data_Models_IUser {
   external String name;
 
   external String email;
+}
+@_i1.JS('Data.Models.IUser')
+extension type Data_Models_IUser._(_i1.JSObject _) implements _i1.JSObject {
+  external double id;
+
+  external String name;
+
+  external String email;
+}
+@_i1.JS('Data.Models')
+extension type Data_Models._(_i1.JSObject _) implements _i1.JSObject {
+  @_i1.JS('Data.Models.User')
+  static Data_Models_User User(num id, String name, String email) =>
+      Data_Models_User(id, name, email);
 }
 @_i1.JS('EnterpriseApp.Models')
 extension type EnterpriseApp_Models._(_i1.JSObject _) implements _i1.JSObject {
@@ -248,7 +248,8 @@ extension type EnterpriseApp_DataServices._(_i1.JSObject _)
 @_i1.JS('EnterpriseApp.DataServices.IDataService')
 extension type EnterpriseApp_DataServices_IDataService<T extends _i1.JSAny?>._(
   _i1.JSObject _
-) implements _i1.JSObject {
+)
+    implements _i1.JSObject {
   external _i1.JSArray<T> getAll();
   external T getById(String id);
   external void save(T item);
@@ -282,6 +283,11 @@ extension type EnterpriseApp_DataServices_ProductService._(_i1.JSObject _)
   @_i2.redeclare
   external _i1.JSArray<EnterpriseApp_Models_Product> getAll();
 }
+extension type AnonymousUnion_5376531._(_i1.JSAny _) implements _i1.JSAny {
+  String get asString => (_ as _i1.JSString).toDart;
+
+  num get asNum => (_ as _i1.JSNumber).toDartDouble;
+}
 @_i1.JS('EnterpriseApp.UI')
 extension type EnterpriseApp_UI._(_i1.JSObject _) implements _i1.JSObject {
   @_i1.JS('EnterpriseApp.UI.Components')
@@ -294,9 +300,4 @@ extension type EnterpriseApp_UI_Components._(_i1.JSObject _)
   external static void renderUserList(
     _i1.JSArray<EnterpriseApp_Models_User> users,
   );
-}
-extension type AnonymousUnion_5376531._(_i1.JSAny _) implements _i1.JSAny {
-  String get asString => (_ as _i1.JSString).toDart;
-
-  num get asNum => (_ as _i1.JSNumber).toDartDouble;
 }

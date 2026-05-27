@@ -1183,7 +1183,11 @@ class MethodDeclaration extends CallableDeclaration
     return Method(
       (m) => m
         ..docs.addAll([...doc])
-        ..annotations.addAll([...annotations])
+        ..annotations.addAll([
+          ...annotations,
+          if (_checkIfDiscardable(returnType))
+            refer('doNotStore', 'package:meta/meta.dart'),
+        ])
         ..external = true
         ..name = dartName ?? name
         ..type = switch (kind) {

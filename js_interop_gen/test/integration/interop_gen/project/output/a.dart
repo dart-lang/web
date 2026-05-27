@@ -52,11 +52,7 @@ extension type ComparatorMatrix<V extends _i2.Vector2D>._(_i1.JSObject _)
 /// Represents a point in 2D space using polar coordinates.
 /// - `magnitude`: radial distance from the origin.
 /// - `angle`: angle in radians from the positive x-axis.
-typedef PolarPoint = PolarCoordinate;
-
-/// Represents a point in 2D space using polar coordinates.
-/// - `magnitude`: radial distance from the origin.
-/// - `angle`: angle in radians from the positive x-axis.
+@_i1.JS('PolarPoint')
 extension type PolarCoordinate._(_i1.JSObject _) implements _i1.JSObject {
   external double magnitude;
 
@@ -67,12 +63,7 @@ extension type PolarCoordinate._(_i1.JSObject _) implements _i1.JSObject {
 /// - `radius`: radial distance from the z-axis.
 /// - `angle`: angle in radians from the x-axis.
 /// - `z`: height along the z-axis.
-typedef CylindricalPoint = CylindricalCoordinate;
-
-/// Represents a point in 3D space using cylindrical coordinates.
-/// - `radius`: radial distance from the z-axis.
-/// - `angle`: angle in radians from the x-axis.
-/// - `z`: height along the z-axis.
+@_i1.JS('CylindricalPoint')
 extension type CylindricalCoordinate._(_i1.JSObject _) implements _i1.JSObject {
   external double radius;
 
@@ -85,12 +76,7 @@ extension type CylindricalCoordinate._(_i1.JSObject _) implements _i1.JSObject {
 /// - `magnitude`: radial distance from the origin.
 /// - `theta`: inclination angle from the z-axis.
 /// - `tau`: azimuthal angle from the x-axis in the xy-plane.
-typedef SphericalPoint = SphericalCoordinate;
-
-/// Represents a point in 3D space using spherical coordinates.
-/// - `magnitude`: radial distance from the origin.
-/// - `theta`: inclination angle from the z-axis.
-/// - `tau`: azimuthal angle from the x-axis in the xy-plane.
+@_i1.JS('SphericalPoint')
 extension type SphericalCoordinate._(_i1.JSObject _) implements _i1.JSObject {
   external double magnitude;
 

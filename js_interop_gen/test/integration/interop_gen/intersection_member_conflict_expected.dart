@@ -31,16 +31,16 @@ extension type B._(_i1.JSObject _) implements _i1.JSObject {
 typedef IntersectType = AnonymousIntersection_3170730;
 extension type AnonymousIntersection_3170730._(_i1.JSObject _) implements A, B {
   external bool conflictMethod(num param);
-  external _i1.JSAny get conflictProperty;
-  external set conflictProperty(_i1.JSAny value);
+  external _i1.JSAny? get conflictProperty;
+  external set conflictProperty(_i1.JSAny? value);
   @_i1.JS('_priv')
-  external _i1.JSAny get $_priv;
+  external _i1.JSAny? get $_priv;
   @_i1.JS('_priv')
-  external set $_priv(_i1.JSAny value);
+  external set $_priv(_i1.JSAny? value);
   @_i1.JS('dashed-prop')
-  external _i1.JSAny get dashedProp;
+  external _i1.JSAny? get dashedProp;
   @_i1.JS('dashed-prop')
-  external set dashedProp(_i1.JSAny value);
+  external set dashedProp(_i1.JSAny? value);
   A get asA => (_ as A);
 
   B get asB => (_ as B);

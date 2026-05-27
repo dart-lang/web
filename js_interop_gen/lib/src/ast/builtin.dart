@@ -20,8 +20,15 @@ class BuiltinType extends NamedType {
   /// Whether the given type is present in "dart:js_interop"
   final bool fromDartJSInterop;
 
+  bool _isNullable;
+
   @override
-  bool isNullable;
+  bool get isNullable => (discardable && name == 'JSAny') || _isNullable;
+
+  @override
+  set isNullable(bool value) {
+    _isNullable = value;
+  }
 
   /// This denotes a type that has a discardable result
   ///
@@ -34,7 +41,7 @@ class BuiltinType extends NamedType {
     this.fromDartJSInterop = false,
     bool? isNullable,
     this.discardable = false,
-  }) : isNullable = isNullable ?? false;
+  }) : _isNullable = isNullable ?? false;
 
   @override
   ID get id {

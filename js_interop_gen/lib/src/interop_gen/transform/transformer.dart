@@ -2273,40 +2273,58 @@ class Transformer {
                 decl is TypeAliasDeclaration ||
                 decl is EnumDeclaration) {
               final namedDecl = decl as NamedDeclaration;
-              // Re-export as a type alias!
-              final aliasTypeParams = namedDecl.typeParameters
-                  .map(
-                    (t) => GenericType(
-                      name: t.name,
-                      constraint: t.constraint,
-                      defaultType: t.defaultType,
-                    ),
-                  )
+              final allExportsForThisName = exportSet
+                  .where((e) => e.name == exportName)
                   .toList();
-              final targetType = namedDecl.asReferredType(
-                namedDecl.typeParameters
-                    .map((t) => GenericType(name: t.name))
-                    .toList(),
-              );
-              final alias = TypeAliasDeclaration(
-                name: exportDartName,
-                exported: true,
-                type: targetType,
-                typeParameters: aliasTypeParams,
-                documentation: decl is DocumentedDeclaration
-                    ? (decl as DocumentedDeclaration).documentation
-                    : null,
-              );
-              filteredDeclarations.add(alias);
 
-              // Also preserve the original declaration under its original name!
-              filteredDeclarations.add(
-                decl
-                  ..name = exportName
-                  ..dartName =
-                      decl.dartName ??
-                      UniqueNamer.makeNonConflicting(exportName),
-              );
+              if (allExportsForThisName.length == 1) {
+                // Only a single renamed symbol was exported.
+                // Revert to the previous behavior: rename in-place!
+                filteredDeclarations.add(
+                  decl
+                    ..name = exportDartName
+                    ..dartName =
+                        decl.dartName ??
+                        UniqueNamer.makeNonConflicting(exportName),
+                );
+              } else {
+                // Multiple exports for the same symbol.
+                // Re-export as a type alias!
+                final aliasTypeParams = namedDecl.typeParameters
+                    .map(
+                      (t) => GenericType(
+                        name: t.name,
+                        constraint: t.constraint,
+                        defaultType: t.defaultType,
+                      ),
+                    )
+                    .toList();
+                final targetType = namedDecl.asReferredType(
+                  namedDecl.typeParameters
+                      .map((t) => GenericType(name: t.name))
+                      .toList(),
+                );
+                final alias = TypeAliasDeclaration(
+                  name: exportDartName,
+                  exported: true,
+                  type: targetType,
+                  typeParameters: aliasTypeParams,
+                  documentation: decl is DocumentedDeclaration
+                      ? (decl as DocumentedDeclaration).documentation
+                      : null,
+                );
+                filteredDeclarations.add(alias);
+
+                // Also preserve the original declaration under its original
+                // name
+                filteredDeclarations.add(
+                  decl
+                    ..name = exportName
+                    ..dartName =
+                        decl.dartName ??
+                        UniqueNamer.makeNonConflicting(exportName),
+                );
+              }
             } else {
               // Value declaration (variable, function, etc.): mutate in-place!
               filteredDeclarations.add(

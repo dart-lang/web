@@ -332,8 +332,13 @@ class GenericType extends NamedType {
   }) : isNullable = isNullable ?? false;
 
   @override
-  ID get id =>
-      ID(type: 'generic-type', name: '$name@${parent?.id ?? "(anonymous)"}');
+  ID get id {
+    final p = parent;
+    final parentName = p == null
+        ? '(anonymous)'
+        : (p is NestableDeclaration ? p.qualifiedName : p.name);
+    return ID(type: 'generic-type', name: '$name@$parentName');
+  }
 
   @override
   Reference emit([TypeOptions? options]) => TypeReference(

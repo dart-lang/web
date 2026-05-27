@@ -113,17 +113,11 @@ class TypeResolver {
         }
 
         // TODO: multi-decls
-        final List<Declaration> transformedDecls;
-        final cached = transformer.transformedCache[declaration];
-        if (cached != null) {
-          transformedDecls = cached;
-        } else {
-          transformedDecls = transformer.transformAndReturn(
-            declaration,
-            namer: namer,
-            parent: parent,
-          );
-        }
+        final transformedDecls = transformer.transformAndReturn(
+          declaration,
+          namer: namer,
+          parent: parent,
+        );
 
         if (parent != null) {
           switch (declaration.kind) {
@@ -331,7 +325,13 @@ class TypeResolver {
     }
 
     // begin
-    final declarations = symbol!.getDeclarations()?.toDart ?? [];
+    if (symbol == null) {
+      final typeStr = type != null
+          ? ' for type ${transformer.typeChecker.typeToString(type)}'
+          : '';
+      throw Exception('Could not resolve type: symbol is null$typeStr');
+    }
+    final declarations = symbol.getDeclarations()?.toDart ?? [];
     if (declarations.firstOrNull?.kind == TSSyntaxKind.EnumMember) {
       final enumDecl = (declarations.first as TSEnumMember).parent;
       final enumSymbol = transformer.typeChecker.getSymbolAtLocation(
@@ -549,20 +549,20 @@ class TypeResolver {
             ? p.relative(importUrl, from: p.dirname(transformer.file))
             : null;
         final referencedDeclarations = declarations
-            .map((TSNode decl) {
-              return transformer.programMap.getDeclarationRef(
-                importUrl,
-                decl,
-                fullyQualifiedName.asName,
-              );
-            })
-            .reduce(
-              (List<Node>? prev, List<Node>? next) => [...?prev, ...?next],
-            );
+            .expand(
+              (decl) =>
+                  transformer.programMap.getDeclarationRef(
+                    importUrl,
+                    decl,
+                    fullyQualifiedName.asName,
+                  ) ??
+                  const <Node>[],
+            )
+            .toList();
 
-        final nodes =
-            referencedDeclarations?.whereType<NamedDeclaration>().toList() ??
-            [];
+        final nodes = referencedDeclarations
+            .whereType<NamedDeclaration>()
+            .toList();
 
         final (mergedNodes, :additionals) = mergeDeclarations(nodes);
         transformer.nodeMap.addAll({

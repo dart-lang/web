@@ -332,9 +332,11 @@ extension HTMLCanvasElementExtension on HTMLCanvasElement {
   @Equivalence(type: 'CanvasElement', member: 'toBlob')
   Future<Blob> toBlobFuture([String? type, num? quality]) {
     final completer = Completer<Blob>();
-    final blobCallback = (Blob value) {
+    void getBlob(Blob value) {
       completer.complete(value);
-    }.toJS;
+    }
+
+    final blobCallback = getBlob.toJS;
     if (type == null) {
       toBlob(blobCallback);
     } else if (quality == null) {
@@ -610,11 +612,11 @@ extension WindowExtension on Window {
   @Equivalence(type: 'Window', member: 'animationFrame')
   Future<num> get animationFrame {
     final completer = Completer<num>.sync();
-    requestAnimationFrame(
-      (num timestamp) {
-        completer.complete(timestamp);
-      }.toJS,
-    );
+    void getTimestamp(num timestamp) {
+      completer.complete(timestamp);
+    }
+
+    requestAnimationFrame(getTimestamp.toJS);
     return completer.future;
   }
 

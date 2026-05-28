@@ -48,10 +48,10 @@ abstract class AttributeMap extends MapBase<String, String> {
   }
 
   @override
-  void forEach(void Function(String key, String value) f) {
+  void forEach(void Function(String key, String value) action) {
     for (var key in keys) {
       final value = this[key];
-      f(key, value as String);
+      action(key, value as String);
     }
   }
 
@@ -187,10 +187,10 @@ class DataAttributeMap extends MapBase<String, String> {
   }
 
   @override
-  void forEach(void Function(String key, String value) f) {
+  void forEach(void Function(String key, String value) action) {
     _attributes.forEach((String key, String value) {
       if (_matches(key)) {
-        f(_strip(key), value);
+        action(_strip(key), value);
       }
     });
   }

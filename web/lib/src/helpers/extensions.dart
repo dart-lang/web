@@ -45,14 +45,14 @@ extension BlobExtension on Blob {
   @Equivalence(type: 'Blob', member: '')
   Blob createBlob(List<Object?> blobParts, [String? type, String? endings]) {
     final jsParts = blobParts.jsify() as JSArray<JSAny>;
-    if (type == null && endings == null) {
-      return Blob(jsParts);
-    } else if (type != null && endings != null) {
+    if (type != null && endings != null) {
       return Blob(jsParts, BlobPropertyBag(type: type, endings: endings));
     } else if (type != null) {
       return Blob(jsParts, BlobPropertyBag(type: type));
+    } else if (endings != null) {
+      return Blob(jsParts, BlobPropertyBag(endings: endings));
     } else {
-      return Blob(jsParts, BlobPropertyBag(endings: endings!));
+      return Blob(jsParts);
     }
   }
 }
@@ -170,9 +170,9 @@ extension ElementExtension on Element {
   set attributes(Map<String, String> value) {
     final attrs = attributesAsMap;
     attrs.clear();
-    for (final key in value.keys) {
-      attrs[key] = value[key]!;
-    }
+    value.forEach((key, val) {
+      attrs[key] = val;
+    });
   }
 
   @Equivalence(type: 'Element', member: 'dataset')
@@ -181,10 +181,10 @@ extension ElementExtension on Element {
   @Equivalence(type: 'Element', member: 'matchesWithAncestors')
   bool matchesWithAncestors(String selectors) {
     var elem = this as Element?;
-    do {
-      if (elem!.matches(selectors)) return true;
+    while (elem != null) {
+      if (elem.matches(selectors)) return true;
       elem = elem.parent;
-    } while (elem != null);
+    }
     return false;
   }
 
@@ -565,7 +565,7 @@ extension NodeListExtension on NodeList {
   bool get isEmpty => length == 0;
 
   @Equivalence(type: 'NodeList', member: 'elementAt')
-  Element elementAt(int i) => item(i) as Element;
+  Node elementAt(int i) => item(i)!;
 }
 
 extension StorageExtension on Storage {

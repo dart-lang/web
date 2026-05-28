@@ -1,6 +1,7 @@
 // ignore_for_file: camel_case_types, constant_identifier_names
 // ignore_for_file: library_private_types_in_public_api
-// ignore_for_file: non_constant_identifier_names, unnecessary_parenthesis
+// ignore_for_file: lines_longer_than_80_chars, non_constant_identifier_names
+// ignore_for_file: unnecessary_parenthesis
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:js_interop' as _i1;
@@ -50,13 +51,6 @@ extension type Point3D._(_i1.JSObject _) implements Point {
 }
 @_i1.JS()
 external Point3D get origin3D;
-extension type DirectionAngles._(_i1.JSObject _) implements _i1.JSObject {
-  external double alpha;
-
-  external double beta;
-
-  external double gamma;
-}
 extension type Vector3D._(_i1.JSObject _) implements Vector {
   external Vector3D(num x, num y, num z);
 
@@ -75,6 +69,13 @@ extension type Vector3D._(_i1.JSObject _) implements Vector {
   external Point3D moveFrom(Point3D point);
   external static Vector3D from(num magnitude, DirectionAngles at);
   external static Vector3D fromPoints(Point3D start, Point3D end);
+}
+extension type DirectionAngles._(_i1.JSObject _) implements _i1.JSObject {
+  external double alpha;
+
+  external double beta;
+
+  external double gamma;
 }
 extension type Shape._(_i1.JSObject _) implements _i1.JSObject {}
 extension type Shape2D._(_i1.JSObject _) implements Shape {
@@ -221,23 +222,13 @@ extension type EpahsImpl<TMeta extends _i1.JSAny?>._(_i1.JSObject _)
   external double area();
   @_i1.JS('area')
   external String area$1(AnonymousUnion_4033716 unit);
-  external static EpahsImpl getById(String id);
+  external static EpahsImpl<_i1.JSAny?> getById(String id);
 
   /// Returns a string representation of an object.
   @_i1.JS('toString')
   external String toString$();
 }
 extension type Point._(_i1.JSObject _) implements _i1.JSObject {}
-extension type Epahs<TMetadata extends _i1.JSAny?>._(_i1.JSObject _)
-    implements _i1.JSObject {
-  external String name;
-
-  external String get id;
-  external double area();
-  @_i1.JS('area')
-  external String area$1(AnonymousUnion_4033716 unit);
-  external _i1.JSFunction? get onUpdate;
-}
 extension type const AnonymousUnion_7177595._(String _) {
   static const AnonymousUnion_7177595 circle = AnonymousUnion_7177595._(
     'circle',
@@ -250,6 +241,16 @@ extension type const AnonymousUnion_7177595._(String _) {
   static const AnonymousUnion_7177595 polygon = AnonymousUnion_7177595._(
     'polygon',
   );
+}
+extension type Epahs<TMetadata extends _i1.JSAny?>._(_i1.JSObject _)
+    implements _i1.JSObject {
+  external String name;
+
+  external String get id;
+  external double area();
+  @_i1.JS('area')
+  external String area$1(AnonymousUnion_4033716 unit);
+  external _i1.JSFunction? get onUpdate;
 }
 extension type const AnonymousUnion_4033716._(String _) {
   static const AnonymousUnion_4033716 cm2 = AnonymousUnion_4033716._('cm2');

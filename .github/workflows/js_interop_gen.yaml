@@ -44,8 +44,10 @@ jobs:
       - name: Mark npm install as done
         run: touch .last_npm_install
         working-directory: js_interop_gen/lib/src
-      - run: dart format --output=none --set-exit-if-changed .
-        if: matrix.sdk == 'dev' && matrix.test_config == ''
+      # TODO: re-enable format verification AFTER we get a dart_style
+      # version that aligns with the latest formatting
+      #- run: dart format --output=none --set-exit-if-changed .
+      #  if: matrix.sdk == 'dev' && matrix.test_config == ''
       - run: dart analyze --fatal-infos
         if: matrix.sdk == 'dev' && matrix.test_config == ''
       - run: dart analyze

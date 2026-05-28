@@ -671,6 +671,8 @@ extension type TSTypeParameterDeclaration._(JSObject _)
     implements TSDeclaration {
   external TSIdentifier get name;
   external TSTypeNode? get constraint;
+  @JS('default')
+  external TSTypeNode? get default$;
 }
 
 @JS('EnumDeclaration')

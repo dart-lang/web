@@ -462,6 +462,10 @@ Type? _getSharedPrimitiveTypeIfAny(List<Type> types, {bool isNullable = true}) {
     }
   }
 
+  if (kind != null && equalType != null) {
+    return null;
+  }
+
   if (allEqualTypes) {
     if (allLiteralTypes) {
       final primitiveType = switch (kind) {

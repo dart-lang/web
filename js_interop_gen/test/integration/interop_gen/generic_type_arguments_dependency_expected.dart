@@ -18,15 +18,13 @@ extension type Container._(_i1.JSObject _) implements Wrapper<_i1.JSString> {}
 extension type _AnonymousFunction_2569989<
   R extends _i1.JSAny?,
   T extends _i1.JSAny?
->._(_i1.JSFunction _)
-    implements _i1.JSFunction {
+>._(_i1.JSFunction _) implements _i1.JSFunction {
   external AnonymousUnion_2466873<R> call(T value);
 }
 extension type AnonymousUnion_3503862<
   R extends _i1.JSAny?,
   T extends _i1.JSAny?
->._(_i1.JSAny _)
-    implements _i1.JSAny {
+>._(_i1.JSAny _) implements _i1.JSAny {
   R get asR => (_ as R);
 
   T get asT => (_ as T);

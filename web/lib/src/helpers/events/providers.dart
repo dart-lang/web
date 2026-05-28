@@ -132,7 +132,7 @@ abstract final class EventStreamProviders {
       EventStreamProvider<DeviceMotionEvent>('devicemotion');
 
   static const EventStreamProvider<DeviceOrientationEvent>
-  deviceOrientationEvent = EventStreamProvider<DeviceOrientationEvent>(
+      deviceOrientationEvent = EventStreamProvider<DeviceOrientationEvent>(
     'deviceorientation',
   );
 
@@ -276,7 +276,7 @@ abstract final class EventStreamProviders {
       EventStreamProvider<Event>('error');
 
   static const EventStreamProvider<ProgressEvent>
-  errorXMLHttpRequestEventTargetEvent = EventStreamProvider<ProgressEvent>(
+      errorXMLHttpRequestEventTargetEvent = EventStreamProvider<ProgressEvent>(
     'error',
   );
 
@@ -302,7 +302,7 @@ abstract final class EventStreamProviders {
       EventStreamProvider<Event>('hashchange');
 
   static const EventStreamProvider<RTCPeerConnectionIceEvent>
-  iceCandidateEvent = EventStreamProvider<RTCPeerConnectionIceEvent>(
+      iceCandidateEvent = EventStreamProvider<RTCPeerConnectionIceEvent>(
     'icecandidate',
   );
 
@@ -453,6 +453,9 @@ abstract final class EventStreamProviders {
   static const EventStreamProvider<Event> resizeEvent =
       EventStreamProvider<Event>('resize');
 
+  static const EventStreamProvider<Event> resourceTimingBufferFull =
+      EventStreamProvider<Event>('resourcetimingbufferfull');
+
   static const EventStreamProvider<SpeechRecognitionEvent> resultEvent =
       EventStreamProvider<SpeechRecognitionEvent>('result');
 
@@ -466,10 +469,10 @@ abstract final class EventStreamProviders {
       EventStreamProvider<Event>('search');
 
   static const EventStreamProvider<SecurityPolicyViolationEvent>
-  securityPolicyViolationEvent =
+      securityPolicyViolationEvent =
       EventStreamProvider<SecurityPolicyViolationEvent>(
-        'securitypolicyviolation',
-      );
+    'securitypolicyviolation',
+  );
 
   static const EventStreamProvider<Event> seekedEvent =
       EventStreamProvider<Event>('seeked');
@@ -577,7 +580,7 @@ abstract final class EventStreamProviders {
       EventStreamProvider<WebGLContextEvent>('webglcontextlost');
 
   static const EventStreamProvider<WebGLContextEvent>
-  webGlContextRestoredEvent = EventStreamProvider<WebGLContextEvent>(
+      webGlContextRestoredEvent = EventStreamProvider<WebGLContextEvent>(
     'webglcontextrestored',
   );
 

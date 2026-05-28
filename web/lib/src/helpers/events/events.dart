@@ -262,7 +262,17 @@ extension AutoElementEventGetters on AudioNode {
   Stream<Event> get onEnded => EventStreamProviders.endedEvent.forTarget(this);
 }
 
+extension FontFaceSetGetters on FontFaceSet {
+  Stream<FontFaceSetLoadEvent> get onLoadingDone =>
+      EventStreamProviders.loadingDoneEvent.forTarget(this);
+}
+
 extension WindowEventGetters on Window {
+  Stream<BeforeUnloadEvent> get onBeforeUnload =>
+      EventStreamProviders.beforeUnloadEvent.forTarget(this);
+
+  Stream<Event> get onBlur => EventStreamProviders.blurEvent.forTarget(this);
+
   Stream<KeyboardEvent> get onKeyDown =>
       EventStreamProviders.keyDownEvent.forTarget(this);
 
@@ -327,6 +337,23 @@ extension WindowEventGetters on Window {
 
   Stream<MouseEvent> get onDragStart =>
       EventStreamProviders.dragStartEvent.forTarget(this);
+
+  Stream<Event> get onFocus => EventStreamProviders.focusEvent.forTarget(this);
+
+  Stream<Event> get onAnimationEnd =>
+      EventStreamProviders.animationEndEvent.forTarget(this);
+
+  Stream<Event> get onResize =>
+      EventStreamProviders.resizeEvent.forTarget(this);
+
+  Stream<Event> get onScroll =>
+      EventStreamProviders.scrollEvent.forTarget(this);
+
+  Stream<Event> get onStorage =>
+      EventStreamProviders.storageEvent.forTarget(this);
+
+  Stream<KeyboardEvent> get onKeyUp =>
+      EventStreamProviders.keyUpEvent.forTarget(this);
 }
 
 extension DocumentEventGetters on Document {
@@ -380,6 +407,30 @@ extension DocumentEventGetters on Document {
 
   Stream<MouseEvent> get onDragStart =>
       EventStreamProviders.dragStartEvent.forTarget(this);
+
+  Stream<MouseEvent> get onDrop =>
+      EventStreamProviders.dropEvent.forTarget(this);
+
+  Stream<Event> get onInput => EventStreamProviders.inputEvent.forTarget(this);
+
+  Stream<KeyboardEvent> get onKeyUp =>
+      EventStreamProviders.keyUpEvent.forTarget(this);
+
+  Stream<KeyboardEvent> get onKeyDown =>
+      EventStreamProviders.keyDownEvent.forTarget(this);
+
+  Stream<WheelEvent> get onMouseWheel =>
+      EventStreamProviders.mouseWheelEvent.forTarget(this);
+
+  Stream<Event> get onVisibilityChange =>
+      EventStreamProviders.visibilityChangeEvent.forTarget(this);
+
+  Stream<Event> get onBlur => EventStreamProviders.blurEvent.forTarget(this);
+
+  Stream<Event> get onLoad => EventStreamProviders.loadEvent.forTarget(this);
+
+  Stream<MouseEvent> get onClick =>
+      EventStreamProviders.clickEvent.forTarget(this);
 }
 
 extension ElementCustomEvents on Element {
@@ -390,6 +441,11 @@ extension ElementCustomEvents on Element {
       EventStreamProviders.transitionEndEvent.forElement(this);
 }
 
+extension BroadcastChannelEvents on BroadcastChannel {
+  Stream<MessageEvent> get onMessage =>
+      EventStreamProviders.messageEvent.forTarget(this);
+}
+
 extension DocumentCustomEvents on Document {
   Stream<Event> get onLoad => EventStreamProviders.loadEvent.forTarget(this);
 
@@ -398,6 +454,11 @@ extension DocumentCustomEvents on Document {
 
   Stream<Event> get onVisibilityChange =>
       EventStreamProviders.visibilityChangeEvent.forTarget(this);
+}
+
+extension PerformanceEvents on Performance {
+  Stream<Event> get onResourceTimingBufferFull =>
+      EventStreamProviders.resourceTimingBufferFull.forTarget(this);
 }
 
 extension WindowCustomEvents on Window {

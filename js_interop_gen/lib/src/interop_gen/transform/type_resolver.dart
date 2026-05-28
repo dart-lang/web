@@ -91,6 +91,7 @@ class TypeResolver {
           );
           final aliasedSymbolName = aliasedSymbol.name;
 
+          transformer.exportSet.removeWhere((e) => e.name == aliasedSymbolName);
           transformer.exportSet.add(
             ExportReference(aliasedSymbolName, as: firstName),
           );
@@ -104,6 +105,19 @@ class TypeResolver {
             isNullable,
           );
         }
+        if (declaration.kind == TSSyntaxKind.ImportSpecifier) {
+          final aliasedSymbol = transformer.typeChecker.getAliasedSymbol(
+            symbol,
+          );
+          return getTypeFromSymbol(
+            aliasedSymbol,
+            transformer.typeChecker.getTypeOfSymbol(aliasedSymbol),
+            typeArguments,
+            isNotTypableDeclaration,
+            typeArg,
+            isNullable,
+          );
+        }
 
         var d = declaration as TSNamedDeclaration;
 
@@ -113,14 +127,20 @@ class TypeResolver {
         }
 
         // TODO: multi-decls
-        final transformedDecls = transformer.transformAndReturn(
-          declaration,
-          namer: namer,
-          parent: parent,
-        );
+        final List<Declaration> transformedDecls;
+        final cached = transformer.transformedCache[d];
+        if (cached != null) {
+          transformedDecls = cached;
+        } else {
+          transformedDecls = transformer.transformAndReturn(
+            d,
+            namer: namer,
+            parent: parent,
+          );
+        }
 
         if (parent != null) {
-          switch (declaration.kind) {
+          switch (d.kind) {
             case TSSyntaxKind.ClassDeclaration ||
                 TSSyntaxKind.InterfaceDeclaration:
               final outputDecl = transformedDecls.first as TypeDeclaration;
@@ -130,15 +150,19 @@ class TypeResolver {
               final outputDecl = transformedDecls.first as EnumDeclaration;
               outputDecl.parent = parent;
               parent.nestableDeclarations.add(outputDecl);
+            case TSSyntaxKind.TypeAliasDeclaration:
+              final outputDecl = transformedDecls.first as TypeAliasDeclaration;
+              outputDecl.parent = parent;
+              parent.nestableDeclarations.add(outputDecl);
             default:
               parent.topLevelDeclarations.addAll(transformedDecls);
           }
-          parent.nodes.add(declaration);
+          parent.nodes.add(d);
         } else {
           transformer.nodeMap.addAll({
             for (final decl in transformedDecls) decl.id.toString(): decl,
           });
-          transformer.nodes.add(declaration);
+          transformer.nodes.add(d);
         }
       }
 
@@ -437,7 +461,11 @@ class TypeResolver {
             );
           }
           final referencedDeclarations = transformer.programMap
-              .getDeclarationRef(declSource, decl, fullyQualifiedName.asName);
+              .getDeclarationRef(
+                decl.getSourceFile().fileName,
+                decl,
+                fullyQualifiedName.asName,
+              );
 
           mappedDecls =
               referencedDeclarations?.whereType<NamedDeclaration>().toList() ??
@@ -527,6 +555,23 @@ class TypeResolver {
           isNullable: isNullable,
         );
       } else {
+        final declFile = declarations.isEmpty
+            ? null
+            : p.normalize(
+                p.absolute(declarations.first.getSourceFile().fileName),
+              );
+        final currentFile = p.normalize(p.absolute(transformer.file));
+
+        if (declFile != null && p.equals(declFile, currentFile)) {
+          return searchForDeclRecursive(
+            fullyQualifiedName,
+            symbol,
+            typeArguments: typeArguments,
+            typeArg: typeArg,
+            isNotTypableDeclaration: isNotTypableDeclaration,
+            isNullable: isNullable,
+          );
+        }
         // if import there and not this file, imported from specified file
         final importUrl =
             !nameImport.endsWith('.d.ts') &&
@@ -549,20 +594,20 @@ class TypeResolver {
             ? p.relative(importUrl, from: p.dirname(transformer.file))
             : null;
         final referencedDeclarations = declarations
-            .expand(
-              (decl) =>
-                  transformer.programMap.getDeclarationRef(
-                    importUrl,
-                    decl,
-                    fullyQualifiedName.asName,
-                  ) ??
-                  const <Node>[],
-            )
-            .toList();
+            .map((TSNode decl) {
+              return transformer.programMap.getDeclarationRef(
+                decl.getSourceFile().fileName,
+                decl,
+                fullyQualifiedName.asName,
+              );
+            })
+            .reduce(
+              (List<Node>? prev, List<Node>? next) => [...?prev, ...?next],
+            );
 
-        final nodes = referencedDeclarations
-            .whereType<NamedDeclaration>()
-            .toList();
+        final nodes =
+            referencedDeclarations?.whereType<NamedDeclaration>().toList() ??
+            [];
 
         final (mergedNodes, :additionals) = mergeDeclarations(nodes);
         transformer.nodeMap.addAll({
@@ -617,7 +662,17 @@ class TypeResolver {
           typeName.kind == TSSyntaxKind.QualifiedName,
     );
 
-    final symbol = transformer.typeChecker.getSymbolAtLocation(typeName);
+    var symbol = transformer.typeChecker.getSymbolAtLocation(typeName);
+    if (symbol != null) {
+      final declarations = symbol.getDeclarations()?.toDart ?? [];
+      for (final decl in declarations) {
+        if (decl.kind == TSSyntaxKind.ImportSpecifier ||
+            decl.kind == TSSyntaxKind.ExportSpecifier) {
+          symbol = transformer.typeChecker.getAliasedSymbol(symbol!);
+          break;
+        }
+      }
+    }
 
     return getTypeFromSymbol(
       symbol,

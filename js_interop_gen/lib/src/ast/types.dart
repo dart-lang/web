@@ -179,7 +179,7 @@ class UnionType extends DeclarationType {
     required this.types,
     required String name,
     this.isNullable = false,
-  }) : declarationName = name;
+  }) : declarationName = _sanitizeIdentifier(name);
 
   @override
   ID get id => ID(type: 'type', name: types.map((t) => t.id.name).join('|'));
@@ -233,7 +233,7 @@ class IntersectionType extends DeclarationType {
   String declarationName;
 
   IntersectionType({required this.types, required String name})
-    : declarationName = name;
+    : declarationName = _sanitizeIdentifier(name);
 
   @override
   ID get id => ID(type: 'type', name: types.map((t) => t.id.name).join('&'));
@@ -301,7 +301,7 @@ class HomogenousEnumType<T extends LiteralType, D extends Declaration>
       return EnumMember(
         name,
         t.value,
-        dartName: UniqueNamer.makeNonConflicting(name),
+        dartName: UniqueNamer.makeNonConflicting(_sanitizeIdentifier(name)),
         parent: UniqueNamer.makeNonConflicting(declarationName),
       );
     }).toList(),
@@ -1177,13 +1177,14 @@ String _typeNameForGetter(Type t, [Options? options]) {
     typeParams = const [];
   }
 
+  var result = baseName;
   if (typeParams.isNotEmpty) {
     final paramsName = typeParams
         .map((p) => uppercaseFirstLetter(_typeNameForGetter(p, options)))
         .join('And');
-    return '${baseName}Of$paramsName';
+    result = '${baseName}Of$paramsName';
   }
-  return baseName;
+  return _sanitizeIdentifier(result);
 }
 
 Type _intersectTypes(List<Type> types) {
@@ -1283,4 +1284,15 @@ Type _intersectTypes(List<Type> types) {
   final hash = AnonymousHasher.hashUnion(idNames);
   final name = 'AnonymousIntersection_$hash';
   return IntersectionType(types: filteredTypes, name: name);
+}
+
+String _sanitizeIdentifier(String name) {
+  var result = name
+      .replaceAll('|', 'Or')
+      .replaceAll('&', 'And')
+      .replaceAll(RegExp(r'[^a-zA-Z0-9_]'), '_');
+  while (result.contains('__')) {
+    result = result.replaceAll('__', '_');
+  }
+  return result;
 }

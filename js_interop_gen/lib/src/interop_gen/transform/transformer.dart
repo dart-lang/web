@@ -196,18 +196,28 @@ class Transformer {
     TSExportSpecifier specifier, {
     Set<ExportReference>? exportSet,
   }) {
-    final actualName = specifier.propertyName ?? specifier.name;
-
+    final actualNameNode = specifier.propertyName ?? specifier.name;
     final dartName = specifier.name;
 
-    final decl = nodeMap.findByName(actualName.text);
+    var actualName = actualNameNode.text;
+    final symbol = typeChecker.getSymbolAtLocation(actualNameNode);
+    if (symbol != null) {
+      try {
+        final aliasedSymbol = typeChecker.getAliasedSymbol(symbol);
+        actualName = aliasedSymbol.name;
+      } catch (_) {
+        // Throws if not an aliased symbol
+      }
+    }
+
+    final decl = nodeMap.findByName(actualName);
 
     // This just guarantees the declaration is transformed before adding the
     // export reference
-    if (decl.isEmpty) _getTypeFromDeclaration(actualName, []);
+    if (decl.isEmpty) _getTypeFromDeclaration(actualNameNode, []);
 
     (exportSet ?? this.exportSet).add(
-      ExportReference(actualName.text, as: dartName.text),
+      ExportReference(actualName, as: dartName.text),
     );
   }
 
@@ -223,11 +233,22 @@ class Transformer {
       final exports = (export.exportClause as TSNamedExports).elements.toDart;
 
       for (final exp in exports) {
-        // the name of the declaration in TS (name)
-        final actualName = (exp.propertyName ?? exp.name).text;
-
         // The exported name to use
         final dartName = exp.name.text;
+
+        // the name of the declaration in TS (name)
+        var actualName = (exp.propertyName ?? exp.name).text;
+        final symbol = typeChecker.getSymbolAtLocation(
+          exp.propertyName ?? exp.name,
+        );
+        if (symbol != null) {
+          try {
+            final aliasedSymbol = typeChecker.getAliasedSymbol(symbol);
+            actualName = aliasedSymbol.name;
+          } catch (_) {
+            // Throws if not an aliased symbol
+          }
+        }
 
         (exportSet ?? this.exportSet).add(
           ExportReference(actualName, as: dartName),
@@ -1415,6 +1436,7 @@ class Transformer {
           ...operators.map((p) => (p.name, p.returnType.id.name)),
         ];
         // get a name
+        // get a name
         final name = 'AnonymousType_${AnonymousHasher.hashObject(hashObject)}';
 
         // get an expected id
@@ -1523,6 +1545,13 @@ class Transformer {
               (t) => _transformType(t, typeArg: typeArg, parameter: parameter),
             )
             .toList();
+
+        if (types.isEmpty) {
+          return BuiltinType.primitiveType(
+            PrimitiveType.never,
+            isNullable: shouldBeNullable || (isNullable ?? false),
+          );
+        }
 
         var isHomogenous = true;
         final nonNullLiteralTypes = <LiteralType>[];
@@ -1819,6 +1848,13 @@ class Transformer {
 
         if (returnTypeOrNull != null) return returnTypeOrNull;
 
+        if (keys.isEmpty) {
+          return BuiltinType.primitiveType(
+            PrimitiveType.never,
+            isNullable: isNullable,
+          );
+        }
+
         final typeName = transformedType is NamedType
             ? (transformedType.dartName ?? transformedType.name)
             : transformedType.id.name;
@@ -2041,10 +2077,15 @@ class Transformer {
 
       return getTypeFromDeclaration;
     } else if (type.expression.kind == TSSyntaxKind.PropertyAccessExpression) {
-      // TODO(nikeokoronkwo): Support Globbed Imports and Exports, https://github.com/dart-lang/web/issues/420
-      throw UnimplementedError(
-        "The given type expression's expression of kind "
-        '${type.expression.kind} is not supported yet',
+      final symbol = typeChecker.getSymbolAtLocation(type.expression);
+      final tsType = typeChecker.getTypeFromTypeNode(type);
+      return typeResolver.getTypeFromSymbol(
+        symbol,
+        tsType,
+        type.typeArguments?.toDart,
+        false,
+        false,
+        false,
       );
     } else {
       throw UnimplementedError(

@@ -31,5 +31,16 @@ void main() {
       );
       expect(intersection.declarationName, equals('AnyRestOrJSAnyOrJSAny'));
     });
+
+    test('Double and multiple underscore sanitization', () {
+      final unionDouble = UnionType(types: [], name: 'foo__bar');
+      expect(unionDouble.declarationName, equals('foo_bar'));
+
+      final unionMulti = UnionType(types: [], name: 'foo____bar__baz');
+      expect(unionMulti.declarationName, equals('foo_bar_baz'));
+
+      final unionMany = UnionType(types: [], name: 'a__________________b');
+      expect(unionMany.declarationName, equals('a_b'));
+    });
   });
 }

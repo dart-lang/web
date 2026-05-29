@@ -1287,12 +1287,9 @@ Type _intersectTypes(List<Type> types) {
 }
 
 String _sanitizeIdentifier(String name) {
-  var result = name
+  return name
       .replaceAll('|', 'Or')
       .replaceAll('&', 'And')
-      .replaceAll(RegExp(r'[^a-zA-Z0-9_]'), '_');
-  while (result.contains('__')) {
-    result = result.replaceAll('__', '_');
-  }
-  return result;
+      .replaceAll(RegExp(r'[^a-zA-Z0-9_]'), '_')
+      .replaceAll(RegExp(r'_{2,}'), '_');
 }

@@ -127,17 +127,11 @@ class TypeResolver {
         }
 
         // TODO: multi-decls
-        final List<Declaration> transformedDecls;
-        final cached = transformer.transformedCache[d];
-        if (cached != null) {
-          transformedDecls = cached;
-        } else {
-          transformedDecls = transformer.transformAndReturn(
-            d,
-            namer: namer,
-            parent: parent,
-          );
-        }
+        final transformedDecls = transformer.transformAndReturn(
+          d,
+          namer: namer,
+          parent: parent,
+        );
 
         if (parent != null) {
           switch (d.kind) {
@@ -593,21 +587,17 @@ class TypeResolver {
                 !p.equals(importUrl, transformer.file)
             ? p.relative(importUrl, from: p.dirname(transformer.file))
             : null;
-        final referencedDeclarations = declarations
-            .map((TSNode decl) {
+        final nodes = declarations
+            .expand((decl) {
               return transformer.programMap.getDeclarationRef(
-                decl.getSourceFile().fileName,
-                decl,
-                fullyQualifiedName.asName,
-              );
+                    decl.getSourceFile().fileName,
+                    decl,
+                    fullyQualifiedName.asName,
+                  ) ??
+                  const <Node>[];
             })
-            .reduce(
-              (List<Node>? prev, List<Node>? next) => [...?prev, ...?next],
-            );
-
-        final nodes =
-            referencedDeclarations?.whereType<NamedDeclaration>().toList() ??
-            [];
+            .whereType<NamedDeclaration>()
+            .toList();
 
         final (mergedNodes, :additionals) = mergeDeclarations(nodes);
         transformer.nodeMap.addAll({

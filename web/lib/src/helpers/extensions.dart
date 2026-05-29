@@ -535,7 +535,9 @@ extension NodeExtension on Node {
 
   @Equivalence(type: 'Node', member: 'insertAllBefore')
   void insertAllBefore(Iterable<Node> newNodes, Node child) {
-    for (var node in newNodes) {
+    // `toList` to avoid potential infinite recursion if `newNodes` is a wrapper
+    // around this `Node`.
+    for (var node in newNodes.toList()) {
       insertBefore(node, child);
     }
   }

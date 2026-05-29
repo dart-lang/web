@@ -233,9 +233,9 @@ class _NodeListIterator<E> implements Iterator<E> {
   E? _current;
 
   _NodeListIterator(Iterable<E> iterable)
-      : _iterable = iterable,
-        _length = iterable.length,
-        _index = 0;
+    : _iterable = iterable,
+      _length = iterable.length,
+      _index = 0;
 
   @override
   E get current => _current!;
@@ -271,7 +271,6 @@ class HTMLCollectionListWrapper
   HTMLCollectionListWrapper(this._parent, this._htmlCollection);
 
   @override
-
   ///See [_NodeListIterator] for information.
   Iterator<Element> get iterator => _NodeListIterator(this);
 

@@ -186,7 +186,9 @@ abstract class CssClassSetImpl extends SetBase<String> implements CssClassSet {
 
   @override
   T fold<T>(
-      T initialValue, T Function(T previousValue, String element) combine) {
+    T initialValue,
+    T Function(T previousValue, String element) combine,
+  ) {
     return readClasses().fold<T>(initialValue, combine);
   }
 
@@ -325,19 +327,22 @@ abstract class CssClassSetImpl extends SetBase<String> implements CssClassSet {
       readClasses().skipWhile(test);
 
   @override
-  String firstWhere(bool Function(String value) test,
-          {String Function()? orElse}) =>
-      readClasses().firstWhere(test, orElse: orElse);
+  String firstWhere(
+    bool Function(String value) test, {
+    String Function()? orElse,
+  }) => readClasses().firstWhere(test, orElse: orElse);
 
   @override
-  String lastWhere(bool Function(String value) test,
-          {String Function()? orElse}) =>
-      readClasses().lastWhere(test, orElse: orElse);
+  String lastWhere(
+    bool Function(String value) test, {
+    String Function()? orElse,
+  }) => readClasses().lastWhere(test, orElse: orElse);
 
   @override
-  String singleWhere(bool Function(String value) test,
-          {String Function()? orElse}) =>
-      readClasses().singleWhere(test, orElse: orElse);
+  String singleWhere(
+    bool Function(String value) test, {
+    String Function()? orElse,
+  }) => readClasses().singleWhere(test, orElse: orElse);
 
   @override
   String elementAt(int index) => readClasses().elementAt(index);
@@ -472,7 +477,7 @@ class ElementCssClassSet extends CssClassSetImpl {
   @pragma('dart2js:tryInline')
   static bool _remove(Element element, String value) {
     final list = element.classList;
-    final removed = !list.contains(value); // ** side-effects can be ignored
+    final removed = list.contains(value); // ** side-effects can be ignored
     list.remove(value);
     return removed;
   }

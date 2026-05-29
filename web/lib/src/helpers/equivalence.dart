@@ -20,6 +20,9 @@ class Equivalence {
   /// same as their `dart:html`-equivalent.
   final String details;
 
-  const Equivalence(
-      {required this.type, required this.member, this.details = ''});
+  const Equivalence({
+    required this.type,
+    required this.member,
+    this.details = '',
+  });
 }

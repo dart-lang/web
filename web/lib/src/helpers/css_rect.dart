@@ -57,9 +57,7 @@ class Dimension {
   /// simplistic CSS length measurements. Non-numeric values such as `auto` or
   /// `inherit` or invalid CSS will cause this constructor to throw a
   /// FormatError.
-  Dimension.css(String cssValue)
-      : _unit = '',
-        _value = 0 {
+  Dimension.css(String cssValue) : _unit = '', _value = 0 {
     if (cssValue == '') cssValue = '0px';
     if (cssValue.endsWith('%')) {
       _unit = '%';

@@ -1,0 +1,14 @@
+[Exposed=Window]
+interface ValueIterable {
+  iterable<long>;
+};
+
+[Exposed=Window]
+interface KeyValueIterable {
+  iterable<DOMString, DOMString>;
+};
+
+[Exposed=Window]
+interface AsyncIterable {
+  async iterable<long>;
+};

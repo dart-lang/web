@@ -15,6 +15,7 @@
 @JS()
 library;
 
+import 'dart:collection';
 import 'dart:js_interop';
 
 import 'attribution_reporting_api.dart';
@@ -73,7 +74,8 @@ typedef ResponseType = String;
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Headers).
-extension type Headers._(JSObject _) implements JSObject {
+extension type Headers._(JSObject _)
+    implements JSObject, JSIterable<JSArray<JSAny>> {
   external factory Headers([HeadersInit init]);
 
   /// The **`append()`** method of the [Headers]
@@ -150,6 +152,57 @@ extension type Headers._(JSObject _) implements JSObject {
   /// headers include the
   /// and .
   external void set(String name, String value);
+  Iterable<({String key, String value})> get toDart => toDartIterable.map(
+    (e) => (
+      key: (e.toDart[0] as JSString).toDart,
+      value: (e.toDart[1] as JSString).toDart,
+    ),
+  );
+
+  @JS()
+  external JSIterator<JSString> keys();
+  Map<String, String> get asMap => _HeadersMapView(this);
+}
+
+class _HeadersMapView extends MapBase<String, String> {
+  _HeadersMapView(this._jsObject);
+
+  final Headers _jsObject;
+
+  @override
+  String? operator [](Object? key) {
+    if (key is! String) return null;
+    final value = _jsObject.get(key);
+    if (value == null) return null;
+    return value;
+  }
+
+  @override
+  void operator []=(String key, String value) {
+    _jsObject.set(key, value);
+  }
+
+  @override
+  void clear() {
+    final keys = _jsObject.keys().toDartIterable.toList();
+    for (final k in keys) {
+      _jsObject.delete(k.toDart);
+    }
+  }
+
+  @override
+  Iterable<String> get keys {
+    return _jsObject.keys().toDartIterable.map((e) => e.toDart);
+  }
+
+  @override
+  String? remove(Object? key) {
+    if (key is! String) return null;
+    final value = _jsObject.get(key);
+    _jsObject.delete(key);
+    if (value == null) return null;
+    return value;
+  }
 }
 
 /// The **`Request`** interface of the

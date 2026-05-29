@@ -25,8 +25,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        sdk: ['3.10', beta, dev]
-        test_config: ['-p chrome', '-p chrome -c dart2wasm']
+        # Add back in 3.12 when it's stable
+        sdk: [beta, dev]
+        test_config: ['-p chrome -c dart2js', '-p chrome -c dart2wasm', '-p vm']
 
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd

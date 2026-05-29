@@ -306,6 +306,28 @@ class Parameter {
   }
 }
 
+class IterableInfo {
+  final RawType? keyType;
+  final RawType valueType;
+  final bool isAsync;
+
+  IterableInfo({this.keyType, required this.valueType, required this.isAsync});
+}
+
+class MaplikeInfo {
+  final RawType keyType;
+  final RawType valueType;
+  final bool isReadOnly;
+  final bool isFromIterable;
+
+  MaplikeInfo({
+    required this.keyType,
+    required this.valueType,
+    required this.isReadOnly,
+    required this.isFromIterable,
+  });
+}
+
 class PartialInterfacelike {
   final String name;
   final String type;
@@ -316,6 +338,8 @@ class PartialInterfacelike {
   final List<Property> extensionProperties = [];
   final MdnInterface? mdnInterface;
   OverridableConstructor? constructor;
+  IterableInfo? iterableInfo;
+  MaplikeInfo? maplikeInfo;
 
   factory PartialInterfacelike(
     idl.Interfacelike interfacelike,
@@ -475,9 +499,43 @@ class PartialInterfacelike {
           );
           break;
         case 'maplike':
+          final decl = member as idl.MemberDeclaration;
+          final types =
+              ((decl.idlType as JSAny) as JSArray<idl.IDLType>).toDart;
+          if (types.length != 2) {
+            throw Exception('Unexpected number of type arguments for maplike');
+          }
+          maplikeInfo = MaplikeInfo(
+            keyType: _getRawType(types[0]),
+            valueType: _getRawType(types[1]),
+            isReadOnly: decl.readonly,
+            isFromIterable: false,
+          );
+          break;
         case 'setlike':
+          break;
         case 'iterable':
         case 'async_iterable':
+          final decl = member as idl.MemberDeclaration;
+          final types =
+              ((decl.idlType as JSAny) as JSArray<idl.IDLType>).toDart;
+          RawType? keyType;
+          late RawType valueType;
+
+          if (types.length == 1) {
+            valueType = _getRawType(types[0]);
+          } else if (types.length == 2) {
+            keyType = _getRawType(types[0]);
+            valueType = _getRawType(types[1]);
+          } else {
+            throw Exception('Unexpected number of type arguments for iterable');
+          }
+
+          iterableInfo = IterableInfo(
+            keyType: keyType,
+            valueType: valueType,
+            isAsync: decl.async,
+          );
           break;
         default:
           throw Exception('Unrecognized member type $type');

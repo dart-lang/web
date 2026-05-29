@@ -27,7 +27,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        sdk: ['3.10', dev]
+        # Add back in 3.12 when it's stable
+        sdk: [beta, dev]
 
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
@@ -51,6 +52,9 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
       - uses: dart-lang/setup-dart@65eb853c7ba17dde3be364c3d2858773e7144260
+        with:
+          # Drop this when 3.12 is stable
+          sdk: dev
 
       - run: npm install
       - run: dart pub get
@@ -66,6 +70,9 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
       - uses: dart-lang/setup-dart@65eb853c7ba17dde3be364c3d2858773e7144260
+        with:
+          # Drop this when 3.12 is stable
+          sdk: dev
 
       - run: npm install
       - run: dart pub get

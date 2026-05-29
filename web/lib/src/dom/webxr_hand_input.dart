@@ -28,7 +28,15 @@ typedef XRHandJoint = String;
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/XRHand).
-extension type XRHand._(JSObject _) implements JSObject {}
+extension type XRHand._(JSObject _)
+    implements JSObject, JSIterable<JSArray<JSAny>> {
+  Iterable<({String key, XRJointSpace value})> get toDart => toDartIterable.map(
+    (e) => (
+      key: (e.toDart[0] as JSString).toDart,
+      value: (e.toDart[1] as XRJointSpace),
+    ),
+  );
+}
 
 /// The **`XRJointSpace`** interface is an [XRSpace] and represents the position
 /// and orientation of an [XRHand] joint.

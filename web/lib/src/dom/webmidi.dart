@@ -13,6 +13,7 @@
 @JS()
 library;
 
+import 'dart:collection';
 import 'dart:js_interop';
 
 import 'dom.dart';
@@ -44,7 +45,34 @@ extension type MIDIOptions._(JSObject _) implements JSObject {
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MIDIInputMap).
-extension type MIDIInputMap._(JSObject _) implements JSObject {}
+extension type MIDIInputMap._(JSObject _) implements JSObject {
+  @JS()
+  external MIDIInput? get(JSString key);
+  @JS()
+  external bool has(JSString key);
+  @JS()
+  external JSIterator<JSString> keys();
+  Map<String, MIDIInput> get asMap => _MIDIInputMapMapView(this);
+}
+
+class _MIDIInputMapMapView extends UnmodifiableMapBase<String, MIDIInput> {
+  _MIDIInputMapMapView(this._jsObject);
+
+  final MIDIInputMap _jsObject;
+
+  @override
+  MIDIInput? operator [](Object? key) {
+    if (key is! String) return null;
+    final value = _jsObject.get(key.toJS);
+    if (value == null) return null;
+    return value;
+  }
+
+  @override
+  Iterable<String> get keys {
+    return _jsObject.keys().toDartIterable.map((e) => e.toDart);
+  }
+}
 
 /// The **`MIDIOutputMap`** read-only interface of the
 /// [Web MIDI API](https://developer.mozilla.org/en-US/docs/Web/API/Web_MIDI_API)
@@ -59,7 +87,34 @@ extension type MIDIInputMap._(JSObject _) implements JSObject {}
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MIDIOutputMap).
-extension type MIDIOutputMap._(JSObject _) implements JSObject {}
+extension type MIDIOutputMap._(JSObject _) implements JSObject {
+  @JS()
+  external MIDIOutput? get(JSString key);
+  @JS()
+  external bool has(JSString key);
+  @JS()
+  external JSIterator<JSString> keys();
+  Map<String, MIDIOutput> get asMap => _MIDIOutputMapMapView(this);
+}
+
+class _MIDIOutputMapMapView extends UnmodifiableMapBase<String, MIDIOutput> {
+  _MIDIOutputMapMapView(this._jsObject);
+
+  final MIDIOutputMap _jsObject;
+
+  @override
+  MIDIOutput? operator [](Object? key) {
+    if (key is! String) return null;
+    final value = _jsObject.get(key.toJS);
+    if (value == null) return null;
+    return value;
+  }
+
+  @override
+  Iterable<String> get keys {
+    return _jsObject.keys().toDartIterable.map((e) => e.toDart);
+  }
+}
 
 /// The **`MIDIAccess`** interface of the
 /// [Web MIDI API](https://developer.mozilla.org/en-US/docs/Web/API/Web_MIDI_API)

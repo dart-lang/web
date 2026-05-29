@@ -13,6 +13,7 @@
 @JS()
 library;
 
+import 'dart:collection';
 import 'dart:js_interop';
 
 import 'dom.dart';
@@ -69,4 +70,31 @@ extension type PerformanceEventTiming._(JSObject _)
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/EventCounts).
-extension type EventCounts._(JSObject _) implements JSObject {}
+extension type EventCounts._(JSObject _) implements JSObject {
+  @JS()
+  external JSNumber? get(JSString key);
+  @JS()
+  external bool has(JSString key);
+  @JS()
+  external JSIterator<JSString> keys();
+  Map<String, int> get asMap => _EventCountsMapView(this);
+}
+
+class _EventCountsMapView extends UnmodifiableMapBase<String, int> {
+  _EventCountsMapView(this._jsObject);
+
+  final EventCounts _jsObject;
+
+  @override
+  int? operator [](Object? key) {
+    if (key is! String) return null;
+    final value = _jsObject.get(key.toJS);
+    if (value == null) return null;
+    return value.toDartDouble.toInt();
+  }
+
+  @override
+  Iterable<String> get keys {
+    return _jsObject.keys().toDartIterable.map((e) => e.toDart);
+  }
+}

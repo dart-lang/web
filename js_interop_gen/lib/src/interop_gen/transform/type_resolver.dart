@@ -652,21 +652,23 @@ class TypeResolver {
           typeName.kind == TSSyntaxKind.QualifiedName,
     );
 
-    var symbol = transformer.typeChecker.getSymbolAtLocation(typeName);
-    if (symbol != null) {
-      final declarations = symbol.getDeclarations()?.toDart ?? [];
-      for (final decl in declarations) {
-        if (decl.kind == TSSyntaxKind.ImportSpecifier ||
-            decl.kind == TSSyntaxKind.ExportSpecifier) {
-          symbol = transformer.typeChecker.getAliasedSymbol(symbol!);
-          break;
-        }
+    final symbol = transformer.typeChecker.getSymbolAtLocation(typeName);
+    if (symbol == null) {
+      throw Exception('Could not resolve type: symbol is null');
+    }
+    var resolvedSymbol = symbol;
+    final declarations = symbol.getDeclarations()?.toDart ?? [];
+    for (final decl in declarations) {
+      if (decl.kind == TSSyntaxKind.ImportSpecifier ||
+          decl.kind == TSSyntaxKind.ExportSpecifier) {
+        resolvedSymbol = transformer.typeChecker.getAliasedSymbol(symbol);
+        break;
       }
     }
 
     return getTypeFromSymbol(
-      symbol,
-      transformer.typeChecker.getTypeOfSymbol(symbol!),
+      resolvedSymbol,
+      transformer.typeChecker.getTypeOfSymbol(resolvedSymbol),
       typeArguments,
       isNotTypableDeclaration,
       typeArg,

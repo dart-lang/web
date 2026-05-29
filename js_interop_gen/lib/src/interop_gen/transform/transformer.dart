@@ -1436,7 +1436,6 @@ class Transformer {
           ...operators.map((p) => (p.name, p.returnType.id.name)),
         ];
         // get a name
-        // get a name
         final name = 'AnonymousType_${AnonymousHasher.hashObject(hashObject)}';
 
         // get an expected id

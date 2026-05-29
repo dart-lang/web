@@ -6,7 +6,7 @@
 /// helpers.
 ///
 /// This should not be exported outside of this library.
-class Equivalence {
+sealed class Equivalence {
   /// If null, assumed to be a top-level member.
   final String? type;
 

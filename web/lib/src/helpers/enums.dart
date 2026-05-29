@@ -2,7 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-/// Helper layer library that exposes enums commonly used from `dart:html`.
+/// Helper layer library that exposes  enum-likes commonly used from
+/// `dart:html`.
 library;
 
 import '../dom/html.dart';
@@ -212,9 +213,66 @@ abstract final class KeyCode {
   static const int NUM_MINUS = 109;
   // ignore: constant_identifier_names
   static const int NUM_PERIOD = 110;
+  // ignore: constant_identifier_names
+  static const int NUM_DIVISION = 111;
+  // ignore: constant_identifier_names
+  static const int SEMICOLON = 186;
+  // ignore: constant_identifier_names
+  static const int EQUALS = 187;
+  // ignore: constant_identifier_names
+  static const int COMMA = 188;
+  // ignore: constant_identifier_names
+  static const int DASH = 189;
+  // ignore: constant_identifier_names
+  static const int PERIOD = 190;
+  // ignore: constant_identifier_names
+  static const int SLASH = 191;
+  // ignore: constant_identifier_names
+  static const int APOSTROPHE = 192;
+  // ignore: constant_identifier_names
+  static const int OPEN_SQUARE_BRACKET = 219;
+  // ignore: constant_identifier_names
+  static const int BACKSLASH = 220;
+  // ignore: constant_identifier_names
+  static const int CLOSE_SQUARE_BRACKET = 221;
+  // ignore: constant_identifier_names
+  static const int SINGLE_QUOTE = 222;
   // Firefox (Gecko) fires this for the meta key instead of 91
   // ignore: constant_identifier_names
   static const int MAC_FF_META = 224;
+
+  static bool isCharacterKey(int keyCode) {
+    if ((keyCode >= ZERO && keyCode <= NINE) ||
+        (keyCode >= NUM_ZERO && keyCode <= NUM_MULTIPLY) ||
+        (keyCode >= A && keyCode <= Z)) {
+      return true;
+    }
+
+    // Safari sends zero key code for non-latin characters.
+    if (Device.isWebKit && keyCode == 0) {
+      return true;
+    }
+
+    return keyCode == SPACE ||
+        keyCode == QUESTION_MARK ||
+        keyCode == NUM_PLUS ||
+        keyCode == NUM_MINUS ||
+        keyCode == NUM_PERIOD ||
+        keyCode == NUM_DIVISION ||
+        keyCode == SEMICOLON ||
+        keyCode == FF_SEMICOLON ||
+        keyCode == DASH ||
+        keyCode == EQUALS ||
+        keyCode == FF_EQUALS ||
+        keyCode == COMMA ||
+        keyCode == PERIOD ||
+        keyCode == SLASH ||
+        keyCode == APOSTROPHE ||
+        keyCode == SINGLE_QUOTE ||
+        keyCode == OPEN_SQUARE_BRACKET ||
+        keyCode == BACKSLASH ||
+        keyCode == CLOSE_SQUARE_BRACKET;
+  }
 }
 
 abstract final class Device {
@@ -297,4 +355,54 @@ abstract class HttpStatus {
   static const int networkAuthenticationRequired = 511;
   // Client generated status code.
   static const int networkConnectTimeoutError = 599;
+}
+
+abstract final class NodeFilterEnum {
+  // ignore: constant_identifier_names
+  static const int SHOW_ALL = 4294967295;
+  // ignore: constant_identifier_names
+  static const int SHOW_ATTRIBUTE = 2;
+  // ignore: constant_identifier_names
+  static const int SHOW_CDATA_SECTION = 8;
+  // ignore: constant_identifier_names
+  static const int SHOW_COMMENT = 128;
+  // ignore: constant_identifier_names
+  static const int SHOW_DOCUMENT = 256;
+  // ignore: constant_identifier_names
+  static const int SHOW_DOCUMENT_FRAGMENT = 1024;
+  // ignore: constant_identifier_names
+  static const int SHOW_DOCUMENT_TYPE = 512;
+  // ignore: constant_identifier_names
+  static const int SHOW_ELEMENT = 1;
+  // ignore: constant_identifier_names
+  static const int SHOW_ENTITY = 32;
+  // ignore: constant_identifier_names
+  static const int SHOW_ENTITY_REFERENCE = 16;
+  // ignore: constant_identifier_names
+  static const int SHOW_NOTATION = 2048;
+  // ignore: constant_identifier_names
+  static const int SHOW_PROCESSING_INSTRUCTION = 64;
+  // ignore: constant_identifier_names
+  static const int SHOW_TEXT = 4;
+}
+
+final class ScrollAlignment {
+  final String _value;
+
+  const ScrollAlignment._internal(this._value);
+
+  @override
+  String toString() => 'ScrollAlignment.$_value';
+
+  /// Attempt to align the element to the top of the scrollable area.
+  // ignore: constant_identifier_names
+  static const TOP = ScrollAlignment._internal('TOP');
+
+  /// Attempt to center the element in the scrollable area.
+  // ignore: constant_identifier_names
+  static const CENTER = ScrollAlignment._internal('CENTER');
+
+  /// Attempt to align the element to the bottom of the scrollable area.
+  // ignore: constant_identifier_names
+  static const BOTTOM = ScrollAlignment._internal('BOTTOM');
 }

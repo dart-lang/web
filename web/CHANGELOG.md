@@ -12,7 +12,11 @@
   extensions to support mutable operations on node lists.
 - Added `asList` to `NodeList` via extension.
 - Removed `CustomEventProviders`. Moved these events to `EventStreamProviders`.
-- Require `sdk: ^3.10.0`.
+- Require `sdk: ^3.12.0` to support `isA` on `Object?`.
+- Rename `*Glue` extensions to `*Extension`.
+- Various extension methods bridging `dart:html` APIs are added to make it
+  easier to migrate. `@Equivalence` annotations are now added to extension
+  methods to document 1-1 replacements of `dart:html` APIs.
 
 ## 1.1.1
 

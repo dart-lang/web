@@ -446,16 +446,6 @@ extension BroadcastChannelEvents on BroadcastChannel {
       EventStreamProviders.messageEvent.forTarget(this);
 }
 
-extension DocumentCustomEvents on Document {
-  Stream<Event> get onLoad => EventStreamProviders.loadEvent.forTarget(this);
-
-  Stream<WheelEvent> get onMouseWheel =>
-      EventStreamProviders.mouseWheelEvent.forTarget(this);
-
-  Stream<Event> get onVisibilityChange =>
-      EventStreamProviders.visibilityChangeEvent.forTarget(this);
-}
-
 extension PerformanceEvents on Performance {
   Stream<Event> get onResourceTimingBufferFull =>
       EventStreamProviders.resourceTimingBufferFull.forTarget(this);

@@ -6,7 +6,7 @@ import '../../dom.dart';
 import 'providers.dart';
 import 'streams.dart';
 
-extension AutoElementEvents on AudioNode {
+extension AudioNodeEvents on AudioNode {
   Stream<Event> get onEnded => EventStreamProviders.endedEvent.forTarget(this);
 }
 

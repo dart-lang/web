@@ -163,16 +163,16 @@ extension ElementExtension on Element {
   @Equivalence(type: 'Element', member: 'focus')
   external void focus();
 
-  @Equivalence(type: 'Element', member: 'innerText')
-  external String get innerText;
-  @Equivalence(type: 'Element', member: 'innerText')
-  external set innerText(String value);
-
   @Equivalence(type: 'Element', member: 'getComputedStyle')
   CSSStyleDeclaration getComputedStyle([String? pseudoElement]) {
     pseudoElement ??= '';
     return window.getComputedStyle(this, pseudoElement);
   }
+
+  @Equivalence(type: 'Element', member: 'innerText')
+  external String get innerText;
+  @Equivalence(type: 'Element', member: 'innerText')
+  external set innerText(String value);
 
   @Equivalence(type: 'Element', member: 'marginEdge')
   CssRect get marginEdge => MarginCssRect(this);

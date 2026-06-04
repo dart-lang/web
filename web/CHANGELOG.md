@@ -17,6 +17,7 @@
 - Various extension methods bridging `dart:html` APIs are added to make it
   easier to migrate. `@Equivalence` annotations are now added to extension
   methods to document 1-1 replacements of `dart:html` APIs.
+- Combined stream provider extensions to one per type.
 
 ## 1.1.1
 

@@ -84,6 +84,11 @@ extension CSSStyleDeclarationExtension on CSSStyleDeclaration {
   }
 }
 
+extension DataTransferExtension on DataTransfer {
+  @Equivalence(type: 'DataTransfer', member: 'files')
+  List<File>? get filesAsList => has('files') ? files.asList() : null;
+}
+
 extension DocumentExtension on Document {
   @Equivalence(
     type: 'Document',
@@ -113,58 +118,8 @@ extension DOMStringMapExtension on DOMStringMap {
 
 /// Contains subtype members that were moved up in `dart:html` to `Element`.
 extension ElementExtension on Element {
-  @Equivalence(type: 'Element', member: 'style')
-  external CSSStyleDeclaration get style;
-
-  @Equivalence(type: 'Element', member: 'classes')
-  CssClassSet get classes => ElementCssClassSet(this);
-
-  @Equivalence(type: 'Element', member: 'getComputedStyle')
-  CSSStyleDeclaration getComputedStyle([String? pseudoElement]) {
-    pseudoElement ??= '';
-    return window.getComputedStyle(this, pseudoElement);
-  }
-
-  @Equivalence(type: 'Element', member: 'tabIndex')
-  external int? get tabIndex;
-  @Equivalence(type: 'Element', member: 'tabIndex')
-  external set tabIndex(int? v);
-
-  @Equivalence(type: 'Element', member: 'dir')
-  external String? get dir;
-  @Equivalence(type: 'Element', member: 'dir')
-  external set dir(String? s);
-
-  @Equivalence(type: 'Element', member: 'innerText')
-  external String get innerText;
-  @Equivalence(type: 'Element', member: 'innerText')
-  external set innerText(String value);
-
-  @Equivalence(type: 'Element', member: 'offsetLeft')
-  external int get offsetLeft;
-  @Equivalence(type: 'Element', member: 'offsetTop')
-  external int get offsetTop;
-  @Equivalence(type: 'Element', member: 'offsetWidth')
-  external int get offsetWidth;
-  @Equivalence(type: 'Element', member: 'offsetHeight')
-  external int get offsetHeight;
-
-  @Equivalence(type: 'Element', member: 'offset')
-  Rectangle get offset =>
-      Rectangle(offsetLeft, offsetTop, offsetWidth, offsetHeight);
-
-  @Equivalence(type: 'Element', member: 'offsetParent')
-  external Element? get offsetParent;
-
-  @Equivalence(type: 'Element', member: 'focus')
-  external void focus();
-  @Equivalence(type: 'Element', member: 'click')
-  external void click();
-  @Equivalence(type: 'Element', member: 'blur')
-  external void blur();
-
-  @Equivalence(type: 'Element', member: 'attributes')
-  Map<String, String> get attributesAsMap => ElementAttributeMap(this);
+  @Equivalence(type: 'Element', member: 'appendText')
+  void appendText(String text) => append(Text(text));
 
   @Equivalence(type: 'Element', member: 'attributes')
   set attributes(Map<String, String> value) {
@@ -175,8 +130,52 @@ extension ElementExtension on Element {
     });
   }
 
+  @Equivalence(type: 'Element', member: 'attributes')
+  Map<String, String> get attributesAsMap => ElementAttributeMap(this);
+
+  @Equivalence(type: 'Element', member: 'blur')
+  external void blur();
+
+  @Equivalence(type: 'Element', member: 'borderEdge')
+  CssRect get borderEdge => BorderCssRect(this);
+
+  /// Returns [children] as a modifiable [List].
+  @Equivalence(type: 'Element', member: 'children')
+  List<Element> get childrenAsList => HTMLCollectionListWrapper(this, children);
+
+  @Equivalence(type: 'Element', member: 'classes')
+  CssClassSet get classes => ElementCssClassSet(this);
+
+  @Equivalence(type: 'Element', member: 'click')
+  external void click();
+
   @Equivalence(type: 'Element', member: 'dataset')
   Map<String, String> get dataset => DataAttributeMap(attributesAsMap);
+
+  @Equivalence(type: 'Element', member: 'dir')
+  external String? get dir;
+  @Equivalence(type: 'Element', member: 'dir')
+  external set dir(String? s);
+
+  @Equivalence(type: 'Element', member: 'documentOffset')
+  Point get documentOffset => offsetTo(document.documentElement!);
+
+  @Equivalence(type: 'Element', member: 'focus')
+  external void focus();
+
+  @Equivalence(type: 'Element', member: 'innerText')
+  external String get innerText;
+  @Equivalence(type: 'Element', member: 'innerText')
+  external set innerText(String value);
+
+  @Equivalence(type: 'Element', member: 'getComputedStyle')
+  CSSStyleDeclaration getComputedStyle([String? pseudoElement]) {
+    pseudoElement ??= '';
+    return window.getComputedStyle(this, pseudoElement);
+  }
+
+  @Equivalence(type: 'Element', member: 'marginEdge')
+  CssRect get marginEdge => MarginCssRect(this);
 
   @Equivalence(type: 'Element', member: 'matchesWithAncestors')
   bool matchesWithAncestors(String selectors) {
@@ -191,19 +190,18 @@ extension ElementExtension on Element {
   @Equivalence(type: 'Element', member: 'namespaceUri')
   String? get namespaceUri => namespaceURI;
 
-  @Equivalence(
-    type: 'Element',
-    member: 'querySelectorAll',
-    details:
-        "'dart:html' returned a `_FrozenElementList`, which provided "
-        'additional helpers like stream listeners.',
-  )
-  JSImmutableListWrapper<NodeList, T> querySelectorAllAsList<T extends Element>(
-    String selectors,
-  ) => JSImmutableListWrapper<NodeList, T>(querySelectorAll(selectors));
+  @Equivalence(type: 'Element', member: 'offset')
+  Rectangle get offset =>
+      Rectangle(offsetLeft, offsetTop, offsetWidth, offsetHeight);
 
-  @Equivalence(type: 'Element', member: 'appendText')
-  void appendText(String text) => append(Text(text));
+  @Equivalence(type: 'Element', member: 'offsetHeight')
+  external int get offsetHeight;
+
+  @Equivalence(type: 'Element', member: 'offsetLeft')
+  external int get offsetLeft;
+
+  @Equivalence(type: 'Element', member: 'offsetParent')
+  external Element? get offsetParent;
 
   @Equivalence(type: 'Element', member: 'offsetTo')
   Point offsetTo(Element parent) =>
@@ -227,8 +225,26 @@ extension ElementExtension on Element {
     return Point(p.x + current.offsetLeft, p.y + current.offsetTop);
   }
 
-  @Equivalence(type: 'Element', member: 'marginEdge')
-  CssRect get marginEdge => MarginCssRect(this);
+  @Equivalence(type: 'Element', member: 'offsetTop')
+  external int get offsetTop;
+
+  @Equivalence(type: 'Element', member: 'offsetWidth')
+  external int get offsetWidth;
+
+  @Equivalence(
+    type: 'Element',
+    member: 'querySelectorAll',
+    details:
+        "'dart:html' returned a `_FrozenElementList`, which provided "
+        'additional helpers like stream listeners.',
+  )
+  JSImmutableListWrapper<NodeList, T> querySelectorAllAsList<T extends Element>(
+    String selectors,
+  ) => JSImmutableListWrapper<NodeList, T>(querySelectorAll(selectors));
+
+  @Equivalence(type: 'Element', member: 'scrollIntoViewIfNeeded')
+  @JS('scrollIntoViewIfNeeded')
+  external void scrollIntoViewIfNeeded([bool? centerIfNeeded]);
 
   @Equivalence(type: 'Element', member: 'scrollIntoView')
   void scrollIntoViewWithAlignment([ScrollAlignment? alignment]) {
@@ -248,19 +264,13 @@ extension ElementExtension on Element {
     }
   }
 
-  @Equivalence(type: 'Element', member: 'scrollIntoViewIfNeeded')
-  @JS('scrollIntoViewIfNeeded')
-  external void scrollIntoViewIfNeeded([bool? centerIfNeeded]);
+  @Equivalence(type: 'Element', member: 'style')
+  external CSSStyleDeclaration get style;
 
-  @Equivalence(type: 'Element', member: 'borderEdge')
-  CssRect get borderEdge => BorderCssRect(this);
-
-  @Equivalence(type: 'Element', member: 'documentOffset')
-  Point get documentOffset => offsetTo(document.documentElement!);
-
-  /// Returns [children] as a modifiable [List].
-  @Equivalence(type: 'Element', member: 'children')
-  List<Element> get childrenAsList => HTMLCollectionListWrapper(this, children);
+  @Equivalence(type: 'Element', member: 'tabIndex')
+  external int? get tabIndex;
+  @Equivalence(type: 'Element', member: 'tabIndex')
+  external set tabIndex(int? v);
 }
 
 extension EventExtension on Event {
@@ -280,34 +290,23 @@ extension EventTargetExtension on EventTarget {
   }
 }
 
-extension InputElementExtension on HTMLInputElement {
-  @Equivalence(type: 'InputElement', member: 'files')
-  List<File>? get filesAsList => files?.asList();
-}
-
-extension DataTransferExtension on DataTransfer {
-  @Equivalence(type: 'DataTransfer', member: 'files')
-  List<File>? get filesAsList => has('files') ? files.asList() : null;
-}
-
 extension FileListExtension on FileList {
   List<File> asList() => JSImmutableListWrapper<FileList, File>(this);
-  @Equivalence(type: 'FileList', member: 'first')
-  File get first => item(0)!;
-  @Equivalence(type: 'FileList', member: 'isEmpty')
-  bool get isEmpty => length == 0;
+
   @Equivalence(type: 'FileList', member: 'elementAt')
   File elementAt(int i) => item(i)!;
+
+  @Equivalence(type: 'FileList', member: 'first')
+  File get first => item(0)!;
+
+  @Equivalence(type: 'FileList', member: 'isEmpty')
+  bool get isEmpty => length == 0;
 }
 
 extension HTMLCanvasElementExtension on HTMLCanvasElement {
   @Equivalence(type: 'CanvasElement', member: 'context2D')
   CanvasRenderingContext2D get context2D =>
       getContext('2d') as CanvasRenderingContext2D;
-
-  @Equivalence(type: 'CanvasElement', member: 'toDataUrl')
-  String toDataUrl([String type = 'image/png', num? quality]) =>
-      (quality == null) ? toDataURL(type) : toDataURL(type, quality.toJS);
 
   @Equivalence(type: 'CanvasElement', member: 'getContext3d')
   RenderingContext? getContext3d({
@@ -346,17 +345,24 @@ extension HTMLCanvasElementExtension on HTMLCanvasElement {
     }
     return completer.future;
   }
+
+  @Equivalence(type: 'CanvasElement', member: 'toDataUrl')
+  String toDataUrl([String type = 'image/png', num? quality]) =>
+      (quality == null) ? toDataURL(type) : toDataURL(type, quality.toJS);
 }
 
 extension HTMLCollectionExtension on HTMLCollection {
+  List<Element> asList() =>
+      JSImmutableListWrapper<HTMLCollection, Element>(this);
+
+  @Equivalence(type: 'HtmlCollection', member: 'first')
+  Element get first => item(0)!;
+
   @Equivalence(type: 'HtmlCollection', member: 'isEmpty')
   bool get isEmpty => length == 0;
 
   @Equivalence(type: 'HtmlCollection', member: 'isNotEmpty')
   bool get isNotEmpty => length > 0;
-
-  @Equivalence(type: 'HtmlCollection', member: 'first')
-  Element get first => item(0)!;
 
   @Equivalence(type: 'HtmlCollection', member: 'last')
   Element get last => item(length - 1)!;
@@ -371,36 +377,178 @@ extension HTMLCollectionExtension on HTMLCollection {
 
   @Equivalence(type: 'HtmlCollection', member: '[]')
   Element operator [](int i) => item(i)!;
+}
 
-  List<Element> asList() =>
-      JSImmutableListWrapper<HTMLCollection, Element>(this);
+extension HTMLInputElementExtension on HTMLInputElement {
+  @Equivalence(type: 'InputElement', member: 'files')
+  List<File>? get filesAsList => files?.asList();
+}
+
+extension MouseEventExtension on MouseEvent {
+  @Equivalence(type: 'MouseEvent', member: 'client')
+  Point get client => Point(clientX, clientY);
+
+  // This really belongs on the `DragEvent` subtype, but `dart:html` moved it
+  // up.
+  @Equivalence(type: 'MouseEvent', member: 'dataTransfer')
+  external DataTransfer get dataTransfer;
+
+  @Equivalence(type: 'MouseEvent', member: 'page')
+  Point get page => Point(pageX, pageY);
+
+  @Equivalence(type: 'MouseEvent', member: 'screen')
+  Point get screen => Point(screenX, screenY);
+}
+
+extension NodeExtension on Node {
+  @Equivalence(type: 'Node', member: 'append')
+  Node append(Node other) => appendChild(other);
+
+  /// Returns [childNodes] as a modifiable [List].
+  @Equivalence(type: 'Node', member: 'childNodes')
+  List<Node> get childNodesAsList => NodeListListWrapper(this, childNodes);
+
+  @Equivalence(type: 'Node', member: 'clone')
+  Node clone(bool? deep) => cloneNode(deep ?? false);
+
+  @Equivalence(type: 'Node', member: 'insertAllBefore')
+  void insertAllBefore(Iterable<Node> newNodes, Node child) {
+    // `toList` to avoid potential infinite recursion if `newNodes` is a wrapper
+    // around this `Node`.
+    for (var node in newNodes.toList()) {
+      insertBefore(node, child);
+    }
+  }
+
+  @Equivalence(type: 'Node', member: 'nextNode')
+  Node? get nextNode => nextSibling;
+
+  @Equivalence(type: 'Node', member: 'nodes')
+  List<Node> get nodes => childNodesAsList;
+
+  @Equivalence(type: 'Node', member: 'nodes')
+  set nodes(Iterable<Node> value) {
+    final copy = value.toList();
+    text = '';
+    for (final node in copy) {
+      appendChild(node);
+    }
+  }
+
+  @Equivalence(type: 'Node', member: 'parent')
+  Element? get parent => parentElement;
+
+  @Equivalence(type: 'Node', member: 'remove')
+  void remove() {
+    final parent = parentNode;
+    if (parent != null) {
+      parent.removeChild(this);
+    }
+  }
+
+  @Equivalence(type: 'Node', member: 'text')
+  String? get text => textContent;
+
+  @Equivalence(type: 'Node', member: 'text')
+  set text(String? s) => textContent = s;
+}
+
+extension NodeListExtension on NodeList {
+  /// Returns node list as an immutable [List].
+  List<T> asList<T extends Node>() => JSImmutableListWrapper<NodeList, T>(this);
+
+  @Equivalence(type: 'NodeList', member: 'elementAt')
+  Node elementAt(int i) => item(i)!;
+
+  @Equivalence(type: 'NodeList', member: 'isEmpty')
+  bool get isEmpty => length == 0;
+}
+
+extension StorageExtension on Storage {
+  @Equivalence(type: 'Storage', member: '[]')
+  String? operator [](String key) => getItem(key);
+
+  @Equivalence(type: 'Storage', member: '[]=')
+  void operator []=(String key, String value) => setItem(key, value);
+}
+
+extension TouchEventExtension on TouchEvent {
+  // Safari still doesn't support `TouchEvent`s:
+  // https://developer.mozilla.org/en-US/docs/Web/API/TouchEvent
+  @Equivalence(type: 'TouchEvent', member: 'supported')
+  static bool get supported {
+    try {
+      TouchEvent('touches');
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+}
+
+extension TouchExtension on Touch {
+  @Equivalence(type: 'Touch', member: 'client')
+  Point get client => Point(clientX, clientY);
+
+  @Equivalence(type: 'Touch', member: 'page')
+  Point get page => Point(pageX, pageY);
+}
+
+extension TouchListExtension on TouchList {
+  List<Touch> asList() => JSImmutableListWrapper<TouchList, Touch>(this);
+
+  @Equivalence(type: 'TouchList', member: 'elementAt')
+  Touch elementAt(int i) => item(i)!;
+
+  @Equivalence(type: 'TouchList', member: 'first')
+  Touch get first => item(0)!;
+
+  @Equivalence(type: 'TouchList', member: 'isEmpty')
+  bool get isEmpty => length == 0;
+}
+
+extension UriExtension on Uri {
+  /// Converts this to a JavaScript [URL] object.
+  ///
+  /// Throws an [ArgumentError] if this isn't an absolute URL, since [URL] can
+  /// only represent absolute URLs.
+  URL get toJS {
+    try {
+      return URL(toString());
+    } catch (_) {
+      throw ArgumentError.value(this, 'this', '"$this" isn\'t a valid JS URL.');
+    }
+  }
+}
+
+extension URLExtension on URL {
+  /// Converts this to a Dart [Uri] object.
+  Uri get toDart => Uri.parse(toString());
+}
+
+extension WindowExtension on Window {
+  @Equivalence(type: 'Window', member: 'animationFrame')
+  Future<num> get animationFrame {
+    final completer = Completer<num>.sync();
+    void getTimestamp(num timestamp) {
+      completer.complete(timestamp);
+    }
+
+    requestAnimationFrame(getTimestamp.toJS);
+    return completer.future;
+  }
+
+  @Equivalence(type: 'Window', member: 'console')
+  StringConsole get console => StringConsole(dom.console);
+
+  @Equivalence(type: 'Window', member: 'localStorage')
+  StorageMap get localStorageAsMap => StorageMap(localStorage);
+
+  @Equivalence(type: 'Window', member: 'sessionStorage')
+  StorageMap get sessionStorageAsMap => StorageMap(sessionStorage);
 }
 
 extension XMLHttpRequestExtension on XMLHttpRequest {
-  @Equivalence(type: 'HttpRequest', member: 'responseHeaders')
-  Map<String, String> get responseHeaders {
-    final headers = <String, String>{};
-    final headersString = getAllResponseHeaders();
-    final headersList = headersString.split('\r\n');
-    for (final header in headersList) {
-      if (header.isEmpty) {
-        continue;
-      }
-      final splitIdx = header.indexOf(': ');
-      if (splitIdx == -1) {
-        continue;
-      }
-      final key = header.substring(0, splitIdx).toLowerCase();
-      final value = header.substring(splitIdx + 2);
-      if (headers.containsKey(key)) {
-        headers[key] = '${headers[key]}, $value';
-      } else {
-        headers[key] = value;
-      }
-    }
-    return headers;
-  }
-
   @Equivalence(type: 'HttpRequest', member: 'request')
   static Future<XMLHttpRequest> request(
     String url, {
@@ -469,167 +617,30 @@ extension XMLHttpRequestExtension on XMLHttpRequest {
 
     return completer.future;
   }
-}
 
-extension URLToUri on URL {
-  /// Converts this to a Dart [Uri] object.
-  Uri get toDart => Uri.parse(toString());
-}
-
-extension UriToURL on Uri {
-  /// Converts this to a JavaScript [URL] object.
-  ///
-  /// Throws an [ArgumentError] if this isn't an absolute URL, since [URL] can
-  /// only represent absolute URLs.
-  URL get toJS {
-    try {
-      return URL(toString());
-    } catch (_) {
-      throw ArgumentError.value(this, 'this', '"$this" isn\'t a valid JS URL.');
+  @Equivalence(type: 'HttpRequest', member: 'responseHeaders')
+  Map<String, String> get responseHeaders {
+    final headers = <String, String>{};
+    final headersString = getAllResponseHeaders();
+    final headersList = headersString.split('\r\n');
+    for (final header in headersList) {
+      if (header.isEmpty) {
+        continue;
+      }
+      final splitIdx = header.indexOf(': ');
+      if (splitIdx == -1) {
+        continue;
+      }
+      final key = header.substring(0, splitIdx).toLowerCase();
+      final value = header.substring(splitIdx + 2);
+      if (headers.containsKey(key)) {
+        headers[key] = '${headers[key]}, $value';
+      } else {
+        headers[key] = value;
+      }
     }
+    return headers;
   }
-}
-
-extension MouseEventExtension on MouseEvent {
-  @Equivalence(type: 'MouseEvent', member: 'client')
-  Point get client => Point(clientX, clientY);
-
-  @Equivalence(type: 'MouseEvent', member: 'screen')
-  Point get screen => Point(screenX, screenY);
-
-  @Equivalence(type: 'MouseEvent', member: 'page')
-  Point get page => Point(pageX, pageY);
-
-  // This really belongs on the `DragEvent` subtype, but `dart:html` moved it
-  // up.
-  @Equivalence(type: 'MouseEvent', member: 'dataTransfer')
-  external DataTransfer get dataTransfer;
-}
-
-extension NodeExtension on Node {
-  @Equivalence(type: 'Node', member: 'text')
-  String? get text => textContent;
-
-  @Equivalence(type: 'Node', member: 'text')
-  set text(String? s) => textContent = s;
-
-  @Equivalence(type: 'Node', member: 'append')
-  Node append(Node other) => appendChild(other);
-
-  @Equivalence(type: 'Node', member: 'clone')
-  Node clone(bool? deep) => cloneNode(deep ?? false);
-
-  @Equivalence(type: 'Node', member: 'parent')
-  Element? get parent => parentElement;
-
-  @Equivalence(type: 'Node', member: 'nextNode')
-  Node? get nextNode => nextSibling;
-
-  @Equivalence(type: 'Node', member: 'remove')
-  void remove() {
-    final parent = parentNode;
-    if (parent != null) {
-      parent.removeChild(this);
-    }
-  }
-
-  @Equivalence(type: 'Node', member: 'insertAllBefore')
-  void insertAllBefore(Iterable<Node> newNodes, Node child) {
-    // `toList` to avoid potential infinite recursion if `newNodes` is a wrapper
-    // around this `Node`.
-    for (var node in newNodes.toList()) {
-      insertBefore(node, child);
-    }
-  }
-
-  /// Returns [childNodes] as a modifiable [List].
-  @Equivalence(type: 'Node', member: 'childNodes')
-  List<Node> get childNodesAsList => NodeListListWrapper(this, childNodes);
-
-  @Equivalence(type: 'Node', member: 'nodes')
-  List<Node> get nodes => childNodesAsList;
-
-  @Equivalence(type: 'Node', member: 'nodes')
-  set nodes(Iterable<Node> value) {
-    final copy = value.toList();
-    text = '';
-    for (final node in copy) {
-      appendChild(node);
-    }
-  }
-}
-
-extension NodeListExtension on NodeList {
-  /// Returns node list as an immutable [List].
-  List<T> asList<T extends Node>() => JSImmutableListWrapper<NodeList, T>(this);
-
-  @Equivalence(type: 'NodeList', member: 'isEmpty')
-  bool get isEmpty => length == 0;
-
-  @Equivalence(type: 'NodeList', member: 'elementAt')
-  Node elementAt(int i) => item(i)!;
-}
-
-extension StorageExtension on Storage {
-  @Equivalence(type: 'Storage', member: '[]')
-  String? operator [](String key) => getItem(key);
-
-  @Equivalence(type: 'Storage', member: '[]=')
-  void operator []=(String key, String value) => setItem(key, value);
-}
-
-extension TouchEventExtension on TouchEvent {
-  // Safari still doesn't support `TouchEvent`s:
-  // https://developer.mozilla.org/en-US/docs/Web/API/TouchEvent
-  @Equivalence(type: 'TouchEvent', member: 'supported')
-  static bool get supported {
-    try {
-      TouchEvent('touches');
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
-}
-
-extension TouchExtension on Touch {
-  @Equivalence(type: 'Touch', member: 'page')
-  Point get page => Point(pageX, pageY);
-
-  @Equivalence(type: 'Touch', member: 'client')
-  Point get client => Point(clientX, clientY);
-}
-
-extension TouchListExtension on TouchList {
-  List<Touch> asList() => JSImmutableListWrapper<TouchList, Touch>(this);
-  @Equivalence(type: 'TouchList', member: 'first')
-  Touch get first => item(0)!;
-  @Equivalence(type: 'TouchList', member: 'isEmpty')
-  bool get isEmpty => length == 0;
-  @Equivalence(type: 'TouchList', member: 'elementAt')
-  Touch elementAt(int i) => item(i)!;
-}
-
-extension WindowExtension on Window {
-  @Equivalence(type: 'Window', member: 'animationFrame')
-  Future<num> get animationFrame {
-    final completer = Completer<num>.sync();
-    void getTimestamp(num timestamp) {
-      completer.complete(timestamp);
-    }
-
-    requestAnimationFrame(getTimestamp.toJS);
-    return completer.future;
-  }
-
-  @Equivalence(type: 'Window', member: 'console')
-  StringConsole get console => StringConsole(dom.console);
-
-  @Equivalence(type: 'Window', member: 'localStorage')
-  StorageMap get localStorageAsMap => StorageMap(localStorage);
-
-  @Equivalence(type: 'Window', member: 'sessionStorage')
-  StorageMap get sessionStorageAsMap => StorageMap(sessionStorage);
 }
 
 @Equivalence(type: null, member: 'querySelector')

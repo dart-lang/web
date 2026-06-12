@@ -1,0 +1,16 @@
+name: Overrides Test Config
+preamble: |
+  // Test config overrides and rename map
+  // GENERATED FILE: DO NOT EDIT
+  //
+  // Created by `js_interop_gen`
+input: 'test_overrides.d.ts'
+output: '../../.dart_tool/test_overrides.dart'
+rename_map:
+  RawRole: Role
+  ConfigurationDescription: ConfigDetails
+type_overrides:
+  ConfigDetails:
+    conflictProp: String
+  RHS:
+    value: String

@@ -21,6 +21,14 @@ external HyphenatedEnum get hyphenatedVal;
 typedef NumericHyphenatedEnum = AnonymousUnion_1018800;
 @_i1.JS()
 external NumericHyphenatedEnum get numericHyphenatedVal;
+extension type SharedType._(_i1.JSObject _) implements _i1.JSObject {
+  external SharedType();
+}
+@_i1.JS()
+external SharedType get nonNullableShared;
+typedef NullableSharedUnion = SharedType?;
+@_i1.JS()
+external NullableSharedUnion get nullableSharedVal;
 extension type AnonymousUnion_3170730._(_i1.JSObject _)
     implements _i1.JSObject {
   A get asA => (_ as A);

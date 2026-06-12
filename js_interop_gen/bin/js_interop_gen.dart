@@ -63,9 +63,16 @@ $_usage''');
     await compileDartMain();
   }
 
+  final defaultWebGenConfigPath = p.join(p.current, 'webgen.yaml');
+  final configFile =
+      argResult.option('config') ??
+      (File(defaultWebGenConfigPath).existsSync()
+          ? defaultWebGenConfigPath
+          : null);
+
   final inputFiles = argResult.rest;
-  if (inputFiles.isEmpty) {
-    print('Pass an input file to get started');
+  if (inputFiles.isEmpty && configFile == null) {
+    print('Pass an input file or a config file to get started');
     print(_usage);
     exitCode = ExitCode.usage.code;
     return;
@@ -73,22 +80,23 @@ $_usage''');
   final specifiedOutput = argResult.option('output');
   final outputFile =
       specifiedOutput ??
-      (inputFiles.length > 1
-          ? p.join(p.current, inputFiles.first.replaceAll('.d.ts', '.dart'))
-          : p.join(p.current, inputFiles.single.replaceAll('.d.ts', '.dart')));
-  final defaultWebGenConfigPath = p.join(p.current, 'webgen.yaml');
-  final configFile =
-      argResult.option('config') ??
-      (File(defaultWebGenConfigPath).existsSync()
-          ? defaultWebGenConfigPath
-          : null);
+      (inputFiles.isEmpty
+          ? ''
+          : (inputFiles.length > 1
+                ? p.join(
+                    p.current,
+                    inputFiles.first.replaceAll('.d.ts', '.dart'),
+                  )
+                : p.join(
+                    p.current,
+                    inputFiles.single.replaceAll('.d.ts', '.dart'),
+                  )));
   final relativeConfigFile = configFile != null
       ? p.relative(configFile, from: bindingsGeneratorPath)
       : null;
-  final relativeOutputPath = p.relative(
-    outputFile,
-    from: bindingsGeneratorPath,
-  );
+  final relativeOutputPath = outputFile.isNotEmpty
+      ? p.relative(outputFile, from: bindingsGeneratorPath)
+      : '';
   final tsConfigPath = argResult.option('ts-config');
   final tsConfigRelativePath = tsConfigPath != null
       ? p.relative(tsConfigPath, from: bindingsGeneratorPath)

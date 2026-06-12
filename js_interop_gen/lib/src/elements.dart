@@ -358,7 +358,7 @@ class PartialInterfacelike {
       .toDart
       .any((extAttr) => extAttr.name == 'HTMLConstructor');
 
-  void _processMembers(JSArray<idl.Member> nodeMembers) {
+  void _processMembers(JSArray<idl.Node> nodeMembers) {
     for (var i = 0; i < nodeMembers.length; i++) {
       final member = nodeMembers[i];
       final type = member.type;

@@ -68,18 +68,19 @@ class JSImmutableListWrapper<T extends JSObject, U extends JSObject>
   }
 }
 
-/// This mixin exists to avoid repetition in `NodeListListWrapper` and
-/// `HTMLCollectionListWrapper` It can be also used for `HTMLCollection` and
-/// `NodeList` that is
+/// This mixin exists to avoid repetition in `NodeListListWrapper` and `HTMLCollectionListWrapper`
+/// It can be also used for `HTMLCollection` and `NodeList` that is
 /// [live](https://developer.mozilla.org/en-US/docs/Web/API/NodeList#live_vs._static_nodelists)
-/// and can be safely modified at runtime. This requires an instance of `P`, a
-/// container that elements would be added to or removed from.
+/// and can be safely modified at runtime.
+/// This requires an instance of `P`, a container that elements would be added to or removed from.
 abstract mixin class _LiveNodeListMixin<P extends Node, U extends Node> {
   P get _parent;
   _JSList<U> get _list;
 
   bool contains(Object? element) {
-    if (element?.isA<Node>() ?? false) {
+    // TODO(srujzs): migrate this ifs to isJSAny once we have it
+    // ignore: invalid_runtime_check_with_js_interop_types
+    if ((element is JSAny?) && (element?.isA<Node>() ?? false)) {
       if ((element as Node).parentNode.strictEquals(_parent).toDart) {
         return true;
       }
@@ -259,7 +260,7 @@ class _NodeListIterator<E> implements Iterator<E> {
 /// modifiable list interface and allows easier DOM manipulation.
 /// This is loosely based on `_ChildrenElementList` from `dart:html` to
 /// preserve compatibility.
-class HTMLCollectionListWrapper
+class _HTMLCollectionListWrapper
     with ListMixin<Element>, _LiveNodeListMixin<Element, Element> {
   @override
   final Element _parent;
@@ -268,7 +269,7 @@ class HTMLCollectionListWrapper
 
   final HTMLCollection _htmlCollection;
 
-  HTMLCollectionListWrapper(this._parent, this._htmlCollection);
+  _HTMLCollectionListWrapper(this._parent, this._htmlCollection);
 
   @override
   ///See [_NodeListIterator] for information.
@@ -309,10 +310,10 @@ class HTMLCollectionListWrapper
   }
 }
 
-/// Wrapper for `NodeList` returned from `childNodes` that implements modifiable
-/// list interface and allows easier DOM manipulation. This is loosely based on
-/// `_ChildNodeListLazy` from `dart:html` to preserve compatibility
-class NodeListListWrapper with ListMixin<Node>, _LiveNodeListMixin<Node, Node> {
+/// Wrapper for `NodeList` returned from `childNodes` that implements modifiable list interface and allows easier DOM manipulation.
+/// This is loosely based on `_ChildNodeListLazy` from `dart:html` to preserve compatibility
+class _NodeListListWrapper
+    with ListMixin<Node>, _LiveNodeListMixin<Node, Node> {
   @override
   final Node _parent;
   @override
@@ -320,10 +321,10 @@ class NodeListListWrapper with ListMixin<Node>, _LiveNodeListMixin<Node, Node> {
 
   final NodeList _nodeList;
 
-  NodeListListWrapper(this._parent, this._nodeList);
+  _NodeListListWrapper(this._parent, this._nodeList);
 
-  ///See [_NodeListIterator] for information.
   @override
+  ///See [_NodeListIterator] for information.
   Iterator<Node> get iterator => _NodeListIterator(this);
 
   @override
@@ -359,4 +360,17 @@ class NodeListListWrapper with ListMixin<Node>, _LiveNodeListMixin<Node, Node> {
       _parent.removeChild(_parent.firstChild!);
     }
   }
+}
+
+extension NodeExtension on Node {
+  /// Returns [childNodes] as a modifiable [List].
+  /// This replaces functionality of the `nodes` getter from `dart:html`.
+  List<Node> get childNodesAsList => _NodeListListWrapper(this, childNodes);
+}
+
+extension ElementExtension on Element {
+  /// Returns [children] as a modifiable [List].
+  /// This replaces functionality of the `children` getter from `dart:html`.
+  List<Element> get childrenAsList =>
+      _HTMLCollectionListWrapper(this, children);
 }

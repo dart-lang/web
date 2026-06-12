@@ -165,14 +165,14 @@ sealed class TypeDeclaration extends NestableDeclaration
             )
             ..name = '_',
         )
-        ..implements.addAll([
+        ..implements.addAll({
           if (extendees.isEmpty && implementees.isEmpty)
             refer('JSObject', 'dart:js_interop')
-          else ...[
+          else ...{
             ...extendees.map((e) => e.emit(options?.toTypeOptions())),
             ...implementees.map((i) => i.emit(options?.toTypeOptions())),
-          ],
-        ])
+          },
+        })
         ..types.addAll(
           typeParameters.map((t) => t.emit(options?.toTypeOptions())),
         )
@@ -499,7 +499,9 @@ class EnumDeclaration extends NestableDeclaration
             ..name = '_',
         )
         ..fields.addAll(
-          members.map((member) => member.emit(shouldUseJSRepType)),
+          members.map(
+            (member) => member.emit(shouldUseJSRepType, completedDartName),
+          ),
         ),
     );
   }
@@ -544,9 +546,10 @@ class EnumMember {
     this.documentation,
   });
 
-  Field emit([bool? shouldUseJSRepType]) {
+  Field emit([bool? shouldUseJSRepType, String? parentClassName]) {
     final jsRep = shouldUseJSRepType ?? (value == null);
     final (doc, annotations) = generateFromDocumentation(documentation);
+    final parentRef = parentClassName ?? parent;
     return Field((f) {
       f
         ..docs.addAll([...doc])
@@ -562,12 +565,12 @@ class EnumMember {
       }
       f
         ..name = dartName ?? name
-        ..type = refer(parent)
+        ..type = refer(parentRef)
         ..external = value == null
         ..static = true
         ..assignment = value == null
             ? null
-            : refer(parent).property('_').call([
+            : refer(parentRef).property('_').call([
                 jsRep ? literal(value).property('toJS') : literal(value),
               ]).code;
     });
@@ -1071,6 +1074,18 @@ class PropertyDeclaration extends FieldDeclaration
 
     final (doc, annotations) = generateFromDocumentation(documentation);
 
+    String? parentName;
+    try {
+      parentName = parent.name;
+    } catch (_) {}
+
+    final overrideSymbol = parentName != null
+        ? (options.typeOverrides[parentName]?[name])
+        : null;
+    final typeRef = overrideSymbol != null
+        ? refer(overrideSymbol)
+        : type.emit(options.toTypeOptions(nullable: isNullable));
+
     if (readonly) {
       return Method(
         (m) => m
@@ -1089,7 +1104,7 @@ class PropertyDeclaration extends FieldDeclaration
               generateJSAnnotation(name),
             if (options?.override ?? false) _redeclareExpression,
           ])
-          ..returns = type.emit(options?.toTypeOptions(nullable: isNullable)),
+          ..returns = typeRef,
       );
     } else {
       return Field(
@@ -1103,7 +1118,7 @@ class PropertyDeclaration extends FieldDeclaration
             if (dartName != null && dartName != name)
               generateJSAnnotation(name),
           ])
-          ..type = type.emit(options?.toTypeOptions(nullable: isNullable)),
+          ..type = typeRef,
       );
     }
   }

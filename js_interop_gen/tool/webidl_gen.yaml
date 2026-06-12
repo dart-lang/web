@@ -1,0 +1,40 @@
+# Configuration file for dogfooded webidl2 AST bindings generation
+name: webidl2
+description: Pure WebIDL2 AST bindings generated from TypeScript definitions
+
+input: ../lib/src/node_modules/@types/webidl2/index.d.ts
+output: ../lib/src/js/generated/webidl_api.dart
+language_version: 3.10.0
+
+# Dynamic rename mappings for types in index.d.ts
+rename_map:
+  AbstractBase: Node
+  AbstractContainer: Interfacelike
+  InterfaceType: Interface
+  InterfaceMixinType: InterfaceMixin
+  NamespaceType: Namespace
+  CallbackInterfaceType: CallbackInterface
+  CallbackType: Callback
+  DictionaryType: Dictionary
+  FieldType: Field
+  EnumType: Enum
+  TypedefType: Typedef
+  IncludesType: Includes
+  ConstantMemberType: Constant
+  ConstructorMemberType: Constructor
+  AttributeMemberType: Attribute
+  OperationMemberType: Operation
+  IDLTypeDescription: IDLType
+
+# Custom dynamic type overrides for specific class fields/properties
+type_overrides:
+  RHS:
+    value: String
+  ExtendedAttributeRightHandSide:
+    value: String
+  ValueDescription:
+    type: String
+  Argument:
+    idlType: IDLType
+  Constant:
+    idlType: IDLType

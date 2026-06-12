@@ -804,6 +804,7 @@ sealed class _UnionOrIntersectionDeclaration extends NamedDeclaration
     bool isNullable = false,
   }) {
     options ??= DeclarationOptions();
+    final opts = options;
 
     final repType = getLowestCommonAncestorOfTypes(
       types,
@@ -879,7 +880,7 @@ sealed class _UnionOrIntersectionDeclaration extends NamedDeclaration
     for (final m in conflictingMembers) {
       final decl = memberDecls[m];
       if (decl != null) {
-        final spec = (decl as Declaration).emit(options);
+        final spec = (decl as Declaration).emit(opts);
         if (spec is Method) {
           conflictingMethods.add(
             Method(
@@ -898,8 +899,36 @@ sealed class _UnionOrIntersectionDeclaration extends NamedDeclaration
           final typesToIntersect = propTypes[m] ?? [];
           final intersectedType = _intersectTypes(typesToIntersect);
           final isNullable = typesToIntersect.every((t) => t.isNullable);
-          intersectedType.isNullable = isNullable;
-          final emittedType = intersectedType.emit(options.toTypeOptions());
+          var emittedType = intersectedType.emit(
+            opts.toTypeOptions(nullable: isNullable),
+          );
+
+          final overrideSymbol = opts.typeOverrides[name]?[spec.name];
+          if (overrideSymbol != null) {
+            emittedType = refer(overrideSymbol);
+          } else if (typesToIntersect.length > 1) {
+            final resolvedName = intersectedType is BuiltinType
+                ? intersectedType.name
+                : '';
+            if (resolvedName == 'JSAny' || resolvedName == 'never') {
+              final constituents = typesToIntersect
+                  .map((t) => t.emit(opts.toTypeOptions()).symbol ?? t.id.name)
+                  .toSet()
+                  .join(', ');
+              print(
+                '\n⚠️  [js_interop_gen] MEMBER TYPE CONFLICT DETECTED:\n'
+                '   ├─ Context Type: "$name"\n'
+                '   ├─ Property:     "$m" has conflicting constituent '
+                'types: [$constituents]\n'
+                '   ├─ Resolved to:  "$resolvedName" (Fallback)\n'
+                '   └─ 💡 Suggestion: To define a custom type signature for '
+                'this field, register a type override:\n'
+                '      typeOverrides: {\n'
+                '        \'$name\': {\'$m\': \'<DesiredType>\'}\n'
+                '      }\n',
+              );
+            }
+          }
 
           conflictingMethods.add(
             Method(

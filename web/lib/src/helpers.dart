@@ -27,4 +27,4 @@ export 'helpers/events/events.dart';
 export 'helpers/events/providers.dart';
 export 'helpers/events/streams.dart' show ElementStream, EventStreamProvider;
 export 'helpers/extensions.dart';
-export 'helpers/lists.dart' show JSImmutableListWrapper;
+export 'helpers/lists.dart';

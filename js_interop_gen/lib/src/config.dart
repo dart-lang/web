@@ -72,6 +72,12 @@ abstract interface class Config {
   /// as a config option in the configuration file
   bool get strictUnsupported;
 
+  /// Dynamic type overrides for composite declarations and properties
+  Map<String, Map<String, String>> get typeOverrides;
+
+  /// Dynamic rename mapping for top-level declarations
+  Map<String, String> get renameMap;
+
   factory Config({
     required List<String> input,
     required String output,
@@ -83,6 +89,8 @@ abstract interface class Config {
     bool ignoreErrors,
     String? tsConfigFile,
     bool strictUnsupported,
+    Map<String, Map<String, String>> typeOverrides,
+    Map<String, String> renameMap,
   }) = ConfigImpl._;
 }
 
@@ -129,6 +137,12 @@ class ConfigImpl implements Config {
   @override
   bool strictUnsupported;
 
+  @override
+  Map<String, Map<String, String>> typeOverrides;
+
+  @override
+  Map<String, String> renameMap;
+
   ConfigImpl._({
     required this.input,
     required this.output,
@@ -140,6 +154,8 @@ class ConfigImpl implements Config {
     this.generateAll = false,
     this.tsConfigFile,
     this.strictUnsupported = false,
+    this.typeOverrides = const {},
+    this.renameMap = const {},
   });
 
   @override
@@ -192,6 +208,12 @@ class YamlConfig implements Config {
   @override
   bool get strictUnsupported => false;
 
+  @override
+  Map<String, Map<String, String>> typeOverrides;
+
+  @override
+  Map<String, String> renameMap;
+
   YamlConfig._({
     required this.filename,
     required this.input,
@@ -206,6 +228,8 @@ class YamlConfig implements Config {
     String? languageVersion,
     this.ignoreErrors = false,
     this.generateAll = false,
+    this.typeOverrides = const {},
+    this.renameMap = const {},
   }) : languageVersion = languageVersion == null
            ? dartLanguageVersion
            : Version.parse(languageVersion);
@@ -239,6 +263,28 @@ class YamlConfig implements Config {
 
     final tsConfig = yaml['ts_config'] as YamlMap?;
 
+    final typeOverridesYaml = yaml['type_overrides'];
+    final typeOverrides = <String, Map<String, String>>{};
+    if (typeOverridesYaml is YamlMap) {
+      for (final entry in typeOverridesYaml.entries) {
+        final key = entry.key.toString();
+        final valMap = entry.value;
+        if (valMap is YamlMap) {
+          typeOverrides[key] = valMap.map(
+            (k, v) => MapEntry(k.toString(), v.toString()),
+          );
+        }
+      }
+    }
+
+    final renameMapYaml = yaml['rename_map'];
+    final renameMap = <String, String>{};
+    if (renameMapYaml is YamlMap) {
+      for (final entry in renameMapYaml.entries) {
+        renameMap[entry.key.toString()] = entry.value.toString();
+      }
+    }
+
     return YamlConfig._(
       filename: Uri.file(filename),
       input: allFiles.map((file) => p.join(p.dirname(filename), file)).toList(),
@@ -261,6 +307,8 @@ class YamlConfig implements Config {
           [],
       ignoreErrors: yaml['ignore_errors'] as bool? ?? false,
       generateAll: yaml['generate_all'] as bool? ?? false,
+      typeOverrides: typeOverrides,
+      renameMap: renameMap,
     );
   }
 }

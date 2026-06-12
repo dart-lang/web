@@ -1,5 +1,6 @@
 ## 1.0.0-wip
 
+- **Breaking Change**: Bumped minimum SDK constraint to `^3.12.0`.
 - New IDL interface `RHL` added. `ExtendedAttribute` idl interface updated to
   expose its `rhs` property and `Interfacelike` idl interface updated to expose
   `extAttrs` property. The generator now adds a

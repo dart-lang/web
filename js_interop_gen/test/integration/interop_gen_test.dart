@@ -59,9 +59,6 @@ void main() {
           '--declaration',
         ], workingDirectory: bindingsGenPath);
 
-        // Format the output using the SDK formatter to ensure consistency.
-        await Process.run(Platform.executable, ['format', outputActualPath]);
-
         expectFilesEqual(outputExpectedPath, outputActualPath);
       });
     }
@@ -95,11 +92,6 @@ void main() {
         '--config=$inputConfigPath',
         '--declaration',
       ], workingDirectory: bindingsGenPath);
-
-      // Format the output using the SDK formatter to ensure consistency.
-      for (final output in outputDir.listSync().whereType<File>()) {
-        await Process.run(Platform.executable, ['format', output.path]);
-      }
 
       // read files
       for (final output in outputDir.listSync().whereType<File>()) {

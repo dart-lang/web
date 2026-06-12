@@ -258,9 +258,13 @@ class VariableDeclaration extends FieldDeclaration
             if (_checkIfDiscardable(type))
               refer('doNotStore', 'package:meta/meta.dart'),
           ])
-          ..name = name
+          ..name = dartName ?? name
           ..type = MethodType.getter
-          ..annotations.add(generateJSAnnotation())
+          ..annotations.add(
+            generateJSAnnotation(
+              dartName == null || dartName == name ? null : name,
+            ),
+          )
           ..external = true
           ..static = options?.static ?? false
           ..returns = type.emit(options?.toTypeOptions()),
@@ -273,9 +277,13 @@ class VariableDeclaration extends FieldDeclaration
           ..annotations.addAll([...annotations])
           ..external = true
           ..static = options?.static ?? false
-          ..name = name
+          ..name = dartName ?? name
           ..type = type.emit(options?.toTypeOptions())
-          ..annotations.add(generateJSAnnotation()),
+          ..annotations.add(
+            generateJSAnnotation(
+              dartName == null || dartName == name ? null : name,
+            ),
+          ),
       );
     }
   }
@@ -661,6 +669,21 @@ class NamespaceDeclaration extends NestableDeclaration
     this.nestableDeclarations = const {},
     this.documentation,
   }) : _id = id;
+
+  NamespaceDeclaration clone({String? name, String? dartName}) {
+    return NamespaceDeclaration(
+        name: name ?? this.name,
+        dartName: dartName ?? this.dartName,
+        id: _id,
+        exported: exported,
+        topLevelDeclarations: topLevelDeclarations,
+        namespaceDeclarations: namespaceDeclarations,
+        nestableDeclarations: nestableDeclarations,
+        documentation: documentation,
+      )
+      ..parent = parent
+      ..nodes = nodes;
+  }
 
   @override
   ExtensionType emit([covariant DeclarationOptions? options]) {

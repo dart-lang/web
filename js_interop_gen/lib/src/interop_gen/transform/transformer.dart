@@ -201,13 +201,9 @@ class Transformer {
 
     var actualName = actualNameNode.text;
     final symbol = typeChecker.getSymbolAtLocation(actualNameNode);
-    if (symbol != null) {
-      try {
-        final aliasedSymbol = typeChecker.getAliasedSymbol(symbol);
-        actualName = aliasedSymbol.name;
-      } catch (_) {
-        // Throws if not an aliased symbol
-      }
+    if (symbol != null && symbol.isAlias) {
+      final aliasedSymbol = typeChecker.getAliasedSymbol(symbol);
+      actualName = aliasedSymbol.name;
     }
 
     final decl = nodeMap.findByName(actualName);
@@ -241,13 +237,9 @@ class Transformer {
         final symbol = typeChecker.getSymbolAtLocation(
           exp.propertyName ?? exp.name,
         );
-        if (symbol != null) {
-          try {
-            final aliasedSymbol = typeChecker.getAliasedSymbol(symbol);
-            actualName = aliasedSymbol.name;
-          } catch (_) {
-            // Throws if not an aliased symbol
-          }
+        if (symbol != null && symbol.isAlias) {
+          final aliasedSymbol = typeChecker.getAliasedSymbol(symbol);
+          actualName = aliasedSymbol.name;
         }
 
         (exportSet ?? this.exportSet).add(
@@ -2366,14 +2358,60 @@ class Transformer {
                 );
               }
             } else {
-              // Value declaration (variable, function, etc.): mutate in-place!
-              filteredDeclarations.add(
-                decl
-                  ..name = exportDartName
-                  ..dartName =
-                      decl.dartName ??
-                      UniqueNamer.makeNonConflicting(exportName),
-              );
+              // Value declaration (variable, function, etc.)
+              final allExportsForThisName = exportSet
+                  .where((e) => e.name == exportName)
+                  .toList();
+
+              // For value declarations, we want both the Dart name and the JS
+              // name to be the exported name (exportDartName).
+              // If the exported name conflicts with a Dart keyword,
+              // UniqueNamer will make it non-conflicting.
+              final dartName = UniqueNamer.makeNonConflicting(exportDartName);
+              final jsName = exportDartName;
+
+              if (allExportsForThisName.length == 1) {
+                // Only a single renamed/exported symbol. Mutate in-place.
+                filteredDeclarations.add(
+                  decl
+                    ..name = jsName
+                    ..dartName = dartName == jsName ? null : dartName,
+                );
+              } else {
+                // Multiple exports for the same symbol.
+                // Clone the declaration with the new name!
+                if (decl is VariableDeclaration) {
+                  filteredDeclarations.add(
+                    VariableDeclaration(
+                      name: jsName,
+                      type: decl.type,
+                      modifier: decl.modifier,
+                      exported: decl.exported,
+                      documentation: decl.documentation,
+                    )..dartName = dartName == jsName ? null : dartName,
+                  );
+                } else if (decl is FunctionDeclaration) {
+                  filteredDeclarations.add(
+                    FunctionDeclaration(
+                      name: jsName,
+                      id: ID(type: 'func', name: dartName),
+                      dartName: dartName == jsName ? null : dartName,
+                      parameters: decl.parameters,
+                      typeParameters: decl.typeParameters,
+                      exported: decl.exported,
+                      returnType: decl.returnType,
+                      documentation: decl.documentation,
+                    ),
+                  );
+                } else {
+                  // Fallback: mutate in-place.
+                  filteredDeclarations.add(
+                    decl
+                      ..name = jsName
+                      ..dartName = dartName == jsName ? null : dartName,
+                  );
+                }
+              }
             }
           } else {
             continue;

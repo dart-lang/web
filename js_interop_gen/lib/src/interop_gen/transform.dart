@@ -356,11 +356,9 @@ class ProgramMap {
             continue;
           }
           final decls = symbol.getDeclarations()?.toDart ?? [];
-          try {
+          if (symbol.isAlias) {
             final aliasedSymbol = typeChecker.getAliasedSymbol(symbol);
             decls.addAll(aliasedSymbol.getDeclarations()?.toDart ?? []);
-          } catch (_) {
-            // throws error if no aliased symbol, so ignore
           }
           for (final decl in decls) {
             _activeTransformers[absolutePath]!.transform(decl);

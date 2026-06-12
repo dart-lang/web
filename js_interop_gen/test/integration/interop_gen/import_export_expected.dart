@@ -10,10 +10,10 @@ import 'package:meta/meta.dart' as _i2;
 external Point2D get origin;
 @_i1.JS()
 external Point3D get origin3D;
-@_i1.JS('scalarProduct')
-external V dotProduct<V extends Vector>(V v1, V v2);
-@_i1.JS('vectorProduct')
-external Vector3D crossProduct(Vector3D v1, Vector3D v2);
+@_i1.JS()
+external V scalarProduct<V extends Vector>(V v1, V v2);
+@_i1.JS()
+external Vector3D vectorProduct(Vector3D v1, Vector3D v2);
 @_i1.JS()
 external Vector3D mapTo3D(Vector2D v);
 extension type TransformerMatrix<V extends Vector2D>._(_i1.JSObject _)

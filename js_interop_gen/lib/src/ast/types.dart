@@ -1287,9 +1287,12 @@ Type _intersectTypes(List<Type> types) {
 }
 
 String _sanitizeIdentifier(String name) {
-  return name
+  final sanitized = name
       .replaceAll('|', 'Or')
       .replaceAll('&', 'And')
       .replaceAll(RegExp(r'[^a-zA-Z0-9_]'), '_')
       .replaceAll(RegExp(r'_{2,}'), '_');
+  return sanitized.isNotEmpty && RegExp(r'^[0-9]').hasMatch(sanitized)
+      ? '\$$sanitized'
+      : sanitized;
 }

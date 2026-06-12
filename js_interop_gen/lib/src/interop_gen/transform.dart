@@ -357,8 +357,14 @@ class ProgramMap {
           }
           final decls = symbol.getDeclarations()?.toDart ?? [];
           if (symbol.isAlias) {
-            final aliasedSymbol = typeChecker.getAliasedSymbol(symbol);
-            decls.addAll(aliasedSymbol.getDeclarations()?.toDart ?? []);
+            try {
+              final aliasedSymbol = typeChecker.getAliasedSymbol(symbol);
+              decls.addAll(aliasedSymbol.getDeclarations()?.toDart ?? []);
+            } catch (e) {
+              print(
+                'WARN: Could not resolve aliased symbol "${symbol.name}": $e',
+              );
+            }
           }
           for (final decl in decls) {
             _activeTransformers[absolutePath]!.transform(decl);

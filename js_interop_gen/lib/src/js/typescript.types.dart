@@ -734,7 +734,7 @@ extension type TSSymbol._(JSObject _) implements JSObject {
   external JSArray<JSDocTagInfo> getJsDocTags([TSTypeChecker checker]);
   external TSSymbolTable? get exports;
 
-  bool get isAlias => (flags & 2097152) != 0;
+  bool get isAlias => (flags & 0x200000) != 0;
 }
 
 typedef TSSymbolTable = JSMap<JSString, TSSymbol>;

@@ -18,6 +18,9 @@ external AnonymousUnion_3170730 get unionVal;
 typedef HyphenatedEnum = AnonymousUnion_1721531;
 @_i1.JS()
 external HyphenatedEnum get hyphenatedVal;
+typedef NumericHyphenatedEnum = AnonymousUnion_1018800;
+@_i1.JS()
+external NumericHyphenatedEnum get numericHyphenatedVal;
 extension type AnonymousUnion_3170730._(_i1.JSObject _)
     implements _i1.JSObject {
   A get asA => (_ as A);
@@ -32,4 +35,9 @@ extension type const AnonymousUnion_1721531._(String _) {
   );
 
   static const AnonymousUnion_1721531 ucs_2 = AnonymousUnion_1721531._('ucs-2');
+}
+extension type const AnonymousUnion_1018800._(String _) {
+  static const AnonymousUnion_1018800 $1_2 = AnonymousUnion_1018800._('1-2');
+
+  static const AnonymousUnion_1018800 $3_4 = AnonymousUnion_1018800._('3-4');
 }

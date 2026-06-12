@@ -132,16 +132,17 @@ class Translator {
   /// Singleton so that various helper methods can access info about the AST.
   static Translator? instance;
 
+  // ignore: prefer_initializing_formals
   Translator(
     this._librarySubDir,
     this._cssStyleDeclarations,
     this._elementTagMap, {
     this.packageRoot,
     required bool generateAll,
-    bool generateForWeb = true,
+    this._generateForWeb = true,
     this.loadedRenameMap = const {},
     required String bcdJsonPath,
-  }) : _generateForWeb = generateForWeb {
+  }) {
     instance = this;
     docProvider = DocProvider.create();
     browserCompatData = BrowserCompatData.read(

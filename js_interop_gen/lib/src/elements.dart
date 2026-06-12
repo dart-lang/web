@@ -528,9 +528,6 @@ sealed class Property {
   final RawType type;
   final MdnProperty? mdnProperty;
 
-  // TODO(srujzs): Remove ignore after
-  // https://github.com/dart-lang/sdk/issues/55720 is resolved.
-  // ignore: unused_element_parameter
   Property(MemberName name, idl.IDLType idlType, [this.mdnProperty])
     : type = _getRawType(idlType) {
     final dartName = name.name;

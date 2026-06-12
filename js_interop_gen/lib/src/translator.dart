@@ -132,7 +132,6 @@ class Translator {
   /// Singleton so that various helper methods can access info about the AST.
   static Translator? instance;
 
-  // ignore: prefer_initializing_formals
   Translator(
     this._librarySubDir,
     this._cssStyleDeclarations,
@@ -1089,6 +1088,7 @@ class Translator {
 
     b
       ..ignoreForFile.addAll([
+        'unnecessary_ignore',
         // JS constants are allowed to be all uppercased.
         'constant_identifier_names',
         // JS properties are allowed to not be camelcased.

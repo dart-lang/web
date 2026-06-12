@@ -66,7 +66,6 @@ sealed class TypeDeclaration extends NestableDeclaration
   @override
   Documentation? documentation;
 
-  // ignore: prefer_initializing_formals
   TypeDeclaration({
     required this.name,
     this.dartName,
@@ -663,7 +662,6 @@ class NamespaceDeclaration extends NestableDeclaration
   @override
   Documentation? documentation;
 
-  // ignore: prefer_initializing_formals
   NamespaceDeclaration({
     required this.name,
     this.exported = true,

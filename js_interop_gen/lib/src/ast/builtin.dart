@@ -20,8 +20,15 @@ class BuiltinType extends NamedType {
   /// Whether the given type is present in "dart:js_interop"
   final bool fromDartJSInterop;
 
+  bool _isNullable;
+
   @override
-  bool isNullable;
+  bool get isNullable => (discardable && name == 'JSAny') || _isNullable;
+
+  @override
+  set isNullable(bool value) {
+    _isNullable = value;
+  }
 
   /// This denotes a type that has a discardable result
   ///
@@ -34,10 +41,14 @@ class BuiltinType extends NamedType {
     this.fromDartJSInterop = false,
     bool? isNullable,
     this.discardable = false,
-  }) : isNullable = isNullable ?? false;
+  }) : _isNullable = isNullable ?? false;
 
   @override
-  ID get id => ID(type: 'type', name: name);
+  ID get id {
+    if (typeParams.isEmpty) return ID(type: 'type', name: name);
+    final params = typeParams.map((p) => p.id.name).join(', ');
+    return ID(type: 'type', name: '$name<$params>');
+  }
 
   @override
   String? get dartName => null;
@@ -51,7 +62,7 @@ class BuiltinType extends NamedType {
           typeParams
               // if there is only one type param, and it is void, ignore
               .where((p) => typeParams.length != 1 || p != $voidType)
-              .map((p) => p.emit(options)),
+              .map((p) => (p == $voidType ? anyType : p).emit(options)),
         )
         ..url = fromDartJSInterop ? 'dart:js_interop' : null
         ..isNullable = isNullable || (options?.nullable ?? false),
@@ -71,7 +82,7 @@ class BuiltinType extends NamedType {
     bool? isNullable,
     List<Type> typeParams = const [],
   }) {
-    shouldEmitJsType ??= GlobalOptions.shouldEmitJsTypes;
+    shouldEmitJsType ??= false;
     return switch (typeIdentifier) {
       PrimitiveType.int ||
       PrimitiveType.num ||
@@ -143,6 +154,16 @@ class BuiltinType extends NamedType {
     bool? isNullable,
     List<Type> typeParams = const [],
   }) {
+    if (name == 'JSAny') {
+      return BuiltinType(
+        name: 'JSAny',
+        fromDartJSInterop: true,
+        isNullable: isNullable,
+      );
+    }
+    if (name == 'void') {
+      return $voidType;
+    }
     final jsName = switch (name) {
       'Array' => 'JSArray',
       'Promise' => 'JSPromise',
@@ -187,7 +208,11 @@ class PackageWebType extends NamedType {
   bool isNullable;
 
   @override
-  ID get id => ID(type: 'type', name: name);
+  ID get id {
+    if (typeParams.isEmpty) return ID(type: 'type', name: name);
+    final params = typeParams.map((p) => p.id.name).join(', ');
+    return ID(type: 'type', name: '$name<$params>');
+  }
 
   @override
   String? get dartName => null;
@@ -211,7 +236,10 @@ class PackageWebType extends NamedType {
               .where(
                 (p) => typeParams.length != 1 || p != BuiltinType.$voidType,
               )
-              .map((p) => p.emit(options)),
+              .map(
+                (p) => (p == BuiltinType.$voidType ? BuiltinType.anyType : p)
+                    .emit(options),
+              ),
         )
         ..url = 'package:web/web.dart'
         ..isNullable = isNullable || (options?.nullable ?? false),

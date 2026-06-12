@@ -12,6 +12,15 @@ import 'declarations.dart';
 import 'documentation.dart';
 import 'types.dart';
 
+const nonObjectRepTypes = {
+  'JSAny',
+  'JSString',
+  'JSBoolean',
+  'JSNumber',
+  'JSSymbol',
+  'JSBigInt',
+};
+
 Type getJSTypeAlternative(Type type) {
   if (type is BuiltinType) {
     if (type.fromDartJSInterop) return type;
@@ -37,6 +46,8 @@ Type getJSTypeAlternative(Type type) {
       default:
         return type;
     }
+  } else if (type is LiteralType) {
+    return getJSTypeAlternative(type.baseType);
   }
   return type;
 }
@@ -48,11 +59,15 @@ Expression generateJSAnnotation([String? name]) {
   ).call([if (name != null) literalString(name)]);
 }
 
-List<Parameter> spreadParam(ParameterDeclaration p, int count) {
+List<Parameter> spreadParam(
+  ParameterDeclaration p,
+  int count, [
+  DeclarationOptions? options,
+]) {
   return List.generate(count - 1, (i) {
     final paramNumber = i + 2;
     final paramName = '${p.name}$paramNumber';
-    return ParameterDeclaration(name: paramName, type: p.type).emit();
+    return ParameterDeclaration(name: paramName, type: p.type).emit(options);
   });
 }
 
@@ -107,28 +122,31 @@ Set<String> getMemberHierarchy(
 }
 
 Type getRepresentationType(TypeDeclaration td) {
+  final extendees = <Type>[];
   if (td case ClassDeclaration(extendedType: final extendee?)) {
-    return switch (extendee) {
-      ReferredType(declaration: final d) when d is TypeDeclaration =>
-        getRepresentationType(d),
-      final BuiltinType b => b,
-      _ => BuiltinType.primitiveType(PrimitiveType.object, isNullable: false),
-    };
-  } else if (td case InterfaceDeclaration(extendedTypes: [final extendee])) {
-    return switch (extendee) {
-      ReferredType(declaration: final d) when d is TypeDeclaration =>
-        getRepresentationType(d),
-      final BuiltinType b => b,
-      _ => BuiltinType.primitiveType(PrimitiveType.object, isNullable: false),
-    };
-  } else {
-    final primitiveType = switch (td.name) {
-      'Array' => PrimitiveType.array,
-      _ => PrimitiveType.object,
-    };
-
-    return BuiltinType.primitiveType(primitiveType, isNullable: false);
+    extendees.add(extendee);
+  } else if (td case InterfaceDeclaration(extendedTypes: final extended)) {
+    extendees.addAll(extended);
   }
+
+  for (final extendee in extendees) {
+    final rep = switch (extendee) {
+      ReferredType(declaration: final d) when d is TypeDeclaration =>
+        getRepresentationType(d),
+      final BuiltinType b => b,
+      _ => null,
+    };
+    if (rep != null && rep is BuiltinType && rep.name != 'JSObject') {
+      return rep;
+    }
+  }
+
+  final primitiveType = switch (td.name) {
+    'Array' => PrimitiveType.array,
+    _ => PrimitiveType.object,
+  };
+
+  return BuiltinType.primitiveType(primitiveType, isNullable: false);
 }
 
 (List<String>, List<Expression>) generateFromDocumentation(
@@ -154,7 +172,9 @@ Type getRepresentationType(TypeDeclaration td) {
   final optionalParams = <Parameter>[];
   for (final p in parameters) {
     if (p.variadic) {
-      optionalParams.addAll(spreadParam(p, GlobalOptions.variadicArgsCount));
+      optionalParams.addAll(
+        spreadParam(p, options?.variadicArgsCount ?? 4, options),
+      );
       requiredParams.add(p.emit(options));
     } else {
       if (p.optional) {
@@ -170,17 +190,30 @@ Type getRepresentationType(TypeDeclaration td) {
 
 /// Recursively get the generic types specified in a given type [t]
 Set<GenericType> getGenericTypes(Type t) {
-  final types = <(String, Type?)>{};
+  final typesMap = <String, Type?>{};
+
+  void addType(String name, Type? constraint) {
+    final existing = typesMap[name];
+    if (existing == null) {
+      typesMap[name] = constraint;
+    } else if (constraint != null &&
+        (existing is BuiltinType && existing.name == 'JSAny')) {
+      typesMap[name] = constraint;
+    }
+  }
+
   switch (t) {
     case GenericType():
-      types.add((t.name, t.constraint));
+      addType(t.name, t.constraint);
       break;
     case ReferredType(typeParams: final referredTypeParams):
     case UnionType(types: final referredTypeParams):
+    case IntersectionType(types: final referredTypeParams):
+    case BuiltinType(typeParams: final referredTypeParams):
       for (final referredTypeParam in referredTypeParams) {
-        types.addAll(
-          getGenericTypes(referredTypeParam).map((t) => (t.name, t.constraint)),
-        );
+        for (final t in getGenericTypes(referredTypeParam)) {
+          addType(t.name, t.constraint);
+        }
       }
       break;
     case ObjectLiteralType(
@@ -190,9 +223,9 @@ Set<GenericType> getGenericTypes(Type t) {
       operators: final objectOperators,
     ):
       for (final PropertyDeclaration(type: propType) in objectProps) {
-        types.addAll(
-          getGenericTypes(propType).map((t) => (t.name, t.constraint)),
-        );
+        for (final t in getGenericTypes(propType)) {
+          addType(t.name, t.constraint);
+        }
       }
 
       for (final MethodDeclaration(
@@ -209,7 +242,7 @@ Set<GenericType> getGenericTypes(Type t) {
             if (!alreadyEstablishedTypeParams.any(
               (al) => al.name == genericType.name,
             )) {
-              types.add((genericType.name, genericType.constraint));
+              addType(genericType.name, genericType.constraint);
             }
           }
         }
@@ -219,9 +252,9 @@ Set<GenericType> getGenericTypes(Type t) {
           in objectConstructors) {
         for (final ParameterDeclaration(type: methodParamType)
             in methodParams) {
-          types.addAll(
-            getGenericTypes(methodParamType).map((t) => (t.name, t.constraint)),
-          );
+          for (final t in getGenericTypes(methodParamType)) {
+            addType(t.name, t.constraint);
+          }
         }
       }
 
@@ -239,7 +272,7 @@ Set<GenericType> getGenericTypes(Type t) {
             if (!alreadyEstablishedTypeParams.any(
               (al) => al.name == genericType.name,
             )) {
-              types.add((genericType.name, genericType.constraint));
+              addType(genericType.name, genericType.constraint);
             }
           }
         }
@@ -256,7 +289,7 @@ Set<GenericType> getGenericTypes(Type t) {
           if (!alreadyEstablishedTypeParams.any(
             (al) => al.name == genericType.name,
           )) {
-            types.add((genericType.name, genericType.constraint));
+            addType(genericType.name, genericType.constraint);
           }
         }
       }
@@ -267,7 +300,9 @@ Set<GenericType> getGenericTypes(Type t) {
 
   // Types are cloned so that modifications to constraints can happen without
   // affecting initial references
-  return types.map((t) => GenericType(name: t.$1, constraint: t.$2)).toSet();
+  return typesMap.entries
+      .map((e) => GenericType(name: e.key, constraint: e.value))
+      .toSet();
 }
 
 Type desugarTypeAliases(Type t) {

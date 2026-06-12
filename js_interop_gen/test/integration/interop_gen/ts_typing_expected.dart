@@ -1,6 +1,7 @@
 // ignore_for_file: camel_case_types, constant_identifier_names
 // ignore_for_file: library_private_types_in_public_api
-// ignore_for_file: non_constant_identifier_names, unnecessary_parenthesis
+// ignore_for_file: lines_longer_than_80_chars, non_constant_identifier_names
+// ignore_for_file: unnecessary_parenthesis
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:js_interop' as _i1;
@@ -74,7 +75,7 @@ external KeyOf_User userKeys;
 external KeyOf_TypeOf_MyEnum alphabeticLetter;
 @_i1.JS()
 external MyEnum_EnumType get myEnumType;
-typedef Transformer<T extends _i1.JSAny?> = _AnonymousFunction_3217419<T>;
+typedef Transformer<T extends _i1.JSAny?> = _AnonymousFunction_3794666<T>;
 @_i1.JS()
 external _i1.JSFunction copyOfmyEnclosingFunction;
 @_i1.JS()
@@ -88,7 +89,7 @@ external _i1.JSFunction myFunctionAlias2;
 @_i1.JS()
 external _i1.JSFunction get myEnclosingFunctionAlias;
 @_i1.JS()
-external ComposedType get myComposedType;
+external ComposedType<_i1.JSAny?> get myComposedType;
 @_i1.JS()
 external ComposedType<_i1.JSString> get myComposedMyString;
 @_i1.JS()
@@ -228,7 +229,7 @@ extension type const KeyOf_TypeOf_MyEnum._(String _) {
 
   static const KeyOf_TypeOf_MyEnum D = KeyOf_TypeOf_MyEnum._('D');
 }
-extension type _AnonymousFunction_3217419<T extends _i1.JSAny?>._(
+extension type _AnonymousFunction_3794666<T extends _i1.JSAny?>._(
   _i1.JSFunction _
 )
     implements _i1.JSFunction {
@@ -250,7 +251,8 @@ extension type AnonymousUnion_2942628._(_i1.JSAny _) implements _i1.JSAny {
 
   MyEnum get asMyEnum => MyEnum._((_ as _i1.JSNumber).toDartInt);
 
-  ComposedType get asComposedType => (_ as ComposedType);
+  ComposedType<_i1.JSAny?> get asComposedType =>
+      (_ as ComposedType<_i1.JSAny?>);
 }
 extension type AnonymousUnion_2814515._(_i1.JSAny _) implements _i1.JSAny {
   String get asString => (_ as _i1.JSString).toDart;
@@ -373,14 +375,6 @@ extension type AnonymousIntersection_1876272._(_i1.JSAny _)
   AnonymousType_1908241 get asAnonymousType_1908241 =>
       (_ as AnonymousType_1908241);
 }
-extension type AnonymousIntersection_3682355._(_i1.JSAny _)
-    implements _i1.JSAny {
-  AnonymousUnion_3673646 get asAnonymousUnion_3673646 =>
-      (_ as AnonymousUnion_3673646);
-
-  AnonymousUnion_1033063 get asAnonymousUnion_1033063 =>
-      (_ as AnonymousUnion_1033063);
-}
 extension type AnonymousType_3217782._(_i1.JSObject _) implements _i1.JSObject {
   external AnonymousType_3217782({String b});
 
@@ -399,13 +393,6 @@ extension type AnonymousType_5274231._(_i1.JSObject _) implements _i1.JSObject {
 
   external bool c;
 }
-extension type AnonymousUnion_1033063._(_i1.JSAny _) implements _i1.JSAny {
-  AnonymousType_5274231 get asAnonymousType_5274231 =>
-      (_ as AnonymousType_5274231);
-
-  AnonymousIntersection_1694066 get asAnonymousIntersection_1694066 =>
-      (_ as AnonymousIntersection_1694066);
-}
 extension type AnonymousType_3426321._(_i1.JSObject _) implements _i1.JSObject {
   external AnonymousType_3426321({_i1.JSBigInt d});
 
@@ -423,4 +410,19 @@ extension type AnonymousIntersection_1694066._(_i1.JSObject _)
 
   AnonymousType_8440086 get asAnonymousType_8440086 =>
       (_ as AnonymousType_8440086);
+}
+extension type AnonymousUnion_1033063._(_i1.JSAny _) implements _i1.JSAny {
+  AnonymousType_5274231 get asAnonymousType_5274231 =>
+      (_ as AnonymousType_5274231);
+
+  AnonymousIntersection_1694066 get asAnonymousIntersection_1694066 =>
+      (_ as AnonymousIntersection_1694066);
+}
+extension type AnonymousIntersection_3682355._(_i1.JSAny _)
+    implements _i1.JSAny {
+  AnonymousUnion_3673646 get asAnonymousUnion_3673646 =>
+      (_ as AnonymousUnion_3673646);
+
+  AnonymousUnion_1033063 get asAnonymousUnion_1033063 =>
+      (_ as AnonymousUnion_1033063);
 }

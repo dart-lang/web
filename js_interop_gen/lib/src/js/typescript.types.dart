@@ -671,6 +671,8 @@ extension type TSTypeParameterDeclaration._(JSObject _)
     implements TSDeclaration {
   external TSIdentifier get name;
   external TSTypeNode? get constraint;
+  @JS('default')
+  external TSTypeNode? get default$;
 }
 
 @JS('EnumDeclaration')
@@ -724,12 +726,15 @@ extension type TSNodeArray<T extends TSNode>._(JSArray<T> _)
 @JS('Symbol')
 extension type TSSymbol._(JSObject _) implements JSObject {
   external String get name;
+  external int get flags;
   external JSArray<TSDeclaration>? getDeclarations();
   external JSArray<TSSymbolDisplayPart> getDocumentationComment(
     TSTypeChecker? typeChecker,
   );
   external JSArray<JSDocTagInfo> getJsDocTags([TSTypeChecker checker]);
   external TSSymbolTable? get exports;
+
+  bool get isAlias => (flags & 0x200000) != 0;
 }
 
 typedef TSSymbolTable = JSMap<JSString, TSSymbol>;

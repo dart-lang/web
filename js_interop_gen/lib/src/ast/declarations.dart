@@ -52,6 +52,7 @@ sealed class TypeDeclaration extends NestableDeclaration
   @override
   NestableDeclaration? parent;
 
+  @override
   final Set<GenericType> typeParameters;
 
   final List<MethodDeclaration> methods;
@@ -101,7 +102,7 @@ sealed class TypeDeclaration extends NestableDeclaration
     final methodDecs = <Method>[];
 
     bool isOverride(String name) =>
-        hierarchy.contains(name) && GlobalOptions.redeclareOverrides;
+        hierarchy.contains(name) && (options?.redeclareOverrides ?? true);
 
     for (final prop in properties.where((p) => p.scope == DeclScope.public)) {
       final spec = prop.emit(
@@ -131,8 +132,18 @@ sealed class TypeDeclaration extends NestableDeclaration
           ),
     );
 
-    final repType = useFirstExtendeeAsRepType || this is ClassDeclaration
-        ? getRepresentationType(this)
+    final resolvedRepType = getRepresentationType(this);
+    final isNonObjectBuiltin =
+        resolvedRepType is BuiltinType &&
+        nonObjectRepTypes.contains(resolvedRepType.name);
+
+    final repType =
+        useFirstExtendeeAsRepType ||
+            (this is ClassDeclaration && !isNonObjectBuiltin) ||
+            (this is! ClassDeclaration &&
+                resolvedRepType is BuiltinType &&
+                resolvedRepType.name != 'JSObject')
+        ? resolvedRepType
         : BuiltinType.primitiveType(PrimitiveType.object, isNullable: false);
 
     return ExtensionType(
@@ -154,14 +165,14 @@ sealed class TypeDeclaration extends NestableDeclaration
             )
             ..name = '_',
         )
-        ..implements.addAll([
+        ..implements.addAll({
           if (extendees.isEmpty && implementees.isEmpty)
             refer('JSObject', 'dart:js_interop')
-          else ...[
+          else ...{
             ...extendees.map((e) => e.emit(options?.toTypeOptions())),
             ...implementees.map((i) => i.emit(options?.toTypeOptions())),
-          ],
-        ])
+          },
+        })
         ..types.addAll(
           typeParameters.map((t) => t.emit(options?.toTypeOptions())),
         )
@@ -247,9 +258,13 @@ class VariableDeclaration extends FieldDeclaration
             if (_checkIfDiscardable(type))
               refer('doNotStore', 'package:meta/meta.dart'),
           ])
-          ..name = name
+          ..name = dartName ?? name
           ..type = MethodType.getter
-          ..annotations.add(generateJSAnnotation())
+          ..annotations.add(
+            generateJSAnnotation(
+              dartName == null || dartName == name ? null : name,
+            ),
+          )
           ..external = true
           ..static = options?.static ?? false
           ..returns = type.emit(options?.toTypeOptions()),
@@ -262,9 +277,13 @@ class VariableDeclaration extends FieldDeclaration
           ..annotations.addAll([...annotations])
           ..external = true
           ..static = options?.static ?? false
-          ..name = name
+          ..name = dartName ?? name
           ..type = type.emit(options?.toTypeOptions())
-          ..annotations.add(generateJSAnnotation()),
+          ..annotations.add(
+            generateJSAnnotation(
+              dartName == null || dartName == name ? null : name,
+            ),
+          ),
       );
     }
   }
@@ -480,7 +499,9 @@ class EnumDeclaration extends NestableDeclaration
             ..name = '_',
         )
         ..fields.addAll(
-          members.map((member) => member.emit(shouldUseJSRepType)),
+          members.map(
+            (member) => member.emit(shouldUseJSRepType, completedDartName),
+          ),
         ),
     );
   }
@@ -525,9 +546,10 @@ class EnumMember {
     this.documentation,
   });
 
-  Field emit([bool? shouldUseJSRepType]) {
+  Field emit([bool? shouldUseJSRepType, String? parentClassName]) {
     final jsRep = shouldUseJSRepType ?? (value == null);
     final (doc, annotations) = generateFromDocumentation(documentation);
+    final parentRef = parentClassName ?? parent;
     return Field((f) {
       f
         ..docs.addAll([...doc])
@@ -543,12 +565,12 @@ class EnumMember {
       }
       f
         ..name = dartName ?? name
-        ..type = refer(parent)
+        ..type = refer(parentRef)
         ..external = value == null
         ..static = true
         ..assignment = value == null
             ? null
-            : refer(parent).property('_').call([
+            : refer(parentRef).property('_').call([
                 jsRep ? literal(value).property('toJS') : literal(value),
               ]).code;
     });
@@ -562,6 +584,7 @@ class TypeAliasDeclaration extends NestableDeclaration
   @override
   String name;
 
+  @override
   final List<GenericType> typeParameters;
 
   final Type type;
@@ -589,7 +612,7 @@ class TypeAliasDeclaration extends NestableDeclaration
 
   @override
   TypeDef emit([DeclarationOptions? options]) {
-    options ??= DeclarationOptions();
+    final opts = options ?? DeclarationOptions();
     final (doc, annotations) = generateFromDocumentation(documentation);
 
     return TypeDef(
@@ -597,10 +620,8 @@ class TypeAliasDeclaration extends NestableDeclaration
         ..docs.addAll([...doc])
         ..annotations.addAll([...annotations])
         ..name = completedDartName
-        ..types.addAll(
-          typeParameters.map((t) => t.emit(options?.toTypeOptions())),
-        )
-        ..definition = type.emit(options?.toTypeOptions()),
+        ..types.addAll(typeParameters.map((t) => t.emit(opts.toTypeOptions())))
+        ..definition = type.emit(opts.toTypeOptions()..isTypeArgument = true),
     );
   }
 
@@ -652,9 +673,30 @@ class NamespaceDeclaration extends NestableDeclaration
     this.documentation,
   }) : _id = id;
 
+  NamespaceDeclaration clone({String? name, String? dartName}) {
+    return NamespaceDeclaration(
+        name: name ?? this.name,
+        dartName: dartName ?? this.dartName,
+        id: _id,
+        exported: exported,
+        topLevelDeclarations: topLevelDeclarations,
+        namespaceDeclarations: namespaceDeclarations,
+        nestableDeclarations: nestableDeclarations,
+        documentation: documentation,
+      )
+      ..parent = parent
+      ..nodes = nodes;
+  }
+
   @override
   ExtensionType emit([covariant DeclarationOptions? options]) {
-    options?.static = true;
+    final namespaceOptions = DeclarationOptions(
+      override: options?.override ?? false,
+      static: true,
+      variadicArgsCount: options?.variadicArgsCount ?? 4,
+      shouldEmitJsTypes: options?.shouldEmitJsTypes ?? false,
+      redeclareOverrides: options?.redeclareOverrides ?? true,
+    );
 
     final (doc, annotations) = generateFromDocumentation(documentation);
     // static props and vars
@@ -664,17 +706,12 @@ class NamespaceDeclaration extends NestableDeclaration
     for (final decl in topLevelDeclarations) {
       if (decl case final VariableDeclaration variable) {
         if (variable.modifier == VariableModifier.$const) {
-          methods.add(
-            variable.emit(options ?? DeclarationOptions(static: true))
-                as Method,
-          );
+          methods.add(variable.emit(namespaceOptions) as Method);
         } else {
-          fields.add(
-            variable.emit(options ?? DeclarationOptions(static: true)) as Field,
-          );
+          fields.add(variable.emit(namespaceOptions) as Field);
         }
       } else if (decl case final FunctionDeclaration fn) {
-        methods.add(fn.emit(options ?? DeclarationOptions(static: true)));
+        methods.add(fn.emit(namespaceOptions));
       }
     }
 
@@ -1037,6 +1074,18 @@ class PropertyDeclaration extends FieldDeclaration
 
     final (doc, annotations) = generateFromDocumentation(documentation);
 
+    String? parentName;
+    try {
+      parentName = parent.name;
+    } catch (_) {}
+
+    final overrideSymbol = parentName != null
+        ? (options.typeOverrides[parentName]?[name])
+        : null;
+    final typeRef = overrideSymbol != null
+        ? refer(overrideSymbol)
+        : type.emit(options.toTypeOptions(nullable: isNullable));
+
     if (readonly) {
       return Method(
         (m) => m
@@ -1055,7 +1104,7 @@ class PropertyDeclaration extends FieldDeclaration
               generateJSAnnotation(name),
             if (options?.override ?? false) _redeclareExpression,
           ])
-          ..returns = type.emit(options?.toTypeOptions(nullable: isNullable)),
+          ..returns = typeRef,
       );
     } else {
       return Field(
@@ -1069,7 +1118,7 @@ class PropertyDeclaration extends FieldDeclaration
             if (dartName != null && dartName != name)
               generateJSAnnotation(name),
           ])
-          ..type = type.emit(options?.toTypeOptions(nullable: isNullable)),
+          ..type = typeRef,
       );
     }
   }
@@ -1172,7 +1221,11 @@ class MethodDeclaration extends CallableDeclaration
     return Method(
       (m) => m
         ..docs.addAll([...doc])
-        ..annotations.addAll([...annotations])
+        ..annotations.addAll([
+          ...annotations,
+          if (_checkIfDiscardable(returnType))
+            refer('doNotStore', 'package:meta/meta.dart'),
+        ])
         ..external = true
         ..name = dartName ?? name
         ..type = switch (kind) {
@@ -1211,7 +1264,7 @@ enum MethodKind { getter, setter, none }
 /// }
 /// ```
 // TODO: Suggesting a config option for adding custom constructors (factories)
-class ConstructorDeclaration implements MemberDeclaration {
+class ConstructorDeclaration implements MemberDeclaration, Node<Constructor> {
   @override
   late final TypeDeclaration parent;
 
@@ -1223,8 +1276,10 @@ class ConstructorDeclaration implements MemberDeclaration {
   @override
   final String? name;
 
+  @override
   final ID id;
 
+  @override
   String? dartName;
 
   @override
@@ -1245,13 +1300,14 @@ class ConstructorDeclaration implements MemberDeclaration {
     )..parent = decl;
   }
 
+  @override
   Constructor emit([covariant DeclarationOptions? options]) {
-    options ??= DeclarationOptions();
+    final declarationOptions = options ?? DeclarationOptions();
     final (doc, annotations) = generateFromDocumentation(documentation);
 
     final (requiredParams, optionalParams) = emitParameters(
       parameters,
-      options,
+      declarationOptions,
     );
 
     final isFactory = dartName != null && dartName != name;

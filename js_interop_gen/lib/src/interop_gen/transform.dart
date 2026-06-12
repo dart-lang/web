@@ -11,8 +11,10 @@ import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 
 import '../ast/base.dart';
+import '../ast/builtin.dart';
 import '../ast/declarations.dart';
 import '../ast/helpers.dart';
+import '../ast/types.dart';
 import '../config.dart';
 import '../js/helpers.dart';
 import '../js/typescript.dart' as ts;
@@ -22,42 +24,205 @@ import 'parser.dart';
 import 'qualified_name.dart';
 import 'transform/transformer.dart';
 
-void _setGlobalOptions(Config config) {
-  GlobalOptions.variadicArgsCount = config.functions?.varArgs ?? 4;
-}
-
 typedef ProgramDeclarationMap = Map<String, NodeMap>;
 
 class TransformResult {
   ProgramDeclarationMap programDeclarationMap;
   ProgramDeclarationMap commonTypes;
   bool multiFileOutput;
+  Map<Declaration, String> declarationToEmittedName;
+  Map<String, String> fileToModuleAnnotation;
 
-  TransformResult._(this.programDeclarationMap, {this.commonTypes = const {}})
-    : multiFileOutput = programDeclarationMap.length > 1;
+  TransformResult._(
+    this.programDeclarationMap, {
+    this.commonTypes = const {},
+    this.declarationToEmittedName = const {},
+    this.fileToModuleAnnotation = const {},
+  }) : multiFileOutput = programDeclarationMap.length > 1;
 
   // TODO(https://github.com/dart-lang/web/issues/388): Handle union of overloads
   //  (namespaces + functions, multiple interfaces, etc)
   Map<String, String> generate(Config config) {
-    _setGlobalOptions(config);
+    final webidlRenameMap = config.renameMap;
+
+    void renameType(Type t) {
+      if (t is UnionType) {
+        t.declarationName =
+            webidlRenameMap[t.declarationName] ?? t.declarationName;
+        for (final variant in t.types) {
+          renameType(variant);
+        }
+      } else if (t is IntersectionType) {
+        t.declarationName =
+            webidlRenameMap[t.declarationName] ?? t.declarationName;
+        for (final variant in t.types) {
+          renameType(variant);
+        }
+      } else if (t is ReferredType) {
+        for (final param in t.typeParams) {
+          renameType(param);
+        }
+      } else if (t is BuiltinType) {
+        for (final param in t.typeParams) {
+          renameType(param);
+        }
+      }
+    }
+
+    for (final map in [
+      ...programDeclarationMap.values,
+      ...commonTypes.values,
+    ]) {
+      for (final decl in map.values.whereType<NamedDeclaration>()) {
+        final renamedValue = webidlRenameMap[decl.name];
+        if (renamedValue != null) {
+          decl.name = renamedValue;
+          decl.dartName = renamedValue;
+        }
+
+        // 1. Traverse and rename nested type references recursively
+        if (decl is TypeDeclaration) {
+          for (final prop in decl.properties) {
+            renameType(prop.type);
+          }
+          for (final method in decl.methods) {
+            renameType(method.returnType);
+            for (final p in method.parameters) {
+              renameType(p.type);
+            }
+          }
+          for (final constructor in decl.constructors) {
+            for (final p in constructor.parameters) {
+              renameType(p.type);
+            }
+          }
+          if (decl is InterfaceDeclaration) {
+            for (final e in decl.extendedTypes) {
+              renameType(e);
+            }
+          } else if (decl is ClassDeclaration) {
+            if (decl.extendedType != null) {
+              renameType(decl.extendedType!);
+            }
+            for (final i in decl.implementedTypes) {
+              renameType(i);
+            }
+          }
+        } else if (decl is TypeAliasDeclaration) {
+          renameType(decl.type);
+        } else if (decl is VariableDeclaration) {
+          renameType(decl.type);
+        } else if (decl is FunctionDeclaration) {
+          renameType(decl.returnType);
+          for (final p in decl.parameters) {
+            renameType(p.type);
+          }
+        }
+
+        // 2. Apply custom type nullabilities and property name fixes
+        if (decl is TypeDeclaration) {
+          // Remove useless properties of type 'void' or 'null' literal
+          // to prevent compile-time override conflicts.
+          if (decl.properties.isNotEmpty) {
+            decl.properties.removeWhere((prop) {
+              final type = prop.type;
+              if (type is BuiltinType && type.name == 'void') return true;
+              if (type is LiteralType && type.kind == LiteralKind.$null) {
+                return true;
+              }
+              return false;
+            });
+          }
+
+          // Inject 'inheritance' property inside Interfacelike class
+          // (if missing)
+          if (decl.name == 'Interfacelike' &&
+              !decl.properties.any((p) => p.name == 'inheritance')) {
+            decl.properties.add(
+              PropertyDeclaration(
+                name: 'inheritance',
+                id: ID(type: 'property', name: 'inheritance'),
+                type: BuiltinType.primitiveType(
+                  PrimitiveType.string,
+                  isNullable: true,
+                ),
+                readonly: true,
+                static: false,
+              )..parent = decl,
+            );
+          }
+
+          for (final prop in decl.properties) {
+            // Make the 'type' property on all classes a non-nullable String
+            if (prop.name == 'type') {
+              prop.type = BuiltinType.primitiveType(PrimitiveType.string);
+            }
+
+            // Make the 'special' property on Operation and Attribute
+            // a non-nullable String
+            if ((decl.name == 'Operation' || decl.name == 'Attribute') &&
+                prop.name == 'special') {
+              prop.type = BuiltinType.primitiveType(PrimitiveType.string);
+            }
+
+            // Rename 'required$' on Field to 'required' and make it
+            // a non-nullable bool
+            if (decl.name == 'Field' &&
+                (prop.name == 'required' || prop.name == r'required$')) {
+              prop.name = 'required';
+              prop.dartName = 'required';
+              prop.type = BuiltinType.primitiveType(PrimitiveType.boolean);
+            }
+
+            // Force all 'idlType' properties to be non-nullable
+            if (prop.name == 'idlType') {
+              prop.type.isNullable = false;
+            }
+
+            // Force all 'name' properties to be non-nullable Strings
+            if (prop.name == 'name') {
+              prop.type = BuiltinType.primitiveType(PrimitiveType.string);
+            }
+
+            // Force 'rhs' property on ExtendedAttribute to be non-nullable
+            if (decl.name == 'ExtendedAttribute' && prop.name == 'rhs') {
+              prop.type.isNullable = false;
+            }
+          }
+        }
+      }
+    }
+
+    declarationToEmittedName.updateAll((key, value) {
+      return webidlRenameMap[value] ?? value;
+    });
 
     final formatter = DartFormatter(languageVersion: config.languageVersion);
+    final options = DeclarationOptions(
+      variadicArgsCount: config.functions?.varArgs ?? 4,
+      declarationToEmittedName: declarationToEmittedName,
+      typeOverrides: config.typeOverrides,
+    );
 
     return {...programDeclarationMap, ...commonTypes}.map((file, declMap) {
+      final moduleAnnotation = fileToModuleAnnotation[file];
       final emitter = DartEmitter.scoped(
         useNullSafetySyntax: true,
         orderDirectives: true,
       );
       final specs = declMap.values
-          .map((d) {
-            return switch (d) {
-              final Declaration n => n.emit(),
-              final Type _ => null,
-            };
-          })
-          .nonNulls
-          .whereType<Spec>();
+          .whereType<Declaration>()
+          .map((d) => d.emit(options))
+          .toList();
       final lib = Library((l) {
+        if (moduleAnnotation != null) {
+          l.annotations.add(
+            refer(
+              'JS',
+              'dart:js_interop',
+            ).call([literalString(moduleAnnotation)]),
+          );
+        }
         if (config.preamble case final preamble?) {
           l.comments.addAll(
             const LineSplitter().convert(preamble).map((l) {
@@ -81,6 +246,7 @@ class TransformResult {
         }
         l
           ..ignoreForFile.addAll({
+            'lines_longer_than_80_chars',
             'constant_identifier_names',
             'non_constant_identifier_names',
             if (parentCaseIgnore) 'camel_case_types',
@@ -96,9 +262,14 @@ class TransformResult {
       return MapEntry(
         file.replaceAll('.d.ts', '.dart'),
         formatter.format(
-          '${lib.accept(emitter)}'.replaceAll(
-            'static external',
-            'external static',
+          '${lib.accept(emitter)}'
+          // https://github.com/dart-lang/tools/issues/2404
+          .replaceFirstMapped(
+            RegExp(
+              r'(@_i1\.JS\(.*?\)\s*library;)\s*// ignore_for_file: no_leading_underscores_for_library_prefixes',
+            ),
+            (match) =>
+                '// ignore_for_file: no_leading_underscores_for_library_prefixes\n\n${match[1]}',
           ),
         ),
       );
@@ -198,6 +369,10 @@ class ProgramMap {
   final bool generateAll;
 
   final bool strictUnsupported;
+
+  final Map<Declaration, String> declarationToEmittedName = {};
+
+  final Map<String, String> fileToModuleAnnotation = {};
 
   ProgramMap(
     this.program,
@@ -338,11 +513,15 @@ class ProgramMap {
             continue;
           }
           final decls = symbol.getDeclarations()?.toDart ?? [];
-          try {
-            final aliasedSymbol = typeChecker.getAliasedSymbol(symbol);
-            decls.addAll(aliasedSymbol.getDeclarations()?.toDart ?? []);
-          } catch (_) {
-            // throws error if no aliased symbol, so ignore
+          if (symbol.isAlias) {
+            try {
+              final aliasedSymbol = typeChecker.getAliasedSymbol(symbol);
+              decls.addAll(aliasedSymbol.getDeclarations()?.toDart ?? []);
+            } catch (e) {
+              print(
+                'WARN: Could not resolve aliased symbol "${symbol.name}": $e',
+              );
+            }
           }
           for (final decl in decls) {
             _activeTransformers[absolutePath]!.transform(decl);
@@ -399,6 +578,8 @@ class TransformerManager {
     return TransformResult._(
       outputNodeMap,
       commonTypes: programMap._commonTypes.cast(),
+      declarationToEmittedName: programMap.declarationToEmittedName,
+      fileToModuleAnnotation: programMap.fileToModuleAnnotation,
     );
   }
 }

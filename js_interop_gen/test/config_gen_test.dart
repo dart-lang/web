@@ -58,5 +58,29 @@ void main() {
 
       expectFilesEqual(expectedFile, outputFile);
     });
+
+    test('Generate Code with type overrides and suffix renames', () async {
+      final inputOverridesFile = p.join(assetsPath, 'test_overrides.d.ts');
+      final outputFile = p.join(outputPath, 'test_overrides.dart');
+      final expectedFile = p.join(assetsPath, 'test_overrides_golden.dart');
+      final configFile = p.join(assetsPath, 'config_overrides.yaml');
+
+      final inputFilePath = p.relative(
+        inputOverridesFile,
+        from: bindingsGenPath,
+      );
+      final outFilePath = p.relative(outputFile, from: bindingsGenPath);
+      final configFilePath = p.relative(configFile, from: bindingsGenPath);
+
+      await runNode([
+        'main.mjs',
+        '--input=$inputFilePath',
+        '--output=$outFilePath',
+        '--config=$configFilePath',
+        '--declaration',
+      ], workingDirectory: bindingsGenPath);
+
+      expectFilesEqual(expectedFile, outputFile);
+    });
   });
 }

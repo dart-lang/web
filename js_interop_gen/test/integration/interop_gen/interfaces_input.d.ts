@@ -47,3 +47,7 @@ interface LinkedList {
 export declare const dict: Dictionary;
 export declare const rootList: LinkedList;
 export declare const compareNumbers: Comparator<number>;
+
+export interface ErrorReporter {
+    reportError(msg: string): never;
+}

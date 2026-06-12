@@ -5,6 +5,7 @@
 import 'dart:js_interop';
 
 import '../dom.dart' show HTMLIFrameElement, Location, Window;
+import 'equivalence.dart';
 
 // The Dart runtime does not allow this to be typed as any better than `JSAny?`.
 extension type _CrossOriginWindow(JSAny? any) {
@@ -174,30 +175,55 @@ extension CrossOriginContentWindowExtension on HTMLIFrameElement {
 /// objects.
 extension CrossOriginWindowExtension on Window {
   @JS('open')
-  external JSAny? _open(String url);
+  external JSAny? _open([String url, String target, String features]);
 
   /// A [CrossOriginWindow] wrapper of the value returned from calling
-  /// [Window.open] with [url].
-  CrossOriginWindow? openCrossOrigin(String url) =>
-      CrossOriginWindow._create(_open(url));
+  /// [Window.open].
+  ///
+  /// If any of [url], [target], or [features] are null, only passes the args
+  /// before the first null parameter to [Window.open].
+  @Equivalence(type: 'Window', member: 'open')
+  CrossOriginWindow? openCrossOrigin([
+    String? url,
+    String? target,
+    String? features,
+  ]) {
+    JSAny? any;
+    if (url == null) {
+      any = _open();
+    } else if (target == null) {
+      any = _open(url);
+    } else if (features == null) {
+      any = _open(url, target);
+    } else {
+      any = _open(url, target, features);
+    }
+    return CrossOriginWindow._create(any);
+  }
+
   @JS('opener')
   external JSAny? get _opener;
 
   /// A [CrossOriginWindow] wrapper of the [Window.opener] value of this
   /// cross-origin window.
+  @Equivalence(type: 'Window', member: 'opener')
   CrossOriginWindow? get openerCrossOrigin =>
       CrossOriginWindow._create(_opener);
+
   @JS('parent')
   external JSAny? get _parent;
 
   /// A [CrossOriginWindow] wrapper of the [Window.parent] value of this
   /// cross-origin window.
+  @Equivalence(type: 'Window', member: 'parent')
   CrossOriginWindow? get parentCrossOrigin =>
       CrossOriginWindow._create(_parent);
+
   @JS('top')
   external JSAny? get _top;
 
   /// A [CrossOriginWindow] wrapper of the [Window.top] value of this
   /// cross-origin window.
+  @Equivalence(type: 'Window', member: 'top')
   CrossOriginWindow? get topCrossOrigin => CrossOriginWindow._create(_top);
 }

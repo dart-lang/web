@@ -95,5 +95,8 @@ String dartRename(String jsName, [bool toSingleForm = false]) {
   if (bannedNames.contains(dartName)) {
     dartName = '${dartName}_';
   }
+  if (dartName.startsWith('_')) {
+    dartName = '\$$dartName';
+  }
   return dartName;
 }

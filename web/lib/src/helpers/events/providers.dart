@@ -453,9 +453,6 @@ abstract final class EventStreamProviders {
   static const EventStreamProvider<Event> resizeEvent =
       EventStreamProvider<Event>('resize');
 
-  static const EventStreamProvider<Event> resourceTimingBufferFull =
-      EventStreamProvider<Event>('resourcetimingbufferfull');
-
   static const EventStreamProvider<SpeechRecognitionEvent> resultEvent =
       EventStreamProvider<SpeechRecognitionEvent>('result');
 

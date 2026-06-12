@@ -8,3 +8,8 @@ export declare const hyphenatedVal: HyphenatedEnum;
 
 export type NumericHyphenatedEnum = "1-2" | "3-4";
 export declare const numericHyphenatedVal: NumericHyphenatedEnum;
+
+export class SharedType {}
+export declare const nonNullableShared: SharedType;
+export type NullableSharedUnion = SharedType | null;
+export declare const nullableSharedVal: NullableSharedUnion;

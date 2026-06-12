@@ -670,6 +670,21 @@ class NamespaceDeclaration extends NestableDeclaration
     this.documentation,
   }) : _id = id;
 
+  NamespaceDeclaration clone({String? name, String? dartName}) {
+    return NamespaceDeclaration(
+        name: name ?? this.name,
+        dartName: dartName ?? this.dartName,
+        id: _id,
+        exported: exported,
+        topLevelDeclarations: topLevelDeclarations,
+        namespaceDeclarations: namespaceDeclarations,
+        nestableDeclarations: nestableDeclarations,
+        documentation: documentation,
+      )
+      ..parent = parent
+      ..nodes = nodes;
+  }
+
   @override
   ExtensionType emit([covariant DeclarationOptions? options]) {
     final namespaceOptions = DeclarationOptions(

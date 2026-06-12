@@ -202,8 +202,12 @@ class Transformer {
     var actualName = actualNameNode.text;
     final symbol = typeChecker.getSymbolAtLocation(actualNameNode);
     if (symbol != null && symbol.isAlias) {
-      final aliasedSymbol = typeChecker.getAliasedSymbol(symbol);
-      actualName = aliasedSymbol.name;
+      try {
+        final aliasedSymbol = typeChecker.getAliasedSymbol(symbol);
+        actualName = aliasedSymbol.name;
+      } catch (e) {
+        print('WARN: Could not resolve aliased symbol "${symbol.name}": $e');
+      }
     }
 
     final decl = nodeMap.findByName(actualName);
@@ -238,8 +242,14 @@ class Transformer {
           exp.propertyName ?? exp.name,
         );
         if (symbol != null && symbol.isAlias) {
-          final aliasedSymbol = typeChecker.getAliasedSymbol(symbol);
-          actualName = aliasedSymbol.name;
+          try {
+            final aliasedSymbol = typeChecker.getAliasedSymbol(symbol);
+            actualName = aliasedSymbol.name;
+          } catch (e) {
+            print(
+              'WARN: Could not resolve aliased symbol "${symbol.name}": $e',
+            );
+          }
         }
 
         (exportSet ?? this.exportSet).add(
@@ -2401,6 +2411,13 @@ class Transformer {
                       exported: decl.exported,
                       returnType: decl.returnType,
                       documentation: decl.documentation,
+                    ),
+                  );
+                } else if (decl is NamespaceDeclaration) {
+                  filteredDeclarations.add(
+                    decl.clone(
+                      name: jsName,
+                      dartName: dartName == jsName ? null : dartName,
                     ),
                   );
                 } else {

@@ -660,7 +660,11 @@ class TypeResolver {
     for (final decl in declarations) {
       if (decl.kind == TSSyntaxKind.ImportSpecifier ||
           decl.kind == TSSyntaxKind.ExportSpecifier) {
-        resolvedSymbol = transformer.typeChecker.getAliasedSymbol(symbol);
+        try {
+          resolvedSymbol = transformer.typeChecker.getAliasedSymbol(symbol);
+        } catch (e) {
+          print('WARN: Could not resolve aliased symbol "${symbol.name}": $e');
+        }
         break;
       }
     }

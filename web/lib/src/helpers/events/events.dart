@@ -6,7 +6,93 @@ import '../../dom.dart';
 import 'providers.dart';
 import 'streams.dart';
 
-extension ElementEventGetters on Element {
+extension AudioNodeEvents on AudioNode {
+  Stream<Event> get onEnded => EventStreamProviders.endedEvent.forTarget(this);
+}
+
+extension BroadcastChannelEvents on BroadcastChannel {
+  Stream<MessageEvent> get onMessage =>
+      EventStreamProviders.messageEvent.forTarget(this);
+}
+
+extension DocumentEvents on Document {
+  Stream<Event> get onBlur => EventStreamProviders.blurEvent.forTarget(this);
+
+  Stream<MouseEvent> get onClick =>
+      EventStreamProviders.clickEvent.forTarget(this);
+
+  Stream<MouseEvent> get onDrag =>
+      EventStreamProviders.dragEvent.forTarget(this);
+
+  Stream<MouseEvent> get onDragEnd =>
+      EventStreamProviders.dragEndEvent.forTarget(this);
+
+  Stream<MouseEvent> get onDragEnter =>
+      EventStreamProviders.dragEnterEvent.forTarget(this);
+
+  Stream<MouseEvent> get onDragLeave =>
+      EventStreamProviders.dragLeaveEvent.forTarget(this);
+
+  Stream<MouseEvent> get onDragOver =>
+      EventStreamProviders.dragOverEvent.forTarget(this);
+
+  Stream<MouseEvent> get onDragStart =>
+      EventStreamProviders.dragStartEvent.forTarget(this);
+
+  Stream<MouseEvent> get onDrop =>
+      EventStreamProviders.dropEvent.forTarget(this);
+
+  Stream<Event> get onInput => EventStreamProviders.inputEvent.forTarget(this);
+
+  Stream<KeyboardEvent> get onKeyDown =>
+      EventStreamProviders.keyDownEvent.forTarget(this);
+
+  Stream<KeyboardEvent> get onKeyUp =>
+      EventStreamProviders.keyUpEvent.forTarget(this);
+
+  Stream<Event> get onLoad => EventStreamProviders.loadEvent.forTarget(this);
+
+  Stream<MouseEvent> get onMouseDown =>
+      EventStreamProviders.mouseDownEvent.forTarget(this);
+
+  Stream<MouseEvent> get onMouseEnter =>
+      EventStreamProviders.mouseEnterEvent.forTarget(this);
+
+  Stream<MouseEvent> get onMouseLeave =>
+      EventStreamProviders.mouseLeaveEvent.forTarget(this);
+
+  Stream<MouseEvent> get onMouseMove =>
+      EventStreamProviders.mouseMoveEvent.forTarget(this);
+
+  Stream<MouseEvent> get onMouseOut =>
+      EventStreamProviders.mouseOutEvent.forTarget(this);
+
+  Stream<MouseEvent> get onMouseOver =>
+      EventStreamProviders.mouseOverEvent.forTarget(this);
+
+  Stream<MouseEvent> get onMouseUp =>
+      EventStreamProviders.mouseUpEvent.forTarget(this);
+
+  Stream<WheelEvent> get onMouseWheel =>
+      EventStreamProviders.mouseWheelEvent.forTarget(this);
+
+  Stream<TouchEvent> get onTouchCancel =>
+      EventStreamProviders.touchCancelEvent.forTarget(this);
+
+  Stream<TouchEvent> get onTouchEnd =>
+      EventStreamProviders.touchEndEvent.forTarget(this);
+
+  Stream<TouchEvent> get onTouchMove =>
+      EventStreamProviders.touchMoveEvent.forTarget(this);
+
+  Stream<TouchEvent> get onTouchStart =>
+      EventStreamProviders.touchStartEvent.forTarget(this);
+
+  Stream<Event> get onVisibilityChange =>
+      EventStreamProviders.visibilityChangeEvent.forTarget(this);
+}
+
+extension ElementEvents on Element {
   ElementStream<Event> get onAbort =>
       EventStreamProviders.abortEvent.forElement(this);
 
@@ -106,9 +192,6 @@ extension ElementEventGetters on Element {
   ElementStream<Event> get onLoad =>
       EventStreamProviders.loadEvent.forElement(this);
 
-  ElementStream<Event> get onUnload =>
-      EventStreamProviders.unloadEvent.forElement(this);
-
   ElementStream<Event> get onLoadedData =>
       EventStreamProviders.loadedDataEvent.forElement(this);
 
@@ -135,6 +218,9 @@ extension ElementEventGetters on Element {
 
   ElementStream<MouseEvent> get onMouseUp =>
       EventStreamProviders.mouseUpEvent.forElement(this);
+
+  ElementStream<WheelEvent> get onMouseWheel =>
+      EventStreamProviders.mouseWheelEvent.forElement(this);
 
   ElementStream<ClipboardEvent> get onPaste =>
       EventStreamProviders.pasteEvent.forElement(this);
@@ -205,6 +291,12 @@ extension ElementEventGetters on Element {
   ElementStream<TouchEvent> get onTouchStart =>
       EventStreamProviders.touchStartEvent.forElement(this);
 
+  ElementStream<TransitionEvent> get onTransitionEnd =>
+      EventStreamProviders.transitionEndEvent.forElement(this);
+
+  ElementStream<Event> get onUnload =>
+      EventStreamProviders.unloadEvent.forElement(this);
+
   ElementStream<Event> get onVolumeChange =>
       EventStreamProviders.volumeChangeEvent.forElement(this);
 
@@ -221,19 +313,7 @@ extension ElementEventGetters on Element {
       EventStreamProviders.wheelEvent.forElement(this);
 }
 
-extension XHRGetters on XMLHttpRequest {
-  Stream<ProgressEvent> get onLoad =>
-      EventStreamProviders.loadEvent.forTarget(this);
-  Stream<ProgressEvent> get onError =>
-      EventStreamProviders.errorEvent.forTarget(this);
-  Stream<ProgressEvent> get onProgress =>
-      EventStreamProviders.progressEvent.forTarget(this);
-
-  Stream<Event> get onReadyStateChange =>
-      EventStreamProviders.readyStateChangeEvent.forTarget(this);
-}
-
-extension EventSourceEventGetters on EventSource {
+extension EventSourceEvents on EventSource {
   Stream<Event> get onError =>
       EventStreamProviders.errorEventSourceEvent.forTarget(this);
 
@@ -243,40 +323,128 @@ extension EventSourceEventGetters on EventSource {
   Stream<Event> get onOpen => EventStreamProviders.openEvent.forTarget(this);
 }
 
-extension FileReaderEventGetters on FileReader {
+extension FileReaderEvents on FileReader {
   Stream<ProgressEvent> get onAbort =>
       EventStreamProviders.abortEvent.forTarget(this);
+
   Stream<ProgressEvent> get onError =>
       EventStreamProviders.errorEvent.forTarget(this);
+
   Stream<ProgressEvent> get onLoad =>
       EventStreamProviders.loadEvent.forTarget(this);
+
   Stream<ProgressEvent> get onLoadEnd =>
       EventStreamProviders.loadEndEvent.forTarget(this);
+
   Stream<ProgressEvent> get onLoadStart =>
       EventStreamProviders.loadStartEvent.forTarget(this);
+
   Stream<ProgressEvent> get onProgress =>
       EventStreamProviders.progressEvent.forTarget(this);
 }
 
-extension AutoElementEventGetters on AudioNode {
-  Stream<Event> get onEnded => EventStreamProviders.endedEvent.forTarget(this);
+extension FontFaceSetEvents on FontFaceSet {
+  Stream<FontFaceSetLoadEvent> get onLoadingDone =>
+      EventStreamProviders.loadingDoneEvent.forTarget(this);
 }
 
-extension WindowEventGetters on Window {
+extension PerformanceEvents on Performance {
+  Stream<Event> get onResourceTimingBufferFull =>
+      EventStreamProviders.resourceTimingBufferFull.forTarget(this);
+}
+
+extension WebSocketEvents on WebSocket {
+  Stream<CloseEvent> get onClose =>
+      EventStreamProviders.closeEvent.forTarget(this);
+
+  Stream<Event> get onError =>
+      EventStreamProviders.errorEventSourceEvent.forTarget(this);
+
+  Stream<MessageEvent> get onMessage =>
+      EventStreamProviders.messageEvent.forTarget(this);
+
+  Stream<Event> get onOpen => EventStreamProviders.openEvent.forTarget(this);
+}
+
+extension WindowEvents on Window {
+  Stream<Event> get onAnimationEnd =>
+      EventStreamProviders.animationEndEvent.forTarget(this);
+
+  Stream<BeforeUnloadEvent> get onBeforeUnload =>
+      EventStreamProviders.beforeUnloadEvent.forTarget(this);
+
+  Stream<Event> get onBlur => EventStreamProviders.blurEvent.forTarget(this);
+
+  Stream<MouseEvent> get onDrag =>
+      EventStreamProviders.dragEvent.forTarget(this);
+
+  Stream<MouseEvent> get onDragEnd =>
+      EventStreamProviders.dragEndEvent.forTarget(this);
+
+  Stream<MouseEvent> get onDragEnter =>
+      EventStreamProviders.dragEnterEvent.forTarget(this);
+
+  Stream<MouseEvent> get onDragLeave =>
+      EventStreamProviders.dragLeaveEvent.forTarget(this);
+
+  Stream<MouseEvent> get onDragOver =>
+      EventStreamProviders.dragOverEvent.forTarget(this);
+
+  Stream<MouseEvent> get onDragStart =>
+      EventStreamProviders.dragStartEvent.forTarget(this);
+
+  Stream<Event> get onFocus => EventStreamProviders.focusEvent.forTarget(this);
+
   Stream<KeyboardEvent> get onKeyDown =>
       EventStreamProviders.keyDownEvent.forTarget(this);
 
   Stream<KeyboardEvent> get onKeyPress =>
       EventStreamProviders.keyPressEvent.forTarget(this);
 
+  Stream<KeyboardEvent> get onKeyUp =>
+      EventStreamProviders.keyUpEvent.forTarget(this);
+
   Stream<Event> get onLoad => EventStreamProviders.loadEvent.forTarget(this);
 
   Stream<MessageEvent> get onMessage =>
       EventStreamProviders.messageEvent.forTarget(this);
 
+  Stream<MouseEvent> get onMouseDown =>
+      EventStreamProviders.mouseDownEvent.forTarget(this);
+
+  Stream<MouseEvent> get onMouseEnter =>
+      EventStreamProviders.mouseEnterEvent.forTarget(this);
+
+  Stream<MouseEvent> get onMouseLeave =>
+      EventStreamProviders.mouseLeaveEvent.forTarget(this);
+
+  Stream<MouseEvent> get onMouseMove =>
+      EventStreamProviders.mouseMoveEvent.forTarget(this);
+
+  Stream<MouseEvent> get onMouseOut =>
+      EventStreamProviders.mouseOutEvent.forTarget(this);
+
+  Stream<MouseEvent> get onMouseOver =>
+      EventStreamProviders.mouseOverEvent.forTarget(this);
+
+  Stream<MouseEvent> get onMouseUp =>
+      EventStreamProviders.mouseUpEvent.forTarget(this);
+
+  Stream<WheelEvent> get onMouseWheel =>
+      EventStreamProviders.mouseWheelEvent.forTarget(this);
+
   Stream<PopStateEvent> get onPopState =>
       EventStreamProviders.popStateEvent.forTarget(this);
 
+  Stream<Event> get onResize =>
+      EventStreamProviders.resizeEvent.forTarget(this);
+
+  Stream<Event> get onScroll =>
+      EventStreamProviders.scrollEvent.forTarget(this);
+
+  Stream<Event> get onStorage =>
+      EventStreamProviders.storageEvent.forTarget(this);
+
   Stream<TouchEvent> get onTouchCancel =>
       EventStreamProviders.touchCancelEvent.forTarget(this);
 
@@ -288,132 +456,21 @@ extension WindowEventGetters on Window {
 
   Stream<TouchEvent> get onTouchStart =>
       EventStreamProviders.touchStartEvent.forTarget(this);
-
-  Stream<MouseEvent> get onMouseDown =>
-      EventStreamProviders.mouseDownEvent.forTarget(this);
-
-  Stream<MouseEvent> get onMouseEnter =>
-      EventStreamProviders.mouseEnterEvent.forTarget(this);
-
-  Stream<MouseEvent> get onMouseLeave =>
-      EventStreamProviders.mouseLeaveEvent.forTarget(this);
-
-  Stream<MouseEvent> get onMouseMove =>
-      EventStreamProviders.mouseMoveEvent.forTarget(this);
-
-  Stream<MouseEvent> get onMouseOut =>
-      EventStreamProviders.mouseOutEvent.forTarget(this);
-
-  Stream<MouseEvent> get onMouseOver =>
-      EventStreamProviders.mouseOverEvent.forTarget(this);
-
-  Stream<MouseEvent> get onMouseUp =>
-      EventStreamProviders.mouseUpEvent.forTarget(this);
-
-  Stream<MouseEvent> get onDrag =>
-      EventStreamProviders.dragEvent.forTarget(this);
-
-  Stream<MouseEvent> get onDragEnd =>
-      EventStreamProviders.dragEndEvent.forTarget(this);
-
-  Stream<MouseEvent> get onDragEnter =>
-      EventStreamProviders.dragEnterEvent.forTarget(this);
-
-  Stream<MouseEvent> get onDragLeave =>
-      EventStreamProviders.dragLeaveEvent.forTarget(this);
-
-  Stream<MouseEvent> get onDragOver =>
-      EventStreamProviders.dragOverEvent.forTarget(this);
-
-  Stream<MouseEvent> get onDragStart =>
-      EventStreamProviders.dragStartEvent.forTarget(this);
-}
-
-extension DocumentEventGetters on Document {
-  Stream<TouchEvent> get onTouchCancel =>
-      EventStreamProviders.touchCancelEvent.forTarget(this);
-
-  Stream<TouchEvent> get onTouchEnd =>
-      EventStreamProviders.touchEndEvent.forTarget(this);
-
-  Stream<TouchEvent> get onTouchMove =>
-      EventStreamProviders.touchMoveEvent.forTarget(this);
-
-  Stream<TouchEvent> get onTouchStart =>
-      EventStreamProviders.touchStartEvent.forTarget(this);
-
-  Stream<MouseEvent> get onMouseDown =>
-      EventStreamProviders.mouseDownEvent.forTarget(this);
-
-  Stream<MouseEvent> get onMouseEnter =>
-      EventStreamProviders.mouseEnterEvent.forTarget(this);
-
-  Stream<MouseEvent> get onMouseLeave =>
-      EventStreamProviders.mouseLeaveEvent.forTarget(this);
-
-  Stream<MouseEvent> get onMouseMove =>
-      EventStreamProviders.mouseMoveEvent.forTarget(this);
-
-  Stream<MouseEvent> get onMouseOut =>
-      EventStreamProviders.mouseOutEvent.forTarget(this);
-
-  Stream<MouseEvent> get onMouseOver =>
-      EventStreamProviders.mouseOverEvent.forTarget(this);
-
-  Stream<MouseEvent> get onMouseUp =>
-      EventStreamProviders.mouseUpEvent.forTarget(this);
-
-  Stream<MouseEvent> get onDrag =>
-      EventStreamProviders.dragEvent.forTarget(this);
-
-  Stream<MouseEvent> get onDragEnd =>
-      EventStreamProviders.dragEndEvent.forTarget(this);
-
-  Stream<MouseEvent> get onDragEnter =>
-      EventStreamProviders.dragEnterEvent.forTarget(this);
-
-  Stream<MouseEvent> get onDragLeave =>
-      EventStreamProviders.dragLeaveEvent.forTarget(this);
-
-  Stream<MouseEvent> get onDragOver =>
-      EventStreamProviders.dragOverEvent.forTarget(this);
-
-  Stream<MouseEvent> get onDragStart =>
-      EventStreamProviders.dragStartEvent.forTarget(this);
-}
-
-extension ElementCustomEvents on Element {
-  ElementStream<WheelEvent> get onMouseWheel =>
-      EventStreamProviders.mouseWheelEvent.forElement(this);
-
-  ElementStream<TransitionEvent> get onTransitionEnd =>
-      EventStreamProviders.transitionEndEvent.forElement(this);
-}
-
-extension DocumentCustomEvents on Document {
-  Stream<Event> get onLoad => EventStreamProviders.loadEvent.forTarget(this);
-
-  Stream<WheelEvent> get onMouseWheel =>
-      EventStreamProviders.mouseWheelEvent.forTarget(this);
-
-  Stream<Event> get onVisibilityChange =>
-      EventStreamProviders.visibilityChangeEvent.forTarget(this);
-}
-
-extension WindowCustomEvents on Window {
-  Stream<WheelEvent> get onMouseWheel =>
-      EventStreamProviders.mouseWheelEvent.forTarget(this);
 
   Stream<TransitionEvent> get onTransitionEnd =>
       EventStreamProviders.transitionEndEvent.forTarget(this);
 }
 
-extension WebSocketEvents on WebSocket {
-  Stream<Event> get onOpen => EventStreamProviders.openEvent.forTarget(this);
-  Stream<MessageEvent> get onMessage =>
-      EventStreamProviders.messageEvent.forTarget(this);
-  Stream<CloseEvent> get onClose =>
-      EventStreamProviders.closeEvent.forTarget(this);
-  Stream<Event> get onError =>
-      EventStreamProviders.errorEventSourceEvent.forTarget(this);
+extension XMLHttpRequestEvents on XMLHttpRequest {
+  Stream<ProgressEvent> get onError =>
+      EventStreamProviders.errorEvent.forTarget(this);
+
+  Stream<ProgressEvent> get onLoad =>
+      EventStreamProviders.loadEvent.forTarget(this);
+
+  Stream<ProgressEvent> get onProgress =>
+      EventStreamProviders.progressEvent.forTarget(this);
+
+  Stream<Event> get onReadyStateChange =>
+      EventStreamProviders.readyStateChangeEvent.forTarget(this);
 }

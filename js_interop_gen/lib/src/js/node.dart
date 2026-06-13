@@ -2,13 +2,10 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:js_interop';
+import 'generated/node_api.dart' as gen;
 
-@JS()
-external String get url;
+export 'generated/node_api.dart' show url;
 
-@JS('process.exit')
-external void exit(int code);
+void exit(int code) => gen.process.exit(code);
 
-@JS('console.error')
-external void printErr(String message);
+void printErr(String message) => gen.console.error(message);

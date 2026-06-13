@@ -214,6 +214,7 @@ import 'types.dart';
 extension MergeDeclarationsOntoComposite on CompositeDeclaration {
   void mergeType([TypeDeclaration? type]) {
     if (type == null) return;
+    type.mergedInto = this;
     this
       ..typeParameters.addAll(type.typeParameters)
       ..extendedTypes.addAll(switch (type) {
@@ -390,7 +391,7 @@ InterfaceDeclaration mergeInterfaces(
   // get top level decls scoped
   final namer = ScopedUniqueNamer({'get', 'set'});
 
-  return InterfaceDeclaration(
+  final merged = InterfaceDeclaration(
     name: referenceInterface.id.name,
     exported: true,
     id: ID(type: referenceInterface.id.type, name: referenceInterface.id.name),
@@ -462,6 +463,10 @@ InterfaceDeclaration mergeInterfaces(
           .join('\n${'-' * 20}\n'),
     ),
   );
+  for (final i in interfaces) {
+    i.mergedInto = merged;
+  }
+  return merged;
 }
 
 NamespaceDeclaration mergeNamespaces(
@@ -514,7 +519,7 @@ NamespaceDeclaration mergeNamespaces(
     (interface) => interface.name,
   );
 
-  return NamespaceDeclaration(
+  final merged = NamespaceDeclaration(
     name: refNamespace.id.name,
     id: ID(type: refNamespace.id.type, name: refNamespace.id.name),
     topLevelDeclarations: namespaces
@@ -527,6 +532,10 @@ NamespaceDeclaration mergeNamespaces(
     },
     documentation: Documentation(docs: docStrings.join('\n${'-' * 20}\n')),
   );
+  for (final n in namespaces) {
+    n.mergedInto = merged;
+  }
+  return merged;
 }
 
 Iterable<T> _rescopeDecls<T extends Declaration>(

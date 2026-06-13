@@ -15,6 +15,7 @@ class Options {
   final bool redeclareOverrides;
   final Map<Declaration, String> declarationToEmittedName;
   final Map<String, Map<String, String>> typeOverrides;
+  Set<String> validGenericNames;
 
   Options({
     this.variadicArgsCount = 4,
@@ -22,7 +23,8 @@ class Options {
     this.redeclareOverrides = true,
     this.declarationToEmittedName = const {},
     this.typeOverrides = const {},
-  });
+    Set<String>? validGenericNames,
+  }) : validGenericNames = validGenericNames ?? {};
 }
 
 class DeclarationOptions extends Options {
@@ -37,6 +39,7 @@ class DeclarationOptions extends Options {
     super.redeclareOverrides,
     super.declarationToEmittedName,
     super.typeOverrides,
+    super.validGenericNames,
   });
 
   TypeOptions toTypeOptions({bool nullable = false}) => TypeOptions(
@@ -46,6 +49,7 @@ class DeclarationOptions extends Options {
     redeclareOverrides: redeclareOverrides,
     declarationToEmittedName: declarationToEmittedName,
     typeOverrides: typeOverrides,
+    validGenericNames: validGenericNames,
   );
 }
 
@@ -63,6 +67,7 @@ class TypeOptions extends Options {
     super.redeclareOverrides,
     super.declarationToEmittedName,
     super.typeOverrides,
+    super.validGenericNames,
   });
 }
 
@@ -87,6 +92,10 @@ abstract class NamedDeclaration extends Declaration {
   abstract String name;
 
   Iterable<GenericType> get typeParameters => const [];
+
+  /// The final merged declaration that this declaration was merged into, if
+  /// any.
+  NamedDeclaration? mergedInto;
 
   ReferredType asReferredType([
     Iterable<Type>? typeArgs,

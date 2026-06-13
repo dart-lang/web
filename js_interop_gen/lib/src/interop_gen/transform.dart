@@ -246,6 +246,7 @@ class TransformResult {
         }
         l
           ..ignoreForFile.addAll({
+            'unnecessary_ignore',
             'lines_longer_than_80_chars',
             'constant_identifier_names',
             'non_constant_identifier_names',

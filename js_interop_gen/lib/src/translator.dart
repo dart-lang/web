@@ -138,10 +138,10 @@ class Translator {
     this._elementTagMap, {
     this.packageRoot,
     required bool generateAll,
-    bool generateForWeb = true,
+    this._generateForWeb = true,
     this.loadedRenameMap = const {},
     required String bcdJsonPath,
-  }) : _generateForWeb = generateForWeb {
+  }) {
     instance = this;
     docProvider = DocProvider.create();
     browserCompatData = BrowserCompatData.read(
@@ -1088,6 +1088,7 @@ class Translator {
 
     b
       ..ignoreForFile.addAll([
+        'unnecessary_ignore',
         // JS constants are allowed to be all uppercased.
         'constant_identifier_names',
         // JS properties are allowed to not be camelcased.

@@ -6,10 +6,10 @@ description: >-
 repository: https://github.com/dart-lang/web
 
 environment:
-  sdk: ^3.10.0
+  sdk: ^3.12.0
 
 dependencies:
-  analyzer: ^12.0.0
+  analyzer: '>=12.0.0 <14.0.0'
   args: ^2.5.0
   code_builder: ^4.11.0
   collection: ^1.19.1

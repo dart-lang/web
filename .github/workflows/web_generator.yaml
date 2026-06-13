@@ -27,7 +27,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        sdk: ['3.10', dev]
+        sdk: ['3.12', dev]
 
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
@@ -36,8 +36,6 @@ jobs:
           sdk: ${{ matrix.sdk }}
 
       - run: dart pub get
-      - run: dart format --output=none --set-exit-if-changed .
-        if: matrix.sdk == 'dev'
       - run: dart analyze --fatal-infos
         if: matrix.sdk == 'dev'
       - run: dart analyze

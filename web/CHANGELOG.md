@@ -8,16 +8,16 @@
 - Added `URL.toDart` and `Uri.toJS` extension methods.
 - Added missing `Document` and `Window` pointer event getters: `onDrag*`,
   `onTouch*`, `onMouse*`.
-- Added `childNodesAsList` to `Node` and `childrenAsList` to `Element` via 
+- Added `childNodesAsList` to `Node` and `childrenAsList` to `Element` via
   extensions to support mutable operations on node lists.
 - Added `asList` to `NodeList` via extension.
 - Removed `CustomEventProviders`. Moved these events to `EventStreamProviders`.
-- Require `sdk: ^3.12.0` to support `isA` on `Object?`.
 - Rename `*Glue` extensions to `*Extension`.
 - Various extension methods bridging `dart:html` APIs are added to make it
   easier to migrate. `@Equivalence` annotations are now added to extension
   methods to document 1-1 replacements of `dart:html` APIs.
 - Combined stream provider extensions to one per type.
+- Require `sdk: ^3.12.0` to support `isA` on `Object?`.
 
 ## 1.1.1
 

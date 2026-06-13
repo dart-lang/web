@@ -1,6 +1,7 @@
 // Generated from Web IDL definitions.
 
 // ignore_for_file: constant_identifier_names, non_constant_identifier_names
+// ignore_for_file: unnecessary_ignore
 
 @JS()
 library;

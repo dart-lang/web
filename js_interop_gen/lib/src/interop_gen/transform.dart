@@ -260,10 +260,7 @@ class TransformResult {
           })
           ..body.addAll(specs);
       });
-      return MapEntry(
-        file.replaceAll('.d.ts', '.dart'),
-        formatter.format(
-          '${lib.accept(emitter)}'
+      final source = '${lib.accept(emitter)}'
           // https://github.com/dart-lang/tools/issues/2404
           .replaceFirstMapped(
             RegExp(
@@ -271,9 +268,19 @@ class TransformResult {
             ),
             (match) =>
                 '// ignore_for_file: no_leading_underscores_for_library_prefixes\n\n${match[1]}',
-          ),
-        ),
-      );
+          );
+      try {
+        return MapEntry(
+          file.replaceAll('.d.ts', '.dart'),
+          formatter.format(source),
+        );
+      } catch (e) {
+        print(
+          'WARNING: Failed to format $file. Writing unformatted source to '
+          'disk for debugging. Error: $e',
+        );
+        return MapEntry(file.replaceAll('.d.ts', '.dart'), source);
+      }
     });
   }
 }

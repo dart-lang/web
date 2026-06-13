@@ -1,0 +1,12 @@
+# Configuration file for dogfooded TypeScript Compiler API bindings generation (Phase 2)
+name: typescript_api
+description: TypeScript Compiler API bindings generated from official typescript.d.ts (Subset)
+
+input: typescript_entry.d.ts
+output: ../lib/src/js/generated/typescript_api.dart
+language_version: 3.10.0
+
+# Rename to match our current hand-rolled TS-prefixed names in typescript.dart
+rename_map:
+  Program: TSProgram
+  SourceFile: TSSourceFile

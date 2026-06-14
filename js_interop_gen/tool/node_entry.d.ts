@@ -2,15 +2,15 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-export class MkdirOptions {
+export interface MkdirOptions {
     recursive?: boolean;
 }
 
-export class ReadFileOptions {
+export interface ReadFileOptions {
     encoding?: string;
 }
 
-export class GlobSyncOptions {
+export interface GlobSyncOptions {
     cwd?: string;
     exclude?: (entry: string) => boolean;
 }

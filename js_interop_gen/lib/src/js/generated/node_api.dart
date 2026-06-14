@@ -7,18 +7,12 @@
 import 'dart:js_interop' as _i1;
 
 extension type MkdirOptions._(_i1.JSObject _) implements _i1.JSObject {
-  external MkdirOptions();
-
   external bool? recursive;
 }
 extension type ReadFileOptions._(_i1.JSObject _) implements _i1.JSObject {
-  external ReadFileOptions();
-
   external String? encoding;
 }
 extension type GlobSyncOptions._(_i1.JSObject _) implements _i1.JSObject {
-  external GlobSyncOptions();
-
   external String? cwd;
 
   external _AnonymousFunction_1801294? exclude;

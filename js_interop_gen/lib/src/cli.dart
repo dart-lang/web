@@ -205,7 +205,8 @@ ${jsTypeSupertypes.entries.map((e) => "  ${e.key}: ${e.value},").join('\n')}
   }
 }
 
-/// Checks if `js_type_supertypes.dart` needs to be updated and warns if so.
+/// Checks if `js_type_supertypes.dart` differs from current SDK supertypes and
+/// prints an upgrade notice if so.
 Future<void> checkJsTypeSupertypes() async {
   final jsTypeSupertypesScript = await computeJsTypeSupertypes();
   final jsTypeSupertypesPath = p.join(
@@ -228,15 +229,19 @@ Future<void> checkJsTypeSupertypes() async {
             .replaceAll('\r\n', '\n')
             .replaceAll(sdkLineRegex, '')
             .trim()) {
+      final pinnedSdkMatch = RegExp(
+        r'^// Generated from Dart SDK (.*?)$',
+        multiLine: true,
+      ).firstMatch(currentContent);
+      final pinnedSdk = pinnedSdkMatch?.group(1) ?? 'unknown';
+      final currentSdk = Platform.version.split(' ').first;
+
       print(
-        ansi.yellow.wrap(
-          'WARNING: js_type_supertypes.dart needs to be updated!',
-        ),
-      );
-      print(
-        ansi.yellow.wrap(
-          'Run: dart run js_interop_gen/tool/update_supertypes.dart',
-        ),
+        ansi.cyan.wrap('''
+INFO: js_type_supertypes.dart is pinned to Dart SDK $pinnedSdk.
+You are running Dart SDK $currentSdk.
+Updating is optional and should be done with careful consideration.
+To update, run: dart run js_interop_gen/tool/update_supertypes.dart'''),
       );
     }
   } else {

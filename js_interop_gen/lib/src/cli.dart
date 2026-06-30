@@ -14,6 +14,7 @@ import 'package:io/ansi.dart' as ansi;
 import 'package:package_config/package_config.dart';
 
 import 'package:path/path.dart' as p;
+import 'sdk_version.dart';
 
 final bindingsGeneratorPath = p.fromUri(
   Isolate.resolvePackageUriSync(Uri.parse('package:js_interop_gen/src')),
@@ -229,11 +230,7 @@ Future<void> checkJsTypeSupertypes() async {
             .replaceAll('\r\n', '\n')
             .replaceAll(sdkLineRegex, '')
             .trim()) {
-      final pinnedSdkMatch = RegExp(
-        r'^// Generated from Dart SDK (\S+)',
-        multiLine: true,
-      ).firstMatch(currentContent);
-      final pinnedSdk = pinnedSdkMatch?.group(1) ?? 'unknown';
+      final pinnedSdk = extractPinnedSdkVersion(currentContent);
       final currentSdk = Platform.version.split(' ').first;
 
       print(

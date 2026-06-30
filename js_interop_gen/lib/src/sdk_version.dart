@@ -73,3 +73,12 @@ class SdkVersionException implements Exception {
   @override
   String toString() => message;
 }
+
+/// Extracts the pinned SDK version from generated file content header.
+String extractPinnedSdkVersion(String content) {
+  final pinnedSdkMatch = RegExp(
+    r'^// Generated from Dart SDK (\S+)',
+    multiLine: true,
+  ).firstMatch(content);
+  return pinnedSdkMatch?.group(1) ?? 'unknown';
+}

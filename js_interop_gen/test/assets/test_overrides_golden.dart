@@ -12,11 +12,15 @@
 import 'dart:js_interop' as _i1;
 
 extension type ConfigDetails._(_i1.JSObject _) implements _i1.JSObject {
+  external ConfigDetails({Role role, AnonymousUnion_2683278 conflictProp});
+
   external Role role;
 
   external String conflictProp;
 }
 extension type RHS._(_i1.JSObject _) implements _i1.JSObject {
+  external RHS({AnonymousUnion_3235362 value});
+
   external String value;
 }
 extension type const Role._(int _) {

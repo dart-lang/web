@@ -8,13 +8,17 @@ import 'dart:js_interop' as _i1;
 
 extension type Wrapper<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
+  external Wrapper({T value});
+
   external T value;
 
   external Wrapper<AnonymousUnion_3503862<R, T>> map<R extends _i1.JSAny?>(
     _AnonymousFunction_2569989<R, T> onfulfilled,
   );
 }
-extension type Container._(_i1.JSObject _) implements Wrapper<_i1.JSString> {}
+extension type Container._(_i1.JSObject _) implements Wrapper<_i1.JSString> {
+  external Container();
+}
 extension type _AnonymousFunction_2569989<
   R extends _i1.JSAny?,
   T extends _i1.JSAny?

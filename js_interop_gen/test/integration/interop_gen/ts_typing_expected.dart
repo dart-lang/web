@@ -231,11 +231,14 @@ extension type const KeyOf_TypeOf_MyEnum._(String _) {
 }
 extension type _AnonymousFunction_3794666<T extends _i1.JSAny?>._(
   _i1.JSFunction _
-) implements _i1.JSFunction {
+)
+    implements _i1.JSFunction {
   external ComposedType<T> call(T object);
 }
 extension type ComposedType<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
+  external ComposedType({T enclosed});
+
   external T enclosed;
 }
 extension type AnonymousUnion_8168791._(_i1.JSAny _) implements _i1.JSAny {

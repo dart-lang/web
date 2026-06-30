@@ -6,8 +6,12 @@ import 'dart:js_interop' as _i1;
 
 extension type Event<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
+  external Event();
+
   external void fire(T value);
 }
 extension type TargetClass._(_i1.JSObject _) implements _i1.JSObject {
+  external TargetClass({Event<_i1.JSAny?> onEvent});
+
   external Event<_i1.JSAny?> onEvent;
 }

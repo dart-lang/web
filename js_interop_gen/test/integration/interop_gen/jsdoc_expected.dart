@@ -8,6 +8,8 @@ import 'package:meta/meta.dart' as _i2;
 
 /// Represents a user in the system.
 extension type User._(_i1.JSObject _) implements _i1.JSObject {
+  external User({String id, String name, String email, double age});
+
   /// Unique identifier for the user.
   external String id;
 
@@ -50,6 +52,12 @@ external void logEvent(String event, _i1.JSObject payload);
 
 /// Represents a configuration object for the app.
 extension type AppConfig._(_i1.JSObject _) implements _i1.JSObject {
+  external AppConfig({
+    String env,
+    bool debug,
+    _i1.JSArray<_i1.JSString> features,
+  });
+
   /// The environment name (e.g., 'dev', 'prod').
   external String env;
 
@@ -82,6 +90,8 @@ external void cleanup();
 @_i1.JS()
 external _i1.JSPromise<_i1.JSAny?> shutdownSystem();
 extension type Logger._(_i1.JSObject _) implements _i1.JSObject {
+  external Logger();
+
   external void info(String msg);
   external void warn(String msg);
   external void error(String msg);

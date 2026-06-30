@@ -6,6 +6,8 @@ import 'dart:js_interop' as _i1;
 
 extension type Container<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
+  external Container({T value, T originalVal, T anotherVal});
+
   external T value;
 
   external T originalVal;

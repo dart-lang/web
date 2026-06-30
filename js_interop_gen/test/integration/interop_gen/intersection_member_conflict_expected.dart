@@ -7,6 +7,12 @@
 import 'dart:js_interop' as _i1;
 
 extension type A._(_i1.JSObject _) implements _i1.JSObject {
+  external A({
+    String conflictProperty,
+    @_i1.JS('_priv') String $_priv,
+    @_i1.JS('dashed-prop') String dashedProp,
+  });
+
   external String conflictProperty;
 
   @_i1.JS('_priv')
@@ -18,6 +24,12 @@ extension type A._(_i1.JSObject _) implements _i1.JSObject {
   external bool conflictMethod(num param);
 }
 extension type B._(_i1.JSObject _) implements _i1.JSObject {
+  external B({
+    double conflictProperty,
+    @_i1.JS('_priv') double $_priv,
+    @_i1.JS('dashed-prop') double dashedProp,
+  });
+
   external double conflictProperty;
 
   @_i1.JS('_priv')

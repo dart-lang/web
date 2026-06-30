@@ -177,21 +177,26 @@ sealed class TypeDeclaration extends NestableDeclaration
           typeParameters.map((t) => t.emit(options?.toTypeOptions())),
         )
         ..constructors.addAll([
-          if (objectLiteralConstructor)
+          if (objectLiteralConstructor &&
+              !constructors.any((c) => c.name == null || c.name!.isEmpty))
             Constructor(
               (c) => c
                 ..external = true
                 ..optionalParameters.addAll(
-                  properties
-                      .where((p) => p.scope == DeclScope.public)
-                      .map(
-                        (p) => Parameter(
-                          (param) => param
-                            ..named = true
-                            ..name = p.name
-                            ..type = p.type.emit(options?.toTypeOptions()),
-                        ),
-                      ),
+                  properties.where((p) => p.scope == DeclScope.public).map((p) {
+                    final paramName =
+                        p.dartName ?? UniqueNamer.makeNonConflicting(p.name);
+                    return Parameter(
+                      (param) => param
+                        ..named = true
+                        ..name = paramName
+                        ..annotations.addAll([
+                          if (p.dartName != null && p.dartName != p.name)
+                            generateJSAnnotation(p.name),
+                        ])
+                        ..type = p.type.emit(options?.toTypeOptions()),
+                    );
+                  }),
                 ),
             ),
           if (!abstract)

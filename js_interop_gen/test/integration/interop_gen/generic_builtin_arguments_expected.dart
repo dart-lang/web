@@ -5,5 +5,7 @@
 import 'dart:js_interop' as _i1;
 
 extension type Resource._(_i1.JSObject _) implements _i1.JSObject {
+  external Resource({_i1.JSPromise<_i1.JSString> promise});
+
   external _i1.JSPromise<_i1.JSString> promise;
 }

@@ -15,8 +15,7 @@ import 'config.dart';
 import 'generate_bindings.dart';
 import 'interop_gen/parser.dart';
 import 'interop_gen/transform.dart';
-import 'js/filesystem_api.dart';
-import 'js/node.dart';
+import 'js/generated/node_api.dart';
 import 'util.dart';
 
 // Generates DOM and JS interop bindings for Dart.
@@ -53,9 +52,9 @@ void main(List<String> args) async {
 
     if (argResult.wasParsed('config')) {
       final filename = argResult['config'] as String;
-      final configContent = fs.readFileSync(
+      final configContent = Fs.readFileSync(
         filename,
-        readFileOptions(encoding: 'utf8'),
+        ReadFileOptions(encoding: 'utf8'),
       );
       final yaml = loadYamlDocument(configContent);
       config = YamlConfig.fromYaml(
@@ -105,16 +104,16 @@ Future<void> generateJSInteropBindings(Config config) async {
   // write code to file
   if (dartDeclarations.multiFileOutput) {
     for (final entry in generatedCodeMap.entries) {
-      fs.writeFileSync(
+      Fs.writeFileSync(
         p.join(configOutput, p.basename(entry.key)),
         entry.value,
       );
     }
   } else {
     final entry = generatedCodeMap.entries.first;
-    fs.writeFileSync(configOutput, entry.value);
+    Fs.writeFileSync(configOutput, entry.value);
     for (final entry in generatedCodeMap.entries.skip(1)) {
-      fs.writeFileSync(
+      Fs.writeFileSync(
         p.join(p.dirname(configOutput), p.basename(entry.key)),
         entry.value,
       );
@@ -149,7 +148,7 @@ Future<void> generateIDLBindings({
 
     if (renameMap.isNotEmpty) {
       final jsonStr = jsonEncode(renameMap);
-      fs.writeFileSync(renameMapPath, jsonStr);
+      Fs.writeFileSync(renameMapPath, jsonStr);
     }
 
     for (var entry in bindings.entries) {
@@ -157,7 +156,7 @@ Future<void> generateIDLBindings({
       final library = entry.value;
 
       final contents = _emitLibrary(library, languageVersion);
-      fs.writeFileSync('$output/$libraryPath', contents);
+      Fs.writeFileSync('$output/$libraryPath', contents);
     }
   } else {
     final allInputFiles = expandGlobs(input.toList(), extension: '.idl');
@@ -167,7 +166,7 @@ Future<void> generateIDLBindings({
     final bindings = await generateBindingsForFiles(
       {
         for (final file in allInputFiles)
-          file: fs.readFileSync(file, readFileOptions(encoding: 'utf-8')),
+          file: Fs.readFileSync(file, ReadFileOptions(encoding: 'utf-8')),
       },
       output,
       bcdJsonPath: bcdJsonPath,
@@ -178,7 +177,7 @@ Future<void> generateIDLBindings({
       final library = entry.value;
 
       final contents = _emitLibrary(library, languageVersion);
-      fs.writeFileSync('$output/$libraryPath', contents);
+      Fs.writeFileSync('$output/$libraryPath', contents);
     }
   }
 }

@@ -8,18 +8,27 @@ import 'dart:js_interop' as _i1;
 
 extension type GenericContainer<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
+  external GenericContainer({T value});
+
   external T value;
 }
 extension type TargetClass._(_i1.JSObject _) implements _i1.JSObject {
+  external TargetClass({GenericContainer<AnonymousUnion_3063943> field});
+
   external GenericContainer<AnonymousUnion_3063943> field;
 }
 extension type OtherContainer<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
+  external OtherContainer({T otherValue});
+
   external T otherValue;
 }
 extension type TargetClassWithGenericUnion<T extends _i1.JSAny?>._(
   _i1.JSObject _
-) implements _i1.JSObject {
+)
+    implements _i1.JSObject {
+  external TargetClassWithGenericUnion({AnonymousUnion_3899151<T> field});
+
   external AnonymousUnion_3899151<T> field;
 }
 extension type AnonymousUnion_3063943._(_i1.JSAny _) implements _i1.JSAny {

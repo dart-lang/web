@@ -35,6 +35,13 @@ external _i1.JSAny? handleEvents(
 );
 extension type ElementStamp<T extends _i2.HTMLElement>._(_i1.JSObject _)
     implements _i1.JSObject {
+  external ElementStamp({
+    T target,
+    Date stampedAt,
+    String id,
+    AnonymousUnion_2036258 stampType,
+  });
+
   external String id;
 
   external AnonymousUnion_2036258 stampType;
@@ -71,14 +78,20 @@ extension type HTMLTransformFunc<
   T extends _i2.HTMLElement,
   R extends _i2.HTMLElement
 >._(_i1.JSObject _) implements _i1.JSObject {
+  external HTMLTransformFunc();
+
   external R call(T element);
 }
 extension type EventManipulationFunc._(_i1.JSObject _) implements _i1.JSObject {
+  external EventManipulationFunc();
+
   external _i1.JSAny? call(_i2.Event event);
 }
 
 /// Enables basic storage and retrieval of dates and times.
 extension type Date._(_i1.JSObject _) implements _i1.JSObject {
+  external Date();
+
   /// Returns a string representation of a date. The format of the string
   /// depends on the locale.
   @_i1.JS('toString')

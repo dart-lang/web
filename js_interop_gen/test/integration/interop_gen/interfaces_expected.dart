@@ -9,6 +9,8 @@ import 'dart:js_interop' as _i1;
 import 'package:meta/meta.dart' as _i2;
 
 extension type ILogger._(_i1.JSObject _) implements _i1.JSObject {
+  external ILogger({String name, AnonymousUnion_1885558 level});
+
   external AnonymousUnion_1885558? level;
 
   external String get name;
@@ -17,14 +19,20 @@ extension type ILogger._(_i1.JSObject _) implements _i1.JSObject {
   external _i1.JSFunction? get flush;
 }
 extension type Dictionary._(_i1.JSObject _) implements _i1.JSObject {
+  external Dictionary();
+
   external String operator [](String key);
 }
 extension type Comparator<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
+  external Comparator();
+
   external double call(T a, T b);
 }
 extension type Repository<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
+  external Repository();
+
   external T findById(String id);
   external void save(T entity);
 }
@@ -32,10 +40,14 @@ extension type RepoConstructor._(_i1.JSObject _) implements _i1.JSObject {
   external RepoConstructor(_i1.JSArray<_i1.JSString> args);
 }
 extension type AsyncService._(_i1.JSObject _) implements _i1.JSObject {
+  external AsyncService();
+
   external _i1.JSPromise<_i1.JSAny?> fetchData(String url);
   external _i1.JSPromise<_i1.JSBoolean> updateData(String id, String payload);
 }
 extension type User._(_i1.JSObject _) implements _i1.JSObject {
+  external User({String id, String email});
+
   external String id;
 
   external String email;
@@ -43,16 +55,22 @@ extension type User._(_i1.JSObject _) implements _i1.JSObject {
   external _i1.JSFunction? get describe;
 }
 extension type Admin._(_i1.JSObject _) implements User, ILogger {
+  external Admin({String role});
+
   external String role;
 
   external void grantPermission(String permission);
 }
 extension type Config._(_i1.JSObject _) implements _i1.JSObject {
+  external Config({String env, bool debug});
+
   external String env;
 
   external bool debug;
 }
 extension type SecureResource._(_i1.JSObject _) implements _i1.JSObject {
+  external SecureResource({String accessToken});
+
   external String accessToken;
 
   external bool authenticate();
@@ -64,6 +82,8 @@ external LinkedList get rootList;
 @_i1.JS()
 external Comparator<_i1.JSNumber> get compareNumbers;
 extension type ErrorReporter._(_i1.JSObject _) implements _i1.JSObject {
+  external ErrorReporter();
+
   @_i2.doNotStore
   external _i1.JSAny? reportError(String msg);
 }
@@ -77,5 +97,7 @@ extension type const AnonymousUnion_1885558._(String _) {
   static const AnonymousUnion_1885558 error = AnonymousUnion_1885558._('error');
 }
 extension type LinkedList._(_i1.JSObject _) implements _i1.JSObject {
+  external LinkedList();
+
   external LinkedList next();
 }

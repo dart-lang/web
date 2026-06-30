@@ -7,6 +7,7 @@ import 'dart:js_interop';
 import '../../ast/declarations.dart';
 import '../../js/helpers.dart';
 import '../../js/typescript.types.dart';
+import '../../util.dart';
 import '../namer.dart';
 import 'transformer.dart';
 
@@ -39,7 +40,7 @@ class NamespaceFlattener {
               .whereType<NamespaceDeclaration>();
 
     final (name: dartName, :id) = currentNamespaces.isEmpty
-        ? namer.makeUnique(namespaceName, 'namespace')
+        ? namer.makeUnique(capitalize(namespaceName), 'namespace')
         : (name: null, id: null);
 
     final scopedNamer = ScopedUniqueNamer();

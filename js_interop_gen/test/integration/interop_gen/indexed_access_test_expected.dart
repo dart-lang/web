@@ -7,6 +7,8 @@
 import 'dart:js_interop' as _i1;
 
 extension type Person._(_i1.JSObject _) implements _i1.JSObject {
+  external Person({String name, double age});
+
   external String name;
 
   external double age;
@@ -18,9 +20,13 @@ typedef PersonKeys = KeyOf_Person;
 typedef KeyValues = AnonymousUnion_2683278;
 typedef Missing = _i1.JSAny;
 extension type Foo._(_i1.JSObject _) implements _i1.JSObject {
+  external Foo({bool baseProp});
+
   external bool baseProp;
 }
 extension type Fee._(_i1.JSObject _) implements Foo {
+  external Fee({double bar});
+
   external double bar;
 }
 typedef Fee200 = _i1.JSAny;

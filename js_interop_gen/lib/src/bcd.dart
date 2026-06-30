@@ -4,7 +4,7 @@
 
 import 'dart:convert' hide json;
 
-import 'js/filesystem_api.dart';
+import 'js/generated/node_api.dart';
 
 /// A class to read from the browser-compat-data files and parse interface and
 /// property status (standards track, experimental, deprecated) and supported
@@ -21,7 +21,7 @@ class BrowserCompatData {
     required bool generateAll,
     required String path,
   }) {
-    final content = fs.readFileSync(path, readFileOptions(encoding: 'utf8'));
+    final content = Fs.readFileSync(path, ReadFileOptions(encoding: 'utf8'));
 
     final contentMap = jsonDecode(content) as Map;
     final api = (contentMap['api'] as Map).cast<String, dynamic>();

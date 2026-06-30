@@ -86,6 +86,8 @@ extension type const AnonymousUnion_2375200._(String _) {
 }
 @_i1.JS('Space.Planet')
 extension type Space_Planet._(_i1.JSObject _) implements _i1.JSObject {
+  external Space_Planet({double radius});
+
   external double radius;
 }
 typedef LoggerContainer<N extends _i1.JSNumber> = _i1.JSArray<N>;

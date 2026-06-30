@@ -7,13 +7,13 @@ import 'dart:convert';
 import 'package:path/path.dart' as p;
 
 import 'formatting.dart';
-import 'js/filesystem_api.dart';
+import 'js/generated/node_api.dart';
 
 class DocProvider {
   static DocProvider create() {
-    final content = fs.readFileSync(
+    final content = Fs.readFileSync(
       p.join('..', '..', '..', 'third_party', 'mdn', 'mdn.json'),
-      readFileOptions(encoding: 'utf8'),
+      ReadFileOptions(encoding: 'utf8'),
     );
 
     return DocProvider(jsonDecode(content) as Map<String, dynamic>);

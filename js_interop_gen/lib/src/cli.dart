@@ -230,7 +230,7 @@ Future<void> checkJsTypeSupertypes() async {
             .replaceAll(sdkLineRegex, '')
             .trim()) {
       final pinnedSdkMatch = RegExp(
-        r'^// Generated from Dart SDK (.*?)$',
+        r'^// Generated from Dart SDK (\S+)',
         multiLine: true,
       ).firstMatch(currentContent);
       final pinnedSdk = pinnedSdkMatch?.group(1) ?? 'unknown';

@@ -62,4 +62,14 @@ void main() {
     check('3.12.0', Version(3, 12, 0));
     check('<4.0.0', Version(0, 0, 0));
   });
+
+  test('pinned SDK RegExp extracts clean version without carriage return', () {
+    final regex = RegExp(r'^// Generated from Dart SDK (\S+)', multiLine: true);
+
+    const lfContent = '// Generated from Dart SDK 3.7.0-dev.1.1\nsome code';
+    const crlfContent = '// Generated from Dart SDK 3.7.0-dev.1.1\r\nsome code';
+
+    expect(regex.firstMatch(lfContent)?.group(1), equals('3.7.0-dev.1.1'));
+    expect(regex.firstMatch(crlfContent)?.group(1), equals('3.7.0-dev.1.1'));
+  });
 }

@@ -70,12 +70,11 @@ $_usage''');
   }
 
   if (argResult['compile'] as bool) {
+    final webPkgLangVersion = isSnapshot
+        ? dartLanguageVersion.toString()
+        : await getPackageLanguageVersion(_webPackagePath);
     // Compile Dart to Javascript.
-    if (isSnapshot) {
-      await compileDartMain(langVersion: dartLanguageVersion.toString());
-    } else {
-      await compileDartMain();
-    }
+    await compileDartMain(langVersion: webPkgLangVersion);
   }
 
   // TODO: we should consider moving package:web related stuff to a separate,

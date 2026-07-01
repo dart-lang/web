@@ -3,10 +3,13 @@
 // ignore_for_file: lines_longer_than_80_chars, non_constant_identifier_names
 // ignore_for_file: unnecessary_ignore, unnecessary_parenthesis
 
-extension type const TaskScope._(int _) {
-  static const TaskScope Global = TaskScope._(1);
+// ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'dart:js_interop' as _i1;
 
-  static const TaskScope Workspace = TaskScope._(2);
+extension type TaskScope._(_i1.JSNumber _) implements _i1.JSNumber {
+  static final TaskScope Global = TaskScope._(1.toJS);
+
+  static final TaskScope Workspace = TaskScope._(2.toJS);
 }
 typedef ScopeUnion = AnonymousUnion_3654794;
 extension type AnonymousUnion_3654794._(TaskScope _) implements TaskScope {

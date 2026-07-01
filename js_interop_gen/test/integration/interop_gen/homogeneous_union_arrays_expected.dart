@@ -7,36 +7,30 @@
 import 'dart:js_interop' as _i1;
 
 extension type Container._(_i1.JSObject _) implements _i1.JSObject {
-  external Container({
-    AnonymousUnion_3057876 arrayUnion,
-    AnonymousUnion_9545617 nestedGenericUnion,
-    AnonymousUnion_1757671 deepArrayUnion,
-  });
-
   external AnonymousUnion_3057876 arrayUnion;
 
   external AnonymousUnion_9545617 nestedGenericUnion;
 
   external AnonymousUnion_1757671 deepArrayUnion;
 }
-extension type AnonymousUnion_3057876._(_i1.JSArray _) implements _i1.JSArray {
-  _i1.JSArray<_i1.JSString> get asJSArrayOfJSString =>
-      (_ as _i1.JSArray<_i1.JSString>);
+extension type AnonymousUnion_3057876._(_i1.JSArray<_i1.JSString> _)
+    implements _i1.JSArray<_i1.JSString> {
+  _i1.JSArray<_i1.JSString> get asJSArrayOfJSString => _;
 
   _i1.JSArray<_i1.JSNumber> get asJSArrayOfJSNumber =>
       (_ as _i1.JSArray<_i1.JSNumber>);
 }
-extension type AnonymousUnion_9545617._(_i1.JSPromise _)
-    implements _i1.JSPromise {
-  _i1.JSPromise<_i1.JSString> get asJSPromiseOfJSString =>
-      (_ as _i1.JSPromise<_i1.JSString>);
+extension type AnonymousUnion_9545617._(_i1.JSPromise<_i1.JSString> _)
+    implements _i1.JSPromise<_i1.JSString> {
+  _i1.JSPromise<_i1.JSString> get asJSPromiseOfJSString => _;
 
   _i1.JSPromise<_i1.JSNumber> get asJSPromiseOfJSNumber =>
       (_ as _i1.JSPromise<_i1.JSNumber>);
 }
-extension type AnonymousUnion_1757671._(_i1.JSArray _) implements _i1.JSArray {
-  _i1.JSArray<_i1.JSArray<_i1.JSString>> get asJSArrayOfJSArrayOfJSString =>
-      (_ as _i1.JSArray<_i1.JSArray<_i1.JSString>>);
+extension type AnonymousUnion_1757671._(
+  _i1.JSArray<_i1.JSArray<_i1.JSString>> _
+) implements _i1.JSArray<_i1.JSArray<_i1.JSString>> {
+  _i1.JSArray<_i1.JSArray<_i1.JSString>> get asJSArrayOfJSArrayOfJSString => _;
 
   _i1.JSArray<_i1.JSArray<_i1.JSNumber>> get asJSArrayOfJSArrayOfJSNumber =>
       (_ as _i1.JSArray<_i1.JSArray<_i1.JSNumber>>);

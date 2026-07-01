@@ -7,8 +7,6 @@
 import 'dart:js_interop' as _i1;
 
 extension type OptionHolder._(_i1.JSObject _) implements _i1.JSObject {
-  external OptionHolder({bool canPickMany});
-
   external bool? canPickMany;
 }
 typedef IntersectWithLiteral = AnonymousIntersection_3818894;

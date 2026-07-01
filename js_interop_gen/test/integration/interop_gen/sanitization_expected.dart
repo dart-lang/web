@@ -35,17 +35,27 @@ extension type AnonymousUnion_3170730._(_i1.JSObject _)
 
   B get asB => (_ as B);
 }
-extension type const AnonymousUnion_1721531._(String _) {
-  static const AnonymousUnion_1721531 utf_8 = AnonymousUnion_1721531._('utf-8');
-
-  static const AnonymousUnion_1721531 utf_16le = AnonymousUnion_1721531._(
-    'utf-16le',
+extension type AnonymousUnion_1721531._(_i1.JSString _)
+    implements _i1.JSString {
+  static final AnonymousUnion_1721531 utf_8 = AnonymousUnion_1721531._(
+    'utf-8'.toJS,
   );
 
-  static const AnonymousUnion_1721531 ucs_2 = AnonymousUnion_1721531._('ucs-2');
-}
-extension type const AnonymousUnion_1018800._(String _) {
-  static const AnonymousUnion_1018800 $1_2 = AnonymousUnion_1018800._('1-2');
+  static final AnonymousUnion_1721531 utf_16le = AnonymousUnion_1721531._(
+    'utf-16le'.toJS,
+  );
 
-  static const AnonymousUnion_1018800 $3_4 = AnonymousUnion_1018800._('3-4');
+  static final AnonymousUnion_1721531 ucs_2 = AnonymousUnion_1721531._(
+    'ucs-2'.toJS,
+  );
+}
+extension type AnonymousUnion_1018800._(_i1.JSString _)
+    implements _i1.JSString {
+  static final AnonymousUnion_1018800 $1_2 = AnonymousUnion_1018800._(
+    '1-2'.toJS,
+  );
+
+  static final AnonymousUnion_1018800 $3_4 = AnonymousUnion_1018800._(
+    '3-4'.toJS,
+  );
 }

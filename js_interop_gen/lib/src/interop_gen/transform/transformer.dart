@@ -387,7 +387,6 @@ class Transformer {
             operators: [],
             constructors: [],
             documentation: _parseAndTransformDocumentation(typeDecl),
-            objectLiteralConstructor: true,
           )
         : ClassDeclaration(
             name: name,

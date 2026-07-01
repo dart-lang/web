@@ -112,6 +112,16 @@ Some text.
 ''',
       );
     });
+
+    test('escaped angle brackets', () {
+      compare(
+        r'The **`SVGLength`** interface correspond to the [\<length>](/en-US/docs/Web/SVG/Content_type#length) basic data type.',
+        r'''
+/// The **`SVGLength`** interface correspond to the
+/// [`<length>`](/en-US/docs/Web/SVG/Content_type#length) basic data type.
+''',
+      );
+    });
   });
 }
 

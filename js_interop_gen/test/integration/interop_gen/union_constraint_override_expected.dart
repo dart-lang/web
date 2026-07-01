@@ -7,20 +7,14 @@
 import 'dart:js_interop' as _i1;
 
 extension type SpecializedBound._(_i1.JSObject _) implements _i1.JSObject {
-  external SpecializedBound({String tag});
-
   external String tag;
 }
 extension type HolderA<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
-  external HolderA({T value});
-
   external T value;
 }
 extension type HolderB<T extends SpecializedBound>._(_i1.JSObject _)
     implements _i1.JSObject {
-  external HolderB({T value});
-
   external T value;
 }
 typedef ConstraintUnion<T extends SpecializedBound> = AnonymousUnion_7450886<T>;

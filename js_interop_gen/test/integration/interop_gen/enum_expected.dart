@@ -6,90 +6,90 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:js_interop' as _i1;
 
-extension type const Status._(int _) {
-  static const Status Active = Status._(1);
+extension type Status._(_i1.JSNumber _) implements _i1.JSNumber {
+  static final Status Active = Status._(1.toJS);
 
-  static const Status Inactive = Status._(0);
+  static final Status Inactive = Status._(0.toJS);
 
-  static const Status Pending = Status._(2);
+  static final Status Pending = Status._(2.toJS);
 }
 @_i1.JS()
 external void logStatus(Status status);
-extension type const Direction._(int _) {
-  static const Direction Up = Direction._(0);
+extension type Direction._(_i1.JSNumber _) implements _i1.JSNumber {
+  static final Direction Up = Direction._(0.toJS);
 
-  static const Direction Down = Direction._(1);
+  static final Direction Down = Direction._(1.toJS);
 
-  static const Direction Left = Direction._(2);
+  static final Direction Left = Direction._(2.toJS);
 
-  static const Direction Right = Direction._(3);
+  static final Direction Right = Direction._(3.toJS);
 }
 @_i1.JS()
 external String handleDirection(Direction dir);
-extension type const Permissions._(int _) {
-  static const Permissions Read = Permissions._(1);
+extension type Permissions._(_i1.JSNumber _) implements _i1.JSNumber {
+  static final Permissions Read = Permissions._(1.toJS);
 
-  static const Permissions Write = Permissions._(2);
+  static final Permissions Write = Permissions._(2.toJS);
 
-  static const Permissions Execute = Permissions._(4);
+  static final Permissions Execute = Permissions._(4.toJS);
 
-  static const Permissions All = Permissions._(7);
+  static final Permissions All = Permissions._(7.toJS);
 }
 @_i1.JS()
 external bool hasPermission(Permissions perm, Permissions flag);
-extension type const ResponseCode._(int _) {
-  static const ResponseCode Success = ResponseCode._(200);
+extension type ResponseCode._(_i1.JSNumber _) implements _i1.JSNumber {
+  static final ResponseCode Success = ResponseCode._(200.toJS);
 
-  static const ResponseCode NotFound = ResponseCode._(404);
+  static final ResponseCode NotFound = ResponseCode._(404.toJS);
 
-  static const ResponseCode ServerError = ResponseCode._(500);
+  static final ResponseCode ServerError = ResponseCode._(500.toJS);
 }
-extension type const Fractions._(double _) {
-  static const Fractions Half = Fractions._(0.5);
+extension type Fractions._(_i1.JSNumber _) implements _i1.JSNumber {
+  static final Fractions Half = Fractions._(0.5.toJS);
 
-  static const Fractions Quarter = Fractions._(0.25);
+  static final Fractions Quarter = Fractions._(0.25.toJS);
 
-  static const Fractions Fifth = Fractions._(0.2);
+  static final Fractions Fifth = Fractions._(0.2.toJS);
 
-  static const Fractions Tenth = Fractions._(0.1);
+  static final Fractions Tenth = Fractions._(0.1.toJS);
 
-  static const Fractions Third = Fractions._(0.3333333333333333);
+  static final Fractions Third = Fractions._(0.3333333333333333.toJS);
 }
-extension type const LogLevel._(String _) {
-  static const LogLevel Info = LogLevel._('INFO');
+extension type LogLevel._(_i1.JSString _) implements _i1.JSString {
+  static final LogLevel Info = LogLevel._('INFO'.toJS);
 
-  static const LogLevel Warn = LogLevel._('WARN');
+  static final LogLevel Warn = LogLevel._('WARN'.toJS);
 
-  static const LogLevel Error = LogLevel._('ERROR');
+  static final LogLevel Error = LogLevel._('ERROR'.toJS);
 
-  static const LogLevel Debug = LogLevel._('DEBUG');
+  static final LogLevel Debug = LogLevel._('DEBUG'.toJS);
 }
-extension type const HttpMethod._(String _) {
-  static const HttpMethod GET = HttpMethod._('GET');
+extension type HttpMethod._(_i1.JSString _) implements _i1.JSString {
+  static final HttpMethod GET = HttpMethod._('GET'.toJS);
 
-  static const HttpMethod POST = HttpMethod._('POST');
+  static final HttpMethod POST = HttpMethod._('POST'.toJS);
 
-  static const HttpMethod DELETE = HttpMethod._('DELETE');
+  static final HttpMethod DELETE = HttpMethod._('DELETE'.toJS);
 }
-extension type BooleanLike._(_i1.JSAny _) {
+extension type BooleanLike._(_i1.JSAny _) implements _i1.JSAny {
   static final BooleanLike No = BooleanLike._(0.toJS);
 
   static final BooleanLike Yes = BooleanLike._('YES'.toJS);
 }
 @_i1.JS()
 external Status get statusFromName;
-extension type const HttpStatus._(int _) {
-  static const HttpStatus OK = HttpStatus._(200);
+extension type HttpStatus._(_i1.JSNumber _) implements _i1.JSNumber {
+  static final HttpStatus OK = HttpStatus._(200.toJS);
 
-  static const HttpStatus BadRequest = HttpStatus._(400);
+  static final HttpStatus BadRequest = HttpStatus._(400.toJS);
 
-  static const HttpStatus Unauthorized = HttpStatus._(401);
+  static final HttpStatus Unauthorized = HttpStatus._(401.toJS);
 
-  static const HttpStatus Forbidden = HttpStatus._(403);
+  static final HttpStatus Forbidden = HttpStatus._(403.toJS);
 }
 @_i1.JS()
 external HttpStatus get statusCode;
-extension type MathConstants._(_i1.JSNumber _) {
+extension type MathConstants._(_i1.JSNumber _) implements _i1.JSNumber {
   static final MathConstants PI = MathConstants._(3.14.toJS);
 
   static final MathConstants TwoPI = MathConstants._(6.28.toJS);
@@ -98,7 +98,7 @@ extension type MathConstants._(_i1.JSNumber _) {
 
   external static MathConstants Length;
 }
-extension type SomeRandomEnumValues._(_i1.JSAny _) {
+extension type SomeRandomEnumValues._(_i1.JSAny _) implements _i1.JSAny {
   static final SomeRandomEnumValues moment = SomeRandomEnumValues._(2.toJS);
 
   static final SomeRandomEnumValues true$ = SomeRandomEnumValues._(6.28.toJS);
@@ -122,58 +122,67 @@ external AnonymousUnion_2718349? get direction;
 external AnonymousUnion_1516444 get someUnionEnum;
 @_i1.JS()
 external bool get myBooleanEnum;
-extension type const AnonymousUnion_2493152._(String _) {
-  static const AnonymousUnion_2493152 light = AnonymousUnion_2493152._('light');
+extension type AnonymousUnion_2493152._(_i1.JSString _)
+    implements _i1.JSString {
+  static final AnonymousUnion_2493152 light = AnonymousUnion_2493152._(
+    'light'.toJS,
+  );
 
-  static const AnonymousUnion_2493152 dark = AnonymousUnion_2493152._('dark');
+  static final AnonymousUnion_2493152 dark = AnonymousUnion_2493152._(
+    'dark'.toJS,
+  );
 
-  static const AnonymousUnion_2493152 system = AnonymousUnion_2493152._(
-    'system',
+  static final AnonymousUnion_2493152 system = AnonymousUnion_2493152._(
+    'system'.toJS,
   );
 }
-extension type const AnonymousUnion_4032167._(String _) {
-  static const AnonymousUnion_4032167 default$ = AnonymousUnion_4032167._(
-    'default',
+extension type AnonymousUnion_4032167._(_i1.JSString _)
+    implements _i1.JSString {
+  static final AnonymousUnion_4032167 default$ = AnonymousUnion_4032167._(
+    'default'.toJS,
   );
 
-  static const AnonymousUnion_4032167 hovered = AnonymousUnion_4032167._(
-    'hovered',
+  static final AnonymousUnion_4032167 hovered = AnonymousUnion_4032167._(
+    'hovered'.toJS,
   );
 
-  static const AnonymousUnion_4032167 pressed = AnonymousUnion_4032167._(
-    'pressed',
+  static final AnonymousUnion_4032167 pressed = AnonymousUnion_4032167._(
+    'pressed'.toJS,
   );
 
-  static const AnonymousUnion_4032167 disabled = AnonymousUnion_4032167._(
-    'disabled',
+  static final AnonymousUnion_4032167 disabled = AnonymousUnion_4032167._(
+    'disabled'.toJS,
   );
 }
-extension type const AnonymousUnion_1773655._(num _) {
-  static const AnonymousUnion_1773655 $0 = AnonymousUnion_1773655._(0);
+extension type AnonymousUnion_1773655._(_i1.JSNumber _)
+    implements _i1.JSNumber {
+  static final AnonymousUnion_1773655 $0 = AnonymousUnion_1773655._(0.toJS);
 
-  static const AnonymousUnion_1773655 $1 = AnonymousUnion_1773655._(1);
+  static final AnonymousUnion_1773655 $1 = AnonymousUnion_1773655._(1.toJS);
 
-  static const AnonymousUnion_1773655 $2 = AnonymousUnion_1773655._(2);
+  static final AnonymousUnion_1773655 $2 = AnonymousUnion_1773655._(2.toJS);
 
-  static const AnonymousUnion_1773655 $3 = AnonymousUnion_1773655._(3);
+  static final AnonymousUnion_1773655 $3 = AnonymousUnion_1773655._(3.toJS);
 }
-extension type const AnonymousUnion_2718349._(String _) {
-  static const AnonymousUnion_2718349 N = AnonymousUnion_2718349._('N');
+extension type AnonymousUnion_2718349._(_i1.JSString _)
+    implements _i1.JSString {
+  static final AnonymousUnion_2718349 N = AnonymousUnion_2718349._('N'.toJS);
 
-  static const AnonymousUnion_2718349 S = AnonymousUnion_2718349._('S');
+  static final AnonymousUnion_2718349 S = AnonymousUnion_2718349._('S'.toJS);
 
-  static const AnonymousUnion_2718349 E = AnonymousUnion_2718349._('E');
+  static final AnonymousUnion_2718349 E = AnonymousUnion_2718349._('E'.toJS);
 
-  static const AnonymousUnion_2718349 W = AnonymousUnion_2718349._('W');
+  static final AnonymousUnion_2718349 W = AnonymousUnion_2718349._('W'.toJS);
 }
-extension type const AnonymousUnion_1516444._(num _) {
-  static const AnonymousUnion_1516444 $2 = AnonymousUnion_1516444._(2);
+extension type AnonymousUnion_1516444._(_i1.JSNumber _)
+    implements _i1.JSNumber {
+  static final AnonymousUnion_1516444 $2 = AnonymousUnion_1516444._(2.toJS);
 
-  static const AnonymousUnion_1516444 $4 = AnonymousUnion_1516444._(4);
+  static final AnonymousUnion_1516444 $4 = AnonymousUnion_1516444._(4.toJS);
 
-  static const AnonymousUnion_1516444 $6 = AnonymousUnion_1516444._(6);
+  static final AnonymousUnion_1516444 $6 = AnonymousUnion_1516444._(6.toJS);
 
-  static const AnonymousUnion_1516444 $8 = AnonymousUnion_1516444._(8);
+  static final AnonymousUnion_1516444 $8 = AnonymousUnion_1516444._(8.toJS);
 
-  static const AnonymousUnion_1516444 $10 = AnonymousUnion_1516444._(10);
+  static final AnonymousUnion_1516444 $10 = AnonymousUnion_1516444._(10.toJS);
 }

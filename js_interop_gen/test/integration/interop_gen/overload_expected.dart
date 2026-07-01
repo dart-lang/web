@@ -23,15 +23,13 @@ extension type foo._(_i1.JSObject _) implements _i1.JSObject {
   external String name;
 
   external static String get version;
-  external static foo_Fum get fum;
+  external static foo_fum get fum;
   external static bool isFoo(_i1.JSAny? obj);
   external String greet();
 }
 @_i1.JS()
 external foo get f;
 extension type bar._(_i1.JSObject _) implements baz {
-  external bar({double id, String name, bool active});
-
   external double id;
 
   external String name;
@@ -46,10 +44,10 @@ extension type feeStatus._(_i1.JSObject _) implements _i1.JSObject {
 
   static feeStatusEnum get Done => feeStatusEnum.Done;
 }
-extension type const feeStatusEnum._(int _) {
-  static const feeStatusEnum Pending = feeStatusEnum._(0);
+extension type feeStatusEnum._(_i1.JSNumber _) implements _i1.JSNumber {
+  static final feeStatusEnum Pending = feeStatusEnum._(0.toJS);
 
-  static const feeStatusEnum Done = feeStatusEnum._(1);
+  static final feeStatusEnum Done = feeStatusEnum._(1.toJS);
 }
 @_i1.JS()
 external fooHelper_Options get opts;
@@ -59,10 +57,10 @@ extension type feeType._(_i1.JSObject _) implements _i1.JSObject {
 
   static feeTypeEnum get Premium => feeTypeEnum.Premium;
 }
-extension type const feeTypeEnum._(int _) {
-  static const feeTypeEnum Basic = feeTypeEnum._(0);
+extension type feeTypeEnum._(_i1.JSNumber _) implements _i1.JSNumber {
+  static final feeTypeEnum Basic = feeTypeEnum._(0.toJS);
 
-  static const feeTypeEnum Premium = feeTypeEnum._(1);
+  static final feeTypeEnum Premium = feeTypeEnum._(1.toJS);
 }
 extension type FiConstructor._(_i1.JSObject _) implements _i1.JSObject {
   external factory FiConstructor();
@@ -107,14 +105,10 @@ extension type SomeNamespace._(_i1.JSObject _) implements _i1.JSObject {
 @_i1.JS('SomeNamespace.BytesView')
 extension type SomeNamespace_BytesView._(_i1.JSObject _)
     implements _i1.JSObject {
-  external SomeNamespace_BytesView({_i1.JSArrayBuffer buffer});
-
   external _i1.JSArrayBuffer get buffer;
 }
 @_i1.JS('fooHelper.Options')
 extension type fooHelper_Options._(_i1.JSObject _) implements _i1.JSObject {
-  external fooHelper_Options({bool round});
-
   external bool? round;
 }
 @_i1.JS('fooHelper.OptionsImpl')
@@ -125,13 +119,11 @@ extension type fooHelper_OptionsImpl._(_i1.JSObject _)
   external bool? round;
 }
 @_i1.JS('foo.fum')
-extension type foo_Fum._(_i1.JSObject _) implements _i1.JSObject {
+extension type foo_fum._(_i1.JSObject _) implements _i1.JSObject {
   @_i1.JS()
   external static bool get blownByWolf;
 }
 extension type baz._(_i1.JSObject _) implements _i1.JSObject {
-  external baz({String debugString});
-
   external String get debugString;
 }
 @_i1.JS('SomeNamespace.NestedNamespace')
@@ -154,10 +146,6 @@ extension type SomeNamespace_NestedNamespace_ByteBuffer._(_i1.JSObject _)
 @_i1.JS('SomeNamespace.NestedNamespace.ByteBuilder')
 extension type SomeNamespace_NestedNamespace_ByteBuilder._(_i1.JSObject _)
     implements _i1.JSObject {
-  external SomeNamespace_NestedNamespace_ByteBuilder({
-    SomeNamespace_NestedNamespace_ByteBuffer buffer,
-  });
-
   external SomeNamespace_NestedNamespace_ByteBuffer buffer;
 
   external void addByte(num byte);

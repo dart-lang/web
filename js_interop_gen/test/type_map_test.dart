@@ -345,44 +345,16 @@ void main() {
           e.asReferredType(),
           g.asReferredType(),
         ]);
-        expect(
-          egType,
-          isA<UnionType>(),
-          reason: 'Common types between E and G are more than one',
-        );
-        final UnionType(types: egUnionTypes) = egType as UnionType;
-        expect(
-          egUnionTypes.length,
-          equals(2),
-          reason: 'Common types between E and G are two',
-        );
-        expect(
-          egUnionTypes.map((t) => (t as NamedType).name),
-          equals(['A', 'B']),
-          reason: 'Common types between E and G are two: A and B',
-        );
+        expect(egType, isA<BuiltinType>());
+        expect((egType as NamedType).name, equals('JSObject'));
 
         final eghType = getLowestCommonAncestorOfTypes([
           e.asReferredType(),
           g.asReferredType(),
           h.asReferredType(),
         ]);
-        expect(
-          eghType,
-          isA<UnionType>(),
-          reason: 'Common types between E, G and H is more than one',
-        );
-        final UnionType(types: eghUnionTypes) = eghType as UnionType;
-        expect(
-          eghUnionTypes.length,
-          equals(2),
-          reason: 'Common types between E, G and H are two',
-        );
-        expect(
-          eghUnionTypes.map((t) => (t as NamedType).name),
-          equals(['A', 'B']),
-          reason: 'Common types between E, G and H are two: A and B',
-        );
+        expect(eghType, isA<BuiltinType>());
+        expect((eghType as NamedType).name, equals('JSObject'));
       });
     });
 
@@ -496,6 +468,61 @@ void main() {
               'Union of an interface type implementing JSFunction and a '
               'closure should equal JSFunction',
         );
+      });
+    });
+    group('Migration Fixes Test', () {
+      test('TypeAliasDeclaration Recursion in createTypeMap', () {
+        final modifierToken = InterfaceDeclaration(
+          name: 'ModifierToken',
+          exported: true,
+          id: ID(type: 'interface', name: 'ModifierToken'),
+        );
+        final abstractKeyword = TypeAliasDeclaration(
+          name: 'AbstractKeyword',
+          exported: true,
+          type: modifierToken.asReferredType(),
+        );
+
+        final typeMap = createTypeMap([abstractKeyword.asReferredType()]);
+        expect(typeMap.containsKey('AbstractKeyword'), isTrue);
+        expect(typeMap.containsKey('ModifierToken'), isTrue);
+        expect(typeMap.containsKey('JSObject'), isTrue);
+      });
+
+      test('IntersectionType in getTypeHierarchy', () {
+        final a = InterfaceDeclaration(
+          name: 'A',
+          exported: true,
+          id: ID(type: 'interface', name: 'A'),
+        );
+        final b = InterfaceDeclaration(
+          name: 'B',
+          exported: true,
+          id: ID(type: 'interface', name: 'B'),
+        );
+        final intersection = IntersectionType(
+          types: [a.asReferredType(), b.asReferredType()],
+          name: 'A_and_B',
+        );
+
+        final hierarchy = getTypeHierarchy(intersection);
+        expect(hierarchy.lookup('A'), isNotNull);
+        expect(hierarchy.lookup('B'), isNotNull);
+      });
+
+      test('EnumDeclaration in getTypeHierarchy', () {
+        final myEnum = EnumDeclaration(
+          name: 'MyEnum',
+          baseType: BuiltinType.primitiveType(
+            PrimitiveType.int,
+            shouldEmitJsType: true,
+          ),
+          members: [],
+          exported: true,
+        );
+
+        final hierarchy = getTypeHierarchy(myEnum.asReferredType());
+        expect(hierarchy.lookup('JSNumber'), isNotNull);
       });
     });
   });

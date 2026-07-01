@@ -35,13 +35,6 @@ external _i1.JSAny? handleEvents(
 );
 extension type ElementStamp<T extends _i2.HTMLElement>._(_i1.JSObject _)
     implements _i1.JSObject {
-  external ElementStamp({
-    T target,
-    Date stampedAt,
-    String id,
-    AnonymousUnion_2036258 stampType,
-  });
-
   external String id;
 
   external AnonymousUnion_2036258 stampType;
@@ -78,20 +71,14 @@ extension type HTMLTransformFunc<
   T extends _i2.HTMLElement,
   R extends _i2.HTMLElement
 >._(_i1.JSObject _) implements _i1.JSObject {
-  external HTMLTransformFunc();
-
   external R call(T element);
 }
 extension type EventManipulationFunc._(_i1.JSObject _) implements _i1.JSObject {
-  external EventManipulationFunc();
-
   external _i1.JSAny? call(_i2.Event event);
 }
 
 /// Enables basic storage and retrieval of dates and times.
 extension type Date._(_i1.JSObject _) implements _i1.JSObject {
-  external Date();
-
   /// Returns a string representation of a date. The format of the string
   /// depends on the locale.
   @_i1.JS('toString')
@@ -332,8 +319,13 @@ extension type Date._(_i1.JSObject _) implements _i1.JSObject {
   /// object's data for JavaScript Object Notation (JSON) serialization.
   external String toJSON([_i1.JSAny? key]);
 }
-extension type const AnonymousUnion_2036258._(String _) {
-  static const AnonymousUnion_2036258 emit = AnonymousUnion_2036258._('emit');
+extension type AnonymousUnion_2036258._(_i1.JSString _)
+    implements _i1.JSString {
+  static final AnonymousUnion_2036258 emit = AnonymousUnion_2036258._(
+    'emit'.toJS,
+  );
 
-  static const AnonymousUnion_2036258 none = AnonymousUnion_2036258._('none');
+  static final AnonymousUnion_2036258 none = AnonymousUnion_2036258._(
+    'none'.toJS,
+  );
 }

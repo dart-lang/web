@@ -11,7 +11,6 @@ import '../ast/declarations.dart';
 import '../ast/helpers.dart';
 import '../ast/types.dart';
 import '../js_type_supertypes.dart';
-import 'hasher.dart';
 import 'transform.dart';
 
 /// A directed acyclic graph representation of an inverted type hierarchy,
@@ -192,6 +191,11 @@ TypeHierarchy getTypeHierarchy(Type type) {
           getTypeHierarchy(getLowestCommonAncestorOfTypes(types)),
         );
         break;
+      case IntersectionType(types: final types):
+        for (final t in types) {
+          hierarchy.nodes.add(getTypeHierarchy(t));
+        }
+        break;
       case TupleType(types: final types):
         // subtype is JSArray<union>
         hierarchy.nodes.add(
@@ -245,6 +249,17 @@ TypeHierarchy getTypeHierarchy(Type type) {
           getTypeHierarchy(BuiltinType.primitiveType(PrimitiveType.object)),
         );
         break;
+      case ReferredType(declaration: final decl) when decl is EnumDeclaration:
+        // Enums map to JSNumber!
+        hierarchy.nodes.add(
+          getTypeHierarchy(
+            BuiltinType.primitiveType(
+              PrimitiveType.num,
+              shouldEmitJsType: true,
+            ),
+          ),
+        );
+        break;
       case ReferredType(declaration: final decl)
           when decl is FunctionDeclaration:
       case ClosureType():
@@ -271,9 +286,12 @@ TypeHierarchy getTypeHierarchy(Type type) {
         hierarchy.addChainedValues(list);
         break;
       default:
+        final declInfo = type is ReferredType
+            ? ' (name: $name, decl: ${type.declaration.runtimeType})'
+            : ' (name: $name)';
         print(
           'WARN: Could not get type hierarchy for type of kind '
-          '${type.runtimeType}. Skipping...',
+          '${type.runtimeType}$declInfo. Skipping...',
         );
         break;
     }
@@ -350,6 +368,11 @@ TypeMap createTypeMap(List<Type> types, {TypeMap? map}) {
         outputMap.addAll(
           createTypeMap([...decl.extendedTypes], map: outputMap),
         );
+        break;
+      case ReferredType(declaration: final decl)
+          when decl is TypeAliasDeclaration:
+        outputMap.addAll(createTypeMap([decl.type], map: outputMap));
+        break;
       case HomogenousEnumType(types: final homogenousTypes):
         outputMap.addAll(
           createTypeMap([homogenousTypes.first.baseType], map: outputMap),
@@ -411,11 +434,12 @@ Type getLowestCommonAncestorOfTypes(
       if (typesAtLevel.singleOrNull case final finalType?) {
         return deduceType(finalType, typeMap);
       } else {
-        return UnionType(
-          types: typesAtLevel.map((c) => deduceType(c, typeMap!)).toList(),
-          name:
-              'AnonymousUnion_'
-              '${AnonymousHasher.hashUnion(commonTypes.toList())}',
+        // Fallback to JSObject to avoid creating dynamic unions during
+        // emission,
+        // which would otherwise remain undefined in the output.
+        return BuiltinType.primitiveType(
+          PrimitiveType.object,
+          isNullable: isNullable,
         );
       }
     }
@@ -425,11 +449,15 @@ Type getLowestCommonAncestorOfTypes(
 }
 
 Type deduceType(String name, TypeMap map) {
+  final mapped = map[name];
+  if (mapped != null) return mapped;
+
   final referredType = BuiltinType.referred(
     name.startsWith('JS') ? name.substring(2) : name,
   );
   if (referredType != null) return referredType;
-  return map[name] ?? BuiltinType.primitiveType(PrimitiveType.any);
+
+  return BuiltinType.primitiveType(PrimitiveType.any);
 }
 
 /// Checks if there is a type shared between the types, usually in the
@@ -486,4 +514,191 @@ Type? _getSharedPrimitiveTypeIfAny(List<Type> types, {bool isNullable = true}) {
   }
 
   return null;
+}
+
+/// Checks if [a] is a subtype of [b] by looking up [b]'s name in the
+/// expanded supertype hierarchy of [a].
+bool isSubtypeOf(Type a, Type b) {
+  final nameA = a is NamedType ? a.name : a.id.name;
+  final nameB = b is NamedType ? b.name : b.id.name;
+  if (nameA == nameB) return true;
+  final hierarchyA = getTypeHierarchy(a).expand();
+  return hierarchyA.contains(nameB);
+}
+
+Type getStaticRepType(Type t) {
+  if (t is UnionType) {
+    return getLowestCommonAncestorOfTypes(t.types);
+  }
+  if (t is IntersectionType) {
+    return getGreatestCommonSubtypeOfTypes(t.types);
+  }
+  return getDartRepresentationType(t);
+}
+
+Type getDartRepresentationType(Type t) {
+  if (t is UnionType) {
+    return getDartRepresentationType(getLowestCommonAncestorOfTypes(t.types));
+  }
+  if (t is IntersectionType) {
+    return getDartRepresentationType(getGreatestCommonSubtypeOfTypes(t.types));
+  }
+  if (t is ObjectLiteralType) {
+    return BuiltinType.primitiveType(PrimitiveType.object);
+  }
+  if (t is ReferredType) {
+    final decl = t.declaration;
+    if (decl is TypeAliasDeclaration) {
+      return getDartRepresentationType(decl.type);
+    }
+    if (decl is ClassDeclaration) {
+      return getDartRepresentationType(
+        decl.extendedType ?? BuiltinType.primitiveType(PrimitiveType.object),
+      );
+    }
+    if (decl is InterfaceDeclaration) {
+      return getDartRepresentationType(
+        decl.extendedTypes.firstOrNull ??
+            BuiltinType.primitiveType(PrimitiveType.object),
+      );
+    }
+    if (decl is NamespaceDeclaration) {
+      return BuiltinType.primitiveType(PrimitiveType.object);
+    }
+    if (decl is EnumDeclaration) {
+      return BuiltinType.primitiveType(
+        PrimitiveType.num,
+        shouldEmitJsType: true,
+      );
+    }
+  }
+  return t;
+}
+
+/// Given a list of types from an intersection, gets the greatest common
+/// subtype (GCS) of their Dart representation types.
+///
+/// Looks for a candidate in their Dart representation types that is a subtype
+/// of all other representation types (e.g. `NamedDeclaration` for
+/// `[NamedDeclaration, JSObject]`).
+/// Fallbacks to LCA if no single greatest common subtype exists.
+Type cloneType(Type type, {bool? isNullable}) => switch (type) {
+  final TupleType t => TupleType(
+    types: t.types,
+    isNullable: isNullable ?? t.isNullable,
+    tupleDeclUrl: t.url,
+    readonly: t.readonly,
+    decl: t.declaration as TupleDeclaration?,
+  ),
+  final ReferredDeclarationType t => ReferredDeclarationType(
+    t.type,
+    t.declaration,
+    typeParams: t.typeParams,
+    url: t.url,
+    isNullable: isNullable ?? t.isNullable,
+  ),
+  final ReferredType t => ReferredType(
+    name: t.name,
+    declaration: t.declaration,
+    typeParams: t.typeParams,
+    url: t.url,
+    isNullable: isNullable ?? t.isNullable,
+  ),
+  final BuiltinType t => BuiltinType(
+    name: t.name,
+    typeParams: t.typeParams,
+    fromDartJSInterop: t.fromDartJSInterop,
+    isNullable: isNullable ?? t.isNullable,
+    discardable: t.discardable,
+  ),
+  final HomogenousEnumType t => HomogenousEnumType(
+    types: t.types,
+    name: t.declarationName,
+    isNullable: isNullable ?? t.isNullable,
+  ),
+  final UnionType t => UnionType(
+    types: t.types,
+    name: t.declarationName,
+    isNullable: isNullable ?? t.isNullable,
+  ),
+  final IntersectionType t => IntersectionType(
+    types: t.types,
+    name: t.declarationName,
+  )..isNullable = isNullable ?? t.isNullable,
+  final GenericType t => GenericType(
+    name: t.name,
+    constraint: t.constraint,
+    defaultType: t.defaultType,
+    parent: t.parent,
+    isNullable: isNullable ?? t.isNullable,
+  ),
+  final LiteralType t => LiteralType(
+    kind: t.kind,
+    value: t.value,
+    isNullable: isNullable ?? t.isNullable,
+  ),
+  final ObjectLiteralType t => ObjectLiteralType(
+    name: t.declarationName,
+    id: t.id,
+    properties: t.properties,
+    methods: t.methods,
+    constructors: t.constructors,
+    operators: t.operators,
+    isNullable: isNullable ?? t.isNullable,
+  ),
+  final EnumObjectType t => EnumObjectType(
+    t.enumeration,
+    dartName: t.dartName,
+    isNullable: isNullable ?? t.isNullable,
+  ),
+  final ConstructorType t => ConstructorType(
+    name: t.declarationName,
+    id: t.id,
+    returnType: t.returnType,
+    typeParameters: t.typeParameters,
+    parameters: t.parameters,
+    isNullable: isNullable ?? t.isNullable,
+  ),
+  final FunctionType t => FunctionType(
+    name: t.declarationName,
+    id: t.id,
+    returnType: t.returnType,
+    typeParameters: t.typeParameters,
+    parameters: t.parameters,
+    isNullable: isNullable ?? t.isNullable,
+  ),
+  _ => throw UnimplementedError(
+    'Unsupported type clone for ${type.runtimeType}',
+  ),
+};
+
+Type getGreatestCommonSubtypeOfTypes(
+  List<Type> types, {
+  bool isNullable = false,
+}) {
+  if (types.isEmpty) throw Exception('You must pass types');
+  if (types.singleOrNull case final singleType?) {
+    return cloneType(singleType, isNullable: isNullable);
+  }
+
+  // Get Dart representation types for all types
+  final repTypes = types.map(getDartRepresentationType).toList();
+
+  // Find a candidate that is a subtype of all other repTypes
+  for (final candidate in repTypes) {
+    var isGcs = true;
+    for (final other in repTypes) {
+      if (candidate == other) continue;
+      if (!isSubtypeOf(candidate, other)) {
+        isGcs = false;
+        break;
+      }
+    }
+    if (isGcs) {
+      return cloneType(candidate, isNullable: isNullable);
+    }
+  }
+
+  // Fallback to LCA if no single greatest common subtype exists
+  return getLowestCommonAncestorOfTypes(types, isNullable: isNullable);
 }

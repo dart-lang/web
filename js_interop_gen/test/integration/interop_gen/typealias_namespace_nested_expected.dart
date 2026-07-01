@@ -8,31 +8,32 @@ import 'dart:js_interop' as _i1;
 
 import 'package:meta/meta.dart' as _i2;
 
-@_i1.JS('symlink')
-extension type Symlink._(_i1.JSObject _) implements _i1.JSObject {}
+extension type symlink._(_i1.JSObject _) implements _i1.JSObject {}
 @_i1.JS()
-external void mySymlink(Symlink_Type type);
-@_i1.JS('stream')
-extension type Stream._(_i1.JSObject _) implements _i1.JSObject {
+external void mySymlink(symlink_Type type);
+extension type stream._(_i1.JSObject _) implements _i1.JSObject {
   @_i1.JS('stream.Readable')
-  static Stream_Readable Readable() => Stream_Readable();
+  static stream_Readable Readable() => stream_Readable();
 }
 @_i1.JS('stream.Readable')
-extension type Stream_Readable._(_i1.JSObject _) implements _i1.JSObject {
-  external Stream_Readable();
+extension type stream_Readable._(_i1.JSObject _) implements _i1.JSObject {
+  external stream_Readable();
 }
-extension type MyReadable._(_i1.JSObject _) implements Stream_Readable {
+extension type MyReadable._(_i1.JSObject _) implements stream_Readable {
   external MyReadable();
 }
-extension type Empty._(_i1.JSObject _) implements _i1.JSObject {
-  external Empty();
-}
+extension type Empty._(_i1.JSObject _) implements _i1.JSObject {}
 @_i2.doNotStore
 @_i1.JS()
 external _i1.JSAny? get emptyKey;
-typedef Symlink_Type = AnonymousUnion_3598178;
-extension type const AnonymousUnion_3598178._(String _) {
-  static const AnonymousUnion_3598178 dir = AnonymousUnion_3598178._('dir');
+typedef symlink_Type = AnonymousUnion_3598178;
+extension type AnonymousUnion_3598178._(_i1.JSString _)
+    implements _i1.JSString {
+  static final AnonymousUnion_3598178 dir = AnonymousUnion_3598178._(
+    'dir'.toJS,
+  );
 
-  static const AnonymousUnion_3598178 file = AnonymousUnion_3598178._('file');
+  static final AnonymousUnion_3598178 file = AnonymousUnion_3598178._(
+    'file'.toJS,
+  );
 }

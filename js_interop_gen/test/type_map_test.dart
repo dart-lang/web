@@ -8,6 +8,7 @@ library;
 import 'package:js_interop_gen/src/ast/base.dart';
 import 'package:js_interop_gen/src/ast/builtin.dart';
 import 'package:js_interop_gen/src/ast/declarations.dart';
+import 'package:js_interop_gen/src/ast/helpers.dart';
 import 'package:js_interop_gen/src/ast/types.dart';
 import 'package:js_interop_gen/src/interop_gen/namer.dart';
 import 'package:js_interop_gen/src/interop_gen/sub_type.dart';
@@ -523,6 +524,33 @@ void main() {
 
         final hierarchy = getTypeHierarchy(myEnum.asReferredType());
         expect(hierarchy.lookup('JSNumber'), isNotNull);
+      });
+
+      test('Circular type hierarchy cycle guard in helpers', () {
+        final dummy = InterfaceDeclaration(
+          name: 'Dummy',
+          exported: true,
+          id: ID(type: 'interface', name: 'Dummy'),
+        );
+        late final InterfaceDeclaration a;
+        late final InterfaceDeclaration b;
+
+        a = InterfaceDeclaration(
+          name: 'CircA',
+          exported: true,
+          id: ID(type: 'interface', name: 'CircA'),
+          extendedTypes: [ReferredType(name: 'CircB', declaration: dummy)],
+        );
+        b = InterfaceDeclaration(
+          name: 'CircB',
+          exported: true,
+          id: ID(type: 'interface', name: 'CircB'),
+          extendedTypes: [ReferredType(name: 'CircA', declaration: a)],
+        );
+        (a.extendedTypes.first as ReferredType).declaration = b;
+
+        expect(() => getMemberHierarchy(a), returnsNormally);
+        expect(() => findMemberInHierarchy(a, 'someProp'), returnsNormally);
       });
     });
   });

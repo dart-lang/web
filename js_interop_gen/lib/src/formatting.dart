@@ -24,6 +24,10 @@ const _allowedHtmlTags = {
   'h5',
   'h6',
   'blockquote',
+  'img',
+  'hr',
+  'details',
+  'summary',
   '/a',
   '/b',
   '/i',
@@ -45,6 +49,8 @@ const _allowedHtmlTags = {
   '/h5',
   '/h6',
   '/blockquote',
+  '/details',
+  '/summary',
 };
 
 /// Given markdown formatted text [data] and a line [width], return a

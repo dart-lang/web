@@ -83,12 +83,15 @@ final Map<String, Set<String>> _memberHierarchyCache = {};
 Set<String> getMemberHierarchy(
   Declaration type, [
   bool addDirectMembers = false,
+  Set<Declaration>? visited,
 ]) {
+  visited ??= {};
+  if (!visited.add(type)) return {};
   final members = <String>{};
 
   void addMembersIfReferredType(Type type) {
     if (type case ReferredType<Declaration>(declaration: final d)) {
-      members.addAll(getMemberHierarchy(d, true));
+      members.addAll(getMemberHierarchy(d, true, visited));
     }
   }
 
@@ -136,7 +139,13 @@ Set<String> getMemberHierarchy(
   return members;
 }
 
-MemberDeclaration? findMemberInHierarchy(Declaration td, String name) {
+MemberDeclaration? findMemberInHierarchy(
+  Declaration td,
+  String name, [
+  Set<Declaration>? visited,
+]) {
+  visited ??= {};
+  if (!visited.add(td)) return null;
   if (td is TypeDeclaration) {
     // Check direct members first
     final prop = td.properties.where((p) => p.name == name).firstOrNull;
@@ -157,7 +166,7 @@ MemberDeclaration? findMemberInHierarchy(Declaration td, String name) {
 
     for (final parent in parents) {
       if (parent case ReferredType(declaration: final d)) {
-        final found = findMemberInHierarchy(d, name);
+        final found = findMemberInHierarchy(d, name, visited);
         if (found != null) return found;
       }
     }
@@ -178,7 +187,7 @@ MemberDeclaration? findMemberInHierarchy(Declaration td, String name) {
     // Check constituents recursively
     for (final parent in td.types) {
       if (parent case ReferredType(declaration: final d)) {
-        final found = findMemberInHierarchy(d, name);
+        final found = findMemberInHierarchy(d, name, visited);
         if (found != null) return found;
       }
     }

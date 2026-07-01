@@ -122,6 +122,15 @@ Some text.
 ''',
       );
     });
+
+    test('allowed HTML tags (img, hr, details, summary)', () {
+      compare(
+        '<img src="test.png"> <hr> <details><summary>Click</summary>Info</details>',
+        '''
+/// <img src="test.png"> <hr> <details><summary>Click</summary>Info</details>
+''',
+      );
+    });
   });
 }
 

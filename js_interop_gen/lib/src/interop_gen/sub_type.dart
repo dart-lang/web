@@ -410,7 +410,7 @@ Type getLowestCommonAncestorOfTypes(
 
   if (types.isEmpty) throw Exception('You must pass types');
   if (types.singleOrNull case final singleType?) {
-    return singleType..isNullable = isNullable;
+    return cloneType(singleType, isNullable: isNullable);
   }
 
   if (_getSharedPrimitiveTypeIfAny(types, isNullable: isNullable)

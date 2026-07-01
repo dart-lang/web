@@ -8,6 +8,7 @@ import 'package:code_builder/code_builder.dart';
 import 'package:collection/collection.dart';
 
 import '../interop_gen/namer.dart';
+import '../interop_gen/sub_type.dart';
 import '../js/typescript.types.dart';
 import 'base.dart';
 import 'builtin.dart';
@@ -92,123 +93,249 @@ sealed class TypeDeclaration extends NestableDeclaration
     bool objectLiteralConstructor = false,
     List<Method> extraMethods = const [],
   }) {
-    options ??= DeclarationOptions();
+    final opts = options ??= DeclarationOptions();
+    final previousGenericNames = opts.validGenericNames;
+    opts.validGenericNames = {
+      ...previousGenericNames,
+      ...typeParameters.map((t) => t.name),
+    };
 
-    final hierarchy = getMemberHierarchy(this);
-
-    final (doc, annotations) = generateFromDocumentation(documentation);
-
-    final fieldDecs = <Field>[];
-    final methodDecs = <Method>[];
-
-    bool isOverride(String name) =>
-        hierarchy.contains(name) && (options?.redeclareOverrides ?? true);
-
-    for (final prop in properties.where((p) => p.scope == DeclScope.public)) {
-      final spec = prop.emit(
-        options..override = isOverride(prop.dartName ?? prop.name),
-      );
-      if (spec is Method) {
-        methodDecs.add(spec);
-      } else {
-        fieldDecs.add(spec as Field);
+    try {
+      final conflictingMembers = <String>{};
+      final seenMembers = <String>{};
+      for (final parent in [...extendees, ...implementees]) {
+        final d = switch (parent) {
+          ReferredType(declaration: final decl) => decl,
+          DeclarationType(declaration: final decl) => decl,
+          _ => null,
+        };
+        if (d != null) {
+          final members = getMemberHierarchy(d, true);
+          for (final m in members) {
+            if (!seenMembers.add(m)) {
+              conflictingMembers.add(m);
+            }
+          }
+        }
       }
-    }
 
-    methodDecs.addAll(
-      methods
-          .where((p) => p.scope == DeclScope.public)
-          .map(
-            (m) =>
-                m.emit(options!..override = isOverride(m.dartName ?? m.name)),
-          ),
-    );
-    methodDecs.addAll(
-      operators
-          .where((p) => p.scope == DeclScope.public)
-          .map(
-            (m) =>
-                m.emit(options!..override = isOverride(m.dartName ?? m.name)),
-          ),
-    );
-
-    final resolvedRepType = getRepresentationType(this);
-    final isNonObjectBuiltin =
-        resolvedRepType is BuiltinType &&
-        nonObjectRepTypes.contains(resolvedRepType.name);
-
-    final repType =
-        useFirstExtendeeAsRepType ||
-            (this is ClassDeclaration && !isNonObjectBuiltin) ||
-            (this is! ClassDeclaration &&
-                resolvedRepType is BuiltinType &&
-                resolvedRepType.name != 'JSObject')
-        ? resolvedRepType
-        : BuiltinType.primitiveType(PrimitiveType.object, isNullable: false);
-
-    return ExtensionType(
-      (e) => e
-        ..docs.addAll([...doc])
-        ..annotations.addAll([...annotations])
-        ..name = completedDartName
-        ..annotations.addAll([
-          if (parent != null)
-            generateJSAnnotation(qualifiedName)
-          else if (dartName != null && dartName != name)
-            generateJSAnnotation(name),
-        ])
-        ..primaryConstructorName = '_'
-        ..representationDeclaration = RepresentationDeclaration(
-          (r) => r
-            ..declaredRepresentationType = repType.emit(
-              options?.toTypeOptions(),
-            )
-            ..name = '_',
-        )
-        ..implements.addAll({
-          if (extendees.isEmpty && implementees.isEmpty)
-            refer('JSObject', 'dart:js_interop')
-          else ...{
-            ...extendees.map((e) => e.emit(options?.toTypeOptions())),
-            ...implementees.map((i) => i.emit(options?.toTypeOptions())),
-          },
-        })
-        ..types.addAll(
-          typeParameters.map((t) => t.emit(options?.toTypeOptions())),
-        )
-        ..constructors.addAll([
-          if (objectLiteralConstructor &&
-              !constructors.any((c) => c.name == null || c.name!.isEmpty))
-            Constructor(
-              (c) => c
-                ..external = true
-                ..optionalParameters.addAll(
-                  properties.where((p) => p.scope == DeclScope.public).map((p) {
-                    final paramName =
-                        p.dartName ?? UniqueNamer.makeNonConflicting(p.name);
-                    return Parameter(
-                      (param) => param
-                        ..named = true
-                        ..name = paramName
-                        ..annotations.addAll([
-                          if (p.dartName != null && p.dartName != p.name)
-                            generateJSAnnotation(p.name),
-                        ])
-                        ..type = p.type.emit(options?.toTypeOptions()),
+      final computedExtraMethods = <Method>[];
+      for (final m in conflictingMembers) {
+        if (properties.any((p) => p.name == m) ||
+            methods.any((meth) => meth.name == m)) {
+          continue;
+        }
+        for (final parent in [...extendees, ...implementees]) {
+          final d = switch (parent) {
+            ReferredType(declaration: final decl) => decl,
+            DeclarationType(declaration: final decl) => decl,
+            _ => null,
+          };
+          if (d != null) {
+            final found = findMemberInHierarchy(d, m);
+            if (found != null) {
+              if (found is PropertyDeclaration) {
+                if (found.name.startsWith('as')) {
+                  final typeRef = found.type.emit(opts.toTypeOptions());
+                  computedExtraMethods.add(
+                    Method(
+                      (builder) => builder
+                        ..name = found.dartName ?? found.name
+                        ..type = MethodType.getter
+                        ..returns = typeRef
+                        ..lambda = true
+                        ..body = refer('_').asA(typeRef).code,
+                    ),
+                  );
+                } else {
+                  final spec = found.emit(opts);
+                  if (spec is Method) {
+                    computedExtraMethods.add(spec);
+                  } else if (spec is Field) {
+                    computedExtraMethods.add(
+                      Method(
+                        (builder) => builder
+                          ..name = spec.name
+                          ..type = MethodType.getter
+                          ..external = true
+                          ..returns = spec.type
+                          ..annotations.addAll(spec.annotations),
+                      ),
                     );
-                  }),
-                ),
+                    if (!found.readonly) {
+                      computedExtraMethods.add(
+                        Method(
+                          (builder) => builder
+                            ..name = spec.name
+                            ..type = MethodType.setter
+                            ..external = true
+                            ..annotations.addAll(spec.annotations)
+                            ..requiredParameters.add(
+                              Parameter(
+                                (p) => p
+                                  ..name = 'value'
+                                  ..type = spec.type,
+                              ),
+                            ),
+                        ),
+                      );
+                    }
+                  }
+                }
+              } else if (found is MethodDeclaration) {
+                computedExtraMethods.add(found.emit(opts));
+              }
+              break;
+            }
+          }
+        }
+      }
+
+      final hierarchy = getMemberHierarchy(this);
+
+      final (doc, annotations) = generateFromDocumentation(documentation);
+
+      final fieldDecs = <Field>[];
+      final methodDecs = <Method>[];
+
+      bool isOverride(String name) =>
+          hierarchy.contains(name) && (options?.redeclareOverrides ?? true);
+
+      for (final prop in properties.where((p) => p.scope == DeclScope.public)) {
+        final spec = prop.emit(
+          options..override = isOverride(prop.dartName ?? prop.name),
+        );
+        if (spec is Method) {
+          methodDecs.add(spec);
+        } else {
+          fieldDecs.add(spec as Field);
+        }
+      }
+
+      methodDecs.addAll(
+        methods
+            .where((p) => p.scope == DeclScope.public)
+            .map(
+              (m) =>
+                  m.emit(options!..override = isOverride(m.dartName ?? m.name)),
             ),
-          if (!abstract)
-            if (constructors.isEmpty && this is ClassDeclaration)
-              ConstructorDeclaration.defaultFor(this).emit(options)
-            else
-              ...constructors.map((c) => c.emit(options)),
-        ])
-        ..fields.addAll(fieldDecs)
-        ..methods.addAll(methodDecs)
-        ..methods.addAll(extraMethods),
-    );
+      );
+      methodDecs.addAll(
+        operators
+            .where((p) => p.scope == DeclScope.public)
+            .map(
+              (m) =>
+                  m.emit(options!..override = isOverride(m.dartName ?? m.name)),
+            ),
+      );
+
+      final resolvedRepType = getRepresentationType(this);
+      final isNonObjectBuiltin =
+          resolvedRepType is BuiltinType &&
+          nonObjectRepTypes.contains(resolvedRepType.name);
+
+      final repType =
+          useFirstExtendeeAsRepType ||
+              (this is ClassDeclaration && !isNonObjectBuiltin) ||
+              (this is! ClassDeclaration &&
+                  resolvedRepType is BuiltinType &&
+                  resolvedRepType.name != 'JSObject')
+          ? resolvedRepType
+          : BuiltinType.primitiveType(PrimitiveType.object, isNullable: false);
+
+      final filteredExtendees = extendees
+          .where(
+            (e) => !e.isNullable && isSubtypeOf(repType, getStaticRepType(e)),
+          )
+          .map((e) {
+            final ref = e.emit(opts.toTypeOptions());
+            return ref is TypeReference
+                ? ref.rebuild((b) => b..isNullable = false)
+                : ref;
+          })
+          .toList();
+
+      final filteredImplementees = implementees
+          .where(
+            (i) => !i.isNullable && isSubtypeOf(repType, getStaticRepType(i)),
+          )
+          .map((i) {
+            final ref = i.emit(opts.toTypeOptions());
+            return ref is TypeReference
+                ? ref.rebuild((b) => b..isNullable = false)
+                : ref;
+          })
+          .toList();
+
+      return ExtensionType(
+        (e) => e
+          ..docs.addAll([...doc])
+          ..annotations.addAll([...annotations])
+          ..name = completedDartName
+          ..annotations.addAll([
+            if (parent != null)
+              generateJSAnnotation(qualifiedName)
+            else if (dartName != null && dartName != name)
+              generateJSAnnotation(name),
+          ])
+          ..primaryConstructorName = '_'
+          ..representationDeclaration = RepresentationDeclaration(
+            (r) => r
+              ..declaredRepresentationType = repType.emit(opts.toTypeOptions())
+              ..name = '_',
+          )
+          ..implements.addAll({
+            if (filteredExtendees.isEmpty && filteredImplementees.isEmpty) ...{
+              if (!repType.isNullable)
+                refer(
+                  isSubtypeOf(
+                        repType,
+                        BuiltinType.primitiveType(PrimitiveType.object),
+                      )
+                      ? 'JSObject'
+                      : 'JSAny',
+                  'dart:js_interop',
+                ),
+            } else ...{
+              ...filteredExtendees,
+              ...filteredImplementees,
+            },
+          })
+          ..types.addAll(
+            typeParameters.map((t) => t.emit(opts.toTypeOptions())),
+          )
+          ..constructors.addAll([
+            if (objectLiteralConstructor)
+              Constructor(
+                (c) => c
+                  ..external = true
+                  ..optionalParameters.addAll(
+                    properties
+                        .where((p) => p.scope == DeclScope.public)
+                        .map(
+                          (p) => Parameter(
+                            (param) => param
+                              ..named = true
+                              ..name = p.dartName ?? p.name
+                              ..type = p.type.emit(opts.toTypeOptions()),
+                          ),
+                        ),
+                  ),
+              ),
+            if (!abstract)
+              if (constructors.isEmpty && this is ClassDeclaration)
+                ConstructorDeclaration.defaultFor(this).emit(opts)
+              else
+                ...constructors.map((c) => c.emit(opts)),
+          ])
+          ..fields.addAll(fieldDecs)
+          ..methods.addAll(methodDecs)
+          ..methods.addAll(extraMethods)
+          ..methods.addAll(computedExtraMethods),
+      );
+    } finally {
+      opts.validGenericNames = previousGenericNames;
+    }
   }
 }
 
@@ -375,37 +502,44 @@ class FunctionDeclaration extends CallableDeclaration
 
   @override
   Method emit([DeclarationOptions? options]) {
-    options ??= DeclarationOptions();
+    final opts = options ??= DeclarationOptions();
+    final previousGenericNames = opts.validGenericNames;
+    opts.validGenericNames = {
+      ...previousGenericNames,
+      ...typeParameters.map((t) => t.name),
+    };
+
     final (doc, annotations) = generateFromDocumentation(documentation);
 
-    final (requiredParams, optionalParams) = emitParameters(
-      parameters,
-      options,
-    );
+    final (requiredParams, optionalParams) = emitParameters(parameters, opts);
 
-    return Method(
-      (m) => m
-        ..docs.addAll([...doc])
-        ..annotations.addAll([
-          ...annotations,
-          if (_checkIfDiscardable(returnType))
-            refer('doNotStore', 'package:meta/meta.dart'),
-        ])
-        ..external = true
-        ..name = dartName ?? name
-        ..annotations.add(
-          generateJSAnnotation(
-            dartName == null || dartName == name ? null : name,
-          ),
-        )
-        ..static = options?.static ?? false
-        ..types.addAll(
-          typeParameters.map((t) => t.emit(options?.toTypeOptions())),
-        )
-        ..returns = returnType.emit(options?.toTypeOptions())
-        ..requiredParameters.addAll(requiredParams)
-        ..optionalParameters.addAll(optionalParams),
-    );
+    try {
+      return Method(
+        (m) => m
+          ..docs.addAll([...doc])
+          ..annotations.addAll([
+            ...annotations,
+            if (_checkIfDiscardable(returnType))
+              refer('doNotStore', 'package:meta/meta.dart'),
+          ])
+          ..external = true
+          ..name = dartName ?? name
+          ..annotations.add(
+            generateJSAnnotation(
+              dartName == null || dartName == name ? null : name,
+            ),
+          )
+          ..static = opts.static
+          ..types.addAll(
+            typeParameters.map((t) => t.emit(opts.toTypeOptions())),
+          )
+          ..returns = returnType.emit(opts.toTypeOptions())
+          ..requiredParameters.addAll(requiredParams)
+          ..optionalParameters.addAll(optionalParams),
+      );
+    } finally {
+      opts.validGenericNames = previousGenericNames;
+    }
   }
 
   @override
@@ -476,33 +610,31 @@ class EnumDeclaration extends NestableDeclaration
   @override
   Spec emit([DeclarationOptions? options]) {
     final (doc, annotations) = generateFromDocumentation(documentation);
-    final baseTypeIsJSType = getJSTypeAlternative(baseType) == baseType;
-    final externalMember = members.any((m) => m.isExternal);
-    final shouldUseJSRepType = externalMember || baseTypeIsJSType;
+    const shouldUseJSRepType = true;
+    final repType = getJSTypeAlternative(baseType);
 
     return ExtensionType(
       (e) => e
         ..docs.addAll([...doc])
         ..annotations.addAll([...annotations])
         ..annotations.addAll([
-          if (externalMember)
+          if (members.any((m) => m.isExternal))
             if (parent != null)
               generateJSAnnotation(qualifiedName)
             else if (dartName != null && dartName != name)
               generateJSAnnotation(name),
         ])
-        ..constant = !shouldUseJSRepType
+        ..constant = false
         ..name = completedDartName
         ..primaryConstructorName = '_'
         ..representationDeclaration = RepresentationDeclaration(
           (r) => r
-            ..declaredRepresentationType =
-                // if any member doesn't have a value, we have to use external
-                // so such type should be the JS rep type
-                (shouldUseJSRepType ? getJSTypeAlternative(baseType) : baseType)
-                    .emit(options?.toTypeOptions())
+            ..declaredRepresentationType = repType.emit(
+              options?.toTypeOptions(),
+            )
             ..name = '_',
         )
+        ..implements.add(repType.emit(options?.toTypeOptions()))
         ..fields.addAll(
           members.map(
             (member) => member.emit(shouldUseJSRepType, completedDartName),
@@ -620,14 +752,25 @@ class TypeAliasDeclaration extends NestableDeclaration
     final opts = options ?? DeclarationOptions();
     final (doc, annotations) = generateFromDocumentation(documentation);
 
-    return TypeDef(
-      (t) => t
-        ..docs.addAll([...doc])
-        ..annotations.addAll([...annotations])
-        ..name = completedDartName
-        ..types.addAll(typeParameters.map((t) => t.emit(opts.toTypeOptions())))
-        ..definition = type.emit(opts.toTypeOptions()..isTypeArgument = true),
-    );
+    final previousGenericNames = opts.validGenericNames;
+    opts.validGenericNames = {
+      ...previousGenericNames,
+      ...typeParameters.map((t) => t.name),
+    };
+    try {
+      return TypeDef(
+        (t) => t
+          ..docs.addAll([...doc])
+          ..annotations.addAll([...annotations])
+          ..name = completedDartName
+          ..types.addAll(
+            typeParameters.map((t) => t.emit(opts.toTypeOptions())),
+          )
+          ..definition = type.emit(opts.toTypeOptions()..isTypeArgument = true),
+      );
+    } finally {
+      opts.validGenericNames = previousGenericNames;
+    }
   }
 
   @override
@@ -846,7 +989,9 @@ class CompositeDeclaration extends TypeDeclaration {
          operators: interface.operators,
          constructors: interface.constructors,
          documentation: interface.documentation,
-       );
+       ) {
+    interface.mergedInto = this;
+  }
 
   factory CompositeDeclaration.fromNamespace(NamespaceDeclaration namespace) {
     final methodDeclarations = <MethodDeclaration>[];
@@ -897,7 +1042,7 @@ class CompositeDeclaration extends TypeDeclaration {
       );
     }
 
-    return CompositeDeclaration._(
+    final composite = CompositeDeclaration._(
       name: namespace.name,
       dartName: namespace.dartName,
       parent: namespace.parent,
@@ -913,6 +1058,8 @@ class CompositeDeclaration extends TypeDeclaration {
       useFirstExtendeeAsRepType: true,
       rawMethods: methods,
     );
+    namespace.mergedInto = composite;
+    return composite;
   }
 
   InterfaceDeclaration get asInterface => InterfaceDeclaration(
@@ -1181,18 +1328,51 @@ class MethodDeclaration extends CallableDeclaration
 
   @override
   Method emit([covariant DeclarationOptions? options]) {
-    options ??= DeclarationOptions();
+    final opts = options ??= DeclarationOptions();
+    final previousGenericNames = opts.validGenericNames;
+    opts.validGenericNames = {
+      ...previousGenericNames,
+      ...typeParameters.map((t) => t.name),
+    };
 
     final (doc, annotations) = generateFromDocumentation(documentation);
 
-    final (requiredParams, optionalParams) = emitParameters(
-      parameters,
-      options,
-    );
+    final (requiredParams, optionalParams) = emitParameters(parameters, opts);
 
     assert(scope == DeclScope.public, 'Only public members can be emitted');
 
-    if (isNullable) {
+    try {
+      if (isNullable) {
+        return Method(
+          (m) => m
+            ..docs.addAll([...doc])
+            ..annotations.addAll([
+              ...annotations,
+              if (_checkIfDiscardable(returnType))
+                refer('doNotStore', 'package:meta/meta.dart'),
+            ])
+            ..external = true
+            ..name = dartName ?? name
+            ..type = MethodType.getter
+            ..static = static
+            ..annotations.addAll([
+              if (dartName != null && dartName != name)
+                generateJSAnnotation(name),
+              if (opts.override) _redeclareExpression,
+            ])
+            ..types.addAll(
+              typeParameters.map((t) => t.emit(opts.toTypeOptions())),
+            )
+            // TODO(nikeokoronkwo): We can make this function more typed in the future, https://github.com/dart-lang/sdk/issues/54557
+            ..returns = TypeReference(
+              (t) => t
+                ..symbol = 'JSFunction'
+                ..isNullable = true
+                ..url = 'dart:js_interop',
+            ),
+        );
+      }
+
       return Method(
         (m) => m
           ..docs.addAll([...doc])
@@ -1203,55 +1383,29 @@ class MethodDeclaration extends CallableDeclaration
           ])
           ..external = true
           ..name = dartName ?? name
-          ..type = MethodType.getter
+          ..type = switch (kind) {
+            MethodKind.getter => MethodType.getter,
+            MethodKind.setter => MethodType.setter,
+            _ => null,
+          }
           ..static = static
           ..annotations.addAll([
             if (dartName != null && dartName != name)
               generateJSAnnotation(name),
-            if (options?.override ?? false) _redeclareExpression,
+            if (opts.override) _redeclareExpression,
           ])
           ..types.addAll(
-            typeParameters.map((t) => t.emit(options?.toTypeOptions())),
+            typeParameters.map((t) => t.emit(opts.toTypeOptions())),
           )
-          // TODO(nikeokoronkwo): We can make this function more typed in the future, https://github.com/dart-lang/sdk/issues/54557
-          ..returns = TypeReference(
-            (t) => t
-              ..symbol = 'JSFunction'
-              ..isNullable = true
-              ..url = 'dart:js_interop',
-          ),
+          ..returns = kind == MethodKind.setter
+              ? null
+              : returnType.emit(opts.toTypeOptions())
+          ..requiredParameters.addAll(requiredParams)
+          ..optionalParameters.addAll(optionalParams),
       );
+    } finally {
+      opts.validGenericNames = previousGenericNames;
     }
-
-    return Method(
-      (m) => m
-        ..docs.addAll([...doc])
-        ..annotations.addAll([
-          ...annotations,
-          if (_checkIfDiscardable(returnType))
-            refer('doNotStore', 'package:meta/meta.dart'),
-        ])
-        ..external = true
-        ..name = dartName ?? name
-        ..type = switch (kind) {
-          MethodKind.getter => MethodType.getter,
-          MethodKind.setter => MethodType.setter,
-          _ => null,
-        }
-        ..static = static
-        ..annotations.addAll([
-          if (dartName != null && dartName != name) generateJSAnnotation(name),
-          if (options?.override ?? false) _redeclareExpression,
-        ])
-        ..types.addAll(
-          typeParameters.map((t) => t.emit(options?.toTypeOptions())),
-        )
-        ..returns = kind == MethodKind.setter
-            ? null
-            : returnType.emit(options?.toTypeOptions())
-        ..requiredParameters.addAll(requiredParams)
-        ..optionalParameters.addAll(optionalParams),
-    );
   }
 }
 

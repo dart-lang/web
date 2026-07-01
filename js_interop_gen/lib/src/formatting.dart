@@ -2,10 +2,86 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+const _allowedHtmlTags = {
+  'a',
+  'b',
+  'i',
+  'code',
+  'pre',
+  'p',
+  'br',
+  'em',
+  'strong',
+  'span',
+  'div',
+  'ul',
+  'ol',
+  'li',
+  'h1',
+  'h2',
+  'h3',
+  'h4',
+  'h5',
+  'h6',
+  'blockquote',
+  'img',
+  'hr',
+  'details',
+  'summary',
+  '/a',
+  '/b',
+  '/i',
+  '/code',
+  '/pre',
+  '/p',
+  '/br',
+  '/em',
+  '/strong',
+  '/span',
+  '/div',
+  '/ul',
+  '/ol',
+  '/li',
+  '/h1',
+  '/h2',
+  '/h3',
+  '/h4',
+  '/h5',
+  '/h6',
+  '/blockquote',
+  '/details',
+  '/summary',
+};
+
 /// Given markdown formatted text [data] and a line [width], return a
 /// line-wrapped dartdoc comment accounting for any [leadingWhitespace] the
 /// comment should have.
 List<String> formatDocs(String data, int width, [int leadingWhitespace = 0]) {
+  // Escape or wrap unintended HTML tags in backticks to avoid Dart analyzer
+  // warnings (unintended_html_in_doc_comment).
+  // We split by backticks to ensure we only wrap tags that are OUTSIDE of
+  // backticks, preventing over-escaping.
+  final parts = data.split('`');
+  for (var i = 0; i < parts.length; i++) {
+    if (i.isEven) {
+      parts[i] = parts[i].replaceAllMapped(
+        RegExp(r'\\?<(/?[a-zA-Z][a-zA-Z0-9-]*)\b[^>]*>'),
+        (match) {
+          final matchedText = match.group(0)!;
+          final tag = match.group(1)!.toLowerCase();
+          if (_allowedHtmlTags.contains(tag)) {
+            return matchedText;
+          }
+          final tagWithAngles = matchedText.startsWith('\\')
+              ? matchedText.substring(1)
+              : matchedText;
+          return '`$tagWithAngles`';
+        },
+      );
+    }
+  }
+  data = parts.join('`');
+
   // TODO(devoncarew): Look at combining soft line breaks in the markdown in
   // order to better reflow the returned dartdoc comments (i.e., only have line
   // breaks for markdown paragraphs).

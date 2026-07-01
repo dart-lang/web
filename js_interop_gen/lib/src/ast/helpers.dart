@@ -71,30 +71,45 @@ List<Parameter> spreadParam(
   });
 }
 
+String _getCacheKey(Declaration type) {
+  if (type is NestableDeclaration) {
+    return type.qualifiedName;
+  }
+  return type.name;
+}
+
 final Map<String, Set<String>> _memberHierarchyCache = {};
 
 Set<String> getMemberHierarchy(
-  TypeDeclaration type, [
+  Declaration type, [
   bool addDirectMembers = false,
+  Set<Declaration>? visited,
 ]) {
+  visited ??= {};
+  if (!visited.add(type)) return {};
   final members = <String>{};
 
   void addMembersIfReferredType(Type type) {
-    if (type case ReferredType<Declaration>(
-      declaration: final d,
-    ) when d is TypeDeclaration) {
-      members.addAll(getMemberHierarchy(d, true));
+    if (type case ReferredType<Declaration>(declaration: final d)) {
+      members.addAll(getMemberHierarchy(d, true, visited));
     }
   }
 
   if (addDirectMembers) {
-    if (_memberHierarchyCache.containsKey(type.name)) {
-      return _memberHierarchyCache[type.name]!;
+    final cacheKey = _getCacheKey(type);
+    if (_memberHierarchyCache.containsKey(cacheKey)) {
+      return _memberHierarchyCache[cacheKey]!;
     }
     // add direct members
-    members.addAll(type.methods.map((m) => m.name));
-    members.addAll(type.properties.map((m) => m.name));
-    members.addAll(type.operators.map((m) => m.name));
+    if (type is TypeDeclaration) {
+      members.addAll(type.methods.map((m) => m.name));
+      members.addAll(type.properties.map((m) => m.name));
+      members.addAll(type.operators.map((m) => m.name));
+    } else if (type is UnionOrIntersectionDeclaration) {
+      for (final t in type.types) {
+        members.add('as${typeNameForGetter(t)}');
+      }
+    }
   }
 
   switch (type) {
@@ -110,15 +125,74 @@ Set<String> getMemberHierarchy(
     case InterfaceDeclaration(extendedTypes: final extendees):
       extendees.forEach(addMembersIfReferredType);
       break;
+    case UnionOrIntersectionDeclaration(types: final constituents):
+      constituents.forEach(addMembersIfReferredType);
+      break;
     default:
       break;
   }
 
   if (addDirectMembers) {
-    _memberHierarchyCache[type.name] ??= members;
+    _memberHierarchyCache[_getCacheKey(type)] ??= members;
   }
 
   return members;
+}
+
+MemberDeclaration? findMemberInHierarchy(
+  Declaration td,
+  String name, [
+  Set<Declaration>? visited,
+]) {
+  visited ??= {};
+  if (!visited.add(td)) return null;
+  if (td is TypeDeclaration) {
+    // Check direct members first
+    final prop = td.properties.where((p) => p.name == name).firstOrNull;
+    if (prop != null) return prop;
+    final method = td.methods.where((m) => m.name == name).firstOrNull;
+    if (method != null) return method;
+
+    // Check parents recursively
+    final parents = <Type>[];
+    if (td case ClassDeclaration(
+      extendedType: final extendee?,
+      implementedTypes: final implementees,
+    )) {
+      parents.addAll([extendee, ...implementees]);
+    } else if (td case InterfaceDeclaration(extendedTypes: final extendees)) {
+      parents.addAll(extendees);
+    }
+
+    for (final parent in parents) {
+      if (parent case ReferredType(declaration: final d)) {
+        final found = findMemberInHierarchy(d, name, visited);
+        if (found != null) return found;
+      }
+    }
+  } else if (td is UnionOrIntersectionDeclaration) {
+    // Check if it is a synthesized getter
+    for (final t in td.types) {
+      final getterName = 'as${typeNameForGetter(t)}';
+      if (getterName == name) {
+        return PropertyDeclaration(
+          name: getterName,
+          id: ID(type: 'property', name: getterName),
+          type: t,
+          readonly: true,
+          static: false,
+        );
+      }
+    }
+    // Check constituents recursively
+    for (final parent in td.types) {
+      if (parent case ReferredType(declaration: final d)) {
+        final found = findMemberInHierarchy(d, name, visited);
+        if (found != null) return found;
+      }
+    }
+  }
+  return null;
 }
 
 Type getRepresentationType(TypeDeclaration td) {

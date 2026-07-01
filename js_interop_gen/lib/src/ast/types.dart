@@ -53,9 +53,12 @@ class ReferredType<T extends Declaration> extends NamedType {
   @override
   Reference emit([TypeOptions? options]) {
     final opts = options ?? TypeOptions();
-    final mappedSymbol = opts.declarationToEmittedName[declaration];
+    var decl = declaration as Declaration;
+    while (decl is NamedDeclaration && decl.mergedInto != null) {
+      decl = decl.mergedInto!;
+    }
+    final mappedSymbol = opts.declarationToEmittedName[decl];
     final declTypeParams = <GenericType>[];
-    final decl = declaration;
     if (decl is TypeDeclaration) {
       declTypeParams.addAll(decl.typeParameters);
     } else if (decl is TypeAliasDeclaration) {
@@ -75,9 +78,9 @@ class ReferredType<T extends Declaration> extends NamedType {
       (t) => t
         ..symbol =
             mappedSymbol ??
-            ((declaration is NestableDeclaration)
-                ? (declaration as NestableDeclaration).completedDartName
-                : declaration.dartName ?? declaration.name)
+            (decl is NestableDeclaration
+                ? decl.completedDartName
+                : decl.dartName ?? decl.name)
         ..types.addAll(
           paddedTypeParams.map((t) {
             final typeArgsOptions = TypeOptions(
@@ -86,6 +89,7 @@ class ReferredType<T extends Declaration> extends NamedType {
               variadicArgsCount: opts.variadicArgsCount,
               shouldEmitJsTypes: opts.shouldEmitJsTypes,
               redeclareOverrides: opts.redeclareOverrides,
+              validGenericNames: opts.validGenericNames,
             );
             return (t == BuiltinType.$voidType ? BuiltinType.anyType : t).emit(
               typeArgsOptions,
@@ -207,6 +211,7 @@ class UnionType extends DeclarationType {
                 variadicArgsCount: opts.variadicArgsCount,
                 shouldEmitJsTypes: opts.shouldEmitJsTypes,
                 redeclareOverrides: opts.redeclareOverrides,
+                validGenericNames: opts.validGenericNames,
               ),
             ),
           ),
@@ -258,6 +263,7 @@ class IntersectionType extends DeclarationType {
                 variadicArgsCount: opts.variadicArgsCount,
                 shouldEmitJsTypes: opts.shouldEmitJsTypes,
                 redeclareOverrides: opts.redeclareOverrides,
+                validGenericNames: opts.validGenericNames,
               ),
             ),
           ),
@@ -341,12 +347,27 @@ class GenericType extends NamedType {
   }
 
   @override
-  Reference emit([TypeOptions? options]) => TypeReference(
-    (t) => t
-      ..symbol = name
-      ..bound = (options?.isTypeArgument ?? false) ? null : constraint?.emit()
-      ..isNullable = (options?.nullable ?? false) || isNullable,
-  );
+  Reference emit([TypeOptions? options]) {
+    final hasValidGeneric = options?.validGenericNames.contains(name) ?? true;
+    if (!hasValidGeneric) {
+      if (constraint != null) {
+        return getDartRepresentationType(constraint!).emit(options);
+      }
+      return BuiltinType.primitiveType(
+        PrimitiveType.any,
+        isNullable: isNullable,
+      ).emit(options);
+    }
+
+    return TypeReference(
+      (t) => t
+        ..symbol = name
+        ..bound = (options?.isTypeArgument ?? false)
+            ? null
+            : constraint?.emit(options)
+        ..isNullable = (options?.nullable ?? false) || isNullable,
+    );
+  }
 
   @override
   bool operator ==(Object other) {
@@ -557,12 +578,13 @@ sealed class ClosureType extends DeclarationType {
     required String name,
     required this.id,
     required this.returnType,
-    this.typeParameters = const [],
+    List<GenericType> typeParameters = const [],
     this.parameters = const [],
     this.isNullable = false,
-  }) : declarationName = name {
-    if (typeParameters.isEmpty) {
-      typeParameters.addAll(
+  }) : typeParameters = List.of(typeParameters),
+       declarationName = name {
+    if (this.typeParameters.isEmpty) {
+      this.typeParameters.addAll(
         getGenericTypes(this).map((t) {
           t.constraint ??= BuiltinType.anyType;
           return t;
@@ -740,7 +762,7 @@ class _ConstructorDeclaration extends CallableDeclaration
   }
 }
 
-sealed class _UnionOrIntersectionDeclaration extends NamedDeclaration
+sealed class UnionOrIntersectionDeclaration extends NamedDeclaration
     implements ExportableDeclaration {
   @override
   bool get exported => true;
@@ -759,7 +781,7 @@ sealed class _UnionOrIntersectionDeclaration extends NamedDeclaration
   @override
   String? dartName;
 
-  _UnionOrIntersectionDeclaration({
+  UnionOrIntersectionDeclaration({
     required this.name,
     List<Type> types = const [],
     List<GenericType>? typeParams,
@@ -767,7 +789,7 @@ sealed class _UnionOrIntersectionDeclaration extends NamedDeclaration
     final uniqueTypes = <Type>[];
     final seenNames = <String>{};
     for (final type in types) {
-      final getterName = _typeNameForGetter(type);
+      final getterName = typeNameForGetter(type);
       if (seenNames.add(getterName)) {
         uniqueTypes.add(type);
       }
@@ -803,273 +825,304 @@ sealed class _UnionOrIntersectionDeclaration extends NamedDeclaration
     bool extendTypes = false,
     bool isNullable = false,
   }) {
-    options ??= DeclarationOptions();
-    final opts = options;
+    final opts = options ??= DeclarationOptions();
+    final previousGenericNames = opts.validGenericNames;
+    opts.validGenericNames = {
+      ...previousGenericNames,
+      ...typeParameters.map((t) => t.name),
+    };
 
-    final repType = getLowestCommonAncestorOfTypes(
-      types,
-      isNullable: isNullable,
-    );
+    try {
+      final repType = extendTypes
+          ? getGreatestCommonSubtypeOfTypes(types, isNullable: isNullable)
+          : getLowestCommonAncestorOfTypes(types, isNullable: isNullable);
 
-    final extendees = <Type>[];
-    if (extendTypes) {
-      // check if any types are primitive
-      // TODO: We can be much smarter about this, but this works best so far
-      if (types.any((t) {
-            final jsAltType = getJSTypeAlternative(t);
-            return jsAltType is BuiltinType &&
-                nonObjectRepTypes.contains(jsAltType.name);
-          }) ||
-          (repType is BuiltinType && repType.name == 'JSAny')) {
-        extendees.add(
-          BuiltinType.primitiveType(PrimitiveType.any, isNullable: false),
-        );
+      final extendees = <Type>[];
+      if (extendTypes) {
+        // check if any types are primitive
+        // TODO: We can be much smarter about this, but this works best so far
+        if (types.any((t) {
+              final jsAltType = getJSTypeAlternative(t);
+              return jsAltType is BuiltinType &&
+                  nonObjectRepTypes.contains(jsAltType.name);
+            }) ||
+            (repType is BuiltinType && repType.name == 'JSAny')) {
+          extendees.add(
+            BuiltinType.primitiveType(PrimitiveType.any, isNullable: false),
+          );
+        } else {
+          extendees.addAll(types.map(getJSTypeAlternative));
+        }
       } else {
-        extendees.addAll(types.map(getJSTypeAlternative));
+        extendees.add(repType);
       }
-    } else {
-      extendees.add(repType);
-    }
 
-    final memberDeclCount = <String, int>{};
-    final memberDecls = <String, MemberDeclaration>{};
-    final propTypes = <String, List<Type>>{};
+      final memberDeclCount = <String, int>{};
+      final memberDecls = <String, MemberDeclaration>{};
+      final propTypes = <String, List<Type>>{};
 
-    for (final e in extendees) {
-      if (e case ReferredType(declaration: final d) when d is TypeDeclaration) {
-        final members = getMemberHierarchy(d, true);
-        for (final m in members) {
-          memberDeclCount[m] = (memberDeclCount[m] ?? 0) + 1;
+      for (final e in extendees) {
+        final d = switch (e) {
+          ReferredType(declaration: final decl) => decl,
+          DeclarationType(declaration: final decl) => decl,
+          _ => null,
+        };
+        if (d != null) {
+          final members = getMemberHierarchy(d, true);
+          for (final m in members) {
+            memberDeclCount[m] = (memberDeclCount[m] ?? 0) + 1;
 
-          final prop = d.properties.where((p) => p.name == m).firstOrNull;
-          if (prop != null) {
-            propTypes.putIfAbsent(m, () => []).add(prop.type);
-            if (memberDecls[m] == null) memberDecls[m] = prop;
-          }
-
-          final method = d.methods.where((p) => p.name == m).firstOrNull;
-          if (method != null) {
-            if (memberDecls[m] == null) memberDecls[m] = method;
-          }
-        }
-      } else if (e case ObjectLiteralType(
-        properties: final props,
-        methods: final methods,
-      )) {
-        for (final prop in props) {
-          final m = prop.name;
-          memberDeclCount[m] = (memberDeclCount[m] ?? 0) + 1;
-          propTypes.putIfAbsent(m, () => []).add(prop.type);
-          if (memberDecls[m] == null) memberDecls[m] = prop;
-        }
-        for (final method in methods) {
-          final m = method.name;
-          memberDeclCount[m] = (memberDeclCount[m] ?? 0) + 1;
-          if (memberDecls[m] == null) memberDecls[m] = method;
-        }
-      }
-    }
-
-    final conflictingMembers = memberDeclCount.entries
-        .where((e) => e.value > 1)
-        .map((e) => e.key)
-        .toSet();
-
-    final conflictingMethods = <Method>[];
-
-    for (final m in conflictingMembers) {
-      final decl = memberDecls[m];
-      if (decl != null) {
-        final spec = (decl as Declaration).emit(opts);
-        if (spec is Method) {
-          conflictingMethods.add(
-            Method(
-              (builder) => builder
-                ..name = spec.name
-                ..type = spec.type
-                ..external = true
-                ..static = spec.static
-                ..returns = spec.returns
-                ..requiredParameters.addAll(spec.requiredParameters)
-                ..optionalParameters.addAll(spec.optionalParameters)
-                ..annotations.addAll(spec.annotations),
-            ),
-          );
-        } else if (spec is Field) {
-          final typesToIntersect = propTypes[m] ?? [];
-          final intersectedType = _intersectTypes(typesToIntersect);
-          final isNullable = typesToIntersect.every((t) => t.isNullable);
-          var emittedType = intersectedType.emit(
-            opts.toTypeOptions(nullable: isNullable),
-          );
-
-          final overrideSymbol = opts.typeOverrides[name]?[spec.name];
-          if (overrideSymbol != null) {
-            emittedType = refer(overrideSymbol);
-          } else if (typesToIntersect.length > 1) {
-            final resolvedName = intersectedType is BuiltinType
-                ? intersectedType.name
-                : '';
-            if (resolvedName == 'JSAny' || resolvedName == 'never') {
-              final constituents = typesToIntersect
-                  .map((t) => t.emit(opts.toTypeOptions()).symbol ?? t.id.name)
-                  .toSet()
-                  .join(', ');
-              print(
-                '\n⚠️  [js_interop_gen] MEMBER TYPE CONFLICT DETECTED:\n'
-                '   ├─ Context Type: "$name"\n'
-                '   ├─ Property:     "$m" has conflicting constituent '
-                'types: [$constituents]\n'
-                '   ├─ Resolved to:  "$resolvedName" (Fallback)\n'
-                '   └─ 💡 Suggestion: To define a custom type signature for '
-                'this field, register a type override:\n'
-                '      typeOverrides: {\n'
-                '        \'$name\': {\'$m\': \'<DesiredType>\'}\n'
-                '      }\n',
-              );
+            final found = findMemberInHierarchy(d, m);
+            if (found != null) {
+              if (found is PropertyDeclaration) {
+                propTypes.putIfAbsent(m, () => []).add(found.type);
+                if (memberDecls[m] == null) memberDecls[m] = found;
+              } else if (found is MethodDeclaration) {
+                if (memberDecls[m] == null) memberDecls[m] = found;
+              }
             }
           }
+        }
+      }
 
-          conflictingMethods.add(
-            Method(
-              (builder) => builder
-                ..name = spec.name
-                ..type = MethodType.getter
-                ..external = true
-                ..static = spec.static
-                ..returns = emittedType
-                ..annotations.addAll(spec.annotations),
-            ),
-          );
-          if (decl case PropertyDeclaration(readonly: false)) {
+      final conflictingMembers = memberDeclCount.entries
+          .where((e) => e.value > 1)
+          .map((e) => e.key)
+          .toSet();
+
+      final conflictingMethods = <Method>[];
+
+      for (final m in conflictingMembers) {
+        final decl = memberDecls[m];
+        if (decl != null) {
+          final spec = (decl as Declaration).emit(opts);
+          if (spec is Method) {
             conflictingMethods.add(
               Method(
                 (builder) => builder
                   ..name = spec.name
-                  ..type = MethodType.setter
+                  ..type = spec.type
                   ..external = true
                   ..static = spec.static
-                  ..annotations.addAll(spec.annotations)
-                  ..requiredParameters.add(
-                    Parameter(
-                      (p) => p
-                        ..name = 'value'
-                        ..type = emittedType,
-                    ),
-                  ),
+                  ..returns = spec.returns
+                  ..requiredParameters.addAll(spec.requiredParameters)
+                  ..optionalParameters.addAll(spec.optionalParameters)
+                  ..annotations.addAll(spec.annotations),
               ),
             );
+          } else if (spec is Field) {
+            if ((decl.name?.startsWith('as') ?? false) &&
+                decl is PropertyDeclaration) {
+              final typeRef = decl.type.emit(opts.toTypeOptions());
+              conflictingMethods.add(
+                Method(
+                  (builder) => builder
+                    ..name = decl.name
+                    ..type = MethodType.getter
+                    ..returns = typeRef
+                    ..lambda = true
+                    ..body = refer('_').asA(typeRef).code,
+                ),
+              );
+            } else {
+              final typesToIntersect = propTypes[m] ?? [];
+              final intersectedType = _intersectTypes(typesToIntersect);
+              final isNullable = typesToIntersect.every((t) => t.isNullable);
+              var emittedType = intersectedType.emit(
+                opts.toTypeOptions(nullable: isNullable),
+              );
+
+              final overrideSymbol = opts.typeOverrides[name]?[spec.name];
+              if (overrideSymbol != null) {
+                emittedType = refer(overrideSymbol);
+              } else if (typesToIntersect.length > 1) {
+                final resolvedName = intersectedType is BuiltinType
+                    ? intersectedType.name
+                    : '';
+                if (resolvedName == 'JSAny' || resolvedName == 'never') {
+                  final constituents = typesToIntersect
+                      .map(
+                        (t) => t.emit(opts.toTypeOptions()).symbol ?? t.id.name,
+                      )
+                      .toSet()
+                      .join(', ');
+                  print(
+                    '\n⚠️  [js_interop_gen] MEMBER TYPE CONFLICT DETECTED:\n'
+                    '   ├─ Context Type: "$name"\n'
+                    '   ├─ Property:     "$m" has conflicting constituent '
+                    'types: [$constituents]\n'
+                    '   ├─ Resolved to:  "$resolvedName" (Fallback)\n'
+                    '   └─ 💡 Suggestion: To define a custom type '
+                    'signature for '
+                    'this field, register a type override:\n'
+                    '      typeOverrides: {\n'
+                    '        \'$name\': {\'$m\': \'<DesiredType>\'}\n'
+                    '      }\n',
+                  );
+                }
+              }
+
+              conflictingMethods.add(
+                Method(
+                  (builder) => builder
+                    ..name = spec.name
+                    ..type = MethodType.getter
+                    ..external = true
+                    ..static = spec.static
+                    ..returns = emittedType
+                    ..annotations.addAll(spec.annotations),
+                ),
+              );
+              if (decl case PropertyDeclaration(readonly: false)) {
+                conflictingMethods.add(
+                  Method(
+                    (builder) => builder
+                      ..name = spec.name
+                      ..type = MethodType.setter
+                      ..external = true
+                      ..static = spec.static
+                      ..annotations.addAll(spec.annotations)
+                      ..requiredParameters.add(
+                        Parameter(
+                          (p) => p
+                            ..name = 'value'
+                            ..type = emittedType,
+                        ),
+                      ),
+                  ),
+                );
+              }
+            }
           }
         }
       }
-    }
 
-    return ExtensionType(
-      (e) => e
-        ..methods.addAll(conflictingMethods)
-        ..name = name
-        ..primaryConstructorName = '_'
-        ..representationDeclaration = RepresentationDeclaration(
-          (r) => r
-            ..name = '_'
-            ..declaredRepresentationType = repType.emit(
-              options?.toTypeOptions(),
-            ),
-        )
-        ..implements.addAll(
-          extendees.map((e) => e.emit(options?.toTypeOptions())),
-        )
-        ..types.addAll(
-          typeParameters.map((t) => t.emit(options?.toTypeOptions())),
-        )
-        ..methods.addAll(
-          types.map((t) {
-            final type = t.emit(options?.toTypeOptions());
-            final jsTypeAlt = getJSTypeAlternative(t);
-            return Method((m) {
-              final word = _typeNameForGetter(t, options);
-              final Expression body;
-              final jsAlt = jsTypeAlt;
-              final desugared = desugarTypeAliases(t);
-              if (desugarTypeAliases(t) == repType ||
-                  (jsAlt is NamedType && jsAlt.name == 'JSAny') ||
-                  (desugared is NamedType && desugared.name == 'void')) {
-                body = refer('_');
-              } else if (jsTypeAlt.id == t.id) {
-                final repDesugared = desugarTypeAliases(repType);
-                final tDesugared = desugarTypeAliases(t);
-                if (repDesugared is ReferredType &&
-                    tDesugared is ReferredType &&
-                    (repDesugared.typeParams.isNotEmpty ||
-                        tDesugared.typeParams.isNotEmpty)) {
-                  body = refer(
-                    '_',
-                  ).asA(refer('JSAny', 'dart:js_interop')).asA(type);
+      final filteredExtendees = extendees
+          .where(
+            (e) => !e.isNullable && isSubtypeOf(repType, getStaticRepType(e)),
+          )
+          .map((e) {
+            final ref = e.emit(opts.toTypeOptions());
+            return ref is TypeReference
+                ? ref.rebuild((b) => b..isNullable = false)
+                : ref;
+          })
+          .toList();
+
+      return ExtensionType(
+        (e) => e
+          ..methods.addAll(conflictingMethods)
+          ..name = name
+          ..primaryConstructorName = '_'
+          ..representationDeclaration = RepresentationDeclaration(
+            (r) => r
+              ..name = '_'
+              ..declaredRepresentationType = repType.emit(opts.toTypeOptions()),
+          )
+          ..implements.addAll({
+            if (filteredExtendees.isEmpty) ...{
+              if (!repType.isNullable)
+                refer(
+                  isSubtypeOf(
+                        repType,
+                        BuiltinType.primitiveType(PrimitiveType.object),
+                      )
+                      ? 'JSObject'
+                      : 'JSAny',
+                  'dart:js_interop',
+                ),
+            } else
+              ...filteredExtendees,
+          })
+          ..types.addAll(
+            typeParameters.map((t) => t.emit(opts.toTypeOptions())),
+          )
+          ..methods.addAll(
+            types.map((t) {
+              final type = t.emit(opts.toTypeOptions());
+              final jsTypeAlt = getJSTypeAlternative(t);
+              return Method((m) {
+                final word = typeNameForGetter(t, opts);
+                final Expression body;
+                final jsAlt = jsTypeAlt;
+                final desugared = desugarTypeAliases(t);
+                if (desugarTypeAliases(t) == repType ||
+                    (jsAlt is NamedType && jsAlt.name == 'JSAny') ||
+                    (desugared is NamedType && desugared.name == 'void')) {
+                  body = refer('_');
+                } else if (jsTypeAlt.id == t.id) {
+                  final repDesugared = desugarTypeAliases(repType);
+                  final tDesugared = desugarTypeAliases(t);
+                  if (repDesugared is ReferredType &&
+                      tDesugared is ReferredType &&
+                      (repDesugared.typeParams.isNotEmpty ||
+                          tDesugared.typeParams.isNotEmpty)) {
+                    body = refer(
+                      '_',
+                    ).asA(refer('JSAny', 'dart:js_interop')).asA(type);
+                  } else {
+                    body = refer('_').asA(type);
+                  }
                 } else {
-                  body = refer('_').asA(type);
-                }
-              } else {
-                body = switch (desugarTypeAliases(t)) {
-                  BuiltinType(name: final n) when n == 'int' =>
-                    refer('_')
-                        .asA(jsTypeAlt.emit(options?.toTypeOptions()))
-                        .property('toDartInt'),
-                  BuiltinType(name: final n) when n == 'double' || n == 'num' =>
-                    refer('_')
-                        .asA(jsTypeAlt.emit(options?.toTypeOptions()))
-                        .property('toDartDouble'),
-                  BuiltinType() =>
-                    refer('_')
-                        .asA(jsTypeAlt.emit(options?.toTypeOptions()))
-                        .property('toDart'),
-                  LiteralType(kind: LiteralKind.$true) ||
-                  LiteralType(kind: LiteralKind.$false) =>
-                    refer('_')
-                        .asA(refer('JSBoolean', 'dart:js_interop'))
-                        .property('toDart'),
-                  LiteralType(kind: LiteralKind.string) =>
-                    refer('_')
-                        .asA(refer('JSString', 'dart:js_interop'))
-                        .property('toDart'),
-                  LiteralType(kind: LiteralKind.int) =>
-                    refer('_')
-                        .asA(refer('JSNumber', 'dart:js_interop'))
-                        .property('toDartInt'),
-                  LiteralType(kind: LiteralKind.double) =>
-                    refer('_')
-                        .asA(refer('JSNumber', 'dart:js_interop'))
-                        .property('toDartDouble'),
-                  ReferredType(
-                    declaration: final decl,
-                    name: final n,
-                    url: final url,
-                  )
-                      when decl is EnumDeclaration =>
-                    refer(n, url).property('_').call([
+                  body = switch (desugarTypeAliases(t)) {
+                    BuiltinType(name: final n) when n == 'int' =>
                       refer('_')
                           .asA(jsTypeAlt.emit(options?.toTypeOptions()))
-                          .property(
-                            decl.baseType is NamedType
-                                ? switch ((decl.baseType as NamedType).name) {
-                                    'int' => 'toDartInt',
-                                    'num' || 'double' => 'toDartDouble',
-                                    _ => 'toDart',
-                                  }
-                                : 'toDart',
-                          ),
-                    ]),
-                  _ => refer('_').asA(jsTypeAlt.emit(options?.toTypeOptions())),
-                };
-              }
-              m
-                ..type = MethodType.getter
-                ..name = 'as${uppercaseFirstLetter(word)}'
-                ..returns = type
-                ..body = body.code;
-            });
-          }),
-        ),
-    );
+                          .property('toDartInt'),
+                    BuiltinType(name: final n)
+                        when n == 'double' || n == 'num' =>
+                      refer('_')
+                          .asA(jsTypeAlt.emit(options?.toTypeOptions()))
+                          .property('toDartDouble'),
+                    BuiltinType() =>
+                      refer('_')
+                          .asA(jsTypeAlt.emit(options?.toTypeOptions()))
+                          .property('toDart'),
+                    LiteralType(kind: LiteralKind.$true) ||
+                    LiteralType(kind: LiteralKind.$false) =>
+                      refer('_')
+                          .asA(refer('JSBoolean', 'dart:js_interop'))
+                          .property('toDart'),
+                    LiteralType(kind: LiteralKind.string) =>
+                      refer('_')
+                          .asA(refer('JSString', 'dart:js_interop'))
+                          .property('toDart'),
+                    LiteralType(kind: LiteralKind.int) =>
+                      refer('_')
+                          .asA(refer('JSNumber', 'dart:js_interop'))
+                          .property('toDartInt'),
+                    LiteralType(kind: LiteralKind.double) =>
+                      refer('_')
+                          .asA(refer('JSNumber', 'dart:js_interop'))
+                          .property('toDartDouble'),
+                    ReferredType(
+                      declaration: final decl,
+                      name: final n,
+                      url: final url,
+                    )
+                        when decl is EnumDeclaration =>
+                      refer(n, url).property('_').call([
+                        refer(
+                          '_',
+                        ).asA(jsTypeAlt.emit(options?.toTypeOptions())),
+                      ]),
+                    _ => refer(
+                      '_',
+                    ).asA(jsTypeAlt.emit(options?.toTypeOptions())),
+                  };
+                }
+                m
+                  ..type = MethodType.getter
+                  ..name = 'as${uppercaseFirstLetter(word)}'
+                  ..returns = type
+                  ..body = body.code;
+              });
+            }),
+          ),
+      );
+    } finally {
+      opts.validGenericNames = previousGenericNames;
+    }
   }
 }
 
@@ -1110,7 +1163,7 @@ class _EnumObjDeclaration extends NamedDeclaration
             ..name = '_',
         )
         ..implements.add(repType.emit(options?.toTypeOptions()))
-        ..fields.addAll(reference.members.map((mem) => mem.emit()))
+        ..fields.addAll(reference.members.map((mem) => mem.emit(true)))
         ..methods.addAll(
           reference.members.map((mem) {
             return mem.value == null
@@ -1142,7 +1195,7 @@ class _EnumObjDeclaration extends NamedDeclaration
   ID get id => ID(type: 'enum-rep', name: name);
 }
 
-class _IntersectionDeclaration extends _UnionOrIntersectionDeclaration {
+class _IntersectionDeclaration extends UnionOrIntersectionDeclaration {
   @override
   bool get exported => true;
 
@@ -1157,7 +1210,7 @@ class _IntersectionDeclaration extends _UnionOrIntersectionDeclaration {
   }
 }
 
-class _UnionDeclaration extends _UnionOrIntersectionDeclaration {
+class _UnionDeclaration extends UnionOrIntersectionDeclaration {
   @override
   bool get exported => true;
 
@@ -1175,7 +1228,7 @@ class _UnionDeclaration extends _UnionOrIntersectionDeclaration {
   }
 }
 
-String _typeNameForGetter(Type t, [Options? options]) {
+String typeNameForGetter(Type t, [Options? options]) {
   final List<Type> typeParams;
   final String baseName;
   if (t is BuiltinType) {
@@ -1209,7 +1262,7 @@ String _typeNameForGetter(Type t, [Options? options]) {
   var result = baseName;
   if (typeParams.isNotEmpty) {
     final paramsName = typeParams
-        .map((p) => uppercaseFirstLetter(_typeNameForGetter(p, options)))
+        .map((p) => uppercaseFirstLetter(typeNameForGetter(p, options)))
         .join('And');
     result = '${baseName}Of$paramsName';
   }

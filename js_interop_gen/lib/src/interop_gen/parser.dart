@@ -7,7 +7,7 @@ import 'dart:js_interop';
 import 'package:path/path.dart' as p;
 
 import '../config.dart';
-import '../js/generated/node_api.dart';
+import '../js/node.dart';
 import '../js/typescript.dart' as ts;
 
 class ParserResult {
@@ -48,7 +48,7 @@ ParserResult parseDeclarationFiles(Config config) {
       // handle any diagnostics
       handleDiagnostics(diagnostics);
       if (!ignoreErrors && diagnostics.isNotEmpty) {
-        Process.exit(1);
+        exit(1);
       }
     }
   } else if (config.tsConfig case final tsConfig?
@@ -67,7 +67,7 @@ ParserResult parseDeclarationFiles(Config config) {
     // handle any diagnostics
     handleDiagnostics(diagnostics);
     if (!ignoreErrors && diagnostics.isNotEmpty) {
-      Process.exit(1);
+      exit(1);
     }
   }
 
@@ -88,7 +88,7 @@ ParserResult parseDeclarationFiles(Config config) {
 
   if (diagnostics.isNotEmpty && !ignoreErrors) {
     // exit
-    Process.exit(1);
+    exit(1);
   }
 
   return ParserResult(program: program, files: files);
@@ -103,7 +103,7 @@ void handleDiagnostics(List<ts.TSDiagnostic> diagnostics) {
         diagnostic.messageText,
         '\n',
       );
-      Console.error(
+      printErr(
         '${diagnosticFile.fileName} '
         '(${line.toDartInt + 1},${char.toDartInt + 1}): $message',
       );
@@ -112,7 +112,7 @@ void handleDiagnostics(List<ts.TSDiagnostic> diagnostics) {
         diagnostic.messageText,
         '\n',
       );
-      Console.error('(anonymous): $message');
+      printErr('(anonymous): $message');
     }
   }
 }

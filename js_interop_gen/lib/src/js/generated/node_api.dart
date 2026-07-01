@@ -7,24 +7,17 @@
 import 'dart:js_interop' as _i1;
 
 extension type MkdirOptions._(_i1.JSObject _) implements _i1.JSObject {
-  external MkdirOptions({bool recursive});
-
   external bool? recursive;
 }
 extension type ReadFileOptions._(_i1.JSObject _) implements _i1.JSObject {
-  external ReadFileOptions({String encoding});
-
   external String? encoding;
 }
 extension type GlobSyncOptions._(_i1.JSObject _) implements _i1.JSObject {
-  external GlobSyncOptions({String cwd, _AnonymousFunction_1801294 exclude});
-
   external String? cwd;
 
   external _AnonymousFunction_1801294? exclude;
 }
-@_i1.JS('fs')
-extension type Fs._(_i1.JSObject _) implements _i1.JSObject {
+extension type fs._(_i1.JSObject _) implements _i1.JSObject {
   @_i1.JS()
   external static bool existsSync(String path);
   @_i1.JS()
@@ -39,13 +32,11 @@ extension type Fs._(_i1.JSObject _) implements _i1.JSObject {
     GlobSyncOptions? options,
   ]);
 }
-@_i1.JS('process')
-extension type Process._(_i1.JSObject _) implements _i1.JSObject {
+extension type process._(_i1.JSObject _) implements _i1.JSObject {
   @_i1.JS()
   external static void exit(num code);
 }
-@_i1.JS('console')
-extension type Console._(_i1.JSObject _) implements _i1.JSObject {
+extension type console._(_i1.JSObject _) implements _i1.JSObject {
   @_i1.JS()
   external static void error(String message);
 }

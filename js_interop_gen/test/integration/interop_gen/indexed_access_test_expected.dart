@@ -7,8 +7,6 @@
 import 'dart:js_interop' as _i1;
 
 extension type Person._(_i1.JSObject _) implements _i1.JSObject {
-  external Person({String name, double age});
-
   external String name;
 
   external double age;
@@ -20,13 +18,9 @@ typedef PersonKeys = KeyOf_Person;
 typedef KeyValues = AnonymousUnion_2683278;
 typedef Missing = _i1.JSAny;
 extension type Foo._(_i1.JSObject _) implements _i1.JSObject {
-  external Foo({bool baseProp});
-
   external bool baseProp;
 }
 extension type Fee._(_i1.JSObject _) implements Foo {
-  external Fee({double bar});
-
   external double bar;
 }
 typedef Fee200 = _i1.JSAny;
@@ -40,8 +34,8 @@ extension type AnonymousUnion_2683278._(_i1.JSAny _) implements _i1.JSAny {
 
   double get asDouble => (_ as _i1.JSNumber).toDartDouble;
 }
-extension type const KeyOf_Person._(String _) {
-  static const KeyOf_Person name = KeyOf_Person._('name');
+extension type KeyOf_Person._(_i1.JSString _) implements _i1.JSString {
+  static final KeyOf_Person name = KeyOf_Person._('name'.toJS);
 
-  static const KeyOf_Person age = KeyOf_Person._('age');
+  static final KeyOf_Person age = KeyOf_Person._('age'.toJS);
 }

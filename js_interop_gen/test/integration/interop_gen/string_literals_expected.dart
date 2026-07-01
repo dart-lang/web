@@ -5,14 +5,6 @@
 import 'dart:js_interop' as _i1;
 
 extension type Headers._(_i1.JSObject _) implements _i1.JSObject {
-  external Headers({
-    @_i1.JS('content-type') String contentType,
-    @_i1.JS('Content-type') String contentType$1,
-    @_i1.JS('content-Type') String contentType$2,
-    @_i1.JS('Content-Type') String contentType$3,
-    @_i1.JS('content=type') String contentType$4,
-  });
-
   @_i1.JS('content-type')
   external String contentType;
 

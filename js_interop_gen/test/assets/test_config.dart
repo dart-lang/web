@@ -49,13 +49,13 @@ external User get user1;
 external User get user2;
 @_i1.JS()
 external User get adminUser;
-extension type const UserRole._(int _) {
-  static const UserRole Guest = UserRole._(0);
+extension type UserRole._(_i1.JSNumber _) implements _i1.JSNumber {
+  static final UserRole Guest = UserRole._(0.toJS);
 
-  static const UserRole Viewer = UserRole._(1);
+  static final UserRole Viewer = UserRole._(1.toJS);
 
-  static const UserRole Editor = UserRole._(2);
+  static final UserRole Editor = UserRole._(2.toJS);
 
-  static const UserRole Administrator = UserRole._(3);
+  static final UserRole Administrator = UserRole._(3.toJS);
 }
 typedef User = String;

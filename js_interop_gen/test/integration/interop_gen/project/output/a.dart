@@ -41,25 +41,19 @@ external _i2.Vector3D mapTo3D(_i2.Vector2D v);
 /// Type Name [V]:  Vector2D subtype
 extension type TransformerMatrix<V extends _i2.Vector2D>._(_i1.JSObject _)
     implements Matrix {
-  external TransformerMatrix();
-
   external V call(V v);
 }
 
 /// A matrix that includes vector comparison capabilities.
 /// Type Name [V]:  Vector2D subtype
 extension type ComparatorMatrix<V extends _i2.Vector2D>._(_i1.JSObject _)
-    implements Matrix, _i3.Comparator<V> {
-  external ComparatorMatrix();
-}
+    implements Matrix, _i3.Comparator<V> {}
 
 /// Represents a point in 2D space using polar coordinates.
 /// - `magnitude`: radial distance from the origin.
 /// - `angle`: angle in radians from the positive x-axis.
 @_i1.JS('PolarPoint')
 extension type PolarCoordinate._(_i1.JSObject _) implements _i1.JSObject {
-  external PolarCoordinate({double magnitude, double angle});
-
   external double magnitude;
 
   external double angle;
@@ -71,8 +65,6 @@ extension type PolarCoordinate._(_i1.JSObject _) implements _i1.JSObject {
 /// - `z`: height along the z-axis.
 @_i1.JS('CylindricalPoint')
 extension type CylindricalCoordinate._(_i1.JSObject _) implements _i1.JSObject {
-  external CylindricalCoordinate({double radius, double angle, double z});
-
   external double radius;
 
   external double angle;
@@ -86,8 +78,6 @@ extension type CylindricalCoordinate._(_i1.JSObject _) implements _i1.JSObject {
 /// - `tau`: azimuthal angle from the x-axis in the xy-plane.
 @_i1.JS('SphericalPoint')
 extension type SphericalCoordinate._(_i1.JSObject _) implements _i1.JSObject {
-  external SphericalCoordinate({double magnitude, double theta, double tau});
-
   external double magnitude;
 
   external double theta;
@@ -219,8 +209,6 @@ external _i2.Vector3D get unitK3D;
 /// - `columns`: number of columns.
 /// - Numeric index maps to an array of numbers (row data).
 extension type Matrix._(_i1.JSObject _) implements _i1.JSObject {
-  external Matrix({double rows, double columns});
-
   external double rows;
 
   external double columns;

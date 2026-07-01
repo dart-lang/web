@@ -62,16 +62,4 @@ void main() {
     check('3.12.0', Version(3, 12, 0));
     check('<4.0.0', Version(0, 0, 0));
   });
-
-  test(
-    'extractPinnedSdkVersion extracts clean version without carriage return',
-    () {
-      const lfContent = '// Generated from Dart SDK 3.7.0-dev.1.1\nsome code';
-      const crlfContent =
-          '// Generated from Dart SDK 3.7.0-dev.1.1\r\nsome code';
-
-      expect(extractPinnedSdkVersion(lfContent), equals('3.7.0-dev.1.1'));
-      expect(extractPinnedSdkVersion(crlfContent), equals('3.7.0-dev.1.1'));
-    },
-  );
 }

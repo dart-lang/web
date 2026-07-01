@@ -58,14 +58,14 @@ external _i1.JSArray<_i1.JSNumber> get myNumberArray;
 external String get myCloneString;
 @_i1.JS()
 external _i1.JSArray<_i1.JSArray<_i1.JSNumber>> get myCloneNumberArray;
-extension type const MyEnum._(int _) {
-  static const MyEnum A = MyEnum._(0);
+extension type MyEnum._(_i1.JSNumber _) implements _i1.JSNumber {
+  static final MyEnum A = MyEnum._(0.toJS);
 
-  static const MyEnum B = MyEnum._(1);
+  static final MyEnum B = MyEnum._(1.toJS);
 
-  static const MyEnum C = MyEnum._(2);
+  static final MyEnum C = MyEnum._(2.toJS);
 
-  static const MyEnum D = MyEnum._(4);
+  static final MyEnum D = MyEnum._(4.toJS);
 }
 @_i1.JS()
 external MyEnum_EnumType get myEnumKeys;
@@ -189,13 +189,13 @@ extension type AnonymousType_1818079._(_i1.JSObject _) implements _i1.JSObject {
   external bool? showId;
 }
 extension type MyEnum_EnumType._(_i1.JSObject _) implements _i1.JSObject {
-  static const MyEnum A = MyEnum._(0);
+  static final MyEnum A = MyEnum._(0.toJS);
 
-  static const MyEnum B = MyEnum._(1);
+  static final MyEnum B = MyEnum._(1.toJS);
 
-  static const MyEnum C = MyEnum._(2);
+  static final MyEnum C = MyEnum._(2.toJS);
 
-  static const MyEnum D = MyEnum._(4);
+  static final MyEnum D = MyEnum._(4.toJS);
 
   @_i1.JS('0')
   static String get $0 => 'A';
@@ -209,25 +209,25 @@ extension type MyEnum_EnumType._(_i1.JSObject _) implements _i1.JSObject {
   @_i1.JS('4')
   static String get $4 => 'D';
 }
-extension type const KeyOf_User._(String _) {
-  static const KeyOf_User name = KeyOf_User._('name');
+extension type KeyOf_User._(_i1.JSString _) implements _i1.JSString {
+  static final KeyOf_User name = KeyOf_User._('name'.toJS);
 
-  static const KeyOf_User key = KeyOf_User._('key');
+  static final KeyOf_User key = KeyOf_User._('key'.toJS);
 
-  static const KeyOf_User id = KeyOf_User._('id');
+  static final KeyOf_User id = KeyOf_User._('id'.toJS);
 
-  static const KeyOf_User birthTimestamp = KeyOf_User._('birthTimestamp');
+  static final KeyOf_User birthTimestamp = KeyOf_User._('birthTimestamp'.toJS);
 
-  static const KeyOf_User email = KeyOf_User._('email');
+  static final KeyOf_User email = KeyOf_User._('email'.toJS);
 }
-extension type const KeyOf_TypeOf_MyEnum._(String _) {
-  static const KeyOf_TypeOf_MyEnum A = KeyOf_TypeOf_MyEnum._('A');
+extension type KeyOf_TypeOf_MyEnum._(_i1.JSString _) implements _i1.JSString {
+  static final KeyOf_TypeOf_MyEnum A = KeyOf_TypeOf_MyEnum._('A'.toJS);
 
-  static const KeyOf_TypeOf_MyEnum B = KeyOf_TypeOf_MyEnum._('B');
+  static final KeyOf_TypeOf_MyEnum B = KeyOf_TypeOf_MyEnum._('B'.toJS);
 
-  static const KeyOf_TypeOf_MyEnum C = KeyOf_TypeOf_MyEnum._('C');
+  static final KeyOf_TypeOf_MyEnum C = KeyOf_TypeOf_MyEnum._('C'.toJS);
 
-  static const KeyOf_TypeOf_MyEnum D = KeyOf_TypeOf_MyEnum._('D');
+  static final KeyOf_TypeOf_MyEnum D = KeyOf_TypeOf_MyEnum._('D'.toJS);
 }
 extension type _AnonymousFunction_3794666<T extends _i1.JSAny?>._(
   _i1.JSFunction _
@@ -236,8 +236,6 @@ extension type _AnonymousFunction_3794666<T extends _i1.JSAny?>._(
 }
 extension type ComposedType<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
-  external ComposedType({T enclosed});
-
   external T enclosed;
 }
 extension type AnonymousUnion_8168791._(_i1.JSAny _) implements _i1.JSAny {
@@ -250,7 +248,7 @@ extension type AnonymousUnion_2942628._(_i1.JSAny _) implements _i1.JSAny {
 
   String get asString => (_ as _i1.JSString).toDart;
 
-  MyEnum get asMyEnum => MyEnum._((_ as _i1.JSNumber).toDartInt);
+  MyEnum get asMyEnum => MyEnum._((_ as _i1.JSNumber));
 
   ComposedType<_i1.JSAny?> get asComposedType =>
       (_ as ComposedType<_i1.JSAny?>);
@@ -412,15 +410,16 @@ extension type AnonymousIntersection_1694066._(_i1.JSObject _)
   AnonymousType_8440086 get asAnonymousType_8440086 =>
       (_ as AnonymousType_8440086);
 }
-extension type AnonymousUnion_1033063._(_i1.JSAny _) implements _i1.JSAny {
+extension type AnonymousUnion_1033063._(_i1.JSObject _)
+    implements _i1.JSObject {
   AnonymousType_5274231 get asAnonymousType_5274231 =>
       (_ as AnonymousType_5274231);
 
   AnonymousIntersection_1694066 get asAnonymousIntersection_1694066 =>
       (_ as AnonymousIntersection_1694066);
 }
-extension type AnonymousIntersection_3682355._(_i1.JSAny _)
-    implements _i1.JSAny {
+extension type AnonymousIntersection_3682355._(_i1.JSObject _)
+    implements AnonymousUnion_3673646, AnonymousUnion_1033063 {
   AnonymousUnion_3673646 get asAnonymousUnion_3673646 =>
       (_ as AnonymousUnion_3673646);
 

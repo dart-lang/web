@@ -112,6 +112,25 @@ Some text.
 ''',
       );
     });
+
+    test('escaped angle brackets', () {
+      compare(
+        r'The **`SVGLength`** interface correspond to the [\<length>](/en-US/docs/Web/SVG/Content_type#length) basic data type.',
+        r'''
+/// The **`SVGLength`** interface correspond to the
+/// [`<length>`](/en-US/docs/Web/SVG/Content_type#length) basic data type.
+''',
+      );
+    });
+
+    test('allowed HTML tags (img, hr, details, summary)', () {
+      compare(
+        '<img src="test.png"> <hr> <details><summary>Click</summary>Info</details>',
+        '''
+/// <img src="test.png"> <hr> <details><summary>Click</summary>Info</details>
+''',
+      );
+    });
   });
 }
 

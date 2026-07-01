@@ -4,10 +4,10 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:js_interop' as _i1;
 
-extension type const TaskScope._(int _) {
-  static const TaskScope Global = TaskScope._(1);
+extension type TaskScope._(_i1.JSNumber _) implements _i1.JSNumber {
+  static final TaskScope Global = TaskScope._(1.toJS);
 
-  static const TaskScope Workspace = TaskScope._(2);
+  static final TaskScope Workspace = TaskScope._(2.toJS);
 }
 extension type Task._(_i1.JSObject _) implements _i1.JSObject {
   external Task();

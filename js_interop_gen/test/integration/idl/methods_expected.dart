@@ -19,7 +19,7 @@ extension type MyMethodExamples._(JSObject _) implements JSObject {
     JSAny? extra3,
     JSAny? extra4,
   ]);
-  external void update(JSAny keyOrKeys, [String value]);
+  external void update(JSIterable keyOrKeys, [String value]);
   external JSPromise<JSString> fetchRemoteValue([String? endpoint]);
   external void init();
 }

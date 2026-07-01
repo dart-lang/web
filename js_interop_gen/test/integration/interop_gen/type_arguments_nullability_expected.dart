@@ -6,12 +6,8 @@ import 'dart:js_interop' as _i1;
 
 extension type Wrapper<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
-  external Wrapper({T value});
-
   external T value;
 }
 extension type Container._(_i1.JSObject _) implements _i1.JSObject {
-  external Container({Wrapper<_i1.JSString> optionalWrapper});
-
   external Wrapper<_i1.JSString>? optionalWrapper;
 }

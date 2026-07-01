@@ -73,8 +73,6 @@ extension type Core_LogEntry._(_i1.JSObject _) implements _i1.JSObject {
 /// This interface is used across multiple services and modules.
 @_i1.JS('Core.IAppConfig')
 extension type Core_IAppConfig._(_i1.JSObject _) implements _i1.JSObject {
-  external Core_IAppConfig({String apiEndpoint, bool authRequired});
-
   external String apiEndpoint;
 
   external bool authRequired;
@@ -87,21 +85,22 @@ extension type Core_Internal._(_i1.JSObject _) implements _i1.JSObject {
   external static bool get devMode;
 }
 typedef Core_Internal_Mode = AnonymousUnion_3129258;
-extension type const AnonymousUnion_3129258._(String _) {
-  static const AnonymousUnion_3129258 debug = AnonymousUnion_3129258._('debug');
-
-  static const AnonymousUnion_3129258 profile = AnonymousUnion_3129258._(
-    'profile',
+extension type AnonymousUnion_3129258._(_i1.JSString _)
+    implements _i1.JSString {
+  static final AnonymousUnion_3129258 debug = AnonymousUnion_3129258._(
+    'debug'.toJS,
   );
 
-  static const AnonymousUnion_3129258 release = AnonymousUnion_3129258._(
-    'release',
+  static final AnonymousUnion_3129258 profile = AnonymousUnion_3129258._(
+    'profile'.toJS,
+  );
+
+  static final AnonymousUnion_3129258 release = AnonymousUnion_3129258._(
+    'release'.toJS,
   );
 }
 @_i1.JS('Security.IAuthToken')
 extension type Security_IAuthToken._(_i1.JSObject _) implements _i1.JSObject {
-  external Security_IAuthToken({String token, double expiresIn, double userId});
-
   external String token;
 
   external double expiresIn;
@@ -123,8 +122,6 @@ extension type Security_AuthService._(_i1.JSObject _) implements _i1.JSObject {
 @_i1.JS('Data.IRepository')
 extension type Data_IRepository<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
-  external Data_IRepository();
-
   external T? findById(num id);
   external _i1.JSArray<T> findAll();
   external void save(T entity);
@@ -153,8 +150,6 @@ extension type Data_Models_User._(_i1.JSObject _) implements Data_Models_IUser {
 }
 @_i1.JS('Data.Models.IUser')
 extension type Data_Models_IUser._(_i1.JSObject _) implements _i1.JSObject {
-  external Data_Models_IUser({double id, String name, String email});
-
   external double id;
 
   external String name;
@@ -183,8 +178,6 @@ extension type EnterpriseApp_Models._(_i1.JSObject _) implements _i1.JSObject {
 @_i1.JS('EnterpriseApp.Models.IUser')
 extension type EnterpriseApp_Models_IUser._(_i1.JSObject _)
     implements _i1.JSObject {
-  external EnterpriseApp_Models_IUser({double id, String name, String email});
-
   external double id;
 
   external String name;
@@ -209,12 +202,6 @@ extension type EnterpriseApp_Models_User._(_i1.JSObject _)
 @_i1.JS('EnterpriseApp.Models.IProduct')
 extension type EnterpriseApp_Models_IProduct._(_i1.JSObject _)
     implements _i1.JSObject {
-  external EnterpriseApp_Models_IProduct({
-    String sku,
-    String title,
-    double price,
-  });
-
   external String sku;
 
   external String title;
@@ -265,8 +252,6 @@ extension type EnterpriseApp_DataServices._(_i1.JSObject _)
 extension type EnterpriseApp_DataServices_IDataService<T extends _i1.JSAny?>._(
   _i1.JSObject _
 ) implements _i1.JSObject {
-  external EnterpriseApp_DataServices_IDataService();
-
   external _i1.JSArray<T> getAll();
   external T getById(String id);
   external void save(T item);

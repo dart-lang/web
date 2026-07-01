@@ -8,20 +8,14 @@ import 'dart:js_interop' as _i1;
 
 extension type Event<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
-  external Event({T listener});
-
   external T listener;
 }
 extension type CustomEventA<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
-  external CustomEventA({T data});
-
   external T data;
 }
 extension type CustomEventB<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
-  external CustomEventB({T data});
-
   external T data;
 }
 typedef MixedEventUnion<T extends _i1.JSAny?> = AnonymousUnion_3597781<T>;

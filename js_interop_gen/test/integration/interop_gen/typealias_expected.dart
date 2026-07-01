@@ -47,47 +47,55 @@ external _i1.JSArray<Tags> get tagArray;
 external List<_i1.JSString> get users;
 @_i1.JS()
 external Box<_i1.JSNumber> get matrix;
-extension type const LoggerType._(int _) {
-  static const LoggerType Noop = LoggerType._(0);
+extension type LoggerType._(_i1.JSNumber _) implements _i1.JSNumber {
+  static final LoggerType Noop = LoggerType._(0.toJS);
 
-  static const LoggerType Stdout = LoggerType._(1);
+  static final LoggerType Stdout = LoggerType._(1.toJS);
 
-  static const LoggerType Stderr = LoggerType._(2);
+  static final LoggerType Stderr = LoggerType._(2.toJS);
 
-  static const LoggerType File = LoggerType._(3);
+  static final LoggerType File = LoggerType._(3.toJS);
 
-  static const LoggerType Other = LoggerType._(4);
+  static final LoggerType Other = LoggerType._(4.toJS);
 }
-extension type const AnonymousUnion_2718349._(String _) {
-  static const AnonymousUnion_2718349 N = AnonymousUnion_2718349._('N');
+extension type AnonymousUnion_2718349._(_i1.JSString _)
+    implements _i1.JSString {
+  static final AnonymousUnion_2718349 N = AnonymousUnion_2718349._('N'.toJS);
 
-  static const AnonymousUnion_2718349 S = AnonymousUnion_2718349._('S');
+  static final AnonymousUnion_2718349 S = AnonymousUnion_2718349._('S'.toJS);
 
-  static const AnonymousUnion_2718349 E = AnonymousUnion_2718349._('E');
+  static final AnonymousUnion_2718349 E = AnonymousUnion_2718349._('E'.toJS);
 
-  static const AnonymousUnion_2718349 W = AnonymousUnion_2718349._('W');
+  static final AnonymousUnion_2718349 W = AnonymousUnion_2718349._('W'.toJS);
 }
-extension type const AnonymousUnion_2375200._(String _) {
-  static const AnonymousUnion_2375200 GET = AnonymousUnion_2375200._('GET');
-
-  static const AnonymousUnion_2375200 POST = AnonymousUnion_2375200._('POST');
-
-  static const AnonymousUnion_2375200 PUT = AnonymousUnion_2375200._('PUT');
-
-  static const AnonymousUnion_2375200 DELETE = AnonymousUnion_2375200._(
-    'DELETE',
+extension type AnonymousUnion_2375200._(_i1.JSString _)
+    implements _i1.JSString {
+  static final AnonymousUnion_2375200 GET = AnonymousUnion_2375200._(
+    'GET'.toJS,
   );
 
-  static const AnonymousUnion_2375200 PATCH = AnonymousUnion_2375200._('PATCH');
+  static final AnonymousUnion_2375200 POST = AnonymousUnion_2375200._(
+    'POST'.toJS,
+  );
 
-  static const AnonymousUnion_2375200 OPTIONS = AnonymousUnion_2375200._(
-    'OPTIONS',
+  static final AnonymousUnion_2375200 PUT = AnonymousUnion_2375200._(
+    'PUT'.toJS,
+  );
+
+  static final AnonymousUnion_2375200 DELETE = AnonymousUnion_2375200._(
+    'DELETE'.toJS,
+  );
+
+  static final AnonymousUnion_2375200 PATCH = AnonymousUnion_2375200._(
+    'PATCH'.toJS,
+  );
+
+  static final AnonymousUnion_2375200 OPTIONS = AnonymousUnion_2375200._(
+    'OPTIONS'.toJS,
   );
 }
 @_i1.JS('Space.Planet')
 extension type Space_Planet._(_i1.JSObject _) implements _i1.JSObject {
-  external Space_Planet({double radius});
-
   external double radius;
 }
 typedef LoggerContainer<N extends _i1.JSNumber> = _i1.JSArray<N>;

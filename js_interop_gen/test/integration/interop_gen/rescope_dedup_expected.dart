@@ -5,7 +5,5 @@
 import 'dart:js_interop' as _i1;
 
 extension type Position._(_i1.JSObject _) implements _i1.JSObject {
-  external Position({double line});
-
   external double get line;
 }

@@ -8,7 +8,5 @@ import 'dart:js_interop' as _i1;
   'This declaration has been marked as deprecated in the original JS/TS code',
 )
 extension type Wrapper._(_i1.JSObject _) implements _i1.JSObject {
-  external Wrapper({String value});
-
   external String value;
 }

@@ -31,7 +31,7 @@ typedef PrimitiveUnion = JSAny;
 ///
 /// - <code>[JSArray]\<[JSString]\></code>
 /// - <code>[JSObject]\<[JSString], [JSString]\></code>
-typedef GenericUnion = JSAny;
+typedef GenericUnion = JSObject;
 
 /// Union of: [JSInt16Array], [JSInt32Array], [JSInt8Array], [JSString]
 typedef NonCollapsingLongUnion = JSAny;

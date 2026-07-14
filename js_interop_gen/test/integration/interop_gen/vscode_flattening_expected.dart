@@ -6,29 +6,36 @@
 import 'dart:js_interop' as _i1;
 
 extension type Range._(_i1.JSObject _) implements _i1.JSObject {
+  external Range({String globalField});
+
   external String globalField;
 }
 extension type Position._(_i1.JSObject _) implements _i1.JSObject {
+  external Position({String globalField});
+
   external String globalField;
 }
-extension type vscode._(_i1.JSObject _) implements _i1.JSObject {
+@_i1.JS('vscode')
+extension type Vscode._(_i1.JSObject _) implements _i1.JSObject {
   @_i1.JS('vscode.Position')
-  static vscode_Position Position(num line, num character) =>
-      vscode_Position(line, character);
+  static Vscode_Position Position(num line, num character) =>
+      Vscode_Position(line, character);
 
   @_i1.JS('vscode.Range')
-  static vscode_Range Range(vscode_Position start, vscode_Position end) =>
-      vscode_Range(start, end);
+  static Vscode_Range Range(Vscode_Position start, Vscode_Position end) =>
+      Vscode_Range(start, end);
 }
 @_i1.JS('vscode.TextLine')
-extension type vscode_TextLine._(_i1.JSObject _) implements _i1.JSObject {
-  external vscode_Range get range;
+extension type Vscode_TextLine._(_i1.JSObject _) implements _i1.JSObject {
+  external Vscode_TextLine({Vscode_Range range});
+
+  external Vscode_Range get range;
 }
 @_i1.JS('vscode.Range')
-extension type vscode_Range._(_i1.JSObject _) implements _i1.JSObject {
-  external vscode_Range(vscode_Position start, vscode_Position end);
+extension type Vscode_Range._(_i1.JSObject _) implements _i1.JSObject {
+  external Vscode_Range(Vscode_Position start, Vscode_Position end);
 }
 @_i1.JS('vscode.Position')
-extension type vscode_Position._(_i1.JSObject _) implements _i1.JSObject {
-  external vscode_Position(num line, num character);
+extension type Vscode_Position._(_i1.JSObject _) implements _i1.JSObject {
+  external Vscode_Position(num line, num character);
 }

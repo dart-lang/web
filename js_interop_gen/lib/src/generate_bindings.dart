@@ -6,7 +6,7 @@ import 'dart:convert';
 import 'dart:js_interop';
 
 import 'package:path/path.dart' as p;
-import 'js/filesystem_api.dart';
+import 'js/generated/node_api.dart';
 import 'js/webidl2.dart' as webidl2;
 import 'js/webidl_api.dart' as webidl;
 import 'js/webref_css_api.dart';
@@ -84,14 +84,11 @@ Future<(TranslationResult, Map<String, String>)> generateBindings(
 }) async {
   var renameMap = <String, String>{};
   if (renameMapPath != null) {
-    if (fs.existsSync(renameMapPath.toJS).toDart) {
-      final jsonStr =
-          (fs.readFileSync(
-                    renameMapPath.toJS,
-                    JSReadFileOptions(encoding: 'utf8'.toJS),
-                  )
-                  as JSString)
-              .toDart;
+    if (Fs.existsSync(renameMapPath)) {
+      final jsonStr = Fs.readFileSync(
+        renameMapPath,
+        ReadFileOptions(encoding: 'utf8'),
+      );
       final json = jsonDecode(jsonStr) as Map<String, dynamic>;
       renameMap = json.map((k, v) => MapEntry(k, v as String));
     }
@@ -101,13 +98,10 @@ Future<(TranslationResult, Map<String, String>)> generateBindings(
   JSObject? elementsData;
 
   if (idlJsonPath != null) {
-    final jsonStr =
-        (fs.readFileSync(
-                  idlJsonPath.toJS,
-                  JSReadFileOptions(encoding: 'utf8'.toJS),
-                )
-                as JSString)
-            .toDart;
+    final jsonStr = Fs.readFileSync(
+      idlJsonPath,
+      ReadFileOptions(encoding: 'utf8'),
+    );
     final json = jsonDecode(jsonStr) as Map<String, dynamic>;
 
     idlData = (json['idl'] as Map?)?.jsify() as JSObject?;

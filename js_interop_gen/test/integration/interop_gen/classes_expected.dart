@@ -9,12 +9,18 @@ import 'dart:js_interop' as _i1;
 import 'package:meta/meta.dart' as _i2;
 
 extension type Point2D._(_i1.JSObject _) implements _i1.JSObject {
+  external Point2D({double x, double y});
+
   external double x;
 
   external double y;
 }
-extension type Shape._(_i1.JSObject _) implements _i1.JSObject {}
+extension type Shape._(_i1.JSObject _) implements _i1.JSObject {
+  external Shape();
+}
 extension type Shape2D._(_i1.JSObject _) implements Shape {
+  external Shape2D({double sides});
+
   external double? get sides;
   external double get perimeter;
   external double get area;
@@ -53,6 +59,8 @@ extension type Square._(_i1.JSObject _) implements Rectangle {
 @_i1.JS()
 external Square drawSquare(Point2D start, num length, [num? angle]);
 extension type Point3D._(_i1.JSObject _) implements _i1.JSObject {
+  external Point3D({double x, double y, double z});
+
   external double x;
 
   external double y;
@@ -60,6 +68,8 @@ extension type Point3D._(_i1.JSObject _) implements _i1.JSObject {
   external double z;
 }
 extension type Shape3D._(_i1.JSObject _) implements Shape {
+  external Shape3D();
+
   external double get volume;
   external double surfaceArea();
 }
@@ -174,6 +184,8 @@ external Point2D get origin2D;
 @_i1.JS()
 external Point3D get origin3D;
 extension type Vector._(_i1.JSObject _) implements _i1.JSObject {
+  external Vector();
+
   external double get magnitude;
   external double get directionAngle;
 }
@@ -213,6 +225,8 @@ extension type Vector3D._(_i1.JSObject _) implements Vector {
   external static Vector3D fromPoints(Point3D start, Point3D end);
 }
 extension type DirectionAngles._(_i1.JSObject _) implements _i1.JSObject {
+  external DirectionAngles({double alpha, double beta, double gamma});
+
   external double alpha;
 
   external double beta;
@@ -266,6 +280,8 @@ extension type const AnonymousUnion_7177595._(String _) {
 }
 extension type Epahs<TMetadata extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
+  external Epahs({String id, String name});
+
   external String name;
 
   external String get id;
@@ -281,5 +297,7 @@ extension type const AnonymousUnion_4033716._(String _) {
 }
 extension type Container<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
+  external Container({T value});
+
   external T value;
 }

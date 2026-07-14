@@ -7,6 +7,13 @@
 import 'dart:js_interop' as _i1;
 
 extension type PresentationOptions._(_i1.JSObject _) implements _i1.JSObject {
+  external PresentationOptions({
+    AnonymousUnion_3982518 createIfNone,
+    AnonymousUnion_3062264 stringUnion,
+    AnonymousUnion_2379119 intUnion,
+    AnonymousUnion_8514031 doubleUnion,
+  });
+
   external AnonymousUnion_3982518 createIfNone;
 
   external AnonymousUnion_3062264 stringUnion;

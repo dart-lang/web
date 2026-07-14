@@ -10,12 +10,16 @@ import 'package:meta/meta.dart' as _i2;
 
 extension type CoordinateSystem<P extends Point>._(_i1.JSObject _)
     implements _i1.JSObject {
+  external CoordinateSystem({P origin, _i1.JSArray<P> points});
+
   external _i1.JSArray<P> points;
 
   external P get origin;
   external void addPoint(P point);
 }
 extension type Point2D._(_i1.JSObject _) implements Point {
+  external Point2D({double x, double y});
+
   external double x;
 
   external double y;
@@ -23,6 +27,8 @@ extension type Point2D._(_i1.JSObject _) implements Point {
 @_i1.JS()
 external Point2D get origin2D;
 extension type Vector._(_i1.JSObject _) implements _i1.JSObject {
+  external Vector();
+
   external double get magnitude;
   external double get directionAngle;
 }
@@ -43,6 +49,8 @@ extension type Vector2D._(_i1.JSObject _) implements Vector {
   external static Vector2D fromPoints(Point2D start, Point2D end);
 }
 extension type Point3D._(_i1.JSObject _) implements Point {
+  external Point3D({double x, double y, double z});
+
   external double x;
 
   external double y;
@@ -71,14 +79,20 @@ extension type Vector3D._(_i1.JSObject _) implements Vector {
   external static Vector3D fromPoints(Point3D start, Point3D end);
 }
 extension type DirectionAngles._(_i1.JSObject _) implements _i1.JSObject {
+  external DirectionAngles({double alpha, double beta, double gamma});
+
   external double alpha;
 
   external double beta;
 
   external double gamma;
 }
-extension type Shape._(_i1.JSObject _) implements _i1.JSObject {}
+extension type Shape._(_i1.JSObject _) implements _i1.JSObject {
+  external Shape();
+}
 extension type Shape2D._(_i1.JSObject _) implements Shape {
+  external Shape2D({double sides});
+
   external double? get sides;
   external double get perimeter;
   external double get area;
@@ -117,6 +131,8 @@ extension type Square._(_i1.JSObject _) implements Rectangle {
 @_i1.JS()
 external Square drawSquare(Point2D start, num length, [num? angle]);
 extension type Shape3D._(_i1.JSObject _) implements Shape {
+  external Shape3D();
+
   external double get volume;
   external double surfaceArea();
 }
@@ -228,7 +244,9 @@ extension type EpahsImpl<TMeta extends _i1.JSAny?>._(_i1.JSObject _)
   @_i1.JS('toString')
   external String toString$();
 }
-extension type Point._(_i1.JSObject _) implements _i1.JSObject {}
+extension type Point._(_i1.JSObject _) implements _i1.JSObject {
+  external Point();
+}
 extension type const AnonymousUnion_7177595._(String _) {
   static const AnonymousUnion_7177595 circle = AnonymousUnion_7177595._(
     'circle',
@@ -244,6 +262,8 @@ extension type const AnonymousUnion_7177595._(String _) {
 }
 extension type Epahs<TMetadata extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
+  external Epahs({String id, String name});
+
   external String name;
 
   external String get id;

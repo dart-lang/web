@@ -6,8 +6,12 @@ import 'dart:js_interop' as _i1;
 
 extension type Holder<T extends _i1.JSString?>._(_i1.JSObject _)
     implements _i1.JSObject {
+  external Holder({T value});
+
   external T value;
 }
 extension type Consumer._(_i1.JSObject _) implements _i1.JSObject {
+  external Consumer({Holder<_i1.JSString> useHolder});
+
   external Holder<_i1.JSString> useHolder;
 }

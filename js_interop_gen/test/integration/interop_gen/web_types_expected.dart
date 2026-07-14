@@ -35,6 +35,13 @@ external _i1.JSAny? handleEvents(
 );
 extension type ElementStamp<T extends _i2.HTMLElement>._(_i1.JSObject _)
     implements _i1.JSObject {
+  external ElementStamp({
+    T target,
+    Date stampedAt,
+    String id,
+    AnonymousUnion_2036258 stampType,
+  });
+
   external String id;
 
   external AnonymousUnion_2036258 stampType;
@@ -71,14 +78,20 @@ extension type HTMLTransformFunc<
   T extends _i2.HTMLElement,
   R extends _i2.HTMLElement
 >._(_i1.JSObject _) implements _i1.JSObject {
+  external HTMLTransformFunc();
+
   external R call(T element);
 }
 extension type EventManipulationFunc._(_i1.JSObject _) implements _i1.JSObject {
+  external EventManipulationFunc();
+
   external _i1.JSAny? call(_i2.Event event);
 }
 
 /// Enables basic storage and retrieval of dates and times.
 extension type Date._(_i1.JSObject _) implements _i1.JSObject {
+  external Date();
+
   /// Returns a string representation of a date. The format of the string
   /// depends on the locale.
   @_i1.JS('toString')
@@ -101,6 +114,14 @@ extension type Date._(_i1.JSObject _) implements _i1.JSObject {
   ///   locale of the JavaScript runtime is used.
   /// - [options]:  An object that contains one or more properties that specify
   ///   comparison options.
+  /// - [locales]:  A locale string, array of locale strings, Intl.Locale
+  ///   object, or array of Intl.Locale objects that contain one or more
+  ///   language or locale tags. If you include more than one locale string,
+  ///   list them in descending order of priority so that the first entry is the
+  ///   preferred locale. If you omit this parameter, the default locale of the
+  ///   JavaScript runtime is used.
+  /// - [options]:  An object that contains one or more properties that specify
+  ///   comparison options.
   external String toLocaleString();
 
   /// Returns a date as a string value appropriate to the host environment's
@@ -113,6 +134,14 @@ extension type Date._(_i1.JSObject _) implements _i1.JSObject {
   ///   locale of the JavaScript runtime is used.
   /// - [options]:  An object that contains one or more properties that specify
   ///   comparison options.
+  /// - [locales]:  A locale string, array of locale strings, Intl.Locale
+  ///   object, or array of Intl.Locale objects that contain one or more
+  ///   language or locale tags. If you include more than one locale string,
+  ///   list them in descending order of priority so that the first entry is the
+  ///   preferred locale. If you omit this parameter, the default locale of the
+  ///   JavaScript runtime is used.
+  /// - [options]:  An object that contains one or more properties that specify
+  ///   comparison options.
   external String toLocaleDateString();
 
   /// Returns a time as a string value appropriate to the host environment's
@@ -123,6 +152,14 @@ extension type Date._(_i1.JSObject _) implements _i1.JSObject {
   ///   string, list them in descending order of priority so that the first
   ///   entry is the preferred locale. If you omit this parameter, the default
   ///   locale of the JavaScript runtime is used.
+  /// - [options]:  An object that contains one or more properties that specify
+  ///   comparison options.
+  /// - [locales]:  A locale string, array of locale strings, Intl.Locale
+  ///   object, or array of Intl.Locale objects that contain one or more
+  ///   language or locale tags. If you include more than one locale string,
+  ///   list them in descending order of priority so that the first entry is the
+  ///   preferred locale. If you omit this parameter, the default locale of the
+  ///   JavaScript runtime is used.
   /// - [options]:  An object that contains one or more properties that specify
   ///   comparison options.
   external String toLocaleTimeString();

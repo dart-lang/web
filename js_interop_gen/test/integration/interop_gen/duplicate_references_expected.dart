@@ -12,6 +12,8 @@ import 'dart:js_interop' as _i1;
 
 extension type Thenable<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
+  external Thenable();
+
   external Thenable<AnonymousUnion_3555654<TResult1, TResult2>>
   then<TResult1 extends _i1.JSAny?, TResult2 extends _i1.JSAny?>([
     _AnonymousFunction_2123872<TResult1?, T?>? onfulfilled,
@@ -24,12 +26,17 @@ extension type Uri._(_i1.JSObject _) implements _i1.JSObject {
   external static Uri parse(String value);
 }
 extension type TextDocument._(_i1.JSObject _) implements _i1.JSObject {
+  external TextDocument({Uri uri});
+
   external Uri get uri;
 }
 extension type TextEditor._(_i1.JSObject _) implements _i1.JSObject {
+  external TextEditor({TextDocument document});
+
   external TextDocument get document;
 }
-extension type workspace._(_i1.JSObject _) implements _i1.JSObject {
+@_i1.JS('workspace')
+extension type Workspace._(_i1.JSObject _) implements _i1.JSObject {
   @_i1.JS()
   external static Thenable<TextDocument> openTextDocument(Uri uri);
 }

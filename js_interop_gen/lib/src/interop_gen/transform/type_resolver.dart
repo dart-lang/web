@@ -14,7 +14,7 @@ import '../../ast/helpers.dart';
 import '../../ast/merger.dart';
 import '../../ast/types.dart';
 import '../../js/annotations.dart';
-import '../../js/filesystem_api.dart';
+import '../../js/generated/node_api.dart';
 import '../../js/typescript.dart' as ts;
 import '../../js/typescript.types.dart';
 import '../../translator.dart';
@@ -568,17 +568,11 @@ class TypeResolver {
         // if import there and not this file, imported from specified file
         final importUrl =
             !nameImport.endsWith('.d.ts') &&
-                fs
-                    .existsSync(
-                      (p.isAbsolute('$nameImport.d.ts')
-                              ? '$nameImport.d.ts'
-                              : p.join(
-                                  p.dirname(transformer.file),
-                                  '$nameImport.d.ts',
-                                ))
-                          .toJS,
-                    )
-                    .toDart
+                Fs.existsSync(
+                  p.isAbsolute('$nameImport.d.ts')
+                      ? '$nameImport.d.ts'
+                      : p.join(p.dirname(transformer.file), '$nameImport.d.ts'),
+                )
             ? '$nameImport.d.ts'
             : nameImport;
         final relativePath =

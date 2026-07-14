@@ -5,6 +5,10 @@
 import 'dart:js_interop' as _i1;
 
 extension type InternalSettings._(_i1.JSObject _) implements _i1.JSObject {
+  external InternalSettings({
+    @_i1.JS('__electricCharacterSupport') String $__electricCharacterSupport,
+  });
+
   @_i1.JS('__electricCharacterSupport')
   external String? $__electricCharacterSupport;
 

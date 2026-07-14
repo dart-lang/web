@@ -5,6 +5,8 @@
 import 'dart:js_interop' as _i1;
 
 extension type Foo._(_i1.JSObject _) implements _i1.JSObject {
+  external Foo({String name, double length, _i1.JSArrayBuffer raw});
+
   external String name;
 
   external double length;
@@ -12,5 +14,7 @@ extension type Foo._(_i1.JSObject _) implements _i1.JSObject {
   external _i1.JSArrayBuffer raw;
 }
 extension type Fee._(_i1.JSObject _) implements _i1.JSObject {
+  external Fee({_i1.JSAny raw});
+
   external _i1.JSAny raw;
 }

@@ -1,5 +1,6 @@
 name: package:web_generator
-permissions: read-all
+permissions:
+  contents: read
 
 on:
   # Run CI on pushes to the main branch and on PRs.

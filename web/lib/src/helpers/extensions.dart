@@ -43,7 +43,11 @@ export 'cross_origin.dart'
 
 extension BlobExtension on Blob {
   @Equivalence(type: 'Blob', member: '')
-  Blob createBlob(List<Object?> blobParts, [String? type, String? endings]) {
+  static Blob createBlob(
+    List<Object?> blobParts, [
+    String? type,
+    String? endings,
+  ]) {
     final jsParts = blobParts.jsify() as JSArray<JSAny>;
     if (type != null && endings != null) {
       return Blob(jsParts, BlobPropertyBag(type: type, endings: endings));
@@ -81,6 +85,42 @@ extension CSSStyleDeclarationExtension on CSSStyleDeclaration {
     value ??= '';
     priority ??= '';
     setProperty(property, value, priority);
+  }
+}
+
+extension CustomEventExtension on CustomEvent {
+  @Equivalence(type: 'CustomEvent', member: '')
+  static CustomEvent createCustomEvent(
+    String type, {
+    bool canBubble = true,
+    bool cancelable = true,
+    Object? detail,
+  }) {
+    final event = document.createEvent('CustomEvent') as CustomEvent;
+    if (detail is List || detail is Map || detail is String || detail is num) {
+      event.initCustomEvent(type, canBubble, cancelable, detail.jsify());
+    } else {
+      event.initCustomEvent(
+        type,
+        canBubble,
+        cancelable,
+        // A tricky scenario. Ideally, we'd do something similar to `dart:html`
+        // and store it in a separate property, but that's not symmetrical with
+        // `dart:html` and therefore may break partial migrations, so we're
+        // forced to leverage `detail`.
+        detail.toExternalReference as JSAny?,
+      );
+    }
+    return event;
+  }
+
+  @Equivalence(type: 'CustomEvent', member: 'detail')
+  Object? get dartDetail {
+    final detail = this.detail;
+    if (detail.isA<JSAny?>()) {
+      return detail.dartify();
+    }
+    return (detail as ExternalDartReference).toDartObject;
   }
 }
 
@@ -277,6 +317,17 @@ extension EventExtension on Event {
   @Equivalence(type: 'Event', member: 'path')
   List<EventTarget> get path =>
       has('composedPath') ? composedPath().toDart : [];
+
+  @Equivalence(type: 'Event', member: '')
+  static Event createEvent(
+    String type, {
+    bool canBubble = true,
+    bool cancelable = true,
+  }) {
+    final event = document.createEvent('Event');
+    event.initEvent(type, canBubble, cancelable);
+    return event;
+  }
 }
 
 extension EventTargetExtension on EventTarget {
@@ -382,6 +433,43 @@ extension HTMLCollectionExtension on HTMLCollection {
 extension HTMLInputElementExtension on HTMLInputElement {
   @Equivalence(type: 'InputElement', member: 'files')
   List<File>? get filesAsList => files?.asList();
+}
+
+extension KeyboardEventExtension on KeyboardEvent {
+  @Equivalence(type: 'KeyboardEvent', member: '')
+  KeyboardEvent createKeyboardEvent(
+    String type, {
+    Window? view,
+    bool canBubble = true,
+    bool cancelable = true,
+    int? location,
+    int? keyLocation, // Legacy alias for location
+    bool ctrlKey = false,
+    bool altKey = false,
+    bool shiftKey = false,
+    bool metaKey = false,
+  }) {
+    if (view == null) {
+      view = window;
+    }
+    location ??= keyLocation ?? 1;
+    KeyboardEvent event = KeyboardEvent(
+      type,
+      KeyboardEventInit(
+        view: view,
+        bubbles: canBubble,
+        cancelable: cancelable,
+        location: location,
+        ctrlKey: ctrlKey,
+        altKey: altKey,
+        shiftKey: shiftKey,
+        metaKey: metaKey,
+      ),
+    );
+    // `dart:html` calls `initKeyboardEvent`, but that's legacy behavior and
+    // unneeded since the constructor supports all options.
+    return event;
+  }
 }
 
 extension MouseEventExtension on MouseEvent {
@@ -537,6 +625,10 @@ extension WindowExtension on Window {
     requestAnimationFrame(getTimestamp.toJS);
     return completer.future;
   }
+
+  @Equivalence(type: 'Window', member: 'requestAnimationFrame')
+  int requestAnimationFrameBindZone(void Function(num) callback) =>
+      requestAnimationFrame(Zone.current.bindUnaryCallback(callback).toJS);
 
   @Equivalence(type: 'Window', member: 'console')
   StringConsole get console => StringConsole(dom.console);

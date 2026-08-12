@@ -108,6 +108,7 @@ extension CustomEventExtension on CustomEvent {
         // and store it in a separate property, but that's not symmetrical with
         // `dart:html` and therefore may break partial migrations, so we're
         // forced to leverage `detail`.
+        // ignore: invalid_runtime_check_with_js_interop_types
         detail.toExternalReference as JSAny?,
       );
     }
@@ -120,6 +121,7 @@ extension CustomEventExtension on CustomEvent {
     if (detail.isA<JSAny?>()) {
       return detail.dartify();
     }
+    // ignore: invalid_runtime_check_with_js_interop_types
     return (detail as ExternalDartReference).toDartObject;
   }
 }
@@ -437,7 +439,7 @@ extension HTMLInputElementExtension on HTMLInputElement {
 
 extension KeyboardEventExtension on KeyboardEvent {
   @Equivalence(type: 'KeyboardEvent', member: '')
-  KeyboardEvent createKeyboardEvent(
+  static KeyboardEvent createKeyboardEvent(
     String type, {
     Window? view,
     bool canBubble = true,
@@ -449,11 +451,9 @@ extension KeyboardEventExtension on KeyboardEvent {
     bool shiftKey = false,
     bool metaKey = false,
   }) {
-    if (view == null) {
-      view = window;
-    }
+    view ??= window;
     location ??= keyLocation ?? 1;
-    KeyboardEvent event = KeyboardEvent(
+    final event = KeyboardEvent(
       type,
       KeyboardEventInit(
         view: view,

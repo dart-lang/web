@@ -5,6 +5,7 @@
 @TestOn('browser')
 library;
 
+import 'dart:async';
 import 'dart:js_interop';
 
 import 'package:test/test.dart';
@@ -341,6 +342,26 @@ void main() {
     expect(() => Uri.parse('/path').toJS, throwsArgumentError);
   });
 
+  test('createBlob', () {
+    final blob = BlobExtension.createBlob(['blob'], 'text/plain');
+    expect(blob.type, 'text/plain');
+    expect(blob.size, 4);
+  });
+
+  test('requestAnimationFrameBindZone', () async {
+    final completer = Completer<void>();
+    final testZone = Zone.current.fork();
+
+    testZone.run(() {
+      window.requestAnimationFrameBindZone((num timestamp) {
+        expect(Zone.current, testZone);
+        completer.complete();
+      });
+    });
+
+    await completer.future;
+  });
+
   group('EventStreamProvider and stream type casting', () {
     test('works with explicit correct types (Event and MouseEvent)', () async {
       final div = document.createElement('div') as HTMLElement;
@@ -391,5 +412,53 @@ void main() {
         div.remove();
       },
     );
+  });
+
+  group('Event creation helpers', () {
+    test('createEvent', () {
+      final event = EventExtension.createEvent('look');
+      expect(event.type, 'look');
+      expect(event.bubbles, true);
+      expect(event.cancelable, true);
+    });
+
+    test('createCustomEvent', () {
+      final event = CustomEventExtension.createCustomEvent(
+        'look',
+        detail: 'detail',
+      );
+      expect(event.type, 'look');
+      expect(event.dartDetail, 'detail');
+      expect(event.bubbles, true);
+      expect(event.cancelable, true);
+
+      // Test `jsify`-able `detail`.
+      final event2 = CustomEventExtension.createCustomEvent(
+        'look',
+        detail: [0],
+      );
+      expect(event2.type, 'look');
+      expect(event2.dartDetail, [0]);
+
+      // Test non-`jsify`-able `detail`.
+      final object = Object();
+      final event3 = CustomEventExtension.createCustomEvent(
+        'look',
+        detail: object,
+      );
+      expect(event3.type, 'look');
+      expect(event3.dartDetail, object);
+    });
+
+    test('createKeyboardEvent', () {
+      final event = KeyboardEventExtension.createKeyboardEvent('keydown');
+      expect(event.type, 'keydown');
+      expect(event.bubbles, true);
+      expect(event.cancelable, true);
+      expect(event.ctrlKey, false);
+      expect(event.altKey, false);
+      expect(event.shiftKey, false);
+      expect(event.metaKey, false);
+    });
   });
 }

@@ -5,4 +5,5 @@
 export 'src/dart/date_time.dart';
 export 'src/dart/map.dart';
 export 'src/date.dart';
+export 'src/promise.dart';
 export 'src/record.dart';

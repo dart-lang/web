@@ -35,14 +35,6 @@ extension NamedExtension on Node {
   }
 }
 
-extension InterfacelikeExtension on Interfacelike {
-  String? get inheritanceString {
-    final jsObj = this as JSObject;
-    final val = jsObj.getProperty('inheritance'.toJS);
-    return val.isA<JSString>() ? (val as JSString).toDart : null;
-  }
-}
-
 extension ValueDescriptionExtension on ValueDescription {
   JSAny get value {
     final jsObj = this as JSObject;

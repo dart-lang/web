@@ -1324,346 +1324,35 @@ class Transformer {
           isNullable: isNullable,
         );
       case TSSyntaxKind.ConditionalType:
-        final conditionalType = type as TSConditionalTypeNode;
-        final trueType = _transformType(conditionalType.trueType);
-        final falseType = _transformType(conditionalType.falseType);
-
-        final types = [
-          trueType,
-          falseType,
-        ].sorted((a, b) => a.id.toString().compareTo(b.id.toString()));
-
-        final expectedID = ID(type: 'type', name: types.join('|'));
-
-        if (typeMap.containsKey(expectedID.toString())) {
-          return (typeMap[expectedID.toString()] as UnionType)
-            ..isNullable = (isNullable ?? false);
-        }
-
-        final trueTypeName = trueType is NamedType
-            ? trueType.name
-            : trueType.dartName ?? trueType.id.name;
-
-        final falseTypeName = falseType is NamedType
-            ? falseType.name
-            : falseType.dartName ?? falseType.id.name;
-        final conditionalName = '${trueTypeName}Or$falseTypeName';
-
-        final un = UnionType(types: types, name: conditionalName);
-        final unType = typeMap.putIfAbsent(expectedID.toString(), () {
-          namer.markUsed(conditionalName);
-          return un;
-        });
-
-        return unType..isNullable = (isNullable ?? false);
+        return _transformConditionalType(
+          type as TSConditionalTypeNode,
+          isNullable: isNullable,
+        );
       case TSSyntaxKind.TypeLiteral:
-        // type literal
-        final typeLiteralNode = type as TSTypeLiteralNode;
-
-        // lists
-        final properties = <PropertyDeclaration>[];
-        final methods = <MethodDeclaration>[];
-        final constructors = <ConstructorDeclaration>[];
-        final operators = <OperatorDeclaration>[];
-
-        final typeNamer = ScopedUniqueNamer({'get', 'set'});
-
-        // mark the default constructor as used
-        typeNamer.markUsed('', 'constructor');
-        typeNamer.markUsed('unnamed', 'constructor');
-
-        // transform decls
-        for (final member in typeLiteralNode.members.toDart) {
-          switch (member.kind) {
-            case TSSyntaxKind.PropertySignature:
-              final prop = _transformProperty(
-                member as TSPropertySignature,
-                parentNamer: typeNamer,
-              );
-              if (prop != null) properties.add(prop);
-            case TSSyntaxKind.MethodSignature:
-              final method = _transformMethod(
-                member as TSMethodSignature,
-                parentNamer: typeNamer,
-              );
-              methods.add(method);
-            case TSSyntaxKind.IndexSignature:
-              final (opGet, opSetOrNull) = _transformIndexer(
-                member as TSIndexSignatureDeclaration,
-              );
-              operators.add(opGet);
-              if (opSetOrNull case final opSet?) {
-                operators.add(opSet);
-              }
-            case TSSyntaxKind.CallSignature:
-              final callSignature = _transformCallSignature(
-                member as TSCallSignatureDeclaration,
-                parentNamer: typeNamer,
-              );
-              methods.add(callSignature);
-            case TSSyntaxKind.ConstructSignature:
-              final constructor = _transformConstructor(
-                member as TSConstructSignatureDeclaration,
-                parentNamer: typeNamer,
-              );
-              constructors.add(constructor);
-            case TSSyntaxKind.GetAccessor:
-              final getter = _transformGetter(
-                member as TSGetAccessorDeclaration,
-                parentNamer: typeNamer,
-              );
-              methods.add(getter);
-              break;
-            case TSSyntaxKind.SetAccessor:
-              final setter = _transformSetter(
-                member as TSSetAccessorDeclaration,
-                parentNamer: typeNamer,
-              );
-              methods.add(setter);
-              break;
-            default:
-              break;
-          }
-        }
-
-        final hashObject = [
-          ...properties.map((p) => (p.name, p.type.id.name)),
-          ...methods.map((p) => (p.name, p.returnType.id.name)),
-          ...constructors.map(
-            (p) => (
-              p.name ?? 'new',
-              p.parameters.map((a) => a.type.id.name).join(','),
-            ),
-          ),
-          ...operators.map((p) => (p.name, p.returnType.id.name)),
-        ];
-        // get a name
-        final name = 'AnonymousType_${AnonymousHasher.hashObject(hashObject)}';
-
-        // get an expected id
-        final expectedId = ID(type: 'type', name: name);
-        if (typeMap.containsKey(expectedId.toString())) {
-          return typeMap[expectedId.toString()] as ObjectLiteralType;
-        }
-
-        final anonymousTypeObject = ObjectLiteralType(
-          name: name,
-          id: expectedId,
-          properties: properties,
-          methods: methods,
-          operators: operators,
-          constructors: constructors,
+        return _transformTypeLiteral(
+          type as TSTypeLiteralNode,
+          isNullable: isNullable,
         );
-
-        final anonymousType =
-            typeMap.putIfAbsent(expectedId.toString(), () {
-                  namer.markUsed(name);
-                  return anonymousTypeObject;
-                })
-                as ObjectLiteralType;
-
-        return anonymousType..isNullable = isNullable ?? false;
       case TSSyntaxKind.ConstructorType || TSSyntaxKind.FunctionType:
-        final funType = type as TSFunctionOrConstructorTypeNodeBase;
-
-        final parameters = funType.parameters.toDart
-            .mapIndexed((index, p) => _transformParameter(p, index: index))
-            .toList();
-
-        final typeParameters =
-            funType.typeParameters?.toDart
-                .map(_transformTypeParamDeclaration)
-                .toList() ??
-            [];
-
-        final returnType = _transformType(funType.type);
-
-        final isConstructor = type.kind == TSSyntaxKind.ConstructorType;
-
-        final suffix = AnonymousHasher.hashFun(
-          parameters.map((a) => (a.name, a.type.id.name)).toList(),
-          returnType.id.name,
-          isConstructor,
+        return _transformClosureType(
+          type as TSFunctionOrConstructorTypeNodeBase,
+          isConstructor: type.kind == TSSyntaxKind.ConstructorType,
+          isNullable: isNullable,
         );
-        final name =
-            '_Anonymous${isConstructor ? 'Constructor' : 'Function'}_$suffix';
-
-        final expectedId = ID(type: 'type', name: name);
-        if (typeMap.containsKey(expectedId.toString())) {
-          return typeMap[expectedId.toString()] as ClosureType;
-        }
-
-        final closureTypeObject = isConstructor
-            ? ConstructorType(
-                name: name,
-                id: expectedId,
-                returnType: returnType,
-                parameters: parameters,
-                typeParameters: typeParameters,
-              )
-            : FunctionType(
-                name: name,
-                id: expectedId,
-                returnType: returnType,
-                parameters: parameters,
-                typeParameters: typeParameters,
-              );
-
-        final closureType =
-            typeMap.putIfAbsent(expectedId.toString(), () {
-                  namer.markUsed(name);
-                  return closureTypeObject;
-                })
-                as ClosureType;
-
-        return closureType..isNullable = isNullable ?? false;
       case TSSyntaxKind.UnionType:
-        final unionType = type as TSUnionTypeNode;
-        final unionTypes = unionType.types.toDart;
-        final nonNullableUnionTypes = unionTypes
-            .where(
-              (t) =>
-                  t.kind != TSSyntaxKind.UndefinedKeyword &&
-                  !(t.kind == TSSyntaxKind.LiteralType &&
-                      (t as TSLiteralTypeNode).literal.kind ==
-                          TSSyntaxKind.NullKeyword),
-            )
-            .toList();
-        final shouldBeNullable =
-            nonNullableUnionTypes.length != unionTypes.length;
-
-        if (nonNullableUnionTypes.singleOrNull case final singleTypeNode?) {
-          return _transformType(
-            singleTypeNode,
-            typeArg: typeArg,
-            parameter: parameter,
-            isNullable: shouldBeNullable || (isNullable ?? false),
-          );
-        }
-
-        final types = nonNullableUnionTypes
-            .map<Type>(
-              (t) => _transformType(t, typeArg: typeArg, parameter: parameter),
-            )
-            .toList();
-
-        if (types.isEmpty) {
-          return BuiltinType.primitiveType(
-            PrimitiveType.never,
-            isNullable: shouldBeNullable || (isNullable ?? false),
-          );
-        }
-
-        var isHomogenous = true;
-        final nonNullLiteralTypes = <LiteralType>[];
-        var onlyContainsBooleanTypes = true;
-        LiteralType? firstNonNullablePrimitiveType;
-
-        for (final type in types) {
-          if (type is LiteralType) {
-            firstNonNullablePrimitiveType ??= type;
-            onlyContainsBooleanTypes &=
-                (type.kind == LiteralKind.$true) ||
-                (type.kind == LiteralKind.$false);
-            if (type.kind.primitive !=
-                firstNonNullablePrimitiveType.kind.primitive) {
-              isHomogenous = false;
-            }
-            nonNullLiteralTypes.add(type);
-          } else {
-            isHomogenous = false;
-          }
-        }
-
-        if (isHomogenous &&
-            nonNullLiteralTypes.isNotEmpty &&
-            onlyContainsBooleanTypes) {
-          return BuiltinType.primitiveType(
-            PrimitiveType.boolean,
-            isNullable: shouldBeNullable,
-          );
-        }
-
-        final idMap = isHomogenous
-            ? nonNullLiteralTypes.map((t) => t.value.toString())
-            : types.map((t) => t.id.name);
-
-        final expectedId = ID(type: 'type', name: idMap.join('|'));
-
-        if (typeMap.containsKey(expectedId.toString())) {
-          return (typeMap[expectedId.toString()] as UnionType)
-            ..isNullable = (isNullable ?? false);
-        }
-
-        final name =
-            'AnonymousUnion_${AnonymousHasher.hashUnion(idMap.toList())}';
-
-        final un = isHomogenous
-            ? HomogenousEnumType(types: nonNullLiteralTypes, name: name)
-            : UnionType(types: types, name: name);
-
-        final unType = typeMap.putIfAbsent(expectedId.toString(), () {
-          namer.markUsed(name);
-          return un;
-        });
-        return unType..isNullable = shouldBeNullable;
-
+        return _transformUnionType(
+          type as TSUnionTypeNode,
+          parameter: parameter,
+          typeArg: typeArg,
+          isNullable: isNullable,
+        );
       case TSSyntaxKind.IntersectionType:
-        final intersectionType = type as TSIntersectionTypeNode;
-        final intersectionTypes = intersectionType.types.toDart;
-        final nonNullableIntersectionTypes = intersectionTypes
-            .where(
-              (t) =>
-                  t.kind != TSSyntaxKind.UndefinedKeyword &&
-                  !(t.kind == TSSyntaxKind.LiteralType &&
-                      (t as TSLiteralTypeNode).literal.kind ==
-                          TSSyntaxKind.NullKeyword),
-            )
-            .toList();
-        final shouldBeNullable =
-            nonNullableIntersectionTypes.length != intersectionTypes.length;
-
-        if (shouldBeNullable) {
-          return BuiltinType.primitiveType(
-            PrimitiveType.never,
-            isNullable: isNullable,
-          );
-        }
-
-        if (nonNullableIntersectionTypes.singleOrNull
-            case final singleTypeNode?) {
-          return _transformType(
-            singleTypeNode,
-            typeArg: typeArg,
-            parameter: parameter,
-            isNullable: isNullable,
-          );
-        }
-
-        final types = nonNullableIntersectionTypes
-            .map<Type>(
-              (t) => _transformType(t, typeArg: typeArg, parameter: parameter),
-            )
-            .toList();
-
-        final idMap = types.map((t) => t.id.name);
-        final expectedId = ID(type: 'type', name: idMap.join('&'));
-        if (typeMap.containsKey(expectedId.toString())) {
-          return (typeMap[expectedId.toString()] as IntersectionType)
-            ..isNullable = (isNullable ?? false);
-        }
-
-        final intersectionHash = AnonymousHasher.hashUnion(idMap.toList());
-        final name = 'AnonymousIntersection_$intersectionHash';
-
-        final un = IntersectionType(types: types, name: name);
-
-        final unType = typeMap.putIfAbsent(expectedId.toString(), () {
-          namer.markUsed(name);
-          return un;
-        });
-
-        return unType..isNullable = isNullable ?? shouldBeNullable;
+        return _transformIntersectionType(
+          type as TSIntersectionTypeNode,
+          parameter: parameter,
+          typeArg: typeArg,
+          isNullable: isNullable,
+        );
       case TSSyntaxKind.TupleType:
         // tuple type is array
         final tupleType = type as TSTupleTypeNode;
@@ -1877,142 +1566,10 @@ class Transformer {
           isNullable: isNullable,
         );
       case TSSyntaxKind.IndexedAccessType:
-        final accessNode = type as TSIndexedAccessType;
-
-        // Analyze Object Type for Local vs Remote
-        final objectType = _transformType(accessNode.objectType);
-        final isLocalType =
-            (objectType is ReferredType && objectType.url == null) ||
-            objectType is ObjectLiteralType;
-
-        final indexType = _transformType(accessNode.indexType);
-
-        Set<String> collectKeys(Type t) {
-          final keys = <String>{};
-          if (t is LiteralType) {
-            if (t.kind == LiteralKind.string) {
-              keys.add(t.value as String);
-            } else if (t.kind == LiteralKind.int ||
-                t.kind == LiteralKind.double) {
-              keys.add(t.value.toString());
-            }
-          } else if (t is HomogenousEnumType) {
-            for (final sub in t.types) {
-              keys.addAll(collectKeys(sub));
-            }
-          } else if (t is UnionType) {
-            for (final sub in t.types) {
-              keys.addAll(collectKeys(sub));
-            }
-          }
-          return keys;
-        }
-
-        final keys = collectKeys(indexType);
-
-        // Handle symbol-based keys via typeof Symbol.*
-        if (accessNode.indexType.kind == TSSyntaxKind.TypeQuery) {
-          final query = accessNode.indexType as TSTypeQueryNode;
-          final text = query.exprName.getText();
-          if (text.startsWith('Symbol.')) {
-            keys.add(text);
-          }
-        }
-
-        List<Type> lookup(Type obj, String key) {
-          final matchingTypes = <Type>[];
-          final candidates = <PropertyDeclaration>[];
-          if (obj is ObjectLiteralType) {
-            candidates.addAll(obj.properties);
-          } else if (obj is ReferredType &&
-              obj.declaration is InterfaceDeclaration) {
-            final decl = obj.declaration as InterfaceDeclaration;
-            candidates.addAll(decl.properties);
-          }
-
-          for (final prop in candidates) {
-            if (prop.name == key) {
-              matchingTypes.add(prop.type);
-            }
-          }
-          return matchingTypes;
-        }
-
-        List<Type> filterResults(List<Type> results, String key) {
-          // Filter: For Local Types, allow only Primitives unless the key is
-          // numeric (e.g. array/tuple access) or a Symbol (well-defined unique key).
-          if (!isLocalType || results.isEmpty) {
-            return results;
-          }
-
-          final isNumeric = double.tryParse(key) != null;
-          final isSymbol = key.startsWith('Symbol.');
-
-          if (isNumeric || isSymbol) {
-            return results;
-          }
-
-          const allowed = {
-            'String',
-            'num',
-            'double',
-            'bool',
-            'void',
-            'int',
-            'JSAny',
-          };
-          return results.where((t) {
-            if (t is LiteralType && t.kind == LiteralKind.$null) {
-              return true;
-            }
-            if (t is BuiltinType) return allowed.contains(t.name);
-            return false;
-          }).toList();
-        }
-
-        final matchingTypes = keys
-            .expand((key) => filterResults(lookup(objectType, key), key))
-            .toList();
-
-        if (matchingTypes.isNotEmpty) {
-          if (matchingTypes.length == 1) {
-            return matchingTypes.first..isNullable = (isNullable ?? false);
-          }
-
-          final seenIds = <String>{};
-          final types = matchingTypes
-              .where((t) => seenIds.add(t.id.toString()))
-              .toList();
-
-          if (types.length == 1) {
-            return types.first..isNullable = (isNullable ?? false);
-          }
-
-          final idMap = types.map((t) => t.id.name).join('|');
-          final expectedId = ID(type: 'type', name: idMap);
-          if (typeMap.containsKey(expectedId.toString())) {
-            return (typeMap[expectedId.toString()] as UnionType)
-              ..isNullable = (isNullable ?? false);
-          }
-
-          final typeNames = types.map((t) => t.id.name).toList();
-          final unionHash = AnonymousHasher.hashUnion(typeNames);
-          final un = UnionType(types: types, name: 'AnonymousUnion_$unionHash');
-          final unType = typeMap.putIfAbsent(expectedId.toString(), () {
-            namer.markUsed(un.declarationName);
-            return un;
-          });
-          return unType..isNullable = (isNullable ?? false);
-        }
-
-        // Strict Unsupported Behavior
-        if (errorIfUnsupported) {
-          throw UnsupportedError(
-            'IndexedAccessType resolution failed in strict mode.',
-          );
-        }
-
-        return BuiltinType.primitiveType(PrimitiveType.any, isNullable: false);
+        return _transformIndexedAccessType(
+          type as TSIndexedAccessType,
+          isNullable: isNullable,
+        );
       case TSSyntaxKind.ArrayType:
         return BuiltinType.primitiveType(
           PrimitiveType.array,
@@ -2063,6 +1620,485 @@ class Transformer {
           );
         }
     }
+  }
+
+  List<TSTypeNode> _filterNonNullableTypeNodes(List<TSTypeNode> nodes) => nodes
+      .where(
+        (t) =>
+            t.kind != TSSyntaxKind.UndefinedKeyword &&
+            !(t.kind == TSSyntaxKind.LiteralType &&
+                (t as TSLiteralTypeNode).literal.kind ==
+                    TSSyntaxKind.NullKeyword),
+      )
+      .toList();
+
+  T _getOrCreateCachedType<T extends Type>(
+    ID expectedId,
+    String name,
+    T Function() create, {
+    required bool cacheHitNullable,
+    required bool cacheMissNullable,
+  }) {
+    if (typeMap.containsKey(expectedId.toString())) {
+      return (typeMap[expectedId.toString()] as T)
+        ..isNullable = cacheHitNullable;
+    }
+    final created = create();
+    final cached =
+        typeMap.putIfAbsent(expectedId.toString(), () {
+              namer.markUsed(name);
+              return created;
+            })
+            as T;
+    return cached..isNullable = cacheMissNullable;
+  }
+
+  Type _transformConditionalType(
+    TSConditionalTypeNode conditionalType, {
+    required bool? isNullable,
+  }) {
+    final trueType = _transformType(conditionalType.trueType);
+    final falseType = _transformType(conditionalType.falseType);
+
+    final types = [
+      trueType,
+      falseType,
+    ].sorted((a, b) => a.id.toString().compareTo(b.id.toString()));
+
+    final expectedID = ID(type: 'type', name: types.join('|'));
+    final trueTypeName = trueType is NamedType
+        ? trueType.name
+        : trueType.dartName ?? trueType.id.name;
+    final falseTypeName = falseType is NamedType
+        ? falseType.name
+        : falseType.dartName ?? falseType.id.name;
+    final conditionalName = '${trueTypeName}Or$falseTypeName';
+
+    return _getOrCreateCachedType<UnionType>(
+      expectedID,
+      conditionalName,
+      () => UnionType(types: types, name: conditionalName),
+      cacheHitNullable: isNullable ?? false,
+      cacheMissNullable: isNullable ?? false,
+    );
+  }
+
+  Type _transformTypeLiteral(
+    TSTypeLiteralNode typeLiteralNode, {
+    required bool? isNullable,
+  }) {
+    final properties = <PropertyDeclaration>[];
+    final methods = <MethodDeclaration>[];
+    final constructors = <ConstructorDeclaration>[];
+    final operators = <OperatorDeclaration>[];
+
+    final typeNamer = ScopedUniqueNamer({'get', 'set'});
+    typeNamer.markUsed('', 'constructor');
+    typeNamer.markUsed('unnamed', 'constructor');
+
+    for (final member in typeLiteralNode.members.toDart) {
+      switch (member.kind) {
+        case TSSyntaxKind.PropertySignature:
+          final prop = _transformProperty(
+            member as TSPropertySignature,
+            parentNamer: typeNamer,
+          );
+          if (prop != null) properties.add(prop);
+        case TSSyntaxKind.MethodSignature:
+          methods.add(
+            _transformMethod(
+              member as TSMethodSignature,
+              parentNamer: typeNamer,
+            ),
+          );
+        case TSSyntaxKind.IndexSignature:
+          final (opGet, opSetOrNull) = _transformIndexer(
+            member as TSIndexSignatureDeclaration,
+          );
+          operators.add(opGet);
+          if (opSetOrNull case final opSet?) {
+            operators.add(opSet);
+          }
+        case TSSyntaxKind.CallSignature:
+          methods.add(
+            _transformCallSignature(
+              member as TSCallSignatureDeclaration,
+              parentNamer: typeNamer,
+            ),
+          );
+        case TSSyntaxKind.ConstructSignature:
+          constructors.add(
+            _transformConstructor(
+              member as TSConstructSignatureDeclaration,
+              parentNamer: typeNamer,
+            ),
+          );
+        case TSSyntaxKind.GetAccessor:
+          methods.add(
+            _transformGetter(
+              member as TSGetAccessorDeclaration,
+              parentNamer: typeNamer,
+            ),
+          );
+        case TSSyntaxKind.SetAccessor:
+          methods.add(
+            _transformSetter(
+              member as TSSetAccessorDeclaration,
+              parentNamer: typeNamer,
+            ),
+          );
+        default:
+          break;
+      }
+    }
+
+    final hashObject = [
+      ...properties.map((p) => (p.name, p.type.id.name)),
+      ...methods.map((p) => (p.name, p.returnType.id.name)),
+      ...constructors.map(
+        (p) => (
+          p.name ?? 'new',
+          p.parameters.map((a) => a.type.id.name).join(','),
+        ),
+      ),
+      ...operators.map((p) => (p.name, p.returnType.id.name)),
+    ];
+    final name = 'AnonymousType_${AnonymousHasher.hashObject(hashObject)}';
+    final expectedId = ID(type: 'type', name: name);
+    if (typeMap.containsKey(expectedId.toString())) {
+      return typeMap[expectedId.toString()] as ObjectLiteralType;
+    }
+
+    final anonymousTypeObject = ObjectLiteralType(
+      name: name,
+      id: expectedId,
+      properties: properties,
+      methods: methods,
+      operators: operators,
+      constructors: constructors,
+    );
+
+    final anonymousType =
+        typeMap.putIfAbsent(expectedId.toString(), () {
+              namer.markUsed(name);
+              return anonymousTypeObject;
+            })
+            as ObjectLiteralType;
+
+    return anonymousType..isNullable = isNullable ?? false;
+  }
+
+  Type _transformClosureType(
+    TSFunctionOrConstructorTypeNodeBase funType, {
+    required bool isConstructor,
+    required bool? isNullable,
+  }) {
+    final parameters = funType.parameters.toDart
+        .mapIndexed((index, p) => _transformParameter(p, index: index))
+        .toList();
+
+    final typeParameters =
+        funType.typeParameters?.toDart
+            .map(_transformTypeParamDeclaration)
+            .toList() ??
+        [];
+
+    final returnType = _transformType(funType.type);
+    final suffix = AnonymousHasher.hashFun(
+      parameters.map((a) => (a.name, a.type.id.name)).toList(),
+      returnType.id.name,
+      isConstructor,
+    );
+    final name =
+        '_Anonymous${isConstructor ? 'Constructor' : 'Function'}_$suffix';
+    final expectedId = ID(type: 'type', name: name);
+    if (typeMap.containsKey(expectedId.toString())) {
+      return typeMap[expectedId.toString()] as ClosureType;
+    }
+
+    final closureTypeObject = isConstructor
+        ? ConstructorType(
+            name: name,
+            id: expectedId,
+            returnType: returnType,
+            parameters: parameters,
+            typeParameters: typeParameters,
+          )
+        : FunctionType(
+            name: name,
+            id: expectedId,
+            returnType: returnType,
+            parameters: parameters,
+            typeParameters: typeParameters,
+          );
+
+    final closureType =
+        typeMap.putIfAbsent(expectedId.toString(), () {
+              namer.markUsed(name);
+              return closureTypeObject;
+            })
+            as ClosureType;
+
+    return closureType..isNullable = isNullable ?? false;
+  }
+
+  Type _transformUnionType(
+    TSUnionTypeNode unionType, {
+    required bool parameter,
+    required bool typeArg,
+    required bool? isNullable,
+  }) {
+    final unionTypes = unionType.types.toDart;
+    final nonNullableUnionTypes = _filterNonNullableTypeNodes(unionTypes);
+    final shouldBeNullable = nonNullableUnionTypes.length != unionTypes.length;
+
+    if (nonNullableUnionTypes.singleOrNull case final singleTypeNode?) {
+      return _transformType(
+        singleTypeNode,
+        typeArg: typeArg,
+        parameter: parameter,
+        isNullable: shouldBeNullable || (isNullable ?? false),
+      );
+    }
+
+    final types = nonNullableUnionTypes
+        .map<Type>(
+          (t) => _transformType(t, typeArg: typeArg, parameter: parameter),
+        )
+        .toList();
+
+    if (types.isEmpty) {
+      return BuiltinType.primitiveType(
+        PrimitiveType.never,
+        isNullable: shouldBeNullable || (isNullable ?? false),
+      );
+    }
+
+    var isHomogenous = true;
+    final nonNullLiteralTypes = <LiteralType>[];
+    var onlyContainsBooleanTypes = true;
+    LiteralType? firstNonNullablePrimitiveType;
+
+    for (final type in types) {
+      if (type is LiteralType) {
+        firstNonNullablePrimitiveType ??= type;
+        onlyContainsBooleanTypes &=
+            (type.kind == LiteralKind.$true) ||
+            (type.kind == LiteralKind.$false);
+        if (type.kind.primitive !=
+            firstNonNullablePrimitiveType.kind.primitive) {
+          isHomogenous = false;
+        }
+        nonNullLiteralTypes.add(type);
+      } else {
+        isHomogenous = false;
+      }
+    }
+
+    if (isHomogenous &&
+        nonNullLiteralTypes.isNotEmpty &&
+        onlyContainsBooleanTypes) {
+      return BuiltinType.primitiveType(
+        PrimitiveType.boolean,
+        isNullable: shouldBeNullable,
+      );
+    }
+
+    final idMap = isHomogenous
+        ? nonNullLiteralTypes.map((t) => t.value.toString())
+        : types.map((t) => t.id.name);
+    final expectedId = ID(type: 'type', name: idMap.join('|'));
+    final name = 'AnonymousUnion_${AnonymousHasher.hashUnion(idMap.toList())}';
+
+    return _getOrCreateCachedType<UnionType>(
+      expectedId,
+      name,
+      () => isHomogenous
+          ? HomogenousEnumType(types: nonNullLiteralTypes, name: name)
+          : UnionType(types: types, name: name),
+      cacheHitNullable: isNullable ?? false,
+      cacheMissNullable: shouldBeNullable,
+    );
+  }
+
+  Type _transformIntersectionType(
+    TSIntersectionTypeNode intersectionType, {
+    required bool parameter,
+    required bool typeArg,
+    required bool? isNullable,
+  }) {
+    final intersectionTypes = intersectionType.types.toDart;
+    final nonNullableIntersectionTypes = _filterNonNullableTypeNodes(
+      intersectionTypes,
+    );
+    final shouldBeNullable =
+        nonNullableIntersectionTypes.length != intersectionTypes.length;
+
+    if (shouldBeNullable) {
+      return BuiltinType.primitiveType(
+        PrimitiveType.never,
+        isNullable: isNullable,
+      );
+    }
+
+    if (nonNullableIntersectionTypes.singleOrNull case final singleTypeNode?) {
+      return _transformType(
+        singleTypeNode,
+        typeArg: typeArg,
+        parameter: parameter,
+        isNullable: isNullable,
+      );
+    }
+
+    final types = nonNullableIntersectionTypes
+        .map<Type>(
+          (t) => _transformType(t, typeArg: typeArg, parameter: parameter),
+        )
+        .toList();
+
+    final idMap = types.map((t) => t.id.name);
+    final expectedId = ID(type: 'type', name: idMap.join('&'));
+    final intersectionHash = AnonymousHasher.hashUnion(idMap.toList());
+    final name = 'AnonymousIntersection_$intersectionHash';
+
+    return _getOrCreateCachedType<IntersectionType>(
+      expectedId,
+      name,
+      () => IntersectionType(types: types, name: name),
+      cacheHitNullable: isNullable ?? false,
+      cacheMissNullable: isNullable ?? shouldBeNullable,
+    );
+  }
+
+  Type _transformIndexedAccessType(
+    TSIndexedAccessType accessNode, {
+    required bool? isNullable,
+  }) {
+    final objectType = _transformType(accessNode.objectType);
+    final isLocalType =
+        (objectType is ReferredType && objectType.url == null) ||
+        objectType is ObjectLiteralType;
+
+    final indexType = _transformType(accessNode.indexType);
+
+    Set<String> collectKeys(Type t) {
+      final keys = <String>{};
+      if (t is LiteralType) {
+        if (t.kind == LiteralKind.string) {
+          keys.add(t.value as String);
+        } else if (t.kind == LiteralKind.int || t.kind == LiteralKind.double) {
+          keys.add(t.value.toString());
+        }
+      } else if (t is HomogenousEnumType) {
+        for (final sub in t.types) {
+          keys.addAll(collectKeys(sub));
+        }
+      } else if (t is UnionType) {
+        for (final sub in t.types) {
+          keys.addAll(collectKeys(sub));
+        }
+      }
+      return keys;
+    }
+
+    final keys = collectKeys(indexType);
+
+    if (accessNode.indexType.kind == TSSyntaxKind.TypeQuery) {
+      final query = accessNode.indexType as TSTypeQueryNode;
+      final text = query.exprName.getText();
+      if (text.startsWith('Symbol.')) {
+        keys.add(text);
+      }
+    }
+
+    List<Type> lookup(Type obj, String key) {
+      final matchingTypes = <Type>[];
+      final candidates = <PropertyDeclaration>[];
+      if (obj is ObjectLiteralType) {
+        candidates.addAll(obj.properties);
+      } else if (obj is ReferredType &&
+          obj.declaration is InterfaceDeclaration) {
+        final decl = obj.declaration as InterfaceDeclaration;
+        candidates.addAll(decl.properties);
+      }
+
+      for (final prop in candidates) {
+        if (prop.name == key) {
+          matchingTypes.add(prop.type);
+        }
+      }
+      return matchingTypes;
+    }
+
+    List<Type> filterResults(List<Type> results, String key) {
+      if (!isLocalType || results.isEmpty) {
+        return results;
+      }
+
+      final isNumeric = double.tryParse(key) != null;
+      final isSymbol = key.startsWith('Symbol.');
+
+      if (isNumeric || isSymbol) {
+        return results;
+      }
+
+      const allowed = {
+        'String',
+        'num',
+        'double',
+        'bool',
+        'void',
+        'int',
+        'JSAny',
+      };
+      return results.where((t) {
+        if (t is LiteralType && t.kind == LiteralKind.$null) {
+          return true;
+        }
+        if (t is BuiltinType) return allowed.contains(t.name);
+        return false;
+      }).toList();
+    }
+
+    final matchingTypes = keys
+        .expand((key) => filterResults(lookup(objectType, key), key))
+        .toList();
+
+    if (matchingTypes.isNotEmpty) {
+      if (matchingTypes.length == 1) {
+        return matchingTypes.first..isNullable = (isNullable ?? false);
+      }
+
+      final seenIds = <String>{};
+      final types = matchingTypes
+          .where((t) => seenIds.add(t.id.toString()))
+          .toList();
+
+      if (types.length == 1) {
+        return types.first..isNullable = (isNullable ?? false);
+      }
+
+      final typeNames = types.map((t) => t.id.name).toList();
+      final expectedId = ID(type: 'type', name: typeNames.join('|'));
+      final unionHash = AnonymousHasher.hashUnion(typeNames);
+      final un = UnionType(types: types, name: 'AnonymousUnion_$unionHash');
+
+      return _getOrCreateCachedType<UnionType>(
+        expectedId,
+        un.declarationName,
+        () => un,
+        cacheHitNullable: isNullable ?? false,
+        cacheMissNullable: isNullable ?? false,
+      );
+    }
+
+    if (errorIfUnsupported) {
+      throw UnsupportedError(
+        'IndexedAccessType resolution failed in strict mode.',
+      );
+    }
+
+    return BuiltinType.primitiveType(PrimitiveType.any, isNullable: false);
   }
 
   Type _transformTypeExpressionWithTypeArguments(

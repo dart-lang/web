@@ -262,17 +262,7 @@ class TransformResult {
       });
       return MapEntry(
         file.replaceAll('.d.ts', '.dart'),
-        formatter.format(
-          '${lib.accept(emitter)}'
-          // https://github.com/dart-lang/tools/issues/2404
-          .replaceFirstMapped(
-            RegExp(
-              r'(@_i1\.JS\(.*?\)\s*library;)\s*// ignore_for_file: no_leading_underscores_for_library_prefixes',
-            ),
-            (match) =>
-                '// ignore_for_file: no_leading_underscores_for_library_prefixes\n\n${match[1]}',
-          ),
-        ),
+        formatter.format('${lib.accept(emitter)}'),
       );
     });
   }

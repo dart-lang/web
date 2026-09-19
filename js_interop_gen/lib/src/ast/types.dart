@@ -166,7 +166,7 @@ class TupleType extends ReferredType<TupleDeclaration> {
   }
 }
 
-class UnionType extends DeclarationType {
+sealed class UnionOrIntersectionType extends DeclarationType {
   final List<Type> types;
 
   @override
@@ -175,14 +175,57 @@ class UnionType extends DeclarationType {
   @override
   String declarationName;
 
-  UnionType({
+  UnionOrIntersectionType({
     required this.types,
     required String name,
     this.isNullable = false,
   }) : declarationName = _sanitizeIdentifier(name);
 
+  String get _idSeparator;
+
   @override
-  ID get id => ID(type: 'type', name: types.map((t) => t.id.name).join('|'));
+  ID get id =>
+      ID(type: 'type', name: types.map((t) => t.id.name).join(_idSeparator));
+
+  @override
+  Reference emit([TypeOptions? options]) {
+    final opts = options ?? TypeOptions();
+    return TypeReference(
+      (t) => t
+        ..symbol = declarationName
+        ..isNullable = opts.nullable || isNullable
+        ..types.addAll(
+          getGenericTypes(this).map(
+            (t) => t.emit(
+              TypeOptions(
+                isTypeArgument: true,
+                url: opts.url,
+                variadicArgsCount: opts.variadicArgsCount,
+                shouldEmitJsTypes: opts.shouldEmitJsTypes,
+                redeclareOverrides: opts.redeclareOverrides,
+              ),
+            ),
+          ),
+        ),
+    );
+  }
+
+  @override
+  int get hashCode => Object.hashAllUnordered(types);
+
+  @override
+  bool operator ==(Object other) {
+    return other is UnionOrIntersectionType &&
+        _idSeparator == other._idSeparator &&
+        other.types.every(types.contains);
+  }
+}
+
+class UnionType extends UnionOrIntersectionType {
+  UnionType({required super.types, required super.name, super.isNullable});
+
+  @override
+  String get _idSeparator => '|';
 
   @override
   Declaration get declaration => _UnionDeclaration(
@@ -190,88 +233,17 @@ class UnionType extends DeclarationType {
     types: types,
     isNullable: isNullable,
   );
-
-  @override
-  Reference emit([TypeOptions? options]) {
-    final opts = options ?? TypeOptions();
-    return TypeReference(
-      (t) => t
-        ..symbol = declarationName
-        ..isNullable = opts.nullable || isNullable
-        ..types.addAll(
-          getGenericTypes(this).map(
-            (t) => t.emit(
-              TypeOptions(
-                isTypeArgument: true,
-                url: opts.url,
-                variadicArgsCount: opts.variadicArgsCount,
-                shouldEmitJsTypes: opts.shouldEmitJsTypes,
-                redeclareOverrides: opts.redeclareOverrides,
-              ),
-            ),
-          ),
-        ),
-    );
-  }
-
-  @override
-  int get hashCode => Object.hashAllUnordered(types);
-
-  @override
-  bool operator ==(Object other) {
-    return other is TupleType && other.types.every(types.contains);
-  }
 }
 
-class IntersectionType extends DeclarationType {
-  final List<Type> types;
+class IntersectionType extends UnionOrIntersectionType {
+  IntersectionType({required super.types, required super.name});
 
   @override
-  bool isNullable = false;
-
-  @override
-  String declarationName;
-
-  IntersectionType({required this.types, required String name})
-    : declarationName = _sanitizeIdentifier(name);
-
-  @override
-  ID get id => ID(type: 'type', name: types.map((t) => t.id.name).join('&'));
+  String get _idSeparator => '&';
 
   @override
   Declaration get declaration =>
       _IntersectionDeclaration(name: declarationName, types: types);
-
-  @override
-  Reference emit([TypeOptions? options]) {
-    final opts = options ?? TypeOptions();
-    return TypeReference(
-      (t) => t
-        ..symbol = declarationName
-        ..isNullable = opts.nullable || isNullable
-        ..types.addAll(
-          getGenericTypes(this).map(
-            (t) => t.emit(
-              TypeOptions(
-                isTypeArgument: true,
-                url: opts.url,
-                variadicArgsCount: opts.variadicArgsCount,
-                shouldEmitJsTypes: opts.shouldEmitJsTypes,
-                redeclareOverrides: opts.redeclareOverrides,
-              ),
-            ),
-          ),
-        ),
-    );
-  }
-
-  @override
-  int get hashCode => Object.hashAllUnordered(types);
-
-  @override
-  bool operator ==(Object other) {
-    return other is TupleType && other.types.every(types.contains);
-  }
 }
 
 class HomogenousEnumType<T extends LiteralType, D extends Declaration>

@@ -11,6 +11,7 @@ import 'declarations.dart';
 import 'documentation.dart';
 import 'helpers.dart';
 import 'types.dart';
+import 'union_intersection_types.dart';
 
 /// Merges a given set of [declarations] into other declarations.
 ///

@@ -11,6 +11,7 @@ import '../../ast/builtin.dart';
 import '../../ast/declarations.dart';
 import '../../ast/helpers.dart';
 import '../../ast/types.dart';
+import '../../ast/union_intersection_types.dart';
 import '../../js/typescript.types.dart';
 import '../hasher.dart';
 import '../namer.dart';
@@ -24,18 +25,18 @@ class TypeTransformer {
   TypeTransformer(this.transformer);
 
   /// Parses a TypeScript AST Type Node [TSTypeNode] into a [Type] Node
-  /// used to represent a type.
+  /// used to represent a type
   ///
   /// [parameter] represents whether the [TSTypeNode] is being passed in
   /// the context of a parameter, which is mainly used to differentiate between
-  /// using [num] and [double] in the context of a [JSNumber].
+  /// using [num] and [double] in the context of a [JSNumber]
   ///
   /// [typeArg] represents whether the [TSTypeNode] is being passed in the
   /// context of a type argument, as Dart core types are not allowed in
-  /// type arguments.
+  /// type arguments
   ///
   /// [isNullable] means that the given type is nullable, usually when it is
-  /// unionized with `undefined` or `null`.
+  /// unionized with `undefined` or `null`
   // TODO(nikeokoronkwo): Add support for constructor and function types,
   //  https://github.com/dart-lang/web/issues/410
   //  https://github.com/dart-lang/web/issues/422
@@ -597,6 +598,7 @@ class TypeTransformer {
     TSIndexedAccessType accessNode, {
     required bool? isNullable,
   }) {
+    // Analyze Object Type for Local vs Remote
     final objectType = transformType(accessNode.objectType);
     final isLocalType =
         (objectType is ReferredType && objectType.url == null) ||
@@ -626,6 +628,7 @@ class TypeTransformer {
 
     final keys = collectKeys(indexType);
 
+    // Handle symbol-based keys via typeof Symbol.*
     if (accessNode.indexType.kind == TSSyntaxKind.TypeQuery) {
       final query = accessNode.indexType as TSTypeQueryNode;
       final text = query.exprName.getText();
@@ -654,6 +657,8 @@ class TypeTransformer {
     }
 
     List<Type> filterResults(List<Type> results, String key) {
+      // Filter: For Local Types, allow only Primitives unless the key is
+      // numeric (e.g. array/tuple access) or a Symbol (well-defined unique key).
       if (!isLocalType || results.isEmpty) {
         return results;
       }
@@ -715,6 +720,7 @@ class TypeTransformer {
       );
     }
 
+    // Strict Unsupported Behavior
     if (transformer.errorIfUnsupported) {
       throw UnsupportedError(
         'IndexedAccessType resolution failed in strict mode.',

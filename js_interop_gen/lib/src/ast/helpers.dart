@@ -11,6 +11,7 @@ import 'builtin.dart';
 import 'declarations.dart';
 import 'documentation.dart';
 import 'types.dart';
+import 'union_intersection_types.dart';
 
 const nonObjectRepTypes = {
   'JSAny',

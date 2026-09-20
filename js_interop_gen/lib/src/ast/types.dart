@@ -9,13 +9,6 @@ import 'builtin.dart';
 import 'declarations.dart';
 import 'helpers.dart';
 
-export 'union_intersection_types.dart'
-    show
-        HomogenousEnumType,
-        IntersectionType,
-        UnionOrIntersectionType,
-        UnionType;
-
 /// A type referring to a type in the TypeScript AST
 class ReferredType<T extends Declaration> extends NamedType {
   @override

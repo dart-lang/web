@@ -1269,15 +1269,20 @@ class Transformer {
     TSTypeLiteralNode typeLiteralNode, {
     required bool? isNullable,
   }) {
+    // type literal
+    // lists
     final properties = <PropertyDeclaration>[];
     final methods = <MethodDeclaration>[];
     final constructors = <ConstructorDeclaration>[];
     final operators = <OperatorDeclaration>[];
 
     final typeNamer = ScopedUniqueNamer({'get', 'set'});
+
+    // mark the default constructor as used
     typeNamer.markUsed('', 'constructor');
     typeNamer.markUsed('unnamed', 'constructor');
 
+    // transform decls
     for (final member in typeLiteralNode.members.toDart) {
       switch (member.kind) {
         case TSSyntaxKind.PropertySignature:
@@ -1345,7 +1350,10 @@ class Transformer {
       ),
       ...operators.map((p) => (p.name, p.returnType.id.name)),
     ];
+    // get a name
     final name = 'AnonymousType_${AnonymousHasher.hashObject(hashObject)}';
+
+    // get an expected id
     final expectedId = ID(type: 'type', name: name);
     if (typeMap.containsKey(expectedId.toString())) {
       return typeMap[expectedId.toString()] as ObjectLiteralType;

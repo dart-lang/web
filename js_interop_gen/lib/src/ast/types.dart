@@ -217,6 +217,8 @@ sealed class UnionOrIntersectionType extends DeclarationType {
   bool operator ==(Object other) {
     return other is UnionOrIntersectionType &&
         _idSeparator == other._idSeparator &&
+        types.length == other.types.length &&
+        types.every(other.types.contains) &&
         other.types.every(types.contains);
   }
 }

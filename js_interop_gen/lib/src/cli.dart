@@ -14,6 +14,7 @@ import 'package:io/ansi.dart' as ansi;
 import 'package:package_config/package_config.dart';
 
 import 'package:path/path.dart' as p;
+import 'sdk_version.dart';
 
 final bindingsGeneratorPath = p.fromUri(
   Isolate.resolvePackageUriSync(Uri.parse('package:js_interop_gen/src')),
@@ -47,6 +48,9 @@ Future<String> getPackageLanguageVersion(String pkgPath) async {
 
 Future<void> compileDartMain({String? langVersion, String? dir}) async {
   langVersion ??= await getPackageLanguageVersion(_webGeneratorRoot);
+  final workDir = dir ?? bindingsGeneratorPath;
+  final tempOutput =
+      'dart_main.js.$pid.${DateTime.now().microsecondsSinceEpoch}.tmp';
   await runProc(Platform.executable, [
     'compile',
     'js',
@@ -55,8 +59,14 @@ Future<void> compileDartMain({String? langVersion, String? dir}) async {
     '-DlanguageVersion=$langVersion',
     'dart_main.dart',
     '-o',
-    'dart_main.js',
-  ], workingDirectory: dir ?? bindingsGeneratorPath);
+    tempOutput,
+  ], workingDirectory: workDir);
+  for (final ext in ['', '.deps', '.map']) {
+    final tmpFile = File(p.join(workDir, '$tempOutput$ext'));
+    if (tmpFile.existsSync()) {
+      tmpFile.renameSync(p.join(workDir, 'dart_main.js$ext'));
+    }
+  }
 }
 
 Future<void> runNode(
@@ -215,8 +225,8 @@ ${jsTypeSupertypes.entries.map((e) => "  ${e.key}: ${e.value},").join('\n')}
   }
 }
 
-/// Checks if `js_type_supertypes.dart` differs from current SDK supertypes
-/// and prints an upgrade notice if so.
+/// Checks if `js_type_supertypes.dart` differs from current SDK supertypes and
+/// prints an upgrade notice if so.
 Future<void> checkJsTypeSupertypes() async {
   final jsTypeSupertypesScript = await computeJsTypeSupertypes();
   final jsTypeSupertypesPath = p.join(
@@ -239,11 +249,7 @@ Future<void> checkJsTypeSupertypes() async {
             .replaceAll('\r\n', '\n')
             .replaceAll(sdkLineRegex, '')
             .trim()) {
-      final pinnedSdkMatch = RegExp(
-        r'^// Generated from Dart SDK (.*?)$',
-        multiLine: true,
-      ).firstMatch(currentContent);
-      final pinnedSdk = pinnedSdkMatch?.group(1) ?? 'unknown';
+      final pinnedSdk = extractPinnedSdkVersion(currentContent);
       final currentSdk = Platform.version.split(' ').first;
 
       print(

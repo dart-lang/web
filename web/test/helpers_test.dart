@@ -312,8 +312,9 @@ void main() {
   });
 
   test('converts from a JS to a Dart URL', () {
-    final url = URL('https://foo:bar@example.org:1234/path?query#fragment')
-        .toDart;
+    final url = URL(
+      'https://foo:bar@example.org:1234/path?query#fragment',
+    ).toDart;
     expect(url.scheme, equals('https'));
     expect(url.userInfo, equals('foo:bar'));
     expect(url.host, equals('example.org'));
@@ -398,8 +399,9 @@ void main() {
             .forElement(div)
             .listen(
               ((dynamic e) {
-                eventFired = true;
-              }) as void Function(Event),
+                    eventFired = true;
+                  })
+                  as void Function(Event),
             );
 
         div.click();

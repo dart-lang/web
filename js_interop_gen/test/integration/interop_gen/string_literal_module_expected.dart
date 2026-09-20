@@ -8,7 +8,5 @@ library;
 import 'dart:js_interop' as _i1;
 
 extension type TextLine._(_i1.JSObject _) implements _i1.JSObject {
-  external TextLine({String text});
-
   external String get text;
 }

@@ -74,8 +74,6 @@ extension type Core_LogEntry._(_i1.JSObject _) implements _i1.JSObject {
 /// This interface is used across multiple services and modules.
 @_i1.JS('Core.IAppConfig')
 extension type Core_IAppConfig._(_i1.JSObject _) implements _i1.JSObject {
-  external Core_IAppConfig({String apiEndpoint, bool authRequired});
-
   external String apiEndpoint;
 
   external bool authRequired;
@@ -101,8 +99,6 @@ extension type const AnonymousUnion_3129258._(String _) {
 }
 @_i1.JS('Security.IAuthToken')
 extension type Security_IAuthToken._(_i1.JSObject _) implements _i1.JSObject {
-  external Security_IAuthToken({String token, double expiresIn, double userId});
-
   external String token;
 
   external double expiresIn;
@@ -124,8 +120,6 @@ extension type Security_AuthService._(_i1.JSObject _) implements _i1.JSObject {
 @_i1.JS('Data.IRepository')
 extension type Data_IRepository<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
-  external Data_IRepository();
-
   external T? findById(num id);
   external _i1.JSArray<T> findAll();
   external void save(T entity);
@@ -154,8 +148,6 @@ extension type Data_Models_User._(_i1.JSObject _) implements Data_Models_IUser {
 }
 @_i1.JS('Data.Models.IUser')
 extension type Data_Models_IUser._(_i1.JSObject _) implements _i1.JSObject {
-  external Data_Models_IUser({double id, String name, String email});
-
   external double id;
 
   external String name;
@@ -184,8 +176,6 @@ extension type EnterpriseApp_Models._(_i1.JSObject _) implements _i1.JSObject {
 @_i1.JS('EnterpriseApp.Models.IUser')
 extension type EnterpriseApp_Models_IUser._(_i1.JSObject _)
     implements _i1.JSObject {
-  external EnterpriseApp_Models_IUser({double id, String name, String email});
-
   external double id;
 
   external String name;
@@ -210,12 +200,6 @@ extension type EnterpriseApp_Models_User._(_i1.JSObject _)
 @_i1.JS('EnterpriseApp.Models.IProduct')
 extension type EnterpriseApp_Models_IProduct._(_i1.JSObject _)
     implements _i1.JSObject {
-  external EnterpriseApp_Models_IProduct({
-    String sku,
-    String title,
-    double price,
-  });
-
   external String sku;
 
   external String title;
@@ -267,8 +251,6 @@ extension type EnterpriseApp_DataServices_IDataService<T extends _i1.JSAny?>._(
   _i1.JSObject _
 )
     implements _i1.JSObject {
-  external EnterpriseApp_DataServices_IDataService();
-
   external _i1.JSArray<T> getAll();
   external T getById(String id);
   external void save(T item);

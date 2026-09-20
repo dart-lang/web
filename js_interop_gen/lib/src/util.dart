@@ -6,15 +6,15 @@ import 'dart:js_interop';
 
 import 'package:path/path.dart' as p;
 
-import 'js/generated/node_api.dart';
+import 'js/filesystem_api.dart';
 
 // TODO(joshualitt): Let's find a better place for these.
 @JS('Object.entries')
 external JSArray<JSAny?> objectEntries(JSObject o);
 
 void ensureDirectoryExists(String dir) {
-  if (!Fs.existsSync(dir)) {
-    Fs.mkdirSync(dir, MkdirOptions(recursive: true));
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, mkdirOptions(recursive: true));
   }
 }
 
@@ -56,9 +56,9 @@ List<String> expandGlobs(
   required String extension,
 }) {
   cwd ??= p.current;
-  final globSync = Fs.globSync(
+  final globSync = fs.globSync(
     input.map((i) => i.toJS).toList().toJS,
-    GlobSyncOptions(cwd: cwd),
+    globSyncOptions(cwd: cwd),
   );
   return globSync.toDart
       .map((i) => i.toDart)

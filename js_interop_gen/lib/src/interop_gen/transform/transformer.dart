@@ -1687,15 +1687,20 @@ class Transformer {
     TSTypeLiteralNode typeLiteralNode, {
     required bool? isNullable,
   }) {
+    // type literal
+    // lists
     final properties = <PropertyDeclaration>[];
     final methods = <MethodDeclaration>[];
     final constructors = <ConstructorDeclaration>[];
     final operators = <OperatorDeclaration>[];
 
     final typeNamer = ScopedUniqueNamer({'get', 'set'});
+
+    // mark the default constructor as used
     typeNamer.markUsed('', 'constructor');
     typeNamer.markUsed('unnamed', 'constructor');
 
+    // transform decls
     for (final member in typeLiteralNode.members.toDart) {
       switch (member.kind) {
         case TSSyntaxKind.PropertySignature:
@@ -1763,7 +1768,10 @@ class Transformer {
       ),
       ...operators.map((p) => (p.name, p.returnType.id.name)),
     ];
+    // get a name
     final name = 'AnonymousType_${AnonymousHasher.hashObject(hashObject)}';
+
+    // get an expected id
     final expectedId = ID(type: 'type', name: name);
     if (typeMap.containsKey(expectedId.toString())) {
       return typeMap[expectedId.toString()] as ObjectLiteralType;
@@ -1974,6 +1982,7 @@ class Transformer {
     TSIndexedAccessType accessNode, {
     required bool? isNullable,
   }) {
+    // Analyze Object Type for Local vs Remote
     final objectType = _transformType(accessNode.objectType);
     final isLocalType =
         (objectType is ReferredType && objectType.url == null) ||
@@ -2003,6 +2012,7 @@ class Transformer {
 
     final keys = collectKeys(indexType);
 
+    // Handle symbol-based keys via typeof Symbol.*
     if (accessNode.indexType.kind == TSSyntaxKind.TypeQuery) {
       final query = accessNode.indexType as TSTypeQueryNode;
       final text = query.exprName.getText();
@@ -2031,6 +2041,8 @@ class Transformer {
     }
 
     List<Type> filterResults(List<Type> results, String key) {
+      // Filter: For Local Types, allow only Primitives unless the key is
+      // numeric (e.g. array/tuple access) or a Symbol (well-defined unique key).
       if (!isLocalType || results.isEmpty) {
         return results;
       }
@@ -2092,6 +2104,7 @@ class Transformer {
       );
     }
 
+    // Strict Unsupported Behavior
     if (errorIfUnsupported) {
       throw UnsupportedError(
         'IndexedAccessType resolution failed in strict mode.',

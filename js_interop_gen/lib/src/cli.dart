@@ -195,10 +195,10 @@ Future<String> computeJsTypeSupertypes() async {
               type.element.name == 'JSObject' ||
               type.allSupertypes.any((t) => t.element.name == 'JSObject');
 
-          final preferred = candidateSupertypes.where(inheritsFromJSObject);
-          final selected = preferred.isNotEmpty
-              ? preferred.first
-              : candidateSupertypes.first;
+          final selected = candidateSupertypes.firstWhere(
+            inheritsFromJSObject,
+            orElse: () => candidateSupertypes.first,
+          );
           parentJsType = "'${selected.element.name!}'";
         }
         // Ensure that the hierarchy forms a tree.

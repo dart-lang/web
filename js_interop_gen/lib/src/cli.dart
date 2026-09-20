@@ -184,12 +184,22 @@ Future<String> computeJsTypeSupertypes() async {
           ?supertype,
           ...element.interfaces,
         ]..removeWhere((supertype) => supertype.isDartCoreObject);
-        // We should have at most one non-trivial supertype.
-        assert(immediateSupertypes.length <= 1);
-        for (final supertype in immediateSupertypes) {
-          if (isJSType(supertype.element)) {
-            parentJsType = "'${supertype.element.name!}'";
-          }
+        final candidateSupertypes = immediateSupertypes
+            .where((s) => isJSType(s.element))
+            .toList();
+        if (candidateSupertypes.isNotEmpty) {
+          // If there are multiple JS supertypes (e.g., JSObject and
+          // JSIterable), prefer JSObject or a subtype of JSObject to maintain
+          // primary object hierarchy.
+          bool inheritsFromJSObject(InterfaceType type) =>
+              type.element.name == 'JSObject' ||
+              type.allSupertypes.any((t) => t.element.name == 'JSObject');
+
+          final preferred = candidateSupertypes.where(inheritsFromJSObject);
+          final selected = preferred.isNotEmpty
+              ? preferred.first
+              : candidateSupertypes.first;
+          parentJsType = "'${selected.element.name!}'";
         }
         // Ensure that the hierarchy forms a tree.
         assert((parentJsType == null) == (name == 'JSAny'));

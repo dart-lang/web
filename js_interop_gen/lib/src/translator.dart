@@ -1096,12 +1096,11 @@ class Translator {
       ])
       ..generatedByComment = generatedFileDisclaimer
       // TODO(srujzs): This is to address the issue around extension type
-          // object literal constructors in
-          // https://github.com/dart-lang/sdk/issues/54801.
-          // Once this package moves to an SDK version that contains a fix
-          // for that, this can be removed.
-          ..annotations
-          .addAll(_jsOverride('', alwaysEmit: true))
+      // object literal constructors in
+      // https://github.com/dart-lang/sdk/issues/54801.
+      // Once this package moves to an SDK version that contains a fix
+      // for that, this can be removed.
+      ..annotations.addAll(_jsOverride('', alwaysEmit: true))
       ..body.addAll(body);
   });
 

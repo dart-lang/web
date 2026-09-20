@@ -3,8 +3,8 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // Generated code. Do not modify by hand.
-// Generated from Dart SDK 3.10.0
-// To update run: dart run tool/update_supertypes.dart
+// Generated from Dart SDK 3.12.2
+// To update run: dart run js_interop_gen/tool/update_supertypes.dart
 
 const Map<String, String?> jsTypeSupertypes = {
   'JSAny': null,
@@ -21,6 +21,11 @@ const Map<String, String?> jsTypeSupertypes = {
   'JSInt16Array': 'JSTypedArray',
   'JSInt32Array': 'JSTypedArray',
   'JSInt8Array': 'JSTypedArray',
+  'JSIterable': 'JSIterableProtocol',
+  'JSIterableProtocol': 'JSAny',
+  'JSIterator': 'JSIteratorProtocol',
+  'JSIteratorProtocol': 'JSAny',
+  'JSIteratorResult': 'JSObject',
   'JSNumber': 'JSAny',
   'JSObject': 'JSAny',
   'JSPromise': 'JSObject',

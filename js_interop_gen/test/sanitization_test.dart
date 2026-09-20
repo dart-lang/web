@@ -5,7 +5,7 @@
 @TestOn('node')
 library;
 
-import 'package:js_interop_gen/src/ast/types.dart';
+import 'package:js_interop_gen/src/ast/union_intersection_types.dart';
 import 'package:test/test.dart';
 
 void main() {

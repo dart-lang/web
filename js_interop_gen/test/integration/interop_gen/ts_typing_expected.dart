@@ -1,9 +1,10 @@
 // ignore_for_file: camel_case_types, constant_identifier_names
 // ignore_for_file: library_private_types_in_public_api
-// ignore_for_file: lines_longer_than_80_chars, non_constant_identifier_names
-// ignore_for_file: unnecessary_ignore, unnecessary_parenthesis
-
+// ignore_for_file: lines_longer_than_80_chars
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+// ignore_for_file: non_constant_identifier_names, unnecessary_ignore
+// ignore_for_file: unnecessary_parenthesis
+
 import 'dart:js_interop' as _i1;
 
 import 'package:meta/meta.dart' as _i3;
@@ -231,7 +232,8 @@ extension type const KeyOf_TypeOf_MyEnum._(String _) {
 }
 extension type _AnonymousFunction_3794666<T extends _i1.JSAny?>._(
   _i1.JSFunction _
-) implements _i1.JSFunction {
+)
+    implements _i1.JSFunction {
   external ComposedType<T> call(T object);
 }
 extension type ComposedType<T extends _i1.JSAny?>._(_i1.JSObject _)

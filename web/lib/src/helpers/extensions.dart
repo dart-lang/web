@@ -149,10 +149,9 @@ extension DOMRectExtension on DOMRect {
 }
 
 extension DOMRectListExtension on DOMRectList {
-  List<Rectangle> asList() =>
-      JSImmutableListWrapper<DOMRectList, DOMRect>(this)
-          .map((rect) => rect.asRectangle())
-          .toList();
+  List<Rectangle> asList() => JSImmutableListWrapper<DOMRectList, DOMRect>(
+    this,
+  ).map((rect) => rect.asRectangle()).toList();
 }
 
 extension DOMStringMapExtension on DOMStringMap {

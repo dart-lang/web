@@ -10,6 +10,7 @@ import 'package:js_interop_gen/src/ast/builtin.dart';
 import 'package:js_interop_gen/src/ast/declarations.dart';
 import 'package:js_interop_gen/src/ast/helpers.dart';
 import 'package:js_interop_gen/src/ast/types.dart';
+import 'package:js_interop_gen/src/ast/union_intersection_types.dart';
 import 'package:js_interop_gen/src/interop_gen/namer.dart';
 import 'package:js_interop_gen/src/interop_gen/sub_type.dart';
 import 'package:test/test.dart';

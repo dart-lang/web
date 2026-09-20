@@ -11,6 +11,7 @@ import 'builtin.dart';
 import 'declarations.dart';
 import 'documentation.dart';
 import 'types.dart';
+import 'union_intersection_types.dart';
 
 const nonObjectRepTypes = {
   'JSAny',
@@ -281,8 +282,7 @@ Set<GenericType> getGenericTypes(Type t) {
       addType(t.name, t.constraint);
       break;
     case ReferredType(typeParams: final referredTypeParams):
-    case UnionType(types: final referredTypeParams):
-    case IntersectionType(types: final referredTypeParams):
+    case UnionOrIntersectionType(types: final referredTypeParams):
     case BuiltinType(typeParams: final referredTypeParams):
       for (final referredTypeParam in referredTypeParams) {
         for (final t in getGenericTypes(referredTypeParam)) {

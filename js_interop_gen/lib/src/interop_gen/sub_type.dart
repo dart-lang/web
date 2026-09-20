@@ -10,6 +10,7 @@ import '../ast/builtin.dart';
 import '../ast/declarations.dart';
 import '../ast/helpers.dart';
 import '../ast/types.dart';
+import '../ast/union_intersection_types.dart';
 import '../js_type_supertypes.dart';
 import 'transform.dart';
 

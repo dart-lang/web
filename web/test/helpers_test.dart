@@ -5,6 +5,7 @@
 @TestOn('browser')
 library;
 
+import 'dart:async';
 import 'dart:js_interop';
 
 import 'package:test/test.dart';
@@ -311,9 +312,8 @@ void main() {
   });
 
   test('converts from a JS to a Dart URL', () {
-    final url = URL(
-      'https://foo:bar@example.org:1234/path?query#fragment',
-    ).toDart;
+    final url = URL('https://foo:bar@example.org:1234/path?query#fragment')
+        .toDart;
     expect(url.scheme, equals('https'));
     expect(url.userInfo, equals('foo:bar'));
     expect(url.host, equals('example.org'));
@@ -339,6 +339,26 @@ void main() {
 
   test('Uri.toJS throws an ArgumentError for a relative URL', () {
     expect(() => Uri.parse('/path').toJS, throwsArgumentError);
+  });
+
+  test('createBlob', () {
+    final blob = BlobExtension.createBlob(['blob'], 'text/plain');
+    expect(blob.type, 'text/plain');
+    expect(blob.size, 4);
+  });
+
+  test('requestAnimationFrameBindZone', () async {
+    final completer = Completer<void>();
+    final testZone = Zone.current.fork();
+
+    testZone.run(() {
+      window.requestAnimationFrameBindZone((num timestamp) {
+        expect(Zone.current, testZone);
+        completer.complete();
+      });
+    });
+
+    await completer.future;
   });
 
   group('EventStreamProvider and stream type casting', () {
@@ -378,9 +398,8 @@ void main() {
             .forElement(div)
             .listen(
               ((dynamic e) {
-                    eventFired = true;
-                  })
-                  as void Function(Event),
+                eventFired = true;
+              }) as void Function(Event),
             );
 
         div.click();
@@ -391,5 +410,53 @@ void main() {
         div.remove();
       },
     );
+  });
+
+  group('Event creation helpers', () {
+    test('createEvent', () {
+      final event = EventExtension.createEvent('look');
+      expect(event.type, 'look');
+      expect(event.bubbles, true);
+      expect(event.cancelable, true);
+    });
+
+    test('createCustomEvent', () {
+      final event = CustomEventExtension.createCustomEvent(
+        'look',
+        detail: 'detail',
+      );
+      expect(event.type, 'look');
+      expect(event.dartDetail, 'detail');
+      expect(event.bubbles, true);
+      expect(event.cancelable, true);
+
+      // Test `jsify`-able `detail`.
+      final event2 = CustomEventExtension.createCustomEvent(
+        'look',
+        detail: [0],
+      );
+      expect(event2.type, 'look');
+      expect(event2.dartDetail, [0]);
+
+      // Test non-`jsify`-able `detail`.
+      final object = Object();
+      final event3 = CustomEventExtension.createCustomEvent(
+        'look',
+        detail: object,
+      );
+      expect(event3.type, 'look');
+      expect(event3.dartDetail, object);
+    });
+
+    test('createKeyboardEvent', () {
+      final event = KeyboardEventExtension.createKeyboardEvent('keydown');
+      expect(event.type, 'keydown');
+      expect(event.bubbles, true);
+      expect(event.cancelable, true);
+      expect(event.ctrlKey, false);
+      expect(event.altKey, false);
+      expect(event.shiftKey, false);
+      expect(event.metaKey, false);
+    });
   });
 }

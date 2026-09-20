@@ -219,14 +219,6 @@ extension type TSParenthesizedTypeNode._(JSObject _) implements TSTypeNode {
   external TSTypeNode get type;
 }
 
-@JS('TypePredicateNode')
-extension type TSTypePredicateNode._(JSObject _) implements TSTypeNode {
-  @redeclare
-  TSSyntaxKind get kind => TSSyntaxKind.TypePredicate;
-  external TSIdentifier get parameterName;
-  external TSTypeNode? get type;
-}
-
 @JS('ConditionalTypeNode')
 extension type TSConditionalTypeNode._(JSObject _) implements TSTypeNode {
   @redeclare
@@ -240,15 +232,6 @@ extension type TSConditionalTypeNode._(JSObject _) implements TSTypeNode {
 @JS('TupleTypeNode')
 extension type TSTupleTypeNode._(JSObject _) implements TSTypeNode {
   external TSNodeArray<TSTypeNode> get elements;
-}
-
-@JS('NamedTupleMember')
-extension type TSNamedTupleMember._(JSObject _)
-    implements TSTypeNode, TSDeclaration {
-  external TSToken? get dotDotDotToken;
-  external TSIdentifier get name;
-  external TSToken? get questionToken;
-  external TSTypeNode get type;
 }
 
 @JS('TypeLiteralNode')
@@ -269,21 +252,6 @@ extension type TSFunctionOrConstructorTypeNodeBase._(JSObject _)
   external TSTypeNode get type;
 }
 
-@JS('FunctionTypeNode')
-extension type TSFunctionTypeNode._(JSObject _)
-    implements TSFunctionOrConstructorTypeNodeBase {
-  @redeclare
-  TSSyntaxKind get kind => TSSyntaxKind.FunctionType;
-}
-
-@JS('ConstructorTypeNode')
-extension type TSConstructorTypeNode._(JSObject _)
-    implements TSFunctionOrConstructorTypeNodeBase {
-  @redeclare
-  TSSyntaxKind get kind => TSSyntaxKind.ConstructorType;
-  external TSNodeArray<TSNode>? get modifiers;
-}
-
 @JS('Expression')
 extension type TSExpression._(JSObject _) implements TSNode {}
 
@@ -291,14 +259,6 @@ extension type TSExpression._(JSObject _) implements TSNode {}
 extension type TSLiteralExpression._(JSObject _) implements TSExpression {
   external String text;
   external bool? isUnterminated;
-}
-
-@JS('PropertyAccessExpression')
-extension type TSPropertyAccessExpression._(JSObject _)
-    implements TSNamedDeclaration, TSExpression {
-  external TSExpression get expression;
-  external TSToken? get questionDotToken;
-  external TSIdentifier get name;
 }
 
 @JS('Declaration')
@@ -364,11 +324,6 @@ extension type TSNamedImports._(JSObject _) implements TSNode {
   external TSNodeArray<TSImportSpecifer> get elements;
 }
 
-@JS('NamespaceExport')
-extension type TSNamespaceExport._(JSObject _) implements TSNamedDeclaration {
-  external TSIdentifier get name;
-}
-
 @JS('NamedExports')
 extension type TSNamedExports._(JSObject _) implements TSNode {
   external TSNodeArray<TSExportSpecifier> get elements;
@@ -414,14 +369,6 @@ extension type TSExportDeclaration._(JSObject _)
   external TSNode? get exportClause;
   external TSExpression? get moduleSpecifier;
   external TSImportAttributes? get attributes;
-}
-
-@JS('ExportAssignment')
-extension type TSExportAssignment._(JSObject _)
-    implements TSDeclarationStatement {
-  external TSNodeArray<TSNode>? get modifiers;
-  external bool? get isExportEquals;
-  external TSExpression get expression;
 }
 
 @JS('ImportEqualsDeclaration')
@@ -499,15 +446,6 @@ extension type TSObjectDeclaration<T extends TSDeclaration>._(JSObject _)
   external TSNodeArray<T> get members;
 }
 
-// TODO: Will we consider class expressions?
-@JS('ClassDeclaration')
-extension type TSClassDeclaration._(JSObject _)
-    implements TSObjectDeclaration<TSClassElement> {}
-
-@JS('InterfaceDeclaration')
-extension type TSInterfaceDeclaration._(JSObject _)
-    implements TSObjectDeclaration<TSTypeElement> {}
-
 @JS('HeritageClause')
 extension type TSHeritageClause._(JSObject _) implements TSNode {
   external TSObjectDeclaration get parent;
@@ -544,19 +482,6 @@ extension type TSConstructorEntity._(JSObject _)
 @JS('ClassElement')
 extension type TSClassElement._(JSObject _) implements TSNamedDeclaration {
   external TSIdentifier? get name;
-}
-
-@JS('PropertyDeclaration')
-extension type TSPropertyDeclaration._(JSObject _)
-    implements TSClassElement, TSPropertyEntity {
-  external TSNode get name;
-}
-
-@JS('MethodDeclaration')
-extension type TSMethodDeclaration._(JSObject _)
-    implements TSMethodEntity, TSClassElement {
-  @redeclare
-  external TSIdentifier get name;
 }
 
 @JS('ConstructorDeclaration')

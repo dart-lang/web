@@ -25,6 +25,7 @@ import 'dependency_walker.dart';
 import 'export_reference.dart';
 import 'namespace_flattener.dart';
 import 'type_resolver.dart';
+import 'type_transformer.dart';
 import 'utils.dart';
 
 /// A class for transforming nodes in a given [file]
@@ -1248,869 +1249,193 @@ class Transformer {
     );
   }
 
-  /// Parses a TypeScript AST Type Node [TSTypeNode] into a [Type] Node
-  /// used to represent a type
-  ///
-  /// [parameter] represents whether the [TSTypeNode] is being passed in
-  /// the context of a parameter, which is mainly used to differentiate between
-  /// using [num] and [double] in the context of a [JSNumber]
-  ///
-  /// [typeArg] represents whether the [TSTypeNode] is being passed in the
-  /// context of a type argument, as Dart core types are not allowed in
-  /// type arguments
-  ///
-  /// [isNullable] means that the given type is nullable, usually when it is
-  /// unionized with `undefined` or `null`
-  // TODO(nikeokoronkwo): Add support for constructor and function types,
-  //  https://github.com/dart-lang/web/issues/410
-  //  https://github.com/dart-lang/web/issues/422
+  late final TypeTransformer typeTransformer = TypeTransformer(this);
+  late final TypeResolver typeResolver = TypeResolver(this);
 
   Type _transformType(
     TSTypeNode type, {
     bool parameter = false,
     bool typeArg = false,
     bool? isNullable,
+  }) => typeTransformer.transformType(
+    type,
+    parameter: parameter,
+    typeArg: typeArg,
+    isNullable: isNullable,
+  );
+
+  @internal
+  Type transformTypeLiteral(
+    TSTypeLiteralNode typeLiteralNode, {
+    required bool? isNullable,
   }) {
-    LiteralType literalFromNum(num value) => LiteralType(
-      isNullable: isNullable ?? false,
-      kind: value is int ? LiteralKind.int : LiteralKind.double,
-      value: value,
-    );
+    // type literal
+    // lists
+    final properties = <PropertyDeclaration>[];
+    final methods = <MethodDeclaration>[];
+    final constructors = <ConstructorDeclaration>[];
+    final operators = <OperatorDeclaration>[];
 
-    LiteralType literalFromString(String value) => LiteralType(
-      isNullable: isNullable ?? false,
-      kind: LiteralKind.string,
-      value: value,
-    );
+    final typeNamer = ScopedUniqueNamer({'get', 'set'});
 
-    LiteralType literalFromBool(bool value) => LiteralType(
-      isNullable: isNullable ?? false,
-      kind: value ? LiteralKind.$true : LiteralKind.$false,
-      value: value,
-    );
+    // mark the default constructor as used
+    typeNamer.markUsed('', 'constructor');
+    typeNamer.markUsed('unnamed', 'constructor');
 
-    LiteralType literalFromNull() {
-      // Null literals usually come through the syntax path.
-      // This fallback handling is for completeness
-      // and safety in resolved paths.
-      return LiteralType(
-        isNullable: isNullable ?? false,
-        kind: LiteralKind.$null,
-        value: null,
-      );
+    // transform decls
+    for (final member in typeLiteralNode.members.toDart) {
+      switch (member.kind) {
+        case TSSyntaxKind.PropertySignature:
+          final prop = _transformProperty(
+            member as TSPropertySignature,
+            parentNamer: typeNamer,
+          );
+          if (prop != null) properties.add(prop);
+        case TSSyntaxKind.MethodSignature:
+          methods.add(
+            _transformMethod(
+              member as TSMethodSignature,
+              parentNamer: typeNamer,
+            ),
+          );
+        case TSSyntaxKind.IndexSignature:
+          final (opGet, opSetOrNull) = _transformIndexer(
+            member as TSIndexSignatureDeclaration,
+          );
+          operators.add(opGet);
+          if (opSetOrNull case final opSet?) {
+            operators.add(opSet);
+          }
+        case TSSyntaxKind.CallSignature:
+          methods.add(
+            _transformCallSignature(
+              member as TSCallSignatureDeclaration,
+              parentNamer: typeNamer,
+            ),
+          );
+        case TSSyntaxKind.ConstructSignature:
+          constructors.add(
+            _transformConstructor(
+              member as TSConstructSignatureDeclaration,
+              parentNamer: typeNamer,
+            ),
+          );
+        case TSSyntaxKind.GetAccessor:
+          methods.add(
+            _transformGetter(
+              member as TSGetAccessorDeclaration,
+              parentNamer: typeNamer,
+            ),
+          );
+        case TSSyntaxKind.SetAccessor:
+          methods.add(
+            _transformSetter(
+              member as TSSetAccessorDeclaration,
+              parentNamer: typeNamer,
+            ),
+          );
+        default:
+          break;
+      }
     }
 
-    switch (type.kind) {
-      case TSSyntaxKind.ParenthesizedType:
-        return _transformType(
-          (type as TSParenthesizedTypeNode).type,
-          parameter: parameter,
-          typeArg: typeArg,
-          isNullable: isNullable,
-        );
-      case TSSyntaxKind.TypeReference:
-        final refType = type as TSTypeReferenceNode;
-
-        return _getTypeFromTypeNode(
-          refType,
-          typeArg: typeArg,
-          isNullable: isNullable ?? false,
-        );
-      case TSSyntaxKind.TypePredicate:
-        // in the future, we can be smarter about this
-        // but for now, we just have this as a boolean
-        return BuiltinType.primitiveType(
-          PrimitiveType.boolean,
-          isNullable: isNullable,
-        );
-      case TSSyntaxKind.ConditionalType:
-        final conditionalType = type as TSConditionalTypeNode;
-        final trueType = _transformType(conditionalType.trueType);
-        final falseType = _transformType(conditionalType.falseType);
-
-        final types = [
-          trueType,
-          falseType,
-        ].sorted((a, b) => a.id.toString().compareTo(b.id.toString()));
-
-        final expectedID = ID(type: 'type', name: types.join('|'));
-
-        if (typeMap.containsKey(expectedID.toString())) {
-          return (typeMap[expectedID.toString()] as UnionType)
-            ..isNullable = (isNullable ?? false);
-        }
-
-        final trueTypeName = trueType is NamedType
-            ? trueType.name
-            : trueType.dartName ?? trueType.id.name;
-
-        final falseTypeName = falseType is NamedType
-            ? falseType.name
-            : falseType.dartName ?? falseType.id.name;
-        final conditionalName = '${trueTypeName}Or$falseTypeName';
-
-        final un = UnionType(types: types, name: conditionalName);
-        final unType = typeMap.putIfAbsent(expectedID.toString(), () {
-          namer.markUsed(conditionalName);
-          return un;
-        });
-
-        return unType..isNullable = (isNullable ?? false);
-      case TSSyntaxKind.TypeLiteral:
-        // type literal
-        final typeLiteralNode = type as TSTypeLiteralNode;
-
-        // lists
-        final properties = <PropertyDeclaration>[];
-        final methods = <MethodDeclaration>[];
-        final constructors = <ConstructorDeclaration>[];
-        final operators = <OperatorDeclaration>[];
-
-        final typeNamer = ScopedUniqueNamer({'get', 'set'});
-
-        // mark the default constructor as used
-        typeNamer.markUsed('', 'constructor');
-        typeNamer.markUsed('unnamed', 'constructor');
-
-        // transform decls
-        for (final member in typeLiteralNode.members.toDart) {
-          switch (member.kind) {
-            case TSSyntaxKind.PropertySignature:
-              final prop = _transformProperty(
-                member as TSPropertySignature,
-                parentNamer: typeNamer,
-              );
-              if (prop != null) properties.add(prop);
-            case TSSyntaxKind.MethodSignature:
-              final method = _transformMethod(
-                member as TSMethodSignature,
-                parentNamer: typeNamer,
-              );
-              methods.add(method);
-            case TSSyntaxKind.IndexSignature:
-              final (opGet, opSetOrNull) = _transformIndexer(
-                member as TSIndexSignatureDeclaration,
-              );
-              operators.add(opGet);
-              if (opSetOrNull case final opSet?) {
-                operators.add(opSet);
-              }
-            case TSSyntaxKind.CallSignature:
-              final callSignature = _transformCallSignature(
-                member as TSCallSignatureDeclaration,
-                parentNamer: typeNamer,
-              );
-              methods.add(callSignature);
-            case TSSyntaxKind.ConstructSignature:
-              final constructor = _transformConstructor(
-                member as TSConstructSignatureDeclaration,
-                parentNamer: typeNamer,
-              );
-              constructors.add(constructor);
-            case TSSyntaxKind.GetAccessor:
-              final getter = _transformGetter(
-                member as TSGetAccessorDeclaration,
-                parentNamer: typeNamer,
-              );
-              methods.add(getter);
-              break;
-            case TSSyntaxKind.SetAccessor:
-              final setter = _transformSetter(
-                member as TSSetAccessorDeclaration,
-                parentNamer: typeNamer,
-              );
-              methods.add(setter);
-              break;
-            default:
-              break;
-          }
-        }
-
-        final hashObject = [
-          ...properties.map((p) => (p.name, p.type.id.name)),
-          ...methods.map((p) => (p.name, p.returnType.id.name)),
-          ...constructors.map(
-            (p) => (
-              p.name ?? 'new',
-              p.parameters.map((a) => a.type.id.name).join(','),
-            ),
-          ),
-          ...operators.map((p) => (p.name, p.returnType.id.name)),
-        ];
-        // get a name
-        final name = 'AnonymousType_${AnonymousHasher.hashObject(hashObject)}';
-
-        // get an expected id
-        final expectedId = ID(type: 'type', name: name);
-        if (typeMap.containsKey(expectedId.toString())) {
-          return typeMap[expectedId.toString()] as ObjectLiteralType;
-        }
-
-        final anonymousTypeObject = ObjectLiteralType(
-          name: name,
-          id: expectedId,
-          properties: properties,
-          methods: methods,
-          operators: operators,
-          constructors: constructors,
-        );
-
-        final anonymousType =
-            typeMap.putIfAbsent(expectedId.toString(), () {
-                  namer.markUsed(name);
-                  return anonymousTypeObject;
-                })
-                as ObjectLiteralType;
-
-        return anonymousType..isNullable = isNullable ?? false;
-      case TSSyntaxKind.ConstructorType || TSSyntaxKind.FunctionType:
-        final funType = type as TSFunctionOrConstructorTypeNodeBase;
-
-        final parameters = funType.parameters.toDart
-            .mapIndexed((index, p) => _transformParameter(p, index: index))
-            .toList();
-
-        final typeParameters =
-            funType.typeParameters?.toDart
-                .map(_transformTypeParamDeclaration)
-                .toList() ??
-            [];
-
-        final returnType = _transformType(funType.type);
-
-        final isConstructor = type.kind == TSSyntaxKind.ConstructorType;
-
-        final suffix = AnonymousHasher.hashFun(
-          parameters.map((a) => (a.name, a.type.id.name)).toList(),
-          returnType.id.name,
-          isConstructor,
-        );
-        final name =
-            '_Anonymous${isConstructor ? 'Constructor' : 'Function'}_$suffix';
-
-        final expectedId = ID(type: 'type', name: name);
-        if (typeMap.containsKey(expectedId.toString())) {
-          return typeMap[expectedId.toString()] as ClosureType;
-        }
-
-        final closureTypeObject = isConstructor
-            ? ConstructorType(
-                name: name,
-                id: expectedId,
-                returnType: returnType,
-                parameters: parameters,
-                typeParameters: typeParameters,
-              )
-            : FunctionType(
-                name: name,
-                id: expectedId,
-                returnType: returnType,
-                parameters: parameters,
-                typeParameters: typeParameters,
-              );
-
-        final closureType =
-            typeMap.putIfAbsent(expectedId.toString(), () {
-                  namer.markUsed(name);
-                  return closureTypeObject;
-                })
-                as ClosureType;
-
-        return closureType..isNullable = isNullable ?? false;
-      case TSSyntaxKind.UnionType:
-        final unionType = type as TSUnionTypeNode;
-        final unionTypes = unionType.types.toDart;
-        final nonNullableUnionTypes = unionTypes
-            .where(
-              (t) =>
-                  t.kind != TSSyntaxKind.UndefinedKeyword &&
-                  !(t.kind == TSSyntaxKind.LiteralType &&
-                      (t as TSLiteralTypeNode).literal.kind ==
-                          TSSyntaxKind.NullKeyword),
-            )
-            .toList();
-        final shouldBeNullable =
-            nonNullableUnionTypes.length != unionTypes.length;
-
-        if (nonNullableUnionTypes.singleOrNull case final singleTypeNode?) {
-          return _transformType(
-            singleTypeNode,
-            typeArg: typeArg,
-            parameter: parameter,
-            isNullable: shouldBeNullable || (isNullable ?? false),
-          );
-        }
-
-        final types = nonNullableUnionTypes
-            .map<Type>(
-              (t) => _transformType(t, typeArg: typeArg, parameter: parameter),
-            )
-            .toList();
-
-        if (types.isEmpty) {
-          return BuiltinType.primitiveType(
-            PrimitiveType.never,
-            isNullable: shouldBeNullable || (isNullable ?? false),
-          );
-        }
-
-        var isHomogenous = true;
-        final nonNullLiteralTypes = <LiteralType>[];
-        var onlyContainsBooleanTypes = true;
-        LiteralType? firstNonNullablePrimitiveType;
-
-        for (final type in types) {
-          if (type is LiteralType) {
-            firstNonNullablePrimitiveType ??= type;
-            onlyContainsBooleanTypes &=
-                (type.kind == LiteralKind.$true) ||
-                (type.kind == LiteralKind.$false);
-            if (type.kind.primitive !=
-                firstNonNullablePrimitiveType.kind.primitive) {
-              isHomogenous = false;
-            }
-            nonNullLiteralTypes.add(type);
-          } else {
-            isHomogenous = false;
-          }
-        }
-
-        if (isHomogenous &&
-            nonNullLiteralTypes.isNotEmpty &&
-            onlyContainsBooleanTypes) {
-          return BuiltinType.primitiveType(
-            PrimitiveType.boolean,
-            isNullable: shouldBeNullable,
-          );
-        }
-
-        final idMap = isHomogenous
-            ? nonNullLiteralTypes.map((t) => t.value.toString())
-            : types.map((t) => t.id.name);
-
-        final expectedId = ID(type: 'type', name: idMap.join('|'));
-
-        if (typeMap.containsKey(expectedId.toString())) {
-          return (typeMap[expectedId.toString()] as UnionType)
-            ..isNullable = (isNullable ?? false);
-        }
-
-        final name =
-            'AnonymousUnion_${AnonymousHasher.hashUnion(idMap.toList())}';
-
-        final un = isHomogenous
-            ? HomogenousEnumType(types: nonNullLiteralTypes, name: name)
-            : UnionType(types: types, name: name);
-
-        final unType = typeMap.putIfAbsent(expectedId.toString(), () {
-          namer.markUsed(name);
-          return un;
-        });
-        return unType..isNullable = shouldBeNullable;
-
-      case TSSyntaxKind.IntersectionType:
-        final intersectionType = type as TSIntersectionTypeNode;
-        final intersectionTypes = intersectionType.types.toDart;
-        final nonNullableIntersectionTypes = intersectionTypes
-            .where(
-              (t) =>
-                  t.kind != TSSyntaxKind.UndefinedKeyword &&
-                  !(t.kind == TSSyntaxKind.LiteralType &&
-                      (t as TSLiteralTypeNode).literal.kind ==
-                          TSSyntaxKind.NullKeyword),
-            )
-            .toList();
-        final shouldBeNullable =
-            nonNullableIntersectionTypes.length != intersectionTypes.length;
-
-        if (shouldBeNullable) {
-          return BuiltinType.primitiveType(
-            PrimitiveType.never,
-            isNullable: isNullable,
-          );
-        }
-
-        if (nonNullableIntersectionTypes.singleOrNull
-            case final singleTypeNode?) {
-          return _transformType(
-            singleTypeNode,
-            typeArg: typeArg,
-            parameter: parameter,
-            isNullable: isNullable,
-          );
-        }
-
-        final types = nonNullableIntersectionTypes
-            .map<Type>(
-              (t) => _transformType(t, typeArg: typeArg, parameter: parameter),
-            )
-            .toList();
-
-        final idMap = types.map((t) => t.id.name);
-        final expectedId = ID(type: 'type', name: idMap.join('&'));
-        if (typeMap.containsKey(expectedId.toString())) {
-          return (typeMap[expectedId.toString()] as IntersectionType)
-            ..isNullable = (isNullable ?? false);
-        }
-
-        final intersectionHash = AnonymousHasher.hashUnion(idMap.toList());
-        final name = 'AnonymousIntersection_$intersectionHash';
-
-        final un = IntersectionType(types: types, name: name);
-
-        final unType = typeMap.putIfAbsent(expectedId.toString(), () {
-          namer.markUsed(name);
-          return un;
-        });
-
-        return unType..isNullable = isNullable ?? shouldBeNullable;
-      case TSSyntaxKind.TupleType:
-        // tuple type is array
-        final tupleType = type as TSTupleTypeNode;
-        // TODO: Handle named tuple params (`[x: number, y: number]`)
-        final types = tupleType.elements.toDart
-            .map<Type>((t) => _transformType(t, typeArg: true))
-            .toList();
-
-        // we will work based on the length of the types
-        final typeLength = types.length;
-
-        // check if a tuple of a certain length already exists
-        // generate if not
-        final (tupleUrl, tupleDeclaration) = programMap.getCommonType(
-          'JSTuple$typeLength',
-          ifAbsent: ('_tuples.dart', TupleDeclaration(count: typeLength)),
-        )!;
-
-        return tupleDeclaration.asReferredType(
-          types,
-          isNullable ?? false,
-          tupleUrl,
-        );
-
-      case TSSyntaxKind.LiteralType:
-        final literalType = type as TSLiteralTypeNode;
-        final literal = literalType.literal;
-
-        // Try to handle simple literals first
-        switch (literal.kind) {
-          case TSSyntaxKind.NumericLiteral:
-            return literalFromNum(num.parse(literal.text));
-          case TSSyntaxKind.StringLiteral:
-            return literalFromString(literal.text);
-          case TSSyntaxKind.TrueKeyword:
-            return literalFromBool(true);
-          case TSSyntaxKind.FalseKeyword:
-            return literalFromBool(false);
-          case TSSyntaxKind.NullKeyword:
-            return literalFromNull();
-          default:
-            final resolvedType = typeChecker.getTypeFromTypeNode(literalType);
-
-            if (resolvedType != null) {
-              if (resolvedType.isNumberLiteral()) {
-                return literalFromNum(
-                  (resolvedType as TSNumberLiteralType).value,
-                );
-              } else if (resolvedType.isStringLiteral()) {
-                return literalFromString(
-                  (resolvedType as TSStringLiteralType).value,
-                );
-              } else if ((resolvedType.flags & TSTypeFlags.BooleanLiteral) !=
-                  0) {
-                // BooleanLiteralType may not expose its value;
-                // fall back to the type string
-                // to infer true/false.
-                final typeStr = typeChecker.typeToString(resolvedType);
-                if (typeStr == 'true' || typeStr == 'false') {
-                  return literalFromBool(typeStr == 'true');
-                }
-              }
-
-              // Fallback to underlying type if not a literal
-              final underlyingTypeNode = typeChecker.typeToTypeNode(
-                resolvedType,
-              );
-              if (underlyingTypeNode != null) {
-                return _transformType(
-                  underlyingTypeNode,
-                  //Avoid recursion if the underlying type is the same literal.
-                  //typeToTypeNode usually returns a keyword type for primitives
-                );
-              }
-            }
-
-            return BuiltinType.primitiveType(
-              PrimitiveType.any,
-              isNullable: isNullable,
-            );
-        }
-      case TSSyntaxKind.TypeQuery:
-        final typeQuery = type as TSTypeQueryNode;
-
-        final exprName = typeQuery.exprName;
-        final typeArguments = typeQuery.typeArguments?.toDart;
-
-        final getTypeFromDeclaration = _getTypeFromDeclaration(
-          exprName,
-          typeArguments,
-          typeArg: typeArg,
-          isNotTypableDeclaration: true,
-          isNullable: isNullable ?? false,
-        );
-
-        switch (getTypeFromDeclaration) {
-          case ReferredType(declaration: final referredDecl)
-              when referredDecl is EnumDeclaration:
-            // check for type in type map
-            final enumName = 'TypeOf_${referredDecl.name}';
-            final enumID = ID(type: 'type', name: enumName);
-
-            // enum is actually an object
-            return typeMap.putIfAbsent(enumID.toString(), () {
-              return EnumObjectType(
-                referredDecl,
-                isNullable: isNullable ?? false,
-              );
-            });
-          default:
-            return getTypeFromDeclaration;
-        }
-      case TSSyntaxKind.TypeOperator
-          when (type as TSTypeOperatorNode).operator ==
-              TSSyntaxKind.ReadonlyKeyword:
-        final transformedType = _transformType(
-          type.type,
-          parameter: parameter,
-          typeArg: typeArg,
-          isNullable: isNullable,
-        );
-        switch (transformedType) {
-          // turn tuple to readonly tuple
-          case final TupleType tuple:
-            // make readonly
-            final (tupleUrl, tupleDeclaration) = programMap.getCommonType(
-              'JSReadonlyTuple${tuple.types.length}',
-              ifAbsent: (
-                '_tuples.dart',
-                TupleDeclaration(count: tuple.types.length, readonly: true),
-              ),
-            )!;
-
-            return tupleDeclaration.asReferredType(
-              tuple.types,
-              isNullable ?? false,
-              tupleUrl,
-            );
-          // TODO: mapped types
-          // by default just return
-          default:
-            return transformedType;
-        }
-      case TSSyntaxKind.TypeOperator
-          when (type as TSTypeOperatorNode).operator ==
-              TSSyntaxKind.KeyOfKeyword:
-        (List<String>, Type?) extractKeysOrReturnType(Type targetType) {
-          switch (targetType) {
-            case ObjectLiteralType(properties: final objectProps):
-              return (objectProps.map((o) => o.name).toList(), null);
-            case EnumObjectType(enumeration: final enumeration):
-              return (enumeration.members.map((e) => e.name).toList(), null);
-            case ReferredType(declaration: final referredDecl)
-                when referredDecl is InterfaceDeclaration:
-              return (
-                referredDecl.properties.map((o) => o.name).toList(),
-                null,
-              );
-            case ReferredDeclarationType(type: final referredToType):
-              return extractKeysOrReturnType(referredToType);
-            default:
-              return (
-                [],
-                BuiltinType.primitiveType(
-                  PrimitiveType.string,
-                  isNullable: isNullable,
-                ),
-              );
-          }
-        }
-
-        final transformedType = _transformType(
-          type.type,
-          parameter: parameter,
-          typeArg: typeArg,
-          isNullable: isNullable,
-        );
-
-        // keyof
-        final (keys, returnTypeOrNull) = extractKeysOrReturnType(
-          transformedType,
-        );
-
-        if (returnTypeOrNull != null) return returnTypeOrNull;
-
-        if (keys.isEmpty) {
-          return BuiltinType.primitiveType(
-            PrimitiveType.never,
-            isNullable: isNullable,
-          );
-        }
-
-        final typeName = transformedType is NamedType
-            ? (transformedType.dartName ?? transformedType.name)
-            : transformedType.id.name;
-        return HomogenousEnumType(
-          types: keys
-              .map((k) => LiteralType(kind: LiteralKind.string, value: k))
-              .toList(),
-          name: 'KeyOf_$typeName',
-        );
-      case TSSyntaxKind.TypeOperator
-          when (type as TSTypeOperatorNode).operator ==
-              TSSyntaxKind.UniqueKeyword:
-        // Dart does not support unique symbols
-
-        return _transformType(
-          type.type,
-          parameter: parameter,
-          typeArg: typeArg,
-          isNullable: isNullable,
-        );
-      case TSSyntaxKind.IndexedAccessType:
-        final accessNode = type as TSIndexedAccessType;
-
-        // Analyze Object Type for Local vs Remote
-        final objectType = _transformType(accessNode.objectType);
-        final isLocalType =
-            (objectType is ReferredType && objectType.url == null) ||
-            objectType is ObjectLiteralType;
-
-        final indexType = _transformType(accessNode.indexType);
-
-        Set<String> collectKeys(Type t) {
-          final keys = <String>{};
-          if (t is LiteralType) {
-            if (t.kind == LiteralKind.string) {
-              keys.add(t.value as String);
-            } else if (t.kind == LiteralKind.int ||
-                t.kind == LiteralKind.double) {
-              keys.add(t.value.toString());
-            }
-          } else if (t is HomogenousEnumType) {
-            for (final sub in t.types) {
-              keys.addAll(collectKeys(sub));
-            }
-          } else if (t is UnionType) {
-            for (final sub in t.types) {
-              keys.addAll(collectKeys(sub));
-            }
-          }
-          return keys;
-        }
-
-        final keys = collectKeys(indexType);
-
-        // Handle symbol-based keys via typeof Symbol.*
-        if (accessNode.indexType.kind == TSSyntaxKind.TypeQuery) {
-          final query = accessNode.indexType as TSTypeQueryNode;
-          final text = query.exprName.getText();
-          if (text.startsWith('Symbol.')) {
-            keys.add(text);
-          }
-        }
-
-        List<Type> lookup(Type obj, String key) {
-          final matchingTypes = <Type>[];
-          final candidates = <PropertyDeclaration>[];
-          if (obj is ObjectLiteralType) {
-            candidates.addAll(obj.properties);
-          } else if (obj is ReferredType &&
-              obj.declaration is InterfaceDeclaration) {
-            final decl = obj.declaration as InterfaceDeclaration;
-            candidates.addAll(decl.properties);
-          }
-
-          for (final prop in candidates) {
-            if (prop.name == key) {
-              matchingTypes.add(prop.type);
-            }
-          }
-          return matchingTypes;
-        }
-
-        List<Type> filterResults(List<Type> results, String key) {
-          // Filter: For Local Types, allow only Primitives unless the key is
-          // numeric (e.g. array/tuple access) or a Symbol (well-defined unique key).
-          if (!isLocalType || results.isEmpty) {
-            return results;
-          }
-
-          final isNumeric = double.tryParse(key) != null;
-          final isSymbol = key.startsWith('Symbol.');
-
-          if (isNumeric || isSymbol) {
-            return results;
-          }
-
-          const allowed = {
-            'String',
-            'num',
-            'double',
-            'bool',
-            'void',
-            'int',
-            'JSAny',
-          };
-          return results.where((t) {
-            if (t is LiteralType && t.kind == LiteralKind.$null) {
-              return true;
-            }
-            if (t is BuiltinType) return allowed.contains(t.name);
-            return false;
-          }).toList();
-        }
-
-        final matchingTypes = keys
-            .expand((key) => filterResults(lookup(objectType, key), key))
-            .toList();
-
-        if (matchingTypes.isNotEmpty) {
-          if (matchingTypes.length == 1) {
-            return matchingTypes.first..isNullable = (isNullable ?? false);
-          }
-
-          final seenIds = <String>{};
-          final types = matchingTypes
-              .where((t) => seenIds.add(t.id.toString()))
-              .toList();
-
-          if (types.length == 1) {
-            return types.first..isNullable = (isNullable ?? false);
-          }
-
-          final idMap = types.map((t) => t.id.name).join('|');
-          final expectedId = ID(type: 'type', name: idMap);
-          if (typeMap.containsKey(expectedId.toString())) {
-            return (typeMap[expectedId.toString()] as UnionType)
-              ..isNullable = (isNullable ?? false);
-          }
-
-          final typeNames = types.map((t) => t.id.name).toList();
-          final unionHash = AnonymousHasher.hashUnion(typeNames);
-          final un = UnionType(types: types, name: 'AnonymousUnion_$unionHash');
-          final unType = typeMap.putIfAbsent(expectedId.toString(), () {
-            namer.markUsed(un.declarationName);
-            return un;
-          });
-          return unType..isNullable = (isNullable ?? false);
-        }
-
-        // Strict Unsupported Behavior
-        if (errorIfUnsupported) {
-          throw UnsupportedError(
-            'IndexedAccessType resolution failed in strict mode.',
-          );
-        }
-
-        return BuiltinType.primitiveType(PrimitiveType.any, isNullable: false);
-      case TSSyntaxKind.ArrayType:
-        return BuiltinType.primitiveType(
-          PrimitiveType.array,
-          typeParams: [
-            getJSTypeAlternative(
-              _transformType((type as TSArrayTypeNode).elementType),
-            ),
-          ],
-          isNullable: isNullable,
-        );
-      default:
-        // check for primitive type via its kind
-        final primitiveType = switch (type.kind) {
-          TSSyntaxKind.ArrayType => PrimitiveType.array,
-          TSSyntaxKind.StringKeyword => PrimitiveType.string,
-          TSSyntaxKind.AnyKeyword => PrimitiveType.any,
-          TSSyntaxKind.ObjectKeyword => PrimitiveType.object,
-          TSSyntaxKind.NumberKeyword =>
-            (parameter ? PrimitiveType.num : PrimitiveType.double),
-          TSSyntaxKind.UndefinedKeyword => PrimitiveType.undefined,
-          TSSyntaxKind.UnknownKeyword => PrimitiveType.unknown,
-          TSSyntaxKind.BooleanKeyword => PrimitiveType.boolean,
-          TSSyntaxKind.VoidKeyword => PrimitiveType.$void,
-          TSSyntaxKind.BigIntKeyword => PrimitiveType.bigint,
-          TSSyntaxKind.SymbolKeyword => PrimitiveType.symbol,
-          TSSyntaxKind.NeverKeyword => PrimitiveType.never,
-          _ => null,
-        };
-
-        if (primitiveType != null) {
-          return BuiltinType.primitiveType(
-            primitiveType,
-            shouldEmitJsType: typeArg ? true : null,
-            isNullable: primitiveType == PrimitiveType.any ? true : isNullable,
-          );
-        } else if (errorIfUnsupported) {
-          throw UnsupportedError(
-            'The given type with kind ${type.kind} is not supported yet',
-          );
-        } else {
-          print(
-            'WARN: The given type with kind ${type.kind} is '
-            'not supported yet',
-          );
-          return BuiltinType.primitiveType(
-            PrimitiveType.any,
-            isNullable: isNullable,
-          );
-        }
+    final hashObject = [
+      ...properties.map((p) => (p.name, p.type.id.name)),
+      ...methods.map((p) => (p.name, p.returnType.id.name)),
+      ...constructors.map(
+        (p) => (
+          p.name ?? 'new',
+          p.parameters.map((a) => a.type.id.name).join(','),
+        ),
+      ),
+      ...operators.map((p) => (p.name, p.returnType.id.name)),
+    ];
+    // get a name
+    final name = 'AnonymousType_${AnonymousHasher.hashObject(hashObject)}';
+
+    // get an expected id
+    final expectedId = ID(type: 'type', name: name);
+    if (typeMap.containsKey(expectedId.toString())) {
+      return typeMap[expectedId.toString()] as ObjectLiteralType;
     }
+
+    final anonymousTypeObject = ObjectLiteralType(
+      name: name,
+      id: expectedId,
+      properties: properties,
+      methods: methods,
+      operators: operators,
+      constructors: constructors,
+    );
+
+    final anonymousType =
+        typeMap.putIfAbsent(expectedId.toString(), () {
+              namer.markUsed(name);
+              return anonymousTypeObject;
+            })
+            as ObjectLiteralType;
+
+    return anonymousType..isNullable = isNullable ?? false;
+  }
+
+  @internal
+  Type transformClosureType(
+    TSFunctionOrConstructorTypeNodeBase funType, {
+    required bool isConstructor,
+    required bool? isNullable,
+  }) {
+    final parameters = funType.parameters.toDart
+        .mapIndexed((index, p) => _transformParameter(p, index: index))
+        .toList();
+
+    final typeParameters =
+        funType.typeParameters?.toDart
+            .map(_transformTypeParamDeclaration)
+            .toList() ??
+        [];
+
+    final returnType = _transformType(funType.type);
+    final suffix = AnonymousHasher.hashFun(
+      parameters.map((a) => (a.name, a.type.id.name)).toList(),
+      returnType.id.name,
+      isConstructor,
+    );
+    final name =
+        '_Anonymous${isConstructor ? 'Constructor' : 'Function'}_$suffix';
+    final expectedId = ID(type: 'type', name: name);
+    if (typeMap.containsKey(expectedId.toString())) {
+      return typeMap[expectedId.toString()] as ClosureType;
+    }
+
+    final closureTypeObject = isConstructor
+        ? ConstructorType(
+            name: name,
+            id: expectedId,
+            returnType: returnType,
+            parameters: parameters,
+            typeParameters: typeParameters,
+          )
+        : FunctionType(
+            name: name,
+            id: expectedId,
+            returnType: returnType,
+            parameters: parameters,
+            typeParameters: typeParameters,
+          );
+
+    final closureType =
+        typeMap.putIfAbsent(expectedId.toString(), () {
+              namer.markUsed(name);
+              return closureTypeObject;
+            })
+            as ClosureType;
+
+    return closureType..isNullable = isNullable ?? false;
   }
 
   Type _transformTypeExpressionWithTypeArguments(
     TSExpressionWithTypeArguments type,
-  ) {
-    if (type.expression.kind == TSSyntaxKind.Identifier) {
-      final identifier = type.expression as TSIdentifier;
-
-      final getTypeFromDeclaration = _getTypeFromDeclaration(
-        identifier,
-        type.typeArguments?.toDart,
-      );
-
-      return getTypeFromDeclaration;
-    } else if (type.expression.kind == TSSyntaxKind.PropertyAccessExpression) {
-      final symbol = typeChecker.getSymbolAtLocation(type.expression);
-      final tsType = typeChecker.getTypeFromTypeNode(type);
-      return typeResolver.getTypeFromSymbol(
-        symbol,
-        tsType,
-        type.typeArguments?.toDart,
-        false,
-        false,
-        false,
-      );
-    } else {
-      throw UnimplementedError(
-        "The given type expression's expression of kind "
-        '${type.expression.kind} is not supported yet',
-      );
-    }
-  }
-
-  late final TypeResolver typeResolver = TypeResolver(this);
-
-  Type _getTypeFromTypeNode(
-    TSTypeReferenceNode node, {
-    List<TSTypeNode>? typeArguments,
-    bool typeArg = false,
-    bool isNotTypableDeclaration = false,
-    bool isNullable = false,
-  }) => typeResolver.getTypeFromTypeNode(
-    node,
-    typeArguments: typeArguments,
-    typeArg: typeArg,
-    isNotTypableDeclaration: isNotTypableDeclaration,
-    isNullable: isNullable,
-  );
+  ) => typeTransformer.transformTypeExpressionWithTypeArguments(type);
 
   Type _getTypeFromDeclaration(
     TSNode typeName,

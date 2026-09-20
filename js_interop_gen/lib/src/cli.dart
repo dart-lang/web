@@ -174,12 +174,22 @@ Future<String> computeJsTypeSupertypes() async {
           ?supertype,
           ...element.interfaces,
         ]..removeWhere((supertype) => supertype.isDartCoreObject);
-        // We should have at most one non-trivial supertype.
-        assert(immediateSupertypes.length <= 1);
-        for (final supertype in immediateSupertypes) {
-          if (isJSType(supertype.element)) {
-            parentJsType = "'${supertype.element.name!}'";
-          }
+        final candidateSupertypes = immediateSupertypes
+            .where((s) => isJSType(s.element))
+            .toList();
+        if (candidateSupertypes.isNotEmpty) {
+          // If there are multiple JS supertypes (e.g., JSObject and
+          // JSIterable), prefer JSObject or a subtype of JSObject to maintain
+          // primary object hierarchy.
+          bool inheritsFromJSObject(InterfaceType type) =>
+              type.element.name == 'JSObject' ||
+              type.allSupertypes.any((t) => t.element.name == 'JSObject');
+
+          final preferred = candidateSupertypes.where(inheritsFromJSObject);
+          final selected = preferred.isNotEmpty
+              ? preferred.first
+              : candidateSupertypes.first;
+          parentJsType = "'${selected.element.name!}'";
         }
         // Ensure that the hierarchy forms a tree.
         assert((parentJsType == null) == (name == 'JSAny'));
@@ -205,7 +215,8 @@ ${jsTypeSupertypes.entries.map((e) => "  ${e.key}: ${e.value},").join('\n')}
   }
 }
 
-/// Checks if `js_type_supertypes.dart` needs to be updated and warns if so.
+/// Checks if `js_type_supertypes.dart` differs from current SDK supertypes
+/// and prints an upgrade notice if so.
 Future<void> checkJsTypeSupertypes() async {
   final jsTypeSupertypesScript = await computeJsTypeSupertypes();
   final jsTypeSupertypesPath = p.join(
@@ -228,15 +239,19 @@ Future<void> checkJsTypeSupertypes() async {
             .replaceAll('\r\n', '\n')
             .replaceAll(sdkLineRegex, '')
             .trim()) {
+      final pinnedSdkMatch = RegExp(
+        r'^// Generated from Dart SDK (.*?)$',
+        multiLine: true,
+      ).firstMatch(currentContent);
+      final pinnedSdk = pinnedSdkMatch?.group(1) ?? 'unknown';
+      final currentSdk = Platform.version.split(' ').first;
+
       print(
-        ansi.yellow.wrap(
-          'WARNING: js_type_supertypes.dart needs to be updated!',
-        ),
-      );
-      print(
-        ansi.yellow.wrap(
-          'Run: dart run js_interop_gen/tool/update_supertypes.dart',
-        ),
+        ansi.cyan.wrap('''
+INFO: js_type_supertypes.dart is pinned to Dart SDK $pinnedSdk.
+You are running Dart SDK $currentSdk.
+Updating is optional and should be done with careful consideration.
+To update, run: dart run js_interop_gen/tool/update_supertypes.dart'''),
       );
     }
   } else {

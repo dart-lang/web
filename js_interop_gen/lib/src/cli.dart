@@ -48,6 +48,9 @@ Future<String> getPackageLanguageVersion(String pkgPath) async {
 
 Future<void> compileDartMain({String? langVersion, String? dir}) async {
   langVersion ??= await getPackageLanguageVersion(_webGeneratorRoot);
+  final workDir = dir ?? bindingsGeneratorPath;
+  final tempOutput =
+      'dart_main.js.$pid.${DateTime.now().microsecondsSinceEpoch}.tmp';
   await runProc(Platform.executable, [
     'compile',
     'js',
@@ -56,8 +59,14 @@ Future<void> compileDartMain({String? langVersion, String? dir}) async {
     '-DlanguageVersion=$langVersion',
     'dart_main.dart',
     '-o',
-    'dart_main.js',
-  ], workingDirectory: dir ?? bindingsGeneratorPath);
+    tempOutput,
+  ], workingDirectory: workDir);
+  for (final ext in ['', '.deps', '.map']) {
+    final tmpFile = File(p.join(workDir, '$tempOutput$ext'));
+    if (tmpFile.existsSync()) {
+      tmpFile.renameSync(p.join(workDir, 'dart_main.js$ext'));
+    }
+  }
 }
 
 Future<void> runNode(
@@ -175,12 +184,22 @@ Future<String> computeJsTypeSupertypes() async {
           ?supertype,
           ...element.interfaces,
         ]..removeWhere((supertype) => supertype.isDartCoreObject);
-        // We should have at most one non-trivial supertype.
-        assert(immediateSupertypes.length <= 1);
-        for (final supertype in immediateSupertypes) {
-          if (isJSType(supertype.element)) {
-            parentJsType = "'${supertype.element.name!}'";
-          }
+        final candidateSupertypes = immediateSupertypes
+            .where((s) => isJSType(s.element))
+            .toList();
+        if (candidateSupertypes.isNotEmpty) {
+          // If there are multiple JS supertypes (e.g., JSObject and
+          // JSIterable), prefer JSObject or a subtype of JSObject to maintain
+          // primary object hierarchy.
+          bool inheritsFromJSObject(InterfaceType type) =>
+              type.element.name == 'JSObject' ||
+              type.allSupertypes.any((t) => t.element.name == 'JSObject');
+
+          final selected = candidateSupertypes.firstWhere(
+            inheritsFromJSObject,
+            orElse: () => candidateSupertypes.first,
+          );
+          parentJsType = "'${selected.element.name!}'";
         }
         // Ensure that the hierarchy forms a tree.
         assert((parentJsType == null) == (name == 'JSAny'));

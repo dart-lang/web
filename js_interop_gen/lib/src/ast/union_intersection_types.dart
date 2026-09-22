@@ -219,10 +219,9 @@ sealed class UnionOrIntersectionDeclaration extends NamedDeclaration
   }) {
     final opts = options;
 
-    final repType = getLowestCommonAncestorOfTypes(
-      types,
-      isNullable: isNullable,
-    );
+    final repType = extendTypes
+        ? getGreatestCommonSubtypeOfTypes(types, isNullable: isNullable)
+        : getLowestCommonAncestorOfTypes(types, isNullable: isNullable);
 
     final extendees = <Type>[];
     if (extendTypes) {
@@ -240,8 +239,8 @@ sealed class UnionOrIntersectionDeclaration extends NamedDeclaration
       } else {
         extendees.addAll(types.map(getJSTypeAlternative));
       }
-    } else {
-      extendees.add(repType);
+    } else if (!repType.isNullable) {
+      extendees.addAll(getCommonSupertypesOfTypes(types));
     }
 
     final memberDeclCount = <String, int>{};
@@ -249,36 +248,25 @@ sealed class UnionOrIntersectionDeclaration extends NamedDeclaration
     final propTypes = <String, List<Type>>{};
 
     for (final e in extendees) {
-      if (e case ReferredType(declaration: final d) when d is TypeDeclaration) {
+      final d = switch (desugarTypeAliases(e)) {
+        ReferredType(declaration: final decl) => decl,
+        DeclarationType(declaration: final decl) => decl,
+        _ => null,
+      };
+      if (d != null) {
         final members = getMemberHierarchy(d, true);
         for (final m in members) {
           memberDeclCount[m] = (memberDeclCount[m] ?? 0) + 1;
 
-          final prop = d.properties.where((p) => p.name == m).firstOrNull;
-          if (prop != null) {
-            propTypes.putIfAbsent(m, () => []).add(prop.type);
-            if (memberDecls[m] == null) memberDecls[m] = prop;
+          final found = findMemberInHierarchy(d, m);
+          if (found != null) {
+            if (found is PropertyDeclaration) {
+              propTypes.putIfAbsent(m, () => []).add(found.type);
+              if (memberDecls[m] == null) memberDecls[m] = found;
+            } else if (found is MethodDeclaration) {
+              if (memberDecls[m] == null) memberDecls[m] = found;
+            }
           }
-
-          final method = d.methods.where((p) => p.name == m).firstOrNull;
-          if (method != null) {
-            if (memberDecls[m] == null) memberDecls[m] = method;
-          }
-        }
-      } else if (e case ObjectLiteralType(
-        properties: final props,
-        methods: final methods,
-      )) {
-        for (final prop in props) {
-          final m = prop.name;
-          memberDeclCount[m] = (memberDeclCount[m] ?? 0) + 1;
-          propTypes.putIfAbsent(m, () => []).add(prop.type);
-          if (memberDecls[m] == null) memberDecls[m] = prop;
-        }
-        for (final method in methods) {
-          final m = method.name;
-          memberDeclCount[m] = (memberDeclCount[m] ?? 0) + 1;
-          if (memberDecls[m] == null) memberDecls[m] = method;
         }
       }
     }
@@ -377,6 +365,18 @@ sealed class UnionOrIntersectionDeclaration extends NamedDeclaration
       }
     }
 
+    final filteredExtendees = extendees
+        .where(
+          (e) => !e.isNullable && isSubtypeOf(repType, getStaticRepType(e)),
+        )
+        .map((e) {
+          final ref = e.emit(options.toTypeOptions());
+          return ref is TypeReference
+              ? ref.rebuild((b) => b..isNullable = false)
+              : ref;
+        })
+        .toList();
+
     return ExtensionType(
       (e) => e
         ..methods.addAll(conflictingMethods)
@@ -389,9 +389,21 @@ sealed class UnionOrIntersectionDeclaration extends NamedDeclaration
               options.toTypeOptions(),
             ),
         )
-        ..implements.addAll(
-          extendees.map((e) => e.emit(options.toTypeOptions())),
-        )
+        ..implements.addAll({
+          if (filteredExtendees.isEmpty) ...{
+            if (!repType.isNullable)
+              refer(
+                isSubtypeOf(
+                      repType,
+                      BuiltinType.primitiveType(PrimitiveType.object),
+                    )
+                    ? 'JSObject'
+                    : 'JSAny',
+                'dart:js_interop',
+              ),
+          } else
+            ...filteredExtendees,
+        })
         ..types.addAll(
           typeParameters.map((t) => t.emit(options.toTypeOptions())),
         )
@@ -404,7 +416,8 @@ sealed class UnionOrIntersectionDeclaration extends NamedDeclaration
               final Expression body;
               final jsAlt = jsTypeAlt;
               final desugared = desugarTypeAliases(t);
-              if (desugarTypeAliases(t) == repType ||
+              if ((desugarTypeAliases(t) == repType &&
+                      (!repType.isNullable || t.isNullable)) ||
                   (jsAlt is NamedType && jsAlt.name == 'JSAny') ||
                   (desugared is NamedType && desugared.name == 'void')) {
                 body = refer('_');

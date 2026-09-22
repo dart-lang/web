@@ -86,21 +86,23 @@ Set<String> getMemberHierarchy(
   bool addDirectMembers = false,
   Set<Declaration>? visited,
 ]) {
+  if (addDirectMembers) {
+    final cacheKey = _getCacheKey(type);
+    if (_memberHierarchyCache.containsKey(cacheKey)) {
+      return _memberHierarchyCache[cacheKey]!;
+    }
+  }
   visited ??= {};
   if (!visited.add(type)) return {};
   final members = <String>{};
 
   void addMembersIfReferredType(Type type) {
     if (type case ReferredType<Declaration>(declaration: final d)) {
-      members.addAll(getMemberHierarchy(d, true, visited));
+      members.addAll(getMemberHierarchy(d, true, {...?visited}));
     }
   }
 
   if (addDirectMembers) {
-    final cacheKey = _getCacheKey(type);
-    if (_memberHierarchyCache.containsKey(cacheKey)) {
-      return _memberHierarchyCache[cacheKey]!;
-    }
     // add direct members
     if (type is TypeDeclaration) {
       members.addAll(type.methods.map((m) => m.name));

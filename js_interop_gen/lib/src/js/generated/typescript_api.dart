@@ -1,9 +1,12 @@
+// ignore_for_file: unintended_html_in_doc_comment, redeclare_on_non_redeclaring_member
+
 // ignore_for_file: camel_case_types, constant_identifier_names
 // ignore_for_file: library_private_types_in_public_api
-// ignore_for_file: lines_longer_than_80_chars, non_constant_identifier_names
-// ignore_for_file: unnecessary_ignore, unnecessary_parenthesis
-
+// ignore_for_file: lines_longer_than_80_chars
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+// ignore_for_file: non_constant_identifier_names, unnecessary_ignore
+// ignore_for_file: unnecessary_parenthesis
+
 import 'dart:js_interop' as _i1;
 
 import 'package:meta/meta.dart' as _i2;
@@ -221,7 +224,7 @@ extension type TSSourceFile._(_i1.JSObject _)
 
   /// lib.d.ts should have a reference comment like
   ///
-  /// /// `<reference no-default-lib="true"/>`
+  /// /// <reference no-default-lib="true"/>
   ///
   /// If any other file has this comment, it signals not to include lib.d.ts
   /// because this containing file is intended to act as a default library.
@@ -268,7 +271,7 @@ extension type TSSourceFile._(_i1.JSObject _)
   external double get pos;
   external double get end;
 }
-typedef AssignmentOperatorToken = Token<AnonymousUnion_5002178>;
+typedef AssignmentOperatorToken = Token<AssignmentOperator>;
 extension type CreateProgramOptions._(_i1.JSObject _) implements _i1.JSObject {
   external _i1.JSArray<_i1.JSString> rootNames;
 
@@ -592,8 +595,8 @@ extension type JsonSourceFile._(_i1.JSObject _) implements TSSourceFile {
   @_i2.redeclare
   external NodeArray<JsonObjectExpressionStatement> get statements;
 }
-extension type NodeArray<T extends _i1.JSObject>._(_i1.JSObject _)
-    implements ReadonlyArray<_i1.JSAny?>, ReadonlyTextRange {
+extension type NodeArray<T extends Node>._(_i1.JSObject _)
+    implements ReadonlyArray<T>, ReadonlyTextRange {
   external bool get hasTrailingComma;
 }
 extension type ReadonlyArray<T extends _i1.JSAny?>._(_i1.JSObject _)
@@ -614,10 +617,10 @@ extension type ReadonlyArray<T extends _i1.JSAny?>._(_i1.JSObject _)
   /// - [items]:  Additional items to add to the end of array1.
   /// - [items]:  Additional items to add to the end of array1.
   external _i1.JSArray<T> concat(
-    _i1.JSArray<ConcatArray<_i1.JSAny?>> items, [
-    _i1.JSArray<ConcatArray<_i1.JSAny?>> items2,
-    _i1.JSArray<ConcatArray<_i1.JSAny?>> items3,
-    _i1.JSArray<ConcatArray<_i1.JSAny?>> items4,
+    _i1.JSArray<ConcatArray<T>> items, [
+    _i1.JSArray<ConcatArray<T>> items2,
+    _i1.JSArray<ConcatArray<T>> items3,
+    _i1.JSArray<ConcatArray<T>> items4,
   ]);
 
   /// Combines two or more arrays.
@@ -625,10 +628,10 @@ extension type ReadonlyArray<T extends _i1.JSAny?>._(_i1.JSObject _)
   /// - [items]:  Additional items to add to the end of array1.
   @_i1.JS('concat')
   external _i1.JSArray<T> concat$1(
-    _i1.JSArray<AnonymousUnion_2526729<_i1.JSAny?>> items, [
-    _i1.JSArray<AnonymousUnion_2526729<_i1.JSAny?>> items2,
-    _i1.JSArray<AnonymousUnion_2526729<_i1.JSAny?>> items3,
-    _i1.JSArray<AnonymousUnion_2526729<_i1.JSAny?>> items4,
+    _i1.JSArray<AnonymousUnion_2526729<T>> items, [
+    _i1.JSArray<AnonymousUnion_2526729<T>> items2,
+    _i1.JSArray<AnonymousUnion_2526729<T>> items3,
+    _i1.JSArray<AnonymousUnion_2526729<T>> items4,
   ]);
 
   /// Adds all the elements of an array separated by the specified separator
@@ -648,13 +651,13 @@ extension type ReadonlyArray<T extends _i1.JSAny?>._(_i1.JSObject _)
   /// - [searchElement]:  The value to locate in the array.
   /// - [fromIndex]:  The array index at which to begin the search. If fromIndex
   ///   is omitted, the search starts at index 0.
-  external double indexOf(_i1.JSAny searchElement, [num? fromIndex]);
+  external double indexOf(T searchElement, [num? fromIndex]);
 
   /// Returns the index of the last occurrence of a specified value in an array.
   /// - [searchElement]:  The value to locate in the array.
   /// - [fromIndex]:  The array index at which to begin the search. If fromIndex
   ///   is omitted, the search starts at the last index in the array.
-  external double lastIndexOf(_i1.JSAny searchElement, [num? fromIndex]);
+  external double lastIndexOf(T searchElement, [num? fromIndex]);
 
   /// Determines whether all the members of an array satisfy the specified test.
   /// - [predicate]:  A function that accepts up to three arguments. The every
@@ -676,7 +679,7 @@ extension type ReadonlyArray<T extends _i1.JSAny?>._(_i1.JSObject _)
   ///   predicate function.
   /// If thisArg is omitted, undefined is used as the this value.
   external bool every<S extends T>(
-    _AnonymousFunction_2988645<_i1.JSAny> predicate, [
+    _AnonymousFunction_2988645<T> predicate, [
     _i1.JSAny? thisArg,
   ]);
 
@@ -701,7 +704,7 @@ extension type ReadonlyArray<T extends _i1.JSAny?>._(_i1.JSObject _)
   /// If thisArg is omitted, undefined is used as the this value.
   @_i1.JS('every')
   external bool every$1(
-    _AnonymousFunction_2657783<_i1.JSAny> predicate, [
+    _AnonymousFunction_2657783<T> predicate, [
     _i1.JSAny? thisArg,
   ]);
 
@@ -717,7 +720,7 @@ extension type ReadonlyArray<T extends _i1.JSAny?>._(_i1.JSObject _)
   ///   predicate function.
   /// If thisArg is omitted, undefined is used as the this value.
   external bool some(
-    _AnonymousFunction_2657783<_i1.JSAny> predicate, [
+    _AnonymousFunction_2657783<T> predicate, [
     _i1.JSAny? thisArg,
   ]);
 
@@ -728,7 +731,7 @@ extension type ReadonlyArray<T extends _i1.JSAny?>._(_i1.JSObject _)
   ///   callbackfn function. If thisArg is omitted, undefined is used as the
   ///   this value.
   external void forEach(
-    _AnonymousFunction_4160480<_i1.JSAny> callbackfn, [
+    _AnonymousFunction_4160480<T> callbackfn, [
     _i1.JSAny? thisArg,
   ]);
 
@@ -741,7 +744,7 @@ extension type ReadonlyArray<T extends _i1.JSAny?>._(_i1.JSObject _)
   ///   callbackfn function. If thisArg is omitted, undefined is used as the
   ///   this value.
   external _i1.JSArray<U> map<U extends _i1.JSAny?>(
-    _AnonymousFunction_2665603<_i1.JSAny, _i1.JSAny> callbackfn, [
+    _AnonymousFunction_2665603<U, T> callbackfn, [
     _i1.JSAny? thisArg,
   ]);
 
@@ -760,7 +763,7 @@ extension type ReadonlyArray<T extends _i1.JSAny?>._(_i1.JSObject _)
   ///   predicate function. If thisArg is omitted, undefined is used as the this
   ///   value.
   external _i1.JSArray<S> filter<S extends T>(
-    _AnonymousFunction_2988645<_i1.JSAny> predicate, [
+    _AnonymousFunction_2988645<T> predicate, [
     _i1.JSAny? thisArg,
   ]);
 
@@ -780,7 +783,7 @@ extension type ReadonlyArray<T extends _i1.JSAny?>._(_i1.JSObject _)
   ///   value.
   @_i1.JS('filter')
   external _i1.JSArray<T> filter$1(
-    _AnonymousFunction_2657783<_i1.JSAny> predicate, [
+    _AnonymousFunction_2657783<T> predicate, [
     _i1.JSAny? thisArg,
   ]);
 
@@ -799,7 +802,7 @@ extension type ReadonlyArray<T extends _i1.JSAny?>._(_i1.JSObject _)
   /// - [initialValue]:  If initialValue is specified, it is used as the initial
   ///   value to start the accumulation. The first call to the callbackfn
   ///   function provides this value as an argument instead of an array value.
-  external T reduce(_AnonymousFunction_3930812<_i1.JSAny> callbackfn);
+  external T reduce(_AnonymousFunction_3930812<T> callbackfn);
 
   /// Calls the specified callback function for all the elements in an array.
   /// The return value of the callback function is the accumulated result, and
@@ -817,10 +820,7 @@ extension type ReadonlyArray<T extends _i1.JSAny?>._(_i1.JSObject _)
   ///   value to start the accumulation. The first call to the callbackfn
   ///   function provides this value as an argument instead of an array value.
   @_i1.JS('reduce')
-  external T reduce$1(
-    _AnonymousFunction_3930812<_i1.JSAny> callbackfn,
-    _i1.JSAny initialValue,
-  );
+  external T reduce$1(_AnonymousFunction_3930812<T> callbackfn, T initialValue);
 
   /// Calls the specified callback function for all the elements in an array.
   /// The return value of the callback function is the accumulated result, and
@@ -839,8 +839,8 @@ extension type ReadonlyArray<T extends _i1.JSAny?>._(_i1.JSObject _)
   ///   function provides this value as an argument instead of an array value.
   @_i1.JS('reduce')
   external U reduce$2<U extends _i1.JSAny?>(
-    _AnonymousFunction_2125744<_i1.JSAny, _i1.JSAny> callbackfn,
-    _i1.JSAny initialValue,
+    _AnonymousFunction_2125744<U, T> callbackfn,
+    U initialValue,
   );
 
   /// Calls the specified callback function for all the elements in an array, in
@@ -859,7 +859,7 @@ extension type ReadonlyArray<T extends _i1.JSAny?>._(_i1.JSObject _)
   /// - [initialValue]:  If initialValue is specified, it is used as the initial
   ///   value to start the accumulation. The first call to the callbackfn
   ///   function provides this value as an argument instead of an array value.
-  external T reduceRight(_AnonymousFunction_3930812<_i1.JSAny> callbackfn);
+  external T reduceRight(_AnonymousFunction_3930812<T> callbackfn);
 
   /// Calls the specified callback function for all the elements in an array, in
   /// descending order. The return value of the callback function is the
@@ -879,8 +879,8 @@ extension type ReadonlyArray<T extends _i1.JSAny?>._(_i1.JSObject _)
   ///   function provides this value as an argument instead of an array value.
   @_i1.JS('reduceRight')
   external T reduceRight$1(
-    _AnonymousFunction_3930812<_i1.JSAny> callbackfn,
-    _i1.JSAny initialValue,
+    _AnonymousFunction_3930812<T> callbackfn,
+    T initialValue,
   );
 
   /// Calls the specified callback function for all the elements in an array, in
@@ -901,11 +901,11 @@ extension type ReadonlyArray<T extends _i1.JSAny?>._(_i1.JSObject _)
   ///   function provides this value as an argument instead of an array value.
   @_i1.JS('reduceRight')
   external U reduceRight$2<U extends _i1.JSAny?>(
-    _AnonymousFunction_2125744<_i1.JSAny, _i1.JSAny> callbackfn,
-    _i1.JSAny initialValue,
+    _AnonymousFunction_2125744<U, T> callbackfn,
+    U initialValue,
   );
   external T operator [](num n);
-  external void operator []=(num n, _i1.JSAny newValue);
+  external void operator []=(num n, T newValue);
 }
 extension type ConcatArray<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
@@ -913,52 +913,47 @@ extension type ConcatArray<T extends _i1.JSAny?>._(_i1.JSObject _)
   external String join([String? separator]);
   external _i1.JSArray<T> slice([num? start, num? end]);
   external T operator [](num n);
-  external void operator []=(num n, _i1.JSAny newValue);
+  external void operator []=(num n, T newValue);
 }
 extension type AnonymousUnion_2526729<T extends _i1.JSAny?>._(_i1.JSAny _)
     implements _i1.JSAny {
   T get asT => (_ as T);
 
-  ConcatArray<_i1.JSAny?> get asConcatArrayOfT =>
-      (_ as ConcatArray<_i1.JSAny?>);
+  ConcatArray<T> get asConcatArrayOfT => (_ as ConcatArray<T>);
 }
 extension type _AnonymousFunction_2988645<T extends _i1.JSAny?>._(
   _i1.JSFunction _
 )
     implements _i1.JSFunction {
-  external bool call(_i1.JSAny value, num index, _i1.JSArray<_i1.JSAny> array);
+  external bool call(T value, num index, _i1.JSArray<T> array);
 }
 extension type _AnonymousFunction_2657783<T extends _i1.JSAny?>._(
   _i1.JSFunction _
 )
     implements _i1.JSFunction {
-  external _i1.JSAny? call(
-    _i1.JSAny value,
-    num index,
-    _i1.JSArray<_i1.JSAny> array,
-  );
+  external _i1.JSAny? call(T value, num index, _i1.JSArray<T> array);
 }
 extension type _AnonymousFunction_4160480<T extends _i1.JSAny?>._(
   _i1.JSFunction _
 )
     implements _i1.JSFunction {
-  external void call(_i1.JSAny value, num index, _i1.JSArray<_i1.JSAny> array);
+  external void call(T value, num index, _i1.JSArray<T> array);
 }
 extension type _AnonymousFunction_2665603<
   U extends _i1.JSAny?,
   T extends _i1.JSAny?
 >._(_i1.JSFunction _) implements _i1.JSFunction {
-  external U call(_i1.JSAny value, num index, _i1.JSArray<_i1.JSAny> array);
+  external U call(T value, num index, _i1.JSArray<T> array);
 }
 extension type _AnonymousFunction_3930812<T extends _i1.JSAny?>._(
   _i1.JSFunction _
 )
     implements _i1.JSFunction {
   external T call(
-    _i1.JSAny previousValue,
-    _i1.JSAny currentValue,
+    T previousValue,
+    T currentValue,
     num currentIndex,
-    _i1.JSArray<_i1.JSAny> array,
+    _i1.JSArray<T> array,
   );
 }
 extension type _AnonymousFunction_2125744<
@@ -966,10 +961,10 @@ extension type _AnonymousFunction_2125744<
   T extends _i1.JSAny?
 >._(_i1.JSFunction _) implements _i1.JSFunction {
   external U call(
-    _i1.JSAny previousValue,
-    _i1.JSAny currentValue,
+    U previousValue,
+    T currentValue,
     num currentIndex,
-    _i1.JSArray<_i1.JSAny> array,
+    _i1.JSArray<T> array,
   );
 }
 extension type ReadonlyTextRange._(_i1.JSObject _) implements _i1.JSObject {
@@ -984,7 +979,7 @@ extension type JsonObjectExpressionStatement._(_i1.JSObject _)
 typedef JsonObjectExpression = AnonymousUnion_2539418;
 extension type ObjectLiteralExpression._(_i1.JSObject _)
     implements
-        ObjectLiteralExpressionBase<AnonymousUnion_4079191>,
+        ObjectLiteralExpressionBase<ObjectLiteralElementLike>,
         JSDocContainer {
   @_i2.redeclare
   external SyntaxKind get kind;
@@ -997,7 +992,7 @@ extension type ObjectLiteralExpression._(_i1.JSObject _)
   @_i2.redeclare
   external double get end;
   @_i2.redeclare
-  external NodeArray<_i1.JSObject> get properties;
+  external NodeArray<Node> get properties;
   @_i1.JS('_primaryExpressionBrand')
   external _i1.JSAny? get $_primaryExpressionBrand;
   @_i1.JS('_primaryExpressionBrand')
@@ -1846,11 +1841,11 @@ extension type SyntaxKind._(_i1.JSNumber _) implements _i1.JSNumber {
 /// hand, can only have properties of type
 /// ObjectLiteralElement (e.g. PropertyAssignment, ShorthandPropertyAssignment
 /// etc.)
-extension type ObjectLiteralExpressionBase<T extends _i1.JSObject>._(
+extension type ObjectLiteralExpressionBase<T extends ObjectLiteralElement>._(
   _i1.JSObject _
 )
     implements PrimaryExpression, Declaration {
-  external NodeArray<_i1.JSObject> get properties;
+  external NodeArray<T> get properties;
   @_i2.redeclare
   external SyntaxKind get kind;
   @_i2.redeclare
@@ -1966,6 +1961,9 @@ extension type Declaration._(_i1.JSObject _) implements Node {
   @_i1.JS('_declarationBrand')
   external _i1.JSAny? $_declarationBrand;
 }
+
+/// Unlike ObjectLiteralElement, excludes JSXAttribute and JSXSpreadAttribute.
+typedef ObjectLiteralElementLike = AnonymousUnion_4079191;
 extension type PropertyAssignment._(_i1.JSObject _)
     implements ObjectLiteralElement, JSDocContainer {
   @_i2.redeclare
@@ -2227,7 +2225,12 @@ extension type AnonymousUnion_2800809._(Node _) implements Node {
 }
 typedef StringLiteralLike = AnonymousUnion_3755859;
 extension type AnonymousUnion_3755859._(_i1.JSObject _)
-    implements _i1.JSObject {
+    implements LiteralExpression, Declaration {
+  external SyntaxKind get kind;
+  external NodeFlags get flags;
+  external Node get parent;
+  external double get pos;
+  external double get end;
   StringLiteral get asStringLiteral => (_ as StringLiteral);
 
   NoSubstitutionTemplateLiteral get asNoSubstitutionTemplateLiteral =>
@@ -2247,7 +2250,7 @@ extension type ElementAccessExpression._(_i1.JSObject _)
 }
 typedef QuestionDotToken = PunctuationToken<_i1.JSNumber>;
 extension type PunctuationToken<TKind extends _i1.JSNumber>._(_i1.JSObject _)
-    implements Token<_i1.JSNumber> {}
+    implements Token<TKind> {}
 extension type Token<TKind extends _i1.JSNumber>._(_i1.JSObject _)
     implements Node {
   @_i2.redeclare
@@ -2287,19 +2290,20 @@ extension type VariableStatement._(_i1.JSObject _)
     implements Statement, FlowContainer {
   @_i2.redeclare
   external SyntaxKind get kind;
-  external NodeArray<AnonymousUnion_4023207>? get modifiers;
+  external NodeArray<ModifierLike>? get modifiers;
   external VariableDeclarationList get declarationList;
   external NodeFlags get flags;
   external Node get parent;
   external double get pos;
   external double get end;
 }
+typedef ModifierLike = AnonymousUnion_4023207;
 typedef Modifier = AnonymousUnion_8635666;
 typedef AbstractKeyword = ModifierToken<_i1.JSNumber>;
 extension type ModifierToken<TKind extends _i1.JSNumber>._(_i1.JSObject _)
-    implements KeywordToken<_i1.JSNumber> {}
+    implements KeywordToken<TKind> {}
 extension type KeywordToken<TKind extends _i1.JSNumber>._(_i1.JSObject _)
-    implements Token<_i1.JSNumber> {}
+    implements Token<TKind> {}
 typedef AccessorKeyword = ModifierToken<_i1.JSNumber>;
 typedef AsyncKeyword = ModifierToken<_i1.JSNumber>;
 typedef ConstKeyword = ModifierToken<_i1.JSNumber>;
@@ -2354,7 +2358,7 @@ extension type Decorator._(_i1.JSObject _) implements Node {
   external LeftHandSideExpression get expression;
 }
 extension type AnonymousUnion_4023207._(Node _) implements Node {
-  Modifier get asModifier => (_ as AnonymousUnion_8635666);
+  Modifier get asModifier => (_ as Modifier);
 
   Decorator get asDecorator => (_ as Decorator);
 }
@@ -2419,7 +2423,12 @@ extension type ForInStatement._(_i1.JSObject _)
   external double get end;
 }
 extension type AnonymousUnion_2107317._(_i1.JSObject _)
-    implements _i1.JSObject {
+    implements Statement, FlowContainer {
+  external SyntaxKind get kind;
+  external NodeFlags get flags;
+  external Node get parent;
+  external double get pos;
+  external double get end;
   VariableStatement get asVariableStatement => (_ as VariableStatement);
 
   ForStatement get asForStatement => (_ as ForStatement);
@@ -2470,7 +2479,7 @@ typedef BindingName = AnonymousUnion_1836642;
 extension type AnonymousUnion_1836642._(Node _) implements Node {
   Identifier get asIdentifier => (_ as Identifier);
 
-  BindingPattern get asBindingPattern => (_ as AnonymousUnion_4353370);
+  BindingPattern get asBindingPattern => (_ as BindingPattern);
 }
 typedef ExclamationToken = PunctuationToken<_i1.JSNumber>;
 extension type TypeNode._(_i1.JSObject _) implements Node {
@@ -2483,7 +2492,7 @@ extension type ParameterDeclaration._(_i1.JSObject _)
   external SyntaxKind get kind;
   @_i2.redeclare
   external SignatureDeclaration get parent;
-  external NodeArray<AnonymousUnion_4023207>? get modifiers;
+  external NodeArray<ModifierLike>? get modifiers;
   external DotDotDotToken? get dotDotDotToken;
   @_i2.redeclare
   external String get name;
@@ -2535,7 +2544,7 @@ extension type TypeParameterDeclaration._(_i1.JSObject _)
   external SyntaxKind get kind;
   @_i2.redeclare
   external AnonymousUnion_2810713 get parent;
-  external NodeArray<AnonymousUnion_8635666>? get modifiers;
+  external NodeArray<Modifier>? get modifiers;
   @_i2.redeclare
   external String get name;
 
@@ -2553,7 +2562,7 @@ extension type ClassDeclaration._(_i1.JSObject _)
     implements ClassLikeDeclarationBase, DeclarationStatement {
   @_i2.redeclare
   external SyntaxKind get kind;
-  external NodeArray<AnonymousUnion_4023207>? get modifiers;
+  external NodeArray<ModifierLike>? get modifiers;
 
   /// May be undefined in `export default class { ... }`.
   @_i2.redeclare
@@ -2604,7 +2613,7 @@ extension type InterfaceDeclaration._(_i1.JSObject _)
     implements DeclarationStatement, JSDocContainer {
   @_i2.redeclare
   external SyntaxKind get kind;
-  external NodeArray<AnonymousUnion_4023207>? get modifiers;
+  external NodeArray<ModifierLike>? get modifiers;
   @_i2.redeclare
   external String get name;
   external NodeArray<TypeParameterDeclaration>? get typeParameters;
@@ -2639,7 +2648,17 @@ extension type DeclarationStatement._(_i1.JSObject _)
   external double get end;
 }
 extension type AnonymousUnion_1561396._(_i1.JSObject _)
-    implements _i1.JSObject {
+    implements PrimaryExpression, Declaration {
+  @_i2.redeclare
+  external SyntaxKind get kind;
+  @_i2.redeclare
+  external NodeFlags get flags;
+  @_i2.redeclare
+  external Node get parent;
+  @_i2.redeclare
+  external double get pos;
+  @_i2.redeclare
+  external double get end;
   Identifier get asIdentifier => (_ as Identifier);
 
   StringLiteral get asStringLiteral => (_ as StringLiteral);
@@ -2652,7 +2671,7 @@ extension type AnonymousUnion_1089822._(JSDocContainer _)
       (_ as InterfaceDeclaration);
 
   ClassLikeDeclaration get asClassLikeDeclaration =>
-      (_ as AnonymousUnion_1983041);
+      (_ as ClassLikeDeclaration);
 }
 extension type ExpressionWithTypeArguments._(_i1.JSObject _)
     implements MemberExpression, NodeWithTypeArguments {
@@ -2682,7 +2701,7 @@ extension type ClassExpression._(_i1.JSObject _)
     implements ClassLikeDeclarationBase, PrimaryExpression {
   @_i2.redeclare
   external SyntaxKind get kind;
-  external NodeArray<AnonymousUnion_4023207>? get modifiers;
+  external NodeArray<ModifierLike>? get modifiers;
   @_i2.redeclare
   external NodeFlags get flags;
   @_i2.redeclare
@@ -2702,7 +2721,7 @@ extension type TypeAliasDeclaration._(_i1.JSObject _)
     implements DeclarationStatement, JSDocContainer, LocalsContainer {
   @_i2.redeclare
   external SyntaxKind get kind;
-  external NodeArray<AnonymousUnion_4023207>? get modifiers;
+  external NodeArray<ModifierLike>? get modifiers;
   @_i2.redeclare
   external String get name;
   external NodeArray<TypeParameterDeclaration>? get typeParameters;
@@ -2723,7 +2742,7 @@ extension type JSDocTemplateTag._(_i1.JSObject _) implements JSDocTag {
   external NodeArray<TypeParameterDeclaration> get typeParameters;
   external AnonymousUnion_1715393 get parent;
   external Identifier get tagName;
-  external AnonymousUnion_6234722? get comment;
+  external AnonymousUnion_6953628? get comment;
   external NodeFlags get flags;
   external double get pos;
   external double get end;
@@ -2737,7 +2756,7 @@ extension type JSDocTag._(_i1.JSObject _) implements Node {
   @_i2.redeclare
   external AnonymousUnion_1715393 get parent;
   external Identifier get tagName;
-  external AnonymousUnion_6234722? get comment;
+  external AnonymousUnion_6953628? get comment;
 }
 extension type JSDoc._(_i1.JSObject _) implements Node {
   @_i2.redeclare
@@ -2745,7 +2764,7 @@ extension type JSDoc._(_i1.JSObject _) implements Node {
   @_i2.redeclare
   external HasJSDoc get parent;
   external NodeArray<JSDocTag>? get tags;
-  external AnonymousUnion_6234722? get comment;
+  external AnonymousUnion_6953628? get comment;
 }
 typedef HasJSDoc = AnonymousUnion_3504332;
 typedef AccessorDeclaration = AnonymousUnion_3939723;
@@ -2762,7 +2781,7 @@ extension type GetAccessorDeclaration._(_i1.JSObject _)
   external SyntaxKind get kind;
   @_i2.redeclare
   external AnonymousUnion_2859850 get parent;
-  external NodeArray<AnonymousUnion_4023207>? get modifiers;
+  external NodeArray<ModifierLike>? get modifiers;
   @_i2.redeclare
   external String get name;
   @_i2.redeclare
@@ -2796,7 +2815,7 @@ extension type TypeLiteralNode._(_i1.JSObject _)
 }
 extension type AnonymousUnion_2859850._(Declaration _) implements Declaration {
   ClassLikeDeclaration get asClassLikeDeclaration =>
-      (_ as AnonymousUnion_1983041);
+      (_ as ClassLikeDeclaration);
 
   ObjectLiteralExpression get asObjectLiteralExpression =>
       (_ as ObjectLiteralExpression);
@@ -2843,7 +2862,7 @@ extension type SetAccessorDeclaration._(_i1.JSObject _)
   external SyntaxKind get kind;
   @_i2.redeclare
   external AnonymousUnion_2859850 get parent;
-  external NodeArray<AnonymousUnion_4023207>? get modifiers;
+  external NodeArray<ModifierLike>? get modifiers;
   @_i2.redeclare
   external String get name;
   @_i2.redeclare
@@ -2862,7 +2881,36 @@ extension type SetAccessorDeclaration._(_i1.JSObject _)
   external set $_jsdocContainerBrand(_i1.JSAny? value);
 }
 extension type AnonymousUnion_3939723._(_i1.JSObject _)
-    implements _i1.JSObject {
+    implements
+        FunctionLikeDeclarationBase,
+        JSDocContainer,
+        ClassElement,
+        TypeElement,
+        ObjectLiteralElement,
+        LocalsContainer,
+        FlowContainer {
+  @_i2.redeclare
+  external QuestionToken? get questionToken;
+  @_i2.redeclare
+  external _i1.JSAny get kind;
+  @_i2.redeclare
+  external String? get name;
+  @_i1.JS('_declarationBrand')
+  external _i1.JSAny? get $_declarationBrand;
+  @_i1.JS('_declarationBrand')
+  external set $_declarationBrand(_i1.JSAny? value);
+  @_i2.redeclare
+  external NodeFlags get flags;
+  @_i2.redeclare
+  external Node get parent;
+  @_i2.redeclare
+  external double get pos;
+  @_i2.redeclare
+  external double get end;
+  @_i1.JS('_jsdocContainerBrand')
+  external _i1.JSAny? get $_jsdocContainerBrand;
+  @_i1.JS('_jsdocContainerBrand')
+  external set $_jsdocContainerBrand(_i1.JSAny? value);
   GetAccessorDeclaration get asGetAccessorDeclaration =>
       (_ as GetAccessorDeclaration);
 
@@ -2878,7 +2926,7 @@ extension type ArrowFunction._(_i1.JSObject _)
         FlowContainer {
   @_i2.redeclare
   external SyntaxKind get kind;
-  external NodeArray<AnonymousUnion_8635666>? get modifiers;
+  external NodeArray<Modifier>? get modifiers;
   external EqualsGreaterThanToken get equalsGreaterThanToken;
   @_i2.redeclare
   external ConciseBody get body;
@@ -2920,7 +2968,8 @@ extension type BinaryExpression._(_i1.JSObject _)
   @_i2.redeclare
   external double get end;
 }
-typedef BinaryOperatorToken = Token<AnonymousUnion_1634575>;
+typedef BinaryOperatorToken = Token<BinaryOperator>;
+typedef BinaryOperator = AnonymousUnion_1634575;
 typedef AssignmentOperatorOrHigher = AnonymousUnion_2736107;
 typedef LogicalOperatorOrHigher = AnonymousUnion_5640664;
 typedef BitwiseOperatorOrHigher = AnonymousUnion_1091477;
@@ -2938,21 +2987,21 @@ extension type AnonymousUnion_3359945._(SyntaxKind _) implements SyntaxKind {
   ExponentiationOperator get asExponentiationOperator => _;
 
   MultiplicativeOperator get asMultiplicativeOperator =>
-      (_ as AnonymousUnion_1288264);
+      (_ as MultiplicativeOperator);
 }
 typedef AdditiveOperator = AnonymousUnion_2480212;
 extension type AnonymousUnion_1669224._(SyntaxKind _) implements SyntaxKind {
   MultiplicativeOperatorOrHigher get asMultiplicativeOperatorOrHigher =>
-      (_ as AnonymousUnion_3359945);
+      (_ as MultiplicativeOperatorOrHigher);
 
-  AdditiveOperator get asAdditiveOperator => (_ as AnonymousUnion_2480212);
+  AdditiveOperator get asAdditiveOperator => (_ as AdditiveOperator);
 }
 typedef ShiftOperator = AnonymousUnion_1288264;
 extension type AnonymousUnion_3427490._(SyntaxKind _) implements SyntaxKind {
   AdditiveOperatorOrHigher get asAdditiveOperatorOrHigher =>
-      (_ as AnonymousUnion_1669224);
+      (_ as AdditiveOperatorOrHigher);
 
-  ShiftOperator get asShiftOperator => (_ as AnonymousUnion_1288264);
+  ShiftOperator get asShiftOperator => (_ as ShiftOperator);
 }
 typedef RelationalOperator = AnonymousUnion_3450588;
 extension type AnonymousUnion_3450588._(SyntaxKind _) implements SyntaxKind {
@@ -2960,9 +3009,9 @@ extension type AnonymousUnion_3450588._(SyntaxKind _) implements SyntaxKind {
 }
 extension type AnonymousUnion_1240369._(SyntaxKind _) implements SyntaxKind {
   ShiftOperatorOrHigher get asShiftOperatorOrHigher =>
-      (_ as AnonymousUnion_3427490);
+      (_ as ShiftOperatorOrHigher);
 
-  RelationalOperator get asRelationalOperator => (_ as AnonymousUnion_3450588);
+  RelationalOperator get asRelationalOperator => (_ as RelationalOperator);
 }
 typedef EqualityOperator = AnonymousUnion_3400339;
 extension type AnonymousUnion_3400339._(SyntaxKind _) implements SyntaxKind {
@@ -2970,23 +3019,23 @@ extension type AnonymousUnion_3400339._(SyntaxKind _) implements SyntaxKind {
 }
 extension type AnonymousUnion_2078874._(SyntaxKind _) implements SyntaxKind {
   RelationalOperatorOrHigher get asRelationalOperatorOrHigher =>
-      (_ as AnonymousUnion_1240369);
+      (_ as RelationalOperatorOrHigher);
 
-  EqualityOperator get asEqualityOperator => (_ as AnonymousUnion_3400339);
+  EqualityOperator get asEqualityOperator => (_ as EqualityOperator);
 }
 typedef BitwiseOperator = AnonymousUnion_1288264;
 extension type AnonymousUnion_1091477._(SyntaxKind _) implements SyntaxKind {
   EqualityOperatorOrHigher get asEqualityOperatorOrHigher =>
-      (_ as AnonymousUnion_2078874);
+      (_ as EqualityOperatorOrHigher);
 
-  BitwiseOperator get asBitwiseOperator => (_ as AnonymousUnion_1288264);
+  BitwiseOperator get asBitwiseOperator => (_ as BitwiseOperator);
 }
 typedef LogicalOperator = AnonymousUnion_2480212;
 extension type AnonymousUnion_5640664._(SyntaxKind _) implements SyntaxKind {
   BitwiseOperatorOrHigher get asBitwiseOperatorOrHigher =>
-      (_ as AnonymousUnion_1091477);
+      (_ as BitwiseOperatorOrHigher);
 
-  LogicalOperator get asLogicalOperator => (_ as AnonymousUnion_2480212);
+  LogicalOperator get asLogicalOperator => (_ as LogicalOperator);
 }
 typedef AssignmentOperator = AnonymousUnion_5002178;
 typedef CompoundAssignmentOperator = AnonymousUnion_1632551;
@@ -2997,19 +3046,19 @@ extension type AnonymousUnion_5002178._(SyntaxKind _) implements SyntaxKind {
   SyntaxKind get asSyntaxKind => _;
 
   CompoundAssignmentOperator get asCompoundAssignmentOperator =>
-      (_ as AnonymousUnion_1632551);
+      (_ as CompoundAssignmentOperator);
 }
 extension type AnonymousUnion_2736107._(SyntaxKind _) implements SyntaxKind {
   SyntaxKind get asSyntaxKind => _;
 
   LogicalOperatorOrHigher get asLogicalOperatorOrHigher =>
-      (_ as AnonymousUnion_5640664);
+      (_ as LogicalOperatorOrHigher);
 
-  AssignmentOperator get asAssignmentOperator => (_ as AnonymousUnion_5002178);
+  AssignmentOperator get asAssignmentOperator => (_ as AssignmentOperator);
 }
 extension type AnonymousUnion_1634575._(SyntaxKind _) implements SyntaxKind {
   AssignmentOperatorOrHigher get asAssignmentOperatorOrHigher =>
-      (_ as AnonymousUnion_2736107);
+      (_ as AssignmentOperatorOrHigher);
 
   SyntaxKind get asSyntaxKind => _;
 }
@@ -3039,7 +3088,7 @@ extension type CaseBlock._(_i1.JSObject _) implements Node, LocalsContainer {
   external SyntaxKind get kind;
   @_i2.redeclare
   external SwitchStatement get parent;
-  external NodeArray<AnonymousUnion_3845700> get clauses;
+  external NodeArray<CaseOrDefaultClause> get clauses;
   external NodeFlags get flags;
   external double get pos;
   external double get end;
@@ -3057,6 +3106,7 @@ extension type SwitchStatement._(_i1.JSObject _)
   external double get pos;
   external double get end;
 }
+typedef CaseOrDefaultClause = AnonymousUnion_3845700;
 extension type DefaultClause._(_i1.JSObject _) implements Node {
   @_i2.redeclare
   external SyntaxKind get kind;
@@ -3090,7 +3140,7 @@ extension type ConstructorDeclaration._(_i1.JSObject _)
   external SyntaxKind get kind;
   @_i2.redeclare
   external ClassLikeDeclaration get parent;
-  external NodeArray<AnonymousUnion_4023207>? get modifiers;
+  external NodeArray<ModifierLike>? get modifiers;
   @_i2.redeclare
   external FunctionBody? get body;
   external String? get name;
@@ -3110,7 +3160,7 @@ extension type ConstructorTypeNode._(_i1.JSObject _)
     implements FunctionOrConstructorTypeNodeBase, LocalsContainer {
   @_i2.redeclare
   external SyntaxKind get kind;
-  external NodeArray<AnonymousUnion_8635666>? get modifiers;
+  external NodeArray<Modifier>? get modifiers;
   @_i2.redeclare
   external NodeFlags get flags;
   @_i2.redeclare
@@ -3212,7 +3262,7 @@ extension type EnumDeclaration._(_i1.JSObject _)
     implements DeclarationStatement, JSDocContainer {
   @_i2.redeclare
   external SyntaxKind get kind;
-  external NodeArray<AnonymousUnion_4023207>? get modifiers;
+  external NodeArray<ModifierLike>? get modifiers;
   @_i2.redeclare
   external String get name;
   external NodeArray<EnumMember> get members;
@@ -3252,7 +3302,7 @@ extension type ExportAssignment._(_i1.JSObject _)
   external SyntaxKind get kind;
   @_i2.redeclare
   external TSSourceFile get parent;
-  external NodeArray<AnonymousUnion_4023207>? get modifiers;
+  external NodeArray<ModifierLike>? get modifiers;
   external bool? get isExportEquals;
   external Expression get expression;
   @_i1.JS('_jsdocContainerBrand')
@@ -3306,7 +3356,7 @@ extension type ModuleKind._(_i1.JSNumber _) implements _i1.JSNumber {
   static final ModuleKind Preserve = ModuleKind._(200.toJS);
 }
 extension type AnonymousUnion_1254180._(ModuleKind? _) {
-  ModuleKind? get asModuleKind => _;
+  ModuleKind get asModuleKind => ModuleKind._((_ as _i1.JSNumber));
 }
 extension type TextRange._(_i1.JSObject _) implements _i1.JSObject {
   external double pos;
@@ -3358,7 +3408,7 @@ extension type ExportDeclaration._(_i1.JSObject _)
   external SyntaxKind get kind;
   @_i2.redeclare
   external AnonymousUnion_5470341 get parent;
-  external NodeArray<AnonymousUnion_4023207>? get modifiers;
+  external NodeArray<ModifierLike>? get modifiers;
   external bool get isTypeOnly;
 
   /// Will not be assigned in the case of `export * from "foo";`
@@ -3395,7 +3445,7 @@ extension type ModuleDeclaration._(_i1.JSObject _)
   external SyntaxKind get kind;
   @_i2.redeclare
   external AnonymousUnion_2735704 get parent;
-  external NodeArray<AnonymousUnion_4023207>? get modifiers;
+  external NodeArray<ModifierLike>? get modifiers;
   @_i2.redeclare
   external String get name;
   external AnonymousUnion_2146786? get body;
@@ -3417,7 +3467,17 @@ extension type NamespaceDeclaration._(_i1.JSObject _)
   external NamespaceBody get body;
 }
 extension type AnonymousUnion_1239975._(_i1.JSObject _)
-    implements _i1.JSObject {
+    implements Node, Statement {
+  @_i2.redeclare
+  external SyntaxKind get kind;
+  @_i2.redeclare
+  external NodeFlags get flags;
+  @_i2.redeclare
+  external Node get parent;
+  @_i2.redeclare
+  external double get pos;
+  @_i2.redeclare
+  external double get end;
   ModuleBlock get asModuleBlock => (_ as ModuleBlock);
 
   NamespaceDeclaration get asNamespaceDeclaration =>
@@ -3432,34 +3492,73 @@ extension type JSDocNamespaceDeclaration._(_i1.JSObject _)
   external JSDocNamespaceBody? get body;
 }
 extension type AnonymousUnion_2853000._(_i1.JSObject _)
-    implements _i1.JSObject {
+    implements Declaration, JSDocContainer {
+  @_i2.redeclare
+  external SyntaxKind get kind;
+  @_i2.redeclare
+  external NodeFlags get flags;
+  @_i2.redeclare
+  external Node get parent;
+  @_i2.redeclare
+  external double get pos;
+  @_i2.redeclare
+  external double get end;
   Identifier get asIdentifier => (_ as Identifier);
 
   JSDocNamespaceDeclaration get asJSDocNamespaceDeclaration =>
       (_ as JSDocNamespaceDeclaration);
 }
 extension type AnonymousUnion_3753633._(_i1.JSObject _)
-    implements _i1.JSObject {
-  NamespaceBody get asNamespaceBody => (_ as AnonymousUnion_1239975);
+    implements Node, JSDocContainer {
+  @_i2.redeclare
+  external SyntaxKind get kind;
+  @_i2.redeclare
+  external NodeFlags get flags;
+  @_i2.redeclare
+  external Node get parent;
+  @_i2.redeclare
+  external double get pos;
+  @_i2.redeclare
+  external double get end;
+  NamespaceBody get asNamespaceBody => (_ as NamespaceBody);
 
-  JSDocNamespaceBody get asJSDocNamespaceBody => (_ as AnonymousUnion_2853000);
+  JSDocNamespaceBody get asJSDocNamespaceBody => (_ as JSDocNamespaceBody);
 }
-extension type AnonymousUnion_2735704._(_i1.JSObject _)
-    implements _i1.JSObject {
-  ModuleBody get asModuleBody => (_ as AnonymousUnion_3753633);
+extension type AnonymousUnion_2735704._(Node _) implements Node {
+  ModuleBody get asModuleBody => (_ as ModuleBody);
 
   TSSourceFile get asTSSourceFile => (_ as TSSourceFile);
 }
 typedef ModuleName = AnonymousUnion_2208724;
 extension type AnonymousUnion_2208724._(_i1.JSObject _)
-    implements _i1.JSObject {
+    implements PrimaryExpression, Declaration {
+  @_i2.redeclare
+  external SyntaxKind get kind;
+  @_i2.redeclare
+  external NodeFlags get flags;
+  @_i2.redeclare
+  external Node get parent;
+  @_i2.redeclare
+  external double get pos;
+  @_i2.redeclare
+  external double get end;
   Identifier get asIdentifier => (_ as Identifier);
 
   StringLiteral get asStringLiteral => (_ as StringLiteral);
 }
 extension type AnonymousUnion_2146786._(_i1.JSObject _)
-    implements _i1.JSObject {
-  ModuleBody get asModuleBody => (_ as AnonymousUnion_3753633);
+    implements Node, JSDocContainer {
+  @_i2.redeclare
+  external SyntaxKind get kind;
+  @_i2.redeclare
+  external NodeFlags get flags;
+  @_i2.redeclare
+  external Node get parent;
+  @_i2.redeclare
+  external double get pos;
+  @_i2.redeclare
+  external double get end;
+  ModuleBody get asModuleBody => (_ as ModuleBody);
 
   JSDocNamespaceDeclaration get asJSDocNamespaceDeclaration =>
       (_ as JSDocNamespaceDeclaration);
@@ -3537,7 +3636,7 @@ extension type ImportDeclaration._(_i1.JSObject _) implements Statement {
   external SyntaxKind get kind;
   @_i2.redeclare
   external AnonymousUnion_5470341 get parent;
-  external NodeArray<AnonymousUnion_4023207>? get modifiers;
+  external NodeArray<ModifierLike>? get modifiers;
   external ImportClause? get importClause;
 
   /// If this is not a StringLiteral it will be a grammar error.
@@ -3607,7 +3706,16 @@ extension type AnonymousUnion_2196925._(Node _) implements Node {
   NamedImports get asNamedImports => (_ as NamedImports);
 }
 extension type AnonymousUnion_3234897._(_i1.JSObject _)
-    implements _i1.JSObject {
+    implements Statement, JSDocContainer {
+  external SyntaxKind get kind;
+  external NodeFlags get flags;
+  external Node get parent;
+  external double get pos;
+  external double get end;
+  @_i1.JS('_jsdocContainerBrand')
+  external _i1.JSAny? get $_jsdocContainerBrand;
+  @_i1.JS('_jsdocContainerBrand')
+  external set $_jsdocContainerBrand(_i1.JSAny? value);
   ImportDeclaration get asImportDeclaration => (_ as ImportDeclaration);
 
   ExportDeclaration get asExportDeclaration => (_ as ExportDeclaration);
@@ -3638,7 +3746,7 @@ extension type FunctionDeclaration._(_i1.JSObject _)
         LocalsContainer {
   @_i2.redeclare
   external SyntaxKind get kind;
-  external NodeArray<AnonymousUnion_4023207>? get modifiers;
+  external NodeArray<ModifierLike>? get modifiers;
   @_i2.redeclare
   external String? get name;
   @_i2.redeclare
@@ -3665,7 +3773,7 @@ extension type FunctionExpression._(_i1.JSObject _)
         FlowContainer {
   @_i2.redeclare
   external SyntaxKind get kind;
-  external NodeArray<AnonymousUnion_8635666>? get modifiers;
+  external NodeArray<Modifier>? get modifiers;
   @_i2.redeclare
   external String? get name;
   @_i2.redeclare
@@ -3722,7 +3830,7 @@ extension type ImportEqualsDeclaration._(_i1.JSObject _)
   external SyntaxKind get kind;
   @_i2.redeclare
   external AnonymousUnion_5470341 get parent;
-  external NodeArray<AnonymousUnion_4023207>? get modifiers;
+  external NodeArray<ModifierLike>? get modifiers;
   @_i2.redeclare
   external String get name;
   external bool get isTypeOnly;
@@ -3748,7 +3856,12 @@ extension type QualifiedName._(_i1.JSObject _) implements Node, FlowContainer {
   external double get end;
 }
 extension type AnonymousUnion_4911331._(_i1.JSObject _)
-    implements _i1.JSObject {
+    implements Node, FlowContainer {
+  external SyntaxKind get kind;
+  external NodeFlags get flags;
+  external Node get parent;
+  external double get pos;
+  external double get end;
   Identifier get asIdentifier => (_ as Identifier);
 
   QualifiedName get asQualifiedName => (_ as QualifiedName);
@@ -3760,9 +3873,8 @@ extension type ExternalModuleReference._(_i1.JSObject _) implements Node {
   external ImportEqualsDeclaration get parent;
   external Expression get expression;
 }
-extension type AnonymousUnion_2461007._(_i1.JSObject _)
-    implements _i1.JSObject {
-  EntityName get asEntityName => (_ as AnonymousUnion_4911331);
+extension type AnonymousUnion_2461007._(Node _) implements Node {
+  EntityName get asEntityName => (_ as EntityName);
 
   ExternalModuleReference get asExternalModuleReference =>
       (_ as ExternalModuleReference);
@@ -3777,7 +3889,7 @@ extension type IndexSignatureDeclaration._(_i1.JSObject _)
   external SyntaxKind get kind;
   @_i2.redeclare
   external ObjectTypeDeclaration get parent;
-  external NodeArray<AnonymousUnion_4023207>? get modifiers;
+  external NodeArray<ModifierLike>? get modifiers;
   @_i2.redeclare
   external String get type;
   external String? get name;
@@ -3792,7 +3904,7 @@ extension type IndexSignatureDeclaration._(_i1.JSObject _)
 typedef ObjectTypeDeclaration = AnonymousUnion_3544669;
 extension type AnonymousUnion_3544669._(Declaration _) implements Declaration {
   ClassLikeDeclaration get asClassLikeDeclaration =>
-      (_ as AnonymousUnion_1983041);
+      (_ as ClassLikeDeclaration);
 
   InterfaceDeclaration get asInterfaceDeclaration =>
       (_ as InterfaceDeclaration);
@@ -3881,7 +3993,7 @@ extension type MethodDeclaration._(_i1.JSObject _)
   external SyntaxKind get kind;
   @_i2.redeclare
   external AnonymousUnion_3324225 get parent;
-  external NodeArray<AnonymousUnion_4023207>? get modifiers;
+  external NodeArray<ModifierLike>? get modifiers;
   @_i2.redeclare
   external String get name;
   @_i2.redeclare
@@ -3901,7 +4013,7 @@ extension type MethodDeclaration._(_i1.JSObject _)
 extension type AnonymousUnion_3324225._(JSDocContainer _)
     implements JSDocContainer {
   ClassLikeDeclaration get asClassLikeDeclaration =>
-      (_ as AnonymousUnion_1983041);
+      (_ as ClassLikeDeclaration);
 
   ObjectLiteralExpression get asObjectLiteralExpression =>
       (_ as ObjectLiteralExpression);
@@ -3912,7 +4024,7 @@ extension type MethodSignature._(_i1.JSObject _)
   external SyntaxKind get kind;
   @_i2.redeclare
   external AnonymousUnion_4794774 get parent;
-  external NodeArray<AnonymousUnion_8635666>? get modifiers;
+  external NodeArray<Modifier>? get modifiers;
   @_i2.redeclare
   external String get name;
   @_i1.JS('_declarationBrand')
@@ -4008,7 +4120,7 @@ extension type PropertyDeclaration._(_i1.JSObject _)
   external SyntaxKind get kind;
   @_i2.redeclare
   external ClassLikeDeclaration get parent;
-  external NodeArray<AnonymousUnion_4023207>? get modifiers;
+  external NodeArray<ModifierLike>? get modifiers;
   @_i2.redeclare
   external String get name;
   external QuestionToken? get questionToken;
@@ -4028,7 +4140,7 @@ extension type PropertySignature._(_i1.JSObject _)
   external SyntaxKind get kind;
   @_i2.redeclare
   external AnonymousUnion_4794774 get parent;
-  external NodeArray<AnonymousUnion_8635666>? get modifiers;
+  external NodeArray<Modifier>? get modifiers;
   @_i2.redeclare
   external String get name;
   @_i2.redeclare
@@ -4122,9 +4234,13 @@ extension type WithStatement._(_i1.JSObject _)
   external double get end;
 }
 extension type AnonymousUnion_3504332._(_i1.JSObject _)
-    implements _i1.JSObject {
-  AccessorDeclaration get asAccessorDeclaration =>
-      (_ as AnonymousUnion_3939723);
+    implements Node, JSDocContainer {
+  external SyntaxKind get kind;
+  external NodeFlags get flags;
+  external Node get parent;
+  external double get pos;
+  external double get end;
+  AccessorDeclaration get asAccessorDeclaration => (_ as AccessorDeclaration);
 
   ArrowFunction get asArrowFunction => (_ as ArrowFunction);
 
@@ -4140,7 +4256,7 @@ extension type AnonymousUnion_3504332._(_i1.JSObject _)
   CaseClause get asCaseClause => (_ as CaseClause);
 
   ClassLikeDeclaration get asClassLikeDeclaration =>
-      (_ as AnonymousUnion_1983041);
+      (_ as ClassLikeDeclaration);
 
   ClassStaticBlockDeclaration get asClassStaticBlockDeclaration =>
       (_ as ClassStaticBlockDeclaration);
@@ -4164,7 +4280,7 @@ extension type AnonymousUnion_3504332._(_i1.JSObject _)
 
   EmptyStatement get asEmptyStatement => (_ as EmptyStatement);
 
-  EndOfFileToken get asEndOfFileToken => (_ as AnonymousIntersection_3694461);
+  EndOfFileToken get asEndOfFileToken => (_ as EndOfFileToken);
 
   EnumDeclaration get asEnumDeclaration => (_ as EnumDeclaration);
 
@@ -4270,6 +4386,7 @@ extension type AnonymousUnion_3504332._(_i1.JSObject _)
 
   WithStatement get asWithStatement => (_ as WithStatement);
 }
+typedef JSDocComment = AnonymousUnion_8610416;
 extension type JSDocText._(_i1.JSObject _) implements Node {
   external String text;
 
@@ -4291,9 +4408,8 @@ extension type JSDocMemberName._(_i1.JSObject _) implements Node {
   external AnonymousUnion_2264832 get left;
   external Identifier get right;
 }
-extension type AnonymousUnion_2264832._(_i1.JSObject _)
-    implements _i1.JSObject {
-  EntityName get asEntityName => (_ as AnonymousUnion_4911331);
+extension type AnonymousUnion_2264832._(Node _) implements Node {
+  EntityName get asEntityName => (_ as EntityName);
 
   JSDocMemberName get asJSDocMemberName => (_ as JSDocMemberName);
 }
@@ -4320,11 +4436,11 @@ extension type AnonymousUnion_8610416._(Node _) implements Node {
 
   JSDocLinkPlain get asJSDocLinkPlain => (_ as JSDocLinkPlain);
 }
-extension type AnonymousUnion_6234722._(_i1.JSAny _) implements _i1.JSAny {
+extension type AnonymousUnion_6953628._(_i1.JSAny _) implements _i1.JSAny {
   String get asString => (_ as _i1.JSString).toDart;
 
-  NodeArray<AnonymousUnion_8610416> get asNodeArrayOfAnonymousUnion_8610416 =>
-      (_ as NodeArray<AnonymousUnion_8610416>);
+  NodeArray<JSDocComment> get asNodeArrayOfJSDocComment =>
+      (_ as NodeArray<JSDocComment>);
 }
 extension type JSDocTypeLiteral._(_i1.JSObject _)
     implements JSDocType, Declaration {
@@ -4344,13 +4460,12 @@ extension type AnonymousUnion_1715393._(Node _) implements Node {
 
   JSDocTypeLiteral get asJSDocTypeLiteral => (_ as JSDocTypeLiteral);
 }
-extension type AnonymousUnion_7027864._(_i1.JSObject _)
-    implements _i1.JSObject {
+extension type AnonymousUnion_7027864._(Node _) implements Node {
   SignatureDeclaration get asSignatureDeclaration =>
-      (_ as AnonymousUnion_2968490);
+      (_ as SignatureDeclaration);
 
   ClassLikeDeclaration get asClassLikeDeclaration =>
-      (_ as AnonymousUnion_1983041);
+      (_ as ClassLikeDeclaration);
 
   InterfaceDeclaration get asInterfaceDeclaration =>
       (_ as InterfaceDeclaration);
@@ -4365,15 +4480,24 @@ extension type InferTypeNode._(_i1.JSObject _) implements TypeNode {
   external SyntaxKind get kind;
   external TypeParameterDeclaration get typeParameter;
 }
-extension type AnonymousUnion_2810713._(_i1.JSObject _)
-    implements _i1.JSObject {
+extension type AnonymousUnion_2810713._(Node _) implements Node {
   DeclarationWithTypeParameterChildren
-  get asDeclarationWithTypeParameterChildren => (_ as AnonymousUnion_7027864);
+  get asDeclarationWithTypeParameterChildren =>
+      (_ as DeclarationWithTypeParameterChildren);
 
   InferTypeNode get asInferTypeNode => (_ as InferTypeNode);
 }
 extension type AnonymousUnion_2968490._(_i1.JSObject _)
-    implements _i1.JSObject {
+    implements SignatureDeclarationBase, JSDocContainer, LocalsContainer {
+  external _i1.JSAny get kind;
+  external NodeFlags get flags;
+  external Node get parent;
+  external double get pos;
+  external double get end;
+  @_i1.JS('_jsdocContainerBrand')
+  external _i1.JSAny? get $_jsdocContainerBrand;
+  @_i1.JS('_jsdocContainerBrand')
+  external set $_jsdocContainerBrand(_i1.JSAny? value);
   CallSignatureDeclaration get asCallSignatureDeclaration =>
       (_ as CallSignatureDeclaration);
 
@@ -4398,8 +4522,7 @@ extension type AnonymousUnion_2968490._(_i1.JSObject _)
   ConstructorDeclaration get asConstructorDeclaration =>
       (_ as ConstructorDeclaration);
 
-  AccessorDeclaration get asAccessorDeclaration =>
-      (_ as AnonymousUnion_3939723);
+  AccessorDeclaration get asAccessorDeclaration => (_ as AccessorDeclaration);
 
   FunctionExpression get asFunctionExpression => (_ as FunctionExpression);
 
@@ -4435,8 +4558,9 @@ extension type ArrayBindingPattern._(_i1.JSObject _) implements Node {
   external SyntaxKind get kind;
   @_i2.redeclare
   external AnonymousUnion_2419982 get parent;
-  external NodeArray<AnonymousUnion_2404920> get elements;
+  external NodeArray<ArrayBindingElement> get elements;
 }
+typedef ArrayBindingElement = AnonymousUnion_2404920;
 extension type OmittedExpression._(_i1.JSObject _) implements Expression {
   @_i2.redeclare
   external SyntaxKind get kind;
@@ -4467,30 +4591,49 @@ extension type PropertyAccessEntityNameExpression._(_i1.JSObject _)
   external String get name;
 }
 extension type AnonymousUnion_2262749._(_i1.JSObject _)
-    implements _i1.JSObject {
+    implements Declaration, JSDocContainer, FlowContainer {
+  @_i2.redeclare
+  external SyntaxKind get kind;
+  @_i2.redeclare
+  external NodeFlags get flags;
+  @_i2.redeclare
+  external Node get parent;
+  @_i2.redeclare
+  external double get pos;
+  @_i2.redeclare
+  external double get end;
   Identifier get asIdentifier => (_ as Identifier);
 
   PropertyAccessEntityNameExpression get asPropertyAccessEntityNameExpression =>
       (_ as PropertyAccessEntityNameExpression);
 }
-extension type AnonymousUnion_2961058._(_i1.JSObject _)
-    implements _i1.JSObject {
-  PropertyName get asPropertyName => (_ as AnonymousUnion_5805531);
+extension type AnonymousUnion_2961058._(Node _) implements Node {
+  PropertyName get asPropertyName => (_ as PropertyName);
 
-  JsxAttributeName get asJsxAttributeName => (_ as AnonymousUnion_2800809);
+  JsxAttributeName get asJsxAttributeName => (_ as JsxAttributeName);
 
-  StringLiteralLike get asStringLiteralLike => (_ as AnonymousUnion_3755859);
+  StringLiteralLike get asStringLiteralLike => (_ as StringLiteralLike);
 
   ElementAccessExpression get asElementAccessExpression =>
       (_ as ElementAccessExpression);
 
-  BindingPattern get asBindingPattern => (_ as AnonymousUnion_4353370);
+  BindingPattern get asBindingPattern => (_ as BindingPattern);
 
   EntityNameExpression get asEntityNameExpression =>
-      (_ as AnonymousUnion_2262749);
+      (_ as EntityNameExpression);
 }
 extension type AnonymousUnion_4079191._(_i1.JSObject _)
-    implements _i1.JSObject {
+    implements ObjectLiteralElement, JSDocContainer {
+  @_i2.redeclare
+  external SyntaxKind get kind;
+  @_i2.redeclare
+  external NodeFlags get flags;
+  @_i2.redeclare
+  external Node get parent;
+  @_i2.redeclare
+  external double get pos;
+  @_i2.redeclare
+  external double get end;
   PropertyAssignment get asPropertyAssignment => (_ as PropertyAssignment);
 
   ShorthandPropertyAssignment get asShorthandPropertyAssignment =>
@@ -4500,8 +4643,7 @@ extension type AnonymousUnion_4079191._(_i1.JSObject _)
 
   MethodDeclaration get asMethodDeclaration => (_ as MethodDeclaration);
 
-  AccessorDeclaration get asAccessorDeclaration =>
-      (_ as AnonymousUnion_3939723);
+  AccessorDeclaration get asAccessorDeclaration => (_ as AccessorDeclaration);
 }
 extension type ArrayLiteralExpression._(_i1.JSObject _)
     implements PrimaryExpression {
@@ -4547,7 +4689,17 @@ extension type NullLiteral._(_i1.JSObject _) implements PrimaryExpression {
   external SyntaxKind get kind;
 }
 extension type AnonymousUnion_2539418._(_i1.JSObject _)
-    implements _i1.JSObject {
+    implements UpdateExpression, Node {
+  @_i2.redeclare
+  external SyntaxKind get kind;
+  @_i2.redeclare
+  external NodeFlags get flags;
+  @_i2.redeclare
+  external Node get parent;
+  @_i2.redeclare
+  external double get pos;
+  @_i2.redeclare
+  external double get end;
   ObjectLiteralExpression get asObjectLiteralExpression =>
       (_ as ObjectLiteralExpression);
 
@@ -4561,13 +4713,13 @@ extension type AnonymousUnion_2539418._(_i1.JSObject _)
 
   StringLiteral get asStringLiteral => (_ as StringLiteral);
 
-  BooleanLiteral get asBooleanLiteral => (_ as AnonymousUnion_2412593);
+  BooleanLiteral get asBooleanLiteral => (_ as BooleanLiteral);
 
   NullLiteral get asNullLiteral => (_ as NullLiteral);
 }
 extension type AnonymousUnion_1307295._(_i1.JSAny _) implements _i1.JSAny {
   CompilerOptionsValue get asCompilerOptionsValue =>
-      (_ as AnonymousUnion_1592685?);
+      (_ as CompilerOptionsValue);
 
   TsConfigSourceFile get asTsConfigSourceFile => (_ as TsConfigSourceFile);
 }
@@ -4959,7 +5111,7 @@ extension type PerDirectoryResolutionCache<T extends _i1.JSAny?>._(
     String directoryName,
     ResolvedProjectReference? redirectedReference,
   );
-  external ModeAwareCache<_i1.JSAny?> getOrCreateCacheForDirectory(
+  external ModeAwareCache<T> getOrCreateCacheForDirectory(
     String directoryName, [
     ResolvedProjectReference? redirectedReference,
   ]);
@@ -4975,21 +5127,17 @@ extension type ModeAwareCache<T extends _i1.JSAny?>._(_i1.JSObject _)
   @_i1.JS('get')
   external T? get$(String key, ResolutionMode mode);
   @_i1.JS('set')
-  external ModeAwareCache<_i1.JSAny?> set$(
-    String key,
-    ResolutionMode mode,
-    _i1.JSAny value,
-  );
-  external ModeAwareCache<_i1.JSAny?> delete(String key, ResolutionMode mode);
+  external ModeAwareCache<T> set$(String key, ResolutionMode mode, T value);
+  external ModeAwareCache<T> delete(String key, ResolutionMode mode);
   external bool has(String key, ResolutionMode mode);
-  external void forEach(_AnonymousFunction_4156650<_i1.JSAny> cb);
+  external void forEach(_AnonymousFunction_4156650<T> cb);
   external double size();
 }
 extension type _AnonymousFunction_4156650<T extends _i1.JSAny?>._(
   _i1.JSFunction _
 )
     implements _i1.JSFunction {
-  external void call(_i1.JSAny elem, String key, ResolutionMode mode);
+  external void call(T elem, String key, ResolutionMode mode);
 }
 extension type ResolvedModuleWithFailedLookupLocations._(_i1.JSObject _)
     implements _i1.JSObject {
@@ -5050,7 +5198,7 @@ extension type PerNonRelativeNameCache<T extends _i1.JSAny?>._(_i1.JSObject _)
   @_i1.JS('get')
   external T? get$(String directory);
   @_i1.JS('set')
-  external void set$(String directory, _i1.JSAny result);
+  external void set$(String directory, T result);
 }
 extension type NonRelativeNameResolutionCache<T extends _i1.JSAny?>._(
   _i1.JSObject _
@@ -5062,8 +5210,7 @@ extension type NonRelativeNameResolutionCache<T extends _i1.JSAny?>._(
     String directoryName,
     ResolvedProjectReference? redirectedReference,
   );
-  external PerNonRelativeNameCache<_i1.JSAny?>
-  getOrCreateCacheForNonRelativeName(
+  external PerNonRelativeNameCache<T> getOrCreateCacheForNonRelativeName(
     String nonRelativeName,
     ResolutionMode mode, [
     ResolvedProjectReference? redirectedReference,
@@ -5155,13 +5302,10 @@ extension type CustomTransformers._(_i1.JSObject _) implements _i1.JSObject {
 /// A function that is used to initialize and return a `Transformer` callback,
 /// which in turn
 /// will be used to transform one or more nodes.
-typedef TransformerFactory<T extends _i1.JSObject> =
-    _AnonymousFunction_3793676<T>;
-extension type _AnonymousFunction_3793676<T extends _i1.JSObject>._(
-  _i1.JSFunction _
-)
+typedef TransformerFactory<T extends Node> = _AnonymousFunction_3793676<T>;
+extension type _AnonymousFunction_3793676<T extends Node>._(_i1.JSFunction _)
     implements _i1.JSFunction {
-  external Transformer<_i1.JSObject> call(TransformationContext context);
+  external Transformer<T> call(TransformationContext context);
 }
 extension type TransformationContext._(_i1.JSObject _)
     implements CoreTransformationContext {
@@ -5185,7 +5329,7 @@ extension type TransformationContext._(_i1.JSObject _)
   external void requestEmitHelper(EmitHelper helper);
 
   /// Gets and resets the requested non-scoped emit helpers.
-  external _i1.JSArray<AnonymousUnion_4030589>? readEmitHelpers();
+  external _i1.JSArray<EmitHelper>? readEmitHelpers();
 
   /// Enables expression substitutions in the pretty printer for the provided
   /// SyntaxKind.
@@ -5215,7 +5359,7 @@ extension type EmitHelperBase._(_i1.JSObject _) implements _i1.JSObject {
   external bool get scoped;
   external AnonymousUnion_3528961 get text;
   external double? get priority;
-  external _i1.JSArray<AnonymousUnion_4030589?>? get dependencies;
+  external _i1.JSArray<EmitHelper?>? get dependencies;
 }
 extension type _AnonymousFunction_4279507._(_i1.JSFunction _)
     implements _i1.JSFunction {
@@ -5306,8 +5450,8 @@ extension type CoreTransformationContext._(_i1.JSObject _)
   external void hoistVariableDeclaration(Identifier node);
 }
 extension type NodeFactory._(_i1.JSObject _) implements _i1.JSObject {
-  external NodeArray<_i1.JSObject> createNodeArray<T extends _i1.JSObject>([
-    _i1.JSArray<_i1.JSAny?>? elements,
+  external NodeArray<T> createNodeArray<T extends Node>([
+    _i1.JSArray<T?>? elements,
     bool? hasTrailingComma,
   ]);
   external NumericLiteral createNumericLiteral(
@@ -5378,27 +5522,30 @@ extension type NodeFactory._(_i1.JSObject _) implements _i1.JSObject {
   @_i1.JS('createToken')
   external Token<_i1.JSNumber> createToken$6(SyntaxKind token);
   @_i1.JS('createToken')
-  external PunctuationToken<_i1.JSNumber>
-  createToken$7<TKind extends _i1.JSNumber>(_i1.JSAny token);
+  external PunctuationToken<TKind> createToken$7<TKind extends _i1.JSNumber>(
+    TKind token,
+  );
   @_i1.JS('createToken')
-  external KeywordTypeNode<_i1.JSNumber>
-  createToken$8<TKind extends _i1.JSNumber>(_i1.JSAny token);
+  external KeywordTypeNode<TKind> createToken$8<TKind extends _i1.JSNumber>(
+    TKind token,
+  );
   @_i1.JS('createToken')
-  external ModifierToken<_i1.JSNumber>
-  createToken$9<TKind extends _i1.JSNumber>(_i1.JSAny token);
+  external ModifierToken<TKind> createToken$9<TKind extends _i1.JSNumber>(
+    TKind token,
+  );
   @_i1.JS('createToken')
-  external KeywordToken<_i1.JSNumber>
-  createToken$10<TKind extends _i1.JSNumber>(_i1.JSAny token);
+  external KeywordToken<TKind> createToken$10<TKind extends _i1.JSNumber>(
+    TKind token,
+  );
   external SuperExpression createSuper();
   external ThisExpression createThis();
   external NullLiteral createNull();
   external TrueLiteral createTrue();
   external FalseLiteral createFalse();
-  external ModifierToken<_i1.JSNumber> createModifier<T extends _i1.JSNumber>(
-    _i1.JSAny kind,
+  external ModifierToken<T> createModifier<T extends _i1.JSNumber>(T kind);
+  external _i1.JSArray<Modifier>? createModifiersFromModifierFlags(
+    ModifierFlags flags,
   );
-  external _i1.JSArray<AnonymousUnion_8635666>?
-  createModifiersFromModifierFlags(ModifierFlags flags);
   external QualifiedName createQualifiedName(
     EntityName left,
     AnonymousUnion_1309070 right,
@@ -5416,20 +5563,20 @@ extension type NodeFactory._(_i1.JSObject _) implements _i1.JSObject {
     Expression expression,
   );
   external TypeParameterDeclaration createTypeParameterDeclaration(
-    _i1.JSArray<AnonymousUnion_8635666>? modifiers,
+    _i1.JSArray<Modifier>? modifiers,
     AnonymousUnion_1309070 name, [
     TypeNode? constraint,
     TypeNode? defaultType,
   ]);
   external TypeParameterDeclaration updateTypeParameterDeclaration(
     TypeParameterDeclaration node,
-    _i1.JSArray<AnonymousUnion_8635666>? modifiers,
+    _i1.JSArray<Modifier>? modifiers,
     Identifier name,
     TypeNode? constraint,
     TypeNode? defaultType,
   );
   external ParameterDeclaration createParameterDeclaration(
-    _i1.JSArray<AnonymousUnion_4023207>? modifiers,
+    _i1.JSArray<ModifierLike>? modifiers,
     DotDotDotToken? dotDotDotToken,
     AnonymousUnion_3855707 name, [
     QuestionToken? questionToken,
@@ -5438,7 +5585,7 @@ extension type NodeFactory._(_i1.JSObject _) implements _i1.JSObject {
   ]);
   external ParameterDeclaration updateParameterDeclaration(
     ParameterDeclaration node,
-    _i1.JSArray<AnonymousUnion_4023207>? modifiers,
+    _i1.JSArray<ModifierLike>? modifiers,
     DotDotDotToken? dotDotDotToken,
     AnonymousUnion_3855707 name,
     QuestionToken? questionToken,
@@ -5448,20 +5595,20 @@ extension type NodeFactory._(_i1.JSObject _) implements _i1.JSObject {
   external Decorator createDecorator(Expression expression);
   external Decorator updateDecorator(Decorator node, Expression expression);
   external PropertySignature createPropertySignature(
-    _i1.JSArray<AnonymousUnion_8635666>? modifiers,
+    _i1.JSArray<Modifier>? modifiers,
     AnonymousUnion_1821232 name,
     QuestionToken? questionToken,
     TypeNode? type,
   );
   external PropertySignature updatePropertySignature(
     PropertySignature node,
-    _i1.JSArray<AnonymousUnion_8635666>? modifiers,
+    _i1.JSArray<Modifier>? modifiers,
     PropertyName name,
     QuestionToken? questionToken,
     TypeNode? type,
   );
   external PropertyDeclaration createPropertyDeclaration(
-    _i1.JSArray<AnonymousUnion_4023207>? modifiers,
+    _i1.JSArray<ModifierLike>? modifiers,
     AnonymousUnion_1821232 name,
     AnonymousUnion_2547692 questionOrExclamationToken,
     TypeNode? type,
@@ -5469,14 +5616,14 @@ extension type NodeFactory._(_i1.JSObject _) implements _i1.JSObject {
   );
   external PropertyDeclaration updatePropertyDeclaration(
     PropertyDeclaration node,
-    _i1.JSArray<AnonymousUnion_4023207>? modifiers,
+    _i1.JSArray<ModifierLike>? modifiers,
     AnonymousUnion_1821232 name,
     AnonymousUnion_2547692 questionOrExclamationToken,
     TypeNode? type,
     Expression? initializer,
   );
   external MethodSignature createMethodSignature(
-    _i1.JSArray<AnonymousUnion_8635666>? modifiers,
+    _i1.JSArray<Modifier>? modifiers,
     AnonymousUnion_1821232 name,
     QuestionToken? questionToken,
     _i1.JSArray<TypeParameterDeclaration>? typeParameters,
@@ -5485,7 +5632,7 @@ extension type NodeFactory._(_i1.JSObject _) implements _i1.JSObject {
   );
   external MethodSignature updateMethodSignature(
     MethodSignature node,
-    _i1.JSArray<AnonymousUnion_8635666>? modifiers,
+    _i1.JSArray<Modifier>? modifiers,
     PropertyName name,
     QuestionToken? questionToken,
     NodeArray<TypeParameterDeclaration>? typeParameters,
@@ -5493,7 +5640,7 @@ extension type NodeFactory._(_i1.JSObject _) implements _i1.JSObject {
     TypeNode? type,
   );
   external MethodDeclaration createMethodDeclaration(
-    _i1.JSArray<AnonymousUnion_4023207>? modifiers,
+    _i1.JSArray<ModifierLike>? modifiers,
     AsteriskToken? asteriskToken,
     AnonymousUnion_1821232 name,
     QuestionToken? questionToken,
@@ -5504,7 +5651,7 @@ extension type NodeFactory._(_i1.JSObject _) implements _i1.JSObject {
   );
   external MethodDeclaration updateMethodDeclaration(
     MethodDeclaration node,
-    _i1.JSArray<AnonymousUnion_4023207>? modifiers,
+    _i1.JSArray<ModifierLike>? modifiers,
     AsteriskToken? asteriskToken,
     PropertyName name,
     QuestionToken? questionToken,
@@ -5514,18 +5661,18 @@ extension type NodeFactory._(_i1.JSObject _) implements _i1.JSObject {
     Block? body,
   );
   external ConstructorDeclaration createConstructorDeclaration(
-    _i1.JSArray<AnonymousUnion_4023207>? modifiers,
+    _i1.JSArray<ModifierLike>? modifiers,
     _i1.JSArray<ParameterDeclaration> parameters,
     Block? body,
   );
   external ConstructorDeclaration updateConstructorDeclaration(
     ConstructorDeclaration node,
-    _i1.JSArray<AnonymousUnion_4023207>? modifiers,
+    _i1.JSArray<ModifierLike>? modifiers,
     _i1.JSArray<ParameterDeclaration> parameters,
     Block? body,
   );
   external GetAccessorDeclaration createGetAccessorDeclaration(
-    _i1.JSArray<AnonymousUnion_4023207>? modifiers,
+    _i1.JSArray<ModifierLike>? modifiers,
     AnonymousUnion_1821232 name,
     _i1.JSArray<ParameterDeclaration> parameters,
     TypeNode? type,
@@ -5533,21 +5680,21 @@ extension type NodeFactory._(_i1.JSObject _) implements _i1.JSObject {
   );
   external GetAccessorDeclaration updateGetAccessorDeclaration(
     GetAccessorDeclaration node,
-    _i1.JSArray<AnonymousUnion_4023207>? modifiers,
+    _i1.JSArray<ModifierLike>? modifiers,
     PropertyName name,
     _i1.JSArray<ParameterDeclaration> parameters,
     TypeNode? type,
     Block? body,
   );
   external SetAccessorDeclaration createSetAccessorDeclaration(
-    _i1.JSArray<AnonymousUnion_4023207>? modifiers,
+    _i1.JSArray<ModifierLike>? modifiers,
     AnonymousUnion_1821232 name,
     _i1.JSArray<ParameterDeclaration> parameters,
     Block? body,
   );
   external SetAccessorDeclaration updateSetAccessorDeclaration(
     SetAccessorDeclaration node,
-    _i1.JSArray<AnonymousUnion_4023207>? modifiers,
+    _i1.JSArray<ModifierLike>? modifiers,
     PropertyName name,
     _i1.JSArray<ParameterDeclaration> parameters,
     Block? body,
@@ -5575,13 +5722,13 @@ extension type NodeFactory._(_i1.JSObject _) implements _i1.JSObject {
     TypeNode? type,
   );
   external IndexSignatureDeclaration createIndexSignature(
-    _i1.JSArray<AnonymousUnion_4023207>? modifiers,
+    _i1.JSArray<ModifierLike>? modifiers,
     _i1.JSArray<ParameterDeclaration> parameters,
     TypeNode type,
   );
   external IndexSignatureDeclaration updateIndexSignature(
     IndexSignatureDeclaration node,
-    _i1.JSArray<AnonymousUnion_4023207>? modifiers,
+    _i1.JSArray<ModifierLike>? modifiers,
     _i1.JSArray<ParameterDeclaration> parameters,
     TypeNode type,
   );
@@ -5601,8 +5748,8 @@ extension type NodeFactory._(_i1.JSObject _) implements _i1.JSObject {
     ClassStaticBlockDeclaration node,
     Block body,
   );
-  external KeywordTypeNode<_i1.JSNumber>
-  createKeywordTypeNode<TKind extends _i1.JSNumber>(_i1.JSAny kind);
+  external KeywordTypeNode<TKind>
+  createKeywordTypeNode<TKind extends _i1.JSNumber>(TKind kind);
   external TypePredicateNode createTypePredicateNode(
     AssertsKeyword? assertsModifier,
     AnonymousUnion_1707187 parameterName,
@@ -5635,14 +5782,14 @@ extension type NodeFactory._(_i1.JSObject _) implements _i1.JSObject {
     TypeNode type,
   );
   external ConstructorTypeNode createConstructorTypeNode(
-    _i1.JSArray<AnonymousUnion_8635666>? modifiers,
+    _i1.JSArray<Modifier>? modifiers,
     _i1.JSArray<TypeParameterDeclaration>? typeParameters,
     _i1.JSArray<ParameterDeclaration> parameters,
     TypeNode type,
   );
   external ConstructorTypeNode updateConstructorTypeNode(
     ConstructorTypeNode node,
-    _i1.JSArray<AnonymousUnion_8635666>? modifiers,
+    _i1.JSArray<Modifier>? modifiers,
     NodeArray<TypeParameterDeclaration>? typeParameters,
     NodeArray<ParameterDeclaration> parameters,
     TypeNode type,
@@ -5804,11 +5951,11 @@ extension type NodeFactory._(_i1.JSObject _) implements _i1.JSObject {
     _i1.JSArray<BindingElement> elements,
   );
   external ArrayBindingPattern createArrayBindingPattern(
-    _i1.JSArray<AnonymousUnion_2404920> elements,
+    _i1.JSArray<ArrayBindingElement> elements,
   );
   external ArrayBindingPattern updateArrayBindingPattern(
     ArrayBindingPattern node,
-    _i1.JSArray<AnonymousUnion_2404920> elements,
+    _i1.JSArray<ArrayBindingElement> elements,
   );
   external BindingElement createBindingElement(
     DotDotDotToken? dotDotDotToken,
@@ -5832,12 +5979,12 @@ extension type NodeFactory._(_i1.JSObject _) implements _i1.JSObject {
     _i1.JSArray<Expression> elements,
   );
   external ObjectLiteralExpression createObjectLiteralExpression([
-    _i1.JSArray<AnonymousUnion_4079191?>? properties,
+    _i1.JSArray<ObjectLiteralElementLike?>? properties,
     bool? multiLine,
   ]);
   external ObjectLiteralExpression updateObjectLiteralExpression(
     ObjectLiteralExpression node,
-    _i1.JSArray<AnonymousUnion_4079191> properties,
+    _i1.JSArray<ObjectLiteralElementLike> properties,
   );
   external PropertyAccessExpression createPropertyAccessExpression(
     Expression expression,
@@ -5942,7 +6089,7 @@ extension type NodeFactory._(_i1.JSObject _) implements _i1.JSObject {
     Expression expression,
   );
   external FunctionExpression createFunctionExpression(
-    _i1.JSArray<AnonymousUnion_8635666>? modifiers,
+    _i1.JSArray<Modifier>? modifiers,
     AsteriskToken? asteriskToken,
     AnonymousUnion_1309070 name,
     _i1.JSArray<TypeParameterDeclaration>? typeParameters,
@@ -5952,7 +6099,7 @@ extension type NodeFactory._(_i1.JSObject _) implements _i1.JSObject {
   );
   external FunctionExpression updateFunctionExpression(
     FunctionExpression node,
-    _i1.JSArray<AnonymousUnion_8635666>? modifiers,
+    _i1.JSArray<Modifier>? modifiers,
     AsteriskToken? asteriskToken,
     Identifier? name,
     _i1.JSArray<TypeParameterDeclaration>? typeParameters,
@@ -5961,7 +6108,7 @@ extension type NodeFactory._(_i1.JSObject _) implements _i1.JSObject {
     Block body,
   );
   external ArrowFunction createArrowFunction(
-    _i1.JSArray<AnonymousUnion_8635666>? modifiers,
+    _i1.JSArray<Modifier>? modifiers,
     _i1.JSArray<TypeParameterDeclaration>? typeParameters,
     _i1.JSArray<ParameterDeclaration> parameters,
     TypeNode? type,
@@ -5970,7 +6117,7 @@ extension type NodeFactory._(_i1.JSObject _) implements _i1.JSObject {
   );
   external ArrowFunction updateArrowFunction(
     ArrowFunction node,
-    _i1.JSArray<AnonymousUnion_8635666>? modifiers,
+    _i1.JSArray<Modifier>? modifiers,
     _i1.JSArray<TypeParameterDeclaration>? typeParameters,
     _i1.JSArray<ParameterDeclaration> parameters,
     TypeNode? type,
@@ -6110,7 +6257,7 @@ extension type NodeFactory._(_i1.JSObject _) implements _i1.JSObject {
     Expression expression,
   );
   external ClassExpression createClassExpression(
-    _i1.JSArray<AnonymousUnion_4023207>? modifiers,
+    _i1.JSArray<ModifierLike>? modifiers,
     AnonymousUnion_1309070 name,
     _i1.JSArray<TypeParameterDeclaration>? typeParameters,
     _i1.JSArray<HeritageClause>? heritageClauses,
@@ -6118,7 +6265,7 @@ extension type NodeFactory._(_i1.JSObject _) implements _i1.JSObject {
   );
   external ClassExpression updateClassExpression(
     ClassExpression node,
-    _i1.JSArray<AnonymousUnion_4023207>? modifiers,
+    _i1.JSArray<ModifierLike>? modifiers,
     Identifier? name,
     _i1.JSArray<TypeParameterDeclaration>? typeParameters,
     _i1.JSArray<HeritageClause>? heritageClauses,
@@ -6183,12 +6330,12 @@ extension type NodeFactory._(_i1.JSObject _) implements _i1.JSObject {
   ]);
   external Block updateBlock(Block node, _i1.JSArray<Statement> statements);
   external VariableStatement createVariableStatement(
-    _i1.JSArray<AnonymousUnion_4023207>? modifiers,
+    _i1.JSArray<ModifierLike>? modifiers,
     AnonymousUnion_5047086 declarationList,
   );
   external VariableStatement updateVariableStatement(
     VariableStatement node,
-    _i1.JSArray<AnonymousUnion_4023207>? modifiers,
+    _i1.JSArray<ModifierLike>? modifiers,
     VariableDeclarationList declarationList,
   );
   external EmptyStatement createEmptyStatement();
@@ -6346,7 +6493,7 @@ extension type NodeFactory._(_i1.JSObject _) implements _i1.JSObject {
     _i1.JSArray<VariableDeclaration> declarations,
   );
   external FunctionDeclaration createFunctionDeclaration(
-    _i1.JSArray<AnonymousUnion_4023207>? modifiers,
+    _i1.JSArray<ModifierLike>? modifiers,
     AsteriskToken? asteriskToken,
     AnonymousUnion_1309070 name,
     _i1.JSArray<TypeParameterDeclaration>? typeParameters,
@@ -6356,7 +6503,7 @@ extension type NodeFactory._(_i1.JSObject _) implements _i1.JSObject {
   );
   external FunctionDeclaration updateFunctionDeclaration(
     FunctionDeclaration node,
-    _i1.JSArray<AnonymousUnion_4023207>? modifiers,
+    _i1.JSArray<ModifierLike>? modifiers,
     AsteriskToken? asteriskToken,
     Identifier? name,
     _i1.JSArray<TypeParameterDeclaration>? typeParameters,
@@ -6365,7 +6512,7 @@ extension type NodeFactory._(_i1.JSObject _) implements _i1.JSObject {
     Block? body,
   );
   external ClassDeclaration createClassDeclaration(
-    _i1.JSArray<AnonymousUnion_4023207>? modifiers,
+    _i1.JSArray<ModifierLike>? modifiers,
     AnonymousUnion_1309070 name,
     _i1.JSArray<TypeParameterDeclaration>? typeParameters,
     _i1.JSArray<HeritageClause>? heritageClauses,
@@ -6373,14 +6520,14 @@ extension type NodeFactory._(_i1.JSObject _) implements _i1.JSObject {
   );
   external ClassDeclaration updateClassDeclaration(
     ClassDeclaration node,
-    _i1.JSArray<AnonymousUnion_4023207>? modifiers,
+    _i1.JSArray<ModifierLike>? modifiers,
     Identifier? name,
     _i1.JSArray<TypeParameterDeclaration>? typeParameters,
     _i1.JSArray<HeritageClause>? heritageClauses,
     _i1.JSArray<ClassElement> members,
   );
   external InterfaceDeclaration createInterfaceDeclaration(
-    _i1.JSArray<AnonymousUnion_4023207>? modifiers,
+    _i1.JSArray<ModifierLike>? modifiers,
     AnonymousUnion_1309070 name,
     _i1.JSArray<TypeParameterDeclaration>? typeParameters,
     _i1.JSArray<HeritageClause>? heritageClauses,
@@ -6388,45 +6535,45 @@ extension type NodeFactory._(_i1.JSObject _) implements _i1.JSObject {
   );
   external InterfaceDeclaration updateInterfaceDeclaration(
     InterfaceDeclaration node,
-    _i1.JSArray<AnonymousUnion_4023207>? modifiers,
+    _i1.JSArray<ModifierLike>? modifiers,
     Identifier name,
     _i1.JSArray<TypeParameterDeclaration>? typeParameters,
     _i1.JSArray<HeritageClause>? heritageClauses,
     _i1.JSArray<TypeElement> members,
   );
   external TypeAliasDeclaration createTypeAliasDeclaration(
-    _i1.JSArray<AnonymousUnion_4023207>? modifiers,
+    _i1.JSArray<ModifierLike>? modifiers,
     AnonymousUnion_1309070 name,
     _i1.JSArray<TypeParameterDeclaration>? typeParameters,
     TypeNode type,
   );
   external TypeAliasDeclaration updateTypeAliasDeclaration(
     TypeAliasDeclaration node,
-    _i1.JSArray<AnonymousUnion_4023207>? modifiers,
+    _i1.JSArray<ModifierLike>? modifiers,
     Identifier name,
     _i1.JSArray<TypeParameterDeclaration>? typeParameters,
     TypeNode type,
   );
   external EnumDeclaration createEnumDeclaration(
-    _i1.JSArray<AnonymousUnion_4023207>? modifiers,
+    _i1.JSArray<ModifierLike>? modifiers,
     AnonymousUnion_1309070 name,
     _i1.JSArray<EnumMember> members,
   );
   external EnumDeclaration updateEnumDeclaration(
     EnumDeclaration node,
-    _i1.JSArray<AnonymousUnion_4023207>? modifiers,
+    _i1.JSArray<ModifierLike>? modifiers,
     Identifier name,
     _i1.JSArray<EnumMember> members,
   );
   external ModuleDeclaration createModuleDeclaration(
-    _i1.JSArray<AnonymousUnion_4023207>? modifiers,
+    _i1.JSArray<ModifierLike>? modifiers,
     ModuleName name,
     ModuleBody? body, [
     NodeFlags? flags,
   ]);
   external ModuleDeclaration updateModuleDeclaration(
     ModuleDeclaration node,
-    _i1.JSArray<AnonymousUnion_4023207>? modifiers,
+    _i1.JSArray<ModifierLike>? modifiers,
     ModuleName name,
     ModuleBody? body,
   );
@@ -6435,12 +6582,10 @@ extension type NodeFactory._(_i1.JSObject _) implements _i1.JSObject {
     ModuleBlock node,
     _i1.JSArray<Statement> statements,
   );
-  external CaseBlock createCaseBlock(
-    _i1.JSArray<AnonymousUnion_3845700> clauses,
-  );
+  external CaseBlock createCaseBlock(_i1.JSArray<CaseOrDefaultClause> clauses);
   external CaseBlock updateCaseBlock(
     CaseBlock node,
-    _i1.JSArray<AnonymousUnion_3845700> clauses,
+    _i1.JSArray<CaseOrDefaultClause> clauses,
   );
   external NamespaceExportDeclaration createNamespaceExportDeclaration(
     AnonymousUnion_1309070 name,
@@ -6450,27 +6595,27 @@ extension type NodeFactory._(_i1.JSObject _) implements _i1.JSObject {
     Identifier name,
   );
   external ImportEqualsDeclaration createImportEqualsDeclaration(
-    _i1.JSArray<AnonymousUnion_4023207>? modifiers,
+    _i1.JSArray<ModifierLike>? modifiers,
     bool isTypeOnly,
     AnonymousUnion_1309070 name,
     ModuleReference moduleReference,
   );
   external ImportEqualsDeclaration updateImportEqualsDeclaration(
     ImportEqualsDeclaration node,
-    _i1.JSArray<AnonymousUnion_4023207>? modifiers,
+    _i1.JSArray<ModifierLike>? modifiers,
     bool isTypeOnly,
     Identifier name,
     ModuleReference moduleReference,
   );
   external ImportDeclaration createImportDeclaration(
-    _i1.JSArray<AnonymousUnion_4023207>? modifiers,
+    _i1.JSArray<ModifierLike>? modifiers,
     ImportClause? importClause,
     Expression moduleSpecifier, [
     ImportAttributes? attributes,
   ]);
   external ImportDeclaration updateImportDeclaration(
     ImportDeclaration node,
-    _i1.JSArray<AnonymousUnion_4023207>? modifiers,
+    _i1.JSArray<ModifierLike>? modifiers,
     ImportClause? importClause,
     Expression moduleSpecifier,
     ImportAttributes? attributes,
@@ -6600,17 +6745,17 @@ extension type NodeFactory._(_i1.JSObject _) implements _i1.JSObject {
     Identifier name,
   );
   external ExportAssignment createExportAssignment(
-    _i1.JSArray<AnonymousUnion_4023207>? modifiers,
+    _i1.JSArray<ModifierLike>? modifiers,
     bool? isExportEquals,
     Expression expression,
   );
   external ExportAssignment updateExportAssignment(
     ExportAssignment node,
-    _i1.JSArray<AnonymousUnion_4023207>? modifiers,
+    _i1.JSArray<ModifierLike>? modifiers,
     Expression expression,
   );
   external ExportDeclaration createExportDeclaration(
-    _i1.JSArray<AnonymousUnion_4023207>? modifiers,
+    _i1.JSArray<ModifierLike>? modifiers,
     bool isTypeOnly,
     NamedExportBindings? exportClause, [
     Expression? moduleSpecifier,
@@ -6618,7 +6763,7 @@ extension type NodeFactory._(_i1.JSObject _) implements _i1.JSObject {
   ]);
   external ExportDeclaration updateExportDeclaration(
     ExportDeclaration node,
-    _i1.JSArray<AnonymousUnion_4023207>? modifiers,
+    _i1.JSArray<ModifierLike>? modifiers,
     bool isTypeOnly,
     NamedExportBindings? exportClause,
     Expression? moduleSpecifier,
@@ -6760,27 +6905,27 @@ extension type NodeFactory._(_i1.JSObject _) implements _i1.JSObject {
     Identifier? tagName,
     JSDocTypeExpression? constraint,
     _i1.JSArray<TypeParameterDeclaration> typeParameters, [
-    AnonymousUnion_6234722? comment,
+    AnonymousUnion_6953628? comment,
   ]);
   external JSDocTemplateTag updateJSDocTemplateTag(
     JSDocTemplateTag node,
     Identifier? tagName,
     JSDocTypeExpression? constraint,
     _i1.JSArray<TypeParameterDeclaration> typeParameters,
-    AnonymousUnion_6234722 comment,
+    AnonymousUnion_6953628 comment,
   );
   external JSDocTypedefTag createJSDocTypedefTag(
     Identifier? tagName, [
     AnonymousUnion_3963972? typeExpression,
     AnonymousUnion_2853000? fullName,
-    AnonymousUnion_6234722? comment,
+    AnonymousUnion_6953628? comment,
   ]);
   external JSDocTypedefTag updateJSDocTypedefTag(
     JSDocTypedefTag node,
     Identifier? tagName,
     AnonymousUnion_3963972 typeExpression,
     AnonymousUnion_2853000 fullName,
-    AnonymousUnion_6234722 comment,
+    AnonymousUnion_6953628 comment,
   );
   external JSDocParameterTag createJSDocParameterTag(
     Identifier? tagName,
@@ -6788,7 +6933,7 @@ extension type NodeFactory._(_i1.JSObject _) implements _i1.JSObject {
     bool isBracketed, [
     JSDocTypeExpression? typeExpression,
     bool? isNameFirst,
-    AnonymousUnion_6234722? comment,
+    AnonymousUnion_6953628? comment,
   ]);
   external JSDocParameterTag updateJSDocParameterTag(
     JSDocParameterTag node,
@@ -6797,7 +6942,7 @@ extension type NodeFactory._(_i1.JSObject _) implements _i1.JSObject {
     bool isBracketed,
     JSDocTypeExpression? typeExpression,
     bool isNameFirst,
-    AnonymousUnion_6234722 comment,
+    AnonymousUnion_6953628 comment,
   );
   external JSDocPropertyTag createJSDocPropertyTag(
     Identifier? tagName,
@@ -6805,7 +6950,7 @@ extension type NodeFactory._(_i1.JSObject _) implements _i1.JSObject {
     bool isBracketed, [
     JSDocTypeExpression? typeExpression,
     bool? isNameFirst,
-    AnonymousUnion_6234722? comment,
+    AnonymousUnion_6953628? comment,
   ]);
   external JSDocPropertyTag updateJSDocPropertyTag(
     JSDocPropertyTag node,
@@ -6814,218 +6959,218 @@ extension type NodeFactory._(_i1.JSObject _) implements _i1.JSObject {
     bool isBracketed,
     JSDocTypeExpression? typeExpression,
     bool isNameFirst,
-    AnonymousUnion_6234722 comment,
+    AnonymousUnion_6953628 comment,
   );
   external JSDocTypeTag createJSDocTypeTag(
     Identifier? tagName,
     JSDocTypeExpression typeExpression, [
-    AnonymousUnion_6234722? comment,
+    AnonymousUnion_6953628? comment,
   ]);
   external JSDocTypeTag updateJSDocTypeTag(
     JSDocTypeTag node,
     Identifier? tagName,
     JSDocTypeExpression typeExpression,
-    AnonymousUnion_6234722 comment,
+    AnonymousUnion_6953628 comment,
   );
   external JSDocSeeTag createJSDocSeeTag(
     Identifier? tagName,
     JSDocNameReference? nameExpression, [
-    AnonymousUnion_6234722? comment,
+    AnonymousUnion_6953628? comment,
   ]);
   external JSDocSeeTag updateJSDocSeeTag(
     JSDocSeeTag node,
     Identifier? tagName,
     JSDocNameReference? nameExpression, [
-    AnonymousUnion_6234722? comment,
+    AnonymousUnion_6953628? comment,
   ]);
   external JSDocReturnTag createJSDocReturnTag(
     Identifier? tagName, [
     JSDocTypeExpression? typeExpression,
-    AnonymousUnion_6234722? comment,
+    AnonymousUnion_6953628? comment,
   ]);
   external JSDocReturnTag updateJSDocReturnTag(
     JSDocReturnTag node,
     Identifier? tagName,
     JSDocTypeExpression? typeExpression,
-    AnonymousUnion_6234722 comment,
+    AnonymousUnion_6953628 comment,
   );
   external JSDocThisTag createJSDocThisTag(
     Identifier? tagName,
     JSDocTypeExpression typeExpression, [
-    AnonymousUnion_6234722? comment,
+    AnonymousUnion_6953628? comment,
   ]);
   external JSDocThisTag updateJSDocThisTag(
     JSDocThisTag node,
     Identifier? tagName,
     JSDocTypeExpression? typeExpression,
-    AnonymousUnion_6234722 comment,
+    AnonymousUnion_6953628 comment,
   );
   external JSDocEnumTag createJSDocEnumTag(
     Identifier? tagName,
     JSDocTypeExpression typeExpression, [
-    AnonymousUnion_6234722? comment,
+    AnonymousUnion_6953628? comment,
   ]);
   external JSDocEnumTag updateJSDocEnumTag(
     JSDocEnumTag node,
     Identifier? tagName,
     JSDocTypeExpression typeExpression,
-    AnonymousUnion_6234722 comment,
+    AnonymousUnion_6953628 comment,
   );
   external JSDocCallbackTag createJSDocCallbackTag(
     Identifier? tagName,
     JSDocSignature typeExpression, [
     AnonymousUnion_2853000? fullName,
-    AnonymousUnion_6234722? comment,
+    AnonymousUnion_6953628? comment,
   ]);
   external JSDocCallbackTag updateJSDocCallbackTag(
     JSDocCallbackTag node,
     Identifier? tagName,
     JSDocSignature typeExpression,
     AnonymousUnion_2853000 fullName,
-    AnonymousUnion_6234722 comment,
+    AnonymousUnion_6953628 comment,
   );
   external JSDocOverloadTag createJSDocOverloadTag(
     Identifier? tagName,
     JSDocSignature typeExpression, [
-    AnonymousUnion_6234722? comment,
+    AnonymousUnion_6953628? comment,
   ]);
   external JSDocOverloadTag updateJSDocOverloadTag(
     JSDocOverloadTag node,
     Identifier? tagName,
     JSDocSignature typeExpression,
-    AnonymousUnion_6234722 comment,
+    AnonymousUnion_6953628 comment,
   );
   external JSDocAugmentsTag createJSDocAugmentsTag(
     Identifier? tagName,
     _i1.JSAny className, [
-    AnonymousUnion_6234722? comment,
+    AnonymousUnion_6953628? comment,
   ]);
   external JSDocAugmentsTag updateJSDocAugmentsTag(
     JSDocAugmentsTag node,
     Identifier? tagName,
     _i1.JSAny className,
-    AnonymousUnion_6234722 comment,
+    AnonymousUnion_6953628 comment,
   );
   external JSDocImplementsTag createJSDocImplementsTag(
     Identifier? tagName,
     _i1.JSAny className, [
-    AnonymousUnion_6234722? comment,
+    AnonymousUnion_6953628? comment,
   ]);
   external JSDocImplementsTag updateJSDocImplementsTag(
     JSDocImplementsTag node,
     Identifier? tagName,
     _i1.JSAny className,
-    AnonymousUnion_6234722 comment,
+    AnonymousUnion_6953628 comment,
   );
   external JSDocAuthorTag createJSDocAuthorTag(
     Identifier? tagName, [
-    AnonymousUnion_6234722? comment,
+    AnonymousUnion_6953628? comment,
   ]);
   external JSDocAuthorTag updateJSDocAuthorTag(
     JSDocAuthorTag node,
     Identifier? tagName,
-    AnonymousUnion_6234722 comment,
+    AnonymousUnion_6953628 comment,
   );
   external JSDocClassTag createJSDocClassTag(
     Identifier? tagName, [
-    AnonymousUnion_6234722? comment,
+    AnonymousUnion_6953628? comment,
   ]);
   external JSDocClassTag updateJSDocClassTag(
     JSDocClassTag node,
     Identifier? tagName,
-    AnonymousUnion_6234722 comment,
+    AnonymousUnion_6953628 comment,
   );
   external JSDocPublicTag createJSDocPublicTag(
     Identifier? tagName, [
-    AnonymousUnion_6234722? comment,
+    AnonymousUnion_6953628? comment,
   ]);
   external JSDocPublicTag updateJSDocPublicTag(
     JSDocPublicTag node,
     Identifier? tagName,
-    AnonymousUnion_6234722 comment,
+    AnonymousUnion_6953628 comment,
   );
   external JSDocPrivateTag createJSDocPrivateTag(
     Identifier? tagName, [
-    AnonymousUnion_6234722? comment,
+    AnonymousUnion_6953628? comment,
   ]);
   external JSDocPrivateTag updateJSDocPrivateTag(
     JSDocPrivateTag node,
     Identifier? tagName,
-    AnonymousUnion_6234722 comment,
+    AnonymousUnion_6953628 comment,
   );
   external JSDocProtectedTag createJSDocProtectedTag(
     Identifier? tagName, [
-    AnonymousUnion_6234722? comment,
+    AnonymousUnion_6953628? comment,
   ]);
   external JSDocProtectedTag updateJSDocProtectedTag(
     JSDocProtectedTag node,
     Identifier? tagName,
-    AnonymousUnion_6234722 comment,
+    AnonymousUnion_6953628 comment,
   );
   external JSDocReadonlyTag createJSDocReadonlyTag(
     Identifier? tagName, [
-    AnonymousUnion_6234722? comment,
+    AnonymousUnion_6953628? comment,
   ]);
   external JSDocReadonlyTag updateJSDocReadonlyTag(
     JSDocReadonlyTag node,
     Identifier? tagName,
-    AnonymousUnion_6234722 comment,
+    AnonymousUnion_6953628 comment,
   );
   external JSDocUnknownTag createJSDocUnknownTag(
     Identifier tagName, [
-    AnonymousUnion_6234722? comment,
+    AnonymousUnion_6953628? comment,
   ]);
   external JSDocUnknownTag updateJSDocUnknownTag(
     JSDocUnknownTag node,
     Identifier tagName,
-    AnonymousUnion_6234722 comment,
+    AnonymousUnion_6953628 comment,
   );
   external JSDocDeprecatedTag createJSDocDeprecatedTag(
     Identifier? tagName, [
-    AnonymousUnion_6234722? comment,
+    AnonymousUnion_6953628? comment,
   ]);
   external JSDocDeprecatedTag updateJSDocDeprecatedTag(
     JSDocDeprecatedTag node,
     Identifier? tagName, [
-    AnonymousUnion_6234722? comment,
+    AnonymousUnion_6953628? comment,
   ]);
   external JSDocOverrideTag createJSDocOverrideTag(
     Identifier? tagName, [
-    AnonymousUnion_6234722? comment,
+    AnonymousUnion_6953628? comment,
   ]);
   external JSDocOverrideTag updateJSDocOverrideTag(
     JSDocOverrideTag node,
     Identifier? tagName, [
-    AnonymousUnion_6234722? comment,
+    AnonymousUnion_6953628? comment,
   ]);
   external JSDocThrowsTag createJSDocThrowsTag(
     Identifier tagName,
     JSDocTypeExpression? typeExpression, [
-    AnonymousUnion_6234722? comment,
+    AnonymousUnion_6953628? comment,
   ]);
   external JSDocThrowsTag updateJSDocThrowsTag(
     JSDocThrowsTag node,
     Identifier? tagName,
     JSDocTypeExpression? typeExpression, [
-    AnonymousUnion_6234722? comment,
+    AnonymousUnion_6953628? comment,
   ]);
   external JSDocSatisfiesTag createJSDocSatisfiesTag(
     Identifier? tagName,
     JSDocTypeExpression typeExpression, [
-    AnonymousUnion_6234722? comment,
+    AnonymousUnion_6953628? comment,
   ]);
   external JSDocSatisfiesTag updateJSDocSatisfiesTag(
     JSDocSatisfiesTag node,
     Identifier? tagName,
     JSDocTypeExpression typeExpression,
-    AnonymousUnion_6234722 comment,
+    AnonymousUnion_6953628 comment,
   );
   external JSDocImportTag createJSDocImportTag(
     Identifier? tagName,
     ImportClause? importClause,
     Expression moduleSpecifier, [
     ImportAttributes? attributes,
-    AnonymousUnion_6234722? comment,
+    AnonymousUnion_6953628? comment,
   ]);
   external JSDocImportTag updateJSDocImportTag(
     JSDocImportTag node,
@@ -7033,28 +7178,28 @@ extension type NodeFactory._(_i1.JSObject _) implements _i1.JSObject {
     ImportClause? importClause,
     Expression moduleSpecifier,
     ImportAttributes? attributes,
-    AnonymousUnion_6234722 comment,
+    AnonymousUnion_6953628 comment,
   );
   external JSDocText createJSDocText(String text);
   external JSDocText updateJSDocText(JSDocText node, String text);
   external JSDoc createJSDocComment([
-    AnonymousUnion_6234722? comment,
+    AnonymousUnion_6953628? comment,
     _i1.JSArray<JSDocTag?>? tags,
   ]);
   external JSDoc updateJSDocComment(
     JSDoc node,
-    AnonymousUnion_6234722 comment,
+    AnonymousUnion_6953628 comment,
     _i1.JSArray<JSDocTag>? tags,
   );
   external JsxElement createJsxElement(
     JsxOpeningElement openingElement,
-    _i1.JSArray<AnonymousUnion_3764686> children,
+    _i1.JSArray<JsxChild> children,
     JsxClosingElement closingElement,
   );
   external JsxElement updateJsxElement(
     JsxElement node,
     JsxOpeningElement openingElement,
-    _i1.JSArray<AnonymousUnion_3764686> children,
+    _i1.JSArray<JsxChild> children,
     JsxClosingElement closingElement,
   );
   external JsxSelfClosingElement createJsxSelfClosingElement(
@@ -7088,7 +7233,7 @@ extension type NodeFactory._(_i1.JSObject _) implements _i1.JSObject {
   );
   external JsxFragment createJsxFragment(
     JsxOpeningFragment openingFragment,
-    _i1.JSArray<AnonymousUnion_3764686> children,
+    _i1.JSArray<JsxChild> children,
     JsxClosingFragment closingFragment,
   );
   external JsxText createJsxText(
@@ -7105,7 +7250,7 @@ extension type NodeFactory._(_i1.JSObject _) implements _i1.JSObject {
   external JsxFragment updateJsxFragment(
     JsxFragment node,
     JsxOpeningFragment openingFragment,
-    _i1.JSArray<AnonymousUnion_3764686> children,
+    _i1.JSArray<JsxChild> children,
     JsxClosingFragment closingFragment,
   );
   external JsxAttribute createJsxAttribute(
@@ -7118,11 +7263,11 @@ extension type NodeFactory._(_i1.JSObject _) implements _i1.JSObject {
     JsxAttributeValue? initializer,
   );
   external JsxAttributes createJsxAttributes(
-    _i1.JSArray<AnonymousUnion_1036421> properties,
+    _i1.JSArray<JsxAttributeLike> properties,
   );
   external JsxAttributes updateJsxAttributes(
     JsxAttributes node,
-    _i1.JSArray<AnonymousUnion_1036421> properties,
+    _i1.JSArray<JsxAttributeLike> properties,
   );
   external JsxSpreadAttribute createJsxSpreadAttribute(Expression expression);
   external JsxSpreadAttribute updateJsxSpreadAttribute(
@@ -7333,21 +7478,21 @@ extension type NodeFactory._(_i1.JSObject _) implements _i1.JSObject {
   /// Updates a node that may contain modifiers, replacing only the modifiers of
   /// the node.
   external T replaceModifiers<T extends _i1.JSObject>(
-    _i1.JSAny node,
-    AnonymousUnion_1794579? modifiers,
+    T node,
+    AnonymousUnion_4927908? modifiers,
   );
 
   /// Updates a node that may contain decorators or modifiers, replacing only
   /// the decorators and modifiers of the node.
   external T replaceDecoratorsAndModifiers<T extends _i1.JSObject>(
-    _i1.JSAny node,
-    _i1.JSArray<AnonymousUnion_4023207>? modifiers,
+    T node,
+    _i1.JSArray<ModifierLike>? modifiers,
   );
 
   /// Updates a node that contains a property name, replacing only the name of
   /// the node.
   external T replacePropertyName<T extends _i1.JSObject>(
-    _i1.JSAny node,
+    T node,
     _i1.JSAny name,
   );
 }
@@ -7382,11 +7527,10 @@ extension type AnonymousUnion_3588516._(_i1.JSAny _) implements _i1.JSAny {
   PseudoBigInt get asPseudoBigInt => (_ as PseudoBigInt);
 }
 typedef PropertyNameLiteral = AnonymousUnion_2308869;
-extension type AnonymousUnion_2308869._(_i1.JSObject _)
-    implements _i1.JSObject {
+extension type AnonymousUnion_2308869._(Node _) implements Node {
   Identifier get asIdentifier => (_ as Identifier);
 
-  StringLiteralLike get asStringLiteralLike => (_ as AnonymousUnion_3755859);
+  StringLiteralLike get asStringLiteralLike => (_ as StringLiteralLike);
 
   NumericLiteral get asNumericLiteral => (_ as NumericLiteral);
 
@@ -7394,10 +7538,8 @@ extension type AnonymousUnion_2308869._(_i1.JSObject _)
 
   BigIntLiteral get asBigIntLiteral => (_ as BigIntLiteral);
 }
-extension type AnonymousUnion_2575464._(_i1.JSObject _)
-    implements _i1.JSObject {
-  PropertyNameLiteral get asPropertyNameLiteral =>
-      (_ as AnonymousUnion_2308869);
+extension type AnonymousUnion_2575464._(Node _) implements Node {
+  PropertyNameLiteral get asPropertyNameLiteral => (_ as PropertyNameLiteral);
 
   PrivateIdentifier get asPrivateIdentifier => (_ as PrivateIdentifier);
 }
@@ -7452,14 +7594,16 @@ extension type ThisExpression._(_i1.JSObject _)
   @_i2.redeclare
   external double get end;
 }
+typedef PunctuationSyntaxKind = AnonymousUnion_2970591;
 extension type AnonymousUnion_2970591._(SyntaxKind _) implements SyntaxKind {
   SyntaxKind get asSyntaxKind => _;
 }
+typedef KeywordTypeSyntaxKind = AnonymousUnion_3990406;
 extension type AnonymousUnion_3990406._(SyntaxKind _) implements SyntaxKind {
   SyntaxKind get asSyntaxKind => _;
 }
 extension type KeywordTypeNode<TKind extends _i1.JSNumber>._(_i1.JSObject _)
-    implements KeywordToken<_i1.JSNumber>, TypeNode {
+    implements KeywordToken<TKind>, TypeNode {
   @_i2.redeclare
   external TKind get kind;
   @_i2.redeclare
@@ -7471,6 +7615,8 @@ extension type KeywordTypeNode<TKind extends _i1.JSNumber>._(_i1.JSObject _)
   @_i2.redeclare
   external double get end;
 }
+typedef ModifierSyntaxKind = AnonymousUnion_1632551;
+typedef KeywordSyntaxKind = AnonymousUnion_3637968;
 extension type AnonymousUnion_3637968._(SyntaxKind _) implements SyntaxKind {
   SyntaxKind get asSyntaxKind => _;
 }
@@ -7543,10 +7689,10 @@ extension type AnonymousUnion_1309070._(_i1.JSAny _) implements _i1.JSAny {
 extension type AnonymousUnion_3855707._(_i1.JSAny _) implements _i1.JSAny {
   String get asString => (_ as _i1.JSString).toDart;
 
-  BindingName get asBindingName => (_ as AnonymousUnion_1836642);
+  BindingName get asBindingName => (_ as BindingName);
 }
 extension type AnonymousUnion_1821232._(_i1.JSAny _) implements _i1.JSAny {
-  PropertyName get asPropertyName => (_ as AnonymousUnion_5805531);
+  PropertyName get asPropertyName => (_ as PropertyName);
 
   String get asString => (_ as _i1.JSString).toDart;
 }
@@ -7645,10 +7791,9 @@ extension type TypePredicateNode._(_i1.JSObject _) implements TypeNode {
   external AnonymousUnion_3323271 get parameterName;
   external String? get type;
 }
-extension type AnonymousUnion_3417277._(_i1.JSObject _)
-    implements _i1.JSObject {
+extension type AnonymousUnion_3417277._(Node _) implements Node {
   SignatureDeclaration get asSignatureDeclaration =>
-      (_ as AnonymousUnion_2968490);
+      (_ as SignatureDeclaration);
 
   JSDocTypeExpression get asJSDocTypeExpression => (_ as JSDocTypeExpression);
 }
@@ -7660,7 +7805,7 @@ extension type AnonymousUnion_3323271._(Node _) implements Node {
 extension type AnonymousUnion_3058613._(_i1.JSAny _) implements _i1.JSAny {
   String get asString => (_ as _i1.JSString).toDart;
 
-  EntityName get asEntityName => (_ as AnonymousUnion_4911331);
+  EntityName get asEntityName => (_ as EntityName);
 }
 extension type TypeReferenceNode._(_i1.JSObject _)
     implements NodeWithTypeArguments {
@@ -7812,7 +7957,7 @@ extension type AnonymousUnion_4128081._(UpdateExpression _)
     implements UpdateExpression {
   NullLiteral get asNullLiteral => (_ as NullLiteral);
 
-  BooleanLiteral get asBooleanLiteral => (_ as AnonymousUnion_2412593);
+  BooleanLiteral get asBooleanLiteral => (_ as BooleanLiteral);
 
   LiteralExpression get asLiteralExpression => (_ as LiteralExpression);
 
@@ -7822,7 +7967,7 @@ extension type AnonymousUnion_4128081._(UpdateExpression _)
 extension type AnonymousUnion_2314758._(_i1.JSAny _) implements _i1.JSAny {
   String get asString => (_ as _i1.JSString).toDart;
 
-  MemberName get asMemberName => (_ as AnonymousUnion_1903918);
+  MemberName get asMemberName => (_ as MemberName);
 }
 extension type PropertyAccessChain._(_i1.JSObject _)
     implements PropertyAccessExpression {
@@ -7922,9 +8067,8 @@ extension type PostfixUnaryExpression._(_i1.JSObject _)
   @_i1.JS('operator')
   external PostfixUnaryOperator get operator$;
 }
-typedef BinaryOperator = AnonymousUnion_1634575;
 extension type AnonymousUnion_2791230._(_i1.JSAny _) implements _i1.JSAny {
-  BinaryOperator get asBinaryOperator => (_ as AnonymousUnion_1634575);
+  BinaryOperator get asBinaryOperator => (_ as BinaryOperator);
 
   BinaryOperatorToken get asBinaryOperatorToken => (_ as BinaryOperatorToken);
 }
@@ -8012,7 +8156,7 @@ typedef AssertionKey = ImportAttributeName;
 extension type AnonymousUnion_6714933._(_i1.JSAny _) implements _i1.JSAny {
   String get asString => (_ as _i1.JSString).toDart;
 
-  ModuleExportName get asModuleExportName => (_ as AnonymousUnion_2208724);
+  ModuleExportName get asModuleExportName => (_ as ModuleExportName);
 }
 extension type JSDocAllType._(_i1.JSObject _) implements JSDocType {
   @_i2.redeclare
@@ -8212,9 +8356,10 @@ extension type JsxElement._(_i1.JSObject _) implements PrimaryExpression {
   @_i2.redeclare
   external SyntaxKind get kind;
   external JsxOpeningElement get openingElement;
-  external NodeArray<AnonymousUnion_3764686> get children;
+  external NodeArray<JsxChild> get children;
   external JsxClosingElement get closingElement;
 }
+typedef JsxChild = AnonymousUnion_3764686;
 extension type JsxText._(_i1.JSObject _) implements LiteralLikeNode {
   @_i2.redeclare
   external SyntaxKind get kind;
@@ -8226,7 +8371,7 @@ extension type JsxFragment._(_i1.JSObject _) implements PrimaryExpression {
   @_i2.redeclare
   external SyntaxKind get kind;
   external JsxOpeningFragment get openingFragment;
-  external NodeArray<AnonymousUnion_3764686> get children;
+  external NodeArray<JsxChild> get children;
   external JsxClosingFragment get closingFragment;
 }
 extension type JsxOpeningFragment._(_i1.JSObject _) implements Expression {
@@ -8266,7 +8411,7 @@ extension type JsxAttribute._(_i1.JSObject _) implements Declaration {
 }
 extension type JsxAttributes._(_i1.JSObject _)
     implements PrimaryExpression, Declaration {
-  external NodeArray<AnonymousUnion_1036421> get properties;
+  external NodeArray<JsxAttributeLike> get properties;
   @_i2.redeclare
   external SyntaxKind get kind;
   @_i2.redeclare
@@ -8346,7 +8491,7 @@ extension type AnonymousUnion_9069557._(Node _) implements Node {
 
   JsxFragment get asJsxFragment => (_ as JsxFragment);
 
-  JsxAttributeLike get asJsxAttributeLike => (_ as AnonymousUnion_1036421);
+  JsxAttributeLike get asJsxAttributeLike => (_ as JsxAttributeLike);
 }
 extension type AnonymousUnion_3764686._(Node _) implements Node {
   JsxText get asJsxText => (_ as JsxText);
@@ -8370,7 +8515,7 @@ extension type JsxClosingElement._(_i1.JSObject _) implements Node {
 extension type AnonymousUnion_9191303._(_i1.JSAny _) implements _i1.JSAny {
   String get asString => (_ as _i1.JSString).toDart;
 
-  BindingName get asBindingName => (_ as AnonymousUnion_1836642);
+  BindingName get asBindingName => (_ as BindingName);
 
   VariableDeclaration get asVariableDeclaration => (_ as VariableDeclaration);
 }
@@ -8492,12 +8637,12 @@ extension type OuterExpressionKinds._(_i1.JSNumber _) implements _i1.JSNumber {
 
   static final OuterExpressionKinds All = OuterExpressionKinds._(63.toJS);
 }
-extension type AnonymousUnion_1794579._(_i1.JSAny _) implements _i1.JSAny {
-  _i1.JSArray<AnonymousUnion_8635666> get asJSArrayOfAnonymousUnion_8635666 =>
-      (_ as _i1.JSArray<AnonymousUnion_8635666>);
+extension type AnonymousUnion_4927908._(_i1.JSAny _) implements _i1.JSAny {
+  _i1.JSArray<Modifier> get asJSArrayOfModifier => (_ as _i1.JSArray<Modifier>);
 
   ModifierFlags get asModifierFlags => ModifierFlags._((_ as _i1.JSNumber));
 }
+typedef HasModifiers = AnonymousUnion_7178516;
 extension type AnonymousUnion_7178516._(JSDocContainer _)
     implements JSDocContainer {
   TypeParameterDeclaration get asTypeParameterDeclaration =>
@@ -8559,8 +8704,14 @@ extension type AnonymousUnion_7178516._(JSDocContainer _)
 
   ExportDeclaration get asExportDeclaration => (_ as ExportDeclaration);
 }
+typedef HasDecorators = AnonymousUnion_5366558;
 extension type AnonymousUnion_5366558._(_i1.JSObject _)
-    implements _i1.JSObject {
+    implements NamedDeclaration, JSDocContainer {
+  external SyntaxKind get kind;
+  external NodeFlags get flags;
+  external Node get parent;
+  external double get pos;
+  external double get end;
   ParameterDeclaration get asParameterDeclaration =>
       (_ as ParameterDeclaration);
 
@@ -8578,8 +8729,8 @@ extension type AnonymousUnion_5366558._(_i1.JSObject _)
 
   ClassDeclaration get asClassDeclaration => (_ as ClassDeclaration);
 }
-extension type AnonymousIntersection_3629097._(_i1.JSObject _)
-    implements AnonymousUnion_5366558 {
+extension type AnonymousIntersection_3136427._(JSDocContainer _)
+    implements HasModifiers, HasDecorators {
   external ParameterDeclaration get asParameterDeclaration;
   external PropertyDeclaration get asPropertyDeclaration;
   external MethodDeclaration get asMethodDeclaration;
@@ -8589,7 +8740,7 @@ extension type AnonymousIntersection_3629097._(_i1.JSObject _)
   external ClassDeclaration get asClassDeclaration;
   external SyntaxKind get kind;
   external AnonymousUnion_2810713 get parent;
-  external NodeArray<AnonymousUnion_8635666>? get modifiers;
+  external NodeArray<Modifier>? get modifiers;
   external String get name;
   @_i1.JS('_declarationBrand')
   external _i1.JSAny? get $_declarationBrand;
@@ -8665,16 +8816,13 @@ extension type AnonymousIntersection_3629097._(_i1.JSObject _)
   external _i1.JSAny? get $_statementBrand;
   @_i1.JS('_statementBrand')
   external set $_statementBrand(_i1.JSAny? value);
-  AnonymousUnion_7178516 get asAnonymousUnion_7178516 =>
-      (_ as AnonymousUnion_7178516);
+  HasModifiers get asHasModifiers => (_ as HasModifiers);
 
-  AnonymousUnion_5366558 get asAnonymousUnion_5366558 =>
-      (_ as AnonymousUnion_5366558);
+  HasDecorators get asHasDecorators => (_ as HasDecorators);
 }
-extension type AnonymousUnion_2040603._(_i1.JSObject _)
-    implements _i1.JSObject {
-  AnonymousUnion_3939723 get asAnonymousUnion_3939723 =>
-      (_ as AnonymousUnion_3939723);
+extension type AnonymousUnion_3238482._(JSDocContainer _)
+    implements JSDocContainer {
+  AccessorDeclaration get asAccessorDeclaration => (_ as AccessorDeclaration);
 
   MethodDeclaration get asMethodDeclaration => (_ as MethodDeclaration);
 
@@ -8688,12 +8836,12 @@ extension type AnonymousUnion_2040603._(_i1.JSObject _)
 }
 
 /// A function that transforms a node.
-typedef Transformer<T extends _i1.JSObject> = _AnonymousFunction_3561750<T>;
+typedef Transformer<T extends Node> = _AnonymousFunction_3561750<T>;
 extension type _AnonymousFunction_3561750<T extends _i1.JSAny?>._(
   _i1.JSFunction _
 )
     implements _i1.JSFunction {
-  external T call(_i1.JSAny node);
+  external T call(T node);
 }
 typedef CustomTransformerFactory = _AnonymousFunction_2333659;
 extension type _AnonymousFunction_2333659._(_i1.JSFunction _)
@@ -8761,7 +8909,7 @@ extension type TypeChecker._(_i1.JSObject _) implements _i1.JSObject {
     SignatureKind kind,
   );
   external Type? getIndexTypeOfType(Type type, IndexKind kind);
-  external _i1.JSArray<AnonymousUnion_3841478> getBaseTypes(InterfaceType type);
+  external _i1.JSArray<BaseType> getBaseTypes(InterfaceType type);
   external Type getBaseTypeOfLiteralType(Type type);
   external Type getWidenedType(Type type);
 
@@ -9042,7 +9190,7 @@ extension type TypeChecker._(_i1.JSObject _) implements _i1.JSObject {
   /// is safe to keep.
   external T runWithCancellationToken<T extends _i1.JSAny?>(
     CancellationToken token,
-    _AnonymousFunction_3695647<_i1.JSAny> cb,
+    _AnonymousFunction_3695647<T> cb,
   );
   external _i1.JSArray<Type>? getTypeArgumentsForResolvedSignature(
     Signature signature,
@@ -9190,7 +9338,7 @@ extension type SymbolFlags._(_i1.JSNumber _) implements _i1.JSNumber {
 }
 
 /// SymbolTable based on ES6 Map interface.
-typedef SymbolTable = Map<AnonymousUnion_2036142, Symbol>;
+typedef SymbolTable = Map<__String, Symbol>;
 extension type Map<K extends _i1.JSAny?, V extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
   /// Returns the number of elements in the Map.
@@ -9199,12 +9347,12 @@ extension type Map<K extends _i1.JSAny?, V extends _i1.JSAny?>._(_i1.JSObject _)
 
   /// Returns true if an element in the Map existed and has been removed, or
   /// false if the element does not exist.
-  external bool delete(_i1.JSAny key);
+  external bool delete(K key);
 
   /// Executes a provided function once per each key/value pair in the Map, in
   /// insertion order.
   external void forEach(
-    _AnonymousFunction_1508545<_i1.JSAny, _i1.JSAny> callbackfn, [
+    _AnonymousFunction_1508545<V, K> callbackfn, [
     _i1.JSAny? thisArg,
   ]);
 
@@ -9216,26 +9364,22 @@ extension type Map<K extends _i1.JSAny?, V extends _i1.JSAny?>._(_i1.JSObject _)
   /// Returns Returns the element associated with the specified key. If no
   /// element is associated with the specified key, undefined is returned.
   @_i1.JS('get')
-  external V? get$(_i1.JSAny key);
+  external V? get$(K key);
 
   /// Returns boolean indicating whether an element with the specified key
   /// exists or not.
-  external bool has(_i1.JSAny key);
+  external bool has(K key);
 
   /// Adds a new element with a specified key and value to the Map. If an
   /// element with the same key already exists, the element will be updated.
   @_i1.JS('set')
-  external Map<_i1.JSAny?, _i1.JSAny?> set$(_i1.JSAny key, _i1.JSAny value);
+  external Map<K, V> set$(K key, V value);
 }
 extension type _AnonymousFunction_1508545<
   V extends _i1.JSAny?,
   K extends _i1.JSAny?
 >._(_i1.JSFunction _) implements _i1.JSFunction {
-  external void call(
-    _i1.JSAny value,
-    _i1.JSAny key,
-    Map<_i1.JSAny?, _i1.JSAny?> map,
-  );
+  external void call(V value, K key, Map<K, V> map);
 }
 extension type Type._(_i1.JSObject _) implements _i1.JSObject {
   external TypeFlags flags;
@@ -9349,7 +9493,7 @@ extension type TypeFlags._(_i1.JSNumber _) implements _i1.JSNumber {
 }
 typedef DestructuringPattern = AnonymousUnion_4251549;
 extension type AnonymousUnion_4251549._(Node _) implements Node {
-  BindingPattern get asBindingPattern => (_ as AnonymousUnion_4353370);
+  BindingPattern get asBindingPattern => (_ as BindingPattern);
 
   ObjectLiteralExpression get asObjectLiteralExpression =>
       (_ as ObjectLiteralExpression);
@@ -9371,8 +9515,9 @@ extension type IndexInfo._(_i1.JSObject _) implements _i1.JSObject {
 
   external IndexSignatureDeclaration? declaration;
 
-  external _i1.JSArray<AnonymousIntersection_2875729?>? components;
+  external _i1.JSArray<ElementWithComputedPropertyName?>? components;
 }
+typedef ElementWithComputedPropertyName = AnonymousIntersection_2875729;
 extension type AnonymousUnion_3057089._(NamedDeclaration _)
     implements NamedDeclaration {
   ClassElement get asClassElement => (_ as ClassElement);
@@ -9385,8 +9530,8 @@ extension type AnonymousType_2975848._(_i1.JSObject _) implements _i1.JSObject {
 
   external String name;
 }
-extension type AnonymousIntersection_2875729._(_i1.JSObject _)
-    implements AnonymousType_2975848 {
+extension type AnonymousIntersection_2875729._(NamedDeclaration _)
+    implements AnonymousUnion_3057089, AnonymousType_2975848 {
   external String? get name;
   AnonymousUnion_3057089 get asAnonymousUnion_3057089 =>
       (_ as AnonymousUnion_3057089);
@@ -9409,9 +9554,14 @@ extension type Signature._(_i1.JSObject _) implements _i1.JSObject {
   external Symbol? thisParameter;
 }
 extension type AnonymousUnion_2822525._(_i1.JSObject _)
-    implements _i1.JSObject {
+    implements Declaration, JSDocContainer, LocalsContainer {
+  external SyntaxKind get kind;
+  external NodeFlags get flags;
+  external Node get parent;
+  external double get pos;
+  external double get end;
   SignatureDeclaration get asSignatureDeclaration =>
-      (_ as AnonymousUnion_2968490);
+      (_ as SignatureDeclaration);
 
   JSDocSignature get asJSDocSignature => (_ as JSDocSignature);
 }
@@ -9477,6 +9627,7 @@ extension type ObjectFlags._(_i1.JSNumber _) implements _i1.JSNumber {
     8388608.toJS,
   );
 }
+typedef BaseType = AnonymousUnion_3841478;
 extension type IntersectionType._(_i1.JSObject _)
     implements UnionOrIntersectionType {}
 extension type UnionOrIntersectionType._(_i1.JSObject _) implements Type {
@@ -9505,7 +9656,7 @@ extension type AnonymousUnion_3841478._(Type _) implements Type {
 
   IntersectionType get asIntersectionType => (_ as IntersectionType);
 
-  TypeVariable get asTypeVariable => (_ as AnonymousUnion_3516149);
+  TypeVariable get asTypeVariable => (_ as TypeVariable);
 }
 
 /// Type references (ObjectFlags.Reference). When a class or interface has
@@ -9665,15 +9816,20 @@ extension type AnonymousType_2567447._(_i1.JSObject _) implements _i1.JSObject {
   external NodeArray<TypeNode>? typeArguments;
 }
 extension type AnonymousIntersection_1932384._(_i1.JSObject _)
-    implements AnonymousUnion_2968490, AnonymousType_2567447 {
+    implements SignatureDeclaration, AnonymousType_2567447 {
   SignatureDeclaration get asSignatureDeclaration =>
-      (_ as AnonymousUnion_2968490);
+      (_ as SignatureDeclaration);
 
   AnonymousType_2567447 get asAnonymousType_2567447 =>
       (_ as AnonymousType_2567447);
 }
 extension type AnonymousUnion_4038599._(_i1.JSObject _)
-    implements _i1.JSObject {
+    implements Declaration, JSDocContainer {
+  external SyntaxKind get kind;
+  external NodeFlags get flags;
+  external Node get parent;
+  external double get pos;
+  external double get end;
   ExportSpecifier get asExportSpecifier => (_ as ExportSpecifier);
 
   Identifier get asIdentifier => (_ as Identifier);
@@ -9838,7 +9994,7 @@ typedef CallLikeExpression = AnonymousUnion_2175551;
 typedef JsxCallLike = AnonymousUnion_2213276;
 extension type AnonymousUnion_2213276._(Expression _) implements Expression {
   JsxOpeningLikeElement get asJsxOpeningLikeElement =>
-      (_ as AnonymousUnion_3524408);
+      (_ as JsxOpeningLikeElement);
 
   JsxOpeningFragment get asJsxOpeningFragment => (_ as JsxOpeningFragment);
 }
@@ -9857,13 +10013,23 @@ extension type AnonymousUnion_2175551._(Node _) implements Node {
 
   Decorator get asDecorator => (_ as Decorator);
 
-  JsxCallLike get asJsxCallLike => (_ as AnonymousUnion_2213276);
+  JsxCallLike get asJsxCallLike => (_ as JsxCallLike);
 
   InstanceofExpression get asInstanceofExpression =>
       (_ as InstanceofExpression);
 }
 extension type AnonymousUnion_3482579._(_i1.JSObject _)
-    implements _i1.JSObject {
+    implements Declaration, JSDocContainer {
+  @_i2.redeclare
+  external SyntaxKind get kind;
+  @_i2.redeclare
+  external NodeFlags get flags;
+  @_i2.redeclare
+  external Node get parent;
+  @_i2.redeclare
+  external double get pos;
+  @_i2.redeclare
+  external double get end;
   EnumMember get asEnumMember => (_ as EnumMember);
 
   PropertyAccessExpression get asPropertyAccessExpression =>

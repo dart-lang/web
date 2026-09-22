@@ -9,6 +9,7 @@ import 'base.dart';
 import 'builtin.dart';
 import 'declarations.dart';
 import 'helpers.dart';
+import 'union_intersection_types.dart';
 
 /// A type referring to a type in the TypeScript AST
 class ReferredType<T extends Declaration> extends NamedType {
@@ -201,10 +202,20 @@ class GenericType extends NamedType {
 
   @override
   Reference emit([TypeOptions? options]) {
+    final desugaredConstraint = constraint == null
+        ? null
+        : desugarTypeAliases(constraint!);
+    final boundType = switch (desugaredConstraint) {
+      null => null,
+      UnionOrIntersectionType() => getDartRepresentationType(constraint!),
+      ReferredType(typeParams: final params) when params.isNotEmpty =>
+        getDartRepresentationType(constraint!),
+      _ => constraint,
+    };
     final hasValidGeneric = options?.validGenericNames.contains(name) ?? true;
     if (!hasValidGeneric) {
-      if (constraint != null) {
-        return getDartRepresentationType(constraint!).emit(options);
+      if (boundType != null) {
+        return boundType.emit(options);
       }
       return BuiltinType.primitiveType(
         PrimitiveType.any,
@@ -216,7 +227,7 @@ class GenericType extends NamedType {
         ..symbol = name
         ..bound = (options?.isTypeArgument ?? false)
             ? null
-            : constraint?.emit(options)
+            : boundType?.emit(options)
         ..isNullable = (options?.nullable ?? false) || isNullable,
     );
   }

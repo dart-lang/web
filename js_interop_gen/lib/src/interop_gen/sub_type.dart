@@ -188,9 +188,9 @@ TypeHierarchy getTypeHierarchy(Type type) {
         break;
       case UnionType(types: final types):
         // subtype is union
-        hierarchy.nodes.add(
-          getTypeHierarchy(getLowestCommonAncestorOfTypes(types)),
-        );
+        for (final t in getCommonSupertypesOfTypes(types)) {
+          hierarchy.nodes.add(getTypeHierarchy(t));
+        }
         break;
       case IntersectionType(types: final types):
         for (final t in types) {
@@ -402,21 +402,21 @@ TypeMap createTypeMap(List<Type> types, {TypeMap? map}) {
 ///
 /// Types may have more than one type in common. In such case, a union of those
 /// common types is returned by the given function.
-Type getLowestCommonAncestorOfTypes(
+List<Type> getCommonSupertypesOfTypes(
   List<Type> types, {
   bool isNullable = false,
   TypeMap? typeMap,
 }) {
-  typeMap ??= createTypeMap(types);
+  final resolvedMap = typeMap ?? createTypeMap(types);
 
   if (types.isEmpty) throw Exception('You must pass types');
   if (types.singleOrNull case final singleType?) {
-    return cloneType(singleType, isNullable: isNullable);
+    return [cloneType(singleType, isNullable: isNullable)];
   }
 
   if (_getSharedPrimitiveTypeIfAny(types, isNullable: isNullable)
       case final t?) {
-    return t;
+    return [t];
   }
 
   // Calculate the intersection of all type hierarchies
@@ -429,24 +429,31 @@ Type getLowestCommonAncestorOfTypes(
   final topoList = topologicalList(typeMaps.toList());
   for (final level in topoList) {
     final typesAtLevel = commonTypes.intersection(level);
-    // look for level where common types are present
-    // the LCA are on the same topological level.
     if (typesAtLevel.isNotEmpty) {
-      if (typesAtLevel.singleOrNull case final finalType?) {
-        return deduceType(finalType, typeMap);
-      } else {
-        // Fallback to JSObject to avoid creating dynamic unions during
-        // emission,
-        // which would otherwise remain undefined in the output.
-        return BuiltinType.primitiveType(
-          PrimitiveType.object,
-          isNullable: isNullable,
-        );
-      }
+      return typesAtLevel.map((c) => deduceType(c, resolvedMap)).toList();
     }
   }
 
-  return BuiltinType.primitiveType(PrimitiveType.any);
+  return [BuiltinType.primitiveType(PrimitiveType.any)];
+}
+
+Type getLowestCommonAncestorOfTypes(
+  List<Type> types, {
+  bool isNullable = false,
+  TypeMap? typeMap,
+}) {
+  final common = getCommonSupertypesOfTypes(
+    types,
+    isNullable: isNullable,
+    typeMap: typeMap,
+  );
+  if (common.singleOrNull case final singleType?) {
+    return singleType;
+  }
+  return BuiltinType.primitiveType(
+    PrimitiveType.object,
+    isNullable: isNullable,
+  );
 }
 
 Type deduceType(String name, TypeMap map) {
@@ -528,6 +535,7 @@ bool isSubtypeOf(Type a, Type b) {
 }
 
 Type getStaticRepType(Type t) {
+  t = desugarTypeAliases(t);
   if (t is UnionType) {
     return getLowestCommonAncestorOfTypes(t.types);
   }
@@ -682,8 +690,8 @@ Type getGreatestCommonSubtypeOfTypes(
     return cloneType(singleType, isNullable: isNullable);
   }
 
-  // Get Dart representation types for all types
-  final repTypes = types.map(getDartRepresentationType).toList();
+  // Get static Dart representation types for all types
+  final repTypes = types.map(getStaticRepType).toList();
 
   // Find a candidate that is a subtype of all other repTypes
   for (final candidate in repTypes) {

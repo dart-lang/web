@@ -10,3 +10,6 @@ language_version: 3.10.0
 rename_map:
   Program: TSProgram
   SourceFile: TSSourceFile
+
+preamble: |
+  // ignore_for_file: unintended_html_in_doc_comment, redeclare_on_non_redeclaring_member

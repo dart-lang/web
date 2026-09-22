@@ -320,8 +320,13 @@ extension type Date._(_i1.JSObject _) implements _i1.JSObject {
   /// object's data for JavaScript Object Notation (JSON) serialization.
   external String toJSON([_i1.JSAny? key]);
 }
-extension type const AnonymousUnion_2036258._(String _) {
-  static const AnonymousUnion_2036258 emit = AnonymousUnion_2036258._('emit');
+extension type AnonymousUnion_2036258._(_i1.JSString _)
+    implements _i1.JSString {
+  static final AnonymousUnion_2036258 emit = AnonymousUnion_2036258._(
+    'emit'.toJS,
+  );
 
-  static const AnonymousUnion_2036258 none = AnonymousUnion_2036258._('none');
+  static final AnonymousUnion_2036258 none = AnonymousUnion_2036258._(
+    'none'.toJS,
+  );
 }

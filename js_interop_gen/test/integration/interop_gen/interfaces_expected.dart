@@ -68,14 +68,23 @@ extension type ErrorReporter._(_i1.JSObject _) implements _i1.JSObject {
   @_i2.doNotStore
   external _i1.JSAny? reportError(String msg);
 }
-extension type const AnonymousUnion_1885558._(String _) {
-  static const AnonymousUnion_1885558 debug = AnonymousUnion_1885558._('debug');
+extension type AnonymousUnion_1885558._(_i1.JSString _)
+    implements _i1.JSString {
+  static final AnonymousUnion_1885558 debug = AnonymousUnion_1885558._(
+    'debug'.toJS,
+  );
 
-  static const AnonymousUnion_1885558 info = AnonymousUnion_1885558._('info');
+  static final AnonymousUnion_1885558 info = AnonymousUnion_1885558._(
+    'info'.toJS,
+  );
 
-  static const AnonymousUnion_1885558 warn = AnonymousUnion_1885558._('warn');
+  static final AnonymousUnion_1885558 warn = AnonymousUnion_1885558._(
+    'warn'.toJS,
+  );
 
-  static const AnonymousUnion_1885558 error = AnonymousUnion_1885558._('error');
+  static final AnonymousUnion_1885558 error = AnonymousUnion_1885558._(
+    'error'.toJS,
+  );
 }
 extension type LinkedList._(_i1.JSObject _) implements _i1.JSObject {
   external LinkedList next();

@@ -6,6 +6,25 @@ import 'dart:js_interop';
 
 import 'package:meta/meta.dart';
 
+/// Runs [callback] on each element of [iterable].
+///
+/// This is mildly faster than converting the iterable to Dart and using
+/// `for`/`in`.
+void iterate<E extends JSAny?>(
+  JSIterableProtocol<E> iterable,
+  void Function(E value) callback,
+) {
+  var iterator = iterable.iterator;
+  while (true) {
+    var result = iterator.next();
+    if (!result.isDone) {
+      callback(result.value!);
+    } else {
+      break;
+    }
+  }
+}
+
 /// Returns whether [key] and [value] are equal using the [same-value-zero]
 /// equality algorithm.
 ///

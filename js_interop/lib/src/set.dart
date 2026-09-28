@@ -5,6 +5,8 @@
 import 'dart:js_interop';
 import 'dart:collection';
 
+import 'package:meta/meta.dart';
+
 import 'set_like.dart';
 import 'utils.dart';
 
@@ -24,7 +26,7 @@ extension type JSSet<E extends JSAny?>._(JSObject _)
   /// considers `NaN` to be equivalent to `NaN`.
   Set<E> get toDart {
     var set = LinkedHashSet<E>(equals: sameValueZeroEquals);
-    set.addAll(this.values.toDartIterable);
+    iterate(this.values, (value) => set.add(value));
     return set;
   }
 
@@ -78,11 +80,15 @@ extension type JSSet<E extends JSAny?>._(JSObject _)
   /// [`Set.isSupersetOf()`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/isSupersetOf
   external bool isSupersetOf(JSSetLike<E> setLike);
 
+  // Note: `keys` is redundant with `values` for users of `JSSet` on its own,
+  // but it might be relevant when using it in a `JSSetLike` context that
+  // `JSSet.keys` returns a `JSIterable` rather than a `JSIterableProtocol`.
   /// See [`Set.keys()`].
   ///
   /// This returns the same value as [values].
   ///
   /// [`Set.keys()`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/keys
+  @redeclare
   JSIterable<E> get keys => _keys();
   @JS('keys')
   external JSIterable<E> _keys();

@@ -18,9 +18,6 @@ external TSProgram createProgram(
 );
 
 @JS()
-external TSSourceFile createSourceFile(String filename, String contents);
-
-@JS()
 external void forEachChild<T extends JSAny>(
   TSNode node,
   TSNodeCallback<T> cbNode, [

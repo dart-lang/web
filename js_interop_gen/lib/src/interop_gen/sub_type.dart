@@ -263,13 +263,13 @@ TypeHierarchy getTypeHierarchy(Type type) {
         final BuiltinType(name: jsName) =
             getJSTypeAlternative(type) as BuiltinType;
 
-        var value = jsTypeSupertypes[jsName];
-        final list = <String>[];
-        while (value != null) {
-          list.add(value);
-          value = jsTypeSupertypes[value];
+        for (final supertype in jsTypeSupertypes[jsName]!) {
+          hierarchy.nodes.add(
+            getTypeHierarchy(
+              BuiltinType(name: supertype, fromDartJSInterop: true),
+            ),
+          );
         }
-        hierarchy.addChainedValues(list);
         break;
       default:
         print(
@@ -396,12 +396,14 @@ Type getLowestCommonAncestorOfTypes(
     return t;
   }
 
-  // Calculate the intersection of all type hierarchies
+  // Calculate the intersection of all type hierarchies. Ignore `JSIterable` and
+  // `JSIterableProtocol` so unions like `string | T[]` (`JSString` | `JSArray`)
+  // resolve to `JSAny` instead of `JSIterable`.
   final typeMaps = types.map(getTypeHierarchy);
   final parentHierarchy = typeMaps.map((map) => map.expand());
   final commonTypes = parentHierarchy.reduce(
     (val, element) => val.intersection(element),
-  );
+  )..removeAll(['JSIterable', 'JSIterableProtocol']);
 
   final topoList = topologicalList(typeMaps.toList());
   for (final level in topoList) {

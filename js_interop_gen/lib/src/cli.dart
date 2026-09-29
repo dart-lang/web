@@ -166,7 +166,7 @@ Future<String> computeJsTypeSupertypes() async {
     final definedNames = dartJsInterop.exportNamespace.definedNames2;
     // `SplayTreeMap` to avoid moving types around in `dart:js_interop`
     // affecting the code generation.
-    final jsTypeSupertypes = SplayTreeMap<String, String?>();
+    final jsTypeSupertypes = SplayTreeMap<String, Set<String>>();
     for (final name in definedNames.keys) {
       final element = definedNames[name];
       if (element is ExtensionTypeElement) {
@@ -178,32 +178,20 @@ Future<String> computeJsTypeSupertypes() async {
             element.name!.startsWith('JS');
         if (!isJSType(element)) continue;
 
-        String? parentJsType;
+        final parentJsTypes = <String>{};
         final supertype = element.supertype;
         final immediateSupertypes = <InterfaceType>[
           ?supertype,
           ...element.interfaces,
         ]..removeWhere((supertype) => supertype.isDartCoreObject);
-        final candidateSupertypes = immediateSupertypes
-            .where((s) => isJSType(s.element))
-            .toList();
-        if (candidateSupertypes.isNotEmpty) {
-          // If there are multiple JS supertypes (e.g., JSObject and
-          // JSIterable), prefer JSObject or a subtype of JSObject to maintain
-          // primary object hierarchy.
-          bool inheritsFromJSObject(InterfaceType type) =>
-              type.element.name == 'JSObject' ||
-              type.allSupertypes.any((t) => t.element.name == 'JSObject');
-
-          final selected = candidateSupertypes.firstWhere(
-            inheritsFromJSObject,
-            orElse: () => candidateSupertypes.first,
-          );
-          parentJsType = "'${selected.element.name!}'";
+        for (final supertype in immediateSupertypes) {
+          if (isJSType(supertype.element)) {
+            parentJsTypes.add("'${supertype.element.name!}'");
+          }
         }
-        // Ensure that the hierarchy forms a tree.
-        assert((parentJsType == null) == (name == 'JSAny'));
-        jsTypeSupertypes["'$name'"] = parentJsType;
+        // Ensure that `JSAny` is the root of the hierarchy.
+        assert(parentJsTypes.isEmpty == (name == 'JSAny'));
+        jsTypeSupertypes["'$name'"] = parentJsTypes;
       }
     }
 
@@ -216,8 +204,8 @@ Future<String> computeJsTypeSupertypes() async {
 // Generated from Dart SDK ${Platform.version.split(' ').first}
 // To update run: dart run js_interop_gen/tool/update_supertypes.dart
 
-const Map<String, String?> jsTypeSupertypes = {
-${jsTypeSupertypes.entries.map((e) => "  ${e.key}: ${e.value},").join('\n')}
+const Map<String, Set<String>> jsTypeSupertypes = {
+${jsTypeSupertypes.entries.map((e) => "  ${e.key}: {${e.value.join(', ')}},").join('\n')}
 };
 ''';
   } finally {

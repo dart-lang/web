@@ -21,6 +21,7 @@ void main() {
   test('One type is a supertype of the other', () {
     expect(computeJsTypeUnion('JSAny', 'JSString'), 'JSAny');
     expect(computeJsTypeUnion('JSUint8Array', 'JSObject'), 'JSObject');
+    expect(computeJsTypeUnion('JSArray', 'JSObject'), 'JSObject');
   });
   test('Direct sibling types', () {
     expect(computeJsTypeUnion('JSNumber', 'JSString'), 'JSAny');
@@ -36,5 +37,7 @@ void main() {
       computeJsTypeUnion('JSExportedDartFunction', 'JSUint32Array'),
       'JSObject',
     );
+    expect(computeJsTypeUnion('JSArray', 'JSUint8Array'), 'JSObject');
+    expect(computeJsTypeUnion('JSArray', 'JSString'), 'JSAny');
   });
 }

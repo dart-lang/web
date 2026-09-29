@@ -86,8 +86,8 @@ void main() {
       );
       expect(
         arrayTypeMap.nodes.length,
-        equals(1),
-        reason: 'JSArray only inherits JSObject',
+        equals(2),
+        reason: 'JSArray inherits JSObject and JSIterable',
       );
     });
 
@@ -107,6 +107,15 @@ void main() {
         BuiltinType.primitiveType(PrimitiveType.string),
       ]);
       expect((numStringSubType as NamedType).name, equals('JSAny'));
+
+      final stringArraySubType = getLowestCommonAncestorOfTypes([
+        BuiltinType.primitiveType(PrimitiveType.string),
+        BuiltinType.primitiveType(
+          PrimitiveType.array,
+          typeParams: [BuiltinType.anyType],
+        ),
+      ]);
+      expect((stringArraySubType as NamedType).name, equals('JSAny'));
     });
 
     group('LCA Test (small)', () {

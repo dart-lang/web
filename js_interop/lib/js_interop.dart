@@ -4,5 +4,6 @@
 
 export 'src/dart/date_time.dart';
 export 'src/dart/map.dart';
+export 'src/async_disposable_protocol.dart';
 export 'src/date.dart';
 export 'src/record.dart';

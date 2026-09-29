@@ -68,10 +68,8 @@ void main() {
   test(
     "JSRecord.fromEntries()",
     () => expect(
-      JSRecord.fromEntries([
-        MapEntry("foo", 1.toJS),
-        MapEntry("bar", 2.toJS),
-      ]).toDart,
+      JSRecord.fromEntries([MapEntry("foo", 1.toJS), MapEntry("bar", 2.toJS)])
+          .toDart,
       equals({"foo": 1.toJS, "bar": 2.toJS}),
     ),
   );

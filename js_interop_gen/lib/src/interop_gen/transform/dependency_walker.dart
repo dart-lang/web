@@ -6,6 +6,7 @@ import '../../ast/base.dart';
 import '../../ast/builtin.dart';
 import '../../ast/declarations.dart';
 import '../../ast/types.dart';
+import '../../ast/union_intersection_types.dart';
 import '../transform.dart';
 
 /// A helper class that resolves the dependent declarations of a given AST

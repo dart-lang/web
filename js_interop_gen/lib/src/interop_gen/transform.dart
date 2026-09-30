@@ -15,6 +15,7 @@ import '../ast/builtin.dart';
 import '../ast/declarations.dart';
 import '../ast/helpers.dart';
 import '../ast/types.dart';
+import '../ast/union_intersection_types.dart';
 import '../config.dart';
 import '../js/helpers.dart';
 import '../js/typescript.dart' as ts;

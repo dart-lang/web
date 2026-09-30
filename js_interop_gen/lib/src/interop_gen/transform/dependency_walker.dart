@@ -143,8 +143,10 @@ class DependencyWalker {
           for (final t in t.types.expand(_getNonBuiltinTypes))
             t.id.toString(): t,
         });
-      case UnionType(types: final uTypes, declaration: final uDecl) ||
-          IntersectionType(types: final uTypes, declaration: final uDecl):
+      case UnionOrIntersectionType(
+        types: final uTypes,
+        declaration: final uDecl,
+      ):
         directDeps.addAll({
           for (final t in uTypes.expand(_getNonBuiltinTypes))
             t.id.toString(): t,

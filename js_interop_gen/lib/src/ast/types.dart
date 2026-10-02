@@ -4,10 +4,12 @@
 
 import 'package:code_builder/code_builder.dart';
 import '../interop_gen/namer.dart';
+import '../interop_gen/sub_type.dart';
 import 'base.dart';
 import 'builtin.dart';
 import 'declarations.dart';
 import 'helpers.dart';
+import 'union_intersection_types.dart';
 
 /// A type referring to a type in the TypeScript AST
 class ReferredType<T extends Declaration> extends NamedType {
@@ -50,9 +52,12 @@ class ReferredType<T extends Declaration> extends NamedType {
   @override
   Reference emit([TypeOptions? options]) {
     final opts = options ?? TypeOptions();
-    final mappedSymbol = opts.declarationToEmittedName[declaration];
+    Declaration decl = declaration;
+    while (decl is NamedDeclaration && decl.mergedInto != null) {
+      decl = decl.mergedInto!;
+    }
+    final mappedSymbol = opts.declarationToEmittedName[decl];
     final declTypeParams = <GenericType>[];
-    final decl = declaration;
     if (decl is TypeDeclaration) {
       declTypeParams.addAll(decl.typeParameters);
     } else if (decl is TypeAliasDeclaration) {
@@ -72,9 +77,9 @@ class ReferredType<T extends Declaration> extends NamedType {
       (t) => t
         ..symbol =
             mappedSymbol ??
-            ((declaration is NestableDeclaration)
-                ? (declaration as NestableDeclaration).completedDartName
-                : declaration.dartName ?? declaration.name)
+            ((decl is NestableDeclaration)
+                ? decl.completedDartName
+                : decl.dartName ?? decl.name)
         ..types.addAll(
           paddedTypeParams.map((t) {
             final typeArgsOptions = TypeOptions(
@@ -83,6 +88,7 @@ class ReferredType<T extends Declaration> extends NamedType {
               variadicArgsCount: opts.variadicArgsCount,
               shouldEmitJsTypes: opts.shouldEmitJsTypes,
               redeclareOverrides: opts.redeclareOverrides,
+              validGenericNames: opts.validGenericNames,
             );
             return (t == BuiltinType.$voidType ? BuiltinType.anyType : t).emit(
               typeArgsOptions,
@@ -195,12 +201,36 @@ class GenericType extends NamedType {
   }
 
   @override
-  Reference emit([TypeOptions? options]) => TypeReference(
-    (t) => t
-      ..symbol = name
-      ..bound = (options?.isTypeArgument ?? false) ? null : constraint?.emit()
-      ..isNullable = (options?.nullable ?? false) || isNullable,
-  );
+  Reference emit([TypeOptions? options]) {
+    final desugaredConstraint = constraint == null
+        ? null
+        : desugarTypeAliases(constraint!);
+    final boundType = switch (desugaredConstraint) {
+      null => null,
+      UnionOrIntersectionType() => getDartRepresentationType(constraint!),
+      ReferredType(typeParams: final params) when params.isNotEmpty =>
+        getDartRepresentationType(constraint!),
+      _ => constraint,
+    };
+    final hasValidGeneric = options?.validGenericNames.contains(name) ?? true;
+    if (!hasValidGeneric) {
+      if (boundType != null) {
+        return boundType.emit(options);
+      }
+      return BuiltinType.primitiveType(
+        PrimitiveType.any,
+        isNullable: isNullable,
+      ).emit(options);
+    }
+    return TypeReference(
+      (t) => t
+        ..symbol = name
+        ..bound = (options?.isTypeArgument ?? false)
+            ? null
+            : boundType?.emit(options)
+        ..isNullable = (options?.nullable ?? false) || isNullable,
+    );
+  }
 
   @override
   bool operator ==(Object other) {
@@ -411,12 +441,13 @@ sealed class ClosureType extends DeclarationType {
     required String name,
     required this.id,
     required this.returnType,
-    this.typeParameters = const [],
+    List<GenericType> typeParameters = const [],
     this.parameters = const [],
     this.isNullable = false,
-  }) : declarationName = name {
-    if (typeParameters.isEmpty) {
-      typeParameters.addAll(
+  }) : typeParameters = List.of(typeParameters),
+       declarationName = name {
+    if (this.typeParameters.isEmpty) {
+      this.typeParameters.addAll(
         getGenericTypes(this).map((t) {
           t.constraint ??= BuiltinType.anyType;
           return t;
@@ -631,7 +662,7 @@ class _EnumObjDeclaration extends NamedDeclaration
             ..name = '_',
         )
         ..implements.add(repType.emit(options?.toTypeOptions()))
-        ..fields.addAll(reference.members.map((mem) => mem.emit()))
+        ..fields.addAll(reference.members.map((mem) => mem.emit(true)))
         ..methods.addAll(
           reference.members.map((mem) {
             return mem.value == null

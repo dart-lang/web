@@ -35,8 +35,8 @@ extension type AnonymousUnion_2683278._(_i1.JSAny _) implements _i1.JSAny {
 
   double get asDouble => (_ as _i1.JSNumber).toDartDouble;
 }
-extension type const KeyOf_Person._(String _) {
-  static const KeyOf_Person name = KeyOf_Person._('name');
+extension type KeyOf_Person._(_i1.JSString _) implements _i1.JSString {
+  static final KeyOf_Person name = KeyOf_Person._('name'.toJS);
 
-  static const KeyOf_Person age = KeyOf_Person._('age');
+  static final KeyOf_Person age = KeyOf_Person._('age'.toJS);
 }

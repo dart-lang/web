@@ -44,10 +44,10 @@ extension type feeStatus._(_i1.JSObject _) implements _i1.JSObject {
 
   static feeStatusEnum get Done => feeStatusEnum.Done;
 }
-extension type const feeStatusEnum._(int _) {
-  static const feeStatusEnum Pending = feeStatusEnum._(0);
+extension type feeStatusEnum._(_i1.JSNumber _) implements _i1.JSNumber {
+  static final feeStatusEnum Pending = feeStatusEnum._(0.toJS);
 
-  static const feeStatusEnum Done = feeStatusEnum._(1);
+  static final feeStatusEnum Done = feeStatusEnum._(1.toJS);
 }
 @_i1.JS()
 external fooHelper_Options get opts;
@@ -57,10 +57,10 @@ extension type feeType._(_i1.JSObject _) implements _i1.JSObject {
 
   static feeTypeEnum get Premium => feeTypeEnum.Premium;
 }
-extension type const feeTypeEnum._(int _) {
-  static const feeTypeEnum Basic = feeTypeEnum._(0);
+extension type feeTypeEnum._(_i1.JSNumber _) implements _i1.JSNumber {
+  static final feeTypeEnum Basic = feeTypeEnum._(0.toJS);
 
-  static const feeTypeEnum Premium = feeTypeEnum._(1);
+  static final feeTypeEnum Premium = feeTypeEnum._(1.toJS);
 }
 extension type FiConstructor._(_i1.JSObject _) implements _i1.JSObject {
   external factory FiConstructor();

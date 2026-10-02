@@ -28,8 +28,13 @@ extension type Empty._(_i1.JSObject _) implements _i1.JSObject {}
 @_i1.JS()
 external _i1.JSAny? get emptyKey;
 typedef symlink_Type = AnonymousUnion_3598178;
-extension type const AnonymousUnion_3598178._(String _) {
-  static const AnonymousUnion_3598178 dir = AnonymousUnion_3598178._('dir');
+extension type AnonymousUnion_3598178._(_i1.JSString _)
+    implements _i1.JSString {
+  static final AnonymousUnion_3598178 dir = AnonymousUnion_3598178._(
+    'dir'.toJS,
+  );
 
-  static const AnonymousUnion_3598178 file = AnonymousUnion_3598178._('file');
+  static final AnonymousUnion_3598178 file = AnonymousUnion_3598178._(
+    'file'.toJS,
+  );
 }

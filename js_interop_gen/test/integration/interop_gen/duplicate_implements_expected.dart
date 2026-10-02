@@ -18,6 +18,9 @@ extension type ParentB._(_i1.JSObject _) implements Grandparent {
 }
 extension type Child._(_i1.JSObject _) implements ParentA, ParentB {
   external String childProp;
+
+  external String get grandparentProp;
+  external set grandparentProp(String value);
 }
 typedef UnionWithDuplicates = AnonymousUnion_2488765;
 extension type AnonymousUnion_2488765._(Grandparent _) implements Grandparent {

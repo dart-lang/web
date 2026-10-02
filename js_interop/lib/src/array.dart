@@ -16,7 +16,7 @@ extension JSArrayExtension<T extends JSAny?> on JSArray<T> {
   /// See [`Array.at()`].
   ///
   /// [`Array.at()`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/at
-  external T at(int index);
+  external T? at(int index);
 
   /// See [`Array.concat()`].
   ///
@@ -68,16 +68,16 @@ extension JSArrayExtension<T extends JSAny?> on JSArray<T> {
   /// See [`Array.find()`].
   ///
   /// [`Array.find()`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find
-  T find(bool Function(T element) callback) => _find(callback.toJS);
+  T? find(bool Function(T element) callback) => _find(callback.toJS);
 
   /// See [`Array.find()`].
   ///
   /// [`Array.find()`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find
-  T findWithIndex(bool Function(T element, int index) callback) =>
+  T? findWithIndex(bool Function(T element, int index) callback) =>
       _find(callback.toJS);
 
   @JS('find')
-  external T _find(JSFunction callback);
+  external T? _find(JSFunction callback);
 
   /// See [`Array.findIndex()`].
   ///
@@ -96,16 +96,16 @@ extension JSArrayExtension<T extends JSAny?> on JSArray<T> {
   /// See [`Array.findLast()`].
   ///
   /// [`Array.findLast()`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/findLast
-  T findLast(bool Function(T element) callback) => _findLast(callback.toJS);
+  T? findLast(bool Function(T element) callback) => _findLast(callback.toJS);
 
   /// See [`Array.findLast()`].
   ///
   /// [`Array.findLast()`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/findLast
-  T findLastWithIndex(bool Function(T element, int index) callback) =>
+  T? findLastWithIndex(bool Function(T element, int index) callback) =>
       _findLast(callback.toJS);
 
   @JS('findLast')
-  external T _findLast(JSFunction callback);
+  external T? _findLast(JSFunction callback);
 
   /// See [`Array.findLastIndex()`].
   ///

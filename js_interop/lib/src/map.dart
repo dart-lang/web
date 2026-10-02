@@ -5,6 +5,7 @@
 import 'dart:collection';
 import 'dart:js_interop';
 
+import 'pair.dart';
 import 'set_like.dart';
 import 'utils.dart';
 
@@ -20,7 +21,7 @@ extension type JSMap<K extends JSAny?, V extends JSAny?>._(JSObject _)
     implements JSObject, JSIterable<JSArray>, JSSetLike<K> {
   /// Returns a Dart iterable of key/value pairs in this map.
   Iterable<(K, V)> get pairs =>
-      _entries().toDartIterable.map((entry) => (entry[0] as K, entry[1] as V));
+      _entries().toDartIterable.map((entry) => entry.toDart);
 
   /// Returns a copy of this map as a Dart [LinkedHashMap].
   ///
@@ -28,7 +29,7 @@ extension type JSMap<K extends JSAny?, V extends JSAny?>._(JSObject _)
   /// considers `NaN` to be equivalent to `NaN`.
   Map<K, V> get toDart {
     var map = LinkedHashMap<K, V>(equals: sameValueZeroEquals);
-    iterate(_entries(), (entry) => map[entry[0] as K] = entry[1] as V);
+    iterate(_entries(), (entry) => map[entry.$1] = entry.$2);
     return map;
   }
 
@@ -48,7 +49,7 @@ extension type JSMap<K extends JSAny?, V extends JSAny?>._(JSObject _)
   external bool delete(JSAny? key);
 
   @JS('entries')
-  external JSIterable<JSArray> _entries();
+  external JSIterable<JSPair<K, V>> _entries();
 
   /// See [`Map.get()`].
   ///

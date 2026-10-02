@@ -22,11 +22,11 @@ void main() {
   });
 
   test(
-    "\$2 returns the first element",
+    "\$2 returns the second element",
     () => expect(pair.$2, equals("foo".toJS)),
   );
 
-  test("\$2= sets the first element", () {
+  test("\$2= sets the second element", () {
     pair.$2 = "bar".toJS;
     expect(pair.$2, equals("bar".toJS));
   });

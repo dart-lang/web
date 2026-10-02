@@ -7,7 +7,7 @@ import 'dart:js_interop';
 import '../pair.dart';
 
 /// Conversion from a two-element [Record] to [JSPair].
-extension PairToJSPair<E1 extends JSAny?, E2 extends JSAny?> on (E1, E2) {
+extension RecordPairToJSPair<E1 extends JSAny?, E2 extends JSAny?> on (E1, E2) {
   /// Converts [this] to a [JSPair] by shallowly copying it.
   JSPair<E1, E2> get toJS => JSPair<E1, E2>($1, $2);
 }

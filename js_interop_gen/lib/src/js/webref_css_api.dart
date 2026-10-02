@@ -4,11 +4,13 @@
 
 import 'dart:js_interop';
 
+import 'package:js_interop/js_interop.dart';
+
 @JS()
 external WebRefCSS get css;
 
 extension type WebRefCSS._(JSObject _) implements JSObject {
-  external JSPromise<JSObject> listAll();
+  external JSPromise<JSRecord<CSSEntries>> listAll();
 }
 
 extension type CSSEntries._(JSObject _) implements JSObject {

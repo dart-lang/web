@@ -4,6 +4,8 @@
 
 import 'dart:js_interop';
 
+import 'package:js_interop/js_interop.dart';
+
 // Namespace URIs that are needed to construct non-HTML elements.
 // https://developer.mozilla.org/en-US/docs/Web/API/Document/createElementNS#important_namespace_uris
 const _svgNamespaceURI = 'http://www.w3.org/2000/svg';
@@ -35,7 +37,7 @@ String singularArticleForElement(String elementInterface) {
 external WebRefElements get elements;
 
 extension type WebRefElements._(JSObject _) implements JSObject {
-  external JSPromise<JSObject> listAll();
+  external JSPromise<JSRecord<ElementsEntries>> listAll();
 }
 
 extension type ElementsEntries._(JSObject _) implements JSObject {

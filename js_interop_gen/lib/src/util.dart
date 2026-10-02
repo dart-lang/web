@@ -8,10 +8,6 @@ import 'package:path/path.dart' as p;
 
 import 'js/filesystem_api.dart';
 
-// TODO(joshualitt): Let's find a better place for these.
-@JS('Object.entries')
-external JSArray<JSAny?> objectEntries(JSObject o);
-
 void ensureDirectoryExists(String dir) {
   if (!fs.existsSync(dir.toJS).toDart) {
     fs.mkdirSync(dir.toJS, JSMkdirOptions(recursive: true.toJS));

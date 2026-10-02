@@ -3,7 +3,6 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:convert';
-import 'dart:js_interop';
 
 import 'package:args/args.dart';
 import 'package:code_builder/code_builder.dart' as code;
@@ -54,13 +53,11 @@ void main(List<String> args) async {
 
     if (argResult.wasParsed('config')) {
       final filename = argResult['config'] as String;
-      final configContent =
-          fs.readFileSync(
-                filename.toJS,
-                JSReadFileOptions(encoding: 'utf8'.toJS),
-              )
-              as JSString;
-      final yaml = loadYamlDocument(configContent.toDart);
+      final configContent = fs.readFileSync(
+        filename,
+        readFileOptions(encoding: 'utf8'),
+      );
+      final yaml = loadYamlDocument(configContent);
       config = YamlConfig.fromYaml(
         yaml.contents as YamlMap,
         filename: filename,
@@ -109,17 +106,17 @@ Future<void> generateJSInteropBindings(Config config) async {
   if (dartDeclarations.multiFileOutput) {
     for (final entry in generatedCodeMap.entries) {
       fs.writeFileSync(
-        p.join(configOutput, p.basename(entry.key)).toJS,
-        entry.value.toJS,
+        p.join(configOutput, p.basename(entry.key)),
+        entry.value,
       );
     }
   } else {
     final entry = generatedCodeMap.entries.first;
-    fs.writeFileSync(configOutput.toJS, entry.value.toJS);
+    fs.writeFileSync(configOutput, entry.value);
     for (final entry in generatedCodeMap.entries.skip(1)) {
       fs.writeFileSync(
-        p.join(p.dirname(configOutput), p.basename(entry.key)).toJS,
-        entry.value.toJS,
+        p.join(p.dirname(configOutput), p.basename(entry.key)),
+        entry.value,
       );
     }
   }
@@ -152,15 +149,15 @@ Future<void> generateIDLBindings({
 
     if (renameMap.isNotEmpty) {
       final jsonStr = jsonEncode(renameMap);
-      fs.writeFileSync(renameMapPath.toJS, jsonStr.toJS);
+      fs.writeFileSync(renameMapPath, jsonStr);
     }
 
     for (var entry in bindings.entries) {
       final libraryPath = entry.key;
       final library = entry.value;
 
-      final contents = _emitLibrary(library, languageVersion).toJS;
-      fs.writeFileSync('$output/$libraryPath'.toJS, contents);
+      final contents = _emitLibrary(library, languageVersion);
+      fs.writeFileSync('$output/$libraryPath', contents);
     }
   } else {
     final allInputFiles = expandGlobs(input.toList(), extension: '.idl');
@@ -170,13 +167,7 @@ Future<void> generateIDLBindings({
     final bindings = await generateBindingsForFiles(
       {
         for (final file in allInputFiles)
-          file:
-              (fs.readFileSync(
-                        file.toJS,
-                        JSReadFileOptions(encoding: 'utf-8'.toJS),
-                      )
-                      as JSString)
-                  .toDart,
+          file: fs.readFileSync(file, readFileOptions(encoding: 'utf-8')),
       },
       output,
       bcdJsonPath: bcdJsonPath,
@@ -186,8 +177,8 @@ Future<void> generateIDLBindings({
       final libraryPath = entry.key;
       final library = entry.value;
 
-      final contents = _emitLibrary(library, languageVersion).toJS;
-      fs.writeFileSync('$output/$libraryPath'.toJS, contents);
+      final contents = _emitLibrary(library, languageVersion);
+      fs.writeFileSync('$output/$libraryPath', contents);
     }
   }
 }

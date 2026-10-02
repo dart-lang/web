@@ -3,7 +3,6 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:convert' hide json;
-import 'dart:js_interop';
 
 import 'js/filesystem_api.dart';
 
@@ -22,10 +21,7 @@ class BrowserCompatData {
     required bool generateAll,
     required String path,
   }) {
-    final content =
-        (fs.readFileSync(path.toJS, JSReadFileOptions(encoding: 'utf8'.toJS))
-                as JSString)
-            .toDart;
+    final content = fs.readFileSync(path, readFileOptions(encoding: 'utf8'));
 
     final contentMap = jsonDecode(content) as Map;
     final api = (contentMap['api'] as Map).cast<String, dynamic>();

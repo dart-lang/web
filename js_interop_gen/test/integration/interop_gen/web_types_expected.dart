@@ -102,6 +102,14 @@ extension type Date._(_i1.JSObject _) implements _i1.JSObject {
   ///   locale of the JavaScript runtime is used.
   /// - [options]:  An object that contains one or more properties that specify
   ///   comparison options.
+  /// - [locales]:  A locale string, array of locale strings, Intl.Locale
+  ///   object, or array of Intl.Locale objects that contain one or more
+  ///   language or locale tags. If you include more than one locale string,
+  ///   list them in descending order of priority so that the first entry is the
+  ///   preferred locale. If you omit this parameter, the default locale of the
+  ///   JavaScript runtime is used.
+  /// - [options]:  An object that contains one or more properties that specify
+  ///   comparison options.
   external String toLocaleString();
 
   /// Returns a date as a string value appropriate to the host environment's
@@ -114,6 +122,14 @@ extension type Date._(_i1.JSObject _) implements _i1.JSObject {
   ///   locale of the JavaScript runtime is used.
   /// - [options]:  An object that contains one or more properties that specify
   ///   comparison options.
+  /// - [locales]:  A locale string, array of locale strings, Intl.Locale
+  ///   object, or array of Intl.Locale objects that contain one or more
+  ///   language or locale tags. If you include more than one locale string,
+  ///   list them in descending order of priority so that the first entry is the
+  ///   preferred locale. If you omit this parameter, the default locale of the
+  ///   JavaScript runtime is used.
+  /// - [options]:  An object that contains one or more properties that specify
+  ///   comparison options.
   external String toLocaleDateString();
 
   /// Returns a time as a string value appropriate to the host environment's
@@ -124,6 +140,14 @@ extension type Date._(_i1.JSObject _) implements _i1.JSObject {
   ///   string, list them in descending order of priority so that the first
   ///   entry is the preferred locale. If you omit this parameter, the default
   ///   locale of the JavaScript runtime is used.
+  /// - [options]:  An object that contains one or more properties that specify
+  ///   comparison options.
+  /// - [locales]:  A locale string, array of locale strings, Intl.Locale
+  ///   object, or array of Intl.Locale objects that contain one or more
+  ///   language or locale tags. If you include more than one locale string,
+  ///   list them in descending order of priority so that the first entry is the
+  ///   preferred locale. If you omit this parameter, the default locale of the
+  ///   JavaScript runtime is used.
   /// - [options]:  An object that contains one or more properties that specify
   ///   comparison options.
   external String toLocaleTimeString();

@@ -568,17 +568,11 @@ class TypeResolver {
         // if import there and not this file, imported from specified file
         final importUrl =
             !nameImport.endsWith('.d.ts') &&
-                fs
-                    .existsSync(
-                      (p.isAbsolute('$nameImport.d.ts')
-                              ? '$nameImport.d.ts'
-                              : p.join(
-                                  p.dirname(transformer.file),
-                                  '$nameImport.d.ts',
-                                ))
-                          .toJS,
-                    )
-                    .toDart
+                fs.existsSync(
+                  p.isAbsolute('$nameImport.d.ts')
+                      ? '$nameImport.d.ts'
+                      : p.join(p.dirname(transformer.file), '$nameImport.d.ts'),
+                )
             ? '$nameImport.d.ts'
             : nameImport;
         final relativePath =

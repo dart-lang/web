@@ -1,0 +1,7 @@
+# Configuration file for dogfooded Node.js API bindings generation
+name: node_api
+description: Pure Node.js bindings generated from curated TypeScript definitions
+
+input: node_entry.d.ts
+output: ../lib/src/js/generated/node_api.dart
+language_version: 3.10.0

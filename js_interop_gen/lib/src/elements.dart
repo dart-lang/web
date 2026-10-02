@@ -131,13 +131,39 @@ RawType _getRawType(idl.IDLType idlType) {
   return RawType(alias ?? type, nullable, typeParameter);
 }
 
+/// The CSSOM View specification
+/// (`https://drafts.csswg.org/cssom-view-1/#extensions-to-the-mouseevent-interface`)
+/// redefines these `MouseEvent` and `MouseEventInit` properties as `double`
+/// instead of `long` (from UI Events), and browsers return fractional
+/// coordinates for them. Because `@webref/idl` strips duplicate member
+/// definitions from `cssom-view.idl` to satisfy `webidl2` validation, override
+/// their type to `JSDouble`.
+const _mouseEventDoubleProperties = {
+  'screenX',
+  'screenY',
+  'clientX',
+  'clientY',
+};
+
+RawType _getPropertyType(
+  String interfaceName,
+  String propertyName,
+  idl.IDLType idlType,
+) {
+  if ((interfaceName == 'MouseEvent' || interfaceName == 'MouseEventInit') &&
+      _mouseEventDoubleProperties.contains(propertyName)) {
+    return RawType('JSDouble', idlType.nullable);
+  }
+  return _getRawType(idlType);
+}
+
 class Attribute extends Property {
   final bool isStatic;
   final bool isReadOnly;
 
   Attribute(
     super.name,
-    super.idlType,
+    super.type,
     super.mdnProperty, {
     required this.isStatic,
     required this.isReadOnly,
@@ -147,18 +173,14 @@ class Attribute extends Property {
 class Constant extends Property {
   final String valueType;
   final JSAny value;
-  Constant(super.name, super.idlType, this.valueType, this.value);
+  Constant(MemberName name, idl.IDLType idlType, this.valueType, this.value)
+    : super(name, _getRawType(idlType));
 }
 
 class Field extends Property {
   final bool isRequired;
 
-  Field(
-    super.name,
-    super.idlType,
-    super.mdnProperty, {
-    required this.isRequired,
-  });
+  Field(super.name, super.type, super.mdnProperty, {required this.isRequired});
 }
 
 class MemberName {
@@ -397,7 +419,7 @@ class PartialInterfacelike {
           memberList.add(
             Attribute(
               MemberName(attributeName),
-              attribute.idlType,
+              _getPropertyType(name, attributeName, attribute.idlType),
               mdnInterface?.propertyFor(attributeName, isStatic: isStatic),
               isStatic: isStatic,
               isReadOnly: attribute.readonly,
@@ -468,7 +490,7 @@ class PartialInterfacelike {
           properties.add(
             Field(
               MemberName(fieldName),
-              field.idlType,
+              _getPropertyType(name, fieldName, field.idlType),
               mdnInterface?.propertyFor(fieldName, isStatic: false),
               isRequired: field.required,
             ),
@@ -528,8 +550,7 @@ sealed class Property {
   final RawType type;
   final MdnProperty? mdnProperty;
 
-  Property(MemberName name, idl.IDLType idlType, [this.mdnProperty])
-    : type = _getRawType(idlType) {
+  Property(MemberName name, this.type, [this.mdnProperty]) {
     final dartName = name.name;
     final jsName = name.jsOverride.isEmpty ? dartName : name.jsOverride;
     this.name = dartName == type.type

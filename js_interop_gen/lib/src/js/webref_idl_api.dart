@@ -4,9 +4,13 @@
 
 import 'dart:js_interop';
 
+import 'package:js_interop/js_interop.dart';
+
+import 'webidl_api.dart' as webidl;
+
 @JS()
 external WebRefIDL get idl;
 
 extension type WebRefIDL._(JSObject _) implements JSObject {
-  external JSPromise<JSObject> parseAll();
+  external JSPromise<JSRecord<JSArray<webidl.Node>>> parseAll();
 }

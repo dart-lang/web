@@ -248,12 +248,12 @@ extension type MouseEvent._(JSObject _) implements UIEvent, JSObject {
   /// > In a multiscreen environment, screens aligned horizontally will be
   /// > treated as a single device, and so the range of the `screenX` value will
   /// > increase to the combined width of the screens.
-  external int get screenX;
+  external double get screenX;
 
   /// The **`screenY`** read-only property of the [MouseEvent] interface
   /// provides the vertical coordinate (offset) of the mouse pointer in
   /// [screen coordinates](https://developer.mozilla.org/en-US/docs/Web/CSS/CSSOM_view/Coordinate_systems#screen).
-  external int get screenY;
+  external double get screenY;
 
   /// The **`clientX`** read-only property of the [MouseEvent] interface
   /// provides the horizontal coordinate within the application's  at which the
@@ -262,7 +262,7 @@ extension type MouseEvent._(JSObject _) implements UIEvent, JSObject {
   /// For example, clicking on the left edge of the viewport will always result
   /// in a mouse event with a `clientX` value of `0`, regardless of whether the
   /// page is scrolled horizontally.
-  external int get clientX;
+  external double get clientX;
 
   /// The **`clientY`** read-only property of the [MouseEvent] interface
   /// provides the vertical coordinate within the application's  at which the
@@ -271,7 +271,7 @@ extension type MouseEvent._(JSObject _) implements UIEvent, JSObject {
   /// For example, clicking on the top edge of the viewport will always result
   /// in a mouse event with a `clientY` value of `0`, regardless of whether the
   /// page is scrolled vertically.
-  external int get clientY;
+  external double get clientY;
 
   /// The **`MouseEvent.ctrlKey`** read-only property is a boolean value that
   /// indicates whether the <kbd>ctrl</kbd> key was pressed or not when a given
@@ -542,10 +542,10 @@ extension type MouseEventInit._(JSObject _)
     bool modifierSuper,
     bool modifierSymbol,
     bool modifierSymbolLock,
-    int screenX,
-    int screenY,
-    int clientX,
-    int clientY,
+    num screenX,
+    num screenY,
+    num clientX,
+    num clientY,
     int button,
     int buttons,
     EventTarget? relatedTarget,
@@ -553,14 +553,14 @@ extension type MouseEventInit._(JSObject _)
     num movementY,
   });
 
-  external int get screenX;
-  external set screenX(int value);
-  external int get screenY;
-  external set screenY(int value);
-  external int get clientX;
-  external set clientX(int value);
-  external int get clientY;
-  external set clientY(int value);
+  external double get screenX;
+  external set screenX(num value);
+  external double get screenY;
+  external set screenY(num value);
+  external double get clientX;
+  external set clientX(num value);
+  external double get clientY;
+  external set clientY(num value);
   external int get button;
   external set button(int value);
   external int get buttons;
@@ -712,10 +712,10 @@ extension type WheelEventInit._(JSObject _)
     bool modifierSuper,
     bool modifierSymbol,
     bool modifierSymbolLock,
-    int screenX,
-    int screenY,
-    int clientX,
-    int clientY,
+    num screenX,
+    num screenY,
+    num clientX,
+    num clientY,
     int button,
     int buttons,
     EventTarget? relatedTarget,

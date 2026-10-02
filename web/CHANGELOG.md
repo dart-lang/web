@@ -18,6 +18,10 @@
   methods to document 1-1 replacements of `dart:html` APIs.
 - Combined stream provider extensions to one per type.
 - Require `sdk: ^3.12.0` to support `isA` on `Object?`.
+- Changed `MouseEvent` and `MouseEventInit` (and subtypes like
+  `PointerEventInit`, `WheelEventInit`, and `DragEventInit`) `screenX`,
+  `screenY`, `clientX`, and `clientY` properties from `int` to `double`/`num`
+  to match the CSSOM View specification and fractional browser coordinates.
 
 ## 1.1.1
 

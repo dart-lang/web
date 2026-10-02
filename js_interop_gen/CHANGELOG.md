@@ -9,3 +9,6 @@
 - Added `--generate-all` option to generate all bindings, including experimental
   and non-standard APIs.
 - Adapt paths for different development environments.
+- Override `MouseEvent` and `MouseEventInit` `screenX`, `screenY`, `clientX`,
+  and `clientY` IDL types from `long` to `double` to match the CSSOM View
+  specification.

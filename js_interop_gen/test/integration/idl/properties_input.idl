@@ -23,3 +23,19 @@ interface PropertyTest {
 
   stringifier attribute DOMString testInfo;
 };
+
+interface MouseEvent {
+  readonly attribute long screenX;
+  readonly attribute long screenY;
+  readonly attribute long clientX;
+  readonly attribute long clientY;
+  readonly attribute long button;
+};
+
+dictionary MouseEventInit {
+  long screenX = 0;
+  long screenY = 0;
+  long clientX = 0;
+  long clientY = 0;
+  short button = 0;
+};

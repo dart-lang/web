@@ -5,22 +5,13 @@
 @TestOn('vm')
 library;
 
-import 'dart:isolate';
-
 import 'package:api_summary/api_summary.dart';
-import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 
 void main() {
-  test('api_summary', () async {
-    // Resolve the package root independently of the working directory.
-    final packagePath = p.dirname(
-      p.fromUri(Isolate.resolvePackageUriSync(Uri.parse('package:web/'))),
-    );
-    // Regenerate with `dart run api_summary --output tool/api.txt`.
-    await expectApiSummaryClean(
-      packagePath: packagePath,
-      goldenFilePath: 'tool/api.txt',
-    );
-  });
+  // Regenerate with `dart run api_summary --output tool/api.txt`.
+  test(
+    'api_summary',
+    () => expectApiSummaryClean(goldenFilePath: 'tool/api.txt'),
+  );
 }

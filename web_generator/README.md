@@ -37,6 +37,9 @@ date. To regenerate it manually, run the following in `web/`:
 dart run api_summary --output tool/api.txt
 ```
 
+The summary depends on the Dart SDK version, so regenerate it with a current
+dev or beta SDK (CI checks it on `dev`), not the minimum supported SDK.
+
 #### Updating the dartdoc info from MDN
 
 package:web's dartdoc comments come from the

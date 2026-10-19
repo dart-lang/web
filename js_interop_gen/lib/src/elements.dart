@@ -64,7 +64,9 @@ RawType _resolveOverrideType(
   type = translator.legacyWindowAliases[type] ?? type;
   final decl = translator.typeToDeclaration[type];
   final alias = idlOrBuiltinToJsTypeAliases[type];
-  assert(decl != null || alias != null, 'Unknown IDL override type: $type');
+  if (decl == null && alias == null) {
+    throw StateError('Unknown IDL override type: $type');
+  }
   if (alias == null && !translator.markTypeAsUsed(type)) {
     type = _getJSTypeEquivalent(RawType(type, false))!.type;
   }
@@ -327,21 +329,26 @@ class OverridableOperation extends OverridableMember {
     MdnProperty? mdnProperty, [
     EngineOperationOverride? override,
     String? overrideKey,
-  ]) => OverridableOperation._(
-    memberName,
-    operation.special,
-    override?.returnType != null
-        ? _resolveOverrideType(
-            override!.returnType!,
-            rawIdlType: operation.idlType,
-            overrideKey: overrideKey != null ? '$overrideKey.returnType' : null,
-          )
-        : _getRawType(operation.idlType),
-    mdnProperty,
-    operation.arguments,
-    override,
-    overrideKey,
-  );
+  ]) {
+    final returnType = override?.returnType;
+    return OverridableOperation._(
+      memberName,
+      operation.special,
+      returnType != null
+          ? _resolveOverrideType(
+              returnType,
+              rawIdlType: operation.idlType,
+              overrideKey: overrideKey != null
+                  ? '$overrideKey.returnType'
+                  : null,
+            )
+          : _getRawType(operation.idlType),
+      mdnProperty,
+      operation.arguments,
+      override,
+      overrideKey,
+    );
+  }
 
   OverridableOperation._(
     this._name,

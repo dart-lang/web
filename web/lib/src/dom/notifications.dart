@@ -56,6 +56,14 @@ extension type Notification._(JSObject _) implements EventTarget, JSObject {
   /// display web notifications.
   external static NotificationPermission get permission;
 
+  /// The **`maxActions`** read-only static property of the
+  /// [Notification] interface returns the maximum number of actions supported
+  /// by
+  /// the device and the User Agent. Effectively, this is the maximum number of
+  /// elements in
+  /// [Notification.actions] array which will be respected by the User Agent.
+  external static int get maxActions;
+
   /// The **`close()`** method of the [Notification] interface is used to
   /// close/remove a previously displayed notification.
   ///
@@ -111,6 +119,7 @@ extension type Notification._(JSObject _) implements EventTarget, JSObject {
   /// specified in the `body` option of the
   /// [Notification.Notification] constructor.
   external String get body;
+  external String get navigate;
 
   /// The **`tag`** read-only property of the
   /// [Notification] interface signifies an identifying tag for the
@@ -169,12 +178,27 @@ extension type Notification._(JSObject _) implements EventTarget, JSObject {
   /// with the
   /// notification.
   external JSAny? get data;
+
+  /// The **`actions`** read-only property of the [Notification] interface
+  /// provides the actions available for users to choose from for interacting
+  /// with the notification.
+  ///
+  /// The actions are set using the `actions` option of the second argument for
+  /// the [ServiceWorkerRegistration.showNotification] method and
+  /// [Notification.Notification] constructor.
+  ///
+  /// > [!NOTE]
+  /// > Browsers typically limit the maximum number of actions they will display
+  /// > for a particular notification. Check the static
+  /// > [Notification.maxActions_static] property to determine the limit.
+  external JSArray<NotificationAction> get actions;
 }
 extension type NotificationOptions._(JSObject _) implements JSObject {
   external factory NotificationOptions({
     NotificationDirection dir,
     String lang,
     String body,
+    String navigate,
     String tag,
     String image,
     String icon,
@@ -194,6 +218,8 @@ extension type NotificationOptions._(JSObject _) implements JSObject {
   external set lang(String value);
   external String get body;
   external set body(String value);
+  external String get navigate;
+  external set navigate(String value);
   external String get tag;
   external set tag(String value);
   external String get image;
@@ -221,6 +247,7 @@ extension type NotificationAction._(JSObject _) implements JSObject {
   external factory NotificationAction({
     required String action,
     required String title,
+    String navigate,
     String icon,
   });
 
@@ -228,6 +255,8 @@ extension type NotificationAction._(JSObject _) implements JSObject {
   external set action(String value);
   external String get title;
   external set title(String value);
+  external String get navigate;
+  external set navigate(String value);
   external String get icon;
   external set icon(String value);
 }

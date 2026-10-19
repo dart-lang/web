@@ -141,6 +141,7 @@ Future<void> generateIDLBindings({
 
     final dir = p.dirname(p.fromUri(url));
     final renameMapPath = p.join(dir, 'web_rename_map.json');
+    final engineOverridesPath = p.join(dir, 'engine_overrides.json');
     final (bindings, renameMap) = await generateBindings(
       packageRoot,
       librarySubDir,
@@ -148,6 +149,7 @@ Future<void> generateIDLBindings({
       renameMapPath: renameMapPath,
       idlJsonPath: idlJsonPath,
       bcdJsonPath: bcdJsonPath,
+      engineOverridesPath: engineOverridesPath,
     );
 
     if (renameMap.isNotEmpty) {

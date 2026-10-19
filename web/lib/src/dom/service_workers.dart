@@ -17,17 +17,22 @@ library;
 import 'dart:js_interop';
 
 import 'background_sync.dart';
-import 'cookie_store.dart';
+import 'cookiestore.dart';
 import 'dom.dart';
 import 'fetch.dart';
 import 'html.dart';
 import 'notifications.dart';
 import 'push_api.dart';
+import 'urlpattern.dart';
 
+/// Union of: [RouterSourceDict], [RouterSourceEnum]
+typedef RouterSource = JSAny;
 typedef ServiceWorkerState = String;
 typedef ServiceWorkerUpdateViaCache = String;
 typedef FrameType = String;
 typedef ClientType = String;
+typedef RunningStatus = String;
+typedef RouterSourceEnum = String;
 
 /// The **`ServiceWorker`** interface of the
 /// [Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)
@@ -128,7 +133,7 @@ extension type ServiceWorkerRegistration._(JSObject _)
   /// the worker
   /// bypasses any browser caches if the previous fetch occurred over 24 hours
   /// ago.
-  external JSPromise<JSAny?> update();
+  external JSPromise<ServiceWorkerRegistration> update();
 
   /// The **`unregister()`** method of the
   /// [ServiceWorkerRegistration] interface unregisters the service worker
@@ -221,6 +226,17 @@ extension type ServiceWorkerRegistration._(JSObject _)
   /// [SyncManager] interface, which manages background synchronization
   /// processes.
   external SyncManager get sync;
+
+  /// @AvailableInWorkers("window_and_service")
+  ///
+  /// The **`cookies`** read-only property of the [ServiceWorkerRegistration]
+  /// interface returns a reference to the [CookieStoreManager] interface, which
+  /// enables a web app to subscribe to and unsubscribe from cookie change
+  /// events in a
+  /// [service worker](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API).
+  /// This is an entry point for the
+  /// [Cookie Store API](https://developer.mozilla.org/en-US/docs/Web/API/Cookie_Store_API).
+  external CookieStoreManager get cookies;
 
   /// The **`pushManager`** read-only property of the
   /// [ServiceWorkerRegistration] interface returns a reference to the
@@ -495,6 +511,8 @@ extension type ServiceWorkerGlobalScope._(JSObject _)
   /// interface returns a reference to the [CookieStore] object associated with
   /// this service worker.
   external CookieStore get cookieStore;
+  external EventHandler get oncookiechange;
+  external set oncookiechange(EventHandler value);
   external EventHandler get onnotificationclick;
   external set onnotificationclick(EventHandler value);
   external EventHandler get onnotificationclose;
@@ -773,8 +791,63 @@ extension type ExtendableEventInit._(JSObject _)
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/InstallEvent).
-extension type InstallEvent._(JSObject _)
-    implements ExtendableEvent, JSObject {}
+extension type InstallEvent._(JSObject _) implements ExtendableEvent, JSObject {
+  external factory InstallEvent(
+    String type, [
+    ExtendableEventInit eventInitDict,
+  ]);
+
+  /// The **`addRoutes()`** method of the [InstallEvent] interface specifies one
+  /// or more static routes, which define rules for fetching specified resources
+  /// that will be used even before service worker startup. This allows you to,
+  /// for example, bypass a service worker in cases where you always want to
+  /// fetch a resource from the network or a browser [Cache], and avoids the
+  /// performance overhead of unnecessary service worker cycles.
+  external JSPromise<JSAny?> addRoutes(JSObject rules);
+}
+extension type RouterRule._(JSObject _) implements JSObject {
+  external factory RouterRule({
+    required RouterCondition condition,
+    required RouterSource source,
+  });
+
+  external RouterCondition get condition;
+  external set condition(RouterCondition value);
+  external RouterSource get source;
+  external set source(RouterSource value);
+}
+extension type RouterCondition._(JSObject _) implements JSObject {
+  external factory RouterCondition({
+    URLPatternCompatible urlPattern,
+    String requestMethod,
+    RequestMode requestMode,
+    RequestDestination requestDestination,
+    RunningStatus runningStatus,
+    JSArray<RouterCondition> or,
+    RouterCondition not,
+  });
+
+  external URLPatternCompatible get urlPattern;
+  external set urlPattern(URLPatternCompatible value);
+  external String get requestMethod;
+  external set requestMethod(String value);
+  external RequestMode get requestMode;
+  external set requestMode(RequestMode value);
+  external RequestDestination get requestDestination;
+  external set requestDestination(RequestDestination value);
+  external RunningStatus get runningStatus;
+  external set runningStatus(RunningStatus value);
+  external JSArray<RouterCondition> get or;
+  external set or(JSArray<RouterCondition> value);
+  external RouterCondition get not;
+  external set not(RouterCondition value);
+}
+extension type RouterSourceDict._(JSObject _) implements JSObject {
+  external factory RouterSourceDict({String cacheName});
+
+  external String get cacheName;
+  external set cacheName(String value);
+}
 
 /// @AvailableInWorkers("service")
 ///

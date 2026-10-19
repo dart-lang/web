@@ -30,7 +30,7 @@ import 'svg.dart';
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/TimeEvent).
 extension type TimeEvent._(JSObject _) implements Event, JSObject {
-  external void initTimeEvent(String typeArg, Window? viewArg, int detailArg);
+  external void initTimeEvent(String typeArg, [Window? viewArg, int detailArg]);
   external Window? get view;
   external int get detail;
 }
@@ -204,5 +204,3 @@ extension type SVGAnimateTransformElement._(JSObject _)
         'animateTransform',
       );
 }
-extension type SVGDiscardElement._(JSObject _)
-    implements SVGAnimationElement, JSObject {}

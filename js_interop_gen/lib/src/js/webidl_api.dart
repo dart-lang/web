@@ -54,4 +54,18 @@ extension ExtendedAttributeRightHandSideExtension
     final val = jsObj.getProperty('value'.toJS);
     return val.isA<JSString>() ? (val as JSString).toDart : null;
   }
+
+  /// The identifier(s) on the right-hand side, whether a single identifier or
+  /// an identifier list such as `(A, B)`.
+  List<String> get identifiers {
+    final val = (this as JSObject).getProperty('value'.toJS);
+    if (val.isA<JSString>()) return [(val as JSString).toDart];
+    if (val.isA<JSArray>()) {
+      return [
+        for (final item in (val as JSArray<JSObject>).toDart)
+          (item.getProperty('value'.toJS) as JSString).toDart,
+      ];
+    }
+    return const [];
+  }
 }

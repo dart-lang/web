@@ -11,6 +11,7 @@ import 'banned_names.dart';
 import 'bcd.dart';
 import 'doc_provider.dart';
 import 'elements.dart';
+import 'engine_overrides.dart';
 import 'formatting.dart';
 import 'js/webidl_api.dart' as idl;
 import 'js/webref_elements_api.dart';
@@ -64,6 +65,14 @@ class _Library {
         final interfacelike = node as idl.Interfacelike;
         if (!node.partial) {
           _addNamed<idl.Interfacelike>(node, interfaceList);
+          // e.g. `[LegacyWindowAlias=SVGRect] interface DOMRect`: specs may
+          // still reference the alias name as a type.
+          for (final extAttr in interfacelike.extAttrs.toDart) {
+            if (extAttr.name != 'LegacyWindowAlias') continue;
+            for (final alias in extAttr.rhs.identifiers) {
+              translator._legacyWindowAliases[alias] = interfacelike.name;
+            }
+          }
         } else {
           translator._typeToPartials
               .putIfAbsent(interfacelike.name, () => [])
@@ -117,6 +126,10 @@ class Translator {
   final _includes = <String, List<String>>{};
   final _usedTypes = <idl.Node>{};
   Map<String, idl.Node> get typeToDeclaration => _typeToDeclaration;
+
+  /// Maps `[LegacyWindowAlias]` names to the interface they alias.
+  final _legacyWindowAliases = <String, String>{};
+  Map<String, String> get legacyWindowAliases => _legacyWindowAliases;
   final _renamedClasses = <String, String>{};
   final _currentDocImports = <String>{};
   final _currentLibraryImports = <String>{};
@@ -128,6 +141,7 @@ class Translator {
   late String _currentlyTranslatingUrl;
   late DocProvider docProvider;
   late BrowserCompatData browserCompatData;
+  late final EngineOverrides? engineOverrides;
 
   /// Singleton so that various helper methods can access info about the AST.
   static Translator? instance;
@@ -141,6 +155,7 @@ class Translator {
     this._generateForWeb = true,
     this.loadedRenameMap = const {},
     required String bcdJsonPath,
+    String? engineOverridesPath,
   }) {
     instance = this;
     docProvider = DocProvider.create();
@@ -148,7 +163,12 @@ class Translator {
       generateAll: generateAll,
       path: bcdJsonPath,
     );
+    engineOverrides = EngineOverrides.read(engineOverridesPath);
   }
+
+  bool _shouldGenerateInterface(String name) =>
+      (engineOverrides?.shouldGenerateInterface(name) ?? true) &&
+      browserCompatData.shouldGenerateInterface(name);
 
   void _addOrUpdateInterfaceLike(idl.Interfacelike interfacelike) {
     final name = interfacelike.name;
@@ -184,7 +204,7 @@ class Translator {
             markTypeAsUsed(name);
             break;
           case 'dictionary':
-            if (Translator.instance!.browserCompatData.generateAll) {
+            if (_shouldGenerateInterface(name)) {
               markTypeAsUsed(name);
             }
             break;
@@ -258,7 +278,7 @@ class Translator {
         // Interfaces and namespaces can only be marked as used depending on
         // their compat data.
         final name = (decl as idl.Interfacelike).name;
-        if (browserCompatData.shouldGenerateInterface(name)) {
+        if (_shouldGenerateInterface(name)) {
           _usedTypes.add(decl);
           _combineInterfacelikes(name);
           return true;
@@ -270,7 +290,7 @@ class Translator {
         // https://github.com/mdn/browser-compat-data/blob/main/docs/data-guidelines/api.md#namespaces
         final namespace = decl as idl.Interfacelike;
         final name = namespace.name;
-        if (browserCompatData.shouldGenerateInterface(name) ||
+        if (_shouldGenerateInterface(name) ||
             namespace.members.toDart.every(
               (member) => member.type == 'const',
             )) {
@@ -999,7 +1019,18 @@ class Translator {
 
     // Namespaces have lowercase names. We also translate them to
     // private classes, and make their first character uppercase in the process.
-    final dartClassName = isNamespace ? '\$${capitalize(jsName)}' : jsName;
+    // Namespaced interfaces whose name would shadow a `dart:core` type (e.g.
+    // `WebAssembly.Exception`) are prefixed with their namespace.
+    final legacyNamespace = extendedAttributes
+        .where((extAttr) => extAttr.name == 'LegacyNamespace')
+        .firstOrNull
+        ?.rhs
+        .value;
+    final dartClassName = isNamespace
+        ? '\$${capitalize(jsName)}'
+        : (legacyNamespace != null && _dartCoreTypeNames.contains(jsName)
+              ? '$legacyNamespace$jsName'
+              : jsName);
 
     final interfaceStatus = browserCompatData.retrieveInterfaceFor(name);
 
@@ -1127,9 +1158,29 @@ class Translator {
     }
 
     if (_generateForWeb) {
+      if (!browserCompatData.generateAll) {
+        engineOverrides?.verifyAllUsed();
+      }
       dartLibraries['dom.dart'] = generateRootImport(dartLibraries.keys);
     }
 
     return dartLibraries;
   }
 }
+
+/// `dart:core` type names that generated interfaces must not shadow, since
+/// `package:web` is commonly imported unprefixed.
+const _dartCoreTypeNames = {
+  'BigInt',
+  'Error',
+  'Exception',
+  'Function',
+  'Iterable',
+  'Iterator',
+  'Map',
+  'Object',
+  'Record',
+  'Set',
+  'Symbol',
+  'Type',
+};

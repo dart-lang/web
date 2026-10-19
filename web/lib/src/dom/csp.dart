@@ -61,22 +61,26 @@ typedef SecurityPolicyViolationEventDisposition = String;
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSPViolationReportBody).
 extension type CSPViolationReportBody._(JSObject _)
     implements ReportBody, JSObject {
-  /// The **`toJSON()`** method of the [CSPViolationReportBody] interface is a
-  /// _serializer_, which returns a JSON representation of the
-  /// `CSPViolationReportBody` object.
-  ///
-  /// The existence of a `toJSON()` method allows `CSPViolationReportBody`
-  /// objects to be converted to a string using the `JSON.stringify()` method.
-  ///
-  /// This is used by the reporting API when creating a serialized version of a
-  /// violation report to send to a reporting endpoint.
-  external JSObject toJSON();
+  external factory CSPViolationReportBody({
+    String documentURL,
+    String? referrer,
+    String? blockedURL,
+    String effectiveDirective,
+    String originalPolicy,
+    String? sourceFile,
+    String? sample,
+    SecurityPolicyViolationEventDisposition disposition,
+    int statusCode,
+    int? lineNumber,
+    int? columnNumber,
+  });
 
   /// The **`documentURL`** read-only property of the [CSPViolationReportBody]
   /// interface is a string that represents the URL of the document or worker
   /// that violated the [Content Security Policy
   /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP).
   external String get documentURL;
+  external set documentURL(String value);
 
   /// The **`referrer`** read-only property of the [CSPViolationReportBody]
   /// interface is a string that represents the URL of the referring page of the
@@ -88,12 +92,14 @@ extension type CSPViolationReportBody._(JSObject _)
   /// loaded. For example, if we followed a link to a page with a CSP violation,
   /// the `referrer` is the page that we navigated from.
   external String? get referrer;
+  external set referrer(String? value);
 
   /// The **`blockedURL`** read-only property of the [CSPViolationReportBody]
   /// interface is a string value that represents the resource that was blocked
   /// because it violates a [Content Security Policy
   /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP).
   external String? get blockedURL;
+  external set blockedURL(String? value);
 
   /// The **`effectiveDirective`** read-only property of the
   /// [CSPViolationReportBody] interface is a string that represents the
@@ -108,6 +114,7 @@ extension type CSPViolationReportBody._(JSObject _)
   /// specified, which may have been the (more general)
   /// [`default-src`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/default-src).
   external String get effectiveDirective;
+  external set effectiveDirective(String value);
 
   /// The **`originalPolicy`** read-only property of the
   /// [CSPViolationReportBody] interface is a string that represents the
@@ -123,6 +130,7 @@ extension type CSPViolationReportBody._(JSObject _)
   /// which might not be explicitly listed in the policy if `default-src` is
   /// used).
   external String get originalPolicy;
+  external set originalPolicy(String value);
 
   /// The **`sourceFile`** read-only property of the [CSPViolationReportBody]
   /// interface indicates the URL of the source file that violated the [Content
@@ -145,6 +153,7 @@ extension type CSPViolationReportBody._(JSObject _)
   /// and [CSPViolationReportBody.columnNumber], which provide the location
   /// within the file that resulted in a violation.
   external String? get sourceFile;
+  external set sourceFile(String? value);
 
   /// The **`sample`** read-only property of the [CSPViolationReportBody]
   /// interface is a string that contains a part of the resource that violated
@@ -171,6 +180,7 @@ extension type CSPViolationReportBody._(JSObject _)
   /// > The content of this field _in particular_ should be sanitized before
   /// > storing or rendering.
   external String? get sample;
+  external set sample(String? value);
 
   /// The **`disposition`** read-only property of the [CSPViolationReportBody]
   /// interface indicates whether the user agent is configured to enforce
@@ -178,6 +188,7 @@ extension type CSPViolationReportBody._(JSObject _)
   /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) violations
   /// or only report them.
   external SecurityPolicyViolationEventDisposition get disposition;
+  external set disposition(SecurityPolicyViolationEventDisposition value);
 
   /// The **`statusCode`** read-only property of the [CSPViolationReportBody]
   /// interface is a number representing the
@@ -186,6 +197,7 @@ extension type CSPViolationReportBody._(JSObject _)
   /// (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) violation
   /// (when loading a window or worker).
   external int get statusCode;
+  external set statusCode(int value);
 
   /// The **`lineNumber`** read-only property of the [CSPViolationReportBody]
   /// interface indicates the line number in the source file that triggered the
@@ -202,6 +214,7 @@ extension type CSPViolationReportBody._(JSObject _)
   /// and [CSPViolationReportBody.columnNumber], as it provides the location of
   /// the line in that file and the column that resulted in a violation.
   external int? get lineNumber;
+  external set lineNumber(int? value);
 
   /// The **`columnNumber`** read-only property of the [CSPViolationReportBody]
   /// interface indicates the column number in the source file that triggered
@@ -218,6 +231,7 @@ extension type CSPViolationReportBody._(JSObject _)
   /// and [CSPViolationReportBody.lineNumber], as it provides the location of
   /// the column in that file and line that resulted in a violation.
   external int? get columnNumber;
+  external set columnNumber(int? value);
 }
 
 /// The **`SecurityPolicyViolationEvent`** interface inherits from [Event], and

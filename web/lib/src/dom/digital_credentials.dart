@@ -16,17 +16,26 @@ library;
 
 import 'dart:js_interop';
 
+import 'credential_management.dart';
+
+/// Union of 2 types
+///
+/// - [DigitalCredentialIssuanceProtocol]
+/// - [DigitalCredentialPresentationProtocol]
+typedef DigitalCredentialProtocol = String;
+typedef DigitalCredentialPresentationProtocol = String;
+typedef DigitalCredentialIssuanceProtocol = String;
 extension type DigitalCredentialRequestOptions._(JSObject _)
     implements JSObject {
   external factory DigitalCredentialRequestOptions({
-    JSArray<DigitalCredentialRequest> requests,
+    required JSArray<DigitalCredentialGetRequest> requests,
   });
 
-  external JSArray<DigitalCredentialRequest> get requests;
-  external set requests(JSArray<DigitalCredentialRequest> value);
+  external JSArray<DigitalCredentialGetRequest> get requests;
+  external set requests(JSArray<DigitalCredentialGetRequest> value);
 }
-extension type DigitalCredentialRequest._(JSObject _) implements JSObject {
-  external factory DigitalCredentialRequest({
+extension type DigitalCredentialGetRequest._(JSObject _) implements JSObject {
+  external factory DigitalCredentialGetRequest({
     required String protocol,
     required JSObject data,
   });
@@ -35,4 +44,31 @@ extension type DigitalCredentialRequest._(JSObject _) implements JSObject {
   external set protocol(String value);
   external JSObject get data;
   external set data(JSObject value);
+}
+extension type DigitalCredentialCreationOptions._(JSObject _)
+    implements JSObject {
+  external factory DigitalCredentialCreationOptions({
+    required JSArray<DigitalCredentialCreateRequest> requests,
+  });
+
+  external JSArray<DigitalCredentialCreateRequest> get requests;
+  external set requests(JSArray<DigitalCredentialCreateRequest> value);
+}
+extension type DigitalCredentialCreateRequest._(JSObject _)
+    implements JSObject {
+  external factory DigitalCredentialCreateRequest({
+    required String protocol,
+    required JSObject data,
+  });
+
+  external String get protocol;
+  external set protocol(String value);
+  external JSObject get data;
+  external set data(JSObject value);
+}
+extension type DigitalCredential._(JSObject _) implements Credential, JSObject {
+  external static bool userAgentAllowsProtocol(String protocol);
+  external JSObject toJSON();
+  external DigitalCredentialProtocol get protocol;
+  external JSObject get data;
 }

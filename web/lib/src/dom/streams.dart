@@ -23,6 +23,7 @@ import 'webidl.dart';
 typedef ReadableStreamReader = JSObject;
 typedef QueuingStrategySize = JSFunction;
 typedef ReadableStreamReaderMode = String;
+typedef ReadableStreamType = String;
 
 /// The `ReadableStream` interface of the
 /// [Streams API](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API)
@@ -43,6 +44,14 @@ extension type ReadableStream._(JSObject _) implements JSObject {
     JSObject underlyingSource,
     QueuingStrategy strategy,
   ]);
+
+  /// The **`ReadableStream.from()`** static method returns a [ReadableStream]
+  /// from a provided iterable or async iterable object.
+  ///
+  /// The method can be used to wrap iterable and async iterable objects as
+  /// readable streams, including arrays, sets, arrays of promises, async
+  /// generators, `ReadableStreams`, Node.js `readable` streams, and so on.
+  external static ReadableStream from(JSObject asyncIterable);
 
   /// The **`cancel()`** method of the [ReadableStream] interface returns a
   /// `Promise` that resolves when the stream is canceled.

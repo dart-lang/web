@@ -16,7 +16,6 @@ library;
 
 import 'dart:js_interop';
 
-import 'fetch.dart';
 import 'fs.dart';
 import 'html.dart';
 import 'indexeddb.dart';
@@ -85,16 +84,4 @@ extension type StorageAccessHandle._(JSObject _) implements JSObject {
   /// an unpartitioned [CacheStorage] object if access was granted, and throws a
   /// `SecurityError` [DOMException] otherwise.
   external CacheStorage get caches;
-}
-extension type SharedWorkerOptions._(JSObject _)
-    implements WorkerOptions, JSObject {
-  external factory SharedWorkerOptions({
-    WorkerType type,
-    RequestCredentials credentials,
-    String name,
-    SameSiteCookiesType sameSiteCookies,
-  });
-
-  external SameSiteCookiesType get sameSiteCookies;
-  external set sameSiteCookies(SameSiteCookiesType value);
 }

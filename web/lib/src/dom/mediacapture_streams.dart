@@ -19,6 +19,7 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'html.dart';
 import 'image_capture.dart';
+import 'mediacapture_extensions.dart';
 import 'screen_capture.dart';
 import 'webidl.dart';
 
@@ -359,6 +360,14 @@ extension type MediaTrackSupportedConstraints._(JSObject _)
     bool tilt,
     bool zoom,
     bool torch,
+    bool powerEfficient,
+    bool powerEfficientPixelFormat,
+    bool gestureReactions,
+    bool faceFraming,
+    bool eyeGazeCorrection,
+    bool voiceIsolation,
+    bool humanFaceDetectionMode,
+    bool backgroundSegmentationMask,
     bool displaySurface,
     bool logicalSurface,
     bool cursor,
@@ -611,6 +620,22 @@ extension type MediaTrackSupportedConstraints._(JSObject _)
   external set zoom(bool value);
   external bool get torch;
   external set torch(bool value);
+  external bool get powerEfficient;
+  external set powerEfficient(bool value);
+  external bool get powerEfficientPixelFormat;
+  external set powerEfficientPixelFormat(bool value);
+  external bool get gestureReactions;
+  external set gestureReactions(bool value);
+  external bool get faceFraming;
+  external set faceFraming(bool value);
+  external bool get eyeGazeCorrection;
+  external set eyeGazeCorrection(bool value);
+  external bool get voiceIsolation;
+  external set voiceIsolation(bool value);
+  external bool get humanFaceDetectionMode;
+  external set humanFaceDetectionMode(bool value);
+  external bool get backgroundSegmentationMask;
+  external set backgroundSegmentationMask(bool value);
 
   /// The [MediaTrackSupportedConstraints] dictionary's **`displaySurface`**
   /// property indicates whether or not the
@@ -680,6 +705,14 @@ extension type MediaTrackCapabilities._(JSObject _) implements JSObject {
     MediaSettingsRange tilt,
     MediaSettingsRange zoom,
     JSArray<JSBoolean> torch,
+    JSArray<JSBoolean> powerEfficient,
+    JSArray<JSBoolean> powerEfficientPixelFormat,
+    JSArray<JSBoolean> gestureReactions,
+    JSArray<JSBoolean> faceFraming,
+    JSArray<JSBoolean> eyeGazeCorrection,
+    JSArray<JSBoolean> voiceIsolation,
+    JSArray<JSString> humanFaceDetectionMode,
+    JSArray<JSBoolean> backgroundSegmentationMask,
     String displaySurface,
     bool logicalSurface,
     JSArray<JSString> cursor,
@@ -749,6 +782,22 @@ extension type MediaTrackCapabilities._(JSObject _) implements JSObject {
   external set zoom(MediaSettingsRange value);
   external JSArray<JSBoolean> get torch;
   external set torch(JSArray<JSBoolean> value);
+  external JSArray<JSBoolean> get powerEfficient;
+  external set powerEfficient(JSArray<JSBoolean> value);
+  external JSArray<JSBoolean> get powerEfficientPixelFormat;
+  external set powerEfficientPixelFormat(JSArray<JSBoolean> value);
+  external JSArray<JSBoolean> get gestureReactions;
+  external set gestureReactions(JSArray<JSBoolean> value);
+  external JSArray<JSBoolean> get faceFraming;
+  external set faceFraming(JSArray<JSBoolean> value);
+  external JSArray<JSBoolean> get eyeGazeCorrection;
+  external set eyeGazeCorrection(JSArray<JSBoolean> value);
+  external JSArray<JSBoolean> get voiceIsolation;
+  external set voiceIsolation(JSArray<JSBoolean> value);
+  external JSArray<JSString> get humanFaceDetectionMode;
+  external set humanFaceDetectionMode(JSArray<JSString> value);
+  external JSArray<JSBoolean> get backgroundSegmentationMask;
+  external set backgroundSegmentationMask(JSArray<JSBoolean> value);
   external String get displaySurface;
   external set displaySurface(String value);
   external bool get logicalSurface;
@@ -805,6 +854,12 @@ extension type MediaTrackConstraints._(JSObject _)
     JSAny tilt,
     JSAny zoom,
     ConstrainBoolean torch,
+    ConstrainBoolean gestureReactions,
+    ConstrainBoolean faceFraming,
+    ConstrainBoolean eyeGazeCorrection,
+    ConstrainBoolean voiceIsolation,
+    ConstrainDOMString humanFaceDetectionMode,
+    ConstrainBoolean backgroundSegmentationMask,
     ConstrainDOMString displaySurface,
     ConstrainBoolean logicalSurface,
     ConstrainDOMString cursor,
@@ -851,6 +906,12 @@ extension type MediaTrackConstraintSet._(JSObject _) implements JSObject {
     JSAny tilt,
     JSAny zoom,
     ConstrainBoolean torch,
+    ConstrainBoolean gestureReactions,
+    ConstrainBoolean faceFraming,
+    ConstrainBoolean eyeGazeCorrection,
+    ConstrainBoolean voiceIsolation,
+    ConstrainDOMString humanFaceDetectionMode,
+    ConstrainBoolean backgroundSegmentationMask,
     ConstrainDOMString displaySurface,
     ConstrainBoolean logicalSurface,
     ConstrainDOMString cursor,
@@ -924,6 +985,18 @@ extension type MediaTrackConstraintSet._(JSObject _) implements JSObject {
   external set zoom(JSAny value);
   external ConstrainBoolean get torch;
   external set torch(ConstrainBoolean value);
+  external ConstrainBoolean get gestureReactions;
+  external set gestureReactions(ConstrainBoolean value);
+  external ConstrainBoolean get faceFraming;
+  external set faceFraming(ConstrainBoolean value);
+  external ConstrainBoolean get eyeGazeCorrection;
+  external set eyeGazeCorrection(ConstrainBoolean value);
+  external ConstrainBoolean get voiceIsolation;
+  external set voiceIsolation(ConstrainBoolean value);
+  external ConstrainDOMString get humanFaceDetectionMode;
+  external set humanFaceDetectionMode(ConstrainDOMString value);
+  external ConstrainBoolean get backgroundSegmentationMask;
+  external set backgroundSegmentationMask(ConstrainBoolean value);
   external ConstrainDOMString get displaySurface;
   external set displaySurface(ConstrainDOMString value);
   external ConstrainBoolean get logicalSurface;
@@ -987,11 +1060,20 @@ extension type MediaTrackSettings._(JSObject _) implements JSObject {
     num tilt,
     num zoom,
     bool torch,
+    bool powerEfficient,
+    bool powerEfficientPixelFormat,
+    bool gestureReactions,
+    bool faceFraming,
+    bool eyeGazeCorrection,
+    bool voiceIsolation,
+    String humanFaceDetectionMode,
+    bool backgroundSegmentationMask,
     String displaySurface,
     bool logicalSurface,
     String cursor,
     bool restrictOwnAudio,
     bool suppressLocalAudioPlayback,
+    num screenPixelRatio,
   });
 
   /// The [MediaTrackSettings] dictionary's **`width`**
@@ -1360,6 +1442,22 @@ extension type MediaTrackSettings._(JSObject _) implements JSObject {
   external set zoom(num value);
   external bool get torch;
   external set torch(bool value);
+  external bool get powerEfficient;
+  external set powerEfficient(bool value);
+  external bool get powerEfficientPixelFormat;
+  external set powerEfficientPixelFormat(bool value);
+  external bool get gestureReactions;
+  external set gestureReactions(bool value);
+  external bool get faceFraming;
+  external set faceFraming(bool value);
+  external bool get eyeGazeCorrection;
+  external set eyeGazeCorrection(bool value);
+  external bool get voiceIsolation;
+  external set voiceIsolation(bool value);
+  external String get humanFaceDetectionMode;
+  external set humanFaceDetectionMode(String value);
+  external bool get backgroundSegmentationMask;
+  external set backgroundSegmentationMask(bool value);
 
   /// The [MediaTrackSettings] dictionary's
   /// **`displaySurface`** property indicates the type of display
@@ -1397,6 +1495,8 @@ extension type MediaTrackSettings._(JSObject _) implements JSObject {
   /// clearer, and also in sync with the conference video.
   external bool get suppressLocalAudioPlayback;
   external set suppressLocalAudioPlayback(bool value);
+  external double get screenPixelRatio;
+  external set screenPixelRatio(num value);
 }
 
 /// The **`MediaStreamTrackEvent`** interface of the
@@ -1608,6 +1708,7 @@ extension type MediaStreamConstraints._(JSObject _) implements JSObject {
   external factory MediaStreamConstraints({
     JSAny video,
     JSAny audio,
+    GetUserMediaSemantics semantics,
     bool preferCurrentTab,
     String peerIdentity,
   });
@@ -1616,6 +1717,8 @@ extension type MediaStreamConstraints._(JSObject _) implements JSObject {
   external set video(JSAny value);
   external JSAny get audio;
   external set audio(JSAny value);
+  external GetUserMediaSemantics get semantics;
+  external set semantics(GetUserMediaSemantics value);
   external bool get preferCurrentTab;
   external set preferCurrentTab(bool value);
   external String get peerIdentity;

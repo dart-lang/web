@@ -20,6 +20,7 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'geometry.dart';
 import 'html.dart';
+import 'mediacapture_extensions.dart';
 import 'mediastream_recording.dart';
 import 'webcodecs_aac_codec_registration.dart';
 import 'webcodecs_av1_codec_registration.dart';
@@ -431,7 +432,7 @@ extension type AudioDecoderConfig._(JSObject _) implements JSObject {
     required String codec,
     required int sampleRate,
     required int numberOfChannels,
-    BufferSource description,
+    AllowSharedBufferSource description,
   });
 
   external String get codec;
@@ -440,8 +441,8 @@ extension type AudioDecoderConfig._(JSObject _) implements JSObject {
   external set sampleRate(int value);
   external int get numberOfChannels;
   external set numberOfChannels(int value);
-  external BufferSource get description;
-  external set description(BufferSource value);
+  external AllowSharedBufferSource get description;
+  external set description(AllowSharedBufferSource value);
 }
 extension type VideoDecoderConfig._(JSObject _) implements JSObject {
   external factory VideoDecoderConfig({
@@ -799,7 +800,7 @@ extension type AudioDataInit._(JSObject _) implements JSObject {
     required int numberOfFrames,
     required int numberOfChannels,
     required int timestamp,
-    required BufferSource data,
+    required AllowSharedBufferSource data,
     JSArray<JSArrayBuffer> transfer,
   });
 
@@ -813,8 +814,8 @@ extension type AudioDataInit._(JSObject _) implements JSObject {
   external set numberOfChannels(int value);
   external int get timestamp;
   external set timestamp(int value);
-  external BufferSource get data;
-  external set data(BufferSource value);
+  external AllowSharedBufferSource get data;
+  external set data(AllowSharedBufferSource value);
   external JSArray<JSArrayBuffer> get transfer;
   external set transfer(JSArray<JSArrayBuffer> value);
 }
@@ -1024,7 +1025,18 @@ extension type VideoFrameBufferInit._(JSObject _) implements JSObject {
   external set metadata(VideoFrameMetadata value);
 }
 extension type VideoFrameMetadata._(JSObject _) implements JSObject {
-  VideoFrameMetadata() : _ = JSObject();
+  external factory VideoFrameMetadata({
+    JSArray<Segment> segments,
+    BackgroundBlur backgroundBlur,
+    ImageBitmap backgroundSegmentationMask,
+  });
+
+  external JSArray<Segment> get segments;
+  external set segments(JSArray<Segment> value);
+  external BackgroundBlur get backgroundBlur;
+  external set backgroundBlur(BackgroundBlur value);
+  external ImageBitmap get backgroundSegmentationMask;
+  external set backgroundSegmentationMask(ImageBitmap value);
 }
 extension type VideoFrameCopyToOptions._(JSObject _) implements JSObject {
   external factory VideoFrameCopyToOptions({

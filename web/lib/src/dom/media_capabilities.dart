@@ -178,7 +178,7 @@ extension type MediaCapabilitiesDecodingInfo._(JSObject _)
     required bool smooth,
     required bool powerEfficient,
     required MediaKeySystemAccess? keySystemAccess,
-    MediaDecodingConfiguration configuration,
+    required MediaDecodingConfiguration configuration,
   });
 
   external MediaKeySystemAccess? get keySystemAccess;
@@ -192,7 +192,7 @@ extension type MediaCapabilitiesEncodingInfo._(JSObject _)
     required bool supported,
     required bool smooth,
     required bool powerEfficient,
-    MediaEncodingConfiguration configuration,
+    required MediaEncodingConfiguration configuration,
   });
 
   external MediaEncodingConfiguration get configuration;

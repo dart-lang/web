@@ -217,18 +217,18 @@ extension type GamepadHapticActuator._(JSObject _) implements JSObject {
 }
 extension type GamepadEffectParameters._(JSObject _) implements JSObject {
   external factory GamepadEffectParameters({
-    int duration,
-    int startDelay,
+    num duration,
+    num startDelay,
     num strongMagnitude,
     num weakMagnitude,
     num leftTrigger,
     num rightTrigger,
   });
 
-  external int get duration;
-  external set duration(int value);
-  external int get startDelay;
-  external set startDelay(int value);
+  external double get duration;
+  external set duration(num value);
+  external double get startDelay;
+  external set startDelay(num value);
   external double get strongMagnitude;
   external set strongMagnitude(num value);
   external double get weakMagnitude;
@@ -249,7 +249,7 @@ extension type GamepadEffectParameters._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/GamepadEvent).
 extension type GamepadEvent._(JSObject _) implements Event, JSObject {
-  external factory GamepadEvent(String type, GamepadEventInit eventInitDict);
+  external factory GamepadEvent(String type, [GamepadEventInit eventInitDict]);
 
   /// The **`GamepadEvent.gamepad`** property of the
   /// **[GamepadEvent] interface** returns a [Gamepad]
@@ -263,9 +263,9 @@ extension type GamepadEventInit._(JSObject _) implements EventInit, JSObject {
     bool bubbles,
     bool cancelable,
     bool composed,
-    required Gamepad gamepad,
+    Gamepad? gamepad,
   });
 
-  external Gamepad get gamepad;
-  external set gamepad(Gamepad value);
+  external Gamepad? get gamepad;
+  external set gamepad(Gamepad? value);
 }

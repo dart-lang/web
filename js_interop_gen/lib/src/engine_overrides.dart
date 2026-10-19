@@ -31,14 +31,9 @@ bool _rawIdlMatchesOverride(
   EngineTypeOverride override, {
   bool? rawRequired,
 }) {
-  final overrideRequired = switch (override) {
-    EnginePropertyOverride(:final required) => required,
-    EngineParameterOverride(:final required) => required,
-    _ => null,
-  };
-  if (overrideRequired != null &&
+  if (override.required != null &&
       rawRequired != null &&
-      overrideRequired != rawRequired) {
+      override.required != rawRequired) {
     return false;
   }
   if (idlType.union || idlType.nullable != override.nullable) return false;
@@ -81,9 +76,11 @@ idl.IDLType _createIdlType(EngineTypeOverride override) {
 /// and WebKit (Safari) browser engine WebIDL trees where `>= 2` shipping
 /// engines disagree with `@webref/idl`.
 class EngineOverrides {
+  static String? activePath;
+
   final Map<String, EngineInterfaceOverride> interfaces;
   final Map<String, EngineTypeOverride> typedefs;
-  final Map<String, EnginePropertyOverride> properties;
+  final Map<String, EngineTypeOverride> properties;
   final Map<String, EngineOperationOverride> operations;
 
   final Set<String> _seenInterfacesInAst = {};
@@ -136,7 +133,7 @@ class EngineOverrides {
       },
       properties: {
         for (final entry in propertiesJson.entries)
-          entry.key: EnginePropertyOverride.fromJson(
+          entry.key: EngineTypeOverride.fromJson(
             entry.value as Map<String, dynamic>,
           ),
       },
@@ -297,12 +294,7 @@ class EngineOverrides {
                     final subKey = 'operations.$key.parameters.$paramIndex';
                     _matchedSubKeys.add(subKey);
                     final arg = arguments[paramIndex];
-                    final rawRequired = !arg.optional;
-                    if (!_rawIdlMatchesOverride(
-                      arg.idlType,
-                      paramOverride,
-                      rawRequired: rawRequired,
-                    )) {
+                    if (!_rawIdlMatchesOverride(arg.idlType, paramOverride)) {
                       _changedSubKeys.add(subKey);
                     }
                     final argObj = arg as JSObject;
@@ -313,13 +305,6 @@ class EngineOverrides {
                     );
                     if (paramOverride.name != null) {
                       _setJsProperty(argObj, 'name', paramOverride.name!.toJS);
-                    }
-                    if (paramOverride.required != null) {
-                      _setJsProperty(
-                        argObj,
-                        'optional',
-                        (!paramOverride.required!).toJS,
-                      );
                     }
                   }
                 }
@@ -420,19 +405,13 @@ class EngineOverrides {
 class EngineInterfaceOverride {
   final bool generate;
   final String? kind;
-  final String reason;
 
-  EngineInterfaceOverride({
-    required this.generate,
-    this.kind,
-    required this.reason,
-  });
+  EngineInterfaceOverride({required this.generate, this.kind});
 
   factory EngineInterfaceOverride.fromJson(Map<String, dynamic> json) =>
       EngineInterfaceOverride(
         generate: json['generate'] as bool? ?? true,
         kind: json['kind'] as String?,
-        reason: json['reason'] as String? ?? '',
       );
 }
 
@@ -440,67 +419,19 @@ class EngineTypeOverride {
   final String type;
   final bool nullable;
   final EngineTypeOverride? typeParameter;
-  final String reason;
+  final String? name;
+  final bool? required;
 
   EngineTypeOverride({
     required this.type,
     required this.nullable,
     this.typeParameter,
-    this.reason = '',
-  });
-
-  factory EngineTypeOverride.fromJson(Map<String, dynamic> json) =>
-      EngineTypeOverride(
-        type: json['type'] as String,
-        nullable: json['nullable'] as bool? ?? false,
-        typeParameter: json['typeParameter'] != null
-            ? EngineTypeOverride.fromJson(
-                json['typeParameter'] as Map<String, dynamic>,
-              )
-            : null,
-        reason: json['reason'] as String? ?? '',
-      );
-}
-
-class EnginePropertyOverride extends EngineTypeOverride {
-  final bool? required;
-
-  EnginePropertyOverride({
-    required super.type,
-    required super.nullable,
-    super.typeParameter,
-    super.reason,
-    this.required,
-  });
-
-  factory EnginePropertyOverride.fromJson(Map<String, dynamic> json) =>
-      EnginePropertyOverride(
-        type: json['type'] as String,
-        nullable: json['nullable'] as bool? ?? false,
-        typeParameter: json['typeParameter'] != null
-            ? EngineTypeOverride.fromJson(
-                json['typeParameter'] as Map<String, dynamic>,
-              )
-            : null,
-        reason: json['reason'] as String? ?? '',
-        required: json['required'] as bool?,
-      );
-}
-
-class EngineParameterOverride extends EngineTypeOverride {
-  final String? name;
-  final bool? required;
-
-  EngineParameterOverride({
-    required super.type,
-    required super.nullable,
-    super.typeParameter,
     this.name,
     this.required,
   });
 
-  factory EngineParameterOverride.fromJson(Map<String, dynamic> json) =>
-      EngineParameterOverride(
+  factory EngineTypeOverride.fromJson(Map<String, dynamic> json) =>
+      EngineTypeOverride(
         type: json['type'] as String,
         nullable: json['nullable'] as bool? ?? false,
         typeParameter: json['typeParameter'] != null
@@ -515,15 +446,13 @@ class EngineParameterOverride extends EngineTypeOverride {
 
 class EngineOperationOverride {
   final EngineTypeOverride? returnType;
-  final Map<int, EngineParameterOverride> parameters;
+  final Map<int, EngineTypeOverride> parameters;
   final int? maxParameters;
-  final String reason;
 
   EngineOperationOverride({
     this.returnType,
     this.parameters = const {},
     this.maxParameters,
-    this.reason = '',
   });
 
   factory EngineOperationOverride.fromJson(Map<String, dynamic> json) {
@@ -537,12 +466,11 @@ class EngineOperationOverride {
           : null,
       parameters: {
         for (final entry in paramsJson.entries)
-          int.parse(entry.key): EngineParameterOverride.fromJson(
+          int.parse(entry.key): EngineTypeOverride.fromJson(
             entry.value as Map<String, dynamic>,
           ),
       },
       maxParameters: json['maxParameters'] as int?,
-      reason: json['reason'] as String? ?? '',
     );
   }
 }

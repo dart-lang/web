@@ -173,7 +173,6 @@ class Translator {
     this._generateForWeb = true,
     this.loadedRenameMap = const {},
     required String bcdJsonPath,
-    String? engineOverridesPath,
   }) {
     instance = this;
     docProvider = DocProvider.create();
@@ -181,7 +180,7 @@ class Translator {
       generateAll: generateAll,
       path: bcdJsonPath,
     );
-    engineOverrides = EngineOverrides.read(engineOverridesPath);
+    engineOverrides = EngineOverrides.read(EngineOverrides.activePath);
   }
 
   bool _shouldGenerateInterface(String name) =>

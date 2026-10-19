@@ -85,7 +85,6 @@ Future<(TranslationResult, Map<String, String>)> generateBindings(
   String? renameMapPath,
   String? idlJsonPath,
   required String bcdJsonPath,
-  String? engineOverridesPath,
 }) async {
   var renameMap = <String, String>{};
   if (renameMapPath != null) {
@@ -131,7 +130,6 @@ Future<(TranslationResult, Map<String, String>)> generateBindings(
     packageRoot: packageRoot,
     loadedRenameMap: renameMap,
     bcdJsonPath: bcdJsonPath,
-    engineOverridesPath: engineOverridesPath,
   );
 
   for (final (shortname, ast)
@@ -150,7 +148,6 @@ Future<TranslationResult> generateBindingsForFiles(
   Map<String, String> fileContents,
   String output, {
   required String bcdJsonPath,
-  String? engineOverridesPath,
 }) async {
   // generate CSS style declarations and element tag map incase they are
   // needed for the input files.
@@ -163,7 +160,6 @@ Future<TranslationResult> generateBindingsForFiles(
     generateAll: true,
     generateForWeb: false,
     bcdJsonPath: bcdJsonPath,
-    engineOverridesPath: engineOverridesPath,
   );
 
   for (final file in fileContents.entries) {

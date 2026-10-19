@@ -122,6 +122,7 @@ RawType _getRawType(idl.IDLType idlType) {
   if (type == 'WindowProxy') type = 'Window';
   if (type == 'any') nullable = true;
   final translator = Translator.instance!;
+  type = translator.legacyWindowAliases[type] ?? type;
   final decl = translator.typeToDeclaration[type];
   final alias = idlOrBuiltinToJsTypeAliases[type];
   assert(decl != null || alias != null);

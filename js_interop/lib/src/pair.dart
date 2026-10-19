@@ -4,6 +4,8 @@
 
 import 'dart:js_interop';
 
+import 'array.dart';
+
 /// A type-safe representation of a heterogeneous two-element JavaScript array.
 @anonymous
 extension type JSPair<E1 extends JSAny?, E2 extends JSAny?>._(
@@ -25,8 +27,5 @@ extension type JSPair<E1 extends JSAny?, E2 extends JSAny?>._(
   (E1, E2) get toDart => ($1, $2);
 
   /// Returns a shallow copy of this pair as a [JSArray].
-  JSArray<JSAny?> get toArray => _slice();
-
-  @JS('slice')
-  external JSArray<JSAny?> _slice();
+  JSArray<JSAny?> get toArray => _array.slice();
 }

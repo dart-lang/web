@@ -53,11 +53,22 @@ $_usage''');
     return;
   }
 
-  // Run `npm install` or `npm update` as needed.
+  // Run `npm install` or `npm update` as needed for the generator's own JS
+  // dependencies (webidl2, typescript).
   final update = argResult['update'] as bool;
   await runProc('npm', [
     update ? 'update' : 'install',
   ], workingDirectory: bindingsGeneratorPath);
+
+  if (!isSnapshot) {
+    // The IDL, CSS, elements, and compat data live in this package's
+    // `package.json`. `npm update` never crosses a major version of a caret
+    // range, so `--update` installs the latest version of each instead.
+    await runProc('npm', [
+      'install',
+      if (update) ...[for (final package in _dataPackages) '$package@latest'],
+    ], workingDirectory: p.fromUri(Platform.script.resolve('..')));
+  }
 
   // Compute JS type supertypes for union calculation in translator.
   await checkJsTypeSupertypes();
@@ -212,6 +223,13 @@ const _webRefCss = '@webref/css';
 const _webRefElements = '@webref/elements';
 const _webRefIdl = '@webref/idl';
 
+const _dataPackages = [
+  _browserCompatData,
+  _webRefCss,
+  _webRefElements,
+  _webRefIdl,
+];
+
 final _thisScript = Uri.parse('bin/update_idl_bindings.dart');
 final _scriptPOSIXPath = _thisScript.toFilePath(windows: false);
 
@@ -232,7 +250,11 @@ ${_parser.usage}''';
 
 final _parser = ArgParser()
   ..addFlag('help', negatable: false, help: 'Show help information')
-  ..addFlag('update', abbr: 'u', help: 'Update npm dependencies')
+  ..addFlag(
+    'update',
+    abbr: 'u',
+    help: 'Update npm dependencies, including the latest IDL and compat data',
+  )
   ..addFlag('compile', defaultsTo: true)
   ..addOption(
     'output',

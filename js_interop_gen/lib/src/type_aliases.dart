@@ -36,6 +36,8 @@ const idlOrBuiltinToJsTypeAliases = <String, String>{
   'sequence': 'JSArray',
   'FrozenArray': 'JSArray',
   'ObservableArray': 'JSArray',
+  // Wait for `JSAsyncIterable` before typing `async_sequence`.
+  'async_sequence': 'JSObject',
 
   // Number aliases. Like `JSUndefined`, `JSInteger` and `JSDouble` are special
   // sentinels so that we can differentiate between `int` and `double` values

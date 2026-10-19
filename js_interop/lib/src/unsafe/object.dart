@@ -4,6 +4,8 @@
 
 import 'dart:js_interop';
 
+import 'property_descriptor.dart';
+
 @JS('Object.assign')
 external void _assign(
   JSObject target, [
@@ -13,6 +15,13 @@ external void _assign(
   JSAny? source4,
 ]);
 
+@JS('Reflect.defineProperty')
+external bool _defineProperty(
+  JSObject object,
+  JSAny name,
+  JSPropertyDescriptor definition,
+);
+
 @JS('Object.entries')
 external JSArray<JSArray<JSAny?>> _entries(JSObject object);
 
@@ -21,6 +30,12 @@ external void _freeze(JSObject object);
 
 @JS('Reflect.get')
 external JSAny? _get(JSObject object, JSAny name, JSAny? thisArg);
+
+@JS('Object.getOwnPropertyDescriptor')
+external JSPropertyDescriptor? _getOwnPropertyDescriptor(
+  JSObject object,
+  JSAny name,
+);
 
 @JS('Object.getOwnPropertyNames')
 external JSArray<JSString> _getOwnPropertyNames(JSObject object);
@@ -91,10 +106,26 @@ extension JSObjectUnsafeExtension on JSObject {
     JSObject? source4,
   ]) => _assign(this, source1, source2, source3, source4);
 
+  /// See [`Reflect.defineProperty()`].
+  ///
+  /// The [name] must be a [JSString] or a [JSSymbol].
+  ///
+  /// [`Reflect.defineProperty()`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect/defineProperty
+  bool defineProperty(JSAny name, JSPropertyDescriptor definition) =>
+      _defineProperty(this, name, definition);
+
   /// See [`Object.freeze()`].
   ///
   /// [`Object.freeze()`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze
   void freeze() => _freeze(this);
+
+  /// See [`Object.getOwnPropertyDescriptor()`].
+  ///
+  /// The [name] must be a [JSString] or a [JSSymbol].
+  ///
+  /// [`Object.getOwnPropertyDescriptor()`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptor
+  JSPropertyDescriptor? getOwnPropertyDescriptor(JSAny name) =>
+      _getOwnPropertyDescriptor(this, name);
 
   /// See [`Reflect.get()`].
   ///

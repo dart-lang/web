@@ -25,6 +25,21 @@ dart bin/update_idl_bindings.dart --update
 or, manually edit `lib/src/package.json` to use specific IDL versions, and
 re-run `update_idl_bindings.dart`.
 
+### Public API golden
+
+`web/tool/api.txt` is a [`package:api_summary`](https://pub.dev/packages/api_summary)
+summary of `package:web`'s public API, including member signatures, so API
+changes are visible in diffs. `update_idl_bindings.dart` regenerates it after
+generating the bindings, and `web/test/api_test.dart` verifies that it is up to
+date. To regenerate it manually, run the following in `web/`:
+
+```shell
+dart run api_summary --output tool/api.txt
+```
+
+The summary depends on the Dart SDK version, so regenerate it with a current
+dev or beta SDK (CI checks it on `dev`), not the minimum supported SDK.
+
 #### Updating the dartdoc info from MDN
 
 package:web's dartdoc comments come from the

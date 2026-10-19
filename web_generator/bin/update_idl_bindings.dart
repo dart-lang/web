@@ -140,6 +140,14 @@ $_usage''');
   }
 
   if (inputFiles.isEmpty) {
+    // Regenerate the public API golden so API changes show up in diffs.
+    await runProc(Platform.executable, [
+      'run',
+      'api_summary',
+      '--output',
+      _apiGoldenPath,
+    ], workingDirectory: _webPackagePath);
+
     // Update readme.
     final readmeFile = File(
       p.normalize(p.fromUri(Platform.script.resolve('../README.md'))),
@@ -178,6 +186,10 @@ $_startComment
 }
 
 final _webPackagePath = p.fromUri(Platform.script.resolve('../../web'));
+
+/// The `package:api_summary` golden, relative to [_webPackagePath]. Keep in
+/// sync with `web/test/api_test.dart`.
+const _apiGoldenPath = 'tool/api.txt';
 
 Map<String, dynamic>? _cachedPackageLockData;
 

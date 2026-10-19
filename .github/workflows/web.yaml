@@ -46,5 +46,9 @@ jobs:
         if: ${{ matrix.sdk != 'dev' }}
       - run: dart test ${{ matrix.test_config }}
 
+      # Validate that api.txt matches the public API.
+      - run: dart test -p vm test/api_test.dart
+        if: ${{ matrix.test_config == '-p chrome' && matrix.sdk == 'dev' }}
+
       # Validate the 'dart fix' metadata.
       - run: dart fix --compare-to-golden test_fixes

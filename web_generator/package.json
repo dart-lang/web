@@ -5,7 +5,7 @@
   "private": true,
   "dependencies": {
     "@mdn/browser-compat-data": "^5.5.2",
-    "@webref/css": "^6.11.0",
+    "@webref/css": "^8.7.7",
     "@webref/elements": "^2.2.2",
     "@webref/idl": "^3.43.1",
     "webidl2": "^24.4.1"

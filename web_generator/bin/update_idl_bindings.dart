@@ -53,11 +53,22 @@ $_usage''');
     return;
   }
 
-  // Run `npm install` or `npm update` as needed.
+  // Run `npm install` or `npm update` as needed for the generator's own JS
+  // dependencies (webidl2, typescript).
   final update = argResult['update'] as bool;
   await runProc('npm', [
     update ? 'update' : 'install',
   ], workingDirectory: bindingsGeneratorPath);
+
+  if (!isSnapshot) {
+    // The IDL, CSS, elements, and compat data live in this package's
+    // `package.json`. `npm update` never crosses a major version of a caret
+    // range, so `--update` installs the latest version of each instead.
+    await runProc('npm', [
+      'install',
+      if (update) ...[for (final package in _dataPackages) '$package@latest'],
+    ], workingDirectory: p.fromUri(Platform.script.resolve('..')));
+  }
 
   // Compute JS type supertypes for union calculation in translator.
   await checkJsTypeSupertypes();
@@ -159,6 +170,7 @@ $_usage''');
     final cssVersion = _packageLockVersion(_webRefCss);
     final elementsVersion = _packageLockVersion(_webRefElements);
     final idlVersion = _packageLockVersion(_webRefIdl);
+    final engineSection = _engineBaselineSection();
     final versions =
         '''
 $_startComment
@@ -168,7 +180,7 @@ $_startComment
 | `$_webRefCss` | [$cssVersion](https://www.npmjs.com/package/$_webRefCss/v/$cssVersion) |
 | `$_webRefElements` | [$elementsVersion](https://www.npmjs.com/package/$_webRefElements/v/$elementsVersion) |
 | `$_webRefIdl` | [$idlVersion](https://www.npmjs.com/package/$_webRefIdl/v/$idlVersion) |
-''';
+$engineSection''';
 
     final newContent =
         sourceContent.substring(0, sourceContent.indexOf(_startComment)) +
@@ -207,10 +219,51 @@ String _packageLockVersion(String package) {
   return webRefIdl['version'] as String;
 }
 
+String _engineBaselineSection() {
+  final overridesFile = File(
+    p.join(bindingsGeneratorPath, 'engine_overrides.json'),
+  );
+  final data =
+      jsonDecode(overridesFile.readAsStringSync()) as Map<String, dynamic>;
+  final revisions = data['revisions'] as Map<String, dynamic>?;
+  if (revisions == null || revisions.isEmpty) return '';
+  const engineLabels = {'blink': 'Blink', 'gecko': 'Gecko', 'webkit': 'WebKit'};
+  final buffer = StringBuffer()
+    ..writeln()
+    ..writeln(
+      'Browser engine WebIDL baselines '
+      '(`js_interop_gen/lib/src/engine_overrides.json`):',
+    )
+    ..writeln()
+    ..writeln('| Engine | Browser | Ref | Commit |')
+    ..writeln('| --- | --- | --- | --- |');
+  for (final entry in engineLabels.entries) {
+    final rev = revisions[entry.key] as Map<String, dynamic>;
+    final browser = rev['browser'] as String;
+    final version = rev['version'] as String;
+    final repo = rev['repo'] as String;
+    final ref = rev['ref'] as String;
+    final sha = rev['sha'] as String;
+    final shortSha = sha.substring(0, 10);
+    buffer.writeln(
+      '| ${entry.value} | $browser $version | `$ref` | '
+      '[`$shortSha`](https://github.com/$repo/commit/$sha) |',
+    );
+  }
+  return buffer.toString();
+}
+
 const _browserCompatData = '@mdn/browser-compat-data';
 const _webRefCss = '@webref/css';
 const _webRefElements = '@webref/elements';
 const _webRefIdl = '@webref/idl';
+
+const _dataPackages = [
+  _browserCompatData,
+  _webRefCss,
+  _webRefElements,
+  _webRefIdl,
+];
 
 final _thisScript = Uri.parse('bin/update_idl_bindings.dart');
 final _scriptPOSIXPath = _thisScript.toFilePath(windows: false);
@@ -232,7 +285,11 @@ ${_parser.usage}''';
 
 final _parser = ArgParser()
   ..addFlag('help', negatable: false, help: 'Show help information')
-  ..addFlag('update', abbr: 'u', help: 'Update npm dependencies')
+  ..addFlag(
+    'update',
+    abbr: 'u',
+    help: 'Update npm dependencies, including the latest IDL and compat data',
+  )
   ..addFlag('compile', defaultsTo: true)
   ..addOption(
     'output',

@@ -1287,6 +1287,7 @@ const _dartCoreTypeNames = {
   'Function',
   'Iterable',
   'Iterator',
+  'List',
   'Map',
   'Object',
   'Record',

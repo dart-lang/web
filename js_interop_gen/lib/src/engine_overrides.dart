@@ -281,10 +281,7 @@ class EngineOverrides {
                   _matchedSubKeys.add(subKey);
                   if (arguments.length > maxParams) {
                     _changedSubKeys.add(subKey);
-                    (arguments as JSObject).setProperty(
-                      'length'.toJS,
-                      maxParams.toJS,
-                    );
+                    arguments.length = maxParams;
                   }
                 }
                 for (final paramEntry in opOverride.parameters.entries) {

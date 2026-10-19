@@ -48,6 +48,7 @@ void main(List<String> args) async {
       languageVersion: Version.parse(languageVersionString),
       idlJsonPath: argResult['idl-json'] as String?,
       bcdJsonPath: bcdJsonPath,
+      engineOverridesPath: argResult['engine-overrides'] as String?,
     );
   } else if (argResult.wasParsed('declaration')) {
     final Config config;
@@ -132,6 +133,7 @@ Future<void> generateIDLBindings({
   required Version languageVersion,
   String? idlJsonPath,
   required String bcdJsonPath,
+  String? engineOverridesPath,
 }) async {
   if (input == null) {
     // parse dom library as normal
@@ -141,7 +143,8 @@ Future<void> generateIDLBindings({
 
     final dir = p.dirname(p.fromUri(url));
     final renameMapPath = p.join(dir, 'web_rename_map.json');
-    final engineOverridesPath = p.join(dir, 'engine_overrides.json');
+    final resolvedOverridesPath =
+        engineOverridesPath ?? p.join(dir, 'engine_overrides.json');
     final (bindings, renameMap) = await generateBindings(
       packageRoot,
       librarySubDir,
@@ -149,7 +152,7 @@ Future<void> generateIDLBindings({
       renameMapPath: renameMapPath,
       idlJsonPath: idlJsonPath,
       bcdJsonPath: bcdJsonPath,
-      engineOverridesPath: engineOverridesPath,
+      engineOverridesPath: resolvedOverridesPath,
     );
 
     if (renameMap.isNotEmpty) {
@@ -182,6 +185,7 @@ Future<void> generateIDLBindings({
       },
       output,
       bcdJsonPath: bcdJsonPath,
+      engineOverridesPath: engineOverridesPath,
     );
 
     for (var entry in bindings.entries) {
@@ -259,4 +263,8 @@ final _parser = ArgParser()
   ..addOption(
     'bcd-json',
     help: 'Path to the browser-compat-data data.json file',
+  )
+  ..addOption(
+    'engine-overrides',
+    help: 'Path to the engine_overrides.json file',
   );

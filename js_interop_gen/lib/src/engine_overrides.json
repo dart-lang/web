@@ -23,9 +23,34 @@
     }
   },
   "interfaces": {
+    "CSPViolationReportBody": {
+      "generate": true,
+      "kind": "interface",
+      "reason": "w3c/webref CSP.idl.patch converts CSPViolationReportBody from interface to dictionary; all 3 browser engines ship it as a read-only interface."
+    },
+    "Fence": {
+      "generate": false,
+      "reason": "Blink-only deprecated Fenced Frames API (absent from Gecko and WebKit IDLs; deprecated in BCD 8.1.6)."
+    },
+    "FencedFrameConfig": {
+      "generate": false,
+      "reason": "Blink-only deprecated Fenced Frames API (absent from Gecko and WebKit IDLs; deprecated in BCD 8.1.6)."
+    },
+    "HTMLFencedFrameElement": {
+      "generate": false,
+      "reason": "Blink-only deprecated Fenced Frames API (absent from Gecko and WebKit IDLs; deprecated in BCD 8.1.6)."
+    },
     "LanguageModel": {
       "generate": false,
       "reason": "Blink-only experimental AI Prompt API (absent from Gecko and WebKit IDLs; mislabeled experimental:false in BCD 8.1.6)."
+    },
+    "SpeechGrammar": {
+      "generate": false,
+      "reason": "Deprecated single-engine Web Speech Grammar API (absent from WebKit IDL; deprecated in BCD 8.1.6)."
+    },
+    "SpeechGrammarList": {
+      "generate": false,
+      "reason": "Deprecated single-engine Web Speech Grammar API (absent from WebKit IDL; deprecated in BCD 8.1.6)."
     }
   },
   "typedefs": {

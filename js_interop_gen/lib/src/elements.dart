@@ -7,94 +7,22 @@ import 'dart:js_interop';
 import 'banned_names.dart';
 import 'bcd.dart';
 import 'doc_provider.dart';
-import 'engine_overrides.dart';
 import 'js/webidl_api.dart' as idl;
 import 'translator.dart';
 import 'type_aliases.dart';
 import 'type_union.dart';
 import 'util.dart';
 
-bool _rawIdlMatchesOverride(
-  idl.IDLType idlType,
-  EngineTypeOverride override, {
-  bool? rawRequired,
-}) {
-  if (override is EnginePropertyOverride &&
-      override.required != null &&
-      rawRequired != null &&
-      override.required != rawRequired) {
-    return false;
-  }
-  if (idlType.union || idlType.nullable != override.nullable) return false;
-  if (idlType.generic.isNotEmpty) {
-    if (idlType.generic != override.type || override.typeParameter == null) {
-      return false;
-    }
-    final types = (idlType.idlType as JSArray<idl.IDLType>).toDart;
-    return types.length == 1 &&
-        _rawIdlMatchesOverride(types[0], override.typeParameter!);
-  }
-  if (override.typeParameter != null) return false;
-  final rawName = (idlType.idlType as JSString).toDart;
-  final rawAlias = idlOrBuiltinToJsTypeAliases[rawName] ?? rawName;
-  final overrideAlias =
-      idlOrBuiltinToJsTypeAliases[override.type] ?? override.type;
-  return rawAlias == overrideAlias;
-}
-
-RawType _resolveOverrideType(
-  EngineTypeOverride override, {
-  idl.IDLType? rawIdlType,
-  bool? rawRequired,
-  String? overrideKey,
-}) {
-  if (rawIdlType != null &&
-      overrideKey != null &&
-      _rawIdlMatchesOverride(rawIdlType, override, rawRequired: rawRequired)) {
-    Translator.instance!.engineOverrides?.recordRedundant(overrideKey);
-  }
-  final typeParam = override.typeParameter != null
-      ? _resolveOverrideType(override.typeParameter!)
-      : null;
-  var type = override.type;
-  var nullable = override.nullable;
-  if (type == 'WindowProxy') type = 'Window';
-  if (type == 'any') nullable = true;
-  final translator = Translator.instance!;
-  type = translator.legacyWindowAliases[type] ?? type;
-  final decl = translator.typeToDeclaration[type];
-  final alias = idlOrBuiltinToJsTypeAliases[type];
-  if (decl == null && alias == null) {
-    throw StateError('Unknown IDL override type: $type');
-  }
-  if (alias == null && !translator.markTypeAsUsed(type)) {
-    type = _getJSTypeEquivalent(RawType(type, false))!.type;
-  }
-  return RawType(alias ?? type, nullable, typeParam);
-}
-
 /// If [rawType] corresponds to an IDL type that we declare as a typedef,
 /// desugars the typedef, accounting for nullability along the way.
 ///
 /// Otherwise, returns null.
 RawType? desugarTypedef(RawType rawType) {
-  final translator = Translator.instance!;
-  final decl = translator.typeToDeclaration[rawType.type];
+  final decl = Translator.instance!.typeToDeclaration[rawType.type];
   return switch (decl?.type) {
-    'typedef' => () {
-      final override = translator.engineOverrides?.typedefOverride(
-        rawType.type,
-      );
-      final idlType = (decl as idl.Typedef).idlType;
-      final base = override != null
-          ? _resolveOverrideType(
-              override,
-              rawIdlType: idlType,
-              overrideKey: 'typedefs.${rawType.type}',
-            )
-          : _getRawType(idlType);
-      return base..nullable |= rawType.nullable;
-    }(),
+    'typedef' => _getRawType(
+      (decl as idl.Typedef).idlType,
+    )..nullable |= rawType.nullable,
     'callback' ||
     'callback interface' => RawType('JSFunction', rawType.nullable),
     'enum' => RawType('JSString', rawType.nullable),
@@ -194,10 +122,9 @@ RawType _getRawType(idl.IDLType idlType) {
   if (type == 'WindowProxy') type = 'Window';
   if (type == 'any') nullable = true;
   final translator = Translator.instance!;
-  type = translator.legacyWindowAliases[type] ?? type;
   final decl = translator.typeToDeclaration[type];
   final alias = idlOrBuiltinToJsTypeAliases[type];
-  assert(decl != null || alias != null, 'Unknown IDL type: $type');
+  assert(decl != null || alias != null);
   if (alias == null && !translator.markTypeAsUsed(type)) {
     type = _getJSTypeEquivalent(RawType(type, false))!.type;
   }
@@ -214,16 +141,13 @@ class Attribute extends Property {
     super.mdnProperty, {
     required this.isStatic,
     required this.isReadOnly,
-    super.typeOverride,
-    super.overrideKey,
   });
 }
 
 class Constant extends Property {
   final String valueType;
   final JSAny value;
-  Constant(MemberName name, idl.IDLType idlType, this.valueType, this.value)
-    : super(name, idlType, null);
+  Constant(super.name, super.idlType, this.valueType, this.value);
 }
 
 class Field extends Property {
@@ -234,9 +158,6 @@ class Field extends Property {
     super.idlType,
     super.mdnProperty, {
     required this.isRequired,
-    super.rawRequired,
-    super.typeOverride,
-    super.overrideKey,
   });
 }
 
@@ -254,61 +175,32 @@ class MemberName {
 }
 
 class OverridableConstructor extends OverridableMember {
-  OverridableConstructor(
-    idl.Constructor constructor, [
-    EngineOperationOverride? override,
-    String? overrideKey,
-  ]) : super(constructor.arguments, override, overrideKey);
+  OverridableConstructor(idl.Constructor constructor)
+    : super(constructor.arguments);
 
   void update(idl.Constructor that) => _processParameters(that.arguments);
 }
 
 abstract class OverridableMember {
   final List<Parameter> parameters = [];
-  final EngineOperationOverride? _override;
 
-  OverridableMember(
-    JSArray<idl.Argument> rawParameters, [
-    this._override,
-    this._overrideKey,
-  ]) {
-    final maxParams = _override?.maxParameters;
-    if (maxParams != null &&
-        _overrideKey != null &&
-        rawParameters.length <= maxParams) {
-      Translator.instance!.engineOverrides?.recordRedundant(_overrideKey);
-    }
-    final length = maxParams != null && maxParams < rawParameters.length
-        ? maxParams
-        : rawParameters.length;
-    for (var i = 0; i < length; i++) {
-      parameters.add(
-        Parameter(
-          rawParameters[i],
-          _override?.parameters[i],
-          _overrideKey != null ? '$_overrideKey.parameters.$i' : null,
-        ),
-      );
+  OverridableMember(JSArray<idl.Argument> rawParameters) {
+    for (var i = 0; i < rawParameters.length; i++) {
+      parameters.add(Parameter(rawParameters[i]));
     }
   }
 
-  final String? _overrideKey;
-
   void _processParameters(JSArray<idl.Argument> thoseParameters) {
-    final maxParams = _override?.maxParameters;
-    final thatLength = maxParams != null && maxParams < thoseParameters.length
-        ? maxParams
-        : thoseParameters.length;
+    final thatLength = thoseParameters.length;
     for (var i = thatLength; i < parameters.length; i++) {
       parameters[i].isOptional = true;
     }
     for (var i = 0; i < thatLength; i++) {
       final argument = thoseParameters[i];
-      final paramOverride = _override?.parameters[i];
       if (i >= parameters.length) {
-        parameters.add(Parameter(argument, paramOverride)..isOptional = true);
+        parameters.add(Parameter(argument)..isOptional = true);
       } else {
-        parameters[i].update(argument, paramOverride);
+        parameters[i].update(argument);
       }
     }
   }
@@ -326,39 +218,22 @@ class OverridableOperation extends OverridableMember {
   factory OverridableOperation(
     idl.Operation operation,
     MemberName memberName,
-    MdnProperty? mdnProperty, [
-    EngineOperationOverride? override,
-    String? overrideKey,
-  ]) {
-    final returnType = override?.returnType;
-    return OverridableOperation._(
-      memberName,
-      operation.special,
-      returnType != null
-          ? _resolveOverrideType(
-              returnType,
-              rawIdlType: operation.idlType,
-              overrideKey: overrideKey != null
-                  ? '$overrideKey.returnType'
-                  : null,
-            )
-          : _getRawType(operation.idlType),
-      mdnProperty,
-      operation.arguments,
-      override,
-      overrideKey,
-    );
-  }
+    MdnProperty? mdnProperty,
+  ) => OverridableOperation._(
+    memberName,
+    operation.special,
+    _getRawType(operation.idlType),
+    mdnProperty,
+    operation.arguments,
+  );
 
   OverridableOperation._(
     this._name,
     this.special,
     this.returnType,
     this.mdnProperty,
-    super.parameters, [
-    super.override,
-    super.overrideKey,
-  ]);
+    super.parameters,
+  );
 
   bool get isStatic => special == 'static';
 
@@ -378,9 +253,7 @@ class OverridableOperation extends OverridableMember {
     assert(
       (that.name.isEmpty || thisName == that.name) && special == that.special,
     );
-    if (_override?.returnType == null) {
-      returnType.update(that.idlType);
-    }
+    returnType.update(that.idlType);
     _processParameters(that.arguments);
   }
 
@@ -402,31 +275,19 @@ class Parameter {
   bool isVariadic;
   late final String name = _generateName();
 
-  factory Parameter(
-    idl.Argument argument, [
-    EngineParameterOverride? override,
-    String? overrideKey,
-  ]) => Parameter._(
-    {override?.name ?? argument.name},
-    override != null
-        ? _resolveOverrideType(
-            override,
-            rawIdlType: argument.idlType,
-            overrideKey: overrideKey,
-          )
-        : _getRawType(argument.idlType),
+  factory Parameter(idl.Argument argument) => Parameter._(
+    {argument.name},
+    _getRawType(argument.idlType),
     argument.optional,
     argument.variadic,
   );
 
   Parameter._(this._names, this.type, this.isOptional, this.isVariadic);
 
-  void update(idl.Argument argument, [EngineParameterOverride? override]) {
-    if (override == null) {
-      final thatName = argument.name;
-      _names.add(thatName);
-      type.update(argument.idlType);
-    }
+  void update(idl.Argument argument) {
+    final thatName = argument.name;
+    _names.add(thatName);
+    type.update(argument.idlType);
     if (argument.optional) {
       isOptional = true;
     }
@@ -506,14 +367,8 @@ class PartialInterfacelike {
           if (!_shouldGenerateMember(name)) break;
           final idlConstructor = member as idl.Constructor;
           if (_hasHTMLConstructorAttribute(idlConstructor)) break;
-          final opOverride = Translator.instance!.engineOverrides
-              ?.operationOverride(name, 'constructor');
           if (constructor == null) {
-            constructor = OverridableConstructor(
-              idlConstructor,
-              opOverride,
-              'operations.$name.constructor',
-            );
+            constructor = OverridableConstructor(idlConstructor);
           } else {
             constructor!.update(idlConstructor);
           }
@@ -539,8 +394,6 @@ class PartialInterfacelike {
           final memberList = isExtensionMember
               ? extensionProperties
               : properties;
-          final propOverride = Translator.instance!.engineOverrides
-              ?.propertyOverride(name, attributeName);
           memberList.add(
             Attribute(
               MemberName(attributeName),
@@ -548,8 +401,6 @@ class PartialInterfacelike {
               mdnInterface?.propertyFor(attributeName, isStatic: isStatic),
               isStatic: isStatic,
               isReadOnly: attribute.readonly,
-              typeOverride: propOverride,
-              overrideKey: 'properties.$name.$attributeName',
             ),
           );
           break;
@@ -584,9 +435,6 @@ class PartialInterfacelike {
           final docs = shouldQueryMDN
               ? mdnInterface?.propertyFor(operationName, isStatic: isStatic)
               : null;
-          final opOverride = Translator.instance!.engineOverrides
-              ?.operationOverride(name, operationName);
-          final opOverrideKey = 'operations.$name.$operationName';
           if (isStatic) {
             if (staticOperations.containsKey(operationName)) {
               staticOperations[operationName]!.update(operation);
@@ -595,8 +443,6 @@ class PartialInterfacelike {
                 operation,
                 MemberName(operationName),
                 docs,
-                opOverride,
-                opOverrideKey,
               );
               if (operations.containsKey(operationName)) {
                 staticOperations[operationName]!.underscoreName();
@@ -611,8 +457,6 @@ class PartialInterfacelike {
                 operation,
                 MemberName(operationName),
                 docs,
-                opOverride,
-                opOverrideKey,
               );
             }
           }
@@ -621,17 +465,12 @@ class PartialInterfacelike {
           final field = member as idl.Field;
           final fieldName = field.name;
           if (!_shouldGenerateMember(fieldName)) break;
-          final propOverride = Translator.instance!.engineOverrides
-              ?.propertyOverride(name, fieldName);
           properties.add(
             Field(
               MemberName(fieldName),
               field.idlType,
               mdnInterface?.propertyFor(fieldName, isStatic: false),
-              isRequired: propOverride?.required ?? field.required,
-              rawRequired: field.required,
-              typeOverride: propOverride,
-              overrideKey: 'properties.$name.$fieldName',
+              isRequired: field.required,
             ),
           );
           break;
@@ -689,29 +528,14 @@ sealed class Property {
   final RawType type;
   final MdnProperty? mdnProperty;
 
-  Property(
-    MemberName name,
-    idl.IDLType idlType,
-    this.mdnProperty, {
-    this.typeOverride,
-    bool? rawRequired,
-    String? overrideKey,
-  }) : type = typeOverride != null
-           ? _resolveOverrideType(
-               typeOverride,
-               rawIdlType: idlType,
-               rawRequired: rawRequired,
-               overrideKey: overrideKey,
-             )
-           : _getRawType(idlType) {
+  Property(MemberName name, idl.IDLType idlType, [this.mdnProperty])
+    : type = _getRawType(idlType) {
     final dartName = name.name;
     final jsName = name.jsOverride.isEmpty ? dartName : name.jsOverride;
     this.name = dartName == type.type
         ? MemberName('${dartName}_', jsName)
         : name;
   }
-
-  final EngineTypeOverride? typeOverride;
 }
 
 /// A class representing either a type that corresponds to an IDL declaration or

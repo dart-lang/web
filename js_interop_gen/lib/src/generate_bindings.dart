@@ -150,6 +150,7 @@ Future<TranslationResult> generateBindingsForFiles(
   Map<String, String> fileContents,
   String output, {
   required String bcdJsonPath,
+  String? engineOverridesPath,
 }) async {
   // generate CSS style declarations and element tag map incase they are
   // needed for the input files.
@@ -162,6 +163,7 @@ Future<TranslationResult> generateBindingsForFiles(
     generateAll: true,
     generateForWeb: false,
     bcdJsonPath: bcdJsonPath,
+    engineOverridesPath: engineOverridesPath,
   );
 
   for (final file in fileContents.entries) {

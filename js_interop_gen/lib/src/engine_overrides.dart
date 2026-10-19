@@ -4,8 +4,78 @@
 
 import 'dart:convert';
 import 'dart:js_interop';
+import 'dart:js_interop_unsafe';
 
 import 'js/filesystem_api.dart';
+import 'js/webidl_api.dart' as idl;
+import 'type_aliases.dart';
+
+@JS('Object.defineProperty')
+external void _defineProperty(
+  JSObject target,
+  JSString prop,
+  JSObject descriptor,
+);
+
+void _setJsProperty(JSObject target, String prop, JSAny? value) {
+  final desc = JSObject()
+    ..setProperty('value'.toJS, value)
+    ..setProperty('writable'.toJS, true.toJS)
+    ..setProperty('configurable'.toJS, true.toJS)
+    ..setProperty('enumerable'.toJS, true.toJS);
+  _defineProperty(target, prop.toJS, desc);
+}
+
+bool _rawIdlMatchesOverride(
+  idl.IDLType idlType,
+  EngineTypeOverride override, {
+  bool? rawRequired,
+}) {
+  final overrideRequired = switch (override) {
+    EnginePropertyOverride(:final required) => required,
+    EngineParameterOverride(:final required) => required,
+    _ => null,
+  };
+  if (overrideRequired != null &&
+      rawRequired != null &&
+      overrideRequired != rawRequired) {
+    return false;
+  }
+  if (idlType.union || idlType.nullable != override.nullable) return false;
+  if (idlType.generic.isNotEmpty) {
+    if (idlType.generic != override.type || override.typeParameter == null) {
+      return false;
+    }
+    final types = (idlType.idlType as JSArray<idl.IDLType>).toDart;
+    return types.length == 1 &&
+        _rawIdlMatchesOverride(types[0], override.typeParameter!);
+  }
+  if (override.typeParameter != null) return false;
+  final rawName = (idlType.idlType as JSString).toDart;
+  final rawAlias = idlOrBuiltinToJsTypeAliases[rawName] ?? rawName;
+  final overrideAlias =
+      idlOrBuiltinToJsTypeAliases[override.type] ?? override.type;
+  return rawAlias == overrideAlias;
+}
+
+idl.IDLType _createIdlType(EngineTypeOverride override) {
+  final obj = JSObject();
+  obj.setProperty('type'.toJS, ''.toJS);
+  obj.setProperty('extAttrs'.toJS, <JSObject>[].toJS);
+  obj.setProperty('union'.toJS, false.toJS);
+  obj.setProperty('nullable'.toJS, override.nullable.toJS);
+  if (override.typeParameter != null) {
+    obj.setProperty('generic'.toJS, override.type.toJS);
+    obj.setProperty(
+      'idlType'.toJS,
+      <idl.IDLType>[_createIdlType(override.typeParameter!)].toJS,
+    );
+  } else {
+    obj.setProperty('generic'.toJS, ''.toJS);
+    obj.setProperty('idlType'.toJS, override.type.toJS);
+  }
+  return obj as idl.IDLType;
+}
 
 /// Declarative overrides reconciled from the Blink (Chrome), Gecko (Firefox),
 /// and WebKit (Safari) browser engine WebIDL trees where `>= 2` shipping
@@ -16,11 +86,13 @@ class EngineOverrides {
   final Map<String, EnginePropertyOverride> properties;
   final Map<String, EngineOperationOverride> operations;
 
+  final Set<String> _seenInterfacesInAst = {};
   final Set<String> _usedInterfaces = {};
   final Set<String> _usedTypedefs = {};
   final Set<String> _usedProperties = {};
   final Set<String> _usedOperations = {};
-  final Set<String> _redundantOverrides = {};
+  final Set<String> _matchedSubKeys = {};
+  final Set<String> _changedSubKeys = {};
 
   EngineOverrides({
     required this.interfaces,
@@ -36,6 +108,10 @@ class EngineOverrides {
                 as JSString)
             .toDart;
     final json = jsonDecode(content) as Map<String, dynamic>;
+    return EngineOverrides.fromJson(json);
+  }
+
+  factory EngineOverrides.fromJson(Map<String, dynamic> json) {
     final interfacesJson =
         (json['interfaces'] as Map?)?.cast<String, dynamic>() ?? const {};
     final typedefsJson =
@@ -73,46 +149,232 @@ class EngineOverrides {
     );
   }
 
+  /// Mutates the parsed `webidl2` [ast] nodes in place before translation.
+  void applyToAst(JSArray<idl.Node> ast) {
+    for (var i = 0; i < ast.length; i++) {
+      final node = ast[i];
+      switch (node.type) {
+        case 'typedef':
+          final typedefNode = node as idl.Typedef;
+          final name = typedefNode.name;
+          final override = typedefs[name];
+          if (override == null) break;
+          _usedTypedefs.add(name);
+          final subKey = 'typedefs.$name';
+          _matchedSubKeys.add(subKey);
+          if (!_rawIdlMatchesOverride(typedefNode.idlType, override)) {
+            _changedSubKeys.add(subKey);
+            _setJsProperty(
+              typedefNode as JSObject,
+              'idlType',
+              _createIdlType(override),
+            );
+          }
+          break;
+        case 'interface':
+        case 'dictionary':
+        case 'namespace':
+        case 'interface mixin':
+          final interfacelike = node as idl.Interfacelike;
+          final interfaceName = interfacelike.name;
+          final ifaceOverride = interfaces[interfaceName];
+          if (!interfacelike.partial) {
+            _seenInterfacesInAst.add(interfaceName);
+            if (ifaceOverride != null && ifaceOverride.kind != null) {
+              _usedInterfaces.add(interfaceName);
+              final subKey = 'interfaces.$interfaceName';
+              _matchedSubKeys.add(subKey);
+              if (interfacelike.type != ifaceOverride.kind) {
+                _changedSubKeys.add(subKey);
+              }
+            }
+          }
+          if (ifaceOverride != null &&
+              ifaceOverride.kind == 'interface' &&
+              interfacelike.type == 'dictionary') {
+            _setJsProperty(interfacelike as JSObject, 'type', 'interface'.toJS);
+            final members = interfacelike.members;
+            for (var m = 0; m < members.length; m++) {
+              final member = members[m];
+              if (member.type == 'field') {
+                final memberObj = member as JSObject;
+                _setJsProperty(memberObj, 'type', 'attribute'.toJS);
+                _setJsProperty(memberObj, 'readonly', true.toJS);
+                _setJsProperty(memberObj, 'special', ''.toJS);
+                _setJsProperty(memberObj, 'inherit', false.toJS);
+              }
+            }
+          }
+
+          final members = interfacelike.members;
+          for (var m = 0; m < members.length; m++) {
+            final member = members[m];
+            switch (member.type) {
+              case 'attribute':
+              case 'field':
+                final isField = member.type == 'field';
+                final memberName = member.name;
+                final key = '$interfaceName.$memberName';
+                final propOverride = properties[key];
+                if (propOverride == null) break;
+                _usedProperties.add(key);
+                final subKey = 'properties.$key';
+                _matchedSubKeys.add(subKey);
+                final rawIdlType = isField
+                    ? (member as idl.Field).idlType
+                    : (member as idl.Attribute).idlType;
+                final rawRequired = isField
+                    ? (member as idl.Field).required
+                    : null;
+                if (!_rawIdlMatchesOverride(
+                  rawIdlType,
+                  propOverride,
+                  rawRequired: rawRequired,
+                )) {
+                  _changedSubKeys.add(subKey);
+                }
+                final memberObj = member as JSObject;
+                _setJsProperty(
+                  memberObj,
+                  'idlType',
+                  _createIdlType(propOverride),
+                );
+                if (isField && propOverride.required != null) {
+                  _setJsProperty(
+                    memberObj,
+                    'required',
+                    propOverride.required!.toJS,
+                  );
+                }
+                break;
+              case 'operation':
+              case 'constructor':
+                final isConstructor = member.type == 'constructor';
+                final memberName = isConstructor
+                    ? 'constructor'
+                    : (member as idl.Operation).name;
+                if (memberName.isEmpty) break;
+                final key = '$interfaceName.$memberName';
+                final opOverride = operations[key];
+                if (opOverride == null) break;
+                _usedOperations.add(key);
+                final memberObj = member as JSObject;
+                if (!isConstructor && opOverride.returnType != null) {
+                  final operation = member as idl.Operation;
+                  final subKey = 'operations.$key.returnType';
+                  _matchedSubKeys.add(subKey);
+                  if (!_rawIdlMatchesOverride(
+                    operation.idlType,
+                    opOverride.returnType!,
+                  )) {
+                    _changedSubKeys.add(subKey);
+                  }
+                  _setJsProperty(
+                    memberObj,
+                    'idlType',
+                    _createIdlType(opOverride.returnType!),
+                  );
+                }
+                final arguments = isConstructor
+                    ? (member as idl.Constructor).arguments
+                    : (member as idl.Operation).arguments;
+                final maxParams = opOverride.maxParameters;
+                if (maxParams != null) {
+                  final subKey = 'operations.$key';
+                  _matchedSubKeys.add(subKey);
+                  if (arguments.length > maxParams) {
+                    _changedSubKeys.add(subKey);
+                    (arguments as JSObject).setProperty(
+                      'length'.toJS,
+                      maxParams.toJS,
+                    );
+                  }
+                }
+                for (final paramEntry in opOverride.parameters.entries) {
+                  final paramIndex = paramEntry.key;
+                  final paramOverride = paramEntry.value;
+                  if (paramIndex < arguments.length) {
+                    final subKey = 'operations.$key.parameters.$paramIndex';
+                    _matchedSubKeys.add(subKey);
+                    final arg = arguments[paramIndex];
+                    final rawRequired = !arg.optional;
+                    if (!_rawIdlMatchesOverride(
+                      arg.idlType,
+                      paramOverride,
+                      rawRequired: rawRequired,
+                    )) {
+                      _changedSubKeys.add(subKey);
+                    }
+                    final argObj = arg as JSObject;
+                    _setJsProperty(
+                      argObj,
+                      'idlType',
+                      _createIdlType(paramOverride),
+                    );
+                    if (paramOverride.name != null) {
+                      _setJsProperty(argObj, 'name', paramOverride.name!.toJS);
+                    }
+                    if (paramOverride.required != null) {
+                      _setJsProperty(
+                        argObj,
+                        'optional',
+                        (!paramOverride.required!).toJS,
+                      );
+                    }
+                  }
+                }
+                break;
+            }
+          }
+          break;
+      }
+    }
+  }
+
   bool? shouldGenerateInterface(String name) {
     final override = interfaces[name];
     if (override == null) return null;
-    _usedInterfaces.add(name);
+    if (_seenInterfacesInAst.contains(name)) {
+      _usedInterfaces.add(name);
+    }
     return override.generate;
   }
 
-  EngineTypeOverride? typedefOverride(String name) {
-    final override = typedefs[name];
-    if (override == null) return null;
-    _usedTypedefs.add(name);
-    return override;
-  }
-
-  EnginePropertyOverride? propertyOverride(
-    String interfaceName,
-    String memberName,
+  /// Validates that all IDL types referenced by overrides exist in
+  /// [typeToDeclaration], [idlOrBuiltinToJsTypeAliases], or
+  /// [legacyWindowAliases].
+  void validateTypes(
+    Map<String, idl.Node> typeToDeclaration,
+    Map<String, String> legacyWindowAliases,
   ) {
-    final key = '$interfaceName.$memberName';
-    final override = properties[key];
-    if (override == null) return null;
-    _usedProperties.add(key);
-    return override;
-  }
+    void checkType(EngineTypeOverride override) {
+      if (override.typeParameter != null) {
+        checkType(override.typeParameter!);
+      }
+      var type = override.type;
+      if (type == 'WindowProxy') type = 'Window';
+      type = legacyWindowAliases[type] ?? type;
+      final decl = typeToDeclaration[type];
+      final alias = idlOrBuiltinToJsTypeAliases[type];
+      if (decl == null && alias == null) {
+        throw StateError('Unknown IDL override type: $type');
+      }
+    }
 
-  EngineOperationOverride? operationOverride(
-    String interfaceName,
-    String memberName,
-  ) {
-    final key = '$interfaceName.$memberName';
-    final override = operations[key];
-    if (override == null) return null;
-    _usedOperations.add(key);
-    return override;
-  }
-
-  /// Records an override whose target `@webref/idl` declaration now natively
-  /// matches the overridden type or arity.
-  void recordRedundant(String key) {
-    _redundantOverrides.add(key);
+    for (final override in typedefs.values) {
+      checkType(override);
+    }
+    for (final override in properties.values) {
+      checkType(override);
+    }
+    for (final override in operations.values) {
+      if (override.returnType != null) {
+        checkType(override.returnType!);
+      }
+      for (final param in override.parameters.values) {
+        checkType(param);
+      }
+    }
   }
 
   /// Verifies that every override in `engine_overrides.json` matched an active
@@ -125,8 +387,15 @@ class EngineOverrides {
         if (!_usedTypedefs.contains(k)) 'typedefs.$k',
       for (final k in properties.keys)
         if (!_usedProperties.contains(k)) 'properties.$k',
-      for (final k in operations.keys)
-        if (!_usedOperations.contains(k)) 'operations.$k',
+      for (final entry in operations.entries)
+        if (!_usedOperations.contains(entry.key))
+          'operations.${entry.key}'
+        else
+          for (final paramIndex in entry.value.parameters.keys)
+            if (!_matchedSubKeys.contains(
+              'operations.${entry.key}.parameters.$paramIndex',
+            ))
+              'operations.${entry.key}.parameters.$paramIndex',
     ];
     if (unused.isNotEmpty) {
       throw StateError(
@@ -134,12 +403,15 @@ class EngineOverrides {
         'IDL translation):\n  - ${unused.join('\n  - ')}',
       );
     }
-    if (_redundantOverrides.isNotEmpty) {
-      final sorted = _redundantOverrides.toList()..sort();
+    final redundant = <String>[
+      for (final subKey in _matchedSubKeys)
+        if (!_changedSubKeys.contains(subKey)) subKey,
+    ]..sort();
+    if (redundant.isNotEmpty) {
       throw StateError(
         'Redundant engine overrides in engine_overrides.json (@webref/idl now '
         'natively matches the override; remove from engine_overrides.json):\n'
-        '  - ${sorted.join('\n  - ')}',
+        '  - ${redundant.join('\n  - ')}',
       );
     }
   }
@@ -147,13 +419,19 @@ class EngineOverrides {
 
 class EngineInterfaceOverride {
   final bool generate;
+  final String? kind;
   final String reason;
 
-  EngineInterfaceOverride({required this.generate, required this.reason});
+  EngineInterfaceOverride({
+    required this.generate,
+    this.kind,
+    required this.reason,
+  });
 
   factory EngineInterfaceOverride.fromJson(Map<String, dynamic> json) =>
       EngineInterfaceOverride(
-        generate: json['generate'] as bool,
+        generate: json['generate'] as bool? ?? true,
+        kind: json['kind'] as String?,
         reason: json['reason'] as String? ?? '',
       );
 }
@@ -211,12 +489,14 @@ class EnginePropertyOverride extends EngineTypeOverride {
 
 class EngineParameterOverride extends EngineTypeOverride {
   final String? name;
+  final bool? required;
 
   EngineParameterOverride({
     required super.type,
     required super.nullable,
     super.typeParameter,
     this.name,
+    this.required,
   });
 
   factory EngineParameterOverride.fromJson(Map<String, dynamic> json) =>
@@ -229,6 +509,7 @@ class EngineParameterOverride extends EngineTypeOverride {
               )
             : null,
         name: json['name'] as String?,
+        required: json['required'] as bool?,
       );
 }
 

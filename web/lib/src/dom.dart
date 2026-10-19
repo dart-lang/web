@@ -36,7 +36,6 @@ export 'dom/css_typed_om.dart';
 export 'dom/css_view_transitions.dart';
 export 'dom/cssom.dart';
 export 'dom/cssom_view.dart';
-export 'dom/deprecation_reporting.dart';
 export 'dom/digital_credentials.dart';
 export 'dom/document_picture_in_picture.dart';
 export 'dom/dom.dart';

@@ -125,8 +125,6 @@ typedef SanitizerPI = JSAny;
 
 /// Union of: [JSString], [SanitizerAttributeNamespace]
 typedef SanitizerAttribute = JSAny;
-
-/// Union of: [JSTypedArray], [JSUint8ClampedArray]
 typedef ImageDataArray = JSUint8ClampedArray;
 
 /// Union of: [Blob], [CanvasImageSource], [ImageData]

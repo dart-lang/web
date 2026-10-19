@@ -170,7 +170,7 @@ $_usage''');
     final cssVersion = _packageLockVersion(_webRefCss);
     final elementsVersion = _packageLockVersion(_webRefElements);
     final idlVersion = _packageLockVersion(_webRefIdl);
-    final engineRows = _engineBaselineRows();
+    final engineSection = _engineBaselineSection();
     final versions =
         '''
 $_startComment
@@ -180,12 +180,7 @@ $_startComment
 | `$_webRefCss` | [$cssVersion](https://www.npmjs.com/package/$_webRefCss/v/$cssVersion) |
 | `$_webRefElements` | [$elementsVersion](https://www.npmjs.com/package/$_webRefElements/v/$elementsVersion) |
 | `$_webRefIdl` | [$idlVersion](https://www.npmjs.com/package/$_webRefIdl/v/$idlVersion) |
-
-Browser engine WebIDL baselines (`js_interop_gen/lib/src/engine_overrides.json`):
-
-| Engine | Browser | Ref | Commit |
-| --- | --- | --- | --- |
-$engineRows''';
+$engineSection''';
 
     final newContent =
         sourceContent.substring(0, sourceContent.indexOf(_startComment)) +
@@ -224,15 +219,24 @@ String _packageLockVersion(String package) {
   return webRefIdl['version'] as String;
 }
 
-String _engineBaselineRows() {
+String _engineBaselineSection() {
   final overridesFile = File(
     p.join(bindingsGeneratorPath, 'engine_overrides.json'),
   );
   final data =
       jsonDecode(overridesFile.readAsStringSync()) as Map<String, dynamic>;
-  final revisions = data['revisions'] as Map<String, dynamic>;
+  final revisions = data['revisions'] as Map<String, dynamic>?;
+  if (revisions == null || revisions.isEmpty) return '';
   const engineLabels = {'blink': 'Blink', 'gecko': 'Gecko', 'webkit': 'WebKit'};
-  final buffer = StringBuffer();
+  final buffer = StringBuffer()
+    ..writeln()
+    ..writeln(
+      'Browser engine WebIDL baselines '
+      '(`js_interop_gen/lib/src/engine_overrides.json`):',
+    )
+    ..writeln()
+    ..writeln('| Engine | Browser | Ref | Commit |')
+    ..writeln('| --- | --- | --- | --- |');
   for (final entry in engineLabels.entries) {
     final rev = revisions[entry.key] as Map<String, dynamic>;
     final browser = rev['browser'] as String;

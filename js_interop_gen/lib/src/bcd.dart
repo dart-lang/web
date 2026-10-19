@@ -101,11 +101,7 @@ class BCDInterfaceStatus extends BCDItem {
         generateAll,
       );
     }
-    shouldGenerate =
-        generateAll ||
-        (standardTrack &&
-            !experimental &&
-            (!this.deprecated || browsers.length >= 2));
+    shouldGenerate = generateAll || (standardTrack && !experimental);
   }
 
   void addProperty(
@@ -195,8 +191,9 @@ abstract class BCDItem {
     for (final map in statements) {
       if (map.containsKey('version_removed')) continue;
       if (map['flags'] != null) continue;
+      if (map['prefix'] != null || map['alternative_name'] != null) continue;
       final value = map['version_added'];
-      if (value is String) return true;
+      if (value is String && value != 'preview') return true;
       if (value is bool && value) return true;
     }
     return false;

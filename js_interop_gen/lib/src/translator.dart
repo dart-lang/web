@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:js_interop';
+import 'dart:js_interop_unsafe';
 
 import 'package:code_builder/code_builder.dart' as code;
 import 'package:path/path.dart' as p;
@@ -19,6 +20,22 @@ import 'js_type_supertypes.dart';
 import 'singletons.dart';
 import 'type_aliases.dart';
 import 'util.dart';
+
+@JS('Object.defineProperty')
+external void _defineProperty(
+  JSObject target,
+  JSString prop,
+  JSObject descriptor,
+);
+
+void _setJsProperty(JSObject target, String prop, JSAny? value) {
+  final desc = JSObject()
+    ..setProperty('value'.toJS, value)
+    ..setProperty('writable'.toJS, true.toJS)
+    ..setProperty('configurable'.toJS, true.toJS)
+    ..setProperty('enumerable'.toJS, true.toJS);
+  _defineProperty(target, prop.toJS, desc);
+}
 
 typedef TranslationResult = Map<String, code.Library>;
 
@@ -119,6 +136,7 @@ class Translator {
   final bool _generateForWeb;
 
   final _libraries = <String, _Library>{};
+  final _asts = <JSArray<idl.Node>>[];
   final _typeToDeclaration = <String, idl.Node>{};
   final _typeToPartials = <String, List<idl.Interfacelike>>{};
   final _typeToLibrary = <String, _Library>{};
@@ -170,6 +188,92 @@ class Translator {
       (engineOverrides?.shouldGenerateInterface(name) ?? true) &&
       browserCompatData.shouldGenerateInterface(name);
 
+  void _resolveIdlTypeAliases(idl.IDLType idlType) {
+    if (idlType.union || idlType.generic.isNotEmpty) {
+      final types = (idlType.idlType as JSArray<idl.IDLType>).toDart;
+      for (final t in types) {
+        _resolveIdlTypeAliases(t);
+      }
+      return;
+    }
+    final name = (idlType.idlType as JSString).toDart;
+    final target = _legacyWindowAliases[name];
+    if (target != null) {
+      _setJsProperty(idlType as JSObject, 'idlType', target.toJS);
+    }
+  }
+
+  void _applyLegacyWindowAliases() {
+    if (_legacyWindowAliases.isEmpty) return;
+    for (final ast in _asts) {
+      for (var i = 0; i < ast.length; i++) {
+        final node = ast[i];
+        switch (node.type) {
+          case 'typedef':
+            _resolveIdlTypeAliases((node as idl.Typedef).idlType);
+            break;
+          case 'callback':
+            final callback = node as idl.Callback;
+            _resolveIdlTypeAliases(callback.idlType);
+            final args = callback.arguments;
+            for (var j = 0; j < args.length; j++) {
+              _resolveIdlTypeAliases(args[j].idlType);
+            }
+            break;
+          case 'interface':
+          case 'dictionary':
+          case 'namespace':
+          case 'interface mixin':
+          case 'callback interface':
+            final interfacelike = node as idl.Interfacelike;
+            final inherited = interfacelike.inheritance;
+            if (inherited != null) {
+              final target = _legacyWindowAliases[inherited];
+              if (target != null) {
+                _setJsProperty(
+                  interfacelike as JSObject,
+                  'inheritance',
+                  target.toJS,
+                );
+              }
+            }
+            final members = interfacelike.members;
+            for (var m = 0; m < members.length; m++) {
+              final member = members[m];
+              switch (member.type) {
+                case 'const':
+                  _resolveIdlTypeAliases((member as idl.Constant).idlType);
+                  break;
+                case 'attribute':
+                  _resolveIdlTypeAliases((member as idl.Attribute).idlType);
+                  break;
+                case 'field':
+                  _resolveIdlTypeAliases((member as idl.Field).idlType);
+                  break;
+                case 'operation':
+                  final op = member as idl.Operation;
+                  if ((op as JSObject).getProperty('idlType'.toJS) != null) {
+                    _resolveIdlTypeAliases(op.idlType);
+                  }
+                  final args = op.arguments;
+                  for (var j = 0; j < args.length; j++) {
+                    _resolveIdlTypeAliases(args[j].idlType);
+                  }
+                  break;
+                case 'constructor':
+                  final args = (member as idl.Constructor).arguments;
+                  for (var j = 0; j < args.length; j++) {
+                    _resolveIdlTypeAliases(args[j].idlType);
+                  }
+                  break;
+              }
+            }
+            break;
+        }
+      }
+    }
+  }
+
   void _addOrUpdateInterfaceLike(idl.Interfacelike interfacelike) {
     final name = interfacelike.name;
     if (_interfacelikes.containsKey(name)) {
@@ -195,6 +299,8 @@ class Translator {
   /// [markTypeAsUsed] because they don't have any compat data and are emitted
   /// only if used.
   void addInterfacesAndNamespaces() {
+    _applyLegacyWindowAliases();
+    engineOverrides?.validateTypes(_typeToDeclaration, _legacyWindowAliases);
     for (final library in _libraries.values) {
       for (final interfacelike in library.interfacelikes) {
         final name = interfacelike.name;
@@ -204,7 +310,7 @@ class Translator {
             markTypeAsUsed(name);
             break;
           case 'dictionary':
-            if (_shouldGenerateInterface(name)) {
+            if (Translator.instance!.browserCompatData.generateAll) {
               markTypeAsUsed(name);
             }
             break;
@@ -311,6 +417,9 @@ class Translator {
   void collect(String shortName, JSArray<idl.Node> ast) {
     final libraryPath = '$_librarySubDir/${shortName.kebabToSnake}.dart';
     assert(!_libraries.containsKey(libraryPath));
+
+    engineOverrides?.applyToAst(ast);
+    _asts.add(ast);
 
     final library = _Library(shortName, '${packageRoot ?? '.'}/$libraryPath');
 
@@ -1162,6 +1271,8 @@ class Translator {
         engineOverrides?.verifyAllUsed();
       }
       dartLibraries['dom.dart'] = generateRootImport(dartLibraries.keys);
+    } else {
+      engineOverrides?.verifyAllUsed();
     }
 
     return dartLibraries;

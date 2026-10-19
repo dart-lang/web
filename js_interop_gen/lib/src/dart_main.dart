@@ -13,6 +13,7 @@ import 'package:pub_semver/pub_semver.dart';
 import 'package:yaml/yaml.dart';
 
 import 'config.dart';
+import 'engine_overrides.dart';
 import 'generate_bindings.dart';
 import 'interop_gen/parser.dart';
 import 'interop_gen/transform.dart';
@@ -143,7 +144,7 @@ Future<void> generateIDLBindings({
 
     final dir = p.dirname(p.fromUri(url));
     final renameMapPath = p.join(dir, 'web_rename_map.json');
-    final resolvedOverridesPath =
+    EngineOverrides.activePath =
         engineOverridesPath ?? p.join(dir, 'engine_overrides.json');
     final (bindings, renameMap) = await generateBindings(
       packageRoot,
@@ -152,7 +153,6 @@ Future<void> generateIDLBindings({
       renameMapPath: renameMapPath,
       idlJsonPath: idlJsonPath,
       bcdJsonPath: bcdJsonPath,
-      engineOverridesPath: resolvedOverridesPath,
     );
 
     if (renameMap.isNotEmpty) {
@@ -171,6 +171,7 @@ Future<void> generateIDLBindings({
     final allInputFiles = expandGlobs(input.toList(), extension: '.idl');
     // parse individual files
     ensureDirectoryExists(output);
+    EngineOverrides.activePath = engineOverridesPath;
 
     final bindings = await generateBindingsForFiles(
       {
@@ -185,7 +186,6 @@ Future<void> generateIDLBindings({
       },
       output,
       bcdJsonPath: bcdJsonPath,
-      engineOverridesPath: engineOverridesPath,
     );
 
     for (var entry in bindings.entries) {

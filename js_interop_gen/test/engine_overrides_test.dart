@@ -96,12 +96,7 @@ interface SampleElement {
                 'returnType': {'type': 'undefined', 'nullable': false},
                 'maxParameters': 1,
                 'parameters': {
-                  '0': {
-                    'name': 'coord',
-                    'type': 'double',
-                    'nullable': false,
-                    'required': false,
-                  },
+                  '0': {'name': 'coord', 'type': 'double', 'nullable': false},
                 },
               },
               'SampleElement.generateKeyFrame': {
@@ -151,7 +146,7 @@ interface SampleElement {
           ),
         );
         expect(generated, contains('external double get clientX;'));
-        expect(generated, contains('external void scroll([num coord]);'));
+        expect(generated, contains('external void scroll(num coord);'));
         expect(
           generated,
           contains('external JSPromise<JSNumber> generateKeyFrame();'),

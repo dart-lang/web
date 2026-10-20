@@ -3011,8 +3011,17 @@ extension type HTMLIFrameElement._(JSObject _)
 
   /// The **`srcdoc`** property of the [HTMLIFrameElement] specifies the content
   /// of the page.
-  external JSAny get srcdoc;
-  external set srcdoc(JSAny value);
+  ///
+  /// To set a [TrustedHTML] value, use [trustedSrcdoc].
+  external String get srcdoc;
+  external set srcdoc(String value);
+
+  /// Sets the [srcdoc] property to a [TrustedHTML] value.
+  ///
+  /// Use this instead of [srcdoc] when the document enforces
+  /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
+  @JS('srcdoc')
+  external set trustedSrcdoc(TrustedHTML value);
 
   /// The **`name`** property of the [HTMLIFrameElement] interface is a string
   /// value that reflects the `name` attribute of the `iframe` element,
@@ -13619,7 +13628,19 @@ extension type DOMParser._(JSObject _) implements JSObject {
   /// > [`Document.parseHTMLUnsafe()`](https://developer.mozilla.org/en-US/docs/Web/API/Document/parseHTMLUnsafe_static)
   /// > static method provides an ergonomic alternative for parsing HTML strings
   /// > into a [Document].
-  external Document parseFromString(JSAny string, DOMParserSupportedType type);
+  ///
+  /// To pass a [TrustedHTML] value, use [trustedParseFromString].
+  external Document parseFromString(String string, DOMParserSupportedType type);
+
+  /// Calls [parseFromString] with a [TrustedHTML] value.
+  ///
+  /// Use this instead of [parseFromString] when the document enforces
+  /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
+  @JS('parseFromString')
+  external Document trustedParseFromString(
+    TrustedHTML string,
+    DOMParserSupportedType type,
+  );
 }
 
 /// The **`Navigator`** interface represents the state and the identity of the
@@ -14703,7 +14724,26 @@ extension type WorkerGlobalScope._(JSObject _)
   ///
   /// The **`importScripts()`** method of the [WorkerGlobalScope] interface
   /// synchronously imports one or more scripts into the worker's scope.
-  external void importScripts([JSAny url1, JSAny url2, JSAny url3, JSAny url4]);
+  ///
+  /// To pass a [TrustedScriptURL] value, use [trustedImportScripts].
+  external void importScripts([
+    String url1,
+    String url2,
+    String url3,
+    String url4,
+  ]);
+
+  /// Calls [importScripts] with a [TrustedScriptURL] value.
+  ///
+  /// Use this instead of [importScripts] when the document enforces
+  /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
+  @JS('importScripts')
+  external void trustedImportScripts([
+    TrustedScriptURL url1,
+    TrustedScriptURL url2,
+    TrustedScriptURL url3,
+    TrustedScriptURL url4,
+  ]);
 
   /// @AvailableInWorkers("worker")
   ///
@@ -15221,7 +15261,17 @@ extension type SharedWorkerGlobalScope._(JSObject _)
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Worker).
 extension type Worker._(JSObject _) implements EventTarget, JSObject {
-  external factory Worker(JSAny scriptURL, [WorkerOptions options]);
+  /// To pass a [TrustedScriptURL] value, use [Worker.trusted].
+  external factory Worker(String scriptURL, [WorkerOptions options]);
+
+  /// Creates a new [Worker] with a [TrustedScriptURL] value.
+  ///
+  /// Use this instead of [Worker.new] when the document enforces
+  /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
+  external factory Worker.trusted(
+    TrustedScriptURL scriptURL, [
+    WorkerOptions options,
+  ]);
 
   /// @AvailableInWorkers("window_and_worker_except_service")
   ///
@@ -15282,7 +15332,17 @@ extension type WorkerOptions._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SharedWorker).
 extension type SharedWorker._(JSObject _) implements EventTarget, JSObject {
-  external factory SharedWorker(JSAny scriptURL, [JSAny options]);
+  /// To pass a [TrustedScriptURL] value, use [SharedWorker.trusted].
+  external factory SharedWorker(String scriptURL, [JSAny options]);
+
+  /// Creates a new [SharedWorker] with a [TrustedScriptURL] value.
+  ///
+  /// Use this instead of [SharedWorker.new] when the document enforces
+  /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
+  external factory SharedWorker.trusted(
+    TrustedScriptURL scriptURL, [
+    JSAny options,
+  ]);
 
   /// The **`port`** property of the [SharedWorker]
   /// interface returns a [MessagePort] object used to communicate and control

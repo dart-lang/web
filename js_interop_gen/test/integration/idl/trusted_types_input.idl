@@ -1,0 +1,15 @@
+interface TrustedHTML {};
+interface TrustedScript {};
+interface TrustedScriptURL {};
+
+typedef (TrustedHTML or TrustedScript or TrustedScriptURL) TrustedType;
+
+interface TrustedSinkExample {
+  constructor((TrustedScriptURL or USVString) scriptURL, optional DOMString name);
+
+  undefined write((TrustedHTML or DOMString)... text);
+  undefined setAttribute(DOMString qualifiedName, (TrustedType or DOMString) value);
+
+  attribute (TrustedHTML or DOMString) innerHTML;
+  attribute (TrustedScript or DOMString)? textContent;
+};

@@ -166,8 +166,8 @@ class Translator {
   }
 
   bool _shouldGenerateInterface(String name) =>
-      (engineOverrides?.shouldGenerateInterface(name) ?? true) &&
-      browserCompatData.shouldGenerateInterface(name);
+      browserCompatData.shouldGenerateInterface(name) &&
+      (engineOverrides?.shouldGenerateInterface(name) ?? true);
 
   void _addOrUpdateInterfaceLike(idl.Interfacelike interfacelike) {
     final name = interfacelike.name;

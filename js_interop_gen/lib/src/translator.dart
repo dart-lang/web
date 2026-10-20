@@ -712,7 +712,7 @@ class Translator {
     final trustedType = operation.trustedType;
     final name = memberName.name;
     final jsName = memberName.jsOverride.isEmpty ? name : memberName.jsOverride;
-    final trustedName = 'trusted${capitalize(name)}';
+    final trustedName = '${name}Trusted';
     final baseDocs = operation.mdnProperty?.formattedDocs ?? [];
     final primaryDocs = trustedType == null
         ? baseDocs
@@ -776,7 +776,7 @@ class Translator {
   }) {
     final name = memberName.name;
     final jsName = memberName.jsOverride.isEmpty ? name : memberName.jsOverride;
-    final trustedName = 'trusted${capitalize(name)}';
+    final trustedName = '${name}Trusted';
     final baseDocs =
         mdnInterface?.propertyFor(name, isStatic: isStatic)?.formattedDocs ??
         [];

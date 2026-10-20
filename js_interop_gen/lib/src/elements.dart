@@ -341,9 +341,10 @@ class Parameter {
         ..type = union.type
         ..nullable = union.nullable
         ..typeParameter = union.typeParameter;
-      trustedType = trustedType == null
+      final currentTrustedType = trustedType;
+      trustedType = currentTrustedType == null
           ? split.$2
-          : _computeRawTypeUnion(trustedType!, split.$2);
+          : _computeRawTypeUnion(currentTrustedType, split.$2);
     } else {
       type.update(argument.idlType);
       trustedType = null;

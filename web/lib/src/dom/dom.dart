@@ -1368,7 +1368,7 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// [character set](https://developer.mozilla.org/en-US/docs/Web/API/Document/characterSet)
   /// of UTF-8, and a URL of "about:blank"
   ///
-  /// To pass a [TrustedHTML] value, use [trustedParseHTMLUnsafe].
+  /// To pass a [TrustedHTML] value, use [parseHTMLUnsafeTrusted].
   external static Document parseHTMLUnsafe(String html);
 
   /// Calls [parseHTMLUnsafe] with a [TrustedHTML] value.
@@ -1376,7 +1376,7 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// Use this instead of [parseHTMLUnsafe] when the document enforces
   /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
   @JS('parseHTMLUnsafe')
-  external static Document trustedParseHTMLUnsafe(TrustedHTML html);
+  external static Document parseHTMLUnsafeTrusted(TrustedHTML html);
 
   /// The **`getElementsByTagName`** method of
   /// [Document] interface returns an
@@ -1656,7 +1656,7 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// > `document.open()`,
   /// > [which will clear the document](https://developer.mozilla.org/en-US/docs/Web/API/Document/open#notes).
   ///
-  /// To pass a [TrustedHTML] value, use [trustedWrite].
+  /// To pass a [TrustedHTML] value, use [writeTrusted].
   external void write([String text1, String text2, String text3, String text4]);
 
   /// Calls [write] with a [TrustedHTML] value.
@@ -1664,7 +1664,7 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// Use this instead of [write] when the document enforces
   /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
   @JS('write')
-  external void trustedWrite([
+  external void writeTrusted([
     TrustedHTML text1,
     TrustedHTML text2,
     TrustedHTML text3,
@@ -1673,7 +1673,7 @@ extension type Document._(JSObject _) implements Node, JSObject {
 
   /// Writes a string of text followed by a newline character to a document.
   ///
-  /// To pass a [TrustedHTML] value, use [trustedWriteln].
+  /// To pass a [TrustedHTML] value, use [writelnTrusted].
   external void writeln([
     String text1,
     String text2,
@@ -1686,7 +1686,7 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// Use this instead of [writeln] when the document enforces
   /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
   @JS('writeln')
-  external void trustedWriteln([
+  external void writelnTrusted([
     TrustedHTML text1,
     TrustedHTML text2,
     TrustedHTML text3,
@@ -2894,7 +2894,7 @@ extension type ShadowRoot._(JSObject _) implements DocumentFragment, JSObject {
   /// > This method should be used instead of [ShadowRoot.innerHTML] when a
   /// > string of HTML may contain declarative shadow roots.
   ///
-  /// To pass a [TrustedHTML] value, use [trustedSetHTMLUnsafe].
+  /// To pass a [TrustedHTML] value, use [setHTMLUnsafeTrusted].
   external void setHTMLUnsafe(String html);
 
   /// Calls [setHTMLUnsafe] with a [TrustedHTML] value.
@@ -2902,7 +2902,7 @@ extension type ShadowRoot._(JSObject _) implements DocumentFragment, JSObject {
   /// Use this instead of [setHTMLUnsafe] when the document enforces
   /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
   @JS('setHTMLUnsafe')
-  external void trustedSetHTMLUnsafe(TrustedHTML html);
+  external void setHTMLUnsafeTrusted(TrustedHTML html);
 
   /// The **`getHTML()`** method of the [ShadowRoot] interface is used to
   /// serialize a shadow root's DOM to an HTML string.
@@ -3023,7 +3023,7 @@ extension type ShadowRoot._(JSObject _) implements DocumentFragment, JSObject {
   /// interface sets or returns a reference to the DOM tree inside the
   /// `ShadowRoot`.
   ///
-  /// To set a [TrustedHTML] value, use [trustedInnerHTML].
+  /// To set a [TrustedHTML] value, use [innerHTMLTrusted].
   external String get innerHTML;
   external set innerHTML(String value);
 
@@ -3032,7 +3032,7 @@ extension type ShadowRoot._(JSObject _) implements DocumentFragment, JSObject {
   /// Use this instead of [innerHTML] when the document enforces
   /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
   @JS('innerHTML')
-  external set trustedInnerHTML(TrustedHTML value);
+  external set innerHTMLTrusted(TrustedHTML value);
 
   /// The **`styleSheets`** read-only property of the [ShadowRoot] interface
   /// returns a [StyleSheetList] of [CSSStyleSheet] objects, for stylesheets
@@ -3443,7 +3443,7 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// > This method should be used instead of [Element.innerHTML] when a string
   /// > of HTML may contain declarative shadow roots.
   ///
-  /// To pass a [TrustedHTML] value, use [trustedSetHTMLUnsafe].
+  /// To pass a [TrustedHTML] value, use [setHTMLUnsafeTrusted].
   external void setHTMLUnsafe(String html);
 
   /// Calls [setHTMLUnsafe] with a [TrustedHTML] value.
@@ -3451,7 +3451,7 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// Use this instead of [setHTMLUnsafe] when the document enforces
   /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
   @JS('setHTMLUnsafe')
-  external void trustedSetHTMLUnsafe(TrustedHTML html);
+  external void setHTMLUnsafeTrusted(TrustedHTML html);
 
   /// The **`getHTML()`** method of the [Element] interface is used to serialize
   /// an element's DOM to an HTML string.
@@ -3471,7 +3471,7 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// [Element] interface parses the specified text as HTML or XML and inserts
   /// the resulting nodes into the DOM tree at a specified position.
   ///
-  /// To pass a [TrustedHTML] value, use [trustedInsertAdjacentHTML].
+  /// To pass a [TrustedHTML] value, use [insertAdjacentHTMLTrusted].
   external void insertAdjacentHTML(String position, String string);
 
   /// Calls [insertAdjacentHTML] with a [TrustedHTML] value.
@@ -3479,7 +3479,7 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// Use this instead of [insertAdjacentHTML] when the document enforces
   /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
   @JS('insertAdjacentHTML')
-  external void trustedInsertAdjacentHTML(String position, TrustedHTML string);
+  external void insertAdjacentHTMLTrusted(String position, TrustedHTML string);
 
   /// The **`setPointerCapture()`** method of the
   /// [Element] interface is used to designate a specific element as the
@@ -3915,7 +3915,7 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// declarative shadow roots, you must use either [Element.setHTMLUnsafe] or
   /// [ShadowRoot.setHTMLUnsafe].
   ///
-  /// To set a [TrustedHTML] value, use [trustedInnerHTML].
+  /// To set a [TrustedHTML] value, use [innerHTMLTrusted].
   external String get innerHTML;
   external set innerHTML(String value);
 
@@ -3924,7 +3924,7 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// Use this instead of [innerHTML] when the document enforces
   /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
   @JS('innerHTML')
-  external set trustedInnerHTML(TrustedHTML value);
+  external set innerHTMLTrusted(TrustedHTML value);
 
   /// The **`outerHTML`** attribute of the [Element]
   /// DOM interface gets the serialized HTML fragment describing the element
@@ -3938,7 +3938,7 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// contents of an element, use the [Element.innerHTML] property
   /// instead.
   ///
-  /// To set a [TrustedHTML] value, use [trustedOuterHTML].
+  /// To set a [TrustedHTML] value, use [outerHTMLTrusted].
   external String get outerHTML;
   external set outerHTML(String value);
 
@@ -3947,7 +3947,7 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// Use this instead of [outerHTML] when the document enforces
   /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
   @JS('outerHTML')
-  external set trustedOuterHTML(TrustedHTML value);
+  external set outerHTMLTrusted(TrustedHTML value);
 
   /// The read-only **`children`** property returns a live [HTMLCollection]
   /// which contains all of the child [Element] of the element upon which it was
@@ -5179,7 +5179,7 @@ extension type Range._(JSObject _) implements AbstractRange, JSObject {
   /// parsing
   /// algorithm is invoked with `body` as the context instead.
   ///
-  /// To pass a [TrustedHTML] value, use [trustedCreateContextualFragment].
+  /// To pass a [TrustedHTML] value, use [createContextualFragmentTrusted].
   external DocumentFragment createContextualFragment(String string);
 
   /// Calls [createContextualFragment] with a [TrustedHTML] value.
@@ -5187,7 +5187,7 @@ extension type Range._(JSObject _) implements AbstractRange, JSObject {
   /// Use this instead of [createContextualFragment] when the document enforces
   /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
   @JS('createContextualFragment')
-  external DocumentFragment trustedCreateContextualFragment(TrustedHTML string);
+  external DocumentFragment createContextualFragmentTrusted(TrustedHTML string);
 
   /// The **`Range.commonAncestorContainer`** read-only property
   /// returns the deepest — or furthest down the document tree — [Node] that

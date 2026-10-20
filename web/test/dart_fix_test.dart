@@ -34,12 +34,21 @@ dependencies:
   web:
     path: ${p.current.replaceAll(r'\', '/')}
 ''');
-      final sourceFile = File(p.join('test_fixes', 'renames.dart'));
-      writeFile(
-        tempDir,
-        p.join('lib', sourceFile.name),
-        sourceFile.readAsStringSync(),
-      );
+      final testFixesDir = Directory('test_fixes');
+      final sourceFiles = testFixesDir
+          .listSync()
+          .whereType<File>()
+          .where((file) => file.path.endsWith('.dart'))
+          .toList();
+      expect(sourceFiles, isNotEmpty);
+
+      for (final sourceFile in sourceFiles) {
+        writeFile(
+          tempDir,
+          p.join('lib', sourceFile.name),
+          sourceFile.readAsStringSync(),
+        );
+      }
 
       // run pub get
       pubGet(tempDir);

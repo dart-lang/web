@@ -1,0 +1,114 @@
+// Copyright (c) 2026, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+
+import 'dart:js_interop';
+
+import 'package:web/web.dart';
+
+// Removed renames.dart typedefs & HttpRequest
+late WebGLContextEvent $contextEvent;
+late WebGLRenderingContext $webGL;
+final XMLHttpRequest $httpRequest = XMLHttpRequest();
+const int $httpDone = XMLHttpRequest.DONE;
+
+// CustomEventProviders => EventStreamProviders
+final EventStreamProvider<WheelEvent> $mouseWheelEvent =
+    EventStreamProviders.mouseWheelEvent;
+
+// Deleted top-level helper functions
+final HTMLAudioElement $audio = HTMLAudioElement();
+final HTMLIFrameElement $iframe = HTMLIFrameElement();
+final HTMLCanvasElement $canvas = HTMLCanvasElement();
+
+// TouchListWrapper & TouchList.toList
+late TouchList $touchList;
+late JSImmutableListWrapper<TouchList, Touch> $touchListWrapper;
+final JSImmutableListWrapper<TouchList, Touch> $touchListWrapperInit =
+    JSImmutableListWrapper<TouchList, Touch>($touchList);
+final List<Touch> $touchAsList1 = $touchList.asList();
+final List<Touch> $touchAsList2 = TouchListExtension($touchList).asList();
+final List<Touch> $touchAsList3 = TouchListExtension($touchList).asList();
+
+// Renamed *Glue and TouchListConvert extensions
+void testGlueExtensions(
+  HTMLCanvasElement canvas,
+  CanvasRenderingContext2D ctx2d,
+  Node node,
+  MouseEvent mouseEvent,
+  Touch touch,
+  Storage storage,
+  TouchList touchList,
+  XMLHttpRequest xhr,
+  HTMLImageElement img,
+) {
+  HTMLCanvasElementExtension(canvas).toDataUrl();
+  CanvasRenderingContext2DExtension(ctx2d).drawImageScaled(img, 0, 0, 10, 10);
+  NodeExtension(node).text = 'hello';
+  MouseEventExtension(mouseEvent).client;
+  TouchExtension(touch).client;
+  StorageExtension(storage)['key'] = 'value';
+  TouchListExtension(touchList).asList();
+  XMLHttpRequestExtension(xhr).responseHeaders;
+}
+
+// Renamed & consolidated event extensions
+void testEventExtensions(
+  Element element,
+  Document doc,
+  Window win,
+  XMLHttpRequest xhr,
+  EventSource eventSource,
+  FileReader fileReader,
+  AudioNode audioNode,
+) {
+  ElementEvents(element).onClick;
+  ElementEvents(element).onMouseWheel;
+  DocumentEvents(doc).onVisibilityChange;
+  DocumentEvents(doc).onClick;
+  WindowEvents(win).onLoad;
+  WindowEvents(win).onTransitionEnd;
+  XMLHttpRequestEvents(xhr).onLoad;
+  EventSourceEvents(eventSource).onOpen;
+  FileReaderEvents(fileReader).onLoad;
+  FileReaderEvents(fileReader).onLoadEnd;
+  AudioNodeEvents(audioNode).onEnded;
+}
+
+// Digital Credentials spec renames
+late DigitalCredentialGetRequest $digitalCredReq;
+late DigitalCredentialGetRequest $identityReqProvider;
+
+void testDigitalCredentials(JSObject payload) {
+  final req = DigitalCredentialGetRequest(protocol: 'openid4vp', data: payload);
+  req.data = req.data;
+  final opts = DigitalCredentialRequestOptions(
+    requests: <DigitalCredentialGetRequest>[req].toJS,
+  );
+  opts.requests = opts.requests;
+}
+
+// DOM typedef 1:1 renames
+late ViewTransitionUpdateCallback $updateCallback;
+late EncodedVideoChunkType $rtcVideoFrameType;
+late BufferSource $binaryData;
+
+// CSSStyleDeclaration 1:1 property renames
+void testCssStyleRenames(CSSStyleDeclaration style) {
+  style.borderTopClip = style.borderTopClip;
+  style.borderRightClip = style.borderRightClip;
+  style.borderBottomClip = style.borderBottomClip;
+  style.borderLeftClip = style.borderLeftClip;
+  style.positionArea = style.positionArea;
+  style.positionTryFallbacks = style.positionTryFallbacks;
+  style.textDecorationInset = style.textDecorationInset;
+  style.scrollInitialTarget = style.scrollInitialTarget;
+  style.columnRuleInset = style.columnRuleInset;
+  style.rowRuleInset = style.rowRuleInset;
+  style.rule = style.rule;
+  style.ruleBreak = style.ruleBreak;
+  style.ruleColor = style.ruleColor;
+  style.ruleInset = style.ruleInset;
+  style.ruleStyle = style.ruleStyle;
+  style.ruleWidth = style.ruleWidth;
+}

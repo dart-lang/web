@@ -1055,7 +1055,7 @@ extension type SVGAnimatedString._(JSObject _) implements JSObject {
   /// animations are applied. The base value of the given attribute before
   /// applying any animations. Setter throws DOMException.
   ///
-  /// To set a [TrustedScriptURL] value, use [trustedBaseVal].
+  /// To set a [TrustedScriptURL] value, use [baseValTrusted].
   external String get baseVal;
   external set baseVal(String value);
 
@@ -1064,7 +1064,7 @@ extension type SVGAnimatedString._(JSObject _) implements JSObject {
   /// Use this instead of [baseVal] when the document enforces
   /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
   @JS('baseVal')
-  external set trustedBaseVal(TrustedScriptURL value);
+  external set baseValTrusted(TrustedScriptURL value);
 
   /// The `animVal` read-only property of the [SVGAnimatedString] interface
   /// contains the same value as the [SVGAnimatedString.baseVal] property. If

@@ -92,11 +92,11 @@ void main() {
         createScript: ((String s) => s.toJS).toJS,
       ),
     );
-    div.trustedInnerHTML = policy.createHTML('<b>trusted</b>');
+    div.innerHTMLTrusted = policy.createHTML('<b>trusted</b>');
     expect(div.innerHTML, '<b>trusted</b>');
 
     final script = document.createElement('script') as HTMLScriptElement;
-    script.trustedSetAttribute('text', policy.createScript('1 + 1'));
+    script.setAttributeTrusted('text', policy.createScript('1 + 1'));
     expect(script.getAttribute('text'), '1 + 1');
   });
 }

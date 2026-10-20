@@ -76,16 +76,6 @@
       "nullable": false,
       "reason": "Blink and WebKit declare double instead of unsigned long long."
     },
-    "HTMLScriptElement.src": {
-      "type": "USVString",
-      "nullable": false,
-      "reason": "Preserve String over (TrustedScriptURL or USVString) union (JSAny)."
-    },
-    "HTMLScriptElement.text": {
-      "type": "DOMString",
-      "nullable": false,
-      "reason": "Preserve String over (TrustedScript or DOMString) union (JSAny)."
-    },
     "MediaStreamTrackProcessorInit.track": {
       "type": "MediaStreamTrack",
       "nullable": false,
@@ -113,42 +103,42 @@
     "MouseEvent.clientX": {
       "type": "double",
       "nullable": false,
-      "reason": "All 3 engines (Blink, Gecko, WebKit) declare double; fractional under pinch-zoom/HiDPI (#346)."
+      "reason": "All 3 engines (Blink, Gecko, WebKit) declare double; fractional under pinch-zoom/HiDPI (#521, #564)."
     },
     "MouseEvent.clientY": {
       "type": "double",
       "nullable": false,
-      "reason": "All 3 engines (Blink, Gecko, WebKit) declare double; fractional under pinch-zoom/HiDPI (#346)."
+      "reason": "All 3 engines (Blink, Gecko, WebKit) declare double; fractional under pinch-zoom/HiDPI (#521, #564)."
     },
     "MouseEvent.screenX": {
       "type": "double",
       "nullable": false,
-      "reason": "All 3 engines (Blink, Gecko, WebKit) declare double; fractional under pinch-zoom/HiDPI (#346)."
+      "reason": "All 3 engines (Blink, Gecko, WebKit) declare double; fractional under pinch-zoom/HiDPI (#521, #564)."
     },
     "MouseEvent.screenY": {
       "type": "double",
       "nullable": false,
-      "reason": "All 3 engines (Blink, Gecko, WebKit) declare double; fractional under pinch-zoom/HiDPI (#346)."
+      "reason": "All 3 engines (Blink, Gecko, WebKit) declare double; fractional under pinch-zoom/HiDPI (#521, #564)."
     },
     "MouseEventInit.clientX": {
       "type": "double",
       "nullable": false,
-      "reason": "All 3 engines (Blink, Gecko, WebKit) declare double (#346)."
+      "reason": "All 3 engines (Blink, Gecko, WebKit) declare double (#521, #564)."
     },
     "MouseEventInit.clientY": {
       "type": "double",
       "nullable": false,
-      "reason": "All 3 engines (Blink, Gecko, WebKit) declare double (#346)."
+      "reason": "All 3 engines (Blink, Gecko, WebKit) declare double (#521, #564)."
     },
     "MouseEventInit.screenX": {
       "type": "double",
       "nullable": false,
-      "reason": "All 3 engines (Blink, Gecko, WebKit) declare double (#346)."
+      "reason": "All 3 engines (Blink, Gecko, WebKit) declare double (#521, #564)."
     },
     "MouseEventInit.screenY": {
       "type": "double",
       "nullable": false,
-      "reason": "All 3 engines (Blink, Gecko, WebKit) declare double (#346)."
+      "reason": "All 3 engines (Blink, Gecko, WebKit) declare double (#521, #564)."
     },
     "OfflineAudioContext.length": {
       "type": "unsigned long",
@@ -175,11 +165,6 @@
       "type": "ArrayBufferView",
       "nullable": true,
       "reason": "All 3 engines (Blink, Gecko, WebKit) declare ArrayBufferView? instead of Uint8Array?."
-    },
-    "SVGAnimatedString.baseVal": {
-      "type": "DOMString",
-      "nullable": false,
-      "reason": "Preserve String over (TrustedScriptURL or DOMString) union (JSAny)."
     }
   },
   "operations": {
@@ -220,24 +205,6 @@
         "nullable": false
       },
       "reason": "All 3 engines (Blink, Gecko, WebKit) return undefined; JSPromise throws at runtime when JS returns undefined."
-    },
-    "Element.setAttribute": {
-      "parameters": {
-        "1": {
-          "type": "DOMString",
-          "nullable": false
-        }
-      },
-      "reason": "Preserve String over (TrustedType or DOMString) union (JSAny)."
-    },
-    "Element.setAttributeNS": {
-      "parameters": {
-        "2": {
-          "type": "DOMString",
-          "nullable": false
-        }
-      },
-      "reason": "Preserve String over (TrustedType or DOMString) union (JSAny)."
     },
     "OfflineAudioContext.startRendering": {
       "maxParameters": 0,

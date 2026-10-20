@@ -23,6 +23,7 @@ import 'fetch.dart';
 import 'html.dart';
 import 'notifications.dart';
 import 'push_api.dart';
+import 'trusted_types.dart';
 import 'urlpattern.dart';
 
 /// Union of: [RouterSourceDict], [RouterSourceEnum]
@@ -295,8 +296,20 @@ extension type ServiceWorkerContainer._(JSObject _)
   /// > [!NOTE]
   /// > It is generally safer not to define registrations that have overlapping
   /// > scopes.
+  ///
+  /// To pass a [TrustedScriptURL] value, use [trustedRegister].
   external JSPromise<ServiceWorkerRegistration> register(
-    JSAny scriptURL, [
+    String scriptURL, [
+    RegistrationOptions options,
+  ]);
+
+  /// Calls [register] with a [TrustedScriptURL] value.
+  ///
+  /// Use this instead of [register] when the document enforces
+  /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
+  @JS('register')
+  external JSPromise<ServiceWorkerRegistration> trustedRegister(
+    TrustedScriptURL scriptURL, [
     RegistrationOptions options,
   ]);
 

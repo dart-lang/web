@@ -21,6 +21,7 @@ import 'cssom.dart';
 import 'dom.dart';
 import 'geometry.dart';
 import 'html.dart';
+import 'trusted_types.dart';
 
 /// All of the SVG DOM interfaces that correspond directly to elements in the
 /// SVG language derive from the `SVGElement` interface.
@@ -1053,8 +1054,17 @@ extension type SVGAnimatedString._(JSObject _) implements JSObject {
   /// BaseVal gets or sets the base value of the given attribute before any
   /// animations are applied. The base value of the given attribute before
   /// applying any animations. Setter throws DOMException.
+  ///
+  /// To set a [TrustedScriptURL] value, use [trustedBaseVal].
   external String get baseVal;
   external set baseVal(String value);
+
+  /// Sets the [baseVal] property to a [TrustedScriptURL] value.
+  ///
+  /// Use this instead of [baseVal] when the document enforces
+  /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
+  @JS('baseVal')
+  external set trustedBaseVal(TrustedScriptURL value);
 
   /// The `animVal` read-only property of the [SVGAnimatedString] interface
   /// contains the same value as the [SVGAnimatedString.baseVal] property. If

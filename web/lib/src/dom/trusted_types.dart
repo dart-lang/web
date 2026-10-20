@@ -16,6 +16,8 @@ library;
 
 import 'dart:js_interop';
 
+/// Union of: [TrustedHTML], [TrustedScriptURL], [TrustedScript]
+typedef TrustedType = JSObject;
 typedef CreateHTMLCallback = JSFunction;
 typedef CreateScriptCallback = JSFunction;
 typedef CreateScriptURLCallback = JSFunction;

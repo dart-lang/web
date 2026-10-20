@@ -44,6 +44,10 @@ interface-visibility overrides before translation:
    unintended signature widenings (e.g., concrete types widened to `JSAny`,
    `void` changed to `JSPromise` before engines ship it, or single-engine
    interfaces enabled in BCD) and add an entry with a `"reason"` if needed.
+3. **3-engine WebIDL census (`tool/engine_census/`)**: To audit `@webref/idl`
+   against shipping Blink, Gecko, and WebKit WebIDL and feature-flag files (or
+   look up a specific `Interface.member` across all 3 engines), see
+   [`tool/engine_census/README.md`](tool/engine_census/README.md).
 
 ### Public API golden
 

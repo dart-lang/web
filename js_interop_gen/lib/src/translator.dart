@@ -560,12 +560,16 @@ class Translator {
       List<code.Parameter> requiredParameters,
       List<code.Parameter> optionalParameters,
     )
-    generator,
-  ) {
+    generator, {
+    bool useTrustedTypes = false,
+  }) {
     final requiredParameters = <code.Parameter>[];
     final optionalParameters = <code.Parameter>[];
     for (final rawParameter in member.parameters) {
-      final type = _typeReference(rawParameter.type);
+      final rawType = useTrustedTypes
+          ? (rawParameter.trustedType ?? rawParameter.type)
+          : rawParameter.type;
+      final type = _typeReference(rawType);
       if (rawParameter.isVariadic) {
         for (var i = 0; i < 4; i++) {
           optionalParameters.add(
@@ -592,7 +596,12 @@ class Translator {
     return generator(requiredParameters, optionalParameters);
   }
 
-  code.Constructor _constructor(OverridableConstructor constructor) =>
+  List<code.Constructor> _constructors(
+    OverridableConstructor constructor,
+    String dartClassName,
+  ) {
+    final trustedType = constructor.trustedType;
+    return [
       _overridableMember<code.Constructor>(
         constructor,
         (requiredParameters, optionalParameters) => code.Constructor(
@@ -602,10 +611,43 @@ class Translator {
             // constructors? With `@staticInterop`, factories were needed, but
             // extension types have no such limitation.
             ..factory = true
+            ..docs.addAll([
+              if (trustedType != null)
+                ...formatDocs(
+                  'To pass a [${trustedType.type}] value, use '
+                  '[$dartClassName.trusted].',
+                  78,
+                ),
+            ])
             ..requiredParameters.addAll(requiredParameters)
             ..optionalParameters.addAll(optionalParameters),
         ),
-      );
+      ),
+      if (trustedType != null)
+        _overridableMember<code.Constructor>(
+          constructor,
+          (requiredParameters, optionalParameters) => code.Constructor(
+            (b) => b
+              ..name = 'trusted'
+              ..external = true
+              ..factory = true
+              ..docs.addAll(
+                formatDocs(
+                  'Creates a new [$dartClassName] with a [${trustedType.type}] '
+                  'value.\n\n'
+                  'Use this instead of [$dartClassName.new] when the document '
+                  'enforces '
+                  '[Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).',
+                  78,
+                ),
+              )
+              ..requiredParameters.addAll(requiredParameters)
+              ..optionalParameters.addAll(optionalParameters),
+          ),
+          useTrustedTypes: true,
+        ),
+    ];
+  }
 
   // TODO(srujzs): We don't need constructors for many dictionaries as they're
   // only ever returned from APIs instead of passed to them. However,
@@ -682,27 +724,67 @@ class Translator {
       ]),
   ];
 
-  code.Method _operation(OverridableOperation operation) {
+  List<code.Method> _operation(OverridableOperation operation) {
     final memberName = operation.name;
     // The IDL may return the value that is set. Dart doesn't let us use any
     // type besides `void` for `[]=`, so we ignore the return value.
     final returnType = memberName.name == 'operator []='
         ? code.TypeReference((b) => b..symbol = 'void')
         : _typeReference(operation.returnType, returnType: true);
-    return _overridableMember<code.Method>(
-      operation,
-      (requiredParameters, optionalParameters) => code.Method(
-        (b) => b
-          ..annotations.addAll(_jsOverride(memberName.jsOverride))
-          ..external = true
-          ..static = operation.isStatic
-          ..returns = returnType
-          ..name = memberName.name
-          ..docs.addAll(operation.mdnProperty?.formattedDocs ?? [])
-          ..requiredParameters.addAll(requiredParameters)
-          ..optionalParameters.addAll(optionalParameters),
+    final trustedType = operation.trustedType;
+    final name = memberName.name;
+    final jsName = memberName.jsOverride.isEmpty ? name : memberName.jsOverride;
+    final trustedName = 'trusted${capitalize(name)}';
+    final baseDocs = operation.mdnProperty?.formattedDocs ?? [];
+    final primaryDocs = trustedType == null
+        ? baseDocs
+        : [
+            ...baseDocs,
+            if (baseDocs.isNotEmpty) '///',
+            ...formatDocs(
+              'To pass a [${trustedType.type}] value, use [$trustedName].',
+              78,
+            ),
+          ];
+    return [
+      _overridableMember<code.Method>(
+        operation,
+        (requiredParameters, optionalParameters) => code.Method(
+          (b) => b
+            ..annotations.addAll(_jsOverride(memberName.jsOverride))
+            ..external = true
+            ..static = operation.isStatic
+            ..returns = returnType
+            ..name = name
+            ..docs.addAll(primaryDocs)
+            ..requiredParameters.addAll(requiredParameters)
+            ..optionalParameters.addAll(optionalParameters),
+        ),
       ),
-    );
+      if (trustedType != null)
+        _overridableMember<code.Method>(
+          operation,
+          (requiredParameters, optionalParameters) => code.Method(
+            (b) => b
+              ..annotations.addAll(_jsOverride(jsName, alwaysEmit: true))
+              ..external = true
+              ..static = operation.isStatic
+              ..returns = returnType
+              ..name = trustedName
+              ..docs.addAll(
+                formatDocs(
+                  'Calls [$name] with a [${trustedType.type}] value.\n\n'
+                  'Use this instead of [$name] when the document enforces '
+                  '[Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).',
+                  78,
+                ),
+              )
+              ..requiredParameters.addAll(requiredParameters)
+              ..optionalParameters.addAll(optionalParameters),
+          ),
+          useTrustedTypes: true,
+        ),
+    ];
   }
 
   List<code.Method> _getterSetter({
@@ -712,11 +794,24 @@ class Translator {
     required bool isStatic,
     required bool readOnly,
     required MdnInterface? mdnInterface,
+    RawType? trustedSetterType,
   }) {
     final name = memberName.name;
-    final docs =
+    final jsName = memberName.jsOverride.isEmpty ? name : memberName.jsOverride;
+    final trustedName = 'trusted${capitalize(name)}';
+    final baseDocs =
         mdnInterface?.propertyFor(name, isStatic: isStatic)?.formattedDocs ??
         [];
+    final docs = (!readOnly && trustedSetterType != null)
+        ? [
+            ...baseDocs,
+            if (baseDocs.isNotEmpty) '///',
+            ...formatDocs(
+              'To set a [${trustedSetterType.type}] value, use [$trustedName].',
+              78,
+            ),
+          ]
+        : baseDocs;
 
     return [
       code.Method(
@@ -745,6 +840,31 @@ class Translator {
               ),
             ),
         ),
+      if (!readOnly && trustedSetterType != null)
+        code.Method(
+          (b) => b
+            ..annotations.addAll(_jsOverride(jsName, alwaysEmit: true))
+            ..external = true
+            ..static = isStatic
+            ..type = code.MethodType.setter
+            ..name = trustedName
+            ..docs.addAll(
+              formatDocs(
+                'Sets the [$name] property to a [${trustedSetterType.type}] '
+                'value.\n\n'
+                'Use this instead of [$name] when the document enforces '
+                '[Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).',
+                78,
+              ),
+            )
+            ..requiredParameters.add(
+              code.Parameter(
+                (b) => b
+                  ..type = _typeReference(trustedSetterType)
+                  ..name = 'value',
+              ),
+            ),
+        ),
     ];
   }
 
@@ -759,6 +879,7 @@ class Translator {
       readOnly: attribute.isReadOnly,
       isStatic: attribute.isStatic,
       mdnInterface: mdnInterface,
+      trustedSetterType: attribute.trustedType,
     );
   }
 
@@ -836,7 +957,7 @@ class Translator {
   });
 
   List<code.Method> _operations(List<OverridableOperation> operations) => [
-    for (final operation in operations) _operation(operation),
+    for (final operation in operations) ..._operation(operation),
   ];
 
   List<code.Method> _cssStyleDeclarationProperties() {
@@ -983,7 +1104,7 @@ class Translator {
           (isObjectLiteral
                   ? [_objectLiteral(jsName, representationFieldName)]
                   : constructor != null
-                  ? [_constructor(constructor)]
+                  ? _constructors(constructor, dartClassName)
                   : <code.Constructor>[])
               .followedBy(
                 _elementConstructors(

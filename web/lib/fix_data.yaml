@@ -117,6 +117,7 @@ transforms:
         newName: 'asList'
 
   # TouchListExtension.toList => TouchListExtension.asList
+  # (Applied by `dart fix` on Dart 3.15+ via `undefined_extension_member_read`.)
   - title: "Rename 'TouchListExtension.toList' to 'asList'"
     date: 2026-04-20
     element:
@@ -128,6 +129,7 @@ transforms:
         newName: 'asList'
 
   # TouchListConvert.toList => TouchListExtension.asList
+  # (Applied by `dart fix` on Dart 3.15+ via `undefined_extension_member_read`.)
   - title: "Rename 'TouchListConvert.toList' to 'asList'"
     date: 2026-04-20
     element:

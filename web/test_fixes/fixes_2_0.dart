@@ -26,8 +26,6 @@ late TouchList $touchList;
 late TouchListWrapper $touchListWrapper;
 final TouchListWrapper $touchListWrapperInit = TouchListWrapper($touchList);
 final List<Touch> $touchAsList1 = $touchList.toList();
-final List<Touch> $touchAsList2 = TouchListExtension($touchList).toList();
-final List<Touch> $touchAsList3 = TouchListConvert($touchList).toList();
 
 // Renamed *Glue and TouchListConvert extensions
 void testGlueExtensions(

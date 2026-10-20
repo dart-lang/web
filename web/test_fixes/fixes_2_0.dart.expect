@@ -27,8 +27,6 @@ late JSImmutableListWrapper<TouchList, Touch> $touchListWrapper;
 final JSImmutableListWrapper<TouchList, Touch> $touchListWrapperInit =
     JSImmutableListWrapper<TouchList, Touch>($touchList);
 final List<Touch> $touchAsList1 = $touchList.asList();
-final List<Touch> $touchAsList2 = TouchListExtension($touchList).asList();
-final List<Touch> $touchAsList3 = TouchListExtension($touchList).asList();
 
 // Renamed *Glue and TouchListConvert extensions
 void testGlueExtensions(

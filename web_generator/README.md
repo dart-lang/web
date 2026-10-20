@@ -28,6 +28,23 @@ which installs the latest `@webref/*` and `@mdn/browser-compat-data` releases
 Alternatively, manually edit `package.json` to use specific versions, and re-run
 `update_idl_bindings.dart`.
 
+### Browser engine overrides (`engine_overrides.json`)
+
+`@webref/idl` tracks latest Editor's Drafts and applies curation patches that
+occasionally diverge from what shipping browser engines (Blink, Gecko, WebKit)
+implement. `js_interop_gen/lib/src/engine_overrides.json` pins targeted AST and
+interface-visibility overrides before translation:
+
+1. **Self-pruning on roll**: `update_idl_bindings.dart` fails with a
+   `StateError` if any override in `engine_overrides.json` is unused or already
+   matches `@webref/idl` (having become a no-op). Delete those entries and
+   re-run.
+2. **Reviewing `web/tool/api.txt`**: After rolling `@webref/idl` or
+   `@mdn/browser-compat-data`, inspect `git diff web/tool/api.txt` for
+   unintended signature widenings (e.g., concrete types widened to `JSAny`,
+   `void` changed to `JSPromise` before engines ship it, or single-engine
+   interfaces enabled in BCD) and add an entry with a `"reason"` if needed.
+
 ### Public API golden
 
 `web/tool/api.txt` is a [`package:api_summary`](https://pub.dev/packages/api_summary)

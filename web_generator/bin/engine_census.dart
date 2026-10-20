@@ -10,12 +10,12 @@ import 'package:io/io.dart';
 import 'package:path/path.dart' as p;
 import 'package:web_generator/src/engine_census.dart';
 
-void main(List<String> arguments) async {
+Future<void> main(List<String> arguments) async {
   final ArgResults argResult;
   try {
     argResult = _parser.parse(arguments);
   } on FormatException catch (e) {
-    print('''
+    stderr.writeln('''
 ${ansi.lightRed.wrap(e.message)}
 
 $_usage''');
@@ -23,7 +23,7 @@ $_usage''');
     return;
   }
 
-  if (argResult['help'] as bool) {
+  if (argResult.flag('help')) {
     print(_usage);
     return;
   }
@@ -31,70 +31,51 @@ $_usage''');
   final webGeneratorDir = p.normalize(p.fromUri(Platform.script.resolve('..')));
   final paths = EngineCensusPaths(
     webGeneratorDir: webGeneratorDir,
-    cacheDir: argResult['cache-dir'] as String?,
-    outDir: argResult['out-dir'] as String?,
+    cacheDir: argResult.option('cache-dir'),
+    outDir: argResult.option('out-dir'),
   );
+  final refOverrides = <String, String>{
+    'blink': ?argResult.option('blink-ref'),
+    'gecko': ?argResult.option('gecko-ref'),
+    'webkit': ?argResult.option('webkit-ref'),
+  };
 
   final rest = argResult.rest;
-  final cmd = rest.isEmpty ? 'all' : rest.first;
-  final cmdArgs = rest.isEmpty ? const <String>[] : rest.sublist(1);
-
-  switch (cmd) {
-    case 'fetch':
-      await fetchEngines(
-        paths,
-        refOverrides: {
-          if (argResult['blink-ref'] != null)
-            'blink': argResult['blink-ref'] as String,
-          if (argResult['gecko-ref'] != null)
-            'gecko': argResult['gecko-ref'] as String,
-          if (argResult['webkit-ref'] != null)
-            'webkit': argResult['webkit-ref'] as String,
-        },
-      );
-    case 'parse':
-      final corpus = cmdArgs.isEmpty ? 'all' : cmdArgs.first;
-      final out = cmdArgs.length > 1 ? cmdArgs[1] : null;
-      await parseCorpora(paths, targetCorpus: corpus, customOutPath: out);
-    case 'compare':
-      compareCorpora(paths);
-    case 'report':
-      generateReport(paths);
-    case 'lookup':
-      if (cmdArgs.isEmpty) {
-        print(
-          ansi.lightRed.wrap(
-            'Expected at least one Interface.member query (e.g. MouseEvent.clientX).',
-          ),
-        );
-        exitCode = ExitCode.usage.code;
-        return;
-      }
-      lookupMembers(paths, cmdArgs);
-    case 'all':
-      if (argResult['fetch'] as bool) {
-        await fetchEngines(
-          paths,
-          refOverrides: {
-            if (argResult['blink-ref'] != null)
-              'blink': argResult['blink-ref'] as String,
-            if (argResult['gecko-ref'] != null)
-              'gecko': argResult['gecko-ref'] as String,
-            if (argResult['webkit-ref'] != null)
-              'webkit': argResult['webkit-ref'] as String,
-          },
-        );
+  switch (rest) {
+    case []:
+    case ['all']:
+      if (argResult.flag('fetch')) {
+        await fetchEngines(paths, refOverrides: refOverrides);
       }
       await parseCorpora(paths);
       compareCorpora(paths);
       generateReport(paths);
-    default:
-      if (cmd.contains('.')) {
-        lookupMembers(paths, rest);
-      } else {
-        print(ansi.lightRed.wrap('Unknown subcommand: $cmd\n\n$_usage'));
-        exitCode = ExitCode.usage.code;
-      }
+    case ['fetch']:
+      await fetchEngines(paths, refOverrides: refOverrides);
+    case ['parse']:
+      await parseCorpora(paths);
+    case ['parse', final corpus]:
+      await parseCorpora(paths, targetCorpus: corpus);
+    case ['parse', final corpus, final out, ...]:
+      await parseCorpora(paths, targetCorpus: corpus, customOutPath: out);
+    case ['compare']:
+      compareCorpora(paths);
+    case ['report']:
+      generateReport(paths);
+    case ['lookup', ...final queries] when queries.isNotEmpty:
+      lookupMembers(paths, queries);
+    case ['lookup']:
+      stderr.writeln(
+        ansi.lightRed.wrap(
+          'Expected at least one Interface.member query (e.g. MouseEvent.clientX).',
+        ),
+      );
+      exitCode = ExitCode.usage.code;
+    case [final query, ...] when query.contains('.'):
+      lookupMembers(paths, rest);
+    case [final cmd, ...]:
+      stderr.writeln(ansi.lightRed.wrap('Unknown subcommand: $cmd\n\n$_usage'));
+      exitCode = ExitCode.usage.code;
   }
 }
 

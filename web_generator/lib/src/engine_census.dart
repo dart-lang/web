@@ -11,6 +11,160 @@ import 'package:yaml/yaml.dart';
 const List<String> allCorpora = ['webref', 'blink', 'gecko', 'webkit'];
 const List<String> engineCorpora = ['blink', 'gecko', 'webkit'];
 
+/// WebIDL corpus identifier.
+enum Corpus {
+  webref,
+  blink,
+  gecko,
+  webkit;
+
+  static const List<Corpus> engines = [blink, gecko, webkit];
+
+  bool get isEngine => this != webref;
+
+  static Corpus fromName(String name) => switch (name) {
+    'webref' => webref,
+    'blink' => blink,
+    'gecko' => gecko,
+    'webkit' => webkit,
+    _ => throw ArgumentError('Unknown corpus: $name'),
+  };
+}
+
+/// Feature/member availability state ordered from least restrictive (`on` = 0)
+/// to most restrictive (`off` = 2).
+enum GateState {
+  on,
+  unknown,
+  off;
+
+  factory GateState.fromName(String name) => switch (name) {
+    'on' => on,
+    'unknown' => unknown,
+    'off' => off,
+    _ => throw ArgumentError.value(name, 'name', 'Invalid GateState'),
+  };
+
+  factory GateState.fromBool(bool? value) => switch (value) {
+    true => on,
+    false => off,
+    null => unknown,
+  };
+
+  GateState combine(GateState other) => index >= other.index ? this : other;
+
+  bool get isLive => this != off;
+}
+
+// ---------------------------------------------------------------- RegExp & Constants
+
+final RegExp _lineCommentRe = RegExp(r'//.*$');
+final RegExp _blockCommentRe = RegExp(r'/\*.*?\*/');
+final RegExp _definedMacroRe = RegExp(
+  r'defined\s*\(\s*(\w+)\s*\)|defined\s+(\w+)',
+);
+final RegExp _identRe = RegExp(r'\b[A-Za-z_]\w*\b');
+final RegExp _idlDirectiveRe = RegExp(
+  r'^\s*#\s*(ifdef|ifndef|if|elif|else|endif)\b(.*)$',
+);
+final RegExp _cppDirectiveRe = RegExp(
+  r'^\s*#\s*(ifdef|ifndef|if|elif|else|endif|define|undef)\b\s*(.*)$',
+);
+final RegExp _cppDefNameRe = RegExp(r'^(\w+)\s*(.*)$');
+final RegExp _digitsOnlyRe = RegExp(r'^\d+$');
+
+final RegExp _yamlListKeyRe = RegExp(r'^(\s*-\s+|\s+)([A-Za-z_]\w*)\s*:');
+final RegExp _json5CommentLineRe = RegExp(r'^\s*//.*$', multiLine: true);
+final RegExp _json5UnquotedKeyRe = RegExp(
+  r'^(\s*)([A-Za-z_]\w*)\s*:',
+  multiLine: true,
+);
+final RegExp _json5TrailingCommaRe = RegExp(r',\s*([}\]])');
+final RegExp _blinkBaseFeatureRe = RegExp(
+  r'BASE_FEATURE\(\s*(k\w+)[^;]*?FEATURE_(ENABLED|DISABLED)_BY_DEFAULT',
+);
+final RegExp _blinkRuntimeFeatureRe = RegExp(
+  r'\{\s*wf::Enable(\w+)\s*,\s*(?:raw_ref\()?\s*(?:[\w:]*::)?(k\w+)\)?\s*(?:,\s*(k\w+))?\s*\}',
+);
+final RegExp _geckoAtMacroRe = RegExp(r'@IS_(NOT_)?(\w+?)@');
+final RegExp _geckoPrefCallRe = RegExp(
+  r'pref\(\s*"([^"]+)"\s*,\s*([^)]+?)\s*(,\s*locked\s*)?\)',
+);
+final RegExp _wkFuncMacroRe = RegExp(
+  r'\b(PLATFORM|USE|HAVE|ENABLE|OS|CPU)\s*\(\s*(\w+)\s*\)',
+);
+final RegExp _wkHeaderMacroRe = RegExp(
+  r'\b(PLATFORM|USE|HAVE|ENABLE|OS|CPU|COMPILER)\s*\(\s*(\w+)\s*\)',
+);
+final RegExp _alphaOrUnderscoreRe = RegExp(r'[A-Za-z_]');
+
+final RegExp _toStringCallRe = RegExp(r'\btoString\s*\(');
+final RegExp _legacyCallerRe = RegExp(
+  r'^\s*legacycaller\b[^;]*;',
+  multiLine: true,
+);
+final RegExp _objectParamRe = RegExp(r'\bobject object\)');
+final RegExp _surroundingQuotesRe = RegExp(r'^"|"$');
+final RegExp _blinkTestPathRe = RegExp(r'/(testing|tests?|bindings/tests)/');
+final RegExp _geckoTestFileRe = RegExp(r'/Test[A-Z][^/]*$');
+final RegExp _utf8StringRe = RegExp(r'\bUTF8String\b');
+final RegExp _geckoInternalExposedRe = RegExp(
+  r'^(System|Chrome|.*Debugger|Sandbox)',
+);
+final RegExp _geckoWebExposedRe = RegExp(r'Window|Worker');
+final RegExp _webkitTestPathRe = RegExp(r'/(testing|bindings/scripts/test)/');
+final RegExp _wkIfElifLineRe = RegExp(
+  r'^(\s*#\s*(?:if|elif)\b.*)$',
+  multiLine: true,
+);
+final RegExp _wkMacroCallRe = RegExp(r'\b(ENABLE|PLATFORM|USE|HAVE)\((\w+)\)');
+final RegExp _trailingBracketCommaRe = RegExp(r',(\s*\])');
+final RegExp _implDefaultValRe = RegExp(
+  r'(ImplementationDefaultValue)=\s*(\[\]|[^,\]]+)',
+);
+final RegExp _orAnyUnionRe = RegExp(r'\(([^()]*\bor any)\)');
+final RegExp _callbackThisObjRe = RegExp(r'(CallbackThisObject)=\s*any\b');
+final RegExp _bitOpExtAttrValRe = RegExp(
+  r'=\s*([A-Za-z_][\w:]*(?:\s*[&|]\s*[A-Za-z_][\w:]*)+)',
+);
+final RegExp _wsRe = RegExp(r'\s+');
+
+final RegExp _strTypesRe = RegExp(
+  r'\b(USVString|ByteString|CSSOMString|UTF8String)\b',
+);
+final RegExp _bufTypeRe = RegExp(
+  r'^(ArrayBuffer|SharedArrayBuffer|DataView|BufferSource|AllowSharedBufferSource|ArrayBufferView|(Big)?(Uint|Int|Float)(8|16|32|64)(Clamped)?Array|Uint8ClampedArray)$',
+);
+final RegExp _parenGroupRe = RegExp(r'\(([^()]*)\)');
+final RegExp _trailingQuestionRe = RegExp(r'\?$');
+final RegExp _bufferAliasRe = RegExp(
+  r'\b(ArrayBufferView|AllowSharedBufferSource|ArrayBuffer)\b(?!\w)',
+);
+final RegExp _voidWordRe = RegExp(r'\bvoid\b');
+final RegExp _unrestrictedPrefixRe = RegExp(r'\bunrestricted ');
+final RegExp _outerUnionRe = RegExp(r'^\((.*)\)(\??)$');
+final RegExp _idlNumericTypeRe = RegExp(
+  r'^(unrestricted )?(double|float)$|^(unsigned )?(long long|long|short)$|^(byte|octet)$',
+);
+final RegExp _seqOrFrozenArrayRe = RegExp(r'FrozenArray|sequence');
+final RegExp _wordOnlyRe = RegExp(r'^\w+$');
+final RegExp _wasmFileRe = RegExp(r'wasm|webassembly', caseSensitive: false);
+final RegExp _trailingParensRe = RegExp(r'\(\)$');
+
+const Set<String> _wasmInterfaces = {
+  'WebAssembly',
+  'Module',
+  'Instance',
+  'Memory',
+  'Table',
+  'Global',
+  'Tag',
+  'Exception',
+  'CompileError',
+  'LinkError',
+  'RuntimeError',
+};
+
 const String _nodeWebIdlParseScript = r'''
 const fs = require('fs');
 const w = require('webidl2');
@@ -146,6 +300,772 @@ const Map<String, String> _engineRepoUrls = {
   'webkit': 'https://github.com/WebKit/WebKit.git',
 };
 
+// ---------------------------------------------------------------- Extension Types: Raw webidl2 AST
+
+extension type const IdlParsedOutput(Map<String, Object?> json) {
+  List<IdlNode> get ast => (json['ast'] as List<Object?>).cast<IdlNode>();
+  ParseStats get stats => ParseStats(json['stats'] as Map<String, Object?>);
+}
+
+extension type const ParseError(Map<String, Object?> json) {
+  String get file => json['file'] as String;
+  String get msg => json['msg'] as String;
+  String get snippet => json['snippet'] as String;
+  String get summaryLine => '$file: ${msg.split('\n').first}';
+}
+
+extension type const ParseStats(Map<String, Object?> json) {
+  int get files => json['files'] as int;
+  int get filesOk => json['filesOk'] as int;
+  int get filesRecovered => json['filesRecovered'] as int;
+  int get defs => json['defs'] as int;
+  int get defsFailed => json['defsFailed'] as int;
+  int? get forwardDecls => json['forwardDecls'] as int?;
+  List<ParseError> get errors =>
+      (json['errors'] as List<Object?>).cast<ParseError>();
+
+  Map<String, Object?> toSummaryJson() => {...json, 'errors': errors.length};
+
+  DisagreementParseStats toDisagreementStats() => DisagreementParseStats({
+    ...json,
+    'errors': errors.length,
+    'errorList': [for (final e in errors) e.summaryLine],
+  });
+}
+
+extension type const IdlExtAttr(Map<String, Object?> json) {
+  String get name => json['name'] as String;
+  Map<String, Object?>? get rhs => json['rhs'] as Map<String, Object?>?;
+
+  /// Raw `rhs['value']` (used for `[InterfaceName=...]` alias lookup).
+  Object? get rhsRawValue => rhs?['value'];
+
+  /// Normalized string value (joins identifier-list with `,` and strips quotes).
+  String? get value {
+    final rhsVal = rhsRawValue;
+    if (rhsVal is List) {
+      return rhsVal
+          .cast<Map<String, Object?>>()
+          .map((v) => v['value'].toString())
+          .join(',');
+    }
+    if (rhsVal != null) {
+      return rhsVal.toString().replaceAll(_surroundingQuotesRe, '');
+    }
+    return null;
+  }
+}
+
+extension type const IdlType(Map<String, Object?> json) {
+  factory IdlType.fromRaw(Object tObj) => switch (tObj) {
+    final String s => IdlType({
+      'idlType': s,
+      'nullable': false,
+      'union': false,
+      'generic': '',
+    }),
+    final Map<String, Object?> m => IdlType(m),
+    _ => throw ArgumentError.value(tObj, 'tObj', 'Unexpected IDL type node'),
+  };
+
+  bool get isUnion => json['union'] == true;
+  String get generic => (json['generic'] as String?) ?? '';
+  bool get nullable => json['nullable'] == true;
+  String get typeName => json['idlType'] as String;
+  List<Object?> get subTypes => json['idlType'] as List<Object?>;
+}
+
+extension type const IdlArgument(Map<String, Object?> json) {
+  String get name => json['name'] as String;
+  Object? get idlType => json['idlType'];
+  bool get optional => json['optional'] == true;
+  bool get variadic => json['variadic'] == true;
+}
+
+extension type const IdlNode(Map<String, Object?> json) {
+  String? get type => json['type'] as String?;
+  String? get name => json['name'] as String?;
+  String? get file => json['__file'] as String?;
+  bool get isPartial => json['partial'] == true;
+  String? get inheritance => json['inheritance'] as String?;
+  String get target => json['target'] as String;
+  String get includes => json['includes'] as String;
+  Object? get idlType => json['idlType'];
+  List<Object?> get idlTypeList => json['idlType'] as List<Object?>;
+  String get special => (json['special'] as String?) ?? '';
+  bool get readonly => json['readonly'] == true;
+  bool get required => json['required'] == true;
+
+  List<IdlExtAttr> get extAttrs =>
+      (json['extAttrs'] as List<Object?>?)?.cast<IdlExtAttr>() ?? const [];
+
+  List<IdlNode> get members =>
+      (json['members'] as List<Object?>?)?.cast<IdlNode>() ?? const [];
+
+  List<IdlArgument> get arguments =>
+      (json['arguments'] as List<Object?>?)?.cast<IdlArgument>() ?? const [];
+
+  List<String> get enumValues => (json['values'] as List<Object?>)
+      .cast<Map<String, Object?>>()
+      .map((v) => v['value'] as String)
+      .toList();
+
+  Object? get constValue {
+    final valMap = json['value'] as Map<String, Object?>?;
+    return valMap != null ? (valMap['value'] ?? valMap['type']) : null;
+  }
+
+  String? get fieldDefaultJson {
+    final defMap = json['default'] as Map<String, Object?>?;
+    return defMap != null
+        ? jsonEncode(defMap['value'] ?? defMap['type'])
+        : null;
+  }
+}
+
+// ---------------------------------------------------------------- Extension Types: Parsed Corpus JSON
+
+typedef ResolvedMember = ({
+  MemberRecord member,
+  GateRecord gate,
+  String definingIface,
+  String? inheritedFrom,
+});
+
+extension type const GateRecord(Map<String, Object?> json) {
+  factory GateRecord.create({
+    GateState state = GateState.on,
+    List<String> why = const [],
+  }) => GateRecord({
+    'state': state.name,
+    'why': <String>[...why],
+  });
+
+  static GateRecord on() => GateRecord.create();
+
+  GateState get state => GateState.fromName(json['state'] as String);
+  set state(GateState value) => json['state'] = value.name;
+
+  List<String> get why => (json['why'] as List<Object?>).cast<String>();
+
+  GateRecord combine(GateRecord other) => GateRecord.create(
+    state: state.combine(other.state),
+    why: [...why, ...other.why],
+  );
+
+  GateRecord deepCopy() => GateRecord.create(state: state, why: why);
+}
+
+extension type const ArgRecord(Map<String, Object?> json) {
+  factory ArgRecord.create({
+    required String? name,
+    required String t,
+    required String raw,
+    required bool opt,
+    required bool varg,
+  }) => ArgRecord({'name': name, 't': t, 'raw': raw, 'opt': opt, 'varg': varg});
+
+  String? get name => json['name'] as String?;
+  String? get t => json['t'] as String?;
+  String? get raw => json['raw'] as String?;
+  bool get opt => json['opt'] == true;
+  bool get varg => json['varg'] == true;
+
+  ArgRecord deepCopy() => ArgRecord({...json});
+}
+
+extension type const OverloadRecord(Map<String, Object?> json) {
+  factory OverloadRecord.create({
+    required String? ret,
+    required String? retRaw,
+    required List<ArgRecord> args,
+    required GateRecord gating,
+  }) => OverloadRecord({
+    'ret': ret,
+    'retRaw': retRaw,
+    'args': args,
+    'gating': gating,
+  });
+
+  String? get ret => json['ret'] as String?;
+  String? get retRaw => json['retRaw'] as String?;
+  List<ArgRecord> get args => (json['args'] as List<Object?>).cast<ArgRecord>();
+  GateRecord get gating => GateRecord(json['gating'] as Map<String, Object?>);
+  set gating(GateRecord value) => json['gating'] = value;
+
+  OverloadRecord deepCopy() => OverloadRecord.create(
+    ret: ret,
+    retRaw: retRaw,
+    args: [for (final a in args) a.deepCopy()],
+    gating: gating.deepCopy(),
+  );
+}
+
+extension type const AltRecord(Map<String, Object?> json) {
+  factory AltRecord.fromMember(MemberRecord old) => AltRecord({
+    'file': old.file,
+    'type': old.type,
+    'readonly': old.json['readonly'],
+    'required': old.json['required'],
+    'value': old.value,
+  });
+
+  String? get file => json['file'] as String?;
+  String? get type => json['type'] as String?;
+
+  AltRecord deepCopy() => AltRecord({...json});
+}
+
+extension type const MemberRecord(Map<String, Object?> json) {
+  factory MemberRecord.stringifier({
+    required GateRecord gating,
+    required String? file,
+  }) => MemberRecord({
+    'kind': 'operation',
+    'special': 'stringifier',
+    'overloads': <OverloadRecord>[
+      OverloadRecord.create(
+        ret: 'DOMString',
+        retRaw: 'DOMString',
+        args: <ArgRecord>[],
+        gating: gating,
+      ),
+    ],
+    'gating': gating,
+    'file': file,
+  });
+
+  factory MemberRecord.synthesizedOperation({
+    required String synthesizedFrom,
+    required GateRecord gating,
+    required String? file,
+  }) => MemberRecord({
+    'kind': 'operation',
+    'special': 'synth',
+    'synthesized': synthesizedFrom,
+    'overloads': <OverloadRecord>[
+      OverloadRecord.create(
+        ret: 'synth',
+        retRaw: 'synth',
+        args: <ArgRecord>[],
+        gating: gating,
+      ),
+    ],
+    'gating': gating,
+    'file': file,
+  });
+
+  factory MemberRecord.synthesizedSize({
+    required String synthesizedFrom,
+    required GateRecord gating,
+    required String? file,
+  }) => MemberRecord({
+    'kind': 'attribute',
+    'type': 'unsigned long',
+    'raw': 'unsigned long',
+    'readonly': true,
+    'special': '',
+    'synthesized': synthesizedFrom,
+    'gating': gating,
+    'file': file,
+  });
+
+  factory MemberRecord.attribute({
+    required String type,
+    required String raw,
+    required bool readonly,
+    required String special,
+  }) => MemberRecord({
+    'kind': 'attribute',
+    'type': type,
+    'raw': raw,
+    'readonly': readonly,
+    'special': special,
+  });
+
+  factory MemberRecord.operation({
+    required String special,
+    required List<OverloadRecord> overloads,
+  }) => MemberRecord({
+    'kind': 'operation',
+    'special': special,
+    'overloads': overloads,
+  });
+
+  factory MemberRecord.constructor({required List<OverloadRecord> overloads}) =>
+      MemberRecord({'kind': 'constructor', 'overloads': overloads});
+
+  factory MemberRecord.constant({
+    required String type,
+    required Object? value,
+  }) => MemberRecord({'kind': 'const', 'type': type, 'value': value});
+
+  factory MemberRecord.field({
+    required String type,
+    required String raw,
+    required bool required,
+    required String? defaultValue,
+  }) => MemberRecord({
+    'kind': 'field',
+    'type': type,
+    'raw': raw,
+    'required': required,
+    'default': defaultValue,
+  });
+
+  factory MemberRecord.collectionLike({
+    required String kind,
+    required List<String> types,
+    required bool readonly,
+  }) => MemberRecord({'kind': kind, 'types': types, 'readonly': readonly});
+
+  factory MemberRecord.enumValues(List<String>? values) =>
+      MemberRecord({'kind': 'enum', 'values': values});
+
+  String get kind => json['kind'] as String;
+  String? get type => json['type'] as String?;
+  String? get raw => json['raw'] as String?;
+  bool get readonly => json['readonly'] == true;
+  bool get required => json['required'] == true;
+  String get special => (json['special'] as String?) ?? '';
+  String? get synthesized => json['synthesized'] as String?;
+  Object? get value => json['value'];
+  Object? get defaultValue => json['default'];
+
+  List<OverloadRecord>? get overloads =>
+      (json['overloads'] as List<Object?>?)?.cast<OverloadRecord>();
+
+  List<String>? get types => (json['types'] as List<Object?>?)?.cast<String>();
+
+  List<String>? get values =>
+      (json['values'] as List<Object?>?)?.cast<String>();
+
+  GateRecord get gating => GateRecord(json['gating'] as Map<String, Object?>);
+  set gating(GateRecord value) => json['gating'] = value;
+
+  String? get file => json['file'] as String?;
+  set file(String? value) => json['file'] = value;
+
+  List<AltRecord>? get alts =>
+      (json['alts'] as List<Object?>?)?.cast<AltRecord>();
+  set alts(List<AltRecord>? value) => json['alts'] = value;
+
+  String? get viaMixin => json['viaMixin'] as String?;
+  set viaMixin(String? value) => json['viaMixin'] = value;
+
+  bool get isSynthesized =>
+      synthesized != null || special == 'synth' || special == 'stringifier';
+
+  MemberRecord withAlt(AltRecord alt) => MemberRecord({...json, ...alt.json});
+
+  MemberRecord deepCopy() {
+    final copy = <String, Object?>{...json};
+    if (json['gating'] != null) {
+      copy['gating'] = gating.deepCopy();
+    }
+    if (json['overloads'] is List<Object?>) {
+      copy['overloads'] = <OverloadRecord>[
+        for (final o in overloads!) o.deepCopy(),
+      ];
+    }
+    if (json['types'] is List<Object?>) {
+      copy['types'] = <String>[...types!];
+    }
+    if (json['alts'] is List<Object?>) {
+      copy['alts'] = <AltRecord>[for (final a in alts!) a.deepCopy()];
+    }
+    return MemberRecord(copy);
+  }
+
+  MemberRecord copyForMixin(String mixinName, GateRecord mixinGate) {
+    final copy = deepCopy();
+    copy.gating = mixinGate.combine(copy.gating);
+    final ovs = copy.overloads;
+    if (ovs != null) {
+      for (final o in ovs) {
+        o.gating = mixinGate.combine(o.gating);
+      }
+    }
+    copy.viaMixin = mixinName;
+    return copy;
+  }
+}
+
+extension type const DefRecord(Map<String, Object?> json) {
+  factory DefRecord.create(String kind) => DefRecord({
+    'kind': kind,
+    'files': <String>[],
+    'members': <String, MemberRecord>{},
+    'gating': GateRecord.on(),
+    'inherits': null,
+  });
+
+  factory DefRecord.mixin() => DefRecord({
+    'members': <String, MemberRecord>{},
+    'files': <String>[],
+    'gating': GateRecord.on(),
+  });
+
+  String get kind => json['kind'] as String;
+  set kind(String value) => json['kind'] = value;
+
+  List<String> get files => (json['files'] as List<Object?>).cast<String>();
+
+  Map<String, MemberRecord> get members =>
+      (json['members'] as Map<String, Object?>).cast<String, MemberRecord>();
+
+  GateRecord get gating => GateRecord(json['gating'] as Map<String, Object?>);
+  set gating(GateRecord value) => json['gating'] = value;
+
+  String? get inherits => json['inherits'] as String?;
+  set inherits(String? value) => json['inherits'] = value;
+
+  String? get exposed => json['exposed'] as String?;
+  set exposed(String? value) => json['exposed'] = value;
+
+  List<String>? get values =>
+      (json['values'] as List<Object?>?)?.cast<String>();
+  set values(List<String>? value) => json['values'] = value;
+
+  String? get file => json['__file'] as String?;
+}
+
+extension type const CorpusDoc(Map<String, Object?> json) {
+  factory CorpusDoc.create({
+    required String corpus,
+    required String root,
+    required ParseStats stats,
+    required Map<String, DefRecord> defs,
+    required Map<String, Object?> typedefsRaw,
+    required Map<String, Object?> notes,
+  }) => CorpusDoc({
+    'corpus': corpus,
+    'root': root,
+    'stats': stats,
+    'defs': defs,
+    'typedefsRaw': typedefsRaw,
+    'notes': notes,
+  });
+
+  String get corpus => json['corpus'] as String;
+  String get root => json['root'] as String;
+  ParseStats get stats => ParseStats(json['stats'] as Map<String, Object?>);
+  Map<String, DefRecord> get defs =>
+      (json['defs'] as Map<String, Object?>).cast<String, DefRecord>();
+  Map<String, Object?> get typedefsRaw =>
+      (json['typedefsRaw'] as Map<String, Object?>?) ?? <String, Object?>{};
+  Map<String, Object?> get notes => json['notes'] as Map<String, Object?>;
+
+  /// Walks the interface inheritance chain (up to [maxDepth]) and merges
+  /// interface-level and member-level gating.
+  ResolvedMember? lookupMember(
+    String iface,
+    String key, {
+    bool allowOperationFallback = false,
+    int maxDepth = 20,
+  }) {
+    var curIface = iface;
+    for (var depth = 0; depth <= maxDepth; depth++) {
+      final def = defs[curIface];
+      if (def == null) return null;
+      final members = def.members;
+      final m =
+          members[key] ?? (allowOperationFallback ? members['$key()'] : null);
+      if (m != null) {
+        return (
+          member: m,
+          gate: def.gating.combine(m.gating),
+          definingIface: curIface,
+          inheritedFrom: depth > 0 ? curIface : null,
+        );
+      }
+      final parent = def.inherits;
+      if (parent == null) return null;
+      curIface = parent;
+    }
+    return null;
+  }
+}
+
+// ---------------------------------------------------------------- Extension Types: Comparison & Disagreements JSON
+
+extension type const PerCorpusMember(Map<String, Object?> json) {
+  factory PerCorpusMember.create({
+    required GateState state,
+    required List<String> why,
+    required String sig,
+    required String strict,
+    String? inheritedFrom,
+    required MemberRecord member,
+  }) => PerCorpusMember({
+    'state': state.name,
+    if (why.isNotEmpty) 'why': why,
+    'sig': sig,
+    'strict': strict,
+    'inheritedFrom': ?inheritedFrom,
+    '_m': member,
+  });
+
+  GateState get state => GateState.fromName(json['state'] as String);
+  bool get isLive => state.isLive;
+  List<String>? get why => (json['why'] as List<Object?>?)?.cast<String>();
+  String get sig => json['sig'] as String;
+  String get strict => json['strict'] as String;
+  String? get inheritedFrom => json['inheritedFrom'] as String?;
+  MemberRecord get member => MemberRecord(json['_m'] as Map<String, Object?>);
+
+  void stripTransientMember() {
+    json.remove('_m');
+  }
+}
+
+extension type const MemberComparisonRow(Map<String, Object?> json) {
+  factory MemberComparisonRow.create({
+    required String iface,
+    required String key,
+    String? kind,
+    required Map<String, PerCorpusMember?> per,
+  }) => MemberComparisonRow({
+    'iface': iface,
+    'key': key,
+    'kind': ?kind,
+    'per': per,
+  });
+
+  String get iface => json['iface'] as String;
+  String get key => json['key'] as String;
+  String? get kind => json['kind'] as String?;
+  Map<String, PerCorpusMember?> get per =>
+      (json['per'] as Map<String, Object?>).cast<String, PerCorpusMember?>();
+}
+
+extension type const DuplicateRow(Map<String, Object?> json) {
+  factory DuplicateRow.create({
+    required String iface,
+    required String key,
+    required List<String> sigs,
+    required List<String?> files,
+    required Map<String, String> engines,
+  }) => DuplicateRow({
+    'iface': iface,
+    'key': key,
+    'sigs': sigs,
+    'files': files,
+    'engines': engines,
+  });
+
+  String get iface => json['iface'] as String;
+  String get key => json['key'] as String;
+  List<String> get sigs => (json['sigs'] as List<Object?>).cast<String>();
+  List<String?> get files => (json['files'] as List<Object?>).cast<String?>();
+  Map<String, String> get engines =>
+      (json['engines'] as Map<String, Object?>).cast<String, String>();
+}
+
+extension type const TypeDiffRow(Map<String, Object?> json) {
+  factory TypeDiffRow.create({
+    required String iface,
+    required String key,
+    required String? kind,
+    required String webref,
+    required Map<String, String> engines,
+    required Map<String, List<String>> classes,
+    required Map<String, List<String>> gating,
+  }) => TypeDiffRow({
+    'iface': iface,
+    'key': key,
+    'kind': kind,
+    'webref': webref,
+    'engines': engines,
+    'classes': classes,
+    'gating': gating,
+  });
+
+  String get iface => json['iface'] as String;
+  String get key => json['key'] as String;
+  String? get kind => json['kind'] as String?;
+  String get webref => json['webref'] as String;
+  Map<String, String> get engines =>
+      (json['engines'] as Map<String, Object?>).cast<String, String>();
+}
+
+extension type const AgreeRow(Map<String, Object?> json) {
+  factory AgreeRow.fromTypeDiff(
+    TypeDiffRow base, {
+    required List<String> agreeingEngines,
+    required String agreedSig,
+    required List<String> cls,
+    required bool unanimous,
+  }) => AgreeRow({
+    ...base.json,
+    'agreeingEngines': agreeingEngines,
+    'agreedSig': agreedSig,
+    'cls': cls,
+    'unanimous': unanimous,
+  });
+
+  String get iface => json['iface'] as String;
+  String get key => json['key'] as String;
+  String? get kind => json['kind'] as String?;
+  String get webref => json['webref'] as String;
+  Map<String, String> get engines =>
+      (json['engines'] as Map<String, Object?>).cast<String, String>();
+  List<String> get agreeingEngines =>
+      (json['agreeingEngines'] as List<Object?>).cast<String>();
+  String get agreedSig => json['agreedSig'] as String;
+  List<String> get cls => (json['cls'] as List<Object?>).cast<String>();
+  bool get unanimous => json['unanimous'] == true;
+}
+
+extension type const MissingRow(Map<String, Object?> json) {
+  factory MissingRow.create({
+    required String iface,
+    required String key,
+    required String? kind,
+    required List<String> absentIn,
+    required List<String> offIn,
+    required List<String> presentIn,
+    required String webref,
+  }) => MissingRow({
+    'iface': iface,
+    'key': key,
+    'kind': kind,
+    'absentIn': absentIn,
+    'offIn': offIn,
+    'presentIn': presentIn,
+    'webref': webref,
+  });
+
+  String get iface => json['iface'] as String;
+  String get key => json['key'] as String;
+  String? get kind => json['kind'] as String?;
+  List<String> get absentIn =>
+      (json['absentIn'] as List<Object?>).cast<String>();
+  List<String> get offIn => (json['offIn'] as List<Object?>).cast<String>();
+  List<String> get presentIn =>
+      (json['presentIn'] as List<Object?>).cast<String>();
+  String get webref => json['webref'] as String;
+}
+
+extension type const ExtraRow(Map<String, Object?> json) {
+  factory ExtraRow.create({
+    required String iface,
+    required String key,
+    required String? kind,
+    required bool ifaceInWebref,
+    required Map<String, String> engines,
+    required Map<String, String> states,
+  }) => ExtraRow({
+    'iface': iface,
+    'key': key,
+    'kind': kind,
+    'ifaceInWebref': ifaceInWebref,
+    'engines': engines,
+    'states': states,
+  });
+
+  String get iface => json['iface'] as String;
+  String get key => json['key'] as String;
+  String? get kind => json['kind'] as String?;
+  bool get ifaceInWebref => json['ifaceInWebref'] == true;
+  Map<String, String> get engines =>
+      (json['engines'] as Map<String, Object?>).cast<String, String>();
+  Map<String, String> get states =>
+      (json['states'] as Map<String, Object?>).cast<String, String>();
+}
+
+extension type const CountsRecord(Map<String, Object?> json) {
+  factory CountsRecord.create({
+    required int rows,
+    required int typeDiffRows,
+    required int agreeVsWebref,
+    required int agreeVsWebrefUnanimous,
+    required int extraInEngines,
+    required int extraOnWebrefIfaces,
+    required int missingInEngines,
+    required int stringKindOnlyDiffs,
+  }) => CountsRecord(<String, int>{
+    'rows': rows,
+    'typeDiffRows': typeDiffRows,
+    'agreeVsWebref': agreeVsWebref,
+    'agreeVsWebrefUnanimous': agreeVsWebrefUnanimous,
+    'extraInEngines': extraInEngines,
+    'extraOnWebrefIfaces': extraOnWebrefIfaces,
+    'missingInEngines': missingInEngines,
+    'stringKindOnlyDiffs': stringKindOnlyDiffs,
+  });
+}
+
+extension type const RevisionRecord(Map<String, Object?> json) {
+  String get ref => (json['ref'] ?? json['version'] ?? '').toString();
+  String get sha => (json['sha'] ?? '').toString();
+  String get shaShort => sha.length > 10 ? sha.substring(0, 10) : sha;
+  String get displayNote =>
+      (json['note'] ??
+              (json['browser'] != null
+                  ? '${json['browser']} ${json['version']}'
+                  : json['path']) ??
+              '')
+          .toString();
+}
+
+extension type const DisagreementParseStats(Map<String, Object?> json) {
+  int get files => json['files'] as int;
+  int get defs => json['defs'] as int;
+  int get errors => json['errors'] as int;
+  List<String> get errorList =>
+      (json['errorList'] as List<Object?>).cast<String>();
+}
+
+extension type const DisagreementsDoc(Map<String, Object?> json) {
+  factory DisagreementsDoc.create({
+    required String generated,
+    required Map<String, Object?> revisions,
+    required Map<String, DisagreementParseStats> parseStats,
+    required CountsRecord counts,
+    required List<DuplicateRow> webrefDuplicates,
+    required List<AgreeRow> agreeVsWebref,
+    required List<ExtraRow> extraInEngines,
+    required List<MissingRow> missingInEngines,
+    required List<TypeDiffRow> typeDiffs,
+    required int stringKindOnly,
+  }) => DisagreementsDoc({
+    'generated': generated,
+    'revisions': revisions,
+    'parseStats': parseStats,
+    'counts': counts,
+    'webrefDuplicates': webrefDuplicates,
+    'agreeVsWebref': agreeVsWebref,
+    'extraInEngines': extraInEngines,
+    'missingInEngines': missingInEngines,
+    'typeDiffs': typeDiffs,
+    'stringKindOnly': stringKindOnly,
+  });
+
+  String get generated => json['generated'] as String;
+  Map<String, RevisionRecord> get revisions =>
+      (json['revisions'] as Map<String, Object?>)
+          .cast<String, RevisionRecord>();
+  Map<String, DisagreementParseStats> get parseStats =>
+      (json['parseStats'] as Map<String, Object?>)
+          .cast<String, DisagreementParseStats>();
+  CountsRecord get counts =>
+      CountsRecord(json['counts'] as Map<String, Object?>);
+  List<DuplicateRow> get webrefDuplicates =>
+      (json['webrefDuplicates'] as List<Object?>).cast<DuplicateRow>();
+  List<AgreeRow> get agreeVsWebref =>
+      (json['agreeVsWebref'] as List<Object?>).cast<AgreeRow>();
+  List<ExtraRow> get extraInEngines =>
+      (json['extraInEngines'] as List<Object?>).cast<ExtraRow>();
+  List<MissingRow> get missingInEngines =>
+      (json['missingInEngines'] as List<Object?>).cast<MissingRow>();
+  List<TypeDiffRow> get typeDiffs =>
+      (json['typeDiffs'] as List<Object?>).cast<TypeDiffRow>();
+  int get stringKindOnly => json['stringKindOnly'] as int;
+}
+
+// ---------------------------------------------------------------- Paths & Fetch
+
 class EngineCensusPaths {
   final String webGeneratorDir;
   final String cacheDir;
@@ -191,7 +1111,13 @@ class EngineCensusPaths {
            );
 }
 
-// ---------------------------------------------------------------- Fetch
+Map<String, CorpusDoc> _loadCorpora(EngineCensusPaths paths) => {
+  for (final c in allCorpora)
+    c: CorpusDoc(
+      jsonDecode(File(p.join(paths.outDir, '$c.json')).readAsStringSync())
+          as Map<String, Object?>,
+    ),
+};
 
 Future<void> fetchEngines(
   EngineCensusPaths paths, {
@@ -205,8 +1131,8 @@ Future<void> fetchEngines(
 
   await Future.wait(
     engineCorpora.map((engine) async {
-      final rev = revisions[engine] as Map<String, Object?>;
-      final ref = refOverrides[engine] ?? (rev['ref'] as String);
+      final rev = RevisionRecord(revisions[engine] as Map<String, Object?>);
+      final ref = refOverrides[engine] ?? rev.ref;
       final url = _engineRepoUrls[engine]!;
       final patterns = _sparseCheckoutPatterns[engine]!;
       final repoDir = p.join(paths.cacheDir, engine);
@@ -432,19 +1358,13 @@ class _CExprParser {
 }
 
 bool _evalDefinedCond(String expr, Set<String> defined) {
-  var e = expr
-      .replaceAll(RegExp(r'//.*$'), ' ')
-      .replaceAll(RegExp(r'/\*.*?\*/'), ' ');
+  var e = expr.replaceAll(_lineCommentRe, ' ').replaceAll(_blockCommentRe, ' ');
   e = e.replaceAllMapped(
-    RegExp(r'defined\s*\(\s*(\w+)\s*\)'),
-    (m) => defined.contains(m[1]) ? ' 1 ' : ' 0 ',
+    _definedMacroRe,
+    (m) => defined.contains(m[1] ?? m[2]) ? ' 1 ' : ' 0 ',
   );
   e = e.replaceAllMapped(
-    RegExp(r'defined\s+(\w+)'),
-    (m) => defined.contains(m[1]) ? ' 1 ' : ' 0 ',
-  );
-  e = e.replaceAllMapped(
-    RegExp(r'\b[A-Za-z_]\w*\b'),
+    _identRe,
     (m) => defined.contains(m[0]) ? ' 1 ' : ' 0 ',
   );
   return evalCExpr(e);
@@ -453,56 +1373,68 @@ bool _evalDefinedCond(String expr, Set<String> defined) {
 class _IfFrame {
   bool active;
   bool taken;
-  final bool parentActive;
-  _IfFrame({
-    required this.active,
-    required this.taken,
-    this.parentActive = true,
-  });
+  _IfFrame({required this.active, required this.taken});
+}
+
+class _CppDirectiveStack {
+  final List<_IfFrame> _frames = [];
+
+  bool get isActive => _frames.every((f) => f.active);
+
+  bool handleBranch(
+    String directive,
+    String rest, {
+    required bool Function(String name) isDefined,
+    required bool Function(String expr) evalCond,
+  }) {
+    switch (directive) {
+      case 'ifdef':
+        final v = isDefined(rest.trim());
+        _frames.add(_IfFrame(active: v, taken: v));
+      case 'ifndef':
+        final v = !isDefined(rest.trim());
+        _frames.add(_IfFrame(active: v, taken: v));
+      case 'if':
+        final v = evalCond(rest);
+        _frames.add(_IfFrame(active: v, taken: v));
+      case 'elif':
+        final top = _frames.last;
+        if (top.taken) {
+          top.active = false;
+        } else {
+          top.active = evalCond(rest);
+          top.taken = top.active;
+        }
+      case 'else':
+        final top = _frames.last;
+        top.active = !top.taken;
+        top.taken = true;
+      case 'endif':
+        _frames.removeLast();
+      default:
+        return false;
+    }
+    return true;
+  }
 }
 
 String preprocessIdl(String text, Set<String> defined) {
   final lines = text.split('\n');
-  final stack = <_IfFrame>[];
+  final stack = _CppDirectiveStack();
   final outL = <String>[];
-  bool isActive() => stack.every((s) => s.active);
-  final directiveRe = RegExp(
-    r'^\s*#\s*(ifdef|ifndef|if|elif|else|endif)\b(.*)$',
-  );
 
   for (final line in lines) {
-    final m = directiveRe.firstMatch(line);
+    final m = _idlDirectiveRe.firstMatch(line);
     if (m == null) {
-      outL.add(isActive() ? line : '');
+      outL.add(stack.isActive ? line : '');
       continue;
     }
-    final d = m[1]!;
-    final rest = m[2]!;
-    if (d == 'ifdef' || d == 'ifndef' || d == 'if') {
-      final bool v;
-      if (d == 'ifdef') {
-        v = defined.contains(rest.trim());
-      } else if (d == 'ifndef') {
-        v = !defined.contains(rest.trim());
-      } else {
-        v = _evalDefinedCond(rest, defined);
-      }
-      stack.add(_IfFrame(active: v, taken: v));
-    } else if (d == 'elif') {
-      final s = stack.last;
-      if (s.taken) {
-        s.active = false;
-      } else {
-        s.active = _evalDefinedCond(rest, defined);
-        s.taken = s.active;
-      }
-    } else if (d == 'else') {
-      final s = stack.last;
-      s.active = !s.taken;
-      s.taken = true;
-    } else {
-      stack.removeLast();
-    }
+    stack.handleBranch(
+      m[1]!,
+      m[2]!,
+      isDefined: defined.contains,
+      evalCond: (expr) => _evalDefinedCond(expr, defined),
+    );
     outL.add('');
   }
   return outL.join('\n');
@@ -510,26 +1442,28 @@ String preprocessIdl(String text, Set<String> defined) {
 
 // ---------------------------------------------------------------- Gating Loaders
 
-Object? _yamlToDart(Object? node) {
-  if (node is YamlMap) {
-    return <String, Object?>{
-      for (final e in node.entries) e.key.toString(): _yamlToDart(e.value),
-    };
-  }
-  if (node is YamlList) {
-    return <Object?>[for (final item in node) _yamlToDart(item)];
-  }
-  return node;
-}
+Object? _yamlToDart(Object? node) => switch (node) {
+  YamlMap(:final entries) => <String, Object?>{
+    for (final MapEntry(:key, :value) in entries)
+      key.toString(): _yamlToDart(value),
+  },
+  YamlList() => <Object?>[for (final item in node) _yamlToDart(item)],
+  _ => node,
+};
+
+bool? _parseBool(Object? v) => switch (v) {
+  true || 'true' => true,
+  false || 'false' => false,
+  _ => null,
+};
 
 String dedupeYamlListKeys(String txt) {
   final lines = txt.split('\n');
   final seenKeys = <String>{};
-  final keyRe = RegExp(r'^(\s*-\s+|\s+)([A-Za-z_]\w*)\s*:');
   for (var i = 0; i < lines.length; i++) {
     final line = lines[i];
     if (line.startsWith('- ')) seenKeys.clear();
-    final m = keyRe.firstMatch(line);
+    final m = _yamlListKeyRe.firstMatch(line);
     if (m != null && m[1]!.length <= 2) {
       final k = m[2]!;
       if (!seenKeys.add(k)) {
@@ -547,14 +1481,12 @@ class _BlinkFeatures {
 
   _BlinkFeatures(this.feats, this.mapped);
 
-  String statusOf(Object? s) {
-    if (s == null) return '';
-    if (s is String) return s;
-    if (s is Map) {
-      return (s['Linux'] ?? s['default'] ?? '').toString();
-    }
-    return '';
-  }
+  String statusOf(Object? s) => switch (s) {
+    final String str => str,
+    final Map<Object?, Object?> m =>
+      (m['Linux'] ?? m['default'] ?? '').toString(),
+    _ => '',
+  };
 
   bool? isOn(String name, [Set<String>? seen]) {
     if (_memo.containsKey(name)) return _memo[name];
@@ -613,12 +1545,9 @@ _BlinkFeatures _loadBlinkFeatures(String cacheDir) {
   );
   // Convert JSON5 (line comments, unquoted keys, trailing commas) to JSON.
   var raw = File(json5Path).readAsStringSync();
-  raw = raw.replaceAll(RegExp(r'^\s*//.*$', multiLine: true), '');
-  raw = raw.replaceAllMapped(
-    RegExp(r'^(\s*)([A-Za-z_]\w*)\s*:', multiLine: true),
-    (m) => '${m[1]}"${m[2]}":',
-  );
-  raw = raw.replaceAllMapped(RegExp(r',\s*([}\]])'), (m) => m[1]!);
+  raw = raw.replaceAll(_json5CommentLineRe, '');
+  raw = raw.replaceAllMapped(_json5UnquotedKeyRe, (m) => '${m[1]}"${m[2]}":');
+  raw = raw.replaceAllMapped(_json5TrailingCommaRe, (m) => m[1]!);
   final data = jsonDecode(raw) as Map<String, Object?>;
   final feats = <String, Map<String, Object?>>{};
   for (final d
@@ -628,9 +1557,6 @@ _BlinkFeatures _loadBlinkFeatures(String cacheDir) {
 
   final blinkRoot = p.join(cacheDir, 'blink');
   final baseDefault = <String, bool>{};
-  final baseFeatRe = RegExp(
-    r'BASE_FEATURE\(\s*(k\w+)[^;]*?FEATURE_(ENABLED|DISABLED)_BY_DEFAULT',
-  );
   for (final rel in const [
     'content/public/common/content_features.cc',
     'third_party/blink/common/features.cc',
@@ -642,17 +1568,16 @@ _BlinkFeatures _loadBlinkFeatures(String cacheDir) {
   ]) {
     final f = File(p.join(blinkRoot, rel));
     if (!f.existsSync()) continue;
-    for (final m in baseFeatRe.allMatches(f.readAsStringSync())) {
+    for (final m in _blinkBaseFeatureRe.allMatches(f.readAsStringSync())) {
       baseDefault[m[1]!] = m[2] == 'ENABLED';
     }
   }
 
   final mapped = <String, ({String feature, String mode, bool? on})>{};
   final rfFile = File(p.join(blinkRoot, 'content/child/runtime_features.cc'));
-  final rfRe = RegExp(
-    r'\{\s*wf::Enable(\w+)\s*,\s*(?:raw_ref\()?\s*(?:[\w:]*::)?(k\w+)\)?\s*(?:,\s*(k\w+))?\s*\}',
-  );
-  for (final m in rfRe.allMatches(rfFile.readAsStringSync())) {
+  for (final m in _blinkRuntimeFeatureRe.allMatches(
+    rfFile.readAsStringSync(),
+  )) {
     final feat = m[2]!;
     mapped[m[1]!] = (
       feature: feat,
@@ -676,12 +1601,13 @@ Map<String, Object?> _loadGeckoPrefs(String cacheDir) {
     ),
   );
   var txt = preprocessIdl(yamlFile.readAsStringSync(), _geckoDefined);
-  txt = txt.replaceAllMapped(RegExp(r'@IS_(NOT_)?(\w+?)@'), (m) {
+  txt = txt.replaceAllMapped(_geckoAtMacroRe, (m) {
     final not = m[1] != null;
     final sym = m[2]!;
-    var v = _geckoDefined.contains(sym);
-    if (sym == 'NIGHTLY_BUILD' || sym == 'EARLY_BETA_OR_EARLIER') v = false;
-    if (sym == 'ANDROID') v = false;
+    final v = switch (sym) {
+      'NIGHTLY_BUILD' || 'EARLY_BETA_OR_EARLIER' || 'ANDROID' => false,
+      _ => _geckoDefined.contains(sym),
+    };
     return (not ? !v : v).toString();
   });
   // StaticPrefList.yaml contains occasional duplicate keys within a single
@@ -689,13 +1615,10 @@ Map<String, Object?> _loadGeckoPrefs(String cacheDir) {
   // package:yaml rejects. Keep the last occurrence of each key per item.
   txt = dedupeYamlListKeys(txt);
   final parsed = _yamlToDart(loadYaml(txt)) as List<Object?>?;
-  for (final item in parsed ?? const <Object?>[]) {
-    final map = item as Map<String, Object?>;
-    prefs[map['name'] as String] = map['value'];
+  for (final item
+      in (parsed ?? const <Object?>[]).cast<Map<String, Object?>>()) {
+    prefs[item['name'] as String] = item['value'];
   }
-  final prefCallRe = RegExp(
-    r'pref\(\s*"([^"]+)"\s*,\s*([^)]+?)\s*(,\s*locked\s*)?\)',
-  );
   for (final rel in const [
     'gecko/modules/libpref/init/all.js',
     'gecko/browser/app/profile/firefox.js',
@@ -703,13 +1626,9 @@ Map<String, Object?> _loadGeckoPrefs(String cacheDir) {
     final f = File(p.join(cacheDir, rel));
     if (!f.existsSync()) continue;
     final t = preprocessIdl(f.readAsStringSync(), _geckoDefined);
-    for (final m in prefCallRe.allMatches(t)) {
+    for (final m in _geckoPrefCallRe.allMatches(t)) {
       final v = m[2]!.trim();
-      prefs[m[1]!] = v == 'true'
-          ? true
-          : v == 'false'
-          ? false
-          : v;
+      prefs[m[1]!] = _parseBool(v) ?? v;
     }
   }
   return prefs;
@@ -722,36 +1641,34 @@ class _WebKitPrefs {
 
   _WebKitPrefs(this.prefs, this.enables, this.vals);
 
+  static const Map<String, int> _fixedMacros = {
+    'PLATFORM_COCOA': 1,
+    'PLATFORM_MAC': 1,
+    'PLATFORM_IOS_FAMILY': 0,
+    'PLATFORM_IOS': 0,
+    'PLATFORM_VISION': 0,
+    'PLATFORM_GTK': 0,
+    'PLATFORM_WPE': 0,
+    'USE_GLIB': 0,
+    'ENABLE_EXPERIMENTAL_FEATURES': 0,
+    'PLATFORM_WATCHOS': 0,
+    'PLATFORM_APPLETV': 0,
+    'USE_APPLE_INTERNAL_SDK': 1,
+    'PLATFORM_PLAYSTATION': 0,
+    'PLATFORM_WIN': 0,
+  };
+
   bool? evalWkCond(String k) {
-    const fixed = <String, int>{
-      'PLATFORM_COCOA': 1,
-      'PLATFORM_MAC': 1,
-      'PLATFORM_IOS_FAMILY': 0,
-      'PLATFORM_IOS': 0,
-      'PLATFORM_VISION': 0,
-      'PLATFORM_GTK': 0,
-      'PLATFORM_WPE': 0,
-      'USE_GLIB': 0,
-      'ENABLE_EXPERIMENTAL_FEATURES': 0,
-      'PLATFORM_WATCHOS': 0,
-      'PLATFORM_APPLETV': 0,
-      'USE_APPLE_INTERNAL_SDK': 1,
-      'PLATFORM_PLAYSTATION': 0,
-      'PLATFORM_WIN': 0,
-    };
     var unknown = false;
-    final e = k.replaceAllMapped(
-      RegExp(r'\b(PLATFORM|USE|HAVE|ENABLE|OS|CPU)\s*\(\s*(\w+)\s*\)'),
-      (m) {
-        final n = '${m[1]}_${m[2]}';
-        if (fixed.containsKey(n)) return ' ${fixed[n]} ';
-        if (vals.containsKey(n)) return ' ${(vals[n] ?? 0) != 0 ? 1 : 0} ';
-        if (m[1] == 'ENABLE' || m[1] == 'HAVE') return ' 0 ';
-        unknown = true;
-        return ' 0 ';
-      },
-    );
-    if (RegExp(r'[A-Za-z_]').hasMatch(e.replaceAll(RegExp(r'\s'), ''))) {
+    final e = k.replaceAllMapped(_wkFuncMacroRe, (m) {
+      final n = '${m[1]}_${m[2]}';
+      if (_fixedMacros.containsKey(n)) return ' ${_fixedMacros[n]} ';
+      if (vals.containsKey(n)) return ' ${(vals[n] ?? 0) != 0 ? 1 : 0} ';
+      if (m[1] == 'ENABLE' || m[1] == 'HAVE') return ' 0 ';
+      unknown = true;
+      return ' 0 ';
+    });
+    if (_alphaOrUnderscoreRe.hasMatch(e)) {
       return null;
     }
     try {
@@ -778,28 +1695,24 @@ class _WebKitPrefs {
     if (dv == null) return (value: null, raw: 'no-default');
 
     var sawUnknown = false;
-    for (final entry in dv.entries) {
-      final k = entry.key;
-      final v = entry.value;
-      if (k == 'default') continue;
-      final c = evalWkCond(k);
+    for (final MapEntry(:key, :value) in dv.entries) {
+      if (key == 'default') continue;
+      final c = evalWkCond(key);
       if (c == true) {
-        final boolVal = (v == true || v == 'true')
-            ? true
-            : (v == false || v == 'false')
-            ? false
-            : null;
-        return (value: boolVal, raw: '$k:$v');
+        return (value: _parseBool(value), raw: '$key:$value');
       }
       if (c == null) sawUnknown = true;
     }
     final v = dv['default'];
-    if (v == true || v == 'true') return (value: true, raw: 'true');
-    if ((v == false || v == 'false') && sawUnknown) {
-      return (value: null, raw: 'false+unevaluable-condition');
-    }
-    if (v == false || v == 'false') return (value: false, raw: 'false');
-    return (value: null, raw: v.toString());
+    return switch (_parseBool(v)) {
+      true => (value: true, raw: 'true'),
+      false when sawUnknown => (
+        value: null,
+        raw: 'false+unevaluable-condition',
+      ),
+      false => (value: false, raw: 'false'),
+      null => (value: null, raw: v.toString()),
+    };
   }
 }
 
@@ -834,27 +1747,19 @@ _WebKitPrefs _loadWebKitPrefs(String cacheDir) {
 
   bool ev(String expr) {
     var e = expr
-        .replaceAll(RegExp(r'//.*$'), ' ')
-        .replaceAll(RegExp(r'/\*.*?\*/'), ' ');
+        .replaceAll(_lineCommentRe, ' ')
+        .replaceAll(_blockCommentRe, ' ');
     e = e.replaceAllMapped(
-      RegExp(r'defined\s*\(\s*(\w+)\s*\)|defined\s+(\w+)'),
+      _definedMacroRe,
       (m) => vals.containsKey(m[1] ?? m[2]) ? ' 1 ' : ' 0 ',
     );
     e = e.replaceAllMapped(
-      RegExp(r'\b(PLATFORM|USE|HAVE|ENABLE|OS|CPU|COMPILER)\s*\(\s*(\w+)\s*\)'),
+      _wkHeaderMacroRe,
       (m) => ' ${vals['${m[1]}_${m[2]}'] ?? 0} ',
     );
-    e = e.replaceAllMapped(
-      RegExp(r'\b[A-Za-z_]\w*\b'),
-      (m) => ' ${vals[m[0]] ?? 0} ',
-    );
+    e = e.replaceAllMapped(_identRe, (m) => ' ${vals[m[0]] ?? 0} ');
     return evalCExpr(e);
   }
-
-  final directiveRe = RegExp(
-    r'^\s*#\s*(ifdef|ifndef|if|elif|else|endif|define|undef)\b\s*(.*)$',
-  );
-  final defNameRe = RegExp(r'^(\w+)\s*(.*)$');
 
   for (final f in const [
     'PlatformHave.h',
@@ -863,45 +1768,23 @@ _WebKitPrefs _loadWebKitPrefs(String cacheDir) {
   ]) {
     final hdrPath = p.join(cacheDir, 'webkit', 'Source', 'WTF', 'wtf', f);
     final t = File(hdrPath).readAsStringSync().replaceAll('\\\n', ' ');
-    final stack = <_IfFrame>[];
-    bool isActive() => stack.every((x) => x.active);
+    final stack = _CppDirectiveStack();
 
     for (final line in t.split('\n')) {
-      final m = directiveRe.firstMatch(line);
+      final m = _cppDirectiveRe.firstMatch(line);
       if (m == null) continue;
       final d = m[1]!;
       final rest = m[2]!;
-      if (d == 'if' || d == 'ifdef' || d == 'ifndef') {
-        final parentActive = isActive();
-        final v = d == 'if'
-            ? ev(rest)
-            : d == 'ifdef'
-            ? vals.containsKey(rest.trim())
-            : !vals.containsKey(rest.trim());
-        stack.add(
-          _IfFrame(
-            active: parentActive && v,
-            taken: v,
-            parentActive: parentActive,
-          ),
-        );
-      } else if (d == 'elif') {
-        final x = stack.last;
-        if (x.taken) {
-          x.active = false;
-        } else {
-          final v = ev(rest);
-          x.active = x.parentActive && v;
-          x.taken = v;
-        }
-      } else if (d == 'else') {
-        final x = stack.last;
-        x.active = x.parentActive && !x.taken;
-        x.taken = true;
-      } else if (d == 'endif') {
-        stack.removeLast();
-      } else if (isActive()) {
-        final mm = defNameRe.firstMatch(rest);
+      if (stack.handleBranch(
+        d,
+        rest,
+        isDefined: vals.containsKey,
+        evalCond: ev,
+      )) {
+        continue;
+      }
+      if (stack.isActive) {
+        final mm = _cppDefNameRe.firstMatch(rest);
         if (mm == null) continue;
         final name = mm[1]!;
         if (d == 'undef') {
@@ -910,7 +1793,7 @@ _WebKitPrefs _loadWebKitPrefs(String cacheDir) {
           final v = mm[2]!.trim();
           vals[name] = v.isEmpty
               ? 1
-              : RegExp(r'^\d+$').hasMatch(v)
+              : _digitsOnlyRe.hasMatch(v)
               ? int.parse(v)
               : (ev(v) ? 1 : 0);
         }
@@ -919,13 +1802,13 @@ _WebKitPrefs _loadWebKitPrefs(String cacheDir) {
   }
 
   final enables = <String>{
-    for (final e in vals.entries)
-      if (e.key.startsWith('ENABLE_') && e.value != 0) e.key.substring(7),
+    for (final MapEntry(:key, :value) in vals.entries)
+      if (key.startsWith('ENABLE_') && value != 0) key.substring(7),
   };
   return _WebKitPrefs(prefs, enables, vals);
 }
 
-// ---------------------------------------------------------------- Parse Corpus
+// ---------------------------------------------------------------- Corpus Sources & Parse
 
 List<String> _walkFiles(String dir, bool Function(String path) pred) {
   final acc = <String>[];
@@ -945,107 +1828,88 @@ List<String> _walkFiles(String dir, bool Function(String path) pred) {
   return acc;
 }
 
-String _commonPre(String t) {
-  t = t.replaceAll(RegExp(r'\btoString\s*\('), 'toStringXX(');
-  t = t.replaceAll(RegExp(r'^\s*legacycaller\b[^;]*;', multiLine: true), '');
-  t = t.replaceAll(RegExp(r'\bobject object\)'), 'object obj)');
-  return t;
+String _commonPre(String t) => t
+    .replaceAll(_toStringCallRe, 'toStringXX(')
+    .replaceAll(_legacyCallerRe, '')
+    .replaceAll(_objectParamRe, 'object obj)');
+
+sealed class _CorpusSource {
+  final Corpus corpus;
+  final String rootDir;
+
+  _CorpusSource(this.corpus, this.rootDir);
+
+  factory _CorpusSource.forCorpus(Corpus corpus, EngineCensusPaths paths) =>
+      switch (corpus) {
+        Corpus.webref => _WebrefCorpusSource(paths),
+        Corpus.blink => _BlinkCorpusSource.load(paths),
+        Corpus.gecko => _GeckoCorpusSource.load(paths),
+        Corpus.webkit => _WebKitCorpusSource.load(paths),
+      };
+
+  String? get quirks => null;
+
+  List<String> collectFiles();
+
+  String preprocess(String rawText) => rawText;
+
+  String preprocessFile(String rawText) => _commonPre(preprocess(rawText));
+
+  GateRecord evaluateGate(List<IdlExtAttr> eas) => GateRecord.on();
+
+  Map<String, Object?> buildNotes(Map<String, String> aliases) => {
+    'quirks': ?quirks,
+    'aliases': aliases,
+  };
 }
 
-typedef _GateResult = ({String state, List<String> why});
-typedef _ExtAttr = ({String name, String? value});
+final class _WebrefCorpusSource extends _CorpusSource {
+  _WebrefCorpusSource(EngineCensusPaths paths)
+    : super(Corpus.webref, paths.webrefDir);
 
-_GateResult _combineGate(_GateResult a, _GateResult b) {
-  const order = {'on': 0, 'unknown': 1, 'off': 2};
-  final state = order[a.state]! >= order[b.state]! ? a.state : b.state;
-  return (state: state, why: [...a.why, ...b.why]);
+  @override
+  List<String> collectFiles() =>
+      Directory(rootDir)
+          .listSync()
+          .whereType<File>()
+          .map((f) => f.path)
+          .where((f) => f.endsWith('.idl'))
+          .toList()
+        ..sort();
 }
 
-List<_ExtAttr> _eaList(List<Object?>? eas) {
-  if (eas == null) return const [];
-  return eas.cast<Map<String, Object?>>().map((ea) {
-    final name = ea['name'] as String;
-    final rhs = ea['rhs'] as Map<String, Object?>?;
-    String? value;
-    if (rhs != null) {
-      final rhsVal = rhs['value'];
-      if (rhsVal is List) {
-        value = rhsVal
-            .cast<Map<String, Object?>>()
-            .map((v) => v['value'].toString())
-            .join(',');
-      } else if (rhsVal != null) {
-        value = rhsVal.toString().replaceAll(RegExp(r'^"|"$'), '');
-      }
-    }
-    return (name: name, value: value);
-  }).toList();
-}
+final class _BlinkCorpusSource extends _CorpusSource {
+  final _BlinkFeatures features;
 
-Future<void> parseCorpora(
-  EngineCensusPaths paths, {
-  String targetCorpus = 'all',
-  String? customOutPath,
-}) async {
-  Directory(paths.outDir).createSync(recursive: true);
-  if (targetCorpus == 'all') {
-    for (final c in allCorpora) {
-      await _parseSingleCorpus(paths, c, p.join(paths.outDir, '$c.json'));
-    }
-  } else {
-    final outPath = customOutPath ?? p.join(paths.outDir, '$targetCorpus.json');
-    await _parseSingleCorpus(paths, targetCorpus, outPath);
-  }
-}
+  _BlinkCorpusSource(String rootDir, this.features)
+    : super(Corpus.blink, rootDir);
 
-Future<void> _parseSingleCorpus(
-  EngineCensusPaths paths,
-  String corpus,
-  String outPath,
-) async {
-  late final String rootDir;
-  late final List<String> files;
-  String Function(String) pre = (t) => t;
-  _GateResult Function(List<_ExtAttr>) gate = (_) =>
-      (state: 'on', why: const []);
-  final notes = <String, Object?>{};
+  factory _BlinkCorpusSource.load(EngineCensusPaths paths) =>
+      _BlinkCorpusSource(
+        p.join(paths.cacheDir, 'blink', 'third_party', 'blink', 'renderer'),
+        _loadBlinkFeatures(paths.cacheDir),
+      );
 
-  if (corpus == 'webref') {
-    rootDir = paths.webrefDir;
-    files =
-        Directory(rootDir)
-            .listSync()
-            .whereType<File>()
-            .map((f) => f.path)
-            .where((f) => f.endsWith('.idl'))
-            .toList()
-          ..sort();
-  } else if (corpus == 'blink') {
-    rootDir = p.join(
-      paths.cacheDir,
-      'blink',
-      'third_party',
-      'blink',
-      'renderer',
-    );
-    final testPathRe = RegExp(r'/(testing|tests?|bindings/tests)/');
-    files = _walkFiles(
-      rootDir,
-      (f) =>
-          f.endsWith('.idl') &&
-          !testPathRe.hasMatch(f.substring(rootDir.length)),
-    );
-    final bf = _loadBlinkFeatures(paths.cacheDir);
-    gate = (eas) {
-      final why = <String>[];
-      var state = 'on';
-      for (final ea in eas) {
-        if (ea.name == 'RuntimeEnabled' || ea.name == 'ContextEnabled') {
+  @override
+  List<String> collectFiles() => _walkFiles(
+    rootDir,
+    (f) =>
+        f.endsWith('.idl') &&
+        !_blinkTestPathRe.hasMatch(f.substring(rootDir.length)),
+  );
+
+  @override
+  GateRecord evaluateGate(List<IdlExtAttr> eas) {
+    final why = <String>[];
+    var state = GateState.on;
+    for (final ea in eas) {
+      switch (ea.name) {
+        case 'RuntimeEnabled' || 'ContextEnabled':
           final n = ea.value ?? '';
-          final r = ea.name == 'ContextEnabled' ? null : bf.isOn(n);
-          final d = bf.feats[n] ?? const <String, Object?>{};
-          final mp = bf.mapped[n];
-          final st = bf.statusOf(d['status']);
+          final r = ea.name == 'ContextEnabled' ? null : features.isOn(n);
+          final d = features.feats[n] ?? const <String, Object?>{};
+          final mp = features.mapped[n];
+          final st = features.statusOf(d['status']);
           final baseSt = d['base_feature_status'];
           final copiedIf = d['copied_from_base_feature_if'];
           final ot = d['origin_trial_feature_name'];
@@ -1058,171 +1922,212 @@ Future<void> _parseSingleCorpus(
             '${pub == true ? ',public' : ''}'
             '${mp != null ? ',${mp.feature}=${mp.on}' : ''})',
           );
-          if (r == false) {
-            state = 'off';
-          } else if (r == null && state == 'on') {
-            state = 'unknown';
-          }
-        } else if (ea.name == 'IsolatedContext') {
+          state = state.combine(GateState.fromBool(r));
+        case 'IsolatedContext':
           why.add('IsolatedContext');
-          state = 'off';
-        } else if (ea.name == 'CrossOriginIsolated' ||
-            (ea.name == 'SecureContext' && ea.value != null)) {
-          why.add('${ea.name}${ea.value != null ? '=${ea.value}' : ''}');
-        }
+          state = GateState.off;
+        case 'CrossOriginIsolated':
+          why.add(
+            'CrossOriginIsolated${ea.value != null ? '=${ea.value}' : ''}',
+          );
+        case 'SecureContext' when ea.value != null:
+          why.add('SecureContext=${ea.value}');
       }
-      return (state: state, why: why);
-    };
-  } else if (corpus == 'gecko') {
-    rootDir = p.join(paths.cacheDir, 'gecko', 'dom', 'webidl');
-    final testFileRe = RegExp(r'/Test[A-Z][^/]*$');
-    files = _walkFiles(
-      rootDir,
-      (f) => f.endsWith('.webidl') && !testFileRe.hasMatch(f),
-    );
-    pre = (t) => preprocessIdl(
-      t,
-      _geckoDefined,
-    ).replaceAll(RegExp(r'\bUTF8String\b'), 'USVString');
-    notes['quirks'] =
-        'UTF8String->USVString; legacycaller dropped; forward decls skipped; #if evaluated for Linux release';
-    final prefs = _loadGeckoPrefs(paths.cacheDir);
-    gate = (eas) {
-      final why = <String>[];
-      var state = 'on';
-      for (final ea in eas) {
-        if (ea.name == 'Pref') {
+    }
+    return GateRecord.create(state: state, why: why);
+  }
+}
+
+final class _GeckoCorpusSource extends _CorpusSource {
+  final Map<String, Object?> prefs;
+
+  _GeckoCorpusSource(String rootDir, this.prefs) : super(Corpus.gecko, rootDir);
+
+  factory _GeckoCorpusSource.load(EngineCensusPaths paths) =>
+      _GeckoCorpusSource(
+        p.join(paths.cacheDir, 'gecko', 'dom', 'webidl'),
+        _loadGeckoPrefs(paths.cacheDir),
+      );
+
+  @override
+  String get quirks =>
+      'UTF8String->USVString; legacycaller dropped; forward decls skipped; #if evaluated for Linux release';
+
+  @override
+  List<String> collectFiles() => _walkFiles(
+    rootDir,
+    (f) => f.endsWith('.webidl') && !_geckoTestFileRe.hasMatch(f),
+  );
+
+  @override
+  String preprocess(String rawText) => preprocessIdl(
+    rawText,
+    _geckoDefined,
+  ).replaceAll(_utf8StringRe, 'USVString');
+
+  @override
+  GateRecord evaluateGate(List<IdlExtAttr> eas) {
+    final why = <String>[];
+    var state = GateState.on;
+    for (final ea in eas) {
+      switch (ea.name) {
+        case 'Pref':
           final n = ea.value ?? '';
           final hasPref = prefs.containsKey(n);
           final v = prefs[n];
           why.add('Pref=$n(${hasPref ? v : '?'})');
-          if (v == false) {
-            state = 'off';
-          } else if (v != true && state == 'on') {
-            state = 'unknown';
-          }
-        } else if (ea.name == 'ChromeOnly') {
+          state = state.combine(
+            v is bool ? GateState.fromBool(v) : GateState.unknown,
+          );
+        case 'ChromeOnly':
           why.add('ChromeOnly');
-          state = 'off';
-        } else if (ea.name == 'Func') {
-          why.add('Func=${ea.value}');
-          if (state == 'on') state = 'unknown';
-        } else if (ea.name == 'Trial') {
-          why.add('Trial=${ea.value}');
-          if (state == 'on') state = 'unknown';
-        } else if (ea.name == 'Exposed' &&
-            RegExp(
-              r'^(System|Chrome|.*Debugger|Sandbox)',
-            ).hasMatch('${ea.value}') &&
-            !RegExp(r'Window|Worker').hasMatch('${ea.value}')) {
+          state = GateState.off;
+        case 'Func' || 'Trial':
+          why.add('${ea.name}=${ea.value}');
+          state = state.combine(GateState.unknown);
+        case 'Exposed'
+            when _geckoInternalExposedRe.hasMatch('${ea.value}') &&
+                !_geckoWebExposedRe.hasMatch('${ea.value}'):
           why.add('Exposed=${ea.value}');
-          state = 'off';
-        }
+          state = GateState.off;
       }
-      return (state: state, why: why);
-    };
-  } else if (corpus == 'webkit') {
-    rootDir = p.join(paths.cacheDir, 'webkit', 'Source', 'WebCore');
-    final testPathRe = RegExp(r'/(testing|bindings/scripts/test)/');
-    files = _walkFiles(
-      rootDir,
-      (f) =>
-          f.endsWith('.idl') &&
-          !testPathRe.hasMatch(f.substring(rootDir.length)),
-    );
-    final wk = _loadWebKitPrefs(paths.cacheDir);
-    notes['quirks'] =
-        'A&B ext-attr values quoted; trailing commas removed; #if ENABLE() evaluated against PlatformEnable(.h|Cocoa.h); (X or any)->any';
-    final wkDefined = <String>{
-      for (final e in wk.enables) 'ENABLE_$e',
-      'PLATFORM_COCOA',
-      'PLATFORM_MAC',
-    };
-    pre = (t) {
-      t = t.replaceAllMapped(
-        RegExp(r'^(\s*#\s*(?:if|elif)\b.*)$', multiLine: true),
-        (m) => m[1]!.replaceAllMapped(
-          RegExp(r'\b(ENABLE|PLATFORM|USE|HAVE)\((\w+)\)'),
-          (mm) => 'defined(${mm[1]}_${mm[2]})',
-        ),
-      );
-      t = preprocessIdl(t, wkDefined);
-      t = t.replaceAllMapped(RegExp(r',(\s*\])'), (m) => m[1]!);
-      t = t.replaceAllMapped(
-        RegExp(r'(ImplementationDefaultValue)=\s*(\[\]|[^,\]]+)'),
-        (m) => '${m[1]}="${m[2]!.trim().replaceAll('"', "'")}"',
-      );
-      t = t.replaceAll(RegExp(r'\(([^()]*\bor any)\)'), 'any');
-      t = t.replaceAllMapped(
-        RegExp(r'(CallbackThisObject)=\s*any\b'),
-        (m) => '${m[1]}="any"',
-      );
-      t = t.replaceAllMapped(
-        RegExp(r'=\s*([A-Za-z_][\w:]*(?:\s*[&|]\s*[A-Za-z_][\w:]*)+)'),
-        (m) => '="${m[1]!.replaceAll(RegExp(r'\s+'), '')}"',
-      );
-      return t;
-    };
-    gate = (eas) {
-      final why = <String>[];
-      var state = 'on';
-      void bump(String s) {
-        if (s == 'off') {
-          state = 'off';
-        } else if (s == 'unknown' && state == 'on') {
-          state = 'unknown';
-        }
-      }
+    }
+    return GateRecord.create(state: state, why: why);
+  }
+}
 
-      for (final ea in eas) {
-        if (ea.name == 'EnabledBySetting') {
+final class _WebKitCorpusSource extends _CorpusSource {
+  final _WebKitPrefs wk;
+  final Set<String> wkDefined;
+
+  _WebKitCorpusSource(String rootDir, this.wk)
+    : wkDefined = {
+        for (final e in wk.enables) 'ENABLE_$e',
+        'PLATFORM_COCOA',
+        'PLATFORM_MAC',
+      },
+      super(Corpus.webkit, rootDir);
+
+  factory _WebKitCorpusSource.load(EngineCensusPaths paths) =>
+      _WebKitCorpusSource(
+        p.join(paths.cacheDir, 'webkit', 'Source', 'WebCore'),
+        _loadWebKitPrefs(paths.cacheDir),
+      );
+
+  @override
+  String get quirks =>
+      'A&B ext-attr values quoted; trailing commas removed; #if ENABLE() evaluated against PlatformEnable(.h|Cocoa.h); (X or any)->any';
+
+  @override
+  List<String> collectFiles() => _walkFiles(
+    rootDir,
+    (f) =>
+        f.endsWith('.idl') &&
+        !_webkitTestPathRe.hasMatch(f.substring(rootDir.length)),
+  );
+
+  @override
+  String preprocess(String rawText) {
+    var t = rawText.replaceAllMapped(
+      _wkIfElifLineRe,
+      (m) => m[1]!.replaceAllMapped(
+        _wkMacroCallRe,
+        (mm) => 'defined(${mm[1]}_${mm[2]})',
+      ),
+    );
+    t = preprocessIdl(t, wkDefined);
+    t = t.replaceAllMapped(_trailingBracketCommaRe, (m) => m[1]!);
+    t = t.replaceAllMapped(
+      _implDefaultValRe,
+      (m) => '${m[1]}="${m[2]!.trim().replaceAll('"', "'")}"',
+    );
+    t = t.replaceAll(_orAnyUnionRe, 'any');
+    t = t.replaceAllMapped(_callbackThisObjRe, (m) => '${m[1]}="any"');
+    t = t.replaceAllMapped(
+      _bitOpExtAttrValRe,
+      (m) => '="${m[1]!.replaceAll(_wsRe, '')}"',
+    );
+    return t;
+  }
+
+  @override
+  GateRecord evaluateGate(List<IdlExtAttr> eas) {
+    final why = <String>[];
+    var state = GateState.on;
+    for (final ea in eas) {
+      switch (ea.name) {
+        case 'EnabledBySetting':
           for (final n in (ea.value ?? '').split('&')) {
             final pref = wk.prefs[n] as Map<String, Object?>?;
             final r = wk.evalDefault(pref);
             why.add(
               'EnabledBySetting=$n(${pref != null ? pref['status'] : '?'},${r.raw})',
             );
-            bump(
-              r.value == true
-                  ? 'on'
-                  : (r.value == false &&
-                        !(pref != null && pref['status'] == 'embedder'))
-                  ? 'off'
-                  : 'unknown',
-            );
+            final settingState = switch (r.value) {
+              true => GateState.on,
+              false when !(pref != null && pref['status'] == 'embedder') =>
+                GateState.off,
+              _ => GateState.unknown,
+            };
+            state = state.combine(settingState);
           }
-        } else if (ea.name == 'Conditional') {
+        case 'Conditional':
           final val = ea.value ?? '';
           final ok = val
               .split('&')
               .every((c) => c.split('|').any(wk.enables.contains));
           why.add('Conditional=$val${ok ? '' : '(not-in-PlatformEnable*.h)'}');
-          if (!ok) bump('unknown');
-        } else if (const {
-          'EnabledByDeprecatedGlobalSetting',
-          'EnabledByQuirk',
-          'EnabledForWorld',
-          'EnabledBySettingOrQuirk',
-        }.contains(ea.name)) {
+          if (!ok) state = state.combine(GateState.unknown);
+        case 'EnabledByDeprecatedGlobalSetting' ||
+            'EnabledByQuirk' ||
+            'EnabledForWorld' ||
+            'EnabledBySettingOrQuirk':
           why.add('${ea.name}=${ea.value}');
-          bump('unknown');
-        } else if (ea.name == 'LegacyFactoryFunctionEnabledBySetting' ||
-            ea.name == 'DisabledByQuirk' ||
-            ea.name == 'EnabledForContext') {
+          state = state.combine(GateState.unknown);
+        case 'LegacyFactoryFunctionEnabledBySetting' ||
+            'DisabledByQuirk' ||
+            'EnabledForContext':
           why.add('${ea.name}=${ea.value}');
-        }
       }
-      return (state: state, why: why);
-    };
-  } else {
-    throw ArgumentError('Unknown corpus: $corpus');
+    }
+    return GateRecord.create(state: state, why: why);
   }
+}
 
-  final filesPayload = <String, String>{};
-  for (final f in files) {
-    final rel = p.relative(f, from: rootDir);
-    filesPayload[rel] = _commonPre(pre(File(f).readAsStringSync()));
+Future<void> parseCorpora(
+  EngineCensusPaths paths, {
+  String targetCorpus = 'all',
+  String? customOutPath,
+}) async {
+  Directory(paths.outDir).createSync(recursive: true);
+  if (targetCorpus == 'all') {
+    for (final c in Corpus.values) {
+      await _parseSingleCorpus(
+        paths,
+        c,
+        p.join(paths.outDir, '${c.name}.json'),
+      );
+    }
+  } else {
+    final corpus = Corpus.fromName(targetCorpus);
+    final outPath = customOutPath ?? p.join(paths.outDir, '$targetCorpus.json');
+    await _parseSingleCorpus(paths, corpus, outPath);
   }
+}
+
+Future<void> _parseSingleCorpus(
+  EngineCensusPaths paths,
+  Corpus corpus,
+  String outPath,
+) async {
+  final source = _CorpusSource.forCorpus(corpus, paths);
+  final files = source.collectFiles();
+  final filesPayload = <String, String>{
+    for (final f in files)
+      p.relative(f, from: source.rootDir): source.preprocessFile(
+        File(f).readAsStringSync(),
+      ),
+  };
 
   final proc = await Process.start('node', [
     '-e',
@@ -1237,56 +2142,44 @@ Future<void> _parseSingleCorpus(
   if (exitCode != 0) {
     throw ProcessException('node', ['-e', 'webidl2'], stderrOut, exitCode);
   }
-  final parsedNode = jsonDecode(await stdoutFuture) as Map<String, Object?>;
-  final ast = (parsedNode['ast'] as List<Object?>).cast<Map<String, Object?>>();
-  final stats = parsedNode['stats'] as Map<String, Object?>;
+  final parsedNode = IdlParsedOutput(
+    jsonDecode(await stdoutFuture) as Map<String, Object?>,
+  );
+  final ast = parsedNode.ast;
+  final stats = parsedNode.stats;
 
   // Normalize typedefs and aliases.
-  final typedefs = <String, Object?>{};
-  for (final d in ast) {
-    if (d['type'] == 'typedef') {
-      typedefs[d['name'] as String] = d['idlType'];
-    }
-  }
+  final typedefs = <String, Object?>{
+    for (final d in ast)
+      if (d.type == 'typedef') d.name!: d.idlType,
+  };
   var webrefTypedefs = <String, Object?>{};
   final webrefJsonFile = File(p.join(p.dirname(outPath), 'webref.json'));
-  if (corpus != 'webref' && webrefJsonFile.existsSync()) {
-    final wj =
-        jsonDecode(webrefJsonFile.readAsStringSync()) as Map<String, Object?>;
-    webrefTypedefs =
-        (wj['typedefsRaw'] as Map<String, Object?>?) ?? <String, Object?>{};
+  if (corpus != Corpus.webref && webrefJsonFile.existsSync()) {
+    final wj = CorpusDoc(
+      jsonDecode(webrefJsonFile.readAsStringSync()) as Map<String, Object?>,
+    );
+    webrefTypedefs = wj.typedefsRaw;
   }
 
   final alias = <String, String>{};
   for (final d in ast) {
-    final eas = (d['extAttrs'] as List<Object?>?)?.cast<Map<String, Object?>>();
-    if (eas == null) continue;
-    for (final x in eas) {
-      if (x['name'] == 'InterfaceName') {
-        final rhs = x['rhs'] as Map<String, Object?>?;
-        if (rhs != null && rhs['value'] != null) {
-          alias[d['name'] as String] = rhs['value'].toString();
-        }
+    for (final x in d.extAttrs) {
+      if (x.name == 'InterfaceName' && x.rhsRawValue != null) {
+        alias[d.name!] = x.rhsRawValue.toString();
       }
     }
   }
   String nameOf(String n) => alias[n] ?? n;
-  notes['aliases'] = alias;
+  final notes = source.buildNotes(alias);
 
   String tstr(Object? tObj, bool resolve, [int depth = 0]) {
     if (tObj == null) return 'undefined';
-    final Map<String, Object?> t;
-    if (tObj is String) {
-      t = {'idlType': tObj, 'nullable': false, 'union': false, 'generic': ''};
-    } else {
-      t = tObj as Map<String, Object?>;
-    }
+    final t = IdlType.fromRaw(tObj);
     String s;
-    final isUnion = t['union'] == true;
-    final generic = (t['generic'] as String?) ?? '';
-    if (isUnion) {
+    if (t.isUnion) {
       final sub =
-          (t['idlType'] as List<Object?>)
+          t.subTypes
               .map((x) => tstr(x, resolve, depth))
               .expand(
                 (x) => x.startsWith('(') && !x.endsWith('?')
@@ -1296,215 +2189,138 @@ Future<void> _parseSingleCorpus(
               .toList()
             ..sort();
       s = '(${sub.join(' or ')})';
-    } else if (generic.isNotEmpty) {
-      final sub = (t['idlType'] as List<Object?>)
-          .map((x) => tstr(x, resolve, depth))
-          .join(', ');
-      s = '$generic<$sub>';
+    } else if (t.generic.isNotEmpty) {
+      final sub = t.subTypes.map((x) => tstr(x, resolve, depth)).join(', ');
+      s = '${t.generic}<$sub>';
     } else {
-      final rawName = t['idlType'] as String;
+      final rawName = t.typeName;
       s = alias[rawName] ?? rawName;
       if (resolve && depth < 10) {
         final td = typedefs[s] ?? webrefTypedefs[s];
         if (td != null) {
           final r = tstr(td, resolve, depth + 1);
-          if (t['nullable'] == true && !r.endsWith('?')) return '$r?';
+          if (t.nullable && !r.endsWith('?')) return '$r?';
           return r;
         }
       }
     }
-    return t['nullable'] == true ? '$s?' : s;
+    return t.nullable ? '$s?' : s;
   }
 
-  Map<String, Object?> sigOf(Map<String, Object?> m) {
-    final idlType = m['idlType'];
-    final args =
-        (m['arguments'] as List<Object?>?)?.cast<Map<String, Object?>>() ??
-        const [];
-    return {
-      'ret': idlType != null ? tstr(idlType, true) : null,
-      'retRaw': idlType != null ? tstr(idlType, false) : null,
-      'args': [
-        for (final a in args)
-          {
-            'name': a['name'],
-            't': tstr(a['idlType'], true),
-            'raw': tstr(a['idlType'], false),
-            'opt': a['optional'] == true,
-            'varg': a['variadic'] == true,
-          },
+  OverloadRecord buildOverload(IdlNode m, GateRecord gating) {
+    final idlType = m.idlType;
+    return OverloadRecord.create(
+      ret: idlType != null ? tstr(idlType, true) : null,
+      retRaw: idlType != null ? tstr(idlType, false) : null,
+      args: [
+        for (final a in m.arguments)
+          ArgRecord.create(
+            name: a.name,
+            t: tstr(a.idlType, true),
+            raw: tstr(a.idlType, false),
+            opt: a.optional,
+            varg: a.variadic,
+          ),
       ],
-    };
+      gating: gating,
+    );
   }
 
-  final defs = <String, Map<String, Object?>>{};
-  final mixins = <String, Map<String, Object?>>{};
-  final includes = <List<String>>[];
+  final defs = <String, DefRecord>{};
+  final mixins = <String, DefRecord>{};
+  final includes = <({String target, String mixin})>[];
 
-  Map<String, Object?> ensure(String name, String kind) => defs.putIfAbsent(
-    name,
-    () => {
-      'kind': kind,
-      'files': <String>[],
-      'members': <String, Map<String, Object?>>{},
-      'gating': {'state': 'on', 'why': <String>[]},
-      'inherits': null,
-    },
-  );
+  DefRecord ensure(String name, String kind) =>
+      defs.putIfAbsent(name, () => DefRecord.create(kind));
 
-  Map<String, Object?> gateToJson(_GateResult g) => {
-    'state': g.state,
-    'why': g.why,
-  };
+  void addMembers(DefRecord target, IdlNode d, GateRecord defGate) {
+    final file = d.file ?? target.file;
+    final targetMembers = target.members;
 
-  _GateResult gateFromJson(Map<String, Object?> g) => (
-    state: g['state'] as String,
-    why: (g['why'] as List<Object?>).cast<String>(),
-  );
-
-  void addMembers(
-    Map<String, Object?> target,
-    Map<String, Object?> d,
-    _GateResult defGate,
-  ) {
-    final file = (d['__file'] ?? target['__file']) as String?;
-    final targetMembers =
-        target['members'] as Map<String, Map<String, Object?>>;
-    final members =
-        (d['members'] as List<Object?>?)?.cast<Map<String, Object?>>() ??
-        const [];
-
-    for (final m in members) {
-      final g = _combineGate(
-        defGate,
-        gate(_eaList(m['extAttrs'] as List<Object?>?)),
-      );
-      final gMap = gateToJson(g);
-      final mType = m['type'] as String?;
+    for (final m in d.members) {
+      final g = defGate.combine(source.evaluateGate(m.extAttrs));
+      final mType = m.type;
       late final String key;
-      late final Map<String, Object?> rec;
+      late final MemberRecord rec;
 
       switch (mType) {
         case 'attribute':
-          if (m['special'] == 'stringifier' &&
+          if (m.special == 'stringifier' &&
               !targetMembers.containsKey('toString()')) {
-            targetMembers['toString()'] = {
-              'kind': 'operation',
-              'special': 'stringifier',
-              'overloads': <Map<String, Object?>>[
-                {
-                  'ret': 'DOMString',
-                  'retRaw': 'DOMString',
-                  'args': <Object?>[],
-                  'gating': gMap,
-                },
-              ],
-              'gating': gMap,
-              'file': file,
-            };
+            targetMembers['toString()'] = MemberRecord.stringifier(
+              gating: g,
+              file: file,
+            );
           }
-          key = m['name'] as String;
-          rec = {
-            'kind': 'attribute',
-            'type': tstr(m['idlType'], true),
-            'raw': tstr(m['idlType'], false),
-            'readonly': m['readonly'] == true,
-            'special': (m['special'] as String?) ?? '',
-          };
+          key = m.name!;
+          rec = MemberRecord.attribute(
+            type: tstr(m.idlType, true),
+            raw: tstr(m.idlType, false),
+            readonly: m.readonly,
+            special: m.special,
+          );
         case 'operation':
-          final rawName = (m['name'] as String?) ?? '';
+          final rawName = m.name ?? '';
           final nm = rawName == 'toStringXX' ? 'toString' : rawName;
-          final special = (m['special'] as String?) ?? '';
+          final special = m.special;
           if (special == 'stringifier' && nm.isEmpty) {
-            if (!targetMembers.containsKey('toString()')) {
-              targetMembers['toString()'] = {
-                'kind': 'operation',
-                'special': 'stringifier',
-                'overloads': <Map<String, Object?>>[
-                  {
-                    'ret': 'DOMString',
-                    'retRaw': 'DOMString',
-                    'args': <Object?>[],
-                    'gating': gMap,
-                  },
-                ],
-                'gating': gMap,
-                'file': file,
-              };
-            }
+            targetMembers.putIfAbsent(
+              'toString()',
+              () => MemberRecord.stringifier(gating: g, file: file),
+            );
             continue;
           }
           key = nm.isNotEmpty ? '$nm()' : '[$special]';
           final prev = targetMembers[key];
-          final sig = sigOf(m);
-          if (prev != null && prev['kind'] == 'operation') {
-            (prev['overloads'] as List<Map<String, Object?>>).add({
-              ...sig,
-              'gating': gMap,
-            });
-            if (g.state == 'on') {
-              final prevGate = prev['gating'] as Map<String, Object?>;
-              prev['gating'] = {'state': 'on', 'why': prevGate['why']};
+          final overload = buildOverload(m, g);
+          if (prev != null && prev.kind == 'operation') {
+            prev.overloads!.add(overload);
+            if (g.state == GateState.on) {
+              prev.gating = GateRecord.create(
+                state: GateState.on,
+                why: prev.gating.why,
+              );
             }
             continue;
           }
-          rec = {
-            'kind': 'operation',
-            'special': special,
-            'overloads': <Map<String, Object?>>[
-              {...sig, 'gating': gMap},
-            ],
-          };
+          rec = MemberRecord.operation(
+            special: special,
+            overloads: <OverloadRecord>[overload],
+          );
         case 'constructor':
           key = 'constructor()';
           final prev = targetMembers[key];
-          final sig = sigOf(m);
+          final overload = buildOverload(m, g);
           if (prev != null) {
-            (prev['overloads'] as List<Map<String, Object?>>).add({
-              ...sig,
-              'gating': gMap,
-            });
+            prev.overloads!.add(overload);
             continue;
           }
-          rec = {
-            'kind': 'constructor',
-            'overloads': <Map<String, Object?>>[
-              {...sig, 'gating': gMap},
-            ],
-          };
+          rec = MemberRecord.constructor(overloads: <OverloadRecord>[overload]);
         case 'const':
-          key = m['name'] as String;
-          final valMap = m['value'] as Map<String, Object?>?;
-          rec = {
-            'kind': 'const',
-            'type': tstr(m['idlType'], true),
-            'value': valMap != null
-                ? (valMap['value'] ?? valMap['type'])
-                : null,
-          };
+          key = m.name!;
+          rec = MemberRecord.constant(
+            type: tstr(m.idlType, true),
+            value: m.constValue,
+          );
         case 'field':
-          key = m['name'] as String;
-          final defMap = m['default'] as Map<String, Object?>?;
-          rec = {
-            'kind': 'field',
-            'type': tstr(m['idlType'], true),
-            'raw': tstr(m['idlType'], false),
-            'required': m['required'] == true,
-            'default': defMap != null
-                ? jsonEncode(defMap['value'] ?? defMap['type'])
-                : null,
-          };
-        case 'iterable':
-        case 'maplike':
-        case 'setlike':
-        case 'async_iterable':
-          key = '[$mType]';
-          final idlTypes = (m['idlType'] as List<Object?>)
-              .map((x) => tstr(x, true))
-              .toList();
-          final isReadonly = m['readonly'] == true;
-          rec = {'kind': mType, 'types': idlTypes, 'readonly': isReadonly};
-          final synth = switch (mType) {
+          key = m.name!;
+          rec = MemberRecord.field(
+            type: tstr(m.idlType, true),
+            raw: tstr(m.idlType, false),
+            required: m.required,
+            defaultValue: m.fieldDefaultJson,
+          );
+        case 'iterable' || 'maplike' || 'setlike' || 'async_iterable':
+          final collKind = mType!;
+          key = '[$collKind]';
+          final idlTypes = m.idlTypeList.map((x) => tstr(x, true)).toList();
+          final isReadonly = m.readonly;
+          rec = MemberRecord.collectionLike(
+            kind: collKind,
+            types: idlTypes,
+            readonly: isReadonly,
+          );
+          final synth = switch (collKind) {
             'iterable' => const ['entries', 'forEach', 'keys', 'values'],
             'async_iterable' => const ['entries', 'keys', 'values'],
             'setlike' => const ['entries', 'forEach', 'has', 'keys', 'values'],
@@ -1518,220 +2334,148 @@ Future<void> _parseSingleCorpus(
             ],
             _ => const <String>[],
           };
-          final mut = !isReadonly
-              ? (mType == 'setlike'
-                    ? const ['add', 'clear', 'delete']
-                    : mType == 'maplike'
-                    ? const ['clear', 'delete', 'set']
-                    : const <String>[])
-              : const <String>[];
+          final mut = switch ((isReadonly, collKind)) {
+            (false, 'setlike') => const ['add', 'clear', 'delete'],
+            (false, 'maplike') => const ['clear', 'delete', 'set'],
+            _ => const <String>[],
+          };
           for (final n in [...synth, ...mut]) {
             targetMembers.putIfAbsent(
               '$n()',
-              () => {
-                'kind': 'operation',
-                'special': 'synth',
-                'synthesized': mType,
-                'overloads': <Map<String, Object?>>[
-                  {
-                    'ret': 'synth',
-                    'retRaw': 'synth',
-                    'args': <Object?>[],
-                    'gating': gMap,
-                  },
-                ],
-                'gating': gMap,
-                'file': file,
-              },
+              () => MemberRecord.synthesizedOperation(
+                synthesizedFrom: collKind,
+                gating: g,
+                file: file,
+              ),
             );
           }
-          if ((mType == 'setlike' || mType == 'maplike') &&
+          if ((collKind == 'setlike' || collKind == 'maplike') &&
               !targetMembers.containsKey('size')) {
-            targetMembers['size'] = {
-              'kind': 'attribute',
-              'type': 'unsigned long',
-              'raw': 'unsigned long',
-              'readonly': true,
-              'special': '',
-              'synthesized': mType,
-              'gating': gMap,
-              'file': file,
-            };
+            targetMembers['size'] = MemberRecord.synthesizedSize(
+              synthesizedFrom: collKind,
+              gating: g,
+              file: file,
+            );
           }
         default:
           continue;
       }
 
-      rec['gating'] = gMap;
-      rec['file'] = file;
+      rec.gating = g;
+      rec.file = file;
       final old = targetMembers[key];
-      if (old != null &&
-          old['kind'] == rec['kind'] &&
-          old['file'] != rec['file']) {
-        final prevAlts =
-            (old['alts'] as List<Object?>?)?.cast<Map<String, Object?>>() ??
-            const [];
-        rec['alts'] = <Map<String, Object?>>[
-          ...prevAlts,
-          {
-            'file': old['file'],
-            'type': old['type'],
-            'readonly': old['readonly'],
-            'required': old['required'],
-            'value': old['value'],
-          },
-        ];
+      if (old != null && old.kind == rec.kind && old.file != rec.file) {
+        rec.alts = <AltRecord>[...?old.alts, AltRecord.fromMember(old)];
       }
       targetMembers[key] = rec;
     }
   }
 
   for (final d in ast) {
-    final dType = d['type'] as String?;
+    final dType = d.type;
     if (dType == 'typedef' || dType == 'eof') continue;
-    final rawName = d['name'] as String?;
-    final name = rawName != null ? nameOf(rawName) : null;
     if (dType == 'includes') {
-      includes.add([
-        nameOf(d['target'] as String),
-        nameOf(d['includes'] as String),
-      ]);
+      includes.add((target: nameOf(d.target), mixin: nameOf(d.includes)));
       continue;
     }
+    final name = d.name != null ? nameOf(d.name!) : null;
     if (dType == 'enum') {
       final e = ensure(name!, 'enum');
-      e['values'] = (d['values'] as List<Object?>)
-          .cast<Map<String, Object?>>()
-          .map((v) => v['value'] as String)
-          .toList();
-      (e['files'] as List<String>).add(d['__file'] as String);
-      e['gating'] = gateToJson(gate(_eaList(d['extAttrs'] as List<Object?>?)));
+      e.values = d.enumValues;
+      e.files.add(d.file!);
+      e.gating = source.evaluateGate(d.extAttrs);
       continue;
     }
-    final eas = _eaList(d['extAttrs'] as List<Object?>?);
-    final g = gate(eas);
-    final isPartial = d['partial'] == true;
+    final eas = d.extAttrs;
+    final g = source.evaluateGate(eas);
+    final isPartial = d.isPartial;
     if (dType == 'interface mixin') {
-      final mx = mixins.putIfAbsent(
-        name!,
-        () => {
-          'members': <String, Map<String, Object?>>{},
-          'files': <String>[],
-          'gating': {'state': 'on', 'why': <String>[]},
-        },
-      );
-      (mx['files'] as List<String>).add(d['__file'] as String);
-      if (!isPartial) mx['gating'] = gateToJson(g);
-      addMembers(mx, d, isPartial ? g : (state: 'on', why: const <String>[]));
+      final mx = mixins.putIfAbsent(name!, DefRecord.mixin);
+      mx.files.add(d.file!);
+      if (!isPartial) mx.gating = g;
+      addMembers(mx, d, isPartial ? g : GateRecord.on());
       continue;
     }
     final def = ensure(name!, dType!);
-    (def['files'] as List<String>).add(d['__file'] as String);
+    def.files.add(d.file!);
     if (!isPartial) {
-      def['kind'] = dType;
-      def['gating'] = gateToJson(g);
-      final inh = d['inheritance'] as String?;
-      def['inherits'] = inh != null ? nameOf(inh) : null;
+      def.kind = dType;
+      def.gating = g;
+      final inh = d.inheritance;
+      def.inherits = inh != null ? nameOf(inh) : null;
       for (final x in eas) {
         if (x.name == 'Exposed') {
-          def['exposed'] = x.value;
+          def.exposed = x.value;
           break;
         }
       }
-      addMembers(def, d, (state: 'on', why: const <String>[]));
+      addMembers(def, d, GateRecord.on());
     } else {
       addMembers(def, d, g);
     }
   }
 
-  for (final pair in includes) {
-    final t = pair[0];
-    final mname = pair[1];
-    final mx = mixins[mname];
+  for (final (:target, :mixin) in includes) {
+    final mx = mixins[mixin];
     if (mx == null) continue;
-    final def = ensure(t, 'interface');
-    final defMembers = def['members'] as Map<String, Map<String, Object?>>;
-    final mxMembers = mx['members'] as Map<String, Map<String, Object?>>;
-    final mxGate = gateFromJson(mx['gating'] as Map<String, Object?>);
+    final def = ensure(target, 'interface');
+    final defMembers = def.members;
+    final mxGate = mx.gating;
 
-    for (final entry in mxMembers.entries) {
-      final c = jsonDecode(jsonEncode(entry.value)) as Map<String, Object?>;
-      final cGate = gateFromJson(c['gating'] as Map<String, Object?>);
-      c['gating'] = gateToJson(_combineGate(mxGate, cGate));
-      final overloads = c['overloads'] as List<Object?>?;
-      if (overloads != null) {
-        for (final o in overloads.cast<Map<String, Object?>>()) {
-          final oGate = gateFromJson(o['gating'] as Map<String, Object?>);
-          o['gating'] = gateToJson(_combineGate(mxGate, oGate));
-        }
-      }
-      c['viaMixin'] = mname;
-      defMembers[entry.key] = c;
+    for (final MapEntry(:key, :value) in mx.members.entries) {
+      defMembers[key] = value.copyForMixin(mixin, mxGate);
     }
   }
 
-  File(outPath).writeAsStringSync(
-    jsonEncode({
-      'corpus': corpus,
-      'root': rootDir,
-      'stats': stats,
-      'defs': defs,
-      'typedefsRaw': typedefs,
-      'notes': notes,
-    }),
+  final doc = CorpusDoc.create(
+    corpus: corpus.name,
+    root: source.rootDir,
+    stats: stats,
+    defs: defs,
+    typedefsRaw: typedefs,
+    notes: notes,
   );
-  final summaryStats = {
-    ...stats,
-    'errors': (stats['errors'] as List<Object?>).length,
-  };
-  print('$corpus ${jsonEncode(summaryStats)} defs: ${defs.length}');
+  File(outPath).writeAsStringSync(jsonEncode(doc));
+  print(
+    '${corpus.name} ${jsonEncode(stats.toSummaryJson())} defs: ${defs.length}',
+  );
 }
 
 // ---------------------------------------------------------------- Compare
 
-final RegExp _strTypesRe = RegExp(
-  r'\b(USVString|ByteString|CSSOMString|UTF8String)\b',
-);
-final RegExp _bufTypeRe = RegExp(
-  r'^(ArrayBuffer|SharedArrayBuffer|DataView|BufferSource|AllowSharedBufferSource|ArrayBufferView|(Big)?(Uint|Int|Float)(8|16|32|64)(Clamped)?Array|Uint8ClampedArray)$',
-);
-
-String _normBuf(String t) {
+String normalizeBufferType(String t) {
   return t
-      .replaceAllMapped(RegExp(r'\(([^()]*)\)'), (m) {
+      .replaceAllMapped(_parenGroupRe, (m) {
         final inner = m[1]!;
         final parts = inner.split(' or ');
         if (!parts.any(
-          (part) => _bufTypeRe.hasMatch(part.replaceFirst(RegExp(r'\?$'), '')),
+          (part) =>
+              _bufTypeRe.hasMatch(part.replaceFirst(_trailingQuestionRe, '')),
         )) {
           return m[0]!;
         }
         final rest = parts.where(
-          (part) => !_bufTypeRe.hasMatch(part.replaceFirst(RegExp(r'\?$'), '')),
+          (part) =>
+              !_bufTypeRe.hasMatch(part.replaceFirst(_trailingQuestionRe, '')),
         );
         final u = <String>{'BufferSource', ...rest}.toList()..sort();
         return u.length == 1 ? 'BufferSource' : '(${u.join(' or ')})';
       })
-      .replaceAll(
-        RegExp(
-          r'\b(ArrayBufferView|AllowSharedBufferSource|ArrayBuffer)\b(?!\w)',
-        ),
-        'BufferSource',
-      );
+      .replaceAll(_bufferAliasRe, 'BufferSource');
 }
 
-String? _loose(String? t) {
+String? looseType(String? t) {
   if (t == null) return null;
-  return _normBuf(
+  return normalizeBufferType(
     t
         .replaceAll(_strTypesRe, 'DOMString')
-        .replaceAll(RegExp(r'\bvoid\b'), 'undefined')
-        .replaceAll(RegExp(r'\bunrestricted '), ''),
+        .replaceAll(_voidWordRe, 'undefined')
+        .replaceAll(_unrestrictedPrefixRe, ''),
   );
 }
 
-List<String> _splitUnion(String t) {
-  final m = RegExp(r'^\((.*)\)(\??)$').firstMatch(t);
+List<String> splitUnionType(String t) {
+  final m = _outerUnionRe.firstMatch(t);
   if (m == null) return [t];
   final parts = <String>[];
   var depth = 0;
@@ -1755,23 +2499,22 @@ List<String> _splitUnion(String t) {
 }
 
 String _expandOps(
-  List<Map<String, Object?>> overloads,
+  List<OverloadRecord> overloads,
   String? Function(String?) norm,
 ) {
   final outS = <String>{};
   for (final o in overloads) {
-    final args = (o['args'] as List<Object?>).cast<Map<String, Object?>>();
+    final args = o.args;
     var minN = args.length;
-    while (minN > 0 &&
-        (args[minN - 1]['opt'] == true || args[minN - 1]['varg'] == true)) {
+    while (minN > 0 && (args[minN - 1].opt || args[minN - 1].varg)) {
       minN--;
     }
     for (var n = minN; n <= args.length; n++) {
       var combos = <List<String>>[const []];
       for (final a in args.take(n)) {
-        final aType = norm(a['t'] as String?) ?? '';
-        final vargSuffix = a['varg'] == true ? '...' : '';
-        final ts = _splitUnion(aType).map((x) => '$x$vargSuffix').toList();
+        final aType = norm(a.t) ?? '';
+        final vargSuffix = a.varg ? '...' : '';
+        final ts = splitUnionType(aType).map((x) => '$x$vargSuffix').toList();
         final next = <List<String>>[];
         for (final c in combos) {
           for (final t in ts) {
@@ -1784,7 +2527,7 @@ String _expandOps(
               ]
             : next;
       }
-      final ret = norm(o['ret'] as String?) ?? '';
+      final ret = norm(o.ret) ?? '';
       for (final c in combos) {
         outS.add('$ret(${c.join(', ')})');
       }
@@ -1794,127 +2537,75 @@ String _expandOps(
   return sorted.join(' | ');
 }
 
-String _sig(Map<String, Object?> m, {bool strict = false}) {
-  final norm = strict ? (String? x) => x : _loose;
-  final kind = m['kind'] as String;
+String memberSignature(MemberRecord m, {bool strict = false}) {
+  final norm = strict ? (String? x) => x : looseType;
+  final kind = m.kind;
   switch (kind) {
     case 'attribute':
-      final ro = m['readonly'] == true ? 'readonly ' : '';
-      final sp = ((m['special'] as String?) ?? '').isNotEmpty
-          ? '${m['special']} '
-          : '';
-      return '$ro$sp${norm(m['type'] as String?)}';
-    case 'operation':
-    case 'constructor':
-      final overloads = (m['overloads'] as List<Object?>)
-          .cast<Map<String, Object?>>()
-          .where((o) => (o['gating'] as Map<String, Object?>)['state'] != 'off')
+      final ro = m.readonly ? 'readonly ' : '';
+      final sp = m.special.isNotEmpty ? '${m.special} ' : '';
+      return '$ro$sp${norm(m.type)}';
+    case 'operation' || 'constructor':
+      final overloads = m.overloads!
+          .where((o) => o.gating.state.isLive)
           .toList();
       if (!strict) return _expandOps(overloads, norm);
       final sigs =
           overloads
               .map((o) {
-                final args = (o['args'] as List<Object?>)
-                    .cast<Map<String, Object?>>()
+                final args = o.args
                     .map(
                       (a) =>
-                          '${a['opt'] == true ? 'optional ' : ''}${norm(a['t'] as String?)}${a['varg'] == true ? '...' : ''}',
+                          '${a.opt ? 'optional ' : ''}${norm(a.t)}${a.varg ? '...' : ''}',
                     )
                     .join(', ');
-                return '${norm(o['ret'] as String?) ?? ''}($args)';
+                return '${norm(o.ret) ?? ''}($args)';
               })
               .toSet()
               .toList()
             ..sort();
       return sigs.join(' | ');
     case 'const':
-      return '${norm(m['type'] as String?)}=${m['value']}';
+      return '${norm(m.type)}=${m.value}';
     case 'field':
-      return '${m['required'] == true ? 'required ' : ''}${norm(m['type'] as String?)}';
+      return '${m.required ? 'required ' : ''}${norm(m.type)}';
     case 'enum':
-      final vals = (m['values'] as List<Object?>).cast<String>().toList()
-        ..sort();
+      final vals = [...?m.values]..sort();
       return vals.join(',');
     default:
-      final types = ((m['types'] as List<Object?>?) ?? const [])
-          .map((x) => norm(x as String?))
-          .join(',');
+      final types = (m.types ?? const []).map(norm).join(',');
       return '$kind<$types>';
   }
 }
 
 void compareCorpora(EngineCensusPaths paths) {
-  final corpora = <String, Map<String, Object?>>{};
-  for (final c in allCorpora) {
-    corpora[c] =
-        jsonDecode(File(p.join(paths.outDir, '$c.json')).readAsStringSync())
-            as Map<String, Object?>;
-  }
-
-  ({Map<String, Object?> m, String state, List<String> why, String? from})?
-  lookup(String corpus, String iface, String key, [int depth = 0]) {
-    final defs = corpora[corpus]!['defs'] as Map<String, Object?>;
-    final d = defs[iface] as Map<String, Object?>?;
-    if (d == null) return null;
-    final members = d['members'] as Map<String, Object?>;
-    final m = members[key] as Map<String, Object?>?;
-    if (m != null) {
-      final dGate = d['gating'] as Map<String, Object?>;
-      final mGate = m['gating'] as Map<String, Object?>;
-      final dState = dGate['state'] as String;
-      final mState = mGate['state'] as String;
-      final state = (dState == 'off' || mState == 'off')
-          ? 'off'
-          : (dState == 'unknown' || mState == 'unknown')
-          ? 'unknown'
-          : 'on';
-      return (
-        m: m,
-        state: state,
-        why: [
-          ...(dGate['why'] as List<Object?>).cast<String>(),
-          ...(mGate['why'] as List<Object?>).cast<String>(),
-        ],
-        from: depth > 0 ? iface : null,
-      );
-    }
-    final inherits = d['inherits'] as String?;
-    if (inherits != null && depth < 20) {
-      return lookup(corpus, inherits, key, depth + 1);
-    }
-    return null;
-  }
+  final corpora = _loadCorpora(paths);
 
   bool isEnumName(String n) => allCorpora.any((c) {
-    final defs = corpora[c]!['defs'] as Map<String, Object?>;
-    final d = defs[n] as Map<String, Object?>?;
-    return d != null && d['kind'] == 'enum';
+    final d = corpora[c]!.defs[n];
+    return d != null && d.kind == 'enum';
   });
 
-  final numRe = RegExp(
-    r'^(unrestricted )?(double|float)$|^(unsigned )?(long long|long|short)$|^(byte|octet)$',
-  );
-
-  List<String> classify(Map<String, Object?> w, Map<String, Object?> e) {
-    if (w['kind'] != e['kind']) return ['kind'];
+  List<String> classify(MemberRecord w, MemberRecord e) {
+    if (w.kind != e.kind) return ['kind'];
     final cls = <String>{};
     void tdiff(String? aRaw, String? bRaw) {
       var a = aRaw ?? 'none';
       var b = bRaw ?? 'none';
       if (a == b) return;
-      a = _loose(a)!;
-      b = _loose(b)!;
+      a = looseType(a)!;
+      b = looseType(b)!;
       if (a == b) {
         cls.add('string-kind');
         return;
       }
-      final ua = a.replaceFirst(RegExp(r'\?$'), '');
-      final ub = b.replaceFirst(RegExp(r'\?$'), '');
+      final ua = a.replaceFirst(_trailingQuestionRe, '');
+      final ub = b.replaceFirst(_trailingQuestionRe, '');
       if (ua == ub) {
         cls.add('nullability');
         return;
       }
-      if (numRe.hasMatch(ua) && numRe.hasMatch(ub)) {
+      if (_idlNumericTypeRe.hasMatch(ua) && _idlNumericTypeRe.hasMatch(ub)) {
         final fa = ua.contains('double') || ua.contains('float');
         final fb = ub.contains('double') || ub.contains('float');
         if (fa != fb) {
@@ -1932,8 +2623,8 @@ void compareCorpora(EngineCensusPaths paths) {
         if (a.endsWith('?') != b.endsWith('?')) cls.add('nullability');
         return;
       }
-      if (ua.replaceAll(RegExp(r'FrozenArray|sequence'), 'S') ==
-          ub.replaceAll(RegExp(r'FrozenArray|sequence'), 'S')) {
+      if (ua.replaceAll(_seqOrFrozenArrayRe, 'S') ==
+          ub.replaceAll(_seqOrFrozenArrayRe, 'S')) {
         cls.add('sequence-vs-FrozenArray');
         return;
       }
@@ -1942,265 +2633,241 @@ void compareCorpora(EngineCensusPaths paths) {
         cls.add('enum-vs-DOMString');
         return;
       }
-      if (RegExp(r'^\w+$').hasMatch(ua) && RegExp(r'^\w+$').hasMatch(ub)) {
+      if (_wordOnlyRe.hasMatch(ua) && _wordOnlyRe.hasMatch(ub)) {
         cls.add('named-type');
         return;
       }
       cls.add('type');
     }
 
-    final kind = w['kind'] as String;
-    if (kind == 'attribute') {
-      tdiff(w['type'] as String?, e['type'] as String?);
-      if (w['readonly'] != e['readonly']) cls.add('readonly');
-    } else if (kind == 'field') {
-      tdiff(w['type'] as String?, e['type'] as String?);
-      if (w['required'] != e['required']) cls.add('required');
-    } else if (kind == 'const') {
-      tdiff(w['type'] as String?, e['type'] as String?);
-      if ('${w['value']}' != '${e['value']}') cls.add('value');
-    } else if (kind == 'enum') {
-      cls.add('enum-values');
-    } else if (kind == 'operation' || kind == 'constructor') {
-      final wo = (w['overloads'] as List<Object?>)
-          .cast<Map<String, Object?>>()
-          .where((o) => (o['gating'] as Map<String, Object?>)['state'] != 'off')
-          .toList();
-      final eo = (e['overloads'] as List<Object?>)
-          .cast<Map<String, Object?>>()
-          .where((o) => (o['gating'] as Map<String, Object?>)['state'] != 'off')
-          .toList();
-      if (wo.length != 1 || eo.length != 1) {
-        cls.add('overloads');
-      } else {
-        final a = wo.first;
-        final b = eo.first;
-        if (_loose(a['ret'] as String?) != _loose(b['ret'] as String?)) {
-          tdiff(a['ret'] as String?, b['ret'] as String?);
-          cls.add('return');
+    switch (w.kind) {
+      case 'attribute':
+        tdiff(w.type, e.type);
+        if (w.readonly != e.readonly) cls.add('readonly');
+      case 'field':
+        tdiff(w.type, e.type);
+        if (w.required != e.required) cls.add('required');
+      case 'const':
+        tdiff(w.type, e.type);
+        if ('${w.value}' != '${e.value}') cls.add('value');
+      case 'enum':
+        cls.add('enum-values');
+      case 'operation' || 'constructor':
+        final wo = w.overloads!.where((o) => o.gating.state.isLive).toList();
+        final eo = e.overloads!.where((o) => o.gating.state.isLive).toList();
+        if (wo.length != 1 || eo.length != 1) {
+          cls.add('overloads');
+        } else {
+          final a = wo.first;
+          final b = eo.first;
+          if (looseType(a.ret) != looseType(b.ret)) {
+            tdiff(a.ret, b.ret);
+            cls.add('return');
+          }
+          final aArgs = a.args;
+          final bArgs = b.args;
+          if (aArgs.length != bArgs.length) cls.add('arity');
+          final minLen = aArgs.length < bArgs.length
+              ? aArgs.length
+              : bArgs.length;
+          for (var i = 0; i < minLen; i++) {
+            tdiff(aArgs[i].t, bArgs[i].t);
+            if (aArgs[i].opt != bArgs[i].opt) cls.add('optionality');
+            if (aArgs[i].varg != bArgs[i].varg) cls.add('variadic');
+          }
         }
-        final aArgs = (a['args'] as List<Object?>).cast<Map<String, Object?>>();
-        final bArgs = (b['args'] as List<Object?>).cast<Map<String, Object?>>();
-        if (aArgs.length != bArgs.length) cls.add('arity');
-        final minLen = aArgs.length < bArgs.length
-            ? aArgs.length
-            : bArgs.length;
-        for (var i = 0; i < minLen; i++) {
-          tdiff(aArgs[i]['t'] as String?, bArgs[i]['t'] as String?);
-          if (aArgs[i]['opt'] != bArgs[i]['opt']) cls.add('optionality');
-          if (aArgs[i]['varg'] != bArgs[i]['varg']) cls.add('variadic');
-        }
-      }
-    } else {
-      cls.add('other');
+      default:
+        cls.add('other');
     }
     return cls.toList();
   }
 
-  final rows = <Map<String, Object?>>[];
+  final rows = <MemberComparisonRow>[];
   final allIfaces = <String>{
-    for (final c in corpora.values) ...(c['defs'] as Map<String, Object?>).keys,
+    for (final c in corpora.values) ...c.defs.keys,
   }.toList()..sort();
 
   for (final iface in allIfaces) {
     final keys = <String>{};
     for (final c in corpora.values) {
-      final d =
-          (c['defs'] as Map<String, Object?>)[iface] as Map<String, Object?>?;
+      final d = c.defs[iface];
       if (d == null) continue;
-      if (d['kind'] == 'enum') {
+      if (d.kind == 'enum') {
         keys.add('(enum)');
       } else {
-        keys.addAll((d['members'] as Map<String, Object?>).keys);
+        keys.addAll(d.members.keys);
       }
     }
     final sortedKeys = keys.toList()..sort();
     for (final key in sortedKeys) {
-      final per = <String, Map<String, Object?>?>{};
+      final per = <String, PerCorpusMember?>{};
       String? rowKind;
       for (final c in allCorpora) {
-        ({
-          Map<String, Object?> m,
-          String state,
-          List<String> why,
-          String? from,
-        })?
-        r;
+        ResolvedMember? r;
         if (key == '(enum)') {
-          final d =
-              (corpora[c]!['defs'] as Map<String, Object?>)[iface]
-                  as Map<String, Object?>?;
-          if (d != null && d['kind'] == 'enum') {
-            final dGate = d['gating'] as Map<String, Object?>;
+          final d = corpora[c]!.defs[iface];
+          if (d != null && d.kind == 'enum') {
             r = (
-              m: {'kind': 'enum', 'values': d['values']},
-              state: dGate['state'] as String,
-              why: (dGate['why'] as List<Object?>).cast<String>(),
-              from: null,
+              member: MemberRecord.enumValues(d.values),
+              gate: d.gating,
+              definingIface: iface,
+              inheritedFrom: null,
             );
           }
         } else {
-          r = lookup(c, iface, key);
+          r = corpora[c]!.lookupMember(iface, key);
         }
         if (r == null) {
           per[c] = null;
           continue;
         }
-        rowKind ??= r.m['kind'] as String?;
-        per[c] = {
-          'state': r.state,
-          if (r.why.isNotEmpty) 'why': r.why,
-          'sig': _sig(r.m),
-          'strict': _sig(r.m, strict: true),
-          if (r.from != null) 'inheritedFrom': r.from,
-          '_m': r.m,
-        };
+        rowKind ??= r.member.kind;
+        per[c] = PerCorpusMember.create(
+          state: r.gate.state,
+          why: r.gate.why,
+          sig: memberSignature(r.member),
+          strict: memberSignature(r.member, strict: true),
+          inheritedFrom: r.inheritedFrom,
+          member: r.member,
+        );
       }
-      rows.add({
-        'iface': iface,
-        'key': key,
-        if (rowKind != null) 'kind': rowKind,
-        'per': per,
-      });
+      rows.add(
+        MemberComparisonRow.create(
+          iface: iface,
+          key: key,
+          kind: rowKind,
+          per: per,
+        ),
+      );
     }
   }
 
-  bool isLive(Map<String, Object?>? p) => p != null && p['state'] != 'off';
-  final webrefDefs = corpora['webref']!['defs'] as Map<String, Object?>;
-  final webrefDuplicates = <Map<String, Object?>>[];
-  final agreeVsWebref = <Map<String, Object?>>[];
-  final extraInEngines = <Map<String, Object?>>[];
-  final missingInEngines = <Map<String, Object?>>[];
-  final typeDiffs = <Map<String, Object?>>[];
+  bool isLive(PerCorpusMember? p) => p != null && p.isLive;
+  final webrefDefs = corpora['webref']!.defs;
+  final webrefDuplicates = <DuplicateRow>[];
+  final agreeVsWebref = <AgreeRow>[];
+  final extraInEngines = <ExtraRow>[];
+  final missingInEngines = <MissingRow>[];
+  final typeDiffs = <TypeDiffRow>[];
   var stringKindOnly = 0;
 
   for (final r in rows) {
-    final iface = r['iface'] as String;
-    final key = r['key'] as String;
-    final kind = r['kind'] as String?;
-    final per = r['per'] as Map<String, Map<String, Object?>?>;
+    final iface = r.iface;
+    final key = r.key;
+    final kind = r.kind;
+    final per = r.per;
     final w = per['webref'];
     final liveEng = engineCorpora.where((e) => isLive(per[e])).toList();
 
     if (w != null) {
-      final wm = w['_m'] as Map<String, Object?>;
-      final wSig = w['sig'] as String;
-      final alts =
-          (wm['alts'] as List<Object?>?)?.cast<Map<String, Object?>>() ??
-          const [];
+      final wm = w.member;
+      final wSig = w.sig;
+      final alts = wm.alts ?? const [];
       final wAlts = <String>{
         wSig,
-        for (final a in alts) _sig({...wm, ...a}),
+        for (final a in alts) memberSignature(wm.withAlt(a)),
       };
       if (wAlts.length > 1) {
-        webrefDuplicates.add({
-          'iface': iface,
-          'key': key,
-          'sigs': wAlts.toList(),
-          'files': [wm['file'], for (final a in alts) a['file']],
-          'engines': {for (final e in liveEng) e: per[e]!['sig']},
-        });
-      }
-      bool isSynth(Map<String, Object?> x) {
-        final xm = x['_m'] as Map<String, Object?>;
-        return xm['synthesized'] != null ||
-            xm['special'] == 'synth' ||
-            xm['special'] == 'stringifier';
+        webrefDuplicates.add(
+          DuplicateRow.create(
+            iface: iface,
+            key: key,
+            sigs: wAlts.toList(),
+            files: [wm.file, for (final a in alts) a.file],
+            engines: {for (final e in liveEng) e: per[e]!.sig},
+          ),
+        );
       }
 
       final diffs = <String, ({String sig, List<String> cls})>{};
       for (final e in liveEng) {
         final pe = per[e]!;
-        if (isSynth(w) || isSynth(pe)) continue;
-        final eSig = pe['sig'] as String;
+        if (wm.isSynthesized || pe.member.isSynthesized) continue;
+        final eSig = pe.sig;
         if (wAlts.length > 1 && wAlts.contains(eSig) && eSig != wSig) {
           diffs[e] = (sig: eSig, cls: const ['matches-other-webref-decl']);
           continue;
         }
         if (eSig != wSig) {
-          diffs[e] = (
-            sig: eSig,
-            cls: classify(wm, pe['_m'] as Map<String, Object?>),
-          );
-        } else if (pe['strict'] != w['strict']) {
+          diffs[e] = (sig: eSig, cls: classify(wm, pe.member));
+        } else if (pe.strict != w.strict) {
           stringKindOnly++;
         }
       }
       if (diffs.isNotEmpty) {
         final groups = <String, List<String>>{};
-        for (final entry in diffs.entries) {
-          groups.putIfAbsent(entry.value.sig, () => []).add(entry.key);
+        for (final MapEntry(:key, :value) in diffs.entries) {
+          groups.putIfAbsent(value.sig, () => []).add(key);
         }
-        final row = <String, Object?>{
-          'iface': iface,
-          'key': key,
-          'kind': kind,
-          'webref': wSig,
-          'engines': {for (final e in liveEng) e: per[e]!['sig']},
-          'classes': {for (final e in diffs.entries) e.key: e.value.cls},
-          'gating': {
-            for (final e in engineCorpora)
-              if (per[e] != null && per[e]!['why'] != null) e: per[e]!['why'],
+        final row = TypeDiffRow.create(
+          iface: iface,
+          key: key,
+          kind: kind,
+          webref: wSig,
+          engines: {for (final e in liveEng) e: per[e]!.sig},
+          classes: {
+            for (final MapEntry(:key, :value) in diffs.entries) key: value.cls,
           },
-        };
+          gating: {
+            for (final e in engineCorpora)
+              if (per[e]?.why case final why?) e: why,
+          },
+        );
         typeDiffs.add(row);
-        for (final entry in groups.entries) {
-          if (entry.value.length >= 2) {
-            agreeVsWebref.add({
-              ...row,
-              'agreeingEngines': entry.value,
-              'agreedSig': entry.key,
-              'cls': diffs[entry.value.first]!.cls,
-              'unanimous': entry.value.length == 3,
-            });
+        for (final MapEntry(key: agreedSig, value: agreeing)
+            in groups.entries) {
+          if (agreeing.length >= 2) {
+            agreeVsWebref.add(
+              AgreeRow.fromTypeDiff(
+                row,
+                agreeingEngines: agreeing,
+                agreedSig: agreedSig,
+                cls: diffs[agreeing.first]!.cls,
+                unanimous: agreeing.length == 3,
+              ),
+            );
           }
         }
       }
       final absent = engineCorpora.where((e) => !isLive(per[e])).toList();
-      final wd = webrefDefs[iface] as Map<String, Object?>;
-      final wdKind = wd['kind'] as String?;
-      final wdFiles = ((wd['files'] as List<Object?>?) ?? const [])
-          .cast<String>();
+      final wd = webrefDefs[iface]!;
+      final wdKind = wd.kind;
       final skipMissing =
           wdKind == 'dictionary' ||
           wdKind == 'callback interface' ||
           iface == 'console' ||
-          (RegExp(
-                r'^(WebAssembly|Module|Instance|Memory|Table|Global|Tag|Exception|CompileError|LinkError|RuntimeError)$',
-              ).hasMatch(iface) &&
-              wdFiles.any(
-                (f) => RegExp(
-                  r'wasm|webassembly',
-                  caseSensitive: false,
-                ).hasMatch(f),
-              ));
+          (_wasmInterfaces.contains(iface) &&
+              wd.files.any(_wasmFileRe.hasMatch));
       if (absent.length >= 2 && !skipMissing) {
-        missingInEngines.add({
-          'iface': iface,
-          'key': key,
-          'kind': kind,
-          'absentIn': absent,
-          'offIn': absent.where((e) => per[e] != null).toList(),
-          'presentIn': liveEng,
-          'webref': wSig,
-        });
+        missingInEngines.add(
+          MissingRow.create(
+            iface: iface,
+            key: key,
+            kind: kind,
+            absentIn: absent,
+            offIn: absent.where((e) => per[e] != null).toList(),
+            presentIn: liveEng,
+            webref: wSig,
+          ),
+        );
       }
     } else if (liveEng.length >= 2) {
-      extraInEngines.add({
-        'iface': iface,
-        'key': key,
-        'kind': kind,
-        'ifaceInWebref': webrefDefs.containsKey(iface),
-        'engines': {for (final e in liveEng) e: per[e]!['sig']},
-        'states': {for (final e in liveEng) e: per[e]!['state']},
-      });
+      extraInEngines.add(
+        ExtraRow.create(
+          iface: iface,
+          key: key,
+          kind: kind,
+          ifaceInWebref: webrefDefs.containsKey(iface),
+          engines: {for (final e in liveEng) e: per[e]!.sig},
+          states: {for (final e in liveEng) e: per[e]!.state.name},
+        ),
+      );
     }
   }
 
   for (final r in rows) {
-    final per = r['per'] as Map<String, Map<String, Object?>?>;
-    for (final pMap in per.values) {
-      pMap?.remove('_m');
+    for (final pMember in r.per.values) {
+      pMember?.stripTransientMember();
     }
   }
 
@@ -2221,57 +2888,44 @@ void compareCorpora(EngineCensusPaths paths) {
     },
   };
 
-  final parseStats = <String, Object?>{};
-  for (final c in allCorpora) {
-    final st = corpora[c]!['stats'] as Map<String, Object?>;
-    final errs = (st['errors'] as List<Object?>).cast<Map<String, Object?>>();
-    parseStats[c] = {
-      ...st,
-      'errors': errs.length,
-      'errorList': [
-        for (final e in errs)
-          '${e['file']}: ${(e['msg'] as String).split('\n').first}',
-      ],
-    };
-  }
-
-  final counts = <String, int>{
-    'rows': rows.length,
-    'typeDiffRows': typeDiffs.length,
-    'agreeVsWebref': agreeVsWebref.length,
-    'agreeVsWebrefUnanimous': agreeVsWebref
-        .where((x) => x['unanimous'] == true)
-        .length,
-    'extraInEngines': extraInEngines.length,
-    'extraOnWebrefIfaces': extraInEngines
-        .where((x) => x['ifaceInWebref'] == true)
-        .length,
-    'missingInEngines': missingInEngines.length,
-    'stringKindOnlyDiffs': stringKindOnly,
+  final parseStats = <String, DisagreementParseStats>{
+    for (final c in allCorpora) c: corpora[c]!.stats.toDisagreementStats(),
   };
+
+  final counts = CountsRecord.create(
+    rows: rows.length,
+    typeDiffRows: typeDiffs.length,
+    agreeVsWebref: agreeVsWebref.length,
+    agreeVsWebrefUnanimous: agreeVsWebref.where((x) => x.unanimous).length,
+    extraInEngines: extraInEngines.length,
+    extraOnWebrefIfaces: extraInEngines.where((x) => x.ifaceInWebref).length,
+    missingInEngines: missingInEngines.length,
+    stringKindOnlyDiffs: stringKindOnly,
+  );
 
   File(
     p.join(paths.outDir, 'members_all.json'),
   ).writeAsStringSync(jsonEncode(rows));
+  final disagreementsDoc = DisagreementsDoc.create(
+    generated: DateTime.now().toUtc().toIso8601String(),
+    revisions: revisions,
+    parseStats: parseStats,
+    counts: counts,
+    webrefDuplicates: webrefDuplicates,
+    agreeVsWebref: agreeVsWebref,
+    extraInEngines: extraInEngines,
+    missingInEngines: missingInEngines,
+    typeDiffs: typeDiffs,
+    stringKindOnly: stringKindOnly,
+  );
   File(p.join(paths.outDir, 'disagreements.json')).writeAsStringSync(
-    const JsonEncoder.withIndent(' ').convert({
-      'generated': DateTime.now().toUtc().toIso8601String(),
-      'revisions': revisions,
-      'parseStats': parseStats,
-      'counts': counts,
-      'webrefDuplicates': webrefDuplicates,
-      'agreeVsWebref': agreeVsWebref,
-      'extraInEngines': extraInEngines,
-      'missingInEngines': missingInEngines,
-      'typeDiffs': typeDiffs,
-      'stringKindOnly': stringKindOnly,
-    }),
+    const JsonEncoder.withIndent(' ').convert(disagreementsDoc),
   );
 
   print(const JsonEncoder.withIndent(' ').convert(counts));
   final tally = <String, int>{};
   for (final a in agreeVsWebref) {
-    for (final c in (a['cls'] as List<Object?>).cast<String>()) {
+    for (final c in a.cls) {
       tally[c] = (tally[c] ?? 0) + 1;
     }
   }
@@ -2323,372 +2977,275 @@ String _trunc(String? s, [int n = 140]) =>
     (s != null && s.length > n) ? '${s.substring(0, n)}…' : (s ?? '');
 
 void generateReport(EngineCensusPaths paths) {
-  final j =
-      jsonDecode(
-            File(p.join(paths.outDir, 'disagreements.json')).readAsStringSync(),
-          )
-          as Map<String, Object?>;
-  final corpora = <String, Map<String, Object?>>{};
-  for (final c in allCorpora) {
-    corpora[c] =
-        jsonDecode(File(p.join(paths.outDir, '$c.json')).readAsStringSync())
-            as Map<String, Object?>;
-  }
-
-  final lines = <String>[];
-  void pLine([String s = '']) => lines.add(s);
-
-  pLine('# Engine IDL vs webref: type/shape disagreements');
-  pLine();
-  pLine(
-    'Generated ${j['generated']}. CLI: `dart bin/engine_census.dart` '
-    '(`dart bin/engine_census.dart lookup MouseEvent.clientX`).',
+  final j = DisagreementsDoc(
+    jsonDecode(
+          File(p.join(paths.outDir, 'disagreements.json')).readAsStringSync(),
+        )
+        as Map<String, Object?>,
   );
-  pLine();
-  pLine('## Sources');
-  pLine();
-  pLine('| corpus | ref | sha | files | parse failures (defs) | note |');
-  pLine('|---|---|---|---|---|---|');
-  final revisions = j['revisions'] as Map<String, Object?>;
-  final parseStats = j['parseStats'] as Map<String, Object?>;
+  final corpora = _loadCorpora(paths);
+
+  final buf = StringBuffer();
+  buf.writeln('''
+# Engine IDL vs webref: type/shape disagreements
+
+Generated ${j.generated}. CLI: `dart bin/engine_census.dart` (`dart bin/engine_census.dart lookup MouseEvent.clientX`).
+
+## Sources
+
+| corpus | ref | sha | files | parse failures (defs) | note |
+|---|---|---|---|---|---|''');
+
+  final revisions = j.revisions;
+  final parseStats = j.parseStats;
   for (final c in allCorpora) {
-    final r = (revisions[c] as Map<String, Object?>?) ?? const {};
-    final s = parseStats[c] as Map<String, Object?>;
-    final ref = (r['ref'] ?? r['version'] ?? '').toString();
-    final sha = (r['sha'] ?? '').toString();
-    final shaShort = sha.length > 10 ? sha.substring(0, 10) : sha;
-    final errs = s['errors'] as int;
-    final defs = s['defs'] as int;
+    final r = revisions[c] ?? const RevisionRecord({});
+    final s = parseStats[c]!;
+    final errs = s.errors;
+    final defs = s.defs;
     final pct = (100 * errs / defs).toStringAsFixed(2);
-    final note =
-        (r['note'] ??
-                (r['browser'] != null
-                    ? '${r['browser']} ${r['version']}'
-                    : r['path']) ??
-                '')
-            .toString();
-    pLine(
-      '| $c | $ref | $shaShort | ${s['files']} | $errs/$defs ($pct%) | ${_esc(note)} |',
+    buf.writeln(
+      '| $c | ${r.ref} | ${r.shaShort} | ${s.files} | $errs/$defs ($pct%) | ${_esc(r.displayNote)} |',
     );
   }
-  pLine();
-  pLine(
-    'Parse failures: ${engineCorpora.map((c) {
-      final list = ((parseStats[c] as Map<String, Object?>)['errorList'] as List<Object?>).cast<String>();
-      return '$c: ${list.isEmpty ? 'none' : list.join('; ')}';
-    }).join(' — ')}',
-  );
-  pLine();
-  pLine(
-    'Gating (members, after interface-level gating): ${engineCorpora.map((c) {
-      final t = {'on': 0, 'off': 0, 'unknown': 0};
-      final defs = corpora[c]!['defs'] as Map<String, Object?>;
-      for (final d in defs.values.cast<Map<String, Object?>>()) {
-        final dState = (d['gating'] as Map<String, Object?>)['state'] as String;
-        final members = (d['members'] as Map<String, Object?>?) ?? const {};
-        for (final m in members.values.cast<Map<String, Object?>>()) {
-          final mState = (m['gating'] as Map<String, Object?>)['state'] as String;
-          final st = dState == 'off'
-              ? 'off'
-              : (dState == 'unknown' && mState == 'on')
-              ? 'unknown'
-              : mState;
-          t[st] = (t[st] ?? 0) + 1;
-        }
-      }
-      return '$c on=${t['on']} off=${t['off']} unknown=${t['unknown']}';
-    }).join('; ')}. "off" members are excluded from comparisons (declared but disabled by default).',
-  );
-  pLine();
-  pLine('## Method');
-  pLine();
-  pLine(
-    '- **Parsing.** Every corpus is parsed with webidl2. Partials and `includes` mixins are merged, and member lookup walks the inheritance chain. WebKit `[InterfaceName=]` renames are applied.',
-  );
-  pLine(
-    '- **Comparison.** Types are compared after resolving typedefs and normalizing. The string types DOMString, USVString, ByteString and UTF8String count as one type. `unrestricted` is dropped. Buffer and typed-array unions collapse into BufferSource. `void` is treated as `undefined`.',
-  );
-  pLine(
-    '- **Overloads.** Overload sets are compared as their expanded effective signatures: trailing optional arguments are dropped and top-level unions are distributed. So `f(optional (A or B))` matches `f()`, `f(A)` and `f(B)`.',
-  );
-  pLine('- **Gating.** Each engine is gated by its build defaults:');
-  pLine(
-    '  - Blink uses `[RuntimeEnabled]` with runtime_enabled_features.json5 Linux status. A feature counts as on if its `base_feature_status` is enabled, if it is set by a content/child/runtime_features.cc base::Feature that is ENABLED_BY_DEFAULT, or if it is implied by another feature. Embedder-settable `public:true` features count as unknown.',
-  );
-  pLine(
-    '  - Gecko uses `[Pref]`, read from StaticPrefList.yaml for a Linux release build (`#if` evaluated, @IS_NIGHTLY_BUILD@=false). `[Func]` is unknown and `[ChromeOnly]` is off.',
-  );
-  pLine(
-    '  - WebKit uses `[EnabledBySetting]`, read from the UnifiedWebPreferences.yaml WebKit default. It is evaluated as Safari would: PLATFORM(COCOA) true, ENABLE(X) from PlatformEnable*.h, ENABLE(EXPERIMENTAL_FEATURES) false. `[Conditional]` macros missing from PlatformEnable*.h are unknown.',
-  );
-  pLine();
-  pLine('## Known limitations');
-  pLine();
-  pLine(
-    '- **WebKit source tracks the shipping Safari branch, whereas Playwright WebKit builds track WebKit trunk.** Features gated `(preview|testable),false` (such as CloseWatcher, CSSFunctionRule, HTMLDialogElement.closedBy, ImageDecoder, IDBRecord) show as off in this report to reflect shipping Safari.',
-  );
-  pLine(
-    '- **Gecko `[Func]` gates are unknown, and pref values set by Nimbus or remote settings are not modelled.** Example: `dom.webserial.enabled` defaults to `@IS_NOT_MOBILE@` (`true`) in StaticPrefList.yaml, yet stock Firefox exposes no Serial.',
-  );
-  pLine(
-    '- **Gecko CSS IDL generated at build time is not in `dom/webidl`,** for example CSS2Properties and per-property CSSStyleProperties attributes. So "missing in Gecko" overcounts there.',
-  );
-  pLine(
-    '- **Blink gating is evaluated for Linux.** Features that are stable only on Mac, Android or ChromeOS show as off.',
-  );
-  pLine(
-    '- **Members from maplike, setlike, iterable and stringifier declarations are synthesized** (e.g. FontFaceSet.forEach, Location.toString) and excluded from type comparison.',
-  );
-  pLine(
-    '- **The `console` and WebAssembly namespaces, which V8 and JSC implement without engine IDL, are excluded from the missing lists,** as are callback-interface members.',
-  );
-  pLine(
-    '- **Some runtime presence is outside static IDL.** Gecko generates some CSS descriptor IDL at build time (CSSPositionTryDescriptors, CSSPageDescriptors), and Chrome hides `ontouch*` handlers on desktops without a touchscreen.',
-  );
-  pLine();
-  pLine('## Counts');
-  pLine();
-  final counts = j['counts'] as Map<String, Object?>;
-  for (final e in counts.entries) {
-    pLine('- ${e.key}: ${e.value}');
-  }
-  pLine();
 
-  String rowLine(Map<String, Object?> a) {
-    final agreeing = (a['agreeingEngines'] as List<Object?>).cast<String>();
-    final engines = a['engines'] as Map<String, Object?>;
+  final parseFailuresSummary = engineCorpora
+      .map((c) {
+        final list = parseStats[c]!.errorList;
+        return '$c: ${list.isEmpty ? 'none' : list.join('; ')}';
+      })
+      .join(' — ');
+
+  final gatingSummary = engineCorpora
+      .map((c) {
+        final t = <String, int>{'on': 0, 'off': 0, 'unknown': 0};
+        for (final d in corpora[c]!.defs.values) {
+          final dState = d.gating.state;
+          for (final m in d.members.values) {
+            final st = dState.combine(m.gating.state).name;
+            t[st] = (t[st] ?? 0) + 1;
+          }
+        }
+        return '$c on=${t['on']} off=${t['off']} unknown=${t['unknown']}';
+      })
+      .join('; ');
+
+  buf.writeln('''
+
+Parse failures: $parseFailuresSummary
+
+Gating (members, after interface-level gating): $gatingSummary. "off" members are excluded from comparisons (declared but disabled by default).
+
+## Method
+
+- **Parsing.** Every corpus is parsed with webidl2. Partials and `includes` mixins are merged, and member lookup walks the inheritance chain. WebKit `[InterfaceName=]` renames are applied.
+- **Comparison.** Types are compared after resolving typedefs and normalizing. The string types DOMString, USVString, ByteString and UTF8String count as one type. `unrestricted` is dropped. Buffer and typed-array unions collapse into BufferSource. `void` is treated as `undefined`.
+- **Overloads.** Overload sets are compared as their expanded effective signatures: trailing optional arguments are dropped and top-level unions are distributed. So `f(optional (A or B))` matches `f()`, `f(A)` and `f(B)`.
+- **Gating.** Each engine is gated by its build defaults:
+  - Blink uses `[RuntimeEnabled]` with runtime_enabled_features.json5 Linux status. A feature counts as on if its `base_feature_status` is enabled, if it is set by a content/child/runtime_features.cc base::Feature that is ENABLED_BY_DEFAULT, or if it is implied by another feature. Embedder-settable `public:true` features count as unknown.
+  - Gecko uses `[Pref]`, read from StaticPrefList.yaml for a Linux release build (`#if` evaluated, @IS_NIGHTLY_BUILD@=false). `[Func]` is unknown and `[ChromeOnly]` is off.
+  - WebKit uses `[EnabledBySetting]`, read from the UnifiedWebPreferences.yaml WebKit default. It is evaluated as Safari would: PLATFORM(COCOA) true, ENABLE(X) from PlatformEnable*.h, ENABLE(EXPERIMENTAL_FEATURES) false. `[Conditional]` macros missing from PlatformEnable*.h are unknown.
+
+## Known limitations
+
+- **WebKit source tracks the shipping Safari branch, whereas Playwright WebKit builds track WebKit trunk.** Features gated `(preview|testable),false` (such as CloseWatcher, CSSFunctionRule, HTMLDialogElement.closedBy, ImageDecoder, IDBRecord) show as off in this report to reflect shipping Safari.
+- **Gecko `[Func]` gates are unknown, and pref values set by Nimbus or remote settings are not modelled.** Example: `dom.webserial.enabled` defaults to `@IS_NOT_MOBILE@` (`true`) in StaticPrefList.yaml, yet stock Firefox exposes no Serial.
+- **Gecko CSS IDL generated at build time is not in `dom/webidl`,** for example CSS2Properties and per-property CSSStyleProperties attributes. So "missing in Gecko" overcounts there.
+- **Blink gating is evaluated for Linux.** Features that are stable only on Mac, Android or ChromeOS show as off.
+- **Members from maplike, setlike, iterable and stringifier declarations are synthesized** (e.g. FontFaceSet.forEach, Location.toString) and excluded from type comparison.
+- **The `console` and WebAssembly namespaces, which V8 and JSC implement without engine IDL, are excluded from the missing lists,** as are callback-interface members.
+- **Some runtime presence is outside static IDL.** Gecko generates some CSS descriptor IDL at build time (CSSPositionTryDescriptors, CSSPageDescriptors), and Chrome hides `ontouch*` handlers on desktops without a touchscreen.
+
+## Counts
+''');
+
+  for (final MapEntry(:key, :value) in j.counts.json.entries) {
+    buf.writeln('- $key: $value');
+  }
+
+  String rowLine(AgreeRow a) {
+    final agreeing = a.agreeingEngines;
+    final engines = a.engines;
     final others = engineCorpora
         .where((e) => !agreeing.contains(e))
         .map(
           (e) =>
-              '$e: ${engines[e] != null ? _esc(_trunc(engines[e] as String?, 80)) : '—'}',
+              '$e: ${engines[e] != null ? _esc(_trunc(engines[e], 80)) : '—'}',
         )
         .join('<br>');
-    final cls = (a['cls'] as List<Object?>).cast<String>().join(', ');
-    return '| `${a['iface']}.${a['key']}` | $cls | ${_esc(_trunc(a['webref'] as String?))} | ${_esc(_trunc(a['agreedSig'] as String?))} | ${agreeing.join('+')} | $others |';
+    final cls = a.cls.join(', ');
+    return '| `${a.iface}.${a.key}` | $cls | ${_esc(_trunc(a.webref))} | ${_esc(_trunc(a.agreedSig))} | ${agreeing.join('+')} | $others |';
   }
 
-  void hdr() {
-    pLine(
-      '| member | class | webref | engines say | agreeing | other engine |',
-    );
-    pLine('|---|---|---|---|---|---|');
-  }
+  const agreeTableHeader = '''
+| member | class | webref | engines say | agreeing | other engine |
+|---|---|---|---|---|---|''';
 
-  final agreeAll = (j['agreeVsWebref'] as List<Object?>)
-      .cast<Map<String, Object?>>();
-  int cmpAgree(Map<String, Object?> a, Map<String, Object?> b) {
-    final c =
-        _prio((a['cls'] as List<Object?>).cast<String>()) -
-        _prio((b['cls'] as List<Object?>).cast<String>());
+  final agreeAll = j.agreeVsWebref;
+  int cmpAgree(AgreeRow a, AgreeRow b) {
+    final c = _prio(a.cls) - _prio(b.cls);
     if (c != 0) return c;
-    return (a['iface'] as String).compareTo(b['iface'] as String);
+    return a.iface.compareTo(b.iface);
   }
 
-  final una = agreeAll.where((a) => a['unanimous'] == true).toList()
-    ..sort(cmpAgree);
-  pLine('## All 3 engines agree, webref differs (${una.length})');
-  pLine();
-  pLine(
-    'These are the strongest signals: either the spec or webref has drifted from reality, or the spec intentionally differs and no engine has followed yet.',
-  );
-  pLine();
-  hdr();
+  final una = agreeAll.where((a) => a.unanimous).toList()..sort(cmpAgree);
+  buf.writeln('''
+
+## All 3 engines agree, webref differs (${una.length})
+
+These are the strongest signals: either the spec or webref has drifted from reality, or the spec intentionally differs and no engine has followed yet.
+
+$agreeTableHeader''');
   for (final a in una) {
-    pLine(rowLine(a));
+    buf.writeln(rowLine(a));
   }
-  pLine();
 
-  final two = agreeAll.where((a) => a['unanimous'] != true).toList()
-    ..sort(cmpAgree);
-  pLine(
-    '## Exactly 2 engines agree with each other against webref (${two.length})',
-  );
-  pLine();
-  hdr();
+  final two = agreeAll.where((a) => !a.unanimous).toList()..sort(cmpAgree);
+  buf.writeln('''
+
+## Exactly 2 engines agree with each other against webref (${two.length})
+
+$agreeTableHeader''');
   for (final a in two) {
-    pLine(rowLine(a));
+    buf.writeln(rowLine(a));
   }
-  pLine();
 
-  final extraInEngines = (j['extraInEngines'] as List<Object?>)
-      .cast<Map<String, Object?>>();
-  final extra = extraInEngines.where((x) => x['ifaceInWebref'] == true).toList()
+  final extraInEngines = j.extraInEngines;
+  final extra = extraInEngines.where((x) => x.ifaceInWebref).toList()
     ..sort((a, b) {
-      final ea = (a['engines'] as Map<String, Object?>).length;
-      final eb = (b['engines'] as Map<String, Object?>).length;
+      final ea = a.engines.length;
+      final eb = b.engines.length;
       if (eb != ea) return eb - ea;
-      return (a['iface'] as String).compareTo(b['iface'] as String);
+      return a.iface.compareTo(b.iface);
     });
-  pLine(
-    '## Members that at least 2 engines declare as enabled but webref lacks, on interfaces webref has (${extra.length})',
-  );
-  pLine();
-  pLine('| member | engines | signature (first engine) |');
-  pLine('|---|---|---|');
+  buf.writeln('''
+
+## Members that at least 2 engines declare as enabled but webref lacks, on interfaces webref has (${extra.length})
+
+| member | engines | signature (first engine) |
+|---|---|---|''');
   for (final x in extra) {
-    final engs = x['engines'] as Map<String, Object?>;
-    pLine(
-      '| `${x['iface']}.${x['key']}` | ${engs.keys.join('+')} | ${_esc(_trunc(engs.values.first as String?, 100))} |',
+    final engs = x.engines;
+    buf.writeln(
+      '| `${x.iface}.${x.key}` | ${engs.keys.join('+')} | ${_esc(_trunc(engs.values.first, 100))} |',
     );
   }
-  pLine();
 
   final extraIf = <String>{
-    for (final x in extraInEngines.where((y) => y['ifaceInWebref'] != true))
-      x['iface'] as String,
+    for (final x in extraInEngines.where((y) => !y.ifaceInWebref)) x.iface,
   }.toList()..sort();
-  pLine(
-    '### Interfaces/dictionaries/enums declared by at least 2 engines but missing from webref (${extraIf.length})',
-  );
-  pLine();
-  pLine(extraIf.map((k) => '`$k`').join(', '));
-  pLine();
+  buf.writeln('''
 
-  final miss = (j['missingInEngines'] as List<Object?>)
-      .cast<Map<String, Object?>>();
-  final allAbsent = miss
-      .where((m) => (m['absentIn'] as List<Object?>).length == 3)
-      .toList();
+### Interfaces/dictionaries/enums declared by at least 2 engines but missing from webref (${extraIf.length})
+
+${extraIf.map((k) => '`$k`').join(', ')}''');
+
+  final miss = j.missingInEngines;
+  final allAbsent = miss.where((m) => m.absentIn.length == 3).toList();
   final byIf = <String, List<String>>{};
   for (final m in allAbsent) {
-    byIf.putIfAbsent(m['iface'] as String, () => []).add(m['key'] as String);
+    byIf.putIfAbsent(m.iface, () => []).add(m.key);
   }
   final ifaceAbsentAll = byIf.keys.where((i) {
     return engineCorpora.every((e) {
-      final d =
-          (corpora[e]!['defs'] as Map<String, Object?>)[i]
-              as Map<String, Object?>?;
-      return d == null ||
-          (d['gating'] as Map<String, Object?>)['state'] == 'off';
+      final d = corpora[e]!.defs[i];
+      return d == null || !d.gating.state.isLive;
     });
   }).toList()..sort();
   final partial =
       byIf.entries.where((e) => !ifaceAbsentAll.contains(e.key)).toList()
         ..sort((a, b) => b.value.length - a.value.length);
 
-  pLine(
-    '## webref members not enabled in any engine (${allAbsent.length} members)',
-  );
-  pLine();
-  pLine(
-    '- ${ifaceAbsentAll.length} webref definitions are absent or off in all three engines. These are candidates for package:web to drop or mark experimental:',
-  );
-  pLine();
-  pLine('  ${ifaceAbsentAll.map((k) => '`$k`').join(', ')}');
-  pLine();
-  pLine(
-    '- ${partial.length} interfaces exist in at least one engine but have members that no engine enables:',
-  );
-  pLine();
-  pLine('| interface | members absent/off in all 3 |');
-  pLine('|---|---|');
-  for (final entry in partial) {
-    pLine('| `${entry.key}` | ${_esc(_trunc(entry.value.join(', '), 300))} |');
+  buf.writeln('''
+
+## webref members not enabled in any engine (${allAbsent.length} members)
+
+- ${ifaceAbsentAll.length} webref definitions are absent or off in all three engines. These are candidates for package:web to drop or mark experimental:
+
+  ${ifaceAbsentAll.map((k) => '`$k`').join(', ')}
+
+- ${partial.length} interfaces exist in at least one engine but have members that no engine enables:
+
+| interface | members absent/off in all 3 |
+|---|---|''');
+  for (final MapEntry(:key, :value) in partial) {
+    buf.writeln('| `$key` | ${_esc(_trunc(value.join(', '), 300))} |');
   }
-  pLine();
+  buf.writeln();
 
   final outPath = p.join(paths.outDir, 'SUMMARY.md');
-  File(outPath).writeAsStringSync('${lines.join('\n')}\n');
-  print('wrote $outPath ${lines.length} lines');
+  final content = buf.toString();
+  File(outPath).writeAsStringSync(content);
+  final lineCount = '\n'.allMatches(content).length;
+  print('wrote $outPath $lineCount lines');
 }
 
 // ---------------------------------------------------------------- Lookup
 
 void lookupMembers(EngineCensusPaths paths, List<String> queries) {
-  final corpora = <String, Map<String, Object?>>{};
-  for (final c in allCorpora) {
-    corpora[c] =
-        jsonDecode(File(p.join(paths.outDir, '$c.json')).readAsStringSync())
-            as Map<String, Object?>;
+  final corpora = _loadCorpora(paths);
+
+  String showMember(MemberRecord m) {
+    switch (m.kind) {
+      case 'attribute':
+        final ro = m.readonly ? 'readonly ' : '';
+        final raw = m.raw;
+        final type = m.type;
+        return '${ro}attribute $raw${raw != type ? ' [=$type]' : ''}';
+      case 'field':
+        final req = m.required ? 'required ' : '';
+        final raw = m.raw;
+        final def = m.defaultValue;
+        return '$req$raw${def != null ? ' = $def' : ''}';
+      default:
+        final overloads = m.overloads;
+        if (overloads != null) {
+          return overloads
+              .map((o) {
+                final args = o.args
+                    .map(
+                      (a) =>
+                          '${a.opt ? 'optional ' : ''}${a.raw}${a.varg ? '...' : ''} ${a.name}',
+                    )
+                    .join(', ');
+                final gState = o.gating.state;
+                return '${o.retRaw ?? ''} ($args)${gState != GateState.on ? ' {${gState.name}}' : ''}';
+              })
+              .join('  ||  ');
+        }
+        return jsonEncode(m);
+    }
   }
 
-  ({String iface, Map<String, Object?> d, Map<String, Object?> m})? findMember(
-    String c,
-    String iface,
-    String key, [
-    int depth = 0,
-  ]) {
-    final defs = corpora[c]!['defs'] as Map<String, Object?>;
-    final d = defs[iface] as Map<String, Object?>?;
-    if (d == null) return null;
-    final members = d['members'] as Map<String, Object?>;
-    final m = (members[key] ?? members['$key()']) as Map<String, Object?>?;
-    if (m != null) return (iface: iface, d: d, m: m);
-    final inherits = d['inherits'] as String?;
-    return (inherits != null && depth < 20)
-        ? findMember(c, inherits, key, depth + 1)
-        : null;
-  }
-
-  String showMember(Map<String, Object?> m) {
-    final kind = m['kind'] as String?;
-    if (kind == 'attribute') {
-      final ro = m['readonly'] == true ? 'readonly ' : '';
-      final raw = m['raw'] as String?;
-      final type = m['type'] as String?;
-      return '${ro}attribute $raw${raw != type ? ' [=$type]' : ''}';
-    }
-    if (kind == 'field') {
-      final req = m['required'] == true ? 'required ' : '';
-      final raw = m['raw'] as String?;
-      final def = m['default'];
-      return '$req$raw${def != null ? ' = $def' : ''}';
-    }
-    final overloads = m['overloads'] as List<Object?>?;
-    if (overloads != null) {
-      return overloads
-          .cast<Map<String, Object?>>()
-          .map((o) {
-            final args = (o['args'] as List<Object?>)
-                .cast<Map<String, Object?>>()
-                .map(
-                  (a) =>
-                      '${a['opt'] == true ? 'optional ' : ''}${a['raw']}${a['varg'] == true ? '...' : ''} ${a['name']}',
-                )
-                .join(', ');
-            final gState =
-                (o['gating'] as Map<String, Object?>)['state'] as String;
-            return '${o['retRaw'] ?? ''} ($args)${gState != 'on' ? ' {$gState}' : ''}';
-          })
-          .join('  ||  ');
-    }
-    return jsonEncode(m);
-  }
-
-  const rank = {'on': 0, 'unknown': 1, 'off': 2};
   for (final q in queries) {
-    final parts = q.split('.');
-    if (parts.length < 2) {
-      print('Invalid query "$q" (expected Interface.member)');
-      continue;
-    }
-    final iface = parts[0];
-    final key = parts[1].replaceFirst(RegExp(r'\(\)$'), '');
-    print('== $q');
-    for (final c in allCorpora) {
-      final r = findMember(c, iface, key);
-      final defs = corpora[c]!['defs'] as Map<String, Object?>;
-      if (r == null) {
-        print(
-          '  ${c.padRight(7)} ABSENT${defs.containsKey(iface) ? '' : ' (no interface)'}',
+    if (q.split('.') case [final iface, final rawMember, ...]) {
+      final key = rawMember.replaceFirst(_trailingParensRe, '');
+      print('== $q');
+      for (final c in allCorpora) {
+        final corpusDoc = corpora[c]!;
+        final r = corpusDoc.lookupMember(
+          iface,
+          key,
+          allowOperationFallback: true,
         );
-        continue;
+        if (r == null) {
+          print(
+            '  ${c.padRight(7)} ABSENT${corpusDoc.defs.containsKey(iface) ? '' : ' (no interface)'}',
+          );
+          continue;
+        }
+        final state = r.gate.state.name;
+        final why = r.gate.why;
+        final onIface = r.definingIface != iface
+            ? '  (on ${r.definingIface})'
+            : '';
+        final whyStr = why.isNotEmpty ? ': ${why.join('; ')}' : '';
+        print(
+          '  ${c.padRight(7)} ${showMember(r.member)}$onIface  [$state$whyStr]  ${r.member.file ?? ''}',
+        );
       }
-      final dGate = r.d['gating'] as Map<String, Object?>;
-      final mGate = r.m['gating'] as Map<String, Object?>;
-      final dState = dGate['state'] as String;
-      final mState = mGate['state'] as String;
-      final state = rank[dState]! > rank[mState]! ? dState : mState;
-      final why = <String>[
-        ...(dGate['why'] as List<Object?>).cast<String>(),
-        ...(mGate['why'] as List<Object?>).cast<String>(),
-      ];
-      final onIface = r.iface != iface ? '  (on ${r.iface})' : '';
-      final whyStr = why.isNotEmpty ? ': ${why.join('; ')}' : '';
-      print(
-        '  ${c.padRight(7)} ${showMember(r.m)}$onIface  [$state$whyStr]  ${r.m['file'] ?? ''}',
-      );
+    } else {
+      print('Invalid query "$q" (expected Interface.member)');
     }
   }
 }

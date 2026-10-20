@@ -89,7 +89,7 @@ void main() {
       'smoke-test-policy',
       TrustedTypePolicyOptions(createHTML: ((String s) => s.toJS).toJS),
     );
-    div.trustedInnerHTML = policy.createHTML('<b>trusted</b>');
+    div.innerHTMLTrusted = policy.createHTML('<b>trusted</b>');
     expect(div.innerHTML, '<b>trusted</b>');
   });
 }

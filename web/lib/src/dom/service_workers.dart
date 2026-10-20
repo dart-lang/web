@@ -281,7 +281,7 @@ extension type ServiceWorkerContainer._(JSObject _)
   /// > It is generally safer not to define registrations that have overlapping
   /// > scopes.
   ///
-  /// To pass a [TrustedScriptURL] value, use [trustedRegister].
+  /// To pass a [TrustedScriptURL] value, use [registerTrusted].
   external JSPromise<ServiceWorkerRegistration> register(
     String scriptURL, [
     RegistrationOptions options,
@@ -292,7 +292,7 @@ extension type ServiceWorkerContainer._(JSObject _)
   /// Use this instead of [register] when the document enforces
   /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
   @JS('register')
-  external JSPromise<ServiceWorkerRegistration> trustedRegister(
+  external JSPromise<ServiceWorkerRegistration> registerTrusted(
     TrustedScriptURL scriptURL, [
     RegistrationOptions options,
   ]);

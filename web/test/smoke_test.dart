@@ -79,4 +79,17 @@ void main() {
         );
     }
   });
+
+  test('Trusted Types setters and operations work alongside String.', () {
+    final div = document.createElement('div') as HTMLDivElement;
+    div.innerHTML = '<span>plain</span>';
+    expect(div.innerHTML, '<span>plain</span>');
+
+    final policy = window.trustedTypes.createPolicy(
+      'smoke-test-policy',
+      TrustedTypePolicyOptions(createHTML: ((String s) => s.toJS).toJS),
+    );
+    div.innerHTMLTrusted = policy.createHTML('<b>trusted</b>');
+    expect(div.innerHTML, '<b>trusted</b>');
+  });
 }

@@ -11,6 +11,9 @@ late ContextEvent $contextEvent;
 late WebGL $webGL;
 final HttpRequest $httpRequest = HttpRequest();
 const int $httpDone = HttpRequest.DONE;
+Future<XMLHttpRequest> testHttpRequest() =>
+    HttpRequest.request('/api', method: 'GET');
+final $httpRequestTearOff = HttpRequest.request;
 
 // CustomEventProviders => EventStreamProviders
 final EventStreamProvider<WheelEvent> $mouseWheelEvent =
@@ -62,18 +65,15 @@ void testEventExtensions(
   ElementEventGetters(element).onClick;
   ElementCustomEvents(element).onMouseWheel;
   DocumentCustomEvents(doc).onVisibilityChange;
-  DocumentEventGetters(doc).onClick;
   WindowEventGetters(win).onLoad;
   WindowCustomEvents(win).onTransitionEnd;
   XHRGetters(xhr).onLoad;
   EventSourceEventGetters(eventSource).onOpen;
   FileReaderEventGEtters(fileReader).onLoad;
-  FileReaderEventGetters(fileReader).onLoadEnd;
   AutoElementEventGetters(audioNode).onEnded;
 }
 
 // Digital Credentials spec renames
-late DigitalCredentialRequest $digitalCredReq;
 late IdentityRequestProvider $identityReqProvider;
 
 void testDigitalCredentials(JSObject payload) {
@@ -85,27 +85,39 @@ void testDigitalCredentials(JSObject payload) {
   opts.providers = opts.providers;
 }
 
-// DOM typedef 1:1 renames
+// DOM typedef 1:1 renames & Uvm* generic replacements
 late UpdateCallback $updateCallback;
 late RTCEncodedVideoFrameType $rtcVideoFrameType;
 late BinaryData $binaryData;
+late UvmEntry $uvmEntry;
+late UvmEntries? $uvmEntries;
 
-// CSSStyleDeclaration 1:1 property renames
-void testCssStyleRenames(CSSStyleDeclaration style) {
+// CSSStyleDeclaration & CSSStyleProperties 1:1 property renames
+void testCssStyleRenames(
+  CSSStyleDeclaration style,
+  HTMLElement element,
+  Window win,
+) {
   style.borderClipTop = style.borderClipTop;
   style.borderClipRight = style.borderClipRight;
   style.borderClipBottom = style.borderClipBottom;
   style.borderClipLeft = style.borderClipLeft;
+  style.corners = style.corners;
   style.insetArea = style.insetArea;
   style.positionTryOptions = style.positionTryOptions;
   style.textDecorationTrim = style.textDecorationTrim;
   style.scrollStartTarget = style.scrollStartTarget;
-  style.columnRuleOutset = style.columnRuleOutset;
-  style.rowRuleOutset = style.rowRuleOutset;
-  style.gapRule = style.gapRule;
-  style.gapRuleBreak = style.gapRuleBreak;
-  style.gapRuleColor = style.gapRuleColor;
-  style.gapRuleOutset = style.gapRuleOutset;
-  style.gapRuleStyle = style.gapRuleStyle;
-  style.gapRuleWidth = style.gapRuleWidth;
+
+  // Chained PropertyAccess & cascade on CSSStyleProperties (`element.style` /
+  // `getComputedStyle`)
+  element.style.borderClipTop = element.style.borderClipTop;
+  element.style.borderClipRight = element.style.borderClipRight;
+  element.style.borderClipBottom = element.style.borderClipBottom;
+  element.style.borderClipLeft = element.style.borderClipLeft;
+  element.style.corners = win.getComputedStyle(element).corners;
+  element.style
+    ..insetArea = element.style.insetArea
+    ..positionTryOptions = element.style.positionTryOptions
+    ..textDecorationTrim = element.style.textDecorationTrim
+    ..scrollStartTarget = element.style.scrollStartTarget;
 }

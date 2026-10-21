@@ -11,6 +11,9 @@ late WebGLContextEvent $contextEvent;
 late WebGLRenderingContext $webGL;
 final XMLHttpRequest $httpRequest = XMLHttpRequest();
 const int $httpDone = XMLHttpRequest.DONE;
+Future<XMLHttpRequest> testHttpRequest() =>
+    XMLHttpRequestExtension.request('/api', method: 'GET');
+final $httpRequestTearOff = XMLHttpRequestExtension.request;
 
 // CustomEventProviders => EventStreamProviders
 final EventStreamProvider<WheelEvent> $mouseWheelEvent =
@@ -63,18 +66,15 @@ void testEventExtensions(
   ElementEvents(element).onClick;
   ElementEvents(element).onMouseWheel;
   DocumentEvents(doc).onVisibilityChange;
-  DocumentEvents(doc).onClick;
   WindowEvents(win).onLoad;
   WindowEvents(win).onTransitionEnd;
   XMLHttpRequestEvents(xhr).onLoad;
   EventSourceEvents(eventSource).onOpen;
   FileReaderEvents(fileReader).onLoad;
-  FileReaderEvents(fileReader).onLoadEnd;
   AudioNodeEvents(audioNode).onEnded;
 }
 
 // Digital Credentials spec renames
-late DigitalCredentialGetRequest $digitalCredReq;
 late DigitalCredentialGetRequest $identityReqProvider;
 
 void testDigitalCredentials(JSObject payload) {
@@ -86,27 +86,39 @@ void testDigitalCredentials(JSObject payload) {
   opts.requests = opts.requests;
 }
 
-// DOM typedef 1:1 renames
+// DOM typedef 1:1 renames & Uvm* generic replacements
 late ViewTransitionUpdateCallback $updateCallback;
 late EncodedVideoChunkType $rtcVideoFrameType;
 late BufferSource $binaryData;
+late JSArray<JSNumber> $uvmEntry;
+late JSArray<JSArray<JSNumber>>? $uvmEntries;
 
-// CSSStyleDeclaration 1:1 property renames
-void testCssStyleRenames(CSSStyleDeclaration style) {
+// CSSStyleDeclaration & CSSStyleProperties 1:1 property renames
+void testCssStyleRenames(
+  CSSStyleDeclaration style,
+  HTMLElement element,
+  Window win,
+) {
   style.borderTopClip = style.borderTopClip;
   style.borderRightClip = style.borderRightClip;
   style.borderBottomClip = style.borderBottomClip;
   style.borderLeftClip = style.borderLeftClip;
+  style.corner = style.corner;
   style.positionArea = style.positionArea;
   style.positionTryFallbacks = style.positionTryFallbacks;
   style.textDecorationInset = style.textDecorationInset;
   style.scrollInitialTarget = style.scrollInitialTarget;
-  style.columnRuleInset = style.columnRuleInset;
-  style.rowRuleInset = style.rowRuleInset;
-  style.rule = style.rule;
-  style.ruleBreak = style.ruleBreak;
-  style.ruleColor = style.ruleColor;
-  style.ruleInset = style.ruleInset;
-  style.ruleStyle = style.ruleStyle;
-  style.ruleWidth = style.ruleWidth;
+
+  // Chained PropertyAccess & cascade on CSSStyleProperties (`element.style` /
+  // `getComputedStyle`)
+  element.style.borderTopClip = element.style.borderTopClip;
+  element.style.borderRightClip = element.style.borderRightClip;
+  element.style.borderBottomClip = element.style.borderBottomClip;
+  element.style.borderLeftClip = element.style.borderLeftClip;
+  element.style.corner = win.getComputedStyle(element).corner;
+  element.style
+    ..positionArea = element.style.positionArea
+    ..positionTryFallbacks = element.style.positionTryFallbacks
+    ..textDecorationInset = element.style.textDecorationInset
+    ..scrollInitialTarget = element.style.scrollInitialTarget;
 }

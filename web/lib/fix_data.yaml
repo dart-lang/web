@@ -32,6 +32,41 @@ transforms:
       - kind: 'rename'
         newName: 'WebGLRenderingContext'
 
+  # HttpRequest.request => XMLHttpRequestExtension.request
+  # (Must precede 'DigitalCredentialGetRequest.request' so prefixed static calls
+  # like `web.HttpRequest.request(...)` do not hit the wildcard 'request' rename.)
+  - title: "Replace 'HttpRequest.request' with 'XMLHttpRequestExtension.request'"
+    date: 2026-04-20
+    element:
+      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
+      method: 'request'
+      inClass: 'HttpRequest'
+      static: true
+    changes:
+      - kind: 'replacedBy'
+        newElement:
+          uris: [ 'package:web/web.dart' ]
+          method: 'request'
+          inExtension: 'XMLHttpRequestExtension'
+          static: true
+
+  # XMLHttpRequest.request => XMLHttpRequestExtension.request
+  # (Handles pass 2 after `HttpRequest` is renamed to `XMLHttpRequest`.)
+  - title: "Replace 'XMLHttpRequest.request' with 'XMLHttpRequestExtension.request'"
+    date: 2026-04-20
+    element:
+      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
+      method: 'request'
+      inExtensionType: 'XMLHttpRequest'
+      static: true
+    changes:
+      - kind: 'replacedBy'
+        newElement:
+          uris: [ 'package:web/web.dart' ]
+          method: 'request'
+          inExtension: 'XMLHttpRequestExtension'
+          static: true
+
   # CustomEventProviders => EventStreamProviders
   - title: "Rename 'CustomEventProviders' to 'EventStreamProviders'"
     date: 2026-04-20
@@ -250,16 +285,6 @@ transforms:
       - kind: 'rename'
         newName: 'DocumentEvents'
 
-  # DocumentEventGetters => DocumentEvents
-  - title: "Rename 'DocumentEventGetters' to 'DocumentEvents'"
-    date: 2026-04-20
-    element:
-      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
-      extension: 'DocumentEventGetters'
-    changes:
-      - kind: 'rename'
-        newName: 'DocumentEvents'
-
   # WindowEventGetters => WindowEvents
   - title: "Rename 'WindowEventGetters' to 'WindowEvents'"
     date: 2026-04-20
@@ -310,16 +335,6 @@ transforms:
       - kind: 'rename'
         newName: 'FileReaderEvents'
 
-  # FileReaderEventGetters => FileReaderEvents
-  - title: "Rename 'FileReaderEventGetters' to 'FileReaderEvents'"
-    date: 2026-04-20
-    element:
-      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
-      extension: 'FileReaderEventGetters'
-    changes:
-      - kind: 'rename'
-        newName: 'FileReaderEvents'
-
   # AutoElementEventGetters => AudioNodeEvents
   - title: "Rename 'AutoElementEventGetters' to 'AudioNodeEvents'"
     date: 2026-04-20
@@ -329,16 +344,6 @@ transforms:
     changes:
       - kind: 'rename'
         newName: 'AudioNodeEvents'
-
-  # DigitalCredentialRequest => DigitalCredentialGetRequest
-  - title: "Rename 'DigitalCredentialRequest' to 'DigitalCredentialGetRequest'"
-    date: 2026-04-20
-    element:
-      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
-      class: 'DigitalCredentialRequest'
-    changes:
-      - kind: 'rename'
-        newName: 'DigitalCredentialGetRequest'
 
   # IdentityRequestProvider => DigitalCredentialGetRequest
   - title: "Rename 'IdentityRequestProvider' to 'DigitalCredentialGetRequest'"
@@ -439,7 +444,57 @@ transforms:
       - kind: 'rename'
         newName: 'BufferSource'
 
-  # CSSStyleDeclaration.borderClipTop => borderTopClip
+  # UvmEntry => JSArray<JSNumber>
+  - title: "Replace 'UvmEntry' with 'JSArray<JSNumber>'"
+    date: 2026-04-20
+    element:
+      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
+      typedef: 'UvmEntry'
+    changes:
+      - kind: 'replacedBy'
+        newElement:
+          uris: [ 'dart:js_interop' ]
+          extensionType: 'JSArray'
+      - kind: 'addTypeParameter'
+        index: 0
+        name: 'T'
+        argumentValue:
+          expression: '{% JSNumber %}'
+          variables:
+            JSNumber:
+              kind: 'import'
+              uris: [ 'dart:js_interop' ]
+              name: 'JSNumber'
+
+  # UvmEntries => JSArray<JSArray<JSNumber>>
+  - title: "Replace 'UvmEntries' with 'JSArray<JSArray<JSNumber>>'"
+    date: 2026-04-20
+    element:
+      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
+      typedef: 'UvmEntries'
+    changes:
+      - kind: 'replacedBy'
+        newElement:
+          uris: [ 'dart:js_interop' ]
+          extensionType: 'JSArray'
+      - kind: 'addTypeParameter'
+        index: 0
+        name: 'T'
+        argumentValue:
+          expression: '{% JSArray %}<{% JSNumber %}>'
+          variables:
+            JSArray:
+              kind: 'import'
+              uris: [ 'dart:js_interop' ]
+              name: 'JSArray'
+            JSNumber:
+              kind: 'import'
+              uris: [ 'dart:js_interop' ]
+              name: 'JSNumber'
+
+  # CSSStyleDeclaration / CSSStyleProperties.borderClipTop => borderTopClip
+  # (`CSSStyleProperties` mirror rules are required because `ElementMatcher`
+  # does not walk `allSupertypes` on `PropertyAccess` chains like `div.style.*`.)
   - title: "Rename 'borderClipTop' to 'borderTopClip' on 'CSSStyleDeclaration'"
     date: 2026-04-20
     element:
@@ -450,7 +505,6 @@ transforms:
       - kind: 'rename'
         newName: 'borderTopClip'
 
-  # CSSStyleDeclaration.borderClipTop= => borderTopClip=
   - title: "Rename 'borderClipTop=' to 'borderTopClip=' on 'CSSStyleDeclaration'"
     date: 2026-04-20
     element:
@@ -461,7 +515,27 @@ transforms:
       - kind: 'rename'
         newName: 'borderTopClip'
 
-  # CSSStyleDeclaration.borderClipRight => borderRightClip
+  - title: "Rename 'borderClipTop' to 'borderTopClip' on 'CSSStyleProperties'"
+    date: 2026-04-20
+    element:
+      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
+      getter: 'borderClipTop'
+      inExtensionType: 'CSSStyleProperties'
+    changes:
+      - kind: 'rename'
+        newName: 'borderTopClip'
+
+  - title: "Rename 'borderClipTop=' to 'borderTopClip=' on 'CSSStyleProperties'"
+    date: 2026-04-20
+    element:
+      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
+      setter: 'borderClipTop'
+      inExtensionType: 'CSSStyleProperties'
+    changes:
+      - kind: 'rename'
+        newName: 'borderTopClip'
+
+  # CSSStyleDeclaration / CSSStyleProperties.borderClipRight => borderRightClip
   - title: "Rename 'borderClipRight' to 'borderRightClip' on 'CSSStyleDeclaration'"
     date: 2026-04-20
     element:
@@ -472,7 +546,6 @@ transforms:
       - kind: 'rename'
         newName: 'borderRightClip'
 
-  # CSSStyleDeclaration.borderClipRight= => borderRightClip=
   - title: "Rename 'borderClipRight=' to 'borderRightClip=' on 'CSSStyleDeclaration'"
     date: 2026-04-20
     element:
@@ -483,7 +556,27 @@ transforms:
       - kind: 'rename'
         newName: 'borderRightClip'
 
-  # CSSStyleDeclaration.borderClipBottom => borderBottomClip
+  - title: "Rename 'borderClipRight' to 'borderRightClip' on 'CSSStyleProperties'"
+    date: 2026-04-20
+    element:
+      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
+      getter: 'borderClipRight'
+      inExtensionType: 'CSSStyleProperties'
+    changes:
+      - kind: 'rename'
+        newName: 'borderRightClip'
+
+  - title: "Rename 'borderClipRight=' to 'borderRightClip=' on 'CSSStyleProperties'"
+    date: 2026-04-20
+    element:
+      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
+      setter: 'borderClipRight'
+      inExtensionType: 'CSSStyleProperties'
+    changes:
+      - kind: 'rename'
+        newName: 'borderRightClip'
+
+  # CSSStyleDeclaration / CSSStyleProperties.borderClipBottom => borderBottomClip
   - title: "Rename 'borderClipBottom' to 'borderBottomClip' on 'CSSStyleDeclaration'"
     date: 2026-04-20
     element:
@@ -494,7 +587,6 @@ transforms:
       - kind: 'rename'
         newName: 'borderBottomClip'
 
-  # CSSStyleDeclaration.borderClipBottom= => borderBottomClip=
   - title: "Rename 'borderClipBottom=' to 'borderBottomClip=' on 'CSSStyleDeclaration'"
     date: 2026-04-20
     element:
@@ -505,7 +597,27 @@ transforms:
       - kind: 'rename'
         newName: 'borderBottomClip'
 
-  # CSSStyleDeclaration.borderClipLeft => borderLeftClip
+  - title: "Rename 'borderClipBottom' to 'borderBottomClip' on 'CSSStyleProperties'"
+    date: 2026-04-20
+    element:
+      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
+      getter: 'borderClipBottom'
+      inExtensionType: 'CSSStyleProperties'
+    changes:
+      - kind: 'rename'
+        newName: 'borderBottomClip'
+
+  - title: "Rename 'borderClipBottom=' to 'borderBottomClip=' on 'CSSStyleProperties'"
+    date: 2026-04-20
+    element:
+      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
+      setter: 'borderClipBottom'
+      inExtensionType: 'CSSStyleProperties'
+    changes:
+      - kind: 'rename'
+        newName: 'borderBottomClip'
+
+  # CSSStyleDeclaration / CSSStyleProperties.borderClipLeft => borderLeftClip
   - title: "Rename 'borderClipLeft' to 'borderLeftClip' on 'CSSStyleDeclaration'"
     date: 2026-04-20
     element:
@@ -516,7 +628,6 @@ transforms:
       - kind: 'rename'
         newName: 'borderLeftClip'
 
-  # CSSStyleDeclaration.borderClipLeft= => borderLeftClip=
   - title: "Rename 'borderClipLeft=' to 'borderLeftClip=' on 'CSSStyleDeclaration'"
     date: 2026-04-20
     element:
@@ -527,7 +638,68 @@ transforms:
       - kind: 'rename'
         newName: 'borderLeftClip'
 
-  # CSSStyleDeclaration.insetArea => positionArea
+  - title: "Rename 'borderClipLeft' to 'borderLeftClip' on 'CSSStyleProperties'"
+    date: 2026-04-20
+    element:
+      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
+      getter: 'borderClipLeft'
+      inExtensionType: 'CSSStyleProperties'
+    changes:
+      - kind: 'rename'
+        newName: 'borderLeftClip'
+
+  - title: "Rename 'borderClipLeft=' to 'borderLeftClip=' on 'CSSStyleProperties'"
+    date: 2026-04-20
+    element:
+      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
+      setter: 'borderClipLeft'
+      inExtensionType: 'CSSStyleProperties'
+    changes:
+      - kind: 'rename'
+        newName: 'borderLeftClip'
+
+  # CSSStyleDeclaration / CSSStyleProperties.corners => corner
+  - title: "Rename 'corners' to 'corner' on 'CSSStyleDeclaration'"
+    date: 2026-04-20
+    element:
+      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
+      getter: 'corners'
+      inExtensionType: 'CSSStyleDeclaration'
+    changes:
+      - kind: 'rename'
+        newName: 'corner'
+
+  - title: "Rename 'corners=' to 'corner=' on 'CSSStyleDeclaration'"
+    date: 2026-04-20
+    element:
+      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
+      setter: 'corners'
+      inExtensionType: 'CSSStyleDeclaration'
+    changes:
+      - kind: 'rename'
+        newName: 'corner'
+
+  - title: "Rename 'corners' to 'corner' on 'CSSStyleProperties'"
+    date: 2026-04-20
+    element:
+      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
+      getter: 'corners'
+      inExtensionType: 'CSSStyleProperties'
+    changes:
+      - kind: 'rename'
+        newName: 'corner'
+
+  - title: "Rename 'corners=' to 'corner=' on 'CSSStyleProperties'"
+    date: 2026-04-20
+    element:
+      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
+      setter: 'corners'
+      inExtensionType: 'CSSStyleProperties'
+    changes:
+      - kind: 'rename'
+        newName: 'corner'
+
+  # CSSStyleDeclaration / CSSStyleProperties.insetArea => positionArea
   - title: "Rename 'insetArea' to 'positionArea' on 'CSSStyleDeclaration'"
     date: 2026-04-20
     element:
@@ -538,7 +710,6 @@ transforms:
       - kind: 'rename'
         newName: 'positionArea'
 
-  # CSSStyleDeclaration.insetArea= => positionArea=
   - title: "Rename 'insetArea=' to 'positionArea=' on 'CSSStyleDeclaration'"
     date: 2026-04-20
     element:
@@ -549,7 +720,27 @@ transforms:
       - kind: 'rename'
         newName: 'positionArea'
 
-  # CSSStyleDeclaration.positionTryOptions => positionTryFallbacks
+  - title: "Rename 'insetArea' to 'positionArea' on 'CSSStyleProperties'"
+    date: 2026-04-20
+    element:
+      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
+      getter: 'insetArea'
+      inExtensionType: 'CSSStyleProperties'
+    changes:
+      - kind: 'rename'
+        newName: 'positionArea'
+
+  - title: "Rename 'insetArea=' to 'positionArea=' on 'CSSStyleProperties'"
+    date: 2026-04-20
+    element:
+      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
+      setter: 'insetArea'
+      inExtensionType: 'CSSStyleProperties'
+    changes:
+      - kind: 'rename'
+        newName: 'positionArea'
+
+  # CSSStyleDeclaration / CSSStyleProperties.positionTryOptions => positionTryFallbacks
   - title: "Rename 'positionTryOptions' to 'positionTryFallbacks' on 'CSSStyleDeclaration'"
     date: 2026-04-20
     element:
@@ -560,7 +751,6 @@ transforms:
       - kind: 'rename'
         newName: 'positionTryFallbacks'
 
-  # CSSStyleDeclaration.positionTryOptions= => positionTryFallbacks=
   - title: "Rename 'positionTryOptions=' to 'positionTryFallbacks=' on 'CSSStyleDeclaration'"
     date: 2026-04-20
     element:
@@ -571,7 +761,27 @@ transforms:
       - kind: 'rename'
         newName: 'positionTryFallbacks'
 
-  # CSSStyleDeclaration.textDecorationTrim => textDecorationInset
+  - title: "Rename 'positionTryOptions' to 'positionTryFallbacks' on 'CSSStyleProperties'"
+    date: 2026-04-20
+    element:
+      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
+      getter: 'positionTryOptions'
+      inExtensionType: 'CSSStyleProperties'
+    changes:
+      - kind: 'rename'
+        newName: 'positionTryFallbacks'
+
+  - title: "Rename 'positionTryOptions=' to 'positionTryFallbacks=' on 'CSSStyleProperties'"
+    date: 2026-04-20
+    element:
+      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
+      setter: 'positionTryOptions'
+      inExtensionType: 'CSSStyleProperties'
+    changes:
+      - kind: 'rename'
+        newName: 'positionTryFallbacks'
+
+  # CSSStyleDeclaration / CSSStyleProperties.textDecorationTrim => textDecorationInset
   - title: "Rename 'textDecorationTrim' to 'textDecorationInset' on 'CSSStyleDeclaration'"
     date: 2026-04-20
     element:
@@ -582,7 +792,6 @@ transforms:
       - kind: 'rename'
         newName: 'textDecorationInset'
 
-  # CSSStyleDeclaration.textDecorationTrim= => textDecorationInset=
   - title: "Rename 'textDecorationTrim=' to 'textDecorationInset=' on 'CSSStyleDeclaration'"
     date: 2026-04-20
     element:
@@ -593,7 +802,27 @@ transforms:
       - kind: 'rename'
         newName: 'textDecorationInset'
 
-  # CSSStyleDeclaration.scrollStartTarget => scrollInitialTarget
+  - title: "Rename 'textDecorationTrim' to 'textDecorationInset' on 'CSSStyleProperties'"
+    date: 2026-04-20
+    element:
+      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
+      getter: 'textDecorationTrim'
+      inExtensionType: 'CSSStyleProperties'
+    changes:
+      - kind: 'rename'
+        newName: 'textDecorationInset'
+
+  - title: "Rename 'textDecorationTrim=' to 'textDecorationInset=' on 'CSSStyleProperties'"
+    date: 2026-04-20
+    element:
+      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
+      setter: 'textDecorationTrim'
+      inExtensionType: 'CSSStyleProperties'
+    changes:
+      - kind: 'rename'
+        newName: 'textDecorationInset'
+
+  # CSSStyleDeclaration / CSSStyleProperties.scrollStartTarget => scrollInitialTarget
   - title: "Rename 'scrollStartTarget' to 'scrollInitialTarget' on 'CSSStyleDeclaration'"
     date: 2026-04-20
     element:
@@ -604,7 +833,6 @@ transforms:
       - kind: 'rename'
         newName: 'scrollInitialTarget'
 
-  # CSSStyleDeclaration.scrollStartTarget= => scrollInitialTarget=
   - title: "Rename 'scrollStartTarget=' to 'scrollInitialTarget=' on 'CSSStyleDeclaration'"
     date: 2026-04-20
     element:
@@ -615,181 +843,25 @@ transforms:
       - kind: 'rename'
         newName: 'scrollInitialTarget'
 
-  # CSSStyleDeclaration.columnRuleOutset => columnRuleInset
-  - title: "Rename 'columnRuleOutset' to 'columnRuleInset' on 'CSSStyleDeclaration'"
+  - title: "Rename 'scrollStartTarget' to 'scrollInitialTarget' on 'CSSStyleProperties'"
     date: 2026-04-20
     element:
       uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
-      getter: 'columnRuleOutset'
-      inExtensionType: 'CSSStyleDeclaration'
+      getter: 'scrollStartTarget'
+      inExtensionType: 'CSSStyleProperties'
     changes:
       - kind: 'rename'
-        newName: 'columnRuleInset'
+        newName: 'scrollInitialTarget'
 
-  # CSSStyleDeclaration.columnRuleOutset= => columnRuleInset=
-  - title: "Rename 'columnRuleOutset=' to 'columnRuleInset=' on 'CSSStyleDeclaration'"
+  - title: "Rename 'scrollStartTarget=' to 'scrollInitialTarget=' on 'CSSStyleProperties'"
     date: 2026-04-20
     element:
       uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
-      setter: 'columnRuleOutset'
-      inExtensionType: 'CSSStyleDeclaration'
+      setter: 'scrollStartTarget'
+      inExtensionType: 'CSSStyleProperties'
     changes:
       - kind: 'rename'
-        newName: 'columnRuleInset'
-
-  # CSSStyleDeclaration.rowRuleOutset => rowRuleInset
-  - title: "Rename 'rowRuleOutset' to 'rowRuleInset' on 'CSSStyleDeclaration'"
-    date: 2026-04-20
-    element:
-      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
-      getter: 'rowRuleOutset'
-      inExtensionType: 'CSSStyleDeclaration'
-    changes:
-      - kind: 'rename'
-        newName: 'rowRuleInset'
-
-  # CSSStyleDeclaration.rowRuleOutset= => rowRuleInset=
-  - title: "Rename 'rowRuleOutset=' to 'rowRuleInset=' on 'CSSStyleDeclaration'"
-    date: 2026-04-20
-    element:
-      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
-      setter: 'rowRuleOutset'
-      inExtensionType: 'CSSStyleDeclaration'
-    changes:
-      - kind: 'rename'
-        newName: 'rowRuleInset'
-
-  # CSSStyleDeclaration.gapRule => rule
-  - title: "Rename 'gapRule' to 'rule' on 'CSSStyleDeclaration'"
-    date: 2026-04-20
-    element:
-      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
-      getter: 'gapRule'
-      inExtensionType: 'CSSStyleDeclaration'
-    changes:
-      - kind: 'rename'
-        newName: 'rule'
-
-  # CSSStyleDeclaration.gapRule= => rule=
-  - title: "Rename 'gapRule=' to 'rule=' on 'CSSStyleDeclaration'"
-    date: 2026-04-20
-    element:
-      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
-      setter: 'gapRule'
-      inExtensionType: 'CSSStyleDeclaration'
-    changes:
-      - kind: 'rename'
-        newName: 'rule'
-
-  # CSSStyleDeclaration.gapRuleBreak => ruleBreak
-  - title: "Rename 'gapRuleBreak' to 'ruleBreak' on 'CSSStyleDeclaration'"
-    date: 2026-04-20
-    element:
-      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
-      getter: 'gapRuleBreak'
-      inExtensionType: 'CSSStyleDeclaration'
-    changes:
-      - kind: 'rename'
-        newName: 'ruleBreak'
-
-  # CSSStyleDeclaration.gapRuleBreak= => ruleBreak=
-  - title: "Rename 'gapRuleBreak=' to 'ruleBreak=' on 'CSSStyleDeclaration'"
-    date: 2026-04-20
-    element:
-      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
-      setter: 'gapRuleBreak'
-      inExtensionType: 'CSSStyleDeclaration'
-    changes:
-      - kind: 'rename'
-        newName: 'ruleBreak'
-
-  # CSSStyleDeclaration.gapRuleColor => ruleColor
-  - title: "Rename 'gapRuleColor' to 'ruleColor' on 'CSSStyleDeclaration'"
-    date: 2026-04-20
-    element:
-      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
-      getter: 'gapRuleColor'
-      inExtensionType: 'CSSStyleDeclaration'
-    changes:
-      - kind: 'rename'
-        newName: 'ruleColor'
-
-  # CSSStyleDeclaration.gapRuleColor= => ruleColor=
-  - title: "Rename 'gapRuleColor=' to 'ruleColor=' on 'CSSStyleDeclaration'"
-    date: 2026-04-20
-    element:
-      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
-      setter: 'gapRuleColor'
-      inExtensionType: 'CSSStyleDeclaration'
-    changes:
-      - kind: 'rename'
-        newName: 'ruleColor'
-
-  # CSSStyleDeclaration.gapRuleOutset => ruleInset
-  - title: "Rename 'gapRuleOutset' to 'ruleInset' on 'CSSStyleDeclaration'"
-    date: 2026-04-20
-    element:
-      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
-      getter: 'gapRuleOutset'
-      inExtensionType: 'CSSStyleDeclaration'
-    changes:
-      - kind: 'rename'
-        newName: 'ruleInset'
-
-  # CSSStyleDeclaration.gapRuleOutset= => ruleInset=
-  - title: "Rename 'gapRuleOutset=' to 'ruleInset=' on 'CSSStyleDeclaration'"
-    date: 2026-04-20
-    element:
-      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
-      setter: 'gapRuleOutset'
-      inExtensionType: 'CSSStyleDeclaration'
-    changes:
-      - kind: 'rename'
-        newName: 'ruleInset'
-
-  # CSSStyleDeclaration.gapRuleStyle => ruleStyle
-  - title: "Rename 'gapRuleStyle' to 'ruleStyle' on 'CSSStyleDeclaration'"
-    date: 2026-04-20
-    element:
-      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
-      getter: 'gapRuleStyle'
-      inExtensionType: 'CSSStyleDeclaration'
-    changes:
-      - kind: 'rename'
-        newName: 'ruleStyle'
-
-  # CSSStyleDeclaration.gapRuleStyle= => ruleStyle=
-  - title: "Rename 'gapRuleStyle=' to 'ruleStyle=' on 'CSSStyleDeclaration'"
-    date: 2026-04-20
-    element:
-      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
-      setter: 'gapRuleStyle'
-      inExtensionType: 'CSSStyleDeclaration'
-    changes:
-      - kind: 'rename'
-        newName: 'ruleStyle'
-
-  # CSSStyleDeclaration.gapRuleWidth => ruleWidth
-  - title: "Rename 'gapRuleWidth' to 'ruleWidth' on 'CSSStyleDeclaration'"
-    date: 2026-04-20
-    element:
-      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
-      getter: 'gapRuleWidth'
-      inExtensionType: 'CSSStyleDeclaration'
-    changes:
-      - kind: 'rename'
-        newName: 'ruleWidth'
-
-  # CSSStyleDeclaration.gapRuleWidth= => ruleWidth=
-  - title: "Rename 'gapRuleWidth=' to 'ruleWidth=' on 'CSSStyleDeclaration'"
-    date: 2026-04-20
-    element:
-      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
-      setter: 'gapRuleWidth'
-      inExtensionType: 'CSSStyleDeclaration'
-    changes:
-      - kind: 'rename'
-        newName: 'ruleWidth'
+        newName: 'scrollInitialTarget'
 
   # ---------------------------------------------------------------------------
   # 0.5.0 migrations (dart:html => package:web class renames)

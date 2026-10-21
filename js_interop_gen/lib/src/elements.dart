@@ -138,30 +138,40 @@ const _trustedTypeNames = {
   'TrustedType',
 };
 
-/// If [idlType] is a union of a string type (`DOMString` or `USVString`) and
-/// a Trusted Types type (`TrustedHTML`, `TrustedScript`, `TrustedScriptURL`,
-/// or `TrustedType`), returns `(stringType, trustedType)`.
+/// If [idlType] is a union consisting only of string types (`DOMString` or
+/// `USVString`) and Trusted Types (`TrustedHTML`, `TrustedScript`,
+/// `TrustedScriptURL`, or `TrustedType`), returns `(stringType, trustedType)`.
 (RawType, RawType)? _splitTrustedStringUnion(idl.IDLType idlType) {
   if (!idlType.union) return null;
   final types = (idlType.idlType as JSArray<idl.IDLType>).toDart;
-  if (types.length != 2) return null;
-  idl.IDLType? stringBranch;
-  idl.IDLType? trustedBranch;
+  RawType? stringRaw;
+  RawType? trustedRaw;
   for (final t in types) {
     if (t.union || t.generic.isNotEmpty) return null;
     final name = (t.idlType as JSString).toDart;
     if (name == 'DOMString' || name == 'USVString') {
-      stringBranch = t;
+      if (stringRaw == null) {
+        stringRaw = _getRawType(t);
+      } else {
+        stringRaw.update(t);
+      }
     } else if (_trustedTypeNames.contains(name) &&
         Translator.instance!.typeToDeclaration.containsKey(name)) {
-      trustedBranch = t;
+      if (trustedRaw == null) {
+        trustedRaw = _getRawType(t);
+      } else {
+        trustedRaw.update(t);
+      }
+    } else {
+      return null;
     }
   }
-  if (stringBranch == null || trustedBranch == null) return null;
-  final trustedRaw = _getRawType(trustedBranch)..nullable |= idlType.nullable;
+  if (stringRaw == null || trustedRaw == null) return null;
   if (trustedRaw.type == 'JSObject') return null;
-  final stringRaw = _getRawType(stringBranch)..nullable |= idlType.nullable;
-  return (stringRaw, trustedRaw);
+  return (
+    stringRaw..nullable |= idlType.nullable,
+    trustedRaw..nullable |= idlType.nullable,
+  );
 }
 
 class Attribute extends Property {

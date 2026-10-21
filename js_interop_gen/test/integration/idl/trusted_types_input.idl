@@ -11,5 +11,6 @@ interface TrustedSinkExample {
   undefined setAttribute(DOMString qualifiedName, (TrustedType or DOMString) value);
 
   attribute (TrustedHTML or DOMString) innerHTML;
+  attribute (TrustedHTML or DOMString or USVString) outerHTML;
   attribute (TrustedScript or DOMString)? textContent;
 };

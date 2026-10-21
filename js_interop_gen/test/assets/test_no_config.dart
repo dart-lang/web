@@ -44,30 +44,34 @@ external User get user1;
 external User get user2;
 @_i1.JS()
 external User get adminUser;
-extension type const UserRole._(int _) {
-  static const UserRole Guest = UserRole._(0);
+extension type UserRole._(_i1.JSNumber _) implements _i1.JSNumber {
+  static final UserRole Guest = UserRole._(0.toJS);
 
-  static const UserRole Viewer = UserRole._(1);
+  static final UserRole Viewer = UserRole._(1.toJS);
 
-  static const UserRole Editor = UserRole._(2);
+  static final UserRole Editor = UserRole._(2.toJS);
 
-  static const UserRole Administrator = UserRole._(3);
+  static final UserRole Administrator = UserRole._(3.toJS);
 }
 typedef User = String;
-extension type const HttpStatusCode._(String _) {
-  static const HttpStatusCode OK = HttpStatusCode._('200 OK');
+extension type HttpStatusCode._(_i1.JSString _) implements _i1.JSString {
+  static final HttpStatusCode OK = HttpStatusCode._('200 OK'.toJS);
 
-  static const HttpStatusCode CREATED = HttpStatusCode._('201 Created');
+  static final HttpStatusCode CREATED = HttpStatusCode._('201 Created'.toJS);
 
-  static const HttpStatusCode BAD_REQUEST = HttpStatusCode._('400 Bad Request');
-
-  static const HttpStatusCode UNAUTHORIZED = HttpStatusCode._(
-    '401 Unauthorized',
+  static final HttpStatusCode BAD_REQUEST = HttpStatusCode._(
+    '400 Bad Request'.toJS,
   );
 
-  static const HttpStatusCode NOT_FOUND = HttpStatusCode._('404 Not Found');
+  static final HttpStatusCode UNAUTHORIZED = HttpStatusCode._(
+    '401 Unauthorized'.toJS,
+  );
 
-  static const HttpStatusCode INTERNAL_SERVER_ERROR = HttpStatusCode._(
-    '500 Internal Server Error',
+  static final HttpStatusCode NOT_FOUND = HttpStatusCode._(
+    '404 Not Found'.toJS,
+  );
+
+  static final HttpStatusCode INTERNAL_SERVER_ERROR = HttpStatusCode._(
+    '500 Internal Server Error'.toJS,
   );
 }

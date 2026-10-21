@@ -104,6 +104,17 @@ extension type TrustedSinkExample._(JSObject _) implements JSObject {
   @JS('innerHTML')
   external set innerHTMLTrusted(TrustedHTML value);
 
+  /// To set a [TrustedHTML] value, use [outerHTMLTrusted].
+  external String get outerHTML;
+  external set outerHTML(String value);
+
+  /// Sets the [outerHTML] property to a [TrustedHTML] value.
+  ///
+  /// Use this instead of [outerHTML] when the document enforces
+  /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
+  @JS('outerHTML')
+  external set outerHTMLTrusted(TrustedHTML value);
+
   /// To set a [TrustedScript] value, use [textContentTrusted].
   external String? get textContent;
   external set textContent(String? value);

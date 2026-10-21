@@ -9,8 +9,8 @@ import 'package:path/path.dart' as p;
 import 'js/filesystem_api.dart';
 
 void ensureDirectoryExists(String dir) {
-  if (!fs.existsSync(dir.toJS).toDart) {
-    fs.mkdirSync(dir.toJS, JSMkdirOptions(recursive: true.toJS));
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, mkdirOptions(recursive: true));
   }
 }
 
@@ -54,7 +54,7 @@ List<String> expandGlobs(
   cwd ??= p.current;
   final globSync = fs.globSync(
     input.map((i) => i.toJS).toList().toJS,
-    FSGlobSyncOptions(cwd: cwd.toJS),
+    globSyncOptions(cwd: cwd),
   );
   return globSync.toDart
       .map((i) => i.toDart)

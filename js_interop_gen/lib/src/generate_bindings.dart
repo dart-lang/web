@@ -81,14 +81,11 @@ Future<(TranslationResult, Map<String, String>)> generateBindings(
 }) async {
   var renameMap = <String, String>{};
   if (renameMapPath != null) {
-    if (fs.existsSync(renameMapPath.toJS).toDart) {
-      final jsonStr =
-          (fs.readFileSync(
-                    renameMapPath.toJS,
-                    JSReadFileOptions(encoding: 'utf8'.toJS),
-                  )
-                  as JSString)
-              .toDart;
+    if (fs.existsSync(renameMapPath)) {
+      final jsonStr = fs.readFileSync(
+        renameMapPath,
+        readFileOptions(encoding: 'utf8'),
+      );
       final json = jsonDecode(jsonStr) as Map<String, dynamic>;
       renameMap = json.map((k, v) => MapEntry(k, v as String));
     }
@@ -98,13 +95,10 @@ Future<(TranslationResult, Map<String, String>)> generateBindings(
   JSRecord<ElementsEntries>? elementsData;
 
   if (idlJsonPath != null) {
-    final jsonStr =
-        (fs.readFileSync(
-                  idlJsonPath.toJS,
-                  JSReadFileOptions(encoding: 'utf8'.toJS),
-                )
-                as JSString)
-            .toDart;
+    final jsonStr = fs.readFileSync(
+      idlJsonPath,
+      readFileOptions(encoding: 'utf8'),
+    );
     final json = jsonDecode(jsonStr) as Map<String, dynamic>;
 
     idlData = (json['idl'] as Map?)?.jsify() as JSRecord<JSArray<webidl.Node>>?;

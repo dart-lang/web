@@ -3,7 +3,6 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:convert';
-import 'dart:js_interop';
 
 import 'package:path/path.dart' as p;
 
@@ -12,14 +11,12 @@ import 'js/filesystem_api.dart';
 
 class DocProvider {
   static DocProvider create() {
-    final content =
-        fs.readFileSync(
-              p.join('..', '..', '..', 'third_party', 'mdn', 'mdn.json').toJS,
-              JSReadFileOptions(encoding: 'utf8'.toJS),
-            )
-            as JSString;
+    final content = fs.readFileSync(
+      p.join('..', '..', '..', 'third_party', 'mdn', 'mdn.json'),
+      readFileOptions(encoding: 'utf8'),
+    );
 
-    return DocProvider(jsonDecode(content.toDart) as Map<String, dynamic>);
+    return DocProvider(jsonDecode(content) as Map<String, dynamic>);
   }
 
   final List<MdnInterface> interfaces = [];

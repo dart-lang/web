@@ -2,58 +2,28 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-// TODO(srujzs): Remove this workaround once we use an SDK version that contains
-// https://github.com/dart-lang/sdk/issues/54801.
-@JS()
-library;
-
 import 'dart:js_interop';
+import 'generated/node_api.dart' as gen;
 
-@JS()
-external FileSystem get fs;
+export 'generated/node_api.dart'
+    show GlobSyncOptions, MkdirOptions, ReadFileOptions, fs;
 
-extension type JSMkdirOptions._(JSObject _) implements JSObject {
-  external factory JSMkdirOptions({JSBoolean? recursive});
+// Safe creator helpers for options bags to avoid calling non-existent JS
+// constructors.
+gen.MkdirOptions mkdirOptions({bool? recursive}) {
+  final obj = JSObject() as gen.MkdirOptions;
+  if (recursive != null) obj.recursive = recursive;
+  return obj;
 }
 
-extension type JSReadFileOptions._(JSObject _) implements JSObject {
-  external factory JSReadFileOptions({JSString? encoding});
+gen.ReadFileOptions readFileOptions({String? encoding}) {
+  final obj = JSObject() as gen.ReadFileOptions;
+  if (encoding != null) obj.encoding = encoding;
+  return obj;
 }
 
-extension type FileSystem._(JSObject _) implements JSObject {
-  external JSBoolean existsSync(JSString path);
-
-  @JS('mkdirSync')
-  external void mkdirSyncOneArg(JSString path);
-
-  @JS('mkdirSync')
-  external void mkdirSyncTwoArg(JSString path, JSMkdirOptions options);
-
-  void mkdirSync(JSString path, [JSMkdirOptions? options]) {
-    if (options == null) {
-      return mkdirSyncOneArg(path);
-    } else {
-      return mkdirSyncTwoArg(path, options);
-    }
-  }
-
-  external JSAny readFileSync(JSString path, [JSReadFileOptions options]);
-
-  external void writeFileSync(JSString path, JSString contents);
-
-  external JSArray<JSString> globSync(
-    JSArray<JSString> patterns, [
-    FSGlobSyncOptions? options,
-  ]);
-}
-
-extension type FSGlobSyncOptions._(JSObject _) implements JSObject {
-  external FSGlobSyncOptions({JSString cwd, FSGlobSyncExcludeFunc? exclude});
-
-  external JSString get cwd;
-  external JSArray<JSString>? get exclude;
-}
-
-extension type FSGlobSyncExcludeFunc(JSFunction _) implements JSFunction {
-  external bool call(String entry);
+gen.GlobSyncOptions globSyncOptions({String? cwd}) {
+  final obj = JSObject() as gen.GlobSyncOptions;
+  if (cwd != null) obj.cwd = cwd;
+  return obj;
 }

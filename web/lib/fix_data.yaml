@@ -444,6 +444,28 @@ transforms:
       - kind: 'rename'
         newName: 'BufferSource'
 
+  # RTCRtpTransform => RTCRtpSenderTransform / RTCRtpReceiverTransform
+  # (`bulkApply: false` so IDE quick-fix offers both choices without guessing.)
+  - title: "Rename 'RTCRtpTransform' to 'RTCRtpSenderTransform'"
+    date: 2026-04-20
+    bulkApply: false
+    element:
+      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
+      typedef: 'RTCRtpTransform'
+    changes:
+      - kind: 'rename'
+        newName: 'RTCRtpSenderTransform'
+
+  - title: "Rename 'RTCRtpTransform' to 'RTCRtpReceiverTransform'"
+    date: 2026-04-20
+    bulkApply: false
+    element:
+      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
+      typedef: 'RTCRtpTransform'
+    changes:
+      - kind: 'rename'
+        newName: 'RTCRtpReceiverTransform'
+
   # UvmEntry => JSArray<JSNumber>
   - title: "Replace 'UvmEntry' with 'JSArray<JSNumber>'"
     date: 2026-04-20

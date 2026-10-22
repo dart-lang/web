@@ -1,6 +1,10 @@
-## 1.1.2-wip
+## 1.1.2
 
-- Require Dart `^3.13.0`.
+- Added `dart fix` migrations for `package:web/helpers.dart` and deprecated
+  `1.1.x` APIs.
+- Removed the broken `UnderlyingSourceBase` to `UnderlyingSource` `dart fix`
+  rename where the target type does not exist.
+- Require Dart `^3.13.0` to support library-level `dart fix` migrations.
 
 ## 1.1.1
 

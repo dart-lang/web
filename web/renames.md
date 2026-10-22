@@ -184,7 +184,6 @@
 | TrackElement                  | HTMLTrackElement              |
 | TrustedUrl                    |                               |
 | UListElement                  | HTMLUListElement              |
-| UnderlyingSourceBase          | UnderlyingSource              |
 | UnknownElement                | HTMLUnknownElement            |
 | Url                           | URL                           |
 | UrlSearchParams               | URLSearchParams               |

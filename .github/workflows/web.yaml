@@ -45,6 +45,8 @@ jobs:
       - run: dart analyze
         if: ${{ matrix.sdk != 'dev' }}
       - run: dart test ${{ matrix.test_config }}
+      - run: dart test -p vm test/dart_fix_test.dart
+        if: ${{ matrix.test_config == '-p chrome' }}
 
       # Validate the 'dart fix' metadata.
       - run: dart fix --compare-to-golden test_fixes

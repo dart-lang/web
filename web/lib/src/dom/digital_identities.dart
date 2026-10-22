@@ -17,12 +17,14 @@ import 'dart:js_interop';
 
 extension type DigitalCredentialRequestOptions._(JSObject _)
     implements JSObject {
-  external factory DigitalCredentialRequestOptions(
-      {JSArray<IdentityRequestProvider> providers});
+  external factory DigitalCredentialRequestOptions({
+    JSArray<IdentityRequestProvider> providers,
+  });
 
   external JSArray<IdentityRequestProvider> get providers;
   external set providers(JSArray<IdentityRequestProvider> value);
 }
+
 extension type IdentityRequestProvider._(JSObject _) implements JSObject {
   external factory IdentityRequestProvider({
     required String protocol,

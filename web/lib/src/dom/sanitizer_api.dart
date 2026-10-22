@@ -40,6 +40,7 @@ typedef SanitizerAttribute = JSAny;
 extension type Sanitizer._(JSObject _) implements JSObject {
   external factory Sanitizer([SanitizerConfig config]);
 }
+
 extension type SanitizerElementNamespace._(JSObject _) implements JSObject {
   external factory SanitizerElementNamespace({
     required String name,
@@ -51,6 +52,7 @@ extension type SanitizerElementNamespace._(JSObject _) implements JSObject {
   external String? get namespace;
   external set namespace(String? value);
 }
+
 extension type SanitizerElementNamespaceWithAttributes._(JSObject _)
     implements SanitizerElementNamespace, JSObject {
   external factory SanitizerElementNamespaceWithAttributes({
@@ -65,6 +67,7 @@ extension type SanitizerElementNamespaceWithAttributes._(JSObject _)
   external JSArray<SanitizerAttribute> get removeAttributes;
   external set removeAttributes(JSArray<SanitizerAttribute> value);
 }
+
 extension type SanitizerAttributeNamespace._(JSObject _) implements JSObject {
   external factory SanitizerAttributeNamespace({
     required String name,
@@ -76,6 +79,7 @@ extension type SanitizerAttributeNamespace._(JSObject _) implements JSObject {
   external String? get namespace;
   external set namespace(String? value);
 }
+
 extension type SanitizerConfig._(JSObject _) implements JSObject {
   external factory SanitizerConfig({
     JSArray<SanitizerElementWithAttributes> elements,

@@ -76,10 +76,7 @@ extension type ServiceWorker._(JSObject _) implements EventTarget, JSObject {
   /// [Client.postMessage] method. The message will not be sent back to this
   /// `ServiceWorker` object but to the associated [ServiceWorkerContainer]
   /// available via [navigator.serviceWorker].
-  external void postMessage(
-    JSAny? message, [
-    JSObject optionsOrTransfer,
-  ]);
+  external void postMessage(JSAny? message, [JSObject optionsOrTransfer]);
 
   /// Returns the `ServiceWorker` serialized script URL defined as part of
   /// [`ServiceWorkerRegistration`](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration).
@@ -155,8 +152,9 @@ extension type ServiceWorkerRegistration._(JSObject _)
   /// worker on the same origin will not be available to other active service
   /// workers on
   /// that same origin.
-  external JSPromise<JSArray<Notification>> getNotifications(
-      [GetNotificationOptions filter]);
+  external JSPromise<JSArray<Notification>> getNotifications([
+    GetNotificationOptions filter,
+  ]);
 
   /// The **`installing`** read-only property of the
   /// [ServiceWorkerRegistration] interface returns a service worker whose
@@ -269,8 +267,9 @@ extension type ServiceWorkerContainer._(JSObject _)
   /// [ServiceWorkerRegistration] object whose scope URL matches the provided
   /// client URL. The method returns a `Promise` that resolves to
   /// a [ServiceWorkerRegistration] or `undefined`.
-  external JSPromise<ServiceWorkerRegistration?> getRegistration(
-      [String clientURL]);
+  external JSPromise<ServiceWorkerRegistration?> getRegistration([
+    String clientURL,
+  ]);
 
   /// The **`getRegistrations()`** method of the
   /// [ServiceWorkerContainer] interface gets all
@@ -313,6 +312,7 @@ extension type ServiceWorkerContainer._(JSObject _)
   external EventHandler get onmessageerror;
   external set onmessageerror(EventHandler value);
 }
+
 extension type RegistrationOptions._(JSObject _) implements JSObject {
   external factory RegistrationOptions({
     String scope,
@@ -384,11 +384,9 @@ extension type NavigationPreloadManager._(JSObject _) implements JSObject {
   /// HTTP header.
   external JSPromise<NavigationPreloadState> getState();
 }
+
 extension type NavigationPreloadState._(JSObject _) implements JSObject {
-  external factory NavigationPreloadState({
-    bool enabled,
-    String headerValue,
-  });
+  external factory NavigationPreloadState({bool enabled, String headerValue});
 
   external bool get enabled;
   external set enabled(bool value);
@@ -498,10 +496,7 @@ extension type Client._(JSObject _) implements JSObject {
   /// (a [Window], [Worker], or [SharedWorker]). The
   /// message is received in the "`message`" event on
   /// [ServiceWorkerContainer].
-  external void postMessage(
-    JSAny? message, [
-    JSObject optionsOrTransfer,
-  ]);
+  external void postMessage(JSAny? message, [JSObject optionsOrTransfer]);
 
   /// @AvailableInWorkers("service")
   ///
@@ -645,6 +640,7 @@ extension type Clients._(JSObject _) implements JSObject {
   /// regularly over the network, or possibly via a different service worker.
   external JSPromise<JSAny?> claim();
 }
+
 extension type ClientQueryOptions._(JSObject _) implements JSObject {
   external factory ClientQueryOptions({
     bool includeUncontrolled,
@@ -728,6 +724,7 @@ extension type ExtendableEvent._(JSObject _) implements Event, JSObject {
   /// settle.
   external void waitUntil(JSPromise<JSAny?> f);
 }
+
 extension type ExtendableEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory ExtendableEventInit({
@@ -770,10 +767,7 @@ extension type InstallEvent._(JSObject _)
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/FetchEvent).
 extension type FetchEvent._(JSObject _) implements ExtendableEvent, JSObject {
-  external factory FetchEvent(
-    String type,
-    FetchEventInit eventInitDict,
-  );
+  external factory FetchEvent(String type, FetchEventInit eventInitDict);
 
   /// @AvailableInWorkers("service")
   ///
@@ -926,6 +920,7 @@ extension type FetchEvent._(JSObject _) implements ExtendableEvent, JSObject {
   /// [ExtendableEvent.waitUntil] method.
   external JSPromise<JSAny?> get handled;
 }
+
 extension type FetchEventInit._(JSObject _)
     implements ExtendableEventInit, JSObject {
   external factory FetchEventInit({
@@ -1013,6 +1008,7 @@ extension type ExtendableMessageEvent._(JSObject _)
   /// channel (the channel the message is being sent through.)
   external JSArray<MessagePort> get ports;
 }
+
 extension type ExtendableMessageEventInit._(JSObject _)
     implements ExtendableEventInit, JSObject {
   external factory ExtendableMessageEventInit({
@@ -1154,10 +1150,7 @@ extension type Cache._(JSObject _) implements JSObject {
   /// > a
   /// > result, [Cache.add]/[Cache.addAll] can't be used to store
   /// > opaque responses, whereas [Cache.put] can.
-  external JSPromise<JSAny?> put(
-    RequestInfo request,
-    Response response,
-  );
+  external JSPromise<JSAny?> put(RequestInfo request, Response response);
 
   /// The **`delete()`** method of the [Cache] interface finds the [Cache] entry
   /// whose key is the request, and if found, deletes the [Cache] entry and
@@ -1181,6 +1174,7 @@ extension type Cache._(JSObject _) implements JSObject {
     CacheQueryOptions options,
   ]);
 }
+
 extension type CacheQueryOptions._(JSObject _) implements JSObject {
   external factory CacheQueryOptions({
     bool ignoreSearch,
@@ -1288,6 +1282,7 @@ extension type CacheStorage._(JSObject _) implements JSObject {
   /// windows or through the [WorkerGlobalScope.caches] property in workers.
   external JSPromise<JSArray<JSString>> keys();
 }
+
 extension type MultiCacheQueryOptions._(JSObject _)
     implements CacheQueryOptions, JSObject {
   external factory MultiCacheQueryOptions({

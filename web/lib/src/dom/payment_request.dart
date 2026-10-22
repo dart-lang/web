@@ -74,8 +74,9 @@ extension type PaymentRequest._(JSObject _) implements EventTarget, JSObject {
   /// typically the best way to go. Most examples on MDN and elsewhere use
   /// [`async`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function)/[`await`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await)
   /// to wait asynchronously while results are validated and so forth.
-  external JSPromise<PaymentResponse> show(
-      [JSPromise<PaymentDetailsUpdate> detailsPromise]);
+  external JSPromise<PaymentResponse> show([
+    JSPromise<PaymentDetailsUpdate> detailsPromise,
+  ]);
 
   /// The `PaymentRequest.abort()` method of the [PaymentRequest]
   /// interface causes the user agent to end the payment request and to remove
@@ -114,6 +115,7 @@ extension type PaymentRequest._(JSObject _) implements EventTarget, JSObject {
   external EventHandler get onpaymentmethodchange;
   external set onpaymentmethodchange(EventHandler value);
 }
+
 extension type PaymentMethodData._(JSObject _) implements JSObject {
   external factory PaymentMethodData({
     required String supportedMethods,
@@ -125,6 +127,7 @@ extension type PaymentMethodData._(JSObject _) implements JSObject {
   external JSObject get data;
   external set data(JSObject value);
 }
+
 extension type PaymentCurrencyAmount._(JSObject _) implements JSObject {
   external factory PaymentCurrencyAmount({
     required String currency,
@@ -136,6 +139,7 @@ extension type PaymentCurrencyAmount._(JSObject _) implements JSObject {
   external String get value;
   external set value(String value);
 }
+
 extension type PaymentDetailsBase._(JSObject _) implements JSObject {
   external factory PaymentDetailsBase({
     JSArray<PaymentItem> displayItems,
@@ -147,6 +151,7 @@ extension type PaymentDetailsBase._(JSObject _) implements JSObject {
   external JSArray<PaymentDetailsModifier> get modifiers;
   external set modifiers(JSArray<PaymentDetailsModifier> value);
 }
+
 extension type PaymentDetailsInit._(JSObject _)
     implements PaymentDetailsBase, JSObject {
   external factory PaymentDetailsInit({
@@ -161,6 +166,7 @@ extension type PaymentDetailsInit._(JSObject _)
   external PaymentItem get total;
   external set total(PaymentItem value);
 }
+
 extension type PaymentDetailsUpdate._(JSObject _)
     implements PaymentDetailsBase, JSObject {
   external factory PaymentDetailsUpdate({
@@ -175,6 +181,7 @@ extension type PaymentDetailsUpdate._(JSObject _)
   external JSObject get paymentMethodErrors;
   external set paymentMethodErrors(JSObject value);
 }
+
 extension type PaymentDetailsModifier._(JSObject _) implements JSObject {
   external factory PaymentDetailsModifier({
     required String supportedMethods,
@@ -192,6 +199,7 @@ extension type PaymentDetailsModifier._(JSObject _) implements JSObject {
   external JSObject get data;
   external set data(JSObject value);
 }
+
 extension type PaymentItem._(JSObject _) implements JSObject {
   external factory PaymentItem({
     required String label,
@@ -206,6 +214,7 @@ extension type PaymentItem._(JSObject _) implements JSObject {
   external bool get pending;
   external set pending(bool value);
 }
+
 extension type PaymentCompleteDetails._(JSObject _) implements JSObject {
   external factory PaymentCompleteDetails({JSObject? data});
 
@@ -278,6 +287,7 @@ extension type PaymentResponse._(JSObject _) implements EventTarget, JSObject {
   /// expected shape of the details object.
   external JSObject get details;
 }
+
 extension type PaymentValidationErrors._(JSObject _) implements JSObject {
   external factory PaymentValidationErrors({
     String error,
@@ -328,6 +338,7 @@ extension type PaymentMethodChangeEvent._(JSObject _)
   /// are available.
   external JSObject? get methodDetails;
 }
+
 extension type PaymentMethodChangeEventInit._(JSObject _)
     implements PaymentRequestUpdateEventInit, JSObject {
   external factory PaymentMethodChangeEventInit({
@@ -369,6 +380,7 @@ extension type PaymentRequestUpdateEvent._(JSObject _)
   /// [PaymentRequest].
   external void updateWith(JSPromise<PaymentDetailsUpdate> detailsPromise);
 }
+
 extension type PaymentRequestUpdateEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory PaymentRequestUpdateEventInit({

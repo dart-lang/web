@@ -224,8 +224,9 @@ abstract final class Device {
   static final bool isFirefox = userAgent.contains('Firefox');
   static final bool isWebKit = !isOpera && userAgent.contains('WebKit');
   static final String cssPrefix = '-$propertyPrefix-';
-  static final String propertyPrefix =
-      isFirefox ? 'moz' : (isIE ? 'ms' : (isOpera ? 'o' : 'webkit'));
+  static final String propertyPrefix = isFirefox
+      ? 'moz'
+      : (isIE ? 'ms' : (isOpera ? 'o' : 'webkit'));
 }
 
 /// HTTP status codes.

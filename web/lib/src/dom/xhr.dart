@@ -149,10 +149,7 @@ extension type XMLHttpRequest._(JSObject _)
   /// > send requests across domains.
   /// > In this situation, you need to set up the  in your response header at
   /// > server side.
-  external void setRequestHeader(
-    String name,
-    String value,
-  );
+  external void setRequestHeader(String name, String value);
 
   /// @AvailableInWorkers("window_and_worker_except_service")
   ///
@@ -500,10 +497,7 @@ extension type XMLHttpRequest._(JSObject _)
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/FormData).
 extension type FormData._(JSObject _) implements JSObject {
-  external factory FormData([
-    HTMLFormElement form,
-    HTMLElement? submitter,
-  ]);
+  external factory FormData([HTMLFormElement form, HTMLElement? submitter]);
 
   /// The **`append()`** method of the [FormData] interface appends a new value
   /// onto an existing key inside a `FormData` object, or adds the key if it
@@ -513,11 +507,7 @@ extension type FormData._(JSObject _) implements JSObject {
   /// specified key already exists, `set()` will overwrite all existing values
   /// with the new one, whereas `append()` will append the new value onto the
   /// end of the existing set of values.
-  external void append(
-    String name,
-    JSAny blobValueOrValue, [
-    String filename,
-  ]);
+  external void append(String name, JSAny blobValueOrValue, [String filename]);
 
   /// The **`delete()`** method of the [FormData] interface deletes a key and
   /// its value(s) from a `FormData` object.
@@ -546,11 +536,7 @@ extension type FormData._(JSObject _) implements JSObject {
   /// specified key does already exist, `set()` will overwrite all existing
   /// values with the new one, whereas `append()` will append the new value onto
   /// the end of the existing set of values.
-  external void set(
-    String name,
-    JSAny blobValueOrValue, [
-    String filename,
-  ]);
+  external void set(String name, JSAny blobValueOrValue, [String filename]);
 }
 
 /// The **`ProgressEvent`** interface represents events measuring progress of an
@@ -602,6 +588,7 @@ extension type ProgressEvent._(JSObject _) implements Event, JSObject {
   /// property is `false`, this value is meaningless and should be ignored.
   external int get total;
 }
+
 extension type ProgressEventInit._(JSObject _) implements EventInit, JSObject {
   external factory ProgressEventInit({
     bool bubbles,

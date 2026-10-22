@@ -57,7 +57,8 @@ extension type VideoDecoder._(JSObject _) implements EventTarget, JSObject {
   /// [VideoDecoder] objects can be successfully configured with the given
   /// config).
   external static JSPromise<VideoDecoderSupport> isConfigSupported(
-      VideoDecoderConfig config);
+    VideoDecoderConfig config,
+  );
 
   /// @AvailableInWorkers("window_and_dedicated")
   ///
@@ -104,6 +105,7 @@ extension type VideoDecoder._(JSObject _) implements EventTarget, JSObject {
   external EventHandler get ondequeue;
   external set ondequeue(EventHandler value);
 }
+
 extension type VideoDecoderInit._(JSObject _) implements JSObject {
   external factory VideoDecoderInit({
     required VideoFrameOutputCallback output,
@@ -134,7 +136,8 @@ extension type VideoEncoder._(JSObject _) implements EventTarget, JSObject {
   /// interface checks if [VideoEncoder] can be successfully configured with the
   /// given config.
   external static JSPromise<VideoEncoderSupport> isConfigSupported(
-      VideoEncoderConfig config);
+    VideoEncoderConfig config,
+  );
 
   /// @AvailableInWorkers("window_and_dedicated")
   ///
@@ -156,10 +159,7 @@ extension type VideoEncoder._(JSObject _) implements EventTarget, JSObject {
   /// encodes a [VideoFrame].
   /// Encoded data ([EncodedVideoChunk]) or an error will eventually be returned
   /// via the callbacks provided to the [VideoEncoder] constructor.
-  external void encode(
-    VideoFrame frame, [
-    VideoEncoderEncodeOptions options,
-  ]);
+  external void encode(VideoFrame frame, [VideoEncoderEncodeOptions options]);
 
   /// @AvailableInWorkers("window_and_dedicated")
   ///
@@ -200,6 +200,7 @@ extension type VideoEncoder._(JSObject _) implements EventTarget, JSObject {
   external EventHandler get ondequeue;
   external set ondequeue(EventHandler value);
 }
+
 extension type VideoEncoderInit._(JSObject _) implements JSObject {
   external factory VideoEncoderInit({
     required EncodedVideoChunkOutputCallback output,
@@ -211,6 +212,7 @@ extension type VideoEncoderInit._(JSObject _) implements JSObject {
   external WebCodecsErrorCallback get error;
   external set error(WebCodecsErrorCallback value);
 }
+
 extension type VideoDecoderSupport._(JSObject _) implements JSObject {
   external factory VideoDecoderSupport({
     bool supported,
@@ -222,6 +224,7 @@ extension type VideoDecoderSupport._(JSObject _) implements JSObject {
   external VideoDecoderConfig get config;
   external set config(VideoDecoderConfig value);
 }
+
 extension type VideoEncoderSupport._(JSObject _) implements JSObject {
   external factory VideoEncoderSupport({
     bool supported,
@@ -233,6 +236,7 @@ extension type VideoEncoderSupport._(JSObject _) implements JSObject {
   external VideoEncoderConfig get config;
   external set config(VideoEncoderConfig value);
 }
+
 extension type VideoDecoderConfig._(JSObject _) implements JSObject {
   external factory VideoDecoderConfig({
     required String codec,
@@ -265,6 +269,7 @@ extension type VideoDecoderConfig._(JSObject _) implements JSObject {
   external bool get optimizeForLatency;
   external set optimizeForLatency(bool value);
 }
+
 extension type VideoEncoderConfig._(JSObject _) implements JSObject {
   external factory VideoEncoderConfig({
     required String codec,
@@ -315,6 +320,7 @@ extension type VideoEncoderConfig._(JSObject _) implements JSObject {
   external HevcEncoderConfig get hevc;
   external set hevc(HevcEncoderConfig value);
 }
+
 extension type VideoEncoderEncodeOptions._(JSObject _) implements JSObject {
   external factory VideoEncoderEncodeOptions({
     bool keyFrame,
@@ -380,6 +386,7 @@ extension type EncodedVideoChunk._(JSObject _) implements JSObject {
   /// interface returns the length in bytes of the encoded video data.
   external int get byteLength;
 }
+
 extension type EncodedVideoChunkInit._(JSObject _) implements JSObject {
   external factory EncodedVideoChunkInit({
     required EncodedVideoChunkType type,
@@ -415,10 +422,7 @@ extension type EncodedVideoChunkInit._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/VideoFrame).
 extension type VideoFrame._(JSObject _) implements JSObject {
-  external factory VideoFrame(
-    JSObject dataOrImage, [
-    JSObject init,
-  ]);
+  external factory VideoFrame(JSObject dataOrImage, [JSObject init]);
 
   /// @AvailableInWorkers("window_and_dedicated")
   ///
@@ -512,6 +516,7 @@ extension type VideoFrame._(JSObject _) implements JSObject {
   /// [VideoColorSpace] object representing the color space of the video.
   external VideoColorSpace get colorSpace;
 }
+
 extension type VideoFrameInit._(JSObject _) implements JSObject {
   external factory VideoFrameInit({
     int duration,
@@ -538,6 +543,7 @@ extension type VideoFrameInit._(JSObject _) implements JSObject {
   external VideoFrameMetadata get metadata;
   external set metadata(VideoFrameMetadata value);
 }
+
 extension type VideoFrameBufferInit._(JSObject _) implements JSObject {
   external factory VideoFrameBufferInit({
     required VideoPixelFormat format,
@@ -579,9 +585,11 @@ extension type VideoFrameBufferInit._(JSObject _) implements JSObject {
   external VideoFrameMetadata get metadata;
   external set metadata(VideoFrameMetadata value);
 }
+
 extension type VideoFrameMetadata._(JSObject _) implements JSObject {
   VideoFrameMetadata() : _ = JSObject();
 }
+
 extension type VideoFrameCopyToOptions._(JSObject _) implements JSObject {
   external factory VideoFrameCopyToOptions({
     DOMRectInit rect,
@@ -599,11 +607,9 @@ extension type VideoFrameCopyToOptions._(JSObject _) implements JSObject {
   external PredefinedColorSpace get colorSpace;
   external set colorSpace(PredefinedColorSpace value);
 }
+
 extension type PlaneLayout._(JSObject _) implements JSObject {
-  external factory PlaneLayout({
-    required int offset,
-    required int stride,
-  });
+  external factory PlaneLayout({required int offset, required int stride});
 
   external int get offset;
   external set offset(int value);
@@ -655,6 +661,7 @@ extension type VideoColorSpace._(JSObject _) implements JSObject {
   /// returns `true` if full-range color values are used.
   external bool? get fullRange;
 }
+
 extension type VideoColorSpaceInit._(JSObject _) implements JSObject {
   external factory VideoColorSpaceInit({
     VideoColorPrimaries? primaries,

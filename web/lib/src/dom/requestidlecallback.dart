@@ -16,6 +16,7 @@ library;
 import 'dart:js_interop';
 
 typedef IdleRequestCallback = JSFunction;
+
 extension type IdleRequestOptions._(JSObject _) implements JSObject {
   external factory IdleRequestOptions({int timeout});
 

@@ -26,6 +26,7 @@ extension type HMACGetSecretInput._(JSObject _) implements JSObject {
   external JSArrayBuffer get salt2;
   external set salt2(JSArrayBuffer value);
 }
+
 extension type HMACGetSecretOutput._(JSObject _) implements JSObject {
   external factory HMACGetSecretOutput({
     required JSArrayBuffer output1,

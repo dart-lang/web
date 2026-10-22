@@ -113,10 +113,10 @@ class _EventStream<T extends html.Event> extends Stream<T> {
 
   // DOM events are inherently multi-subscribers.
   @override
-  Stream<T> asBroadcastStream(
-          {void Function(StreamSubscription<T>)? onListen,
-          void Function(StreamSubscription<T>)? onCancel}) =>
-      this;
+  Stream<T> asBroadcastStream({
+    void Function(StreamSubscription<T>)? onListen,
+    void Function(StreamSubscription<T>)? onCancel,
+  }) => this;
 
   @override
   bool get isBroadcast => true;
@@ -125,9 +125,12 @@ class _EventStream<T extends html.Event> extends Stream<T> {
   // enable scalar replacement of an immediately allocated receiver.
   @pragma('dart2js:tryInline')
   @override
-  StreamSubscription<T> listen(void Function(T)? onData,
-          {Function? onError, void Function()? onDone, bool? cancelOnError}) =>
-      _EventStreamSubscription<T>(_target, _eventType, onData, _useCapture);
+  StreamSubscription<T> listen(
+    void Function(T)? onData, {
+    Function? onError,
+    void Function()? onDone,
+    bool? cancelOnError,
+  }) => _EventStreamSubscription<T>(_target, _eventType, onData, _useCapture);
 }
 
 /// Adapter for exposing DOM Element events as streams
@@ -157,11 +160,14 @@ class _EventStreamSubscription<T extends html.Event>
   // which are typed correctly.  But this currently runs afoul of restrictions
   // on is checks for compatibility with the VM.
   _EventStreamSubscription(
-      this._target, this._eventType, void Function(T)? onData, this._useCapture)
-      : _onData = onData == null
-            ? null
-            // ignore: avoid_dynamic_calls
-            : _wrapZone<html.Event>((e) => (onData as dynamic)(e))?.toJS {
+    this._target,
+    this._eventType,
+    void Function(T)? onData,
+    this._useCapture,
+  ) : _onData = onData == null
+          ? null
+          // ignore: avoid_dynamic_calls
+          : _wrapZone<html.Event>((e) => (onData as dynamic)(e))?.toJS {
     _tryResume();
   }
 
@@ -323,7 +329,7 @@ class ElementEvents extends Events {
     'pointerlockerror': 'webkitpointerlockerror',
     'resourcetimingbufferfull': 'webkitresourcetimingbufferfull',
     'transitionend': 'webkitTransitionEnd',
-    'speechchange': 'webkitSpeechChange'
+    'speechchange': 'webkitSpeechChange',
   };
 
   ElementEvents(html.Element super.ptr);
@@ -333,7 +339,10 @@ class ElementEvents extends Events {
     if (_webkitEvents.keys.contains(type.toLowerCase())) {
       if (Device.isWebKit) {
         return _ElementEventStreamImpl(
-            _ptr, _webkitEvents[type.toLowerCase()]!, false);
+          _ptr,
+          _webkitEvents[type.toLowerCase()]!,
+          false,
+        );
       }
     }
     return _ElementEventStreamImpl(_ptr, type, false);
@@ -388,8 +397,10 @@ class WrappedEvent {
 
   html.Element get matchingTarget {
     if (_selector == null) {
-      throw UnsupportedError('Cannot call matchingTarget if this Event did'
-          ' not arise as a result of event delegation.');
+      throw UnsupportedError(
+        'Cannot call matchingTarget if this Event did'
+        ' not arise as a result of event delegation.',
+      );
     }
     final currentTarget = this.currentTarget as html.Element?;
     var target = this.target as html.Element?;
@@ -431,20 +442,27 @@ class CustomEventStreamImpl<T extends html.Event> extends Stream<T>
   String type;
 
   CustomEventStreamImpl(this.type)
-      : streamController = StreamController.broadcast(sync: true);
+    : streamController = StreamController.broadcast(sync: true);
 
   // Delegate all regular Stream behavior to our wrapped Stream.
   @override
-  StreamSubscription<T> listen(void Function(T)? onData,
-          {Function? onError, void Function()? onDone, bool? cancelOnError}) =>
-      streamController.stream.listen(onData,
-          onError: onError, onDone: onDone, cancelOnError: cancelOnError);
+  StreamSubscription<T> listen(
+    void Function(T)? onData, {
+    Function? onError,
+    void Function()? onDone,
+    bool? cancelOnError,
+  }) => streamController.stream.listen(
+    onData,
+    onError: onError,
+    onDone: onDone,
+    cancelOnError: cancelOnError,
+  );
 
   @override
-  Stream<T> asBroadcastStream(
-          {void Function(StreamSubscription<T>)? onListen,
-          void Function(StreamSubscription<T>)? onCancel}) =>
-      streamController.stream;
+  Stream<T> asBroadcastStream({
+    void Function(StreamSubscription<T>)? onListen,
+    void Function(StreamSubscription<T>)? onCancel,
+  }) => streamController.stream;
 
   @override
   bool get isBroadcast => true;

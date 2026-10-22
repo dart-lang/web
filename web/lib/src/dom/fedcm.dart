@@ -16,6 +16,7 @@ library;
 import 'dart:js_interop';
 
 typedef IdentityCredentialRequestOptionsContext = String;
+
 extension type IdentityCredentialRequestOptions._(JSObject _)
     implements JSObject {
   external factory IdentityCredentialRequestOptions({
@@ -28,6 +29,7 @@ extension type IdentityCredentialRequestOptions._(JSObject _)
   external IdentityCredentialRequestOptionsContext get context;
   external set context(IdentityCredentialRequestOptionsContext value);
 }
+
 extension type IdentityProviderConfig._(JSObject _) implements JSObject {
   external factory IdentityProviderConfig({
     required String configURL,
@@ -39,6 +41,7 @@ extension type IdentityProviderConfig._(JSObject _) implements JSObject {
   external String get clientId;
   external set clientId(String value);
 }
+
 extension type IdentityProviderRequestOptions._(JSObject _)
     implements IdentityProviderConfig, JSObject {
   external factory IdentityProviderRequestOptions({

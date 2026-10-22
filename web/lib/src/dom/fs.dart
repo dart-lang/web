@@ -52,6 +52,7 @@ extension type FileSystemHandle._(JSObject _) implements JSObject {
   /// handle.
   external String get name;
 }
+
 extension type FileSystemCreateWritableOptions._(JSObject _)
     implements JSObject {
   external factory FileSystemCreateWritableOptions({bool keepExistingData});
@@ -96,8 +97,9 @@ extension type FileSystemFileHandle._(JSObject _)
   /// This is typically implemented by writing data to a temporary file, and
   /// only replacing the file represented by file handle with the temporary file
   /// when the writable filestream is closed.
-  external JSPromise<FileSystemWritableFileStream> createWritable(
-      [FileSystemCreateWritableOptions options]);
+  external JSPromise<FileSystemWritableFileStream> createWritable([
+    FileSystemCreateWritableOptions options,
+  ]);
 
   /// @AvailableInWorkers("dedicated")
   ///
@@ -117,18 +119,21 @@ extension type FileSystemFileHandle._(JSObject _)
   /// for the file until the existing access handle is closed.
   external JSPromise<FileSystemSyncAccessHandle> createSyncAccessHandle();
 }
+
 extension type FileSystemGetFileOptions._(JSObject _) implements JSObject {
   external factory FileSystemGetFileOptions({bool create});
 
   external bool get create;
   external set create(bool value);
 }
+
 extension type FileSystemGetDirectoryOptions._(JSObject _) implements JSObject {
   external factory FileSystemGetDirectoryOptions({bool create});
 
   external bool get create;
   external set create(bool value);
 }
+
 extension type FileSystemRemoveOptions._(JSObject _) implements JSObject {
   external factory FileSystemRemoveOptions({bool recursive});
 
@@ -181,8 +186,10 @@ extension type FileSystemDirectoryHandle._(JSObject _)
   /// the name of
   /// the child entry as the last array item.
   external JSPromise<JSArray<JSString>?> resolve(
-      FileSystemHandle possibleDescendant);
+    FileSystemHandle possibleDescendant,
+  );
 }
+
 extension type WriteParams._(JSObject _) implements JSObject {
   external factory WriteParams({
     required WriteCommandType type,
@@ -245,6 +252,7 @@ extension type FileSystemWritableFileStream._(JSObject _)
   /// Changes are typically written to a temporary file instead.
   external JSPromise<JSAny?> truncate(int size);
 }
+
 extension type FileSystemReadWriteOptions._(JSObject _) implements JSObject {
   external factory FileSystemReadWriteOptions({int at});
 

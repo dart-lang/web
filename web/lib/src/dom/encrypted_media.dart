@@ -24,6 +24,7 @@ typedef MediaKeySessionType = String;
 typedef MediaKeySessionClosedReason = String;
 typedef MediaKeyStatus = String;
 typedef MediaKeyMessageType = String;
+
 extension type MediaKeySystemConfiguration._(JSObject _) implements JSObject {
   external factory MediaKeySystemConfiguration({
     String label,
@@ -50,6 +51,7 @@ extension type MediaKeySystemConfiguration._(JSObject _) implements JSObject {
   external JSArray<JSString> get sessionTypes;
   external set sessionTypes(JSArray<JSString> value);
 }
+
 extension type MediaKeySystemMediaCapability._(JSObject _) implements JSObject {
   external factory MediaKeySystemMediaCapability({
     String contentType,
@@ -121,8 +123,10 @@ extension type MediaKeys._(JSObject _) implements JSObject {
   /// provides a server certificate to be used to encrypt messages to the
   /// license server.
   external JSPromise<JSBoolean> setServerCertificate(
-      BufferSource serverCertificate);
+    BufferSource serverCertificate,
+  );
 }
+
 extension type MediaKeysPolicy._(JSObject _) implements JSObject {
   external factory MediaKeysPolicy({String minHdcpVersion});
 
@@ -253,6 +257,7 @@ extension type MediaKeyMessageEvent._(JSObject _) implements Event, JSObject {
   /// Messages vary by key system.
   external JSArrayBuffer get message;
 }
+
 extension type MediaKeyMessageEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory MediaKeyMessageEventInit({
@@ -294,6 +299,7 @@ extension type MediaEncryptedEvent._(JSObject _) implements Event, JSObject {
   /// returns the initialization data contained in this event, if any.
   external JSArrayBuffer? get initData;
 }
+
 extension type MediaEncryptedEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory MediaEncryptedEventInit({

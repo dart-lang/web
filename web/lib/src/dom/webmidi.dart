@@ -22,11 +22,9 @@ import 'html.dart';
 typedef MIDIPortType = String;
 typedef MIDIPortDeviceState = String;
 typedef MIDIPortConnectionState = String;
+
 extension type MIDIOptions._(JSObject _) implements JSObject {
-  external factory MIDIOptions({
-    bool sysex,
-    bool software,
-  });
+  external factory MIDIOptions({bool sysex, bool software});
 
   external bool get sysex;
   external set sysex(bool value);
@@ -176,10 +174,7 @@ extension type MIDIOutput._(JSObject _) implements MIDIPort, JSObject {
   /// The **`send()`** method of the [MIDIOutput] interface queues messages for
   /// the corresponding MIDI port. The message can be sent immediately, or with
   /// an optional timestamp to delay sending.
-  external void send(
-    JSArray<JSNumber> data, [
-    DOMHighResTimeStamp timestamp,
-  ]);
+  external void send(JSArray<JSNumber> data, [DOMHighResTimeStamp timestamp]);
 
   /// The **`clear()`** method of the [MIDIOutput] interface clears the queue of
   /// messages being sent to the output device.
@@ -207,6 +202,7 @@ extension type MIDIMessageEvent._(JSObject _) implements Event, JSObject {
   /// returns the MIDI data bytes of a single MIDI message.
   external JSUint8Array? get data;
 }
+
 extension type MIDIMessageEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory MIDIMessageEventInit({
@@ -243,6 +239,7 @@ extension type MIDIConnectionEvent._(JSObject _) implements Event, JSObject {
   /// returns the port that has been disconnected or connected.
   external MIDIPort? get port;
 }
+
 extension type MIDIConnectionEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory MIDIConnectionEventInit({

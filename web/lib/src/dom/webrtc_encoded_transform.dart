@@ -21,6 +21,7 @@ import 'streams.dart';
 
 typedef RTCRtpTransform = JSObject;
 typedef RTCEncodedVideoFrameType = String;
+
 extension type RTCEncodedVideoFrameMetadata._(JSObject _) implements JSObject {
   external factory RTCEncodedVideoFrameMetadata({
     int frameId,
@@ -102,6 +103,7 @@ extension type RTCEncodedVideoFrame._(JSObject _) implements JSObject {
   external JSArrayBuffer get data;
   external set data(JSArrayBuffer value);
 }
+
 extension type RTCEncodedAudioFrameMetadata._(JSObject _) implements JSObject {
   external factory RTCEncodedAudioFrameMetadata({
     int synchronizationSource,

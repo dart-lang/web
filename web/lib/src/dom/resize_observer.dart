@@ -20,6 +20,7 @@ import 'geometry.dart';
 
 typedef ResizeObserverCallback = JSFunction;
 typedef ResizeObserverBoxOptions = String;
+
 extension type ResizeObserverOptions._(JSObject _) implements JSObject {
   external factory ResizeObserverOptions({ResizeObserverBoxOptions box});
 
@@ -46,10 +47,7 @@ extension type ResizeObserver._(JSObject _) implements JSObject {
   /// The **`observe()`** method of the
   /// [ResizeObserver] interface starts observing the specified
   /// [Element] or [SVGElement].
-  external void observe(
-    Element target, [
-    ResizeObserverOptions options,
-  ]);
+  external void observe(Element target, [ResizeObserverOptions options]);
 
   /// The **`unobserve()`** method of the
   /// [ResizeObserver] interface ends the observing of a specified

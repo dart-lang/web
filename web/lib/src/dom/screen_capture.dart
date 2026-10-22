@@ -19,6 +19,7 @@ typedef SelfCapturePreferenceEnum = String;
 typedef SystemAudioPreferenceEnum = String;
 typedef SurfaceSwitchingPreferenceEnum = String;
 typedef MonitorTypeSurfacesEnum = String;
+
 extension type DisplayMediaStreamOptions._(JSObject _) implements JSObject {
   external factory DisplayMediaStreamOptions({
     JSAny video,

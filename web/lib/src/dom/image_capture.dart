@@ -16,12 +16,9 @@ library;
 import 'dart:js_interop';
 
 typedef ConstrainPoint2D = JSObject;
+
 extension type MediaSettingsRange._(JSObject _) implements JSObject {
-  external factory MediaSettingsRange({
-    num max,
-    num min,
-    num step,
-  });
+  external factory MediaSettingsRange({num max, num min, num step});
 
   external double get max;
   external set max(num value);
@@ -30,6 +27,7 @@ extension type MediaSettingsRange._(JSObject _) implements JSObject {
   external double get step;
   external set step(num value);
 }
+
 extension type ConstrainPoint2DParameters._(JSObject _) implements JSObject {
   external factory ConstrainPoint2DParameters({
     JSArray<Point2D> exact,
@@ -41,11 +39,9 @@ extension type ConstrainPoint2DParameters._(JSObject _) implements JSObject {
   external JSArray<Point2D> get ideal;
   external set ideal(JSArray<Point2D> value);
 }
+
 extension type Point2D._(JSObject _) implements JSObject {
-  external factory Point2D({
-    num x,
-    num y,
-  });
+  external factory Point2D({num x, num y});
 
   external double get x;
   external set x(num value);

@@ -37,16 +37,14 @@ typedef NotificationDirection = String;
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Notification).
 extension type Notification._(JSObject _) implements EventTarget, JSObject {
-  external factory Notification(
-    String title, [
-    NotificationOptions options,
-  ]);
+  external factory Notification(String title, [NotificationOptions options]);
 
   /// The **`requestPermission()`** static method of the [Notification]
   /// interface requests permission from the user for the current origin to
   /// display notifications.
-  external static JSPromise<JSString> requestPermission(
-      [NotificationPermissionCallback deprecatedCallback]);
+  external static JSPromise<JSString> requestPermission([
+    NotificationPermissionCallback deprecatedCallback,
+  ]);
 
   /// The **`permission`** read-only static property of the [Notification]
   /// interface indicates the current permission granted by the user for the
@@ -166,6 +164,7 @@ extension type Notification._(JSObject _) implements EventTarget, JSObject {
   /// notification.
   external JSAny? get data;
 }
+
 extension type NotificationOptions._(JSObject _) implements JSObject {
   external factory NotificationOptions({
     NotificationDirection dir,
@@ -213,6 +212,7 @@ extension type NotificationOptions._(JSObject _) implements JSObject {
   external JSArray<NotificationAction> get actions;
   external set actions(JSArray<NotificationAction> value);
 }
+
 extension type NotificationAction._(JSObject _) implements JSObject {
   external factory NotificationAction({
     required String action,
@@ -227,6 +227,7 @@ extension type NotificationAction._(JSObject _) implements JSObject {
   external String get icon;
   external set icon(String value);
 }
+
 extension type GetNotificationOptions._(JSObject _) implements JSObject {
   external factory GetNotificationOptions({String tag});
 
@@ -279,6 +280,7 @@ extension type NotificationEvent._(JSObject _)
   /// notification is replaced.
   external String get action;
 }
+
 extension type NotificationEventInit._(JSObject _)
     implements ExtendableEventInit, JSObject {
   external factory NotificationEventInit({

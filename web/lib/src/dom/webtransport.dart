@@ -115,10 +115,7 @@ extension type WebTransportDatagramDuplexStream._(JSObject _)
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WebTransport).
 extension type WebTransport._(JSObject _) implements JSObject {
-  external factory WebTransport(
-    String url, [
-    WebTransportOptions options,
-  ]);
+  external factory WebTransport(String url, [WebTransportOptions options]);
 
   /// The **`close()`** method of the [WebTransport] interface closes an ongoing
   /// WebTransport session.
@@ -144,8 +141,8 @@ extension type WebTransport._(JSObject _) implements JSObject {
   /// implementation dependent.
   /// Note however that even though bytes from higher send-order streams are
   /// sent first, they may not arrive first.
-  external JSPromise<WebTransportBidirectionalStream> createBidirectionalStream(
-      [WebTransportSendStreamOptions options]);
+  external JSPromise<WebTransportBidirectionalStream>
+  createBidirectionalStream([WebTransportSendStreamOptions options]);
 
   /// The **`createUnidirectionalStream()`** method of the [WebTransport]
   /// interface asynchronously opens a unidirectional stream.
@@ -168,8 +165,9 @@ extension type WebTransport._(JSObject _) implements JSObject {
   /// implementation dependent.
   /// Note however that even though bytes from higher send-order streams are
   /// sent first, they may not arrive first.
-  external JSPromise<JSObject> createUnidirectionalStream(
-      [WebTransportSendStreamOptions options]);
+  external JSPromise<JSObject> createUnidirectionalStream([
+    WebTransportSendStreamOptions options,
+  ]);
 
   /// The **`ready`** read-only property of the [WebTransport] interface returns
   /// a promise that resolves when the transport is ready to use.
@@ -214,17 +212,16 @@ extension type WebTransport._(JSObject _) implements JSObject {
   /// and ordering are important, like chat applications.
   external ReadableStream get incomingUnidirectionalStreams;
 }
+
 extension type WebTransportHash._(JSObject _) implements JSObject {
-  external factory WebTransportHash({
-    String algorithm,
-    BufferSource value,
-  });
+  external factory WebTransportHash({String algorithm, BufferSource value});
 
   external String get algorithm;
   external set algorithm(String value);
   external BufferSource get value;
   external set value(BufferSource value);
 }
+
 extension type WebTransportOptions._(JSObject _) implements JSObject {
   external factory WebTransportOptions({
     bool allowPooling,
@@ -248,17 +245,16 @@ extension type WebTransportOptions._(JSObject _) implements JSObject {
   external int? get anticipatedConcurrentIncomingBidirectionalStreams;
   external set anticipatedConcurrentIncomingBidirectionalStreams(int? value);
 }
+
 extension type WebTransportCloseInfo._(JSObject _) implements JSObject {
-  external factory WebTransportCloseInfo({
-    int closeCode,
-    String reason,
-  });
+  external factory WebTransportCloseInfo({int closeCode, String reason});
 
   external int get closeCode;
   external set closeCode(int value);
   external String get reason;
   external set reason(String value);
 }
+
 extension type WebTransportSendStreamOptions._(JSObject _) implements JSObject {
   external factory WebTransportSendStreamOptions({
     JSObject? sendGroup,
@@ -323,6 +319,7 @@ extension type WebTransportError._(JSObject _)
   /// protocol error code for this error, or `null` if one is not available.
   external int? get streamErrorCode;
 }
+
 extension type WebTransportErrorOptions._(JSObject _) implements JSObject {
   external factory WebTransportErrorOptions({
     WebTransportErrorSource source,

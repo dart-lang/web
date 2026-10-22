@@ -122,6 +122,7 @@ extension type PerformanceObserver._(JSObject _) implements JSObject {
   /// observer, emptying it out.
   external PerformanceEntryList takeRecords();
 }
+
 extension type PerformanceObserverInit._(JSObject _) implements JSObject {
   external factory PerformanceObserverInit({
     JSArray<JSString> entryTypes,
@@ -172,8 +173,5 @@ extension type PerformanceObserverEntryList._(JSObject _) implements JSObject {
   /// specified in the call to the [PerformanceObserver.observe] method. The
   /// list is available in the observer's callback function (as the first
   /// parameter in the callback).
-  external PerformanceEntryList getEntriesByName(
-    String name, [
-    String type,
-  ]);
+  external PerformanceEntryList getEntriesByName(String name, [String type]);
 }

@@ -201,8 +201,9 @@ extension type MediaStreamTrack._(JSObject _) implements EventTarget, JSObject {
   /// in [Capabilities, constraints, and
   /// settings](https://developer.mozilla.org/en-US/docs/Web/API/Media_Capture_and_Streams_API/Constraints)
   /// for more information on how to apply your preferred constraints.
-  external JSPromise<JSAny?> applyConstraints(
-      [MediaTrackConstraints constraints]);
+  external JSPromise<JSAny?> applyConstraints([
+    MediaTrackConstraints constraints,
+  ]);
 
   /// The **`kind`** read-only property of the [MediaStreamTrack] interface
   /// returns a string set to `"audio"` if the track is an audio track and to
@@ -628,6 +629,7 @@ extension type MediaTrackSupportedConstraints._(JSObject _)
   external bool get suppressLocalAudioPlayback;
   external set suppressLocalAudioPlayback(bool value);
 }
+
 extension type MediaTrackCapabilities._(JSObject _) implements JSObject {
   external factory MediaTrackCapabilities({
     ULongRange width,
@@ -794,6 +796,7 @@ extension type MediaTrackConstraints._(JSObject _)
   external JSArray<MediaTrackConstraintSet> get advanced;
   external set advanced(JSArray<MediaTrackConstraintSet> value);
 }
+
 extension type MediaTrackConstraintSet._(JSObject _) implements JSObject {
   external factory MediaTrackConstraintSet({
     ConstrainULong width,
@@ -1395,6 +1398,7 @@ extension type MediaStreamTrackEvent._(JSObject _) implements Event, JSObject {
   /// interface returns the [MediaStreamTrack] associated with this event.
   external MediaStreamTrack get track;
 }
+
 extension type MediaStreamTrackEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory MediaStreamTrackEventInit({
@@ -1421,10 +1425,7 @@ extension type MediaStreamTrackEventInit._(JSObject _)
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/OverconstrainedError).
 extension type OverconstrainedError._(JSObject _)
     implements DOMException, JSObject {
-  external factory OverconstrainedError(
-    String constraint, [
-    String message,
-  ]);
+  external factory OverconstrainedError(String constraint, [String message]);
 
   /// The **`constraint`** read-only property of the
   /// [OverconstrainedError] interface returns the constraint that was supplied
@@ -1484,8 +1485,9 @@ extension type MediaDevices._(JSObject _) implements EventTarget, JSObject {
   /// > **Note:** It's possible for the returned promise to _neither_ resolve
   /// > nor reject, as the user is not required to make a choice at all and may
   /// > ignore the request.
-  external JSPromise<MediaStream> getUserMedia(
-      [MediaStreamConstraints constraints]);
+  external JSPromise<MediaStream> getUserMedia([
+    MediaStreamConstraints constraints,
+  ]);
 
   /// The **`getDisplayMedia()`** method of the [MediaDevices] interface prompts
   /// the user to select and
@@ -1502,8 +1504,9 @@ extension type MediaDevices._(JSObject _) implements EventTarget, JSObject {
   /// See
   /// [Using the Screen Capture API](https://developer.mozilla.org/en-US/docs/Web/API/Screen_Capture_API/Using_Screen_Capture)
   /// for more details and an example.
-  external JSPromise<MediaStream> getDisplayMedia(
-      [DisplayMediaStreamOptions options]);
+  external JSPromise<MediaStream> getDisplayMedia([
+    DisplayMediaStreamOptions options,
+  ]);
   external EventHandler get ondevicechange;
   external set ondevicechange(EventHandler value);
 }
@@ -1576,6 +1579,7 @@ extension type InputDeviceInfo._(JSObject _)
   /// video track of the device's [MediaStream].
   external MediaTrackCapabilities getCapabilities();
 }
+
 extension type MediaStreamConstraints._(JSObject _) implements JSObject {
   external factory MediaStreamConstraints({
     JSAny video,
@@ -1593,17 +1597,16 @@ extension type MediaStreamConstraints._(JSObject _) implements JSObject {
   external String get peerIdentity;
   external set peerIdentity(String value);
 }
+
 extension type DoubleRange._(JSObject _) implements JSObject {
-  external factory DoubleRange({
-    num max,
-    num min,
-  });
+  external factory DoubleRange({num max, num min});
 
   external double get max;
   external set max(num value);
   external double get min;
   external set min(num value);
 }
+
 extension type ConstrainDoubleRange._(JSObject _)
     implements DoubleRange, JSObject {
   external factory ConstrainDoubleRange({
@@ -1618,17 +1621,16 @@ extension type ConstrainDoubleRange._(JSObject _)
   external double get ideal;
   external set ideal(num value);
 }
+
 extension type ULongRange._(JSObject _) implements JSObject {
-  external factory ULongRange({
-    int max,
-    int min,
-  });
+  external factory ULongRange({int max, int min});
 
   external int get max;
   external set max(int value);
   external int get min;
   external set min(int value);
 }
+
 extension type ConstrainULongRange._(JSObject _)
     implements ULongRange, JSObject {
   external factory ConstrainULongRange({
@@ -1643,22 +1645,18 @@ extension type ConstrainULongRange._(JSObject _)
   external int get ideal;
   external set ideal(int value);
 }
+
 extension type ConstrainBooleanParameters._(JSObject _) implements JSObject {
-  external factory ConstrainBooleanParameters({
-    bool exact,
-    bool ideal,
-  });
+  external factory ConstrainBooleanParameters({bool exact, bool ideal});
 
   external bool get exact;
   external set exact(bool value);
   external bool get ideal;
   external set ideal(bool value);
 }
+
 extension type ConstrainDOMStringParameters._(JSObject _) implements JSObject {
-  external factory ConstrainDOMStringParameters({
-    JSAny exact,
-    JSAny ideal,
-  });
+  external factory ConstrainDOMStringParameters({JSAny exact, JSAny ideal});
 
   external JSAny get exact;
   external set exact(JSAny value);

@@ -34,7 +34,8 @@ extension type RemotePlayback._(JSObject _) implements EventTarget, JSObject {
   /// watches the list of available remote playback devices and returns a
   /// `Promise` that resolves with the `callbackId` of a remote playback device.
   external JSPromise<JSNumber> watchAvailability(
-      RemotePlaybackAvailabilityCallback callback);
+    RemotePlaybackAvailabilityCallback callback,
+  );
 
   /// The **`cancelWatchAvailability()`** method of the [RemotePlayback]
   /// interface cancels the request to watch for one or all available devices.

@@ -38,17 +38,11 @@ import 'webgl1.dart';
 extension type OES_draw_buffers_indexed._(JSObject _) implements JSObject {
   /// The `enableiOES()` method of the [OES_draw_buffers_indexed] WebGL
   /// extension enables blending for a particular draw buffer.
-  external void enableiOES(
-    GLenum target,
-    GLuint index,
-  );
+  external void enableiOES(GLenum target, GLuint index);
 
   /// The `disableiOES()` method of the [OES_draw_buffers_indexed] WebGL
   /// extension enables blending for a particular draw buffer.
-  external void disableiOES(
-    GLenum target,
-    GLuint index,
-  );
+  external void disableiOES(GLenum target, GLuint index);
 
   /// The `blendEquationiOES()` method of the `OES_draw_buffers_indexed` WebGL
   /// extension sets both the RGB blend and alpha blend equations for a
@@ -57,10 +51,7 @@ extension type OES_draw_buffers_indexed._(JSObject _) implements JSObject {
   /// See [OES_draw_buffers_indexed.blendEquationSeparateiOES] for setting RGB
   /// and alpha separately and [WebGLRenderingContext.blendEquation] for the
   /// WebGL 1 version of this method.
-  external void blendEquationiOES(
-    GLuint buf,
-    GLenum mode,
-  );
+  external void blendEquationiOES(GLuint buf, GLenum mode);
 
   /// The `blendEquationSeparateiOES()` method of the [OES_draw_buffers_indexed]
   /// WebGL extension sets the RGB and alpha blend equations separately for a
@@ -82,11 +73,7 @@ extension type OES_draw_buffers_indexed._(JSObject _) implements JSObject {
   /// See [OES_draw_buffers_indexed.blendFuncSeparateiOES] for setting RGB and
   /// alpha components separately and [WebGLRenderingContext.blendFunc] for the
   /// WebGL 1 version of this method.
-  external void blendFunciOES(
-    GLuint buf,
-    GLenum src,
-    GLenum dst,
-  );
+  external void blendFunciOES(GLuint buf, GLenum src, GLenum dst);
 
   /// The `blendFuncSeparateiOES()` method of the [OES_draw_buffers_indexed]
   /// WebGL extension defines which function is used when blending pixels for

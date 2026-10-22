@@ -53,6 +53,7 @@ extension type ContentVisibilityAutoStateChangeEvent._(JSObject _)
   /// `false` otherwise.
   external bool get skipped;
 }
+
 extension type ContentVisibilityAutoStateChangeEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory ContentVisibilityAutoStateChangeEventInit({

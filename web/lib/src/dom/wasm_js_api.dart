@@ -21,6 +21,7 @@ import 'webidl.dart';
 typedef ImportExportKind = String;
 typedef TableKind = String;
 typedef ValueType = String;
+
 extension type WebAssemblyInstantiatedSource._(JSObject _) implements JSObject {
   external factory WebAssemblyInstantiatedSource({
     required Module module,
@@ -32,8 +33,10 @@ extension type WebAssemblyInstantiatedSource._(JSObject _) implements JSObject {
   external Instance get instance;
   external set instance(Instance value);
 }
+
 @JS()
 external $WebAssembly get WebAssembly;
+
 @JS('WebAssembly')
 extension type $WebAssembly._(JSObject _) implements JSObject {
   external bool validate(BufferSource bytes);
@@ -48,6 +51,7 @@ extension type $WebAssembly._(JSObject _) implements JSObject {
     JSObject importObject,
   ]);
 }
+
 extension type ModuleExportDescriptor._(JSObject _) implements JSObject {
   external factory ModuleExportDescriptor({
     required String name,
@@ -59,6 +63,7 @@ extension type ModuleExportDescriptor._(JSObject _) implements JSObject {
   external ImportExportKind get kind;
   external set kind(ImportExportKind value);
 }
+
 extension type ModuleImportDescriptor._(JSObject _) implements JSObject {
   external factory ModuleImportDescriptor({
     required String module,
@@ -73,6 +78,7 @@ extension type ModuleImportDescriptor._(JSObject _) implements JSObject {
   external ImportExportKind get kind;
   external set kind(ImportExportKind value);
 }
+
 @JS('WebAssembly.Module')
 extension type Module._(JSObject _) implements JSObject {
   external factory Module(BufferSource bytes);
@@ -84,26 +90,23 @@ extension type Module._(JSObject _) implements JSObject {
     String sectionName,
   );
 }
+
 @JS('WebAssembly.Instance')
 extension type Instance._(JSObject _) implements JSObject {
-  external factory Instance(
-    Module module, [
-    JSObject importObject,
-  ]);
+  external factory Instance(Module module, [JSObject importObject]);
 
   external JSObject get exports;
 }
+
 extension type MemoryDescriptor._(JSObject _) implements JSObject {
-  external factory MemoryDescriptor({
-    required int initial,
-    int maximum,
-  });
+  external factory MemoryDescriptor({required int initial, int maximum});
 
   external int get initial;
   external set initial(int value);
   external int get maximum;
   external set maximum(int value);
 }
+
 @JS('WebAssembly.Memory')
 extension type Memory._(JSObject _) implements JSObject {
   external factory Memory(MemoryDescriptor descriptor);
@@ -111,6 +114,7 @@ extension type Memory._(JSObject _) implements JSObject {
   external int grow(int delta);
   external JSArrayBuffer get buffer;
 }
+
 extension type TableDescriptor._(JSObject _) implements JSObject {
   external factory TableDescriptor({
     required TableKind element,
@@ -125,41 +129,29 @@ extension type TableDescriptor._(JSObject _) implements JSObject {
   external int get maximum;
   external set maximum(int value);
 }
+
 @JS('WebAssembly.Table')
 extension type Table._(JSObject _) implements JSObject {
-  external factory Table(
-    TableDescriptor descriptor, [
-    JSAny? value,
-  ]);
+  external factory Table(TableDescriptor descriptor, [JSAny? value]);
 
-  external int grow(
-    int delta, [
-    JSAny? value,
-  ]);
+  external int grow(int delta, [JSAny? value]);
   external JSAny? get(int index);
-  external void set(
-    int index, [
-    JSAny? value,
-  ]);
+  external void set(int index, [JSAny? value]);
   external int get length;
 }
+
 extension type GlobalDescriptor._(JSObject _) implements JSObject {
-  external factory GlobalDescriptor({
-    required ValueType value,
-    bool mutable,
-  });
+  external factory GlobalDescriptor({required ValueType value, bool mutable});
 
   external ValueType get value;
   external set value(ValueType value);
   external bool get mutable;
   external set mutable(bool value);
 }
+
 @JS('WebAssembly.Global')
 extension type Global._(JSObject _) implements JSObject {
-  external factory Global(
-    GlobalDescriptor descriptor, [
-    JSAny? v,
-  ]);
+  external factory Global(GlobalDescriptor descriptor, [JSAny? v]);
 
   external JSAny? valueOf();
   external JSAny? get value;

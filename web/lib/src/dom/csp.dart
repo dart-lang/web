@@ -134,6 +134,7 @@ extension type SecurityPolicyViolationEvent._(JSObject _)
   /// document or worker at which the violation occurred.
   external int get columnNumber;
 }
+
 extension type SecurityPolicyViolationEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory SecurityPolicyViolationEventInit({

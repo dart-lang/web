@@ -19,16 +19,14 @@ import 'streams.dart';
 import 'webidl.dart';
 
 extension type TextDecoderOptions._(JSObject _) implements JSObject {
-  external factory TextDecoderOptions({
-    bool fatal,
-    bool ignoreBOM,
-  });
+  external factory TextDecoderOptions({bool fatal, bool ignoreBOM});
 
   external bool get fatal;
   external set fatal(bool value);
   external bool get ignoreBOM;
   external set ignoreBOM(bool value);
 }
+
 extension type TextDecodeOptions._(JSObject _) implements JSObject {
   external factory TextDecodeOptions({bool stream});
 
@@ -45,10 +43,7 @@ extension type TextDecodeOptions._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/TextDecoder).
 extension type TextDecoder._(JSObject _) implements JSObject {
-  external factory TextDecoder([
-    String label,
-    TextDecoderOptions options,
-  ]);
+  external factory TextDecoder([String label, TextDecoderOptions options]);
 
   /// The **`TextDecoder.decode()`** method returns a string containing text
   /// decoded from the buffer passed as a parameter.
@@ -87,11 +82,9 @@ extension type TextDecoder._(JSObject _) implements JSObject {
   /// will be included in the output or skipped over.
   external bool get ignoreBOM;
 }
+
 extension type TextEncoderEncodeIntoResult._(JSObject _) implements JSObject {
-  external factory TextEncoderEncodeIntoResult({
-    int read,
-    int written,
-  });
+  external factory TextEncoderEncodeIntoResult({int read, int written});
 
   external int get read;
   external set read(int value);

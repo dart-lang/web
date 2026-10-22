@@ -22,6 +22,7 @@ typedef MediaEncodingType = String;
 typedef HdrMetadataType = String;
 typedef ColorGamut = String;
 typedef TransferFunction = String;
+
 extension type MediaConfiguration._(JSObject _) implements JSObject {
   external factory MediaConfiguration({
     VideoConfiguration video,
@@ -33,6 +34,7 @@ extension type MediaConfiguration._(JSObject _) implements JSObject {
   external AudioConfiguration get audio;
   external set audio(AudioConfiguration value);
 }
+
 extension type MediaDecodingConfiguration._(JSObject _)
     implements MediaConfiguration, JSObject {
   external factory MediaDecodingConfiguration({
@@ -46,8 +48,10 @@ extension type MediaDecodingConfiguration._(JSObject _)
   external set type(MediaDecodingType value);
   external MediaCapabilitiesKeySystemConfiguration get keySystemConfiguration;
   external set keySystemConfiguration(
-      MediaCapabilitiesKeySystemConfiguration value);
+    MediaCapabilitiesKeySystemConfiguration value,
+  );
 }
+
 extension type MediaEncodingConfiguration._(JSObject _)
     implements MediaConfiguration, JSObject {
   external factory MediaEncodingConfiguration({
@@ -59,6 +63,7 @@ extension type MediaEncodingConfiguration._(JSObject _)
   external MediaEncodingType get type;
   external set type(MediaEncodingType value);
 }
+
 extension type VideoConfiguration._(JSObject _) implements JSObject {
   external factory VideoConfiguration({
     required String contentType,
@@ -97,6 +102,7 @@ extension type VideoConfiguration._(JSObject _) implements JSObject {
   external bool get spatialScalability;
   external set spatialScalability(bool value);
 }
+
 extension type AudioConfiguration._(JSObject _) implements JSObject {
   external factory AudioConfiguration({
     required String contentType,
@@ -117,6 +123,7 @@ extension type AudioConfiguration._(JSObject _) implements JSObject {
   external bool get spatialRendering;
   external set spatialRendering(bool value);
 }
+
 extension type MediaCapabilitiesKeySystemConfiguration._(JSObject _)
     implements JSObject {
   external factory MediaCapabilitiesKeySystemConfiguration({
@@ -144,6 +151,7 @@ extension type MediaCapabilitiesKeySystemConfiguration._(JSObject _)
   external KeySystemTrackConfiguration get video;
   external set video(KeySystemTrackConfiguration value);
 }
+
 extension type KeySystemTrackConfiguration._(JSObject _) implements JSObject {
   external factory KeySystemTrackConfiguration({
     String robustness,
@@ -155,6 +163,7 @@ extension type KeySystemTrackConfiguration._(JSObject _) implements JSObject {
   external String? get encryptionScheme;
   external set encryptionScheme(String? value);
 }
+
 extension type MediaCapabilitiesInfo._(JSObject _) implements JSObject {
   external factory MediaCapabilitiesInfo({
     required bool supported,
@@ -169,6 +178,7 @@ extension type MediaCapabilitiesInfo._(JSObject _) implements JSObject {
   external bool get powerEfficient;
   external set powerEfficient(bool value);
 }
+
 extension type MediaCapabilitiesDecodingInfo._(JSObject _)
     implements MediaCapabilitiesInfo, JSObject {
   external factory MediaCapabilitiesDecodingInfo({
@@ -184,6 +194,7 @@ extension type MediaCapabilitiesDecodingInfo._(JSObject _)
   external MediaDecodingConfiguration get configuration;
   external set configuration(MediaDecodingConfiguration value);
 }
+
 extension type MediaCapabilitiesEncodingInfo._(JSObject _)
     implements MediaCapabilitiesInfo, JSObject {
   external factory MediaCapabilitiesEncodingInfo({
@@ -220,7 +231,8 @@ extension type MediaCapabilities._(JSObject _) implements JSObject {
   /// `powerefficient`, which describe whether decoding the media described
   /// would be supported, smooth, and powerefficient.
   external JSPromise<MediaCapabilitiesDecodingInfo> decodingInfo(
-      MediaDecodingConfiguration configuration);
+    MediaDecodingConfiguration configuration,
+  );
 
   /// The **`MediaCapabilities.encodingInfo()`** method, part of the
   /// [MediaCapabilities] interface of the
@@ -231,5 +243,6 @@ extension type MediaCapabilities._(JSObject _) implements JSObject {
   /// `powerefficient`, which describe how compatible the device is with the
   /// type of media.
   external JSPromise<MediaCapabilitiesEncodingInfo> encodingInfo(
-      MediaEncodingConfiguration configuration);
+    MediaEncodingConfiguration configuration,
+  );
 }

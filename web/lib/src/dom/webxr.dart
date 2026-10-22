@@ -102,7 +102,8 @@ extension type XRReferenceSpace._(JSObject _) implements XRSpace, JSObject {
   /// use this method to let the user use their mouse to pitch and yaw their
   /// viewing angle.
   external XRReferenceSpace getOffsetReferenceSpace(
-      XRRigidTransform originOffset);
+    XRRigidTransform originOffset,
+  );
   external EventHandler get onreset;
   external set onreset(EventHandler value);
 }
@@ -448,6 +449,7 @@ extension type XRSessionEvent._(JSObject _) implements Event, JSObject {
   /// [XRSession] the event is about.
   external JSObject get session;
 }
+
 extension type XRSessionEventInit._(JSObject _) implements EventInit, JSObject {
   external factory XRSessionEventInit({
     bool bubbles,
@@ -498,6 +500,7 @@ extension type XRInputSourceEvent._(JSObject _) implements Event, JSObject {
   /// being manipulated.
   external XRInputSource get inputSource;
 }
+
 extension type XRInputSourceEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory XRInputSourceEventInit({
@@ -546,6 +549,7 @@ extension type XRInputSourcesChangeEvent._(JSObject _)
   /// have been removed from the [XRSession].
   external JSArray<XRInputSource> get removed;
 }
+
 extension type XRInputSourcesChangeEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory XRInputSourcesChangeEventInit({
@@ -597,6 +601,7 @@ extension type XRReferenceSpaceEvent._(JSObject _) implements Event, JSObject {
   /// coordinate system.
   external XRRigidTransform? get transform;
 }
+
 extension type XRReferenceSpaceEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory XRReferenceSpaceEventInit({

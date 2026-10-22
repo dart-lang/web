@@ -18,6 +18,7 @@ import 'dart:js_interop';
 typedef GPUFlagsConstant = int;
 @JS()
 external $GPUBufferUsage get GPUBufferUsage;
+
 @JS('GPUBufferUsage')
 extension type $GPUBufferUsage._(JSObject _) implements JSObject {
   static const GPUFlagsConstant MAP_READ = 1;
@@ -40,16 +41,20 @@ extension type $GPUBufferUsage._(JSObject _) implements JSObject {
 
   static const GPUFlagsConstant QUERY_RESOLVE = 512;
 }
+
 @JS()
 external $GPUMapMode get GPUMapMode;
+
 @JS('GPUMapMode')
 extension type $GPUMapMode._(JSObject _) implements JSObject {
   static const GPUFlagsConstant READ = 1;
 
   static const GPUFlagsConstant WRITE = 2;
 }
+
 @JS()
 external $GPUTextureUsage get GPUTextureUsage;
+
 @JS('GPUTextureUsage')
 extension type $GPUTextureUsage._(JSObject _) implements JSObject {
   static const GPUFlagsConstant COPY_SRC = 1;
@@ -62,8 +67,10 @@ extension type $GPUTextureUsage._(JSObject _) implements JSObject {
 
   static const GPUFlagsConstant RENDER_ATTACHMENT = 16;
 }
+
 @JS()
 external $GPUShaderStage get GPUShaderStage;
+
 @JS('GPUShaderStage')
 extension type $GPUShaderStage._(JSObject _) implements JSObject {
   static const GPUFlagsConstant VERTEX = 1;
@@ -72,8 +79,10 @@ extension type $GPUShaderStage._(JSObject _) implements JSObject {
 
   static const GPUFlagsConstant COMPUTE = 4;
 }
+
 @JS()
 external $GPUColorWrite get GPUColorWrite;
+
 @JS('GPUColorWrite')
 extension type $GPUColorWrite._(JSObject _) implements JSObject {
   static const GPUFlagsConstant RED = 1;

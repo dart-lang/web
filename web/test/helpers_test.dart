@@ -27,8 +27,9 @@ void main() {
       ..append(document.createElement('div')..textContent = '2')
       ..append(document.createElement('div')..textContent = '3');
 
-    final List<Node> dartList =
-        JSImmutableListWrapper<NodeList, Node>(div.querySelectorAll('div'));
+    final List<Node> dartList = JSImmutableListWrapper<NodeList, Node>(
+      div.querySelectorAll('div'),
+    );
 
     // Ensure accessing length does not throw.
     expect(() => dartList.length, returnsNormally);
@@ -88,21 +89,35 @@ void main() {
     // Use `Object.is` to test that values can be passed to interop.
     expect(_is(openedWindow.opener!.unsafeWindow, window), true);
     expect(
-        _is(openedWindow.top!.unsafeWindow, openedWindow.unsafeWindow), true);
-    expect(_is(openedWindow.parent!.unsafeWindow, openedWindow.unsafeWindow),
-        true);
-    expect(_is(openedWindow.opener!.location!.unsafeLocation, window.location),
-        true);
+      _is(openedWindow.top!.unsafeWindow, openedWindow.unsafeWindow),
+      true,
+    );
     expect(
-        _is(openedWindow.opener!.parent?.unsafeWindow,
-            window.parentCrossOrigin?.unsafeWindow),
-        true);
+      _is(openedWindow.parent!.unsafeWindow, openedWindow.unsafeWindow),
+      true,
+    );
     expect(
-        _is(openedWindow.opener!.top?.unsafeWindow,
-            window.topCrossOrigin?.unsafeWindow),
-        true);
-    expect(openedWindow.opener!.opener?.unsafeWindow,
-        window.openerCrossOrigin?.unsafeWindow);
+      _is(openedWindow.opener!.location!.unsafeLocation, window.location),
+      true,
+    );
+    expect(
+      _is(
+        openedWindow.opener!.parent?.unsafeWindow,
+        window.parentCrossOrigin?.unsafeWindow,
+      ),
+      true,
+    );
+    expect(
+      _is(
+        openedWindow.opener!.top?.unsafeWindow,
+        window.topCrossOrigin?.unsafeWindow,
+      ),
+      true,
+    );
+    expect(
+      openedWindow.opener!.opener?.unsafeWindow,
+      window.openerCrossOrigin?.unsafeWindow,
+    );
     testCommon(openedWindow);
     expect(openedWindow.closed, true);
 
@@ -112,24 +127,35 @@ void main() {
     final contentWindow = iframe.contentWindowCrossOrigin!;
     expect(contentWindow.opener, null);
     expect(
-        _is(contentWindow.top?.unsafeWindow,
-            window.topCrossOrigin?.unsafeWindow),
-        true);
+      _is(contentWindow.top?.unsafeWindow, window.topCrossOrigin?.unsafeWindow),
+      true,
+    );
     expect(_is(contentWindow.parent!.unsafeWindow, window), true);
-    expect(_is(contentWindow.parent!.location!.unsafeLocation, window.location),
-        true);
     expect(
-        _is(contentWindow.parent!.parent?.unsafeWindow,
-            window.parentCrossOrigin?.unsafeWindow),
-        true);
+      _is(contentWindow.parent!.location!.unsafeLocation, window.location),
+      true,
+    );
     expect(
-        _is(contentWindow.parent!.top?.unsafeWindow,
-            window.topCrossOrigin?.unsafeWindow),
-        true);
+      _is(
+        contentWindow.parent!.parent?.unsafeWindow,
+        window.parentCrossOrigin?.unsafeWindow,
+      ),
+      true,
+    );
     expect(
-        _is(contentWindow.parent!.opener?.unsafeWindow,
-            window.openerCrossOrigin?.unsafeWindow),
-        true);
+      _is(
+        contentWindow.parent!.top?.unsafeWindow,
+        window.topCrossOrigin?.unsafeWindow,
+      ),
+      true,
+    );
+    expect(
+      _is(
+        contentWindow.parent!.opener?.unsafeWindow,
+        window.openerCrossOrigin?.unsafeWindow,
+      ),
+      true,
+    );
     testCommon(contentWindow);
     // `close` on a `contentWindow` does nothing.
     expect(contentWindow.closed, false);

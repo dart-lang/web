@@ -55,6 +55,7 @@ extension type AnimationEvent._(JSObject _) implements Event, JSObject {
   /// empty string: `''`.
   external String get pseudoElement;
 }
+
 extension type AnimationEventInit._(JSObject _) implements EventInit, JSObject {
   external factory AnimationEventInit({
     bool bubbles,

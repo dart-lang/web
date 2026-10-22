@@ -194,11 +194,9 @@ extension type GamepadHapticActuator._(JSObject _) implements JSObject {
 
   /// The **`pulse()`** method of the [GamepadHapticActuator] interface makes
   /// the hardware pulse at a certain intensity for a specified duration.
-  external JSPromise<JSBoolean> pulse(
-    num value,
-    num duration,
-  );
+  external JSPromise<JSBoolean> pulse(num value, num duration);
 }
+
 extension type GamepadEffectParameters._(JSObject _) implements JSObject {
   external factory GamepadEffectParameters({
     int duration,
@@ -233,10 +231,7 @@ extension type GamepadEffectParameters._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/GamepadEvent).
 extension type GamepadEvent._(JSObject _) implements Event, JSObject {
-  external factory GamepadEvent(
-    String type,
-    GamepadEventInit eventInitDict,
-  );
+  external factory GamepadEvent(String type, GamepadEventInit eventInitDict);
 
   /// The **`GamepadEvent.gamepad`** property of the
   /// **[GamepadEvent] interface** returns a [Gamepad]
@@ -245,6 +240,7 @@ extension type GamepadEvent._(JSObject _) implements Event, JSObject {
   /// events.
   external Gamepad get gamepad;
 }
+
 extension type GamepadEventInit._(JSObject _) implements EventInit, JSObject {
   external factory GamepadEventInit({
     bool bubbles,

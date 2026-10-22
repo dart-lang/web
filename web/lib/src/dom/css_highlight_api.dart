@@ -104,6 +104,7 @@ extension type HighlightRegistry._(JSObject _) implements JSObject {
     HighlightsFromPointOptions options,
   ]);
 }
+
 extension type HighlightHitResult._(JSObject _) implements JSObject {
   external factory HighlightHitResult({
     Highlight highlight,
@@ -115,6 +116,7 @@ extension type HighlightHitResult._(JSObject _) implements JSObject {
   external JSArray<AbstractRange> get ranges;
   external set ranges(JSArray<AbstractRange> value);
 }
+
 extension type HighlightsFromPointOptions._(JSObject _) implements JSObject {
   external factory HighlightsFromPointOptions({
     JSArray<ShadowRoot> shadowRoots,

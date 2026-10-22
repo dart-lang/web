@@ -24,6 +24,7 @@ typedef ImportExportKind = String;
 typedef AddressType = String;
 typedef TableKind = String;
 typedef ValueType = String;
+
 extension type WebAssemblyInstantiatedSource._(JSObject _) implements JSObject {
   external factory WebAssemblyInstantiatedSource({
     required Module module,
@@ -35,6 +36,7 @@ extension type WebAssemblyInstantiatedSource._(JSObject _) implements JSObject {
   external Instance get instance;
   external set instance(Instance value);
 }
+
 extension type WebAssemblyCompileOptions._(JSObject _) implements JSObject {
   external factory WebAssemblyCompileOptions({
     String? importedStringConstants,
@@ -46,8 +48,10 @@ extension type WebAssemblyCompileOptions._(JSObject _) implements JSObject {
   external JSArray<JSString> get builtins;
   external set builtins(JSArray<JSString> value);
 }
+
 @JS()
 external $WebAssembly get WebAssembly;
+
 @JS('WebAssembly')
 extension type $WebAssembly._(JSObject _) implements JSObject {
   external bool validate(
@@ -74,6 +78,7 @@ extension type $WebAssembly._(JSObject _) implements JSObject {
   ]);
   external Tag get JSTag;
 }
+
 extension type ModuleExportDescriptor._(JSObject _) implements JSObject {
   external factory ModuleExportDescriptor({
     required String name,
@@ -85,6 +90,7 @@ extension type ModuleExportDescriptor._(JSObject _) implements JSObject {
   external ImportExportKind get kind;
   external set kind(ImportExportKind value);
 }
+
 extension type ModuleImportDescriptor._(JSObject _) implements JSObject {
   external factory ModuleImportDescriptor({
     required String module,
@@ -99,6 +105,7 @@ extension type ModuleImportDescriptor._(JSObject _) implements JSObject {
   external ImportExportKind get kind;
   external set kind(ImportExportKind value);
 }
+
 @JS('WebAssembly.Module')
 extension type Module._(JSObject _) implements JSObject {
   external factory Module(
@@ -113,12 +120,14 @@ extension type Module._(JSObject _) implements JSObject {
     String sectionName,
   );
 }
+
 @JS('WebAssembly.Instance')
 extension type Instance._(JSObject _) implements JSObject {
   external factory Instance(Module module, [JSObject importObject]);
 
   external JSObject get exports;
 }
+
 extension type MemoryDescriptor._(JSObject _) implements JSObject {
   external factory MemoryDescriptor({
     required AddressValue initial,
@@ -133,6 +142,7 @@ extension type MemoryDescriptor._(JSObject _) implements JSObject {
   external AddressType get address;
   external set address(AddressType value);
 }
+
 @JS('WebAssembly.Memory')
 extension type Memory._(JSObject _) implements JSObject {
   external factory Memory(MemoryDescriptor descriptor);
@@ -142,6 +152,7 @@ extension type Memory._(JSObject _) implements JSObject {
   external JSArrayBuffer toResizableBuffer();
   external JSArrayBuffer get buffer;
 }
+
 extension type TableDescriptor._(JSObject _) implements JSObject {
   external factory TableDescriptor({
     required TableKind element,
@@ -159,6 +170,7 @@ extension type TableDescriptor._(JSObject _) implements JSObject {
   external AddressType get address;
   external set address(AddressType value);
 }
+
 @JS('WebAssembly.Table')
 extension type Table._(JSObject _) implements JSObject {
   external factory Table(TableDescriptor descriptor, [JSAny? value]);
@@ -168,6 +180,7 @@ extension type Table._(JSObject _) implements JSObject {
   external void set(AddressValue index, [JSAny? value]);
   external AddressValue get length;
 }
+
 extension type GlobalDescriptor._(JSObject _) implements JSObject {
   external factory GlobalDescriptor({required ValueType value, bool mutable});
 
@@ -176,6 +189,7 @@ extension type GlobalDescriptor._(JSObject _) implements JSObject {
   external bool get mutable;
   external set mutable(bool value);
 }
+
 @JS('WebAssembly.Global')
 extension type Global._(JSObject _) implements JSObject {
   external factory Global(GlobalDescriptor descriptor, [JSAny? v]);
@@ -184,22 +198,26 @@ extension type Global._(JSObject _) implements JSObject {
   external JSAny? get value;
   external set value(JSAny? value);
 }
+
 extension type TagType._(JSObject _) implements JSObject {
   external factory TagType({required JSArray<JSString> parameters});
 
   external JSArray<JSString> get parameters;
   external set parameters(JSArray<JSString> value);
 }
+
 @JS('WebAssembly.Tag')
 extension type Tag._(JSObject _) implements JSObject {
   external factory Tag(TagType type);
 }
+
 extension type ExceptionOptions._(JSObject _) implements JSObject {
   external factory ExceptionOptions({bool traceStack});
 
   external bool get traceStack;
   external set traceStack(bool value);
 }
+
 @JS('WebAssembly.Exception')
 extension type WebAssemblyException._(JSObject _) implements JSObject {
   external factory WebAssemblyException(

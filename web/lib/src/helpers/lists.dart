@@ -4,6 +4,7 @@
 
 import 'dart:collection';
 import 'dart:js_interop';
+
 import '../dom/dom.dart';
 
 /// `_JSList` acts as a wrapper around a JS list object providing an interface to

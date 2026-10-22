@@ -156,6 +156,7 @@ extension type CloseEvent._(JSObject _) implements Event, JSObject {
   /// human-readable prose explanation for the closure.
   external String get reason;
 }
+
 extension type CloseEventInit._(JSObject _) implements EventInit, JSObject {
   external factory CloseEventInit({
     bool bubbles,

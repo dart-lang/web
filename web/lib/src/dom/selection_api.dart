@@ -289,6 +289,7 @@ extension type Selection._(JSObject _) implements JSObject {
   /// example, using methods like [Range.selectNode].
   external String get direction;
 }
+
 extension type GetComposedRangesOptions._(JSObject _) implements JSObject {
   external factory GetComposedRangesOptions({JSArray<ShadowRoot> shadowRoots});
 

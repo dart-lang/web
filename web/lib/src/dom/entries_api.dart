@@ -143,6 +143,7 @@ extension type FileSystemDirectoryEntry._(JSObject _)
     ErrorCallback errorCallback,
   ]);
 }
+
 extension type FileSystemFlags._(JSObject _) implements JSObject {
   external factory FileSystemFlags({bool create, bool exclusive});
 

@@ -19,7 +19,8 @@
 - Combined stream provider extensions to one per type.
 - Added `dart fix` migrations for removed `@Deprecated` APIs, renamed helper and
   event extensions, and updated Web IDL bindings.
-- Require `sdk: ^3.12.0` to support `isA` on `Object?`.
+- Require `sdk: ^3.13.0` to support `isA` on `Object?` and library-level
+  `dart fix` migrations.
 
 ## 1.1.1
 

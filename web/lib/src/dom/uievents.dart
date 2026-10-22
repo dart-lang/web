@@ -86,6 +86,7 @@ extension type UIEvent._(JSObject _) implements Event, JSObject {
   /// pressed on the keyboard.
   external int get which;
 }
+
 extension type UIEventInit._(JSObject _) implements EventInit, JSObject {
   external factory UIEventInit({
     bool bubbles,
@@ -162,6 +163,7 @@ extension type FocusEvent._(JSObject _) implements UIEvent, JSObject {
   /// [MouseEvent.relatedTarget] is a similar property for mouse events.
   external EventTarget? get relatedTarget;
 }
+
 extension type FocusEventInit._(JSObject _) implements UIEventInit, JSObject {
   external factory FocusEventInit({
     bool bubbles,
@@ -264,6 +266,7 @@ extension type InputEvent._(JSObject _) implements UIEvent, JSObject {
   /// editable content.
   external DataTransfer? get dataTransfer;
 }
+
 extension type InputEventInit._(JSObject _) implements UIEventInit, JSObject {
   external factory InputEventInit({
     bool bubbles,
@@ -568,6 +571,7 @@ extension type KeyboardEvent._(JSObject _) implements UIEvent, JSObject {
   /// > pressed.
   external int get keyCode;
 }
+
 extension type KeyboardEventInit._(JSObject _)
     implements EventModifierInit, JSObject {
   external factory KeyboardEventInit({
@@ -616,6 +620,7 @@ extension type KeyboardEventInit._(JSObject _)
   external int get keyCode;
   external set keyCode(int value);
 }
+
 extension type EventModifierInit._(JSObject _)
     implements UIEventInit, JSObject {
   external factory EventModifierInit({
@@ -707,6 +712,7 @@ extension type CompositionEvent._(JSObject _) implements UIEvent, JSObject {
   /// that generated the `CompositionEvent` object.
   external String get data;
 }
+
 extension type CompositionEventInit._(JSObject _)
     implements UIEventInit, JSObject {
   external factory CompositionEventInit({

@@ -87,6 +87,7 @@ extension type Blob._(JSObject _) implements JSObject {
   /// > rely on this property as a sole validation scheme.**
   external String get type;
 }
+
 extension type BlobPropertyBag._(JSObject _) implements JSObject {
   external factory BlobPropertyBag({String type, EndingType endings});
 
@@ -151,6 +152,7 @@ extension type File._(JSObject _) implements Blob, JSObject {
   /// attribute set.
   external String get webkitRelativePath;
 }
+
 extension type FilePropertyBag._(JSObject _)
     implements BlobPropertyBag, JSObject {
   external factory FilePropertyBag({

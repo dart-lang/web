@@ -217,6 +217,7 @@ extension type IntersectionObserverEntry._(JSObject _) implements JSObject {
   /// root.
   external Element get target;
 }
+
 extension type IntersectionObserverInit._(JSObject _) implements JSObject {
   external factory IntersectionObserverInit({
     JSObject? root,

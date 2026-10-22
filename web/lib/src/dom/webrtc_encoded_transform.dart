@@ -27,6 +27,7 @@ typedef RTCRtpSenderTransform = JSObject;
 
 /// Union of: [RTCRtpScriptTransform], `RTCRtpSFrameDecryptor`
 typedef RTCRtpReceiverTransform = JSObject;
+
 extension type RTCEncodedFrameMetadata._(JSObject _) implements JSObject {
   external factory RTCEncodedFrameMetadata({
     int synchronizationSource,
@@ -56,6 +57,7 @@ extension type RTCEncodedFrameMetadata._(JSObject _) implements JSObject {
   external String get mimeType;
   external set mimeType(String value);
 }
+
 extension type RTCEncodedVideoFrameMetadata._(JSObject _)
     implements RTCEncodedFrameMetadata, JSObject {
   external factory RTCEncodedVideoFrameMetadata({
@@ -91,6 +93,7 @@ extension type RTCEncodedVideoFrameMetadata._(JSObject _)
   external int get timestamp;
   external set timestamp(int value);
 }
+
 extension type RTCEncodedVideoFrameOptions._(JSObject _) implements JSObject {
   external factory RTCEncodedVideoFrameOptions({
     RTCEncodedVideoFrameMetadata metadata,
@@ -141,6 +144,7 @@ extension type RTCEncodedVideoFrame._(JSObject _) implements JSObject {
   external JSArrayBuffer get data;
   external set data(JSArrayBuffer value);
 }
+
 extension type RTCEncodedAudioFrameMetadata._(JSObject _)
     implements RTCEncodedFrameMetadata, JSObject {
   external factory RTCEncodedAudioFrameMetadata({
@@ -161,6 +165,7 @@ extension type RTCEncodedAudioFrameMetadata._(JSObject _)
   external double get audioLevel;
   external set audioLevel(num value);
 }
+
 extension type RTCEncodedAudioFrameOptions._(JSObject _) implements JSObject {
   external factory RTCEncodedAudioFrameOptions({
     RTCEncodedAudioFrameMetadata metadata,

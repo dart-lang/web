@@ -55,6 +55,7 @@ extension type AuthenticationExtensionsPaymentInputs._(JSObject _)
   external PaymentCredentialInstrument get instrument;
   external set instrument(PaymentCredentialInstrument value);
 }
+
 extension type AuthenticationExtensionsPaymentOutputs._(JSObject _)
     implements JSObject {
   external factory AuthenticationExtensionsPaymentOutputs({
@@ -64,12 +65,14 @@ extension type AuthenticationExtensionsPaymentOutputs._(JSObject _)
   external BrowserBoundSignature get browserBoundSignature;
   external set browserBoundSignature(BrowserBoundSignature value);
 }
+
 extension type BrowserBoundSignature._(JSObject _) implements JSObject {
   external factory BrowserBoundSignature({required JSArrayBuffer signature});
 
   external JSArrayBuffer get signature;
   external set signature(JSArrayBuffer value);
 }
+
 extension type PaymentCredentialInstrument._(JSObject _) implements JSObject {
   external factory PaymentCredentialInstrument({
     required String displayName,
@@ -87,6 +90,7 @@ extension type PaymentCredentialInstrument._(JSObject _) implements JSObject {
   external String get details;
   external set details(String value);
 }
+
 extension type PaymentEntityLogo._(JSObject _) implements JSObject {
   external factory PaymentEntityLogo({
     required String url,

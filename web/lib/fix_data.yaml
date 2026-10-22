@@ -12,6 +12,14 @@ transforms:
   # 2.0.0 migrations (breaking changes since 1.1.1)
   # ---------------------------------------------------------------------------
 
+  # package:web/helpers.dart => package:web/web.dart (removed lib/helpers.dart)
+  - title: "Replace 'package:web/helpers.dart' with 'package:web/web.dart'"
+    date: 2026-04-20
+    library: 'package:web/helpers.dart'
+    changes:
+      - kind: 'replacedBy'
+        newLibrary: 'package:web/web.dart'
+
   # ContextEvent => WebGLContextEvent (removed from lib/src/helpers/renames.dart)
   - title: "Rename 'ContextEvent' to 'WebGLContextEvent'"
     date: 2026-04-20

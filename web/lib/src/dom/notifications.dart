@@ -193,6 +193,7 @@ extension type Notification._(JSObject _) implements EventTarget, JSObject {
   /// > [Notification.maxActions_static] property to determine the limit.
   external JSArray<NotificationAction> get actions;
 }
+
 extension type NotificationOptions._(JSObject _) implements JSObject {
   external factory NotificationOptions({
     NotificationDirection dir,
@@ -243,6 +244,7 @@ extension type NotificationOptions._(JSObject _) implements JSObject {
   external JSArray<NotificationAction> get actions;
   external set actions(JSArray<NotificationAction> value);
 }
+
 extension type NotificationAction._(JSObject _) implements JSObject {
   external factory NotificationAction({
     required String action,
@@ -260,6 +262,7 @@ extension type NotificationAction._(JSObject _) implements JSObject {
   external String get icon;
   external set icon(String value);
 }
+
 extension type GetNotificationOptions._(JSObject _) implements JSObject {
   external factory GetNotificationOptions({String tag});
 
@@ -313,6 +316,7 @@ extension type NotificationEvent._(JSObject _)
   /// notification is replaced.
   external String get action;
 }
+
 extension type NotificationEventInit._(JSObject _)
     implements ExtendableEventInit, JSObject {
   external factory NotificationEventInit({

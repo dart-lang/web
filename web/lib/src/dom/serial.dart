@@ -55,6 +55,7 @@ extension type Serial._(JSObject _) implements EventTarget, JSObject {
   external EventHandler get ondisconnect;
   external set ondisconnect(EventHandler value);
 }
+
 extension type SerialPortRequestOptions._(JSObject _) implements JSObject {
   external factory SerialPortRequestOptions({
     JSArray<SerialPortFilter> filters,
@@ -68,6 +69,7 @@ extension type SerialPortRequestOptions._(JSObject _) implements JSObject {
     JSArray<BluetoothServiceUUID> value,
   );
 }
+
 extension type SerialPortFilter._(JSObject _) implements JSObject {
   external factory SerialPortFilter({
     int usbVendorId,
@@ -164,6 +166,7 @@ extension type SerialPort._(JSObject _) implements EventTarget, JSObject {
   /// is open and has not encountered a fatal error.
   external WritableStream? get writable;
 }
+
 extension type SerialPortInfo._(JSObject _) implements JSObject {
   external factory SerialPortInfo({
     int usbVendorId,
@@ -178,6 +181,7 @@ extension type SerialPortInfo._(JSObject _) implements JSObject {
   external BluetoothServiceUUID get bluetoothServiceClassId;
   external set bluetoothServiceClassId(BluetoothServiceUUID value);
 }
+
 extension type SerialOptions._(JSObject _) implements JSObject {
   external factory SerialOptions({
     required int baudRate,
@@ -201,6 +205,7 @@ extension type SerialOptions._(JSObject _) implements JSObject {
   external FlowControlType get flowControl;
   external set flowControl(FlowControlType value);
 }
+
 extension type SerialOutputSignals._(JSObject _) implements JSObject {
   external factory SerialOutputSignals({
     bool dataTerminalReady,
@@ -217,6 +222,7 @@ extension type SerialOutputSignals._(JSObject _) implements JSObject {
   @JS('break')
   external set break_(bool value);
 }
+
 extension type SerialInputSignals._(JSObject _) implements JSObject {
   external factory SerialInputSignals({
     required bool dataCarrierDetect,

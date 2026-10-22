@@ -21,6 +21,7 @@ import 'image_capture.dart';
 
 typedef GetUserMediaSemantics = String;
 typedef SegmentType = String;
+
 extension type Segment._(JSObject _) implements JSObject {
   external factory Segment({
     required SegmentType type,
@@ -44,10 +45,12 @@ extension type Segment._(JSObject _) implements JSObject {
   external DOMRectInit get boundingBox;
   external set boundingBox(DOMRectInit value);
 }
+
 extension type BackgroundBlur._(JSObject _)
     implements MediaEffectInfo, JSObject {
   external factory BackgroundBlur({required bool enabled});
 }
+
 extension type MediaEffectInfo._(JSObject _) implements JSObject {
   external factory MediaEffectInfo({required bool enabled});
 

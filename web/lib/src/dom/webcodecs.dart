@@ -118,6 +118,7 @@ extension type AudioDecoder._(JSObject _) implements EventTarget, JSObject {
   external EventHandler get ondequeue;
   external set ondequeue(EventHandler value);
 }
+
 extension type AudioDecoderInit._(JSObject _) implements JSObject {
   external factory AudioDecoderInit({
     required AudioDataOutputCallback output,
@@ -197,6 +198,7 @@ extension type VideoDecoder._(JSObject _) implements EventTarget, JSObject {
   external EventHandler get ondequeue;
   external set ondequeue(EventHandler value);
 }
+
 extension type VideoDecoderInit._(JSObject _) implements JSObject {
   external factory VideoDecoderInit({
     required VideoFrameOutputCallback output,
@@ -277,6 +279,7 @@ extension type AudioEncoder._(JSObject _) implements EventTarget, JSObject {
   external EventHandler get ondequeue;
   external set ondequeue(EventHandler value);
 }
+
 extension type AudioEncoderInit._(JSObject _) implements JSObject {
   external factory AudioEncoderInit({
     required EncodedAudioChunkOutputCallback output,
@@ -372,6 +375,7 @@ extension type VideoEncoder._(JSObject _) implements EventTarget, JSObject {
   external EventHandler get ondequeue;
   external set ondequeue(EventHandler value);
 }
+
 extension type VideoEncoderInit._(JSObject _) implements JSObject {
   external factory VideoEncoderInit({
     required EncodedVideoChunkOutputCallback output,
@@ -383,6 +387,7 @@ extension type VideoEncoderInit._(JSObject _) implements JSObject {
   external WebCodecsErrorCallback get error;
   external set error(WebCodecsErrorCallback value);
 }
+
 extension type AudioDecoderSupport._(JSObject _) implements JSObject {
   external factory AudioDecoderSupport({
     bool supported,
@@ -394,6 +399,7 @@ extension type AudioDecoderSupport._(JSObject _) implements JSObject {
   external AudioDecoderConfig get config;
   external set config(AudioDecoderConfig value);
 }
+
 extension type VideoDecoderSupport._(JSObject _) implements JSObject {
   external factory VideoDecoderSupport({
     bool supported,
@@ -405,6 +411,7 @@ extension type VideoDecoderSupport._(JSObject _) implements JSObject {
   external VideoDecoderConfig get config;
   external set config(VideoDecoderConfig value);
 }
+
 extension type AudioEncoderSupport._(JSObject _) implements JSObject {
   external factory AudioEncoderSupport({
     bool supported,
@@ -416,6 +423,7 @@ extension type AudioEncoderSupport._(JSObject _) implements JSObject {
   external AudioEncoderConfig get config;
   external set config(AudioEncoderConfig value);
 }
+
 extension type VideoEncoderSupport._(JSObject _) implements JSObject {
   external factory VideoEncoderSupport({
     bool supported,
@@ -427,6 +435,7 @@ extension type VideoEncoderSupport._(JSObject _) implements JSObject {
   external VideoEncoderConfig get config;
   external set config(VideoEncoderConfig value);
 }
+
 extension type AudioDecoderConfig._(JSObject _) implements JSObject {
   external factory AudioDecoderConfig({
     required String codec,
@@ -444,6 +453,7 @@ extension type AudioDecoderConfig._(JSObject _) implements JSObject {
   external AllowSharedBufferSource get description;
   external set description(AllowSharedBufferSource value);
 }
+
 extension type VideoDecoderConfig._(JSObject _) implements JSObject {
   external factory VideoDecoderConfig({
     required String codec,
@@ -482,6 +492,7 @@ extension type VideoDecoderConfig._(JSObject _) implements JSObject {
   external bool get flip;
   external set flip(bool value);
 }
+
 extension type AudioEncoderConfig._(JSObject _) implements JSObject {
   external factory AudioEncoderConfig({
     required String codec,
@@ -511,6 +522,7 @@ extension type AudioEncoderConfig._(JSObject _) implements JSObject {
   external OpusEncoderConfig get opus;
   external set opus(OpusEncoderConfig value);
 }
+
 extension type VideoEncoderConfig._(JSObject _) implements JSObject {
   external factory VideoEncoderConfig({
     required String codec,
@@ -561,6 +573,7 @@ extension type VideoEncoderConfig._(JSObject _) implements JSObject {
   external HevcEncoderConfig get hevc;
   external set hevc(HevcEncoderConfig value);
 }
+
 extension type VideoEncoderEncodeOptions._(JSObject _) implements JSObject {
   external factory VideoEncoderEncodeOptions({
     bool keyFrame,
@@ -626,6 +639,7 @@ extension type EncodedAudioChunk._(JSObject _) implements JSObject {
   /// interface returns the length in bytes of the encoded audio data.
   external int get byteLength;
 }
+
 extension type EncodedAudioChunkInit._(JSObject _) implements JSObject {
   external factory EncodedAudioChunkInit({
     required EncodedAudioChunkType type,
@@ -691,6 +705,7 @@ extension type EncodedVideoChunk._(JSObject _) implements JSObject {
   /// interface returns the length in bytes of the encoded video data.
   external int get byteLength;
 }
+
 extension type EncodedVideoChunkInit._(JSObject _) implements JSObject {
   external factory EncodedVideoChunkInit({
     required EncodedVideoChunkType type,
@@ -793,6 +808,7 @@ extension type AudioData._(JSObject _) implements JSObject {
   /// returns the timestamp of this `AudioData` object.
   external int get timestamp;
 }
+
 extension type AudioDataInit._(JSObject _) implements JSObject {
   external factory AudioDataInit({
     required AudioSampleFormat format,
@@ -819,6 +835,7 @@ extension type AudioDataInit._(JSObject _) implements JSObject {
   external JSArray<JSArrayBuffer> get transfer;
   external set transfer(JSArray<JSArrayBuffer> value);
 }
+
 extension type AudioDataCopyToOptions._(JSObject _) implements JSObject {
   external factory AudioDataCopyToOptions({
     required int planeIndex,
@@ -945,6 +962,7 @@ extension type VideoFrame._(JSObject _) implements JSObject {
   /// [VideoColorSpace] object representing the color space of the video.
   external VideoColorSpace get colorSpace;
 }
+
 extension type VideoFrameInit._(JSObject _) implements JSObject {
   external factory VideoFrameInit({
     int duration,
@@ -977,6 +995,7 @@ extension type VideoFrameInit._(JSObject _) implements JSObject {
   external VideoFrameMetadata get metadata;
   external set metadata(VideoFrameMetadata value);
 }
+
 extension type VideoFrameBufferInit._(JSObject _) implements JSObject {
   external factory VideoFrameBufferInit({
     required VideoPixelFormat format,
@@ -1024,6 +1043,7 @@ extension type VideoFrameBufferInit._(JSObject _) implements JSObject {
   external VideoFrameMetadata get metadata;
   external set metadata(VideoFrameMetadata value);
 }
+
 extension type VideoFrameMetadata._(JSObject _) implements JSObject {
   external factory VideoFrameMetadata({
     JSArray<Segment> segments,
@@ -1038,6 +1058,7 @@ extension type VideoFrameMetadata._(JSObject _) implements JSObject {
   external ImageBitmap get backgroundSegmentationMask;
   external set backgroundSegmentationMask(ImageBitmap value);
 }
+
 extension type VideoFrameCopyToOptions._(JSObject _) implements JSObject {
   external factory VideoFrameCopyToOptions({
     DOMRectInit rect,
@@ -1055,6 +1076,7 @@ extension type VideoFrameCopyToOptions._(JSObject _) implements JSObject {
   external PredefinedColorSpace get colorSpace;
   external set colorSpace(PredefinedColorSpace value);
 }
+
 extension type PlaneLayout._(JSObject _) implements JSObject {
   external factory PlaneLayout({required int offset, required int stride});
 
@@ -1108,6 +1130,7 @@ extension type VideoColorSpace._(JSObject _) implements JSObject {
   /// returns `true` if full-range color values are used.
   external bool? get fullRange;
 }
+
 extension type VideoColorSpaceInit._(JSObject _) implements JSObject {
   external factory VideoColorSpaceInit({
     VideoColorPrimaries? primaries,
@@ -1191,6 +1214,7 @@ extension type ImageDecoder._(JSObject _) implements JSObject {
   /// returns a list of the tracks in the encoded image data.
   external ImageTrackList get tracks;
 }
+
 extension type ImageDecoderInit._(JSObject _) implements JSObject {
   external factory ImageDecoderInit({
     required String type,
@@ -1217,6 +1241,7 @@ extension type ImageDecoderInit._(JSObject _) implements JSObject {
   external JSArray<JSArrayBuffer> get transfer;
   external set transfer(JSArray<JSArrayBuffer> value);
 }
+
 extension type ImageDecodeOptions._(JSObject _) implements JSObject {
   external factory ImageDecodeOptions({
     int frameIndex,
@@ -1228,6 +1253,7 @@ extension type ImageDecodeOptions._(JSObject _) implements JSObject {
   external bool get completeFramesOnly;
   external set completeFramesOnly(bool value);
 }
+
 extension type ImageDecodeResult._(JSObject _) implements JSObject {
   external factory ImageDecodeResult({
     required VideoFrame image,

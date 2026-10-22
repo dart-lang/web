@@ -241,6 +241,7 @@ extension type CSSStyleSheet._(JSObject _) implements StyleSheet, JSObject {
   /// > site or app.
   external CSSRuleList get rules;
 }
+
 extension type CSSStyleSheetInit._(JSObject _) implements JSObject {
   external factory CSSStyleSheetInit({
     String? baseURL,
@@ -2195,11 +2196,13 @@ extension type CSSStyleDeclaration._(JSObject _) implements JSObject {
   external String get zoom;
   external set zoom(String value);
 }
+
 extension type CSSStyleProperties._(JSObject _)
     implements CSSStyleDeclaration, JSObject {
   external String get cssFloat;
   external set cssFloat(String value);
 }
+
 @JS()
 external $CSS get CSS;
 

@@ -55,6 +55,7 @@ extension type TransitionEvent._(JSObject _) implements Event, JSObject {
   external String get pseudoElement;
   external CSSTransition? get animation;
 }
+
 extension type TransitionEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory TransitionEventInit({

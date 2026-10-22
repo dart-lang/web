@@ -51,6 +51,7 @@ extension type DocumentPictureInPicture._(JSObject _)
   external EventHandler get onenter;
   external set onenter(EventHandler value);
 }
+
 extension type DocumentPictureInPictureOptions._(JSObject _)
     implements JSObject {
   external factory DocumentPictureInPictureOptions({
@@ -91,6 +92,7 @@ extension type DocumentPictureInPictureEvent._(JSObject _)
   /// window the event was fired on.
   external Window get window;
 }
+
 extension type DocumentPictureInPictureEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory DocumentPictureInPictureEventInit({

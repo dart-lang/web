@@ -19,6 +19,7 @@ import 'dart:js_interop';
 import 'generic_sensor.dart';
 
 typedef AccelerometerLocalCoordinateSystem = String;
+
 extension type AccelerometerSensorOptions._(JSObject _)
     implements SensorOptions, JSObject {
   external factory AccelerometerSensorOptions({

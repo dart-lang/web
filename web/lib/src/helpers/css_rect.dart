@@ -173,9 +173,8 @@ abstract class CssRect implements Rectangle<num> {
       // The border-box includes padding and border, so remove it if we want
       // just the content itself.
       if (augmentingMeasurement == _CONTENT) {
-        val -= Dimension.css(
-          styles.getPropertyValue('$_PADDING-$measurement'),
-        ).value;
+        val -= Dimension.css(styles.getPropertyValue('$_PADDING-$measurement'))
+            .value;
       }
 
       // At this point, we don't wan't to augment with border or margin,

@@ -21,6 +21,7 @@ import 'html.dart';
 
 typedef SchedulerPostTaskCallback = JSFunction;
 typedef TaskPriority = String;
+
 extension type SchedulerPostTaskOptions._(JSObject _) implements JSObject {
   external factory SchedulerPostTaskOptions({
     AbortSignal signal,
@@ -136,6 +137,7 @@ extension type TaskPriorityChangeEvent._(JSObject _)
   /// The new priority of the task can be read from `event.target.priority`.
   external TaskPriority get previousPriority;
 }
+
 extension type TaskPriorityChangeEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory TaskPriorityChangeEventInit({
@@ -148,6 +150,7 @@ extension type TaskPriorityChangeEventInit._(JSObject _)
   external TaskPriority get previousPriority;
   external set previousPriority(TaskPriority value);
 }
+
 extension type TaskControllerInit._(JSObject _) implements JSObject {
   external factory TaskControllerInit({TaskPriority priority});
 
@@ -210,6 +213,7 @@ extension type TaskController._(JSObject _)
   /// If the task is immutable, the function call is ignored.
   external void setPriority(TaskPriority priority);
 }
+
 extension type TaskSignalAnyInit._(JSObject _) implements JSObject {
   external factory TaskSignalAnyInit({JSAny priority});
 

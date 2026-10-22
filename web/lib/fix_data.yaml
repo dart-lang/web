@@ -9,28 +9,134 @@ version: 1
 
 transforms:
   # ---------------------------------------------------------------------------
-  # 1.1.2 migrations (deprecations from 1.1.1)
+  # 1.1.2 migrations (deprecated APIs in 1.1.1)
   # ---------------------------------------------------------------------------
 
   # package:web/helpers.dart => package:web/web.dart
   - title: "Replace 'package:web/helpers.dart' with 'package:web/web.dart'"
-    date: 2025-02-26
+    date: 2026-10-22
     library: 'package:web/helpers.dart'
     changes:
       - kind: 'replacedBy'
         newLibrary: 'package:web/web.dart'
 
-  - title: "Rename 'Node.text=' to 'Node.textContent='"
-    date: 2025-02-26
+  # ContextEvent => WebGLContextEvent
+  - title: "Rename 'ContextEvent' to 'WebGLContextEvent'"
+    date: 2026-10-22
+    element:
+      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
+      class: 'ContextEvent'
+    changes:
+      - kind: 'rename'
+        newName: 'WebGLContextEvent'
+
+  # WebGL => WebGLRenderingContext
+  - title: "Rename 'WebGL' to 'WebGLRenderingContext'"
+    date: 2026-10-22
+    element:
+      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
+      class: 'WebGL'
+    changes:
+      - kind: 'rename'
+        newName: 'WebGLRenderingContext'
+
+  # createAudioElement() => HTMLAudioElement()
+  - title: "Replace 'createAudioElement' with 'HTMLAudioElement'"
+    date: 2026-10-22
+    element:
+      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
+      function: 'createAudioElement'
+    changes:
+      - kind: 'rename'
+        newName: 'HTMLAudioElement'
+
+  # createIFrameElement() => HTMLIFrameElement()
+  - title: "Replace 'createIFrameElement' with 'HTMLIFrameElement'"
+    date: 2026-10-22
+    element:
+      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
+      function: 'createIFrameElement'
+    changes:
+      - kind: 'rename'
+        newName: 'HTMLIFrameElement'
+
+  # createCanvasElement() => HTMLCanvasElement() (0-arg calls only)
+  - title: "Replace 'createCanvasElement()' with 'HTMLCanvasElement()'"
+    date: 2026-10-22
+    element:
+      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
+      function: 'createCanvasElement'
+    oneOf:
+      - if: "width == '' && height == ''"
+        changes:
+          - kind: 'rename'
+            newName: 'HTMLCanvasElement'
+    variables:
+      width:
+        kind: 'fragment'
+        value: 'arguments[width]'
+      height:
+        kind: 'fragment'
+        value: 'arguments[height]'
+
+  # TouchListWrapper => JSImmutableListWrapper<TouchList, Touch>
+  - title: "Replace 'TouchListWrapper' with 'JSImmutableListWrapper<TouchList, Touch>'"
+    date: 2026-10-22
+    element:
+      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
+      class: 'TouchListWrapper'
+    changes:
+      - kind: 'rename'
+        newName: 'JSImmutableListWrapper'
+      - kind: 'addTypeParameter'
+        index: 0
+        name: 'T'
+        argumentValue:
+          expression: '{% TouchList %}, {% Touch %}'
+          variables:
+            TouchList:
+              kind: 'import'
+              uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
+              name: 'TouchList'
+            Touch:
+              kind: 'import'
+              uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
+              name: 'Touch'
+
+  # CanvasRenderingContext2D.drawImageScaled => CanvasRenderingContext2D.drawImage
+  - title: "Rename 'CanvasRenderingContext2D.drawImageScaled' to 'drawImage'"
+    date: 2026-10-22
+    element:
+      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
+      method: 'drawImageScaled'
+      inExtensionType: 'CanvasRenderingContext2D'
+    changes:
+      - kind: 'rename'
+        newName: 'drawImage'
+
+  # Node.text= => Node.textContent
+  - title: "Rename 'Node.text' setter to 'textContent'"
+    date: 2026-10-22
     element:
       uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
       setter: 'text'
-      inClass: 'Node'
+      inExtensionType: 'Node'
     changes:
       - kind: 'rename'
         newName: 'textContent'
 
-# AnchorElement => HTMLAnchorElement
+  # Node.append => Node.appendChild
+  - title: "Rename 'Node.append' method to 'appendChild'"
+    date: 2026-10-22
+    element:
+      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
+      method: 'append'
+      inExtensionType: 'Node'
+    changes:
+      - kind: 'rename'
+        newName: 'appendChild'
+
+  # AnchorElement => HTMLAnchorElement
   - title: "Rename to 'HTMLAnchorElement'"
     date: 2024-01-12
     element:
@@ -52,8 +158,8 @@ transforms:
   - title: "Rename to 'HTMLAudioElement'"
     date: 2024-01-12
     element:
-      uris: [ 'package:web/web.dart' ]
-      typedef: 'AudioElement'
+      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
+      class: 'AudioElement'
     changes:
       - kind: 'rename'
         newName: 'HTMLAudioElement'
@@ -97,8 +203,8 @@ transforms:
   - title: "Rename to 'HTMLCanvasElement'"
     date: 2024-01-12
     element:
-      uris: [ 'package:web/web.dart' ]
-      typedef: 'CanvasElement'
+      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
+      class: 'CanvasElement'
     changes:
       - kind: 'rename'
         newName: 'HTMLCanvasElement'
@@ -268,8 +374,8 @@ transforms:
   - title: "Rename to 'CSSStyleDeclaration'"
     date: 2024-01-12
     element:
-      uris: [ 'package:web/web.dart' ]
-      typedef: 'CssStyleDeclaration'
+      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
+      class: 'CssStyleDeclaration'
     changes:
       - kind: 'rename'
         newName: 'CSSStyleDeclaration'
@@ -628,8 +734,8 @@ transforms:
   - title: "Rename to 'HTMLElement'"
     date: 2024-01-12
     element:
-      uris: [ 'package:web/web.dart' ]
-      typedef: 'HtmlElement'
+      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
+      class: 'HtmlElement'
     changes:
       - kind: 'rename'
         newName: 'HTMLElement'
@@ -700,8 +806,8 @@ transforms:
   - title: "Rename to 'HTMLImageElement'"
     date: 2024-01-12
     element:
-      uris: [ 'package:web/web.dart' ]
-      typedef: 'ImageElement'
+      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
+      class: 'ImageElement'
     changes:
       - kind: 'rename'
         newName: 'HTMLImageElement'
@@ -1209,15 +1315,6 @@ transforms:
     changes:
       - kind: 'rename'
         newName: 'HTMLUListElement'
-  # UnderlyingSourceBase => UnderlyingSource
-  - title: "Rename to 'UnderlyingSource'"
-    date: 2024-01-12
-    element:
-      uris: [ 'package:web/web.dart' ]
-      class: 'UnderlyingSourceBase'
-    changes:
-      - kind: 'rename'
-        newName: 'UnderlyingSource'
   # UnknownElement => HTMLUnknownElement
   - title: "Rename to 'HTMLUnknownElement'"
     date: 2024-01-12
@@ -1249,8 +1346,8 @@ transforms:
   - title: "Rename to 'HTMLVideoElement'"
     date: 2024-01-12
     element:
-      uris: [ 'package:web/web.dart' ]
-      typedef: 'VideoElement'
+      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
+      class: 'VideoElement'
     changes:
       - kind: 'rename'
         newName: 'HTMLVideoElement'

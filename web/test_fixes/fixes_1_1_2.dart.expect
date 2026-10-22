@@ -1,0 +1,31 @@
+// Copyright (c) 2026, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+
+import 'package:web/web.dart';
+
+late WebGLContextEvent $contextEvent;
+late WebGLRenderingContext $webGL;
+
+final HTMLAudioElement $audio = HTMLAudioElement();
+final HTMLIFrameElement $iframe = HTMLIFrameElement();
+final HTMLCanvasElement $canvas0 = HTMLCanvasElement();
+
+late TouchList $touchList;
+late JSImmutableListWrapper<TouchList, Touch> $touchListWrapper;
+final $touchListInit = JSImmutableListWrapper<TouchList, Touch>($touchList);
+
+Node testExtensions(
+  CanvasRenderingContext2D ctx2d,
+  HTMLImageElement img,
+  Node node,
+  Node child,
+  HTMLDivElement div,
+) {
+  ctx2d.drawImage(img, 0, 0, 10, 10);
+  node.textContent = 'hello';
+  div.textContent = 'world';
+  div.parentNode!.textContent = 'chained';
+  div.append(child);
+  return node.appendChild(child);
+}

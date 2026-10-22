@@ -121,70 +121,6 @@ jobs:
         if: "always() && steps.web_pub_upgrade.conclusion == 'success'"
         working-directory: web
   job_004:
-    name: "analyze_and_format; Dart beta; PKG: web; `dart analyze --fatal-infos .`"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cache Pub hosted dependencies
-        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
-        with:
-          path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:beta;packages:web;commands:analyze"
-          restore-keys: |-
-            os:ubuntu-latest;pub-cache-hosted;sdk:beta;packages:web
-            os:ubuntu-latest;pub-cache-hosted;sdk:beta
-            os:ubuntu-latest;pub-cache-hosted
-            os:ubuntu-latest
-      - name: Setup Dart SDK
-        uses: dart-lang/setup-dart@0a8a0fc875eb934c15d08629302413c671d3f672
-        with:
-          sdk: beta
-      - id: checkout
-        name: Checkout repository
-        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
-        with:
-          persist-credentials: false
-      - id: web_pub_upgrade
-        name: web; dart pub upgrade
-        run: dart pub upgrade
-        if: "always() && steps.checkout.conclusion == 'success'"
-        working-directory: web
-      - name: "web; dart analyze --fatal-infos ."
-        run: dart analyze --fatal-infos .
-        if: "always() && steps.web_pub_upgrade.conclusion == 'success'"
-        working-directory: web
-  job_005:
-    name: "analyze_and_format; Dart beta; PKG: web; `dart format --output=none --set-exit-if-changed .`"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cache Pub hosted dependencies
-        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
-        with:
-          path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:beta;packages:web;commands:format"
-          restore-keys: |-
-            os:ubuntu-latest;pub-cache-hosted;sdk:beta;packages:web
-            os:ubuntu-latest;pub-cache-hosted;sdk:beta
-            os:ubuntu-latest;pub-cache-hosted
-            os:ubuntu-latest
-      - name: Setup Dart SDK
-        uses: dart-lang/setup-dart@0a8a0fc875eb934c15d08629302413c671d3f672
-        with:
-          sdk: beta
-      - id: checkout
-        name: Checkout repository
-        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
-        with:
-          persist-credentials: false
-      - id: web_pub_upgrade
-        name: web; dart pub upgrade
-        run: dart pub upgrade
-        if: "always() && steps.checkout.conclusion == 'success'"
-        working-directory: web
-      - name: "web; dart format --output=none --set-exit-if-changed ."
-        run: "dart format --output=none --set-exit-if-changed ."
-        if: "always() && steps.web_pub_upgrade.conclusion == 'success'"
-        working-directory: web
-  job_006:
     name: "analyze_and_format; Dart dev; PKGS: web, web_generator; `dart analyze --fatal-infos .`"
     runs-on: ubuntu-latest
     steps:
@@ -225,7 +161,7 @@ jobs:
         run: dart analyze --fatal-infos .
         if: "always() && steps.web_generator_pub_upgrade.conclusion == 'success'"
         working-directory: web_generator
-  job_007:
+  job_005:
     name: "analyze_and_format; Dart dev; PKGS: web, web_generator; `dart format --output=none --set-exit-if-changed .`"
     runs-on: ubuntu-latest
     steps:
@@ -266,7 +202,7 @@ jobs:
         run: "dart format --output=none --set-exit-if-changed ."
         if: "always() && steps.web_generator_pub_upgrade.conclusion == 'success'"
         working-directory: web_generator
-  job_008:
+  job_006:
     name: "unit_test; Dart 3.13.0; PKG: web; `dart test --test-randomize-ordering-seed=random -p chrome -c dart2wasm`"
     runs-on: ubuntu-latest
     steps:
@@ -304,9 +240,7 @@ jobs:
       - job_003
       - job_004
       - job_005
-      - job_006
-      - job_007
-  job_009:
+  job_007:
     name: "unit_test; Dart 3.13.0; PKG: web; `dart test --test-randomize-ordering-seed=random -p chrome`"
     runs-on: ubuntu-latest
     steps:
@@ -344,89 +278,7 @@ jobs:
       - job_003
       - job_004
       - job_005
-      - job_006
-      - job_007
-  job_010:
-    name: "unit_test; Dart beta; PKG: web; `dart test --test-randomize-ordering-seed=random -p chrome -c dart2wasm`"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cache Pub hosted dependencies
-        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
-        with:
-          path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:beta;packages:web;commands:test_1"
-          restore-keys: |-
-            os:ubuntu-latest;pub-cache-hosted;sdk:beta;packages:web
-            os:ubuntu-latest;pub-cache-hosted;sdk:beta
-            os:ubuntu-latest;pub-cache-hosted
-            os:ubuntu-latest
-      - name: Setup Dart SDK
-        uses: dart-lang/setup-dart@0a8a0fc875eb934c15d08629302413c671d3f672
-        with:
-          sdk: beta
-      - id: checkout
-        name: Checkout repository
-        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
-        with:
-          persist-credentials: false
-      - id: web_pub_upgrade
-        name: web; dart pub upgrade
-        run: dart pub upgrade
-        if: "always() && steps.checkout.conclusion == 'success'"
-        working-directory: web
-      - name: "web; dart test --test-randomize-ordering-seed=random -p chrome -c dart2wasm"
-        run: "dart test --test-randomize-ordering-seed=random -p chrome -c dart2wasm"
-        if: "always() && steps.web_pub_upgrade.conclusion == 'success'"
-        working-directory: web
-    needs:
-      - job_001
-      - job_002
-      - job_003
-      - job_004
-      - job_005
-      - job_006
-      - job_007
-  job_011:
-    name: "unit_test; Dart beta; PKG: web; `dart test --test-randomize-ordering-seed=random -p chrome`"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cache Pub hosted dependencies
-        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
-        with:
-          path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:beta;packages:web;commands:test_0"
-          restore-keys: |-
-            os:ubuntu-latest;pub-cache-hosted;sdk:beta;packages:web
-            os:ubuntu-latest;pub-cache-hosted;sdk:beta
-            os:ubuntu-latest;pub-cache-hosted
-            os:ubuntu-latest
-      - name: Setup Dart SDK
-        uses: dart-lang/setup-dart@0a8a0fc875eb934c15d08629302413c671d3f672
-        with:
-          sdk: beta
-      - id: checkout
-        name: Checkout repository
-        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
-        with:
-          persist-credentials: false
-      - id: web_pub_upgrade
-        name: web; dart pub upgrade
-        run: dart pub upgrade
-        if: "always() && steps.checkout.conclusion == 'success'"
-        working-directory: web
-      - name: "web; dart test --test-randomize-ordering-seed=random -p chrome"
-        run: "dart test --test-randomize-ordering-seed=random -p chrome"
-        if: "always() && steps.web_pub_upgrade.conclusion == 'success'"
-        working-directory: web
-    needs:
-      - job_001
-      - job_002
-      - job_003
-      - job_004
-      - job_005
-      - job_006
-      - job_007
-  job_012:
+  job_008:
     name: "unit_test; Dart dev; PKGS: web, web_generator; `dart test --test-randomize-ordering-seed=random -p chrome -c dart2wasm`"
     runs-on: ubuntu-latest
     steps:
@@ -473,9 +325,7 @@ jobs:
       - job_003
       - job_004
       - job_005
-      - job_006
-      - job_007
-  job_013:
+  job_009:
     name: "unit_test; Dart dev; PKGS: web, web_generator; `dart test --test-randomize-ordering-seed=random -p chrome`"
     runs-on: ubuntu-latest
     steps:
@@ -522,9 +372,7 @@ jobs:
       - job_003
       - job_004
       - job_005
-      - job_006
-      - job_007
-  job_014:
+  job_010:
     name: "generate_and_analyze; Dart dev; PKG: web_generator; `dart analyze --fatal-infos .`"
     runs-on: ubuntu-latest
     steps:
@@ -566,11 +414,7 @@ jobs:
       - job_007
       - job_008
       - job_009
-      - job_010
-      - job_011
-      - job_012
-      - job_013
-  job_015:
+  job_011:
     name: "generate_and_analyze; Dart dev; PKG: web_generator; `dart bin/update_bindings.dart`"
     runs-on: ubuntu-latest
     steps:
@@ -612,11 +456,7 @@ jobs:
       - job_007
       - job_008
       - job_009
-      - job_010
-      - job_011
-      - job_012
-      - job_013
-  job_016:
+  job_012:
     name: "generate_all_and_analyze; Dart dev; PKG: web_generator; `dart analyze --fatal-infos .`"
     runs-on: ubuntu-latest
     steps:
@@ -660,11 +500,7 @@ jobs:
       - job_009
       - job_010
       - job_011
-      - job_012
-      - job_013
-      - job_014
-      - job_015
-  job_017:
+  job_013:
     name: "generate_all_and_analyze; Dart dev; PKG: web_generator; `dart bin/update_bindings.dart --generate-all`"
     runs-on: ubuntu-latest
     steps:
@@ -708,11 +544,7 @@ jobs:
       - job_009
       - job_010
       - job_011
-      - job_012
-      - job_013
-      - job_014
-      - job_015
-  job_018:
+  job_014:
     name: "dart_fixes; Dart main; PKG: web; `dart fix --compare-to-golden test_fixes`"
     runs-on: ubuntu-latest
     steps:
@@ -758,7 +590,3 @@ jobs:
       - job_011
       - job_012
       - job_013
-      - job_014
-      - job_015
-      - job_016
-      - job_017

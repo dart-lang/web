@@ -8,6 +8,16 @@
 version: 1
 
 transforms:
+  # helpers.dart => web.dart
+  - title: "Rename to 'web.dart'"
+    date: 2026-10-22
+    element:
+      uris: [ 'package:web/helpers.dart' ]
+      library: 'package:web/helpers.dart'
+    changes:
+      - kind: 'replacedBy'
+        newElement:
+          library: 'package:web/web.dart'
   # ---------------------------------------------------------------------------
   # 2.0.0 migrations (breaking changes since 1.1.1)
   # ---------------------------------------------------------------------------

@@ -8,7 +8,29 @@
 version: 1
 
 transforms:
-  # AnchorElement => HTMLAnchorElement
+  # ---------------------------------------------------------------------------
+  # 1.1.2 migrations (deprecations from 1.1.1)
+  # ---------------------------------------------------------------------------
+
+  # package:web/helpers.dart => package:web/web.dart
+  - title: "Replace 'package:web/helpers.dart' with 'package:web/web.dart'"
+    date: 2025-02-26
+    library: 'package:web/helpers.dart'
+    changes:
+      - kind: 'replacedBy'
+        newLibrary: 'package:web/web.dart'
+
+  - title: "Rename 'Node.text=' to 'Node.textContent='"
+    date: 2025-02-26
+    element:
+      uris: [ 'package:web/web.dart', 'package:web/helpers.dart' ]
+      setter: 'text'
+      inClass: 'Node'
+    changes:
+      - kind: 'rename'
+        newName: 'textContent'
+
+# AnchorElement => HTMLAnchorElement
   - title: "Rename to 'HTMLAnchorElement'"
     date: 2024-01-12
     element:
@@ -31,7 +53,7 @@ transforms:
     date: 2024-01-12
     element:
       uris: [ 'package:web/web.dart' ]
-      class: 'AudioElement'
+      typedef: 'AudioElement'
     changes:
       - kind: 'rename'
         newName: 'HTMLAudioElement'
@@ -76,7 +98,7 @@ transforms:
     date: 2024-01-12
     element:
       uris: [ 'package:web/web.dart' ]
-      class: 'CanvasElement'
+      typedef: 'CanvasElement'
     changes:
       - kind: 'rename'
         newName: 'HTMLCanvasElement'
@@ -247,7 +269,7 @@ transforms:
     date: 2024-01-12
     element:
       uris: [ 'package:web/web.dart' ]
-      class: 'CssStyleDeclaration'
+      typedef: 'CssStyleDeclaration'
     changes:
       - kind: 'rename'
         newName: 'CSSStyleDeclaration'
@@ -607,7 +629,7 @@ transforms:
     date: 2024-01-12
     element:
       uris: [ 'package:web/web.dart' ]
-      class: 'HtmlElement'
+      typedef: 'HtmlElement'
     changes:
       - kind: 'rename'
         newName: 'HTMLElement'
@@ -679,7 +701,7 @@ transforms:
     date: 2024-01-12
     element:
       uris: [ 'package:web/web.dart' ]
-      class: 'ImageElement'
+      typedef: 'ImageElement'
     changes:
       - kind: 'rename'
         newName: 'HTMLImageElement'
@@ -1228,7 +1250,7 @@ transforms:
     date: 2024-01-12
     element:
       uris: [ 'package:web/web.dart' ]
-      class: 'VideoElement'
+      typedef: 'VideoElement'
     changes:
       - kind: 'rename'
         newName: 'HTMLVideoElement'

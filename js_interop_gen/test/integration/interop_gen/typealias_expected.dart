@@ -48,6 +48,7 @@ external _i1.JSArray<Tags> get tagArray;
 external List<_i1.JSString> get users;
 @_i1.JS()
 external Box<_i1.JSNumber> get matrix;
+
 extension type const LoggerType._(int _) {
   static const LoggerType Noop = LoggerType._(0);
 
@@ -59,6 +60,7 @@ extension type const LoggerType._(int _) {
 
   static const LoggerType Other = LoggerType._(4);
 }
+
 extension type const AnonymousUnion_2718349._(String _) {
   static const AnonymousUnion_2718349 N = AnonymousUnion_2718349._('N');
 
@@ -68,6 +70,7 @@ extension type const AnonymousUnion_2718349._(String _) {
 
   static const AnonymousUnion_2718349 W = AnonymousUnion_2718349._('W');
 }
+
 extension type const AnonymousUnion_2375200._(String _) {
   static const AnonymousUnion_2375200 GET = AnonymousUnion_2375200._('GET');
 
@@ -85,8 +88,10 @@ extension type const AnonymousUnion_2375200._(String _) {
     'OPTIONS',
   );
 }
+
 @_i1.JS('Space.Planet')
 extension type Space_Planet._(_i1.JSObject _) implements _i1.JSObject {
   external double radius;
 }
+
 typedef LoggerContainer<N extends _i1.JSNumber> = _i1.JSArray<N>;

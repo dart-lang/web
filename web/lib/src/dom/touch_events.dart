@@ -21,6 +21,7 @@ import 'html.dart';
 import 'uievents.dart';
 
 typedef TouchType = String;
+
 extension type TouchInit._(JSObject _) implements JSObject {
   external factory TouchInit({
     required int identifier,
@@ -218,6 +219,7 @@ extension type TouchList._(JSObject _) implements JSObject {
   /// items (touch points) in a given [TouchList].
   external int get length;
 }
+
 extension type TouchEventInit._(JSObject _)
     implements EventModifierInit, JSObject {
   external factory TouchEventInit({

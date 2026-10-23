@@ -53,6 +53,7 @@ extension type Gyroscope._(JSObject _) implements Sensor, JSObject {
   /// angular velocity of the device along its z-axis.
   external double? get z;
 }
+
 extension type GyroscopeSensorOptions._(JSObject _)
     implements SensorOptions, JSObject {
   external factory GyroscopeSensorOptions({

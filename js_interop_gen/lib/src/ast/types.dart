@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:code_builder/code_builder.dart';
+
 import '../interop_gen/namer.dart';
 import 'base.dart';
 import 'builtin.dart';
@@ -530,9 +531,9 @@ class _ConstructorDeclaration extends CallableDeclaration
 
     final isNamedParams =
         desugarTypeAliases(returnType) is ObjectLiteralType &&
-        (desugarTypeAliases(returnType) as ObjectLiteralType)
-            .constructors
-            .isEmpty;
+        (desugarTypeAliases(
+          returnType,
+        ) as ObjectLiteralType).constructors.isEmpty;
 
     return ExtensionType(
       (eType) => eType

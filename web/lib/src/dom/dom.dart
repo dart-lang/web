@@ -304,6 +304,7 @@ extension type Event._(JSObject _) implements JSObject {
   /// the time (in milliseconds) at which the event was created.
   external double get timeStamp;
 }
+
 extension type EventInit._(JSObject _) implements JSObject {
   external factory EventInit({bool bubbles, bool cancelable, bool composed});
 
@@ -361,6 +362,7 @@ extension type CustomEvent._(JSObject _) implements Event, JSObject {
   /// any data passed when initializing the event.
   external JSAny? get detail;
 }
+
 extension type CustomEventInit._(JSObject _) implements EventInit, JSObject {
   external factory CustomEventInit({
     bool bubbles,
@@ -512,12 +514,14 @@ extension type EventTarget._(JSObject _) implements JSObject {
   /// handlers are called and return before `dispatchEvent()` returns.
   external bool dispatchEvent(Event event);
 }
+
 extension type EventListenerOptions._(JSObject _) implements JSObject {
   external factory EventListenerOptions({bool capture});
 
   external bool get capture;
   external set capture(bool value);
 }
+
 extension type AddEventListenerOptions._(JSObject _)
     implements EventListenerOptions, JSObject {
   external factory AddEventListenerOptions({
@@ -804,6 +808,7 @@ extension type MutationObserver._(JSObject _) implements JSObject {
   /// observer.
   external JSArray<MutationRecord> takeRecords();
 }
+
 extension type MutationObserverInit._(JSObject _) implements JSObject {
   external factory MutationObserverInit({
     bool childList,
@@ -1320,12 +1325,14 @@ extension type Node._(JSObject _) implements EventTarget, JSObject {
   external String? get textContent;
   external set textContent(String? value);
 }
+
 extension type GetRootNodeOptions._(JSObject _) implements JSObject {
   external factory GetRootNodeOptions({bool composed});
 
   external bool get composed;
   external set composed(bool value);
 }
+
 @JS()
 external Document get document;
 
@@ -2645,6 +2652,7 @@ extension type Document._(JSObject _) implements Node, JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/XMLDocument).
 extension type XMLDocument._(JSObject _) implements Document, JSObject {}
+
 extension type ElementCreationOptions._(JSObject _) implements JSObject {
   external factory ElementCreationOptions({String is_});
 
@@ -4386,6 +4394,7 @@ extension type Element._(JSObject _) implements Node, JSObject {
   external String? get ariaValueText;
   external set ariaValueText(String? value);
 }
+
 extension type ShadowRootInit._(JSObject _) implements JSObject {
   external factory ShadowRootInit({
     required ShadowRootMode mode,
@@ -4901,6 +4910,7 @@ extension type AbstractRange._(JSObject _) implements JSObject {
   /// same.
   external bool get collapsed;
 }
+
 extension type StaticRangeInit._(JSObject _) implements JSObject {
   external factory StaticRangeInit({
     required Node startContainer,

@@ -117,6 +117,7 @@ extension type PushSubscriptionOptions._(JSObject _) implements JSObject {
   /// push server.
   external JSArrayBuffer? get applicationServerKey;
 }
+
 extension type PushSubscriptionOptionsInit._(JSObject _) implements JSObject {
   external factory PushSubscriptionOptionsInit({
     bool userVisibleOnly,
@@ -185,6 +186,7 @@ extension type PushSubscription._(JSObject _) implements JSObject {
   /// used to create the subscription.
   external PushSubscriptionOptions get options;
 }
+
 extension type PushSubscriptionJSON._(JSObject _) implements JSObject {
   external factory PushSubscriptionJSON({
     String endpoint,
@@ -277,6 +279,7 @@ extension type PushEvent._(JSObject _) implements ExtendableEvent, JSObject {
   /// [PushSubscription].
   external PushMessageData? get data;
 }
+
 extension type PushEventInit._(JSObject _)
     implements ExtendableEventInit, JSObject {
   external factory PushEventInit({
@@ -289,6 +292,7 @@ extension type PushEventInit._(JSObject _)
   external PushMessageDataInit get data;
   external set data(PushMessageDataInit value);
 }
+
 extension type PushSubscriptionChangeEvent._(JSObject _)
     implements ExtendableEvent, JSObject {
   external PushSubscription? get newSubscription;

@@ -608,6 +608,7 @@ extension type ProgressEvent._(JSObject _) implements Event, JSObject {
   /// property is `false`, this value is meaningless and should be ignored.
   external int get total;
 }
+
 extension type ProgressEventInit._(JSObject _) implements EventInit, JSObject {
   external factory ProgressEventInit({
     bool bubbles,

@@ -213,6 +213,7 @@ extension type WebTransport._(JSObject _) implements JSObject {
   /// and ordering are important, like chat applications.
   external ReadableStream get incomingUnidirectionalStreams;
 }
+
 extension type WebTransportHash._(JSObject _) implements JSObject {
   external factory WebTransportHash({String algorithm, BufferSource value});
 
@@ -221,6 +222,7 @@ extension type WebTransportHash._(JSObject _) implements JSObject {
   external BufferSource get value;
   external set value(BufferSource value);
 }
+
 extension type WebTransportOptions._(JSObject _) implements JSObject {
   external factory WebTransportOptions({
     bool allowPooling,
@@ -247,6 +249,7 @@ extension type WebTransportOptions._(JSObject _) implements JSObject {
   external JSArray<JSString> get protocols;
   external set protocols(JSArray<JSString> value);
 }
+
 extension type WebTransportCloseInfo._(JSObject _) implements JSObject {
   external factory WebTransportCloseInfo({int closeCode, String reason});
 
@@ -255,6 +258,7 @@ extension type WebTransportCloseInfo._(JSObject _) implements JSObject {
   external String get reason;
   external set reason(String value);
 }
+
 extension type WebTransportSendStreamOptions._(JSObject _) implements JSObject {
   external factory WebTransportSendStreamOptions({
     JSObject? sendGroup,
@@ -319,6 +323,7 @@ extension type WebTransportError._(JSObject _)
   /// protocol error code for this error, or `null` if one is not available.
   external int? get streamErrorCode;
 }
+
 extension type WebTransportErrorOptions._(JSObject _) implements JSObject {
   external factory WebTransportErrorOptions({
     WebTransportErrorSource source,

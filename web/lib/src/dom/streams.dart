@@ -143,6 +143,7 @@ extension type ReadableStream._(JSObject _) implements JSObject {
   /// and released using the reader's `releaseLock()` method.
   external bool get locked;
 }
+
 extension type ReadableStreamGetReaderOptions._(JSObject _)
     implements JSObject {
   external factory ReadableStreamGetReaderOptions({
@@ -152,6 +153,7 @@ extension type ReadableStreamGetReaderOptions._(JSObject _)
   external ReadableStreamReaderMode get mode;
   external set mode(ReadableStreamReaderMode value);
 }
+
 extension type ReadableWritablePair._(JSObject _) implements JSObject {
   external factory ReadableWritablePair({
     required ReadableStream readable,
@@ -163,6 +165,7 @@ extension type ReadableWritablePair._(JSObject _) implements JSObject {
   external WritableStream get writable;
   external set writable(WritableStream value);
 }
+
 extension type StreamPipeOptions._(JSObject _) implements JSObject {
   external factory StreamPipeOptions({
     bool preventClose,
@@ -256,6 +259,7 @@ extension type ReadableStreamDefaultReader._(JSObject _) implements JSObject {
   /// to write code that responds to an end to the streaming process.
   external JSPromise<JSAny?> get closed;
 }
+
 extension type ReadableStreamReadResult._(JSObject _) implements JSObject {
   external factory ReadableStreamReadResult({JSAny? value, bool done});
 
@@ -374,6 +378,7 @@ extension type ReadableStreamBYOBReader._(JSObject _) implements JSObject {
   /// streaming process.
   external JSPromise<JSAny?> get closed;
 }
+
 extension type ReadableStreamBYOBReaderReadOptions._(JSObject _)
     implements JSObject {
   external factory ReadableStreamBYOBReaderReadOptions({int min});
@@ -874,6 +879,7 @@ extension type TransformStreamDefaultController._(JSObject _)
   /// to manage the queue.
   external double? get desiredSize;
 }
+
 extension type QueuingStrategy._(JSObject _) implements JSObject {
   external factory QueuingStrategy({
     num highWaterMark,
@@ -885,6 +891,7 @@ extension type QueuingStrategy._(JSObject _) implements JSObject {
   external QueuingStrategySize get size;
   external set size(QueuingStrategySize value);
 }
+
 extension type QueuingStrategyInit._(JSObject _) implements JSObject {
   external factory QueuingStrategyInit({required num highWaterMark});
 

@@ -210,6 +210,7 @@ extension type CSSKeywordValue._(JSObject _)
   external String get value;
   external set value(String value);
 }
+
 extension type CSSNumericType._(JSObject _) implements JSObject {
   external factory CSSNumericType({
     int length,
@@ -498,6 +499,7 @@ extension type CSSMathMax._(JSObject _) implements CSSMathValue, JSObject {
   /// which contains one or more [CSSNumericValue] objects.
   external CSSNumericArray get values;
 }
+
 extension type CSSMathClamp._(JSObject _) implements CSSMathValue, JSObject {
   external factory CSSMathClamp(
     CSSNumberish lower,
@@ -851,6 +853,7 @@ extension type CSSMatrixComponent._(JSObject _)
   external DOMMatrix get matrix;
   external set matrix(DOMMatrix value);
 }
+
 extension type CSSMatrixComponentOptions._(JSObject _) implements JSObject {
   external factory CSSMatrixComponentOptions({bool is2D});
 

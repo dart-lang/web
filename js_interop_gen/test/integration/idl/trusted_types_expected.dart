@@ -55,6 +55,7 @@ extension type TrustedScript._(JSObject _) implements JSObject {}
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/TrustedScriptURL).
 extension type TrustedScriptURL._(JSObject _) implements JSObject {}
+
 extension type TrustedSinkExample._(JSObject _) implements JSObject {
   /// To pass a [TrustedScriptURL] value, use [TrustedSinkExample.trusted].
   external factory TrustedSinkExample(String scriptURL, [String name]);

@@ -19,6 +19,7 @@ import 'dart:js_interop';
 typedef OpusBitstreamFormat = String;
 typedef OpusSignal = String;
 typedef OpusApplication = String;
+
 extension type OpusEncoderConfig._(JSObject _) implements JSObject {
   external factory OpusEncoderConfig({
     OpusBitstreamFormat format,

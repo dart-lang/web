@@ -7,6 +7,7 @@ import 'dart:js_interop' as _i1;
 extension type Wrapper._(_i1.JSObject _) implements _i1.JSObject {
   external String value;
 }
+
 extension type Container._(_i1.JSObject _) implements _i1.JSObject {
   external _i1.JSArray<Wrapper> arrays;
 

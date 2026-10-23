@@ -37,6 +37,7 @@ extension type MediaStreamTrackProcessor._(JSObject _) implements JSObject {
   /// returns a [ReadableStream].
   external ReadableStream get readable;
 }
+
 extension type MediaStreamTrackProcessorInit._(JSObject _) implements JSObject {
   external factory MediaStreamTrackProcessorInit({
     required MediaStreamTrack track,

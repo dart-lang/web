@@ -470,6 +470,7 @@ extension type SpeechSynthesisEvent._(JSObject _) implements Event, JSObject {
   /// [SpeechSynthesisUtterance.boundary_event] event.
   external String get name;
 }
+
 extension type SpeechSynthesisEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory SpeechSynthesisEventInit({
@@ -516,6 +517,7 @@ extension type SpeechSynthesisErrorEvent._(JSObject _)
   /// what has gone wrong with a speech synthesis attempt.
   external SpeechSynthesisErrorCode get error;
 }
+
 extension type SpeechSynthesisErrorEventInit._(JSObject _)
     implements SpeechSynthesisEventInit, JSObject {
   external factory SpeechSynthesisErrorEventInit({

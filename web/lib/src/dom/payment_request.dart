@@ -119,6 +119,7 @@ extension type PaymentRequest._(JSObject _) implements EventTarget, JSObject {
   external EventHandler get onpaymentmethodchange;
   external set onpaymentmethodchange(EventHandler value);
 }
+
 extension type PaymentMethodData._(JSObject _) implements JSObject {
   external factory PaymentMethodData({
     required String supportedMethods,
@@ -130,6 +131,7 @@ extension type PaymentMethodData._(JSObject _) implements JSObject {
   external JSObject get data;
   external set data(JSObject value);
 }
+
 extension type PaymentCurrencyAmount._(JSObject _) implements JSObject {
   external factory PaymentCurrencyAmount({
     required String currency,
@@ -141,6 +143,7 @@ extension type PaymentCurrencyAmount._(JSObject _) implements JSObject {
   external String get value;
   external set value(String value);
 }
+
 extension type PaymentDetailsBase._(JSObject _) implements JSObject {
   external factory PaymentDetailsBase({
     JSArray<PaymentItem> displayItems,
@@ -155,6 +158,7 @@ extension type PaymentDetailsBase._(JSObject _) implements JSObject {
   external JSArray<PaymentDetailsModifier> get modifiers;
   external set modifiers(JSArray<PaymentDetailsModifier> value);
 }
+
 extension type PaymentDetailsInit._(JSObject _)
     implements PaymentDetailsBase, JSObject {
   external factory PaymentDetailsInit({
@@ -170,6 +174,7 @@ extension type PaymentDetailsInit._(JSObject _)
   external PaymentItem get total;
   external set total(PaymentItem value);
 }
+
 extension type PaymentDetailsUpdate._(JSObject _)
     implements PaymentDetailsBase, JSObject {
   external factory PaymentDetailsUpdate({
@@ -194,6 +199,7 @@ extension type PaymentDetailsUpdate._(JSObject _)
   external JSObject get paymentMethodErrors;
   external set paymentMethodErrors(JSObject value);
 }
+
 extension type PaymentDetailsModifier._(JSObject _) implements JSObject {
   external factory PaymentDetailsModifier({
     required String supportedMethods,
@@ -211,6 +217,7 @@ extension type PaymentDetailsModifier._(JSObject _) implements JSObject {
   external JSObject get data;
   external set data(JSObject value);
 }
+
 extension type PaymentOptions._(JSObject _) implements JSObject {
   external factory PaymentOptions({
     bool requestPayerName,
@@ -234,6 +241,7 @@ extension type PaymentOptions._(JSObject _) implements JSObject {
   external PaymentShippingType get shippingType;
   external set shippingType(PaymentShippingType value);
 }
+
 extension type PaymentItem._(JSObject _) implements JSObject {
   external factory PaymentItem({
     required String label,
@@ -248,12 +256,14 @@ extension type PaymentItem._(JSObject _) implements JSObject {
   external bool get pending;
   external set pending(bool value);
 }
+
 extension type PaymentCompleteDetails._(JSObject _) implements JSObject {
   external factory PaymentCompleteDetails({JSObject? data});
 
   external JSObject? get data;
   external set data(JSObject? value);
 }
+
 extension type PaymentShippingOption._(JSObject _) implements JSObject {
   external factory PaymentShippingOption({
     required String id,
@@ -375,6 +385,7 @@ extension type PaymentResponse._(JSObject _) implements EventTarget, JSObject {
   external EventHandler get onpayerdetailchange;
   external set onpayerdetailchange(EventHandler value);
 }
+
 extension type PaymentValidationErrors._(JSObject _) implements JSObject {
   external factory PaymentValidationErrors({
     PayerErrors payer,
@@ -392,6 +403,7 @@ extension type PaymentValidationErrors._(JSObject _) implements JSObject {
   external JSObject get paymentMethod;
   external set paymentMethod(JSObject value);
 }
+
 extension type PayerErrors._(JSObject _) implements JSObject {
   external factory PayerErrors({String email, String name, String phone});
 
@@ -402,6 +414,7 @@ extension type PayerErrors._(JSObject _) implements JSObject {
   external String get phone;
   external set phone(String value);
 }
+
 extension type AddressErrors._(JSObject _) implements JSObject {
   external factory AddressErrors({
     String addressLine,
@@ -476,6 +489,7 @@ extension type PaymentMethodChangeEvent._(JSObject _)
   /// are available.
   external JSObject? get methodDetails;
 }
+
 extension type PaymentMethodChangeEventInit._(JSObject _)
     implements PaymentRequestUpdateEventInit, JSObject {
   external factory PaymentMethodChangeEventInit({
@@ -517,6 +531,7 @@ extension type PaymentRequestUpdateEvent._(JSObject _)
   /// [PaymentRequest].
   external void updateWith(JSPromise<PaymentDetailsUpdate> detailsPromise);
 }
+
 extension type PaymentRequestUpdateEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory PaymentRequestUpdateEventInit({

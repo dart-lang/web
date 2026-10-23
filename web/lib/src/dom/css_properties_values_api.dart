@@ -22,7 +22,7 @@ extension type PropertyDefinition._(JSObject _) implements JSObject {
   external factory PropertyDefinition({
     required String name,
     String syntax,
-    required bool inherits,
+    bool inherits,
     String initialValue,
   });
 

@@ -45,6 +45,8 @@ typedef CredentialMediationRequirement = String;
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Credential).
 extension type Credential._(JSObject _) implements JSObject {
+  external static JSPromise<JSBoolean> isConditionalMediationAvailable();
+
   /// The **`id`** read-only property of the [Credential] interface returns a
   /// string containing the credential's identifier. This might be a GUID,
   /// username, or email address, or some other value, depending on the type of
@@ -155,6 +157,7 @@ extension type CredentialData._(JSObject _) implements JSObject {
 extension type CredentialRequestOptions._(JSObject _) implements JSObject {
   external factory CredentialRequestOptions({
     CredentialMediationRequirement mediation,
+    String uiMode,
     AbortSignal signal,
     bool password,
     FederatedCredentialRequestOptions federated,
@@ -166,6 +169,8 @@ extension type CredentialRequestOptions._(JSObject _) implements JSObject {
 
   external CredentialMediationRequirement get mediation;
   external set mediation(CredentialMediationRequirement value);
+  external String get uiMode;
+  external set uiMode(String value);
   external AbortSignal get signal;
   external set signal(AbortSignal value);
   external bool get password;
@@ -188,6 +193,7 @@ extension type CredentialCreationOptions._(JSObject _) implements JSObject {
     AbortSignal signal,
     PasswordCredentialInit password,
     FederatedCredentialInit federated,
+    DigitalCredentialCreationOptions digital,
     PublicKeyCredentialCreationOptions publicKey,
   });
 
@@ -199,6 +205,8 @@ extension type CredentialCreationOptions._(JSObject _) implements JSObject {
   external set password(PasswordCredentialInit value);
   external FederatedCredentialInit get federated;
   external set federated(FederatedCredentialInit value);
+  external DigitalCredentialCreationOptions get digital;
+  external set digital(DigitalCredentialCreationOptions value);
   external PublicKeyCredentialCreationOptions get publicKey;
   external set publicKey(PublicKeyCredentialCreationOptions value);
 }

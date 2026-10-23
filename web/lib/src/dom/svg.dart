@@ -21,6 +21,7 @@ import 'cssom.dart';
 import 'dom.dart';
 import 'geometry.dart';
 import 'html.dart';
+import 'trusted_types.dart';
 
 /// All of the SVG DOM interfaces that correspond directly to elements in the
 /// SVG language derive from the `SVGElement` interface.
@@ -62,6 +63,8 @@ extension type SVGElement._(JSObject _) implements Element, JSObject {
   external set onauxclick(EventHandler value);
   external EventHandler get onbeforeinput;
   external set onbeforeinput(EventHandler value);
+  external EventHandler get onbeforematch;
+  external set onbeforematch(EventHandler value);
   external EventHandler get onbeforetoggle;
   external set onbeforetoggle(EventHandler value);
   external EventHandler get onblur;
@@ -78,6 +81,8 @@ extension type SVGElement._(JSObject _) implements Element, JSObject {
   external set onclick(EventHandler value);
   external EventHandler get onclose;
   external set onclose(EventHandler value);
+  external EventHandler get oncommand;
+  external set oncommand(EventHandler value);
   external EventHandler get oncontextlost;
   external set oncontextlost(EventHandler value);
   external EventHandler get oncontextmenu;
@@ -220,6 +225,8 @@ extension type SVGElement._(JSObject _) implements Element, JSObject {
   external set onpointerdown(EventHandler value);
   external EventHandler get onpointermove;
   external set onpointermove(EventHandler value);
+  external EventHandler get onpointerrawupdate;
+  external set onpointerrawupdate(EventHandler value);
   external EventHandler get onpointerup;
   external set onpointerup(EventHandler value);
   external EventHandler get onpointercancel;
@@ -323,7 +330,7 @@ extension type SVGElement._(JSObject _) implements Element, JSObject {
   /// >
   /// > The `style` property has the same priority in the CSS cascade as an
   /// > inline style declaration set via the `style` attribute.
-  external CSSStyleDeclaration get style;
+  external CSSStyleProperties get style;
 
   /// The **`attributeStyleMap`** read-only property of the [SVGElement]
   /// interface returns a live [StylePropertyMap] object that contains a list of
@@ -1047,8 +1054,17 @@ extension type SVGAnimatedString._(JSObject _) implements JSObject {
   /// BaseVal gets or sets the base value of the given attribute before any
   /// animations are applied. The base value of the given attribute before
   /// applying any animations. Setter throws DOMException.
+  ///
+  /// To set a [TrustedScriptURL] value, use [baseValTrusted].
   external String get baseVal;
   external set baseVal(String value);
+
+  /// Sets the [baseVal] property to a [TrustedScriptURL] value.
+  ///
+  /// Use this instead of [baseVal] when the document enforces
+  /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
+  @JS('baseVal')
+  external set baseValTrusted(TrustedScriptURL value);
 
   /// The `animVal` read-only property of the [SVGAnimatedString] interface
   /// contains the same value as the [SVGAnimatedString.baseVal] property. If
@@ -1123,7 +1139,7 @@ extension type SVGAnimatedRect._(JSObject _) implements JSObject {
   /// If no animation is applied, the `animVal` property reflects the SVG
   /// element's `viewBox` attribute value and will be identical to
   /// [SVGAnimatedRect.baseVal].
-  external DOMRectReadOnly get animVal;
+  external DOMRect get animVal;
 }
 
 ///
@@ -1242,11 +1258,11 @@ extension type SVGSVGElement._(JSObject _)
     : _ = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
 
   external NodeList getIntersectionList(
-    DOMRectReadOnly rect,
+    DOMRect rect,
     SVGElement? referenceElement,
   );
   external NodeList getEnclosureList(
-    DOMRectReadOnly rect,
+    DOMRect rect,
     SVGElement? referenceElement,
   );
 
@@ -1257,7 +1273,7 @@ extension type SVGSVGElement._(JSObject _)
   /// Each candidate graphics element is to be considered a match only if the
   /// same graphics element can be a target of pointer events as defined in
   /// processing.
-  external bool checkIntersection(SVGElement element, DOMRectReadOnly rect);
+  external bool checkIntersection(SVGElement element, DOMRect rect);
 
   /// The `checkEnclosure()` method of the [SVGSVGElement] interface checks if
   /// the rendered content of the given element is entirely contained within the
@@ -1266,7 +1282,7 @@ extension type SVGSVGElement._(JSObject _)
   /// Each candidate graphics element is to be considered a match only if the
   /// same graphics element can be a target of pointer events as defined in
   /// processing.
-  external bool checkEnclosure(SVGElement element, DOMRectReadOnly rect);
+  external bool checkEnclosure(SVGElement element, DOMRect rect);
 
   /// The `deselectAll()` method of the [SVGSVGElement] interface unselects any
   /// selected objects, including any selections of text strings and type-in
@@ -1310,7 +1326,7 @@ extension type SVGSVGElement._(JSObject _)
   /// the SVG document fragment (i.e., the search is restricted to a subset of
   /// the document tree) for an [Element] whose `id` property matches the
   /// specified string.
-  external Element getElementById(String elementId);
+  external Element? getElementById(String elementId);
   external int suspendRedraw(int maxWaitMilliseconds);
   external void unsuspendRedraw(int suspendHandleID);
   external void unsuspendRedrawAll();
@@ -1426,7 +1442,7 @@ extension type SVGSVGElement._(JSObject _)
   ///
   /// If the  element is not at the outermost level, then `currentTranslate` is
   /// always `{ x: 0, y: 0 }` and is read-only. Otherwise, it is writable.
-  external DOMPointReadOnly get currentTranslate;
+  external DOMPoint get currentTranslate;
 
   /// The **`viewBox`** read-only property of the [SVGSVGElement] interface
   /// reflects the  element's `viewBox` attribute as an [SVGAnimatedRect].
@@ -1696,6 +1712,15 @@ extension type SVGStyleElement._(JSObject _) implements SVGElement, JSObject {
   /// [alternate style sheets](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel/alternate_stylesheet).
   external String get title;
   external set title(String value);
+
+  /// The **`SVGStyleElement.disabled`** property can be used to get and set
+  /// whether the stylesheet is disabled (`true`) or not (`false`).
+  ///
+  /// Note that there is no corresponding `disabled` attribute on the [SVG
+  /// `<style>`
+  /// element](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/style).
+  external bool get disabled;
+  external set disabled(bool value);
 
   /// The **`SVGStyleElement.sheet`** read-only property returns the
   /// [CSSStyleSheet] corresponding to the given SVG style element, or `null` if
@@ -2004,24 +2029,6 @@ extension type SVGAnimatedPreserveAspectRatio._(JSObject _)
   /// `preserveAspectRatio` attribute of an SVG element after any animations or
   /// transformations are applied.
   external SVGPreserveAspectRatio get animVal;
-}
-
-/// The **`SVGPathElement`** interface corresponds to the  element.
-///
-/// > [!NOTE]
-/// > In SVG 2 the `getPathSegAtLength()` and `createSVGPathSeg*` methods were
-/// > removed and the `pathLength` property and the `getTotalLength()` and
-/// > `getPointAtLength()` methods were moved to [SVGGeometryElement].
-///
-/// ---
-///
-/// API documentation sourced from
-/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SVGPathElement).
-extension type SVGPathElement._(JSObject _)
-    implements SVGGeometryElement, JSObject {
-  /// Creates an [SVGPathElement] using the tag 'path'.
-  SVGPathElement()
-    : _ = document.createElementNS('http://www.w3.org/2000/svg', 'path');
 }
 
 /// The `SVGRectElement` interface provides access to the properties of
@@ -2572,6 +2579,12 @@ extension type SVGTextPathElement._(JSObject _)
 
   static const int TEXTPATH_SPACINGTYPE_EXACT = 2;
 
+  static const int TEXTPATH_SIDETYPE_UNKNOWN = 0;
+
+  static const int TEXTPATH_SIDETYPE_LEFT = 1;
+
+  static const int TEXTPATH_SIDETYPE_RIGHT = 2;
+
   /// The **`startOffset`** read-only property of the [SVGTextPathElement]
   /// interface reflects the X component of the `startOffset` attribute of the
   /// given , which defines an offset from the start of the path for the initial
@@ -2741,6 +2754,8 @@ extension type SVGMarkerElement._(JSObject _) implements SVGElement, JSObject {
   static const int SVG_MARKER_ORIENT_AUTO = 1;
 
   static const int SVG_MARKER_ORIENT_ANGLE = 2;
+
+  static const int SVG_MARKER_ORIENT_AUTO_START_REVERSE = 3;
 
   /// The **`setOrientToAuto()`** method of the [SVGMarkerElement] interface
   /// sets the value of the `orient` attribute to `auto`.
@@ -3154,12 +3169,6 @@ extension type SVGAElement._(JSObject _)
   external String get rel;
   external set rel(String value);
   external DOMTokenList get relList;
-  external String get hreflang;
-  external set hreflang(String value);
-  external String get type;
-  external set type(String value);
-  external String get text;
-  external set text(String value);
   external String get referrerPolicy;
   external set referrerPolicy(String value);
 
@@ -3171,6 +3180,10 @@ extension type SVGAElement._(JSObject _)
   /// This property enables access to the URI set for a link within an SVG
   /// document.
   external SVGAnimatedString get href;
+  external String get hreflang;
+  external set hreflang(String value);
+  external String get type;
+  external set type(String value);
 }
 
 /// The **`SVGViewElement`** interface provides access to the properties of

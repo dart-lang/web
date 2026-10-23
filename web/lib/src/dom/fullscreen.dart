@@ -17,13 +17,17 @@ library;
 import 'dart:js_interop';
 
 typedef FullscreenNavigationUI = String;
+typedef FullscreenKeyboardLock = String;
 
 extension type FullscreenOptions._(JSObject _) implements JSObject {
   external factory FullscreenOptions({
+    FullscreenKeyboardLock keyboardLock,
     FullscreenNavigationUI navigationUI,
     JSObject screen,
   });
 
+  external FullscreenKeyboardLock get keyboardLock;
+  external set keyboardLock(FullscreenKeyboardLock value);
   external FullscreenNavigationUI get navigationUI;
   external set navigationUI(FullscreenNavigationUI value);
   external JSObject get screen;

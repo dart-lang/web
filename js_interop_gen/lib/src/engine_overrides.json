@@ -1,7 +1,265 @@
 {
-  "revisions": {},
-  "interfaces": {},
-  "typedefs": {},
-  "properties": {},
-  "operations": {}
+  "revisions": {
+    "blink": {
+      "browser": "Chrome",
+      "version": "155.0.8059.84",
+      "repo": "chromium/chromium",
+      "ref": "155.0.8059.84",
+      "sha": "5869fe313571d75152b77813cf0a4ee26a4e6df0"
+    },
+    "gecko": {
+      "browser": "Firefox",
+      "version": "158.0",
+      "repo": "mozilla-firefox/firefox",
+      "ref": "FIREFOX_158_0_RELEASE",
+      "sha": "3c71aeacdb296402e41fb2084b13e797d1770642"
+    },
+    "webkit": {
+      "browser": "Safari",
+      "version": "27.0",
+      "repo": "WebKit/WebKit",
+      "ref": "safari-7625.1.29.18-branch",
+      "sha": "d60793ae18be892cdc16459584a7b00283ffefbd"
+    }
+  },
+  "interfaces": {
+    "CSPViolationReportBody": {
+      "generate": true,
+      "kind": "interface",
+      "reason": "w3c/webref CSP.idl.patch converts CSPViolationReportBody from interface to dictionary; all 3 browser engines ship it as a read-only interface."
+    },
+    "Fence": {
+      "generate": false,
+      "reason": "Blink-only deprecated Fenced Frames API (absent from Gecko and WebKit IDLs; deprecated in BCD 8.1.6)."
+    },
+    "FencedFrameConfig": {
+      "generate": false,
+      "reason": "Blink-only deprecated Fenced Frames API (absent from Gecko and WebKit IDLs; deprecated in BCD 8.1.6)."
+    },
+    "HTMLFencedFrameElement": {
+      "generate": false,
+      "reason": "Blink-only deprecated Fenced Frames API (absent from Gecko and WebKit IDLs; deprecated in BCD 8.1.6)."
+    },
+    "LanguageModel": {
+      "generate": false,
+      "reason": "Blink-only experimental AI Prompt API (absent from Gecko and WebKit IDLs; mislabeled experimental:false in BCD 8.1.6)."
+    },
+    "SpeechGrammar": {
+      "generate": false,
+      "reason": "Deprecated single-engine Web Speech Grammar API (absent from WebKit IDL; deprecated in BCD 8.1.6)."
+    },
+    "SpeechGrammarList": {
+      "generate": false,
+      "reason": "Deprecated single-engine Web Speech Grammar API (absent from WebKit IDL; deprecated in BCD 8.1.6)."
+    }
+  },
+  "typedefs": {
+    "AddressValue": {
+      "type": "unsigned long",
+      "nullable": false,
+      "reason": "Wasm Memory64 AddressValue (Number or BigInt) widens 10 int signatures to JSAny?; preserve int."
+    },
+    "ImageDataArray": {
+      "type": "Uint8ClampedArray",
+      "nullable": false,
+      "reason": "Float16Array has no dedicated dart:js_interop type yet (aliases to JSTypedArray, losing .toDart on ImageData.data); Gecko declares Uint8ClampedArray."
+    }
+  },
+  "properties": {
+    "GamepadEffectParameters.duration": {
+      "type": "double",
+      "nullable": false,
+      "reason": "Blink and WebKit declare double instead of unsigned long long."
+    },
+    "GamepadEffectParameters.startDelay": {
+      "type": "double",
+      "nullable": false,
+      "reason": "Blink and WebKit declare double instead of unsigned long long."
+    },
+    "MediaStreamTrackProcessorInit.track": {
+      "type": "MediaStreamTrack",
+      "nullable": false,
+      "reason": "Blink declares MediaStreamTrack; MediaStreamTrackHandle is not in >=2 engines."
+    },
+    "MediaTrackCapabilities.echoCancellation": {
+      "type": "sequence",
+      "nullable": false,
+      "typeParameter": {
+        "type": "boolean",
+        "nullable": false
+      },
+      "reason": "Gecko and WebKit declare sequence<boolean>; (boolean or DOMString) is Blink-only."
+    },
+    "MediaTrackConstraintSet.echoCancellation": {
+      "type": "ConstrainBoolean",
+      "nullable": false,
+      "reason": "Gecko and WebKit declare ConstrainBoolean; ConstrainBooleanOrDOMString is Blink-only."
+    },
+    "MediaTrackSettings.echoCancellation": {
+      "type": "boolean",
+      "nullable": false,
+      "reason": "Gecko and WebKit declare boolean; (boolean or DOMString) is Blink-only."
+    },
+    "MouseEvent.clientX": {
+      "type": "double",
+      "nullable": false,
+      "reason": "All 3 engines (Blink, Gecko, WebKit) declare double; fractional under pinch-zoom/HiDPI (#521, #564)."
+    },
+    "MouseEvent.clientY": {
+      "type": "double",
+      "nullable": false,
+      "reason": "All 3 engines (Blink, Gecko, WebKit) declare double; fractional under pinch-zoom/HiDPI (#521, #564)."
+    },
+    "MouseEvent.screenX": {
+      "type": "double",
+      "nullable": false,
+      "reason": "All 3 engines (Blink, Gecko, WebKit) declare double; fractional under pinch-zoom/HiDPI (#521, #564)."
+    },
+    "MouseEvent.screenY": {
+      "type": "double",
+      "nullable": false,
+      "reason": "All 3 engines (Blink, Gecko, WebKit) declare double; fractional under pinch-zoom/HiDPI (#521, #564)."
+    },
+    "MouseEventInit.clientX": {
+      "type": "double",
+      "nullable": false,
+      "reason": "All 3 engines (Blink, Gecko, WebKit) declare double (#521, #564)."
+    },
+    "MouseEventInit.clientY": {
+      "type": "double",
+      "nullable": false,
+      "reason": "All 3 engines (Blink, Gecko, WebKit) declare double (#521, #564)."
+    },
+    "MouseEventInit.screenX": {
+      "type": "double",
+      "nullable": false,
+      "reason": "All 3 engines (Blink, Gecko, WebKit) declare double (#521, #564)."
+    },
+    "MouseEventInit.screenY": {
+      "type": "double",
+      "nullable": false,
+      "reason": "All 3 engines (Blink, Gecko, WebKit) declare double (#521, #564)."
+    },
+    "OfflineAudioContext.length": {
+      "type": "unsigned long",
+      "nullable": false,
+      "reason": "All 3 engines (Blink, Gecko, WebKit) declare non-nullable unsigned long."
+    },
+    "OfflineAudioContextOptions.length": {
+      "type": "unsigned long",
+      "nullable": false,
+      "required": true,
+      "reason": "All 3 engines (Blink, Gecko, WebKit) declare required non-nullable unsigned long."
+    },
+    "PushEventInit.data": {
+      "type": "PushMessageDataInit",
+      "nullable": false,
+      "reason": "Blink and Gecko declare non-nullable PushMessageDataInit."
+    },
+    "RTCSctpTransport.maxMessageSize": {
+      "type": "unrestricted double",
+      "nullable": false,
+      "reason": "Blink and WebKit declare non-nullable unrestricted double."
+    },
+    "ReadableStreamBYOBRequest.view": {
+      "type": "ArrayBufferView",
+      "nullable": true,
+      "reason": "All 3 engines (Blink, Gecko, WebKit) declare ArrayBufferView? instead of Uint8Array?."
+    }
+  },
+  "operations": {
+    "Document.importNode": {
+      "parameters": {
+        "1": {
+          "name": "subtree",
+          "type": "boolean",
+          "nullable": false
+        }
+      },
+      "reason": "Preserve bool over (boolean or ImportNodeOptions) union (JSAny)."
+    },
+    "Element.scroll": {
+      "returnType": {
+        "type": "undefined",
+        "nullable": false
+      },
+      "reason": "All 3 engines (Blink, Gecko, WebKit) return undefined; JSPromise throws at runtime when JS returns undefined."
+    },
+    "Element.scrollBy": {
+      "returnType": {
+        "type": "undefined",
+        "nullable": false
+      },
+      "reason": "All 3 engines (Blink, Gecko, WebKit) return undefined; JSPromise throws at runtime when JS returns undefined."
+    },
+    "Element.scrollIntoView": {
+      "returnType": {
+        "type": "undefined",
+        "nullable": false
+      },
+      "reason": "All 3 engines (Blink, Gecko, WebKit) return undefined; JSPromise throws at runtime when JS returns undefined."
+    },
+    "Element.scrollTo": {
+      "returnType": {
+        "type": "undefined",
+        "nullable": false
+      },
+      "reason": "All 3 engines (Blink, Gecko, WebKit) return undefined; JSPromise throws at runtime when JS returns undefined."
+    },
+    "OfflineAudioContext.startRendering": {
+      "maxParameters": 0,
+      "reason": "All 3 engines (Blink, Gecko, WebKit) take 0 arguments; chunkSize is unimplemented."
+    },
+    "RTCIceCandidate.constructor": {
+      "parameters": {
+        "0": {
+          "type": "RTCIceCandidateInit",
+          "nullable": false
+        }
+      },
+      "reason": "All 3 engines (Blink, Gecko, WebKit) take RTCIceCandidateInit instead of RTCLocalIceCandidateInit."
+    },
+    "RTCRtpScriptTransform.constructor": {
+      "parameters": {
+        "0": {
+          "name": "worker",
+          "type": "Worker",
+          "nullable": false
+        }
+      },
+      "reason": "All 3 engines (Blink, Gecko, WebKit) take Worker instead of WorkerOrWorkerAndParameters."
+    },
+    "RTCRtpScriptTransformer.generateKeyFrame": {
+      "returnType": {
+        "type": "Promise",
+        "nullable": false,
+        "typeParameter": {
+          "type": "unsigned long long",
+          "nullable": false
+        }
+      },
+      "reason": "Gecko and WebKit return Promise<unsigned long long> (JSPromise<JSNumber>) instead of Promise<undefined>."
+    },
+    "Window.scroll": {
+      "returnType": {
+        "type": "undefined",
+        "nullable": false
+      },
+      "reason": "All 3 engines (Blink, Gecko, WebKit) return undefined; JSPromise throws at runtime when JS returns undefined."
+    },
+    "Window.scrollBy": {
+      "returnType": {
+        "type": "undefined",
+        "nullable": false
+      },
+      "reason": "All 3 engines (Blink, Gecko, WebKit) return undefined; JSPromise throws at runtime when JS returns undefined."
+    },
+    "Window.scrollTo": {
+      "returnType": {
+        "type": "undefined",
+        "nullable": false
+      },
+      "reason": "All 3 engines (Blink, Gecko, WebKit) return undefined; JSPromise throws at runtime when JS returns undefined."
+    }
+  }
 }

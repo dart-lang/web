@@ -87,9 +87,16 @@ void main() {
 
     final policy = window.trustedTypes.createPolicy(
       'smoke-test-policy',
-      TrustedTypePolicyOptions(createHTML: ((String s) => s.toJS).toJS),
+      TrustedTypePolicyOptions(
+        createHTML: ((String s) => s.toJS).toJS,
+        createScript: ((String s) => s.toJS).toJS,
+      ),
     );
     div.innerHTMLTrusted = policy.createHTML('<b>trusted</b>');
     expect(div.innerHTML, '<b>trusted</b>');
+
+    final script = document.createElement('script') as HTMLScriptElement;
+    script.setAttributeTrusted('text', policy.createScript('1 + 1'));
+    expect(script.getAttribute('text'), '1 + 1');
   });
 }

@@ -16,9 +16,12 @@ library;
 
 import 'dart:js_interop';
 
+/// Union of: [TrustedHTML], [TrustedScriptURL], [TrustedScript]
+typedef TrustedType = JSObject;
 typedef CreateHTMLCallback = JSFunction;
 typedef CreateScriptCallback = JSFunction;
 typedef CreateScriptURLCallback = JSFunction;
+typedef CreateParserOptionsCallback = JSFunction;
 
 /// The **`TrustedHTML`** interface of the [Trusted Types API] represents a
 /// string that a developer can insert into an
@@ -241,6 +244,7 @@ extension type TrustedTypePolicyOptions._(JSObject _) implements JSObject {
     CreateHTMLCallback createHTML,
     CreateScriptCallback createScript,
     CreateScriptURLCallback createScriptURL,
+    CreateParserOptionsCallback createParserOptions,
   });
 
   external CreateHTMLCallback get createHTML;
@@ -249,4 +253,6 @@ extension type TrustedTypePolicyOptions._(JSObject _) implements JSObject {
   external set createScript(CreateScriptCallback value);
   external CreateScriptURLCallback get createScriptURL;
   external set createScriptURL(CreateScriptURLCallback value);
+  external CreateParserOptionsCallback get createParserOptions;
+  external set createParserOptions(CreateParserOptionsCallback value);
 }

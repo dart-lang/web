@@ -100,10 +100,10 @@ class EngineOverrides {
 
   static EngineOverrides? read(String? path) {
     if (path == null || !fs.existsSync(path.toJS).toDart) return null;
-    final content =
-        (fs.readFileSync(path.toJS, JSReadFileOptions(encoding: 'utf8'.toJS))
-                as JSString)
-            .toDart;
+    final content = (fs.readFileSync(
+      path.toJS,
+      JSReadFileOptions(encoding: 'utf8'.toJS),
+    ) as JSString).toDart;
     final json = jsonDecode(content) as Map<String, dynamic>;
     return EngineOverrides.fromJson(json);
   }

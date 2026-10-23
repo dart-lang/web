@@ -11,6 +11,7 @@ extension type Foo._(_i1.JSObject _) implements _i1.JSObject {
 
   external _i1.JSArrayBuffer raw;
 }
+
 extension type Fee._(_i1.JSObject _) implements _i1.JSObject {
   external _i1.JSAny raw;
 }

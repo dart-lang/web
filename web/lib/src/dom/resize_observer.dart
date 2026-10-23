@@ -21,6 +21,7 @@ import 'geometry.dart';
 
 typedef ResizeObserverCallback = JSFunction;
 typedef ResizeObserverBoxOptions = String;
+
 extension type ResizeObserverOptions._(JSObject _) implements JSObject {
   external factory ResizeObserverOptions({ResizeObserverBoxOptions box});
 

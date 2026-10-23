@@ -195,9 +195,8 @@ class TypeResolver {
         isNullable,
       );
 
-      if (asReferredType case ReferredDeclarationType(
-        type: final type,
-      ) when type is BuiltinType) {
+      if (asReferredType case ReferredDeclarationType(type: final type)
+          when type is BuiltinType) {
         final jsType = getJSTypeAlternative(type);
         if (jsType != type && typeArg) {
           asReferredType.type = jsType..isNullable = isNullable;
@@ -329,9 +328,8 @@ class TypeResolver {
         relativePath?.replaceFirst('.d.ts', '.dart'),
       );
 
-      if (outputType case ReferredDeclarationType(
-        type: final type,
-      ) when type is BuiltinType && typeArg) {
+      if (outputType case ReferredDeclarationType(type: final type)
+          when type is BuiltinType && typeArg) {
         final jsType = getJSTypeAlternative(type);
         if (jsType != type) {
           outputType.type = jsType..isNullable = isNullable;

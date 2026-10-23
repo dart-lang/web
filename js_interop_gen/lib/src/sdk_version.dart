@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:io';
+
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:yaml/yaml.dart';
@@ -11,7 +12,7 @@ import 'package:yaml/yaml.dart';
 ///
 /// For the purposes of code generation and tooling, we treat this as the
 /// language version of the SDK.
-final dartLanguageVersion = Version(3, 12, 0);
+final dartLanguageVersion = Version(3, 13, 0);
 
 /// Derives the language version from an SDK constraint.
 Version deriveLanguageVersion(VersionConstraint constraint) {

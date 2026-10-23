@@ -185,6 +185,7 @@ extension type DOMPoint._(JSObject _) implements DOMPointReadOnly, JSObject {
   external double get w;
   external set w(num value);
 }
+
 extension type DOMPointInit._(JSObject _) implements JSObject {
   external factory DOMPointInit({num x, num y, num z, num w});
 
@@ -305,6 +306,7 @@ extension type DOMRect._(JSObject _) implements DOMRectReadOnly, JSObject {
   external double get height;
   external set height(num value);
 }
+
 extension type DOMRectInit._(JSObject _) implements JSObject {
   external factory DOMRectInit({num x, num y, num width, num height});
 
@@ -394,6 +396,7 @@ extension type DOMQuad._(JSObject _) implements JSObject {
   /// created from [DOMQuad.fromRect], it is the point (x, y + height).
   external DOMPoint get p4;
 }
+
 extension type DOMQuadInit._(JSObject _) implements JSObject {
   external factory DOMQuadInit({
     DOMPointInit p1,
@@ -794,6 +797,7 @@ extension type DOMMatrix._(JSObject _) implements DOMMatrixReadOnly, JSObject {
   external double get m44;
   external set m44(num value);
 }
+
 extension type DOMMatrix2DInit._(JSObject _) implements JSObject {
   external factory DOMMatrix2DInit({
     num a,
@@ -835,6 +839,7 @@ extension type DOMMatrix2DInit._(JSObject _) implements JSObject {
   external double get m42;
   external set m42(num value);
 }
+
 extension type DOMMatrixInit._(JSObject _)
     implements DOMMatrix2DInit, JSObject {
   external factory DOMMatrixInit({

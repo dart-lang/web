@@ -25,6 +25,7 @@ extension type DigitalCredentialRequestOptions._(JSObject _)
   external JSArray<DigitalCredentialRequest> get requests;
   external set requests(JSArray<DigitalCredentialRequest> value);
 }
+
 extension type DigitalCredentialRequest._(JSObject _) implements JSObject {
   external factory DigitalCredentialRequest({
     required String protocol,

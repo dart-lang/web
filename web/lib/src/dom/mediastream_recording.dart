@@ -207,6 +207,7 @@ extension type MediaRecorder._(JSObject _) implements EventTarget, JSObject {
   /// it was provided).
   external int get audioBitsPerSecond;
 }
+
 extension type MediaRecorderOptions._(JSObject _) implements JSObject {
   external factory MediaRecorderOptions({
     String mimeType,
@@ -259,6 +260,7 @@ extension type BlobEvent._(JSObject _) implements Event, JSObject {
   /// to be zero.
   external double get timecode;
 }
+
 extension type BlobEventInit._(JSObject _) implements JSObject {
   external factory BlobEventInit({
     required Blob data,

@@ -61,6 +61,7 @@ extension type ImageCapture._(JSObject _) implements JSObject {
   /// [ImageCapture.ImageCapture] constructor.
   external MediaStreamTrack get track;
 }
+
 extension type PhotoCapabilities._(JSObject _) implements JSObject {
   external factory PhotoCapabilities({
     RedEyeReduction redEyeReduction,
@@ -78,6 +79,7 @@ extension type PhotoCapabilities._(JSObject _) implements JSObject {
   external JSArray<JSString> get fillLightMode;
   external set fillLightMode(JSArray<JSString> value);
 }
+
 extension type PhotoSettings._(JSObject _) implements JSObject {
   external factory PhotoSettings({
     FillLightMode fillLightMode,
@@ -95,6 +97,7 @@ extension type PhotoSettings._(JSObject _) implements JSObject {
   external bool get redEyeReduction;
   external set redEyeReduction(bool value);
 }
+
 extension type MediaSettingsRange._(JSObject _) implements JSObject {
   external factory MediaSettingsRange({num max, num min, num step});
 
@@ -105,6 +108,7 @@ extension type MediaSettingsRange._(JSObject _) implements JSObject {
   external double get step;
   external set step(num value);
 }
+
 extension type ConstrainPoint2DParameters._(JSObject _) implements JSObject {
   external factory ConstrainPoint2DParameters({
     JSArray<Point2D> exact,
@@ -116,6 +120,7 @@ extension type ConstrainPoint2DParameters._(JSObject _) implements JSObject {
   external JSArray<Point2D> get ideal;
   external set ideal(JSArray<Point2D> value);
 }
+
 extension type Point2D._(JSObject _) implements JSObject {
   external factory Point2D({num x, num y});
 

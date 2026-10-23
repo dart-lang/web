@@ -8,7 +8,9 @@ extension type const TaskScope._(int _) {
 
   static const TaskScope Workspace = TaskScope._(2);
 }
+
 typedef ScopeUnion = AnonymousUnion_3654794;
+
 extension type AnonymousUnion_3654794._(TaskScope _) implements TaskScope {
   TaskScope get asTaskScope => _;
 }

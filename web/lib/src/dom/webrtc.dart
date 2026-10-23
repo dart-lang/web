@@ -50,6 +50,7 @@ typedef RTCIceComponent = String;
 typedef RTCSctpTransportState = String;
 typedef RTCDataChannelState = String;
 typedef RTCErrorDetailType = String;
+
 extension type RTCConfiguration._(JSObject _) implements JSObject {
   external factory RTCConfiguration({
     JSArray<RTCIceServer> iceServers,
@@ -76,6 +77,7 @@ extension type RTCConfiguration._(JSObject _) implements JSObject {
   external String get peerIdentity;
   external set peerIdentity(String value);
 }
+
 extension type RTCIceServer._(JSObject _) implements JSObject {
   external factory RTCIceServer({
     required JSAny urls,
@@ -90,9 +92,11 @@ extension type RTCIceServer._(JSObject _) implements JSObject {
   external String get credential;
   external set credential(String value);
 }
+
 extension type RTCOfferAnswerOptions._(JSObject _) implements JSObject {
   RTCOfferAnswerOptions() : _ = JSObject();
 }
+
 extension type RTCOfferOptions._(JSObject _)
     implements RTCOfferAnswerOptions, JSObject {
   external factory RTCOfferOptions({
@@ -108,6 +112,7 @@ extension type RTCOfferOptions._(JSObject _)
   external bool get offerToReceiveVideo;
   external set offerToReceiveVideo(bool value);
 }
+
 extension type RTCAnswerOptions._(JSObject _)
     implements RTCOfferAnswerOptions, JSObject {
   RTCAnswerOptions() : _ = JSObject();
@@ -686,6 +691,7 @@ extension type RTCSessionDescription._(JSObject _) implements JSObject {
   /// string containing the  which describes the session.
   external String get sdp;
 }
+
 extension type RTCSessionDescriptionInit._(JSObject _) implements JSObject {
   external factory RTCSessionDescriptionInit({
     required RTCSdpType type,
@@ -697,6 +703,7 @@ extension type RTCSessionDescriptionInit._(JSObject _) implements JSObject {
   external String get sdp;
   external set sdp(String value);
 }
+
 extension type RTCLocalSessionDescriptionInit._(JSObject _)
     implements JSObject {
   external factory RTCLocalSessionDescriptionInit({
@@ -928,6 +935,7 @@ extension type RTCIceCandidate._(JSObject _) implements JSObject {
   /// by the browser. See [Randomization](#randomization) below for details.
   external String? get usernameFragment;
 }
+
 extension type RTCIceCandidateInit._(JSObject _) implements JSObject {
   external factory RTCIceCandidateInit({
     String candidate,
@@ -968,6 +976,7 @@ extension type RTCPeerConnectionIceEvent._(JSObject _)
   external RTCIceCandidate? get candidate;
   external String? get url;
 }
+
 extension type RTCPeerConnectionIceEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory RTCPeerConnectionIceEventInit({
@@ -1010,6 +1019,7 @@ extension type RTCPeerConnectionIceErrorEvent._(JSObject _)
   external int get errorCode;
   external String get errorText;
 }
+
 extension type RTCPeerConnectionIceErrorEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory RTCPeerConnectionIceErrorEventInit({
@@ -1070,6 +1080,7 @@ extension type RTCCertificate._(JSObject _) implements JSObject {
   /// time of certificates if they choose.
   external EpochTimeStamp get expires;
 }
+
 extension type RTCRtpTransceiverInit._(JSObject _) implements JSObject {
   external factory RTCRtpTransceiverInit({
     RTCRtpTransceiverDirection direction,
@@ -1205,6 +1216,7 @@ extension type RTCRtpSender._(JSObject _) implements JSObject {
   /// make use of the returned `RTCDTMFSender` object.
   external RTCDTMFSender? get dtmf;
 }
+
 extension type RTCRtpParameters._(JSObject _) implements JSObject {
   external factory RTCRtpParameters({
     required JSArray<RTCRtpHeaderExtensionParameters> headerExtensions,
@@ -1219,6 +1231,7 @@ extension type RTCRtpParameters._(JSObject _) implements JSObject {
   external JSArray<RTCRtpCodecParameters> get codecs;
   external set codecs(JSArray<RTCRtpCodecParameters> value);
 }
+
 extension type RTCRtpSendParameters._(JSObject _)
     implements RTCRtpParameters, JSObject {
   external factory RTCRtpSendParameters({
@@ -1237,6 +1250,7 @@ extension type RTCRtpSendParameters._(JSObject _)
   external RTCDegradationPreference get degradationPreference;
   external set degradationPreference(RTCDegradationPreference value);
 }
+
 extension type RTCRtpReceiveParameters._(JSObject _)
     implements RTCRtpParameters, JSObject {
   external factory RTCRtpReceiveParameters({
@@ -1245,12 +1259,14 @@ extension type RTCRtpReceiveParameters._(JSObject _)
     required JSArray<RTCRtpCodecParameters> codecs,
   });
 }
+
 extension type RTCRtpCodingParameters._(JSObject _) implements JSObject {
   external factory RTCRtpCodingParameters({String rid});
 
   external String get rid;
   external set rid(String value);
 }
+
 extension type RTCRtpEncodingParameters._(JSObject _)
     implements RTCRtpCodingParameters, JSObject {
   external factory RTCRtpEncodingParameters({
@@ -1282,6 +1298,7 @@ extension type RTCRtpEncodingParameters._(JSObject _)
   external String get scalabilityMode;
   external set scalabilityMode(String value);
 }
+
 extension type RTCRtcpParameters._(JSObject _) implements JSObject {
   external factory RTCRtcpParameters({String cname, bool reducedSize});
 
@@ -1290,6 +1307,7 @@ extension type RTCRtcpParameters._(JSObject _) implements JSObject {
   external bool get reducedSize;
   external set reducedSize(bool value);
 }
+
 extension type RTCRtpHeaderExtensionParameters._(JSObject _)
     implements JSObject {
   external factory RTCRtpHeaderExtensionParameters({
@@ -1305,6 +1323,7 @@ extension type RTCRtpHeaderExtensionParameters._(JSObject _)
   external bool get encrypted;
   external set encrypted(bool value);
 }
+
 extension type RTCRtpCodec._(JSObject _) implements JSObject {
   external factory RTCRtpCodec({
     required String mimeType,
@@ -1322,6 +1341,7 @@ extension type RTCRtpCodec._(JSObject _) implements JSObject {
   external String get sdpFmtpLine;
   external set sdpFmtpLine(String value);
 }
+
 extension type RTCRtpCodecParameters._(JSObject _)
     implements RTCRtpCodec, JSObject {
   external factory RTCRtpCodecParameters({
@@ -1335,6 +1355,7 @@ extension type RTCRtpCodecParameters._(JSObject _)
   external int get payloadType;
   external set payloadType(int value);
 }
+
 extension type RTCRtpCapabilities._(JSObject _) implements JSObject {
   external factory RTCRtpCapabilities({
     required JSArray<RTCRtpCodec> codecs,
@@ -1346,6 +1367,7 @@ extension type RTCRtpCapabilities._(JSObject _) implements JSObject {
   external JSArray<RTCRtpHeaderExtensionCapability> get headerExtensions;
   external set headerExtensions(JSArray<RTCRtpHeaderExtensionCapability> value);
 }
+
 extension type RTCRtpHeaderExtensionCapability._(JSObject _)
     implements JSObject {
   external factory RTCRtpHeaderExtensionCapability({required String uri});
@@ -1353,6 +1375,7 @@ extension type RTCRtpHeaderExtensionCapability._(JSObject _)
   external String get uri;
   external set uri(String value);
 }
+
 extension type RTCSetParameterOptions._(JSObject _) implements JSObject {
   RTCSetParameterOptions() : _ = JSObject();
 }
@@ -1446,6 +1469,7 @@ extension type RTCRtpReceiver._(JSObject _) implements JSObject {
   external RTCRtpTransform? get transform;
   external set transform(RTCRtpTransform? value);
 }
+
 extension type RTCRtpContributingSource._(JSObject _) implements JSObject {
   external factory RTCRtpContributingSource({
     required DOMHighResTimeStamp timestamp,
@@ -1463,6 +1487,7 @@ extension type RTCRtpContributingSource._(JSObject _) implements JSObject {
   external int get rtpTimestamp;
   external set rtpTimestamp(int value);
 }
+
 extension type RTCRtpSynchronizationSource._(JSObject _)
     implements RTCRtpContributingSource, JSObject {
   external factory RTCRtpSynchronizationSource({
@@ -1621,6 +1646,7 @@ extension type RTCDtlsTransport._(JSObject _) implements EventTarget, JSObject {
   external EventHandler get onerror;
   external set onerror(EventHandler value);
 }
+
 extension type RTCDtlsFingerprint._(JSObject _) implements JSObject {
   external factory RTCDtlsFingerprint({String algorithm, String value});
 
@@ -1817,6 +1843,7 @@ extension type RTCTrackEvent._(JSObject _) implements Event, JSObject {
   /// [RTCTrackEvent.receiver] with an [RTCRtpSender].
   external RTCRtpTransceiver get transceiver;
 }
+
 extension type RTCTrackEventInit._(JSObject _) implements EventInit, JSObject {
   external factory RTCTrackEventInit({
     bool bubbles,
@@ -2139,6 +2166,7 @@ extension type RTCDataChannel._(JSObject _) implements EventTarget, JSObject {
   external BinaryType get binaryType;
   external set binaryType(BinaryType value);
 }
+
 extension type RTCDataChannelInit._(JSObject _) implements JSObject {
   external factory RTCDataChannelInit({
     bool ordered,
@@ -2183,6 +2211,7 @@ extension type RTCDataChannelEvent._(JSObject _) implements Event, JSObject {
   /// returns the [RTCDataChannel] associated with the event.
   external RTCDataChannel get channel;
 }
+
 extension type RTCDataChannelEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory RTCDataChannelEventInit({
@@ -2276,6 +2305,7 @@ extension type RTCDTMFToneChangeEvent._(JSObject _) implements Event, JSObject {
   /// [RTCDTMFSender.toneBuffer] is empty).
   external String get tone;
 }
+
 extension type RTCDTMFToneChangeEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory RTCDTMFToneChangeEventInit({
@@ -2348,6 +2378,7 @@ extension type RTCError._(JSObject _) implements DOMException, JSObject {
   external int? get sentAlert;
   external int? get httpRequestStatusCode;
 }
+
 extension type RTCErrorInit._(JSObject _) implements JSObject {
   external factory RTCErrorInit({
     required RTCErrorDetailType errorDetail,
@@ -2389,6 +2420,7 @@ extension type RTCErrorEvent._(JSObject _) implements Event, JSObject {
   /// event is announcing.
   external RTCError get error;
 }
+
 extension type RTCErrorEventInit._(JSObject _) implements EventInit, JSObject {
   external factory RTCErrorEventInit({
     bool bubbles,

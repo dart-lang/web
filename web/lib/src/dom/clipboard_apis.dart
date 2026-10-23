@@ -22,6 +22,7 @@ import 'html.dart';
 
 typedef ClipboardItems = JSArray<ClipboardItem>;
 typedef PresentationStyle = String;
+
 extension type ClipboardEventInit._(JSObject _) implements EventInit, JSObject {
   external factory ClipboardEventInit({
     bool bubbles,
@@ -115,6 +116,7 @@ extension type ClipboardItem._(JSObject _) implements JSObject {
   /// returns an `Array` of  available within the [ClipboardItem].
   external JSArray<JSString> get types;
 }
+
 extension type ClipboardItemOptions._(JSObject _) implements JSObject {
   external factory ClipboardItemOptions({PresentationStyle presentationStyle});
 
@@ -180,6 +182,7 @@ extension type Clipboard._(JSObject _) implements EventTarget, JSObject {
   /// resolved once the system clipboard has been updated.
   external JSPromise<JSAny?> writeText(String data);
 }
+
 extension type ClipboardUnsanitizedFormats._(JSObject _) implements JSObject {
   external factory ClipboardUnsanitizedFormats({JSArray<JSString> unsanitized});
 

@@ -86,6 +86,7 @@ extension type UIEvent._(JSObject _) implements Event, JSObject {
   /// pressed on the keyboard.
   external int get which;
 }
+
 extension type UIEventInit._(JSObject _) implements EventInit, JSObject {
   external factory UIEventInit({
     bool bubbles,
@@ -162,6 +163,7 @@ extension type FocusEvent._(JSObject _) implements UIEvent, JSObject {
   /// [MouseEvent.relatedTarget] is a similar property for mouse events.
   external EventTarget? get relatedTarget;
 }
+
 extension type FocusEventInit._(JSObject _) implements UIEventInit, JSObject {
   external factory FocusEventInit({
     bool bubbles,
@@ -518,6 +520,7 @@ extension type MouseEvent._(JSObject _) implements UIEvent, JSObject {
   /// > values.
   external double get movementY;
 }
+
 extension type MouseEventInit._(JSObject _)
     implements EventModifierInit, JSObject {
   external factory MouseEventInit({
@@ -572,6 +575,7 @@ extension type MouseEventInit._(JSObject _)
   external double get movementY;
   external set movementY(num value);
 }
+
 extension type EventModifierInit._(JSObject _)
     implements UIEventInit, JSObject {
   external factory EventModifierInit({
@@ -688,6 +692,7 @@ extension type WheelEvent._(JSObject _) implements MouseEvent, JSObject {
   /// | `DOM_DELTA_PAGE`  | `0x02` | The delta values are specified in pages.  |
   external int get deltaMode;
 }
+
 extension type WheelEventInit._(JSObject _)
     implements MouseEventInit, JSObject {
   external factory WheelEventInit({
@@ -823,6 +828,7 @@ extension type InputEvent._(JSObject _) implements UIEvent, JSObject {
   /// editable content.
   external DataTransfer? get dataTransfer;
 }
+
 extension type InputEventInit._(JSObject _) implements UIEventInit, JSObject {
   external factory InputEventInit({
     bool bubbles,
@@ -1127,6 +1133,7 @@ extension type KeyboardEvent._(JSObject _) implements UIEvent, JSObject {
   /// > pressed.
   external int get keyCode;
 }
+
 extension type KeyboardEventInit._(JSObject _)
     implements EventModifierInit, JSObject {
   external factory KeyboardEventInit({
@@ -1211,6 +1218,7 @@ extension type CompositionEvent._(JSObject _) implements UIEvent, JSObject {
   /// that generated the `CompositionEvent` object.
   external String get data;
 }
+
 extension type CompositionEventInit._(JSObject _)
     implements UIEventInit, JSObject {
   external factory CompositionEventInit({

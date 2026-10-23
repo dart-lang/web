@@ -24,12 +24,14 @@ import 'screen_orientation.dart';
 typedef ScrollBehavior = String;
 typedef ScrollLogicalPosition = String;
 typedef ScrollIntoViewContainer = String;
+
 extension type ScrollOptions._(JSObject _) implements JSObject {
   external factory ScrollOptions({ScrollBehavior behavior});
 
   external ScrollBehavior get behavior;
   external set behavior(ScrollBehavior value);
 }
+
 extension type ScrollToOptions._(JSObject _)
     implements ScrollOptions, JSObject {
   external factory ScrollToOptions({
@@ -131,6 +133,7 @@ extension type MediaQueryListEvent._(JSObject _) implements Event, JSObject {
   /// or `false` if not.
   external bool get matches;
 }
+
 extension type MediaQueryListEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory MediaQueryListEventInit({
@@ -196,6 +199,7 @@ extension type Screen._(JSObject _) implements JSObject {
   /// [Screen] interface returns the current orientation of the screen.
   external ScreenOrientation get orientation;
 }
+
 extension type CaretPositionFromPointOptions._(JSObject _) implements JSObject {
   external factory CaretPositionFromPointOptions({
     JSArray<ShadowRoot> shadowRoots,
@@ -219,6 +223,7 @@ extension type CaretPosition._(JSObject _) implements JSObject {
   external Node get offsetNode;
   external int get offset;
 }
+
 extension type ScrollIntoViewOptions._(JSObject _)
     implements ScrollOptions, JSObject {
   external factory ScrollIntoViewOptions({
@@ -235,6 +240,7 @@ extension type ScrollIntoViewOptions._(JSObject _)
   external ScrollIntoViewContainer get container;
   external set container(ScrollIntoViewContainer value);
 }
+
 extension type CheckVisibilityOptions._(JSObject _) implements JSObject {
   external factory CheckVisibilityOptions({
     bool checkOpacity,

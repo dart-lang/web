@@ -235,6 +235,7 @@ extension type TrustedTypePolicy._(JSObject _) implements JSObject {
   /// returns the name of the policy.
   external String get name;
 }
+
 extension type TrustedTypePolicyOptions._(JSObject _) implements JSObject {
   external factory TrustedTypePolicyOptions({
     CreateHTMLCallback createHTML,

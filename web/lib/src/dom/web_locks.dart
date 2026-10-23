@@ -73,6 +73,7 @@ extension type LockManager._(JSObject _) implements JSObject {
   /// and pending locks.
   external JSPromise<LockManagerSnapshot> query();
 }
+
 extension type LockOptions._(JSObject _) implements JSObject {
   external factory LockOptions({
     LockMode mode,
@@ -90,6 +91,7 @@ extension type LockOptions._(JSObject _) implements JSObject {
   external AbortSignal get signal;
   external set signal(AbortSignal value);
 }
+
 extension type LockManagerSnapshot._(JSObject _) implements JSObject {
   external factory LockManagerSnapshot({
     JSArray<LockInfo> held,
@@ -101,12 +103,9 @@ extension type LockManagerSnapshot._(JSObject _) implements JSObject {
   external JSArray<LockInfo> get pending;
   external set pending(JSArray<LockInfo> value);
 }
+
 extension type LockInfo._(JSObject _) implements JSObject {
-  external factory LockInfo({
-    String name,
-    LockMode mode,
-    String clientId,
-  });
+  external factory LockInfo({String name, LockMode mode, String clientId});
 
   external String get name;
   external set name(String value);

@@ -21,6 +21,7 @@ import 'html.dart';
 typedef BinaryData = JSObject;
 typedef FontFaceLoadStatus = String;
 typedef FontFaceSetLoadStatus = String;
+
 extension type FontFaceDescriptors._(JSObject _) implements JSObject {
   external factory FontFaceDescriptors({
     String style,
@@ -192,6 +193,7 @@ extension type FontFace._(JSObject _) implements JSObject {
   /// `SyntaxError`.
   external JSPromise<FontFace> get loaded;
 }
+
 extension type FontFaceSetLoadEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory FontFaceSetLoadEventInit({
@@ -268,20 +270,14 @@ extension type FontFaceSet._(JSObject _) implements EventTarget, JSObject {
 
   /// The `load()` method of the [FontFaceSet] forces all the fonts given in
   /// parameters to be loaded.
-  external JSPromise<JSArray<FontFace>> load(
-    String font, [
-    String text,
-  ]);
+  external JSPromise<JSArray<FontFace>> load(String font, [String text]);
 
   /// The `check()` method of the [FontFaceSet] returns `true` if you can render
   /// some text using the given font specification without attempting to use any
   /// fonts in this `FontFaceSet` that are not yet fully loaded. This means you
   /// can use the font specification without causing a
   /// [font swap](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display#the_font_display_timeline).
-  external bool check(
-    String font, [
-    String text,
-  ]);
+  external bool check(String font, [String text]);
   external EventHandler get onloading;
   external set onloading(EventHandler value);
   external EventHandler get onloadingdone;

@@ -1,5 +1,7 @@
 ## 1.1.2-wip
 
+- Require Dart `^3.13.0`.
+
 ## 1.1.1
 
 - Deprecated `Node.text` extension. Use `Node.textContent` instead.

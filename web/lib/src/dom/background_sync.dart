@@ -51,10 +51,7 @@ extension type SyncManager._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SyncEvent).
 extension type SyncEvent._(JSObject _) implements ExtendableEvent, JSObject {
-  external factory SyncEvent(
-    String type,
-    SyncEventInit init,
-  );
+  external factory SyncEvent(String type, SyncEventInit init);
 
   /// @AvailableInWorkers("service")
   ///
@@ -74,6 +71,7 @@ extension type SyncEvent._(JSObject _) implements ExtendableEvent, JSObject {
   /// [SyncEvent.SyncEvent] constructor.
   external bool get lastChance;
 }
+
 extension type SyncEventInit._(JSObject _)
     implements ExtendableEventInit, JSObject {
   external factory SyncEventInit({

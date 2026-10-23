@@ -29,11 +29,7 @@ import 'svg.dart';
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/TimeEvent).
 extension type TimeEvent._(JSObject _) implements Event, JSObject {
-  external void initTimeEvent(
-    String typeArg,
-    Window? viewArg,
-    int detailArg,
-  );
+  external void initTimeEvent(String typeArg, Window? viewArg, int detailArg);
   external Window? get view;
   external int get detail;
 }
@@ -79,10 +75,7 @@ extension type SVGAnimateElement._(JSObject _)
     implements SVGAnimationElement, JSObject {
   /// Creates an [SVGAnimateElement] using the tag 'animate'.
   SVGAnimateElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'animate',
-        );
+    : _ = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
 }
 
 /// The **`SVGSetElement`** interface corresponds to the  element.
@@ -95,10 +88,7 @@ extension type SVGSetElement._(JSObject _)
     implements SVGAnimationElement, JSObject {
   /// Creates an [SVGSetElement] using the tag 'set'.
   SVGSetElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'set',
-        );
+    : _ = document.createElementNS('http://www.w3.org/2000/svg', 'set');
 }
 
 /// The **`SVGAnimateMotionElement`** interface corresponds to the  element.
@@ -111,10 +101,10 @@ extension type SVGAnimateMotionElement._(JSObject _)
     implements SVGAnimationElement, JSObject {
   /// Creates an [SVGAnimateMotionElement] using the tag 'animateMotion'.
   SVGAnimateMotionElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'animateMotion',
-        );
+    : _ = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'animateMotion',
+      );
 }
 
 /// The **`SVGMPathElement`** interface corresponds to the  element.
@@ -126,10 +116,7 @@ extension type SVGAnimateMotionElement._(JSObject _)
 extension type SVGMPathElement._(JSObject _) implements SVGElement, JSObject {
   /// Creates an [SVGMPathElement] using the tag 'mpath'.
   SVGMPathElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'mpath',
-        );
+    : _ = document.createElementNS('http://www.w3.org/2000/svg', 'mpath');
 
   external SVGAnimatedString get href;
 }
@@ -144,8 +131,8 @@ extension type SVGAnimateTransformElement._(JSObject _)
     implements SVGAnimationElement, JSObject {
   /// Creates an [SVGAnimateTransformElement] using the tag 'animateTransform'.
   SVGAnimateTransformElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'animateTransform',
-        );
+    : _ = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'animateTransform',
+      );
 }

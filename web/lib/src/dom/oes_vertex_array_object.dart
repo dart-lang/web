@@ -18,6 +18,7 @@ import 'dart:js_interop';
 import 'webgl1.dart';
 
 extension type WebGLVertexArrayObjectOES._(JSObject _) implements JSObject {}
+
 extension type OES_vertex_array_object._(JSObject _) implements JSObject {
   static const GLenum VERTEX_ARRAY_BINDING_OES = 34229;
 

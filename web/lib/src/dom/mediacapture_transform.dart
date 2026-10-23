@@ -28,12 +28,14 @@ import 'streams.dart';
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamTrackProcessor).
 extension type MediaStreamTrackProcessor._(JSObject _) implements JSObject {
   external factory MediaStreamTrackProcessor(
-      MediaStreamTrackProcessorInit init);
+    MediaStreamTrackProcessorInit init,
+  );
 
   /// The **`readable`** property of the [MediaStreamTrackProcessor] interface
   /// returns a [ReadableStream].
   external ReadableStream get readable;
 }
+
 extension type MediaStreamTrackProcessorInit._(JSObject _) implements JSObject {
   external factory MediaStreamTrackProcessorInit({
     required MediaStreamTrack track,

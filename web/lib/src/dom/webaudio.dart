@@ -415,7 +415,8 @@ extension type AudioContext._(JSObject _)
   /// For more details about media element audio source nodes, check out the
   /// [MediaElementAudioSourceNode] reference page.
   external MediaElementAudioSourceNode createMediaElementSource(
-      HTMLMediaElement mediaElement);
+    HTMLMediaElement mediaElement,
+  );
 
   /// The `createMediaStreamSource()` method of the [AudioContext]
   /// Interface is used to create a new [MediaStreamAudioSourceNode]
@@ -425,7 +426,8 @@ extension type AudioContext._(JSObject _)
   /// For more details about media stream audio source nodes, check out the
   /// [MediaStreamAudioSourceNode] reference page.
   external MediaStreamAudioSourceNode createMediaStreamSource(
-      MediaStream mediaStream);
+    MediaStream mediaStream,
+  );
 
   /// The **`createMediaStreamTrackSource()`** method of the [AudioContext]
   /// interface creates and returns a [MediaStreamTrackAudioSourceNode] which
@@ -437,7 +439,8 @@ extension type AudioContext._(JSObject _)
   /// specified [MediaStream] whose [MediaStreamTrack.id] is first,
   /// lexicographically (alphabetically).
   external MediaStreamTrackAudioSourceNode createMediaStreamTrackSource(
-      MediaStreamTrack mediaStreamTrack);
+    MediaStreamTrack mediaStreamTrack,
+  );
 
   /// The `createMediaStreamDestination()` method of the [AudioContext]
   /// Interface is used to create a new [MediaStreamAudioDestinationNode] object
@@ -482,6 +485,7 @@ extension type AudioContext._(JSObject _)
   /// It varies depending on the platform and the available hardware.
   external double get outputLatency;
 }
+
 extension type AudioContextOptions._(JSObject _) implements JSObject {
   external factory AudioContextOptions({
     JSAny latencyHint,
@@ -499,12 +503,14 @@ extension type AudioContextOptions._(JSObject _) implements JSObject {
   external JSAny get renderSizeHint;
   external set renderSizeHint(JSAny value);
 }
+
 extension type AudioSinkOptions._(JSObject _) implements JSObject {
   external factory AudioSinkOptions({required AudioSinkType type});
 
   external AudioSinkType get type;
   external set type(AudioSinkType value);
 }
+
 extension type AudioTimestamp._(JSObject _) implements JSObject {
   external factory AudioTimestamp({
     num contextTime,
@@ -585,6 +591,7 @@ extension type OfflineAudioContext._(JSObject _)
   external EventHandler get oncomplete;
   external set oncomplete(EventHandler value);
 }
+
 extension type OfflineAudioContextOptions._(JSObject _) implements JSObject {
   external factory OfflineAudioContextOptions({
     int numberOfChannels,
@@ -630,6 +637,7 @@ extension type OfflineAudioCompletionEvent._(JSObject _)
   /// containing the result of processing an [OfflineAudioContext].
   external AudioBuffer get renderedBuffer;
 }
+
 extension type OfflineAudioCompletionEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory OfflineAudioCompletionEventInit({
@@ -712,6 +720,7 @@ extension type AudioBuffer._(JSObject _) implements JSObject {
   /// described by the PCM data stored in the buffer.
   external int get numberOfChannels;
 }
+
 extension type AudioBufferOptions._(JSObject _) implements JSObject {
   external factory AudioBufferOptions({
     int numberOfChannels,
@@ -820,6 +829,7 @@ extension type AudioNode._(JSObject _) implements EventTarget, JSObject {
   external ChannelInterpretation get channelInterpretation;
   external set channelInterpretation(ChannelInterpretation value);
 }
+
 extension type AudioNodeOptions._(JSObject _) implements JSObject {
   external factory AudioNodeOptions({
     int channelCount,
@@ -858,10 +868,7 @@ extension type AudioParam._(JSObject _) implements JSObject {
   /// `AudioParam` value at a precise time, as measured against
   /// [BaseAudioContext.currentTime]. The new value is given in the value
   /// parameter.
-  external AudioParam setValueAtTime(
-    num value,
-    num startTime,
-  );
+  external AudioParam setValueAtTime(num value, num startTime);
 
   /// The `linearRampToValueAtTime()` method of the [AudioParam]
   /// Interface schedules a gradual linear change in the value of the
@@ -869,10 +876,7 @@ extension type AudioParam._(JSObject _) implements JSObject {
   /// _previous_ event, follows a linear ramp to the new value given in the
   /// `value` parameter, and reaches the new value at the time given in the
   /// `endTime` parameter.
-  external AudioParam linearRampToValueAtTime(
-    num value,
-    num endTime,
-  );
+  external AudioParam linearRampToValueAtTime(num value, num endTime);
 
   /// The **`exponentialRampToValueAtTime()`** method of the [AudioParam]
   /// Interface schedules a gradual exponential change in the value of the
@@ -886,10 +890,7 @@ extension type AudioParam._(JSObject _) implements JSObject {
   /// > frequencies or playback rates than linear ramps because of the way the
   /// > human ear
   /// > works.
-  external AudioParam exponentialRampToValueAtTime(
-    num value,
-    num endTime,
-  );
+  external AudioParam exponentialRampToValueAtTime(num value, num endTime);
 
   /// The `setTargetAtTime()` method of the
   /// [AudioParam] interface schedules the start of a gradual change to the
@@ -1135,6 +1136,7 @@ extension type AnalyserNode._(JSObject _) implements AudioNode, JSObject {
   external double get smoothingTimeConstant;
   external set smoothingTimeConstant(num value);
 }
+
 extension type AnalyserOptions._(JSObject _)
     implements AudioNodeOptions, JSObject {
   external factory AnalyserOptions({
@@ -1222,11 +1224,7 @@ extension type AudioBufferSourceNode._(JSObject _)
   /// Interface is used to schedule playback of the audio data contained in the
   /// buffer, or
   /// to begin playback immediately.
-  external void start([
-    num when,
-    num offset,
-    num duration,
-  ]);
+  external void start([num when, num offset, num duration]);
 
   /// The **`buffer`** property of the [AudioBufferSourceNode] interface
   /// provides the ability to play back audio using an [AudioBuffer] as the
@@ -1293,6 +1291,7 @@ extension type AudioBufferSourceNode._(JSObject _)
   external double get loopEnd;
   external set loopEnd(num value);
 }
+
 extension type AudioBufferSourceOptions._(JSObject _) implements JSObject {
   external factory AudioBufferSourceOptions({
     AudioBuffer? buffer,
@@ -1401,11 +1400,7 @@ extension type AudioListener._(JSObject _) implements JSObject {
   /// > **Note:** As this method is deprecated, use the three
   /// > [AudioListener.positionX], [AudioListener.positionY], and
   /// > [AudioListener.positionZ] properties instead.
-  external void setPosition(
-    num x,
-    num y,
-    num z,
-  );
+  external void setPosition(num x, num y, num z);
 
   /// The `setOrientation()` method of the [AudioListener] interface defines the
   /// orientation of the listener.
@@ -1422,14 +1417,7 @@ extension type AudioListener._(JSObject _) implements JSObject {
   ///
   /// The two vectors must be separated by an angle of 90° — in linear analysis
   /// terms, they must be perpendicular to each other.
-  external void setOrientation(
-    num x,
-    num y,
-    num z,
-    num xUp,
-    num yUp,
-    num zUp,
-  );
+  external void setOrientation(num x, num y, num z, num xUp, num yUp, num zUp);
 
   /// The `positionX` read-only property of the [AudioListener] interface is an
   /// [AudioParam] representing the x position of the listener in 3D cartesian
@@ -1566,6 +1554,7 @@ extension type AudioProcessingEvent._(JSObject _) implements Event, JSObject {
   /// the `AudioBuffer`.
   external AudioBuffer get outputBuffer;
 }
+
 extension type AudioProcessingEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory AudioProcessingEventInit({
@@ -1684,6 +1673,7 @@ extension type BiquadFilterNode._(JSObject _) implements AudioNode, JSObject {
   /// a nominal range of `-40` to `40`.
   external AudioParam get gain;
 }
+
 extension type BiquadFilterOptions._(JSObject _)
     implements AudioNodeOptions, JSObject {
   external factory BiquadFilterOptions({
@@ -1763,6 +1753,7 @@ extension type ChannelMergerNode._(JSObject _) implements AudioNode, JSObject {
     ChannelMergerOptions options,
   ]);
 }
+
 extension type ChannelMergerOptions._(JSObject _)
     implements AudioNodeOptions, JSObject {
   external factory ChannelMergerOptions({
@@ -1834,6 +1825,7 @@ extension type ChannelSplitterNode._(JSObject _)
     ChannelSplitterOptions options,
   ]);
 }
+
 extension type ChannelSplitterOptions._(JSObject _)
     implements AudioNodeOptions, JSObject {
   external factory ChannelSplitterOptions({
@@ -1899,6 +1891,7 @@ extension type ConstantSourceNode._(JSObject _)
   /// > ```
   external AudioParam get offset;
 }
+
 extension type ConstantSourceOptions._(JSObject _) implements JSObject {
   external factory ConstantSourceOptions({num offset});
 
@@ -1984,6 +1977,7 @@ extension type ConvolverNode._(JSObject _) implements AudioNode, JSObject {
   external bool get normalize;
   external set normalize(bool value);
 }
+
 extension type ConvolverOptions._(JSObject _)
     implements AudioNodeOptions, JSObject {
   external factory ConvolverOptions({
@@ -2045,10 +2039,7 @@ extension type ConvolverOptions._(JSObject _)
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DelayNode).
 extension type DelayNode._(JSObject _) implements AudioNode, JSObject {
-  external factory DelayNode(
-    BaseAudioContext context, [
-    DelayOptions options,
-  ]);
+  external factory DelayNode(BaseAudioContext context, [DelayOptions options]);
 
   /// The `delayTime` property of the [DelayNode] interface is an
   /// [a-rate](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam#a-rate)
@@ -2062,6 +2053,7 @@ extension type DelayNode._(JSObject _) implements AudioNode, JSObject {
   /// > represents is not.
   external AudioParam get delayTime;
 }
+
 extension type DelayOptions._(JSObject _)
     implements AudioNodeOptions, JSObject {
   external factory DelayOptions({
@@ -2186,6 +2178,7 @@ extension type DynamicsCompressorNode._(JSObject _)
   /// `0` and `1`.
   external AudioParam get release;
 }
+
 extension type DynamicsCompressorOptions._(JSObject _)
     implements AudioNodeOptions, JSObject {
   external factory DynamicsCompressorOptions({
@@ -2254,16 +2247,14 @@ extension type DynamicsCompressorOptions._(JSObject _)
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/GainNode).
 extension type GainNode._(JSObject _) implements AudioNode, JSObject {
-  external factory GainNode(
-    BaseAudioContext context, [
-    GainOptions options,
-  ]);
+  external factory GainNode(BaseAudioContext context, [GainOptions options]);
 
   /// The `gain` property of the [GainNode] interface is an
   /// [a-rate](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam#a-rate)
   /// [AudioParam] representing the amount of gain to apply.
   external AudioParam get gain;
 }
+
 extension type GainOptions._(JSObject _) implements AudioNodeOptions, JSObject {
   external factory GainOptions({
     int channelCount,
@@ -2355,6 +2346,7 @@ extension type IIRFilterNode._(JSObject _) implements AudioNode, JSObject {
     JSFloat32Array phaseResponse,
   );
 }
+
 extension type IIRFilterOptions._(JSObject _)
     implements AudioNodeOptions, JSObject {
   external factory IIRFilterOptions({
@@ -2423,10 +2415,12 @@ extension type MediaElementAudioSourceNode._(JSObject _)
   /// constructor or the [AudioContext.createMediaElementSource] method.
   external HTMLMediaElement get mediaElement;
 }
+
 extension type MediaElementAudioSourceOptions._(JSObject _)
     implements JSObject {
-  external factory MediaElementAudioSourceOptions(
-      {required HTMLMediaElement mediaElement});
+  external factory MediaElementAudioSourceOptions({
+    required HTMLMediaElement mediaElement,
+  });
 
   external HTMLMediaElement get mediaElement;
   external set mediaElement(HTMLMediaElement value);
@@ -2548,9 +2542,11 @@ extension type MediaStreamAudioSourceNode._(JSObject _)
   /// constructor or the [AudioContext.createMediaStreamSource] method.
   external MediaStream get mediaStream;
 }
+
 extension type MediaStreamAudioSourceOptions._(JSObject _) implements JSObject {
-  external factory MediaStreamAudioSourceOptions(
-      {required MediaStream mediaStream});
+  external factory MediaStreamAudioSourceOptions({
+    required MediaStream mediaStream,
+  });
 
   external MediaStream get mediaStream;
   external set mediaStream(MediaStream value);
@@ -2606,10 +2602,12 @@ extension type MediaStreamTrackAudioSourceNode._(JSObject _)
     MediaStreamTrackAudioSourceOptions options,
   );
 }
+
 extension type MediaStreamTrackAudioSourceOptions._(JSObject _)
     implements JSObject {
-  external factory MediaStreamTrackAudioSourceOptions(
-      {required MediaStreamTrack mediaStreamTrack});
+  external factory MediaStreamTrackAudioSourceOptions({
+    required MediaStreamTrack mediaStreamTrack,
+  });
 
   external MediaStreamTrack get mediaStreamTrack;
   external set mediaStreamTrack(MediaStreamTrack value);
@@ -2690,6 +2688,7 @@ extension type OscillatorNode._(JSObject _)
   /// > represents is not.
   external AudioParam get detune;
 }
+
 extension type OscillatorOptions._(JSObject _)
     implements AudioNodeOptions, JSObject {
   external factory OscillatorOptions({
@@ -2776,11 +2775,7 @@ extension type PannerNode._(JSObject _) implements AudioNode, JSObject {
   /// coordinate system.
   ///
   /// The `setPosition()` method's default value of the position is `(0, 0, 0)`.
-  external void setPosition(
-    num x,
-    num y,
-    num z,
-  );
+  external void setPosition(num x, num y, num z);
 
   /// > **Note:** The suggested replacement for this deprecated method is to
   /// > instead set the
@@ -2802,11 +2797,7 @@ extension type PannerNode._(JSObject _) implements AudioNode, JSObject {
   /// The three parameters `x`, `y` and `z` are unitless and describe a
   /// direction vector in 3D space using the right-hand Cartesian coordinate
   /// system. The default value of the direction vector is `(1, 0, 0)`.
-  external void setOrientation(
-    num x,
-    num y,
-    num z,
-  );
+  external void setOrientation(num x, num y, num z);
 
   /// The `panningModel` property of the [PannerNode] interface is an enumerated
   /// value determining which spatialization algorithm to use to position the
@@ -3081,6 +3072,7 @@ extension type PannerNode._(JSObject _) implements AudioNode, JSObject {
   external double get coneOuterGain;
   external set coneOuterGain(num value);
 }
+
 extension type PannerOptions._(JSObject _)
     implements AudioNodeOptions, JSObject {
   external factory PannerOptions({
@@ -3151,12 +3143,14 @@ extension type PeriodicWave._(JSObject _) implements JSObject {
     PeriodicWaveOptions options,
   ]);
 }
+
 extension type PeriodicWaveConstraints._(JSObject _) implements JSObject {
   external factory PeriodicWaveConstraints({bool disableNormalization});
 
   external bool get disableNormalization;
   external set disableNormalization(bool value);
 }
+
 extension type PeriodicWaveOptions._(JSObject _)
     implements PeriodicWaveConstraints, JSObject {
   external factory PeriodicWaveOptions({
@@ -3303,6 +3297,7 @@ extension type StereoPannerNode._(JSObject _) implements AudioNode, JSObject {
   /// range between `-1` (full left pan) and `1` (full right pan).
   external AudioParam get pan;
 }
+
 extension type StereoPannerOptions._(JSObject _)
     implements AudioNodeOptions, JSObject {
   external factory StereoPannerOptions({
@@ -3394,6 +3389,7 @@ extension type WaveShaperNode._(JSObject _) implements AudioNode, JSObject {
   external OverSampleType get oversample;
   external set oversample(OverSampleType value);
 }
+
 extension type WaveShaperOptions._(JSObject _)
     implements AudioNodeOptions, JSObject {
   external factory WaveShaperOptions({
@@ -3534,6 +3530,7 @@ extension type AudioWorkletNode._(JSObject _) implements AudioNode, JSObject {
   external EventHandler get onprocessorerror;
   external set onprocessorerror(EventHandler value);
 }
+
 extension type AudioWorkletNodeOptions._(JSObject _)
     implements AudioNodeOptions, JSObject {
   external factory AudioWorkletNodeOptions({

@@ -28,8 +28,5 @@ extension type EXT_disjoint_timer_query_webgl2._(JSObject _)
 
   static const GLenum GPU_DISJOINT_EXT = 36795;
 
-  external void queryCounterEXT(
-    WebGLQuery query,
-    GLenum target,
-  );
+  external void queryCounterEXT(WebGLQuery query, GLenum target);
 }

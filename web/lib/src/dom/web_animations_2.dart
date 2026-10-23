@@ -19,6 +19,7 @@ import 'css_typed_om.dart';
 import 'dom.dart';
 
 typedef IterationCompositeOperation = String;
+
 extension type TimelineRangeOffset._(JSObject _) implements JSObject {
   external factory TimelineRangeOffset({
     String? rangeName,
@@ -61,6 +62,7 @@ extension type AnimationPlaybackEvent._(JSObject _) implements Event, JSObject {
   /// generated or if the associated timeline was inactive.
   external CSSNumberish? get timelineTime;
 }
+
 extension type AnimationPlaybackEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory AnimationPlaybackEventInit({

@@ -194,31 +194,23 @@ extension type TrustedTypePolicy._(JSObject _) implements JSObject {
   /// The **`createHTML()`** method of the [TrustedTypePolicy] interface creates
   /// a [TrustedHTML] object using a policy created by
   /// [TrustedTypePolicyFactory.createPolicy].
-  external TrustedHTML createHTML(
-    String input,
-    JSAny? arguments,
-  );
+  external TrustedHTML createHTML(String input, JSAny? arguments);
 
   /// The **`createScript()`** method of the [TrustedTypePolicy] interface
   /// creates a [TrustedScript] object using a policy created by
   /// [TrustedTypePolicyFactory.createPolicy].
-  external TrustedScript createScript(
-    String input,
-    JSAny? arguments,
-  );
+  external TrustedScript createScript(String input, JSAny? arguments);
 
   /// The **`createScriptURL()`** method of the [TrustedTypePolicy] interface
   /// creates a [TrustedScriptURL] object using a policy created by
   /// [TrustedTypePolicyFactory.createPolicy].
-  external TrustedScriptURL createScriptURL(
-    String input,
-    JSAny? arguments,
-  );
+  external TrustedScriptURL createScriptURL(String input, JSAny? arguments);
 
   /// The **`name`** read-only property of the [TrustedTypePolicy] interface
   /// returns the name of the policy.
   external String get name;
 }
+
 extension type TrustedTypePolicyOptions._(JSObject _) implements JSObject {
   external factory TrustedTypePolicyOptions({
     CreateHTMLCallback createHTML,

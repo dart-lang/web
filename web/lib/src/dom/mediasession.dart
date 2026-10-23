@@ -109,6 +109,7 @@ extension type MediaMetadata._(JSObject _) implements JSObject {
   external JSArray<MediaImage> get artwork;
   external set artwork(JSArray<MediaImage> value);
 }
+
 extension type MediaMetadataInit._(JSObject _) implements JSObject {
   external factory MediaMetadataInit({
     String title,
@@ -129,6 +130,7 @@ extension type MediaMetadataInit._(JSObject _) implements JSObject {
   external JSArray<ChapterInformationInit> get chapterInfo;
   external set chapterInfo(JSArray<ChapterInformationInit> value);
 }
+
 extension type ChapterInformationInit._(JSObject _) implements JSObject {
   external factory ChapterInformationInit({
     String title,
@@ -143,12 +145,9 @@ extension type ChapterInformationInit._(JSObject _) implements JSObject {
   external JSArray<MediaImage> get artwork;
   external set artwork(JSArray<MediaImage> value);
 }
+
 extension type MediaImage._(JSObject _) implements JSObject {
-  external factory MediaImage({
-    required String src,
-    String sizes,
-    String type,
-  });
+  external factory MediaImage({required String src, String sizes, String type});
 
   external String get src;
   external set src(String value);
@@ -157,6 +156,7 @@ extension type MediaImage._(JSObject _) implements JSObject {
   external String get type;
   external set type(String value);
 }
+
 extension type MediaPositionState._(JSObject _) implements JSObject {
   external factory MediaPositionState({
     num duration,

@@ -137,12 +137,14 @@ extension type CredentialsContainer._(JSObject _) implements JSObject {
   /// section has support details.
   external JSPromise<JSAny?> preventSilentAccess();
 }
+
 extension type CredentialData._(JSObject _) implements JSObject {
   external factory CredentialData({required String id});
 
   external String get id;
   external set id(String value);
 }
+
 extension type CredentialRequestOptions._(JSObject _) implements JSObject {
   external factory CredentialRequestOptions({
     CredentialMediationRequirement mediation,
@@ -172,6 +174,7 @@ extension type CredentialRequestOptions._(JSObject _) implements JSObject {
   external PublicKeyCredentialRequestOptions get publicKey;
   external set publicKey(PublicKeyCredentialRequestOptions value);
 }
+
 extension type CredentialCreationOptions._(JSObject _) implements JSObject {
   external factory CredentialCreationOptions({
     CredentialMediationRequirement mediation,
@@ -192,6 +195,7 @@ extension type CredentialCreationOptions._(JSObject _) implements JSObject {
   external PublicKeyCredentialCreationOptions get publicKey;
   external set publicKey(PublicKeyCredentialCreationOptions value);
 }
+
 extension type PasswordCredentialData._(JSObject _)
     implements CredentialData, JSObject {
   external factory PasswordCredentialData({
@@ -211,6 +215,7 @@ extension type PasswordCredentialData._(JSObject _)
   external String get password;
   external set password(String value);
 }
+
 extension type FederatedCredentialRequestOptions._(JSObject _)
     implements JSObject {
   external factory FederatedCredentialRequestOptions({

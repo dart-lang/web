@@ -38,10 +38,7 @@ extension type CSSStyleValue._(JSObject _) implements JSObject {
   /// interface sets a specific CSS property to the specified values and returns
   /// the first
   /// value as a [CSSStyleValue] object.
-  external static CSSStyleValue parse(
-    String property,
-    String cssText,
-  );
+  external static CSSStyleValue parse(String property, String cssText);
 
   /// The **`parseAll()`** static method of the [CSSStyleValue]
   /// interface sets all occurrences of a specific CSS property to the specified
@@ -99,18 +96,12 @@ extension type StylePropertyMap._(JSObject _)
     implements StylePropertyMapReadOnly, JSObject {
   /// The **`set()`** method of the [StylePropertyMap]
   /// interface changes the CSS declaration with the given property.
-  external void set(
-    String property,
-    JSAny values,
-  );
+  external void set(String property, JSAny values);
 
   /// The **`append()`** method of the
   /// [StylePropertyMap] interface adds the passed CSS value to the
   /// `StylePropertyMap` with the given property.
-  external void append(
-    String property,
-    JSAny values,
-  );
+  external void append(String property, JSAny values);
 
   /// The **`delete()`** method of the
   /// [StylePropertyMap] interface removes the CSS declaration with the given
@@ -140,10 +131,7 @@ extension type CSSUnparsedValue._(JSObject _)
   external factory CSSUnparsedValue(JSArray<CSSUnparsedSegment> members);
 
   external CSSUnparsedSegment operator [](int index);
-  external void operator []=(
-    int index,
-    CSSUnparsedSegment val,
-  );
+  external void operator []=(int index, CSSUnparsedSegment val);
 
   /// The **`length`** read-only property of the
   /// [CSSUnparsedValue] interface returns the number of items in the object.
@@ -202,6 +190,7 @@ extension type CSSKeywordValue._(JSObject _)
   external String get value;
   external set value(String value);
 }
+
 extension type CSSNumericType._(JSObject _) implements JSObject {
   external factory CSSNumericType({
     int length,
@@ -316,10 +305,7 @@ extension type CSSNumericValue._(JSObject _)
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSUnitValue).
 extension type CSSUnitValue._(JSObject _) implements CSSNumericValue, JSObject {
-  external factory CSSUnitValue(
-    num value,
-    String unit,
-  );
+  external factory CSSUnitValue(num value, String unit);
 
   /// The **`CSSUnitValue.value`** property of the
   /// [CSSUnitValue] interface returns a double indicating the number of units.
@@ -453,6 +439,7 @@ extension type CSSMathMax._(JSObject _) implements CSSMathValue, JSObject {
   /// which contains one or more [CSSNumericValue] objects.
   external CSSNumericArray get values;
 }
+
 extension type CSSMathClamp._(JSObject _) implements CSSMathValue, JSObject {
   external factory CSSMathClamp(
     CSSNumberish lower,
@@ -495,10 +482,7 @@ extension type CSSTransformValue._(JSObject _)
   external factory CSSTransformValue(JSArray<CSSTransformComponent> transforms);
 
   external CSSTransformComponent operator [](int index);
-  external void operator []=(
-    int index,
-    CSSTransformComponent val,
-  );
+  external void operator []=(int index, CSSTransformComponent val);
 
   /// The **`toMatrix()`** method of the
   /// [CSSTransformValue] interface returns a [DOMMatrix] object.
@@ -655,11 +639,7 @@ extension type CSSRotate._(JSObject _)
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSScale).
 extension type CSSScale._(JSObject _)
     implements CSSTransformComponent, JSObject {
-  external factory CSSScale(
-    CSSNumberish x,
-    CSSNumberish y, [
-    CSSNumberish z,
-  ]);
+  external factory CSSScale(CSSNumberish x, CSSNumberish y, [CSSNumberish z]);
 
   /// The **`x`** property of the
   /// [CSSScale] interface gets and sets the abscissa or x-axis of the
@@ -698,10 +678,7 @@ extension type CSSScale._(JSObject _)
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSSkew).
 extension type CSSSkew._(JSObject _)
     implements CSSTransformComponent, JSObject {
-  external factory CSSSkew(
-    CSSNumericValue ax,
-    CSSNumericValue ay,
-  );
+  external factory CSSSkew(CSSNumericValue ax, CSSNumericValue ay);
 
   /// The **`ax`** property of the
   /// [CSSSkew] interface gets and sets the angle used to distort the element
@@ -817,6 +794,7 @@ extension type CSSMatrixComponent._(JSObject _)
   external DOMMatrix get matrix;
   external set matrix(DOMMatrix value);
 }
+
 extension type CSSMatrixComponentOptions._(JSObject _) implements JSObject {
   external factory CSSMatrixComponentOptions({bool is2D});
 

@@ -61,6 +61,7 @@ extension type Geolocation._(JSObject _) implements JSObject {
   /// [Geolocation.watchPosition].
   external void clearWatch(int watchId);
 }
+
 extension type PositionOptions._(JSObject _) implements JSObject {
   external factory PositionOptions({
     bool enableHighAccuracy,

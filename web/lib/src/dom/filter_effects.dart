@@ -28,10 +28,7 @@ import 'svg.dart';
 extension type SVGFilterElement._(JSObject _) implements SVGElement, JSObject {
   /// Creates an [SVGFilterElement] using the tag 'filter'.
   SVGFilterElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'filter',
-        );
+    : _ = document.createElementNS('http://www.w3.org/2000/svg', 'filter');
 
   external SVGAnimatedEnumeration get filterUnits;
   external SVGAnimatedEnumeration get primitiveUnits;
@@ -51,10 +48,7 @@ extension type SVGFilterElement._(JSObject _) implements SVGElement, JSObject {
 extension type SVGFEBlendElement._(JSObject _) implements SVGElement, JSObject {
   /// Creates an [SVGFEBlendElement] using the tag 'feBlend'.
   SVGFEBlendElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feBlend',
-        );
+    : _ = document.createElementNS('http://www.w3.org/2000/svg', 'feBlend');
 
   static const int SVG_FEBLEND_MODE_UNKNOWN = 0;
 
@@ -110,10 +104,10 @@ extension type SVGFEColorMatrixElement._(JSObject _)
     implements SVGElement, JSObject {
   /// Creates an [SVGFEColorMatrixElement] using the tag 'feColorMatrix'.
   SVGFEColorMatrixElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feColorMatrix',
-        );
+    : _ = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'feColorMatrix',
+      );
 
   static const int SVG_FECOLORMATRIX_TYPE_UNKNOWN = 0;
 
@@ -147,10 +141,10 @@ extension type SVGFEComponentTransferElement._(JSObject _)
   /// Creates an [SVGFEComponentTransferElement] using the tag
   /// 'feComponentTransfer'.
   SVGFEComponentTransferElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feComponentTransfer',
-        );
+    : _ = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'feComponentTransfer',
+      );
 
   external SVGAnimatedString get in1;
   external SVGAnimatedLength get x;
@@ -200,10 +194,7 @@ extension type SVGFEFuncRElement._(JSObject _)
     implements SVGComponentTransferFunctionElement, JSObject {
   /// Creates an [SVGFEFuncRElement] using the tag 'feFuncR'.
   SVGFEFuncRElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feFuncR',
-        );
+    : _ = document.createElementNS('http://www.w3.org/2000/svg', 'feFuncR');
 }
 
 /// The **`SVGFEFuncGElement`** interface corresponds to the  element.
@@ -216,10 +207,7 @@ extension type SVGFEFuncGElement._(JSObject _)
     implements SVGComponentTransferFunctionElement, JSObject {
   /// Creates an [SVGFEFuncGElement] using the tag 'feFuncG'.
   SVGFEFuncGElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feFuncG',
-        );
+    : _ = document.createElementNS('http://www.w3.org/2000/svg', 'feFuncG');
 }
 
 /// The **`SVGFEFuncBElement`** interface corresponds to the  element.
@@ -232,10 +220,7 @@ extension type SVGFEFuncBElement._(JSObject _)
     implements SVGComponentTransferFunctionElement, JSObject {
   /// Creates an [SVGFEFuncBElement] using the tag 'feFuncB'.
   SVGFEFuncBElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feFuncB',
-        );
+    : _ = document.createElementNS('http://www.w3.org/2000/svg', 'feFuncB');
 }
 
 /// The **`SVGFEFuncAElement`** interface corresponds to the  element.
@@ -248,10 +233,7 @@ extension type SVGFEFuncAElement._(JSObject _)
     implements SVGComponentTransferFunctionElement, JSObject {
   /// Creates an [SVGFEFuncAElement] using the tag 'feFuncA'.
   SVGFEFuncAElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feFuncA',
-        );
+    : _ = document.createElementNS('http://www.w3.org/2000/svg', 'feFuncA');
 }
 
 /// The **`SVGFECompositeElement`** interface corresponds to the  element.
@@ -264,10 +246,7 @@ extension type SVGFECompositeElement._(JSObject _)
     implements SVGElement, JSObject {
   /// Creates an [SVGFECompositeElement] using the tag 'feComposite'.
   SVGFECompositeElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feComposite',
-        );
+    : _ = document.createElementNS('http://www.w3.org/2000/svg', 'feComposite');
 
   static const int SVG_FECOMPOSITE_OPERATOR_UNKNOWN = 0;
 
@@ -307,10 +286,10 @@ extension type SVGFEConvolveMatrixElement._(JSObject _)
     implements SVGElement, JSObject {
   /// Creates an [SVGFEConvolveMatrixElement] using the tag 'feConvolveMatrix'.
   SVGFEConvolveMatrixElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feConvolveMatrix',
-        );
+    : _ = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'feConvolveMatrix',
+      );
 
   static const int SVG_EDGEMODE_UNKNOWN = 0;
 
@@ -350,10 +329,10 @@ extension type SVGFEDiffuseLightingElement._(JSObject _)
   /// Creates an [SVGFEDiffuseLightingElement] using the tag
   /// 'feDiffuseLighting'.
   SVGFEDiffuseLightingElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feDiffuseLighting',
-        );
+    : _ = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'feDiffuseLighting',
+      );
 
   external SVGAnimatedString get in1;
   external SVGAnimatedNumber get surfaceScale;
@@ -377,10 +356,10 @@ extension type SVGFEDistantLightElement._(JSObject _)
     implements SVGElement, JSObject {
   /// Creates an [SVGFEDistantLightElement] using the tag 'feDistantLight'.
   SVGFEDistantLightElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feDistantLight',
-        );
+    : _ = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'feDistantLight',
+      );
 
   external SVGAnimatedNumber get azimuth;
   external SVGAnimatedNumber get elevation;
@@ -396,10 +375,10 @@ extension type SVGFEPointLightElement._(JSObject _)
     implements SVGElement, JSObject {
   /// Creates an [SVGFEPointLightElement] using the tag 'fePointLight'.
   SVGFEPointLightElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'fePointLight',
-        );
+    : _ = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'fePointLight',
+      );
 
   external SVGAnimatedNumber get x;
   external SVGAnimatedNumber get y;
@@ -416,10 +395,7 @@ extension type SVGFESpotLightElement._(JSObject _)
     implements SVGElement, JSObject {
   /// Creates an [SVGFESpotLightElement] using the tag 'feSpotLight'.
   SVGFESpotLightElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feSpotLight',
-        );
+    : _ = document.createElementNS('http://www.w3.org/2000/svg', 'feSpotLight');
 
   external SVGAnimatedNumber get x;
   external SVGAnimatedNumber get y;
@@ -442,10 +418,10 @@ extension type SVGFEDisplacementMapElement._(JSObject _)
   /// Creates an [SVGFEDisplacementMapElement] using the tag
   /// 'feDisplacementMap'.
   SVGFEDisplacementMapElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feDisplacementMap',
-        );
+    : _ = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'feDisplacementMap',
+      );
 
   static const int SVG_CHANNEL_UNKNOWN = 0;
 
@@ -479,15 +455,12 @@ extension type SVGFEDropShadowElement._(JSObject _)
     implements SVGElement, JSObject {
   /// Creates an [SVGFEDropShadowElement] using the tag 'feDropShadow'.
   SVGFEDropShadowElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feDropShadow',
-        );
+    : _ = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'feDropShadow',
+      );
 
-  external void setStdDeviation(
-    num stdDeviationX,
-    num stdDeviationY,
-  );
+  external void setStdDeviation(num stdDeviationX, num stdDeviationY);
   external SVGAnimatedString get in1;
   external SVGAnimatedNumber get dx;
   external SVGAnimatedNumber get dy;
@@ -509,10 +482,7 @@ extension type SVGFEDropShadowElement._(JSObject _)
 extension type SVGFEFloodElement._(JSObject _) implements SVGElement, JSObject {
   /// Creates an [SVGFEFloodElement] using the tag 'feFlood'.
   SVGFEFloodElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feFlood',
-        );
+    : _ = document.createElementNS('http://www.w3.org/2000/svg', 'feFlood');
 
   external SVGAnimatedLength get x;
   external SVGAnimatedLength get y;
@@ -531,10 +501,10 @@ extension type SVGFEGaussianBlurElement._(JSObject _)
     implements SVGElement, JSObject {
   /// Creates an [SVGFEGaussianBlurElement] using the tag 'feGaussianBlur'.
   SVGFEGaussianBlurElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feGaussianBlur',
-        );
+    : _ = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'feGaussianBlur',
+      );
 
   static const int SVG_EDGEMODE_UNKNOWN = 0;
 
@@ -544,10 +514,7 @@ extension type SVGFEGaussianBlurElement._(JSObject _)
 
   static const int SVG_EDGEMODE_NONE = 3;
 
-  external void setStdDeviation(
-    num stdDeviationX,
-    num stdDeviationY,
-  );
+  external void setStdDeviation(num stdDeviationX, num stdDeviationY);
   external SVGAnimatedString get in1;
   external SVGAnimatedNumber get stdDeviationX;
   external SVGAnimatedNumber get stdDeviationY;
@@ -568,10 +535,7 @@ extension type SVGFEGaussianBlurElement._(JSObject _)
 extension type SVGFEImageElement._(JSObject _) implements SVGElement, JSObject {
   /// Creates an [SVGFEImageElement] using the tag 'feImage'.
   SVGFEImageElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feImage',
-        );
+    : _ = document.createElementNS('http://www.w3.org/2000/svg', 'feImage');
 
   external SVGAnimatedPreserveAspectRatio get preserveAspectRatio;
   external SVGAnimatedString get crossOrigin;
@@ -592,10 +556,7 @@ extension type SVGFEImageElement._(JSObject _) implements SVGElement, JSObject {
 extension type SVGFEMergeElement._(JSObject _) implements SVGElement, JSObject {
   /// Creates an [SVGFEMergeElement] using the tag 'feMerge'.
   SVGFEMergeElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feMerge',
-        );
+    : _ = document.createElementNS('http://www.w3.org/2000/svg', 'feMerge');
 
   external SVGAnimatedLength get x;
   external SVGAnimatedLength get y;
@@ -614,10 +575,7 @@ extension type SVGFEMergeNodeElement._(JSObject _)
     implements SVGElement, JSObject {
   /// Creates an [SVGFEMergeNodeElement] using the tag 'feMergeNode'.
   SVGFEMergeNodeElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feMergeNode',
-        );
+    : _ = document.createElementNS('http://www.w3.org/2000/svg', 'feMergeNode');
 
   external SVGAnimatedString get in1;
 }
@@ -632,10 +590,10 @@ extension type SVGFEMorphologyElement._(JSObject _)
     implements SVGElement, JSObject {
   /// Creates an [SVGFEMorphologyElement] using the tag 'feMorphology'.
   SVGFEMorphologyElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feMorphology',
-        );
+    : _ = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'feMorphology',
+      );
 
   static const int SVG_MORPHOLOGY_OPERATOR_UNKNOWN = 0;
 
@@ -664,10 +622,7 @@ extension type SVGFEOffsetElement._(JSObject _)
     implements SVGElement, JSObject {
   /// Creates an [SVGFEOffsetElement] using the tag 'feOffset'.
   SVGFEOffsetElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feOffset',
-        );
+    : _ = document.createElementNS('http://www.w3.org/2000/svg', 'feOffset');
 
   external SVGAnimatedString get in1;
   external SVGAnimatedNumber get dx;
@@ -691,10 +646,10 @@ extension type SVGFESpecularLightingElement._(JSObject _)
   /// Creates an [SVGFESpecularLightingElement] using the tag
   /// 'feSpecularLighting'.
   SVGFESpecularLightingElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feSpecularLighting',
-        );
+    : _ = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'feSpecularLighting',
+      );
 
   external SVGAnimatedString get in1;
   external SVGAnimatedNumber get surfaceScale;
@@ -718,10 +673,7 @@ extension type SVGFESpecularLightingElement._(JSObject _)
 extension type SVGFETileElement._(JSObject _) implements SVGElement, JSObject {
   /// Creates an [SVGFETileElement] using the tag 'feTile'.
   SVGFETileElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feTile',
-        );
+    : _ = document.createElementNS('http://www.w3.org/2000/svg', 'feTile');
 
   external SVGAnimatedString get in1;
   external SVGAnimatedLength get x;
@@ -741,10 +693,10 @@ extension type SVGFETurbulenceElement._(JSObject _)
     implements SVGElement, JSObject {
   /// Creates an [SVGFETurbulenceElement] using the tag 'feTurbulence'.
   SVGFETurbulenceElement()
-      : _ = document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'feTurbulence',
-        );
+    : _ = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'feTurbulence',
+      );
 
   static const int SVG_TURBULENCE_TYPE_UNKNOWN = 0;
 

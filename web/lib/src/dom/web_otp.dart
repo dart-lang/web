@@ -16,6 +16,7 @@ library;
 import 'dart:js_interop';
 
 typedef OTPCredentialTransportType = String;
+
 extension type OTPCredentialRequestOptions._(JSObject _) implements JSObject {
   external factory OTPCredentialRequestOptions({JSArray<JSString> transport});
 

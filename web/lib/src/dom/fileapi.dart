@@ -36,20 +36,13 @@ typedef EndingType = String;
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Blob).
 extension type Blob._(JSObject _) implements JSObject {
-  external factory Blob([
-    JSArray<BlobPart> blobParts,
-    BlobPropertyBag options,
-  ]);
+  external factory Blob([JSArray<BlobPart> blobParts, BlobPropertyBag options]);
 
   /// The **`slice()`** method of the [Blob] interface
   /// creates and returns a new `Blob` object which contains data from a subset
   /// of
   /// the blob on which it's called.
-  external Blob slice([
-    int start,
-    int end,
-    String contentType,
-  ]);
+  external Blob slice([int start, int end, String contentType]);
 
   /// The **`stream()`** method of the [Blob] interface returns a
   /// [ReadableStream] which upon reading returns the data contained within the
@@ -86,11 +79,9 @@ extension type Blob._(JSObject _) implements JSObject {
   /// > rely on this property as a sole validation scheme.**
   external String get type;
 }
+
 extension type BlobPropertyBag._(JSObject _) implements JSObject {
-  external factory BlobPropertyBag({
-    String type,
-    EndingType endings,
-  });
+  external factory BlobPropertyBag({String type, EndingType endings});
 
   external String get type;
   external set type(String value);
@@ -147,6 +138,7 @@ extension type File._(JSObject _) implements Blob, JSObject {
   /// attribute set.
   external String get webkitRelativePath;
 }
+
 extension type FilePropertyBag._(JSObject _)
     implements BlobPropertyBag, JSObject {
   external factory FilePropertyBag({
@@ -284,10 +276,7 @@ extension type FileReader._(JSObject _) implements EventTarget, JSObject {
   /// > **Note:** This method loads the entire file's content into memory and is
   /// > not suitable for large files. Prefer [FileReader.readAsArrayBuffer] for
   /// > large files.
-  external void readAsText(
-    Blob blob, [
-    String encoding,
-  ]);
+  external void readAsText(Blob blob, [String encoding]);
 
   /// The **`readAsDataURL()`** method of the [FileReader] interface is used to
   /// read the contents of the specified
@@ -390,10 +379,7 @@ extension type FileReaderSync._(JSObject _) implements JSObject {
   /// [only available](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Functions_and_classes_available_to_workers)
   /// in [workers](https://developer.mozilla.org/en-US/docs/Web/API/Worker) as
   /// it enables synchronous I/O that could potentially block.
-  external String readAsText(
-    Blob blob, [
-    String encoding,
-  ]);
+  external String readAsText(Blob blob, [String encoding]);
 
   /// @AvailableInWorkers("worker_except_service")
   ///

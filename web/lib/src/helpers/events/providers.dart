@@ -132,8 +132,9 @@ abstract final class EventStreamProviders {
       EventStreamProvider<DeviceMotionEvent>('devicemotion');
 
   static const EventStreamProvider<DeviceOrientationEvent>
-      deviceOrientationEvent =
-      EventStreamProvider<DeviceOrientationEvent>('deviceorientation');
+  deviceOrientationEvent = EventStreamProvider<DeviceOrientationEvent>(
+    'deviceorientation',
+  );
 
   static const EventStreamProvider<Event> doubleClickDocumentEvent =
       EventStreamProvider<Event>('dblclick');
@@ -255,9 +256,9 @@ abstract final class EventStreamProviders {
   static const EventStreamProvider<Event> errorSourceBufferEvent =
       EventStreamProvider<Event>('error');
 
-//  static const EventStreamProvider<SpeechRecognitionError>
-//      errorSpeechRecognitionEvent =
-//       EventStreamProvider<SpeechRecognitionError>('error');
+  //  static const EventStreamProvider<SpeechRecognitionError>
+  //      errorSpeechRecognitionEvent =
+  //       EventStreamProvider<SpeechRecognitionError>('error');
 
   static const EventStreamProvider<Event> errorSpeechSynthesisUtteranceEvent =
       EventStreamProvider<Event>('error');
@@ -275,8 +276,9 @@ abstract final class EventStreamProviders {
       EventStreamProvider<Event>('error');
 
   static const EventStreamProvider<ProgressEvent>
-      errorXMLHttpRequestEventTargetEvent =
-      EventStreamProvider<ProgressEvent>('error');
+  errorXMLHttpRequestEventTargetEvent = EventStreamProvider<ProgressEvent>(
+    'error',
+  );
 
   static const EventStreamProvider<Event> exitEvent =
       EventStreamProvider<Event>('exit');
@@ -300,8 +302,9 @@ abstract final class EventStreamProviders {
       EventStreamProvider<Event>('hashchange');
 
   static const EventStreamProvider<RTCPeerConnectionIceEvent>
-      iceCandidateEvent =
-      EventStreamProvider<RTCPeerConnectionIceEvent>('icecandidate');
+  iceCandidateEvent = EventStreamProvider<RTCPeerConnectionIceEvent>(
+    'icecandidate',
+  );
 
   static const EventStreamProvider<Event> iceConnectionStateChangeEvent =
       EventStreamProvider<Event>('iceconnectionstatechange');
@@ -463,9 +466,10 @@ abstract final class EventStreamProviders {
       EventStreamProvider<Event>('search');
 
   static const EventStreamProvider<SecurityPolicyViolationEvent>
-      securityPolicyViolationEvent =
+  securityPolicyViolationEvent =
       EventStreamProvider<SecurityPolicyViolationEvent>(
-          'securitypolicyviolation');
+        'securitypolicyviolation',
+      );
 
   static const EventStreamProvider<Event> seekedEvent =
       EventStreamProvider<Event>('seeked');
@@ -573,8 +577,9 @@ abstract final class EventStreamProviders {
       EventStreamProvider<WebGLContextEvent>('webglcontextlost');
 
   static const EventStreamProvider<WebGLContextEvent>
-      webGlContextRestoredEvent =
-      EventStreamProvider<WebGLContextEvent>('webglcontextrestored');
+  webGlContextRestoredEvent = EventStreamProvider<WebGLContextEvent>(
+    'webglcontextrestored',
+  );
 
   static const EventStreamProvider<WheelEvent> wheelEvent =
       EventStreamProvider<WheelEvent>('wheel');

@@ -86,10 +86,15 @@ class HttpRequest {
   ///     });
   ///
   /// See also [request].
-  static Future<String> getString(String url,
-          {bool? withCredentials, void Function(ProgressEvent)? onProgress}) =>
-      request(url, withCredentials: withCredentials, onProgress: onProgress)
-          .then((r) => r.responseText);
+  static Future<String> getString(
+    String url, {
+    bool? withCredentials,
+    void Function(ProgressEvent)? onProgress,
+  }) => request(
+    url,
+    withCredentials: withCredentials,
+    onProgress: onProgress,
+  ).then((r) => r.responseText);
 
   /// Makes a server POST request with the specified data encoded as form data.
   ///
@@ -113,28 +118,36 @@ class HttpRequest {
   ///
   /// See also [request].
   static Future<XMLHttpRequest> postFormData(
-      String url, Map<String, String> data,
-      {bool? withCredentials,
-      String? responseType,
-      Map<String, String>? requestHeaders,
-      void Function(ProgressEvent)? onProgress}) {
+    String url,
+    Map<String, String> data, {
+    bool? withCredentials,
+    String? responseType,
+    Map<String, String>? requestHeaders,
+    void Function(ProgressEvent)? onProgress,
+  }) {
     final parts = <String>[];
     data.forEach((key, value) {
-      parts.add('${Uri.encodeQueryComponent(key)}='
-          '${Uri.encodeQueryComponent(value)}');
+      parts.add(
+        '${Uri.encodeQueryComponent(key)}='
+        '${Uri.encodeQueryComponent(value)}',
+      );
     });
     final formData = parts.join('&');
     requestHeaders ??= <String, String>{};
-    requestHeaders.putIfAbsent('Content-Type',
-        () => 'application/x-www-form-urlencoded; charset=UTF-8');
+    requestHeaders.putIfAbsent(
+      'Content-Type',
+      () => 'application/x-www-form-urlencoded; charset=UTF-8',
+    );
 
-    return request(url,
-        method: 'POST',
-        withCredentials: withCredentials,
-        responseType: responseType,
-        requestHeaders: requestHeaders,
-        sendData: formData,
-        onProgress: onProgress);
+    return request(
+      url,
+      method: 'POST',
+      withCredentials: withCredentials,
+      responseType: responseType,
+      requestHeaders: requestHeaders,
+      sendData: formData,
+      onProgress: onProgress,
+    );
   }
 
   /// Creates and sends a URL request for the specified [url].
@@ -195,14 +208,16 @@ class HttpRequest {
   /// See also: [authorization headers][1].
   ///
   /// [1]: http://en.wikipedia.org/wiki/Basic_access_authentication
-  static Future<XMLHttpRequest> request(String url,
-      {String? method,
-      bool? withCredentials,
-      String? responseType,
-      String? mimeType,
-      Map<String, String>? requestHeaders,
-      Object? sendData,
-      void Function(ProgressEvent)? onProgress}) {
+  static Future<XMLHttpRequest> request(
+    String url, {
+    String? method,
+    bool? withCredentials,
+    String? responseType,
+    String? mimeType,
+    Map<String, String>? requestHeaders,
+    Object? sendData,
+    void Function(ProgressEvent)? onProgress,
+  }) {
     final completer = Completer<XMLHttpRequest>();
     final xhr = XMLHttpRequest();
     method ??= 'GET';

@@ -9,6 +9,7 @@ library;
 import 'dart:js_interop';
 
 extension type CollisionType._(JSObject _) implements JSObject {}
+
 extension type TestCollision._(JSObject _) implements JSObject {
   @JS('CollisionType')
   external CollisionType CollisionType_();

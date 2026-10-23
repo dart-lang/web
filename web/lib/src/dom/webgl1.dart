@@ -49,6 +49,7 @@ typedef Float32List = JSObject;
 /// Union of: <code>[JSArray]\<[GLint]\></code>, [JSInt32Array]
 typedef Int32List = JSObject;
 typedef WebGLPowerPreference = String;
+
 extension type WebGLContextAttributes._(JSObject _) implements JSObject {
   external factory WebGLContextAttributes({
     bool alpha,
@@ -1998,6 +1999,7 @@ extension type WebGLContextEvent._(JSObject _) implements Event, JSObject {
   /// additional information is available.
   external String get statusMessage;
 }
+
 extension type WebGLContextEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory WebGLContextEventInit({

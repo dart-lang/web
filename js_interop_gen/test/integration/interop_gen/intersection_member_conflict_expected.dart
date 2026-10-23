@@ -18,6 +18,7 @@ extension type A._(_i1.JSObject _) implements _i1.JSObject {
 
   external bool conflictMethod(num param);
 }
+
 extension type B._(_i1.JSObject _) implements _i1.JSObject {
   external double conflictProperty;
 
@@ -29,7 +30,9 @@ extension type B._(_i1.JSObject _) implements _i1.JSObject {
 
   external String conflictMethod(String param);
 }
+
 typedef IntersectType = AnonymousIntersection_3170730;
+
 extension type AnonymousIntersection_3170730._(_i1.JSObject _) implements A, B {
   external bool conflictMethod(num param);
   external _i1.JSAny? get conflictProperty;

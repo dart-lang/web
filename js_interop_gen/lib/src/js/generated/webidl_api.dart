@@ -14,6 +14,7 @@ extension type ParseOptions._(_i1.JSObject _) implements _i1.JSObject {
   /// indicate their origin if you pass a value.
   external String? sourceName;
 }
+
 extension type Node._(_i1.JSObject _) implements _i1.JSObject {
   /// String indicating the type of this node.
   external String type;
@@ -24,6 +25,7 @@ extension type Node._(_i1.JSObject _) implements _i1.JSObject {
   /// A list of extended attributes.
   external _i1.JSArray<ExtendedAttribute> extAttrs;
 }
+
 extension type ExtendedAttribute._(_i1.JSObject _) implements Node {
   /// String indicating the type of this node.
   external String type;
@@ -41,6 +43,7 @@ extension type ExtendedAttribute._(_i1.JSObject _) implements Node {
   /// The container of this type.
   external AnonymousUnion_3355877 parent;
 }
+
 extension type Argument._(_i1.JSObject _) implements Node {
   /// String indicating the type of this node.
   external String type;
@@ -64,10 +67,12 @@ extension type Argument._(_i1.JSObject _) implements Node {
   /// The container of this type.
   external AnonymousUnion_1719261 parent;
 }
+
 extension type AbstractValueDescription._(_i1.JSObject _) implements Node {
   /// The container of this type.
   external AnonymousUnion_6002118 parent;
 }
+
 extension type Constant._(_i1.JSObject _) implements Node {
   /// String indicating the type of this node.
   external String type;
@@ -84,6 +89,7 @@ extension type Constant._(_i1.JSObject _) implements Node {
   /// The container of this type.
   external AnonymousUnion_2525172 parent;
 }
+
 extension type AbstractTypeDescription._(_i1.JSObject _) implements Node {
   /// Boolean indicating whether this is nullable or not.
   external bool nullable;
@@ -91,6 +97,7 @@ extension type AbstractTypeDescription._(_i1.JSObject _) implements Node {
   /// The container of this type.
   external AnonymousUnion_1665815 parent;
 }
+
 extension type Attribute._(_i1.JSObject _) implements Node {
   /// String indicating the type of this node.
   external String type;
@@ -113,6 +120,7 @@ extension type Attribute._(_i1.JSObject _) implements Node {
   /// The container of this type.
   external AnonymousUnion_3549536 parent;
 }
+
 extension type FrozenArrayTypeDescription._(_i1.JSObject _)
     implements AbstractGenericTypeDescription {
   /// String indicating the generic type (e.g. "Promise", "sequence"). The empty
@@ -123,6 +131,7 @@ extension type FrozenArrayTypeDescription._(_i1.JSObject _)
   /// the eventual value of the promise, etc.
   external _i2.JSTuple1<AnonymousUnion_2360863> idlType;
 }
+
 extension type ObservableArrayTypeDescription._(_i1.JSObject _)
     implements AbstractGenericTypeDescription {
   /// String indicating the generic type (e.g. "Promise", "sequence"). The empty
@@ -133,6 +142,7 @@ extension type ObservableArrayTypeDescription._(_i1.JSObject _)
   /// the eventual value of the promise, etc.
   external _i2.JSTuple1<AnonymousUnion_2360863> idlType;
 }
+
 extension type PromiseTypeDescription._(_i1.JSObject _)
     implements AbstractGenericTypeDescription {
   /// String indicating the generic type (e.g. "Promise", "sequence"). The empty
@@ -143,6 +153,7 @@ extension type PromiseTypeDescription._(_i1.JSObject _)
   /// the eventual value of the promise, etc.
   external _i2.JSTuple1<AnonymousUnion_2360863> idlType;
 }
+
 extension type RecordTypeDescription._(_i1.JSObject _)
     implements AbstractGenericTypeDescription {
   /// String indicating the generic type (e.g. "Promise", "sequence"). The empty
@@ -153,6 +164,7 @@ extension type RecordTypeDescription._(_i1.JSObject _)
   /// the eventual value of the promise, etc.
   external _i2.JSTuple2<AnonymousUnion_2360863, AnonymousUnion_2360863> idlType;
 }
+
 extension type SequenceTypeDescription._(_i1.JSObject _)
     implements AbstractGenericTypeDescription {
   /// String indicating the generic type (e.g. "Promise", "sequence"). The empty
@@ -163,7 +175,9 @@ extension type SequenceTypeDescription._(_i1.JSObject _)
   /// the eventual value of the promise, etc.
   external _i2.JSTuple1<AnonymousUnion_2360863> idlType;
 }
+
 typedef GenericTypeDescription = AnonymousUnion_6760084;
+
 extension type SingleTypeDescription._(_i1.JSObject _)
     implements AbstractNonUnionTypeDescription {
   /// String indicating the generic type (e.g. "Promise", "sequence"). The empty
@@ -178,6 +192,7 @@ extension type SingleTypeDescription._(_i1.JSObject _)
   /// the eventual value of the promise, etc.
   external String idlType;
 }
+
 extension type UnionTypeDescription._(_i1.JSObject _)
     implements AbstractTypeDescription {
   /// String indicating the generic type (e.g. "Promise", "sequence"). The empty
@@ -195,7 +210,9 @@ extension type UnionTypeDescription._(_i1.JSObject _)
   /// the eventual value of the promise, etc.
   external _i1.JSArray<AnonymousUnion_2360863> idlType;
 }
+
 typedef IDLType = AnonymousUnion_2360863;
+
 extension type Interfacelike._(_i1.JSObject _) implements Node {
   /// The name of the container.
   external String name;
@@ -209,6 +226,7 @@ extension type Interfacelike._(_i1.JSObject _) implements Node {
 
   external String? get inheritance;
 }
+
 extension type InterfaceMixin._(_i1.JSObject _) implements Interfacelike {
   /// String indicating the type of this node.
   external String type;
@@ -217,6 +235,7 @@ extension type InterfaceMixin._(_i1.JSObject _) implements Interfacelike {
   /// there are none.
   external _i1.JSArray<AnonymousUnion_1552517> members;
 }
+
 extension type Operation._(_i1.JSObject _) implements Node {
   /// String indicating the type of this node.
   external String type;
@@ -237,6 +256,7 @@ extension type Operation._(_i1.JSObject _) implements Node {
   /// The container of this type.
   external AnonymousUnion_2525172 parent;
 }
+
 extension type CallbackInterface._(_i1.JSObject _) implements Interfacelike {
   /// String indicating the type of this node.
   external String type;
@@ -245,7 +265,9 @@ extension type CallbackInterface._(_i1.JSObject _) implements Interfacelike {
   /// there are none.
   external _i1.JSArray<AnonymousUnion_1664824> members;
 }
+
 typedef IDLCallbackInterfaceMemberType = AnonymousUnion_1664824;
+
 extension type Interface._(_i1.JSObject _) implements Interfacelike {
   /// String indicating the type of this node.
   external String type;
@@ -258,6 +280,7 @@ extension type Interface._(_i1.JSObject _) implements Interfacelike {
   /// otherwise.
   external String? inheritance;
 }
+
 extension type Constructor._(_i1.JSObject _) implements Node {
   /// String indicating the type of this node.
   external String type;
@@ -268,6 +291,7 @@ extension type Constructor._(_i1.JSObject _) implements Node {
   /// The container of this type.
   external Interface parent;
 }
+
 extension type IterableDeclarationMemberType._(_i1.JSObject _)
     implements AbstractDeclarationMemberType {
   /// String indicating the type of this node.
@@ -284,6 +308,7 @@ extension type IterableDeclarationMemberType._(_i1.JSObject _)
   /// Whether the maplike or setlike is declared as read only.
   external bool readonly;
 }
+
 extension type MaplikeDeclarationMemberType._(_i1.JSObject _)
     implements AbstractCollectionLikeMemberType {
   /// String indicating the type of this node.
@@ -293,6 +318,7 @@ extension type MaplikeDeclarationMemberType._(_i1.JSObject _)
   /// arguments.
   external _i2.JSTuple2<AnonymousUnion_2360863, AnonymousUnion_2360863> idlType;
 }
+
 extension type SetlikeDeclarationMemberType._(_i1.JSObject _)
     implements AbstractCollectionLikeMemberType {
   /// String indicating the type of this node.
@@ -302,8 +328,10 @@ extension type SetlikeDeclarationMemberType._(_i1.JSObject _)
   /// arguments.
   external _i2.JSTuple1<AnonymousUnion_2360863> idlType;
 }
+
 typedef DeclarationMemberType = AnonymousUnion_9251136;
 typedef IDLInterfaceMemberType = AnonymousUnion_8210906;
+
 extension type Namespace._(_i1.JSObject _) implements Interfacelike {
   /// String indicating the type of this node.
   external String type;
@@ -312,8 +340,10 @@ extension type Namespace._(_i1.JSObject _) implements Interfacelike {
   /// there are none.
   external _i1.JSArray<AnonymousUnion_1552517> members;
 }
+
 typedef IDLNamespaceMemberType = AnonymousUnion_1552517;
 typedef IDLInterfaceMixinMemberType = AnonymousUnion_1552517;
+
 extension type Callback._(_i1.JSObject _) implements Node {
   /// String indicating the type of this node.
   external String type;
@@ -327,6 +357,7 @@ extension type Callback._(_i1.JSObject _) implements Node {
   /// A list of arguments, as in function paramters.
   external _i1.JSArray<Argument> arguments;
 }
+
 extension type Field._(_i1.JSObject _) implements Node {
   /// String indicating the type of this node.
   external String type;
@@ -347,6 +378,7 @@ extension type Field._(_i1.JSObject _) implements Node {
   /// The container of this type.
   external Dictionary parent;
 }
+
 extension type ValueDescriptionString._(_i1.JSObject _)
     implements AbstractValueDescription {
   /// String indicating the type of this node.
@@ -354,6 +386,7 @@ extension type ValueDescriptionString._(_i1.JSObject _)
 
   external String value;
 }
+
 extension type ValueDescriptionNumber._(_i1.JSObject _)
     implements AbstractValueDescription {
   /// String indicating the type of this node.
@@ -361,6 +394,7 @@ extension type ValueDescriptionNumber._(_i1.JSObject _)
 
   external String value;
 }
+
 extension type ValueDescriptionBoolean._(_i1.JSObject _)
     implements AbstractValueDescription {
   /// String indicating the type of this node.
@@ -368,11 +402,13 @@ extension type ValueDescriptionBoolean._(_i1.JSObject _)
 
   external bool value;
 }
+
 extension type ValueDescriptionNull._(_i1.JSObject _)
     implements AbstractValueDescription {
   /// String indicating the type of this node.
   external String type;
 }
+
 extension type ValueDescriptionInfinity._(_i1.JSObject _)
     implements AbstractValueDescription {
   /// String indicating the type of this node.
@@ -380,11 +416,13 @@ extension type ValueDescriptionInfinity._(_i1.JSObject _)
 
   external bool negative;
 }
+
 extension type ValueDescriptionNaN._(_i1.JSObject _)
     implements AbstractValueDescription {
   /// String indicating the type of this node.
   external String type;
 }
+
 extension type ValueDescriptionSequence._(_i1.JSObject _)
     implements AbstractValueDescription {
   /// String indicating the type of this node.
@@ -392,12 +430,15 @@ extension type ValueDescriptionSequence._(_i1.JSObject _)
 
   external _i2.JSTuple0 value;
 }
+
 extension type ValueDescriptionDictionary._(_i1.JSObject _)
     implements AbstractValueDescription {
   /// String indicating the type of this node.
   external String type;
 }
+
 typedef ValueDescription = AnonymousUnion_4210470;
+
 extension type Dictionary._(_i1.JSObject _) implements Interfacelike {
   /// String indicating the type of this node.
   external String type;
@@ -410,7 +451,9 @@ extension type Dictionary._(_i1.JSObject _) implements Interfacelike {
   /// otherwise.
   external String? inheritance;
 }
+
 typedef DictionaryMemberType = Field;
+
 extension type Typedef._(_i1.JSObject _) implements Node {
   /// String indicating the type of this node.
   external String type;
@@ -421,57 +464,68 @@ extension type Typedef._(_i1.JSObject _) implements Node {
   /// An IDL Type describing what typedef's type.
   external IDLType idlType;
 }
+
 extension type ExtendedAttributeRightHandSideIdentifier._(_i1.JSObject _)
     implements _i1.JSObject {
   external String type;
 
   external String value;
 }
+
 extension type ExtendedAttributeRightHandSideString._(_i1.JSObject _)
     implements _i1.JSObject {
   external String type;
 
   external String value;
 }
+
 extension type ExtendedAttributeRightHandSideDecimal._(_i1.JSObject _)
     implements _i1.JSObject {
   external String type;
 
   external String value;
 }
+
 extension type ExtendedAttributeRightHandSideInteger._(_i1.JSObject _)
     implements _i1.JSObject {
   external String type;
 
   external String value;
 }
+
 typedef ExtendedAttributeRightHandSideBase = AnonymousUnion_2677967;
+
 extension type ExtendedAttributeRightHandSideIdentifierList._(_i1.JSObject _)
     implements _i1.JSObject {
   external String type;
 
   external _i1.JSArray<ExtendedAttributeRightHandSideIdentifier> value;
 }
+
 extension type ExtendedAttributeRightHandSideStringList._(_i1.JSObject _)
     implements _i1.JSObject {
   external String type;
 
   external _i1.JSArray<ExtendedAttributeRightHandSideString> value;
 }
+
 extension type ExtendedAttributeRightHandSideDecimalList._(_i1.JSObject _)
     implements _i1.JSObject {
   external String type;
 
   external _i1.JSArray<ExtendedAttributeRightHandSideDecimal> value;
 }
+
 extension type ExtendedAttributeRightHandSideIntegerList._(_i1.JSObject _)
     implements _i1.JSObject {
   external String type;
 
   external _i1.JSArray<ExtendedAttributeRightHandSideInteger> value;
 }
+
 typedef ExtendedAttributeRightHandSideList = AnonymousUnion_4814372;
 typedef ExtendedAttributeRightHandSide = AnonymousUnion_3292639;
+
 extension type Enum._(_i1.JSObject _) implements Node {
   /// String indicating the type of this node.
   external String type;
@@ -482,6 +536,7 @@ extension type Enum._(_i1.JSObject _) implements Node {
   /// An array of values (strings).
   external _i1.JSArray<AnonymousType_4179770> values;
 }
+
 extension type Includes._(_i1.JSObject _) implements Node {
   /// String indicating the type of this node.
   external String type;
@@ -492,20 +547,24 @@ extension type Includes._(_i1.JSObject _) implements Node {
   /// The interface mixin that is being included by the target.
   external String includes;
 }
+
 typedef IDLRootType = AnonymousUnion_2168348;
 @_i1.JS()
 external _i1.JSArray<AnonymousUnion_2168348> parse(
   String str, [
   ParseOptions? options,
 ]);
+
 extension type WriteOptions._(_i1.JSObject _) implements _i1.JSObject {
   external AnonymousType_2739931? templates;
 }
+
 @_i1.JS()
 external String write(
   _i1.JSArray<AnonymousUnion_2168348> ast, [
   WriteOptions? options,
 ]);
+
 extension type WebIDLError._(_i1.JSObject _) implements Error {
   external WebIDLError();
 
@@ -527,6 +586,7 @@ extension type WebIDLError._(_i1.JSObject _) implements Error {
   /// the five tokens at the point of error, as understood by the tokeniser
   external _i1.JSArray<Token> tokens;
 }
+
 extension type Token._(_i1.JSObject _) implements _i1.JSObject {
   external String type;
 
@@ -538,6 +598,7 @@ extension type Token._(_i1.JSObject _) implements _i1.JSObject {
 
   external double index;
 }
+
 extension type WebIDLErrorData._(_i1.JSObject _) implements WebIDLError {
   external WebIDLErrorData();
 
@@ -550,21 +611,25 @@ extension type WebIDLErrorData._(_i1.JSObject _) implements WebIDLError {
   /// A function to automatically fix the error
   external void autofix();
 }
+
 @_i1.JS()
 external _i1.JSArray<WebIDLErrorData> validate(
   _i1.JSArray<AnonymousUnion_2168348> ast,
 );
+
 extension type WebIDLParseError._(_i1.JSObject _) implements WebIDLError {
   external WebIDLParseError(AnonymousType_3848962 options);
 
   external String name;
 }
+
 extension type AbstractGenericTypeDescription._(_i1.JSObject _)
     implements AbstractNonUnionTypeDescription {
   /// Contains the IDL type description for the type in the sequence,
   /// the eventual value of the promise, etc.
   external _i1.JSArray<AnonymousUnion_2360863> idlType;
 }
+
 extension type AbstractNonUnionTypeDescription._(_i1.JSObject _)
     implements AbstractTypeDescription {
   /// String indicating the generic type (e.g. "Promise", "sequence"). The empty
@@ -574,6 +639,7 @@ extension type AbstractNonUnionTypeDescription._(_i1.JSObject _)
   /// Boolean indicating whether this is a union type or not.
   external bool union;
 }
+
 extension type const AnonymousUnion_3112944._(String _) {
   static const AnonymousUnion_3112944 static$ = AnonymousUnion_3112944._(
     'static',
@@ -583,6 +649,7 @@ extension type const AnonymousUnion_3112944._(String _) {
     'stringifier',
   );
 }
+
 extension type const AnonymousUnion_1694325._(String _) {
   static const AnonymousUnion_1694325 getter = AnonymousUnion_1694325._(
     'getter',
@@ -604,11 +671,13 @@ extension type const AnonymousUnion_1694325._(String _) {
     'stringifier',
   );
 }
+
 extension type AnonymousUnion_1664824._(Node _) implements Node {
   Constant get asConstant => (_ as Constant);
 
   Operation get asOperation => (_ as Operation);
 }
+
 extension type AnonymousUnion_2343496._(_i1.JSArray _) implements _i1.JSArray {
   _i2.JSTuple1<AnonymousUnion_2360863> get asJSTuple1OfAnonymousUnion_2360863 =>
       (_ as _i2.JSTuple1<AnonymousUnion_2360863>);
@@ -617,6 +686,7 @@ extension type AnonymousUnion_2343496._(_i1.JSArray _) implements _i1.JSArray {
   get asJSTuple2OfAnonymousUnion_2360863AndAnonymousUnion_2360863 =>
       (_ as _i2.JSTuple2<AnonymousUnion_2360863, AnonymousUnion_2360863>);
 }
+
 extension type AbstractDeclarationMemberType._(_i1.JSObject _) implements Node {
   /// String indicating the type of this node.
   external String type;
@@ -638,12 +708,14 @@ extension type AbstractDeclarationMemberType._(_i1.JSObject _) implements Node {
   /// The container of this type.
   external AnonymousUnion_2365180 parent;
 }
+
 extension type AnonymousUnion_2365180._(Interfacelike _)
     implements Interfacelike {
   InterfaceMixin get asInterfaceMixin => (_ as InterfaceMixin);
 
   Interface get asInterface => (_ as Interface);
 }
+
 extension type AbstractCollectionLikeMemberType._(_i1.JSObject _)
     implements AbstractDeclarationMemberType {
   /// Whether the iterable is declared as async.
@@ -656,6 +728,7 @@ extension type AbstractCollectionLikeMemberType._(_i1.JSObject _)
   /// An array of arguments for the iterable declaration.
   external _i2.JSTuple0 arguments;
 }
+
 extension type AnonymousUnion_9251136._(AbstractDeclarationMemberType _)
     implements AbstractDeclarationMemberType {
   IterableDeclarationMemberType get asIterableDeclarationMemberType =>
@@ -667,6 +740,7 @@ extension type AnonymousUnion_9251136._(AbstractDeclarationMemberType _)
   SetlikeDeclarationMemberType get asSetlikeDeclarationMemberType =>
       (_ as SetlikeDeclarationMemberType);
 }
+
 extension type AnonymousUnion_8210906._(Node _) implements Node {
   Attribute get asAttribute => (_ as Attribute);
 
@@ -679,6 +753,7 @@ extension type AnonymousUnion_8210906._(Node _) implements Node {
 
   Operation get asOperation => (_ as Operation);
 }
+
 extension type AnonymousUnion_2525172._(Interfacelike _)
     implements Interfacelike {
   CallbackInterface get asCallbackInterface => (_ as CallbackInterface);
@@ -689,6 +764,7 @@ extension type AnonymousUnion_2525172._(Interfacelike _)
 
   Namespace get asNamespace => (_ as Namespace);
 }
+
 extension type AnonymousUnion_1552517._(Node _) implements Node {
   Attribute get asAttribute => (_ as Attribute);
 
@@ -696,6 +772,7 @@ extension type AnonymousUnion_1552517._(Node _) implements Node {
 
   Operation get asOperation => (_ as Operation);
 }
+
 extension type AnonymousUnion_3549536._(Interfacelike _)
     implements Interfacelike {
   InterfaceMixin get asInterfaceMixin => (_ as InterfaceMixin);
@@ -704,6 +781,7 @@ extension type AnonymousUnion_3549536._(Interfacelike _)
 
   Namespace get asNamespace => (_ as Namespace);
 }
+
 extension type AnonymousUnion_1665815._(Node _) implements Node {
   Argument get asArgument => (_ as Argument);
 
@@ -725,6 +803,7 @@ extension type AnonymousUnion_1665815._(Node _) implements Node {
   UnionTypeDescription get asUnionTypeDescription =>
       (_ as UnionTypeDescription);
 }
+
 extension type AnonymousUnion_6760084._(AbstractGenericTypeDescription _)
     implements AbstractGenericTypeDescription {
   FrozenArrayTypeDescription get asFrozenArrayTypeDescription =>
@@ -742,6 +821,7 @@ extension type AnonymousUnion_6760084._(AbstractGenericTypeDescription _)
   SequenceTypeDescription get asSequenceTypeDescription =>
       (_ as SequenceTypeDescription);
 }
+
 extension type AnonymousUnion_2360863._(AbstractTypeDescription _)
     implements AbstractTypeDescription {
   GenericTypeDescription get asGenericTypeDescription =>
@@ -753,6 +833,7 @@ extension type AnonymousUnion_2360863._(AbstractTypeDescription _)
   UnionTypeDescription get asUnionTypeDescription =>
       (_ as UnionTypeDescription);
 }
+
 extension type AnonymousUnion_6002118._(Node _) implements Node {
   Argument get asArgument => (_ as Argument);
 
@@ -760,6 +841,7 @@ extension type AnonymousUnion_6002118._(Node _) implements Node {
 
   Field get asField => (_ as Field);
 }
+
 extension type AnonymousUnion_4210470._(AbstractValueDescription _)
     implements AbstractValueDescription {
   ValueDescriptionString get asValueDescriptionString =>
@@ -785,6 +867,7 @@ extension type AnonymousUnion_4210470._(AbstractValueDescription _)
   ValueDescriptionDictionary get asValueDescriptionDictionary =>
       (_ as ValueDescriptionDictionary);
 }
+
 extension type AnonymousUnion_1719261._(Node _) implements Node {
   Callback get asCallback => (_ as Callback);
 
@@ -794,6 +877,7 @@ extension type AnonymousUnion_1719261._(Node _) implements Node {
 
   Operation get asOperation => (_ as Operation);
 }
+
 extension type AnonymousUnion_2677967._(_i1.JSObject _)
     implements _i1.JSObject {
   ExtendedAttributeRightHandSideIdentifier
@@ -812,6 +896,7 @@ extension type AnonymousUnion_2677967._(_i1.JSObject _)
   get asExtendedAttributeRightHandSideInteger =>
       (_ as ExtendedAttributeRightHandSideInteger);
 }
+
 extension type AnonymousUnion_4814372._(_i1.JSObject _)
     implements _i1.JSObject {
   ExtendedAttributeRightHandSideIdentifierList
@@ -830,6 +915,7 @@ extension type AnonymousUnion_4814372._(_i1.JSObject _)
   get asExtendedAttributeRightHandSideIntegerList =>
       (_ as ExtendedAttributeRightHandSideIntegerList);
 }
+
 extension type AnonymousUnion_3292639._(_i1.JSObject _)
     implements _i1.JSObject {
   ExtendedAttributeRightHandSideBase get asExtendedAttributeRightHandSideBase =>
@@ -838,6 +924,7 @@ extension type AnonymousUnion_3292639._(_i1.JSObject _)
   ExtendedAttributeRightHandSideList get asExtendedAttributeRightHandSideList =>
       (_ as AnonymousUnion_4814372);
 }
+
 extension type AnonymousType_4179770._(_i1.JSObject _) implements _i1.JSObject {
   external AnonymousType_4179770({String type, String value, Enum parent});
 
@@ -847,6 +934,7 @@ extension type AnonymousType_4179770._(_i1.JSObject _) implements _i1.JSObject {
 
   external Enum parent;
 }
+
 extension type AnonymousUnion_2168348._(Node _) implements Node {
   Callback get asCallback => (_ as Callback);
 
@@ -866,6 +954,7 @@ extension type AnonymousUnion_2168348._(Node _) implements Node {
 
   Typedef get asTypedef => (_ as Typedef);
 }
+
 extension type AnonymousUnion_3355877._(Node _) implements Node {
   IDLRootType get asIDLRootType => (_ as AnonymousUnion_2168348);
 
@@ -874,6 +963,7 @@ extension type AnonymousUnion_3355877._(Node _) implements Node {
   IDLInterfaceMemberType get asIDLInterfaceMemberType =>
       (_ as AnonymousUnion_8210906);
 }
+
 extension type AnonymousType_2739931._(_i1.JSObject _) implements _i1.JSObject {
   external AnonymousType_2739931();
 
@@ -936,6 +1026,7 @@ extension type AnonymousType_2739931._(_i1.JSObject _) implements _i1.JSObject {
   /// - [ref]:  The name of the referenced extended attribute name.
   external _i1.JSFunction? get extendedAttributeReference;
 }
+
 extension type AnonymousType_3889564._(_i1.JSObject _) implements _i1.JSObject {
   external AnonymousType_3889564({_i1.JSAny? data, _i1.JSAny? parent});
 
@@ -943,6 +1034,7 @@ extension type AnonymousType_3889564._(_i1.JSObject _) implements _i1.JSObject {
 
   external _i1.JSAny? parent;
 }
+
 extension type Error._(_i1.JSObject _) implements _i1.JSObject {
   external String name;
 
@@ -950,6 +1042,7 @@ extension type Error._(_i1.JSObject _) implements _i1.JSObject {
 
   external String? stack;
 }
+
 extension type const AnonymousUnion_2799868._(String _) {
   static const AnonymousUnion_2799868 error = AnonymousUnion_2799868._('error');
 
@@ -957,6 +1050,7 @@ extension type const AnonymousUnion_2799868._(String _) {
     'warning',
   );
 }
+
 extension type AnonymousType_3848962._(_i1.JSObject _) implements _i1.JSObject {
   external AnonymousType_3848962({
     String message,

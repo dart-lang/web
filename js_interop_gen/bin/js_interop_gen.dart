@@ -156,8 +156,7 @@ final _parser = ArgParser()
   )
   ..addFlag(
     'strict-unsupported',
-    help:
-        'Treat unsupported declarations/types as errors. Only used for development of the generator',
+    help: 'Treat unsupported declarations/types as errors. Only used for development of the generator',
     negatable: false,
     hide: true,
   )

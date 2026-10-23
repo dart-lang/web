@@ -64,6 +64,7 @@ extension type PictureInPictureEvent._(JSObject _) implements Event, JSObject {
   /// event relates to.
   external PictureInPictureWindow get pictureInPictureWindow;
 }
+
 extension type PictureInPictureEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory PictureInPictureEventInit({

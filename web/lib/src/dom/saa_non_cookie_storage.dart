@@ -86,6 +86,7 @@ extension type StorageAccessHandle._(JSObject _) implements JSObject {
   /// `SecurityError` [DOMException] otherwise.
   external CacheStorage get caches;
 }
+
 extension type SharedWorkerOptions._(JSObject _)
     implements WorkerOptions, JSObject {
   external factory SharedWorkerOptions({

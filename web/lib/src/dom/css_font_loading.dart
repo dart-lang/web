@@ -21,6 +21,7 @@ import 'html.dart';
 
 typedef FontFaceLoadStatus = String;
 typedef FontFaceSetLoadStatus = String;
+
 extension type FontFaceDescriptors._(JSObject _) implements JSObject {
   external factory FontFaceDescriptors({
     String style,
@@ -192,6 +193,7 @@ extension type FontFace._(JSObject _) implements JSObject {
   /// `SyntaxError`.
   external JSPromise<FontFace> get loaded;
 }
+
 extension type FontFaceSetLoadEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory FontFaceSetLoadEventInit({

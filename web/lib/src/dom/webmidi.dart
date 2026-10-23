@@ -23,6 +23,7 @@ import 'html.dart';
 typedef MIDIPortType = String;
 typedef MIDIPortDeviceState = String;
 typedef MIDIPortConnectionState = String;
+
 extension type MIDIOptions._(JSObject _) implements JSObject {
   external factory MIDIOptions({bool sysex, bool software});
 
@@ -207,6 +208,7 @@ extension type MIDIMessageEvent._(JSObject _) implements Event, JSObject {
   /// returns the MIDI data bytes of a single MIDI message.
   external JSUint8Array? get data;
 }
+
 extension type MIDIMessageEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory MIDIMessageEventInit({
@@ -243,6 +245,7 @@ extension type MIDIConnectionEvent._(JSObject _) implements Event, JSObject {
   /// returns the port that has been disconnected or connected.
   external MIDIPort? get port;
 }
+
 extension type MIDIConnectionEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory MIDIConnectionEventInit({

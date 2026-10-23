@@ -204,5 +204,6 @@ extension type SVGAnimateTransformElement._(JSObject _)
         'animateTransform',
       );
 }
+
 extension type SVGDiscardElement._(JSObject _)
     implements SVGAnimationElement, JSObject {}

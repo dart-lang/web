@@ -83,6 +83,7 @@ extension type Sensor._(JSObject _) implements EventTarget, JSObject {
   external EventHandler get onerror;
   external set onerror(EventHandler value);
 }
+
 extension type SensorOptions._(JSObject _) implements JSObject {
   external factory SensorOptions({num frequency});
 
@@ -109,6 +110,7 @@ extension type SensorErrorEvent._(JSObject _) implements Event, JSObject {
   /// object passed in the event's constructor.
   external DOMException get error;
 }
+
 extension type SensorErrorEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory SensorErrorEventInit({

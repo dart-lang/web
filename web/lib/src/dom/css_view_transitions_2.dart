@@ -24,7 +24,9 @@ extension type CSSViewTransitionRule._(JSObject _)
   external String get navigation;
   external JSArray<JSString> get types;
 }
+
 extension type ViewTransitionTypeSet._(JSObject _) implements JSObject {}
+
 extension type StartViewTransitionOptions._(JSObject _) implements JSObject {
   external factory StartViewTransitionOptions({
     ViewTransitionUpdateCallback? update,

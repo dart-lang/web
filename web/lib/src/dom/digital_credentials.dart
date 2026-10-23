@@ -25,6 +25,7 @@ import 'credential_management.dart';
 typedef DigitalCredentialProtocol = String;
 typedef DigitalCredentialPresentationProtocol = String;
 typedef DigitalCredentialIssuanceProtocol = String;
+
 extension type DigitalCredentialRequestOptions._(JSObject _)
     implements JSObject {
   external factory DigitalCredentialRequestOptions({
@@ -34,6 +35,7 @@ extension type DigitalCredentialRequestOptions._(JSObject _)
   external JSArray<DigitalCredentialGetRequest> get requests;
   external set requests(JSArray<DigitalCredentialGetRequest> value);
 }
+
 extension type DigitalCredentialGetRequest._(JSObject _) implements JSObject {
   external factory DigitalCredentialGetRequest({
     required String protocol,
@@ -45,6 +47,7 @@ extension type DigitalCredentialGetRequest._(JSObject _) implements JSObject {
   external JSObject get data;
   external set data(JSObject value);
 }
+
 extension type DigitalCredentialCreationOptions._(JSObject _)
     implements JSObject {
   external factory DigitalCredentialCreationOptions({
@@ -54,6 +57,7 @@ extension type DigitalCredentialCreationOptions._(JSObject _)
   external JSArray<DigitalCredentialCreateRequest> get requests;
   external set requests(JSArray<DigitalCredentialCreateRequest> value);
 }
+
 extension type DigitalCredentialCreateRequest._(JSObject _)
     implements JSObject {
   external factory DigitalCredentialCreateRequest({
@@ -66,6 +70,7 @@ extension type DigitalCredentialCreateRequest._(JSObject _)
   external JSObject get data;
   external set data(JSObject value);
 }
+
 extension type DigitalCredential._(JSObject _) implements Credential, JSObject {
   external static bool userAgentAllowsProtocol(String protocol);
   external JSObject toJSON();

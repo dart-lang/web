@@ -103,6 +103,7 @@ extension type URLPattern._(JSObject _) implements JSObject {
   external String get hash;
   external bool get hasRegExpGroups;
 }
+
 extension type URLPatternInit._(JSObject _) implements JSObject {
   external factory URLPatternInit({
     String protocol,
@@ -135,12 +136,14 @@ extension type URLPatternInit._(JSObject _) implements JSObject {
   external String get baseURL;
   external set baseURL(String value);
 }
+
 extension type URLPatternOptions._(JSObject _) implements JSObject {
   external factory URLPatternOptions({bool ignoreCase});
 
   external bool get ignoreCase;
   external set ignoreCase(bool value);
 }
+
 extension type URLPatternResult._(JSObject _) implements JSObject {
   external factory URLPatternResult({
     JSArray<URLPatternInput> inputs,
@@ -173,6 +176,7 @@ extension type URLPatternResult._(JSObject _) implements JSObject {
   external URLPatternComponentResult get hash;
   external set hash(URLPatternComponentResult value);
 }
+
 extension type URLPatternComponentResult._(JSObject _) implements JSObject {
   external factory URLPatternComponentResult({String input, JSObject groups});
 

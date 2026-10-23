@@ -49,6 +49,7 @@ extension type AnimationTimeline._(JSObject _) implements JSObject {
   external CSSNumberish? get currentTime;
   external CSSNumberish? get duration;
 }
+
 extension type DocumentTimelineOptions._(JSObject _) implements JSObject {
   external factory DocumentTimelineOptions({DOMHighResTimeStamp originTime});
 
@@ -336,6 +337,7 @@ extension type AnimationEffect._(JSObject _) implements JSObject {
   /// specified timing properties for an animation effect.
   external void updateTiming([OptionalEffectTiming timing]);
 }
+
 extension type EffectTiming._(JSObject _) implements JSObject {
   external factory EffectTiming({
     FillMode fill,
@@ -368,6 +370,7 @@ extension type EffectTiming._(JSObject _) implements JSObject {
   external JSAny get duration;
   external set duration(JSAny value);
 }
+
 extension type OptionalEffectTiming._(JSObject _) implements JSObject {
   external factory OptionalEffectTiming({
     num delay,
@@ -400,6 +403,7 @@ extension type OptionalEffectTiming._(JSObject _) implements JSObject {
   external double get playbackRate;
   external set playbackRate(num value);
 }
+
 extension type ComputedEffectTiming._(JSObject _)
     implements EffectTiming, JSObject {
   external factory ComputedEffectTiming({
@@ -493,6 +497,7 @@ extension type KeyframeEffect._(JSObject _)
   external IterationCompositeOperation get iterationComposite;
   external set iterationComposite(IterationCompositeOperation value);
 }
+
 extension type KeyframeEffectOptions._(JSObject _)
     implements EffectTiming, JSObject {
   external factory KeyframeEffectOptions({
@@ -517,6 +522,7 @@ extension type KeyframeEffectOptions._(JSObject _)
   external IterationCompositeOperation get iterationComposite;
   external set iterationComposite(IterationCompositeOperation value);
 }
+
 extension type KeyframeAnimationOptions._(JSObject _)
     implements KeyframeEffectOptions, JSObject {
   external factory KeyframeAnimationOptions({
@@ -550,6 +556,7 @@ extension type KeyframeAnimationOptions._(JSObject _)
   external JSObject? get trigger;
   external set trigger(JSObject? value);
 }
+
 extension type GetAnimationsOptions._(JSObject _) implements JSObject {
   external factory GetAnimationsOptions({bool subtree, String? pseudoElement});
 

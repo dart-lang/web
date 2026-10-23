@@ -21,6 +21,7 @@ import 'dom.dart';
 import 'web_animations.dart';
 
 typedef ScrollAxis = String;
+
 extension type ScrollTimelineOptions._(JSObject _) implements JSObject {
   external factory ScrollTimelineOptions({Element? source, ScrollAxis axis});
 
@@ -58,6 +59,7 @@ extension type ScrollTimeline._(JSObject _)
   /// scroll axis that is driving the progress of the timeline.
   external ScrollAxis get axis;
 }
+
 extension type ViewTimelineOptions._(JSObject _) implements JSObject {
   external factory ViewTimelineOptions({
     required Element subject,

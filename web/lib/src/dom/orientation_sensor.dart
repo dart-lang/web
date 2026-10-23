@@ -64,6 +64,7 @@ extension type OrientationSensor._(JSObject _) implements Sensor, JSObject {
   /// only be read from one of its derived classes.
   external JSArray<JSNumber>? get quaternion;
 }
+
 extension type OrientationSensorOptions._(JSObject _)
     implements SensorOptions, JSObject {
   external factory OrientationSensorOptions({

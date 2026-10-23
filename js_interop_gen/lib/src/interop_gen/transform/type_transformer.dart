@@ -427,12 +427,10 @@ class TypeTransformer {
         ..isNullable = cacheHitNullable;
     }
     final created = create();
-    final cached =
-        typeMap.putIfAbsent(expectedId.toString(), () {
-              transformer.namer.markUsed(name);
-              return created;
-            })
-            as T;
+    final cached = typeMap.putIfAbsent(expectedId.toString(), () {
+      transformer.namer.markUsed(name);
+      return created;
+    }) as T;
     return cached..isNullable = cacheMissNullable;
   }
 

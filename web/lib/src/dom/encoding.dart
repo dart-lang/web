@@ -27,6 +27,7 @@ extension type TextDecoderOptions._(JSObject _) implements JSObject {
   external bool get ignoreBOM;
   external set ignoreBOM(bool value);
 }
+
 extension type TextDecodeOptions._(JSObject _) implements JSObject {
   external factory TextDecodeOptions({bool stream});
 
@@ -82,6 +83,7 @@ extension type TextDecoder._(JSObject _) implements JSObject {
   /// will be included in the output or skipped over.
   external bool get ignoreBOM;
 }
+
 extension type TextEncoderEncodeIntoResult._(JSObject _) implements JSObject {
   external factory TextEncoderEncodeIntoResult({int read, int written});
 

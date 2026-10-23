@@ -337,6 +337,7 @@ extension type PointerEvent._(JSObject _) implements MouseEvent, JSObject {
   /// assigned a `persistentDeviceId` value of `0`.
   external int get persistentDeviceId;
 }
+
 extension type MouseEventInit._(JSObject _)
     implements EventModifierInit, JSObject {
   external factory MouseEventInit({
@@ -752,6 +753,7 @@ extension type MouseEvent._(JSObject _) implements UIEvent, JSObject {
   /// > values.
   external double get movementY;
 }
+
 extension type WheelEventInit._(JSObject _)
     implements MouseEventInit, JSObject {
   external factory WheelEventInit({

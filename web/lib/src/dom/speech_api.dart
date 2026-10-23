@@ -158,6 +158,7 @@ extension type SpeechRecognitionErrorEvent._(JSObject _)
   /// error in more detail.
   external String get message;
 }
+
 extension type SpeechRecognitionErrorEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory SpeechRecognitionErrorEventInit({
@@ -307,6 +308,7 @@ extension type SpeechRecognitionEvent._(JSObject _) implements Event, JSObject {
   /// will not be overwritten or removed.
   external SpeechRecognitionResultList get results;
 }
+
 extension type SpeechRecognitionEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory SpeechRecognitionEventInit({
@@ -518,6 +520,7 @@ extension type SpeechSynthesisEvent._(JSObject _) implements Event, JSObject {
   /// [SpeechSynthesisUtterance.boundary_event] event.
   external String get name;
 }
+
 extension type SpeechSynthesisEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory SpeechSynthesisEventInit({
@@ -564,6 +567,7 @@ extension type SpeechSynthesisErrorEvent._(JSObject _)
   /// what has gone wrong with a speech synthesis attempt.
   external SpeechSynthesisErrorCode get error;
 }
+
 extension type SpeechSynthesisErrorEventInit._(JSObject _)
     implements SpeechSynthesisEventInit, JSObject {
   external factory SpeechSynthesisErrorEventInit({

@@ -22,10 +22,10 @@ class BrowserCompatData {
     required bool generateAll,
     required String path,
   }) {
-    final content =
-        (fs.readFileSync(path.toJS, JSReadFileOptions(encoding: 'utf8'.toJS))
-                as JSString)
-            .toDart;
+    final content = (fs.readFileSync(
+      path.toJS,
+      JSReadFileOptions(encoding: 'utf8'.toJS),
+    ) as JSString).toDart;
 
     final contentMap = jsonDecode(content) as Map;
     final api = (contentMap['api'] as Map).cast<String, dynamic>();

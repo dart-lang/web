@@ -51,9 +51,8 @@ interface SampleElement {
       idlPath = p.join(tempDir.path, 'sample.idl');
       bcdPath = p.join(tempDir.path, 'dummy_bcd.json');
       await File(idlPath).writeAsString(sampleIdl);
-      await File(
-        bcdPath,
-      ).writeAsString('{"api": {}, "webassembly": {"api": {}}}');
+      await File(bcdPath)
+          .writeAsString('{"api": {}, "webassembly": {"api": {}}}');
     });
 
     tearDownAll(() async {
@@ -126,9 +125,8 @@ interface SampleElement {
           '--engine-overrides=$relOverrides',
         ], workingDirectory: bindingsGenPath);
 
-        final generated = await File(
-          p.join(outDir, 'sample.dart'),
-        ).readAsString();
+        final generated = await File(p.join(outDir, 'sample.dart'))
+            .readAsString();
         expect(generated, isNot(contains('DroppedInterface')));
         expect(
           generated,

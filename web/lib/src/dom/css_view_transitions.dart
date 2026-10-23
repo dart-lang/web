@@ -19,6 +19,7 @@ import 'dart:js_interop';
 import 'cssom.dart';
 
 typedef ViewTransitionUpdateCallback = JSFunction;
+
 extension type StartViewTransitionOptions._(JSObject _) implements JSObject {
   external factory StartViewTransitionOptions({
     ViewTransitionUpdateCallback? update,
@@ -101,7 +102,9 @@ extension type ViewTransition._(JSObject _) implements JSObject {
   external JSPromise<JSAny?> get finished;
   external ViewTransitionTypeSet get types;
 }
+
 extension type ViewTransitionTypeSet._(JSObject _) implements JSObject {}
+
 extension type CSSViewTransitionRule._(JSObject _)
     implements CSSRule, JSObject {
   external String get navigation;

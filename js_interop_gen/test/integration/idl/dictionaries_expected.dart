@@ -25,6 +25,7 @@ extension type ConfigOptions._(JSObject _) implements JSObject {
   external JSArray<JSString>? get tags;
   external set tags(JSArray<JSString>? value);
 }
+
 extension type ExtendedOptions._(JSObject _)
     implements ConfigOptions, JSObject {
   external factory ExtendedOptions({
@@ -41,6 +42,7 @@ extension type ExtendedOptions._(JSObject _)
   external String get mode;
   external set mode(String value);
 }
+
 extension type Configurable._(JSObject _) implements JSObject {
   external void applySettings([ExtendedOptions options]);
 }

@@ -7,6 +7,7 @@ import 'dart:js_interop' as _i1;
 extension type Parent._(_i1.JSObject _) implements _i1.JSObject {
   external String parentProp;
 }
+
 extension type SpecialArray._(_i1.JSArray<_i1.JSString> _)
     implements _i1.JSArray<_i1.JSString>, Parent {
   external double specialLength;

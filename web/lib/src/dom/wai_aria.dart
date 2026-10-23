@@ -17,6 +17,7 @@ library;
 import 'dart:js_interop';
 
 typedef AriaNotifyPriority = String;
+
 extension type AriaNotificationOptions._(JSObject _) implements JSObject {
   external factory AriaNotificationOptions({AriaNotifyPriority priority});
 

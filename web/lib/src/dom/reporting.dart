@@ -116,6 +116,7 @@ extension type ReportingObserver._(JSObject _) implements JSObject {
   /// in the observer's report queue, and empties the queue.
   external ReportList takeRecords();
 }
+
 extension type ReportingObserverOptions._(JSObject _) implements JSObject {
   external factory ReportingObserverOptions({
     JSArray<JSString> types,

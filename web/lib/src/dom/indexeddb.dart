@@ -147,6 +147,7 @@ extension type IDBVersionChangeEvent._(JSObject _) implements Event, JSObject {
   /// database.
   external int? get newVersion;
 }
+
 extension type IDBVersionChangeEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory IDBVersionChangeEventInit({
@@ -235,6 +236,7 @@ extension type IDBFactory._(JSObject _) implements JSObject {
   /// > if either of the values is not a valid key.
   external int cmp(JSAny? first, JSAny? second);
 }
+
 extension type IDBDatabaseInfo._(JSObject _) implements JSObject {
   external factory IDBDatabaseInfo({String name, int version});
 
@@ -344,12 +346,14 @@ extension type IDBDatabase._(JSObject _) implements EventTarget, JSObject {
   external EventHandler get onversionchange;
   external set onversionchange(EventHandler value);
 }
+
 extension type IDBTransactionOptions._(JSObject _) implements JSObject {
   external factory IDBTransactionOptions({IDBTransactionDurability durability});
 
   external IDBTransactionDurability get durability;
   external set durability(IDBTransactionDurability value);
 }
+
 extension type IDBObjectStoreParameters._(JSObject _) implements JSObject {
   external factory IDBObjectStoreParameters({
     JSAny? keyPath,
@@ -626,6 +630,7 @@ extension type IDBObjectStore._(JSObject _) implements JSObject {
   /// Note that every object store has its own separate auto increment counter.
   external bool get autoIncrement;
 }
+
 extension type IDBIndexParameters._(JSObject _) implements JSObject {
   external factory IDBIndexParameters({bool unique, bool multiEntry});
 
@@ -634,6 +639,7 @@ extension type IDBIndexParameters._(JSObject _) implements JSObject {
   external bool get multiEntry;
   external set multiEntry(bool value);
 }
+
 extension type IDBGetAllOptions._(JSObject _) implements JSObject {
   external factory IDBGetAllOptions({
     JSAny? query,
@@ -904,6 +910,7 @@ extension type IDBKeyRange._(JSObject _) implements JSObject {
   /// upper-bound value is included in the key range.
   external bool get upperOpen;
 }
+
 extension type IDBRecord._(JSObject _) implements JSObject {
   external JSAny? get key;
   external JSAny? get primaryKey;

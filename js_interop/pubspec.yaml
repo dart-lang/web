@@ -1,10 +1,10 @@
 name: js_interop
-version: 0.1.0-beta
+version: 0.1.0-wip
 description: Utility APIs for dart:js_interop and dart:js_interop_unsafe.
 repository: https://github.com/dart-lang/web
 
 environment:
-  sdk: ^3.12.0
+  sdk: ^3.13.0
 
 dependencies:
   meta: ^1.3.0

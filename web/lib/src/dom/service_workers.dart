@@ -363,6 +363,7 @@ extension type ServiceWorkerContainer._(JSObject _)
   external EventHandler get onmessageerror;
   external set onmessageerror(EventHandler value);
 }
+
 extension type RegistrationOptions._(JSObject _) implements JSObject {
   external factory RegistrationOptions({
     String scope,
@@ -435,6 +436,7 @@ extension type NavigationPreloadManager._(JSObject _) implements JSObject {
   /// HTTP header.
   external JSPromise<NavigationPreloadState> getState();
 }
+
 extension type NavigationPreloadState._(JSObject _) implements JSObject {
   external factory NavigationPreloadState({bool enabled, String headerValue});
 
@@ -699,6 +701,7 @@ extension type Clients._(JSObject _) implements JSObject {
   /// regularly over the network, or possibly via a different service worker.
   external JSPromise<JSAny?> claim();
 }
+
 extension type ClientQueryOptions._(JSObject _) implements JSObject {
   external factory ClientQueryOptions({
     bool includeUncontrolled,
@@ -783,6 +786,7 @@ extension type ExtendableEvent._(JSObject _) implements Event, JSObject {
   /// settle.
   external void waitUntil(JSPromise<JSAny?> f);
 }
+
 extension type ExtendableEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory ExtendableEventInit({
@@ -818,6 +822,7 @@ extension type InstallEvent._(JSObject _) implements ExtendableEvent, JSObject {
   /// performance overhead of unnecessary service worker cycles.
   external JSPromise<JSAny?> addRoutes(JSObject rules);
 }
+
 extension type RouterRule._(JSObject _) implements JSObject {
   external factory RouterRule({
     required RouterCondition condition,
@@ -829,6 +834,7 @@ extension type RouterRule._(JSObject _) implements JSObject {
   external RouterSource get source;
   external set source(RouterSource value);
 }
+
 extension type RouterCondition._(JSObject _) implements JSObject {
   external factory RouterCondition({
     URLPatternCompatible urlPattern,
@@ -855,6 +861,7 @@ extension type RouterCondition._(JSObject _) implements JSObject {
   external RouterCondition get not;
   external set not(RouterCondition value);
 }
+
 extension type RouterSourceDict._(JSObject _) implements JSObject {
   external factory RouterSourceDict({String cacheName});
 
@@ -1008,6 +1015,7 @@ extension type FetchEvent._(JSObject _) implements ExtendableEvent, JSObject {
   /// [ExtendableEvent.waitUntil] method.
   external JSPromise<JSAny?> get handled;
 }
+
 extension type FetchEventInit._(JSObject _)
     implements ExtendableEventInit, JSObject {
   external factory FetchEventInit({
@@ -1095,6 +1103,7 @@ extension type ExtendableMessageEvent._(JSObject _)
   /// channel (the channel the message is being sent through.)
   external JSArray<MessagePort> get ports;
 }
+
 extension type ExtendableMessageEventInit._(JSObject _)
     implements ExtendableEventInit, JSObject {
   external factory ExtendableMessageEventInit({
@@ -1263,6 +1272,7 @@ extension type Cache._(JSObject _) implements JSObject {
     CacheQueryOptions options,
   ]);
 }
+
 extension type CacheQueryOptions._(JSObject _) implements JSObject {
   external factory CacheQueryOptions({
     bool ignoreSearch,
@@ -1371,6 +1381,7 @@ extension type CacheStorage._(JSObject _) implements JSObject {
   /// windows or through the [WorkerGlobalScope.caches] property in workers.
   external JSPromise<JSArray<JSString>> keys();
 }
+
 extension type MultiCacheQueryOptions._(JSObject _)
     implements CacheQueryOptions, JSObject {
   external factory MultiCacheQueryOptions({

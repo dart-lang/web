@@ -1344,12 +1344,14 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   external int get tabIndex;
   external set tabIndex(int value);
 }
+
 extension type ShowPopoverOptions._(JSObject _) implements JSObject {
   external factory ShowPopoverOptions({HTMLElement source});
 
   external HTMLElement get source;
   external set source(HTMLElement value);
 }
+
 extension type TogglePopoverOptions._(JSObject _)
     implements ShowPopoverOptions, JSObject {
   external factory TogglePopoverOptions({HTMLElement source, bool force});
@@ -4577,6 +4579,7 @@ extension type TrackEvent._(JSObject _) implements Event, JSObject {
   /// [VideoTrack], or [TextTrack] object.
   external JSObject? get track;
 }
+
 extension type TrackEventInit._(JSObject _) implements EventInit, JSObject {
   external factory TrackEventInit({
     bool bubbles,
@@ -8116,6 +8119,7 @@ extension type HTMLLegendElement._(JSObject _)
   external String get align;
   external set align(String value);
 }
+
 extension type HTMLSelectedContentElement._(JSObject _)
     implements HTMLElement, JSObject {
   /// Creates an [HTMLSelectedContentElement] using the tag 'selectedcontent'.
@@ -8308,6 +8312,7 @@ extension type SubmitEvent._(JSObject _) implements Event, JSObject {
   /// that was invoked to cause the form to be submitted.
   external HTMLElement? get submitter;
 }
+
 extension type SubmitEventInit._(JSObject _) implements EventInit, JSObject {
   external factory SubmitEventInit({
     bool bubbles,
@@ -8345,6 +8350,7 @@ extension type FormDataEvent._(JSObject _) implements Event, JSObject {
   /// the form when the event was fired.
   external FormData get formData;
 }
+
 extension type FormDataEventInit._(JSObject _) implements EventInit, JSObject {
   external factory FormDataEventInit({
     bool bubbles,
@@ -8812,6 +8818,7 @@ extension type HTMLSlotElement._(JSObject _) implements HTMLElement, JSObject {
   external String get name;
   external set name(String value);
 }
+
 extension type AssignedNodesOptions._(JSObject _) implements JSObject {
   external factory AssignedNodesOptions({bool flatten});
 
@@ -8937,6 +8944,7 @@ extension type HTMLCanvasElement._(JSObject _)
   external int get height;
   external set height(int value);
 }
+
 extension type CanvasRenderingContext2DSettings._(JSObject _)
     implements JSObject {
   external factory CanvasRenderingContext2DSettings({
@@ -10214,6 +10222,7 @@ extension type ImageBitmapRenderingContext._(JSObject _) implements JSObject {
   /// the given context.
   external JSObject get canvas;
 }
+
 extension type ImageEncodeOptions._(JSObject _) implements JSObject {
   external factory ImageEncodeOptions({String type, num quality});
 
@@ -10526,6 +10535,7 @@ extension type CustomElementRegistry._(JSObject _) implements JSObject {
   external void upgrade(Node root);
   external void initialize(Node root);
 }
+
 extension type ElementDefinitionOptions._(JSObject _) implements JSObject {
   external factory ElementDefinitionOptions({String extends_});
 
@@ -11279,6 +11289,7 @@ extension type ElementInternals._(JSObject _) implements JSObject {
   external String? get ariaValueText;
   external set ariaValueText(String? value);
 }
+
 extension type ValidityStateFlags._(JSObject _) implements JSObject {
   external factory ValidityStateFlags({
     bool valueMissing,
@@ -11381,6 +11392,7 @@ extension type ToggleEvent._(JSObject _) implements Event, JSObject {
   external String get newState;
   external Element? get source;
 }
+
 extension type ToggleEventInit._(JSObject _) implements EventInit, JSObject {
   external factory ToggleEventInit({
     bool bubbles,
@@ -11425,6 +11437,7 @@ extension type CommandEvent._(JSObject _) implements Event, JSObject {
   /// property at the time the event was dispatched.
   external String get command;
 }
+
 extension type CommandEventInit._(JSObject _) implements EventInit, JSObject {
   external factory CommandEventInit({
     bool bubbles,
@@ -11439,6 +11452,7 @@ extension type CommandEventInit._(JSObject _) implements EventInit, JSObject {
   external String get command;
   external set command(String value);
 }
+
 extension type FocusOptions._(JSObject _) implements JSObject {
   external factory FocusOptions({bool preventScroll, bool focusVisible});
 
@@ -11485,6 +11499,7 @@ extension type CloseWatcher._(JSObject _) implements EventTarget, JSObject {
   external EventHandler get onclose;
   external set onclose(EventHandler value);
 }
+
 extension type CloseWatcherOptions._(JSObject _) implements JSObject {
   external factory CloseWatcherOptions({AbortSignal signal});
 
@@ -11821,6 +11836,7 @@ extension type DragEvent._(JSObject _) implements MouseEvent, JSObject {
   /// operation's data (as a [DataTransfer] object).
   external DataTransfer? get dataTransfer;
 }
+
 extension type DragEventInit._(JSObject _) implements MouseEventInit, JSObject {
   external factory DragEventInit({
     bool bubbles,
@@ -11859,6 +11875,7 @@ extension type DragEventInit._(JSObject _) implements MouseEventInit, JSObject {
   external DataTransfer? get dataTransfer;
   external set dataTransfer(DataTransfer? value);
 }
+
 extension type Origin._(JSObject _) implements JSObject {
   external factory Origin();
 
@@ -11867,6 +11884,7 @@ extension type Origin._(JSObject _) implements JSObject {
   external bool isSameSite(Origin other);
   external bool get opaque;
 }
+
 @JS()
 external Window get window;
 
@@ -13163,6 +13181,7 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// "incognito" session is cleared when the last "private" tab is closed.)
   external Storage get localStorage;
 }
+
 extension type WindowPostMessageOptions._(JSObject _)
     implements StructuredSerializeOptions, JSObject {
   external factory WindowPostMessageOptions({
@@ -13554,6 +13573,7 @@ extension type Navigation._(JSObject _) implements EventTarget, JSObject {
   external EventHandler get oncurrententrychange;
   external set oncurrententrychange(EventHandler value);
 }
+
 extension type NavigationUpdateCurrentEntryOptions._(JSObject _)
     implements JSObject {
   external factory NavigationUpdateCurrentEntryOptions({required JSAny? state});
@@ -13561,12 +13581,14 @@ extension type NavigationUpdateCurrentEntryOptions._(JSObject _)
   external JSAny? get state;
   external set state(JSAny? value);
 }
+
 extension type NavigationOptions._(JSObject _) implements JSObject {
   external factory NavigationOptions({JSAny? info});
 
   external JSAny? get info;
   external set info(JSAny? value);
 }
+
 extension type NavigationNavigateOptions._(JSObject _)
     implements NavigationOptions, JSObject {
   external factory NavigationNavigateOptions({
@@ -13580,6 +13602,7 @@ extension type NavigationNavigateOptions._(JSObject _)
   external NavigationHistoryBehavior get history;
   external set history(NavigationHistoryBehavior value);
 }
+
 extension type NavigationReloadOptions._(JSObject _)
     implements NavigationOptions, JSObject {
   external factory NavigationReloadOptions({JSAny? info, JSAny? state});
@@ -13587,6 +13610,7 @@ extension type NavigationReloadOptions._(JSObject _)
   external JSAny? get state;
   external set state(JSAny? value);
 }
+
 extension type NavigationResult._(JSObject _) implements JSObject {
   external factory NavigationResult({
     JSPromise<NavigationHistoryEntry> committed,
@@ -13861,6 +13885,7 @@ extension type NavigateEvent._(JSObject _) implements Event, JSObject {
   external bool get hasUAVisualTransition;
   external Element? get sourceElement;
 }
+
 extension type NavigateEventInit._(JSObject _) implements EventInit, JSObject {
   external factory NavigateEventInit({
     bool bubbles,
@@ -13902,6 +13927,7 @@ extension type NavigateEventInit._(JSObject _) implements EventInit, JSObject {
   external Element? get sourceElement;
   external set sourceElement(Element? value);
 }
+
 extension type NavigationInterceptOptions._(JSObject _) implements JSObject {
   external factory NavigationInterceptOptions({
     NavigationPrecommitHandler precommitHandler,
@@ -13919,6 +13945,7 @@ extension type NavigationInterceptOptions._(JSObject _) implements JSObject {
   external NavigationScrollBehavior get scroll;
   external set scroll(NavigationScrollBehavior value);
 }
+
 extension type NavigationPrecommitController._(JSObject _) implements JSObject {
   external void redirect(String url, [NavigationNavigateOptions options]);
   external void addHandler(NavigationInterceptHandler handler);
@@ -14023,6 +14050,7 @@ extension type NavigationCurrentEntryChangeEvent._(JSObject _)
   /// [NavigationHistoryEntry] that was navigated from.
   external NavigationHistoryEntry get from;
 }
+
 extension type NavigationCurrentEntryChangeEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory NavigationCurrentEntryChangeEventInit({
@@ -14077,6 +14105,7 @@ extension type PopStateEvent._(JSObject _) implements Event, JSObject {
   /// author transitions for a better user experience.
   external bool get hasUAVisualTransition;
 }
+
 extension type PopStateEventInit._(JSObject _) implements EventInit, JSObject {
   external factory PopStateEventInit({
     bool bubbles,
@@ -14118,6 +14147,7 @@ extension type HashChangeEvent._(JSObject _) implements Event, JSObject {
   /// navigating.
   external String get newURL;
 }
+
 extension type HashChangeEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory HashChangeEventInit({
@@ -14167,6 +14197,7 @@ extension type PageSwapEvent._(JSObject _) implements Event, JSObject {
   /// transition for the cross-document navigation.
   external ViewTransition? get viewTransition;
 }
+
 extension type PageSwapEventInit._(JSObject _) implements EventInit, JSObject {
   external factory PageSwapEventInit({
     bool bubbles,
@@ -14223,6 +14254,7 @@ extension type PageRevealEvent._(JSObject _) implements Event, JSObject {
   /// transition for the cross-document navigation.
   external ViewTransition? get viewTransition;
 }
+
 extension type PageRevealEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory PageRevealEventInit({
@@ -14257,6 +14289,7 @@ extension type PageTransitionEvent._(JSObject _) implements Event, JSObject {
   /// from a cache.
   external bool get persisted;
 }
+
 extension type PageTransitionEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory PageTransitionEventInit({
@@ -14332,6 +14365,7 @@ extension type ErrorEvent._(JSObject _) implements Event, JSObject {
   /// error associated with this event.
   external JSAny? get error;
 }
+
 extension type ErrorEventInit._(JSObject _) implements EventInit, JSObject {
   external factory ErrorEventInit({
     bool bubbles,
@@ -14386,6 +14420,7 @@ extension type PromiseRejectionEvent._(JSObject _) implements Event, JSObject {
   /// why the promise was rejected.
   external JSAny? get reason;
 }
+
 extension type PromiseRejectionEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory PromiseRejectionEventInit({
@@ -14401,12 +14436,14 @@ extension type PromiseRejectionEventInit._(JSObject _)
   external JSAny? get reason;
   external set reason(JSAny? value);
 }
+
 extension type SetHTMLOptions._(JSObject _) implements JSObject {
   external factory SetHTMLOptions({JSAny sanitizer});
 
   external JSAny get sanitizer;
   external set sanitizer(JSAny value);
 }
+
 extension type SetHTMLUnsafeOptions._(JSObject _) implements JSObject {
   external factory SetHTMLUnsafeOptions({JSAny sanitizer, bool runScripts});
 
@@ -14415,12 +14452,14 @@ extension type SetHTMLUnsafeOptions._(JSObject _) implements JSObject {
   external bool get runScripts;
   external set runScripts(bool value);
 }
+
 extension type ParseHTMLUnsafeOptions._(JSObject _) implements JSObject {
   external factory ParseHTMLUnsafeOptions({JSAny sanitizer});
 
   external JSAny get sanitizer;
   external set sanitizer(JSAny value);
 }
+
 extension type GetHTMLOptions._(JSObject _) implements JSObject {
   external factory GetHTMLOptions({
     bool serializableShadowRoots,
@@ -14507,6 +14546,7 @@ extension type XMLSerializer._(JSObject _) implements JSObject {
   /// specified  tree in  form.
   external String serializeToString(Node root);
 }
+
 extension type Sanitizer._(JSObject _) implements JSObject {
   external factory Sanitizer([JSAny configuration]);
 
@@ -14520,6 +14560,7 @@ extension type Sanitizer._(JSObject _) implements JSObject {
   external bool setDataAttributes(bool allow);
   external bool removeUnsafe();
 }
+
 extension type SanitizerElementNamespace._(JSObject _) implements JSObject {
   external factory SanitizerElementNamespace({
     required String name,
@@ -14531,6 +14572,7 @@ extension type SanitizerElementNamespace._(JSObject _) implements JSObject {
   external String? get namespace;
   external set namespace(String? value);
 }
+
 extension type SanitizerElementNamespaceWithAttributes._(JSObject _)
     implements SanitizerElementNamespace, JSObject {
   external factory SanitizerElementNamespaceWithAttributes({
@@ -14545,6 +14587,7 @@ extension type SanitizerElementNamespaceWithAttributes._(JSObject _)
   external JSArray<SanitizerAttribute> get removeAttributes;
   external set removeAttributes(JSArray<SanitizerAttribute> value);
 }
+
 extension type SanitizerAttributeNamespace._(JSObject _) implements JSObject {
   external factory SanitizerAttributeNamespace({
     required String name,
@@ -14556,6 +14599,7 @@ extension type SanitizerAttributeNamespace._(JSObject _) implements JSObject {
   external String? get namespace;
   external set namespace(String? value);
 }
+
 extension type SanitizerProcessingInstruction._(JSObject _)
     implements JSObject {
   external factory SanitizerProcessingInstruction({required String target});
@@ -14563,6 +14607,7 @@ extension type SanitizerProcessingInstruction._(JSObject _)
   external String get target;
   external set target(String value);
 }
+
 extension type SanitizerConfig._(JSObject _) implements JSObject {
   external factory SanitizerConfig({
     JSArray<SanitizerElementWithAttributes> elements,
@@ -15322,6 +15367,7 @@ extension type MimeType._(JSObject _) implements JSObject {
   external String get suffixes;
   external Plugin get enabledPlugin;
 }
+
 extension type ImageDataSettings._(JSObject _) implements JSObject {
   external factory ImageDataSettings({
     PredefinedColorSpace colorSpace,
@@ -15410,6 +15456,7 @@ extension type ImageBitmap._(JSObject _) implements JSObject {
   /// object's height in CSS pixels.
   external int get height;
 }
+
 extension type ImageBitmapOptions._(JSObject _) implements JSObject {
   external factory ImageBitmapOptions({
     ImageOrientation imageOrientation,
@@ -15504,6 +15551,7 @@ extension type MessageEvent._(JSObject _) implements Event, JSObject {
   /// containing all [MessagePort] objects sent with the message, in order.
   external JSArray<MessagePort> get ports;
 }
+
 extension type MessageEventInit._(JSObject _) implements EventInit, JSObject {
   external factory MessageEventInit({
     bool bubbles,
@@ -15617,6 +15665,7 @@ extension type EventSource._(JSObject _) implements EventTarget, JSObject {
   external EventHandler get onerror;
   external set onerror(EventHandler value);
 }
+
 extension type EventSourceInit._(JSObject _) implements JSObject {
   external factory EventSourceInit({bool withCredentials});
 
@@ -15685,6 +15734,7 @@ extension type MessagePort._(JSObject _) implements EventTarget, JSObject {
   external EventHandler get onmessageerror;
   external set onmessageerror(EventHandler value);
 }
+
 extension type StructuredSerializeOptions._(JSObject _) implements JSObject {
   external factory StructuredSerializeOptions({JSArray<JSObject> transfer});
 
@@ -16337,6 +16387,7 @@ extension type Worker._(JSObject _) implements EventTarget, JSObject {
   external EventHandler get onmessageerror;
   external set onmessageerror(EventHandler value);
 }
+
 extension type WorkerOptions._(JSObject _) implements JSObject {
   external factory WorkerOptions({
     String name,
@@ -16387,6 +16438,7 @@ extension type SharedWorker._(JSObject _) implements EventTarget, JSObject {
   external EventHandler get onerror;
   external set onerror(EventHandler value);
 }
+
 extension type SharedWorkerOptions._(JSObject _)
     implements WorkerOptions, JSObject {
   external factory SharedWorkerOptions({
@@ -16799,6 +16851,7 @@ extension type Worklet._(JSObject _) implements JSObject {
     WorkletOptions options,
   ]);
 }
+
 extension type WorkletOptions._(JSObject _) implements JSObject {
   external factory WorkletOptions({RequestCredentials credentials});
 
@@ -16908,6 +16961,7 @@ extension type StorageEvent._(JSObject _) implements Event, JSObject {
   /// storage object that was affected.
   external Storage? get storageArea;
 }
+
 extension type StorageEventInit._(JSObject _) implements EventInit, JSObject {
   external factory StorageEventInit({
     bool bubbles,
@@ -17030,6 +17084,7 @@ extension type HTMLFrameSetElement._(JSObject _)
   external EventHandler get ongamepaddisconnected;
   external set ongamepaddisconnected(EventHandler value);
 }
+
 extension type HTMLFrameElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLFrameElement] using the tag 'frame'.
   HTMLFrameElement() : _ = document.createElement('frame');
@@ -17053,6 +17108,7 @@ extension type HTMLFrameElement._(JSObject _) implements HTMLElement, JSObject {
   external String get marginWidth;
   external set marginWidth(String value);
 }
+
 extension type HTMLDirectoryElement._(JSObject _)
     implements HTMLElement, JSObject {
   /// Creates an [HTMLDirectoryElement] using the tag 'dir'.
@@ -17179,6 +17235,7 @@ extension type HTMLParamElement._(JSObject _) implements HTMLElement, JSObject {
   external String get valueType;
   external set valueType(String value);
 }
+
 extension type External._(JSObject _) implements JSObject {
   external void AddSearchProvider();
   external void IsSearchProviderInstalled();

@@ -24,6 +24,7 @@ import 'webidl.dart';
 typedef WebTransportReliabilityMode = String;
 typedef WebTransportCongestionControl = String;
 typedef WebTransportErrorSource = String;
+
 extension type WebTransportDatagramsWritable._(JSObject _)
     implements WritableStream, JSObject {
   external WebTransportSendGroup? get sendGroup;
@@ -217,6 +218,7 @@ extension type WebTransport._(JSObject _) implements JSObject {
   /// and ordering are important, like chat applications.
   external ReadableStream get incomingUnidirectionalStreams;
 }
+
 extension type WebTransportHash._(JSObject _) implements JSObject {
   external factory WebTransportHash({
     required String algorithm,
@@ -228,6 +230,7 @@ extension type WebTransportHash._(JSObject _) implements JSObject {
   external BufferSource get value;
   external set value(BufferSource value);
 }
+
 extension type WebTransportOptions._(JSObject _) implements JSObject {
   external factory WebTransportOptions({
     bool allowPooling,
@@ -260,6 +263,7 @@ extension type WebTransportOptions._(JSObject _) implements JSObject {
   external ReadableStreamType get datagramsReadableType;
   external set datagramsReadableType(ReadableStreamType value);
 }
+
 extension type WebTransportCloseInfo._(JSObject _) implements JSObject {
   external factory WebTransportCloseInfo({int closeCode, String reason});
 
@@ -268,6 +272,7 @@ extension type WebTransportCloseInfo._(JSObject _) implements JSObject {
   external String get reason;
   external set reason(String value);
 }
+
 extension type WebTransportSendOptions._(JSObject _) implements JSObject {
   external factory WebTransportSendOptions({
     WebTransportSendGroup? sendGroup,
@@ -279,6 +284,7 @@ extension type WebTransportSendOptions._(JSObject _) implements JSObject {
   external int get sendOrder;
   external set sendOrder(int value);
 }
+
 extension type WebTransportSendStreamOptions._(JSObject _)
     implements WebTransportSendOptions, JSObject {
   external factory WebTransportSendStreamOptions({
@@ -290,6 +296,7 @@ extension type WebTransportSendStreamOptions._(JSObject _)
   external bool get waitUntilAvailable;
   external set waitUntilAvailable(bool value);
 }
+
 extension type WebTransportConnectionStats._(JSObject _) implements JSObject {
   external factory WebTransportConnectionStats({
     int bytesSent,
@@ -337,6 +344,7 @@ extension type WebTransportConnectionStats._(JSObject _) implements JSObject {
   external bool get atSendCapacity;
   external set atSendCapacity(bool value);
 }
+
 extension type WebTransportDatagramStats._(JSObject _) implements JSObject {
   external factory WebTransportDatagramStats({
     int droppedIncoming,
@@ -413,6 +421,7 @@ extension type WebTransportSendStream._(JSObject _)
   external int get sendOrder;
   external set sendOrder(int value);
 }
+
 extension type WebTransportSendStreamStats._(JSObject _) implements JSObject {
   external factory WebTransportSendStreamStats({
     int bytesWritten,
@@ -427,6 +436,7 @@ extension type WebTransportSendStreamStats._(JSObject _) implements JSObject {
   external int get bytesAcknowledged;
   external set bytesAcknowledged(int value);
 }
+
 extension type WebTransportSendGroup._(JSObject _) implements JSObject {
   external JSPromise<WebTransportSendStreamStats> getStats();
 }
@@ -469,6 +479,7 @@ extension type WebTransportReceiveStream._(JSObject _)
   /// consuming bytes from the server on this particular stream.
   external JSPromise<WebTransportReceiveStreamStats> getStats();
 }
+
 extension type WebTransportReceiveStreamStats._(JSObject _)
     implements JSObject {
   external factory WebTransportReceiveStreamStats({
@@ -531,6 +542,7 @@ extension type WebTransportError._(JSObject _)
   /// protocol error code for this error, or `null` if one is not available.
   external int? get streamErrorCode;
 }
+
 extension type WebTransportErrorOptions._(JSObject _) implements JSObject {
   external factory WebTransportErrorOptions({
     WebTransportErrorSource source,

@@ -72,6 +72,7 @@ extension type SyncEvent._(JSObject _) implements ExtendableEvent, JSObject {
   /// [SyncEvent.SyncEvent] constructor.
   external bool get lastChance;
 }
+
 extension type SyncEventInit._(JSObject _)
     implements ExtendableEventInit, JSObject {
   external factory SyncEventInit({

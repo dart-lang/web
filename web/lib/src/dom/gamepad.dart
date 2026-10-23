@@ -215,6 +215,7 @@ extension type GamepadHapticActuator._(JSObject _) implements JSObject {
   /// the hardware pulse at a certain intensity for a specified duration.
   external JSPromise<JSBoolean> pulse(num value, num duration);
 }
+
 extension type GamepadEffectParameters._(JSObject _) implements JSObject {
   external factory GamepadEffectParameters({
     num duration,
@@ -258,6 +259,7 @@ extension type GamepadEvent._(JSObject _) implements Event, JSObject {
   /// events.
   external Gamepad get gamepad;
 }
+
 extension type GamepadEventInit._(JSObject _) implements EventInit, JSObject {
   external factory GamepadEventInit({
     bool bubbles,

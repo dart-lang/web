@@ -56,12 +56,10 @@ void main(List<String> args) async {
 
     if (argResult.wasParsed('config')) {
       final filename = argResult['config'] as String;
-      final configContent =
-          fs.readFileSync(
-                filename.toJS,
-                JSReadFileOptions(encoding: 'utf8'.toJS),
-              )
-              as JSString;
+      final configContent = fs.readFileSync(
+        filename.toJS,
+        JSReadFileOptions(encoding: 'utf8'.toJS),
+      ) as JSString;
       final yaml = loadYamlDocument(configContent.toDart);
       config = YamlConfig.fromYaml(
         yaml.contents as YamlMap,
@@ -176,13 +174,10 @@ Future<void> generateIDLBindings({
     final bindings = await generateBindingsForFiles(
       {
         for (final file in allInputFiles)
-          file:
-              (fs.readFileSync(
-                        file.toJS,
-                        JSReadFileOptions(encoding: 'utf-8'.toJS),
-                      )
-                      as JSString)
-                  .toDart,
+          file: (fs.readFileSync(
+            file.toJS,
+            JSReadFileOptions(encoding: 'utf-8'.toJS),
+          ) as JSString).toDart,
       },
       output,
       bcdJsonPath: bcdJsonPath,
@@ -206,9 +201,8 @@ String _emitLibrary(code.Library library, Version languageVersion) {
   );
 
   final source = library.accept(emitter);
-  return DartFormatter(
-    languageVersion: languageVersion,
-  ).format(source.toString());
+  return DartFormatter(languageVersion: languageVersion)
+      .format(source.toString());
 }
 
 final _parser = ArgParser()
@@ -248,8 +242,7 @@ final _parser = ArgParser()
   )
   ..addFlag(
     'strict-unsupported',
-    help:
-        '[TS Declarations] Treat unsupported declarations/types as errors. Only used for development of the generator',
+    help: '[TS Declarations] Treat unsupported declarations/types as errors. Only used for development of the generator',
     negatable: false,
   )
   ..addOption(

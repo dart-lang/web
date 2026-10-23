@@ -377,6 +377,7 @@ extension type SubtleCrypto._(JSObject _) implements JSObject {
     JSArray<JSString> keyUsages,
   );
 }
+
 extension type RsaOtherPrimesInfo._(JSObject _) implements JSObject {
   external factory RsaOtherPrimesInfo({String r, String d, String t});
 
@@ -387,6 +388,7 @@ extension type RsaOtherPrimesInfo._(JSObject _) implements JSObject {
   external String get t;
   external set t(String value);
 }
+
 extension type JsonWebKey._(JSObject _) implements JSObject {
   external factory JsonWebKey({
     String kty,

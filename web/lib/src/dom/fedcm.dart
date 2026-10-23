@@ -45,6 +45,7 @@ extension type IdentityCredentialRequestOptions._(JSObject _)
   external IdentityCredentialRequestOptionsMode get mode;
   external set mode(IdentityCredentialRequestOptionsMode value);
 }
+
 extension type IdentityProviderConfig._(JSObject _) implements JSObject {
   external factory IdentityProviderConfig({
     required String configURL,
@@ -56,6 +57,7 @@ extension type IdentityProviderConfig._(JSObject _) implements JSObject {
   external String get clientId;
   external set clientId(String value);
 }
+
 extension type IdentityProviderRequestOptions._(JSObject _)
     implements IdentityProviderConfig, JSObject {
   external factory IdentityProviderRequestOptions({

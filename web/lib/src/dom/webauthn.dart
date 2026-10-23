@@ -201,6 +201,7 @@ extension type PublicKeyCredential._(JSObject _)
   /// [CredentialsContainer.create] or [CredentialsContainer.get] call.
   external String? get authenticatorAttachment;
 }
+
 extension type PublicKeyCredentialCreationOptionsJSON._(JSObject _)
     implements JSObject {
   external factory PublicKeyCredentialCreationOptionsJSON({
@@ -242,6 +243,7 @@ extension type PublicKeyCredentialCreationOptionsJSON._(JSObject _)
   external AuthenticationExtensionsClientInputsJSON get extensions;
   external set extensions(AuthenticationExtensionsClientInputsJSON value);
 }
+
 extension type PublicKeyCredentialUserEntityJSON._(JSObject _)
     implements JSObject {
   external factory PublicKeyCredentialUserEntityJSON({
@@ -257,6 +259,7 @@ extension type PublicKeyCredentialUserEntityJSON._(JSObject _)
   external String get displayName;
   external set displayName(String value);
 }
+
 extension type PublicKeyCredentialDescriptorJSON._(JSObject _)
     implements JSObject {
   external factory PublicKeyCredentialDescriptorJSON({
@@ -272,10 +275,12 @@ extension type PublicKeyCredentialDescriptorJSON._(JSObject _)
   external JSArray<JSString> get transports;
   external set transports(JSArray<JSString> value);
 }
+
 extension type AuthenticationExtensionsClientInputsJSON._(JSObject _)
     implements JSObject {
   AuthenticationExtensionsClientInputsJSON() : _ = JSObject();
 }
+
 extension type PublicKeyCredentialRequestOptionsJSON._(JSObject _)
     implements JSObject {
   external factory PublicKeyCredentialRequestOptionsJSON({
@@ -470,6 +475,7 @@ extension type AuthenticatorAssertionResponse._(JSObject _)
   /// originating [CredentialsContainer.create] call.
   external JSArrayBuffer? get userHandle;
 }
+
 extension type PublicKeyCredentialParameters._(JSObject _) implements JSObject {
   external factory PublicKeyCredentialParameters({
     required String type,
@@ -531,12 +537,14 @@ extension type PublicKeyCredentialCreationOptions._(JSObject _)
   external AuthenticationExtensionsClientInputs get extensions;
   external set extensions(AuthenticationExtensionsClientInputs value);
 }
+
 extension type PublicKeyCredentialEntity._(JSObject _) implements JSObject {
   external factory PublicKeyCredentialEntity({required String name});
 
   external String get name;
   external set name(String value);
 }
+
 extension type PublicKeyCredentialRpEntity._(JSObject _)
     implements PublicKeyCredentialEntity, JSObject {
   external factory PublicKeyCredentialRpEntity({
@@ -547,6 +555,7 @@ extension type PublicKeyCredentialRpEntity._(JSObject _)
   external String get id;
   external set id(String value);
 }
+
 extension type PublicKeyCredentialUserEntity._(JSObject _)
     implements PublicKeyCredentialEntity, JSObject {
   external factory PublicKeyCredentialUserEntity({
@@ -560,6 +569,7 @@ extension type PublicKeyCredentialUserEntity._(JSObject _)
   external String get displayName;
   external set displayName(String value);
 }
+
 extension type AuthenticatorSelectionCriteria._(JSObject _)
     implements JSObject {
   external factory AuthenticatorSelectionCriteria({
@@ -617,6 +627,7 @@ extension type PublicKeyCredentialRequestOptions._(JSObject _)
   external AuthenticationExtensionsClientInputs get extensions;
   external set extensions(AuthenticationExtensionsClientInputs value);
 }
+
 extension type AuthenticationExtensionsClientInputs._(JSObject _)
     implements JSObject {
   external factory AuthenticationExtensionsClientInputs({
@@ -662,6 +673,7 @@ extension type AuthenticationExtensionsClientInputs._(JSObject _)
   external AuthenticationExtensionsLargeBlobInputs get largeBlob;
   external set largeBlob(AuthenticationExtensionsLargeBlobInputs value);
 }
+
 extension type AuthenticationExtensionsClientOutputs._(JSObject _)
     implements JSObject {
   external factory AuthenticationExtensionsClientOutputs({
@@ -689,6 +701,7 @@ extension type AuthenticationExtensionsClientOutputs._(JSObject _)
   external AuthenticationExtensionsLargeBlobOutputs get largeBlob;
   external set largeBlob(AuthenticationExtensionsLargeBlobOutputs value);
 }
+
 extension type PublicKeyCredentialDescriptor._(JSObject _) implements JSObject {
   external factory PublicKeyCredentialDescriptor({
     required String type,
@@ -703,12 +716,14 @@ extension type PublicKeyCredentialDescriptor._(JSObject _) implements JSObject {
   external JSArray<JSString> get transports;
   external set transports(JSArray<JSString> value);
 }
+
 extension type CredentialPropertiesOutput._(JSObject _) implements JSObject {
   external factory CredentialPropertiesOutput({bool rk});
 
   external bool get rk;
   external set rk(bool value);
 }
+
 extension type AuthenticationExtensionsPRFValues._(JSObject _)
     implements JSObject {
   external factory AuthenticationExtensionsPRFValues({
@@ -721,6 +736,7 @@ extension type AuthenticationExtensionsPRFValues._(JSObject _)
   external BufferSource get second;
   external set second(BufferSource value);
 }
+
 extension type AuthenticationExtensionsPRFInputs._(JSObject _)
     implements JSObject {
   external factory AuthenticationExtensionsPRFInputs({
@@ -733,6 +749,7 @@ extension type AuthenticationExtensionsPRFInputs._(JSObject _)
   external JSObject get evalByCredential;
   external set evalByCredential(JSObject value);
 }
+
 extension type AuthenticationExtensionsPRFOutputs._(JSObject _)
     implements JSObject {
   external factory AuthenticationExtensionsPRFOutputs({
@@ -745,6 +762,7 @@ extension type AuthenticationExtensionsPRFOutputs._(JSObject _)
   external AuthenticationExtensionsPRFValues get results;
   external set results(AuthenticationExtensionsPRFValues value);
 }
+
 extension type AuthenticationExtensionsLargeBlobInputs._(JSObject _)
     implements JSObject {
   external factory AuthenticationExtensionsLargeBlobInputs({
@@ -760,6 +778,7 @@ extension type AuthenticationExtensionsLargeBlobInputs._(JSObject _)
   external BufferSource get write;
   external set write(BufferSource value);
 }
+
 extension type AuthenticationExtensionsLargeBlobOutputs._(JSObject _)
     implements JSObject {
   external factory AuthenticationExtensionsLargeBlobOutputs({

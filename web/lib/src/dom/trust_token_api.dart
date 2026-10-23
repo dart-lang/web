@@ -19,6 +19,7 @@ import 'dart:js_interop';
 typedef RefreshPolicy = String;
 typedef TokenVersion = String;
 typedef OperationType = String;
+
 extension type PrivateToken._(JSObject _) implements JSObject {
   external factory PrivateToken({
     required TokenVersion version,

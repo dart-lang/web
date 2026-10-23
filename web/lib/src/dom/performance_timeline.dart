@@ -123,6 +123,7 @@ extension type PerformanceObserver._(JSObject _) implements JSObject {
   /// performance observer, emptying it out.
   external PerformanceEntryList takeRecords();
 }
+
 extension type PerformanceObserverInit._(JSObject _) implements JSObject {
   external factory PerformanceObserverInit({
     JSArray<JSString> entryTypes,

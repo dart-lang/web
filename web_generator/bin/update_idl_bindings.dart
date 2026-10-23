@@ -205,13 +205,10 @@ const _apiGoldenPath = 'tool/api.txt';
 Map<String, dynamic>? _cachedPackageLockData;
 
 String _packageLockVersion(String package) {
-  final packageLockData = _cachedPackageLockData ??=
-      jsonDecode(
-            File(
-              p.fromUri(Platform.script.resolve('../package-lock.json')),
-            ).readAsStringSync(),
-          )
-          as Map<String, dynamic>;
+  final packageLockData = _cachedPackageLockData ??= jsonDecode(
+    File(p.fromUri(Platform.script.resolve('../package-lock.json')))
+        .readAsStringSync(),
+  ) as Map<String, dynamic>;
 
   final packages = packageLockData['packages'] as Map<String, dynamic>;
   final webRefIdl = packages['node_modules/$package'] as Map<String, dynamic>;

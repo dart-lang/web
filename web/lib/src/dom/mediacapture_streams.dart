@@ -646,6 +646,7 @@ extension type MediaTrackSupportedConstraints._(JSObject _)
   external bool get suppressLocalAudioPlayback;
   external set suppressLocalAudioPlayback(bool value);
 }
+
 extension type MediaTrackCapabilities._(JSObject _) implements JSObject {
   external factory MediaTrackCapabilities({
     ULongRange width,
@@ -816,6 +817,7 @@ extension type MediaTrackConstraints._(JSObject _)
   external JSArray<MediaTrackConstraintSet> get advanced;
   external set advanced(JSArray<MediaTrackConstraintSet> value);
 }
+
 extension type MediaTrackConstraintSet._(JSObject _) implements JSObject {
   external factory MediaTrackConstraintSet({
     ConstrainULong width,
@@ -1423,6 +1425,7 @@ extension type MediaStreamTrackEvent._(JSObject _) implements Event, JSObject {
   /// interface returns the [MediaStreamTrack] associated with this event.
   external MediaStreamTrack get track;
 }
+
 extension type MediaStreamTrackEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory MediaStreamTrackEventInit({
@@ -1604,6 +1607,7 @@ extension type InputDeviceInfo._(JSObject _)
   /// video track of the device's [MediaStream].
   external MediaTrackCapabilities getCapabilities();
 }
+
 extension type MediaStreamConstraints._(JSObject _) implements JSObject {
   external factory MediaStreamConstraints({
     JSAny video,
@@ -1621,6 +1625,7 @@ extension type MediaStreamConstraints._(JSObject _) implements JSObject {
   external String get peerIdentity;
   external set peerIdentity(String value);
 }
+
 extension type DoubleRange._(JSObject _) implements JSObject {
   external factory DoubleRange({num max, num min});
 
@@ -1629,6 +1634,7 @@ extension type DoubleRange._(JSObject _) implements JSObject {
   external double get min;
   external set min(num value);
 }
+
 extension type ConstrainDoubleRange._(JSObject _)
     implements DoubleRange, JSObject {
   external factory ConstrainDoubleRange({
@@ -1643,6 +1649,7 @@ extension type ConstrainDoubleRange._(JSObject _)
   external double get ideal;
   external set ideal(num value);
 }
+
 extension type ULongRange._(JSObject _) implements JSObject {
   external factory ULongRange({int max, int min});
 
@@ -1651,6 +1658,7 @@ extension type ULongRange._(JSObject _) implements JSObject {
   external int get min;
   external set min(int value);
 }
+
 extension type ConstrainULongRange._(JSObject _)
     implements ULongRange, JSObject {
   external factory ConstrainULongRange({
@@ -1665,6 +1673,7 @@ extension type ConstrainULongRange._(JSObject _)
   external int get ideal;
   external set ideal(int value);
 }
+
 extension type ConstrainBooleanParameters._(JSObject _) implements JSObject {
   external factory ConstrainBooleanParameters({bool exact, bool ideal});
 
@@ -1673,6 +1682,7 @@ extension type ConstrainBooleanParameters._(JSObject _) implements JSObject {
   external bool get ideal;
   external set ideal(bool value);
 }
+
 extension type ConstrainDOMStringParameters._(JSObject _) implements JSObject {
   external factory ConstrainDOMStringParameters({JSAny exact, JSAny ideal});
 

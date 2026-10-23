@@ -68,6 +68,7 @@ extension type CookieStore._(JSObject _) implements EventTarget, JSObject {
   external EventHandler get onchange;
   external set onchange(EventHandler value);
 }
+
 extension type CookieStoreGetOptions._(JSObject _) implements JSObject {
   external factory CookieStoreGetOptions({String name, String url});
 
@@ -76,6 +77,7 @@ extension type CookieStoreGetOptions._(JSObject _) implements JSObject {
   external String get url;
   external set url(String value);
 }
+
 extension type CookieInit._(JSObject _) implements JSObject {
   external factory CookieInit({
     required String name,
@@ -102,6 +104,7 @@ extension type CookieInit._(JSObject _) implements JSObject {
   external bool get partitioned;
   external set partitioned(bool value);
 }
+
 extension type CookieStoreDeleteOptions._(JSObject _) implements JSObject {
   external factory CookieStoreDeleteOptions({
     required String name,
@@ -119,6 +122,7 @@ extension type CookieStoreDeleteOptions._(JSObject _) implements JSObject {
   external bool get partitioned;
   external set partitioned(bool value);
 }
+
 extension type CookieListItem._(JSObject _) implements JSObject {
   external factory CookieListItem({
     String name,
@@ -228,6 +232,7 @@ extension type CookieChangeEvent._(JSObject _) implements Event, JSObject {
   /// in the past, as these cookies are immediately deleted.
   external JSArray<CookieListItem> get deleted;
 }
+
 extension type CookieChangeEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory CookieChangeEventInit({
@@ -291,6 +296,7 @@ extension type ExtendableCookieChangeEvent._(JSObject _)
   /// `ExtendableCookieChangeEvent` instance.
   external JSArray<CookieListItem> get deleted;
 }
+
 extension type ExtendableCookieChangeEventInit._(JSObject _)
     implements ExtendableEventInit, JSObject {
   external factory ExtendableCookieChangeEventInit({

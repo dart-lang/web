@@ -8,6 +8,7 @@ extension type Holder<T extends _i1.JSString?>._(_i1.JSObject _)
     implements _i1.JSObject {
   external T value;
 }
+
 extension type Consumer._(_i1.JSObject _) implements _i1.JSObject {
   external Holder<_i1.JSString> useHolder;
 }

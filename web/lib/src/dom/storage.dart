@@ -64,6 +64,7 @@ extension type StorageManager._(JSObject _) implements JSObject {
   /// (OPFS).
   external JSPromise<FileSystemDirectoryHandle> getDirectory();
 }
+
 extension type StorageEstimate._(JSObject _) implements JSObject {
   external factory StorageEstimate({int usage, int quota});
 

@@ -72,6 +72,7 @@ extension type DeviceOrientationEvent._(JSObject _) implements Event, JSObject {
   /// for details.
   external bool get absolute;
 }
+
 extension type DeviceOrientationEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory DeviceOrientationEventInit({
@@ -230,6 +231,7 @@ extension type DeviceMotionEvent._(JSObject _) implements Event, JSObject {
   /// hardware. You can use this to determine the granularity of motion events.
   external double get interval;
 }
+
 extension type DeviceMotionEventAccelerationInit._(JSObject _)
     implements JSObject {
   external factory DeviceMotionEventAccelerationInit({num? x, num? y, num? z});
@@ -241,6 +243,7 @@ extension type DeviceMotionEventAccelerationInit._(JSObject _)
   external double? get z;
   external set z(num? value);
 }
+
 extension type DeviceMotionEventRotationRateInit._(JSObject _)
     implements JSObject {
   external factory DeviceMotionEventRotationRateInit({
@@ -256,6 +259,7 @@ extension type DeviceMotionEventRotationRateInit._(JSObject _)
   external double? get gamma;
   external set gamma(num? value);
 }
+
 extension type DeviceMotionEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory DeviceMotionEventInit({

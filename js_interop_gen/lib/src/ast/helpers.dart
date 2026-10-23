@@ -81,9 +81,8 @@ Set<String> getMemberHierarchy(
   final members = <String>{};
 
   void addMembersIfReferredType(Type type) {
-    if (type case ReferredType<Declaration>(
-      declaration: final d,
-    ) when d is TypeDeclaration) {
+    if (type case ReferredType<Declaration>(declaration: final d)
+        when d is TypeDeclaration) {
       members.addAll(getMemberHierarchy(d, true));
     }
   }
@@ -401,9 +400,10 @@ class TupleDeclaration extends NamedDeclaration
                 ..name = '\$${index + 1}'
                 ..returns = refer(returnType)
                 ..type = MethodType.getter
-                ..body = refer(
-                  '_',
-                ).index(literalNum(index)).asA(refer(returnType)).code,
+                ..body = refer('_')
+                    .index(literalNum(index))
+                    .asA(refer(returnType))
+                    .code,
             );
           }),
           if (!readonly)
@@ -420,9 +420,10 @@ class TupleDeclaration extends NamedDeclaration
                         ..type = refer(returnType),
                     ),
                   )
-                  ..body = refer(
-                    '_',
-                  ).index(literalNum(index)).assign(refer('newValue')).code,
+                  ..body = refer('_')
+                      .index(literalNum(index))
+                      .assign(refer('newValue'))
+                      .code,
               );
             }),
         ]),

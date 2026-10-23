@@ -45,6 +45,7 @@ extension type AuthenticationExtensionsPaymentInputs._(JSObject _)
   external PaymentCredentialInstrument get instrument;
   external set instrument(PaymentCredentialInstrument value);
 }
+
 extension type PaymentCredentialInstrument._(JSObject _) implements JSObject {
   external factory PaymentCredentialInstrument({
     required String displayName,

@@ -1,5 +1,5 @@
 environment:
-  sdk: ^3.12.0
+  sdk: ^3.13.0
 package:web/web.dart:
   CSS (static getter: $CSS, js)
   GPUBufferUsage (static getter: $GPUBufferUsage, js)

@@ -662,6 +662,7 @@ extension type Response._(JSObject _) implements JSObject {
   /// boolean value that indicates whether the body has been read yet.
   external bool get bodyUsed;
 }
+
 extension type ResponseInit._(JSObject _) implements JSObject {
   external factory ResponseInit({
     int status,

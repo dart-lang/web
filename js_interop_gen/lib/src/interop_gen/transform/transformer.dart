@@ -295,9 +295,8 @@ class Transformer {
     UniqueNamer? namer,
     NamespaceDeclaration? parent,
   }) {
-    return NamespaceFlattener(
-      this,
-    ).transformNamespace(namespace, namer: namer, parent: parent);
+    return NamespaceFlattener(this)
+        .transformNamespace(namespace, namer: namer, parent: parent);
   }
 
   List<Declaration> _transformModuleDeclarationStatements(
@@ -1368,12 +1367,10 @@ class Transformer {
       constructors: constructors,
     );
 
-    final anonymousType =
-        typeMap.putIfAbsent(expectedId.toString(), () {
-              namer.markUsed(name);
-              return anonymousTypeObject;
-            })
-            as ObjectLiteralType;
+    final anonymousType = typeMap.putIfAbsent(expectedId.toString(), () {
+      namer.markUsed(name);
+      return anonymousTypeObject;
+    }) as ObjectLiteralType;
 
     return anonymousType..isNullable = isNullable ?? false;
   }
@@ -1423,12 +1420,10 @@ class Transformer {
             typeParameters: typeParameters,
           );
 
-    final closureType =
-        typeMap.putIfAbsent(expectedId.toString(), () {
-              namer.markUsed(name);
-              return closureTypeObject;
-            })
-            as ClosureType;
+    final closureType = typeMap.putIfAbsent(expectedId.toString(), () {
+      namer.markUsed(name);
+      return closureTypeObject;
+    }) as ClosureType;
 
     return closureType..isNullable = isNullable ?? false;
   }

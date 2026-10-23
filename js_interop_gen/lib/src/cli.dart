@@ -6,6 +6,7 @@ import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:isolate';
+
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/element/element.dart';
@@ -14,6 +15,7 @@ import 'package:io/ansi.dart' as ansi;
 import 'package:package_config/package_config.dart';
 
 import 'package:path/path.dart' as p;
+
 import 'sdk_version.dart';
 
 final bindingsGeneratorPath = p.fromUri(

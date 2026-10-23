@@ -8,6 +8,7 @@ extension type Wrapper<T extends _i1.JSAny?>._(_i1.JSObject _)
     implements _i1.JSObject {
   external T value;
 }
+
 extension type Container._(_i1.JSObject _) implements _i1.JSObject {
   external Wrapper<_i1.JSString>? optionalWrapper;
 }

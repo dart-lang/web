@@ -17,6 +17,8 @@
   easier to migrate. `@Equivalence` annotations are now added to extension
   methods to document 1-1 replacements of `dart:html` APIs.
 - Combined stream provider extensions to one per type.
+- Added `dart fix` migrations for removed `@Deprecated` APIs, renamed helper and
+  event extensions, and updated Web IDL bindings.
 
 ## 1.1.2
 

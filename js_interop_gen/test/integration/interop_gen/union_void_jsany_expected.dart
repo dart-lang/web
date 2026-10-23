@@ -8,6 +8,7 @@
 import 'dart:js_interop' as _i1;
 
 typedef MixedVoidUnion = AnonymousUnion_1448391;
+
 extension type AnonymousUnion_1448391._(_i1.JSAny _) implements _i1.JSAny {
   void get asVoid => _;
 

@@ -35,6 +35,7 @@ typedef GenericUnion = JSObject;
 
 /// Union of: [JSInt16Array], [JSInt32Array], [JSInt8Array], [JSString]
 typedef NonCollapsingLongUnion = JSAny;
+
 extension type DummyInterface._(JSObject _) implements JSObject {
   external void testAllTypedArrays(AllTypedArrays a);
   external void testBufferUnion(BufferUnion b);

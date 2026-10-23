@@ -9,3 +9,4 @@
 - Added `--generate-all` option to generate all bindings, including experimental
   and non-standard APIs.
 - Adapt paths for different development environments.
+- Require `sdk: ^3.13.0`.

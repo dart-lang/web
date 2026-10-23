@@ -226,78 +226,75 @@ interface Fallback {};
       },
     );
 
-    test(
-      'normalizeBufferType, looseType, splitUnionType, and memberSignature normalize IDL signatures',
-      () {
-        expect(
-          normalizeBufferType('(ArrayBuffer or ArrayBufferView)'),
-          'BufferSource',
-        );
-        expect(
-          normalizeBufferType('(Uint8Array or DOMString)'),
-          '(BufferSource or DOMString)',
-        );
-        expect(looseType('unrestricted double'), 'double');
-        expect(looseType('Promise<USVString>'), 'Promise<DOMString>');
-        expect(looseType('void'), 'undefined');
-        expect(splitUnionType('(DOMString or sequence<(long or boolean)>)?'), [
-          'DOMString',
-          'sequence<(long or boolean)>',
-          'null',
-        ]);
+    test('normalizeBufferType, looseType, splitUnionType, and memberSignature normalize IDL signatures', () {
+      expect(
+        normalizeBufferType('(ArrayBuffer or ArrayBufferView)'),
+        'BufferSource',
+      );
+      expect(
+        normalizeBufferType('(Uint8Array or DOMString)'),
+        '(BufferSource or DOMString)',
+      );
+      expect(looseType('unrestricted double'), 'double');
+      expect(looseType('Promise<USVString>'), 'Promise<DOMString>');
+      expect(looseType('void'), 'undefined');
+      expect(splitUnionType('(DOMString or sequence<(long or boolean)>)?'), [
+        'DOMString',
+        'sequence<(long or boolean)>',
+        'null',
+      ]);
 
-        final attr = MemberRecord.attribute(
-          type: 'USVString',
-          raw: 'USVString',
-          readonly: true,
-          special: '',
-        )..gating = GateRecord.on();
-        expect(memberSignature(attr), 'readonly DOMString');
-        expect(memberSignature(attr, strict: true), 'readonly USVString');
+      final attr = MemberRecord.attribute(
+        type: 'USVString',
+        raw: 'USVString',
+        readonly: true,
+        special: '',
+      )..gating = GateRecord.on();
+      expect(memberSignature(attr), 'readonly DOMString');
+      expect(memberSignature(attr, strict: true), 'readonly USVString');
 
-        final op = MemberRecord.operation(
-          special: '',
-          overloads: [
-            OverloadRecord.create(
-              ret: 'void',
-              retRaw: 'void',
-              args: [
-                ArgRecord.create(
-                  name: 'x',
-                  t: '(DOMString or long)',
-                  raw: '(DOMString or long)',
-                  opt: false,
-                  varg: false,
-                ),
-                ArgRecord.create(
-                  name: 'y',
-                  t: 'USVString',
-                  raw: 'USVString',
-                  opt: true,
-                  varg: false,
-                ),
-              ],
-              gating: GateRecord.on(),
-            ),
-            OverloadRecord.create(
-              ret: 'void',
-              retRaw: 'void',
-              args: [],
-              gating: GateRecord.create(state: GateState.off),
-            ),
-          ],
-        )..gating = GateRecord.on();
+      final op = MemberRecord.operation(
+        special: '',
+        overloads: [
+          OverloadRecord.create(
+            ret: 'void',
+            retRaw: 'void',
+            args: [
+              ArgRecord.create(
+                name: 'x',
+                t: '(DOMString or long)',
+                raw: '(DOMString or long)',
+                opt: false,
+                varg: false,
+              ),
+              ArgRecord.create(
+                name: 'y',
+                t: 'USVString',
+                raw: 'USVString',
+                opt: true,
+                varg: false,
+              ),
+            ],
+            gating: GateRecord.on(),
+          ),
+          OverloadRecord.create(
+            ret: 'void',
+            retRaw: 'void',
+            args: [],
+            gating: GateRecord.create(state: GateState.off),
+          ),
+        ],
+      )..gating = GateRecord.on();
 
-        expect(
-          memberSignature(op),
-          'undefined(DOMString) | undefined(DOMString, DOMString) | '
-          'undefined(long) | undefined(long, DOMString)',
-        );
-        expect(
-          memberSignature(op, strict: true),
-          'void((DOMString or long), optional USVString)',
-        );
-      },
-    );
+      expect(
+        memberSignature(op),
+        'undefined(DOMString) | undefined(DOMString, DOMString) | '
+        'undefined(long) | undefined(long, DOMString)',
+      );
+      expect(
+        memberSignature(op, strict: true),
+        'void((DOMString or long), optional USVString)',
+      );
+    });
   });
 }

@@ -7,9 +7,8 @@ import 'dart:js_interop';
 /// A type-safe representation of a heterogeneous two-element JavaScript array.
 @anonymous
 extension type JSPair<E1 extends JSAny?, E2 extends JSAny?>._(
-  JSArray<JSAny?> _array
-)
-    implements JSObject, JSIterable<JSAny?> {
+  JSArray<JSAny?> _array,
+) implements JSObject, JSIterable<JSAny?> {
   /// Creates a new [JSPair] with the given values.
   factory JSPair(E1 value1, E2 value2) => JSPair._([value1, value2].toJS);
 

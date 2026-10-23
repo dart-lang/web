@@ -14,7 +14,6 @@ analyzer:
 linter:
   rules:
   - avoid_bool_literals_in_conditional_expressions
-  - avoid_private_typedef_functions
   - avoid_redundant_argument_values
   - avoid_returning_this
   - avoid_unused_constructor_parameters
@@ -25,6 +24,5 @@ linter:
   - no_runtimeType_toString
   - prefer_const_declarations
   - prefer_final_locals
-  - unnecessary_await_in_return
   - unnecessary_ignore
   - use_string_buffers

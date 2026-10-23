@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:code_builder/code_builder.dart';
+
 import '../interop_gen/hasher.dart';
 import '../interop_gen/namer.dart';
 import '../interop_gen/sub_type.dart';
@@ -392,9 +393,9 @@ sealed class _UnionOrIntersectionDeclaration extends NamedDeclaration
                     tDesugared is ReferredType &&
                     (repDesugared.typeParams.isNotEmpty ||
                         tDesugared.typeParams.isNotEmpty)) {
-                  body = refer(
-                    '_',
-                  ).asA(refer('JSAny', 'dart:js_interop')).asA(type);
+                  body = refer('_')
+                      .asA(refer('JSAny', 'dart:js_interop'))
+                      .asA(type);
                 } else {
                   body = refer('_').asA(type);
                 }

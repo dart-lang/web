@@ -321,9 +321,8 @@ class VariableDeclaration extends FieldDeclaration
 }
 
 bool _checkIfDiscardable(Type type) {
-  if (type case BuiltinType(
-    discardable: final typeIsDiscardable,
-  ) when typeIsDiscardable) {
+  if (type case BuiltinType(discardable: final typeIsDiscardable)
+      when typeIsDiscardable) {
     return true;
   }
   return false;

@@ -109,13 +109,11 @@ final ArgParser _parser = ArgParser()
   )
   ..addOption(
     'cache-dir',
-    help:
-        'Directory for sparse engine checkouts (defaults to ~/.cache/engine_idl).',
+    help: 'Directory for sparse engine checkouts (defaults to ~/.cache/engine_idl).',
   )
   ..addOption(
     'out-dir',
-    help:
-        'Output directory for census JSON and SUMMARY.md (defaults to .dart_tool/engine_census).',
+    help: 'Output directory for census JSON and SUMMARY.md (defaults to .dart_tool/engine_census).',
   )
   ..addOption('blink-ref', help: 'Override Blink (Chromium) git ref.')
   ..addOption('gecko-ref', help: 'Override Gecko (Firefox) git ref.')

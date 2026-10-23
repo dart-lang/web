@@ -1123,9 +1123,9 @@ Future<void> fetchEngines(
   EngineCensusPaths paths, {
   Map<String, String> refOverrides = const {},
 }) async {
-  final overridesJson =
-      jsonDecode(File(paths.overridesPath).readAsStringSync())
-          as Map<String, Object?>;
+  final overridesJson = jsonDecode(
+    File(paths.overridesPath).readAsStringSync(),
+  ) as Map<String, Object?>;
   final revisions = overridesJson['revisions'] as Map<String, Object?>;
   Directory(paths.cacheDir).createSync(recursive: true);
 
@@ -1151,14 +1151,12 @@ Future<void> fetchEngines(
           repoDir,
         ]);
         await _runGit(['-C', repoDir, 'sparse-checkout', 'init', '--no-cone']);
-        File(
-          p.join(repoDir, '.git', 'info', 'sparse-checkout'),
-        ).writeAsStringSync('${patterns.join('\n')}\n');
+        File(p.join(repoDir, '.git', 'info', 'sparse-checkout'))
+            .writeAsStringSync('${patterns.join('\n')}\n');
         await _runGit(['-C', repoDir, 'checkout', ref]);
       } else {
-        File(
-          p.join(repoDir, '.git', 'info', 'sparse-checkout'),
-        ).writeAsStringSync('${patterns.join('\n')}\n');
+        File(p.join(repoDir, '.git', 'info', 'sparse-checkout'))
+            .writeAsStringSync('${patterns.join('\n')}\n');
         final curHead = await _gitOutput(repoDir, ['rev-parse', 'HEAD']);
         final targetHead = await _gitOutput(repoDir, [
           'rev-parse',
@@ -1726,9 +1724,9 @@ _WebKitPrefs _loadWebKitPrefs(String cacheDir) {
     'Preferences',
     'UnifiedWebPreferences.yaml',
   );
-  final prefs =
-      _yamlToDart(loadYaml(File(yamlPath).readAsStringSync()))
-          as Map<String, Object?>;
+  final prefs = _yamlToDart(
+    loadYaml(File(yamlPath).readAsStringSync()),
+  ) as Map<String, Object?>;
 
   final vals = <String, int>{
     'PLATFORM_MAC': 1,
@@ -2871,9 +2869,9 @@ void compareCorpora(EngineCensusPaths paths) {
     }
   }
 
-  final overridesJson =
-      jsonDecode(File(paths.overridesPath).readAsStringSync())
-          as Map<String, Object?>;
+  final overridesJson = jsonDecode(
+    File(paths.overridesPath).readAsStringSync(),
+  ) as Map<String, Object?>;
   final webrefPkgFile = File(p.join(paths.webrefDir, 'package.json'));
   final webrefVersion = webrefPkgFile.existsSync()
       ? ((jsonDecode(webrefPkgFile.readAsStringSync())
@@ -2903,9 +2901,8 @@ void compareCorpora(EngineCensusPaths paths) {
     stringKindOnlyDiffs: stringKindOnly,
   );
 
-  File(
-    p.join(paths.outDir, 'members_all.json'),
-  ).writeAsStringSync(jsonEncode(rows));
+  File(p.join(paths.outDir, 'members_all.json'))
+      .writeAsStringSync(jsonEncode(rows));
   final disagreementsDoc = DisagreementsDoc.create(
     generated: DateTime.now().toUtc().toIso8601String(),
     revisions: revisions,
@@ -2979,9 +2976,8 @@ String _trunc(String? s, [int n = 140]) =>
 void generateReport(EngineCensusPaths paths) {
   final j = DisagreementsDoc(
     jsonDecode(
-          File(p.join(paths.outDir, 'disagreements.json')).readAsStringSync(),
-        )
-        as Map<String, Object?>,
+      File(p.join(paths.outDir, 'disagreements.json')).readAsStringSync(),
+    ) as Map<String, Object?>,
   );
   final corpora = _loadCorpora(paths);
 

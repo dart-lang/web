@@ -1,3 +1,5 @@
+## 1.1.2-wip
+
 ## 1.1.1
 
 - Deprecated `Node.text` extension. Use `Node.textContent` instead.

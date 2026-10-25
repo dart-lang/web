@@ -1,0 +1,33 @@
+[LegacyNamespace=WebAssembly, Exposed=*]
+interface Exception {
+  constructor();
+};
+
+[Exposed=Window]
+interface SubException : Exception {};
+
+typedef (Exception or DOMString) ExceptionOrString;
+
+[Exposed=Window]
+interface ExceptionThrower {
+  constructor();
+  Exception make();
+  Promise<Exception> makeAsync();
+  undefined take(Exception e);
+  undefined takeUnion(ExceptionOrString value);
+  attribute Exception last;
+};
+
+[LegacyWindowAlias=(LegacyBox, LegacyBoxAlt), Exposed=Window]
+interface BoxTarget {
+  constructor();
+};
+
+typedef (LegacyBox or DOMString) BoxOrString;
+
+[Exposed=Window]
+interface BoxReader {
+  LegacyBox readBox();
+  LegacyBoxAlt readAlt();
+  undefined takeUnion(BoxOrString value);
+};

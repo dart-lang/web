@@ -48,9 +48,10 @@ extension ValueDescriptionExtension on ValueDescription {
 }
 
 extension ExtendedAttributeRightHandSideExtension
-    on ExtendedAttributeRightHandSide {
+    on ExtendedAttributeRightHandSide? {
   String? get value {
-    final jsObj = this as JSObject;
+    final jsObj = this as JSObject?;
+    if (jsObj == null) return null;
     final val = jsObj.getProperty('value'.toJS);
     return val.isA<JSString>() ? (val as JSString).toDart : null;
   }
@@ -58,12 +59,14 @@ extension ExtendedAttributeRightHandSideExtension
   /// The identifier(s) on the right-hand side, whether a single identifier or
   /// an identifier list such as `(A, B)`.
   List<String> get identifiers {
-    final val = (this as JSObject).getProperty('value'.toJS);
+    final jsObj = this as JSObject?;
+    if (jsObj == null) return const [];
+    final val = jsObj.getProperty('value'.toJS);
     if (val.isA<JSString>()) return [(val as JSString).toDart];
     if (val.isA<JSArray>()) {
       return [
         for (final item in (val as JSArray<JSObject>).toDart)
-          (item.getProperty('value'.toJS) as JSString).toDart,
+          item.getProperty<JSString>('value'.toJS).toDart,
       ];
     }
     return const [];

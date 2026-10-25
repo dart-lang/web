@@ -24,7 +24,10 @@ Future<List<String>> _generateCSSStyleDeclarations([
   final cssStyleDeclarations = <String>{};
   final allData = data ?? await css.listAll().toDart;
   // `@webref/css` 7+ returns a single object of consolidated arrays, while
-  // older versions return a record of per-spec entries.
+  // `@webref/css` 6 (still pinned in `web_generator/package.json` until the
+  // spec roll) returns a record of per-spec entries.
+  // TODO(kevmoo): Drop the `< 7` fallback once `web_generator/package.json`
+  // rolls to `@webref/css` 8+.
   final entries = (allData as JSObject).has('properties')
       ? [allData as CSSEntries]
       : allData.values;

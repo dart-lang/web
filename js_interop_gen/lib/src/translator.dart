@@ -64,6 +64,29 @@ class _Library {
         final interfacelike = node as idl.Interfacelike;
         if (!node.partial) {
           _addNamed<idl.Interfacelike>(node, interfaceList);
+          final name = interfacelike.name;
+          for (final extAttr in interfacelike.extAttrs.toDart) {
+            switch (extAttr.name) {
+              case 'LegacyWindowAlias':
+                // e.g. `[LegacyWindowAlias=SVGRect] interface DOMRect`: specs
+                // may still reference the alias name as a type.
+                for (final alias in extAttr.rhs.identifiers) {
+                  translator._legacyWindowAliases[alias] = name;
+                }
+              case 'LegacyNamespace'
+                  when type != 'namespace' && _dartCoreTypeNames.contains(name):
+                // Namespaced interfaces whose name would shadow a `dart:core`
+                // type (e.g. `WebAssembly.Exception`) are prefixed with their
+                // namespace.
+                final namespace = extAttr.rhs.value;
+                if (namespace != null) {
+                  final dartName = '$namespace$name';
+                  translator._idlToDartClassName[name] = dartName;
+                  translator._dartToIdlClassName[dartName] = name;
+                  translator._typeToLibrary[dartName] = this;
+                }
+            }
+          }
         } else {
           translator._typeToPartials
               .putIfAbsent(interfacelike.name, () => [])
@@ -117,11 +140,27 @@ class Translator {
   final _includes = <String, List<String>>{};
   final _usedTypes = <idl.Node>{};
   Map<String, idl.Node> get typeToDeclaration => _typeToDeclaration;
+
+  /// Maps `[LegacyWindowAlias]` names to the interface they alias.
+  final _legacyWindowAliases = <String, String>{};
+  Map<String, String> get legacyWindowAliases => _legacyWindowAliases;
+  final _idlToDartClassName = <String, String>{};
+  final _dartToIdlClassName = <String, String>{};
   final _renamedClasses = <String, String>{};
   final _currentDocImports = <String>{};
   final _currentLibraryImports = <String>{};
 
   Map<String, String> get renamedClasses => _renamedClasses;
+
+  /// Resolves WebIDL aliases (`WindowProxy` and `[LegacyWindowAlias]`) to their
+  /// canonical IDL declaration name.
+  String resolveIdlTypeName(String idlType) => switch (idlType) {
+    'WindowProxy' => 'Window',
+    _ => _legacyWindowAliases[idlType] ?? idlType,
+  };
+
+  /// Returns the emitted Dart declaration name for a canonical IDL [name].
+  String dartClassNameFor(String name) => _idlToDartClassName[name] ?? name;
 
   final Map<String, String> loadedRenameMap;
 
@@ -315,7 +354,7 @@ class Translator {
     if (uniqueNames.length <= 1) return [];
 
     final formattedNames = uniqueNames.map((name) {
-      final decl = _typeToDeclaration[name];
+      final decl = _typeToDeclaration[_dartToIdlClassName[name] ?? name];
       if (decl != null && _usedTypes.contains(decl)) {
         return '[$name]';
       }
@@ -361,7 +400,7 @@ class Translator {
       }
       return;
     }
-    final name = (idlType.idlType as JSString).toDart;
+    final name = resolveIdlTypeName((idlType.idlType as JSString).toDart);
     final library = _typeToLibrary[name];
     if (library != null && library.url != _currentlyTranslatingUrl) {
       _currentDocImports.add(library.url);
@@ -369,7 +408,6 @@ class Translator {
   }
 
   String? _mapIdlPrimitiveToDart(String idlType) {
-    if (idlType == 'WindowProxy') return 'Window';
     final alias = idlOrBuiltinToJsTypeAliases[idlType];
     if (alias == 'JSObject' && idlType != 'object') return null;
     if (alias == 'JSInteger' || alias == 'JSDouble') return 'JSNumber';
@@ -393,7 +431,7 @@ class Translator {
       }
       return genericName;
     }
-    final name = (idlType.idlType as JSString).toDart;
+    final name = resolveIdlTypeName((idlType.idlType as JSString).toDart);
 
     final mapped = _mapIdlPrimitiveToDart(name);
     if (mapped != null) {
@@ -402,10 +440,10 @@ class Translator {
 
     final alias = idlOrBuiltinToJsTypeAliases[name];
     if (alias == 'JSObject' && name != 'object') {
-      return name;
+      return dartClassNameFor(name);
     }
 
-    return alias ?? name;
+    return alias ?? dartClassNameFor(name);
   }
 
   code.TypeDef _typedef(
@@ -491,6 +529,7 @@ class Translator {
       dartType = jsTypeToDartPrimitiveAliases[dartType] ?? dartType;
       if (dartType == 'void') nullable = false;
     }
+    dartType = dartClassNameFor(dartType);
 
     final typeArguments = <code.TypeReference>[];
     if (typeParameter != null &&
@@ -1120,7 +1159,9 @@ class Translator {
 
     // Namespaces have lowercase names. We also translate them to
     // private classes, and make their first character uppercase in the process.
-    final dartClassName = isNamespace ? '\$${capitalize(jsName)}' : jsName;
+    final dartClassName = isNamespace
+        ? '\$${capitalize(jsName)}'
+        : dartClassNameFor(jsName);
 
     final interfaceStatus = browserCompatData.retrieveInterfaceFor(name);
 
@@ -1254,3 +1295,21 @@ class Translator {
     return dartLibraries;
   }
 }
+
+/// `dart:core` type names that generated interfaces must not shadow, since
+/// `package:web` is commonly imported unprefixed.
+const _dartCoreTypeNames = {
+  'BigInt',
+  'Error',
+  'Exception',
+  'Function',
+  'Iterable',
+  'Iterator',
+  'List',
+  'Map',
+  'Object',
+  'Record',
+  'Set',
+  'Symbol',
+  'Type',
+};

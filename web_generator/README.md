@@ -22,8 +22,11 @@ To re-generate the package from newer IDL versions, you can either run:
 dart bin/update_idl_bindings.dart --update
 ```
 
-or, manually edit `lib/src/package.json` to use specific IDL versions, and
-re-run `update_idl_bindings.dart`.
+which installs the latest `@webref/*` and `@mdn/browser-compat-data` releases
+(including new major versions) into this package's `package.json`.
+
+Alternatively, manually edit `package.json` to use specific versions, and re-run
+`update_idl_bindings.dart`.
 
 ### Public API golden
 

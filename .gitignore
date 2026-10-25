@@ -4,6 +4,7 @@ pubspec.lock
 
 js_interop_gen/lib/src/*.js
 js_interop_gen/lib/src/*.js.*
+js_interop_gen/lib/src/web_rename_map.json
 js_interop_gen/lib/src/node_modules/
 web_generator/node_modules
 .compile.lock

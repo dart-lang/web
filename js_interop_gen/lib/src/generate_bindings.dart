@@ -4,6 +4,7 @@
 
 import 'dart:convert';
 import 'dart:js_interop';
+import 'dart:js_interop_unsafe';
 
 import 'package:js_interop/js_interop.dart';
 import 'package:path/path.dart' as p;
@@ -21,7 +22,16 @@ Future<List<String>> _generateCSSStyleDeclarations([
   JSRecord<CSSEntries>? data,
 ]) async {
   final cssStyleDeclarations = <String>{};
-  for (final data in (data ?? await css.listAll().toDart).values) {
+  final allData = data ?? await css.listAll().toDart;
+  // `@webref/css` 7+ returns a single object of consolidated arrays, while
+  // `@webref/css` 6 (still pinned in `web_generator/package.json` until the
+  // spec roll) returns a record of per-spec entries.
+  // TODO(kevmoo): Drop the `< 7` fallback once `web_generator/package.json`
+  // rolls to `@webref/css` 8+.
+  final entries = (allData as JSObject).has('properties')
+      ? [allData as CSSEntries]
+      : allData.values;
+  for (final data in entries) {
     final properties = data.properties;
     if (properties != null) {
       for (var j = 0; j < properties.length; j++) {

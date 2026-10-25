@@ -182,19 +182,23 @@ abstract class BCDItem {
   String get _browsersDescription => browsers.join(', ');
 
   bool _supportedInBrowser(String browser) {
-    final map =
-        (_support[browser] is List
-                ? (_support[browser] as List).first
-                : _support[browser])
-            as Map<String, dynamic>;
+    final support = _support[browser];
+    if (support == null) return false;
+    final statements = support is List
+        ? support.cast<Map<String, dynamic>>()
+        : [support as Map<String, dynamic>];
 
-    if (map.containsKey('version_removed')) {
-      return false;
+    for (final map in statements) {
+      // Multi-statement entries record historical, flag-gated, prefixed, or
+      // preview implementations alongside shipping support; skip non-default
+      // entries and match any currently shipping, unflagged release.
+      if (map.containsKey('version_removed')) continue;
+      if (map['flags'] != null) continue;
+      if (map['prefix'] != null || map['alternative_name'] != null) continue;
+      final value = map['version_added'];
+      if (value is String && value != 'preview') return true;
+      if (value is bool && value) return true;
     }
-
-    final value = map['version_added'];
-    if (value is String) return true;
-    if (value is bool) return value;
     return false;
   }
 

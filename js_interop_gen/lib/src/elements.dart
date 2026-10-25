@@ -119,10 +119,9 @@ RawType _getRawType(idl.IDLType idlType) {
     type = (idlType.idlType as JSString).toDart;
   }
 
-  if (type == 'WindowProxy') type = 'Window';
   if (type == 'any') nullable = true;
   final translator = Translator.instance!;
-  type = translator.legacyWindowAliases[type] ?? type;
+  type = translator.resolveIdlTypeName(type);
   final decl = translator.typeToDeclaration[type];
   final alias = idlOrBuiltinToJsTypeAliases[type];
   assert(decl != null || alias != null);
@@ -307,8 +306,12 @@ class OverridableOperation extends OverridableMember {
   MemberName _generateName() {
     _finalized = true;
     final dartName = _name.name;
-    if (dartName == returnType.type ||
-        parameters.any((parameter) => dartName == parameter.type.type)) {
+    final translator = Translator.instance!;
+    if (dartName == translator.dartClassNameFor(returnType.type) ||
+        parameters.any(
+          (parameter) =>
+              dartName == translator.dartClassNameFor(parameter.type.type),
+        )) {
       underscoreName();
     }
     return _name;
@@ -563,6 +566,11 @@ class PartialInterfacelike {
     if (declaredInheritance == null) return;
     final translator = Translator.instance!;
     while (declaredInheritance != null) {
+      assert(
+        !translator.legacyWindowAliases.containsKey(declaredInheritance),
+        'Unexpected [LegacyWindowAlias] "$declaredInheritance" in '
+        'inheritance of "$name".',
+      );
       if (translator.markTypeAsUsed(declaredInheritance)) {
         inheritance = declaredInheritance;
         break;
@@ -625,7 +633,7 @@ sealed class Property {
       trustedType = split?.$2 {
     final dartName = name.name;
     final jsName = name.jsOverride.isEmpty ? dartName : name.jsOverride;
-    this.name = dartName == type.type
+    this.name = dartName == Translator.instance!.dartClassNameFor(type.type)
         ? MemberName('${dartName}_', jsName)
         : name;
   }

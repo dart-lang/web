@@ -189,6 +189,9 @@ abstract class BCDItem {
         : [support as Map<String, dynamic>];
 
     for (final map in statements) {
+      // Multi-statement entries record historical, flag-gated, prefixed, or
+      // preview implementations alongside shipping support; skip non-default
+      // entries and match any currently shipping, unflagged release.
       if (map.containsKey('version_removed')) continue;
       if (map['flags'] != null) continue;
       if (map['prefix'] != null || map['alternative_name'] != null) continue;

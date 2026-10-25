@@ -1,6 +1,7 @@
 @TestOn('vm')
 library;
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:js_interop_gen/src/cli.dart';
@@ -96,5 +97,113 @@ void main() {
             .forEach((f) => f.deleteSync());
       });
     }
+
+    test('cross-file LegacyNamespace and LegacyWindowAlias imports', () async {
+      final wasmIdl = File(p.join(outputDir, 'wasm_defs.idl'));
+      final boxIdl = File(p.join(outputDir, 'box_defs.idl'));
+      final consumerIdl = File(p.join(outputDir, 'consumer.idl'));
+      final wasmDart = File(p.join(outputDir, 'wasm_defs.dart'));
+      final boxDart = File(p.join(outputDir, 'box_defs.dart'));
+      final consumerDartFile = File(p.join(outputDir, 'consumer.dart'));
+
+      addTearDown(() async {
+        for (final file in [
+          wasmIdl,
+          boxIdl,
+          consumerIdl,
+          wasmDart,
+          boxDart,
+          consumerDartFile,
+        ]) {
+          if (await file.exists()) await file.delete();
+        }
+      });
+
+      await wasmIdl.writeAsString('''
+[LegacyNamespace=WebAssembly, Exposed=*]
+interface Exception {
+  constructor();
+};
+''');
+      await boxIdl.writeAsString('''
+[LegacyWindowAlias=LegacyBox, Exposed=Window]
+interface BoxTarget {
+  constructor();
+};
+''');
+      await consumerIdl.writeAsString('''
+typedef (LegacyBox or DOMString) BoxOrString;
+
+[Exposed=Window]
+interface Consumer {
+  Exception make();
+  undefined takeBox(BoxOrString box);
+};
+''');
+
+      final dummyBcdPath = p.relative(
+        p.join(outputDir, 'dummy_bcd.json'),
+        from: bindingsGenPath,
+      );
+      await runNode([
+        'main.mjs',
+        '--input=${p.relative(wasmIdl.path, from: bindingsGenPath)}',
+        '--input=${p.relative(boxIdl.path, from: bindingsGenPath)}',
+        '--input=${p.relative(consumerIdl.path, from: bindingsGenPath)}',
+        '--output=${p.relative(outputDir, from: bindingsGenPath)}',
+        '--idl',
+        '--bcd-json=$dummyBcdPath',
+      ], workingDirectory: bindingsGenPath);
+
+      final consumerDart = await consumerDartFile.readAsString();
+      expect(consumerDart, contains("/// @docImport 'box_defs.dart';"));
+      expect(consumerDart, contains('/// Union of: [BoxTarget], [JSString]'));
+      expect(consumerDart, contains("import 'wasm_defs.dart';"));
+      expect(consumerDart, contains('external WebAssemblyException make();'));
+    });
+
+    test('asserts on LegacyWindowAlias in inheritance', () async {
+      final invalidIdl = File(p.join(outputDir, 'invalid_alias_inherit.idl'));
+      final invalidDart = File(p.join(outputDir, 'invalid_alias_inherit.dart'));
+
+      addTearDown(() async {
+        for (final file in [invalidIdl, invalidDart]) {
+          if (await file.exists()) await file.delete();
+        }
+      });
+
+      await invalidIdl.writeAsString('''
+[LegacyWindowAlias=LegacyBox, Exposed=Window]
+interface BoxTarget {
+  constructor();
+};
+
+[Exposed=Window]
+interface SubBox : LegacyBox {};
+''');
+
+      final dummyBcdPath = p.relative(
+        p.join(outputDir, 'dummy_bcd.json'),
+        from: bindingsGenPath,
+      );
+      final proc = await runNodeWithResult([
+        'main.mjs',
+        '--input=${p.relative(invalidIdl.path, from: bindingsGenPath)}',
+        '--output=${p.relative(outputDir, from: bindingsGenPath)}',
+        '--idl',
+        '--bcd-json=$dummyBcdPath',
+      ], workingDirectory: bindingsGenPath);
+
+      final stderrText = await proc.stderr.transform(utf8.decoder).join();
+      await proc.stdout.drain<void>();
+      expect(await proc.exitCode, isNonZero);
+      expect(
+        stderrText,
+        contains(
+          'Unexpected [LegacyWindowAlias] "LegacyBox" in inheritance of '
+          '"SubBox".',
+        ),
+      );
+    });
   });
 }

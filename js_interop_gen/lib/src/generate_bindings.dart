@@ -4,7 +4,6 @@
 
 import 'dart:convert';
 import 'dart:js_interop';
-import 'dart:js_interop_unsafe';
 
 import 'package:js_interop/js_interop.dart';
 import 'package:path/path.dart' as p;
@@ -18,39 +17,29 @@ import 'js/webref_idl_api.dart';
 import 'translator.dart';
 
 /// Generate CSS property names for setting / getting CSS properties in JS.
-Future<List<String>> _generateCSSStyleDeclarations([
-  JSRecord<CSSEntries>? data,
-]) async {
+Future<List<String>> _generateCSSStyleDeclarations([CSSEntries? data]) async {
   final cssStyleDeclarations = <String>{};
-  final allData = data ?? await css.listAll().toDart;
-  // `@webref/css` 7+ returns a single object of consolidated arrays, while
-  // older versions return a record of per-spec entries.
-  final entries = (allData as JSObject).has('properties')
-      ? [allData as CSSEntries]
-      : allData.values;
-  for (final data in entries) {
-    final properties = data.properties;
-    if (properties != null) {
-      for (var j = 0; j < properties.length; j++) {
-        final property = properties[j];
-        // There are three cases for [styleDeclaration]:
-        //   1) Length == 1, a single word CSS property.
-        //   2) Length == 2, a kebab case property + a camel case property.
-        //   3) Length == 3, webkit CSS properties.
-        final styleDeclaration = property.styleDeclaration;
-        if (styleDeclaration != null) {
-          final length = styleDeclaration.length;
-          if (length < 0 || length > 3) {
-            throw Exception('Unexpected style declaration $styleDeclaration');
-          }
-          // For now we ignore browser specific properties.
-          if (length == 3) continue;
-          final style = styleDeclaration[length - 1].toDart;
-          if (style.contains('-')) {
-            throw Exception('Unexpected style declaration $styleDeclaration');
-          }
-          cssStyleDeclarations.add(style);
+  final properties = (data ?? await css.listAll().toDart).properties;
+  if (properties != null) {
+    for (var j = 0; j < properties.length; j++) {
+      final property = properties[j];
+      // There are three cases for [styleDeclaration]:
+      //   1) Length == 1, a single word CSS property.
+      //   2) Length == 2, a kebab case property + a camel case property.
+      //   3) Length == 3, webkit CSS properties.
+      final styleDeclaration = property.styleDeclaration;
+      if (styleDeclaration != null) {
+        final length = styleDeclaration.length;
+        if (length < 0 || length > 3) {
+          throw Exception('Unexpected style declaration $styleDeclaration');
         }
+        // For now we ignore browser specific properties.
+        if (length == 3) continue;
+        final style = styleDeclaration[length - 1].toDart;
+        if (style.contains('-')) {
+          throw Exception('Unexpected style declaration $styleDeclaration');
+        }
+        cssStyleDeclarations.add(style);
       }
     }
   }
@@ -98,7 +87,7 @@ Future<(TranslationResult, Map<String, String>)> generateBindings(
     }
   }
   JSRecord<JSArray<webidl.Node>>? idlData;
-  JSRecord<CSSEntries>? cssData;
+  CSSEntries? cssData;
   JSRecord<ElementsEntries>? elementsData;
 
   if (idlJsonPath != null) {
@@ -109,7 +98,7 @@ Future<(TranslationResult, Map<String, String>)> generateBindings(
     final json = jsonDecode(jsonStr) as Map<String, dynamic>;
 
     idlData = (json['idl'] as Map?)?.jsify() as JSRecord<JSArray<webidl.Node>>?;
-    cssData = (json['css'] as Map?)?.jsify() as JSRecord<CSSEntries>?;
+    cssData = (json['css'] as Map?)?.jsify() as CSSEntries?;
     elementsData =
         (json['elements'] as Map?)?.jsify() as JSRecord<ElementsEntries>?;
   }
@@ -145,7 +134,9 @@ Future<TranslationResult> generateBindingsForFiles(
 }) async {
   // generate CSS style declarations and element tag map incase they are
   // needed for the input files.
-  final cssStyleDeclarations = await _generateCSSStyleDeclarations(JSRecord());
+  final cssStyleDeclarations = await _generateCSSStyleDeclarations(
+    CSSEntries(),
+  );
   final elementHTMLMap = await _generateElementTagMap(JSRecord());
   final translator = Translator(
     output,

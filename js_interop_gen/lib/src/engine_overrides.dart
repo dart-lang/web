@@ -322,20 +322,18 @@ class EngineOverrides {
     return override.generate;
   }
 
-  /// Validates that all IDL types referenced by overrides exist in
-  /// [typeToDeclaration], [idlOrBuiltinToJsTypeAliases], or
-  /// [legacyWindowAliases].
+  /// Validates that all IDL types referenced by overrides resolve via
+  /// [resolveIdlTypeName] to an entry in [typeToDeclaration] or
+  /// [idlOrBuiltinToJsTypeAliases].
   void validateTypes(
     Map<String, idl.Node> typeToDeclaration,
-    Map<String, String> legacyWindowAliases,
+    String Function(String) resolveIdlTypeName,
   ) {
     void checkType(EngineTypeOverride override) {
       if (override.typeParameter != null) {
         checkType(override.typeParameter!);
       }
-      var type = override.type;
-      if (type == 'WindowProxy') type = 'Window';
-      type = legacyWindowAliases[type] ?? type;
+      final type = resolveIdlTypeName(override.type);
       final decl = typeToDeclaration[type];
       final alias = idlOrBuiltinToJsTypeAliases[type];
       if (decl == null && alias == null) {

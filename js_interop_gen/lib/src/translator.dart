@@ -221,7 +221,7 @@ class Translator {
   /// [markTypeAsUsed] because they don't have any compat data and are emitted
   /// only if used.
   void addInterfacesAndNamespaces() {
-    engineOverrides?.validateTypes(_typeToDeclaration, _legacyWindowAliases);
+    engineOverrides?.validateTypes(_typeToDeclaration, resolveIdlTypeName);
     for (final library in _libraries.values) {
       for (final interfacelike in library.interfacelikes) {
         final name = interfacelike.name;

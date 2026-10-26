@@ -13,6 +13,7 @@ import 'package:pub_semver/pub_semver.dart';
 import 'package:yaml/yaml.dart';
 
 import 'config.dart';
+import 'engine_overrides.dart';
 import 'generate_bindings.dart';
 import 'interop_gen/parser.dart';
 import 'interop_gen/transform.dart';
@@ -48,6 +49,7 @@ void main(List<String> args) async {
       languageVersion: Version.parse(languageVersionString),
       idlJsonPath: argResult['idl-json'] as String?,
       bcdJsonPath: bcdJsonPath,
+      engineOverridesPath: argResult['engine-overrides'] as String?,
     );
   } else if (argResult.wasParsed('declaration')) {
     final Config config;
@@ -130,6 +132,7 @@ Future<void> generateIDLBindings({
   required Version languageVersion,
   String? idlJsonPath,
   required String bcdJsonPath,
+  String? engineOverridesPath,
 }) async {
   if (input == null) {
     // parse dom library as normal
@@ -139,6 +142,8 @@ Future<void> generateIDLBindings({
 
     final dir = p.dirname(p.fromUri(url));
     final renameMapPath = p.join(dir, 'web_rename_map.json');
+    EngineOverrides.activePath =
+        engineOverridesPath ?? p.join(dir, 'engine_overrides.json');
     final (bindings, renameMap) = await generateBindings(
       packageRoot,
       librarySubDir,
@@ -164,6 +169,7 @@ Future<void> generateIDLBindings({
     final allInputFiles = expandGlobs(input.toList(), extension: '.idl');
     // parse individual files
     ensureDirectoryExists(output);
+    EngineOverrides.activePath = engineOverridesPath;
 
     final bindings = await generateBindingsForFiles(
       {
@@ -250,4 +256,8 @@ final _parser = ArgParser()
   ..addOption(
     'bcd-json',
     help: 'Path to the browser-compat-data data.json file',
+  )
+  ..addOption(
+    'engine-overrides',
+    help: 'Path to the engine_overrides.json file',
   );

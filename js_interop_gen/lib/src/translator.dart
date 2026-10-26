@@ -11,6 +11,7 @@ import 'banned_names.dart';
 import 'bcd.dart';
 import 'doc_provider.dart';
 import 'elements.dart';
+import 'engine_overrides.dart';
 import 'formatting.dart';
 import 'js/webidl_api.dart' as idl;
 import 'js/webref_elements_api.dart';
@@ -167,6 +168,7 @@ class Translator {
   late String _currentlyTranslatingUrl;
   late DocProvider docProvider;
   late BrowserCompatData browserCompatData;
+  late final EngineOverrides? engineOverrides;
 
   /// Singleton so that various helper methods can access info about the AST.
   static Translator? instance;
@@ -187,7 +189,12 @@ class Translator {
       generateAll: generateAll,
       path: bcdJsonPath,
     );
+    engineOverrides = EngineOverrides.read(EngineOverrides.activePath);
   }
+
+  bool _shouldGenerateInterface(String name) =>
+      browserCompatData.shouldGenerateInterface(name) &&
+      (engineOverrides?.shouldGenerateInterface(name) ?? true);
 
   void _addOrUpdateInterfaceLike(idl.Interfacelike interfacelike) {
     final name = interfacelike.name;
@@ -214,6 +221,7 @@ class Translator {
   /// [markTypeAsUsed] because they don't have any compat data and are emitted
   /// only if used.
   void addInterfacesAndNamespaces() {
+    engineOverrides?.validateTypes(_typeToDeclaration, resolveIdlTypeName);
     for (final library in _libraries.values) {
       for (final interfacelike in library.interfacelikes) {
         final name = interfacelike.name;
@@ -256,7 +264,10 @@ class Translator {
         _typeToDeclaration[mixin] as idl.Interfacelike,
         ...?_typeToPartials[mixin],
       ]) {
-        _interfacelikes[interfacelikeName]!.update(interfacelike);
+        _interfacelikes[interfacelikeName]!.update(
+          engineOverrides?.applyToMixin(interfacelikeName, interfacelike) ??
+              interfacelike,
+        );
       }
     }
   }
@@ -297,7 +308,7 @@ class Translator {
         // Interfaces and namespaces can only be marked as used depending on
         // their compat data.
         final name = (decl as idl.Interfacelike).name;
-        if (browserCompatData.shouldGenerateInterface(name)) {
+        if (_shouldGenerateInterface(name)) {
           _usedTypes.add(decl);
           _combineInterfacelikes(name);
           return true;
@@ -309,7 +320,7 @@ class Translator {
         // https://github.com/mdn/browser-compat-data/blob/main/docs/data-guidelines/api.md#namespaces
         final namespace = decl as idl.Interfacelike;
         final name = namespace.name;
-        if (browserCompatData.shouldGenerateInterface(name) ||
+        if (_shouldGenerateInterface(name) ||
             namespace.members.toDart.every(
               (member) => member.type == 'const',
             )) {
@@ -330,6 +341,8 @@ class Translator {
   void collect(String shortName, JSArray<idl.Node> ast) {
     final libraryPath = '$_librarySubDir/${shortName.kebabToSnake}.dart';
     assert(!_libraries.containsKey(libraryPath));
+
+    engineOverrides?.applyToAst(ast);
 
     final library = _Library(shortName, '${packageRoot ?? '.'}/$libraryPath');
 
@@ -1289,7 +1302,12 @@ class Translator {
     }
 
     if (_generateForWeb) {
+      if (!browserCompatData.generateAll) {
+        engineOverrides?.verifyAllUsed();
+      }
       dartLibraries['dom.dart'] = generateRootImport(dartLibraries.keys);
+    } else {
+      engineOverrides?.verifyAllUsed();
     }
 
     return dartLibraries;

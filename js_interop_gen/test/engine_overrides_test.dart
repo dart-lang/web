@@ -25,6 +25,11 @@ interface DroppedInterface {
   attribute DOMString ignored;
 };
 
+interface mixin SharedScrollMixin {
+  readonly attribute long mixinOffset;
+  Promise<undefined> mixinAction(long step);
+};
+
 dictionary ReportBodyDict {
   USVString documentURL;
   unsigned short statusCode;
@@ -38,11 +43,18 @@ dictionary SampleInit {
 };
 
 interface SampleElement {
+  readonly attribute DroppedInterface? dropped;
   readonly attribute long clientX;
   attribute AddressValue address;
+  Promise<undefined> scroll();
   Promise<undefined> scroll(long x, optional boolean extra);
   Promise<undefined> generateKeyFrame();
 };
+SampleElement includes SharedScrollMixin;
+
+interface MixinPeer {
+};
+MixinPeer includes SharedScrollMixin;
 ''';
 
     setUpAll(() async {
@@ -89,6 +101,10 @@ interface SampleElement {
                 'required': true,
               },
               'SampleElement.clientX': {'type': 'double', 'nullable': false},
+              'SampleElement.mixinOffset': {
+                'type': 'double',
+                'nullable': false,
+              },
             },
             'operations': {
               'SampleElement.scroll': {
@@ -96,6 +112,12 @@ interface SampleElement {
                 'maxParameters': 1,
                 'parameters': {
                   '0': {'name': 'coord', 'type': 'double', 'nullable': false},
+                },
+              },
+              'SampleElement.mixinAction': {
+                'returnType': {'type': 'undefined', 'nullable': false},
+                'parameters': {
+                  '0': {'type': 'double', 'nullable': false},
                 },
               },
               'SampleElement.generateKeyFrame': {
@@ -128,6 +150,7 @@ interface SampleElement {
         final generated = await File(p.join(outDir, 'sample.dart'))
             .readAsString();
         expect(generated, isNot(contains('DroppedInterface')));
+        expect(generated, contains('external JSObject? get dropped;'));
         expect(
           generated,
           contains('extension type ReportBodyDict._(JSObject _)'),
@@ -144,10 +167,57 @@ interface SampleElement {
           ),
         );
         expect(generated, contains('external double get clientX;'));
-        expect(generated, contains('external void scroll(num coord);'));
+        expect(generated, contains('external void scroll([num coord]);'));
         expect(
           generated,
           contains('external JSPromise<JSNumber> generateKeyFrame();'),
+        );
+        expect(generated, contains('external double get mixinOffset;'));
+        expect(generated, contains('external void mixinAction(num step);'));
+        // MixinPeer includes the same SharedScrollMixin without overrides, so
+        // its mixed-in members must retain their original WebIDL signatures.
+        expect(generated, contains('external int get mixinOffset;'));
+        expect(
+          generated,
+          contains('external JSPromise<JSAny?> mixinAction(int step);'),
+        );
+      },
+    );
+
+    test(
+      'throws StateError when override targets an interface mixin',
+      () async {
+        final overridesPath = p.join(tempDir.path, 'mixin_overrides.json');
+        await File(overridesPath).writeAsString(
+          jsonEncode({
+            'properties': {
+              'SharedScrollMixin.mixinOffset': {
+                'type': 'double',
+                'nullable': false,
+              },
+            },
+          }),
+        );
+
+        final outDir = p.join(tempDir.path, 'out_mixin_target');
+        await Directory(outDir).create(recursive: true);
+
+        final relOverrides = p.relative(overridesPath, from: bindingsGenPath);
+        final process = await runNodeWithResult([
+          'main.mjs',
+          '--idl',
+          '--input=${p.relative(idlPath, from: bindingsGenPath)}',
+          '--output=${p.relative(outDir, from: bindingsGenPath)}',
+          '--bcd-json=${p.relative(bcdPath, from: bindingsGenPath)}',
+          '--engine-overrides=$relOverrides',
+        ], workingDirectory: bindingsGenPath);
+
+        final stderr = (await process.stderr.transform(utf8.decoder).toList())
+            .join();
+        expect(await process.exitCode, isNot(0));
+        expect(
+          stderr,
+          contains('cannot target interface mixin "SharedScrollMixin"'),
         );
       },
     );

@@ -264,7 +264,10 @@ class Translator {
         _typeToDeclaration[mixin] as idl.Interfacelike,
         ...?_typeToPartials[mixin],
       ]) {
-        _interfacelikes[interfacelikeName]!.update(interfacelike);
+        _interfacelikes[interfacelikeName]!.update(
+          engineOverrides?.applyToMixin(interfacelikeName, interfacelike) ??
+              interfacelike,
+        );
       }
     }
   }

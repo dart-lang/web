@@ -69,12 +69,46 @@ extension type TrustedSinkExample._(JSObject _) implements JSObject {
     String name,
   ]);
 
-  /// To pass a [TrustedHTML] value, use [writeTrusted].
+  /// To pass a [TrustedHTML] value, use [parseHTMLUnsafeTrusted].
+  external static TrustedSinkExample parseHTMLUnsafe(String html);
+
+  /// Calls [parseHTMLUnsafe] with a [TrustedHTML] value.
+  ///
+  /// Use this instead of [parseHTMLUnsafe] when the document enforces
+  /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
+  @JS('parseHTMLUnsafe')
+  external static TrustedSinkExample parseHTMLUnsafeTrusted(TrustedHTML html);
+
+  /// To pass a [TrustedHTML] value, use
+  /// [TrustedSinkExampleTrustedTypesExtension.writeTrusted].
   external void write([String text1, String text2, String text3, String text4]);
 
-  /// Calls [write] with a [TrustedHTML] value.
+  /// To pass a [TrustedType] value, use
+  /// [TrustedSinkExampleTrustedTypesExtension.setAttributeTrusted].
+  external void setAttribute(String qualifiedName, String value);
+
+  /// To set a [TrustedHTML] value, use
+  /// [TrustedSinkExampleTrustedTypesExtension.innerHTMLTrusted].
+  external String get innerHTML;
+  external set innerHTML(String value);
+
+  /// To set a [TrustedHTML] value, use
+  /// [TrustedSinkExampleTrustedTypesExtension.outerHTMLTrusted].
+  external String get outerHTML;
+  external set outerHTML(String value);
+
+  /// To set a [TrustedScript] value, use
+  /// [TrustedSinkExampleTrustedTypesExtension.textContentTrusted].
+  external String? get textContent;
+  external set textContent(String? value);
+}
+
+/// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API)
+/// members for [TrustedSinkExample].
+extension TrustedSinkExampleTrustedTypesExtension on TrustedSinkExample {
+  /// Calls [TrustedSinkExample.write] with a [TrustedHTML] value.
   ///
-  /// Use this instead of [write] when the document enforces
+  /// Use this instead of [TrustedSinkExample.write] when the document enforces
   /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
   @JS('write')
   external void writeTrusted([
@@ -84,45 +118,35 @@ extension type TrustedSinkExample._(JSObject _) implements JSObject {
     TrustedHTML text4,
   ]);
 
-  /// To pass a [TrustedType] value, use [setAttributeTrusted].
-  external void setAttribute(String qualifiedName, String value);
-
-  /// Calls [setAttribute] with a [TrustedType] value.
+  /// Calls [TrustedSinkExample.setAttribute] with a [TrustedType] value.
   ///
-  /// Use this instead of [setAttribute] when the document enforces
+  /// Use this instead of [TrustedSinkExample.setAttribute] when the document
+  /// enforces
   /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
   @JS('setAttribute')
   external void setAttributeTrusted(String qualifiedName, TrustedType value);
 
-  /// To set a [TrustedHTML] value, use [innerHTMLTrusted].
-  external String get innerHTML;
-  external set innerHTML(String value);
-
-  /// Sets the [innerHTML] property to a [TrustedHTML] value.
+  /// Sets the [TrustedSinkExample.innerHTML] property to a [TrustedHTML] value.
   ///
-  /// Use this instead of [innerHTML] when the document enforces
+  /// Use this instead of [TrustedSinkExample.innerHTML] when the document
+  /// enforces
   /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
   @JS('innerHTML')
   external set innerHTMLTrusted(TrustedHTML value);
 
-  /// To set a [TrustedHTML] value, use [outerHTMLTrusted].
-  external String get outerHTML;
-  external set outerHTML(String value);
-
-  /// Sets the [outerHTML] property to a [TrustedHTML] value.
+  /// Sets the [TrustedSinkExample.outerHTML] property to a [TrustedHTML] value.
   ///
-  /// Use this instead of [outerHTML] when the document enforces
+  /// Use this instead of [TrustedSinkExample.outerHTML] when the document
+  /// enforces
   /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
   @JS('outerHTML')
   external set outerHTMLTrusted(TrustedHTML value);
 
-  /// To set a [TrustedScript] value, use [textContentTrusted].
-  external String? get textContent;
-  external set textContent(String? value);
-
-  /// Sets the [textContent] property to a [TrustedScript] value.
+  /// Sets the [TrustedSinkExample.textContent] property to a [TrustedScript]
+  /// value.
   ///
-  /// Use this instead of [textContent] when the document enforces
+  /// Use this instead of [TrustedSinkExample.textContent] when the document
+  /// enforces
   /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
   @JS('textContent')
   external set textContentTrusted(TrustedScript? value);

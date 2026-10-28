@@ -1,4 +1,7 @@
 ## 2.0.0-wip
+- Narrowed `(Trusted* or String)` union parameters and setters from `JSAny` to
+  `String`, with typed Trusted Types overloads on `*.trusted` constructors,
+  `Document.parseHTMLUnsafeTrusted`, and `*TrustedTypesExtension` extensions.
 - Added missing `FileReader` event getters: `onAbort`, `onError`, `onLoad`,
   `onLoadStart`, `onProgress`.
 - Removed renames `UnderlyingSource` and `UnderlyingSourceBase` where the types

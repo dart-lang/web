@@ -281,19 +281,10 @@ extension type ServiceWorkerContainer._(JSObject _)
   /// > It is generally safer not to define registrations that have overlapping
   /// > scopes.
   ///
-  /// To pass a [TrustedScriptURL] value, use [registerTrusted].
+  /// To pass a [TrustedScriptURL] value, use
+  /// [ServiceWorkerContainerTrustedTypesExtension.registerTrusted].
   external JSPromise<ServiceWorkerRegistration> register(
     String scriptURL, [
-    RegistrationOptions options,
-  ]);
-
-  /// Calls [register] with a [TrustedScriptURL] value.
-  ///
-  /// Use this instead of [register] when the document enforces
-  /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
-  @JS('register')
-  external JSPromise<ServiceWorkerRegistration> registerTrusted(
-    TrustedScriptURL scriptURL, [
     RegistrationOptions options,
   ]);
 
@@ -346,6 +337,22 @@ extension type ServiceWorkerContainer._(JSObject _)
   external set onmessage(EventHandler value);
   external EventHandler get onmessageerror;
   external set onmessageerror(EventHandler value);
+}
+
+/// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API)
+/// members for [ServiceWorkerContainer].
+extension ServiceWorkerContainerTrustedTypesExtension
+    on ServiceWorkerContainer {
+  /// Calls [ServiceWorkerContainer.register] with a [TrustedScriptURL] value.
+  ///
+  /// Use this instead of [ServiceWorkerContainer.register] when the document
+  /// enforces
+  /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
+  @JS('register')
+  external JSPromise<ServiceWorkerRegistration> registerTrusted(
+    TrustedScriptURL scriptURL, [
+    RegistrationOptions options,
+  ]);
 }
 
 extension type RegistrationOptions._(JSObject _) implements JSObject {

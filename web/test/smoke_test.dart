@@ -99,4 +99,25 @@ void main() {
     script.setAttributeTrusted('text', policy.createScript('1 + 1'));
     expect(script.getAttribute('text'), '1 + 1');
   });
+
+  test(
+    'MouseEventInit and PointerEventInit preserve fractional coordinates.',
+    () {
+      final mouseInit = MouseEventInit(clientX: 12.5, screenX: 34.25);
+      expect(mouseInit.clientX, 12.5);
+      expect(mouseInit.screenX, 34.25);
+
+      final pointerInit = PointerEventInit(
+        clientX: 12.5,
+        screenX: 34.25,
+        width: 1.5,
+      );
+      expect(pointerInit.clientX, 12.5);
+      expect(pointerInit.screenX, 34.25);
+      expect(pointerInit.width, 1.5);
+
+      final pointerEvent = PointerEvent('pointermove', pointerInit);
+      expect(pointerEvent.width, 1.5);
+    },
+  );
 }

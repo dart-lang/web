@@ -17,6 +17,13 @@
   easier to migrate. `@Equivalence` annotations are now added to extension
   methods to document 1-1 replacements of `dart:html` APIs.
 - Combined stream provider extensions to one per type.
+- Updated bindings to `@webref/idl` `3.85.2`, `@mdn/browser-compat-data`
+  `8.1.6`, `@webref/css` `8.7.7`, and `@webref/elements` `2.9.2` with
+  browser-engine overrides (`engine_overrides.json`).
+- Changed `MouseEvent` and `MouseEventInit` (and subtypes like
+  `PointerEventInit`, `WheelEventInit`, and `DragEventInit`) `screenX`,
+  `screenY`, `clientX`, and `clientY` properties from `int` to `double`/`num`
+  to match the CSSOM View specification and fractional browser coordinates.
 
 ## 1.1.2
 

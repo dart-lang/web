@@ -4,9 +4,8 @@
 
 import 'dart:js_interop';
 
-import 'package:test/test.dart';
-
 import 'package:js_interop/src/utils.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('sameValueZeroEquals', () {
@@ -25,7 +24,7 @@ void main() {
       });
 
       test('identical objects', () {
-        var obj = JSObject();
+        final obj = JSObject();
         expect(sameValueZeroEquals(obj, obj), isTrue);
       });
     });

@@ -29,6 +29,7 @@ import 'scroll_to_text_fragment.dart';
 import 'selection_api.dart';
 import 'svg.dart';
 import 'trusted_types.dart';
+import 'wai_aria.dart';
 import 'web_animations.dart';
 
 typedef MutationCallback = JSFunction;
@@ -1376,14 +1377,18 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// of UTF-8, and a URL of "about:blank"
   ///
   /// To pass a [TrustedHTML] value, use [parseHTMLUnsafeTrusted].
-  external static Document parseHTMLUnsafe(String html);
+  external static Document parseHTMLUnsafe(String html, [JSObject options]);
 
   /// Calls [parseHTMLUnsafe] with a [TrustedHTML] value.
   ///
   /// Use this instead of [parseHTMLUnsafe] when the document enforces
   /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
   @JS('parseHTMLUnsafe')
-  external static Document parseHTMLUnsafeTrusted(TrustedHTML html);
+  external static Document parseHTMLUnsafeTrusted(
+    TrustedHTML html, [
+    JSObject options,
+  ]);
+  external static Document parseHTML(String html, [SetHTMLOptions options]);
 
   /// The **`getElementsByTagName`** method of
   /// [Document] interface returns an
@@ -1714,40 +1719,6 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// > foreground doesn't have focus.
   external bool hasFocus();
 
-  /// The **`execCommand`** method implements multiple different commands. Some
-  /// of them provide access to the clipboard, while others are for editing
-  /// [form inputs](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input),
-  /// [`contenteditable`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/contenteditable)
-  /// elements or entire documents (when switched to
-  /// [design mode](https://developer.mozilla.org/en-US/docs/Web/API/Document/designMode)).
-  ///
-  /// To access the clipboard, the newer
-  /// [Clipboard API](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API)
-  /// is recommended over `execCommand()`. However, there is no replacement for
-  /// the editing commands: unlike direct DOM manipulation, modifications
-  /// performed by `execCommand()` preserve the undo buffer (edit history).
-  ///
-  /// Most commands affect the document's
-  /// [selection](https://developer.mozilla.org/en-US/docs/Web/API/Selection).
-  /// For example, some commands (bold, italics, etc.) format the currently
-  /// selected text, while others delete the selection, insert new elements
-  /// (replacing the selection) or affect an entire line (indenting). Only the
-  /// currently active editable element can be modified, but some commands (e.g.
-  /// `copy`) can work without an editable element.
-  ///
-  /// > [!NOTE]
-  /// > Modifications performed by `execCommand()` may or may not trigger
-  /// > [Element.beforeinput_event] and [Element.input_event] events, depending
-  /// > on the browser and configuration. If triggered, the handlers for the
-  /// > events will run before `execCommand()` returns. Authors need to be
-  /// > careful about such recursive calls, especially if they call
-  /// > `execCommand()` in response to these events. From Firefox 82, nested
-  /// > `execCommand()` calls will always fail, see
-  /// > [bug 1634262](https://bugzil.la/1634262).
-  external bool execCommand(String commandId, [bool showUI, String value]);
-  external bool queryCommandIndeterm(String commandId);
-  external String queryCommandValue(String commandId);
-
   /// The **`Document.clear()`** method does nothing, but doesn't raise any
   /// error.
   external void clear();
@@ -1885,6 +1856,7 @@ extension type Document._(JSObject _) implements Node, JSObject {
     JSAny node3,
     JSAny node4,
   ]);
+  external void moveBefore(Node node, Node? child);
 
   /// The [Document] method **`querySelector()`**
   /// returns the first [Element] within the document that matches the specified
@@ -1938,6 +1910,10 @@ extension type Document._(JSObject _) implements Node, JSObject {
     XPathNSResolver? resolver,
     int type,
     XPathResult? result,
+  ]);
+  external void ariaNotify(
+    String announcement, [
+    AriaNotificationOptions options,
   ]);
 
   /// The **`Document.implementation`** property returns a
@@ -2000,6 +1976,7 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// [Document.documentElement], which returns the root element for all
   /// documents.
   external SVGSVGElement? get rootElement;
+  external ViewTransition? get activeViewTransition;
 
   /// The **`scrollingElement`** read-only property of the
   /// [Document] interface returns a reference to the [Element] that
@@ -2328,6 +2305,7 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// This feature is part of the
   /// [CSS Font Loading API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Font_Loading_API).
   external FontFaceSet get fonts;
+  external CustomElementRegistry? get customElementRegistry;
 
   /// The **`styleSheets`** read-only property of the [Document] interface
   /// returns a [StyleSheetList] of [CSSStyleSheet] objects, for stylesheets
@@ -2458,6 +2436,8 @@ extension type Document._(JSObject _) implements Node, JSObject {
   external set onauxclick(EventHandler value);
   external EventHandler get onbeforeinput;
   external set onbeforeinput(EventHandler value);
+  external EventHandler get onbeforematch;
+  external set onbeforematch(EventHandler value);
   external EventHandler get onbeforetoggle;
   external set onbeforetoggle(EventHandler value);
   external EventHandler get onblur;
@@ -2474,6 +2454,8 @@ extension type Document._(JSObject _) implements Node, JSObject {
   external set onclick(EventHandler value);
   external EventHandler get onclose;
   external set onclose(EventHandler value);
+  external EventHandler get oncommand;
+  external set oncommand(EventHandler value);
   external EventHandler get oncontextlost;
   external set oncontextlost(EventHandler value);
   external EventHandler get oncontextmenu;
@@ -2616,6 +2598,8 @@ extension type Document._(JSObject _) implements Node, JSObject {
   external set onpointerdown(EventHandler value);
   external EventHandler get onpointermove;
   external set onpointermove(EventHandler value);
+  external EventHandler get onpointerrawupdate;
+  external set onpointerrawupdate(EventHandler value);
   external EventHandler get onpointerup;
   external set onpointerup(EventHandler value);
   external EventHandler get onpointercancel;
@@ -2654,8 +2638,13 @@ extension type Document._(JSObject _) implements Node, JSObject {
 extension type XMLDocument._(JSObject _) implements Document, JSObject {}
 
 extension type ElementCreationOptions._(JSObject _) implements JSObject {
-  external factory ElementCreationOptions({String is_});
+  external factory ElementCreationOptions({
+    CustomElementRegistry? customElementRegistry,
+    String is_,
+  });
 
+  external CustomElementRegistry? get customElementRegistry;
+  external set customElementRegistry(CustomElementRegistry? value);
   @JS('is')
   external String get is_;
   @JS('is')
@@ -2677,7 +2666,7 @@ extension type DOMImplementation._(JSObject _) implements JSObject {
   /// into the document via methods like [Node.insertBefore] or
   /// [Node.replaceChild].
   external DocumentType createDocumentType(
-    String qualifiedName,
+    String name,
     String publicId,
     String systemId,
   );
@@ -2823,6 +2812,7 @@ extension type DocumentFragment._(JSObject _) implements Node, JSObject {
     JSAny node3,
     JSAny node4,
   ]);
+  external void moveBefore(Node node, Node? child);
 
   /// The **`DocumentFragment.querySelector()`** method returns the
   /// first element, or `null` if no matches are found, within the
@@ -2882,6 +2872,8 @@ extension type DocumentFragment._(JSObject _) implements Node, JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot).
 extension type ShadowRoot._(JSObject _) implements DocumentFragment, JSObject {
+  external void setHTML(String html, [SetHTMLOptions options]);
+
   /// The **`setHTMLUnsafe()`** method of the [ShadowRoot] interface is used to
   /// parse a string of HTML into a [DocumentFragment], which then replaces the
   /// element's subtree in the DOM.
@@ -2903,14 +2895,14 @@ extension type ShadowRoot._(JSObject _) implements DocumentFragment, JSObject {
   /// > string of HTML may contain declarative shadow roots.
   ///
   /// To pass a [TrustedHTML] value, use [setHTMLUnsafeTrusted].
-  external void setHTMLUnsafe(String html);
+  external void setHTMLUnsafe(String html, [JSObject options]);
 
   /// Calls [setHTMLUnsafe] with a [TrustedHTML] value.
   ///
   /// Use this instead of [setHTMLUnsafe] when the document enforces
   /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
   @JS('setHTMLUnsafe')
-  external void setHTMLUnsafeTrusted(TrustedHTML html);
+  external void setHTMLUnsafeTrusted(TrustedHTML html, [JSObject options]);
 
   /// The **`getHTML()`** method of the [ShadowRoot] interface is used to
   /// serialize a shadow root's DOM to an HTML string.
@@ -2981,6 +2973,24 @@ extension type ShadowRoot._(JSObject _) implements DocumentFragment, JSObject {
   /// element when a shadow root is created declaratively.
   external bool get delegatesFocus;
 
+  /// The **`serializable`** read-only property of the [ShadowRoot] interface
+  /// returns `true` if the shadow root is serializable.
+  ///
+  /// If set, the shadow root may be serialized by calling the [Element.getHTML]
+  /// or [ShadowRoot.getHTML] methods with the `options.serializableShadowRoots`
+  /// parameter set `true`.
+  ///
+  /// The serializable property of a shadow root is specified when the shadow
+  /// root is created, either declaratively by adding the
+  /// [`shadowrootserializable`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#shadowrootserializable)
+  /// attribute on a `<template>` element (along with an allowed
+  /// [`shadowrootmode`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#shadowrootmode)
+  /// value), or by setting the
+  /// [`options.serializable`](/en-US/docs/Web/API/Element/attachShadow#serializable)
+  /// parameter to `true` when using
+  /// [`Element.attachShadow()`](https://developer.mozilla.org/en-US/docs/Web/API/Element/attachShadow).
+  external bool get serializable;
+
   /// The read-only **`slotAssignment`** property of the [ShadowRoot] interface
   /// returns the _slot assignment mode_ for the shadow DOM tree. Nodes are
   /// either automatically assigned (`named`) or manually assigned (`manual`).
@@ -3001,24 +3011,6 @@ extension type ShadowRoot._(JSObject _) implements DocumentFragment, JSObject {
   /// attribute of the `<template>` element that is being used to declaratively
   /// attach a shadow root.
   external bool get clonable;
-
-  /// The **`serializable`** read-only property of the [ShadowRoot] interface
-  /// returns `true` if the shadow root is serializable.
-  ///
-  /// If set, the shadow root may be serialized by calling the [Element.getHTML]
-  /// or [ShadowRoot.getHTML] methods with the `options.serializableShadowRoots`
-  /// parameter set `true`.
-  ///
-  /// The serializable property of a shadow root is specified when the shadow
-  /// root is created, either declaratively by adding the
-  /// [`shadowrootserializable`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#shadowrootserializable)
-  /// attribute on a `<template>` element (along with an allowed
-  /// [`shadowrootmode`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#shadowrootmode)
-  /// value), or by setting the
-  /// [`options.serializable`](/en-US/docs/Web/API/Element/attachShadow#serializable)
-  /// parameter to `true` when using
-  /// [`Element.attachShadow()`](https://developer.mozilla.org/en-US/docs/Web/API/Element/attachShadow).
-  external bool get serializable;
 
   /// The **`host`** read-only property of
   /// the [ShadowRoot] returns a reference to the DOM element the
@@ -3041,6 +3033,7 @@ extension type ShadowRoot._(JSObject _) implements DocumentFragment, JSObject {
   /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
   @JS('innerHTML')
   external set innerHTMLTrusted(TrustedHTML value);
+  external CustomElementRegistry? get customElementRegistry;
 
   /// The **`styleSheets`** read-only property of the [ShadowRoot] interface
   /// returns a [StyleSheetList] of [CSSStyleSheet] objects, for stylesheets
@@ -3175,7 +3168,16 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// If you need to work with the [Attr] node (such as cloning from another
   /// element) before adding it, you can use the [Element.setAttributeNode]
   /// method instead.
+  ///
+  /// To pass a [TrustedType] value, use [setAttributeTrusted].
   external void setAttribute(String qualifiedName, String value);
+
+  /// Calls [setAttribute] with a [TrustedType] value.
+  ///
+  /// Use this instead of [setAttribute] when the document enforces
+  /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
+  @JS('setAttribute')
+  external void setAttributeTrusted(String qualifiedName, TrustedType value);
 
   /// `setAttributeNS` adds a new attribute or changes the value of an attribute
   /// with the given namespace and name.
@@ -3183,10 +3185,23 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// If you are working with HTML documents and you don't need to specify the
   /// requested attribute as being part of a specific namespace, use the
   /// [Element.setAttribute] method instead.
+  ///
+  /// To pass a [TrustedType] value, use [setAttributeNSTrusted].
   external void setAttributeNS(
     String? namespace,
     String qualifiedName,
     String value,
+  );
+
+  /// Calls [setAttributeNS] with a [TrustedType] value.
+  ///
+  /// Use this instead of [setAttributeNS] when the document enforces
+  /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
+  @JS('setAttributeNS')
+  external void setAttributeNSTrusted(
+    String? namespace,
+    String qualifiedName,
+    TrustedType value,
   );
 
   /// The [Element] method
@@ -3430,6 +3445,7 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// detached from the original document, then the document receives these
   /// events instead.
   external JSPromise<JSAny?> requestFullscreen([FullscreenOptions options]);
+  external void setHTML(String html, [SetHTMLOptions options]);
 
   /// The **`setHTMLUnsafe()`** method of the [Element] interface is used to
   /// parse a string of HTML into a [DocumentFragment], which then replaces the
@@ -3452,14 +3468,14 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// > of HTML may contain declarative shadow roots.
   ///
   /// To pass a [TrustedHTML] value, use [setHTMLUnsafeTrusted].
-  external void setHTMLUnsafe(String html);
+  external void setHTMLUnsafe(String html, [JSObject options]);
 
   /// Calls [setHTMLUnsafe] with a [TrustedHTML] value.
   ///
   /// Use this instead of [setHTMLUnsafe] when the document enforces
   /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
   @JS('setHTMLUnsafe')
-  external void setHTMLUnsafeTrusted(TrustedHTML html);
+  external void setHTMLUnsafeTrusted(TrustedHTML html, [JSObject options]);
 
   /// The **`getHTML()`** method of the [Element] interface is used to serialize
   /// an element's DOM to an HTML string.
@@ -3566,6 +3582,7 @@ extension type Element._(JSObject _) implements Node, JSObject {
     JSAny node3,
     JSAny node4,
   ]);
+  external void moveBefore(Node node, Node? child);
 
   /// The **`querySelector()`** method of the [Element]
   /// interface returns the first element that is a descendant of the element on
@@ -3605,6 +3622,10 @@ extension type Element._(JSObject _) implements Node, JSObject {
 
   /// The **`Element.remove()`** method removes the element from the DOM.
   external void remove();
+  external void ariaNotify(
+    String announcement, [
+    AriaNotificationOptions options,
+  ]);
 
   /// The [Element] interface's **`animate()`** method
   /// is a shortcut method which creates a new [Animation], applies it to the
@@ -3719,6 +3740,7 @@ extension type Element._(JSObject _) implements Node, JSObject {
   ///
   /// Use [Element.attachShadow] to add a shadow root to an existing element.
   external ShadowRoot? get shadowRoot;
+  external CustomElementRegistry? get customElementRegistry;
 
   /// The **`part`** property of the [Element] interface
   /// represents the part identifier(s) of the element (i.e. set using the
@@ -4009,6 +4031,8 @@ extension type Element._(JSObject _) implements Node, JSObject {
   external HTMLSlotElement? get assignedSlot;
   external String? get role;
   external set role(String? value);
+  external Element? get ariaActiveDescendantElement;
+  external set ariaActiveDescendantElement(Element? value);
 
   /// The **`ariaAtomic`** property of the [Element] interface reflects the
   /// value of the
@@ -4114,6 +4138,8 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// gridcell within a table, grid, or treegrid.
   external String? get ariaColSpan;
   external set ariaColSpan(String? value);
+  external JSArray<Element>? get ariaControlsElements;
+  external set ariaControlsElements(JSArray<Element>? value);
 
   /// The **`ariaCurrent`** property of the [Element] interface reflects the
   /// value of the
@@ -4122,6 +4148,8 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// within a container or set of related elements.
   external String? get ariaCurrent;
   external set ariaCurrent(String? value);
+  external JSArray<Element>? get ariaDescribedByElements;
+  external set ariaDescribedByElements(JSArray<Element>? value);
 
   /// The **`ariaDescription`** property of the [Element] interface reflects the
   /// value of the
@@ -4130,6 +4158,8 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// current element.
   external String? get ariaDescription;
   external set ariaDescription(String? value);
+  external JSArray<Element>? get ariaDetailsElements;
+  external set ariaDetailsElements(JSArray<Element>? value);
 
   /// The **`ariaDisabled`** property of the [Element] interface reflects the
   /// value of the
@@ -4143,6 +4173,8 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// > not require ARIA attributes.
   external String? get ariaDisabled;
   external set ariaDisabled(String? value);
+  external JSArray<Element>? get ariaErrorMessageElements;
+  external set ariaErrorMessageElements(JSArray<Element>? value);
 
   /// The **`ariaExpanded`** property of the [Element] interface reflects the
   /// value of the
@@ -4151,6 +4183,8 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// by this element is expanded or collapsed.
   external String? get ariaExpanded;
   external set ariaExpanded(String? value);
+  external JSArray<Element>? get ariaFlowToElements;
+  external set ariaFlowToElements(JSArray<Element>? value);
 
   /// The **`ariaHasPopup`** property of the [Element] interface reflects the
   /// value of the
@@ -4183,6 +4217,8 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// attribute, which defines a string value that labels the current element.
   external String? get ariaLabel;
   external set ariaLabel(String? value);
+  external JSArray<Element>? get ariaLabelledByElements;
+  external set ariaLabelledByElements(JSArray<Element>? value);
 
   /// The **`ariaLevel`** property of the [Element] interface reflects the value
   /// of the `aria-level` attribute, which defines the hierarchical level of an
@@ -4245,6 +4281,8 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// horizontal, vertical, or unknown/ambiguous.
   external String? get ariaOrientation;
   external set ariaOrientation(String? value);
+  external JSArray<Element>? get ariaOwnsElements;
+  external set ariaOwnsElements(JSArray<Element>? value);
 
   /// The **`ariaPlaceholder`** property of the [Element] interface reflects the
   /// value of the `aria-placeholder` attribute, which defines a short hint
@@ -4399,21 +4437,24 @@ extension type ShadowRootInit._(JSObject _) implements JSObject {
   external factory ShadowRootInit({
     required ShadowRootMode mode,
     bool delegatesFocus,
+    bool serializable,
     SlotAssignmentMode slotAssignment,
     bool clonable,
-    bool serializable,
+    CustomElementRegistry? customElementRegistry,
   });
 
   external ShadowRootMode get mode;
   external set mode(ShadowRootMode value);
   external bool get delegatesFocus;
   external set delegatesFocus(bool value);
+  external bool get serializable;
+  external set serializable(bool value);
   external SlotAssignmentMode get slotAssignment;
   external set slotAssignment(SlotAssignmentMode value);
   external bool get clonable;
   external set clonable(bool value);
-  external bool get serializable;
-  external set serializable(bool value);
+  external CustomElementRegistry? get customElementRegistry;
+  external set customElementRegistry(CustomElementRegistry? value);
 }
 
 /// The **`NamedNodeMap`** interface represents a collection of [Attr] objects.

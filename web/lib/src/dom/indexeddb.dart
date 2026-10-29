@@ -501,7 +501,7 @@ extension type IDBObjectStore._(JSObject _) implements JSObject {
   /// it does not.
   /// 2. the [IDBObjectStore.count] method with the same key, which
   /// will return 1 if the row exists and 0 if it doesn't.
-  external IDBRequest getAll([JSAny? query, int count]);
+  external IDBRequest getAll([JSAny? queryOrOptions, int count]);
 
   /// The `getAllKeys()` method of the [IDBObjectStore]
   /// interface returns an [IDBRequest] object retrieves record keys for all
@@ -522,7 +522,8 @@ extension type IDBObjectStore._(JSObject _) implements JSObject {
   /// [IDBObjectStore.openCursor] method with the same key. That
   /// method provides a cursor if the record exists, and no cursor if it does
   /// not.
-  external IDBRequest getAllKeys([JSAny? query, int count]);
+  external IDBRequest getAllKeys([JSAny? queryOrOptions, int count]);
+  external IDBRequest getAllRecords([IDBGetAllOptions options]);
 
   /// The **`count()`** method of the [IDBObjectStore]
   /// interface returns an [IDBRequest] object, and, in a separate thread,
@@ -639,6 +640,21 @@ extension type IDBIndexParameters._(JSObject _) implements JSObject {
   external set multiEntry(bool value);
 }
 
+extension type IDBGetAllOptions._(JSObject _) implements JSObject {
+  external factory IDBGetAllOptions({
+    JSAny? query,
+    int count,
+    IDBCursorDirection direction,
+  });
+
+  external JSAny? get query;
+  external set query(JSAny? value);
+  external int get count;
+  external set count(int value);
+  external IDBCursorDirection get direction;
+  external set direction(IDBCursorDirection value);
+}
+
 /// `IDBIndex` interface of the
 /// [IndexedDB API](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)
 /// provides asynchronous access to an
@@ -708,13 +724,14 @@ extension type IDBIndex._(JSObject _) implements JSObject {
   /// you are trying to get an
   /// array of all the objects in an object store, though, you should
   /// use `getAll()`.
-  external IDBRequest getAll([JSAny? query, int count]);
+  external IDBRequest getAll([JSAny? queryOrOptions, int count]);
 
   /// The **`getAllKeys()`** method of the [IDBIndex]
   /// interface asynchronously retrieves the primary keys of all objects inside
   /// the index,
   /// setting them as the `result` of the request object.
-  external IDBRequest getAllKeys([JSAny? query, int count]);
+  external IDBRequest getAllKeys([JSAny? queryOrOptions, int count]);
+  external IDBRequest getAllRecords([IDBGetAllOptions options]);
 
   /// The **`count()`** method of the [IDBIndex]
   /// interface returns an [IDBRequest] object, and in a separate thread,
@@ -892,6 +909,12 @@ extension type IDBKeyRange._(JSObject _) implements JSObject {
   /// [IDBKeyRange] interface returns a boolean indicating whether the
   /// upper-bound value is included in the key range.
   external bool get upperOpen;
+}
+
+extension type IDBRecord._(JSObject _) implements JSObject {
+  external JSAny? get key;
+  external JSAny? get primaryKey;
+  external JSAny? get value;
 }
 
 /// > [!NOTE]

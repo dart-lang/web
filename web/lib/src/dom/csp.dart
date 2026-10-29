@@ -61,17 +61,6 @@ typedef SecurityPolicyViolationEventDisposition = String;
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSPViolationReportBody).
 extension type CSPViolationReportBody._(JSObject _)
     implements ReportBody, JSObject {
-  /// The **`toJSON()`** method of the [CSPViolationReportBody] interface is a
-  /// _serializer_, which returns a JSON representation of the
-  /// `CSPViolationReportBody` object.
-  ///
-  /// The existence of a `toJSON()` method allows `CSPViolationReportBody`
-  /// objects to be converted to a string using the `JSON.stringify()` method.
-  ///
-  /// This is used by the reporting API when creating a serialized version of a
-  /// violation report to send to a reporting endpoint.
-  external JSObject toJSON();
-
   /// The **`documentURL`** read-only property of the [CSPViolationReportBody]
   /// interface is a string that represents the URL of the document or worker
   /// that violated the [Content Security Policy

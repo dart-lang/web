@@ -24,6 +24,8 @@
   `PointerEventInit`, `WheelEventInit`, and `DragEventInit`) `screenX`,
   `screenY`, `clientX`, and `clientY` properties from `int` to `double`/`num`
   to match the CSSOM View specification and fractional browser coordinates.
+- Added `dart fix` migrations for removed `@Deprecated` APIs, renamed helper and
+  event extensions, and updated Web IDL bindings.
 
 ## 1.1.2
 

@@ -61,8 +61,8 @@ extension type JSDate._(JSObject _) implements JSObject {
     int? seconds,
     int? milliseconds,
   ]) {
-    var ms = switch ((day, hours, minutes, seconds, milliseconds)) {
-      (_, _, _, _, var milliseconds?) => JSDate.utcAsMillisecondsSinceEpoch(
+    final ms = switch ((day, hours, minutes, seconds, milliseconds)) {
+      (_, _, _, _, final milliseconds?) => JSDate.utcAsMillisecondsSinceEpoch(
         year,
         month,
         day,
@@ -71,7 +71,7 @@ extension type JSDate._(JSObject _) implements JSObject {
         seconds,
         milliseconds,
       ),
-      (_, _, _, var seconds?, _) => JSDate.utcAsMillisecondsSinceEpoch(
+      (_, _, _, final seconds?, _) => JSDate.utcAsMillisecondsSinceEpoch(
         year,
         month,
         day,
@@ -79,20 +79,20 @@ extension type JSDate._(JSObject _) implements JSObject {
         minutes,
         seconds,
       ),
-      (_, _, var minutes?, _, _) => JSDate.utcAsMillisecondsSinceEpoch(
+      (_, _, final minutes?, _, _) => JSDate.utcAsMillisecondsSinceEpoch(
         year,
         month,
         day,
         hours,
         minutes,
       ),
-      (_, var hours?, _, _, _) => JSDate.utcAsMillisecondsSinceEpoch(
+      (_, final hours?, _, _, _) => JSDate.utcAsMillisecondsSinceEpoch(
         year,
         month,
         day,
         hours,
       ),
-      (var day?, _, _, _, _) => JSDate.utcAsMillisecondsSinceEpoch(
+      (final day?, _, _, _, _) => JSDate.utcAsMillisecondsSinceEpoch(
         year,
         month,
         day,

@@ -18,7 +18,7 @@ extension SetToJSSet<E extends JSAny?> on Set<E> {
   ///
   /// [same-value-zero equality]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Equality_comparisons_and_sameness#same-value-zero_equality
   JSSet<E> get toJS {
-    var set = JSSet<E>();
+    final set = JSSet<E>();
     for (var element in this) {
       set.add(element);
     }

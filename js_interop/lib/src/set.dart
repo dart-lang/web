@@ -2,8 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:js_interop';
 import 'dart:collection';
+import 'dart:js_interop';
 
 import 'package:meta/meta.dart';
 
@@ -25,8 +25,8 @@ extension type JSSet<E extends JSAny?>._(JSObject _)
   /// This set's equality relation is identical to the JS Set's, meaning that it
   /// considers `NaN` to be equivalent to `NaN`.
   Set<E> get toDart {
-    var set = LinkedHashSet<E>(equals: sameValueZeroEquals);
-    iterate(this.values, (value) => set.add(value));
+    final set = LinkedHashSet<E>(equals: sameValueZeroEquals);
+    iterate(values, set.add);
     return set;
   }
 

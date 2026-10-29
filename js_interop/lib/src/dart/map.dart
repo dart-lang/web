@@ -19,7 +19,7 @@ extension MapToJSMap<K extends JSAny?, V extends JSAny?> on Map<K, V> {
   ///
   /// [same-value-zero equality]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Equality_comparisons_and_sameness#same-value-zero_equality
   JSMap<K, V> get toJS {
-    var map = JSMap<K, V>();
+    final map = JSMap<K, V>();
     for (var entry in entries) {
       map[entry.key] = entry.value;
     }

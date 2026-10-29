@@ -17,8 +17,8 @@ import 'unsafe/object.dart';
 ///
 /// In most cases, JS records only accept string keys, and this type is
 /// optimized to make this case easy to work with by automatically wrapping and
-/// unwrapping [JSString]s. However, there are cases where [JSSymbol]s are used
-/// as keys, in which case [JSSymbolicRecord] may be used instead.
+/// unwrapping [JSString]s. Properties keyed by [JSSymbol]s are ignored and can
+/// be accessed via `dart:js_interop_unsafe` or [JSObjectUnsafeExtension].
 ///
 /// Because this is a JavaScript object it follows JavaScript ordering
 /// semantics. Specifically: all number-like keys come first in numeric order,

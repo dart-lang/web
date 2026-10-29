@@ -1,6 +1,6 @@
 // Copyright (c) 2026, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
-// BSD-style license that can be found in the LICENSE file.p
+// BSD-style license that can be found in the LICENSE file.
 
 import 'dart:js_interop';
 import 'dart:collection';
@@ -20,9 +20,9 @@ import 'utils.dart';
 @JS('Set')
 extension type JSSet<E extends JSAny?>._(JSObject _)
     implements JSObject, JSIterable<E>, JSSetLike<E> {
-  /// Returns a copy of this map as a Dart [LinkedHashSet].
+  /// Returns a copy of this set as a Dart [LinkedHashSet].
   ///
-  /// This map's equality relation is identical to the JS Set's, meaning that it
+  /// This set's equality relation is identical to the JS Set's, meaning that it
   /// considers `NaN` to be equivalent to `NaN`.
   Set<E> get toDart {
     var set = LinkedHashSet<E>(equals: sameValueZeroEquals);

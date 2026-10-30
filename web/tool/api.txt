@@ -3219,7 +3219,6 @@ package:web/web.dart:
   DOMParser (extension type implements JSObject):
     new (constructor: DOMParser Function())
     parseFromString (method: Document Function(String, String))
-    parseFromStringTrusted (method: Document Function(TrustedHTML, String), js: "parseFromString")
   DOMPoint (extension type implements DOMPointReadOnly, JSObject):
     fromPoint (static method: DOMPoint Function([DOMPointInit]))
     new (constructor: DOMPoint Function([num, num, num, num]))
@@ -3786,9 +3785,7 @@ package:web/web.dart:
     requestStorageAccess (method: JSPromise<JSAny?> Function())
     startViewTransition (method: ViewTransition Function([JSObject]))
     write (method: void Function([String, String, String, String]))
-    writeTrusted (method: void Function([TrustedHTML, TrustedHTML, TrustedHTML, TrustedHTML]), js: "write")
     writeln (method: void Function([String, String, String, String]))
-    writelnTrusted (method: void Function([TrustedHTML, TrustedHTML, TrustedHTML, TrustedHTML]), js: "writeln")
   DocumentFragment (extension type implements Node, JSObject):
     new (constructor: DocumentFragment Function())
     childElementCount (getter: int)
@@ -4031,7 +4028,6 @@ package:web/web.dart:
     id= (setter: String)
     innerHTML (getter: String)
     innerHTML= (setter: String)
-    innerHTMLTrusted= (setter: TrustedHTML, js: "innerHTML")
     lastElementChild (getter: Element?)
     localName (getter: String)
     namespaceURI (getter: String?)
@@ -4042,7 +4038,6 @@ package:web/web.dart:
     onfullscreenerror= (setter: JSFunction<Function>?)
     outerHTML (getter: String)
     outerHTML= (setter: String)
-    outerHTMLTrusted= (setter: TrustedHTML, js: "outerHTML")
     part (getter: DOMTokenList)
     prefix (getter: String?)
     previousElementSibling (getter: Element?)
@@ -4084,7 +4079,6 @@ package:web/web.dart:
     hasPointerCapture (method: bool Function(int))
     insertAdjacentElement (method: Element? Function(String, Element))
     insertAdjacentHTML (method: void Function(String, String))
-    insertAdjacentHTMLTrusted (method: void Function(String, TrustedHTML), js: "insertAdjacentHTML")
     insertAdjacentText (method: void Function(String, String))
     matches (method: bool Function(String))
     prepend (method: void Function([JSAny, JSAny, JSAny, JSAny]))
@@ -4108,7 +4102,6 @@ package:web/web.dart:
     setAttributeNode (method: Attr? Function(Attr))
     setAttributeNodeNS (method: Attr? Function(Attr))
     setHTMLUnsafe (method: void Function(String))
-    setHTMLUnsafeTrusted (method: void Function(TrustedHTML), js: "setHTMLUnsafe")
     setPointerCapture (method: void Function(int))
     toggleAttribute (method: bool Function(String, [bool]))
   ElementCreationOptions (extension type implements JSObject):
@@ -5730,7 +5723,6 @@ package:web/web.dart:
     src= (setter: String)
     srcdoc (getter: String)
     srcdoc= (setter: String)
-    srcdocTrusted= (setter: TrustedHTML, js: "srcdoc")
     width (getter: String)
     width= (setter: String)
     getSVGDocument (method: Document? Function())
@@ -10239,7 +10231,6 @@ package:web/web.dart:
     compareBoundaryPoints (method: int Function(int, Range))
     comparePoint (method: int Function(Node, int))
     createContextualFragment (method: DocumentFragment Function(String))
-    createContextualFragmentTrusted (method: DocumentFragment Function(TrustedHTML), js: "createContextualFragment")
     deleteContents (method: void Function())
     detach (method: void Function())
     extractContents (method: DocumentFragment Function())
@@ -11647,7 +11638,6 @@ package:web/web.dart:
     getRegistration (method: JSPromise<ServiceWorkerRegistration?> Function([String]))
     getRegistrations (method: JSPromise<JSArray<ServiceWorkerRegistration>> Function())
     register (method: JSPromise<ServiceWorkerRegistration> Function(String, [RegistrationOptions]))
-    registerTrusted (method: JSPromise<ServiceWorkerRegistration> Function(TrustedScriptURL, [RegistrationOptions]), js: "register")
     startMessages (method: void Function())
   ServiceWorkerGlobalScope (extension type implements WorkerGlobalScope, JSObject):
     clients (getter: Clients)
@@ -11700,7 +11690,6 @@ package:web/web.dart:
     host (getter: Element)
     innerHTML (getter: String)
     innerHTML= (setter: String)
-    innerHTMLTrusted= (setter: TrustedHTML, js: "innerHTML")
     mode (getter: String)
     onslotchange (getter: JSFunction<Function>?)
     onslotchange= (setter: JSFunction<Function>?)
@@ -11712,7 +11701,6 @@ package:web/web.dart:
     getAnimations (method: JSArray<Animation> Function())
     getHTML (method: String Function([GetHTMLOptions]))
     setHTMLUnsafe (method: void Function(String))
-    setHTMLUnsafeTrusted (method: void Function(TrustedHTML), js: "setHTMLUnsafe")
   ShadowRootInit (extension type implements JSObject):
     new (constructor: ShadowRootInit Function({bool clonable, bool delegatesFocus, required String mode, bool serializable, String slotAssignment}))
     clonable (getter: bool)
@@ -14716,7 +14704,6 @@ package:web/web.dart:
     createImageBitmap (method: JSPromise<ImageBitmap> Function(JSObject, [JSAny, int, int, int, ImageBitmapOptions]))
     fetch (method: JSPromise<Response> Function(JSAny, [RequestInit]))
     importScripts (method: void Function([String, String, String, String]))
-    importScriptsTrusted (method: void Function([TrustedScriptURL, TrustedScriptURL, TrustedScriptURL, TrustedScriptURL]), js: "importScripts")
     queueMicrotask (method: void Function(JSFunction<Function>))
     reportError (method: void Function(JSAny?))
     setInterval (method: int Function(JSAny, [int, JSAny?, JSAny?, JSAny?, JSAny?]))
@@ -14977,6 +14964,8 @@ package:web/web.dart:
   CustomEventExtension (extension on CustomEvent):
     createCustomEvent (static method: CustomEvent Function(String, {bool canBubble, bool cancelable, Object? detail}))
     dartDetail (getter: Object?)
+  DOMParserTrustedTypesExtension (extension on DOMParser):
+    parseFromStringTrusted (method: Document Function(TrustedHTML, String), js: "parseFromString")
   DOMRectExtension (extension on DOMRect):
     asRectangle (method: Rectangle<double> Function())
   DOMRectListExtension (extension on DOMRectList):
@@ -15014,6 +15003,9 @@ package:web/web.dart:
     onVisibilityChange (getter: Stream<Event>)
   DocumentExtension (extension on Document):
     querySelectorAllAsList (method: JSImmutableListWrapper<NodeList, T> Function<T extends Element>(String))
+  DocumentTrustedTypesExtension (extension on Document):
+    writeTrusted (method: void Function([TrustedHTML, TrustedHTML, TrustedHTML, TrustedHTML]), js: "write")
+    writelnTrusted (method: void Function([TrustedHTML, TrustedHTML, TrustedHTML, TrustedHTML]), js: "writeln")
   ElementEvents (extension on Element):
     onAbort (getter: ElementStream<Event>)
     onBeforeCopy (getter: ElementStream<Event>)
@@ -15121,6 +15113,11 @@ package:web/web.dart:
     querySelectorAllAsList (method: JSImmutableListWrapper<NodeList, T> Function<T extends Element>(String))
     scrollIntoViewIfNeeded (method: void Function([bool?]), js: "scrollIntoViewIfNeeded")
     scrollIntoViewWithAlignment (method: void Function([ScrollAlignment?]))
+  ElementTrustedTypesExtension (extension on Element):
+    innerHTMLTrusted= (setter: TrustedHTML, js: "innerHTML")
+    outerHTMLTrusted= (setter: TrustedHTML, js: "outerHTML")
+    insertAdjacentHTMLTrusted (method: void Function(String, TrustedHTML), js: "insertAdjacentHTML")
+    setHTMLUnsafeTrusted (method: void Function(TrustedHTML), js: "setHTMLUnsafe")
   EventExtension (extension on Event):
     createEvent (static method: Event Function(String, {bool canBubble, bool cancelable}))
     path (getter: List<EventTarget>)
@@ -15157,6 +15154,8 @@ package:web/web.dart:
     single (getter: Element)
     [] (method: Element Function(int))
     asList (method: List<Element> Function())
+  HTMLIFrameElementTrustedTypesExtension (extension on HTMLIFrameElement):
+    srcdocTrusted= (setter: TrustedHTML, js: "srcdoc")
   HTMLInputElementExtension (extension on HTMLInputElement):
     filesAsList (getter: List<File>?)
   KeyboardEventExtension (extension on KeyboardEvent):
@@ -15184,8 +15183,15 @@ package:web/web.dart:
     elementAt (method: Node Function(int))
   PerformanceEvents (extension on Performance):
     onResourceTimingBufferFull (getter: Stream<Event>)
+  RangeTrustedTypesExtension (extension on Range):
+    createContextualFragmentTrusted (method: DocumentFragment Function(TrustedHTML), js: "createContextualFragment")
   SVGElementExtension (extension on SVGElement):
     className (getter: SVGAnimatedString)
+  ServiceWorkerContainerTrustedTypesExtension (extension on ServiceWorkerContainer):
+    registerTrusted (method: JSPromise<ServiceWorkerRegistration> Function(TrustedScriptURL, [RegistrationOptions]), js: "register")
+  ShadowRootTrustedTypesExtension (extension on ShadowRoot):
+    innerHTMLTrusted= (setter: TrustedHTML, js: "innerHTML")
+    setHTMLUnsafeTrusted (method: void Function(TrustedHTML), js: "setHTMLUnsafe")
   StorageExtension (extension on Storage):
     [] (method: String? Function(String))
     []= (method: void Function(String, String))
@@ -15247,6 +15253,8 @@ package:web/web.dart:
     localStorageAsMap (getter: StorageMap)
     sessionStorageAsMap (getter: StorageMap)
     requestAnimationFrameBindZone (method: int Function(void Function(num)))
+  WorkerGlobalScopeTrustedTypesExtension (extension on WorkerGlobalScope):
+    importScriptsTrusted (method: void Function([TrustedScriptURL, TrustedScriptURL, TrustedScriptURL, TrustedScriptURL]), js: "importScripts")
   XMLHttpRequestEvents (extension on XMLHttpRequest):
     onError (getter: Stream<ProgressEvent>)
     onLoad (getter: Stream<ProgressEvent>)

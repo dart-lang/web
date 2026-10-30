@@ -91,5 +91,19 @@ void main() {
     );
     div.innerHTMLTrusted = policy.createHTML('<b>trusted</b>');
     expect(div.innerHTML, '<b>trusted</b>');
+
+    div.insertAdjacentHTMLTrusted('beforeend', policy.createHTML('<i>!</i>'));
+    expect(div.innerHTML, '<b>trusted</b><i>!</i>');
+
+    final parsedByParser = DOMParser().parseFromStringTrusted(
+      policy.createHTML('<p>parsed</p>'),
+      'text/html',
+    );
+    expect(parsedByParser.body!.innerHTML, '<p>parsed</p>');
+
+    final parsedStatic = Document.parseHTMLUnsafeTrusted(
+      policy.createHTML('<p>static</p>'),
+    );
+    expect(parsedStatic.body!.innerHTML, '<p>static</p>');
   });
 }

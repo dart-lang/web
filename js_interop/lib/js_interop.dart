@@ -6,6 +6,7 @@ export 'src/dart/date_time.dart';
 export 'src/dart/map.dart';
 export 'src/dart/pair.dart';
 export 'src/dart/set.dart';
+export 'src/array.dart';
 export 'src/date.dart';
 export 'src/map.dart';
 export 'src/pair.dart';

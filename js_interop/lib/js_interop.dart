@@ -7,6 +7,7 @@ export 'src/dart/map.dart';
 export 'src/dart/pair.dart';
 export 'src/dart/set.dart';
 export 'src/date.dart';
+export 'src/error.dart';
 export 'src/map.dart';
 export 'src/pair.dart';
 export 'src/record.dart';

@@ -128,6 +128,21 @@ package:js_interop/js_interop.dart:
   SetToJSSet (extension on Set<E>):
     toJS (getter: JSSet<E>)
 package:js_interop/unsafe.dart:
+  JSPropertyDescriptor (extension type implements JSObject):
+    accessor (static method: JSPropertyDescriptor Function<T extends JSObject, V extends JSAny?>(V Function(T), void Function(T, V), {bool configurable, bool enumerable}))
+    getValue (static method: JSPropertyDescriptor Function(JSAny?, {bool configurable, bool enumerable, bool writable}))
+    getter (static method: JSPropertyDescriptor Function<T extends JSObject>(JSAny? Function(T), {bool configurable, bool enumerable}))
+    setter (static method: JSPropertyDescriptor Function<T extends JSObject, V extends JSAny?>(void Function(T, V), {bool configurable, bool enumerable}))
+    configurable (getter: bool)
+    configurable= (setter: bool)
+    enumerable (getter: bool)
+    enumerable= (setter: bool)
+    get (getter: JSFunction<Function>?)
+    set (getter: JSFunction<Function>?)
+    value (getter: JSAny?)
+    value= (setter: JSAny?)
+    writable (getter: bool)
+    writable= (setter: bool)
   JSObjectUnsafeExtension (extension on JSObject):
     entries (getter: List<(String, JSAny?)>)
     keys (getter: List<JSString>)
@@ -136,7 +151,9 @@ package:js_interop/unsafe.dart:
     ownPropertySymbols (getter: List<JSSymbol>)
     values (getter: List<JSAny?>)
     assign (method: void Function([JSObject?, JSObject?, JSObject?, JSObject?]))
+    defineProperty (method: bool Function(JSAny, JSPropertyDescriptor))
     freeze (method: void Function())
+    getOwnPropertyDescriptor (method: JSPropertyDescriptor? Function(JSAny))
     getPropertyWithThis (method: R Function<R extends JSAny?>(JSAny, JSAny?))
     hasOwnProperty (method: bool Function(JSAny))
     isPrototypeOf (method: bool Function(JSObject))
@@ -144,6 +161,7 @@ package:js_interop/unsafe.dart:
     setPropertyWithThis (method: bool Function(JSAny, JSAny?, JSAny?))
 dart:core:
   DateTime (referenced)
+  Function (referenced)
   Iterable (referenced)
   List (referenced)
   Map (referenced)
@@ -156,6 +174,7 @@ dart:core:
 dart:js_interop:
   JSAny (referenced)
   JSArray (referenced)
+  JSFunction (referenced)
   JSIterable (referenced)
   JSIterableProtocol (referenced)
   JSIteratorProtocol (referenced)

@@ -10,3 +10,4 @@
 library;
 
 export 'src/unsafe/object.dart';
+export 'src/unsafe/property_descriptor.dart';

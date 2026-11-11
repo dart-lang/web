@@ -2,6 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+export 'src/async_disposable_protocol.dart';
 export 'src/dart/date_time.dart';
 export 'src/dart/map.dart';
 export 'src/dart/pair.dart';

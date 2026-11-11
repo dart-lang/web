@@ -1,6 +1,8 @@
 environment:
   sdk: ^3.13.0
 package:js_interop/js_interop.dart:
+  JSAsyncDisposableProtocol (extension type implements JSObject):
+    asyncDispose (method: JSPromise<Null> Function())
   JSDate (extension type implements JSObject, js: "Date"):
     nowAsMillisecondsSinceEpoch (static method: int Function(), js: "now")
     parseAsMillisecondsSinceEpoch (static method: int Function(String), js: "parse")
@@ -119,6 +121,8 @@ package:js_interop/js_interop.dart:
     has (method: bool Function(JSAny?))
   DateTimeToJSDate (extension on DateTime):
     toJS (getter: JSDate)
+  JSAsyncDisposableUse (extension on T):
+    use (method: Future<R> Function<R>(FutureOr<R> Function(T)))
   MapToJSMap (extension on Map<K, V>):
     toJS (getter: JSMap<K, V>)
   MapToJSRecord (extension on Map<String, V>):
@@ -142,12 +146,16 @@ package:js_interop/unsafe.dart:
     isPrototypeOf (method: bool Function(JSObject))
     propertyIsEnumerable (method: bool Function(JSAny))
     setPropertyWithThis (method: bool Function(JSAny, JSAny?, JSAny?))
+dart:async:
+  Future (referenced)
+  FutureOr (referenced)
 dart:core:
   DateTime (referenced)
   Iterable (referenced)
   List (referenced)
   Map (referenced)
   MapEntry (referenced)
+  Null (referenced)
   Object (referenced)
   Set (referenced)
   String (referenced)
@@ -160,5 +168,6 @@ dart:js_interop:
   JSIterableProtocol (referenced)
   JSIteratorProtocol (referenced)
   JSObject (referenced)
+  JSPromise (referenced)
   JSString (referenced)
   JSSymbol (referenced)

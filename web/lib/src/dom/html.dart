@@ -3047,16 +3047,10 @@ extension type HTMLIFrameElement._(JSObject _)
   /// The **`srcdoc`** property of the [HTMLIFrameElement] specifies the content
   /// of the page.
   ///
-  /// To set a [TrustedHTML] value, use [srcdocTrusted].
+  /// To set a [TrustedHTML] value, use
+  /// [HTMLIFrameElementTrustedTypesExtension.srcdocTrusted].
   external String get srcdoc;
   external set srcdoc(String value);
-
-  /// Sets the [srcdoc] property to a [TrustedHTML] value.
-  ///
-  /// Use this instead of [srcdoc] when the document enforces
-  /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
-  @JS('srcdoc')
-  external set srcdocTrusted(TrustedHTML value);
 
   /// The **`name`** property of the [HTMLIFrameElement] interface is a string
   /// value that reflects the `name` attribute of the `iframe` element,
@@ -3164,6 +3158,17 @@ extension type HTMLIFrameElement._(JSObject _)
   external set marginHeight(String value);
   external String get marginWidth;
   external set marginWidth(String value);
+}
+
+/// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API)
+/// members for [HTMLIFrameElement].
+extension HTMLIFrameElementTrustedTypesExtension on HTMLIFrameElement {
+  /// Sets the [HTMLIFrameElement.srcdoc] property to a [TrustedHTML] value.
+  ///
+  /// Use this instead of [HTMLIFrameElement.srcdoc] when the document enforces
+  /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
+  @JS('srcdoc')
+  external set srcdocTrusted(TrustedHTML value);
 }
 
 /// The **`HTMLEmbedElement`** interface provides special properties (beyond the
@@ -8509,16 +8514,10 @@ extension type HTMLScriptElement._(JSObject _)
   ///
   /// It reflects the `src` attribute of the `script` element.
   ///
-  /// To set a [TrustedScriptURL] value, use [srcTrusted].
+  /// To set a [TrustedScriptURL] value, use
+  /// [HTMLScriptElementTrustedTypesExtension.srcTrusted].
   external String get src;
   external set src(String value);
-
-  /// Sets the [src] property to a [TrustedScriptURL] value.
-  ///
-  /// Use this instead of [src] when the document enforces
-  /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
-  @JS('src')
-  external set srcTrusted(TrustedScriptURL value);
 
   /// The **`noModule`** property of the [HTMLScriptElement] interface is a
   /// boolean value that indicates whether the script should be executed in
@@ -8619,27 +8618,15 @@ extension type HTMLScriptElement._(JSObject _)
   external String get fetchPriority;
   external set fetchPriority(String value);
 
-  /// To set a [TrustedScript] value, use [innerTextTrusted].
+  /// To set a [TrustedScript] value, use
+  /// [HTMLScriptElementTrustedTypesExtension.innerTextTrusted].
   external String get innerText;
   external set innerText(String value);
 
-  /// Sets the [innerText] property to a [TrustedScript] value.
-  ///
-  /// Use this instead of [innerText] when the document enforces
-  /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
-  @JS('innerText')
-  external set innerTextTrusted(TrustedScript value);
-
-  /// To set a [TrustedScript] value, use [textContentTrusted].
+  /// To set a [TrustedScript] value, use
+  /// [HTMLScriptElementTrustedTypesExtension.textContentTrusted].
   external String? get textContent;
   external set textContent(String? value);
-
-  /// Sets the [textContent] property to a [TrustedScript] value.
-  ///
-  /// Use this instead of [textContent] when the document enforces
-  /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
-  @JS('textContent')
-  external set textContentTrusted(TrustedScript? value);
 
   /// The **`text`** property of the [HTMLScriptElement] interface is a string
   /// that reflects the text content inside the `script` element. It acts the
@@ -8647,22 +8634,52 @@ extension type HTMLScriptElement._(JSObject _)
   ///
   /// It reflects the `text` attribute of the `script` element.
   ///
-  /// To set a [TrustedScript] value, use [textTrusted].
+  /// To set a [TrustedScript] value, use
+  /// [HTMLScriptElementTrustedTypesExtension.textTrusted].
   external String get text;
   external set text(String value);
-
-  /// Sets the [text] property to a [TrustedScript] value.
-  ///
-  /// Use this instead of [text] when the document enforces
-  /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
-  @JS('text')
-  external set textTrusted(TrustedScript value);
   external String get charset;
   external set charset(String value);
   external String get event;
   external set event(String value);
   external String get htmlFor;
   external set htmlFor(String value);
+}
+
+/// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API)
+/// members for [HTMLScriptElement].
+extension HTMLScriptElementTrustedTypesExtension on HTMLScriptElement {
+  /// Sets the [HTMLScriptElement.src] property to a [TrustedScriptURL] value.
+  ///
+  /// Use this instead of [HTMLScriptElement.src] when the document enforces
+  /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
+  @JS('src')
+  external set srcTrusted(TrustedScriptURL value);
+
+  /// Sets the [HTMLScriptElement.innerText] property to a [TrustedScript]
+  /// value.
+  ///
+  /// Use this instead of [HTMLScriptElement.innerText] when the document
+  /// enforces
+  /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
+  @JS('innerText')
+  external set innerTextTrusted(TrustedScript value);
+
+  /// Sets the [HTMLScriptElement.textContent] property to a [TrustedScript]
+  /// value.
+  ///
+  /// Use this instead of [HTMLScriptElement.textContent] when the document
+  /// enforces
+  /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
+  @JS('textContent')
+  external set textContentTrusted(TrustedScript? value);
+
+  /// Sets the [HTMLScriptElement.text] property to a [TrustedScript] value.
+  ///
+  /// Use this instead of [HTMLScriptElement.text] when the document enforces
+  /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
+  @JS('text')
+  external set textTrusted(TrustedScript value);
 }
 
 /// The **`HTMLTemplateElement`** interface enables access to the contents of an
@@ -14514,12 +14531,17 @@ extension type DOMParser._(JSObject _) implements JSObject {
   /// > static method provides an ergonomic alternative for parsing HTML strings
   /// > into a [Document].
   ///
-  /// To pass a [TrustedHTML] value, use [parseFromStringTrusted].
+  /// To pass a [TrustedHTML] value, use
+  /// [DOMParserTrustedTypesExtension.parseFromStringTrusted].
   external Document parseFromString(String string, DOMParserSupportedType type);
+}
 
-  /// Calls [parseFromString] with a [TrustedHTML] value.
+/// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API)
+/// members for [DOMParser].
+extension DOMParserTrustedTypesExtension on DOMParser {
+  /// Calls [DOMParser.parseFromString] with a [TrustedHTML] value.
   ///
-  /// Use this instead of [parseFromString] when the document enforces
+  /// Use this instead of [DOMParser.parseFromString] when the document enforces
   /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
   @JS('parseFromString')
   external Document parseFromStringTrusted(
@@ -15811,24 +15833,13 @@ extension type WorkerGlobalScope._(JSObject _)
   /// The **`importScripts()`** method of the [WorkerGlobalScope] interface
   /// synchronously imports one or more scripts into the worker's scope.
   ///
-  /// To pass a [TrustedScriptURL] value, use [importScriptsTrusted].
+  /// To pass a [TrustedScriptURL] value, use
+  /// [WorkerGlobalScopeTrustedTypesExtension.importScriptsTrusted].
   external void importScripts([
     String url1,
     String url2,
     String url3,
     String url4,
-  ]);
-
-  /// Calls [importScripts] with a [TrustedScriptURL] value.
-  ///
-  /// Use this instead of [importScripts] when the document enforces
-  /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
-  @JS('importScripts')
-  external void importScriptsTrusted([
-    TrustedScriptURL url1,
-    TrustedScriptURL url2,
-    TrustedScriptURL url3,
-    TrustedScriptURL url4,
   ]);
 
   /// @AvailableInWorkers("worker")
@@ -16185,6 +16196,23 @@ extension type WorkerGlobalScope._(JSObject _)
   /// [Crypto.getRandomValues] method. In general, you should use this API only
   /// in secure contexts.
   external Crypto get crypto;
+}
+
+/// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API)
+/// members for [WorkerGlobalScope].
+extension WorkerGlobalScopeTrustedTypesExtension on WorkerGlobalScope {
+  /// Calls [WorkerGlobalScope.importScripts] with a [TrustedScriptURL] value.
+  ///
+  /// Use this instead of [WorkerGlobalScope.importScripts] when the document
+  /// enforces
+  /// [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).
+  @JS('importScripts')
+  external void importScriptsTrusted([
+    TrustedScriptURL url1,
+    TrustedScriptURL url2,
+    TrustedScriptURL url3,
+    TrustedScriptURL url4,
+  ]);
 }
 
 /// @AvailableInWorkers("dedicated")

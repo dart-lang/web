@@ -58,7 +58,7 @@ extension JSObjectUnsafeExtension on JSObject {
   ///
   /// The return value contains only [JSString]s and [JSSymbol]s.
   ///
-  /// [`Reflect.ownKeys()`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/ownKeys
+  /// [`Reflect.ownKeys()`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect/ownKeys
   List<JSAny> get ownKeys => _ownKeys(this).toDart;
 
   /// See [`Object.getOwnPropertyNames()`].

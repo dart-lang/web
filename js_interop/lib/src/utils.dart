@@ -14,11 +14,11 @@ void iterate<E extends JSAny?>(
   JSIterableProtocol<E> iterable,
   void Function(E value) callback,
 ) {
-  var iterator = iterable.iterator;
+  final iterator = iterable.iterator;
   while (true) {
-    var result = iterator.next();
+    final result = iterator.next();
     if (!result.isDone) {
-      callback(result.value!);
+      callback(result.value as E);
     } else {
       break;
     }

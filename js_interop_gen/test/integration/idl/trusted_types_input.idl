@@ -7,6 +7,8 @@ typedef (TrustedHTML or TrustedScript or TrustedScriptURL) TrustedType;
 interface TrustedSinkExample {
   constructor((TrustedScriptURL or USVString) scriptURL, optional DOMString name);
 
+  static TrustedSinkExample parseHTMLUnsafe((TrustedHTML or DOMString) html);
+
   undefined write((TrustedHTML or DOMString)... text);
   undefined setAttribute(DOMString qualifiedName, (TrustedType or DOMString) value);
 

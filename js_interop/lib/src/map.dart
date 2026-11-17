@@ -28,7 +28,7 @@ extension type JSMap<K extends JSAny?, V extends JSAny?>._(JSObject _)
   /// This map's equality relation is identical to the JS Map's, meaning that it
   /// considers `NaN` to be equivalent to `NaN`.
   Map<K, V> get toDart {
-    var map = LinkedHashMap<K, V>(equals: sameValueZeroEquals);
+    final map = LinkedHashMap<K, V>(equals: sameValueZeroEquals);
     iterate(_entries(), (entry) => map[entry.$1] = entry.$2);
     return map;
   }

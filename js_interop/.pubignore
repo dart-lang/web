@@ -1,0 +1,7 @@
+# Same as the repository .gitignore, which a .pubignore may override.
+.dart_tool/
+doc/api/
+pubspec.lock
+
+# The public API golden; only needed for development.
+tool/api.txt

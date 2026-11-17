@@ -1,16 +1,15 @@
 // Copyright (c) 2025, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
-// BSD-style license that can be found in the LICENSE file.p
+// BSD-style license that can be found in the LICENSE file.
 
 import 'dart:js_interop';
 
+import 'package:js_interop/js_interop.dart';
 import 'package:test/test.dart';
 
-import 'package:js_interop/js_interop.dart';
-
 final Matcher _isDate = predicate(
-  (jsDate) => jsDate is JSObject && jsDate.isA<JSDate>(),
-  "is a JSDate",
+  (jsDate) => jsDate.isA<JSDate>(),
+  'is a JSDate',
 );
 
 void main() {
@@ -24,7 +23,7 @@ void main() {
 
     test(
       'parseAsDate',
-      () => expect(JSDate.parseAsDate("11 Nov 2025"), _isDate),
+      () => expect(JSDate.parseAsDate('11 Nov 2025'), _isDate),
     );
 
     test('from', () => expect(JSDate.from(JSDate.nowAsDate()), _isDate));
@@ -83,7 +82,7 @@ void main() {
     test(
       'parseAsMillisecondsSinceEpoch',
       () => expect(
-        JSDate.parseAsMillisecondsSinceEpoch("11 Nov 2025"),
+        JSDate.parseAsMillisecondsSinceEpoch('11 Nov 2025'),
         isA<int>(),
       ),
     );
@@ -199,16 +198,16 @@ void main() {
     test('toUtcString:', () => expect(date.toUtcString(), isA<String>()));
 
     test('toDart', () {
-      var date = JSDate.nowAsDate();
-      var dartDate = date.toDart;
+      final date = JSDate.nowAsDate();
+      final dartDate = date.toDart;
       expect(dartDate, isA<DateTime>());
       expect(dartDate.timeZoneName, equals(DateTime.now().timeZoneName));
     });
 
     test('toDartUtc', () {
-      var dartDate = date.toDartUtc;
+      final dartDate = date.toDartUtc;
       expect(dartDate, isA<DateTime>());
-      expect(dartDate.timeZoneName, equals("UTC"));
+      expect(dartDate.timeZoneName, equals('UTC'));
     });
 
     test('from Dart', () => expect(DateTime.now().toJS, _isDate));

@@ -754,96 +754,109 @@ class Translator {
       ]),
   ];
 
-  List<code.Method> _operation(OverridableOperation operation) {
+  ({List<code.Method> methods, List<code.Method> trustedExtensionMethods})
+  _operation(OverridableOperation operation, String dartClassName) {
     final memberName = operation.name;
     // The IDL may return the value that is set. Dart doesn't let us use any
     // type besides `void` for `[]=`, so we ignore the return value.
     final returnType = memberName.name == 'operator []='
         ? code.TypeReference((b) => b..symbol = 'void')
         : _typeReference(operation.returnType, returnType: true);
-    final trustedType = operation.trustedType;
     final name = memberName.name;
+    final primaryDocs = [...?operation.mdnProperty?.formattedDocs];
+    final trustedType = operation.trustedType;
+    if (trustedType != null) {
+      final trustedRef = operation.isStatic
+          ? '${name}Trusted'
+          : '${dartClassName}TrustedTypesExtension.${name}Trusted';
+      if (primaryDocs.isNotEmpty) primaryDocs.add('///');
+      primaryDocs.addAll(
+        formatDocs(
+          'To pass a [${trustedType.type}] value, use [$trustedRef].',
+          78,
+        ),
+      );
+    }
+    final primaryMethod = _overridableMember<code.Method>(
+      operation,
+      (requiredParameters, optionalParameters) => code.Method(
+        (b) => b
+          ..annotations.addAll(_jsOverride(memberName.jsOverride))
+          ..external = true
+          ..static = operation.isStatic
+          ..returns = returnType
+          ..name = name
+          ..docs.addAll(primaryDocs)
+          ..requiredParameters.addAll(requiredParameters)
+          ..optionalParameters.addAll(optionalParameters),
+      ),
+    );
+    if (trustedType == null) {
+      return (methods: [primaryMethod], trustedExtensionMethods: const []);
+    }
     final jsName = memberName.jsOverride.isEmpty ? name : memberName.jsOverride;
-    final trustedName = '${name}Trusted';
-    final baseDocs = operation.mdnProperty?.formattedDocs ?? [];
-    final primaryDocs = trustedType == null
-        ? baseDocs
-        : [
-            ...baseDocs,
-            if (baseDocs.isNotEmpty) '///',
-            ...formatDocs(
-              'To pass a [${trustedType.type}] value, use [$trustedName].',
+    final primaryRef = operation.isStatic ? name : '$dartClassName.$name';
+    final trustedMethod = _overridableMember<code.Method>(
+      operation,
+      (requiredParameters, optionalParameters) => code.Method(
+        (b) => b
+          ..annotations.addAll(_jsOverride(jsName, alwaysEmit: true))
+          ..external = true
+          ..static = operation.isStatic
+          ..returns = returnType
+          ..name = '${name}Trusted'
+          ..docs.addAll(
+            formatDocs(
+              'Calls [$primaryRef] with a [${trustedType.type}] value.\n\n'
+              'Use this instead of [$primaryRef] when the document enforces '
+              '[Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).',
               78,
             ),
-          ];
-    return [
-      _overridableMember<code.Method>(
-        operation,
-        (requiredParameters, optionalParameters) => code.Method(
-          (b) => b
-            ..annotations.addAll(_jsOverride(memberName.jsOverride))
-            ..external = true
-            ..static = operation.isStatic
-            ..returns = returnType
-            ..name = name
-            ..docs.addAll(primaryDocs)
-            ..requiredParameters.addAll(requiredParameters)
-            ..optionalParameters.addAll(optionalParameters),
-        ),
+          )
+          ..requiredParameters.addAll(requiredParameters)
+          ..optionalParameters.addAll(optionalParameters),
       ),
-      if (trustedType != null)
-        _overridableMember<code.Method>(
-          operation,
-          (requiredParameters, optionalParameters) => code.Method(
-            (b) => b
-              ..annotations.addAll(_jsOverride(jsName, alwaysEmit: true))
-              ..external = true
-              ..static = operation.isStatic
-              ..returns = returnType
-              ..name = trustedName
-              ..docs.addAll(
-                formatDocs(
-                  'Calls [$name] with a [${trustedType.type}] value.\n\n'
-                  'Use this instead of [$name] when the document enforces '
-                  '[Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).',
-                  78,
-                ),
-              )
-              ..requiredParameters.addAll(requiredParameters)
-              ..optionalParameters.addAll(optionalParameters),
-          ),
-          useTrustedTypes: true,
-        ),
-    ];
+      useTrustedTypes: true,
+    );
+    return operation.isStatic
+        ? (
+            methods: [primaryMethod, trustedMethod],
+            trustedExtensionMethods: const [],
+          )
+        : (methods: [primaryMethod], trustedExtensionMethods: [trustedMethod]);
   }
 
-  List<code.Method> _getterSetter({
+  ({List<code.Method> methods, List<code.Method> trustedExtensionMethods})
+  _getterSetter({
     required MemberName memberName,
     required code.Reference Function() getGetterType,
     required code.Reference Function() getSetterType,
     required bool isStatic,
     required bool readOnly,
     required MdnInterface? mdnInterface,
+    String? dartClassName,
     RawType? trustedSetterType,
   }) {
     final name = memberName.name;
-    final jsName = memberName.jsOverride.isEmpty ? name : memberName.jsOverride;
-    final trustedName = '${name}Trusted';
-    final baseDocs =
-        mdnInterface?.propertyFor(name, isStatic: isStatic)?.formattedDocs ??
-        [];
-    final docs = (!readOnly && trustedSetterType != null)
-        ? [
-            ...baseDocs,
-            if (baseDocs.isNotEmpty) '///',
-            ...formatDocs(
-              'To set a [${trustedSetterType.type}] value, use [$trustedName].',
-              78,
-            ),
-          ]
-        : baseDocs;
+    final docs = [
+      ...?mdnInterface?.propertyFor(name, isStatic: isStatic)?.formattedDocs,
+    ];
+    final hasTrustedSetter = !readOnly && trustedSetterType != null;
+    final emitOnExtension = !isStatic && dartClassName != null;
+    if (hasTrustedSetter) {
+      final trustedRef = emitOnExtension
+          ? '${dartClassName}TrustedTypesExtension.${name}Trusted'
+          : '${name}Trusted';
+      if (docs.isNotEmpty) docs.add('///');
+      docs.addAll(
+        formatDocs(
+          'To set a [${trustedSetterType.type}] value, use [$trustedRef].',
+          78,
+        ),
+      );
+    }
 
-    return [
+    final methods = [
       code.Method(
         (b) => b
           ..annotations.addAll(_jsOverride(memberName.jsOverride))
@@ -870,38 +883,50 @@ class Translator {
               ),
             ),
         ),
-      if (!readOnly && trustedSetterType != null)
-        code.Method(
-          (b) => b
-            ..annotations.addAll(_jsOverride(jsName, alwaysEmit: true))
-            ..external = true
-            ..static = isStatic
-            ..type = code.MethodType.setter
-            ..name = trustedName
-            ..docs.addAll(
-              formatDocs(
-                'Sets the [$name] property to a [${trustedSetterType.type}] '
-                'value.\n\n'
-                'Use this instead of [$name] when the document enforces '
-                '[Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).',
-                78,
-              ),
-            )
-            ..requiredParameters.add(
-              code.Parameter(
-                (b) => b
-                  ..type = _typeReference(trustedSetterType)
-                  ..name = 'value',
-              ),
-            ),
-        ),
     ];
+    if (!hasTrustedSetter) {
+      return (methods: methods, trustedExtensionMethods: const []);
+    }
+    final jsName = memberName.jsOverride.isEmpty ? name : memberName.jsOverride;
+    final primaryRef = emitOnExtension ? '$dartClassName.$name' : name;
+    final trustedSetter = code.Method(
+      (b) => b
+        ..annotations.addAll(_jsOverride(jsName, alwaysEmit: true))
+        ..external = true
+        ..static = isStatic
+        ..type = code.MethodType.setter
+        ..name = '${name}Trusted'
+        ..docs.addAll(
+          formatDocs(
+            'Sets the [$primaryRef] property to a [${trustedSetterType.type}] '
+            'value.\n\n'
+            'Use this instead of [$primaryRef] when the document enforces '
+            '[Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API).',
+            78,
+          ),
+        )
+        ..requiredParameters.add(
+          code.Parameter(
+            (b) => b
+              ..type = _typeReference(trustedSetterType)
+              ..name = 'value',
+          ),
+        ),
+    );
+    return emitOnExtension
+        ? (methods: methods, trustedExtensionMethods: [trustedSetter])
+        : (
+            methods: [...methods, trustedSetter],
+            trustedExtensionMethods: const [],
+          );
   }
 
-  List<code.Method> _attribute(
+  ({List<code.Method> methods, List<code.Method> trustedExtensionMethods})
+  _attribute(
     Attribute attribute,
-    MdnInterface? mdnInterface,
-  ) {
+    MdnInterface? mdnInterface, {
+    String? dartClassName,
+  }) {
     return _getterSetter(
       memberName: attribute.name,
       getGetterType: () => _typeReference(attribute.type, returnType: true),
@@ -909,6 +934,7 @@ class Translator {
       readOnly: attribute.isReadOnly,
       isStatic: attribute.isStatic,
       mdnInterface: mdnInterface,
+      dartClassName: dartClassName,
       trustedSetterType: attribute.trustedType,
     );
   }
@@ -966,29 +992,58 @@ class Translator {
       readOnly: false,
       isStatic: false,
       mdnInterface: mdnInterface,
+    ).methods;
+  }
+
+  ({
+    List<code.Field> fields,
+    List<code.Method> methods,
+    List<code.Method> trustedExtensionMethods,
+  })
+  _properties(
+    List<Property> properties,
+    MdnInterface? mdnInterface, {
+    String? dartClassName,
+  }) {
+    final fields = <code.Field>[];
+    final methods = <code.Method>[];
+    final trustedExtensionMethods = <code.Method>[];
+    for (final property in properties) {
+      switch (property) {
+        case Attribute():
+          final result = _attribute(
+            property,
+            mdnInterface,
+            dartClassName: dartClassName,
+          );
+          methods.addAll(result.methods);
+          trustedExtensionMethods.addAll(result.trustedExtensionMethods);
+        case Field():
+          methods.addAll(_field(property, mdnInterface));
+        case Constant():
+          final (constFields, constMethods) = _constant(property);
+          fields.addAll(constFields);
+          methods.addAll(constMethods);
+      }
+    }
+    return (
+      fields: fields,
+      methods: methods,
+      trustedExtensionMethods: trustedExtensionMethods,
     );
   }
 
-  (List<code.Field>, List<code.Method>) _property(
-    Property member,
-    MdnInterface? mdnInterface,
-  ) => switch (member) {
-    Attribute() => ([], _attribute(member, mdnInterface)),
-    Field() => ([], _field(member, mdnInterface)),
-    Constant() => _constant(member),
-  };
-
-  (List<code.Field>, List<code.Method>) _properties(
-    List<Property> properties,
-    MdnInterface? mdnInterface,
-  ) => properties.fold(([], []), (specs, property) {
-    final (fields, methods) = _property(property, mdnInterface);
-    return (specs.$1..addAll(fields), specs.$2..addAll(methods));
-  });
-
-  List<code.Method> _operations(List<OverridableOperation> operations) => [
-    for (final operation in operations) ..._operation(operation),
-  ];
+  ({List<code.Method> methods, List<code.Method> trustedExtensionMethods})
+  _operations(List<OverridableOperation> operations, String dartClassName) {
+    final methods = <code.Method>[];
+    final trustedExtensionMethods = <code.Method>[];
+    for (final operation in operations) {
+      final result = _operation(operation, dartClassName);
+      methods.addAll(result.methods);
+      trustedExtensionMethods.addAll(result.trustedExtensionMethods);
+    }
+    return (methods: methods, trustedExtensionMethods: trustedExtensionMethods);
+  }
 
   List<code.Method> _cssStyleDeclarationProperties() {
     return [
@@ -1001,7 +1056,7 @@ class Translator {
           isStatic: false,
           readOnly: false,
           mdnInterface: null,
-        ),
+        ).methods,
     ];
   }
 
@@ -1071,12 +1126,12 @@ class Translator {
       (b) => b
         ..name = '${type.type.snakeToPascal}Extension'
         ..on = _typeReference(type)
-        ..fields.addAll(properties.$1)
-        ..methods.addAll(properties.$2),
+        ..fields.addAll(properties.fields)
+        ..methods.addAll(properties.methods),
     );
   }
 
-  code.ExtensionType _extensionType({
+  (code.ExtensionType, List<code.Method>) _extensionType({
     required String jsName,
     required String dartClassName,
     required List<idl.ExtendedAttribute> extendedAttributes,
@@ -1089,7 +1144,7 @@ class Translator {
     required List<Property> properties,
     required bool isObjectLiteral,
   }) {
-    final docs = mdnInterface == null ? <String>[] : mdnInterface.formattedDocs;
+    final docs = mdnInterface?.formattedDocs ?? const <String>[];
 
     final jsObject = _typeReference(RawType('JSObject', false));
     const representationFieldName = '_';
@@ -1100,24 +1155,38 @@ class Translator {
         .firstOrNull
         ?.rhs
         .value;
+    final jsAnnotationName = switch (legacyNameSpace) {
+      final ns? => '$ns.$jsName',
+      null when isObjectLiteral || jsName == dartClassName => '',
+      null => jsName,
+    };
+    final baseConstructors = [
+      if (isObjectLiteral)
+        _objectLiteral(jsName, representationFieldName)
+      else if (constructor != null)
+        ..._constructors(constructor, dartClassName),
+    ];
+    final styleProperties = dartClassName == 'CSSStyleDeclaration'
+        ? _cssStyleDeclarationProperties()
+        : const <code.Method>[];
+    final staticOperationSpecs = _operations(staticOperations, dartClassName);
+    final operationSpecs = _operations(operations, dartClassName);
     final instancePropertyMethods = <code.Method>[];
     final staticPropertyMethods = <code.Method>[];
-    final propertySpecs = _properties(properties, mdnInterface);
-    for (final property in propertySpecs.$2) {
+    final propertySpecs = _properties(
+      properties,
+      mdnInterface,
+      dartClassName: dartClassName,
+    );
+    for (final property in propertySpecs.methods) {
       (property.static ? staticPropertyMethods : instancePropertyMethods).add(
         property,
       );
     }
-    return code.ExtensionType(
+    final extensionType = code.ExtensionType(
       (b) => b
         ..docs.addAll(docs)
-        ..annotations.addAll(
-          _jsOverride(
-            legacyNameSpace != null
-                ? '$legacyNameSpace.$jsName'
-                : (isObjectLiteral || jsName == dartClassName ? '' : jsName),
-          ),
-        )
+        ..annotations.addAll(_jsOverride(jsAnnotationName))
         ..name = dartClassName
         ..primaryConstructorName = '_'
         ..representationDeclaration = code.RepresentationDeclaration(
@@ -1131,31 +1200,29 @@ class Translator {
               .followedBy([jsObject]),
         )
         ..constructors.addAll(
-          (isObjectLiteral
-                  ? [_objectLiteral(jsName, representationFieldName)]
-                  : constructor != null
-                  ? _constructors(constructor, dartClassName)
-                  : <code.Constructor>[])
-              .followedBy(
-                _elementConstructors(
-                  jsName,
-                  dartClassName,
-                  representationFieldName,
-                ),
-              ),
+          baseConstructors.followedBy(
+            _elementConstructors(
+              jsName,
+              dartClassName,
+              representationFieldName,
+            ),
+          ),
         )
-        ..fields.addAll(propertySpecs.$1)
+        ..fields.addAll(propertySpecs.fields)
         ..methods.addAll(
-          _operations(staticOperations)
+          staticOperationSpecs.methods
               .followedBy(staticPropertyMethods)
-              .followedBy(_operations(operations))
+              .followedBy(operationSpecs.methods)
               .followedBy(instancePropertyMethods)
-              .followedBy(
-                dartClassName == 'CSSStyleDeclaration'
-                    ? _cssStyleDeclarationProperties()
-                    : [],
-              ),
+              .followedBy(styleProperties),
         ),
+    );
+    return (
+      extensionType,
+      [
+        ...operationSpecs.trustedExtensionMethods,
+        ...propertySpecs.trustedExtensionMethods,
+      ],
     );
   }
 
@@ -1195,21 +1262,37 @@ class Translator {
       _renamedClasses[jsName] = dartClassName;
     }
 
+    final (extensionType, trustedExtensionMethods) = _extensionType(
+      jsName: jsName,
+      dartClassName: dartClassName,
+      extendedAttributes: extendedAttributes,
+      mdnInterface: mdnInterface,
+      interfaceStatus: interfaceStatus,
+      implements: implements,
+      constructor: interfacelike.constructor,
+      operations: operations,
+      staticOperations: staticOperations,
+      properties: properties,
+      isObjectLiteral: isDictionary,
+    );
+
     return [
       if (getterName != null) _topLevelGetter(rawType, getterName),
-      _extensionType(
-        jsName: jsName,
-        dartClassName: dartClassName,
-        extendedAttributes: extendedAttributes,
-        mdnInterface: mdnInterface,
-        interfaceStatus: interfaceStatus,
-        implements: implements,
-        constructor: interfacelike.constructor,
-        operations: operations,
-        staticOperations: staticOperations,
-        properties: properties,
-        isObjectLiteral: isDictionary,
-      ),
+      extensionType,
+      if (trustedExtensionMethods.isNotEmpty)
+        code.Extension(
+          (b) => b
+            ..docs.addAll(
+              formatDocs(
+                '[Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API) '
+                'members for [$dartClassName].',
+                80,
+              ),
+            )
+            ..name = '${dartClassName}TrustedTypesExtension'
+            ..on = _typeReference(rawType)
+            ..methods.addAll(trustedExtensionMethods),
+        ),
       if (extensionProperties.isNotEmpty)
         _extension(type: rawType, extensionProperties: extensionProperties),
     ];

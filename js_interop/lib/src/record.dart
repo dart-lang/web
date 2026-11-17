@@ -17,8 +17,8 @@ import 'unsafe/object.dart';
 ///
 /// In most cases, JS records only accept string keys, and this type is
 /// optimized to make this case easy to work with by automatically wrapping and
-/// unwrapping [JSString]s. However, there are cases where [JSSymbol]s are used
-/// as keys, in which case [JSSymbolicRecord] may be used instead.
+/// unwrapping [JSString]s. Properties keyed by [JSSymbol]s are ignored and can
+/// be accessed via `dart:js_interop_unsafe` or [JSObjectUnsafeExtension].
 ///
 /// Because this is a JavaScript object it follows JavaScript ordering
 /// semantics. Specifically: all number-like keys come first in numeric order,
@@ -34,7 +34,7 @@ extension type JSRecord<V extends JSAny?>._(JSObject _) implements JSObject {
 
   /// See [Map.entries].
   Iterable<MapEntry<String, V>> get entries sync* {
-    for (var (key, value) in pairs) {
+    for (final (key, value) in pairs) {
       yield MapEntry(key, value);
     }
   }
@@ -59,7 +59,7 @@ extension type JSRecord<V extends JSAny?>._(JSObject _) implements JSObject {
   Iterable<V> get values => JSObjectUnsafeExtension(this).values.cast<V>();
 
   /// Creates a new Dart map with the same contents as this record.
-  Map<String, V> get toDart => {for (var (key, value) in pairs) key: value};
+  Map<String, V> get toDart => {for (final (key, value) in pairs) key: value};
 
   /// Creates a new, empty record.
   factory JSRecord() => JSRecord._(JSObject());
@@ -93,13 +93,13 @@ extension type JSRecord<V extends JSAny?>._(JSObject _) implements JSObject {
   /// If a key of [other] is already in this record, its value is overwritten.
   ///
   /// The operation is equivalent to doing `this[key] = value` for each key and
-  /// associated value in [other]. It iterates over [other], which must therefore
-  /// not change during the iteration.
+  /// associated value in [other]. It iterates over [other], which must
+  /// therefore not change during the iteration.
   void addAllFromRecord(JSRecord<V> other) => addPairs(other.pairs);
 
   /// See [Map.addEntries].
   void addEntries(Iterable<MapEntry<String, V>> entries) {
-    for (var MapEntry(key: key, value: value) in entries) {
+    for (final MapEntry(key: key, value: value) in entries) {
       this[key] = value;
     }
   }
@@ -112,7 +112,7 @@ extension type JSRecord<V extends JSAny?>._(JSObject _) implements JSObject {
   /// The operation is equivalent to doing `this[entry.key] = entry.value` for
   /// each pair of the iterable.
   void addPairs(Iterable<(String, V)> newPairs) {
-    for (var (key, value) in newPairs) {
+    for (final (key, value) in newPairs) {
       this[key] = value;
     }
   }
@@ -132,20 +132,21 @@ extension type JSRecord<V extends JSAny?>._(JSObject _) implements JSObject {
   bool containsValue(Object? value) => values.any((actual) => actual == value);
 
   /// See [Map.forEach].
-  void forEach(void action(String key, V value)) {
-    for (var (key, value) in pairs) {
+  void forEach(void Function(String key, V value) action) {
+    for (final (key, value) in pairs) {
       action(key, value);
     }
   }
 
   /// See [Map.map].
-  Map<K2, V2> map<K2, V2>(MapEntry<K2, V2> convert(String key, V value)) =>
-      Map.fromEntries(pairs.map((pair) => convert(pair.$1, pair.$2)));
+  Map<K2, V2> map<K2, V2>(
+    MapEntry<K2, V2> Function(String key, V value) convert,
+  ) => Map.fromEntries(pairs.map((pair) => convert(pair.$1, pair.$2)));
 
   /// See [Map.putIfAbsent].
-  V putIfAbsent(String key, V ifAbsent()) {
-    if (containsKey(key)) return this[key]!;
-    var result = ifAbsent();
+  V putIfAbsent(String key, V Function() ifAbsent) {
+    if (containsKey(key)) return this[key] as V;
+    final result = ifAbsent();
     this[key] = result;
     return result;
   }
@@ -153,32 +154,32 @@ extension type JSRecord<V extends JSAny?>._(JSObject _) implements JSObject {
   /// See [Map.remove].
   V? remove(Object? key) {
     if (!containsKey(key)) return null;
-    var value = this[key];
+    final value = this[key];
     delete((key as String).toJS);
     return value;
   }
 
   /// See [Map.removeWhere].
-  void removeWhere(bool test(String key, V value)) {
-    for (var (key, value) in pairs) {
+  void removeWhere(bool Function(String key, V value) test) {
+    for (final (key, value) in pairs) {
       if (test(key, value)) delete(key.toJS);
     }
   }
 
   /// See [Map.update].
-  V update(String key, V update(V value), {V ifAbsent()?}) {
+  V update(String key, V Function(V value) update, {V Function()? ifAbsent}) {
     if (containsKey(key)) {
-      return this[key] = update(this[key]!);
+      return this[key] = update(this[key] as V);
     } else if (ifAbsent == null) {
-      throw new ArgumentError("ifAbsent must be passed if the key is absent.");
+      throw ArgumentError('ifAbsent must be passed if the key is absent.');
     } else {
       return this[key] = ifAbsent();
     }
   }
 
   /// See [Map.updateAll].
-  void updateAll(V update(String key, V value)) {
-    for (var (key, value) in pairs) {
+  void updateAll(V Function(String key, V value) update) {
+    for (final (key, value) in pairs) {
       this[key] = update(key, value);
     }
   }

@@ -65,6 +65,14 @@ extension type SpeechRecognition._(JSObject _)
   /// [SpeechRecognitionResult].
   external void abort();
 
+  /// The **`grammars`** property of the
+  /// [SpeechRecognition] interface returns and sets a collection of
+  /// [SpeechGrammar] objects that represent the grammars that will be
+  /// understood
+  /// by the current `SpeechRecognition`.
+  external JSObject get grammars;
+  external set grammars(JSObject value);
+
   /// The **`lang`** property of the [SpeechRecognition]
   /// interface returns and sets the language of the current
   /// `SpeechRecognition`.
@@ -136,6 +144,11 @@ extension type SpeechRecognition._(JSObject _)
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognitionErrorEvent).
 extension type SpeechRecognitionErrorEvent._(JSObject _)
     implements Event, JSObject {
+  external factory SpeechRecognitionErrorEvent(
+    String type,
+    SpeechRecognitionErrorEventInit eventInitDict,
+  );
+
   /// The **`error`** read-only property of the
   /// [SpeechRecognitionErrorEvent] interface returns the type of error raised.
   external SpeechRecognitionErrorCode get error;
@@ -144,6 +157,22 @@ extension type SpeechRecognitionErrorEvent._(JSObject _)
   /// [SpeechRecognitionErrorEvent] interface returns a message describing the
   /// error in more detail.
   external String get message;
+}
+
+extension type SpeechRecognitionErrorEventInit._(JSObject _)
+    implements EventInit, JSObject {
+  external factory SpeechRecognitionErrorEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
+    required SpeechRecognitionErrorCode error,
+    String message,
+  });
+
+  external SpeechRecognitionErrorCode get error;
+  external set error(SpeechRecognitionErrorCode value);
+  external String get message;
+  external set message(String value);
 }
 
 /// The **`SpeechRecognitionAlternative`** interface of the
@@ -192,7 +221,7 @@ extension type SpeechRecognitionResult._(JSObject _) implements JSObject {
   /// [SpeechRecognitionAlternative] objects within the result to be accessed
   /// via
   /// array syntax.
-  external SpeechRecognitionAlternative item(int index);
+  external SpeechRecognitionAlternative? item(int index);
 
   /// The **`length`** read-only property of the
   /// [SpeechRecognitionResult] interface returns the length of the "array"
@@ -227,7 +256,7 @@ extension type SpeechRecognitionResultList._(JSObject _) implements JSObject {
   /// [SpeechRecognitionResultList] interface is a standard getter — it allows
   /// [SpeechRecognitionResult] objects in the list to be accessed via array
   /// syntax.
-  external SpeechRecognitionResult item(int index);
+  external SpeechRecognitionResult? item(int index);
 
   /// The **`length`** read-only property of the
   /// [SpeechRecognitionResultList] interface returns the length of the
@@ -247,6 +276,11 @@ extension type SpeechRecognitionResultList._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognitionEvent).
 extension type SpeechRecognitionEvent._(JSObject _) implements Event, JSObject {
+  external factory SpeechRecognitionEvent(
+    String type,
+    SpeechRecognitionEventInit eventInitDict,
+  );
+
   /// The **`resultIndex`** read-only property of the
   /// [SpeechRecognitionEvent] interface returns the lowest index value result
   /// in
@@ -273,6 +307,22 @@ extension type SpeechRecognitionEvent._(JSObject _) implements Event, JSObject {
   /// the other hand
   /// will not be overwritten or removed.
   external SpeechRecognitionResultList get results;
+}
+
+extension type SpeechRecognitionEventInit._(JSObject _)
+    implements EventInit, JSObject {
+  external factory SpeechRecognitionEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
+    int resultIndex,
+    required SpeechRecognitionResultList results,
+  });
+
+  external int get resultIndex;
+  external set resultIndex(int value);
+  external SpeechRecognitionResultList get results;
+  external set results(SpeechRecognitionResultList value);
 }
 
 /// The **`SpeechSynthesis`** interface of the

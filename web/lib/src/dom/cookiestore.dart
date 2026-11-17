@@ -87,6 +87,7 @@ extension type CookieInit._(JSObject _) implements JSObject {
     String path,
     CookieSameSite sameSite,
     bool partitioned,
+    int? maxAge,
   });
 
   external String get name;
@@ -103,6 +104,8 @@ extension type CookieInit._(JSObject _) implements JSObject {
   external set sameSite(CookieSameSite value);
   external bool get partitioned;
   external set partitioned(bool value);
+  external int? get maxAge;
+  external set maxAge(int? value);
 }
 
 extension type CookieStoreDeleteOptions._(JSObject _) implements JSObject {
@@ -124,33 +127,12 @@ extension type CookieStoreDeleteOptions._(JSObject _) implements JSObject {
 }
 
 extension type CookieListItem._(JSObject _) implements JSObject {
-  external factory CookieListItem({
-    String name,
-    String value,
-    String? domain,
-    String path,
-    DOMHighResTimeStamp? expires,
-    bool secure,
-    CookieSameSite sameSite,
-    bool partitioned,
-  });
+  external factory CookieListItem({String name, String value});
 
   external String get name;
   external set name(String value);
   external String get value;
   external set value(String value);
-  external String? get domain;
-  external set domain(String? value);
-  external String get path;
-  external set path(String value);
-  external double? get expires;
-  external set expires(DOMHighResTimeStamp? value);
-  external bool get secure;
-  external set secure(bool value);
-  external CookieSameSite get sameSite;
-  external set sameSite(CookieSameSite value);
-  external bool get partitioned;
-  external set partitioned(bool value);
 }
 
 /// @AvailableInWorkers("window_and_service")

@@ -19,6 +19,7 @@ import 'dart:js_interop';
 
 import 'fileapi.dart';
 import 'hr_time.dart';
+import 'notifications.dart';
 import 'service_workers.dart';
 
 /// Union of: [BufferSource], [JSString]
@@ -187,19 +188,28 @@ extension type PushSubscription._(JSObject _) implements JSObject {
   external PushSubscriptionOptions get options;
 }
 
+extension type PushSubscriptionKeys._(JSObject _) implements JSObject {
+  external factory PushSubscriptionKeys({String p256dh, String auth});
+
+  external String get p256dh;
+  external set p256dh(String value);
+  external String get auth;
+  external set auth(String value);
+}
+
 extension type PushSubscriptionJSON._(JSObject _) implements JSObject {
   external factory PushSubscriptionJSON({
     String endpoint,
     EpochTimeStamp? expirationTime,
-    JSObject keys,
+    PushSubscriptionKeys keys,
   });
 
   external String get endpoint;
   external set endpoint(String value);
   external EpochTimeStamp? get expirationTime;
   external set expirationTime(EpochTimeStamp? value);
-  external JSObject get keys;
-  external set keys(JSObject value);
+  external PushSubscriptionKeys get keys;
+  external set keys(PushSubscriptionKeys value);
 }
 
 /// @AvailableInWorkers("service")
@@ -287,14 +297,38 @@ extension type PushEventInit._(JSObject _)
     bool cancelable,
     bool composed,
     PushMessageDataInit data,
+    Notification? notification,
   });
 
   external PushMessageDataInit get data;
   external set data(PushMessageDataInit value);
+  external Notification? get notification;
+  external set notification(Notification? value);
 }
 
 extension type PushSubscriptionChangeEvent._(JSObject _)
     implements ExtendableEvent, JSObject {
+  external factory PushSubscriptionChangeEvent(
+    String type, [
+    PushSubscriptionChangeEventInit eventInitDict,
+  ]);
+
   external PushSubscription? get newSubscription;
   external PushSubscription? get oldSubscription;
+}
+
+extension type PushSubscriptionChangeEventInit._(JSObject _)
+    implements ExtendableEventInit, JSObject {
+  external factory PushSubscriptionChangeEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
+    PushSubscription newSubscription,
+    PushSubscription oldSubscription,
+  });
+
+  external PushSubscription get newSubscription;
+  external set newSubscription(PushSubscription value);
+  external PushSubscription get oldSubscription;
+  external set oldSubscription(PushSubscription value);
 }

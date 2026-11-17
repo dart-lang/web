@@ -4,10 +4,10 @@
   "description": "Data fetching for web_generator",
   "private": true,
   "dependencies": {
-    "@mdn/browser-compat-data": "^5.5.2",
-    "@webref/css": "^6.11.0",
-    "@webref/elements": "^2.2.2",
-    "@webref/idl": "^3.43.1",
+    "@mdn/browser-compat-data": "^8.1.6",
+    "@webref/css": "^8.7.7",
+    "@webref/elements": "^2.9.2",
+    "@webref/idl": "^3.85.2",
     "webidl2": "^24.4.1"
   }
 }

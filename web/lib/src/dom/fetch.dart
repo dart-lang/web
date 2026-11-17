@@ -18,10 +18,9 @@ library;
 
 import 'dart:js_interop';
 
-import 'attribution_reporting_api.dart';
 import 'dom.dart';
 import 'fileapi.dart';
-import 'private_network_access.dart';
+import 'local_network_access.dart';
 import 'referrer_policy.dart';
 import 'streams.dart';
 import 'trust_token_api.dart';
@@ -407,11 +406,8 @@ extension type RequestInit._(JSObject _) implements JSObject {
     RequestDuplex duplex,
     RequestPriority priority,
     JSAny? window,
-    AttributionReportingRequestOptions attributionReporting,
     IPAddressSpace targetAddressSpace,
-    bool sharedStorageWritable,
     PrivateToken privateToken,
-    bool adAuctionHeaders,
   });
 
   external String get method;
@@ -444,16 +440,10 @@ extension type RequestInit._(JSObject _) implements JSObject {
   external set priority(RequestPriority value);
   external JSAny? get window;
   external set window(JSAny? value);
-  external AttributionReportingRequestOptions get attributionReporting;
-  external set attributionReporting(AttributionReportingRequestOptions value);
   external IPAddressSpace get targetAddressSpace;
   external set targetAddressSpace(IPAddressSpace value);
-  external bool get sharedStorageWritable;
-  external set sharedStorageWritable(bool value);
   external PrivateToken get privateToken;
   external set privateToken(PrivateToken value);
-  external bool get adAuctionHeaders;
-  external set adAuctionHeaders(bool value);
 }
 
 /// The **`Response`** interface of the

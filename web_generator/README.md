@@ -44,6 +44,14 @@ interface-visibility overrides before translation:
    unintended signature widenings (e.g., concrete types widened to `JSAny`,
    `void` changed to `JSPromise` before engines ship it, or single-engine
    interfaces enabled in BCD) and add an entry with a `"reason"` if needed.
+3. **3-engine WebIDL census (`bin/engine_census.dart`)**: To audit `@webref/idl`
+   against shipping Blink, Gecko, and WebKit WebIDL and feature-flag files (into
+   `.dart_tool/engine_census/SUMMARY.md`) or look up a specific
+   `Interface.member` across all 4 corpora, run:
+   ```shell
+   dart bin/engine_census.dart --fetch
+   dart bin/engine_census.dart lookup MouseEvent.clientX Element.scroll
+   ```
 
 ### Public API golden
 
@@ -127,8 +135,16 @@ Based on:
 <!-- START updated by bin/update_idl_bindings.dart. Do not modify by hand -->
 | Item | Version |
 | --- | --: |
-| `@mdn/browser-compat-data` | [5.6.42](https://www.npmjs.com/package/@mdn/browser-compat-data/v/5.6.42) |
-| `@webref/css` | [6.20.3](https://www.npmjs.com/package/@webref/css/v/6.20.3) |
-| `@webref/elements` | [2.4.0](https://www.npmjs.com/package/@webref/elements/v/2.4.0) |
-| `@webref/idl` | [3.60.1](https://www.npmjs.com/package/@webref/idl/v/3.60.1) |
+| `@mdn/browser-compat-data` | [8.1.6](https://www.npmjs.com/package/@mdn/browser-compat-data/v/8.1.6) |
+| `@webref/css` | [8.7.7](https://www.npmjs.com/package/@webref/css/v/8.7.7) |
+| `@webref/elements` | [2.9.2](https://www.npmjs.com/package/@webref/elements/v/2.9.2) |
+| `@webref/idl` | [3.85.2](https://www.npmjs.com/package/@webref/idl/v/3.85.2) |
+
+Browser engine WebIDL baselines (`js_interop_gen/lib/src/engine_overrides.json`):
+
+| Engine | Browser | Ref | Commit |
+| --- | --- | --- | --- |
+| Blink | Chrome 155.0.8059.84 | `155.0.8059.84` | [`5869fe3135`](https://github.com/chromium/chromium/commit/5869fe313571d75152b77813cf0a4ee26a4e6df0) |
+| Gecko | Firefox 158.0 | `FIREFOX_158_0_RELEASE` | [`3c71aeacdb`](https://github.com/mozilla-firefox/firefox/commit/3c71aeacdb296402e41fb2084b13e797d1770642) |
+| WebKit | Safari 27.0 | `safari-7625.1.29.18-branch` | [`d60793ae18`](https://github.com/WebKit/WebKit/commit/d60793ae18be892cdc16459584a7b00283ffefbd) |
 <!-- END updated by bin/update_idl_bindings.dart. Do not modify by hand -->

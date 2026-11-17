@@ -18,6 +18,18 @@ import 'dart:js_interop';
 
 import 'css_conditional.dart';
 
+extension type CSSContainerCondition._(JSObject _) implements JSObject {
+  external factory CSSContainerCondition({
+    required String name,
+    required String query,
+  });
+
+  external String get name;
+  external set name(String value);
+  external String get query;
+  external set query(String value);
+}
+
 /// The **`CSSContainerRule`** interface represents a single CSS  rule.
 ///
 /// An object of this type can be used to get the query conditions for the ,
@@ -61,4 +73,5 @@ extension type CSSContainerRule._(JSObject _)
   /// }
   /// ```
   external String get containerQuery;
+  external JSArray<CSSContainerCondition> get conditions;
 }

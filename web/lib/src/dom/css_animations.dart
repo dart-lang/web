@@ -16,6 +16,7 @@ library;
 
 import 'dart:js_interop';
 
+import 'css_animations_2.dart';
 import 'cssom.dart';
 import 'dom.dart';
 
@@ -55,6 +56,7 @@ extension type AnimationEvent._(JSObject _) implements Event, JSObject {
   /// If the animation doesn't run on a pseudo-element but on the element, an
   /// empty string: `''`.
   external String get pseudoElement;
+  external CSSAnimation? get animation;
 }
 
 extension type AnimationEventInit._(JSObject _) implements EventInit, JSObject {
@@ -65,6 +67,7 @@ extension type AnimationEventInit._(JSObject _) implements EventInit, JSObject {
     String animationName,
     num elapsedTime,
     String pseudoElement,
+    CSSAnimation? animation,
   });
 
   external String get animationName;
@@ -73,6 +76,8 @@ extension type AnimationEventInit._(JSObject _) implements EventInit, JSObject {
   external set elapsedTime(num value);
   external String get pseudoElement;
   external set pseudoElement(String value);
+  external CSSAnimation? get animation;
+  external set animation(CSSAnimation? value);
 }
 
 /// The **`CSSKeyframeRule`** interface describes an object representing a set
@@ -94,7 +99,7 @@ extension type CSSKeyframeRule._(JSObject _) implements CSSRule, JSObject {
   /// The read-only **`CSSKeyframeRule.style`** property is the
   /// [CSSStyleDeclaration] interface for the declaration block of the
   /// [CSSKeyframeRule].
-  external JSObject get style;
+  external CSSStyleProperties get style;
 }
 
 /// The **`CSSKeyframesRule`** interface describes an object representing a

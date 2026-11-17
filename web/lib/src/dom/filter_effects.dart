@@ -90,10 +90,6 @@ extension type SVGFilterElement._(JSObject _) implements SVGElement, JSObject {
   /// the height of the filter region. The default value is `100%`. The property
   /// value is a length in user coordinate system units.
   external SVGAnimatedLength get height;
-
-  /// The **`href`** read-only property of the [SVGFilterElement] interface
-  /// reflects the `href` or   attribute of the given  element.
-  external SVGAnimatedString get href;
 }
 
 /// The **`SVGFEBlendElement`** interface corresponds to the  element.

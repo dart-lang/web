@@ -16,6 +16,7 @@ library;
 
 import 'dart:js_interop';
 
+import 'css_transitions_2.dart';
 import 'dom.dart';
 
 /// The **`TransitionEvent`** interface represents events providing information
@@ -52,6 +53,7 @@ extension type TransitionEvent._(JSObject _) implements Event, JSObject {
   /// empty string:
   /// `''``.`
   external String get pseudoElement;
+  external CSSTransition? get animation;
 }
 
 extension type TransitionEventInit._(JSObject _)
@@ -63,6 +65,7 @@ extension type TransitionEventInit._(JSObject _)
     String propertyName,
     num elapsedTime,
     String pseudoElement,
+    CSSTransition? animation,
   });
 
   external String get propertyName;
@@ -71,4 +74,6 @@ extension type TransitionEventInit._(JSObject _)
   external set elapsedTime(num value);
   external String get pseudoElement;
   external set pseudoElement(String value);
+  external CSSTransition? get animation;
+  external set animation(CSSTransition? value);
 }

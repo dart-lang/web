@@ -74,7 +74,7 @@ late HTMLElement $68;
 late HTMLFormControlsCollection $69;
 late HTMLHtmlElement $70;
 late HTMLOptionsCollection $72;
-// late HttpRequest/XMLHttpRequest $73;
+late XMLHttpRequest $73;
 late XMLHttpRequestEventTarget $74;
 late XMLHttpRequestUpload $75;
 late HTMLIFrameElement $76;

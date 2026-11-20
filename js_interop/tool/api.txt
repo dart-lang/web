@@ -119,6 +119,10 @@ package:js_interop/js_interop.dart:
     has (method: bool Function(JSAny?))
   DateTimeToJSDate (extension on DateTime):
     toJS (getter: JSDate)
+  JSPromiseExtension (extension on JSPromise<T>):
+    catchError (method: JSPromise<T> Function(JSFunction<JSAny? Function(JSAny?)>), js: "catch")
+    finallyCall (method: JSPromise<T> Function(JSFunction<void Function()>), js: "finally")
+    then (method: JSPromise<S> Function<S extends JSAny?>(JSFunction<JSAny? Function(T)>, [JSFunction<JSAny? Function(JSAny?)>]))
   MapToJSMap (extension on Map<K, V>):
     toJS (getter: JSMap<K, V>)
   MapToJSRecord (extension on Map<String, V>):
@@ -156,9 +160,11 @@ dart:core:
 dart:js_interop:
   JSAny (referenced)
   JSArray (referenced)
+  JSFunction (referenced)
   JSIterable (referenced)
   JSIterableProtocol (referenced)
   JSIteratorProtocol (referenced)
   JSObject (referenced)
+  JSPromise (referenced)
   JSString (referenced)
   JSSymbol (referenced)

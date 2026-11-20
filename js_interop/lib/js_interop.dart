@@ -9,6 +9,7 @@ export 'src/dart/set.dart';
 export 'src/date.dart';
 export 'src/map.dart';
 export 'src/pair.dart';
+export 'src/promise.dart';
 export 'src/record.dart';
 export 'src/set.dart';
 export 'src/set_like.dart';
